@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.116 2001/05/17 15:00:55 jcorreia Exp $
+  $Id: application_top.php,v 1.117 2001/05/17 16:29:35 jcorreia Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -118,8 +118,7 @@
                              // and prevents client from buying more products than u have in Stock
 
   define('STOCK_ALLOW_CHECKOUT', 0); //Enable costumer to checkout with no products in stock
-                                     // DONT ENABLE NEEDS MODS ON OTHER STUFF
-
+                                     
   define('STOCK_LIMITED', 1);// When enabled STOCK_LIMITED, Updates product quantity bought by client
                              // Remaning Products = products_in_stock - products_bought_by_client
 

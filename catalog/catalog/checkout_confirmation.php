@@ -208,25 +208,24 @@
          if (($any_out_of_stock) and (STOCK_ALLOW_CHECKOUT)) {  ?>
 
          <tr>
-         <td class="tableHeading" nowrap colspan="4">&nbsp;Stock Warning</td>
+         <td class="tableHeading" nowrap colspan="4">&nbsp;<? echo TEXT_STOCK_WARNING; ?></td>
          </tr>
          <tr>
          <td class="tableHeading" nowrap colspan="4"><? echo tep_black_line(); ?></td>
          </tr>
          <tr class=payment-odd>
-         <td class="main" width=33% nowrap colspan="2">&nbsp;Multiple Shipments <input type="radio" name="radiobutton" value="radiobutton"></td>
-         <td class="main" width=33% nowrap colspan="2">&nbsp;Unique Shipment<input type="radio" name="radiobutton" value="radiobutton"></td>
+         <td class="main" width=33% nowrap colspan="2">&nbsp;<? echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked></td>
+         <td class="main" width=33% nowrap colspan="2">&nbsp;<? echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
          </tr>
          <tr>
          <td class="infoBox" width=100% colspan="4">
-         <br>The products marked with <font color=crimson>***</font> are not available in the quantity you requested. Choose Multiple Shipments if you want
-         the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait
-         until the quantitys you requested are available in our stock.
+         <br>
+         <? echo TEXT_STOCK_WARNING_DESC; ?>
          </td>
          </tr>
          <tr>
          <td class="infoBox" colspan="4">
-          <b>We have for imediate deliver:</b><br><br>
+          <b><? echo TEXT_IMEDIATE_DELIVER; ?></b><br><br>
          <?
     for ($i=0; $i<sizeof($products); $i++) {
     $products_name = $products[$i]['name'];
@@ -236,10 +235,9 @@
     check_stock ($products[$i]['id'], $products[$i]['quantity']);
 
                         if ($out_of_stock) {
-//    echo $products_name."--".$products_quantity."--".$qtd_stock."<br>";
-      $qtd_to_ship = ($products_quantity  -= $qtd_stock);
-      echo "<b>".$qtd_to_ship."</b> Units of <b>".$products_name."</b><br>";
-
+//    $qtd_to_ship = ($products_quantity  -= $qtd_stock);
+      if ($qtd_stock <= 0) { $qtd_stock = 0; }
+      echo "<b>".$qtd_stock."</b> "; echo TEXT_UNITS; echo " <b>".$products_name."</b><br>";
             }
         }
         ?></td>
@@ -312,7 +310,7 @@
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 
-// load the process_button function from the payment modules
+   // load the process_button function from the payment modules
   $payment_modules->process_button();
 
   if (!$checkout_form_submit) {

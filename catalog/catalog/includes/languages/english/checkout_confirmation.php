@@ -30,4 +30,17 @@ define('TEXT_VAL', 'Credit Card Error!');
 
 define('IMAGE_PROCESS', 'Process');
 define('IMAGE_BACK', 'Back');
+
+
+define('TEXT_STOCK_WARNING', 'Stock Warning');
+define('TEXT_MULTIPLE_SHIPMENT', 'Multiple Shipments');
+define('TEXT_UNIQUE_SHIPMENT', 'Unique Shipment');
+define('TEXT_UNITS', 'Units of');
+define('TEXT_IMEDIATE_DELIVER', 'We have for imediate deliver:');
+define('TEXT_STOCK_WARNING_DESC', 'The products marked with <font color=crimson>***</font> are not available in the quantity you requested. Choose Multiple Shipments if you want
+         the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait
+         until the quantitys you requested are available in our stock.');
+
+
+
 ?>

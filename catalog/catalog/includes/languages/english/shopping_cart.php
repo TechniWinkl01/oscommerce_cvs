@@ -21,5 +21,7 @@ define('IMAGE_REMOVE_ALL', 'Remove All');
 define('IMAGE_MAIN_MENU', 'Main Menu');
 define('IMAGE_UPDATE_CART', 'Update Cart with new Quantities');
 
-define('OUT_OF_STOCK', 'Products marked with *** dont exist in desired quantity in our stock.<br>Please alter the quantity of products marked with (***), Thank you');
+define('OUT_OF_STOCK_CANT_CHECKOUT', 'Products marked with *** dont exist in desired quantity in our stock.<br>Please alter the quantity of products marked with (***), Thank you');
+define('OUT_OF_STOCK_CAN_CHECKOUT', 'Products marked with *** dont exist in desired quantity in our stock.<br>You can buy them anyway and check the quantity we have in stock for imediate deliver in the checkout process.');
+
 ?>
