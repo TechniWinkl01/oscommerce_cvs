@@ -1,9 +1,6 @@
 <?
   if (file_exists('includes/local/configure.php')) {
     include('includes/local/configure.php');
-    if (!CONFIGURE_STATUS_COMPLETED) { // File not read properly
-       die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted.');
-    }
   }
 
 // for internal use until final v1.0 version is ready
