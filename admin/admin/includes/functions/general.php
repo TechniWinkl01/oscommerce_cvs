@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.98 2002/01/09 06:04:45 hpdl Exp $
+  $Id: general.php,v 1.99 2002/01/09 06:19:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -966,7 +966,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     } else {
       $length = abs($length);
       if ($length == 0) {
-        $high = count($array);
+        $high = sizeof($array);
       } else {
         $high = $offset+$length;
       }
