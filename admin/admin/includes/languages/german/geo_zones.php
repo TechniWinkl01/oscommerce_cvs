@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.3 2001/09/19 11:13:28 mbs Exp $
+  $Id: geo_zones.php,v 1.4 2001/11/25 13:57:37 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,4 +28,6 @@ define('TEXT_INFO_GEO_ZONE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue geographische Zone mit den dazugeh&ouml;rigen Daten ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese geographische Zone l&ouml;schen m&ouml;chten?');
 define('TEXT_INFO_HEADING_NEW_GEO_ZONE', 'neue geographischen Zone');
+define('TYPE_BELOW', '*');
+define('PLEASE_SELECT', '*');
 ?>
