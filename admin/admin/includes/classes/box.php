@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: box.php,v 1.1 2002/01/08 17:55:13 hpdl Exp $
+  $Id: box.php,v 1.2 2002/01/08 18:26:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,9 @@
 
   $heading = array();
   $heading[] = array('params' => 'class="menuBoxHeading"',
-                                 'text'  => BOX_HEADING_TOOLS,
-                                 'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
+                     'text'  => BOX_HEADING_TOOLS,
+                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
+
   $contents = array();
   $contents[] = array('text'  => SOME_TEXT);
 
@@ -28,7 +29,19 @@
       $this->contents = array();
     }
 
-    function infobox($heading, $contents) {
+    function infoBox($heading, $contents) {
+      $this->table_row_parameters = 'class="boxHeading"';
+      $this->table_data_parameters = 'class="infoBoxHeading"';
+      $this->heading = $this->table($heading);
+
+      $this->table_row_parameters = '';
+      $this->table_data_parameters = 'class="boxContents"';
+      $this->contents = $this->table($contents);
+
+      return $this->heading . $this->contents;
+    }
+
+    function menuBox($heading, $contents) {
       $this->table_data_parameters = 'class="infoBoxHeading"';
       $this->heading = $this->table($heading);
 

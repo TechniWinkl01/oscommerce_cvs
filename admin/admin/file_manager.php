@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.18 2002/01/08 02:41:08 hpdl Exp $
+  $Id: file_manager.php,v 1.19 2002/01/08 18:26:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -203,11 +203,11 @@
     if ($HTTP_GET_VARS['action'] == 'upload') {
       $directory_writeable = true;
       if (!is_writeable($current_path)) {
+        $errorStack->reset();
+        $errorStack->add(ERROR_DIRECTORY_NOT_WRITEABLE, 'error');
         $directory_writeable = false;
         echo '      <tr>' . "\n" .
-             '        <td>';
-        tep_output_error(ERROR_DIRECTORY_NOT_WRITEABLE);
-        echo '</td>' . "\n" .
+             '        <td>' . $errorStack->output() . '</td>' . "\n" .
              '      </tr>' . "\n";
       }
     }
@@ -279,59 +279,47 @@
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td width="25%" valign="top">
 <?php
-    $info_box_contents = array();
-    if ($HTTP_GET_VARS['action'] == 'new_folder') {
-      $info_box_contents[] = array('text' => '<b>' . TEXT_NEW_FOLDER . '</b>');
-    } else {
-      $info_box_contents[] = array('text' => '<b>' . $fInfo->name . '</b>');
-    }
-?>
-              <tr class="boxHeading">
-                <td><?php new infoBoxHeading($info_box_contents); ?></td>
-              </tr>
-              <tr class="boxHeading">
-                <td><?php echo tep_draw_separator(); ?></td>
-              </tr>
-<?php
+    $heading = array();
+    $contents = array();
     switch ($HTTP_GET_VARS['action']) {
       case 'delete':
-        $info_box_contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=deleteconfirm'));
-        $info_box_contents[] = array('text' => TEXT_DELETE_INTRO);
-        $info_box_contents[] = array('text' => '<br><b>' . $fInfo->name . '</b>');
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
+        $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=deleteconfirm'));
+        $contents[] = array('text' => TEXT_DELETE_INTRO);
+        $contents[] = array('text' => '<br><b>' . $fInfo->name . '</b>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'new_folder':
-        $info_box_contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=insert'));
-        $info_box_contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
-        $info_box_contents[] = array('text' => '<br>' . TEXT_FILE_NAME . '<br>' . tep_draw_input_field('file_name'));
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $heading[] = array('text' => '<b>' . TEXT_NEW_FOLDER . '</b>');
+        $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=insert'));
+        $contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
+        $contents[] = array('text' => '<br>' . TEXT_FILE_NAME . '<br>' . tep_draw_input_field('file_name'));
+        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'upload':
-        $info_box_contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=processuploads', 'post', 'enctype="multipart/form-data"'));
-        $info_box_contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
+        $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
+        $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=processuploads', 'post', 'enctype="multipart/form-data"'));
+        $contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
         for ($i=1; $i<6; $i++) $file_upload .= tep_draw_file_field('file_' . $i) . '<br>';
-        $info_box_contents[] = array('text' => '<br>' . $file_upload);
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable) ? tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $contents[] = array('text' => '<br>' . $file_upload);
+        $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable) ? tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       default:
-        $info_box_contents = array();
         if (is_object($fInfo)) {
-          if (!$fInfo->is_dir) $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
-          $info_box_contents[] = array('text' => '<br>' . TEXT_FILE_NAME . ' <b>' . $fInfo->name . '</b>');
-          if (!$fInfo->is_dir) $info_box_contents[] = array('text' => '<br>' . TEXT_FILE_SIZE . ' <b>' . $fInfo->size . '</b>');
-          $info_box_contents[] = array('text' => '<br>' . TEXT_LAST_MODIFIED . ' ' . $fInfo->last_modified);
+          $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
+          if (!$fInfo->is_dir) $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
+          $contents[] = array('text' => '<br>' . TEXT_FILE_NAME . ' <b>' . $fInfo->name . '</b>');
+          if (!$fInfo->is_dir) $contents[] = array('text' => '<br>' . TEXT_FILE_SIZE . ' <b>' . $fInfo->size . '</b>');
+          $contents[] = array('text' => '<br>' . TEXT_LAST_MODIFIED . ' ' . $fInfo->last_modified);
         }
     }
+
+    $box = new box;
+    echo $box->infoBox($heading, $contents);
 ?>
-              <tr>
-                <td class="box"><?php new infoBox($info_box_contents); ?></td>
-              </tr>
-              <tr>
-                <td class="box"><?php echo tep_draw_separator(); ?></td>
-              </tr>
-            </table></td>
+            </td>
           </tr>
         </table></td>
       </tr>

@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.16 2001/12/24 00:34:31 hpdl Exp $
+  $Id: stylesheet.css,v 1.17 2002/01/08 18:26:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -75,6 +75,12 @@ A.infoBoxHeading:hover {
 TD.infoBox, SPAN.infoBox {
 	font-family : Verdana, Arial, sans-serif;
 	font-size : 10px;
+}
+
+TD.boxContents {
+  font-family : Verdana, Arial, sans-serif;
+  font-size : 10px;
+  background-color: #b0c8df;
 }
 
 TD.errorBox {
