@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.209 2003/02/13 04:23:24 hpdl Exp $
+  $Id: general.php,v 1.210 2003/02/15 18:20:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -621,12 +621,8 @@
    end of the string or run out of pieces.
 */
 
-// Make sure the $tmpstring is empty
-        $tmpstring = '';
-
 // Add this word to the $tmpstring, starting the $tmpstring
-
-        $tmpstring .= trim(ereg_replace('"', ' ', $pieces[$k]));
+        $tmpstring = trim(ereg_replace('"', ' ', $pieces[$k]));
 
 // Check for one possible exception to the rule. That there is a single quoted word.
         if (substr($pieces[$k], -1 ) == '"') {
