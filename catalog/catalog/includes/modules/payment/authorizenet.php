@@ -98,16 +98,16 @@
 
         if ($cc_val == '1') {
           $process_button_string = '<input type="hidden" name="x_Login" value="testing">' .
-                                   '<input type="hidden" name="x_Card_Num" value="' . $CardNumber . '">' .
-                                   '<input type="hidden" name="x_Exp_Date" value="' . $HTTP_POST_VARS['cc_expires_month'] . '-' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                                   '<input type="hidden" name="x_Amount" value="' . number_format($total_cost + $total_tax + $shipping_cost, 2) . '">' .
-                                   '<input type="hidden" name="x_ADC_Relay_Response" value="TRUE">' .
-                                   '<input type="hidden" name="x_ADC_URL" value="' . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '">' .
-                                   '<input type="hidden" name="x_Version" value="3.0">' .
-                                   '<input type="hidden" name="' . tep_session_name() . '" value="' . tep_session_id() . '">';
+                                   '<input type="hidden" name="x_Card_Num" value="' . $CardNumber . '">' .
+                                   '<input type="hidden" name="x_Exp_Date" value="' . $HTTP_POST_VARS['cc_expires_month'] . '-' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
+                                   '<input type="hidden" name="x_Amount" value="' . number_format($total_cost + $total_tax + $shipping_cost, 2) . '">' .
+                                   '<input type="hidden" name="x_ADC_Relay_Response" value="TRUE">' .
+                                   '<input type="hidden" name="x_ADC_URL" value="' . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '">' .
+                                   '<input type="hidden" name="x_Version" value="3.0">' .
+                                   '<input type="hidden" name="' . tep_session_name() . '" value="' . tep_session_id() . '">';
         } else {
-          $process_button_string = '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                                   '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
+          $process_button_string = '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
+                                   '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
                                    '<input type="hidden" name="cc_expires_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
                                    '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">';
         }
@@ -117,9 +117,9 @@
     }
 
     function before_process() {
-      global $x_response_code;
+      global $payment, $x_response_code;
 
-      if ($x_response_code != "1") {
+      if ( ($payment == $this->payment_code) && ($x_response_code != "1") ) {
         Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(TEXT_ERROR_MESSAGE), 'SSL'));
         tep_exit();
       }
