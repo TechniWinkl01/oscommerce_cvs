@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: countries.php,v 1.19 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: countries.php,v 1.20 2002/01/15 10:03:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -132,7 +132,6 @@
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top">
 <?php
   $heading = array();
   $contents = array();
@@ -180,10 +179,15 @@
       break;
   }
 
-  $box = new box;
-  echo $box->infoBox($heading, $contents);
+  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+    echo '            <td width="25%" valign="top">' . "\n";
+
+    $box = new box;
+    echo $box->infoBox($heading, $contents);
+
+    echo '            </td>' . "\n";
+  }
 ?>
-            </td>
           </tr>
         </table></td>
       </tr>
