@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.59 2001/12/19 17:13:59 hpdl Exp $
+  $Id: default.php,v 1.60 2001/12/19 17:21:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -339,7 +339,7 @@
         <td height="20"><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main"><?php echo tep_customer_greeting(); ?></td>
           </tr>

@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.33 2001/12/19 17:13:59 hpdl Exp $
+  $Id: stylesheet.css,v 1.34 2001/12/19 17:21:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -171,7 +171,7 @@ TD.subBar {
 TD.main, P.main {
   font-family : Verdana, Arial, sans-serif;
   font-size : 11px;
-  line-height : 1-5;
+  line-height : 1.5;
 }
 
 TD.smallText, SPAN.smallText {
