@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mime.php,v 1.4 2002/02/05 22:22:33 dgw_ Exp $
+  $Id: mime.php,v 1.5 2002/05/23 16:51:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,7 +51,8 @@ class mime {
     } else {
       $this->lf = "\n";
     }
-    foreach ($params as $key => $value) {
+    reset($params);
+    while (list($key, $value) = each($params)) {
       switch ($key) {
         case 'content_type':
           $headers['Content-Type'] = $value . (isset($charset) ? '; charset="' . $charset . '"' : '');
@@ -119,7 +120,8 @@ class mime {
       for ($i = 0; $i < count($this->_subparts); $i++) {
         $headers = array();
         $tmp = $this->_subparts[$i]->encode();
-        foreach ($tmp['headers'] as $key => $value) {
+        reset($tmp['headers']);
+        while (list($key, $value) = each($tmp['headers'])) {
           $headers[] = $key . ': ' . $value;
         }
         $subparts[] = implode($this->lf, $headers) . $this->lf . $this->lf . $tmp['body'];

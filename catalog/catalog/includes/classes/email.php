@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: email.php,v 1.6 2002/03/07 20:53:58 hpdl Exp $
+  $Id: email.php,v 1.7 2002/05/23 16:51:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,7 +84,8 @@ class email {
 
     $this->headers[] = 'MIME-Version: 1.0';
 
-    foreach($headers as $value) {
+    reset($headers);
+    while (list(,$value) = each($headers)) {
       if(!empty($value))
         $this->headers[] = $value;
     }
@@ -317,12 +318,18 @@ class email {
   ***************************************/
 
   function build_message($params = array()) {
-    if(count($params) > 0)
-      while(list($key, $value) = each($params))
+    if(count($params) > 0) {
+      reset($params);
+      while(list($key, $value) = each($params)) {
         $this->build_params[$key] = $value;
-    if(!empty($this->html_images))
-      foreach($this->html_images as $value)
+      }
+    }
+    if (!empty($this->html_images)) {
+      reset($this->html_images);
+      while (list(,$value) = each($this->html_images)) {
         $this->html = str_replace($value['name'], 'cid:'.$value['cid'], $this->html);
+      }
+    }
 
     $null        = NULL;
     $attachments = !empty($this->attachments) ? TRUE : FALSE;
@@ -410,7 +417,8 @@ class email {
       $output = $message->encode();
       $this->output = $output['body'];
 
-      foreach($output['headers'] as $key => $value) {
+      reset($output['headers']);
+      while (list($key, $value) = each($output['headers'])) {
         $headers[] = $key.': '.$value;
       }
 
