@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.1 2001/09/09 18:50:18 hpdl Exp $
+  $Id: specials.php,v 1.2 2001/09/09 20:04:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,9 +17,9 @@
   }
 
 ////
-// Check and expire a banner
+// Auto expire products on special
   function tep_expire_specials() {
-    $specials_query = tep_db_query("select specials_id from " . TABLE_SPECIALS . " where now() >= expires_date");
+    $specials_query = tep_db_query("select specials_id from " . TABLE_SPECIALS . " where status = '1' and now() >= expires_date");
     if (tep_db_num_rows($specials_query)) {
       while ($specials = tep_db_fetch_array($specials_query)) {
         tep_set_specials_status($specials['specials_id'], '0');
