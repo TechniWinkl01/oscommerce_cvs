@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notifications.php,v 1.7 2003/05/25 14:15:44 hpdl Exp $
+  $Id: product_notifications.php,v 1.8 2003/06/09 22:19:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,7 +22,7 @@
     new infoBoxHeading($info_box_contents, false, false, tep_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'SSL'));
 
     if (tep_session_is_registered('customer_id')) {
-      $check_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and customers_id = '" . $customer_id . "'");
+      $check_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and customers_id = '" . (int)$customer_id . "'");
       $check = tep_db_fetch_array($check_query);
 
       $notification_exists = (($check['count'] > 0) ? true : false);

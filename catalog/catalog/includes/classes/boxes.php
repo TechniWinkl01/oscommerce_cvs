@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.32 2003/05/27 17:02:03 hpdl Exp $
+  $Id: boxes.php,v 1.33 2003/06/09 22:22:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,7 @@
 
 // class constructor
     function tableBox($contents, $direct_output = false) {
-      $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
+      $tableBox_string = '<table border="' . tep_output_string($this->table_border) . '" width="' . tep_output_string($this->table_width) . '" cellspacing="' . tep_output_string($this->table_cellspacing) . '" cellpadding="' . tep_output_string($this->table_cellpadding) . '"';
       if (tep_not_null($this->table_parameters)) $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
 
@@ -32,11 +32,11 @@
         if (isset($contents[$i]['params']) && tep_not_null($contents[$i]['params'])) $tableBox_string .= ' ' . $contents[$i]['params'];
         $tableBox_string .= '>' . "\n";
 
-        if (is_array($contents[$i][0])) {
+        if (isset($contents[$i][0]) && is_array($contents[$i][0])) {
           for ($x=0, $n2=sizeof($contents[$i]); $x<$n2; $x++) {
             if (isset($contents[$i][$x]['text']) && tep_not_null($contents[$i][$x]['text'])) {
               $tableBox_string .= '    <td';
-              if (isset($contents[$i][$x]['align']) && tep_not_null($contents[$i][$x]['align'])) $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
+              if (isset($contents[$i][$x]['align']) && tep_not_null($contents[$i][$x]['align'])) $tableBox_string .= ' align="' . tep_output_string($contents[$i][$x]['align']) . '"';
               if (isset($contents[$i][$x]['params']) && tep_not_null($contents[$i][$x]['params'])) {
                 $tableBox_string .= ' ' . $contents[$i][$x]['params'];
               } elseif (tep_not_null($this->table_data_parameters)) {
@@ -51,7 +51,7 @@
           }
         } else {
           $tableBox_string .= '    <td';
-          if (isset($contents[$i]['align']) && tep_not_null($contents[$i]['align'])) $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
+          if (isset($contents[$i]['align']) && tep_not_null($contents[$i]['align'])) $tableBox_string .= ' align="' . tep_output_string($contents[$i]['align']) . '"';
           if (isset($contents[$i]['params']) && tep_not_null($contents[$i]['params'])) {
             $tableBox_string .= ' ' . $contents[$i]['params'];
           } elseif (tep_not_null($this->table_data_parameters)) {
@@ -87,10 +87,10 @@
       $info_box_contents = array();
       $info_box_contents[] = array(array('text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
       for ($i=0, $n=sizeof($contents); $i<$n; $i++) {
-        $info_box_contents[] = array(array('align' => $contents[$i]['align'],
-                                           'form' => $contents[$i]['form'],
+        $info_box_contents[] = array(array('align' => (isset($contents[$i]['align']) ? $contents[$i]['align'] : ''),
+                                           'form' => (isset($contents[$i]['form']) ? $contents[$i]['form'] : ''),
                                            'params' => 'class="boxText"',
-                                           'text' => $contents[$i]['text']));
+                                           'text' => (isset($contents[$i]['text']) ? $contents[$i]['text'] : '')));
       }
       $info_box_contents[] = array(array('text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
       return $this->tableBox($info_box_contents);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.5 2003/02/12 21:07:45 hpdl Exp $
+  $Id: navigation_history.php,v 1.6 2003/06/09 22:23:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,7 @@
     }
 
     function add_current_page() {
-      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_SERVER_VARS, $cPath;
+      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $request_type, $cPath;
 
       $set = 'true';
       for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
@@ -59,7 +59,7 @@
 
       if ($set == 'true') {
         $this->path[] = array('page' => basename($PHP_SELF),
-                              'mode' => (($HTTP_SERVER_VARS['HTTPS'] == 'on') ? 'SSL' : 'NONSSL'),
+                              'mode' => $request_type,
                               'get' => $HTTP_GET_VARS,
                               'post' => $HTTP_POST_VARS);
       }
@@ -75,7 +75,7 @@
     }
 
     function set_snapshot($page = '') {
-      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_SERVER_VARS;
+      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $request_type;
 
       if (is_array($page)) {
         $this->snapshot = array('page' => $page['page'],
@@ -84,7 +84,7 @@
                                 'post' => $page['post']);
       } else {
         $this->snapshot = array('page' => basename($PHP_SELF),
-                                'mode' => (($HTTP_SERVER_VARS['HTTPS'] == 'on') ? 'SSL' : 'NONSSL'),
+                                'mode' => $request_type,
                                 'get' => $HTTP_GET_VARS,
                                 'post' => $HTTP_POST_VARS);
       }
