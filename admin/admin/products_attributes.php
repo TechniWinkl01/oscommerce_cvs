@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.39 2002/03/09 16:54:04 dgw_ Exp $
+  $Id: products_attributes.php,v 1.40 2002/03/14 13:34:08 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -657,7 +657,7 @@ function go_option() {
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="options_id">
 <?php
-      $options = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS . " order by products_options_name");
+      $options = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $languages_id . "' order by products_options_name");
       while($options_values = tep_db_fetch_array($options)) {
         if ($attributes_values['options_id'] == $options_values['products_options_id']) {
           echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '" SELECTED>' . $options_values['products_options_name'] . '</option>';
@@ -669,7 +669,7 @@ function go_option() {
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">
 <?php
-      $values = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS_VALUES . " order by products_options_values_name");
+      $values = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id ='" . $languages_id . "' order by products_options_values_name");
       while($values_values = tep_db_fetch_array($values)) {
         if ($attributes_values['options_values_id'] == $values_values['products_options_values_id']) {
           echo "\n" . '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '" SELECTED>' . $values_values['products_options_values_name'] . '</option>';
