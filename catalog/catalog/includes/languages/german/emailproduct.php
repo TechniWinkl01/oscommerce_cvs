@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 26/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: emailproduct.php,v 1.6 2001/05/26 16:49:34 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Artikel weiterempfehlen');
@@ -21,7 +26,4 @@ define('TEXT_EMAIL_SUBJECT', 'Ihr Freund %s, hat diesen tollen Artikel gefunden,
 define('TEXT_EMAIL_INTRO', 'Ihr Freund, %s, hat diesen tollen Artikel %s bei %s gefunden.');
 define('TEXT_EMAIL_LINK', "Um das Produkt anzusehen, klicken Sie bitte auf den Link oder kopieren diesen und fügen Sie ihn in die URL-Zeile Ihres Browsers ein:\n%s");
 define('TEXT_EMAIL_SIGNATURE', "Mit freundlichen Grüßen, \n%s");
-
-define('IMAGE_CONTINUE', 'Weiter');
-define('IMAGE_BACK', 'Zurück');
 ?>

@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+  $Id: default.php,v 1.9 2001/05/26 16:47:30 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('TEXT_GREETING_PERSONAL', 'Welcome back <span class="greetUser">%s!</span> Would you like to see which new products are available to purchase?');

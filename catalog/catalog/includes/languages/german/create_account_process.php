@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 17/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: create_account_process.php,v 1.6 2001/05/26 16:49:31 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Zugang erstellen');
@@ -14,6 +19,4 @@ define('PLEASE_SELECT', 'Bitte w&auml;hlen');
 
 define('EMAIL_WELCOME', '*** Achtung: Diese E-Mail-Adresse wurde uns von einem Kunden gegeben. Falls Sie sich nicht angemeldet haben, senden Sie bitte ein E-Mail an ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n" . 'Sehr geehrte %s %s,' . "\n\n" . 'Willkommen zu ' . STORE_NAME . '! Sie können jetzt unser Mitglieder-Service nutzen. Der Service bietet unter anderem:' . "\n\n" . '* Kundeneinkaufswagen - Jeder Artikel bleibt registriert bis Sie zur Kasse gehen, oder die Produkte löschen.' . "\n" . '* Adressbuch - Wir können jetzt die Produkte zu der von Ihnen ausgesuchten Adresse senden. Der perfekte Weg ein Geburtstagsgeschenk zu versenden.' . "\n" . '* Vorherige Bestellung - Sie können Ihre vorherigen Bestellungen überprüfen.' . "\n" . '* Meinungen über Produkte - Teilen Sie Ihre Meinung mit anderen Kunden.' . "\n\n" . 'Falls Sie Fragen über unseren Mitglieder-Service haben, wenden Sie sich bitte an den Vertrieb: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n");
 define('EMAIL_WELCOME_SUBJECT', 'Willkommen zu ' . STORE_NAME . '!');
-
-define('IMAGE_DONE', 'Fertig');
 ?>

@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+  $Id: advanced_search_result.php,v 1.7 2001/05/26 16:49:23 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE1', 'Erweiterte Suche');

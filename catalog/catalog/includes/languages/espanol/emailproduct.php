@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Preview Release 2.2
-Last Update: 04/24/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: emailproduct.php,v 1.4 2001/05/26 16:47:31 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Enviar a un Amigo');
@@ -21,7 +26,4 @@ define('TEXT_EMAIL_SUBJECT', 'Su amigo %s le quiere recomendar este product de %
 define('TEXT_EMAIL_INTRO', 'Su amigo %s, pensó que estaria interesado en %s de %s.');
 define('TEXT_EMAIL_LINK', "Para ver el producto use el siguiente enlace:\n%s");
 define('TEXT_EMAIL_SIGNATURE', "Atentamente, \n%s");
-
-define('IMAGE_PROCESS', 'Procesar');
-define('IMAGE_BACK', 'Volver');
 ?>

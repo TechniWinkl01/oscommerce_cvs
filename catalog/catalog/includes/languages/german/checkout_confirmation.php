@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 18/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: checkout_confirmation.php,v 1.14 2001/05/26 16:49:25 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Kasse');
@@ -27,12 +32,11 @@ define('TEXT_OWNER', 'Eigent&uuml;mer:');
 define('TEXT_NUMBER', 'Nummer:');
 define('TEXT_EXPIRES', 'G&uuml;ltig bis:');
 define('TEXT_VAL', 'Fehler bei der &Uuml;berp&uuml;fung der Kreditkarte!');
+
 define('TEXT_STOCK_WARNING', 'Lieferwarnung'); 
 define('TEXT_MULTIPLE_SHIPMENT', 'Teillieferung'); 
 define('TEXT_UNIQUE_SHIPMENT', 'Gesamtlieferung'); 
 define('TEXT_UNITS', 'Einheit(en) von'); 
 define('TEXT_IMEDIATE_DELIVER', 'Wir können Ihnen folgende Menge sofort liefern:'); 
 define('TEXT_STOCK_WARNING_DESC', 'Die mit <font color=crimson>***</font> markierten Produkte sind nicht in der von Ihnen gew&uuml;nschten Bestellmenge auf Lager. W&auml;hlen Sie <b>Teillieferung</b>, wenn Sie die verf&uuml;gbaren Produkte sofort erhalten möchten, die Restmenge wird Ihnen dann nachgeliefert oder w&auml;hlen Sie <b>Gesamtlieferung</b>, die Lieferung wird erst dann ausgeliefert, wenn Ihre Bestellung bei uns komplett auf Lager ist.'); 
-define('IMAGE_PROCESS', 'Bestätigen');
-define('IMAGE_BACK', 'Zurück');
 ?>

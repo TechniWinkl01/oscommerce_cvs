@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+  $Id: account_history_info.php,v 1.8 2001/05/26 16:45:08 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'My Account');
@@ -24,6 +29,4 @@ define('TABLE_SUBHEADING_TOTAL', 'Total:');
 define('TEXT_COD', 'Cash on Delivery');
 define('TEXT_CC', 'Credit Card');
 define('TEXT_PAYPAL', 'PayPal.com Credit Card/eCheck Processing');
-
-define('IMAGE_BACK', 'Back');
 ?>

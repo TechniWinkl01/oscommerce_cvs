@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+  $Id: product_reviews_write.php,v 1.3 2001/05/26 16:45:28 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Reviews');
@@ -15,7 +20,4 @@ define('SUB_TITLE_RATING', 'Rating:');
 define('TEXT_NO_HTML', '<small><font color="#ff0000"><b>NOTE:</b></font></small>&nbsp;HTML is not translated!');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>BAD</b></font></small>');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>GOOD</b></font></small>');
-
-define('IMAGE_INSERT', 'Insert');
-define('IMAGE_CANCEL', 'Cancel');
 ?>

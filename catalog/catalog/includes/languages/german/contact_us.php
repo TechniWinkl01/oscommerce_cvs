@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+  $Id: contact_us.php,v 1.4 2001/05/26 16:49:29 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('SUB_BAR_TITLE', 'Sie haben Fragen?');
@@ -16,6 +21,4 @@ define('EMAIL_SUBJECT', 'Anfrage von ' . STORE_NAME);
 define('ENTRY_NAME', 'Vollst&auml;ndiger Name:');
 define('ENTRY_EMAIL', 'EMail-Adresse:');
 define('ENTRY_ENQUIRY', 'Anfrage:');
-
-define('IMAGE_SUBMIT', 'Senden');
 ?>

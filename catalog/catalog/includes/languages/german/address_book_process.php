@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 19/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: address_book_process.php,v 1.8 2001/05/26 16:49:21 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
@@ -14,8 +19,4 @@ define('TOP_BAR_TITLE_MODIFY_ENTRY', '&Auml;nderung des Eintrags');
 define('HEADING_TITLE_ADD_ENTRY', 'Neuer Adressbucheintrag :');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Adressbucheintrag :');
 define('PLEASE_SELECT', 'Bitte w&auml;hlen');
-define('IMAGE_INSERT', 'Einfügen');
-define('IMAGE_CANCEL', 'Abbrechen');
-define('IMAGE_UPDATE', 'Aktualisieren');
-define('IMAGE_DELETE', 'Löschen');
 ?>

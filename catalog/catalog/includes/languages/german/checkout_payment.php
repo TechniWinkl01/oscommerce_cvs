@@ -1,9 +1,14 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de) 
-*/ 
+  $Id: checkout_payment.php,v 1.13 2001/05/26 16:49:25 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
 
 define('NAVBAR_TITLE_1', 'Kasse'); 
 define('NAVBAR_TITLE_2', 'Zahlungsweise'); 
@@ -17,5 +22,4 @@ define('TABLE_HEADING_SHIPPING_INFO','Versandart');
 define('TABLE_HEADING_SHIPPING_QUOTE','Versandkosten'); 
 define('CHANGE_DELIVERY_ADDRESS', 'Versandadresse &auml;ndern');
 define('CHANGE_SHIPPING_OPTIONS', 'Versandoptionen');
-define('IMAGE_NEXT', 'Weiter'); 
 ?>

@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+  $Id: checkout_confirmation.php,v 1.7 2001/05/26 16:47:19 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Realizar Pedido');
@@ -28,6 +33,10 @@ define('TEXT_NUMBER', 'Numero:');
 define('TEXT_EXPIRES', 'Caducidad:');
 define('TEXT_VAL', 'Error en Tarjeta de Credito!');
 
-define('IMAGE_PROCESS', 'Procesar');
-define('IMAGE_BACK', 'Volver');
+define('TEXT_STOCK_WARNING', 'Stock Warning');
+define('TEXT_MULTIPLE_SHIPMENT', 'Multiple Shipments');
+define('TEXT_UNIQUE_SHIPMENT', 'Unique Shipment');
+define('TEXT_UNITS', 'Units of');
+define('TEXT_IMEDIATE_DELIVER', 'We have for imediate deliver:');
+define('TEXT_STOCK_WARNING_DESC', 'The products marked with <font color=crimson>***</font> are not available in the quantity you requested. Choose Multiple Shipments if you want the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait until the quantitys you requested are available in our stock.');
 ?>

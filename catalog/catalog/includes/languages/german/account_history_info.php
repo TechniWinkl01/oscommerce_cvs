@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 19/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: account_history_info.php,v 1.10 2001/05/26 16:49:18 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
@@ -24,6 +29,5 @@ define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
 define('TEXT_CC', 'Kreditkarte');
 define('TEXT_PAYPAL', 'PayPal.com Kredit Karte/eCheck Abrechnung');
-define('IMAGE_BACK', 'Zurück');
 ?>
 

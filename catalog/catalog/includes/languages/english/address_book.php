@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+  $Id: address_book.php,v 1.4 2001/05/26 16:45:08 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'My Account');
@@ -15,7 +20,4 @@ define('TABLE_HEADING_CITY_COUNTRY', 'City / Country');
 define('TEXT_NO_ENTRIES_IN_ADDRESS_BOOK', 'You have no entries in your address book!');
 define('TEXT_MAXIMUM_ENTRIES', '<font color="#ff0000"><b>NOTE:</b></font> A maximum of %s address book entries allowed.');
 define('TEXT_MAXIMUM_ENTRIES_REACHED', '<font color="#ff0000"><b>NOTE:</b></font> Maximum of %s address book entries reached.');
-
-define('IMAGE_ADD_ENTRY', 'Add Entry');
-define('IMAGE_BACK', 'Back');
 ?>

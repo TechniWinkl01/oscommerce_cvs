@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+  $Id: login.php,v 1.5 2001/05/26 16:47:34 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 if ($HTTP_GET_VARS['origin'] == 'checkout_payment.php') {
@@ -24,6 +29,4 @@ define('TEXT_COOKIE', '¿Guardar informacion en un \'cookie\'?');
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Ese \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
 define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> Ese \'E-Mail\' no figura en nuestros datos, use su \'contraseña\' para entrar.');
-
-define('IMAGE_NEXT', 'Continuar');
 ?>

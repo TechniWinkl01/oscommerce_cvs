@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+  $Id: account_history_info.php,v 1.7 2001/05/26 16:47:08 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Mi Cuenta');
@@ -24,6 +29,4 @@ define('TABLE_SUBHEADING_TOTAL', 'Total:');
 define('TEXT_COD', 'Contra Reembolso');
 define('TEXT_CC', 'Tarjeta de Credito');
 define('TEXT_PAYPAL', 'Paypal');
-
-define('IMAGE_BACK', 'Volver');
 ?>

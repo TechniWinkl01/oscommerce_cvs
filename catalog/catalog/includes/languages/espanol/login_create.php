@@ -1,8 +1,13 @@
-<?
-/* $Id: login_create.php,v 1.1 2001/03/21 17:30:54 tmoulton Exp $
-Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+<?php
+/*
+  $Id: login_create.php,v 1.2 2001/05/26 16:47:35 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Entrar');
@@ -17,7 +22,4 @@ define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTA:</b></font> El conte
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Ese \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
 
 define('PLEASE_SELECT', 'Seleccione');
-
-define('IMAGE_DONE', 'Terminado');
-define('IMAGE_LOGIN', 'Entrar');
 ?>

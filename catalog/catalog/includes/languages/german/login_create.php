@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 04/05/2001
-Author(s): Mathias Kowalkowski (m.kowalkowski@comnet-gmbh.net)
+  $Id: login_create.php,v 1.3 2001/05/26 16:49:36 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Anmelden');
@@ -17,7 +22,4 @@ define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>ACHTUNG:</b></font> Ihre 
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der \'E-Mail Adresse\' und/oder des \'Passwortes\'.');
 
 define('PLEASE_SELECT', 'Bitte w&auml;hlen');
-
-define('IMAGE_DONE', 'fertig');
-define('IMAGE_LOGIN', 'Anmelden');
 ?>

@@ -1,14 +1,19 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 26/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: german.php,v 1.36 2001/05/26 16:49:07 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
-// on RedHat6.0 I used 'de_DE'
-// on FreeBSD 4.0 I use 'de_DE.ISO_8859-1'
-// this may not work under win32 environments..
+// on RedHat try 'de_DE'
+// on FreeBSD try 'de_DE.ISO_8859-1'
+// on Windows try 'de'
 setlocale('LC_TIME', 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
@@ -181,9 +186,9 @@ define('ENTRY_FAX_NUMBER', 'Faxnummer:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
+define('ENTRY_NEWSLETTER_TEXT', '');
 define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
-define('ENTRY_NEWSLETTER_TEXT', '');
 define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Passwort:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Best&auml;tigung:');
@@ -208,4 +213,19 @@ define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ERSTE');
 define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; vorherige]');
 define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste &gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
+
+define('IMAGE_BUTTON_ADD_ADDRESS', 'Add Address');
+define('IMAGE_BUTTON_ADD_QUICK', 'Add a Quickie!');
+define('IMAGE_BUTTON_BACK', 'Back');
+define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Change Address');
+define('IMAGE_BUTTON_CHECKOUT', 'Checkout');
+define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirm Order');
+define('IMAGE_BUTTON_CONTINUE', 'Continue');
+define('IMAGE_BUTTON_IN_CART', 'In Cart');
+define('IMAGE_BUTTON_QUICK_FIND', 'Quick Find');
+define('IMAGE_BUTTON_REVIEWS', 'Reviews');
+define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Shipping Options');
+define('IMAGE_BUTTON_TELL_A_FRIEND', 'Tell a Friend');
+define('IMAGE_BUTTON_UPDATE_CART', 'Update Cart');
+define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Review');
 ?>

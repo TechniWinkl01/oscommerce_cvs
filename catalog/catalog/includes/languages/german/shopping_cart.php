@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 18/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: shopping_cart.php,v 1.10 2001/05/26 16:49:44 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Warenkorb');
@@ -18,8 +23,4 @@ define('SUB_TITLE_TOTAL', 'Summe:');
 
 define('OUT_OF_STOCK_CANT_CHECKOUT', 'Die markierten Produkte mit \'***\', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Bitte reduzieren Sie Ihre Bestellmenge für die gekennzeichneten Produkte, vielen Dank');
 define('OUT_OF_STOCK_CAN_CHECKOUT', 'Die markierten Produkte mit \'***\', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Die bestellte Menge wird kurzfristig von uns geliefert, wenn Sie w&uuml;nschen nehmen wir auch eine Teillieferung vor.');
-
-define('IMAGE_CHECKOUT', 'Kasse');
-define('IMAGE_MAIN_MENU', 'Startseite');
-define('IMAGE_UPDATE_CART', 'St&uuml;ckzahlen im Warenkorb aktualisieren');
 ?>

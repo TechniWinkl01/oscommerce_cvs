@@ -1,8 +1,13 @@
-<?
-/* $Id: login_create.php,v 1.1 2001/03/21 17:30:53 tmoulton Exp $
-English Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+<?php
+/*
+  $Id: login_create.php,v 1.2 2001/05/26 16:45:24 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Login');
@@ -17,7 +22,4 @@ define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTE:</b></font> Your &qu
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
 
 define('PLEASE_SELECT', 'Please Select');
-
-define('IMAGE_DONE', 'Done');
-define('IMAGE_LOGIN', 'Login');
 ?>

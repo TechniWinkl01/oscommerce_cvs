@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Preview Release 2.2
-Last Update: 05/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: login.php,v 1.5 2001/05/26 16:49:35 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 if ($HTTP_GET_VARS['origin'] == 'checkout_payment.php') {
@@ -24,6 +29,4 @@ define('TEXT_COOKIE', 'Wollen Sie die Anmeldeinformation in einem Cookie speiche
 define('TEXT_PASSWORD_FORGOTTEN', 'Haben Sie Ihr Paßwort vergessen?');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der \'E-Mail Adresse\' und/oder dem \'Passwort\'.');
 define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>FEHLER:</b></font> Ihre \'E-Mail Adresse\' befindet sich bereits in unserer Datenbank, bitte melden Sie sich mit Ihrem Passwort an.');
-
-define('IMAGE_NEXT', 'Weiter');
 ?>

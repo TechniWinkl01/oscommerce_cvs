@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+  $Id: product_info.php,v 1.7 2001/05/26 16:47:39 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Informacion del Producto');
@@ -14,12 +19,4 @@ define('TEXT_DATE_AVAILABLE', '<font color="#ff0000">Este producto estara dispon
 define('TEXT_ALSO_PURCHASED_PRODUCTS', 'Clientes que compraron este producto, tambien han comprado');
 define('TEXT_PRODUCT_OPTIONS', 'Opciones:');
 define('PLEASE_SELECT', '-- Seleccione --');
-
-define('IMAGE_MAIN_MENU', 'Menu Principal');
-define('IMAGE_WRITE_A_REVIEW', 'Deje su Comentario');
-define('IMAGE_REVIEWS', 'Comentarios');
-define('IMAGE_UPDATE_CART', 'Actualizar Cesta');
-define('IMAGE_ADD_TO_CART', 'Añadir a la Cesta');
-define('IMAGE_BACK', 'Volver');
-define('IMAGE_TELLAFRIEND', 'Tell A Friend');
 ?>
