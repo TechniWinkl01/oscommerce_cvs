@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.2 2002/03/10 01:39:33 hpdl Exp $
+  $Id: product_notification.php,v 1.3 2002/03/11 01:36:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,6 +90,11 @@ function selectAll(FormName, SelectBox) {
       $audience = array();
 
       if ($HTTP_GET_VARS['global'] == 'true') {
+        $products_query = tep_db_query("select distinct customers_id from " . TABLE_PRODUCTS_NOTIFICATIONS);
+        while ($products = tep_db_fetch_array($products_query)) {
+          $audience[$products['customers_id']] = '1';
+        }
+
         $customers_query = tep_db_query("select customers_info_id from " . TABLE_CUSTOMERS_INFO . " where global_product_notifications = '1'");
         while ($customers = tep_db_fetch_array($customers_query)) {
           $audience[$customers['customers_info_id']] = '1';
@@ -159,6 +164,13 @@ function selectAll(FormName, SelectBox) {
       $audience = array();
 
       if ($HTTP_POST_VARS['global'] == 'true') {
+        $products_query = tep_db_query("select distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where c.customers_id = pn.customers_id");
+        while ($products = tep_db_fetch_array($products_query)) {
+          $audience[$products['customers_id']] = array('firstname' => $products['customers_firstname'],
+                                                       'lastname' => $products['customers_lastname'],
+                                                       'email_address' => $products['customers_email_address']);
+        }
+
         $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " ci where c.customers_id = ci.customers_info_id and ci.global_product_notifications = '1'");
         while ($customers = tep_db_fetch_array($customers_query)) {
           $audience[$customers['customers_id']] = array('firstname' => $customers['customers_firstname'],
