@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.245 2002/08/12 12:24:05 hpdl Exp $
+  $Id: application_top.php,v 1.246 2002/08/13 16:44:13 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -211,7 +211,7 @@
 
 // Create the cart & Fix the cart if necesary
   if ($cart) {
-    if (!eregi('^4\.', phpversion()) || eregi('^4.0b2', phpversion())) {
+    if (eregi('^3\.', PHP_VERSION) || eregi('^4.0b2', PHP_VERSION)) {
       $broken_cart = $cart;
       $cart = new shoppingCart;
       $cart->unserialize($broken_cart);
@@ -266,7 +266,7 @@
 
 // navigation history
   if (tep_session_is_registered('navigation')) {
-    if (!eregi('^4\.', phpversion()) || eregi('^4.0b2', phpversion())) {
+    if (eregi('^3\.', PHP_VERSION) || eregi('^4.0b2', PHP_VERSION)) {
       $broken_navigation = $navigation;
       $navigation = new navigationHistory;
       $navigation->unserialize($broken_navigation);
@@ -296,7 +296,7 @@
                                 if (in_array($HTTP_POST_VARS['products_id'][$i], (is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array()))) {
                                   $cart->remove($HTTP_POST_VARS['products_id'][$i]);
                                 } else { // if PHP3, make correction for lack of multidimensional array in PHP3
-                                  if (ereg('^3\.', phpversion())) {
+                                  if (ereg('^3\.', PHP_VERSION)) {
                                     reset($HTTP_POST_VARS);
                                     while (list($key, $value) = each($HTTP_POST_VARS)) {
                                       if (is_array($value)) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.186 2002/08/11 22:50:07 hpdl Exp $
+  $Id: general.php,v 1.187 2002/08/13 16:44:14 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -252,7 +252,7 @@
 ////
 // Wrapper function for round() for php3 compatibility
   function tep_round($value, $precision) {
-    if (eregi('^3\.', phpversion())) {
+    if (eregi('^3\.', PHP_VERSION)) {
       $exp = pow(10, $precision);
       return round($value * $exp) / $exp;
     } else {

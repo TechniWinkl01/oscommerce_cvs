@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.10 2002/08/01 10:35:20 hpdl Exp $
+  $Id: compatibility.php,v 1.11 2002/08/13 16:44:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,6 +12,13 @@
   Modified by Marco Canini, <m.canini@libero.it>
   - Fixed a bug with arrays in $HTTP_xxx_VARS
 */
+
+////
+// Take care of servers that dont define the PHP_VERSION constant.
+// We rely on this constant to make several PHP3-specific workarounds
+  if (!defined('PHP_VERSION')) {
+    define('PHP_VERSION', phpversion());
+  }
 
 ////
 // Recursively handle magic_quotes_gpc turned off.
