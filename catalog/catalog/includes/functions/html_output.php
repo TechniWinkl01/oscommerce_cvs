@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.57 2003/09/19 07:13:41 project3000 Exp $
+  $Id: html_output.php,v 1.58 2003/11/17 18:50:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true) {
-    global $request_type, $session_started, $SID;
+    global $request_type, $osC_Session, $SID;
 
     if (!tep_not_null($page)) {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
@@ -42,12 +42,12 @@
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
 // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
-    if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
+    if ( ($add_session_id == true) && ($osC_Session->is_started == true) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
       if (tep_not_null($SID)) {
         $_sid = $SID;
       } elseif ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == true) ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') ) ) {
         if (HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN) {
-          $_sid = tep_session_name() . '=' . tep_session_id();
+          $_sid = $osC_Session->name . '=' . $osC_Session->id;
         }
       }
     }
@@ -116,9 +116,9 @@
 // The HTML form submit button wrapper function
 // Outputs a button in the selected language
   function tep_image_submit($image, $alt = '', $parameters = '') {
-    global $language;
+    global $osC_Session;
 
-    $image_submit = '<input type="image" src="' . tep_output_string(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
+    $image_submit = '<input type="image" src="' . tep_output_string(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/images/buttons/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
 
     if (tep_not_null($alt)) $image_submit .= ' title=" ' . tep_output_string($alt) . ' "';
 
@@ -132,9 +132,9 @@
 ////
 // Output a function button in the selected language
   function tep_image_button($image, $alt = '', $parameters = '') {
-    global $language;
+    global $osC_Session;
 
-    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $parameters);
+    return tep_image(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/images/buttons/' . $image, $alt, '', '', $parameters);
   }
 
 ////
@@ -250,10 +250,10 @@
 ////
 // Hide form elements
   function tep_hide_session_id() {
-    global $session_started, $SID;
+    global $osC_Session, $SID;
 
-    if (($session_started == true) && tep_not_null($SID)) {
-      return tep_draw_hidden_field(tep_session_name(), tep_session_id());
+    if (($osC_Session->is_started == true) && tep_not_null($SID)) {
+      return tep_draw_hidden_field($osC_Session->name, $osC_Session->id);
     }
   }
 
