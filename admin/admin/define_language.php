@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.12 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: define_language.php,v 1.13 2003/02/14 19:27:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,10 +12,12 @@
 
   require('includes/application_top.php');
 
+  if (!$HTTP_GET_VARS['lngdir']) $HTTP_GET_VARS['lngdir'] = $language;
+
   switch ($HTTP_GET_VARS['action']) {
     case 'save':
       if ( ($HTTP_GET_VARS['lngdir']) && ($HTTP_GET_VARS['filename']) ) {
-        if ($HTTP_GET_VARS['filename'] == $language . '.php') {
+        if ($HTTP_GET_VARS['filename'] == $HTTP_GET_VARS['lng_dir'] . '.php') {
           $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['filename'];
         } else {
           $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['lngdir'] . '/' . $HTTP_GET_VARS['filename'];
@@ -34,8 +36,6 @@
       }
       break;
   }
-
-  if (!$HTTP_GET_VARS['lngdir']) $HTTP_GET_VARS['lngdir'] = $language;
 
   $languages_array = array();
   $languages = tep_get_languages();
@@ -83,7 +83,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if ( ($HTTP_GET_VARS['lngdir']) && ($HTTP_GET_VARS['filename']) ) {
-    if ($HTTP_GET_VARS['filename'] == $language . '.php') {
+    if ($HTTP_GET_VARS['filename'] == $HTTP_GET_VARS['lngdir'] . '.php') {
       $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['filename'];
     } else {
       $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['lngdir'] . '/' . $HTTP_GET_VARS['filename'];
