@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.82 2002/10/08 10:42:32 project3000 Exp $
+  $Id: create_account_process.php,v 1.83 2003/01/10 20:33:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -253,7 +253,7 @@
                             'customers_telephone' => $telephone,
                             'customers_fax' => $fax,
                             'customers_newsletter' => $newsletter,
-                            'customers_password' => crypt_password($password),
+                            'customers_password' => tep_encrypt_password($password),
                             'customers_default_address_id' => 1);
 
     if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;

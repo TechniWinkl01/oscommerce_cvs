@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.71 2002/11/18 22:50:24 project3000 Exp $
+  $Id: login.php,v 1.72 2003/01/10 20:33:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,7 @@
     } else {
       $check_customer = tep_db_fetch_array($check_customer_query);
 // Check that password is good
-      if (!validate_password($password, $check_customer['customers_password'])) {
+      if (!tep_validate_password($password, $check_customer['customers_password'])) {
         $HTTP_GET_VARS['login'] = 'fail';
       } else {
         $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $check_customer['customers_id'] . "' and address_book_id = '1'");

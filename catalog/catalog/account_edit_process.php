@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.73 2002/11/18 22:50:24 project3000 Exp $
+  $Id: account_edit_process.php,v 1.74 2003/01/10 20:33:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -256,7 +256,7 @@
                             'customers_telephone' => $telephone,
                             'customers_fax' => $fax,
                             'customers_newsletter' => $newsletter,
-                            'customers_password' => crypt_password($password));
+                            'customers_password' => tep_encrypt_password($password));
 
     if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
     if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = tep_date_raw($dob);
