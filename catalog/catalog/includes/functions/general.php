@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.125 2001/08/25 10:28:00 hpdl Exp $
+  $Id: general.php,v 1.126 2001/08/25 19:53:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1026,5 +1026,28 @@
 
   function tep_count_shipping_modules() {
     return tep_count_modules(MODULE_SHIPPING_INSTALLED);
+  }
+
+  function tep_create_random_value($length, $type = 'mixed') {
+    if ( ($type != 'mixed') || ($type != 'chars') || ($type != 'digits')) return false;
+
+    $rand_value = '';
+    mt_srand((double) microtime() * 1000000);
+    while (strlen($rand_value)<$length) {
+      if ($type == 'digits') {
+        $char = mt_rand(0,9);
+      } else {
+        $char = chr(mt_rand(0,255));
+      }
+      if ($type == 'mixed') {
+        if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
+      } elseif ($type == 'chars') {
+        if (eregi('^[a-z]$', $char)) $rand_value .= $char;
+      } elseif ($type == 'digits') {
+        if (ereg('^[0-9]$', $char)) $rand_value .= $char;
+      }
+    }
+
+    return $rand_value;
   }
 ?>
