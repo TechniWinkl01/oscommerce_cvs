@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.68 2002/08/18 18:56:00 hpdl Exp $
+  $Id: banner_manager.php,v 1.69 2002/10/26 22:32:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,9 +67,8 @@
         if (!$banner_error) {
           if ( (empty($html_text)) && ($store_image == true) ) {
             tep_copy_uploaded_file($banners_image, $image_directory);
-            $db_image_location = (tep_not_null($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image['name'];
           }
-
+          $db_image_location = (tep_not_null($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image['name'];
           $sql_data_array = array('banners_title' => $banners_title,
                                   'banners_url' => $banners_url,
                                   'banners_image' => $db_image_location,
