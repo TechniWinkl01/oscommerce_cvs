@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.285 2004/04/04 20:09:12 mevans Exp $
+  $Id: application_top.php,v 1.286 2004/04/13 08:07:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,15 +13,16 @@
 // start the timer for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
-// set the level of error reporting
-  error_reporting(E_ALL & ~E_NOTICE);
-
-// Set the local configuration parameters - mainly for developers
+// set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
 // include server parameters
   require('includes/configure.php');
 
+// set the level of error reporting
+  error_reporting(E_ALL & ~E_NOTICE);
+
+// redirect to the installation module if DB_SERVER is empty
   if (strlen(DB_SERVER) < 1) {
     if (is_dir('install')) {
       header('Location: install/index.php');
@@ -32,7 +33,7 @@
   define('PROJECT_VERSION', 'osCommerce 2.2-MS3-CVS');
 
 // set the type of request (secure or not)
-  $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+  $request_type = (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on')) ? 'SSL' : 'NONSSL';
 
   if ($request_type == 'NONSSL') {
     define('DIR_WS_CATALOG', DIR_WS_HTTP_CATALOG);
@@ -45,255 +46,68 @@
   $cookie_path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);
 
 // compatibility work-around logic for PHP4
-  require(DIR_WS_FUNCTIONS . 'compatibility.php');
-
-// set php_self in the local scope
-  if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
+  require('includes/functions/compatibility.php');
 
 // include the list of project filenames
-  require(DIR_WS_INCLUDES . 'filenames.php');
+  require('includes/filenames.php');
 
 // include the list of project database tables
-  require(DIR_WS_INCLUDES . 'database_tables.php');
+  require('includes/database_tables.php');
 
 // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
 // initialize the message stack for output messages
-  require(DIR_WS_CLASSES . 'message_stack.php');
+  require('includes/classes/message_stack.php');
   $messageStack = new messageStack;
 
 // initialize the cache class
-  require(DIR_WS_CLASSES . 'cache.php');
+  require('includes/classes/cache.php');
   $osC_Cache = new osC_Cache;
 
 // include the database functions
-  require(DIR_WS_FUNCTIONS . 'database.php');
+  require('includes/functions/database.php');
 
 // include the database class
-  require(DIR_WS_CLASSES . 'database.php');
+  require('includes/classes/database.php');
 
 // make a connection to the database... now
   $osC_Database = osC_Database::connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
   $osC_Database->selectDatabase(DB_DATABASE);
-//  $osC_Database->setDebug(true);
 
 // set the application parameters
-  $Qconfiguration = $osC_Database->query('select configuration_key as cfgKey, configuration_value as cfgValue from :table_configuration');
-  $Qconfiguration->bindRaw(':table_configuration', TABLE_CONFIGURATION);
+  $Qcfg = $osC_Database->query('select configuration_key as cfgKey, configuration_value as cfgValue from :table_configuration');
+  $Qcfg->bindRaw(':table_configuration', TABLE_CONFIGURATION);
+  $Qcfg->setCache('configuration');
+  $Qcfg->execute();
 
-  $Qconfiguration->setCache('configuration');
-
-  $Qconfiguration->execute();
-
-  while ($Qconfiguration->next()) {
-    define($Qconfiguration->value('cfgKey'), $Qconfiguration->value('cfgValue'));
-  }
-  $Qconfiguration->freeResult();
-
-// if gzip_compression is enabled, start to buffer the output
-  if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= 4) ) {
-    if (($ini_zlib_output_compression = (int)ini_get('zlib.output_compression')) < 1) {
-      if (PHP_VERSION >= '4.0.4') {
-        ob_start('ob_gzhandler');
-      } else {
-        include(DIR_WS_FUNCTIONS . 'gzip_compression.php');
-        ob_start();
-        ob_implicit_flush();
-      }
-    } else {
-      ini_set('zlib.output_compression_level', GZIP_LEVEL);
-    }
+  while ($Qcfg->next()) {
+    define($Qcfg->value('cfgKey'), $Qcfg->value('cfgValue'));
   }
 
-// set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
-  if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
-    if (strlen(getenv('PATH_INFO')) > 1) {
-      $GET_array = array();
-      $PHP_SELF = str_replace(getenv('PATH_INFO'), '', $PHP_SELF);
-      $vars = explode('/', substr(getenv('PATH_INFO'), 1));
-      for ($i=0, $n=sizeof($vars); $i<$n; $i++) {
-        if (strpos($vars[$i], '[]')) {
-          $GET_array[substr($vars[$i], 0, -2)][] = $vars[$i+1];
-        } else {
-          $_GET[$vars[$i]] = $vars[$i+1];
-        }
-        $i++;
-      }
-
-      if (sizeof($GET_array) > 0) {
-        while (list($key, $value) = each($GET_array)) {
-          $_GET[$key] = $value;
-        }
-      }
-    }
-  }
+  $Qcfg->freeResult();
 
 // define general functions used application-wide
-  require(DIR_WS_FUNCTIONS . 'general.php');
-  require(DIR_WS_FUNCTIONS . 'html_output.php');
+  require('includes/functions/general.php');
+  require('includes/functions/html_output.php');
 
 // include shopping cart class
-  require(DIR_WS_CLASSES . 'shopping_cart.php');
+  require('includes/classes/shopping_cart.php');
 
 // include customer class
-  require(DIR_WS_CLASSES . 'customer.php');
-
-// include session class
-  if (PHP_VERSION < 4.1) {
-    include(DIR_WS_CLASSES . 'session_compatible.php');
-  } else {
-    include(DIR_WS_CLASSES . 'session.php');
-  }
-  $osC_Session = new osC_Session;
+  require('includes/classes/customer.php');
 
 // include navigation history class
-  require(DIR_WS_CLASSES . 'navigation_history.php');
+  require('includes/classes/navigation_history.php');
 
-// start the session
-  if (SESSION_FORCE_COOKIE_USE == 'True') {
-    tep_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, $cookie_path, $cookie_domain);
-
-    if (isset($_COOKIE['cookie_test'])) {
-      $osC_Session->start();
-    }
-  } elseif (SESSION_BLOCK_SPIDERS == 'True') {
-    $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
-    $spider_flag = false;
-
-    if (tep_not_null($user_agent)) {
-      $spiders = file(DIR_WS_INCLUDES . 'spiders.txt');
-
-      for ($i=0, $n=sizeof($spiders); $i<$n; $i++) {
-        if (tep_not_null($spiders[$i])) {
-          if (is_integer(strpos($user_agent, trim($spiders[$i])))) {
-            $spider_flag = true;
-            break;
-          }
-        }
-      }
-    }
-
-    if ($spider_flag == false) {
-      $osC_Session->start();
-    }
-  } else {
-    $osC_Session->start();
-  }
-
-// set SID once, even if empty
-  $SID = (defined('SID') ? SID : '');
-
-// verify the ssl_session_id if the feature is enabled
-  if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($osC_Session->is_started == true) ) {
-    $ssl_session_id = getenv('SSL_SESSION_ID');
-
-    if ($osC_Session->exists('SESSION_SSL_ID') == false) {
-      $osC_Session->set('SESSION_SSL_ID', $ssl_session_id);
-    }
-
-    if ($osC_Session->value('SESSION_SSL_ID') != $ssl_session_id) {
-      $osC_Session->destroy();
-
-      tep_redirect(tep_href_link(FILENAME_SSL_CHECK));
-    }
-  }
-
-// verify the browser user agent if the feature is enabled
-  if (SESSION_CHECK_USER_AGENT == 'True') {
-    $http_user_agent = getenv('HTTP_USER_AGENT');
-
-    if ($osC_Session->exists('SESSION_USER_AGENT') == false) {
-      $osC_Session->set('SESSION_USER_AGENT', $http_user_agent);
-    }
-
-    if ($osC_Session->value('SESSION_USER_AGENT') != $http_user_agent) {
-      $osC_Session->destroy();
-
-      tep_redirect(tep_href_link(FILENAME_LOGIN));
-    }
-  }
-
-// verify the IP address if the feature is enabled
-  if (SESSION_CHECK_IP_ADDRESS == 'True') {
-    $ip_address = tep_get_ip_address();
-
-    if ($osC_Session->exists('SESSION_IP_ADDRESS') == false) {
-      $osC_Session->set('SESSION_IP_ADDRESS', $ip_address);
-    }
-
-    if ($osC_Session->value('SESSION_IP_ADDRESS') != $ip_address) {
-      $osC_Session->destroy();
-
-      tep_redirect(tep_href_link(FILENAME_LOGIN));
-    }
-  }
-
-// create an instance of the shopping cart
-  if ($osC_Session->exists('cart')) {
-    $cart =& $osC_Session->value('cart');
-  } else {
-    $cart = new shoppingCart;
-    $osC_Session->set('cart', $cart);
-  }
-
-// create an instance of the customer class
-  if ($osC_Session->exists('osC_Customer')) {
-    $osC_Customer =& $osC_Session->value('osC_Customer');
-  } else {
-    $osC_Customer = new osC_Customer;
-    $osC_Session->set('osC_Customer', $osC_Customer);
-  }
-
-// include currencies class and create an instance
-  require(DIR_WS_CLASSES . 'currencies.php');
-  $osC_Currencies = new osC_Currencies();
-
-// include the mail classes
-  require(DIR_WS_CLASSES . 'mime.php');
-  require(DIR_WS_CLASSES . 'email.php');
-
-// set the language
-  if (($osC_Session->exists('language') == false) || isset($_GET['language'])) {
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language;
-
-    if (isset($_GET['language']) && tep_not_null($_GET['language'])) {
-      $lng->set_language($_GET['language']);
-    } else {
-      $lng->get_browser_language();
-    }
-
-    $osC_Session->set('language', $lng->language['directory']);
-    $osC_Session->set('languages_id', $lng->language['id']);
-  }
-
-// include the language translations
-  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '.php');
-
-// currency
-  if (($osC_Session->exists('currency') == false) || isset($_GET['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') && (LANGUAGE_CURRENCY != $osC_Session->value('currency')) ) ) {
-    if (isset($_GET['currency']) && $osC_Currencies->exists($_GET['currency'])) {
-      $currency = $_GET['currency'];
-    } else {
-      $currency = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
-    }
-
-    $osC_Session->set('currency', $currency);
-  }
+// include and start the services
+  require('includes/classes/services.php');
+  $osC_Services = new osC_Services;
+  $osC_Services->startServices();
 
 // tax class
-  require(DIR_WS_CLASSES . 'tax.php');
+  require('includes/classes/tax.php');
   $osC_Tax = new osC_Tax;
-
-// navigation history
-  if ($osC_Session->exists('navigation')) {
-    $navigation =& $osC_Session->value('navigation');
-  } else {
-    $navigation = new navigationHistory;
-    $osC_Session->set('navigation', $navigation);
-  }
-  $navigation->add_current_page();
 
 // Shopping cart actions
   if (isset($_GET['action'])) {
@@ -306,7 +120,7 @@
       $goto =  FILENAME_SHOPPING_CART;
       $parameters = array('action', 'cPath', 'products_id', 'pid');
     } else {
-      $goto = basename($PHP_SELF);
+      $goto = basename($_SERVER['PHP_SELF']);
       if ($_GET['action'] == 'buy_now') {
         $parameters = array('action', 'pid', 'products_id');
       } else {
@@ -357,7 +171,7 @@
                                 } elseif (isset($_POST['notify'])) {
                                   $notify = $_POST['notify'];
                                 } else {
-                                  tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'notify'))));
+                                  tep_redirect(tep_href_link(basename($_SERVER['PHP_SELF']), tep_get_all_get_params(array('action', 'notify'))));
                                 }
 
                                 if (!is_array($notify)) $notify = array($notify);
@@ -369,7 +183,7 @@
                                   }
                                 }
 
-                                tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'notify'))));
+                                tep_redirect(tep_href_link(basename($_SERVER['PHP_SELF']), tep_get_all_get_params(array('action', 'notify'))));
                               } else {
                                 $navigation->set_snapshot();
 
@@ -383,7 +197,7 @@
                                   tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . (int)$_GET['products_id'] . "' and customers_id = '" . (int)$osC_Customer->id . "'");
                                 }
 
-                                tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action'))));
+                                tep_redirect(tep_href_link(basename($_SERVER['PHP_SELF']), tep_get_all_get_params(array('action'))));
                               } else {
                                 $navigation->set_snapshot();
 
@@ -403,116 +217,13 @@
     }
   }
 
-// include the who's online functions
-  require(DIR_WS_FUNCTIONS . 'whos_online.php');
-  tep_update_whos_online();
-
-// include the password crypto functions
-  require(DIR_WS_FUNCTIONS . 'password_funcs.php');
-
-// include validation functions (right now only email address)
-  require(DIR_WS_FUNCTIONS . 'validations.php');
+// include the mail classes
+  require('includes/classes/mime.php');
+  require('includes/classes/email.php');
 
 // split-page-results
-  require(DIR_WS_CLASSES . 'split_page_results.php');
+  require('includes/classes/split_page_results.php');
 
 // infobox
-  require(DIR_WS_CLASSES . 'boxes.php');
-
-// auto activate and expire banners
-  require(DIR_WS_FUNCTIONS . 'banner.php');
-  tep_activate_banners();
-  tep_expire_banners();
-
-// auto expire special products
-  require(DIR_WS_FUNCTIONS . 'specials.php');
-  tep_expire_specials();
-
-// calculate category path
-  if (isset($_GET['cPath'])) {
-    $cPath = $_GET['cPath'];
-  } elseif (isset($_GET['products_id']) && !isset($_GET['manufacturers_id'])) {
-    $cPath = tep_get_product_path($_GET['products_id']);
-  } else {
-    $cPath = '';
-  }
-
-  if (tep_not_null($cPath)) {
-    $cPath_array = tep_parse_category_path($cPath);
-    $cPath = implode('_', $cPath_array);
-
-    $current_category_id = end($cPath_array);
-  } else {
-    $current_category_id = 0;
-  }
-
-// initialize the category tree
-  require(DIR_WS_CLASSES . 'category_tree.php');
-
-// include the breadcrumb class and start the breadcrumb trail
-  require(DIR_WS_CLASSES . 'breadcrumb.php');
-  $breadcrumb = new breadcrumb;
-
-  $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
-  $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
-
-// add category names or the manufacturer name to the breadcrumb trail
-  if (isset($cPath_array) && (sizeof($cPath_array) > 0)) {
-    $Qcategories = $osC_Database->query('select categories_id, categories_name from :table_categories_description where categories_id in (:categories_id) and language_id = :language_id');
-    $Qcategories->bindRaw(':table_categories_description', TABLE_CATEGORIES_DESCRIPTION);
-    $Qcategories->bindRaw(':categories_id', implode(',', $cPath_array));
-    $Qcategories->bindInt(':language_id', $osC_Session->value('languages_id'));
-    $Qcategories->execute();
-
-    $categories = array();
-
-    while ($Qcategories->next()) {
-      $categories[$Qcategories->value('categories_id')] = $Qcategories->value('categories_name');
-    }
-
-    $Qcategories->freeResult();
-
-    for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
-      $breadcrumb->add($categories[$cPath_array[$i]], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
-    }
-  } elseif (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-    $Qmanufacturers = $osC_Database->query('select manufacturers_name from :table_manufacturers where manufacturers_id = :manufacturers_id');
-    $Qmanufacturers->bindRaw(':table_manufacturers', TABLE_MANUFACTURERS);
-    $Qmanufacturers->bindInt(':manufacturers_id', $_GET['manufacturers_id']);
-    $Qmanufacturers->execute();
-
-    if ($Qmanufacturers->numberOfRows() > 0) {
-      $breadcrumb->add($Qmanufacturers->value('manufacturers_name'), tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $_GET['manufacturers_id']));
-    }
-
-    $Qmanufacturers->freeResult();
-  }
-
-// add the products model to the breadcrumb trail
-  if (isset($_GET['products_id']) && is_numeric($_GET['products_id'])) {
-    $Qmodel = $osC_Database->query('select products_model from :table_products where products_id = :products_id');
-    $Qmodel->bindRaw(':table_products', TABLE_PRODUCTS);
-    $Qmodel->bindInt(':products_id', $_GET['products_id']);
-    $Qmodel->execute();
-
-    if ($Qmodel->numberOfRows() > 0) {
-      $breadcrumb->add($Qmodel->value('products_model'), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $_GET['products_id']));
-    }
-
-    $Qmodel->freeResult();
-  }
-
-// add messages in the session to the message stack
-  $messageStack->loadFromSession();
-
-// set which precautions should be checked
-  define('WARN_INSTALL_EXISTENCE', 'true');
-  define('WARN_CONFIG_WRITEABLE', 'true');
-  define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
-  define('WARN_SESSION_AUTO_START', 'true');
-  define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
-
-  $messageStack->add('header', 'This is a development version of osCommerce - please use it for testing purposes only! [' . PROJECT_VERSION . ']');
-
-  header("Content-Type: text/html; charset=" . CHARSET);
+  require('includes/classes/boxes.php');
 ?>
