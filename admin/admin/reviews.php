@@ -198,7 +198,7 @@
       $rows++;
 
       if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $reviews['reviews_id'])) && (!$rInfo) ) {
-        $reviews_text_query = tep_db_query("select re.reviews_read, re.customers_id, length(r.reviews_text) reviews_text_size from reviews r, reviews_extra re where re.reviews_id = '" . $reviews['reviews_id'] . "' and r.reviews_id = re.reviews_id");
+        $reviews_text_query = tep_db_query("select re.reviews_read, re.customers_id, length(r.reviews_text) as reviews_text_size from reviews r, reviews_extra re where re.reviews_id = '" . $reviews['reviews_id'] . "' and r.reviews_id = re.reviews_id");
         $reviews_text = tep_db_fetch_array($reviews_text_query);
 
         $products_image_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
