@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.12 2004/02/16 06:59:42 hpdl Exp $
+  $Id: install_4.php,v 1.13 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,10 +52,10 @@
         if (($key != 'x') && ($key != 'y')) {
           if (is_array($value)) {
             for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-              echo tep_draw_hidden_field($key . '[]', $value[$i]);
+              echo osc_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo tep_draw_hidden_field($key, $value);
+            echo osc_draw_hidden_field($key, $value);
           }
         }
       }
@@ -88,10 +88,10 @@
         if (($key != 'x') && ($key != 'y')) {
           if (is_array($value)) {
             for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-              echo tep_draw_hidden_field($key . '[]', $value[$i]);
+              echo osc_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo tep_draw_hidden_field($key, $value);
+            echo osc_draw_hidden_field($key, $value);
           }
         }
       }
@@ -139,7 +139,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_ADDRESS; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTP_WWW_ADDRESS', $www_location); ?>
+      <?php echo osc_draw_input_field('HTTP_WWW_ADDRESS', $www_location); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpWWW');"><br>
       <div id="httpWWWSD"><?php echo CONFIG_WWW_ADDRESS_DESCRIPTION; ?></div>
       <div id="httpWWW" class="longDescription"><?php echo CONFIG_WWW_ADDRESS_DESCRIPTION_LONG; ?></div>
@@ -151,7 +151,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_ROOT_DIRECTORY; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('DIR_FS_DOCUMENT_ROOT', $dir_fs_www_root); ?>
+      <?php echo osc_draw_input_field('DIR_FS_DOCUMENT_ROOT', $dir_fs_www_root); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif"  onClick="toggleBox('httpRoot');"><br>
       <div id="httpRootSD"><?php echo CONFIG_WWW_ROOT_DIRECTORY_DESCRIPTION; ?></div>
       <div id="httpRoot" class="longDescription"><?php echo CONFIG_WWW_ROOT_DIRECTORY_DESCRIPTION_LONG; ?></div>
@@ -163,7 +163,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTP_COOKIE_DOMAIN; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTP_COOKIE_DOMAIN', getenv('HTTP_HOST')); ?>
+      <?php echo osc_draw_input_field('HTTP_COOKIE_DOMAIN', getenv('HTTP_HOST')); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpCookieD');"><br>
       <div id="httpCookieDSD"><?php echo CONFIG_WWW_HTTP_COOKIE_DOMAIN_DESCRIPTION; ?></div>
       <div id="httpCookieD" class="longDescription"><?php echo CONFIG_WWW_HTTP_COOKIE_DOMAIN_DESCRIPTION_LONG; ?></div>
@@ -172,7 +172,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTP_COOKIE_PATH; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTP_COOKIE_PATH', $cookie_path); ?>
+      <?php echo osc_draw_input_field('HTTP_COOKIE_PATH', $cookie_path); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpCookieP');"><br>
       <div id="httpCookiePSD"><?php echo CONFIG_WWW_HTTP_COOKIE_PATH_DESCRIPTION; ?></div>
       <div id="httpCookieP" class="longDescription"><?php echo CONFIG_WWW_HTTP_COOKIE_PATH_DESCRIPTION_LONG; ?></div>
@@ -184,7 +184,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_ENABLE_SSL; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_checkbox_field('ENABLE_SSL', 'true'); ?>
+      <?php echo osc_draw_checkbox_field('ENABLE_SSL', 'true'); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpSSL');"><br>
       <div id="httpSSLSD"><?php echo CONFIG_ENABLE_SSL_DESCRIPTION; ?></div>
       <div id="httpSSL" class="longDescription"><?php echo CONFIG_ENABLE_SSL_DESCRIPTION_LONG; ?></div>
@@ -196,7 +196,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_WORK_DIRECTORY; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTP_WORK_DIRECTORY', $dir_fs_www_root . 'oscommerce_data'); ?>
+      <?php echo osc_draw_input_field('HTTP_WORK_DIRECTORY', $dir_fs_www_root . 'oscommerce_data'); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpWork');"><br>
       <div id="httpWorkSD"><?php echo CONFIG_WWW_WORK_DIRECTORY_DESCRIPTION; ?></div>
       <div id="httpWork" class="longDescription"><?php echo CONFIG_WWW_WORK_DIRECTORY_DESCRIPTION_LONG; ?></div>
@@ -217,15 +217,15 @@
       if (($key != 'x') && ($key != 'y')) {
         if (is_array($value)) {
           for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-            echo tep_draw_hidden_field($key . '[]', $value[$i]);
+            echo osc_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo tep_draw_hidden_field($key, $value);
+          echo osc_draw_hidden_field($key, $value);
         }
       }
     }
 
-    echo tep_draw_hidden_field('install[]', 'configure');
+    echo osc_draw_hidden_field('install[]', 'configure');
 ?>
 
 </form>

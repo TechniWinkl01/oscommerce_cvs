@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.23 2004/02/16 06:59:42 hpdl Exp $
+  $Id: install_5.php,v 1.24 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTPS_ADDRESS; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTPS_WWW_ADDRESS', $https_www_address); ?>
+      <?php echo osc_draw_input_field('HTTPS_WWW_ADDRESS', $https_www_address); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpsWWW');"><br>
       <div id="httpsWWWSD"><?php echo CONFIG_WWW_HTTPS_ADDRESS_DESCRIPTION; ?></div>
       <div id="httpsWWW" class="longDescription"><?php echo CONFIG_WWW_HTTPS_ADDRESS_DESCRIPTION_LONG; ?></div>
@@ -34,7 +34,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTPS_COOKIE_DOMAIN; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTPS_COOKIE_DOMAIN', $_POST['HTTP_COOKIE_DOMAIN']); ?>
+      <?php echo osc_draw_input_field('HTTPS_COOKIE_DOMAIN', $_POST['HTTP_COOKIE_DOMAIN']); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpsCookieD');"><br>
       <div id="httpsCookieDSD"><?php echo CONFIG_WWW_HTTPS_COOKIE_DOMAIN_DESCRIPTION; ?></div>
       <div id="httpsCookieD" class="longDescription"><?php echo CONFIG_WWW_HTTPS_COOKIE_DOMAIN_DESCRIPTION_LONG; ?></div>
@@ -43,7 +43,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTPS_COOKIE_PATH; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('HTTPS_COOKIE_PATH', $_POST['HTTP_COOKIE_PATH']); ?>
+      <?php echo osc_draw_input_field('HTTPS_COOKIE_PATH', $_POST['HTTP_COOKIE_PATH']); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpsCookieP');"><br>
       <div id="httpsCookiePSD"><?php echo CONFIG_WWW_HTTPS_COOKIE_PATH_DESCRIPTION; ?></div>
       <div id="httpsCookieP" class="longDescription"><?php echo CONFIG_WWW_HTTPS_COOKIE_PATH_DESCRIPTION_LONG; ?></div>
@@ -64,10 +64,10 @@
     if (($key != 'x') && ($key != 'y')) {
       if (is_array($value)) {
         for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-          echo tep_draw_hidden_field($key . '[]', $value[$i]);
+          echo osc_draw_hidden_field($key . '[]', $value[$i]);
         }
       } else {
-        echo tep_draw_hidden_field($key, $value);
+        echo osc_draw_hidden_field($key, $value);
       }
     }
   }

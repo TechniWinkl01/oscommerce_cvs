@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.69 2004/04/16 05:31:35 mevans Exp $
+  $Id: upgrade_3.php,v 1.70 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,10 +14,10 @@
 <p class="pageTitle"><?php echo PAGE_TITLE_UPGRADE; ?></p>
 
 <?php
-  $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
-              'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
-              'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
-              'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])));
+  $db = array('DB_SERVER' => trim($_POST['DB_SERVER']),
+              'DB_SERVER_USERNAME' => trim($_POST['DB_SERVER_USERNAME']),
+              'DB_SERVER_PASSWORD' => trim($_POST['DB_SERVER_PASSWORD']),
+              'DB_DATABASE' => trim($_POST['DB_DATABASE']));
 
   $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
   $osC_Database->selectDatabase($db['DB_DATABASE']);

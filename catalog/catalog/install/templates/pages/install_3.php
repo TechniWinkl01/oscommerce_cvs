@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_3.php,v 1.9 2004/02/16 06:59:42 hpdl Exp $
+  $Id: install_3.php,v 1.10 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,13 +32,14 @@
 
 <?php
   if (in_array('database', $_POST['install'])) {
-    $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
-                'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
-                'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
-                'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])),
-                'DB_TABLE_PREFIX' => trim(stripslashes($_POST['DB_TABLE_PREFIX'])));
+    $db = array('DB_SERVER' => trim($_POST['DB_SERVER']),
+                'DB_SERVER_USERNAME' => trim($_POST['DB_SERVER_USERNAME']),
+                'DB_SERVER_PASSWORD' => trim($_POST['DB_SERVER_PASSWORD']),
+                'DB_DATABASE' => trim($_POST['DB_DATABASE']),
+                'DB_TABLE_PREFIX' => trim($_POST['DB_TABLE_PREFIX']),
+                'DB_DATABASE_CLASS' => trim($_POST['DB_DATABASE_CLASS']));
 
-    $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+    $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD'], $db['DB_DATABASE_CLASS']);
 
     if ($osC_Database->isError() === false) {
       $osC_Database->setErrorReporting(false);
@@ -64,6 +65,17 @@
       $osC_Database->importSQL($sql_file, $db['DB_DATABASE'], $db['DB_TABLE_PREFIX']);
     }
 
+    if ($_POST['DB_DATABASE_CLASS'] == 'mysql_innodb') {
+      $Qinno = $osC_Database->query('show variables like "have_innodb"');
+      if (($Qinno->numberOfRows() === 1) && (strtolower($Qinno->value('Value')) == 'yes')) {
+        $database_tables = array('address_book', 'categories', 'categories_description', 'customers', 'customers_basket', 'customers_basket_attributes', 'customers_info', 'manufacturers', 'manufacturers_info', 'orders', 'orders_products', 'orders_status', 'orders_status_history', 'orders_products_attributes', 'orders_products_download', 'orders_total', 'products', 'products_attributes', 'products_attributes_download', 'products_description', 'products_options', 'products_options_values', 'products_options_values_to_products_options', 'products_to_categories', 'reviews', 'reviews_description', 'weight_classes', 'weight_classes_rules');
+
+        foreach ($database_tables as $table) {
+          $osC_Database->simpleQuery('alter table ' . $db['DB_TABLE_PREFIX'] . $table . ' type = innodb');
+        }
+      }
+    }
+
     if ($osC_Database->isError()) {
 ?>
 <form name="install" action="install.php?step=3" method="post">
@@ -79,10 +91,10 @@
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
             for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-              echo tep_draw_hidden_field($key . '[]', $value[$i]);
+              echo osc_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo tep_draw_hidden_field($key, $value);
+            echo osc_draw_hidden_field($key, $value);
           }
         }
       }
@@ -116,10 +128,10 @@
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
             for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-              echo tep_draw_hidden_field($key . '[]', $value[$i]);
+              echo osc_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo tep_draw_hidden_field($key, $value);
+            echo osc_draw_hidden_field($key, $value);
           }
         }
       }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_7.php,v 1.2 2004/02/16 06:59:43 hpdl Exp $
+  $Id: install_7.php,v 1.3 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,16 +26,26 @@
 <p class="pageSubTitle"><?php echo PAGE_SUBTITLE_OSCOMMERCE_CONFIGURATION; ?></p>
 
 <?php
-  $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
-              'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
-              'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
-              'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])),
-              'DB_TABLE_PREFIX' => trim(stripslashes($_POST['DB_TABLE_PREFIX'])));
+  $db = array('DB_SERVER' => trim($_POST['DB_SERVER']),
+              'DB_SERVER_USERNAME' => trim($_POST['DB_SERVER_USERNAME']),
+              'DB_SERVER_PASSWORD' => trim($_POST['DB_SERVER_PASSWORD']),
+              'DB_DATABASE' => trim($_POST['DB_DATABASE']),
+              'DB_TABLE_PREFIX' => trim($_POST['DB_TABLE_PREFIX']),
+              'DB_DATABASE_CLASS' => trim($_POST['DB_DATABASE_CLASS']));
 
-  $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+  $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD'], $db['DB_DATABASE_CLASS']);
 
   if ($osC_Database->isError() === false) {
     $osC_Database->selectDatabase($db['DB_DATABASE']);
+  }
+
+  if ($_POST['DB_DATABASE_CLASS'] == 'mysql_innodb') {
+    $db_has_innodb = false;
+
+    $Qinno = $osC_Database->query('show variables like "have_innodb"');
+    if (($Qinno->numberOfRows() === 1) && (strtolower($Qinno->value('Value')) == 'yes')) {
+      $db_has_innodb = true;
+    }
   }
 
   if ($osC_Database->isError()) {
@@ -61,10 +71,10 @@
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
           for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-            echo tep_draw_hidden_field($key . '[]', $value[$i]);
+            echo osc_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo tep_draw_hidden_field($key, $value);
+          echo osc_draw_hidden_field($key, $value);
         }
       }
     }
@@ -96,10 +106,10 @@
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
           for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-            echo tep_draw_hidden_field($key . '[]', $value[$i]);
+            echo osc_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo tep_draw_hidden_field($key, $value);
+          echo osc_draw_hidden_field($key, $value);
         }
       }
     }
@@ -189,6 +199,7 @@
                      '  define(\'DB_SERVER_USERNAME\', \'' . $_POST['DB_SERVER_USERNAME'] . '\');' . "\n" .
                      '  define(\'DB_SERVER_PASSWORD\', \'' . $_POST['DB_SERVER_PASSWORD']. '\');' . "\n" .
                      '  define(\'DB_DATABASE\', \'' . $_POST['DB_DATABASE']. '\');' . "\n" .
+                     '  define(\'DB_DATABASE_CLASS\', \'' . (($_POST['DB_DATABASE_CLASS'] == 'mysql_innodb') && ($db_has_innodb === true) ? 'mysql_innodb' : 'mysql') . '\');' . "\n" .
                      '  define(\'DB_TABLE_PREFIX\', \'' . $_POST['DB_TABLE_PREFIX']. '\');' . "\n" .
                      '  define(\'USE_PCONNECT\', \'' . (isset($_POST['USE_PCONNECT']) && $_POST['USE_PCONNECT'] == 'true' ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
                      '  define(\'STORE_SESSIONS\', \'' . (($_POST['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
@@ -241,6 +252,7 @@
                      '  define(\'DB_SERVER_USERNAME\', \'' . $_POST['DB_SERVER_USERNAME'] . '\');' . "\n" .
                      '  define(\'DB_SERVER_PASSWORD\', \'' . $_POST['DB_SERVER_PASSWORD']. '\');' . "\n" .
                      '  define(\'DB_DATABASE\', \'' . $_POST['DB_DATABASE']. '\');' . "\n" .
+                     '  define(\'DB_DATABASE_CLASS\', \'' . (($_POST['DB_DATABASE_CLASS'] == 'mysql_innodb') && ($db_has_innodb === true) ? 'mysql_innodb' : 'mysql') . '\');' . "\n" .
                      '  define(\'DB_TABLE_PREFIX\', \'' . $_POST['DB_TABLE_PREFIX']. '\');' . "\n" .
                      '  define(\'USE_PCONNECT\', \'' . (isset($_POST['USE_PCONNECT']) && $_POST['USE_PCONNECT'] == 'true' ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
                      '  define(\'STORE_SESSIONS\', \'' . (($_POST['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.4 2004/02/16 06:59:42 hpdl Exp $
+  $Id: index.php,v 1.5 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
 
 <p class="pageTitle"><?php echo PAGE_TITLE_WELCOME; ?></p>
 
-<form action="index.php" method="get"><p align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, $language, 'onChange="this.form.submit();"'); ?></p></form>
+<form action="index.php" method="get"><p align="right"><?php echo osc_draw_pull_down_menu('language', $languages_array, $language, 'onChange="this.form.submit();"'); ?></p></form>
 
 <table width="95%" class="formPage" cellpadding="2">
   <tr>

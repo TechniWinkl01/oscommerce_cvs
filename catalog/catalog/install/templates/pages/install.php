@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.9 2004/02/16 06:59:42 hpdl Exp $
+  $Id: install.php,v 1.10 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_IMPORT_CATALOG_DATABASE; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_checkbox_field('install[]', 'database', true); ?>
+      <?php echo osc_draw_checkbox_field('install[]', 'database', true); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbImport');"><br>
       <div id="dbImportSD"><?php echo CONFIG_IMPORT_CATALOG_DATABASE_DESCRIPTION; ?></div>
       <div id="dbImport" class="longDescription"><?php echo CONFIG_IMPORT_CATALOG_DATABASE_DESCRIPTION_LONG; ?></div>
@@ -30,7 +30,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_AUTOMATIC_CONFIGURATION; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_checkbox_field('install[]', 'configure', true); ?>
+      <?php echo osc_draw_checkbox_field('install[]', 'configure', true); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('autoConfig');"><br>
       <div id="autoConfigSD"><?php echo CONFIG_AUTOMATIC_CONFIGURATION_DESCRIPTION; ?></div>
       <div id="autoConfig" class="longDescription"><?php echo CONFIG_AUTOMATIC_CONFIGURATION_DESCRIPTION_LONG;?></div>

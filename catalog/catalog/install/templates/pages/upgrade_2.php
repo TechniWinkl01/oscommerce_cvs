@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_2.php,v 1.3 2004/02/16 06:59:43 hpdl Exp $
+  $Id: upgrade_2.php,v 1.4 2004/07/22 20:47:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,10 +14,10 @@
 <p class="pageTitle"><?php echo PAGE_TITLE_UPGRADE; ?></p>
 
 <?php
-  $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
-              'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
-              'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
-              'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])));
+  $db = array('DB_SERVER' => trim($_POST['DB_SERVER']),
+              'DB_SERVER_USERNAME' => trim($_POST['DB_SERVER_USERNAME']),
+              'DB_SERVER_PASSWORD' => trim($_POST['DB_SERVER_PASSWORD']),
+              'DB_DATABASE' => trim($_POST['DB_DATABASE']));
 
   $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
@@ -49,10 +49,10 @@
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
           for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-            echo tep_draw_hidden_field($key . '[]', $value[$i]);
+            echo osc_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo tep_draw_hidden_field($key, $value);
+          echo osc_draw_hidden_field($key, $value);
         }
       }
     }
@@ -85,10 +85,10 @@
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
           for ($i=0, $n=sizeof($value); $i<$n; $i++) {
-            echo tep_draw_hidden_field($key . '[]', $value[$i]);
+            echo osc_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo tep_draw_hidden_field($key, $value);
+          echo osc_draw_hidden_field($key, $value);
         }
       }
     }
