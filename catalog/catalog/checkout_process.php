@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.77 2001/12/07 18:28:11 dgw_ Exp $
+  $Id: checkout_process.php,v 1.78 2001/12/09 18:24:03 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -55,6 +55,7 @@
 
   $products = $cart->get_products();
   for ($i=0; $i<sizeof($products); $i++) {
+    $products_model = $products[$i]['model'];
     $products_name = $products[$i]['name'];
     $products_price = $products[$i]['price'];
     $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
@@ -78,7 +79,7 @@
     }
     // Stock Update !
 
-    tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS . " (orders_id, products_id, products_name, products_price, final_price, products_tax, products_quantity) values ('" . $insert_id . "', '" . tep_get_prid($products[$i]['id'])  . "', '" . addslashes($products_name) . "', '" . $products_price . "', '"  . $total_products_price . "', '" . $products_tax . "', '" . $products[$i]['quantity']   . "')");
+    tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS . " (orders_id, products_id, products_model, products_name, products_price, final_price, products_tax, products_quantity) values ('" . $insert_id . "', '" . tep_get_prid($products[$i]['id'])  . "', '" . addslashes($products_model) . "', '" . addslashes($products_name) . "', '" . $products_price . "', '"  . $total_products_price . "', '" . $products_tax . "', '" . $products[$i]['quantity']   . "')");
     $order_products_id = tep_db_insert_id();
 
 //------insert customer choosen option to order--------
