@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.55 2002/03/07 20:22:47 hpdl Exp $
+  $Id: account_edit_process.php,v 1.56 2002/03/23 11:17:02 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -23,7 +23,7 @@
 
   $error = false; // reset error flag
 
-  if (ACCOUNT_GENDER) {
+  if (ACCOUNT_GENDER == 'true') {
     if (($HTTP_POST_VARS['gender'] == 'm') || ($HTTP_POST_VARS['gender'] == 'f')) {
       $entry_gender_error = false;
     } else {
@@ -46,7 +46,7 @@
     $entry_lastname_error = false;
   }
 
-  if (ACCOUNT_DOB) {
+  if (ACCOUNT_DOB == 'true') {
     if (checkdate(substr(tep_date_raw($HTTP_POST_VARS['dob']), 4, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 6, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 0, 4))) {
       $entry_date_of_birth_error = false;
     } else {
@@ -90,7 +90,7 @@
     $entry_city_error = false;
   }
 
-  if (ACCOUNT_STATE) {
+  if (ACCOUNT_STATE == 'true') {
     $zone_id = $HTTP_POST_VARS['zone_id'];
     if ($zone_id > 0) {
       $state = '';
@@ -209,11 +209,11 @@
     $date_now = date('Ymd');
 //Update the customers table
     $update_query_customers = 'update ' . TABLE_CUSTOMERS . ' set ';
-    if (ACCOUNT_GENDER) {
+    if (ACCOUNT_GENDER == 'true') {
        $update_query_customers = $update_query_customers . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
     $update_query_customers = $update_query_customers . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
-    if (ACCOUNT_DOB) {
+    if (ACCOUNT_DOB == 'true') {
        $update_query_customers = $update_query_customers . "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
     }
     $update_query_customers = $update_query_customers . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
@@ -226,19 +226,19 @@
     $update_query_customers = $update_query_customers . " customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
 // Update the address_book table
     $update_query_address = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_GENDER) {
+    if (ACCOUNT_GENDER == 'true') {
        $update_query_address = $update_query_address . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
     $update_query_address = $update_query_address . "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
     $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_COMPANY) {
+    if (ACCOUNT_COMPANY == 'true') {
        $update_query_address = $update_query_address . "entry_company = '". $HTTP_POST_VARS['company'] . "', ";
     }
-    if (ACCOUNT_SUBURB) {
+    if (ACCOUNT_SUBURB == 'true') {
        $update_query_address = $update_query_address . "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
     }
     $update_query_address = $update_query_address . "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
-    if (ACCOUNT_STATE) {
+    if (ACCOUNT_STATE == 'true') {
        if ($HTTP_POST_VARS['zone_id'] > 0) {
            $update_query_address = $update_query_address . "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
        } else {

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_details.php,v 1.12 2002/01/11 18:45:43 dgw_ Exp $
+  $Id: account_details.php,v 1.13 2002/03/23 11:17:03 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,7 +19,7 @@
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-  if (ACCOUNT_GENDER) {
+  if (ACCOUNT_GENDER == 'true') {
     $male = ($account['customers_gender'] == 'm') ? true : false;
     $female = ($account['customers_gender'] == 'f') ? true : false;
 ?>
@@ -79,7 +79,7 @@
 ?></td>
           </tr>
 <?php
-  if (ACCOUNT_DOB) {
+  if (ACCOUNT_DOB == 'true') {
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo ENTRY_DATE_OF_BIRTH; ?></td>
@@ -127,7 +127,7 @@
     </table></td>
   </tr>
 <?php
- if (ACCOUNT_COMPANY) {
+ if (ACCOUNT_COMPANY == 'true') {
 ?>  <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
   </tr>
@@ -186,7 +186,7 @@
 ?></td>
           </tr>
 <?
-  if (ACCOUNT_SUBURB) {
+  if (ACCOUNT_SUBURB == 'true') {
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo ENTRY_SUBURB; ?></td>
@@ -262,7 +262,7 @@
 ?></td>
           </tr>
 <?php
-  if (ACCOUNT_STATE) {
+  if (ACCOUNT_STATE == 'true') {
     $customers_state = ($account['entry_state']) ? $account['entry_state'] : JS_STATE_SELECT;
 ?>
           <tr>

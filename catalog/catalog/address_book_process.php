@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.61 2002/03/09 15:54:49 dgw_ Exp $
+  $Id: address_book_process.php,v 1.62 2002/03/23 11:17:02 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -38,7 +38,7 @@
   if ((@$HTTP_POST_VARS['action'] == 'process') || (@$HTTP_POST_VARS['action'] == 'update')) {
     $process = 1;
     $error = 0;
-    if (ACCOUNT_GENDER) {
+    if (ACCOUNT_GENDER == 'true') {
       if ((@$HTTP_POST_VARS['gender'] == 'm') || (@$HTTP_POST_VARS['gender'] == 'f')) {
         $gender_error = 0;
       } else {
@@ -47,7 +47,7 @@
       }
     }
 
-    if (ACCOUNT_COMPANY) {
+    if (ACCOUNT_COMPANY == 'true') {
       if (@strlen(trim($HTTP_POST_VARS['company'])) < ENTRY_COMPANY_MIN_LENGTH) {
         $company_error = 1;
         $error = 1;
@@ -101,18 +101,18 @@
 //update when no errors occured
   if ((@$process == 1) && (@$error == 0) && (@$HTTP_POST_VARS['action'] == 'update')) {
     $update_query = 'update ' . TABLE_ADDRESS_BOOK . ' set ';
-    if (ACCOUNT_GENDER) {
+    if (ACCOUNT_GENDER == 'true') {
        $update_query = $update_query . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
-    if (ACCOUNT_COMPANY) {
+    if (ACCOUNT_COMPANY == 'true') {
        $update_query = $update_query . "entry_company = '" . $HTTP_POST_VARS['company'] . "', ";
     }
     $update_query = $update_query . "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_SUBURB) {
+    if (ACCOUNT_SUBURB == 'true') {
        $update_query = $update_query . "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
     }
     $update_query = $update_query . "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
-    if (ACCOUNT_STATE) {
+    if (ACCOUNT_STATE == 'true') {
        if ($HTTP_POST_VARS['zone_id'] > 0) {
          $update_query = $update_query . "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
        } else {
@@ -129,16 +129,16 @@
     $suburb = "";
     $state = "";
     $zone_id = 0;
-    if (ACCOUNT_GENDER) {
+    if (ACCOUNT_GENDER == 'true') {
        $gender = $HTTP_POST_VARS['gender'];
     }
-    if (ACCOUNT_COMPANY) {
+    if (ACCOUNT_COMPANY == 'true') {
        $company = $HTTP_POST_VARS['company'];
     }
-    if (ACCOUNT_SUBURB) {
+    if (ACCOUNT_SUBURB == 'true') {
        $suburb = $HTTP_POST_VARS['suburb'];
     }
-    if (ACCOUNT_STATE) {
+    if (ACCOUNT_STATE == 'true') {
        $state = $HTTP_POST_VARS['state'];
        $zone_id = $HTTP_POST_VARS['zone_id'];
        if ($zone_id != 0) $state = '';
@@ -159,38 +159,38 @@
       $entry_query = 'select ';
       $state = '';
       $zone_id = 0;
-      if (ACCOUNT_GENDER) {
+      if (ACCOUNT_GENDER == 'true') {
          $entry_query = $entry_query . "entry_gender, ";
       }
-      if (ACCOUNT_COMPANY) {
+      if (ACCOUNT_COMPANY == 'true') {
          $entry_query = $entry_query . "entry_company, ";
       }
       $entry_query = $entry_query . "entry_firstname, entry_lastname, entry_street_address, ";
-      if (ACCOUNT_SUBURB) {
+      if (ACCOUNT_SUBURB == 'true') {
          $entry_query = $entry_query . "entry_suburb, ";
       }
       $entry_query = $entry_query . "entry_postcode, entry_city, ";
-      if (ACCOUNT_STATE) {
+      if (ACCOUNT_STATE == 'true') {
          $entry_query = $entry_query . "entry_state, entry_zone_id, ";
       }
       $entry_query = $entry_query . "entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
       $entry = tep_db_query($entry_query);
       $entry_values = tep_db_fetch_array($entry);
-      if (ACCOUNT_GENDER) {
+      if (ACCOUNT_GENDER == 'true') {
          $gender = $entry_values['entry_gender'];
       }
-      if (ACCOUNT_COMPANY) {
+      if (ACCOUNT_COMPANY == 'true') {
          $company = $entry_values['entry_company'];
       }
       $firstname = $entry_values['entry_firstname'];
       $lastname = $entry_values['entry_lastname'];
       $street_address = $entry_values['entry_street_address'];
-      if (ACCOUNT_SUBURB) {
+      if (ACCOUNT_SUBURB == 'true') {
          $suburb = $entry_values['entry_suburb'];
       }
       $postcode = $entry_values['entry_postcode'];
       $city = $entry_values['entry_city'];
-      if (ACCOUNT_STATE) {
+      if (ACCOUNT_STATE == 'true') {
          $state = $entry_values['entry_state'];
          $zone_id = $entry_values['entry_zone_id'];
       }
@@ -254,7 +254,7 @@ function check_form() {
   var city = document.add_entry.city.value;
 
 <?
- if (ACCOUNT_GENDER) {
+ if (ACCOUNT_GENDER == 'true') {
 ?>
   if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
   } else {
@@ -289,7 +289,7 @@ function check_form() {
     error = 1;
   }
 <?php
-  if (ACCOUNT_STATE) {
+  if (ACCOUNT_STATE == 'true') {
 ?>
   if (document.add_entry.zone_id.options.length <= 1) {
     if (document.add_entry.state.value == "" || document.add_entry.state.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
@@ -353,7 +353,7 @@ function check_form() {
             <td align="right" rowspan="<?php echo $rowspan =  5 + ACCOUNT_GENDER + ACCOUNT_COMPANY * 2; ?>" class="accountCategory"><?php echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?php
-   if (ACCOUNT_GENDER) {
+   if (ACCOUNT_GENDER == 'true') {
 ?>
           <tr>
             <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_GENDER; ?>&nbsp;</td>
@@ -382,7 +382,7 @@ function check_form() {
           </tr>
 <?php
   }
-   if (ACCOUNT_COMPANY) {
+   if (ACCOUNT_COMPANY == 'true') {
 ?>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
@@ -454,7 +454,7 @@ function check_form() {
     } ?></td>
           </tr>
 <?php
-  if (ACCOUNT_SUBURB) {
+  if (ACCOUNT_SUBURB == 'true') {
 ?>
           <tr>
             <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_SUBURB; ?>&nbsp;</td>
@@ -512,7 +512,7 @@ function check_form() {
     } ?></td>
           </tr>
 <?php
-   if (ACCOUNT_STATE) {
+   if (ACCOUNT_STATE == 'true') {
 ?>
           <tr>
             <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_STATE; ?>&nbsp;</td>

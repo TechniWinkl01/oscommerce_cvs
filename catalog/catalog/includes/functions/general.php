@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: general.php,v 1.161 2002/03/07 20:53:58 hpdl Exp $
+  $Id: general.php,v 1.162 2002/03/23 11:17:03 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -270,7 +270,7 @@
     $products = tep_db_fetch_array($products_query);
     $products_count += $products['total'];
 
-    if (USE_RECURSIVE_COUNT) {
+    if (USE_RECURSIVE_COUNT == 'true') {
       $child_categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where status = '1' and parent_id = '" . $category_id . "'");
       if (tep_db_num_rows($child_categories_query)) {
         while ($child_categories = tep_db_fetch_array($child_categories_query)) {

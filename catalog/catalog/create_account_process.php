@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.72 2002/03/07 19:58:10 hpdl Exp $
+  $Id: create_account_process.php,v 1.73 2002/03/23 11:17:02 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,7 +20,7 @@
 
   $error = 0; // reset error flag
 
-  if (ACCOUNT_GENDER) {
+  if (ACCOUNT_GENDER == 'true') {
     if (($HTTP_POST_VARS['gender'] == 'm') || ($HTTP_POST_VARS['gender'] == 'f')) {
       $entry_gender_error = false;
     } else {
@@ -29,7 +29,7 @@
     }
   }
 
-  if (ACCOUNT_COMPANY) {
+  if (ACCOUNT_COMPANY == 'true') {
     if (strlen(trim($HTTP_POST_VARS['company'])) < ENTRY_COMPANY_MIN_LENGTH) {
       $error = true;
       $entry_company_error = true;
@@ -52,7 +52,7 @@
     $entry_lastname_error = false;
   }
 
-  if (ACCOUNT_DOB) {
+  if (ACCOUNT_DOB == 'true') {
     if (checkdate(substr(tep_date_raw($HTTP_POST_VARS['dob']), 4, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 6, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 0, 4))) {
       $entry_date_of_birth_error = false;
     } else {
@@ -96,7 +96,7 @@
     $entry_city_error = false;
   }
 
-  if (ACCOUNT_STATE) {
+  if (ACCOUNT_STATE == 'true') {
     $zone_id = $HTTP_POST_VARS['zone_id'];
     if ($zone_id > 0) {
       $state = '';
@@ -230,7 +230,7 @@
     $name = $firstname . " " . $lastname;
     $email_address = $HTTP_POST_VARS['email_address'];
 
-    if (ACCOUNT_GENDER) {
+    if (ACCOUNT_GENDER == 'true') {
        if ($HTTP_POST_VARS['gender'] == 'm') {
          $email_text = EMAIL_GREET_MR;
        } else {

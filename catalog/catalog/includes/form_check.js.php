@@ -6,7 +6,7 @@ function check_form() {
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
 <?php
-   if (ACCOUNT_DOB) echo '  var dob = document.account_edit.dob.value;' . "\n";
+   if (ACCOUNT_DOB == 'true') echo '  var dob = document.account_edit.dob.value;' . "\n";
 ?>
   var email_address = document.account_edit.email_address.value;  
   var street_address = document.account_edit.street_address.value;
@@ -17,7 +17,7 @@ function check_form() {
   var confirmation = document.account_edit.confirmation.value;
 
 <?php
-   if (ACCOUNT_GENDER) {
+   if (ACCOUNT_GENDER == 'true') {
 ?>
   if (document.account_edit.elements['gender'].type != "hidden") {
     if (document.account_edit.gender[0].checked || document.account_edit.gender[1].checked) {
@@ -45,7 +45,7 @@ function check_form() {
   }
 
 <?php
-   if (ACCOUNT_DOB) {
+   if (ACCOUNT_DOB == 'true') {
 ?>
   if (document.account_edit.elements['dob'].type != "hidden") {
     if (dob == '' || dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
@@ -85,7 +85,7 @@ function check_form() {
   }
 
 <?php
-  if (ACCOUNT_STATE) {
+  if (ACCOUNT_STATE == 'true') {
 ?>
   if (document.account_edit.elements['zone_id'].type != "hidden") {
     if (document.account_edit.zone_id.options.length <= 1) {

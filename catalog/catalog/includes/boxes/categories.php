@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.17 2002/03/07 20:53:58 hpdl Exp $
+  $Id: categories.php,v 1.18 2002/03/23 11:17:03 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -45,7 +45,7 @@
 
     $categories_string .= '</a>';
 
-    if (SHOW_COUNTS) {
+    if (SHOW_COUNTS == 'true') {
       $products_in_category = tep_count_products_in_category($counter);
       if ($products_in_category > 0) {
         $categories_string .= '&nbsp;(' . $products_in_category . ')';
