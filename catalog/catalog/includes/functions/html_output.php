@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.3 2001/06/13 20:11:05 hpdl Exp $
+  $Id: html_output.php,v 1.4 2001/06/14 00:01:31 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -242,9 +242,9 @@
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" name="' . $name . '"';
     if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= ' value="' . $GLOBALS[$name] . '"';
+      $field .= ' value="' . trim($GLOBALS[$name]) . '"';
     } elseif ($value != '') {
-      $field .= ' value="' . $value . '"';
+      $field .= ' value="' . trim($value) . '"';
     }
     if ($parameters != '') {
       $field .= ' ' . $parameters;
@@ -299,8 +299,14 @@
 
 ////
 // Output a form hidden field
-  function tep_draw_hidden_field($name, $value) {
-    $field = '<input type="hidden" name="' . $name . '" value="' . $value . '">';
+  function tep_draw_hidden_field($name, $value = '') {
+    $field = '<input type="hidden" name="' . $name . '" value="';
+    if ($value != '') {
+      $field .= trim($value);
+    } else {
+      $field .= trim($GLOBALS[$name]);
+    }
+    $field .= '">';
 
     return $field;
   }
