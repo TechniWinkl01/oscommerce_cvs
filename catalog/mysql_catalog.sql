@@ -652,7 +652,7 @@ CREATE TABLE orders_products (
   products_name varchar(64) NOT NULL,
   products_price decimal(8,2) NOT NULL,
   final_price decimal(8,2) NOT NULL,
-  products_tax decimal(6,4) NOT NULL,
+  products_tax decimal(7,4) NOT NULL,
   products_quantity int(2) NOT NULL,
   PRIMARY KEY (orders_products_id)
 );
@@ -1032,7 +1032,7 @@ CREATE TABLE tax_rates (
   tax_rates_id int(5) NOT NULL auto_increment,
   tax_zone_id int(5) NOT NULL,
   tax_class_id int(5) NOT NULL,
-  tax_rate decimal(6,4) NOT NULL,
+  tax_rate decimal(7,4) NOT NULL,
   tax_description varchar(255) NOT NULL,
   last_modified timestamp(14) NULL,
   date_added timestamp(14) NOT NULL,

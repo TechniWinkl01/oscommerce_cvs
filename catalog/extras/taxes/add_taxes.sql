@@ -11,7 +11,7 @@ ALTER TABLE customers ADD COLUMN customers_zone_id int(5) DEFAULT '0' NOT NULL;
 
 ALTER TABLE orders DROP COLUMN products_tax; # was decimal(6,4) DEFAULT '0.0000' NOT NULL
 
-ALTER TABLE orders_products ADD COLUMN products_tax decimal(6,4) DEFAULT '0.0000' NOT NULL after final_price;
+ALTER TABLE orders_products ADD COLUMN products_tax decimal(7,4) DEFAULT '0.0000' NOT NULL after final_price;
 
 ALTER TABLE products ADD COLUMN products_tax_class_id int(5) DEFAULT '0' NOT NULL;
 
@@ -28,7 +28,7 @@ CREATE TABLE tax_rates (
   tax_rates_id int(5) NOT NULL auto_increment,
   tax_zone_id int(5) DEFAULT '0' NOT NULL,
   tax_class_id int(5) DEFAULT '0' NOT NULL,
-  tax_rate decimal(6,4) DEFAULT '0.0000' NOT NULL,
+  tax_rate decimal(7,4) DEFAULT '0.0000' NOT NULL,
   tax_description varchar(255) DEFAULT '' NOT NULL,
   last_modified timestamp(14) NULL,
   date_added timestamp(14) NOT NULL,
