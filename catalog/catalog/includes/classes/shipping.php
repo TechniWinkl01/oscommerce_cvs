@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.15 2002/11/01 04:42:35 hpdl Exp $
+  $Id: shipping.php,v 1.16 2002/11/01 04:43:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
