@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.77 2001/11/29 17:12:51 hpdl Exp $
+  $Id: categories.php,v 1.78 2001/11/29 20:49:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,7 +34,7 @@
                               }
 
                               if ( ($categories_image != 'none') && ($categories_image != '') ) {
-                                tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = 'images/" . $categories_image_name . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
+                                tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
                                 $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
                                 if (file_exists($image_location)) @unlink($image_location);
                                 copy($categories_image, $image_location);
@@ -55,8 +55,8 @@
                                 } else {
                                   $products_image = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
                                   $products_image = tep_db_fetch_array($products_image);
-                                  if (file_exists(DIR_FS_CATALOG . $products_image['products_image'])) {
-                                    @unlink(DIR_FS_CATALOG . $products_image['products_image']);
+                                  if (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image'])) {
+                                    @unlink(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image']);
                                   }
                                   tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
                                   tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
@@ -89,7 +89,7 @@
                               }
 
                               if (!($categories_image == 'none' || $categories_image == '')) {
-                                tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = 'images/" . $categories_image_name . "' where categories_id = '" . $categories_id . "'");
+                                tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . $categories_id . "'");
                                 $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
                                 if (file_exists($image_location)) @unlink($image_location);
                                 copy($categories_image, $image_location);
@@ -334,7 +334,6 @@
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image_name;
         if (file_exists($image_location)) @unlink($image_location);
         copy($products_image, $image_location);
-        $products_image_name = 'images/' . $products_image_name;
       } else {
         $products_image_name = $products_previous_image;
       }
@@ -360,7 +359,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo tep_get_products_name($pInfo->id, $languages[$i]['id']) . ' (' . $languages[$i]['name'] . ')<br>&nbsp;@ ' . tep_currency_format($pInfo->price); ?>&nbsp;</td>
-            <td align="right"><?php echo tep_image(DIR_WS_CATALOG . $pInfo->manufacturers_image, $pInfo->manufacturer, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->manufacturers_image, $pInfo->manufacturer, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -370,7 +369,7 @@
       <tr>
         <td class="main"><br>
 <?php
-        echo tep_image(DIR_WS_CATALOG . $products_image_name, tep_get_products_name($pInfo->id, $languages[$i]['id']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') .
+        echo tep_image(DIR_WS_CATALOG_IMAGES . $products_image_name, tep_get_products_name($pInfo->id, $languages[$i]['id']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') .
              ' (' . $languages[$i]['name'] . ')<br>' . tep_get_products_description($pInfo->id, $languages[$i]['id']) . '<br><br>';
 ?></td>
       </tr>
@@ -410,7 +409,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo $products_name[$languages[$i]['id']] . ' (' . $languages[$i]['name'] . ')<br>@ ' . tep_currency_format($pInfo->price); ?>&nbsp;</td>
-            <td align="right"><?php echo tep_image(DIR_WS_CATALOG . $pInfo->manufacturers_image, $pInfo->manufacturer, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->manufacturers_image, $pInfo->manufacturer, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -418,7 +417,7 @@
         <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td class="main"><br><?php echo tep_image(DIR_WS_CATALOG . $products_image_name, $products_name[$languages[$i]['id']], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . ' (' . $languages[$i]['name'] . ')<br>' . $products_description[$languages[$i]['id']]; ?></td>
+        <td class="main"><br><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $products_image_name, $products_name[$languages[$i]['id']], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . ' (' . $languages[$i]['name'] . ')<br>' . $products_description[$languages[$i]['id']]; ?></td>
       </tr>
 <?php
         if ($pInfo->url) {

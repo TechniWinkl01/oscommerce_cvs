@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.28 2001/09/22 15:21:56 hpdl Exp $
+  $Id: reviews.php,v 1.29 2001/11/29 20:49:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -133,7 +133,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main">&nbsp;<b><?php echo ENTRY_PRODUCT; ?></b>&nbsp;<?php echo $rInfo->products_name; ?>&nbsp;<br>&nbsp;<b><?php echo ENTRY_FROM; ?></b>&nbsp;<?php echo $rInfo->author; ?>&nbsp;<br>&nbsp;<b><?php echo ENTRY_DATE; ?></b>&nbsp;<?php echo tep_date_short($rInfo->date_added); ?>&nbsp;</td>
-            <td align="right"><br><?php echo tep_image(DIR_WS_CATALOG . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
+            <td align="right"><br><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
         </table>
       </tr>

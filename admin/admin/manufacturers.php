@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.34 2001/11/13 15:49:01 dgw_ Exp $
+  $Id: manufacturers.php,v 1.35 2001/11/29 20:49:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@
     if ($HTTP_GET_VARS['action'] == 'save') {
       tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       if ( ($manufacturers_image != 'none') && ($manufacturers_image != '') ) {
-        tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+        tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
         if (file_exists($image_location)) @unlink($image_location);
         copy($manufacturers_image, $image_location);
@@ -50,8 +50,8 @@
           tep_db_query("delete from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
 
 // delete product image
-          if (file_exists(DIR_FS_CATALOG . $products['products_image'])) {
-            @unlink(DIR_FS_CATALOG . $products['products_image']);
+          if (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products['products_image'])) {
+            @unlink(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products['products_image']);
           }
         }
         tep_db_query("delete from " . TABLE_PRODUCTS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
@@ -66,7 +66,7 @@
       if (tep_db_query("insert into " . TABLE_MANUFACTURERS . " (manufacturers_name) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "')")) {
         $manufacturers_id = tep_db_insert_id();
         if ( ($manufacturers_image != 'none') && ($manufacturers_image != '') ) {
-          if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $manufacturers_id . "'")) {
+          if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image_name . "' where manufacturers_id = '" . $manufacturers_id . "'")) {
             $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
             if (file_exists($image_location)) @unlink($image_location);
             copy($manufacturers_image, $image_location);

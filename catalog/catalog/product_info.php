@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.71 2001/11/22 21:48:42 dgw_ Exp $
+  $Id: product_info.php,v 1.72 2001/11/29 20:49:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -113,7 +113,7 @@ function popupImageWindow(url) {
           <tr>
             <td class="main"><table border="0" cellspacing="0" cellpadding="2" align="right">
               <tr>
-                <td class="main"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a></td>
+                <td class="main"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a></td>
               </tr>
               <tr>
                 <td align="center" class="smallText"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>

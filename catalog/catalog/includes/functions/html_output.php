@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.18 2001/11/24 16:34:24 dgw_ Exp $
+  $Id: html_output.php,v 1.19 2001/11/29 20:49:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -73,7 +73,7 @@
 ////
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
-    if ( (($src == '') || ($src == 'images/')) && (!IMAGE_REQUIRED) ) {
+    if ( ($src == '') && (!IMAGE_REQUIRED) ) {
       return;
     }
 

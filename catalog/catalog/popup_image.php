@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.9 2001/09/20 09:52:13 mbs Exp $
+  $Id: popup_image.php,v 1.10 2001/11/29 20:49:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,6 +28,6 @@ function resize() {
 //--></script>
 </head>
 <body onload="resize();">
-<?php echo tep_image($products_values['products_image'], $products_values['products_name']); ?>
+<?php echo tep_image(DIR_WS_IMAGES . $products_values['products_image'], $products_values['products_name']); ?>
 </body>
 </html>

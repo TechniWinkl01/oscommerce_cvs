@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.18 2001/11/20 20:56:02 hpdl Exp $
+  $Id: update.php,v 1.19 2001/11/29 20:49:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -162,6 +162,7 @@ function changeText(where, what) {
 <span id="configuration"><span id="configurationMarker">-</span> Configuration</span><br>
 <span id="currencies"><span id="currenciesMarker">-</span> Currencies</span><br>
 <span id="customers"><span id="customersMarker">-</span> Customers</span><br>
+<span id="images"><span id="imagesMarker">-</span> Images</span><br>
 <span id="manufacturers"><span id="manufacturersMarker">-</span> Manufacturers</span><br>
 <span id="orders"><span id="ordersMarker">-</span> Orders</span><br>
 <span id="products"><span id="productsMarker">-</span> Products</span><br>
@@ -404,6 +405,38 @@ changeText('statusText', 'Updating Customers');
 changeStyle('customers', 'normal');
 changeText('customersMarker', '*');
 changeText('statusText', 'Updating Customers .. done!');
+
+changeStyle('images', 'bold');
+changeStyle('imagesMarker', '?');
+changeStyle('statusText', 'Updating Images');
+//-->
+
+<?php
+  flush();
+
+// categories
+  $categories_query = tep_db_query("select categories_id, categories_image from categories where left(categories_image, 7) = 'images/'");
+  while ($categories = tep_db_fetch_array($categories_query)) {
+    tep_db_query("update categories set categories_image = substring('" . $categories['categories_image'] . "', 8) where categories_id = '" . $categories['categories_id'] . "'");
+  }
+
+// manufacturers
+  $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_image from manufacturers where left(manufacturers_image, 7) = 'images/'");
+  while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
+    tep_db_query("update manufacturers set manufacturers_image = substring('" . $manufacturers['manufacturers_image'] . "', 8) where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
+  }
+
+// products
+  $products_query = tep_db_query("select products_id, products_image from products where left(products_image, 7) = 'images/'");
+  while ($products = tep_db_fetch_array($products_query)) {
+    tep_db_query("update products set products_image = substring('" . $products['products_image'] . "', 8) where products_id = '" . $products['products_id'] . "'");
+  }
+?>
+
+<script language="javascript"><!--
+changeStyle('images', 'normal');
+changeText('imagesMarker', '*');
+changeText('statusText', 'Updating Images .. done!');
 
 changeStyle('manufacturers', 'bold');
 changeText('manufacturersMarker', '?');

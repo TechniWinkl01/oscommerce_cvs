@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.76 2001/11/25 22:57:18 dgw_ Exp $
+  $Id: general.php,v 1.77 2001/11/29 20:49:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -290,9 +290,9 @@
   }
 
   function tep_info_image($image_source, $image_alt) {
-    $image_size = @getimagesize(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . $image_source);
+    $image_size = @getimagesize(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $image_source);
     if ($image_size) {
-      $image = tep_image(DIR_WS_CATALOG . $image_source, $image_alt, $image_size[0], $image_size[1]);
+      $image = tep_image(DIR_WS_CATALOG_IMAGES . $image_source, $image_alt, $image_size[0], $image_size[1]);
     } else {
       $image = TEXT_IMAGE_NONEXISTENT;
     }
