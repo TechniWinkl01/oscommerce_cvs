@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.169 2004/08/18 11:49:36 hpdl Exp $
+  $Id: application_top.php,v 1.170 2004/08/25 19:59:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
   require('includes/filenames.php');
 
 // include the list of project database tables
-  require('includes/database_tables.php');
+  require('../includes/database_tables.php');
 
 // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
