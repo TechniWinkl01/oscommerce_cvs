@@ -171,3 +171,10 @@ CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA {
     font-family : Verdana, Arial, sans-serif;
     font-size : 11px;
 }
+
+SPAN.greetUser {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 12px;
+    color : #f0a480;
+    font-weight : bold;
+}

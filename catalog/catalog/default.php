@@ -341,7 +341,10 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><? echo TEXT_MAIN; ?></td>
+            <td class="main"><? echo tep_customer_greeting(); ?></td>
+          </tr>
+          <tr>
+            <td class="main"><br><? echo TEXT_MAIN; ?></td>
           </tr>
 <?
   $new_products_category_id = '0'; $include_file = DIR_WS_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');

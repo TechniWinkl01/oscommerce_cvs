@@ -1449,4 +1449,25 @@ function tep_address_summary($customers_id, $address_id) {
   function tep_update_banner_count($banner_id) {
     tep_db_query("update banners_history set banners_clicked = banners_clicked + 1 where banners_id = '" . $banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
   }
+
+  function tep_customer_greeting() {
+    global $HTTP_COOKIE_VARS, $customer_id, $customer_first_name;
+
+    if ($HTTP_COOKIE_VARS['first_name']) {
+      $first_name = $HTTP_COOKIE_VARS['first_name'];
+    } elseif ($customer_first_name) {
+      $first_name = $customer_first_name;
+    }
+
+    if ($first_name) {
+      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $first_name);
+      if (!$customer_id) {
+        $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name);
+      }
+    } else {
+      $greeting_string = TEXT_GREETING_GUEST;
+    }
+
+    return $greeting_string;
+  }
 ?>

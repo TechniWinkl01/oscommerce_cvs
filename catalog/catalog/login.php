@@ -1,9 +1,10 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $check_email = tep_db_query("select customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+
     if ($user == 'new') {
-      if (!tep_db_num_rows($check_email)) {
+      if (!tep_db_num_rows($check_customer_query)) {
         header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
         tep_exit();
       } else {
@@ -11,39 +12,42 @@
         tep_exit();
       }
     }
-    $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
-    if (tep_db_num_rows($check_customer)) {
-      $check_customer_values = tep_db_fetch_array($check_customer);
+
+    if (tep_db_num_rows($check_customer_query)) {
+      $check_customer = tep_db_fetch_array($check_customer_query);
       // Check that password is good
-      $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer_values['customers_password']);
+      $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer['customers_password']);
       if ($pass_ok != true) {
-	  if (@$HTTP_POST_VARS['origin']) {
-            if (@$HTTP_POST_VARS['products_id']) {
-              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-              tep_exit();
-            } elseif (@$HTTP_POST_VARS['order_id']) {
-              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-              tep_exit();
-            } else {
-              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-              tep_exit();
-            }
-	  } else {
-            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
+        if (@$HTTP_POST_VARS['origin']) {
+          if (@$HTTP_POST_VARS['products_id']) {
+            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
             tep_exit();
-	  }
-	  tep_exit();
+          } elseif (@$HTTP_POST_VARS['order_id']) {
+            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
+            tep_exit();
+          } else {
+            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
+            tep_exit();
+          }
+        } else {
+          header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
+          tep_exit();
+        }
       }
- 
-      $customer_id = $check_customer_values['customers_id'];
+
+      $customer_id = $check_customer['customers_id'];
+      $customer_first_name = $check_customer['customers_firstname'];
       tep_session_register('customer_id');
+      tep_session_register('customer_first_name');
 
       if ($HTTP_POST_VARS['setcookie'] == '1') {
         setcookie('email_address', $HTTP_POST_VARS['email_address'], time()+2592000);
         setcookie('password', $HTTP_POST_VARS['password'], time()+2592000);
-      } else {
+        setcookie('first_name', $customer_first_name, time()+2592000);
+      } elseif ( ($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password']) ) {
         setcookie('email_address', '');
         setcookie('password', '');
+        setcookie('first_name', '');
       }
 
       $date_now = date('Ymd');
@@ -93,9 +97,9 @@
       }
     }
   } else {
+   $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN; include(DIR_WS_INCLUDES . 'include_once.php');
+   $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
 ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
