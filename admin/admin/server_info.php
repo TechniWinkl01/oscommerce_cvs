@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: server_info.php,v 1.6 2003/06/30 13:13:49 dgw_ Exp $
+  $Id: server_info.php,v 1.7 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   $system = tep_get_system_information();
 ?>
@@ -111,7 +113,7 @@ hr {display: none;}
     $phpinfo = str_replace('border: 1px', '', $phpinfo);
     ereg('<body>(.*)</body>', $phpinfo, $regs);
     echo '<table border="1" cellpadding="3" width="600" style="border: 0px; border-color: #000000;">' .
-         '  <tr><td><a href="http://www.oscommerce.com"><img border="0" src="images/oscommerce.gif" alt=" osCommerce " /></a><h1 class="p"> ' . PROJECT_VERSION . '</h1></td>' . 
+         '  <tr><td><a href="http://www.oscommerce.com"><img border="0" src="images/oscommerce.gif" alt=" osCommerce " /></a><h1 class="p"> ' . PROJECT_VERSION . '</h1></td>' .
          '  </tr>' .
          '</table>';
     echo $regs[1];

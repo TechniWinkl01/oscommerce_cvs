@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.36 2004/04/08 06:18:33 hpdl Exp $
+  $Id: whos_online.php,v 1.37 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,6 +13,8 @@
   $xx_mins_ago = (time() - 900);
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.43 2003/09/10 17:39:24 project3000 Exp $
+  $Id: file_manager.php,v 1.44 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   if (!tep_session_is_registered('current_path')) {
     $current_path = DIR_FS_DOCUMENT_ROOT;

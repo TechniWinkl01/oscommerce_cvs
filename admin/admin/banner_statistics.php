@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_statistics.php,v 1.5 2003/06/20 00:30:15 hpdl Exp $
+  $Id: banner_statistics.php,v 1.6 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   $type = (isset($HTTP_GET_VARS['type']) ? $HTTP_GET_VARS['type'] : '');
 

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: index.php,v 1.20 2004/04/08 02:42:56 hpdl Exp $
+  $Id: index.php,v 1.21 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,54 +14,54 @@
 
   $cat = array(array('title' => BOX_HEADING_CONFIGURATION,
                      'image' => 'configuration.gif',
-                     'href' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=1'),
-                     'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=1')),
-                                         array('title' => BOX_CONFIGURATION_LOGGING, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=10')),
-                                         array('title' => BOX_CONFIGURATION_CACHE, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=11')))),
+                     'href' => tep_href_link(FILENAME_CONFIGURATION, 'gID=1'),
+                     'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'gID=1')),
+                                         array('title' => BOX_CONFIGURATION_LOGGING, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'gID=10')),
+                                         array('title' => BOX_CONFIGURATION_CACHE, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'gID=11')))),
                array('title' => BOX_HEADING_MODULES,
                      'image' => 'modules.gif',
-                     'href' => tep_href_link(FILENAME_MODULES, 'selected_box=modules&set=payment'),
-                     'children' => array(array('title' => BOX_MODULES_PAYMENT, 'link' => tep_href_link(FILENAME_MODULES, 'selected_box=modules&set=payment')),
-                                         array('title' => BOX_MODULES_SHIPPING, 'link' => tep_href_link(FILENAME_MODULES, 'selected_box=modules&set=shipping')))),
+                     'href' => tep_href_link(FILENAME_MODULES, 'set=payment'),
+                     'children' => array(array('title' => BOX_MODULES_PAYMENT, 'link' => tep_href_link(FILENAME_MODULES, 'set=payment')),
+                                         array('title' => BOX_MODULES_SHIPPING, 'link' => tep_href_link(FILENAME_MODULES, 'set=shipping')))),
                array('title' => BOX_HEADING_CATALOG,
                      'image' => 'catalog.gif',
-                     'href' => tep_href_link(FILENAME_CATEGORIES, 'selected_box=catalog'),
-                     'children' => array(array('title' => CATALOG_CONTENTS, 'link' => tep_href_link(FILENAME_CATEGORIES, 'selected_box=catalog')),
-                                         array('title' => BOX_CATALOG_MANUFACTURERS, 'link' => tep_href_link(FILENAME_MANUFACTURERS, 'selected_box=catalog')))),
+                     'href' => tep_href_link(FILENAME_CATEGORIES),
+                     'children' => array(array('title' => CATALOG_CONTENTS, 'link' => tep_href_link(FILENAME_CATEGORIES)),
+                                         array('title' => BOX_CATALOG_MANUFACTURERS, 'link' => tep_href_link(FILENAME_MANUFACTURERS)))),
                array('title' => BOX_HEADING_LOCATION_AND_TAXES,
                      'image' => 'location.gif',
-                     'href' => tep_href_link(FILENAME_COUNTRIES, 'selected_box=taxes'),
-                     'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => tep_href_link(FILENAME_COUNTRIES, 'selected_box=taxes')),
-                                         array('title' => BOX_TAXES_GEO_ZONES, 'link' => tep_href_link(FILENAME_GEO_ZONES, 'selected_box=taxes')))),
+                     'href' => tep_href_link(FILENAME_COUNTRIES),
+                     'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => tep_href_link(FILENAME_COUNTRIES)),
+                                         array('title' => BOX_TAXES_GEO_ZONES, 'link' => tep_href_link(FILENAME_GEO_ZONES)))),
                array('title' => BOX_HEADING_CUSTOMERS,
                      'image' => 'customers.gif',
-                     'href' => tep_href_link(FILENAME_CUSTOMERS, 'selected_box=customers'),
-                     'children' => array(array('title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => tep_href_link(FILENAME_CUSTOMERS, 'selected_box=customers')),
-                                         array('title' => BOX_CUSTOMERS_ORDERS, 'link' => tep_href_link(FILENAME_ORDERS, 'selected_box=customers')))),
+                     'href' => tep_href_link(FILENAME_CUSTOMERS),
+                     'children' => array(array('title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => tep_href_link(FILENAME_CUSTOMERS)),
+                                         array('title' => BOX_CUSTOMERS_ORDERS, 'link' => tep_href_link(FILENAME_ORDERS)))),
                array('title' => BOX_HEADING_LOCALIZATION,
                      'image' => 'localization.gif',
-                     'href' => tep_href_link(FILENAME_CURRENCIES, 'selected_box=localization'),
-                     'children' => array(array('title' => BOX_LOCALIZATION_CURRENCIES, 'link' => tep_href_link(FILENAME_CURRENCIES, 'selected_box=localization')),
-                                         array('title' => BOX_LOCALIZATION_LANGUAGES, 'link' => tep_href_link(FILENAME_LANGUAGES, 'selected_box=localization')))),
+                     'href' => tep_href_link(FILENAME_CURRENCIES),
+                     'children' => array(array('title' => BOX_LOCALIZATION_CURRENCIES, 'link' => tep_href_link(FILENAME_CURRENCIES)),
+                                         array('title' => BOX_LOCALIZATION_LANGUAGES, 'link' => tep_href_link(FILENAME_LANGUAGES)))),
                array('title' => BOX_HEADING_REPORTS,
                      'image' => 'reports.gif',
-                     'href' => tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports'),
-                     'children' => array(array('title' => REPORTS_PRODUCTS, 'link' => tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports')),
-                                         array('title' => REPORTS_ORDERS, 'link' => tep_href_link(FILENAME_STATS_CUSTOMERS, 'selected_box=reports')))),
+                     'href' => tep_href_link(FILENAME_STATISTICS),
+                     'children' => array(array('title' => BOX_REPORTS_STATISTICS, 'link' => tep_href_link(FILENAME_STATISTICS)))),
                array('title' => BOX_HEADING_TOOLS,
                      'image' => 'tools.gif',
-                     'href' => tep_href_link(FILENAME_BACKUP, 'selected_box=tools'),
-                     'children' => array(array('title' => TOOLS_BACKUP, 'link' => tep_href_link(FILENAME_BACKUP, 'selected_box=tools')),
-                                         array('title' => TOOLS_BANNERS, 'link' => tep_href_link(FILENAME_BANNER_MANAGER, 'selected_box=tools')),
-                                         array('title' => TOOLS_FILES, 'link' => tep_href_link(FILENAME_FILE_MANAGER, 'selected_box=tools')))));
+                     'href' => tep_href_link(FILENAME_BACKUP),
+                     'children' => array(array('title' => TOOLS_BACKUP, 'link' => tep_href_link(FILENAME_BACKUP)),
+                                         array('title' => TOOLS_BANNERS, 'link' => tep_href_link(FILENAME_BANNER_MANAGER)),
+                                         array('title' => TOOLS_FILES, 'link' => tep_href_link(FILENAME_FILE_MANAGER)))));
 
   $languages = tep_get_languages();
   $languages_array = array();
   $languages_selected = DEFAULT_LANGUAGE;
-  for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
+  for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
     $languages_array[] = array('id' => $languages[$i]['code'],
                                'text' => $languages[$i]['name']);
-    if ($languages[$i]['directory'] == $language) {
+
+    if ($languages[$i]['directory'] == $osC_Session->value('language')) {
       $languages_selected = $languages[$i]['code'];
     }
   }
@@ -127,11 +127,18 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   echo '<br>';
 
   $orders_contents = '';
-  $orders_status_query = tep_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "'");
-  while ($orders_status = tep_db_fetch_array($orders_status_query)) {
-    $orders_pending_query = tep_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . $orders_status['orders_status_id'] . "'");
-    $orders_pending = tep_db_fetch_array($orders_pending_query);
-    $orders_contents .= '<a href="' . tep_href_link(FILENAME_ORDERS, 'selected_box=customers&status=' . $orders_status['orders_status_id']) . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br>';
+  $Qos = $osC_Database->query('select orders_status_name, orders_status_id from :table_orders_status where language_id = :language_id');
+  $Qos->bindRaw(':table_orders_status', TABLE_ORDERS_STATUS);
+  $Qos->bindInt(':language_id', $osC_Session->value('languages_id'));
+  $Qos->execute();
+
+  while ($Qos->next()) {
+    $Qop = $osC_Database->query('select count(*) as count from :table_orders where orders_status = :orders_status');
+    $Qop->bindRaw(':table_orders', TABLE_ORDERS);
+    $Qop->bindInt(':orders_status', $Qos->valueInt('orders_status_id'));
+    $Qop->execute();
+
+    $orders_contents .= '<a href="' . tep_href_link(FILENAME_ORDERS, 'status=' . $Qos->valueInt('orders_status_id')) . '">' . $Qos->value('orders_status_name') . '</a>: ' . $Qop->value('count') . '<br>';
   }
   $orders_contents = substr($orders_contents, 0, -4);
 
@@ -149,12 +156,17 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 
   echo '<br>';
 
-  $customers_query = tep_db_query("select count(*) as count from " . TABLE_CUSTOMERS);
-  $customers = tep_db_fetch_array($customers_query);
-  $products_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS . " where products_status = '1'");
-  $products = tep_db_fetch_array($products_query);
-  $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS);
-  $reviews = tep_db_fetch_array($reviews_query);
+  $Qcustomers = $osC_Database->query('select count(*) as count from :table_customers');
+  $Qcustomers->bindRaw(':table_customers', TABLE_CUSTOMERS);
+  $Qcustomers->execute();
+
+  $Qproducts = $osC_Database->query('select count(*) as count from :table_products');
+  $Qproducts->bindRaw(':table_products', TABLE_PRODUCTS);
+  $Qproducts->execute();
+
+  $Qreviews = $osC_Database->query('select count(*) as count from :table_reviews');
+  $Qreviews->bindRaw(':table_reviews', TABLE_REVIEWS);
+  $Qreviews->execute();
 
   $heading = array();
   $contents = array();
@@ -163,9 +175,9 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                      'text'  => BOX_TITLE_STATISTICS);
 
   $contents[] = array('params' => 'class="infoBox"',
-                      'text'  => BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br>' .
-                                 BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br>' .
-                                 BOX_ENTRY_REVIEWS . ' ' . $reviews['count']);
+                      'text'  => '<a href="' . tep_href_link(FILENAME_CUSTOMERS) . '">' . BOX_ENTRY_CUSTOMERS . '</a>: ' . $Qcustomers->value('count') . '<br>' .
+                                 '<a href="' . tep_href_link(FILENAME_CATEGORIES) . '">' . BOX_ENTRY_PRODUCTS . '</a>: ' . $Qproducts->value('count') . '<br>' .
+                                 '<a href="' . tep_href_link(FILENAME_REVIEWS) . '">' . BOX_ENTRY_REVIEWS . '</a>: ' . $Qreviews->value('count'));
 
   $box = new box;
   echo $box->menuBox($heading, $contents);
@@ -174,10 +186,9 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 
   $contents = array();
 
-  if (getenv('HTTPS') == 'on') {
-    $size = ((getenv('SSL_CIPHER_ALGKEYSIZE')) ? getenv('SSL_CIPHER_ALGKEYSIZE') . '-bit' : '<i>' . BOX_CONNECTION_UNKNOWN . '</i>');
+  if ($request_type == 'SSL') {
     $contents[] = array('params' => 'class="infoBox"',
-                        'text' => tep_image(DIR_WS_ICONS . 'locked.gif', ICON_LOCKED, '', '', 'align="right"') . sprintf(BOX_CONNECTION_PROTECTED, $size));
+                        'text' => tep_image(DIR_WS_ICONS . 'locked.gif', ICON_LOCKED, '', '', 'align="right"') . sprintf(BOX_CONNECTION_PROTECTED, (isset($_SERVER['SSL_CIPHER_ALGKEYSIZE']) ? $_SERVER['SSL_CIPHER_ALGKEYSIZE'] . '-bit' : '<i>' . BOX_CONNECTION_UNKNOWN . '</i>')));
   } else {
     $contents[] = array('params' => 'class="infoBox"',
                         'text' => tep_image(DIR_WS_ICONS . 'unlocked.gif', ICON_UNLOCKED, '', '', 'align="right"') . BOX_CONNECTION_UNPROTECTED);
@@ -207,10 +218,10 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
       echo '                  <tr>' . "\n";
     }
 
-    echo '                    <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
+    echo '                    <td valign="top"><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
          '                      <tr>' . "\n" .
-         '                        <td><a href="' . $cat[$i]['href'] . '">' . tep_image(DIR_WS_IMAGES . 'categories/' . $cat[$i]['image'], $cat[$i]['title'], '32', '32') . '</a></td>' . "\n" .
-         '                        <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
+         '                        <td valign="top"><a href="' . $cat[$i]['href'] . '">' . tep_image(DIR_WS_IMAGES . 'categories/' . $cat[$i]['image'], $cat[$i]['title'], '32', '32') . '</a></td>' . "\n" .
+         '                        <td valign="top"><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
          '                          <tr>' . "\n" .
          '                            <td class="main"><a href="' . $cat[$i]['href'] . '" class="main">' . $cat[$i]['title'] . '</a></td>' . "\n" .
          '                          </tr>' . "\n" .
@@ -242,7 +253,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         </table></td>
       </tr>
       <tr>
-        <td><?php require(DIR_WS_INCLUDES . 'footer.php'); ?></td>
+        <td><?php require('includes/footer.php'); ?></td>
       </tr>
     </table></td>
   </tr>

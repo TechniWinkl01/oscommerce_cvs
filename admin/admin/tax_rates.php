@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_rates.php,v 1.30 2003/06/29 22:50:52 hpdl Exp $
+  $Id: tax_rates.php,v 1.31 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'taxes';
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.53 2004/02/14 19:32:58 mevans Exp $
+  $Id: products_attributes.php,v 1.54 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,9 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'catalog';
+
   $languages = tep_get_languages();
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
@@ -447,7 +450,7 @@ function go_option() {
 <?php
     }
 ?>
-              	</table></td>
+                </table></td>
               </tr>
 <?php
   } else {
@@ -541,11 +544,11 @@ function go_option() {
         $options = tep_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . (int)$languages_id . "' order by products_options_name");
         while ($options_values = tep_db_fetch_array($options)) {
           echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '"';
-          if ($values_values['products_options_id'] == $options_values['products_options_id']) { 
+          if ($values_values['products_options_id'] == $options_values['products_options_id']) {
             echo ' selected';
           }
           echo '>' . $options_values['products_options_name'] . '</option>';
-        } 
+        }
 ?>
                 </select>&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
@@ -607,8 +610,8 @@ function go_option() {
           </tr>
         </table></td>
 <!-- option value eof //-->
-      </tr> 
-<!-- products_attributes //-->  
+      </tr>
+<!-- products_attributes //-->
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -711,7 +714,7 @@ function go_option() {
         } else {
           echo "\n" . '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
         }
-      } 
+      }
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="options_id">
@@ -723,7 +726,7 @@ function go_option() {
         } else {
           echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
         }
-      } 
+      }
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">
@@ -735,16 +738,16 @@ function go_option() {
         } else {
           echo "\n" . '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '">' . $values_values['products_options_values_name'] . '</option>';
         }
-      } 
-?>        
+      }
+?>
             </select>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $attributes_values['options_values_price']; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image_button('button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;</td>
 <?php
       if (DOWNLOAD_ENABLED == 'true') {
-        $download_query_raw ="select products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount 
-                              from " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " 
+        $download_query_raw ="select products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
+                              from " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . "
                               where products_attributes_id='" . $attributes_values['products_attributes_id'] . "'";
         $download_query = tep_db_query($download_query_raw);
         if (tep_db_num_rows($download_query) > 0) {
@@ -810,12 +813,12 @@ function go_option() {
           </tr>
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-      	    <td class="smallText">&nbsp;<select name="products_id">
+            <td class="smallText">&nbsp;<select name="products_id">
 <?php
     $products = tep_db_query("select p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "' order by pd.products_name");
     while ($products_values = tep_db_fetch_array($products)) {
       echo '<option name="' . $products_values['products_name'] . '" value="' . $products_values['products_id'] . '">' . $products_values['products_name'] . '</option>';
-    } 
+    }
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="options_id">
@@ -823,7 +826,7 @@ function go_option() {
     $options = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $languages_id . "' order by products_options_name");
     while ($options_values = tep_db_fetch_array($options)) {
       echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
-    } 
+    }
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">
@@ -831,7 +834,7 @@ function go_option() {
     $values = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . $languages_id . "' order by products_options_values_name");
     while ($values_values = tep_db_fetch_array($values)) {
       echo '<option name="' . $values_values['products_options_values_name'] . '" value="' . $values_values['products_options_values_id'] . '">' . $values_values['products_options_values_name'] . '</option>';
-    } 
+    }
 ?>
             </select>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>

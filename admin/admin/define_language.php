@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.16 2003/07/30 08:14:30 dgw_ Exp $
+  $Id: define_language.php,v 1.17 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   if (!isset($HTTP_GET_VARS['lngdir'])) $HTTP_GET_VARS['lngdir'] = $language;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.25 2004/04/09 02:06:45 hpdl Exp $
+  $Id: cache.php,v 1.26 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 

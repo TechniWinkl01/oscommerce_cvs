@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.7 2003/06/20 00:40:23 hpdl Exp $
+  $Id: popup_image.php,v 1.8 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   reset($HTTP_GET_VARS);
   while (list($key, ) = each($HTTP_GET_VARS)) {

@@ -1,25 +1,24 @@
 <?php
 /*
-  $Id: invoice.php,v 1.6 2003/06/20 00:37:30 hpdl Exp $
+  $Id: invoice.php,v 1.7 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  require(DIR_WS_CLASSES . 'currencies.php');
-  $currencies = new currencies();
+  $selected_box = 'customers';
 
-  $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
-  $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . (int)$oID . "'");
+  require('../includes/classes/currencies.php');
+  $osC_Currencies = new osC_Currencies();
 
-  include(DIR_WS_CLASSES . 'order.php');
-  $order = new order($oID);
+  require('includes/classes/order.php');
+  $osC_Order = new osC_Order($_GET['oID']);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -51,16 +50,16 @@
             <td class="main"><b><?php echo ENTRY_SOLD_TO; ?></b></td>
           </tr>
           <tr>
-            <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '', '<br>'); ?></td>
+            <td class="main"><?php echo tep_address_format($osC_Order->getBilling('format_id'), $osC_Order->getBilling(), 1, '', '<br>'); ?></td>
           </tr>
           <tr>
             <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo $order->customer['telephone']; ?></td>
+            <td class="main"><?php echo $osC_Order->getCustomer('telephone'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo '<a href="mailto:' . $order->customer['email_address'] . '"><u>' . $order->customer['email_address'] . '</u></a>'; ?></td>
+            <td class="main"><?php echo '<a href="mailto:' . $osC_Order->getCustomer('email_address') . '"><u>' . $osC_Order->getCustomer('email_address') . '</u></a>'; ?></td>
           </tr>
         </table></td>
         <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -68,7 +67,7 @@
             <td class="main"><b><?php echo ENTRY_SHIP_TO; ?></b></td>
           </tr>
           <tr>
-            <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br>'); ?></td>
+            <td class="main"><?php echo tep_address_format($osC_Order->getDelivery('format_id'), $osC_Order->getDelivery(), 1, '', '<br>'); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -81,7 +80,7 @@
     <td><table border="0" cellspacing="0" cellpadding="2">
       <tr>
         <td class="main"><b><?php echo ENTRY_PAYMENT_METHOD; ?></b></td>
-        <td class="main"><?php echo $order->info['payment_method']; ?></td>
+        <td class="main"><?php echo $osC_Order->getPaymentMethod(); ?></td>
       </tr>
     </table></td>
   </tr>
@@ -100,36 +99,36 @@
         <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
       </tr>
 <?php
-    for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
+    foreach ($osC_Order->getProducts() as $product) {
       echo '      <tr class="dataTableRow">' . "\n" .
-           '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
-           '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
+           '        <td class="dataTableContent" valign="top" align="right">' . $product['quantity'] . '&nbsp;x</td>' . "\n" .
+           '        <td class="dataTableContent" valign="top">' . $product['name'];
 
-      if (isset($order->products[$i]['attributes']) && (($k = sizeof($order->products[$i]['attributes'])) > 0)) {
-        for ($j = 0; $j < $k; $j++) {
-          echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
+      if (isset($product['attributes']) && (sizeof($product['attributes']) > 0)) {
+        foreach ($product['attributes'] as $attribute) {
+          echo '<br><nobr><small>&nbsp;<i> - ' . $attribute['option'] . ': ' . $attribute['value'];
+          if ($attribute['price'] != '0') echo ' (' . $attribute['prefix'] . $osC_Currencies->format($attribute['price'] * $product['quantity'], true, $osC_Order->getCurrency(), $osC_Order->getCurrencyValue()) . ')';
           echo '</i></small></nobr>';
         }
       }
 
       echo '        </td>' . "\n" .
-           '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n";
-      echo '        <td class="dataTableContent" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
+           '        <td class="dataTableContent" valign="top">' . $product['model'] . '</td>' . "\n";
+      echo '        <td class="dataTableContent" align="right" valign="top">' . tep_display_tax_value($product['tax']) . '%</td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top"><b>' . $osC_Currencies->format($product['final_price'], true, $osC_Order->getCurrency(), $osC_Order->getCurrencyValue()) . '</b></td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top"><b>' . $osC_Currencies->format(tep_add_tax($product['final_price'], $product['tax']), true, $osC_Order->getCurrency(), $osC_Order->getCurrencyValue()) . '</b></td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top"><b>' . $osC_Currencies->format($product['final_price'] * $product['quantity'], true, $osC_Order->getCurrency(), $osC_Order->getCurrencyValue()) . '</b></td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top"><b>' . $osC_Currencies->format(tep_add_tax($product['final_price'], $product['tax']) * $product['quantity'], true, $osC_Order->getCurrency(), $osC_Order->getCurrencyValue()) . '</b></td>' . "\n";
       echo '      </tr>' . "\n";
     }
 ?>
       <tr>
         <td align="right" colspan="8"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-  for ($i = 0, $n = sizeof($order->totals); $i < $n; $i++) {
+  foreach ($osC_Order->getTotals() as $total) {
     echo '          <tr>' . "\n" .
-         '            <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
-         '            <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .
+         '            <td align="right" class="smallText">' . $total['title'] . '</td>' . "\n" .
+         '            <td align="right" class="smallText">' . $total['text'] . '</td>' . "\n" .
          '          </tr>' . "\n";
   }
 ?>

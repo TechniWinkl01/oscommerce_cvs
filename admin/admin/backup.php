@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.61 2004/02/14 18:00:34 mevans Exp $
+  $Id: backup.php,v 1.62 2004/07/22 23:33:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $selected_box = 'tools';
 
   $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 
