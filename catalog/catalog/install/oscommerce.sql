@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.45 2002/05/21 20:26:09 hpdl Exp $
+# $Id: oscommerce.sql,v 1.46 2002/05/23 17:01:18 thomasamoulton Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -1379,7 +1379,7 @@ INSERT INTO zones VALUES (52,223,'PR','Puerto Rico');
 INSERT INTO zones VALUES (53,223,'RI','Rhode Island');
 INSERT INTO zones VALUES (54,223,'SC','South Carolina');
 INSERT INTO zones VALUES (55,223,'SD','South Dakota');
-INSERT INTO zones VALUES (56,223,'TN','Tenessee');
+INSERT INTO zones VALUES (56,223,'TN','Tennessee');
 INSERT INTO zones VALUES (57,223,'TX','Texas');
 INSERT INTO zones VALUES (58,223,'UT','Utah');
 INSERT INTO zones VALUES (59,223,'VT','Vermont');
