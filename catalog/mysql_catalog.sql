@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.87 2001/05/20 21:00:43 jwildeboer Exp $
+# $Id: mysql_catalog.sql,v 1.88 2001/05/20 21:26:13 jwildeboer Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -72,7 +72,7 @@ CREATE TABLE categories_description (
    language_id int(5) DEFAULT '1' NOT NULL,
    categories_name varchar(32) NOT NULL,
    PRIMARY KEY (categories_id, language_id),
-   KEY categories_name (categories_name)
+   KEY idx_categories_name (categories_name)
 );
 
 CREATE TABLE configuration (
@@ -393,7 +393,7 @@ INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city (
 
 INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
 
-NSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1');
+INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1');
 INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2');
 INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3');
 INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0');
@@ -996,5 +996,6 @@ INSERT INTO zones VALUES (75,38,'PE','Prince Edward Island');
 INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
+
 
 
