@@ -412,7 +412,7 @@
     }
 
     $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
-    include(DIR_WS_INCLUDES . 'mail/default.php');
+    tep_mail($firstname, $lastname, $email_address, EMAIL_SUBJECT, $email_text, '', EMAIL_FROM, '');
     
     if ($HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['connection'] == 'SSL') {
