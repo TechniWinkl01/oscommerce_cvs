@@ -2,13 +2,13 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into zones (zone_country_id, zone_code, zone_name) values ('" . $HTTP_POST_VARS['zone_country_id'] . "', '" . $HTTP_POST_VARS['zone_code'] . "', '" . $HTTP_POST_VARS['zone_name'] . "')");
+      tep_db_query("insert into " . TABLE_ZONES . " (zone_country_id, zone_code, zone_name) values ('" . $HTTP_POST_VARS['zone_country_id'] . "', '" . $HTTP_POST_VARS['zone_code'] . "', '" . $HTTP_POST_VARS['zone_name'] . "')");
       header('Location: ' . tep_href_link(FILENAME_ZONES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update zones set zone_country_id = '" . $HTTP_POST_VARS['zone_country_id'] . "', zone_code = '" . $HTTP_POST_VARS['zone_code'] . "', zone_name = '" . $HTTP_POST_VARS['zone_name'] . "' where zone_id = '" . $HTTP_POST_VARS['zone_id'] . "'");
+      tep_db_query("update " . TABLE_ZONES . " set zone_country_id = '" . $HTTP_POST_VARS['zone_country_id'] . "', zone_code = '" . $HTTP_POST_VARS['zone_code'] . "', zone_name = '" . $HTTP_POST_VARS['zone_name'] . "' where zone_id = '" . $HTTP_POST_VARS['zone_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from zones where zone_id = '" . $HTTP_POST_VARS['zone_id'] . "'");
+      tep_db_query("delete from " . TABLE_ZONES . " where zone_id = '" . $HTTP_POST_VARS['zone_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     }
   }
@@ -71,7 +71,7 @@
               </tr>
 <?
   $rows = 0;
-  $zones_query_raw = "select z.zone_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id from zones z, countries c where z.zone_country_id = c.countries_id order by c.countries_name, z.zone_name";
+  $zones_query_raw = "select z.zone_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id from " . TABLE_ZONES . " z, " . TABLE_COUNTRIES . " c where z.zone_country_id = c.countries_id order by c.countries_name, z.zone_name";
   $zones_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $zones_query_raw, $zones_query_numrows);
   $zones_query = tep_db_query($zones_query_raw);
   while ($zones = tep_db_fetch_array($zones_query)) {

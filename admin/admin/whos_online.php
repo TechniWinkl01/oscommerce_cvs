@@ -3,7 +3,7 @@
     $xx_mins_ago = (time() - 900);
 
 // remove entries that have expired
-    tep_db_query("delete from whos_online where time_last_click < '" . $xx_mins_ago . "'");
+    tep_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
 ?>
 <html>
 <head>
@@ -64,7 +64,7 @@
                 <td colspan="7"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $whos_online_query = tep_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from whos_online");
+  $whos_online_query = tep_db_query("select customer_id, full_name, ip_address, time_entry, time_last_click, last_page_url, session_id from " . TABLE_WHOS_ONLINE);
   while ($whos_online = tep_db_fetch_array($whos_online_query)) {
     $time_online = (time() - $whos_online['time_entry']);
     if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $whos_online['session_id'])) && (!$info) ) {
@@ -106,7 +106,7 @@
               </tr>
 <?
   $info_box_contents = array();
-  $session_data = tep_db_query("select value from sessions WHERE sesskey = '$info'");
+  $session_data = tep_db_query("select value from " . TABLE_SESSIONS . " WHERE sesskey = '$info'");
   if (tep_db_num_rows($session_data)) {
     $session_data = tep_db_fetch_array($session_data);
     $session_data = trim($session_data['value']);

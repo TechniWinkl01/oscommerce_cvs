@@ -2,13 +2,13 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into tax_class (tax_class_title, tax_class_description, date_added) values ('" . $HTTP_POST_VARS['tax_class_title'] . "', '" . $HTTP_POST_VARS['tax_class_description'] . "', now())");
+      tep_db_query("insert into " . TABLE_TAX_CLASS . " (tax_class_title, tax_class_description, date_added) values ('" . $HTTP_POST_VARS['tax_class_title'] . "', '" . $HTTP_POST_VARS['tax_class_description'] . "', now())");
       header('Location: ' . tep_href_link(FILENAME_TAX_CLASSES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update tax_class set tax_class_title = '" . $HTTP_POST_VARS['tax_class_title'] . "', tax_class_description = '" . $HTTP_POST_VARS['tax_class_description'] . "' where tax_class_id = '" . $HTTP_POST_VARS['tax_class_id'] . "'");
+      tep_db_query("update " . TABLE_TAX_CLASS . " set tax_class_title = '" . $HTTP_POST_VARS['tax_class_title'] . "', tax_class_description = '" . $HTTP_POST_VARS['tax_class_description'] . "' where tax_class_id = '" . $HTTP_POST_VARS['tax_class_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_TAX_CLASSES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from tax_class where tax_class_id = '" . $HTTP_POST_VARS['tax_class_id'] . "'");
+      tep_db_query("delete from " . TABLE_TAX_CLASS . " where tax_class_id = '" . $HTTP_POST_VARS['tax_class_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_TAX_CLASSES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     }
   }
@@ -69,7 +69,7 @@
               </tr>
 <?
   $rows = 0;
-  $classes_query_raw = "select tax_class_id, tax_class_title, tax_class_description, last_modified, date_added from tax_class order by tax_class_title";
+  $classes_query_raw = "select tax_class_id, tax_class_title, tax_class_description, last_modified, date_added from " . TABLE_TAX_CLASS . " order by tax_class_title";
   $classes_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $classes_query_raw, $classes_query_numrows);
   $classes_query = tep_db_query($classes_query_raw);
   while ($classes = tep_db_fetch_array($classes_query)) {

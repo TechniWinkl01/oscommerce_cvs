@@ -2,13 +2,13 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into tax_rates (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) values ('" . $HTTP_POST_VARS['tax_zone_id'] . "', '" . $HTTP_POST_VARS['tax_class_id'] . "', '" . $HTTP_POST_VARS['tax_rate'] . "', '" . $HTTP_POST_VARS['tax_description'] . "', now())");
+      tep_db_query("insert into " . TABLE_TAX_RATES . " (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) values ('" . $HTTP_POST_VARS['tax_zone_id'] . "', '" . $HTTP_POST_VARS['tax_class_id'] . "', '" . $HTTP_POST_VARS['tax_rate'] . "', '" . $HTTP_POST_VARS['tax_description'] . "', now())");
       header('Location: ' . tep_href_link(FILENAME_TAX_RATES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update tax_rates set tax_zone_id = '" . $HTTP_POST_VARS['tax_zone_id'] . "', tax_class_id = '" . $HTTP_POST_VARS['tax_class_id'] . "', tax_rate = '" . $HTTP_POST_VARS['tax_rate'] . "', tax_description = '" . $HTTP_POST_VARS['tax_description'] . "', last_modified = now() where tax_rates_id = '" . $HTTP_POST_VARS['tax_rates_id'] . "'");
+      tep_db_query("update " . TABLE_TAX_RATES . " set tax_zone_id = '" . $HTTP_POST_VARS['tax_zone_id'] . "', tax_class_id = '" . $HTTP_POST_VARS['tax_class_id'] . "', tax_rate = '" . $HTTP_POST_VARS['tax_rate'] . "', tax_description = '" . $HTTP_POST_VARS['tax_description'] . "', last_modified = now() where tax_rates_id = '" . $HTTP_POST_VARS['tax_rates_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from tax_rates where tax_rates_id = '" . $HTTP_POST_VARS['tax_rates_id'] . "'");
+      tep_db_query("delete from " . TABLE_TAX_RATES . " where tax_rates_id = '" . $HTTP_POST_VARS['tax_rates_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     }
   }
@@ -101,7 +101,7 @@ function update_zone(theForm) {
               </tr>
 <?
   $rows = 0;
-  $rates_query_raw = "select r.tax_rates_id, c.countries_name, z.zone_id, z.zone_name, z.zone_country_id, tc.tax_class_title, tc.tax_class_id, r.tax_rate, r.tax_description, r.date_added, r.last_modified from tax_class tc, tax_rates r left join zones z on r.tax_zone_id = z.zone_id left join countries c on z.zone_country_id = c.countries_id where r.tax_class_id = tc.tax_class_id order by c.countries_name";
+  $rates_query_raw = "select r.tax_rates_id, c.countries_name, z.zone_id, z.zone_name, z.zone_country_id, tc.tax_class_title, tc.tax_class_id, r.tax_rate, r.tax_description, r.date_added, r.last_modified from " . TABLE_TAX_CLASS . " tc, " . TABLE_TAX_RATES . " r left join " . TABLE_ZONES . " z on r.tax_zone_id = z.zone_id left join " . TABLE_COUNTRIES . " c on z.zone_country_id = c.countries_id where r.tax_class_id = tc.tax_class_id order by c.countries_name";
   $rates_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $rates_query_raw, $rates_query_numrows);
   $rates_query = tep_db_query($rates_query_raw);
   while ($rates = tep_db_fetch_array($rates_query)) {
