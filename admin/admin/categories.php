@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.62 2001/06/29 22:27:10 dwatkins Exp $
+  $Id: categories.php,v 1.63 2001/07/06 16:54:48 bhalsted Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -75,7 +75,7 @@
                                 tep_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, language_id, categories_name) values ('" . $categories_id . "', '" . $languages[$i]['id'] . "', '" . $categories_name . "')");
                               }
 
-                              if ($categories_image != 'none') {
+                              if (!($categories_image == 'none' || $categories_image == '')) {
                                 tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = 'images/" . $categories_image_name . "' where categories_id = '" . $categories_id . "'");
                                 $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
                                 if (file_exists($image_location)) @unlink($image_location);
