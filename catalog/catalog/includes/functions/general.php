@@ -1228,4 +1228,64 @@ function tep_address_summary($customers_id, $address_id) {
 
     return $sort_prefix . $heading . $sort_suffix;
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_parent_categories
+  //
+  // Arguments   : categories       array of categories_ids
+  //               categories_id    categories_id of current category
+  //
+  // Return      : none
+  //
+  // Description : recursively go through the category tree to retrieve all parent categories' ids
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_parent_categories(&$categories, $categories_id) {
+    $sql = tep_db_query("SELECT parent_id FROM categories WHERE categories_id = $categories_id");
+
+    while ($cat = tep_db_fetch_array($sql)) {
+      if ($cat['parent_id'] == 0)
+        return;
+      $categories[sizeof($categories)] = $cat['parent_id'];
+      if ($cat['parent_id'] != $categories_id)
+        tep_get_parent_categories($categories, $cat['parent_id']);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_product_path
+  //
+  // Arguments   : products_id    id of the product
+  //
+  // Return      : cPath of the product
+  //
+  // Description : recursively go through the category tree to retrieve all parent 
+  //               categories' ids of the product and construct the cPath
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_product_path($products_id) {
+    $cPath = "";
+
+    $cat_count_sql = tep_db_query("SELECT COUNT(*) as count FROM products_to_categories WHERE products_id = $products_id");
+    $cat_count_data = tep_db_fetch_array($cat_count_sql);
+    
+    if ($cat_count_data['count'] == 1) {
+      $categories = array();
+
+      $cat_id_sql = tep_db_query("SELECT categories_id FROM products_to_categories WHERE products_id = $products_id");
+      $cat_id_data = tep_db_fetch_array($cat_id_sql);
+      tep_get_parent_categories($categories, $cat_id_data['categories_id']);
+      
+      for ($i=sizeof($categories)-1; $i>=0; $i--) {
+        if ($cPath != "")
+          $cPath .= "_";
+        $cPath .= $categories[$i];
+      }
+      $cPath .= "_" . $cat_id_data['categories_id'];
+    }
+    
+    return $cPath;
+  }
 ?>
