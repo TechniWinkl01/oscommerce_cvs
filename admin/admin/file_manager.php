@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.22 2002/01/09 07:57:43 hpdl Exp $
+  $Id: file_manager.php,v 1.23 2002/01/09 08:00:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -315,7 +315,7 @@
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_UPLOAD . '</b>');
 
         $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'action=processuploads', 'post', 'enctype="multipart/form-data"'));
-        $contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
+        $contents[] = array('text' => TEXT_UPLOAD_INTRO);
         for ($i=1; $i<6; $i++) $file_upload .= tep_draw_file_field('file_' . $i) . '<br>';
         $contents[] = array('text' => '<br>' . $file_upload);
         $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable) ? tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
