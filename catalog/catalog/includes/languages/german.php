@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.93 2002/03/14 00:09:36 harley_vb Exp $
+  $Id: german.php,v 1.94 2002/03/16 01:22:49 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -247,20 +247,22 @@ define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Neue Adresse');
 define('IMAGE_BUTTON_ADDRESS_BOOK', 'Adressbuch');
-define('IMAGE_BUTTON_BACK', 'Zur&uuml;ck');
-define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse &auml;ndern');
+define('IMAGE_BUTTON_BACK', 'Zurück');
+define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse ändern');
 define('IMAGE_BUTTON_CHECKOUT', 'Kasse');
-define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung best&auml;tigen');
+define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung bestätigen');
 define('IMAGE_BUTTON_CONTINUE', 'Weiter');
-define('IMAGE_BUTTON_DELETE', 'L&ouml;schen');
-define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Daten &auml;ndern');
-define('IMAGE_BUTTON_HISTORY', 'Bestell&uuml;bersicht');
+define('IMAGE_BUTTON_DELETE', 'Löschen');
+define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Daten ändern');
+define('IMAGE_BUTTON_HISTORY', 'Bestellübersicht');
 define('IMAGE_BUTTON_IN_CART', 'In den Warenkorb');
 define('IMAGE_BUTTON_NOTIFICATIONS', 'Benachrichtigungen');
 define('IMAGE_BUTTON_QUICK_FIND', 'Schnellsuche');
+define('IMAGE_BUTTON_REMOVE_NOTIFICATIONS', 'Benachrichtigungen löschen');
 define('IMAGE_BUTTON_REVIEWS', 'Bewertungen');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Versandoptionen');
 define('IMAGE_BUTTON_TELL_A_FRIEND', 'Weiterempfehlen');
+define('IMAGE_BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
