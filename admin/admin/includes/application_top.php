@@ -16,7 +16,7 @@
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
   define('HTTP_SERVER', '');
-  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT . '/'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
+  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
   define('DIR_FS_LOGS', '/usr/local/apache/logs/');
   define('DIR_WS_ADMIN', '/admin/');
   define('DIR_WS_CATALOG', '/catalog/');
