@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.52 2002/06/01 20:54:51 clescuyer Exp $
+  $Id: backup.php,v 1.53 2002/08/19 01:30:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -153,8 +153,8 @@
             }
           }
           $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
-          tep_redirect(tep_href_link(FILENAME_BACKUP));
         }
+        tep_redirect(tep_href_link(FILENAME_BACKUP));
         break;
       case 'restorenow':
       case 'restorelocalnow':
@@ -190,20 +190,11 @@
             }
           }
         } elseif ($HTTP_GET_VARS['action'] == 'restorelocalnow') {
-          if ($HTTP_POST_FILES['sql_file']) {
-            $uploaded_file = $HTTP_POST_FILES['sql_file']['tmp_name'];
-            $read_from = basename($HTTP_POST_FILES['sql_file']['name']);
-          } elseif ($HTTP_POST_VARS['sql_file']) {
-            $uploaded_file = $HTTP_POST_VARS['sql_file'];
-            $read_from = basename($HTTP_POST_VARS['sql_file_name']);
-          } else {
-            $uploaded_file = $sql_file;
-            $read_from = basename($sql_file_name);
-          }
-          if ($uploaded_file != 'none') {
-            if (tep_is_uploaded_file($uploaded_file)) {
-              $restore_query = fread(fopen($uploaded_file, 'r'), filesize($uploaded_file));
-            }
+          $sql_file = tep_get_uploaded_file('sql_file');
+
+          if (is_uploaded_file($sql_file['tmp_name'])) {
+            $restore_query = fread(fopen($sql_file['tmp_name'], 'r'), filesize($sql_file['tmp_name']));
+            $read_from = $sql_file['name'];
           }
         }
 
@@ -301,9 +292,9 @@
 
 // check if the backup directory exists
   $dir_ok = false;
-  if (is_dir(DIR_FS_BACKUP)) {
+  if (is_dir(tep_get_local_path(DIR_FS_BACKUP))) {
     $dir_ok = true;
-    if (!is_writeable(DIR_FS_BACKUP)) $messageStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
+    if (!is_writeable(tep_get_local_path(DIR_FS_BACKUP))) $messageStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
     $messageStack->add(ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
