@@ -53,6 +53,7 @@
 
     $products_ordered .= $products[$i]['quantity'] . 'x ' . $products_name . '= ' . tep_currency_format($products[$i]['final_price']) . "\n";
     $tax += ($final_price * $taxrate/100);
+     $subtotal += $final_price;
   }
 
   $cart->reset();
