@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.11 2001/11/17 00:37:43 hpdl Exp $
+  $Id: database.php,v 1.12 2002/04/06 15:48:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -91,5 +91,9 @@
     $result = mysql_fetch_field($db_query);
 
     return $result;
+  }
+
+  function tep_db_input($string) {
+    return addslashes($string);
   }
 ?>
