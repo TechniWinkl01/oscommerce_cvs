@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ms1_to_ms2.php,v 1.1 2003/06/17 02:48:53 thomasamoulton Exp $
+  $Id: ms1_to_ms2.php,v 1.2 2003/06/17 02:50:32 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,8 +25,12 @@
 </head>
 <body>
 <p>
-<b>osCommerce Release 2.2 MS1 Add-on Database Update Script</b>
-<p>This script makes what changes are needed for each add-on. In the mainline this file is a no-op
+<b>osCommerce Release 2.2 MS1 to MS2 Database Update Script</b>
+<p>This script can be copied to any web directory to upgrade a MS1 database
+to a MS2 database. By MS1 and MS2 I mean the state of the database the DAY
+that the MS release was made, not *any* MS1 like CVS tree.
+
+So if you upgraded to MS1 and stayed there you can use this script.
 <form name="database" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
   <tr>
