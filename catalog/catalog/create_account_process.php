@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.83 2003/01/10 20:33:24 hpdl Exp $
+  $Id: create_account_process.php,v 1.84 2003/02/13 02:27:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,8 +14,8 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_PROCESS);
 
-  if (!@$HTTP_POST_VARS['action']) {
-    tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
+  if (!isset($HTTP_POST_VARS['action'])) {
+    tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT));
   }
 
   $gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
@@ -114,7 +114,7 @@
   }
 
   if (ACCOUNT_STATE == 'true') {
-    if ($entry_country_error) {
+    if ($entry_country_error == true) {
       $entry_state_error = true;
     } else {
       $zone_id = 0;
@@ -122,7 +122,7 @@
       $check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "'");
       $check_value = tep_db_fetch_array($check_query);
       $entry_state_has_zones = ($check_value['total'] > 0);
-      if ($entry_state_has_zones) {
+      if ($entry_state_has_zones == true) {
         $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
         if (tep_db_num_rows($zone_query) == 1) {
           $zone_values = tep_db_fetch_array($zone_query);
@@ -138,7 +138,7 @@
           }
         }
       } else {
-        if (!$state) {
+        if ($state == false) {
           $error = true;
           $entry_state_error = true;
         }
@@ -185,7 +185,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <?php require('includes/form_check.js.php'); ?>
 </head>

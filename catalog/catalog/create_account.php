@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: create_account.php,v 1.56 2002/07/21 23:38:57 hpdl Exp $
+  $Id: create_account.php,v 1.57 2003/02/13 02:27:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,7 +21,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <?php require('includes/form_check.js.php'); ?>
 </head>
@@ -63,7 +63,7 @@
       <tr>
         <td>
 <?php
-  $email_address = tep_db_prepare_input($HTTP_GET_VARS['email_address']);
+  if (isset($HTTP_GET_VARS['email_address'])) $email_address = tep_db_prepare_input($HTTP_GET_VARS['email_address']);
   $account['entry_country_id'] = STORE_COUNTRY;
 
   require(DIR_WS_MODULES . 'account_details.php');

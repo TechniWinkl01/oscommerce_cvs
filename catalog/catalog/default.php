@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: default.php,v 1.79 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: default.php,v 1.80 2003/02/13 02:27:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,7 +14,7 @@
 
 // the following cPath references come from application_top.php
   $category_depth = 'top';
-  if ($cPath) {
+  if (isset($cPath) && tep_not_null($cPath)) {
     $categories_products_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . $current_category_id . "'");
     $cateqories_products = tep_db_fetch_array($categories_products_query);
     if ($cateqories_products['total'] > 0) {
@@ -37,7 +37,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>"> 
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -77,11 +77,10 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
 <?php
-    if ($cPath && ereg('_', $cPath)) {
+    if (isset($cPath) && ereg('_', $cPath)) {
 // check to see if there are deeper categories within the current category
       $category_links = array_reverse($cPath_array);
-      $size = sizeof($category_links);
-      for($i=0; $i<$size; $i++) {
+      for($i=0, $n=sizeof($category_links); $i<$n; $i++) {
         $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $category_links[$i] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
         if (tep_db_num_rows($categories_query) < 1) {
           // do nothing, go through the loop
@@ -135,39 +134,44 @@
 
     $select_column_list = '';
 
-    $size = sizeof($column_list);
-    for ($col=0; $col<$size; $col++) {
+    for ($col=0, $n=sizeof($column_list); $col<$n; $col++) {
       if ( ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW') || ($column_list[$col] == 'PRODUCT_LIST_PRICE') ) {
         continue;
       }
 
-      if ($select_column_list != '') {
+      if (tep_not_null($select_column_list)) {
         $select_column_list .= ', ';
       }
 
       switch ($column_list[$col]) {
-        case 'PRODUCT_LIST_MODEL':        $select_column_list .= 'p.products_model';
-                                          break;
-        case 'PRODUCT_LIST_NAME':         $select_column_list .= 'pd.products_name';
-                                          break;
-        case 'PRODUCT_LIST_MANUFACTURER': $select_column_list .= 'm.manufacturers_name';
-                                          break;
-        case 'PRODUCT_LIST_QUANTITY':     $select_column_list .= 'p.products_quantity';
-                                          break;
-        case 'PRODUCT_LIST_IMAGE':        $select_column_list .= 'p.products_image';
-                                          break;
-        case 'PRODUCT_LIST_WEIGHT':       $select_column_list .= 'p.products_weight';
-                                          break;
+        case 'PRODUCT_LIST_MODEL':
+          $select_column_list .= 'p.products_model';
+          break;
+        case 'PRODUCT_LIST_NAME':
+          $select_column_list .= 'pd.products_name';
+          break;
+        case 'PRODUCT_LIST_MANUFACTURER':
+          $select_column_list .= 'm.manufacturers_name';
+          break;
+        case 'PRODUCT_LIST_QUANTITY':
+          $select_column_list .= 'p.products_quantity';
+          break;
+        case 'PRODUCT_LIST_IMAGE':
+          $select_column_list .= 'p.products_image';
+          break;
+        case 'PRODUCT_LIST_WEIGHT':
+          $select_column_list .= 'p.products_weight';
+          break;
       }
     }
 
-    if ($select_column_list != '') {
+    if (tep_not_null($select_column_list)) {
       $select_column_list .= ', ';
     }
 
 // show the products of a specified manufacturer
-    if ($HTTP_GET_VARS['manufacturers_id']) {
-      if ($HTTP_GET_VARS['filter_id']) {
+    if (isset($HTTP_GET_VARS['manufacturers_id'])) {
+      if (isset($HTTP_GET_VARS['filter_id'])) {
 // We are asked to show only a specific category
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_MANUFACTURERS . " m, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "'";
       } else {
@@ -178,7 +182,7 @@
       $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
     } else {
 // show the products in a given categorie
-      if ($HTTP_GET_VARS['filter_id']) {
+      if (isset($HTTP_GET_VARS['filter_id'])) {
 // We are asked to show only specific catgeory
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_MANUFACTURERS . " m, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $current_category_id . "'";
       } else {
@@ -189,9 +193,8 @@
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_MANUFACTURERS . " m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
-    $cl_size = sizeof($column_list);
-    if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'],0,1) > $cl_size) ) {
-      for ($col=0; $col<$cl_size; $col++) {
+    if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'],0,1) > sizeof($column_list)) ) {
+      for ($col=0, $n=sizeof($column_list); $col<$n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col+1 . 'a';
           $listing_sql .= " order by pd.products_name";
@@ -203,20 +206,27 @@
       $sort_order = substr($HTTP_GET_VARS['sort'], 1);
       $listing_sql .= ' order by ';
       switch ($column_list[$sort_col-1]) {
-        case 'PRODUCT_LIST_MODEL':        $listing_sql .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-                                          break;
-        case 'PRODUCT_LIST_NAME':         $listing_sql .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
-                                          break;
-        case 'PRODUCT_LIST_MANUFACTURER': $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-                                          break;
-        case 'PRODUCT_LIST_QUANTITY':     $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-                                          break;
-        case 'PRODUCT_LIST_IMAGE':        $listing_sql .= "pd.products_name";
-                                          break;
-        case 'PRODUCT_LIST_WEIGHT':       $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-                                          break;
-        case 'PRODUCT_LIST_PRICE':        $listing_sql .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-                                          break;
+        case 'PRODUCT_LIST_MODEL':
+          $listing_sql .= "p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          break;
+        case 'PRODUCT_LIST_NAME':
+          $listing_sql .= "pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
+          break;
+        case 'PRODUCT_LIST_MANUFACTURER':
+          $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          break;
+        case 'PRODUCT_LIST_QUANTITY':
+          $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          break;
+        case 'PRODUCT_LIST_IMAGE':
+          $listing_sql .= "pd.products_name";
+          break;
+        case 'PRODUCT_LIST_WEIGHT':
+          $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          break;
+        case 'PRODUCT_LIST_PRICE':
+          $listing_sql .= "final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          break;
       }
     }
 ?>
@@ -228,32 +238,32 @@
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
 <?php
 // optional Product List Filter
-    if (PRODUCT_LIST_FILTER) {
-      $filterlist = tep_db_query($filterlist_sql);
-      if (tep_db_num_rows($filterlist) > 1) {
+    if (PRODUCT_LIST_FILTER > 0) {
+      $filterlist_query = tep_db_query($filterlist_sql);
+      if (tep_db_num_rows($filterlist_query) > 1) {
         echo '            <td align="center" class="main">' . TEXT_SHOW . '<select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">';
-        if ($HTTP_GET_VARS['manufacturers_id']) {
+        if (isset($HTTP_GET_VARS['manufacturers_id'])) {
           $arguments = 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'];
         } else {
           $arguments = 'cPath=' . $cPath;
         }
         $arguments .= '&sort=' . $HTTP_GET_VARS['sort'];
 
-        $option_url = tep_href_link(FILENAME_DEFAULT, $arguments, 'NONSSL');
+        $option_url = tep_href_link(FILENAME_DEFAULT, $arguments);
 
-        if (!$HTTP_GET_VARS['filter_id']) {
+        if (!isset($HTTP_GET_VARS['filter_id'])) {
           echo '<option value="' . $option_url . '" SELECTED>' . TEXT_ALL . '</option>';
         } else {
           echo '<option value="' . $option_url . '">' . TEXT_ALL . '</option>';
         }
 
         echo '<option value="">---------------</option>';
-        while ($filterlist_values = tep_db_fetch_array($filterlist)) {
-          $option_url = tep_href_link(FILENAME_DEFAULT, $arguments . '&filter_id=' . $filterlist_values['id'], 'NONSSL');
-          if ( ($HTTP_GET_VARS['filter_id']) && ($HTTP_GET_VARS['filter_id'] == $filterlist_values['id']) ) {
-            echo '<option value="' . $option_url . '" SELECTED>' . $filterlist_values['name'] . '</option>';
+        while ($filterlist = tep_db_fetch_array($filterlist_query)) {
+          $option_url = tep_href_link(FILENAME_DEFAULT, $arguments . '&filter_id=' . $filterlist['id']);
+          if (isset($HTTP_GET_VARS['filter_id']) && ($HTTP_GET_VARS['filter_id'] == $filterlist['id'])) {
+            echo '<option value="' . $option_url . '" SELECTED>' . $filterlist['name'] . '</option>';
           } else {
-            echo '<option value="' . $option_url . '">' . $filterlist_values['name'] . '</option>';
+            echo '<option value="' . $option_url . '">' . $filterlist['name'] . '</option>';
           }
         }
         echo '</select></td>' . "\n";
@@ -262,7 +272,7 @@
 
 // Get the right image for the top-right
     $image = DIR_WS_IMAGES . 'table_background_list.gif';
-    if ($HTTP_GET_VARS['manufacturers_id']) {
+    if (isset($HTTP_GET_VARS['manufacturers_id'])) {
       $image = tep_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
       $image = tep_db_fetch_array($image);
       $image = $image['manufacturers_image'];
