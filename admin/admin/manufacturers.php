@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.55 2003/06/29 22:50:52 hpdl Exp $
+  $Id: manufacturers.php,v 1.56 2004/02/14 23:01:47 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,53 +19,60 @@
       case 'insert':
       case 'save':
         if (isset($HTTP_GET_VARS['mID'])) $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
+
         $manufacturers_name = tep_db_prepare_input($HTTP_POST_VARS['manufacturers_name']);
 
-        $sql_data_array = array('manufacturers_name' => $manufacturers_name);
+        if (tep_not_null($manufacturers_name)) {
 
-        if ($action == 'insert') {
-          $insert_sql_data = array('date_added' => 'now()');
-
-          $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
-
-          tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
-          $manufacturers_id = tep_db_insert_id();
-        } elseif ($action == 'save') {
-          $update_sql_data = array('last_modified' => 'now()');
-
-          $sql_data_array = array_merge($sql_data_array, $update_sql_data);
-
-          tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "'");
-        }
-
-        if ($manufacturers_image = new upload('manufacturers_image', DIR_FS_CATALOG_IMAGES)) {
-          tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image->filename . "' where manufacturers_id = '" . (int)$manufacturers_id . "'");
-        }
-
-        $languages = tep_get_languages();
-        for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-          $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
-          $language_id = $languages[$i]['id'];
-
-          $sql_data_array = array('manufacturers_url' => tep_db_prepare_input($manufacturers_url_array[$language_id]));
+          $sql_data_array = array('manufacturers_name' => $manufacturers_name);
 
           if ($action == 'insert') {
-            $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
-                                     'languages_id' => $language_id);
+            $insert_sql_data = array('date_added' => 'now()');
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-            tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
+            tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
+            $manufacturers_id = tep_db_insert_id();
           } elseif ($action == 'save') {
-            tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "' and languages_id = '" . (int)$language_id . "'");
+            $update_sql_data = array('last_modified' => 'now()');
+
+            $sql_data_array = array_merge($sql_data_array, $update_sql_data);
+
+            tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "'");
           }
+
+          if ($manufacturers_image = new upload('manufacturers_image', DIR_FS_CATALOG_IMAGES)) {
+            tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image->filename . "' where manufacturers_id = '" . (int)$manufacturers_id . "'");
+          }
+
+          $languages = tep_get_languages();
+          for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+            $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
+            $language_id = $languages[$i]['id'];
+
+            $sql_data_array = array('manufacturers_url' => tep_db_prepare_input($manufacturers_url_array[$language_id]));
+
+            if ($action == 'insert') {
+              $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
+                                       'languages_id' => $language_id);
+
+              $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+
+              tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
+            } elseif ($action == 'save') {
+              tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "' and languages_id = '" . (int)$language_id . "'");
+            }
+          }
+
+          if (USE_CACHE == 'true') {
+            tep_reset_cache_block('manufacturers');
+          }
+          tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'mID=' . $manufacturers_id));
+        } else {
+          $messageStack->add_session(ERROR_MANUFACTUER_NAME, 'error');
+          tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page']));
         }
 
-        if (USE_CACHE == 'true') {
-          tep_reset_cache_block('manufacturers');
-        }
-
-        tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'mID=' . $manufacturers_id));
         break;
       case 'deleteconfirm':
         $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
