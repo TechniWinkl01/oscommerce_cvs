@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.130 2003/12/18 23:52:14 hpdl Exp $
+  $Id: checkout_process.php,v 1.131 2004/04/03 10:27:42 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,6 +65,7 @@
                           'customers_telephone' => $order->customer['telephone'],
                           'customers_email_address' => $order->customer['email_address'],
                           'customers_address_format_id' => $order->customer['format_id'],
+                          'customers_ip_address' => tep_get_ip_address(),
                           'delivery_name' => $order->delivery['firstname'] . ' ' . $order->delivery['lastname'],
                           'delivery_company' => $order->delivery['company'],
                           'delivery_street_address' => $order->delivery['street_address'],

@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.91 2004/02/16 06:59:32 hpdl Exp $
+# $Id: oscommerce.sql,v 1.92 2004/04/03 10:27:43 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -172,6 +172,7 @@ CREATE TABLE osc_customers (
    customers_password varchar(40) NOT NULL,
    customers_newsletter char(1),
    customers_status int(1) DEFAULT '0',
+   customers_ip_address varchar(15),
    PRIMARY KEY (customers_id)
 );
 
@@ -269,6 +270,7 @@ CREATE TABLE osc_orders (
   customers_telephone varchar(32) NOT NULL,
   customers_email_address varchar(96) NOT NULL,
   customers_address_format_id int(5) NOT NULL,
+  customers_ip_address varchar(15),
   delivery_name varchar(64) NOT NULL,
   delivery_company varchar(32),
   delivery_street_address varchar(64) NOT NULL,

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.70 2004/03/28 17:36:36 mevans Exp $
+  $Id: create_account.php,v 1.71 2004/04/03 10:27:42 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -187,6 +187,8 @@
                               'customers_telephone' => $telephone,
                               'customers_fax' => $fax,
                               'customers_newsletter' => $newsletter,
+                              'customers_status' => '1',
+                              'customers_ip_address' => tep_get_ip_address(),
                               'customers_password' => tep_encrypt_password($password));
 
       if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;

@@ -1,4 +1,4 @@
-# $Id: oscommerce_sample_data.sql,v 1.1 2004/02/16 06:59:33 hpdl Exp $
+# $Id: oscommerce_sample_data.sql,v 1.2 2004/04/03 10:27:43 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -105,7 +105,7 @@ INSERT INTO osc_categories_description VALUES ( '18', '3', 'Simulacion');
 INSERT INTO osc_categories_description VALUES ( '19', '3', 'Accion');
 INSERT INTO osc_categories_description VALUES ( '20', '3', 'Estrategia');
 
-INSERT INTO osc_customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '1', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0', '1');
+INSERT INTO osc_customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '1', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0', '1', '127.0.0.1');
 
 INSERT INTO osc_customers_info VALUES('1', '', '0', now(), '', '0');
 
