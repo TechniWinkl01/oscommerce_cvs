@@ -1,19 +1,3 @@
-<?
-/*
-TODO
-   + retrieve total count of products in current category (through child categories)
-   + error handling improvement
-   + code optimizations
-   + products status code alterations
-   + update tep_get_all_get_params function, to accept an array of exclusions (and not $exclude1 -> $exclude4)
-   + more options when deleting products or categories
-   + more expert options
-   + update database structure for date added and last modified entries in info box
-   + add upload image support
-   + add multiple categories / manufacturers support
-   + when deleting a product, and it is in more than one category, only remove the product_to_category link, and not the product itself
-*/
-?>
 <? include('includes/application_top.php'); ?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CATEGORIES; include(DIR_INCLUDES . 'include_once.php'); ?>
 <?
@@ -417,7 +401,7 @@ function checkForm() {
 
     $products_count = 0;
 //  $rows = 0; // this shouldnt be reset
-    $products_query = tep_db_query("select p.products_id, p.products_quantity, p.products_image, p.products_price, p.products_date_added from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by products_name");
+    $products_query = tep_db_query("select p.products_id, p.products_quantity, p.products_image, p.products_price, p.products_date_added from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' and p.products_status = '1' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $products_count++;
       $rows++;
