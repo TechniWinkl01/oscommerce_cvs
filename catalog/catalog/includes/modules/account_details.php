@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.6 2001/07/23 11:44:22 jwildeboer Exp $
+  $Id: account_details.php,v 1.7 2001/07/26 08:19:55 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -40,7 +40,7 @@
     echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
   }
 ?></td>
-          </tr>
+</tr>
 <?php
   }
 ?>
