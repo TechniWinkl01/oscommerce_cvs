@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.16 2002/01/14 07:32:23 hpdl Exp $
+  $Id: html_output.php,v 1.17 2002/01/16 13:26:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -101,8 +101,9 @@
 
       $states_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $countries['zone_country_id'] . "' order by zone_name");
 
-      $num_state = 0;
+      $num_state = 1;
       while ($states = tep_db_fetch_array($states_query)) {
+        if ($num_state == '1') $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
         $output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $states['zone_name'] . '", "' . $states['zone_id'] . '");' . "\n";
         $num_state++;
       }
