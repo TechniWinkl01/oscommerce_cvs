@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.50 2003/07/08 19:42:07 dgw_ Exp $
+  $Id: products_attributes.php,v 1.51 2003/07/09 10:59:28 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -117,7 +117,7 @@
           $products_attributes_maxcount = tep_db_prepare_input($HTTP_POST_VARS['products_attributes_maxcount']);
 
           if (tep_not_null($products_attributes_filename)) {
-            tep_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " set products_attributes_filename = '" . tep_db_input($products_attributes_filename) . "', products_attributes_maxdays = '" . tep_db_input($products_attributes_maxdays) . "', products_attributes_maxcount = '" . tep_db_input($products_attributes_maxcount) . "' where products_attributes_id = '" . (int)$attribute_id . "'");
+            tep_db_query("replace into " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " set products_attributes_id = '" . (int)$attribute_id . "', products_attributes_filename = '" . tep_db_input($products_attributes_filename) . "', products_attributes_maxdays = '" . tep_db_input($products_attributes_maxdays) . "', products_attributes_maxcount = '" . tep_db_input($products_attributes_maxcount) . "'");
           }
         }
 
