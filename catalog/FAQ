@@ -11,6 +11,7 @@ Questions:
 07. I get one of these errors: Fatal error: Call to undefined function: count_contents(), Fatal error: Call to undefined function: restore_cart(), etc.
 08. How do I install a snapshot on top of an exisiting distribution?
 09. Will a snapshot overwrite my existing (modified) application_top.php?
+10. How do I remove one of the boxes on the left hand side, or the right hand side?
 
 ## 01 ##
 q. How can I check my php configuration?
@@ -71,4 +72,12 @@ a. Yes it will overwrite applcation_top.php since that file exists in the
    application_top.php unmodified. This way, next time you download a
    new snapshot, you will have all your changes in one file that will
    not be over-written by the distrbution.
+
+## 10 ##
+q. How do I remove one of the boxes on the left hand side, or the right hand side?
+a. Each box is defined in a file for that column. All boxes on the left hand side is defined in
+   catalog/includes/column_left.php, and all boxes on the right hand side is defined in
+   catalog/includes/column_right.php.
+
+   To remove a box, you can simple comment out the 'include' line, or remove it totally.
 
