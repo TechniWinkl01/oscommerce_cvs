@@ -267,9 +267,12 @@
     return $select_string;
   }
 
-  function tep_draw_products_pull_down($name, $parameters = '', $exclude = array()) {
+  function tep_draw_products_pull_down($name, $parameters = '', $exclude = '') {
     global $languages_id;
 
+    if ($exclude == '') {
+      $exclude = array();
+    }
     $select_string = '<select name="' . $name . '"';
     if ($parameters) {
       $select_string .= ' ' . $parameters;
