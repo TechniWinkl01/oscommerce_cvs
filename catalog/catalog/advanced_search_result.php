@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.37 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.38 2001/11/25 22:49:40 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -239,8 +239,10 @@
   }
 
   $rate = $currencies->get_value($currency);
-  $pfrom = $HTTP_GET_VARS['pfrom'] / $rate;
-  $pto = $HTTP_GET_VARS['pto'] / $rate;
+  if ($rate) {
+    $pfrom = $HTTP_GET_VARS['pfrom'] / $rate;
+    $pto = $HTTP_GET_VARS['pto'] / $rate;
+  }
   if ($pfrom && $pto) {
     $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) >= " . $pfrom . " and IFNULL(s.specials_new_products_price,p.products_price) <= " . $pto . ")";
   }
