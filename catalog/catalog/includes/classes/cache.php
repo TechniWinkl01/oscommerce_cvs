@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.6 2004/02/16 06:31:50 hpdl Exp $
+  $Id: cache.php,v 1.7 2004/03/18 16:10:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -91,6 +91,20 @@
       $this->cached_data = $data;
 
       $this->write($this->cache_key, $this->cached_data);
+    }
+
+    function clear($key) {
+      $key_length = strlen($key);
+
+      $d = dir(DIR_FS_WORK);
+
+      while ($entry = $d->read()) {
+        if ((strlen($entry) >= $key_length) && (substr($entry, 0, $key_length) == $key)) {
+          @unlink(DIR_FS_WORK . $entry);
+        }
+      }
+
+      $d->close();
     }
   }
 ?>
