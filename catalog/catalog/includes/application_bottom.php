@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_bottom.php,v 1.14 2003/02/10 22:30:41 hpdl Exp $
+  $Id: application_bottom.php,v 1.15 2003/11/17 17:32:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
 // close session (store variables)
-  tep_session_close();
+  $osC_Session->close();
 
   if (STORE_PAGE_PARSE_TIME == 'true') {
     $time_start = explode(' ', PAGE_PARSE_START_TIME);
