@@ -62,6 +62,10 @@ xx/xx/2001 The Exchange Project Preview Release 2.2
    the prices in euro and national currency. This is a european
    guideline which is now support by TEP.
 
+ * All address information is now stored in the address_book table
+   only. This change was made to reduce redundancy and allow more
+   feautures in the checkout part (e.g. selection of different
+   BillTo and SendTo addresses)  
 
 06/03/2001 The Exchange Project Preview Release 2.1
 ---------------------------------------------------

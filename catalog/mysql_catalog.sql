@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.122 2001/07/31 21:25:34 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.123 2001/08/02 11:59:02 jwildeboer Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -12,7 +12,7 @@
 
 CREATE TABLE address_book (
    customers_id int(5) DEFAULT '0' NOT NULL,
-   address_book_id int(5) DEFAULT '0' NOT NULL,
+   address_book_id int(5) DEFAULT '1' NOT NULL,
    entry_gender char(1) NOT NULL,
    entry_company varchar(32),
    entry_firstname varchar(32) NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE customers (
    customers_lastname varchar(32) NOT NULL,
    customers_dob datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
    customers_email_address varchar(96) NOT NULL,
-   customers_default_address_id int(5) DEFAULT '0' NOT NULL,
+   customers_default_address_id int(5) DEFAULT '1' NOT NULL,
    customers_telephone varchar(32) NOT NULL,
    customers_fax varchar(32),
    customers_password varchar(40) NOT NULL,
@@ -413,7 +413,7 @@ CREATE TABLE zones (
 
 # data
 
-INSERT INTO address_book VALUES ( '1', '0', 'm', 'ACME Inc.', 'John', 'Doe', '1 Way Strees', '', '12345', 'NeverNever', '', '223', '12');
+INSERT INTO address_book VALUES ( '1', '1', 'm', 'ACME Inc.', 'John', 'Doe', '1 Way Strees', '', '12345', 'NeverNever', '', '223', '12');
 
 # 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany
 INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
@@ -838,7 +838,7 @@ INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
 INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
 INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2');
 
-INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '0', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
+INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '1', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
 
 INSERT INTO customers_info VALUES('1', '', '0', now(), '');
 

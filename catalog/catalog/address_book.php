@@ -61,10 +61,9 @@
             <td colspan="3"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-// get all address_book entries of this customer
-  $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and  address_book_id > 0 order by address_book_id");
-// if we find only one address then that must be the default address and we're done
-  if (tep_db_num_rows($address_book)==0) {
+// get all address_book entries of this customer with an address_book_id > 1
+  $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and  address_book_id > 1 order by address_book_id");
+if (!@tep_db_num_rows($address_book)) {
 ?>
           <tr class="addressBook-odd">
             <td colspan="3" class="smallText">&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
@@ -82,7 +81,7 @@
         echo '          <tr class="addressBook-odd">' . "\n";
       }
       echo '            <td align="center" class="smallText">&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
-      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . ($address_book_values['address_book_id']+1), 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
       echo '            <td align="center" class="smallText">&nbsp;' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
@@ -99,7 +98,7 @@
             <td colspan="3" class="smallText"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td valign="top" class="smallText">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?><br><br><?php echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
-                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS,  'entry_id=' . ($row + 1), 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?>&nbsp;&nbsp;</td>
+                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS,  'entry_id=' . ($row + 2), 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>

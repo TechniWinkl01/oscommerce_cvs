@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.54 2001/07/31 21:18:48 dwatkins Exp $
+  $Id: create_account_process.php,v 1.55 2001/08/02 11:59:17 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -285,6 +285,5 @@
       tep_exit();
     }
   }
-
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>
