@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.16 2002/03/17 17:48:22 harley_vb Exp $
+  $Id: orders_status.php,v 1.17 2002/03/28 21:06:22 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -236,6 +236,8 @@
     echo '            </td>' . "\n";
   }
 ?>
+          </tr>
+        </table></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
