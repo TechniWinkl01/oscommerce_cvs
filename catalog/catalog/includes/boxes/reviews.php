@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.20 2001/06/12 10:35:15 hpdl Exp $
+  $Id: reviews.php,v 1.21 2001/06/14 20:50:05 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -32,7 +32,7 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '<div align="center"><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id'], 'NONSSL') . '">' . tep_image($random_product['products_image'], $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a></div><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id'], 'NONSSL') . '">' . $review . ' ..</a><br><div align="center">' . tep_image(DIR_WS_IMAGES . 'stars_' . $random_product['reviews_rating'] . '.gif' , $random_product['reviews_rating'] . ' of 5 Stars!') . '<br><a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '">' . BOX_REVIEWS_MORE . '</a></div>');
+                                 'text'  => '<div align="center"><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id'], 'NONSSL') . '">' . tep_image($random_product['products_image'], $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a></div><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $random_product['products_id'] . '&reviews_id=' . $random_product['reviews_id'], 'NONSSL') . '">' . $review . ' ..</a><br><div align="center">' . tep_image(DIR_WS_IMAGES . 'stars_' . $random_product['reviews_rating'] . '.gif' , sprintf(TEXT_OF_5_STARS, $random_product['reviews_rating'])) . '<br><a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '">' . BOX_REVIEWS_MORE . '</a></div>');
     new infoBox($info_box_contents);
   } elseif ($HTTP_GET_VARS['products_id']) {
 // display 'write a review' box
