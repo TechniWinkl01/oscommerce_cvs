@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.51 2001/12/11 22:02:01 dgw_ Exp $
+  $Id: german.php,v 1.52 2001/12/12 22:57:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -223,6 +223,7 @@ define('IMAGE_SEARCH', 'suchen');
 define('IMAGE_SELECT', 'auswählen');
 define('IMAGE_UPDATE', 'aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
+define('IMAGE_UPLOAD', 'Upload');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');

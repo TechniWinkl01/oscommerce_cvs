@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.2 2001/12/11 22:02:01 dgw_ Exp $
+  $Id: file_manager.php,v 1.3 2001/12/12 22:57:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,9 +14,11 @@ define('TOP_BAR_TITLE', 'Camino Actual: ');
 define('HEADING_TITLE', 'Administrador de Archivos');
 
 define('TABLE_HEADING_FILENAME', 'Nombre');
+define('TABLE_HEADING_SIZE', 'Tamaño');
 define('TABLE_HEADING_ACTION', 'Accion');
 
 define('TEXT_FILE_NAME', 'Nombre:');
+define('TEXT_FILE_SIZE', 'Tamaño');
 define('TEXT_FILE_CONTENTS', 'Contenido:');
 define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
 define('TEXT_NEW_FOLDER', 'Nueva Carpeta');

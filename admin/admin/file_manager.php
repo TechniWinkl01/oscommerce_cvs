@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.6 2001/12/11 22:54:38 dgw_ Exp $
+  $Id: file_manager.php,v 1.7 2001/12/12 22:57:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,26 +53,14 @@
           tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         }
         break;
+      case 'upload':
+        if ( ($filename != 'none') && ($filename != '') ) {
+          copy($filename, $current_path . '/' . $filename_name);
+        }
+        tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        break;
     }
   }
-
-  $directory_array = array();
-  $dir = opendir($current_path);
-  $file_count = 0;
-  while ($dir && ($file = readdir($dir)) ) {
-    if ( ($file <> '.') && ($file <> 'CVS') && ($file <> '..' || $current_path <> DIR_FS_DOCUMENT_ROOT) ) {
-      $file_count ++;
-      $directory_array[$file_count] = array('name' => $file, 
-                                            'is_dir' => is_dir($current_path . '/' . $file),
-                                            'last_modified' => filemtime($current_path . '/' . $file)
-                                           );
-    }
-  }
-  
-  function cmp($a, $b) {
-    return strcmp( ($a['is_dir']?'D':'F') . $a['name'], ($b['is_dir']?'D':'F') . $b['name']);
-  }
-  uasort($directory_array, "cmp");
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -132,7 +120,7 @@
 ?>
           <tr>
             <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
-            <td class="main"><input name="filename"></td>
+            <td class="main"><?php echo tep_draw_input_field('filename'); ?></td>
           </tr>
 <?php
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
@@ -162,6 +150,33 @@
       </tr>
 <?php
   } else {
+
+    $directory_array = array();
+    $dir = opendir($current_path);
+    $file_count = 0;
+    while ($dir && ($file = readdir($dir)) ) {
+      if ( ($file <> '.') && ($file <> 'CVS') && ($file <> '..' || $current_path <> DIR_FS_DOCUMENT_ROOT) ) {
+        $file_count ++;
+        $file_size = filesize($current_path . '/' . $file);
+        if ($file_size > 999999) {
+          $file_size = number_format($file_size / 1000000, 0) . 'Mb';
+        } elseif ($file_size > 999) {
+          $file_size = number_format($file_size / 1000, 0) . 'Kb';
+        } else {
+          $file_size = number_format($file_size, 0) . 'b';
+        }
+        $directory_array[$file_count] = array('name' => $file, 
+                                              'is_dir' => is_dir($current_path . '/' . $file),
+                                              'last_modified' => filemtime($current_path . '/' . $file),
+                                              'size' => $file_size
+                                             );
+      }
+    }
+
+    function cmp($a, $b) {
+      return strcmp( ($a['is_dir']?'D':'F') . $a['name'], ($b['is_dir']?'D':'F') . $b['name']);
+    }
+    uasort($directory_array, "cmp");
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -172,11 +187,12 @@
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="tableHeading">&nbsp;</td>
-                <td class="tableHeading" width="100%">&nbsp;<?php echo TABLE_HEADING_FILENAME; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_FILENAME; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SIZE; ?>&nbsp;</td>
+                <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?
   reset($directory_array);
@@ -204,6 +220,9 @@
                 <td class="main"><?php echo $file['name']; ?></td>
 <?
     }
+?>
+                <td class="main" align="right"><?php echo ($file['is_dir'] ? '&nbsp;' : $file['size']); ?></td>
+<?php
     if (is_object($fmInfo) && ($fmInfo->key == $key)) {
 ?>
                 <td align="center" class="main"><?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
@@ -219,11 +238,12 @@
   }
 ?>          
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
+                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr valign="top">
+                    <td class="smallText"><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=upload'); ?>" method="post" enctype="multipart/form-data"><input type="file" size="10" name="filename"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD); ?></form></td>
                     <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE); ?></a>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER); ?></a>&nbsp;&nbsp;</td>
                   </tr>
                 </table></td>
@@ -274,6 +294,7 @@
           if (!$fmInfo->is_dir) $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=edit&filename=' . $fmInfo->name ) . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
           if ($fmInfo->name <> '..') $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=delete&info=' . $fmInfo->key ) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_FILE_NAME . ' <b>' . $fmInfo->name . '</b>');
+          if (!$fmInfo->is_dir) $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_FILE_SIZE . ' <b>' . $fmInfo->size . '</b>');
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . strftime(DATE_FORMAT_SHORT, $fmInfo->last_modified));
         }
     }
