@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.4 2001/05/26 16:47:49 hpdl Exp $
+  $Id: shopping_cart.php,v 1.5 2001/05/26 17:18:17 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,6 +21,6 @@ define('TEXT_CART_EMPTY', 'Tu Cesta de la Compra esta vacia!');
 define('SUB_TITLE_SUB_TOTAL', 'Subtotal:');
 define('SUB_TITLE_TOTAL', 'Total:');
 
-define('OUT_OF_STOCK_CANT_CHECKOUT', 'Products marked with *** dont exist in desired quantity in our stock.<br>Please alter the quantity of products marked with (***), Thank you');
-define('OUT_OF_STOCK_CAN_CHECKOUT', 'Products marked with *** dont exist in desired quantity in our stock.<br>You can buy them anyway and check the quantity we have in stock for imediate deliver in the checkout process.');
+define('OUT_OF_STOCK_CANT_CHECKOUT', 'Los productos marcados con *** no estan disponibles en la cantidad que requiere.<br>Modifique la cantidd de productos marcados con ***, Gracias');
+define('OUT_OF_STOCK_CAN_CHECKOUT', 'Los productos marcados con *** no estan disponibles en cantidad que requiere.<br>De todas formas, puede comprar los que hay disponibles y el resto se lo enviamos mas tarde o esperar a que la cantidad requerida este disponible.');
 ?>

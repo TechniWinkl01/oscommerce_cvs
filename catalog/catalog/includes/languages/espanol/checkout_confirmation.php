@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.7 2001/05/26 16:47:19 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.8 2001/05/26 17:18:16 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,7 @@
 */
 
 define('NAVBAR_TITLE_1', 'Realizar Pedido');
-define('NAVBAR_TITLE_2', 'Confirmacion');
+define('NAVBAR_TITLE_2', 'Confirmación');
 define('TOP_BAR_TITLE', 'Realizar Pedido');
 define('HEADING_TITLE', 'Estoy preparado para Comprar!');
 define('TABLE_HEADING_COMMENTS', 'Comentarios Sobre Su Orden');
@@ -19,7 +19,7 @@ define('TABLE_HEADING_QUANTITY', 'Cantidad');
 define('TABLE_HEADING_PRODUCTS', 'Producto(s)');
 define('TABLE_HEADING_TAX', 'Impuestos');
 define('TABLE_HEADING_TOTAL', 'Total');
-define('TABLE_HEADING_DELIVERY_ADDRESS', 'Direccion de Envio');
+define('TABLE_HEADING_DELIVERY_ADDRESS', 'Dirección de Envio');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Forma de Pago');
 define('SUB_TITLE_SUB_TOTAL', 'Subtotal:');
 define('SUB_TITLE_TAX', 'Impuestos:');
@@ -33,10 +33,10 @@ define('TEXT_NUMBER', 'Numero:');
 define('TEXT_EXPIRES', 'Caducidad:');
 define('TEXT_VAL', 'Error en Tarjeta de Credito!');
 
-define('TEXT_STOCK_WARNING', 'Stock Warning');
-define('TEXT_MULTIPLE_SHIPMENT', 'Multiple Shipments');
-define('TEXT_UNIQUE_SHIPMENT', 'Unique Shipment');
-define('TEXT_UNITS', 'Units of');
-define('TEXT_IMEDIATE_DELIVER', 'We have for imediate deliver:');
-define('TEXT_STOCK_WARNING_DESC', 'The products marked with <font color=crimson>***</font> are not available in the quantity you requested. Choose Multiple Shipments if you want the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait until the quantitys you requested are available in our stock.');
+define('TEXT_STOCK_WARNING', 'Advertencia sobre existencias');
+define('TEXT_MULTIPLE_SHIPMENT', 'Multiples Envios');
+define('TEXT_UNIQUE_SHIPMENT', 'Envio Unico');
+define('TEXT_UNITS', ' x ');
+define('TEXT_IMEDIATE_DELIVER', 'Tenemos en existencias para entregar inmediatamente:');
+define('TEXT_STOCK_WARNING_DESC', 'Los productos marcados con <font color=crimson>***</font> no estan disponibles en la cantidad que ha pedido. Elija Multiples Envios si quiere que la cantidad que tenemos disponible en existencias sea entregada inmediatamente y el resto mas tarde o Envio Unico para esperar hasta que la cantidad que ha pedido esten disponibles.');
 ?>
