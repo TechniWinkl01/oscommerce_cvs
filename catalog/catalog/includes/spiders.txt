@@ -1,4 +1,4 @@
-$Id: spiders.txt,v 1.2 2003/05/05 17:58:17 dgw_ Exp $
+$Id: spiders.txt,v 1.3 2004/02/15 13:11:38 mevans Exp $
 almaden.ibm.com
 appie 1.1
 architext
@@ -26,6 +26,7 @@ lycos_spider
 mantraagent
 mercator
 moget/1.0
+msnbot
 muscatferret
 nationaldirectory-webspider
 naverrobot
