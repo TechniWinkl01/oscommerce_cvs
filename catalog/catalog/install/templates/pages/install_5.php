@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.18 2002/10/11 11:18:07 project3000 Exp $
+  $Id: install_5.php,v 1.19 2002/10/11 11:50:25 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -131,7 +131,6 @@
                      '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost or - https://localhost should not be NULL for productive servers' . "\n" .
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\');' . "\n" .
                      '  define(\'HTTPS_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\');' . "\n" .
-                     '  define(\'ENABLE_SSL\', \'' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for administration tool' . "\n" .
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
                      '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_WS_ADMIN'] . '\'); // absolute path required' . "\n" .
