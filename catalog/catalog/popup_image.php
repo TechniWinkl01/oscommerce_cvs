@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<title><?php echo $HTTP_GET_VARS['alt']; ?></title>
+<title><?php echo stripslashes($HTTP_GET_VARS['alt']); ?></title>
 <script language="javascript"><!--
 var i=0;
 
@@ -14,7 +14,7 @@ function resize() {
 
 <body onload="resize();">
 
-<?php echo '<img src="' . $HTTP_GET_VARS['image'] . '" border="0" alt="' . $HTTP_GET_VARS['alt'] . '">'; ?>
+<?php echo '<img src="' . $HTTP_GET_VARS['image'] . '" border="0" alt="' . stripslashes($HTTP_GET_VARS['alt']) . '">'; ?>
 
 </body>
 
