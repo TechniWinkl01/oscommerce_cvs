@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.49 2002/03/10 22:15:31 harley_vb Exp $
+  $Id: account_history.php,v 1.50 2002/04/08 02:53:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,7 +67,7 @@
             <td colspan="4"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
-  $history_query_raw = "select orders_id, date_purchased, shipping_cost, orders_status, currency, currency_value from " . TABLE_ORDERS . " where customers_id = '" . $customer_id . "' order by orders_id DESC";
+  $history_query_raw = "select o.orders_id, o.date_purchased, o.orders_status, ot.text as order_total from " . TABLE_ORDERS . " o left join " . TABLE_ORDERS_TOTAL . " ot on (o.orders_id = ot.orders_id) where o.customers_id = '" . $customer_id . "' and ot.class = 'ot_total' order by orders_id DESC";
   $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $history_query_raw, $history_numrows);
   $history_query = tep_db_query($history_query_raw);
   if (@!tep_db_num_rows($history_query)) {
@@ -80,17 +80,6 @@
     $row = 0;
     while ($history = tep_db_fetch_array($history_query)) {
       $row++;
-      $total_cost = 0;
-      $history_total_query = tep_db_query("select final_price, products_tax, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $history['orders_id'] . "'");
-      while ($history_total = tep_db_fetch_array($history_total_query)) {
-        $cost = ($history_total['final_price'] * $history_total['products_quantity']);
-        if (DISPLAY_PRICE_WITH_TAX) {
-          $total_cost += $cost + ($cost * ($history_total['products_tax']/100));
-        } else {
-          $total_cost += $cost;
-        }
-      }
-      $total_cost += $history['shipping_cost'];
 
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr class="accountHistory-even">' . "\n";
@@ -99,7 +88,7 @@
       }
       echo '            <td align="center" class="smallText">' . $history['orders_id'] . '</td>' . "\n";
       echo '            <td class="smallText"><a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'SSL') . '">' . tep_date_long($history['date_purchased']) . '</a></td>' . "\n";
-      echo '            <td align="right" class="smallText">' . $currencies->format($total_cost, true, $history['currency'], $history['currency_value']) . '</td>' . "\n";
+      echo '            <td align="right" class="smallText">' . strip_tags($history['order_total']) . '</td>' . "\n";
       echo '            <td align="right" class="smallText">' . tep_get_orders_status_name($history['orders_status'], $languages_id) . '</td>' . "\n";
       echo '          </tr>' . "\n";
     }
