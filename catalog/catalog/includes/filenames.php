@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.3 2003/05/25 14:15:44 hpdl Exp $
+  $Id: filenames.php,v 1.4 2003/06/11 17:38:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
   define('FILENAME_COOKIE_USAGE', 'cookie_usage.php');
   define('FILENAME_CREATE_ACCOUNT', 'create_account.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
-  define('FILENAME_DEFAULT', 'default.php');
+  define('FILENAME_DEFAULT', 'index.php');
   define('FILENAME_DOWNLOAD', 'download.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');
