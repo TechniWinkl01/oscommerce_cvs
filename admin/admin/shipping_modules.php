@@ -101,14 +101,14 @@
     $dir->close();
   }
 
-  $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_MODULES'");
+  $check = tep_db_query("select configuration_value from configuration where configuration_key = '" . MODULE_SHIPPING_INSTALLED . "'");
   if (tep_db_num_rows($check) > 0) {
     list($check) = tep_db_fetch_array($check);
     if ($check <> $installed_modules) {
-      tep_db_query("update configuration set configuration_value = '" . $installed_modules . "' where configuration_key = 'SHIPPING_MODULES'");
+      tep_db_query("update configuration set configuration_value = '" . $installed_modules . "' where configuration_key = '" . MODULE_SHIPPING_INSTALLED . "'");
     }
   } else {
-    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Shipping Modules', 'SHIPPING_MODULES', '$installed_modules', 'This is automatically updated. No need to edit.', '7', '1', now())");
+    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Shipping Modules', '" . MODULE_SHIPPING_INSTALLED . "', '$installed_modules', 'This is automatically updated. No need to edit.', '7', '1', now())");
   }
 ?>
               <tr>
