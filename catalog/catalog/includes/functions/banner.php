@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: banner.php,v 1.8 2001/09/09 22:42:07 hpdl Exp $
+  $Id: banner.php,v 1.9 2001/12/14 12:55:49 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -66,11 +66,15 @@
         return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> No banners with group \'' . $identifier . '\' found!</b>';
       }
     } elseif ($action == 'static') {
-      $banner_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . $identifier . "'");
-      if (tep_db_num_rows($banner_query)) {
-        $banner = tep_db_fetch_array($banner_query);
+      if (is_array($identifier)) {
+        $banner = $identifier;
       } else {
-        return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Banner with ID \'' . $identifier . '\' not found, or status inactive</b>';
+        $banner_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . $identifier . "'");
+        if (tep_db_num_rows($banner_query)) {
+          $banner = tep_db_fetch_array($banner_query);
+        } else {
+          return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Banner with ID \'' . $identifier . '\' not found, or status inactive</b>';
+        }
       }
     } else {
       return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
@@ -82,14 +86,7 @@
       $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $banner['banners_image'], $banner['banners_title']) . '</a>';
     }
 
-    $banner_check_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner['banners_id'] . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
-    $banner_check = tep_db_fetch_array($banner_check_query);
-
-    if ($banner_check['count'] > 0) {
-      tep_db_query("update " . TABLE_BANNERS_HISTORY . " set banners_shown = banners_shown + 1 where banners_id = '" . $banner['banners_id'] . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
-    } else {
-      tep_db_query("insert into " . TABLE_BANNERS_HISTORY . " (banners_id, banners_shown, banners_history_date) values ('" . $banner['banners_id'] . "', 1, now())");
-    }
+    tep_update_banner_display_count($banner['banners_id']);
 
     return $banner_string;
   }
@@ -98,28 +95,31 @@
 // Check to see if a banner exists
   function tep_banner_exists($action, $identifier) {
     if ($action == 'dynamic') {
-      $banners_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
-      $banners = tep_db_fetch_array($banners_query);
-      if ($banners['count'] > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return tep_random_select("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
     } elseif ($action == 'static') {
-      $banner_query = tep_db_query("select banners_id from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . $identifier . "'");
-      if (tep_db_num_rows($banner_query)) {
-        return true;
-      } else {
-        return false;
-      }
+      $banner_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . $identifier . "'");
+      return tep_db_fetch_array($banner_query);
     } else {
       return false;
     }
   }
 
 ////
+// Update the banner display statistics
+  function tep_update_banner_display_count($banner_id) {
+    $banner_check_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+    $banner_check = tep_db_fetch_array($banner_check_query);
+
+    if ($banner_check['count'] > 0) {
+      tep_db_query("update " . TABLE_BANNERS_HISTORY . " set banners_shown = banners_shown + 1 where banners_id = '" . $banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+    } else {
+      tep_db_query("insert into " . TABLE_BANNERS_HISTORY . " (banners_id, banners_shown, banners_history_date) values ('" . $banner_id . "', 1, now())");
+    }
+  }
+
+////
 // Update the banner click statistics
-  function tep_update_banner_count($banner_id) {
+  function tep_update_banner_click_count($banner_id) {
     tep_db_query("update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1 where banners_id = '" . $banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
   }
 ?>

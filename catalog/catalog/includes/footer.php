@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: footer.php,v 1.21 2001/09/20 19:47:07 mbs Exp $
+  $Id: footer.php,v 1.22 2001/12/14 12:55:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,12 +24,12 @@
     <td align="center" class="smallText"><?php echo FOOTER_TEXT_BODY ?></td>  </tr>
 </table>
 <?php
-  if (tep_banner_exists('dynamic', '468x50')) {
+  if ($banner = tep_banner_exists('dynamic', '468x50')) {
 ?>
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><?php echo tep_display_banner('dynamic', '468x50'); ?></td>
+    <td align="center"><?php echo tep_display_banner('static', $banner); ?></td>
   </tr>
 </table>
 <?php

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: redirect.php,v 1.5 2001/09/01 15:50:39 hpdl Exp $
+  $Id: redirect.php,v 1.6 2001/12/14 12:55:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@
     case 'banner': $banner_query = tep_db_query("select banners_url from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['goto'] . "'");
                    if (tep_db_num_rows($banner_query)) {
                      $banner = tep_db_fetch_array($banner_query);
-                     tep_update_banner_count($HTTP_GET_VARS['goto']);
+                     tep_update_banner_click_count($HTTP_GET_VARS['goto']);
                      tep_redirect($banner['banners_url']);
                    } else {
                      tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
