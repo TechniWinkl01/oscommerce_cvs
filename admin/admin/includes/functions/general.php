@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.107 2002/01/21 21:47:47 hpdl Exp $
+  $Id: general.php,v 1.108 2002/01/25 19:16:16 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -448,11 +448,28 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     return $category['categories_name'];
   }
 
-  function tep_get_orders_status_name($orders_status_id, $language_id) {
+  function tep_get_orders_status_name($orders_status_id, $language_id = '') {
+    global $languages_id;
+
+    if (!$language_id) $language_id = $languages_id;
     $orders_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $orders_status_id . "' and language_id = '" . $language_id . "'");
     $orders_status = tep_db_fetch_array($orders_status_query);
 
     return $orders_status['orders_status_name'];
+  }
+
+  function tep_get_orders_status() {
+    global $languages_id;
+
+    $orders_status_array = array();
+    $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "' order by orders_status_id");
+    while ($orders_status = tep_db_fetch_array($orders_status_query)) {
+      $orders_status_array[] = array('id' => $orders_status['orders_status_id'],
+                                     'text' => $orders_status['orders_status_name']
+                                    );
+    }
+
+    return $orders_status_array;
   }
 
   function tep_get_products_name($product_id, $language_id = 0) {
@@ -613,6 +630,12 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 // Alias function for Store configuration values in the Administration Tool
   function tep_cfg_pull_down_country_list($country_id) {
     return tep_draw_pull_down_menu('configuration_value', tep_get_countries(), $country_id);
+  }
+
+////
+// Alias function for Store configuration values in the Administration Tool
+  function tep_cfg_pull_down_orders_status($orders_status_id) {
+    return tep_draw_pull_down_menu('configuration_value', tep_get_orders_status(), $orders_status_id);
   }
 
 ////
