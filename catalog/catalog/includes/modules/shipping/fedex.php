@@ -30,7 +30,7 @@
       if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
         $shipping_quoted = 'fedex';
 // only calculate if FedEx ships there.
-        if (in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
+        if (tep_in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
           include(DIR_WS_CLASSES . '_fedex.php');
           $rate = new _FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
           $rate->SetDest($address_values['postcode'], $this->fedex_countries[$address_values['country_id']]);
@@ -53,7 +53,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
 // only calculate if FedEx ships there.
-        if ( (in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
+        if ( (tep_in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
           if ($shipping_count == 0) {
             $shipping_cheapest = 'fedex';
             $shipping_cheapest_cost = $shipping_fedex_cost;
