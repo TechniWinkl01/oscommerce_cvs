@@ -32,7 +32,7 @@ define('MALE', 'Male');
 define('FEMALE', 'Female');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
+define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Configuration');
@@ -220,7 +220,7 @@ define('PREVNEXT_TITLE_PAGE_NO', 'Page %d');
 define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Previous Set of %d Pages');
 define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Next Set of %d Pages');
 define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;FIRST');
-define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; Prev]');
-define('PREVNEXT_BUTTON_NEXT', '[Next &gt;&gt;]');
+define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;Prev]');
+define('PREVNEXT_BUTTON_NEXT', '[Next&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LAST&gt;&gt;');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.46 2001/06/06 11:16:43 hpdl Exp $
+  $Id: german.php,v 1.47 2001/06/10 16:03:34 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 // on RedHat try 'de_DE'
 // on FreeBSD try 'de_DE.ISO_8859-1'
 // on Windows try 'de'
-setlocale('LC_TIME', 'de_DE.ISO_8859-1');
+setlocale(LC_TIME, 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
@@ -212,8 +212,8 @@ define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');
 define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehende %d Seiten');
 define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Nächste %d Seiten');
 define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ERSTE');
-define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; vorherige]');
-define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste &gt;&gt;]');
+define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;vorherige]');
+define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Neue Adresse');

@@ -218,7 +218,7 @@ define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');
 define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehende %d Seiten');
 define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Nächste %d Seiten');
 define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ERSTE');
-define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; vorherige]');
-define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste &gt;&gt;]');
+define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;vorherige]');
+define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 ?>

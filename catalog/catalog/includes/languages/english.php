@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.49 2001/06/06 11:16:43 hpdl Exp $
+  $Id: english.php,v 1.50 2001/06/10 16:03:34 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 // on RedHat try 'en_US'
 // on FreeBSD try 'en_US.ISO_8859-1'
 // on Windows try 'en'
-setlocale('LC_TIME', 'en_US.ISO_8859-1');
+setlocale(LC_TIME, 'en_US.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
@@ -47,7 +47,7 @@ define('MALE_ADDRESS', 'Mr.');
 define('FEMALE_ADDRESS', 'Ms.');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
+define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 // categories box text in includes/boxes/categories.php
 define('BOX_HEADING_CATEGORIES', 'Categories');
@@ -212,8 +212,8 @@ define('PREVNEXT_TITLE_PAGE_NO', 'Page %d');
 define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Previous Set of %d Pages');
 define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Next Set of %d Pages');
 define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;FIRST');
-define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; Prev]');
-define('PREVNEXT_BUTTON_NEXT', '[Next &gt;&gt;]');
+define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;Prev]');
+define('PREVNEXT_BUTTON_NEXT', '[Next&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LAST&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Add Address');
