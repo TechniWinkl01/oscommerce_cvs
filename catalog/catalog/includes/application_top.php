@@ -84,6 +84,7 @@
   define('TAX_VALUE', 16); // propducts tax
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('MAX_ADDRESS_BOOK_ENTRIES', 5);
+  define('MAX_ROW_LISTS', 20); 
   define('MAX_DISPLAY_SEARCH_RESULTS', 30);
   define('MAX_DISPLAY_SPECIAL_PRODUCTS', 9);
   define('MAX_DISPLAY_NEW_PRODUCTS', 9); // used when user has chosen a category, how many new products are shown
