@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.275 2003/06/09 22:04:42 hpdl Exp $
+  $Id: application_top.php,v 1.276 2003/06/17 17:25:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
   $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
 
 // set php_self in the local scope
-  $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
+  if (!isset($PHP_SELF)) $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
 
 // include the list of project filenames
   require(DIR_WS_INCLUDES . 'filenames.php');
