@@ -54,9 +54,9 @@
   function tep_currency_format($number, $calculate_currency_value = true) {
 
     if ($calculate_currency_value == true) {
-      $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+      $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
     } else {
-      $number2currency = CURRENCY_BEFORE . number_format(($number), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+      $number2currency = CURRENCY_BEFORE . number_format(($number), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
     }
 
     return $number2currency;
