@@ -61,7 +61,9 @@
             <td colspan="4"><? echo tep_black_line();?></td>
           </tr>
 <?
-  $history = tep_db_query("select orders_id, date_purchased, shipping_cost, orders_status from orders where customers_id = '" . $customer_id . "' order by orders_id DESC");
+  $history_sql = "select orders_id, date_purchased, shipping_cost, orders_status from orders where customers_id = '" . $customer_id . "' order by orders_id DESC";
+  $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $history_sql, $history_numrows);
+  $history = tep_db_query($history_sql);
   if (@!tep_db_num_rows($history)) {
 ?>
           <tr bgcolor="#f4f7fd">
@@ -86,7 +88,7 @@
         echo '          <tr bgcolor="#f4f7fd">' . "\n";
       }
       echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_id'] . '&nbsp;</font></td>' . "\n";
-      echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</font></td>' . "\n";
       echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($total_cost) . '&nbsp;</font></td>' . "\n";
       echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_status'] . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
@@ -97,8 +99,12 @@
             <td colspan="4"><? echo tep_black_line();?></td>
           </tr>
           <tr>
-            <td colspan="3" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>">&nbsp;<? echo TABLE_TEXT;?>&nbsp;</font></td>
-            <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>"><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL');?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK);?></a>&nbsp;</font></td>
+            <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>">&nbsp;<? echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>&nbsp;<br>&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</font></td>
+                <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>">&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL');?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK);?></a>&nbsp;<br><? echo TABLE_TEXT;?></font></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>

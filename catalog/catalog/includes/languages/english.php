@@ -178,6 +178,7 @@ define('PASSWORD_HIDDEN', '--HIDDEN--');
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Result Pages:');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');

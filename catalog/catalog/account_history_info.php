@@ -190,7 +190,7 @@
         <td><? echo tep_black_line();?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>"><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL');?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK);?></a>&nbsp;&nbsp;</font></td>
+        <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>"><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, tep_get_all_get_params(array('order_id')), 'NONSSL');?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK);?></a>&nbsp;&nbsp;</font></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
