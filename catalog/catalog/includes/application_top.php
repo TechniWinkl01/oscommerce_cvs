@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.226 2002/05/03 10:28:06 hpdl Exp $
+  $Id: application_top.php,v 1.227 2002/05/11 12:39:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -315,7 +315,7 @@
       case 'buy_now' :        if (tep_has_product_attributes($HTTP_GET_VARS['products_id'])) {
                                 tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
                               } else {
-                                $cart->add_cart($HTTP_GET_VARS['products_id'], 1);
+                                $cart->add_cart($HTTP_GET_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1);
                                 tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
                               }
                               break;
