@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.9 2002/01/18 00:46:42 hpdl Exp $
+  $Id: languages.php,v 1.10 2002/01/19 22:58:16 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,11 +22,11 @@ define('TEXT_INFO_LANGUAGE_CODE', 'Codierung:');
 define('TEXT_INFO_LANGUAGE_IMAGE', 'Symbol:');
 define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Verzeichnis:');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Sortierreihenfolge:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte f&uuml;llen Sie die folgenden Felder f&uuml;r die neue Sprache aus:');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Sprache l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Sprache mit allen relevanten Daten ein');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie die Sprache l&ouml;schen m&ouml;chten?');
 define('TEXT_INFO_HEADING_NEW_LANGUAGE', 'Neue Sprache');
-define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Edit Language');
-define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Delete Language');
+define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Sprache bearbeiten');
+define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Sprache l&ouml;schen');
 
-define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Error: The default language can not be removed. Please set another language as default, and try again.');
+define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Fehler: Die Standardsprache darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardsprache und wiederholen Sie den Vorgang.');
 ?>
