@@ -343,13 +343,12 @@ function alertBox() {
         }
       }
       $total = $total + $orders_values['shipping_cost'];
-      $date_formatted = substr($orders_values['date_purchased'], 6, 2) . '/' . substr($orders_values['date_purchased'], 4, 2) . '/' . substr($orders_values['date_purchased'], 0, 4);
 ?>
           <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999';this.style.cursor='hand'" onmouseout="this.style.background='#d8e1eb'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
             <td class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><? echo $orders_values['customers_name']; ?></a>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($total, 2); ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo $date_formatted; ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<? echo tep_date_short($orders_values['date_purchased']); ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo $orders_values['orders_status']; ?>&nbsp;</td>
           </tr>
 <?
