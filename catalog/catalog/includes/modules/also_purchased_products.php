@@ -11,13 +11,13 @@ from orders_products a, orders_products b, orders, products, products_to_manufac
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?=tep_black_line();?></td>
+                <td><? echo tep_black_line();?></td>
               </tr>
               <tr>
-                <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TEXT_ALSO_PURCHASED_PRODUCTS;?></b>&nbsp;</font></td>
+                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TEXT_ALSO_PURCHASED_PRODUCTS;?></b>&nbsp;</font></td>
               </tr>
               <tr>
-                <td><?=tep_black_line();?></td>
+                <td><? echo tep_black_line();?></td>
               </tr>
 <?
     // randomly select products from products ordered
@@ -27,7 +27,7 @@ from orders_products a, orders_products b, orders, products, products_to_manufac
     while (sizeof($rows_to_display) < MAX_DISPLAY_ALSO_PURCHASED && sizeof($rows_to_display) < $num_products_ordered) {
       $random_row = @rand(0, ($num_products_ordered - 1));
       
-      if (!in_array($random_row, $rows_to_display))
+      if (!tep_in_array($random_row, $rows_to_display))
         $rows_to_display[sizeof($rows_to_display)] = $random_row;
     }
     
@@ -51,7 +51,7 @@ from orders_products a, orders_products b, orders, products, products_to_manufac
             </table></td>
           </tr>
           <tr>
-            <td><?=tep_black_line();?></td>
+            <td><? echo tep_black_line();?></td>
           </tr>
 <!-- also_purchased_products_eof //-->
 <?
