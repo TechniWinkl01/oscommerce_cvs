@@ -80,32 +80,34 @@
   function tep_image($src, $width, $height, $border, $alt) {
     global $image;
 
-    $size = GetImageSize( (substr($src,0,1)=='/') ? DIR_SERVER_ROOT . $src : $src );
-    // width is not set, height is set
-    if ($width == 0 || $width=="" && !$height) { 
-      $ratio = $height / $size[1];
-      $width = $size[0] * $ratio;
-    }
-    // width is set, height is not set
-    if ($height == 0 || $height=="" && !$width){ 
-      $ratio = $width / $size[0];
-      $height= $size[1] * $ratio;
-    }
-    // width and height should be set now, if not,
-    // both of them were not passed, so let's set them if it's so
-    if ($width == 0 || $width=="" ) {
-      $width = $size[0];
-    }
-    if ($height == 0 || $height=="" ) {
-      $height= $size[1];
-    }
-    $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
     if (!IMAGE_REQUIRED) {
       if($src == "" || $src == "images/transparent.gif" || $src == "none") {
         $image = "<!-- NO IMAGE DEFINED -->";
+        $src = '';
       }
     }
-
+    if ($src != '') {
+      $size = GetImageSize( (substr($src,0,1)=='/') ? DIR_SERVER_ROOT . $src : $src );
+      // width is not set, height is set
+      if ($width == 0 || $width=="" && !$height) { 
+        $ratio = $height / $size[1];
+        $width = $size[0] * $ratio;
+      }
+      // width is set, height is not set
+      if ($height == 0 || $height=="" && !$width){ 
+        $ratio = $width / $size[0];
+        $height= $size[1] * $ratio;
+      }
+      // width and height should be set now, if not,
+      // both of them were not passed, so let's set them if it's so
+      if ($width == 0 || $width=="" ) {
+        $width = $size[0];
+      }
+      if ($height == 0 || $height=="" ) {
+        $height= $size[1];
+      }
+      $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
+    }
     return $image;
   }
 
