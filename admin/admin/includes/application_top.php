@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.103 2001/12/29 19:11:17 dgw_ Exp $
+  $Id: application_top.php,v 1.104 2001/12/30 04:53:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -209,7 +209,6 @@
   require(DIR_WS_CLASSES . 'object_info.php');
   require(DIR_WS_CLASSES . 'ordersstatus_info.php');
   require(DIR_WS_CLASSES . 'product_expected_info.php');
-  require(DIR_WS_CLASSES . 'product_info.php');
   require(DIR_WS_CLASSES . 'review_info.php');
   require(DIR_WS_CLASSES . 'special_price_info.php');
   require(DIR_WS_CLASSES . 'tax_class_info.php');

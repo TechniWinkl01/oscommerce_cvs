@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.97 2001/12/30 04:48:29 hpdl Exp $
+  $Id: categories.php,v 1.98 2001/12/30 04:53:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -295,9 +295,9 @@
       $pInfo = new objectInfo($product);
     } elseif ($HTTP_POST_VARS) {
 /* not in use at the moment! this should be used when the user presses 'BACK' on the products preview page.. */
-      $pInfo = new productInfo($HTTP_POST_VARS);
+      $pInfo = new objectInfo($HTTP_POST_VARS);
     } else {
-      $pInfo = new productInfo(array());
+      $pInfo = new objectInfo(array());
     }
 
     $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
@@ -412,7 +412,7 @@
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
       $pInfo_array = tep_array_merge((array)$HTTP_POST_VARS, (array)$manufacturer);
-      $pInfo = new productInfo($pInfo_array);
+      $pInfo = new objectInfo($pInfo_array);
 
       // Copy image only if modified
       if ($products_image && ($products_image != 'none')) {
@@ -427,8 +427,8 @@
       $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.manufacturers_id, m.manufacturers_name, m.manufacturers_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id where p.products_id = pd.products_id and pd.products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
 
-      $pInfo = new productInfo($product);
-      $products_image_name = $pInfo->image;
+      $pInfo = new objectInfo($product);
+      $products_image_name = $pInfo->products_image;
     }
 
     $form_action = 'insert_product';
@@ -443,8 +443,8 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo tep_get_products_name($pInfo->id, $languages[$i]['id']) . ' (' . $languages[$i]['name'] . ')<br>&nbsp;@ ' . tep_currency_format($pInfo->price); ?>&nbsp;</td>
-            <td align="right"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->manufacturers_image, $pInfo->manufacturer, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading">&nbsp;<?php echo tep_get_products_name($pInfo->products_id, $languages[$i]['id']) . ' (' . $languages[$i]['name'] . ')<br>&nbsp;@ ' . tep_currency_format($pInfo->products_price); ?>&nbsp;</td>
+            <td align="right"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->manufacturers_image, $pInfo->manufacturers_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -454,29 +454,29 @@
       <tr>
         <td class="main"><br>
 <?php
-        echo tep_image(DIR_WS_CATALOG_IMAGES . $products_image_name, tep_get_products_name($pInfo->id, $languages[$i]['id']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') .
-             ' (' . $languages[$i]['name'] . ')<br>' . tep_get_products_description($pInfo->id, $languages[$i]['id']) . '<br><br>';
+        echo tep_image(DIR_WS_CATALOG_IMAGES . $products_image_name, tep_get_products_name($pInfo->products_id, $languages[$i]['id']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') .
+             ' (' . $languages[$i]['name'] . ')<br>' . tep_get_products_description($pInfo->products_id, $languages[$i]['id']) . '<br><br>';
 ?></td>
       </tr>
 <?php
-        if ($pInfo->url) {
+        if ($pInfo->products_url) {
 ?>
       <tr>
-        <td class="main"><br><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, tep_get_products_url($pInfo->id, $languages[$i]['id'])) . ' (' . $languages[$i]['name'] . ')<br>'; ?></td>
+        <td class="main"><br><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, tep_get_products_url($pInfo->products_id, $languages[$i]['id'])) . ' (' . $languages[$i]['name'] . ')<br>'; ?></td>
       </tr>
 <?php
         }
 
-        if ($pInfo->date_available > date('Y-m-d')) {
+        if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
       <tr>
-        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->date_available)); ?></td>
+        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->products_date_available)); ?></td>
       </tr>
 <?php
         } else {
 ?>
       <tr>
-        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->date_added)); ?></td>
+        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->products_date_added)); ?></td>
       </tr>
 <?php
         }
@@ -493,8 +493,8 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo $products_name[$languages[$i]['id']] . ' (' . $languages[$i]['name'] . ')<br>@ ' . tep_currency_format($pInfo->price); ?>&nbsp;</td>
-            <td align="right"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->manufacturers_image, $pInfo->manufacturer, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading">&nbsp;<?php echo $products_name[$languages[$i]['id']] . ' (' . $languages[$i]['name'] . ')<br>@ ' . tep_currency_format($pInfo->products_price); ?>&nbsp;</td>
+            <td align="right"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->manufacturers_image, $pInfo->manufacturers_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -505,7 +505,7 @@
         <td class="main"><br><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $products_image_name, $products_name[$languages[$i]['id']], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . ' (' . $languages[$i]['name'] . ')<br>' . $products_description[$languages[$i]['id']]; ?></td>
       </tr>
 <?php
-        if ($pInfo->url) {
+        if ($pInfo->products_url) {
 ?>
       <tr>
         <td class="main"><br><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $products_url[$languages[$i]['id']]) . ' (' . $languages[$i]['name'] . ')'; ?></td>
@@ -513,16 +513,16 @@
 <?php
         }
 
-        if ($pInfo->date_available > date('Y-m-d')) {
+        if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
       <tr>
-        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->date_available)); ?></td>
+        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->products_date_available)); ?></td>
       </tr>
 <?php
         } else {
 ?>
       <tr>
-        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->date_added)); ?></td>
+        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->products_date_added)); ?></td>
       </tr>
 <?php
         }
