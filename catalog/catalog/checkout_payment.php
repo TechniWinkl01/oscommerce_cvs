@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.105 2003/02/06 17:38:14 thomasamoulton Exp $
+  $Id: checkout_payment.php,v 1.106 2003/02/07 14:03:08 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,6 +64,9 @@
       if (tep_session_is_registered('payment')) tep_session_unregister('payment');
     }
   }
+
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
 
   if (!tep_session_is_registered('comments')) tep_session_register('comments');
 
