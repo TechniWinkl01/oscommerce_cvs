@@ -102,7 +102,7 @@
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_format_address($customer_id, 0, 1, '&nbsp;', '<br>');?>&nbsp;</font></td>
+                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>');?>&nbsp;</font></td>
                   </tr>
                 </table></td>
                 <td align="right" valign="middle"><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</font></td>
@@ -140,7 +140,7 @@
       $row++;
       echo '              <tr>' . "\n";
       echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;0' . $row . '.&nbsp;</font></td>' . "\n";
-      echo tep_format_address($customer_id, $address_book_values['address_book_id'], 1, $boln, $eoln);
+      echo tep_address_label($customer_id, $address_book_values['address_book_id'], 1, $boln, $eoln);
       echo '                <td nowrap align="right"><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
     }

@@ -314,7 +314,7 @@ function check_form() {
 <?
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
     echo '            <td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . HEADING_TITLE_MODIFY_ENTRY . '&nbsp;</font></td>' . "\n";
-    echo '            <td align="left" nowrap><font face="' . HEADING_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '"><br>' . tep_format_address($customer_id, $HTTP_GET_VARS['entry_id'], 1, '&nbsp;', '<br>') . '&nbsp;</font></td>' . "\n";
+    echo '            <td align="left" nowrap><font face="' . HEADING_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '"><br>' . tep_address_label($customer_id, $HTTP_GET_VARS['entry_id'], 1, '&nbsp;', '<br>') . '&nbsp;</font></td>' . "\n";
   } else {
     echo '            <td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</font></td>' . "\n";
   }

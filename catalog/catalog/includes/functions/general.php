@@ -735,7 +735,35 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
-function tep_format_address($customers_id, $address_id, $html=0, $boln='', $eoln="\n") {
+function tep_address_label($customers_id, $address_id, $html=0, $boln='', $eoln="\n") {
+  if ($address_id == 0) {
+    $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customers_id . "'");
+  } else {
+    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from address_book where address_book_id = '" . $address_id . "'");
+  }
+  $delivery_values = tep_db_fetch_array($delivery);
+  return tep_address_format($delivery_values, $html, $boln, $eoln);
+}
+
+
+function tep_addres_format($delivery_values, $html, $boln, $eoln) {
+  $country_id = $delivery_values['country_id'];
+  $format = tep_db_query("select countries_address_format as format from countries where countries_id = '" . $country_id . "'");
+  $format_values = tep_db_fetch_array($format);
+  $firstname = addslashes($delivery_values['firstname']);
+  $lastname = addslashes($delivery_values['lastname']);
+  $street = addslashes($delivery_values['street_address']);
+  $suburb = addslashes($delivery_values['suburb']);
+  $city = addslashes($delivery_values['city']);
+  $state = addslashes($delivery_values['state']);
+  $zone_id = $delivery_values['zone_id'];
+  $postcode = addslashes($delivery_values['postcode']);
+  $zip = $postcode;
+  $country = tep_get_country_name($country_id);
+  $state = tep_get_zone_code($country_id, $zone_id, $state);
+
+  $streets = $street;
+  if ($suburb != '') $streets = $street . $cr . $suburb;
   if ($html == 0) { // Text Mode
     $CR = $eoln;
     $cr = $CR;
@@ -755,29 +783,6 @@ function tep_format_address($customers_id, $address_id, $html=0, $boln='', $eoln
       }
     }
   }
-  if ($address_id == 0) {
-    $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customers_id . "'");
-  } else {
-    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from address_book where address_book_id = '" . $address_id . "'");
-  }
-  $delivery_values = tep_db_fetch_array($delivery);
-  $country_id = $delivery_values['country_id'];
-  $format = tep_db_query("select countries_address_format as format from countries where countries_id = '" . $country_id . "'");
-  $format_values = tep_db_fetch_array($format);
-  $firstname = addslashes($delivery_values['firstname']);
-  $lastname = addslashes($delivery_values['lastname']);
-  $street = addslashes($delivery_values['street_address']);
-  $suburb = addslashes($delivery_values['suburb']);
-  $city = addslashes($delivery_values['city']);
-  $state = addslashes($delivery_values['state']);
-  $zone_id = $delivery_values['zone_id'];
-  $postcode = addslashes($delivery_values['postcode']);
-  $zip = $postcode;
-  $country = tep_get_country_name($country_id);
-  $state = tep_get_zone_code($country_id, $zone_id, $state);
-
-  $streets = $street;
-  if ($suburb != '') $streets = $street . $cr . $suburb;
 
   $fmt = $format_values['format'];
   eval("\$address = \"$fmt\";");

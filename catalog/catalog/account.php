@@ -128,7 +128,7 @@
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;</font></td>
-            <td align="left" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>"><?=tep_format_address($customer_id, 0, 1, '&nbsp;', "<br>");?></font></td>
+            <td align="left" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>"><?=tep_address_label($customer_id, 0, 1, '&nbsp;', "<br>");?></font></td>
           </tr>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
