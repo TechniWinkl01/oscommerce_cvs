@@ -141,7 +141,9 @@
   }
 
   function tep_date_long($raw_date) {
-    if (Strlen($raw_date) == 14) {
+    if (strlen($raw_date) == 19) {
+      $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 6, 2),substr($raw_date, 8, 2),substr($raw_date, 0, 4)));
+    } elseif (strlen($raw_date) == 14) {
       $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
     } else {
       $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
@@ -151,7 +153,9 @@
   }
 
   function tep_date_short($raw_date) {
-    if (strlen($raw_date) == 14) {
+    if (strlen($raw_date) == 19) {
+      $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 6, 2),substr($raw_date, 8, 2),substr($raw_date, 0, 4)));
+    } elseif (strlen($raw_date) == 14) {
       $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
     } else {
       $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
