@@ -50,6 +50,7 @@
       $link = $link . $page . '?' . $parameters . '&' . $sess;
     }
     
+    while (substr($link, -1) == '&') $link = substr($link, 0, -1); 
     return $link;
   }
 
