@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.6 2001/06/08 21:36:45 hpdl Exp $
+  $Id: sessions.php,v 1.7 2001/06/08 21:38:59 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,6 +31,7 @@
       return session_id($sessid);
     } else {
       return session_id();
+    }
   }
 
   function tep_session_name($name = '') {
