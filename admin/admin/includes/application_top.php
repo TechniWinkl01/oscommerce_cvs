@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.94 2001/11/29 16:38:50 dgw_ Exp $
+  $Id: application_top.php,v 1.95 2001/11/30 14:49:29 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -23,7 +23,7 @@
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
   define('HTTP_SERVER', '');
-  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
+  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
   define('DIR_WS_ADMIN', '/admin/');
   define('DIR_WS_CATALOG', '/catalog/');
   define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);
