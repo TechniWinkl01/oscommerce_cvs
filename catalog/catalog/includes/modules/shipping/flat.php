@@ -15,9 +15,9 @@
     }
 
     function quote() {
-      global $shipping_quote_all, $shipping_quoted, $shipping_flat_cost, $shipping_flat_method;
+      global $shipping_quote_flat, $shipping_quote_all, $shipping_quoted, $shipping_flat_cost, $shipping_flat_method;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
         $shipping_quoted = 'flat';
         $shipping_flat_cost = SHIPPING_HANDLING + SHIPPING_FLAT_COST;
         $shipping_flat_method = SHIPPING_FLAT_WAY;
@@ -25,9 +25,9 @@
     }
 
     function cheapest() {
-      global $shipping_count, $shipping_quote_all, $shipping_cheapest, $shipping_cheapest_cost, $shipping_flat_cost;
+      global $shipping_count, $shipping_quote_flat, $shipping_quote_all, $shipping_cheapest, $shipping_cheapest_cost, $shipping_flat_cost;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
         if ($shipping_count == 0) {
           $shipping_cheapest = 'flat';
           $shipping_cheapest_cost = $shipping_flat_cost;
@@ -42,9 +42,9 @@
     }
 
     function display() {
-      global $shipping_quote_all, $shipping_cheapest, $shipping_flat_method, $shipping_flat_cost;
+      global $shipping_quote_flat, $shipping_quote_all, $shipping_cheapest, $shipping_flat_method, $shipping_flat_cost;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
         $display_string = '<tr>' . "\n" .
                           '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_FLAT_NAME . '</font></td>' . "\n" .
                           '  <td>' . FONT_STYLE_MAIN . $shipping_flat_method . '</font></td>' . "\n" .

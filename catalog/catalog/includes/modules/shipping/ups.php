@@ -26,10 +26,10 @@
     }
 
     function quote() {
-      global $HTTP_POST_VARS, $shipping_quote_all, $address_values, $shipping_weight, $shipping_ups_cost, $shipping_ups_method, $shipping_num_boxes, $shipping_quoted;
+      global $HTTP_POST_VARS, $shipping_quote_ups, $shipping_quote_all, $address_values, $shipping_weight, $shipping_ups_cost, $shipping_ups_method, $shipping_num_boxes, $shipping_quoted;
 
       $prod = $HTTP_POST_VARS['shipping_ups_prod'];
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
         $prod = 'GND';
         include(DIR_WS_CLASSES . '_ups.php');
         $rate = new _Ups;
@@ -56,9 +56,9 @@
     }
 
     function cheapest() {
-      global $shipping_quote_all, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_ups_cost;
+      global $shipping_quote_ups, $shipping_quote_all, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_ups_cost;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
         if ($shipping_count == 0) {
           $shipping_cheapest = 'ups';
           $shipping_cheapest_cost = $shipping_ups_cost;
@@ -73,9 +73,9 @@
     }
 
     function display() {
-      global $shipping_quote_all, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest;
+      global $shipping_quote_ups, $shipping_quote_all, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
         $display_string = '<tr>' . "\n" .
                           '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_UPS_NAME . '</font></td>' . "\n" .
                           '  <td>' . FONT_STYLE_MAIN . $shipping_ups_method . '</font></td>' . "\n" .

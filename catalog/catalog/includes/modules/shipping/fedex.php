@@ -20,9 +20,9 @@
     }
 
     function quote() {
-      global $shipping_quote_all, $shipping_quoted, $address_values, $shipping_weight, $shipping_num_boxes, $shipping_fedex_cost, $shipping_fedex_method, $quote;
+      global $shipping_quote_fedex, $shipping_quote_all, $shipping_quoted, $address_values, $shipping_weight, $shipping_num_boxes, $shipping_fedex_cost, $shipping_fedex_method, $quote;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
         $shipping_quoted = 'fedex';
 // only calculate if FedEx ships there.
         if (in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
@@ -44,9 +44,9 @@
     }
 
     function cheapest() {
-      global $shipping_quote_all, $address_values, $quote, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_fedex_cost;
+      global $shipping_quote_fedex, $shipping_quote_all, $address_values, $quote, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_fedex_cost;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
 // only calculate if FedEx ships there.
         if ( (in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
           if ($shipping_count == 0) {
@@ -65,10 +65,10 @@
     }
 
     function display() {
-      global $shipping_quote_all, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest;
+      global $shipping_quote_fedex, $shipping_quote_all, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest;
 
       $display_string = '';
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
 // check for errors
         if ($quote['ErrorNbr']) {
           $display_string .= '<tr>' . "\n" .

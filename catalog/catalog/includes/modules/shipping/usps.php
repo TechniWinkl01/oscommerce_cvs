@@ -19,10 +19,10 @@
     }
 
     function quote() {
-      global $HTTP_POST_VARS, $shipping_quote_all, $address_values, $shipping_weight, $rate, $shipping_usps_cost, $shipping_usps_method, $shipping_num_boxes, $shipping_quoted;
+      global $HTTP_POST_VARS, $shipping_quote_usps, $shipping_quote_all, $address_values, $shipping_weight, $rate, $shipping_usps_cost, $shipping_usps_method, $shipping_num_boxes, $shipping_quoted;
 
       $prod = $HTTP_POST_VARS['shipping_usps_prod'];
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         $prod = 'Priority';
         include(DIR_WS_CLASSES . '_usps.php');
         $rate = new _USPS;
@@ -52,9 +52,9 @@
     }
 
     function cheapest() {
-      global $shipping_quote_all, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_usps_cost;
+      global $shipping_quote_usps, $shipping_quote_all, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_usps_cost;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         if ($shipping_count == 0) {
           $shipping_cheapest = 'usps';
           $shipping_cheapest_cost = $shipping_usps_cost;
@@ -69,9 +69,9 @@
     }
 
     function display() {
-      global $shipping_quote_all, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest;
+      global $shipping_quote_usps, $shipping_quote_all, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest;
 
-      if ($shipping_quote_all == '1') {
+      if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         $display_string = '<tr>' . "\n" .
                           '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_USPS_NAME . '</font></td>' . "\n" .
                           '  <td>' . FONT_STYLE_MAIN . $shipping_usps_method . '</font></td>' . "\n" .
