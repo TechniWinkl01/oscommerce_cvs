@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.15 2002/04/17 15:57:07 harley_vb Exp $
+  $Id: advanced_search.php,v 1.16 2002/05/27 14:09:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,26 +11,27 @@
 */
 
 define('NAVBAR_TITLE', 'Erweiterte Suche');
-define('HEADING_TITLE', 'geben Sie Ihre Suchkriterien ein');
+define('HEADING_TITLE', 'Erweiterte Suche');
 
-define('ENTRY_CATEGORIES', 'Kategorien:');
-define('ENTRY_INCLUDES_SUBCATEGORIES', 'Unterkategorien mit einbeziehen');
-define('ENTRY_MANUFACTURER', 'Hersteller:');
-define('ENTRY_KEYWORDS', 'Stichworte:');
-define('ENTRY_PRICE_FROM', 'Preis ab:');
-define('ENTRY_DATE_ADDED_FROM', 'hinzugef&uuml;gt von:');
-define('ENTRY_TO', 'bis:');
-define('ENTRY_KEYWORDS_TEXT', '&nbsp;<small><font color="#AABBDD">(Worte durch Leerzeichen trennen)</font></small>');
-define('ENTRY_DATE_ADDED_TEXT', '&nbsp;<small><font color="#AABBDD">(z.B. 21/05/1970)</font></small>');
-define('TEXT_ALL_CATEGORIES', 'ALLE KATEGORIEN');
-define('TEXT_ALL_MANUFACTURERS', 'ALLE HERSTELLER');
-define('TEXT_CATEGORY_NAME', 'Kategorie Name');
-define('TEXT_MANUFACTURER_NAME', 'Hersteller Name');
-define('TEXT_PRODUCT_NAME', 'Produkt Name');
-define('TEXT_PRICE', 'Preis');
+define('HEADING_SEARCH_CRITERIA', 'Erweiterte Suche');
+
 define('TEXT_SEARCH_IN_DESCRIPTION', 'Auch in Beschreibungen suchen');
-define('TEXT_ADVANCED_SEARCH_TIPS_HEADING', 'Hilfe zur erweiterten Suche');
-define('TEXT_ADVANCED_SEARCH_TIPS', 'Die Suchmaschine erm&ouml;glicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Modellen.<br><br>Sie haben die M&ouml;glichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br><br>Als Beispiel k&ouml;nnten Sie also angeben: <u>Microsoft AND Maus</u>.<br><br>Desweiteren k&ouml;nnen Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br><br><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br><br>Mit Anf&uuml;hrungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.');
+define('ENTRY_CATEGORIES', 'Kategorien:');
+define('ENTRY_INCLUDE_SUBCATEGORIES', 'Unterkategorien mit einbeziehen');
+define('ENTRY_MANUFACTURERS', 'Hersteller:');
+define('ENTRY_PRICE_FROM', 'Preis ab:');
+define('ENTRY_PRICE_TO', 'Preis bis:');
+define('ENTRY_DATE_FROM', 'hinzugef&uuml;gt von:');
+define('ENTRY_DATE_TO', 'hinzugef&uuml;gt bis:');
+
+define('TEXT_SEARCH_HELP_LINK', '<u>Search Help</u> [?]');
+
+define('TEXT_ALL_CATEGORIES', 'Alle Kategorien');
+define('TEXT_ALL_MANUFACTURERS', 'Alle Hersteller');
+
+define('HEADING_SEARCH_HELP', 'Hilfe zur erweiterten Suche');
+define('TEXT_SEARCH_HELP', 'Die Suchmaschine erm&ouml;glicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Modellen.<br><br>Sie haben die M&ouml;glichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br><br>Als Beispiel k&ouml;nnten Sie also angeben: <u>Microsoft AND Maus</u>.<br><br>Desweiteren k&ouml;nnen Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br><br><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br><br>Mit Anf&uuml;hrungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.');
+define('TEXT_CLOSE_WINDOW', '<u>Close Window</u> [x]');
 
 define('JS_AT_LEAST_ONE_INPUT', '* Eines der folgenden Felder muß ausgefüllt werden:\n    Stichworte\n    Datum hinzugefügt von\n    Datum hinzugefügt bis\n    Preis ab\n    Preis bis\n');
 define('JS_INVALID_FROM_DATE', '* Unzulässiges von Datum\n');
