@@ -1,7 +1,10 @@
 <?php
-	/* $Id: fedex.php,v 1.4 2001/02/06 12:57:19 tmoulton Exp $ */
+	/* $Id: fedex.php,v 1.5 2001/02/07 21:08:33 pkellum Exp $ */
 	$include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
-
+	// only these three are needed since FedEx only ships to them
+	// convert TEP country id to ISO 3166 id
+	$fedex_countries = array(38 => 'CA',138 => 'MX',223 => 'US');
+	$fedex_countries_nbr = array(38,138,223);
 	switch($action) {
 		case 'select' :
 			print "<TR><TD><FONT FACE=\"" . TEXT_FONT_FACE . "\" SIZE=\"" . TEXT_FONT_SIZE . "\" COLOR=\"" . TEXT_FONT_COLOR . "\">&nbsp;";
@@ -15,54 +18,68 @@
 			break;
 		case 'quote' :
 			if ($shipping_quote_fedex == "1") {
-				// convert TEP country id to ISO 3166 id
-				// only these three are needed since FedEx only ships to them
-				$fedex_countries = array(
-					38 => 'CA',		// Canada
-					138 => 'MX',	// Mexico
-					223 => 'US'		// USA
-				);
 				$shipping_quoted = 'fedex';
-				include('includes/fedex.php');
-				$rate = new FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
-				$rate->SetDest($address_values['postcode'], $fedex_countries[$address_values['country']]);
-				$rate->SetWeight($shipping_weight);
-				$quote = $rate->GetQuote();
-				$shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote['TotalCharges']);
-				// clean up the service text a little
-				$shipping_fedex_method = str_replace(' Package', '', $quote['Service']);
-				$shipping_fedex_method = str_replace(' FedEx', '', $shipping_fedex_method);
-                                $shipping_fedex_method = $shipping_fedex_method . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
+				// only calculate if FedEx ships there.
+				if(in_array($address_values['country_id'], $fedex_countries_nbr)) {
+					include(DIR_INCLUDES . 'fedex.php');
+					$rate = new FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
+					$rate->SetDest($address_values['postcode'], $fedex_countries[$address_values['country']]);
+					$rate->SetWeight($shipping_weight);
+					$quote = $rate->GetQuote();
+					$shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote['TotalCharges']);
+					// clean up the service text a little
+					$shipping_fedex_method = str_replace(' Package', '', $quote['Service']);
+					$shipping_fedex_method = str_replace(' FedEx', '', $shipping_fedex_method);
+					$shipping_fedex_method = $shipping_fedex_method . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
+				}
+				else {
+					$quote['ErrorNbr'] = 1;
+					$quote['Error'] = SHIPPING_FEDEX_NOTAVAILABLE;
+				}
 			}
 			break;
 		case 'cheapest' :
 			if($shipping_quote_fedex == "1") {
-				if($shipping_count == 0) {
-					$shipping_cheapest = 'fedex';
-					$shipping_cheapest_cost = $shipping_fedex_cost;
-				}
-				else {
-					if($shipping_fedex_cost < $shipping_cheapest_cost) {
+				// only calculate if FedEx ships there.
+				if(in_array($address_values['country_id'], $fedex_countries_nbr) AND !$quote['ErrorNbr']) {
+					if($shipping_count == 0) {
 						$shipping_cheapest = 'fedex';
 						$shipping_cheapest_cost = $shipping_fedex_cost;
+					}
+					else {
+						if($shipping_fedex_cost < $shipping_cheapest_cost) {
+							$shipping_cheapest = 'fedex';
+							$shipping_cheapest_cost = $shipping_fedex_cost;
+						}
 					}
 				}
 			}
 			break;
 		case 'display' :
 			if($shipping_quote_fedex == "1") {
-				print "<TR>\n";
-				print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
-				print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">' . $shipping_fedex_method . "</FONT></TD>\n";
-				print '<TD ALIGN="right"><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_fedex_cost) . "</FONT></TD>\n";
-				print '<TD ALIGN="right" NOWRAP>&nbsp;<INPUT TYPE="radio" NAME="shipping_selected" VALUE="fedex"';
-				if($shipping_cheapest == 'fedex') {
-					print ' CHECKED';
+				// check for errors
+				if($quote['ErrorNbr']) {
+					print "<TR>\n";
+					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
+					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '"><FONT COLOR="red">Error:</FONT> ' . htmlentities($quote['Error']) . "</FONT></TD>\n";
+					print '<TD ALIGN="right"><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . "\">&nbsp;</FONT></TD>\n";
+					print "<TD ALIGN=\"right\" NOWRAP>&nbsp;</TD>\n";
+					print "</TR>\n";
 				}
-				print ">&nbsp;</TD>\n";
-				print "</TR>\n";
-				print '<INPUT TYPE="hidden" NAME="shipping_fedex_cost" VALUE="' . $shipping_fedex_cost . "\">\n";
-				print '<INPUT TYPE="hidden" NAME="shipping_fedex_method" VALUE="' . $shipping_fedex_method . "\">\n";
+				else {
+					print "<TR>\n";
+					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
+					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">' . $shipping_fedex_method . "</FONT></TD>\n";
+					print '<TD ALIGN="right"><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_fedex_cost) . "</FONT></TD>\n";
+					print '<TD ALIGN="right" NOWRAP>&nbsp;<INPUT TYPE="radio" NAME="shipping_selected" VALUE="fedex"';
+					if($shipping_cheapest == 'fedex') {
+						print ' CHECKED';
+					}
+					print ">&nbsp;</TD>\n";
+					print "</TR>\n";
+					print '<INPUT TYPE="hidden" NAME="shipping_fedex_cost" VALUE="' . $shipping_fedex_cost . "\">\n";
+					print '<INPUT TYPE="hidden" NAME="shipping_fedex_method" VALUE="' . $shipping_fedex_method . "\">\n";
+				}
 			}
 			break;
 		case 'confirm' :
