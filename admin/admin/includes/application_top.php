@@ -35,6 +35,7 @@
 
 // define the filenames used in the project
   define('FILENAME_CATEGORIES', 'categories.php');
+  define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
@@ -128,6 +129,7 @@
   define('FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">');
   define('FONT_STYLE_INFO_BOX_HEADING', '<font face="Verdana, Arial" size="1" color="#ffffff">');
   define('FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">');
+  define('FONT_STYLE_NAVIGATION_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">');
 
 // Shipping Options
   define('SHIPPING_FREE', 1);
@@ -196,6 +198,7 @@
 
 // entry/item info classes
   $include_file = DIR_CLASSES . 'category_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'configuration_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'customer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'manufacturer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'product_expected_info.php'; include(DIR_INCLUDES . 'include_once.php');
