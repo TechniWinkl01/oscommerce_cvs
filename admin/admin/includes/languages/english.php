@@ -65,6 +65,7 @@ define('BOX_CUSTOMERS_ORDERS', 'Orders');
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Locations / Taxes');
 define('BOX_TAXES_ZONES', 'Zones');
+define('BOX_TAXES_TAX_CLASSES', 'Tax Classes');
 
 // whats_new box text in includes/boxes/statistics.php
 define('BOX_HEADING_STATISTICS', 'Statistics');
@@ -171,6 +172,7 @@ define('IMAGE_MODIFY', 'Modify');
 define('IMAGE_MOVE', 'Move');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_PRODUCT', 'New Product');
+define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
 define('IMAGE_NEW_ZONE', 'New Zone');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_SAVE', 'Save');
@@ -189,6 +191,7 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products expected)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
+define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax classes)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> zones)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
