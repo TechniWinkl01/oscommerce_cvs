@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.114 2002/04/26 20:28:06 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.115 2002/04/26 22:33:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -134,7 +134,7 @@
       if (sizeof($order->products[$i]['attributes']) > 0) {
         for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price']) . ')';
+          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty']) . ')';
           echo '</i></small></nobr>';
         }
       }

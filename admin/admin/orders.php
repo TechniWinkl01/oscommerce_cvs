@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.97 2002/04/26 22:23:52 hpdl Exp $
+  $Id: orders.php,v 1.98 2002/04/26 22:27:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -284,7 +284,7 @@
         for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           if ($order_packingslip == false) {
-              if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . tep_currency_format($order->products[$i]['attributes'][$j]['price']) . ')';
+              if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . tep_currency_format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty']) . ')';
           }
           echo '</i></small></nobr>';
         }

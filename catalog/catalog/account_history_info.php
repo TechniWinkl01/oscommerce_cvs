@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.78 2002/04/26 20:28:05 dgw_ Exp $
+  $Id: account_history_info.php,v 1.79 2002/04/26 22:29:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,7 +83,7 @@
       if (sizeof($order->products[$i]['attributes']) > 0) {
         for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'], true, $order->info['currency'], $order->info['currency_value']) . ')';
+          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
           echo '</i></small></nobr>';
         }
       }
