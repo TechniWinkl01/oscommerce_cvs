@@ -1,5 +1,4 @@
-The Exchange Project Preview Release 2.0
-Coding Standards Practice
+The Exchange Project Preview Release 2.1 Coding Standards Practice
 
 ** THIS DOCUMENT IS A DRAFT **
 
@@ -18,6 +17,10 @@ together on the same server.
 
 PHP3 Compatibility Issues
 -------------------------
+* Something that will be done once the template structure has been
+  implemented, is to change all <? php start tags to <?php for proper
+  compatibility.
+
 * It is best to define the constants early before 'includes' are made,
   as these includes cannot access constants that are set after the
   file has been 'included'. For example,
@@ -36,7 +39,7 @@ PHP3 Compatibility Issues
 * Do not use the short version of echo, this will not work under PHP3.
   Please get in the habit of writing
   
-  <? echo $variable; ?>
+  <?php echo $variable; ?>
 
   instead of
   

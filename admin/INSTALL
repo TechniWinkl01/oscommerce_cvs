@@ -1,4 +1,4 @@
-The Exchange Project Administration Tool Preview Release 2.0 (01.12.2000)
+The Exchange Project Administration Tool Preview Release 2.1 (xx.02.2001)
 
 Quick Installation
 ------------------
@@ -7,13 +7,13 @@ Follow these steps to get the administration running:
 
 Extract the files from within the package
 
-    tar -xzf tep_administration-pr2.0.tar.gz
+    tar -xzf tep_administration-pr2.1.tar.gz
  
-This would have created a directory called 'tep_administration-pr2.0'. Enter
+This would have created a directory called 'tep_administration-pr2.1'. Enter
 this directory and copy the 'admin' directory to where your WWW root directory
 is located
 
-    cd tep_administration-pr2.0
+    cd tep_administration-pr2.1
     cp -R admin /usr/local/apache/htdocs/
 
 For this example, '/usr/local/apache/htdocs/' is used as the WWW root
@@ -23,8 +23,10 @@ View the files admin/includes/application_*.php and make necessary changes.
 Changes will also need to be made to admin/includes/functions/database.php for
 your database connections.
  
-It is up to you on how you wish to protect the administration side against
-unauthorized use.
+***NOTE******NOTE******NOTE******NOTE******NOTE******NOTE******NOTE***
+It is up to you on how you wish to protect the administration pages
+against unauthorized use.
+**********************************************************************
 
 For the administration tool to be able to insert and delete images, the
 right permissions need to be setup on the images directory. Find out which user
@@ -43,6 +45,7 @@ Any questions can be directed to the following addresses:
 
 Harald Ponce de Leon [hpdl@theexchangeproject.org]
 General Mailing List [tep-general@theexchangeproject.org]
+Forums [http://theexchangeproject.org/phorum/default.php]
 
 In order to receive E-Mails from the mailing-list, an account is needed
 which can be created on the support site at:
