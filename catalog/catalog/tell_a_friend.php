@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.24 2002/03/07 19:58:10 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.25 2002/04/04 09:36:13 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -150,7 +150,7 @@
           <tr>
             <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
               <tr>
-                <td class="main"><?php echo tep_draw_textarea_field('yourmessage', 'soft', 40, 8);?></td>
+                <td><?php echo tep_draw_textarea_field('yourmessage', 'soft', 40, 8);?></td>
               </tr>
             </table></td>
           </tr>
