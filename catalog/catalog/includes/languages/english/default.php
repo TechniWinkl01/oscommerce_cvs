@@ -12,7 +12,7 @@ define('TABLE_HEADING_DATE_EXPECTED', 'Date Expected');
 
 if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TOP_BAR_TITLE', 'Online Products');
-  define('HEADING_TITLE', 'Let\'s See What We\'ve Got Here');
+  define('HEADING_TITLE', 'Let\'s See What We Have Here');
   define('TABLE_HEADING_IMAGE', '');
   define('TABLE_HEADING_MODEL', 'Model');
   define('TABLE_HEADING_PRODUCTS', 'Product Name');
