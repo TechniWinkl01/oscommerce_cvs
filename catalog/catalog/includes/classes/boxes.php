@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.12 2001/12/19 07:48:08 jan0815 Exp $
+  $Id: boxes.php,v 1.13 2001/12/19 07:54:19 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -109,7 +109,7 @@
       }
 
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeadingg"', 'text' => $left_corner),
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => $left_corner),
                                    array('align' => 'left', 'params' => 'width="100%" height="14" class="infoBoxHeading"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
                                    array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => $right_corner));
       $this->tableBox($info_box_contents, true);
