@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.48 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.49 2002/01/21 13:43:18 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -184,8 +184,6 @@
   $where_str = " where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and c.status = '1' ";
 
   if ($HTTP_GET_VARS['categories_id']) {
-    $from_str .= ", " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c ";
-
     if ($HTTP_GET_VARS['inc_subcat'] == "1") {
       $subcategories_array = array();
       tep_get_subcategories($subcategories_array, $HTTP_GET_VARS['categories_id']);
