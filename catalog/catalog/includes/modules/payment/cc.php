@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.41 2002/05/30 15:36:36 dgw_ Exp $
+  $Id: cc.php,v 1.42 2002/08/13 16:00:41 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -144,11 +144,11 @@
     }
 
     function check() {
-      if (!isset($this->check)) {
+      if (!isset($this->_check)) {
         $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_CC_STATUS'");
-        $this->check = tep_db_num_rows($check_query);
+        $this->_check = tep_db_num_rows($check_query);
       }
-      return $this->check;
+      return $this->_check;
     }
 
     function install() {

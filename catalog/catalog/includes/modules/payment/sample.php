@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sample.php,v 1.19 2002/01/27 18:45:25 dgw_ Exp $
+  $Id: sample.php,v 1.20 2002/08/13 16:00:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -86,11 +86,11 @@
 // !Check if module is installed (Administration Tool)_
 // TABLES: configuration
     function check() {
-      if (!isset($this->check)) {
+      if (!isset($this->_check)) {
         $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
-        $this->check = tep_db_num_rows($check_query);
+        $this->_check = tep_db_num_rows($check_query);
       }
-      return $this->check;
+      return $this->_check;
     }
 
 ////

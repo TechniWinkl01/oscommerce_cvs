@@ -49,11 +49,11 @@
     }
 
     function check() {
-      if (!isset($this->check)) {
+      if (!isset($this->_check)) {
         $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_MONEYORDER_STATUS'");
-        $this->check = tep_db_num_rows($check_query);
+        $this->_check = tep_db_num_rows($check_query);
       }
-      return $this->check;
+      return $this->_check;
     }
 
     function install() {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: itransact_split.php,v 1.18 2002/06/23 13:43:01 clescuyer Exp $
+  $Id: itransact_split.php,v 1.19 2002/08/13 16:00:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -239,11 +239,11 @@
     }
 
     function check() {
-      if (!isset($this->check)) {
+      if (!isset($this->_check)) {
         $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_ITRANSACT_SPLIT_STATUS'");
-        $this->check = tep_db_num_rows($check_query);
+        $this->_check = tep_db_num_rows($check_query);
       }
-      return $this->check;
+      return $this->_check;
     }
 
     function install() {

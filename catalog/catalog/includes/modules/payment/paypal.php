@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.28 2002/05/30 15:36:36 dgw_ Exp $
+  $Id: paypal.php,v 1.29 2002/08/13 16:00:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -67,11 +67,11 @@
     }
 
     function check() {
-      if (!isset($this->check)) {
+      if (!isset($this->_check)) {
         $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_PAYPAL_STATUS'");
-        $this->check = tep_db_num_rows($check_query);
+        $this->_check = tep_db_num_rows($check_query);
       }
-      return $this->check;
+      return $this->_check;
     }
 
     function install() {
