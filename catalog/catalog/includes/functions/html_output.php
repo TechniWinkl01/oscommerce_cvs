@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.4 2001/06/14 00:01:31 hpdl Exp $
+  $Id: html_output.php,v 1.5 2001/06/14 14:42:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -164,9 +164,9 @@
 
     $state_prov_result = tep_db_query("select zone_id, zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_code . "' order by zone_name");
     if (tep_db_num_rows($state_prov_result)) {
-      $result .= '<option value="">' . PLEASE_SELECT . '</option>';
+      $result .= '<option>' . PLEASE_SELECT . '</option>';
     } else {
-      $result .= '<option value="">' . TYPE_BELOW . '</option>';
+      $result .= '<option>' . TYPE_BELOW . '</option>';
     }
 
     $populated = 0;
@@ -181,7 +181,7 @@
     if ($populated == 0) {
       if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
         for ($i=0; $i<9; $i++) {
-          $result .= '<option value=""></option>';
+          $result .= '<option></option>';
         }
       }
     }
