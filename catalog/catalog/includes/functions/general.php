@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.111 2001/07/11 09:01:24 jwildeboer Exp $
+  $Id: general.php,v 1.112 2001/07/11 10:03:18 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -975,8 +975,7 @@
     //plain text version of message
     $headers .= "--$boundary\n" . "Content-Type: text/plain; charset=ISO-8859-15\n" . "Content-Transfer-Encoding: base64\n\n";
     $headers .= chunk_split(base64_encode($email_text)); 
-    $headers .= "--$boundary--\n";
-    
+
     //HTML version of message 
     $headers .= "--$boundary\n" . "Content-Type: text/html; charset=ISO-8859-15\n" . "Content-Transfer-Encoding: base64\n\n";
     $headers .= chunk_split(base64_encode($email_text));
