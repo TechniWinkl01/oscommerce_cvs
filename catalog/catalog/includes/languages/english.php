@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.51 2001/06/11 22:40:35 hpdl Exp $
+  $Id: english.php,v 1.52 2001/06/13 20:12:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -144,13 +144,13 @@ define('JS_STATE_SELECT', '-- Select Above --');
 define('JS_ZONE', '* The \'State\' entry must be selected from the list for this country.');
 define('JS_COUNTRY', '* The \'Country\' entry must be selected.');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
-define('JS_PASSWORD', '* The \'Password\' amd \'Confirmation\' entries must match amd have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
+define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match amd have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
-define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
-define('CATEGORY_ADDRESS', '<b>[ Address ]</b>');
-define('CATEGORY_CONTACT', '<b>[ Contact ]</b>');
-define('CATEGORY_PASSWORD', '<b>[ Password ]</b>');
-define('CATEGORY_OPTIONS', '<b>[ Options ]</b>');
+define('CATEGORY_PERSONAL', 'Your Personal Details');
+define('CATEGORY_ADDRESS', 'Your Address ');
+define('CATEGORY_CONTACT', 'Your Contact Information');
+define('CATEGORY_OPTIONS', 'Options');
+define('CATEGORY_PASSWORD', 'Your Password');
 define('ENTRY_GENDER', 'Gender:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
