@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.66 2002/08/17 13:06:13 hpdl Exp $
+  $Id: banner_manager.php,v 1.67 2002/08/17 13:53:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -348,16 +348,14 @@ function popupImageWindow(url) {
       $banners_clicked = ($info['banners_clicked'] != '') ? $info['banners_clicked'] : '0';
 
       if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'">' . "\n";
-        $onclick_link = 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id;
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id) . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
-        $onclick_link = 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'];
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_STATISTICS, $onclick_link); ?>'"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
-                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_STATISTICS, $onclick_link); ?>'"><?php echo $banners['banners_group']; ?></td>
-                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_STATISTICS, $onclick_link); ?>'"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
+                <td class="dataTableContent" align="right"><?php echo $banners['banners_group']; ?></td>
+                <td class="dataTableContent" align="right"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
                 <td class="dataTableContent" align="right">
 <?php
       if ($banners['status'] == '1') {
