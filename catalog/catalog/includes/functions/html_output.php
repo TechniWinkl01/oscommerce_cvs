@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.51 2003/03/14 02:10:58 hpdl Exp $
+  $Id: html_output.php,v 1.52 2003/03/19 00:19:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -256,7 +256,11 @@
 ////
 // Hide form elements
   function tep_hide_session_id() {
-    if (defined('SID') && tep_not_null(SID)) return tep_draw_hidden_field(tep_session_name(), tep_session_id());
+    global $session_started;
+
+    if ( ($session_started == true) && defined('SID') && tep_not_null(SID) ) {
+      return tep_draw_hidden_field(tep_session_name(), tep_session_id());
+    }
   }
 
 ////
