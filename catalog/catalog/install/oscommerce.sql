@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.17 2002/01/31 16:22:18 jan0815 Exp $
+# $Id: oscommerce.sql,v 1.18 2002/01/31 19:12:50 jan0815 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -699,7 +699,7 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Use Cache', 'USE_CACHE', 'false', 'Use caching features', '11', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Cache Directory', 'DIR_FS_CACHE', '/tmp/', 'The directory where the cached files are saved', '11', '2', now());
 INSERT INTO configuration VALUES (95,'E-Mail transport method','EMAIL_TRANSPORT','smtp','Defines if this server uses a local connection to sendmail or uses an SMTP connection via TCP/IP. If your server is running under Windows or MacOS change this setting to SMTP.',12,4,'2002-01-31 16:42:18','2002-01-31 16:08:57',NULL,'tep_cfg_select_option(array(\'sendmail\', \'smtp\'),');
-INSERT INTO configuration VALUES (96,'E-Mail Linefeed settings','EMAIL_LINEFEED','\\r\\n','Defines the character sequence used to separate mail headers. Only touch this if you know hat you are doing.',12,5,'2002-01-31 16:42:52','2002-01-31 16:15:44',NULL,'tep_cfg_select_option(array(\'\\\\n\', \'\\\\r\\\\n\'),');
+INSERT INTO configuration VALUES (96,'E-Mail Linefeed settings','EMAIL_LINEFEED','LF','Defines the character sequence used to separate mail headers. Only touch this if you know hat you are doing.',12,5,'2002-01-31 16:42:52','2002-01-31 16:15:44',NULL,'tep_cfg_select_option(array(\'LF\', \'CRLF\'),');
 
 INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1');
 INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1');
