@@ -15,17 +15,17 @@ function check_form() {
   var cc_expires = document.payment.cc_expires.value;
 
   if (document.payment.payment[1].checked) {
-    if (cc_owner = "" || cc_owner.length < <?=CC_OWNER_MIN_LENGTH;?>) {
+    if (cc_owner == "" || cc_owner.length < <?=CC_OWNER_MIN_LENGTH;?>) {
       error_message = error_message + "<?=JS_CC_OWNER;?>";
       error = 1;
     }
 
-    if (cc_number = "" || cc_number.length < <?=CC_NUMBER_MIN_LENGTH;?>) {
+    if (cc_number == "" || cc_number.length < <?=CC_NUMBER_MIN_LENGTH;?>) {
       error_message = error_message + "<?=JS_CC_NUMBER;?>";
       error = 1;
     }
 
-    if (cc_expires = "" || cc_expires.length < <?=CC_EXPIRY_MIN_LENGTH;?>) {
+    if (cc_expires == "" || cc_expires.length < <?=CC_EXPIRY_MIN_LENGTH;?>) {
       error_message = error_message + "<?=JS_CC_EXPIRES;?>";
       error = 1;
     }

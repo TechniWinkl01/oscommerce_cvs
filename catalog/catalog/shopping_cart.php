@@ -338,13 +338,13 @@
 //------insert customer choosen option --------
 		if ($attributes_exist == '1') {
         $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $check_cart_values['customers_id'] . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
-		$final_price=$check_cart_values['customers_basket_quantity'] * $price;
+		$final_price=$price;
 		while ($attributes_values = tep_db_fetch_array($attributes)) {
 			  if ($attributes_values['options_values_price'] != '0') {
 			  	if ($attributes_values['price_prefix'] =='+') {
-			  	$final_price=$final_price+($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+			  	$final_price=$final_price+$attributes_values['options_values_price'];
 				} else {
-				$final_price=$final_price-($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+				$final_price=$final_price-$attributes_values['options_values_price'];
 				}
 			  echo "\n" . '<br>' . $attributes_values['price_prefix'] . tep_currency_format($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']) . '&nbsp;';
 			  } else {
@@ -357,8 +357,8 @@
         echo '          </tr>' . "\n";
 //------insert customer choosen option --------
 		if ($attributes_exist=='1') {
-		echo '<tr><td colspan="' . ($colspan-1) . '" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
-		echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price) . '&nbsp;</b></font></td>';
+		// echo '<tr><td colspan="' . ($colspan-1) . '" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
+		// echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price*$check_cart_values['customers_basket_quantity']) . '&nbsp;</b></font></td>';
 		tep_db_query("update customers_basket set final_price = '" . $final_price . "' where customers_basket_id = '" . $check_cart_values['customers_basket_id'] . "'");
 		} else {
 		tep_db_query("update customers_basket set final_price = '" . $price . "' where customers_basket_id = '" . $check_cart_values['customers_basket_id'] . "'");
@@ -430,14 +430,6 @@
               <tr>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_SUB_TOTAL;?>&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_cost);?>&nbsp;</font></td>
-              </tr>
-              <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_TAX;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_cost * TAX_VALUE/100);?>&nbsp;</font></td>
-              </tr>
-              <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=SUB_TITLE_TOTAL;?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=tep_currency_format(($total_cost * TAX_VALUE/100) + $total_cost);?></b>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>

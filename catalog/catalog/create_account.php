@@ -6,6 +6,23 @@
 <title><?=TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
+function update_zone(theForm) {
+   
+   var NumState = theForm.zone_id.options.length;
+            
+   while(NumState > 0) {
+      NumState--;
+      theForm.zone_id.options[NumState] = null;
+   }
+
+   var SelectedCountry = "";
+            
+   SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
+            
+<? tep_js_zone_list("SelectedCountry", "theForm"); ?>
+
+}   
+
 function check_form() {
   var error = 0;
   var error_message = "<?=JS_ERROR;?>";
@@ -17,6 +34,8 @@ function check_form() {
      echo 'var dob = document.create_account.dob.value;';
   }
 ?>
+  var zone_id = document.create_account.zone_id.options[document.create_account.zone_id.selectedIndex].value;
+  var country = document.create_account.country.options[document.create_account.country.selectedIndex].value;
   var email_address = document.create_account.email_address.value;  
   var street_address = document.create_account.street_address.value;
   var postcode = document.create_account.postcode.value;
@@ -37,12 +56,12 @@ function check_form() {
   }
 ?>
   
-  if (first_name = "" || first_name.length < <?=ENTRY_FIRST_NAME_MIN_LENGTH;?>) {
+  if (first_name == "" || first_name.length < <?=ENTRY_FIRST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_FIRST_NAME;?>";
     error = 1;
   }
 
-  if (last_name = "" || last_name.length < <?=ENTRY_LAST_NAME_MIN_LENGTH;?>) {
+  if (last_name == "" || last_name.length < <?=ENTRY_LAST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_LAST_NAME;?>";
     error = 1;
   }
@@ -50,7 +69,7 @@ function check_form() {
 <?
   if (ACCOUNT_DOB) {
 ?>
-  if (dob = "" || dob.length < <?=ENTRY_DOB_MIN_LENGTH;?>) {
+  if (dob == "" || dob.length < <?=ENTRY_DOB_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_DOB;?>";
     error = 1;
   }
@@ -58,32 +77,37 @@ function check_form() {
   }
 ?>
 
-  if (email_address = "" || email_address.length < <?=ENTRY_EMAIL_ADDRESS_MIN_LENGTH;?>) {
+  if (email_address == "" || email_address.length < <?=ENTRY_EMAIL_ADDRESS_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_EMAIL_ADDRESS;?>";
     error = 1;
   }
 
-  if (street_address = "" || street_address.length < <?=ENTRY_STREET_ADDRESS_MIN_LENGTH;?>) {
+  if (street_address == "" || street_address.length < <?=ENTRY_STREET_ADDRESS_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_ADDRESS;?>";
     error = 1;
   }
 
-  if (postcode = "" || postcode.length < <?=ENTRY_POSTCODE_MIN_LENGTH;?>) {
+  // if ((country == "US" || country == "CA" || country == "") && (state == "" || state.length < <?=ENTRY_STATE_MIN_LENGTH;?>)) {
+  //   error_message = error_message + "<?=JS_STATE;?>";
+  //   error = 1;
+  // }
+
+  if (postcode == "" || postcode.length < <?=ENTRY_POSTCODE_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_POST_CODE;?>";
     error = 1;
   }
 
-  if (city = "" || city.length < <?=ENTRY_CITY_MIN_LENGTH;?>) {
+  if (city == "" || city.length < <?=ENTRY_CITY_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_CITY;?>";
     error = 1;
   }
 
-  if (telephone = "" || telephone.length < <?=ENTRY_TELEPHONE_MIN_LENGTH;?>) {
+  if (telephone == "" || telephone.length < <?=ENTRY_TELEPHONE_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_TELEPHONE;?>";
     error = 1;
   }
 
-  if ((password != confirmation) || (password = "" || password.length < <?=ENTRY_PASSWORD_MIN_LENGTH;?>)) {
+  if ((password != confirmation) || (password == "" || password.length < <?=ENTRY_PASSWORD_MIN_LENGTH;?>)) {
     error_message = error_message + "<?=JS_PASSWORD;?>";
     error = 1;
   }
@@ -213,28 +237,22 @@ function check_form() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_CITY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;<input type="text" name="city" maxlength="32">&nbsp;<?=ENTRY_CITY_TEXT;?></font></td>
           </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            &nbsp;<?tep_get_country_list("country", STORE_COUNTRY, "onChange=\"update_zone(this.form);\"");?>&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
+          </tr>
 <?
   if (ACCOUNT_STATE) {
 ?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;<input type="text" name="state" maxlength="32">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            &nbsp;<?tep_get_zone_list("zone_id", STORE_COUNTRY);?></select>&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
           </tr>
 <?
    }
 ?>
-          <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;<select name="country"><option value="0"><?=PLEASE_SELECT;?></option>
-<?
-    $countries = tep_get_countries();
-    for ($i=0; $i < sizeof($countries); $i++) {
-      echo '<option value="' . $countries[$i]['countries_id'] . '"';
-      if ($countries[$i]['countries_id'] == STORE_COUNTRY) echo ' SELECTED';
-      echo '>' . $countries[$i]['countries_name'] . '</option>';
-    }
-?></select>&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
-          </tr>
           <tr>
             <td colspan="2" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;</font></td>
           </tr>

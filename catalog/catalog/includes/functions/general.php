@@ -383,4 +383,278 @@
     echo sprintf($text, ($max_row_per_page * ($cur_page_num - 1))+1, $to_num, $numrows);
   }
 
+  function tep_browser_detect($component) { 
+    global $HTTP_USER_AGENT; 
+    $result = stristr($HTTP_USER_AGENT,$component); 
+    return $result; 
+  } 
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //   tep_get_country_list
+  //
+  //   - make a popup list of countries
+  //   - ISO standard abbreviations are used (ISO 3166)
+  //   - Country Codes and Names are stored in table 'countries'
+  //
+  //   Written By: Kenneth Cheng
+  //
+  //   parameters
+  //   ----------
+  //
+  //   popup_name: the name attribute you want for the <SELECT> tag
+  //
+  //   selected:   the default selected value [optional]
+  //
+  //   javascript: javascript for the <SELECT> tag, i.e.
+  //               onChange="this.form.submit()" [optional]
+  //
+  //   size:       size [optional]
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_country_list ($popup_name, $selected="", $javascript="", $size=1) {
+
+    // start building the popup menu
+    $result = "<select name=\"$popup_name\"";
+    
+    if ($size != 1)
+      $result .= " size=\"$size\"";
+      
+    if ($javascript)
+      $result .= " " . $javascript;
+    
+    $result .= ">\n";
+    
+    $result .= "<option value=\"\">" . PLEASE_SELECT . "\n";
+
+      // need to convert this to use tep_get_countries()
+      $country_result = tep_db_query("select countries_name, countries_id from countries order by countries_name");
+      
+      while ($country_values = tep_db_fetch_array($country_result)) {
+
+      // printed SELECTED if an item was previously selected
+      // so we maintain the state
+      if ($selected == $country_values[countries_id]) {
+        $result .= "<option value=\"$country_values[countries_id]\" SELECTED>$country_values[countries_name]\n";
+      } else {
+        $result .= "<option value=\"$country_values[countries_id]\">$country_values[countries_name]\n";
+      }
+     }
+    // finish the popup menu
+    $result .= "</select>\n";
+    
+    echo $result;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //   tep_get_zone_list
+  //
+  //   - make a popup list of states and provinces
+  //
+  //   Written By: Kenneth Cheng
+  //
+  //   parameters
+  //   ----------
+  //
+  //   popup_name:     the name attribute you want for the <SELECT> tag
+  //
+  //   country_code:   the default selected value [optional]
+  //
+  //   selected:       the default selected value [optional]
+  //
+  //   javascript:     javascript for the <SELECT> tag, i.e.
+  //                   onChange="this.form.submit()" [optional]
+  //
+  //   size:           size [optional]
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_zone_list ($popup_name, $country_code="", $selected="", $javascript="", $size=1) {
+
+    // start building the popup menu
+    $result = "<select name=\"$popup_name\"";
+    
+    if ($size != 1)
+      $result .= " size=\"$size\"";
+      
+    if ($javascript)
+      $result .= " " . $javascript;
+    
+    $result .= ">\n";
+    
+    $result .= "<option value=\"\">" . PLEASE_SELECT . "\n";
+
+    // Preset the width of the drop-down for Netscape
+    //
+    // 53 "&nbsp;" would provide the width for my longer state/province name
+    // this number should be customized for your need
+    // 
+    if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) {
+      for ($i=0; $i<53; $i++)
+        $result .= "&nbsp;";
+    }
+
+    $state_prov_result = tep_db_query("select zone_id, zone_name from tax_zones where zone_country_id = '" . $country_code . "' order by zone_name");
+      
+    $populated = 0;
+    while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
+      $populated++;
+      // printed SELECTED if an item was previously selected
+      // so we maintain the state
+      if ($selected == $state_prov_values[zone_id]) {
+        $result .= "<option value=\"$state_prov_values[zone_id]\" SELECTED>$state_prov_values[zone_name]\n";
+      } else {
+        $result .= "<option value=\"$state_prov_values[zone_id]\">$state_prov_values[zone_name]\n";
+      }
+    }
+
+    // Create dummy options for Netscape to preset the height of the drop-down
+    if ($populated == 0) {
+      if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) { 
+        for ($i=0; $i<9; $i++) {
+          $result .= "\n<option value=\"\">";
+        }
+      }
+    }
+
+    // finish the popup menu
+    $result .= "\n</select>\n";
+    
+    echo $result;
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_js_zone_list
+  //
+  // Arguments   : SelectedCountryVar        string that contains the SelectedCountry variable
+  //                                         name
+  //               FormName                  string that contains the form object name
+  //
+  // Return      : none
+  //
+  // Description : Function used to construct part of the JavaScript code for dynamically
+  //               updating the State/Province Drop-Down list
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_js_zone_list($SelectedCountryVar, $FormName) {
+    $country_query = tep_db_query("select distinct zone_country_id from tax_zones order by zone_country_id");
+    $NumCountry=1;
+    while ($country_values = tep_db_fetch_array($country_query)) {
+      if ($NumCountry == 1)
+        print ("  if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
+      else 
+        print ("  else if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
+  
+      $state_query = tep_db_query("select tax_zones.zone_name, tax_zones.zone_id from tax_zones where tax_zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by tax_zones.zone_name");
+      
+      $NumState = 1;
+      while ($state_values = tep_db_fetch_array($state_query)) {
+        if ($NumState == 1)
+          print ("    " . $FormName . ".state.options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
+        print ("    " . $FormName . ".state.options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
+        $NumState++;
+      }
+      $NumCountry++;
+      print ("  }\n");
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_country_name
+  //
+  // Arguments   : country        country code string 
+  //
+  // Return      : none
+  //
+  // Description : Function to retrieve the country name
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_country_name($country) {
+
+    $country_query = tep_db_query("select countries_name from countries where countries_id = '" . $country . "'");
+
+    if (!tep_db_num_rows($country_query)) {
+      $country_name = $country;
+    }
+    else {
+      $country_values = tep_db_fetch_array($country_query);
+      $country_name = $country_values['countries_name'];
+    }
+    
+    return $country_name;
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_zone_name
+  //
+  // Arguments   : country           country code string
+  //               zone              state/province zone_id
+  //               def_state         default string if zone==0
+  //
+  // Return      : state_prov_name   state/province name
+  //
+  // Description : Function to retrieve the state/province name
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_zone_name($country, $zone, $def_state) {
+
+    $state_prov_query = tep_db_query("select zone_name from tax_zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
+
+    if (!tep_db_num_rows($state_prov_query)) {
+      $state_prov_name = $def_state;
+    }
+    else {
+      $state_prov_values = tep_db_fetch_array($state_prov_query);
+      $state_prov_name = $state_prov_values['zone_name'];
+    }
+    
+    return $state_prov_name;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_tax_rate
+  //
+  // Arguments   : tax_zone_id, tax_class_id
+  //
+  // Return      : tax_rate DECIMAL
+  //
+  // Description : Function to retrieve the tax rate for a given zone/product_class
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_tax_rate($zone, $class) {
+    $tax_query = tep_db_query("select tax_rate from tax_rates where tax_zone_id = '" . $zone . "' and tax_class_id = '" . $class . "'");
+
+    $tax = TAX_VALUE;
+    if (tep_db_num_rows($tax_query)) {
+      $tax_values = tep_db_fetch_array($tax_query);
+      $tax = $tax_values['tax_rate'];
+    }
+    return $tax;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_tax_description
+  //
+  // Arguments   : tax_zone_id, tax_class_id
+  //
+  // Return      : tax_description string
+  //
+  // Description : Function to retrieve the tax decription for a given zone/product_class
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_tax_description($zone, $class) {
+    $tax_query = tep_db_query("select tax_description from tax_rates where tax_zone_id = '" . $zone . "' and tax_class_id = '" . $class . "'");
+
+    $tax_des = "Unknown Tax Rate";
+    if (tep_db_num_rows($tax_query)) {
+      $tax_values = tep_db_fetch_array($tax_query);
+      $tax_des = $tax_values['tax_description'];
+    }
+    return $tax_des;
+  }
 ?>
