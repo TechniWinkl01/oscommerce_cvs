@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.44 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: create_account.php,v 1.45 2001/12/10 11:48:27 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -96,7 +96,7 @@ function update_zone(theForm) {
   if ($HTTP_GET_VARS['origin']) {
 ?>
       <tr>
-        <td class="smallText"><br>&nbsp;<?php echo TEXT_ORIGIN_LOGIN; ?>&nbsp;</td>
+        <td class="smallText"><br>&nbsp;<?php echo sprintf(TEXT_ORIGIN_LOGIN, tep_href_link(FILENAME_LOGIN, tep_get_all_get_params())); ?>&nbsp;</td>
       </tr>
 <?php
   }
