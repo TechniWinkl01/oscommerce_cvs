@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.15 2002/01/27 23:25:17 harley_vb Exp $
+  $Id: orders.php,v 1.16 2002/01/28 03:07:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,5 +70,6 @@ define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adr
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
 define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüßen' . "\n");
 
+define('ERROR_ORDER_DOES_NOT_EXIST', 'Error: Order does not exist.');
 define('SUCCESS_ORDER_UPDATED', 'Hinweis: Die Bestellung wurde erfolgreich aktualisiert.');
 ?>
