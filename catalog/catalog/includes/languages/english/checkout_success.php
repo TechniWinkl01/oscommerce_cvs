@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.11 2002/11/01 04:27:01 hpdl Exp $
+  $Id: checkout_success.php,v 1.12 2003/04/15 17:47:42 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@ define('TEXT_THANKS_FOR_SHOPPING', 'Thanks for shopping with us online!');
 define('TABLE_HEADING_COMMENTS', 'Enter a comment for the order processed');
 
 define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry date: ');
-define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remain.');
+define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remaining');
 define('HEADING_DOWNLOAD', 'Download your products here:');
 define('FOOTER_DOWNLOAD', 'You can also download your products at a later time at \'%s\'');
 ?>

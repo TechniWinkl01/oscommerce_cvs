@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.14 2003/02/06 17:38:15 thomasamoulton Exp $
+  $Id: account_history_info.php,v 1.15 2003/04/15 17:47:41 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,6 +36,6 @@ define('HEADING_COMMENT', 'Comment');
 define('TEXT_NO_COMMENTS_AVAILABLE', 'No comments available.');
 
 define('TABLE_HEADING_DOWNLOAD_DATE', 'Link expires: ');
-define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remain.');
+define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remaining');
 define('HEADING_DOWNLOAD', 'Download links');
 ?>
