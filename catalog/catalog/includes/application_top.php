@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.244 2002/08/08 16:38:56 dgw_ Exp $
+  $Id: application_top.php,v 1.245 2002/08/12 12:24:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -445,4 +445,5 @@
   define('WARN_CONFIG_WRITEABLE', 'true');
   define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
   define('WARN_SESSION_AUTO_START', 'true');
+  define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.89 2002/06/30 14:19:57 project3000 Exp $
+  $Id: espanol.php,v 1.90 2002/08/12 12:24:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -163,6 +163,7 @@ define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmación\' deben ser igual
 
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un método de pago para su pedido.\n');
 define('JS_ERROR_SUBMITTED', 'This form has already been submitted. Please press Ok and wait for this process to be completed.');
+
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un método de pago para su pedido.');
 
 define('CATEGORY_COMPANY', 'Empresa');
@@ -299,4 +300,5 @@ define('WARNING_CONFIG_FILE_WRITEABLE', 'Warning: I am able to write to the conf
 define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warning: The sessions directory does not exist: ' . tep_session_save_path() . '. Sessions will not work until this directory is created.');
 define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: I am not able to write to the sessions directory: ' . tep_session_save_path() . '. Sessions will not work until the right user permissions are set.');
 define('WARNING_SESSION_AUTO_START', 'Warning: session.auto_start is enabled - please disable this php feature in php.ini and restart the web server.');
+define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warning: The downloadable products directory does not exist: ' . DIR_FS_DOWNLOAD . '. Downloadable products will not work until this directory is valid.');
 ?>

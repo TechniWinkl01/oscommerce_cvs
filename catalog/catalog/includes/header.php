@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.34 2002/07/21 23:38:58 hpdl Exp $
+  $Id: header.php,v 1.35 2002/08/12 12:24:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,6 +39,12 @@
   if ( (function_exists('ini_get')) && (WARN_SESSION_AUTO_START == 'true') ) {
     if (ini_get('session.auto_start') == '1') {
       tep_output_warning(WARNING_SESSION_AUTO_START);
+    }
+  }
+
+  if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'true') ) {
+    if (!is_dir(DIR_FS_DOWNLOAD)) {
+      tep_output_warning(WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT);
     }
   }
 ?>
