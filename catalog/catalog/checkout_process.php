@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.81 2001/12/28 15:56:55 dgw_ Exp $
+  $Id: checkout_process.php,v 1.82 2002/01/13 12:15:41 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -62,17 +62,17 @@
 
     // Stock Update - Joao Correia
     if (STOCK_LIMITED =='true') {
-      $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id like '" . $products[$i]['id'] . "'");
+      $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
       $stock = tep_db_fetch_array($qtd_stock_query);
 
       $qtd_stock = $stock['products_quantity'];
       $qtd_buy =  ($products[$i]['quantity']);
       $qtd_left = ($qtd_stock -= $qtd_buy);
 
-      tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $qtd_left ."' where products_id like '" . $products[$i]['id'] . "'");
+      tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $qtd_left ."' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
 
       if ($qtd_left == '0') {
-        tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id like '" . $products[$i]['id'] . "'");
+        tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
       }
     }
     // Stock Update !
