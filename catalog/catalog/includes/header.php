@@ -48,7 +48,7 @@
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerError">
-    <td class="headerError"><?php echo $HTTP_GET_VARS['error_message']; ?></td>
+    <td class="headerError"><?php echo urldecode($HTTP_GET_VARS['error_message']); ?></td>
   </tr>
 </table>
 <?php
