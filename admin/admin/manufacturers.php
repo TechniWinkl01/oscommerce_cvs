@@ -69,31 +69,6 @@
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
-<script language="javascript"><!--
-function checkForm() {
-  var error_message = "<? echo JS_ERROR; ?>";
-  var error = 0;
-  var manufacturers_name = document.manufacturers.manufacturers_name.value;
-  var manufacturers_image = document.manufacturers.manufacturers_image.value;
-  
-  if (manufacturers_name.length < 1) {
-    error_message = error_message + "<? echo JS_MANUFACTURERS_NAME; ?>";
-    error = 1;
-  }
-  
-  if (manufacturers_image.length < 1) {
-    error_message = error_message + "<? echo JS_MANUFACTURERS_IMAGE; ?>";
-    error = 1;
-  }
-
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
-//--></script>
 </head>
 <body onload="SetFocus();" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
