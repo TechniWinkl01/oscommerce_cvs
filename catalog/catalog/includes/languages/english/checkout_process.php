@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.24 2001/05/26 16:45:16 hpdl Exp $
+  $Id: checkout_process.php,v 1.25 2001/09/15 13:35:05 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,10 +21,6 @@ define('EMAIL_TEXT_SHIPPING', 'Shipping: ');
 define('EMAIL_TEXT_TOTAL', 'Total:    ');
 define('EMAIL_TEXT_DELIVERY_ADDRESS', 'Delivery Address');
 define('EMAIL_TEXT_PAYMENT_METHOD', 'Payment Method');
-define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
-define('EMAIL_TEXT_CREDIT_CARD', 'Credit Card');
-define('EMAIL_TEXT_PAYPAL', 'PayPal');
-define('EMAIL_TEXT_AUTHORIZENET', 'AuthorizeNet');
 
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
 define('TEXT_EMAIL_VIA', 'via');

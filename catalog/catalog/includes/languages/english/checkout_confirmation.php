@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.14 2001/08/23 21:37:59 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.15 2001/09/15 13:35:05 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,12 +25,6 @@ define('SUB_TITLE_SUB_TOTAL', 'Sub-Total:');
 define('SUB_TITLE_TAX', 'Tax:');
 define('SUB_TITLE_SHIPPING', 'Shipping:');
 define('SUB_TITLE_TOTAL', 'Total:');
-define('TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
-define('TEXT_CREDIT_CARD', 'Credit Card');
-define('TEXT_TYPE', 'Type:');
-define('TEXT_OWNER', 'Owner:');
-define('TEXT_NUMBER', 'Number:');
-define('TEXT_EXPIRES', 'Expires:');
 
 define('TEXT_STOCK_WARNING', 'Stock Warning');
 define('TEXT_MULTIPLE_SHIPMENT', 'Multiple Shipments');
