@@ -70,10 +70,10 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</b></font></td>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</b></font></td>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</b></font></td>
-            <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</b></font></td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -166,7 +166,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</b></font></td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -181,7 +181,7 @@
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</b></font></td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

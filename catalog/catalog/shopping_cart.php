@@ -64,18 +64,18 @@
 
           <tr>
             <td <? $col_idx=0; echo $col_width[$col_idx++]; ?>></td>
-            <td <? echo $col_width[$col_idx++]; ?> align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_QUANTITY; ?></b>&nbsp;</font></td>
+            <td <? echo $col_width[$col_idx++]; ?> align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
 
 <?
     if (PRODUCT_LIST_MODEL) {
 ?>
-            <td <? echo $col_width[$col_idx++]; ?> nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_MODEL; ?></b>&nbsp;</font></td>
+            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
 <?
     }
 ?>
 
-            <td <? echo $col_width[$col_idx++]; ?> nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_PRODUCTS; ?></b>&nbsp;</font></td>
-            <td <? echo $col_width[$col_idx++]; ?> align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_TOTAL; ?></b>&nbsp;</font></td>
+            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+            <td <? echo $col_width[$col_idx++]; ?> align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
@@ -130,8 +130,8 @@
           <tr>
             <td colspan="<? echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo tep_currency_format($cart->show_total()); ?>&nbsp;</font></td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($cart->show_total()); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -151,7 +151,7 @@
     echo '            <td colspan="' . $colspan . '">' . tep_black_line() . '</td>' . "\n";
     echo '          </tr>' . "\n";
     echo '          <tr>' . "\n";
-    echo '            <td colspan="' . $colspan . '" align="right" nowrap><br>' . FONT_STYLE_TABLE_HEADING . '&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+    echo '            <td colspan="' . $colspan . '" align="right" class="tableHeading" nowrap><br>&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU) . '</a>&nbsp;&nbsp;</td>' . "\n";
     echo '          </tr>' . "\n";
   }
 ?>

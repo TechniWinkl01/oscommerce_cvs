@@ -63,10 +63,10 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_QUANTITY; ?></b>&nbsp;</font></td>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_PRODUCTS; ?></b>&nbsp;</font></td>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_TAX; ?></b>&nbsp;</font></td>
-            <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_TOTAL; ?></b>&nbsp;</font></td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -141,30 +141,30 @@
           <tr>
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</font></td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</td>
               </tr>
 <?
   if ($total_tax > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</font></td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
               </tr>
 <?
   }
   if (SHIPPING_MODULES != '') {
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<? echo tep_currency_format($shipping_cost); ?>&nbsp;</font></td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($shipping_cost); ?>&nbsp;</td>
               </tr>
 <?
   }
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo SUB_TITLE_TOTAL; ?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping_cost); ?></b>&nbsp;</font></td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_cost + $total_tax + $shipping_cost); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -173,7 +173,7 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_DELIVERY_ADDRESS; ?></b>&nbsp;</font></td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -186,7 +186,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_PAYMENT_METHOD; ?></b>&nbsp;</font></td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

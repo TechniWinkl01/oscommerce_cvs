@@ -143,3 +143,9 @@ TD.fieldValue {
     font-family : Verdana, Arial, sans-serif;
     font-size : 12px;
 }
+
+TD.tableHeading {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 12px;
+    font-weight : bold;
+}

@@ -6,8 +6,8 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_UPCOMING_PRODUCTS; ?>&nbsp;</b></font></td>
-                <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</b></font></td>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_UPCOMING_PRODUCTS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>

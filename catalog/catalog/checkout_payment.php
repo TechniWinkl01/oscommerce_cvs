@@ -118,8 +118,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_METHODS; ?></b>&nbsp;</font></td>
-                <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_SELECTION; ?></b>&nbsp;</font></td>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -137,7 +137,7 @@ function check_form() {
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_DELIVERY_ADDRESS; ?></b>&nbsp;</font></td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -153,8 +153,8 @@ function check_form() {
           <tr>          
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap colspan=2><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
-                <td nowrap colspan=2 align="right"><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
+                <td colspan="2" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
+                <td colspan=2 align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

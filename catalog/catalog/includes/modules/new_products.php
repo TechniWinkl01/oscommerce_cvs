@@ -1,6 +1,6 @@
 <!-- new_products //-->
           <tr>
-            <td nowrap><br><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?></b>&nbsp;</font></td>
+            <td class="tableHeading" nowrap><br>&nbsp;<? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

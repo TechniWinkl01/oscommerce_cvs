@@ -61,11 +61,11 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</b></font></td>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_AUTHOR; ?>&nbsp;</b></font></td>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_RATING; ?>&nbsp;</b></font></td>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_READ; ?>&nbsp;</b></font></td>
-            <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</b></font></td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_AUTHOR; ?>&nbsp;</td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_RATING; ?>&nbsp;</td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_READ; ?>&nbsp;</td>
+            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="5"><? echo tep_black_line(); ?></td>

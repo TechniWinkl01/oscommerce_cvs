@@ -66,8 +66,8 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
-                <td nowrap align="right"><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
+                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
             <tr>
@@ -84,8 +84,8 @@
 ?>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_MY_ADDRESS; ?></b>&nbsp;</font></td>
-                <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_DELIVER_TO; ?></b>&nbsp;</font></td>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_MY_ADDRESS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -107,8 +107,8 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_ADDRESS_BOOK; ?></b>&nbsp;</font></td>
-                <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_DELIVER_TO; ?></b>&nbsp;</font></td>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_ADDRESS_BOOK; ?>&nbsp;</td>
+                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

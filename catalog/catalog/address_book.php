@@ -52,9 +52,9 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</b></font></td>
-            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_NAME; ?>&nbsp;</b></font></td>
-            <td align="center" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_CITY_COUNTRY; ?>&nbsp;</b></font></td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_NAME; ?>&nbsp;</td>
+            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_CITY_COUNTRY; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="3"><? echo tep_black_line(); ?></td>

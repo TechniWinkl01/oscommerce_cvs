@@ -11,7 +11,7 @@
                 <td><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?></b>&nbsp;</font></td>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td><? echo tep_black_line(); ?></td>
