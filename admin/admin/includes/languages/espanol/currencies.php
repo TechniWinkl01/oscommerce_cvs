@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.12 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: currencies.php,v 1.13 2003/05/02 12:36:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,6 +34,8 @@ define('TEXT_INFO_HEADING_NEW_CURRENCY', 'Nueva Moneda');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'Editar Moneda');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'Eliminar Moneda');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (requiere una actualización manual de los cambios de moneda)');
+define('TEXT_INFO_CURRENCY_UPDATED', 'El valor de %s (%s) se ha actualizado');
 
-define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Error: The default currency can not be removed. Please set another currency as default, and try again.');
+define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Error: La moneda predeterminada no se puede eliminar. Seleccione otra moneda como predeterminada y vuelva a intentarlo.');
+define('ERROR_CURRENCY_INVALID', 'Error: El valor de %s (%s) no ha sido actualizado. ¿Es un codigo valido?');
 ?>

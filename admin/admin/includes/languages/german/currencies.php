@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.14 2002/01/17 11:41:26 jan0815 Exp $
+  $Id: currencies.php,v 1.15 2003/05/02 12:36:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,5 +34,8 @@ define('TEXT_INFO_HEADING_NEW_CURRENCY', 'neue W&auml;hrung');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'W&auml;hrung bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'W&auml;hrung l&ouml;schen');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (manuelles Aktualisieren der Wechselkurse erforderlich.)');
+define('TEXT_INFO_CURRENCY_UPDATED', 'The exchange rate for %s (%s) was updated successfully');
+
 define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardw&auml;hrung darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardw&auml;hrung und wiederholen Sie den Vorgang.');
+define('ERROR_CURRENCY_INVALID', 'Error: The exchange rate for %s (%s) was not updated. Is it a valid currency code?');
 ?>

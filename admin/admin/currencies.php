@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.45 2002/11/18 20:50:50 dgw_ Exp $
+  $Id: currencies.php,v 1.46 2003/05/02 12:36:30 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,7 +64,7 @@
         tep_redirect(tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'update':
-        $currency_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
+        $currency_query = tep_db_query("select currencies_id, code, title from " . TABLE_CURRENCIES);
         while ($currency = tep_db_fetch_array($currency_query)) {
           $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
           $rate = $quote_function($currency['code']);
@@ -74,6 +74,9 @@
           }
           if ($rate) {
             tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . $rate . "', last_updated = now() where currencies_id = '" . $currency['currencies_id'] . "'");
+            $messageStack->add_session(sprintf(TEXT_INFO_CURRENCY_UPDATED, $currency['title'], $currency['code']), 'success');
+          } else {
+            $messageStack->add_session(sprintf(ERROR_CURRENCY_INVALID, $currency['title'], $currency['code']), 'error');
           }
         }
         tep_redirect(tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $HTTP_GET_VARS['cID']));

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.10 2002/01/12 17:20:32 hpdl Exp $
+  $Id: currencies.php,v 1.11 2003/05/02 12:36:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,6 +34,8 @@ define('TEXT_INFO_HEADING_NEW_CURRENCY', 'New Currency');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'Edit Currency');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'Delete Currency');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (requires a manual update of currency values)');
+define('TEXT_INFO_CURRENCY_UPDATED', 'The exchange rate for %s (%s) was updated successfully');
 
 define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Error: The default currency can not be removed. Please set another currency as default, and try again.');
+define('ERROR_CURRENCY_INVALID', 'Error: The exchange rate for %s (%s) was not updated. Is it a valid currency code?');
 ?>
