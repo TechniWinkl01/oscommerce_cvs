@@ -1,5 +1,5 @@
 <?
-  /* $Id: ups.php,v 1.17 2001/02/14 20:43:01 hpdl Exp $ */
+  /* $Id: ups.php,v 1.18 2001/02/19 12:33:41 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/ups.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -34,8 +34,10 @@
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
         $rate->origin(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY); // Use ISO country codes!
-        $rate->dest($address_values['postcode'], STORE_ORIGIN_COUNTRY);      // Use ISO country codes!
-        // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
+        $country_name = tep_get_countries($address_values['country_id'], '1');
+        $country_post = str_replace(" ", "", $address_values['postcode']);
+        // $rate->dest($address_values['postcode'], STORE_ORIGIN_COUNTRY);      // Use ISO country codes!
+        $rate->dest($country_post, $country_name['countries_iso_code_2']);      // Use ISO country codes!
         $rate->rate(SHIPPING_UPS_PICKUP);        // See the rate() function for codes
         $rate->container(SHIPPING_UPS_PACKAGE);    // See the container() function for codes
         $rate->weight($shipping_weight);
