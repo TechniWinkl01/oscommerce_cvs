@@ -221,7 +221,7 @@ function check_form() {
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'edit') {
-    $customers_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_id = '" . $HTTP_GET_VARS['cID'] . "'");
+    $customers_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . $HTTP_GET_VARS['cID'] . "'");
     $customers = tep_db_fetch_array($customers_query);
 
     $gender = $customers['customers_gender'];
@@ -403,7 +403,7 @@ function check_form() {
               </tr>
 <?
     $search = (strlen($HTTP_GET_VARS['search']) > 0) ? '%' . $search . '%' : '%';
-    $customers_query_raw = "select c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, a.entry_country_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_lastname like '" . $search . "' or  c.customers_firstname like '" . $search . "' order by c.customers_id DESC";
+    $customers_query_raw = "select c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, a.entry_country_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_id = a.customers_id and (c.customers_lastname like '" . $search . "' or c.customers_firstname like '" . $search . "') order by c.customers_id DESC";
     $customers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_query_raw, $customers_query_numrows);
     $customers_query = tep_db_query($customers_query_raw);
     $rows = 0;
