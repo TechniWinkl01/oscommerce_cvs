@@ -12,8 +12,9 @@
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'update') {
       $currencies_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
+      $base = CURRENCY_VALUE;
       while ($currencies_values = tep_db_fetch_array($currencies_query)) {
-        tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . quotecurrency($currencies_values['code']) . "' where currencies_id = '" . $currencies_values['currencies_id'] . "'");
+        tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . quotecurrency($currencies_values['code'], $base) . "' where currencies_id = '" . $currencies_values['currencies_id'] . "'");
       }
       Header('Location: ' . tep_href_link(FILENAME_CURRENCIES));
       tep_exit();
