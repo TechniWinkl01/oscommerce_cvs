@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.50 2004/01/26 02:59:08 thomasamoulton Exp $
+  $Id: authorizenet.php,v 1.51 2004/02/13 11:38:45 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -422,7 +422,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
         $sequence = rand(1, 1000);
         // $gw_vars = array_merge($gw_vars, $this->InsertFP(MODULE_PAYMENT_AUTHORIZENET_LOGIN, MODULE_PAYMENT_AUTHORIZENET_TXNKEY, $gw_vars['X_Amount'], $sequence));
         if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == 'Test') $gw_vars['x_Test_Request'] = 'TRUE';
-        $gw_vars[tep_session_name()] = tep_session_id();
+        $gw_vars[$osC_Session->name] = $osC_Session->id;
         $gw_vars['x_delim_data'] = 'TRUE';
         $gw_vars['x_delim_char'] = '|';
         $gw_vars['x_relay_response'] = 'FALSE';
