@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.74 2001/11/04 19:27:47 dgw_ Exp $
+  $Id: categories.php,v 1.75 2001/11/05 12:37:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -638,7 +638,7 @@
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText">&nbsp;<?php echo TEXT_CATEGORIES; ?> <?php echo $categories_count; ?>&nbsp;<br>&nbsp;<?php echo TEXT_PRODUCTS; ?>&nbsp;<?php echo $products_count; ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<?php if ($cPath) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, $cPath_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>&nbsp;'; ?><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_category.gif', IMAGE_NEW_CATEGORY) . '</a>'; ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_product.gif', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</td>
+                    <td align="right" class="smallText">&nbsp;<?php if ($cPath) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, $cPath_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>&nbsp;'; ?><?php if (!$HTTP_GET_VARS['search']) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_category.gif', IMAGE_NEW_CATEGORY) . '</a>'; ?>&nbsp;<?php if (!$HTTP_GET_VARS['search']) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_product.gif', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
