@@ -8,6 +8,6 @@
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center" nowrap><font face="Verdana, Arial" size="1">&copy; 2000 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a> @ <a href="http://www.xcom.de" target="_blank">XCOM AG - The Solution People</a><br><a href="debug_phpinfo.php">my phpinfo screen</a></font></td>
+    <td align="center" nowrap><font face="Verdana, Arial" size="1">Copyright &copy; 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br><a href="debug_phpinfo.php">Display PHP parameters</a></font></td>
   </tr>
 </table>
