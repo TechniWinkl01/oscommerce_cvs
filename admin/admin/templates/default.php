@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.1 2004/07/22 23:24:59 hpdl Exp $
+  $Id: default.php,v 1.2 2004/08/25 20:05:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,16 +32,7 @@
 
 <?php require('templates/default/header.php'); ?>
 
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td valign="top" width="125">
-      <table border="0" width="100%" cellspacing="0" cellpadding="2" class="columnLeft">
-      <?php require('includes/column_left.php'); ?>
-      </table>
-    </td>
-    <td valign="top"><?php require('templates/pages/' . $page_contents); ?></td>
-  </tr>
-</table>
+<div class="pageContents"><?php require('templates/pages/' . $page_contents); ?></div>
 
 <?php require('templates/default/footer.php'); ?>
 
