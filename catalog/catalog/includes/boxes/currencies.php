@@ -25,7 +25,7 @@
   $hidden_get_variables = '';
   reset($HTTP_GET_VARS);
   while (list($key, $value) = each ($HTTP_GET_VARS)) {
-    if ($key != 'currency') {
+    if ( ($key != 'currency') && ($key != tep_session_name()) ) {
       $hidden_get_variables .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
     }
   }
