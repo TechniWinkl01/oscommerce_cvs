@@ -174,6 +174,9 @@ function alertBox() {
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], 6, 2),substr($info_values['date_purchased'], 0, 4)));
+    if (@$info_values['last_modified'] != '0') {
+      $date_updated = date('l, jS F, Y', mktime(0,0,0,substr($info_values['last_modified'], 4, 2),substr($info_values['last_modified'], 6, 2),substr($info_values['last_modified'], 0, 4)));
+    } else $date_updated = '';
     $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $total_cost = 0;
     $total_tax = 0;
@@ -273,8 +276,7 @@ function alertBox() {
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?>&nbsp;</font></td>
           </tr></form>
 <?
-    if (@$info_values['last_modified'] != '0') {
-      $date_updated = substr($info_values['last_modified'], 6, 2) . '/' . substr($info_values['last_modified'], 4, 2) . '/' . substr($info_values['last_modified'], 0, 4) . '&nbsp;' . substr($info_values['last_modified'], -6, 2) . ':' . substr($info_values['last_modified'], -4, 2) . ':' . substr($info_values['last_modified'], -2);
+    if ($date_updated != '') {
 ?>
           <tr>
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_DATE_LAST_UPDATED; ?></b> <? echo $date_updated; ?>&nbsp;</font></td>
