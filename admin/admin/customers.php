@@ -1,7 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'update') {
-    $date_now = date('Ymd');
     if (ACCOUNT_DOB) {
        $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
     }
@@ -16,7 +15,7 @@
     $update_query .= "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
     $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
-    tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     // Update address book
     $update_query = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
     if (ACCOUNT_STATE) {
