@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: form_check.js.php,v 1.6 2002/07/01 18:00:48 project3000 Exp $
+  $Id: form_check.js.php,v 1.7 2002/11/01 02:06:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,9 +26,11 @@ function check_form() {
    
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
+
 <?php
    if (ACCOUNT_DOB == 'true') echo '  var dob = document.account_edit.dob.value;' . "\n";
 ?>
+
   var email_address = document.account_edit.email_address.value;  
   var street_address = document.account_edit.street_address.value;
   var postcode = document.account_edit.postcode.value;
@@ -50,7 +52,7 @@ function check_form() {
 <?php
   }
 ?>
- 
+
   if (document.account_edit.elements['firstname'].type != "hidden") {
     if (first_name == '' || first_name.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
       error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
@@ -77,6 +79,7 @@ function check_form() {
 <?php
   }
 ?>
+
   if (document.account_edit.elements['email_address'].type != "hidden") {
     if (email_address == '' || email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
       error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
