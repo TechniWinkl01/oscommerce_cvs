@@ -47,12 +47,12 @@
   function tep_image_submit($src, $alt = '', $width = '', $height = '', $params = '') {
     $image_submit = '<input type="image" src="' . $src . '" border="0" alt=" ' . $alt . ' "';
     if ($width) {
-      $image .= ' width="' . $width . '"';
+      $image_submit .= ' width="' . $width . '"';
     }
     if ($width) {
-      $image .= ' height="' . $height . '"';
+      $image_submit .= ' height="' . $height . '"';
     }
-    $image .= '>';
+    $image_submit .= '>';
 
     return $image_submit;
   }
