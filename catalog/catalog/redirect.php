@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: redirect.php,v 1.3 2001/06/13 12:14:59 mbs Exp $
+  $Id: redirect.php,v 1.4 2001/06/13 13:38:25 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -29,6 +29,29 @@
                      header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL')); tep_exit();
                    }
                    break;
+
+    case 'manufacturer' : if ($HTTP_GET_VARS['manufacturers_id']) {
+                            $manufacturer_query = tep_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and languages_id = '" . $languages_id . "'");
+                            if (!tep_db_num_rows($manufacturer_query)) {
+// no url exists for the selected language, lets use the default language then
+                              $manufacturer_query = tep_db_query("select mi.languages_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " mi, " . TABLE_LANGUAGES . " l where mi.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and mi.languages_id = l.languages_id and l.code = '" . DEFAULT_LANGUAGE . "'");
+                              if (!tep_db_num_rows($manufacturer_query)) {
+// no url exists, return to the site
+                                header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL')); tep_exit();
+                              } else {
+                                $manufacturer = tep_db_fetch_array($manufacturer_query);
+                                tep_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and languages_id = '" . $manufacturer['languages_id'] . "'");
+                              }
+                            } else {
+// url exists in selected language
+                              $manufacturer = tep_db_fetch_array($manufacturer_query);
+                              tep_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and languages_id = '" . $languages_id . "'");
+                            }
+                            header('Location: ' . $manufacturer['manufacturers_url']); tep_exit();
+                          } else {
+                            header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL')); tep_exit();
+                          }
+                          break;
 
     default:       header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL')); tep_exit();
                    break;
