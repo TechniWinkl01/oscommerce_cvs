@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.173 2004/10/28 12:40:24 hpdl Exp $
+  $Id: application_top.php,v 1.174 2004/10/28 12:59:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -86,10 +86,6 @@
   }
   $osC_Session = new osC_Session;
   $osC_Session->setName('osCAdminID');
-  $osC_Session->setSavePath(DIR_FS_WORK);
-
-// define how the session functions will be used
-  require('includes/functions/sessions.php');
 
 // lets start our session
   $osC_Session->start();

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.169 2004/10/26 20:19:58 hpdl Exp $
+  $Id: general.php,v 1.170 2004/10/28 12:59:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,22 +58,6 @@
     $customers_values = tep_db_fetch_array($customers);
 
     return $customers_values['customers_firstname'] . ' ' . $customers_values['customers_lastname'];
-  }
-
-  function tep_get_all_get_params($exclude_array = '') {
-    if (PHP_VERSION < 4.1) {
-      global $_GET;
-    }
-
-    if ($exclude_array == '') $exclude_array = array();
-
-    $get_url = '';
-
-    foreach ($_GET as $key => $value) {
-      if (($key != tep_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
-    }
-
-    return $get_url;
   }
 
   function tep_date_long($raw_date) {
@@ -1117,15 +1101,15 @@
 // Returns the tax rate for a zone / class
 // TABLES: tax_rates, zones_to_geo_zones
   function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
-    global $customer_zone_id, $customer_country_id;
+    global $customer_zone_id, $customer_country_id, $osC_Session;
 
     if ( ($country_id == -1) && ($zone_id == -1) ) {
-      if (!tep_session_is_registered('customer_id')) {
-        $country_id = STORE_COUNTRY;
-        $zone_id = STORE_ZONE;
-      } else {
+      if ($osC_Session->exists('customer_id')) {
         $country_id = $customer_country_id;
         $zone_id = $customer_zone_id;
+      } else {
+        $country_id = STORE_COUNTRY;
+        $zone_id = STORE_ZONE;
       }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
+  $Id: whos_online.php,v 1.3 2004/10/28 12:59:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,8 +65,8 @@
 
       $session_data = trim($Qsession->value('value'));
     } else {
-      if ( (file_exists(tep_session_save_path() . '/sess_' . $Qwho->value('session_id'))) && (filesize(tep_session_save_path() . '/sess_' . $Qwho->value('session_id')) > 0) ) {
-        $session_data = trim(file_get_contents(tep_session_save_path() . '/sess_' . $Qwho->value('session_id')));
+      if ( (file_exists($osC_Session->getSavePath() . '/sess_' . $Qwho->value('session_id'))) && (filesize($osC_Session->getSavePath() . '/sess_' . $Qwho->value('session_id')) > 0) ) {
+        $session_data = trim(file_get_contents($osC_Session->getSavePath() . '/sess_' . $Qwho->value('session_id')));
       }
     }
 

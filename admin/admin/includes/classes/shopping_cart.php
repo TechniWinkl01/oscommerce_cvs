@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.10 2003/06/23 01:18:56 hpdl Exp $
+  $Id: shopping_cart.php,v 1.11 2004/10/28 12:59:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,7 +71,7 @@
     }
 
     function add_cart($products_id, $qty = '', $attributes = '') {
-      global $new_products_id_in_cart, $customer_id;
+      global $new_products_id_in_cart, $customer_id, $osC_Session;
 
       $products_id = tep_get_uprid($products_id, $attributes);
 
@@ -94,7 +94,7 @@
           }
         }
         $new_products_id_in_cart = $products_id;
-        tep_session_register('new_products_id_in_cart');
+        $osC_Session->set('new_products_id_in_cart', $new_products_id_in_cart);
       }
       $this->cleanup();
     }
@@ -134,7 +134,7 @@
       }
     }
 
-    function count_contents() {  // get total number of items in cart 
+    function count_contents() {  // get total number of items in cart
         $total_items = 0;
         if (is_array($this->contents)) {
             reset($this->contents);

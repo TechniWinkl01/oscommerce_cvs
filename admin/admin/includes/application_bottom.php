@@ -1,15 +1,15 @@
 <?php
 /*
-  $Id: application_bottom.php,v 1.9 2004/10/26 20:09:42 hpdl Exp $
+  $Id: application_bottom.php,v 1.10 2004/10/28 12:59:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-// close session (store variables)
-  tep_session_close();
+// close session
+  $osC_Session->close();
 ?>
