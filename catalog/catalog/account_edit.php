@@ -307,7 +307,7 @@ function check_form() {
           <tr>
             <td></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
-            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
+            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<?=$account_values['customers_state'];?>">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
           </tr>
 <?
   }
