@@ -1,6 +1,6 @@
 <?php
-	/* $Id: fedex.php,v 1.3 2001/02/06 12:48:24 tmoulton Exp $ */
-	$include_file = DIR_LANGUAGES . $language . 'modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
+	/* $Id: fedex.php,v 1.4 2001/02/06 12:57:19 tmoulton Exp $ */
+	$include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
 
 	switch($action) {
 		case 'select' :

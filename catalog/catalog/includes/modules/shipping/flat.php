@@ -1,5 +1,5 @@
 <?
-  $include_file = DIR_LANGUAGES . $language . 'modules/shipping/flat.php';include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/flat.php';include(DIR_INCLUDES . 'include_once.php');
 
   if ($action == 'select') {
 ?>
