@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.30 2001/12/24 01:34:22 hpdl Exp $
+  $Id: backup.php,v 1.31 2001/12/24 01:43:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -362,7 +362,16 @@
       $check = 0;
 
       if (((!$HTTP_GET_VARS['info']) || ($HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && ($HTTP_GET_VARS['action'] != 'backup') && ($HTTP_GET_VARS['action'] != 'restorelocal')) {
-        $buInfo = new backupInfo(array('entry' => $entry));
+        $file_array['file'] = $entry;
+        $file_array['date'] = date(PHP_DATE_TIME_FORMAT, filemtime(DIR_FS_BACKUP . $entry));
+        $file_array['size'] = number_format(filesize(DIR_FS_BACKUP . $entry)) . ' bytes';
+        switch (substr($entry, -3)) {
+          case 'zip': $file_array['compression'] = 'ZIP'; break;
+          case '.gz': $file_array['compression'] = 'GZIP'; break;
+          default: $file_array['compression'] = 'None'; break;
+        }
+
+        $buInfo = new objectInfo($file_array);
       }
 
       if (is_object($buInfo) && ($entry == $buInfo->file)) {
