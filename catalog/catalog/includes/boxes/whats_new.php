@@ -4,7 +4,7 @@
 <?
   tep_random_select("select products.products_id, products.products_name, products.products_image, manufacturers.manufacturers_name, manufacturers.manufacturers_location from products, products_to_manufacturers, manufacturers where products.products_status='1' and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by products.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW);
 
-  if ($random_product != '') {
+  if (!($random_product == '')) {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
                                  'text'  => BOX_HEADING_WHATS_NEW

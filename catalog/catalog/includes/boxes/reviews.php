@@ -6,7 +6,7 @@
   if (@tep_db_num_rows($products_name) > 0) {
     tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, p.products_name, p.products_image from reviews r, reviews_extra re, products p where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
 
-    if ($random_product != '') {
+    if (!($random_product == '')) {
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left',
                                    'text'  => '<a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '" class="blacklink">' . BOX_HEADING_REVIEWS . '</a>'

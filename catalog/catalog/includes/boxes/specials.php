@@ -5,8 +5,7 @@
   $products_name = @tep_db_query('select products_id from specials limit 0,1');
   if (@tep_db_num_rows($products_name) > 0) {
     tep_random_select("select p.products_id, p.products_name, p.products_price, p.products_image, s.specials_new_products_price from products p, specials s where p.products_status = '1' and p.products_id = s.products_id order by s.specials_date_added DESC limit " . MAX_RANDOM_SELECT_SPECIALS);
-
-    if ($random_product != '') {
+    if (!($random_product == '')) {
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left',
                                    'text'  => '<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="blacklink">' . BOX_HEADING_SPECIALS . '</a>'
