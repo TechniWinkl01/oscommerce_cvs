@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.2 2004/06/13 17:27:09 hpdl Exp $
+  $Id: session.php,v 1.3 2004/07/22 17:07:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,7 +22,7 @@
         global $_COOKIE, $_SERVER;
       }
 
-      global $request_type, $cookie_path, $cookie_domain, $SID, $osC_Session, $cart, $osC_Customer, $navigation, $messageStack;
+      global $request_type, $cookie_path, $cookie_domain, $SID, $osC_Session, $messageStack;
 
       if (PHP_VERSION < 4.1) {
         include('includes/classes/session_compatible.php');
