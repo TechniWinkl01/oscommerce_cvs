@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.4 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: product_reviews_write.php,v 1.5 2002/01/11 21:02:26 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@ define('SUB_TITLE_PRODUCT', 'Producto:');
 define('SUB_TITLE_FROM', 'De:');
 define('SUB_TITLE_REVIEW', 'Comentario:');
 define('SUB_TITLE_RATING', 'Evaluacion:');
-define('TEXT_NO_HTML', '<small><font color="#ff0000"><b>NOTA:</b></font></small>&nbsp;No es traduce el codigo HTML!');
+define('TEXT_NO_HTML', '<small><font color="#ff0000"><b>NOTA:</b></font></small>&nbsp;No se traduce el codigo HTML!');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>MALO</b></font></small>');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>BUENO</b></font></small>');
 ?>
