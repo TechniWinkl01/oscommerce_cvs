@@ -1,4 +1,4 @@
-$Id: spiders.txt,v 1.1 2003/03/19 00:20:27 hpdl Exp $
+$Id: spiders.txt,v 1.2 2003/05/05 17:58:17 dgw_ Exp $
 almaden.ibm.com
 appie 1.1
 architext
@@ -20,7 +20,8 @@ gulliver
 henrythemiragorobot
 ia_archiver
 infoseek
-kit_fireballlachesis
+kit_fireball
+lachesis
 lycos_spider
 mantraagent
 mercator
