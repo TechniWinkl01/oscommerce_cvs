@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.110 2001/04/26 10:08:15 dwatkins Exp $
+  $Id: application_top.php,v 1.111 2001/04/27 21:23:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,7 +30,7 @@
   define('HTTP_SERVER', ''); // eg, http://localhost - should not be NULL for productive servers
   define('HTTPS_SERVER', ''); // eg, https://localhost - should not be NULL for productive servers
   define('ENABLE_SSL', false); // secure webserver for checkout procedure?
-  define('DIR_FS_LOGS', '/usr/local/apache/logs/tep'); // logging directory
+  define('DIR_FS_LOGS', '/usr/local/apache/logs/tep/'); // logging directory
   define('DIR_WS_CATALOG', '/catalog/'); // absolute path required
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_WS_INCLUDES', 'includes/'); // If "URL fopen wrappers" are enabled in PHP (which they are in the default configuration), this can be a URL instead of a local pathname
