@@ -45,7 +45,7 @@
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    mail($friendemail, $subject, $email_taf, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
+    mail($friendemail, $email_subject, $email_taf, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -108,7 +108,7 @@
 <?
   }
 ?>
-    </table></td>
+    </table></td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
