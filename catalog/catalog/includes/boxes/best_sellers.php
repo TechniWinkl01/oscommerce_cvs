@@ -28,7 +28,7 @@
                                         ),
                                    array('align' => 'left',
                                          'params' => 'valign="top" class="infoBox"',
-                                         'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id'], 'NONSSL') . '">' . $best_sellers['products_name'] . '</a>'
+                                         'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . tep_get_product_path($best_sellers['products_id']) . '&products_id=' . $best_sellers['products_id'], 'NONSSL') . '">' . $best_sellers['products_name'] . '</a>'
                                         )
                                   );
     }
