@@ -144,12 +144,16 @@
     return 'cPath=' . $cPath_new;
   }
 
-  function tep_get_all_get_params($exclude = '', $exclude2 = '', $exclude3 = '', $exclude4 = '') {
+  function tep_get_all_get_params($exclude_array = '') {
     global $HTTP_GET_VARS;
 
+    if ($exclude_array == '') $exclude_array = array();
+
     $get_url = '';
-    foreach($HTTP_GET_VARS as $key => $value) {
-      if (($key != $exclude) && ($key != $exclude2) && ($key != $exclude3) && ($key != $exclude4) && ($key != 'error')) $get_url .= $key . '=' . $value . '&';
+
+    reset($HTTP_GET_VARS);
+    while (list($key, $value) = each($HTTP_GET_VARS)) {
+      if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
     return $get_url;
@@ -167,14 +171,14 @@
     return $date_formated;
   }
 
-  function tep_array_merge($array1, $array2, $array3 = array()) {
+  function tep_array_merge($array1, $array2, $array3 = '') {
 
     if (function_exists('array_merge')) {
       $array_merged = array_merge($array1, $array2, $array3);
     } else {
-      while (list($key,$val) = each($array1)) $array_merged[$key] = $val;
-      while (list($key,$val) = each($array2)) $array_merged[$key] = $val;
-      while (list($key,$val) = each($array3)) $array_merged[$key] = $val;
+      while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
+      while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
+      while (list($key, $val) = @each($array3)) $array_merged[$key] = $val;
     }
 
     return (array) $array_merged;
@@ -275,6 +279,7 @@
     if (function_exists('in_array')) {
       if (in_array($lookup_value, $lookup_array)) return true;
     } else {
+      reset($lookup_array);
       while (list($key, $value) = each($lookup_array)) {
         if ($value == $lookup_value) return true;
       }
