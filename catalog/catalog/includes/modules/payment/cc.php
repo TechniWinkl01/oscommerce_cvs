@@ -119,8 +119,23 @@
       echo '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">';
     }
   } 
+  elseif ($payment_action == 'PM_BEFORE_PROCESS' && $payment_enabled) 
+  {
+    $cc_number = $HTTP_POST_VARS['cc_number'];
+    if (defined('PAYMENT_EMAIL_CC') && PAYMENT_EMAIL_CC != 'NONE') {
+      $len = strlen($cc_number);
+      $new_cc = substr($cc_number, 0, 4) . substr('XXXXXXXXXXXXXXXX', 0, $len-8) . substr($cc_number, -4);
+      $cc_middle = substr($cc_number, 4, $len-8);
+      $cc_number = $new_cc;
+    }
+  } 
   elseif ($payment_action == 'PM_AFTER_PROCESS' && $payment_enabled) 
   {
+    // send emails to other people
+    if (defined('PAYMENT_EMAIL_CC') && PAYMENT_EMAIL_CC != 'NONE') {
+      $message = "Order #" . $insert_id . "\nMiddle " . $cc_middle ."\n";
+      mail(PAYMENT_EMAIL_CC, "Extra Order Info", $message, 'From: ' . EMAIL_FROM);
+    }
     header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); 
   } 
   elseif ($payment_action == 'PM_CHECK') 
