@@ -164,6 +164,11 @@
     return $date_formated;
   }
 
+  function tep_datetime_short($raw_datetime) {
+    $datetime_formated = strftime(DATE_TIME_FORMAT, mktime(substr($raw_datetime, 11, 2),substr($raw_datetime, 14, 2),substr($raw_datetime, 17, 2),substr($raw_datetime, 6, 2),substr($raw_datetime, 8, 2),substr($raw_datetime, 0, 4)));
+    return $datetime_formated;
+  }
+
   function tep_array_merge($array1, $array2, $array3 = '') {
 
     if ($array3 == '') $array3 = array();

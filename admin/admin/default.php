@@ -75,7 +75,7 @@
   while ($customers = tep_db_fetch_array($customers_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . addslashes($customers['customers_lastname']) . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">'. $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_date_short($customers['customers_info_date_account_created']) . '&nbsp;</td>' . "\n";
+    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($customers['customers_info_date_account_created']) . '&nbsp;</td>' . "\n";
     echo '              </tr>' . "\n";
   }
 ?>
@@ -110,7 +110,7 @@
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '\'">' . "\n";
     echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '" class="blacklink">' . $orders['customers_name'] . '</a>&nbsp;</td>' . "\n";
     echo '                <td class="smallText">&nbsp;' . tep_currency_format($total_cost, false) . '&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_date_short($orders['date_purchased']) . '&nbsp;</td>' . "\n";
+    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($orders['date_purchased']) . '&nbsp;</td>' . "\n";
     echo '              </tr>' . "\n";
   }
 ?>
@@ -135,7 +135,7 @@
   while ($products = tep_db_fetch_array($products_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_date_short($products['products_date_added']) . '&nbsp;</td>' . "\n";
+    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($products['products_date_added']) . '&nbsp;</td>' . "\n";
     echo '              </tr>' . "\n";
   }
 ?>
@@ -158,7 +158,7 @@
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $reviews['products_name'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_date_short($reviews['date_added']) . '&nbsp;</td>' . "\n";
+    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($reviews['date_added']) . '&nbsp;</td>' . "\n";
     echo '              </tr>' . "\n";
   }
 ?>
