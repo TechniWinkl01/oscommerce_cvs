@@ -73,7 +73,7 @@
   $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;
 
-  mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
+  mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
 
 // send emails to other people
   if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
