@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.40 2003/03/14 03:34:26 hpdl Exp $
+  $Id: header.php,v 1.41 2003/06/09 21:56:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,14 +13,14 @@
 // check if the 'install' directory exists, and warn of its existence
   if (WARN_INSTALL_EXISTENCE == 'true') {
     if (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install')) {
-      tep_output_warning(WARNING_INSTALL_DIRECTORY_EXISTS);
+      $messageStack->add('warnings', WARNING_INSTALL_DIRECTORY_EXISTS, 'warning');
     }
   }
 
 // check if the configure.php file is writeable
   if (WARN_CONFIG_WRITEABLE == 'true') {
     if ( (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) && (is_writeable(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) ) {
-      tep_output_warning(WARNING_CONFIG_FILE_WRITEABLE);
+      $messageStack->add('warnings', WARNING_CONFIG_FILE_WRITEABLE, 'warning');
     }
   }
 
@@ -28,9 +28,9 @@
   if (WARN_SESSION_DIRECTORY_NOT_WRITEABLE == 'true') {
     if (STORE_SESSIONS == '') {
       if (!is_dir(tep_session_save_path())) {
-        tep_output_warning(WARNING_SESSION_DIRECTORY_NON_EXISTENT);
+        $messageStack->add('warnings', WARNING_SESSION_DIRECTORY_NON_EXISTENT, 'warning');
       } elseif (!is_writeable(tep_session_save_path())) {
-        tep_output_warning(WARNING_SESSION_DIRECTORY_NOT_WRITEABLE);
+        $messageStack->add('warnings', WARNING_SESSION_DIRECTORY_NOT_WRITEABLE, 'warning');
       }
     }
   }
@@ -38,14 +38,18 @@
 // check session.auto_start is disabled
   if ( (function_exists('ini_get')) && (WARN_SESSION_AUTO_START == 'true') ) {
     if (ini_get('session.auto_start') == '1') {
-      tep_output_warning(WARNING_SESSION_AUTO_START);
+      $messageStack->add('warnings', WARNING_SESSION_AUTO_START, 'warning');
     }
   }
 
   if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'true') ) {
     if (!is_dir(DIR_FS_DOWNLOAD)) {
-      tep_output_warning(WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT);
+      $messageStack->add('warnings', WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT, 'warning');
     }
+  }
+
+  if ($messageStack->size('warnings') > 0) {
+    echo $messageStack->output('warnings');
   }
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">

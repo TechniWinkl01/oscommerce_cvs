@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.227 2003/06/09 21:51:13 hpdl Exp $
+  $Id: general.php,v 1.228 2003/06/09 21:56:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,18 +57,6 @@
     $string = ereg_replace(' +', ' ', $string);
 
     return preg_replace("/[<>]/", '_', $string);
-  }
-
-////
-// Error message wrapper
-// When optional parameters are provided, it closes the application
-// (ie, halts the current application execution task)
-  function tep_error_message($error_message, $close_application = false, $close_application_error = '') {
-    echo $error_message;
-
-    if ($close_application == true) {
-      die($close_application_error);
-    }
   }
 
 ////
@@ -1056,10 +1044,6 @@
     }
 
     return $rand_value;
-  }
-
-  function tep_output_warning($warning) {
-    new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
   }
 
   function tep_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
