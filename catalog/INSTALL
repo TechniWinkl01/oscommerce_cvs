@@ -1,4 +1,4 @@
-The Exchange Project Preview Release 2.1 (06/03/2001)
+osCommerce Release 2.2-CVS ($date$)
 
 QUICK INSTALLATION STEPS
 ------------------------
@@ -20,17 +20,25 @@ follow these steps to get the online shop running:
    For this example, '/usr/local/apache/htdocs/' is used as
    the webroot root directory of apache.
  
-3. Create the 'catalog' database and import the sample data:
+3. Using your favourite browser, go to the following address:
+
+   http://[your site]/catalog/install
+   
+   and follow the instructions on the screen.
+
+IF YOU PREFER TO DO IT MANUALLY READ HERE:
+
+1. Create the 'catalog' database and import the sample data:
 
    mysqladmin create catalog
-   mysql catalog < ./mysql_catalog.sql
+   mysql catalog < ./install/oscommerce.sql
 
    To check if the tables have been successfully imported, you
    can list them by using mysqlshow:
 
    mysqlshow catalog
  
-4. View the file catalog/includes/application_top.php and make
+4. View the file catalog/includes/configure.php and make
    necessary changes. 
 
 Note: You need to enable the option REPAIR_BROKEN_CART for
