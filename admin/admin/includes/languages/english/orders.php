@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.20 2002/11/01 05:55:36 hpdl Exp $
+  $Id: orders.php,v 1.21 2002/11/13 12:41:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,4 +84,5 @@ define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Error: Order does not exist.');
 define('SUCCESS_ORDER_UPDATED', 'Success: Order has been successfully updated.');
+define('WARNING_ORDER_NOT_UPDATED', 'Warning: Nothing to change. The order was not updated.');
 ?>
