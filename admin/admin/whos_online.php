@@ -82,7 +82,7 @@
                 <td align="center" class="smallText">&nbsp;<? echo $whos_online['ip_address']; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<? echo date('H:i:s', $whos_online['time_entry']); ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<? echo date('H:i:s', $whos_online['time_last_click']); ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? eregi('^(.*)' . tep_session_name() . '=[a-f,0-9]+[&]*(.*)', $whos_online['last_page_url'], $array); echo $array[1] . $array[2]; ?>&nbsp</td>
+                <td class="smallText">&nbsp;<? if (eregi('^(.*)' . tep_session_name() . '=[a-f,0-9]+[&]*(.*)', $whos_online['last_page_url'], $array)) echo $array[1] . $array[2]; else echo $whos_online['last_page_url']; ?>&nbsp</td>
               </tr>
 <?
   }
