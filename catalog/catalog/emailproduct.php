@@ -44,10 +44,8 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
 <?
-
-if ($HTTP_GET_VARS['action'] == 'process') {
-
-mail($friendemail, $subject, $email_taf, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
+  if ($HTTP_GET_VARS['action'] == 'process') {
+    mail($friendemail, $subject, $email_taf, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -63,39 +61,36 @@ mail($friendemail, $subject, $email_taf, 'Content-Type: text/plain; charset="iso
         <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
       </tr>
 <?
-}
+  }
 
-if ($HTTP_GET_VARS['action'] == 'where') {
-
-$product_info = tep_db_query("select products_id, products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, products_date_available, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-$product_info_values = tep_db_fetch_array($product_info);
+  if ($HTTP_GET_VARS['action'] == 'where') {
+    $product_info = tep_db_query("select products_id, products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, products_date_available, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    $product_info_values = tep_db_fetch_array($product_info);
 ?>
       <form action="<? echo tep_href_link(FILENAME_EMAILPRODUCT, 'action=process', 'NONSSL'); ?>" method="post"><input type="hidden" name="products_id" value="<? echo $product_info_values['products_id']; ?>"><input type="hidden" name="products_name" value="<? echo $product_info_values['products_name']; ?>">
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td>
-              <table border="0" cellspacing="0" cellpadding="2">
-                <tr>
-                  <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
-                  <td><input type="text" name="from"></td>
-                </tr>
-                <tr>
-                  <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
-                  <td><input type="text" name="yourname"></td>
-                </tr>
-                <tr>
-                  <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
-                  <td><input type="text" name="friendemail"></td>
-                </tr>
-                <tr>
-                  <td colspan="2"><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_MESSAGE; ?>&nbsp;<br><textarea cols="40" rows="8" name="yourmessage"></textarea></td>
-                </tr>
-                <tr>
-                  <td colspan="2"><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_TELLAFRIEND; ?> <b><?php echo $product_info_values['products_name']; ?></b></td>
-                </tr>
-              </table>
-            </td>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
+                <td><input type="text" name="from"></td>
+              </tr>
+              <tr>
+                <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
+                <td><input type="text" name="yourname"></td>
+              </tr>
+              <tr>
+                <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
+                <td><input type="text" name="friendemail"></td>
+              </tr>
+              <tr>
+                <td colspan="2"><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_MESSAGE; ?>&nbsp;<br><textarea cols="40" rows="8" name="yourmessage"></textarea></td>
+              </tr>
+              <tr>
+                <td colspan="2"><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_TELLAFRIEND; ?> <b><?php echo $product_info_values['products_name']; ?></b></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>
@@ -111,7 +106,7 @@ $product_info_values = tep_db_fetch_array($product_info);
         </table></td>
       </tr></form>
 <?
-}
+  }
 ?>
     </table></td>
 <!-- body_text_eof //-->
