@@ -89,6 +89,7 @@
   define('USE_PCONNECT', 1);
 
 // customization for the design layout
+  define('CART_DISPLAY', 0); // Enable to view the shopping cart after adding a product
   define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
@@ -276,14 +277,16 @@
 // infobox
   $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
 
+// Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
+    $goto = (CART_DISPLAY) ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
     if ($HTTP_GET_VARS['action'] == 'remove_product') {
-// customer wants to remove a product from their shopping cart
+      // customer wants to remove a product from their shopping cart
       $cart->remove($HTTP_GET_VARS['products_id']);
-      header('Location: ' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL')); 
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
-// customer wants to update the product quantity in their shopping cart
+      // customer wants to update the product quantity in their shopping cart
       if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
         for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
           $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
@@ -294,15 +297,15 @@
           $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
         }
       }
-      header('Location: ' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL'));
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
-// customer wants to remove all products from their shopping cart
+      // customer wants to remove all products from their shopping cart
       $cart->reset(TRUE);
-      header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, '', 'NONSSL')); 
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
-// customer wants to add a quickie to the cart (called from a box)
+      // customer wants to add a quickie to the cart (called from a box)
       $quickie_query = tep_db_query("select products_id from products where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
       if (tep_db_num_rows($quickie_query) == 0) {
         $quickie_query = tep_db_query("select products_id from products where products_model LIKE '" . $HTTP_POST_VARS['quickie'] . "%'");
@@ -313,7 +316,7 @@
       }
       $quickie_values = tep_db_fetch_array($quickie_query);
       $cart->add_cart($quickie_values['products_id'], 1, '');
-      header('Location: ' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL')); 
       tep_exit();
     }
   }
