@@ -71,6 +71,7 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
 define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
 define('BOX_LOCALIZATION_LANGUAGES', 'Idiomas');
+define('BOX_TOOLS_CACHE', 'Cache Control');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Herramientas');

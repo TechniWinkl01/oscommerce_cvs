@@ -26,6 +26,7 @@
   define('DIR_WS_CATALOG_LANGUAGES', DIR_WS_CATALOG . 'includes/languages/');
   define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
   define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
+  define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
 
 // default localization values
   define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
@@ -47,6 +48,7 @@
 // define the filenames used in the project
   define('FILENAME_BACKUP', 'backup.php');
   define('FILENAME_BANNERS_MANAGER', 'banner_manager.php');
+  define('FILENAME_CACHE', 'cache.php');
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_COUNTRIES', 'countries.php');

@@ -71,6 +71,7 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 define('BOX_HEADING_TOOLS', 'Werkzeuge');
 define('BOX_TOOLS_BACKUP', 'Datensicherung');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
+define('BOX_TOOLS_CACHE', 'Cache Control');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Sprachen / Währungen');
