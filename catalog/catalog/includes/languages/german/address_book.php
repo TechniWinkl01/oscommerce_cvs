@@ -14,7 +14,8 @@ define('TABLE_HEADING_NAME', 'Name');
 define('TABLE_HEADING_CITY_COUNTRY', 'Wohnort');
 define('TEXT_NO_ENTRIES_IN_ADDRESS_BOOK', 'Sie haben noch keine Eintr&auml;ge in Ihrem Adressbuch!');
 define('TEXT_MAXIMUM_ENTRIES', '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben noch %s Adressbucheintr&auml;ge zur Verf&uuml;gung!');
-define('TEXT_MAXIMUM_ENTRIES_REACHED', '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben die maximale Anzahl (%s) der Adressbucheintr&auml;ge erreicht!');
+define('TEXT_MAXIMUM_ENTRIES_REACHED', '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben die maximale Anzahl (%s) an Adressbucheintr&auml;gen erreicht!');
 define('IMAGE_ADD_ENTRY', 'Neuer Eintrag');
 define('IMAGE_BACK', 'Zurück');
 ?>
+

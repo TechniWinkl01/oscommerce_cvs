@@ -15,8 +15,7 @@ define('TABLE_HEADING_SHIPPING_INFO', 'Lieferung via');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Versandkosten zeigen');
 define('TABLE_HEADING_ADDRESS_BOOK', 'Adressbucheintr&auml;ge');
 define('TEXT_ADDRESS_BOOK_NO_ENTRIES', 'Ihr Adressbuch ist leer!');
-define('TEXT_MAXIMUM_ENTRIES_REACHED', '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben die maximale Anzahl(' . MAX_ADDRESS_BOOK_ENTRIES . ') von Adressbucheintr&auml;gen erreicht!');
+define('TEXT_MAXIMUM_ENTRIES_REACHED', '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben die maximale Anzahl(' . MAX_ADDRESS_BOOK_ENTRIES . ') an Adressbucheintr&auml;gen erreicht!');
 define('IMAGE_ADD_ENTRY', 'Neuer Eintrag');
 define('IMAGE_NEXT', 'Weiter');
 ?>
-
