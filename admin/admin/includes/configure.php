@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: configure.php,v 1.1 2001/12/13 11:31:10 dgw_ Exp $
+  $Id: configure.php,v 1.2 2001/12/20 16:16:11 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -27,7 +27,7 @@
   define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
   define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
   define('DIR_WS_CATALOG_LANGUAGES', DIR_WS_CATALOG . 'includes/languages/');
-  define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_LANGUAGES);
+  define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG . 'includes/languages/');
   define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
   define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
   define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog

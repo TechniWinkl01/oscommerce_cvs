@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: modules.php,v 1.29 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: modules.php,v 1.30 2001/12/20 16:16:11 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -106,11 +106,13 @@
 <?php
   $installed_modules = '';
   $dir = opendir($module_directory);
-
+  $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
   if ($dir) {
     while ($file = readdir($dir)) {
       if (!is_dir($module_directory . $file)) {
-        $directory_array[] = $file;
+        if (substr($file, strrpos($file, '.')) == $file_extension) {
+          $directory_array[] = $file;
+        }
       }
     }
     sort($directory_array);
