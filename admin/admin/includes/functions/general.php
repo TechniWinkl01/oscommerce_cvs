@@ -463,7 +463,7 @@
       else 
         print ("  else if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
   
-      $state_query = tep_db_query("select zones.zone_name, zones.zone_id from " . TABLE_ZONES . " where zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by zones.zone_name");
+      $state_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $country_values['zone_country_id'] . "' order by zone_name");
       
       $NumState = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
