@@ -1,7 +1,7 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
+German Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
@@ -14,7 +14,6 @@ define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_TOTAL', 'Summe');
 define('TEXT_CART_EMPTY', 'Sie haben noch nichts in Ihrem Warenkorb.');
 define('SUB_TITLE_SUB_TOTAL', 'Zwischensumme:');
-define('SUB_TITLE_TAX', 'Mwst. (' . TAX_VALUE . '%):');
 define('SUB_TITLE_TOTAL', 'Summe:');
 
 define('IMAGE_CHECKOUT', 'Kasse');

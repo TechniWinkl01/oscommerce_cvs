@@ -1,17 +1,15 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+German Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 */
 
 define('NAVBAR_TITLE', 'Suchergebnis');
 define('TOP_BAR_TITLE', 'Suchergebnis');
 define('HEADING_TITLE', 'Suchen Sie etwas bestimmtes?');
-define('TABLE_HEADING_PRODUCTS_NAME', 'Produkt Name');
-define('TABLE_HEADING_PRODUCTS_PRICE', 'Produkt Preis');
-define('TEXT_FOUND_MATCHES', '%s Produkte gefunden..');
-define('TEXT_MAXIMUM_SEARCH_RESULTS_REACHED', ' maximum Suchergebnis erreicht');
-define('TEXT_RESULT_PAGE', '<b>Resultat Seite:</b>');
-define('TEXT_PRODUCTS', 'Produkte Fanden: <B>%d</B> to <B>%d</B> of <B>%d</B>');
+define('TABLE_HEADING_MODEL', 'Modell');
+define('TABLE_HEADING_PRODUCTS', 'Produkte');
+define('TABLE_HEADING_PRICE', 'Preis');
+define('TEXT_NO_PRODUCTS', 'NEs gibt keine Produkte in diese Kategorie.');
 ?>

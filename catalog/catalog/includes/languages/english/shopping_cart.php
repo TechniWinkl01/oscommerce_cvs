@@ -1,7 +1,7 @@
 <?
 /*
-English Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
+English Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
@@ -13,7 +13,6 @@ define('TABLE_HEADING_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCTS', 'Product(s)');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TEXT_CART_EMPTY', 'Your Shopping Cart is empty!');
-define('SUB_TITLE_FINAL', 'Final Price:');
 define('SUB_TITLE_SUB_TOTAL', 'Sub-Total:');
 define('SUB_TITLE_TOTAL', 'Total:');
 
