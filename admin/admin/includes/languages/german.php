@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.66 2002/01/15 11:37:45 hpdl Exp $
+  $Id: german.php,v 1.67 2002/01/18 00:50:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -274,7 +274,8 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* erforderlich<
 
 define('ERROR_BANNER_TITLE', 'Fehler: Banner Titel fehlt');
 define('ERROR_BANNER_GROUP', 'Fehler: Banner Gruppe fehlt');
-define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardw&auml;hrung definiert. Bitte unter Adminstration _> Sprachen/W&auml;hrungen -> W&auml;hrungen eine Standardw&auml;hrung definieren');
+define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardw&auml;hrung definiert. Bitte unter Administration->Sprachen/W&auml;hrungen->W&auml;hrungen eine Standardw&auml;hrung definieren.');
+define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Fehler: Es wurde keine Standardsprache definiert. Bitter unter Administration->Sprachen/W&auml;hrungen->Sprachen eine Standardsprache definieren.');
 
 define('TEXT_CACHE_CATEGORIES', 'Kategorien Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Hersteller Box');
