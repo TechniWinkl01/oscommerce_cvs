@@ -460,7 +460,7 @@ INSERT INTO configuration_group VALUES ('6', 'Payment Options', 'Payment options
 INSERT INTO configuration_group VALUES ('7', 'Shipping Options', 'Shipping options available at my store', '7');
 INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8');
 
-INSERT INTO counter VALUES (20010228,0);
+INSERT INTO counter VALUES ('20010228', 0);
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1');
