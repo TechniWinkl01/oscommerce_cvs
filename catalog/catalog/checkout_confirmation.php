@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.106 2002/01/15 19:55:35 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.107 2002/01/15 21:15:12 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,6 +40,12 @@
     $comments = stripslashes($HTTP_POST_VARS['comments']);
     if (!tep_session_is_registered('comments')) {
       tep_session_register('comments');
+    }
+  }
+  if ($HTTP_POST_VARS['payment']) {
+    $payment = $HTTP_POST_VARS['payment'];
+    if (!tep_session_is_registered('payment')) {
+      tep_session_register('payment');
     }
   }
 
@@ -300,7 +306,6 @@
             <td align="right" class="main"><br>
 <?php
   echo tep_draw_hidden_field('prod', $HTTP_POST_VARS['prod']) .
-       tep_draw_hidden_field('payment', $HTTP_POST_VARS['payment']) .
        tep_draw_hidden_field('shipping_cost', $shipping_cost) .
        tep_draw_hidden_field('shipping_method', $shipping_method) .
        $payment_modules->process_button();

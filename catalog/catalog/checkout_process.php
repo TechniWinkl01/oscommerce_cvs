@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.82 2002/01/13 12:15:41 project3000 Exp $
+  $Id: checkout_process.php,v 1.83 2002/01/15 21:15:12 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
   $del_state = tep_get_zone_name($delivery_values['country_id'], $delivery_values['zone_id'], $delivery_values['state']);
   $del_fmt_id = tep_get_address_format_id($delivery_values['country_id']);
 
-  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $cust_state . "', '" . $customers_country['countries_name'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $cust_fmt_id . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $del_state . "', '" . $delivery_country['countries_name'] . "', '" . $del_fmt_id . "', '" . $GLOBALS['payment'] . "', '" . $GLOBALS['cc_type'] . "', '" . $GLOBALS['cc_owner'] . "', '" . $GLOBALS['cc_number'] . "', '" . $GLOBALS['cc_expires'] . "', now(), '" . $GLOBALS['shipping_cost'] . "', '" . $GLOBALS['shipping_method'] . "', '1', '" . addslashes($comments) . "', '" . $currency . "', '" . $currencies->get_value($currency) . "')");
+  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $cust_state . "', '" . $customers_country['countries_name'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $cust_fmt_id . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $del_state . "', '" . $delivery_country['countries_name'] . "', '" . $del_fmt_id . "', '" . $payment . "', '" . $GLOBALS['cc_type'] . "', '" . $GLOBALS['cc_owner'] . "', '" . $GLOBALS['cc_number'] . "', '" . $GLOBALS['cc_expires'] . "', now(), '" . $GLOBALS['shipping_cost'] . "', '" . $GLOBALS['shipping_method'] . "', '1', '" . addslashes($comments) . "', '" . $currency . "', '" . $currencies->get_value($currency) . "')");
   $insert_id = tep_db_insert_id();
 
   $products_ordered = ''; // initialized for the email confirmation
@@ -104,6 +104,7 @@
 
     $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . $currencies->format($total_products_price * $products[$i]['quantity']) . $products_ordered_attributes . "\n";
   }
+  $cart->reset(TRUE);
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
@@ -124,11 +125,11 @@
   }
   $email_order .= "\n\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
   $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
-  if (is_object($GLOBALS[$GLOBALS['payment']])) {
+  if (is_object($$payment)) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
-    $email_order .= $GLOBALS[$GLOBALS['payment']]->title . "\n\n";
-    if ($GLOBALS[$GLOBALS['payment']]->email_footer) { 
-      $email_order .= $GLOBALS[$GLOBALS['payment']]->email_footer . "\n\n";
+    $email_order .= $$payment->title . "\n\n";
+    if ($$payment->email_footer) { 
+      $email_order .= $$payment->email_footer . "\n\n";
     }
   }
   tep_mail($customer_name, $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
@@ -138,12 +139,14 @@
     tep_mail('', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
   }
 
-  $cart->reset(TRUE);
-  tep_session_unregister('sendto');
-  tep_session_unregister('comments');
-
 // load the after_process function from the payment modules
   $payment_modules->after_process();
+
+// unregister session variables used during checkout
+  tep_session_unregister('sendto');
+  tep_session_unregister('comments');
+  tep_session_unregister('payment');
+
   tep_redirect(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
