@@ -100,7 +100,7 @@
     while ($categories_values = tep_db_fetch_array($categories)) {
       $rows++;
       $cPath_new = tep_get_path($categories_values['categories_id']);
-      echo '                <td align="center">' . FONT_STYLE_GENERAL . tep_image($categories_values['categories_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $categories_values['categories_name']) . '<br><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
+      echo '                <td align="center">' . FONT_STYLE_GENERAL . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image($categories_values['categories_image'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT, '0', $categories_values['categories_name']) . '<br>' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
       if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != tep_db_num_rows($categories))) {
         echo '              </tr>' . "\n";
         echo '              <tr>' . "\n";
