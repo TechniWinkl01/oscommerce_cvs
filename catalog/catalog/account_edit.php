@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.67 2004/04/16 14:05:33 hpdl Exp $
+  $Id: account_edit.php,v 1.68 2004/07/22 21:29:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -22,97 +22,72 @@
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_EDIT);
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
-    if (ACCOUNT_GENDER == 'true') $gender = tep_db_prepare_input($_POST['gender']);
-    $firstname = tep_db_prepare_input($_POST['firstname']);
-    $lastname = tep_db_prepare_input($_POST['lastname']);
-    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($_POST['dob_years']) . tep_db_prepare_input($_POST['dob_months']) . tep_db_prepare_input($_POST['dob_days']);
-    $email_address = tep_db_prepare_input($_POST['email_address']);
-    $telephone = tep_db_prepare_input($_POST['telephone']);
-    $fax = tep_db_prepare_input($_POST['fax']);
-
-    $error = false;
-
-    if (ACCOUNT_GENDER == 'true') {
-      if ( ($gender != 'm') && ($gender != 'f') ) {
-        $error = true;
-
+    if (ACCOUNT_GENDER > 0) {
+      if (!isset($_POST['gender']) || (($_POST['gender'] != 'm') && ($_POST['gender'] != 'f'))) {
         $messageStack->add('account_edit', ENTRY_GENDER_ERROR);
       }
     }
 
-    if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-      $error = true;
-
+    if (!isset($_POST['firstname']) || (strlen(trim($_POST['firstname'])) < ACCOUNT_FIRST_NAME)) {
       $messageStack->add('account_edit', ENTRY_FIRST_NAME_ERROR);
     }
 
-    if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-      $error = true;
-
+    if (!isset($_POST['lastname']) || (strlen(trim($_POST['lastname'])) < ACCOUNT_LAST_NAME)) {
       $messageStack->add('account_edit', ENTRY_LAST_NAME_ERROR);
     }
 
-    if (ACCOUNT_DOB == 'true') {
-      if (checkdate($_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years'])) {
+    if (ACCOUNT_DATE_OF_BIRTH > -1) {
+      if (isset($_POST['dob_days']) && isset($_POST['dob_months']) && isset($_POST['dob_years']) && checkdate($_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years'])) {
         $dob = mktime(0, 0, 0, $_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years']);
       } else {
-        $error = true;
-
         $messageStack->add('account_edit', ENTRY_DATE_OF_BIRTH_ERROR);
       }
     }
 
-    if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
-      $error = true;
-
+    if (!isset($_POST['email_address']) || (strlen(trim($_POST['email_address'])) < ACCOUNT_EMAIL_ADDRESS)) {
       $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR);
+    } else {
+      if (tep_validate_email($_POST['email_address']) == false) {
+        $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+      } else {
+        $Qcheck = $osC_Database->query('select customers_id from :table_customers where customers_email_address = :customers_email_address and customers_id != :customers_id limit 1');
+        $Qcheck->bindRaw(':table_customers', TABLE_CUSTOMERS);
+        $Qcheck->bindValue(':customers_email_address', trim($_POST['email_address']));
+        $Qcheck->bindInt(':customers_id', $osC_Customer->id);
+        $Qcheck->execute();
+
+        if ($Qcheck->numberOfRows() > 0) {
+          $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
+        }
+
+        $Qcheck->freeResult();
+      }
     }
 
-    if (!tep_validate_email($email_address)) {
-      $error = true;
+    if ($messageStack->size('account_edit') === 0) {
+      $Qcustomer = $osC_Database->query('update :table_customers set customers_gender = :customers_gender, customers_firstname = :customers_firstname, customers_lastname = :customers_lastname, customers_email_address = :customers_email_address, customers_dob = :customers_dob where customers_id = :customers_id');
+      $Qcustomer->bindRaw(':table_customers', TABLE_CUSTOMERS);
+      $Qcustomer->bindValue(':customers_gender', (((ACCOUNT_GENDER > -1) && isset($_POST['gender']) && (($_POST['gender'] == 'm') || ($_POST['gender'] == 'f'))) ? $_POST['gender'] : ''));
+      $Qcustomer->bindValue(':customers_firstname', trim($_POST['firstname']));
+      $Qcustomer->bindValue(':customers_lastname', trim($_POST['lastname']));
+      $Qcustomer->bindValue(':customers_email_address', trim($_POST['email_address']));
+      $Qcustomer->bindValue(':customers_dob', ((ACCOUNT_DATE_OF_BIRTH > -1) ? date('Ymd', $dob) : ''));
+      $Qcustomer->bindInt(':customers_id', $osC_Customer->id);
+      $Qcustomer->execute();
 
-      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
-    }
-
-    $check_email_query = tep_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id != '" . (int)$osC_Customer->id . "'");
-    $check_email = tep_db_fetch_array($check_email_query);
-    if ($check_email['total'] > 0) {
-      $error = true;
-
-      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
-    }
-
-    if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
-      $error = true;
-
-      $messageStack->add('account_edit', ENTRY_TELEPHONE_NUMBER_ERROR);
-    }
-
-    if ($error == false) {
-      $sql_data_array = array('customers_firstname' => $firstname,
-                              'customers_lastname' => $lastname,
-                              'customers_email_address' => $email_address,
-                              'customers_telephone' => $telephone,
-                              'customers_fax' => $fax);
-
-      if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
-      if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = date('Ymd', $dob);
-
-      tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$osC_Customer->id . "'");
-
-      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$osC_Customer->id . "'");
-
-      $sql_data_array = array('entry_firstname' => $firstname,
-                              'entry_lastname' => $lastname);
-
-      tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . (int)$osC_Customer->id . "' and address_book_id = '" . (int)$osC_Customer->default_address_id . "'");
+      $Qupdate = $osC_Database->query('update :table_customers_info set customers_info_date_account_last_modified = now() where customers_info_id = :customers_info_id');
+      $Qupdate->bindRaw(':table_customers_info', TABLE_CUSTOMERS_INFO);
+      $Qupdate->bindInt(':customers_info_id', $osC_Customer->id);
+      $Qupdate->execute();
 
 // reset the session variables
-      if (ACCOUNT_GENDER == 'true') $osC_Customer->setGender($gender);
-      $osC_Customer->setFirstName($firstname);
-      $osC_Customer->setLastName($lastname);
+      if (ACCOUNT_GENDER > -1) {
+        $osC_Customer->setGender($_POST['gender']);
+      }
+      $osC_Customer->setFirstName(trim($_POST['firstname']));
+      $osC_Customer->setLastName(trim($_POST['lastname']));
       $osC_Customer->setFullName();
-      $osC_Customer->setEmailAddress($email_address);
+      $osC_Customer->setEmailAddress(trim($_POST['email_address']));
 
       $messageStack->add_session('account', SUCCESS_ACCOUNT_UPDATED, 'success');
 
@@ -120,8 +95,10 @@
     }
   }
 
-  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, unix_timestamp(customers_dob) as customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
-  $account = tep_db_fetch_array($account_query);
+  $Qaccount = $osC_Database->query('select customers_gender, customers_firstname, customers_lastname, unix_timestamp(customers_dob) as customers_dob, customers_email_address from :table_customers where customers_id = :customers_id');
+  $Qaccount->bindRaw(':table_customers', TABLE_CUSTOMERS);
+  $Qaccount->bindInt(':customers_id', $osC_Customer->id);
+  $Qaccount->execute();
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
@@ -150,7 +127,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php echo tep_draw_form('account_edit', tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onSubmit="return check_form(account_edit);"') . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('account_edit', tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onSubmit="return check_form(account_edit);"') . osc_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -189,50 +166,41 @@
               <tr class="infoBoxContents">
                 <td><table border="0" cellspacing="2" cellpadding="2">
 <?php
-  if (ACCOUNT_GENDER == 'true') {
-    if (isset($gender)) {
-      $male = ($gender == 'm') ? true : false;
-    } else {
-      $male = ($account['customers_gender'] == 'm') ? true : false;
-    }
-    $female = !$male;
+  if (ACCOUNT_GENDER > -1) {
+    $gender_array = array(array('id' => 'm', 'text' => MALE),
+                          array('id' => 'f', 'text' => FEMALE));
 ?>
                   <tr>
                     <td class="main"><?php echo ENTRY_GENDER; ?></td>
-                    <td class="main"><?php echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . (tep_not_null(ENTRY_GENDER_TEXT) ? '<span class="inputRequirement">' . ENTRY_GENDER_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_radio_field('gender', $gender_array, $Qaccount->value('customers_gender'), '', (ACCOUNT_GENDER > 0)); ?></td>
                   </tr>
 <?php
   }
 ?>
                   <tr>
                     <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('firstname', $account['customers_firstname']) . '&nbsp;' . (tep_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('firstname', $Qaccount->value('customers_firstname'), '', true); ?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo ENTRY_LAST_NAME; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('lastname', $account['customers_lastname']) . '&nbsp;' . (tep_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('lastname', $Qaccount->value('customers_lastname'), '', true); ?></td>
                   </tr>
 <?php
-  if (ACCOUNT_DOB == 'true') {
+  if (ACCOUNT_DATE_OF_BIRTH > -1) {
 ?>
                   <tr>
                     <td class="main"><?php echo ENTRY_DATE_OF_BIRTH; ?></td>
-                    <td class="main"><?php echo tep_draw_date_pull_down_menu('dob', $account['customers_dob'], false, true, true, date('Y')-1901, -5) . '&nbsp;' . (tep_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo tep_draw_date_pull_down_menu('dob', $Qaccount->value('customers_dob'), false, true, true, date('Y')-1901, -5) . '&nbsp;<span class="inputRequirement">*</span>'; ?></td>
                   </tr>
 <?php
   }
 ?>
                   <tr>
+                   <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+                  </tr>
+                  <tr>
                     <td class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('email_address', $account['customers_email_address']) . '&nbsp;' . (tep_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''); ?></td>
-                  </tr>
-                  <tr>
-                    <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('telephone', $account['customers_telephone']) . '&nbsp;' . (tep_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="inputRequirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''); ?></td>
-                  </tr>
-                  <tr>
-                    <td class="main"><?php echo ENTRY_FAX_NUMBER; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('fax', $account['customers_fax']) . '&nbsp;' . (tep_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="inputRequirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('email_address', $Qaccount->value('customers_email_address'), '', true); ?></td>
                   </tr>
                 </table></td>
               </tr>

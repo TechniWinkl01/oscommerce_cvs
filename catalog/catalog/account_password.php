@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_password.php,v 1.2 2003/11/17 20:45:28 hpdl Exp $
+  $Id: account_password.php,v 1.3 2004/07/22 21:30:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -22,41 +22,36 @@
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_PASSWORD);
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
-    $password_current = tep_db_prepare_input($_POST['password_current']);
-    $password_new = tep_db_prepare_input($_POST['password_new']);
-    $password_confirmation = tep_db_prepare_input($_POST['password_confirmation']);
-
-    $error = false;
-
-    if (strlen($password_current) < ENTRY_PASSWORD_MIN_LENGTH) {
-      $error = true;
-
+    if (!isset($_POST['password_current']) || (strlen(trim($_POST['password_current'])) < ACCOUNT_PASSWORD)) {
       $messageStack->add('account_password', ENTRY_PASSWORD_CURRENT_ERROR);
-    } elseif (strlen($password_new) < ENTRY_PASSWORD_MIN_LENGTH) {
-      $error = true;
-
+    } elseif (!isset($_POST['password_new']) || (strlen(trim($_POST['password_new'])) < ACCOUNT_PASSWORD)) {
       $messageStack->add('account_password', ENTRY_PASSWORD_NEW_ERROR);
-    } elseif ($password_new != $password_confirmation) {
-      $error = true;
-
+    } elseif (!isset($_POST['password_confirmation']) || (trim($_POST['password_new']) != trim($_POST['password_confirmation']))) {
       $messageStack->add('account_password', ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING);
     }
 
-    if ($error == false) {
-      $check_customer_query = tep_db_query("select customers_password from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
-      $check_customer = tep_db_fetch_array($check_customer_query);
+    if ($messageStack->size('account_password') === 0) {
+      $Qcheck = $osC_Database->query('select customers_password from :table_customers where customers_id = :customers_id');
+      $Qcheck->bindRaw(':table_customers', TABLE_CUSTOMERS);
+      $Qcheck->bindInt(':customers_id', $osC_Customer->id);
+      $Qcheck->execute();
 
-      if (tep_validate_password($password_current, $check_customer['customers_password'])) {
-        tep_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . tep_encrypt_password($password_new) . "' where customers_id = '" . (int)$osC_Customer->id . "'");
+      if (tep_validate_password(trim($_POST['password_current']), $Qcheck->value('customers_password'))) {
+        $Qupdate = $osC_Database->query('update :table_customers set customers_password = :customers_password where customers_id = :customers_id');
+        $Qupdate->bindRaw(':table_customers', TABLE_CUSTOMERS);
+        $Qupdate->bindValue(':customers_password', tep_encrypt_password(trim($_POST['password_new'])));
+        $Qupdate->bindInt(':customers_id', $osC_Customer->id);
+        $Qupdate->execute();
 
-        tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$osC_Customer->id . "'");
+        $Qupdate = $osC_Database->query('update :table_customers_info set customers_info_date_account_last_modified = now() where customers_info_id = :customers_info_id');
+        $Qupdate->bindRaw(':table_customers_info', TABLE_CUSTOMERS_INFO);
+        $Qupdate->bindInt(':customers_info_id', $osC_Customer->id);
+        $Qupdate->execute();
 
         $messageStack->add_session('account', SUCCESS_PASSWORD_UPDATED, 'success');
 
         tep_redirect(tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
       } else {
-        $error = true;
-
         $messageStack->add('account_password', ERROR_CURRENT_PASSWORD_NOT_MATCHING);
       }
     }
@@ -88,7 +83,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php echo tep_draw_form('account_password', tep_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onSubmit="return check_form(account_password);"') . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('account_password', tep_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onSubmit="return check_form(account_password);"') . osc_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -128,18 +123,18 @@
                 <td><table border="0" cellspacing="2" cellpadding="2">
                   <tr>
                     <td class="main"><?php echo ENTRY_PASSWORD_CURRENT; ?></td>
-                    <td class="main"><?php echo tep_draw_password_field('password_current') . '&nbsp;' . (tep_not_null(ENTRY_PASSWORD_CURRENT_TEXT) ? '<span class="inputRequirement">' . ENTRY_PASSWORD_CURRENT_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_password_field('password_current', '', '', true); ?></td>
                   </tr>
                   <tr>
                     <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo ENTRY_PASSWORD_NEW; ?></td>
-                    <td class="main"><?php echo tep_draw_password_field('password_new') . '&nbsp;' . (tep_not_null(ENTRY_PASSWORD_NEW_TEXT) ? '<span class="inputRequirement">' . ENTRY_PASSWORD_NEW_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_password_field('password_new', '', '', true); ?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo ENTRY_PASSWORD_CONFIRMATION; ?></td>
-                    <td class="main"><?php echo tep_draw_password_field('password_confirmation') . '&nbsp;' . (tep_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="inputRequirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo osc_draw_password_field('password_confirmation', '', '', true); ?></td>
                   </tr>
                 </table></td>
               </tr>
