@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.88 2002/10/16 21:35:13 project3000 Exp $
+  $Id: account_history_info.php,v 1.89 2002/11/01 03:21:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -162,7 +162,7 @@
                 <td class="main"><b><?php echo HEADING_BILLING_ADDRESS; ?></b></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, ' ', '<br>'); ?></td>
+                <td class="main"><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, ' ', '<br>'); ?></td>
               </tr>
               <tr>
                 <td class="main"><b><?php echo HEADING_PAYMENT_METHOD; ?></b></td>
