@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.141 2002/09/28 15:25:51 project3000 Exp $
+  $Id: general.php,v 1.142 2002/11/03 23:51:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -345,6 +345,7 @@
     $address_format_query = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $address_format_id . "'");
     $address_format = tep_db_fetch_array($address_format_query);
 
+    $company = addslashes($address['company']);
     $firstname = addslashes($address['firstname']);
     $lastname = addslashes($address['lastname']);
     $street = addslashes($address['street_address']);
@@ -388,6 +389,10 @@
     $fmt = $address_format['format'];
     eval("\$address = \"$fmt\";");
     $address = stripslashes($address);
+
+    if ( (ACCOUNT_COMPANY == 'true') && (tep_not_null($company)) ) {
+      $address = $company . $cr . $address;
+    }
 
     return $boln . $address . $eoln;
   }
