@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.62 2002/04/03 00:47:53 clescuyer Exp $
+  $Id: shopping_cart.php,v 1.63 2002/04/23 21:34:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -120,6 +120,13 @@
         </table></form></td>
       </tr>
 <?php
+    if ($navigation->path[sizeof($navigation->path)-2]) {
+?>
+      <tr>
+        <td class="main"><br><?php echo '<a href="' . tep_href_link($navigation->path[sizeof($navigation->path)-2]['page'], tep_array_to_string($navigation->path[sizeof($navigation->path)-2]['get'], array('action')), $navigation->path[sizeof($navigation->path)-2]['mode']) . '">' . tep_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING) . '</a>'; ?></td>
+      </tr>
+<?php
+    }
   } else {
 ?>
       <tr>
