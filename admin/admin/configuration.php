@@ -75,7 +75,7 @@
     }
 
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $configuration['cfgID'])) && (!$cfgInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
-      $cfg_extra_query = tep_db_query("select configuration_key as cfgKey, configuration_description as cfgDesc, date_added, last_modified, use_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . $configuration['cfgID'] . "'");
+      $cfg_extra_query = tep_db_query("select configuration_key as cfgKey, configuration_description as cfgDesc, date_added, last_modified, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . $configuration['cfgID'] . "'");
       $cfg_extra = tep_db_fetch_array($cfg_extra_query);
 
       $cfgInfo_array = tep_array_merge($configuration, $cfg_extra);
@@ -128,9 +128,16 @@
   if ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="configuration" action="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="configuration_id" value="' . $cfgInfo->id . '">' . "\n";
 
+    if (tep_not_null($cfgInfo->set_function)) {
+      $set_function = $cfgInfo->set_function;
+      $value_field = $set_function($cfgInfo->value);
+    } else {
+      $value_field = '<input type="text" name="configuration_value" value="' . $cfgInfo->value . '">';
+    }
+
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => '<b>' . $cfgInfo->title . '</b><br>' . $cfgInfo->description . '<br><input type="text" name="configuration_value" value="' . $cfgInfo->value . '"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<b>' . $cfgInfo->title . '</b><br>' . $cfgInfo->description . '<br>' . $value_field . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } else {
     $info_box_contents = array();

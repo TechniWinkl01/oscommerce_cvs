@@ -706,4 +706,60 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   function tep_redirect($destination, $parameters = '', $connection = 'NONSSL') {
     header('Location: ' . tep_href_link($destination, $parameters, $connection));
   }
+
+////
+// Returns an array with countries
+// TABLES: countries
+  function tep_get_countries($countries_id = '', $with_iso_codes = false) {
+    $countries_array = array();
+    if ($countries_id) {
+      if ($with_iso_codes) {
+        $countries = tep_db_query("select countries_name, countries_iso_code_2, countries_iso_code_3 from " . TABLE_COUNTRIES . " where countries_id = '" . $countries_id . "' order by countries_name");
+        $countries_values = tep_db_fetch_array($countries);
+        $countries_array = array('countries_name' => $countries_values['countries_name'],
+                                 'countries_iso_code_2' => $countries_values['countries_iso_code_2'],
+                                 'countries_iso_code_3' => $countries_values['countries_iso_code_3']);
+      } else {
+        $countries = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $countries_id . "'");
+        $countries_values = tep_db_fetch_array($countries);
+        $countries_array = array('countries_name' => $countries_values['countries_name']);
+      }
+    } else {
+      $countries = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " order by countries_name");
+      while ($countries_values = tep_db_fetch_array($countries)) {
+        $countries_array[] = array('countries_id' => $countries_values['countries_id'],
+                                   'countries_name' => $countries_values['countries_name']);
+      }
+    }
+
+    return $countries_array;
+  }
+
+////
+// Returns a pull down select list with all countries
+  function tep_get_country_list($popup_name, $selected = '', $javascript = '', $size = 1) {
+    $result = '<select name="' . $popup_name . '"';
+
+    if ($size != 1) $result .= ' size="' . $size . '"';
+
+    if ($javascript != '') $result .= ' ' . $javascript;
+
+    $result .= '><option value="">' . PLEASE_SELECT . '</option>';
+
+    $countries = tep_get_countries();
+    for ($i=0; $i<sizeof($countries); $i++) {
+      $result .= '<option value="' . $countries[$i]['countries_id'] . '"';
+      if ($selected == $countries[$i]['countries_id']) $result .= ' SELECTED';
+      $result .= '>' . $countries[$i]['countries_name'] . '</option>';
+     }
+    $result .= '</select>';
+
+    return $result;
+  }
+
+////
+// Alias function for Store configuration values in the Administration Tool
+  function tep_cfg_pull_down_country_list($country_id) {
+    return tep_get_country_list('configuration_value', $country_id);
+  }
 ?>

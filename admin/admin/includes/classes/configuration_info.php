@@ -1,6 +1,6 @@
 <?
   class configurationInfo {
-    var $id, $title, $key, $value, $description, $date_added, $last_modified, $use_function;
+    var $id, $title, $key, $value, $description, $date_added, $last_modified, $use_function, $set_function;
 
 // class constructor
     function configurationInfo($cfgInfo_array) {
@@ -12,6 +12,7 @@
       $this->date_added = $cfgInfo_array['date_added'];
       $this->last_modified = $cfgInfo_array['last_modified'];
       $this->use_function = $cfgInfo_array['use_function'];
+      $this->set_function = $cfgInfo_array['set_function'];
     }
   }
 ?>
