@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.42 2002/08/13 16:00:41 dgw_ Exp $
+  $Id: cc.php,v 1.43 2002/10/08 10:42:33 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -127,7 +127,7 @@
 
       if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (MODULE_PAYMENT_CC_EMAIL != 'NONE') ) { // send emails to other people
         $message = 'Order #' . $insert_id . "\n\n" . 'Middle: ' . $GLOBALS['cc_middle'] . "\n\n";
-        tep_mail('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info', $message, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+        tep_mail('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info', $message, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
       }
     }
 

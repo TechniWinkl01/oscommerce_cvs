@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.35 2002/07/21 23:38:57 hpdl Exp $
+  $Id: contact_us.php,v 1.36 2002/10/08 10:42:32 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
   $error = false;
   if ($HTTP_GET_VARS['action'] == 'send') {
     if (tep_validate_email(trim($HTTP_POST_VARS['email']))) {
-      tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], $HTTP_POST_VARS['name'], $HTTP_POST_VARS['email'], '');
+      tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], $HTTP_POST_VARS['name'], $HTTP_POST_VARS['email']);
       tep_redirect(tep_href_link(FILENAME_CONTACT_US, 'action=success', 'NONSSL'));
     } else {
       $error = true;
