@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.18 2001/12/19 21:30:55 hpdl Exp $
+  $Id: boxes.php,v 1.19 2001/12/20 14:41:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -85,11 +85,11 @@
       $this->table_cellpadding = '3';
       $this->table_parameters = 'class="infoBoxContents"';
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
       for ($i=0; $i<sizeof($contents); $i++) {
         $info_box_contents[] = array(array('align' => $contents[$i]['align'], 'form' => $contents[$i]['form'], 'params' => 'class="boxText"', 'text' => $contents[$i]['text']));
       }
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
       return $this->tableBox($info_box_contents);
     }
   }
@@ -135,11 +135,11 @@
       $this->table_cellpadding = '3';
       $this->table_parameters = 'class="infoBoxContents"';
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
       for ($i=0; $i<sizeof($contents); $i++) {
         $info_box_contents[] = $contents[$i];
       }
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
       return $this->tableBox($info_box_contents);
     }
   }
