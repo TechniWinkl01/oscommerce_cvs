@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.8 2002/01/28 02:52:28 hpdl Exp $
+  $Id: index.php,v 1.9 2002/03/09 18:23:13 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -172,7 +172,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                     <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                       <tr><?php echo tep_draw_form('languages', 'index.php', '', 'get'); ?>
                         <td class="heading"><?php echo HEADING_TITLE; ?></td>
-                        <td align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, $HTTP_GET_VARS['language'], 'onChange="this.form.submit();"'); ?></td>
+                        <td align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, ($HTTP_GET_VARS['language'] ? $HTTP_GET_VARS['language'] : DEFAULT_LANGUAGE), 'onChange="this.form.submit();"'); ?></td>
                       </form></tr>
                     </table></td>
                   </tr>
