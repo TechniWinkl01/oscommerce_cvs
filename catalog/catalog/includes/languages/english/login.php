@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: login.php,v 1.9 2001/12/20 14:14:14 dgw_ Exp $
+  $Id: login.php,v 1.10 2002/06/03 13:04:44 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -16,15 +16,21 @@ if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
   define('TEXT_STEP_BY_STEP', 'We\'ll walk you through the process, step by step.');
 } else {
   define('NAVBAR_TITLE', 'Login');
-  define('HEADING_TITLE', 'Let Me In!');
+  define('HEADING_TITLE', 'Welcome, Please Sign In');
   define('TEXT_STEP_BY_STEP', ''); // should be empty
 }
 
-define('ENTRY_EMAIL_ADDRESS2', 'Enter your e-mail address:');
+define('HEADING_NEW_CUSTOMER', 'New Customer');
 define('TEXT_NEW_CUSTOMER', 'I am a new customer.');
-define('TEXT_RETURNING_CUSTOMER', 'I am a returning customer,<br>&nbsp;and my password is:');
-define('TEXT_COOKIE', 'Save login information in a cookie?');
-define('TEXT_PASSWORD_FORGOTTEN', 'Forgot your password? Click here');
+define('TEXT_NEW_CUSTOMER_INTRODUCTION', 'By creating an account at ' . STORE_NAME . ' you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.');
+
+define('HEADING_RETURNING_CUSTOMER', 'Returning Customer');
+define('TEXT_RETURNING_CUSTOMER', 'I am a returning customer.');
+define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
+define('ENTRY_PASSWORD', 'Password:');
+
+define('TEXT_PASSWORD_FORGOTTEN', 'Password forgotten? Click here.');
+
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
 define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> You\'r \'E-Mail Address\' was found on our database, please use your \'Password\' for login.');
 define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. <a href="javascript:session_win();">[More Info]</a>');
