@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.13 2001/11/25 22:57:18 dgw_ Exp $
+  $Id: table.php,v 1.14 2001/12/31 16:52:12 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,7 @@
         $n = 1;
         $y = 2;
         for ($i=0; $i<count($high); $i++) {
-          if ( ($order_total >= $high[$i]) && ($order_total < $high[$n]) ) {
+          if ( ($order_total >= $high[$i]) && ($order_total <= $high[$n]) ) {
             $shipping = $high[$y];
             $shipping_table_method = MODULE_SHIPPING_TABLE_TEXT_WAY;
             break;
