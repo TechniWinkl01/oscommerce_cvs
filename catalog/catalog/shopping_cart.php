@@ -2,17 +2,29 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'add_product') {  // customer wants to add a product to their shopping cart
+      $quantity = $HTTP_POST_VARS['cart_quantity'];
+      if ($quantity <= 0) {
+        $quantity = $HTTP_GET_VARS['cart_quantity']; // Maybe it was a GET var...
+        if ($quantity <= 0) {
+          $quantity = 1; // If illegal reset to 1
+        }
+      }
+      $products_id = $HTTP_GET_VARS['products_id'];
+      if ($products_id == '') {
+        $products_id = $HTTP_POST_VARS['products_id'];
+      }
       $product_exists = 0; // product does not exist in catalog
-      $product_check = tep_db_query("select products_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+
+      $product_check = tep_db_query("select products_id from products where products_id = '" . $products_id . "'");
       if (@tep_db_num_rows($product_check)) {
         $product_exists = 1; // product exists in catalog
         if (tep_session_is_registered('customer_id')) { // customer is logged in
-          $product_exists = tep_db_query("select products_id from customers_basket where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and customers_id = '" . $customer_id . "'");
+          $product_exists = tep_db_query("select products_id from customers_basket where products_id = '" . $products_id . "' and customers_id = '" . $customer_id . "'");
           if (@tep_db_num_rows($product_exists)) { // product already exists in their basket, so we'll increment the quantity
-            tep_db_query("update customers_basket set customers_basket_quantity = customers_basket_quantity+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and customers_id = '" . $customer_id . "'");
+            tep_db_query("update customers_basket set customers_basket_quantity = customers_basket_quantity+" . $quantity . " where products_id = '" . $products_id . "' and customers_id = '" . $customer_id . "'");
           } else { // the product is not yet in their basket, so we'll add it with a quantity of 1
             $date_now = date('Ymd');
-            tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $HTTP_GET_VARS['products_id'] . "', '1', '" . $date_now . "')");
+            tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $products_id . "', '" . $quantity . "', '" . $date_now . "')");
           }
           header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
           tep_exit();
@@ -21,19 +33,19 @@
             $nonsess_cart_contents = explode('|', $nonsess_cart);
             for ($i=0;$i<sizeof($nonsess_cart_contents);$i++) { // lets see if the product exists in their per session cart
               $product_info = explode(':', $nonsess_cart_contents[$i]);
-              if ($product_info[0] == $HTTP_GET_VARS['products_id']) {
-                $product_info[1] = ($product_info[1] + 1); // the product exists, so we'll increment the quantity
+              if ($product_info[0] == $products_id) {
+                $product_info[1] = ($product_info[1] + $quantity); // the product exists, so we'll increment the quantity
                 $nonsess_cart_contents_updated = '1'; // we set a flag to know if the product exists and the quantity has been updated
               }
               $nonsess_cart_contents[$i] = implode(':', $product_info);
             }
             $nonsess_cart = implode('|', $nonsess_cart_contents);
             if (($nonsess_cart_contents_updated != '1') && ($product_exists == '1')) { // when the flag is not set to true, we know the product didnt exist in their basket
-              $nonsess_cart.='|' . $HTTP_GET_VARS['products_id'] . ':1'; // add the product to their basket
+              $nonsess_cart.='|' . $products_id . ':' . $quantity; // add the product to their basket
             }
           } else { // they do not yet have a per session basket..
             if ($product_exists == '1') { // add the product if it exists in the catalog
-              $nonsess_cart = $HTTP_GET_VARS['products_id'] . ':1'; // lets add their first product to their basket
+              $nonsess_cart = $products_id . ':' . $quantity; // lets add their first product to their basket
             }
           }
           tep_session_register('nonsess_cart'); // now the customer has a per session basket
