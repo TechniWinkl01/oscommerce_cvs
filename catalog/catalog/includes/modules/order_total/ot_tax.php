@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.2 2002/04/08 01:13:43 hpdl Exp $
+  $Id: ot_tax.php,v 1.3 2002/04/08 21:03:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,12 +26,17 @@
     function process() {
       global $order, $currencies;
 
-//var_dump($order->info['tax_groups']);
-      reset($order->info['tax_groups']);
-      while (list($key, $value) = each($order->info['tax_groups'])) {
-        $this->output[] = array('title' => $this->title . ' (' . $key . '%):',
-                                'text' => $currencies->format($value, true, $order->info['currency'], $order->info['currency_value']),
-                                'value' => $value);
+      if (MODULES_ORDER_TOTAL_TAX_SHOW_GROUPS == 'true') {
+        reset($order->info['tax_groups']);
+        while (list($key, $value) = each($order->info['tax_groups'])) {
+          $this->output[] = array('title' => $this->title . ' (' . $key . '%):',
+                                  'text' => $currencies->format($value, true, $order->info['currency'], $order->info['currency_value']),
+                                  'value' => $value);
+        }
+      } else {
+        $this->output[] = array('title' => $this->title . ':',
+                                'text' => $currencies->format($order->info['tax'], true, $order->info['currency'], $order->info['currency_value']),
+                                'value' => $order->info['tax']);
       }
     }
 
@@ -45,12 +50,13 @@
     }
 
     function keys() {
-      return array('MODULE_ORDER_TOTAL_TAX_STATUS', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER');
+      return array('MODULE_ORDER_TOTAL_TAX_STATUS', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', 'MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS');
     }
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Display Tax', 'MODULE_ORDER_TOTAL_TAX_STATUS', 'true', 'Do you want to display the order tax value?', '6', '1','tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', '2', 'Sort order of display.', '6', '2', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Display Tax Groups', 'MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS', 'false', 'Do you want to display tax groups?', '6', '3', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
     }
 
     function remove() {
