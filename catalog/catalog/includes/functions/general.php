@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.183 2002/08/01 10:35:20 hpdl Exp $
+  $Id: general.php,v 1.184 2002/08/02 17:36:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -522,7 +522,7 @@
   function tep_date_short($raw_date) {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
-    $year = (int)substr($raw_date, 0, 4);
+    $year = substr($raw_date, 0, 4);
     $month = (int)substr($raw_date, 5, 2);
     $day = (int)substr($raw_date, 8, 2);
     $hour = (int)substr($raw_date, 11, 2);
@@ -530,8 +530,7 @@
     $second = (int)substr($raw_date, 17, 2);
 
     if (ereg('WIN', PHP_OS) && $year <= 1970) {
-      $delta = $year + (2038-$year);
-      return ereg_replace($delta . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $delta)));
+      return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
     } else {
       return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
     }
