@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: general.php,v 1.64 2001/09/30 09:49:09 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   function tep_exit() {
     if (EXIT_AFTER_REDIRECT == 1) {
      return exit();
@@ -844,6 +855,18 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       return tep_db_query("update " . TABLE_BANNERS . " set status = '1', expires_impressions = NULL, expires_date = NULL, date_status_change = NULL where banners_id = '" . $banners_id . "'");
     } elseif ($status == '0') {
       return tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_status_change = now() where banners_id = '" . $banners_id . "'");
+    } else {
+      return -1;
+    }
+  }
+
+////
+// Sets the status of a product
+  function tep_set_product_status($products_id, $status) {
+    if ($status == '1') {
+      return tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '1', products_last_modified = now() where products_id = '" . $products_id . "'");
+    } elseif ($status == '0') {
+      return tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0', products_last_modified = now() where products_id = '" . $products_id . "'");
     } else {
       return -1;
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.70 2001/09/19 10:14:24 mbs Exp $
+  $Id: categories.php,v 1.71 2001/09/30 09:49:15 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,6 +13,18 @@
   require('includes/application_top.php');
 
   if ($HTTP_GET_VARS['action']) {
+    if ($HTTP_GET_VARS['action'] == 'setflag') {
+      switch ($HTTP_GET_VARS['flag']) {
+        case '0' : tep_set_product_status($HTTP_GET_VARS['id'], '0');
+                   header('Location: ' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath'], 'NONSSL')); tep_exit();
+                   break;
+        case '1' : tep_set_product_status($HTTP_GET_VARS['id'], '1');
+                   header('Location: ' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath'], 'NONSSL')); tep_exit();
+                   break;
+        default :  header('Location: ' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL')); tep_exit();
+                   break;
+      }
+    }
     switch ($HTTP_GET_VARS['action']) {
 // update category
       case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
@@ -508,10 +520,11 @@
               <tr>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
     $categories_count = 0;
@@ -539,6 +552,10 @@
 ?>
                 <td class="smallText" align="center">&nbsp;<?php echo $categories['categories_id']; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<b><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '" class="blacklink"><u>' . $categories['categories_name'] . '</u></a>'; ?></b>&nbsp;</td>
+                <td class="smallText" align="center">
+<?php
+      echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10);
+?></a>&nbsp;&nbsp;</td>
 <?php
       if ($categories['categories_id'] == @$cInfo->id) {
 ?>
@@ -577,6 +594,14 @@
 ?>
                 <td class="smallText" align="center">&nbsp;<?php echo $products['products_id']; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'info', 'pinfo')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '" class="blacklink"><u>' . $products['products_name'] . '</u></a>'; ?>&nbsp;</td>
+                <td class="smallText" align="center">
+<?php
+      if ($products['products_status'] == '1') {
+        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=setflag&flag=0&id=' . $products['products_id'] . '&cPath=' . $cPath, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
+      } else {
+        echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=setflag&flag=1&id=' . $products['products_id'] . '&cPath=' . $cPath, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
+      }
+?>&nbsp;</td>
 <?php
       if ($products['products_id'] == @$pInfo->id) {
 ?>
@@ -595,7 +620,7 @@
     if ($rows > 0) {
 ?>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
     }
@@ -606,7 +631,7 @@
     }
 ?>
               <tr>
-                <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText">&nbsp;<?php echo TEXT_CATEGORIES; ?> <?php echo $categories_count; ?>&nbsp;<br>&nbsp;<?php echo TEXT_PRODUCTS; ?>&nbsp;<?php echo $products_count; ?>&nbsp;</td>
                     <td align="right" class="smallText">&nbsp;<?php if ($cPath) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, $cPath_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>&nbsp;'; ?><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_category.gif', IMAGE_NEW_CATEGORY) . '</a>'; ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_product.gif', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</td>
@@ -617,10 +642,10 @@
     if ($HTTP_GET_VARS['error']) {
 ?>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="3" class="smallText">&nbsp;<?php echo ERROR_ACTION; ?>&nbsp;</td>
+                <td colspan="4" class="smallText">&nbsp;<?php echo ERROR_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -755,7 +780,6 @@
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added));
             $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($pInfo->last_modified));
             if (date('Y-m-d H:i:s') < $pInfo->date_available) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->date_available) . '<br>');
-            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_STATUS . ' ' . $pInfo->status);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, $pInfo->name) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) . '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
