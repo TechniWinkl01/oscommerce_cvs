@@ -1,16 +1,15 @@
 <?php
 /*
-  $Id: stats_products_purchased.php,v 1.3 2001/09/19 11:12:50 mbs Exp $
+  $Id: stats_products_purchased.php,v 1.4 2002/03/30 16:21:18 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Estadisticas');
 define('HEADING_TITLE', 'Productos Mas Comprados');
 
 define('TABLE_HEADING_NUMBER', 'Nº');

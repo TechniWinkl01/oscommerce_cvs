@@ -1,16 +1,15 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.6 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: products_attributes.php,v 1.7 2002/03/30 16:21:18 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Atributos');
 define('HEADING_TITLE_OPT', 'Opciones del Producto');
 define('HEADING_TITLE_VAL', 'Valores para Opciones');
 define('HEADING_TITLE_ATRIB', 'Atributos');

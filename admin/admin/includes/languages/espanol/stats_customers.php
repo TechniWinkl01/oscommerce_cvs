@@ -1,22 +1,18 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.6 2001/10/01 09:24:38 dwatkins Exp $
+  $Id: stats_customers.php,v 1.7 2002/03/30 16:21:18 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Estatisticas');
 define('HEADING_TITLE', 'Mejores Clientes por Total Pedido');
 
 define('TABLE_HEADING_NUMBER', 'Nº');
 define('TABLE_HEADING_CUSTOMERS', 'Clientes');
 define('TABLE_HEADING_TOTAL_PURCHASED', 'Total Pedido');
-
-define('TEXT_INCL_TAX', '(impuesto incluido)');
-define('TEXT_EXCL_TAX', '(excepto impuesto)');
 ?>
