@@ -12,7 +12,7 @@ define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_NEW_PRODUCT', 'Neuer Artikel inn &quot;%s&quot;');
+define('TEXT_NEW_PRODUCT', 'Neuer Artikel in &quot;%s&quot;');
 define('TEXT_CATEGORIES', 'Kategorien:');
 define('TEXT_SUBCATEGORIES', 'Unterkategorien:');
 define('TEXT_PRODUCTS', 'Artikel:');
@@ -21,13 +21,13 @@ define('TEXT_PRODUCTS_TAX_CLASS', 'Steuerklasse:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'durchschnittl. Wertung:');
 define('TEXT_PRODUCTS_QUANTITY_INFO', 'Anzahl:');
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_DATE_AVAILABLE', 'Vorhandensdatum:');
+define('TEXT_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_LAST_MODIFIED', 'Letzte &Auml;nderung:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte f&uuml;gen Sie eine neue Kategorie oder einen Artikel in <br>&nbsp;<br><b>%s</b> ein.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'F&uuml;r weitere Informationen besuchen Sie die <a href="http://%s" target="blank"><u>Website</u></a> dieses Artikels.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Dieser Artikel wurde unserem Katalog am %s hinzugef&uuml;gt.');
-define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieses Produkt ist auf Lager an %s.');
+define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieses Produkt erhältlich ab %s.');
 
 define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie die notwendigen &Auml;nderungen durch');
 define('TEXT_EDIT_CATEGORIES_ID', 'Kategorie ID:');
@@ -56,7 +56,7 @@ define('TEXT_CATEGORIES_IMAGE', 'Kategorie Bild:');
 define('TEXT_SORT_ORDER', 'Sortierreihenfolge:');
 
 define('TEXT_PRODUCTS_STATUS', 'ProduktStatus:');
-define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Vorhandensdatum:');
+define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_PRODUCT_AVAILABLE', 'Auf Lager');
 define('TEXT_PRODUCT_NOT_AVAILABLE', 'Nicht vorrätig');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Artikel-Hersteller:');
