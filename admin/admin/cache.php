@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.14 2002/01/05 12:19:48 hpdl Exp $
+  $Id: cache.php,v 1.15 2002/01/09 09:19:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,11 +20,10 @@
   }
 
 // check if the cache directory exists
-  $error = array();
   if (is_dir(DIR_FS_CACHE)) {
-    if (!is_writeable(DIR_FS_CACHE)) $error[] = array('text' => ERROR_CACHE_DIRECTORY_NOT_WRITEABLE);
+    if (!is_writeable(DIR_FS_CACHE)) $errorStack->add(ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
-    $error[] = array('text' => ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST);
+    $errorStack->add(ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -34,7 +33,10 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body>
+
+<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -49,15 +51,6 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-  if ($error) {
-?>
-      <tr>
-        <td><?php new errorBox($error); ?></td>
-      </tr>
-<?php
-  }
-?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -82,7 +75,7 @@
                 <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  if (empty($error)) {
+  if ($errorStack->size < 1) {
     $languages = tep_get_languages();
     for ($i=0; $i<sizeof($languages); $i++) {
       if ($languages[$i]['code'] == DEFAULT_LANGUAGE) {
@@ -95,16 +88,15 @@
         $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cached_file));
       } else {
         $cache_mtime = TEXT_FILE_DOES_NOT_EXIST;
-        if ($dir = @opendir(DIR_FS_CACHE)) {
-          while ($cache_file = readdir($dir)) {
-            $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
-            if (ereg('^' . $cached_file, $cache_file)) {
-              $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_file));
-              break;
-            }
+        $dir = dir(DIR_FS_CACHE);
+        while ($cache_file = $dir->read()) {
+          $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
+          if (ereg('^' . $cached_file, $cache_file)) {
+            $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_file));
+            break;
           }
-          closedir($dir);
         }
+        $dir->close();
       }
 ?>
               <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
