@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.45 2001/06/11 22:40:35 hpdl Exp $
+  $Id: espanol.php,v 1.46 2001/06/13 20:15:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -146,11 +146,11 @@ define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
 define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmacion\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
-define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
-define('CATEGORY_ADDRESS', '<b>[ Direccion ]</b>');
-define('CATEGORY_CONTACT', '<b>[ Contacto ]</b>');
-define('CATEGORY_PASSWORD', '<b>[ Contraseña ]</b>');
-define('CATEGORY_OPTIONS', '<b>[ Opciones ]</b>');
+define('CATEGORY_PERSONAL', 'Personal');
+define('CATEGORY_ADDRESS', 'Direccion');
+define('CATEGORY_CONTACT', 'Contacto');
+define('CATEGORY_OPTIONS', 'Opciones');
+define('CATEGORY_PASSWORD', 'Contraseña');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
