@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.14 2003/02/12 20:27:31 hpdl Exp $
+  $Id: languages.php,v 1.15 2003/06/09 22:10:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@
 
   new infoBoxHeading($info_box_contents, false, false);
 
-  if (!isset($lng) && !is_object($lng)) {
+  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.274 2003/06/09 22:02:11 hpdl Exp $
+  $Id: application_top.php,v 1.275 2003/06/09 22:04:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -455,7 +455,7 @@
 // add category names or the manufacturer name to the breadcrumb trail
   if (isset($cPath_array)) {
     for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
-      $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
+      $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$cPath_array[$i] . "' and language_id = '" . (int)$languages_id . "'");
       if (tep_db_num_rows($categories_query) > 0) {
         $categories = tep_db_fetch_array($categories_query);
         $breadcrumb->add($categories['categories_name'], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
@@ -464,16 +464,20 @@
       }
     }
   } elseif (isset($HTTP_GET_VARS['manufacturers_id'])) {
-    $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
-    $manufacturers = tep_db_fetch_array($manufacturers_query);
-    $breadcrumb->add($manufacturers['manufacturers_name'], tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id']));
+    $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$HTTP_GET_VARS['manufacturers_id'] . "'");
+    if (tep_db_num_rows($manufacturers_query)) {
+      $manufacturers = tep_db_fetch_array($manufacturers_query);
+      $breadcrumb->add($manufacturers['manufacturers_name'], tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id']));
+    }
   }
 
 // add the products model to the breadcrumb trail
   if (isset($HTTP_GET_VARS['products_id'])) {
-    $model_query = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-    $model = tep_db_fetch_array($model_query);
-    $breadcrumb->add($model['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $HTTP_GET_VARS['products_id']));
+    $model_query = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "'");
+    if (tep_db_num_rows($model_query)) {
+      $model = tep_db_fetch_array($model_query);
+      $breadcrumb->add($model['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $HTTP_GET_VARS['products_id']));
+    }
   }
 
 // initialize the message stack for output messages

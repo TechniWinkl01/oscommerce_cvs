@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_right.php,v 1.16 2003/02/10 22:30:50 hpdl Exp $
+  $Id: column_right.php,v 1.17 2003/06/09 22:06:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
 
   if (isset($HTTP_GET_VARS['products_id'])) {
     if (tep_session_is_registered('customer_id')) {
-      $check_query = tep_db_query("select count(*) as count from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customer_id . "' and global_product_notifications = '1'");
+      $check_query = tep_db_query("select count(*) as count from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$customer_id . "' and global_product_notifications = '1'");
       $check = tep_db_fetch_array($check_query);
       if ($check['count'] > 0) {
         include(DIR_WS_BOXES . 'best_sellers.php');
