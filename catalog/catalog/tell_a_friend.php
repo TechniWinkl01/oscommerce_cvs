@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.10 2001/09/01 15:50:39 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.11 2001/09/13 20:54:12 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -48,7 +48,7 @@
   <tr>
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php
   require(DIR_WS_INCLUDES . 'column_left.php');
@@ -191,7 +191,7 @@
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php
   require(DIR_WS_INCLUDES . 'column_right.php');
