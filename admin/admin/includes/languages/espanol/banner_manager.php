@@ -5,37 +5,37 @@ Last Update: 02/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
-define('TOP_BAR_TITLE', 'Banner Manager');
-define('HEADING_TITLE', 'Banner Manager');
+define('TOP_BAR_TITLE', 'Administrador de Banners');
+define('HEADING_TITLE', 'Administrador de Banners');
 
 define('TABLE_HEADING_BANNERS', 'Banners');
-define('TABLE_HEADING_GROUPS', 'Groups');
-define('TABLE_HEADING_STATISTICS', 'Displays / Clicks');
-define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_GROUPS', 'Grupos');
+define('TABLE_HEADING_STATISTICS', 'Vistas / Clicks');
+define('TABLE_HEADING_STATUS', 'Estado');
 define('TABLE_HEADING_ACTION', 'Accion');
 
-define('TEXT_BANNERS_TITLE', 'Banner Title:');
-define('TEXT_BANNERS_URL', 'Banner URL:');
-define('TEXT_BANNERS_GROUP', 'Banner Group:');
-define('TEXT_BANNERS_NEW_GROUP', ', or enter a new banner group below');
-define('TEXT_BANNERS_IMAGE', 'Image:');
-define('TEXT_BANNERS_IMAGE_LOCAL', ', or enter local file below');
-define('TEXT_BANNERS_IMAGE_TARGET', 'Image Target (Save To):');
-define('TEXT_BANNERS_HTML_TEXT', 'HTML Text:');
-define('TEXT_BANNERS_EXPIRES_ON', 'Expires On:');
-define('TEXT_BANNERS_OR_AT', ', or at');
-define('TEXT_BANNERS_IMPRESSIONS', 'impressions/views.');
-define('TEXT_BANNERS_SCHEDULED_AT', 'Scheduled At:');
-define('TEXT_BANNERS_BANNER_NOTE', '<b>Banner Notes:</b><ul><li>Use an image or HTML text for the banner - not both.</li><li>HTML Text has priority over an image</li></ul>');
-define('TEXT_BANNERS_INSERT_NOTE', '<b>Image Notes:</b><ul><li>Uploading directories must have proper user (write) permissions setup!</li><li>Do not fill out the \'Save To\' field if you are not uploading an image to the webserver (ie, you are using a local (serverside) image).</li><li>The \'Save To\' field must be an existing directory with an ending slash (eg, banners/).</li></ul>');
-define('TEXT_BANNERS_EXPIRCY_NOTE', '<b>Expircy Notes:</b><ul><li>Only one of the two fields should be submitted</li><li>If the banner is not to expire automatically, then leave these fields blank</li></ul>');
-define('TEXT_BANNERS_SCHEDULE_NOTE', '<b>Schedule Notes:</b><ul><li>If a schedule is set, the banner will be activated on that date.</li><li>All scheduled banners are marked as deactive until their date has arrived, to which they will then be marked active.</li></ul>');
+define('TEXT_BANNERS_TITLE', 'Titulo:');
+define('TEXT_BANNERS_URL', 'URL:');
+define('TEXT_BANNERS_GROUP', 'Grupo:');
+define('TEXT_BANNERS_NEW_GROUP', ', o introduzca un grupo nuevo');
+define('TEXT_BANNERS_IMAGE', 'Imagen:');
+define('TEXT_BANNERS_IMAGE_LOCAL', ', o introduzca un fichero local');
+define('TEXT_BANNERS_IMAGE_TARGET', 'Destino de la Imagen (Grabar en):');
+define('TEXT_BANNERS_HTML_TEXT', 'Texto HTML:');
+define('TEXT_BANNERS_EXPIRES_ON', 'Caduca el:');
+define('TEXT_BANNERS_OR_AT', ', o tras');
+define('TEXT_BANNERS_IMPRESSIONS', 'vistas.');
+define('TEXT_BANNERS_SCHEDULED_AT', 'Programado el:');
+define('TEXT_BANNERS_BANNER_NOTE', '<b>Notas sobre el Banner:</b><ul><li>Use una imagen o texto HTML para el banner - no ambos.</li><li>Texto HTML tiene prioridad sobre una imagen</li></ul>');
+define('TEXT_BANNERS_INSERT_NOTE', '<b>Notas sobre la Imagen:</b><ul><li>El directorio donde suba la imagen debe de tener confiurado los permisos de escritura necesarios!</li><li>No rellene el campo \'Grabar en\' si no va a subir una imagen al servidor (como cuando use una imagen ya existente en el servidor -fichero local).</li><li>El campo \'Grabar en\' debe de ser un directorio que exista y terminado en una barra (por ejemplo: banners/).</li></ul>');
+define('TEXT_BANNERS_EXPIRCY_NOTE', '<b>Notas sobre la Caducidad:</b><ul><li>Solo se debe de rellenar uno de los dos campos</li><li>Si el banner no debe de caducar no rellene ninguno de los campos</li></ul>');
+define('TEXT_BANNERS_SCHEDULE_NOTE', '<b>Notas sobre la Programacion:</b><ul><li>Si se configura una fecha de programacion el banner se activara en esa fecha.</li><li>Todos los banners programados se marcan como inactivos hasta que llegue su fecha, cuando se marcan activos.</li></ul>');
 
-define('TEXT_BANNERS_DATE_ADDED', 'Date Added:');
-define('TEXT_BANNERS_SCHEDULED_AT_DATE', 'Scheduled At: <b>%s</b>');
-define('TEXT_BANNERS_EXPIRES_AT_DATE', 'Expires At: <b>%s</b>');
-define('TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS', 'Expires At: <b>%s</b> impressions');
-define('TEXT_BANNERS_STATUS_CHANGE', 'Status Change: %s');
+define('TEXT_BANNERS_DATE_ADDED', 'Añadido el:');
+define('TEXT_BANNERS_SCHEDULED_AT_DATE', 'Programado el: <b>%s</b>');
+define('TEXT_BANNERS_EXPIRES_AT_DATE', 'Caduca el: <b>%s</b>');
+define('TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS', 'Caduca tras: <b>%s</b> vistas');
+define('TEXT_BANNERS_STATUS_CHANGE', 'Cambio Estado: %s');
 
-define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar esta banner?');
+define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este banner?');
 ?>
