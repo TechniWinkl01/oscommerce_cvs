@@ -1,4 +1,7 @@
 <?
+// advanced mode?
+  define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure
+
 // define our webserver variables
   define('HTTP_SERVER', 'http://exchange');
   define('DIR_SERVER_ROOT', '/www'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
@@ -166,4 +169,16 @@
   tep_session_register('language');
   
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
+
+  $cPath = $HTTP_GET_VARS['cPath'];
+  if (strlen($cPath) > 0) {
+    $cPath_array = explode('_', $cPath);
+    if (sizeof($cPath_array) > 1) {
+      $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
+    } else {
+      $current_category_id = $cPath_array[0];
+    }
+  } else {
+    $current_category_id = 0;
+  }
 ?>

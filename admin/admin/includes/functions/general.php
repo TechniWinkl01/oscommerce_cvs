@@ -34,8 +34,12 @@
   function tep_image($src, $width, $height, $border, $alt) {
     global $image;
     
-    $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
-    
+    $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '"';
+    if ($alt != '') {
+      $image .= ' alt=" ' . $alt . ' "';
+    }
+    $image .= '>';
+
     return $image;
   }
 
@@ -139,5 +143,49 @@
     $customers_name = $customers_values['customers_firstname'] . ' ' . $customers_values['customers_lastname'];
     
     return $customers_name;
+  }
+
+  function tep_get_path($current_category_id = '') {
+    global $cPath_array;
+
+    if ($current_category_id == '') {
+      $cPath_new = implode('_', $cPath_array);
+    } else {
+      if (sizeof($cPath_array) == 0) {
+        $cPath_new = $current_category_id;
+      } else {
+        $cPath_new = '';
+        $last_category_query = tep_db_query("select parent_id from categories where categories_id = '" . $cPath_array[(sizeof($cPath_array)-1)] . "'");
+        $last_category = tep_db_fetch_array($last_category_query);
+        $current_category_query = tep_db_query("select parent_id from categories where categories_id = '" . $current_category_id . "'");
+        $current_category = tep_db_fetch_array($current_category_query);
+        if ($last_category['parent_id'] == $current_category['parent_id']) {
+          for ($i=0; $i<(sizeof($cPath_array)-1); $i++) {
+            $cPath_new .= '_' . $cPath_array[$i];
+          }
+        } else {
+          for ($i=0; $i<sizeof($cPath_array); $i++) {
+            $cPath_new .= '_' . $cPath_array[$i];
+          }
+        }
+        $cPath_new .= '_' . $current_category_id;
+        if (substr($cPath_new, 0, 1) == '_') {
+          $cPath_new = substr($cPath_new, 1);
+        }
+      }
+    }
+
+    return 'cPath=' . $cPath_new;
+  }
+
+  function tep_get_all_get_params($exclude = '', $exclude2 = '') {
+    global $HTTP_GET_VARS;
+
+    $get_url = '';
+    foreach($HTTP_GET_VARS as $key => $value) {
+      if (($key != $exclude) && ($key != $exclude2) && ($key != 'error')) $get_url .= $key . '=' . $value . '&';
+    }
+
+    return $get_url;
   }
 ?>
