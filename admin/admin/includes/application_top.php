@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.170 2004/08/25 19:59:46 hpdl Exp $
+  $Id: application_top.php,v 1.171 2004/10/26 20:09:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -129,9 +129,8 @@
 // Include validation functions (right now only email address)
   require('includes/functions/validations.php');
 
-// setup our boxes
+// setup our boxes; PENDING REMOVAL (dependencies: messageStack class)
   require('includes/classes/table_block.php');
-  require('includes/classes/box.php');
 
 // initialize the message stack for output messages
   require('includes/classes/message_stack.php');
