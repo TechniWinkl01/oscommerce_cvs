@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturer_info.php,v 1.4 2001/06/14 10:47:17 mbs Exp $
+  $Id: manufacturer_info.php,v 1.5 2001/11/29 16:34:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,8 @@
     $manufacturer = tep_db_fetch_array($manufacturer_query);
 
     $manufacturer_url_query = tep_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $manufacturer['manufacturers_id'] . "'");
-    $has_manufacturer_url = (tep_db_num_rows($manufacturer_url_query)) ? true : false;
+    $manufacturer_url_values = tep_db_fetch_array($manufacturer_url_query);
+    $has_manufacturer_url = ($manufacturer_url_values['manufacturers_url']) ? 'true' : 'false';
 ?>
 <!-- manufacturer_info //-->
           <tr>
@@ -28,7 +29,7 @@
 
     $manufacturer_info_string = '<div align="center">' . tep_image($manufacturer['manufacturers_image'], $manufacturer['manufacturers_name']) . '</div>' .
                                  '<table border="0" width="' . BOX_WIDTH . '" cellspacing="0" cellpadding="0">';
-    if ($has_manufacturer_url) $manufacturer_info_string .= '<tr><td valign="top" class="infoBox">-&nbsp;</td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer['manufacturers_id'], 'NONSSL') . '" target="_blank"><b>' . sprintf(BOX_MANUFACTURER_INFO_HOMEPAGE, $manufacturer['manufacturers_name']) . '</b></a></td></tr>';
+    if ($has_manufacturer_url == 'true') $manufacturer_info_string .= '<tr><td valign="top" class="infoBox">-&nbsp;</td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer['manufacturers_id'], 'NONSSL') . '" target="_blank"><b>' . sprintf(BOX_MANUFACTURER_INFO_HOMEPAGE, $manufacturer['manufacturers_name']) . '</b></a></td></tr>';
     $manufacturer_info_string .= '<tr><td valign="top" class="infoBox">-&nbsp;</td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturer['manufacturers_id'], 'NONSSL') . '"><b>' . BOX_MANUFACTURER_INFO_OTHER_PRODUCTS . '</b></a></td></tr></table>';
 
     $info_box_contents = array();
