@@ -94,13 +94,14 @@
                 <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status from orders order by orders_id DESC limit 5");
+  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status, shipping_cost from orders order by orders_id DESC limit 5");
   while ($orders = tep_db_fetch_array($orders_query)) {
     $total_cost = 0;
     $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from orders_products where orders_id = '" . $orders['orders_id'] . "'");
     while ($orders_products = tep_db_fetch_array($orders_products_query)) {
       $total_cost += ($orders_products['final_price'] + ($orders_products['final_price'] * ($orders_products['products_tax']/100))) * $orders_products['products_quantity'];
     }
+    $total_cost += $orders['shipping_cost'];
 
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '\'">' . "\n";
     echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '" class="blacklink">' . $orders['customers_name'] . '</a>&nbsp;</font></td>' . "\n";
