@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.123 2003/02/13 01:58:24 hpdl Exp $
+  $Id: checkout_process.php,v 1.124 2003/02/14 04:01:15 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,22 +133,24 @@
 // otherwise, we have to build the query dynamically with a loop
         $products_attributes = $order->products[$i]['attributes'];
         if (is_array($products_attributes)) {
-          $stock_query_raw .= " AND pa.options_id = '" . $products_attributes[$i]['option_id'] . "' AND pa.options_values_id = '" . $products_attributes[$i]['value_id'] . "'";
+          $stock_query_raw .= " AND pa.options_id = '" . $products_attributes[0]['option_id'] . "' AND pa.options_values_id = '" . $products_attributes[0]['value_id'] . "'";
         }
         $stock_query = tep_db_query($stock_query_raw);
       } else {
         $stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
       }
-      $stock_values = tep_db_fetch_array($stock_query);
+      if (tep_db_num_rows($stock_query) > 0) {
+        $stock_values = tep_db_fetch_array($stock_query);
 // do not decrement quantities if products_attributes_filename exists
-      if ((DOWNLOAD_ENABLED != 'true') || (!$stock_values['products_attributes_filename'])) {
-        $stock_left = $stock_values['products_quantity'] - $order->products[$i]['qty'];
-      } else {
-        $stock_left = $stock_values['products_quantity'];
-      }
-      tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
-      if ($stock_left < 1) {
-        tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
+        if ((DOWNLOAD_ENABLED != 'true') || (!$stock_values['products_attributes_filename'])) {
+          $stock_left = $stock_values['products_quantity'] - $order->products[$i]['qty'];
+        } else {
+          $stock_left = $stock_values['products_quantity'];
+        }
+        tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
+        if ($stock_left < 1) {
+          tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
+        }
       }
     }
 
