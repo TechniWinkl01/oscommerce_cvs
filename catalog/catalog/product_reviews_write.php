@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.43 2002/03/07 19:58:10 hpdl Exp $
+  $Id: product_reviews_write.php,v 1.44 2002/04/18 22:50:28 harley_vb Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -42,7 +42,7 @@
   $location = ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 
   $product = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
-  $product_values = tep_db_fetch_array($product);
+  $product_info_values = tep_db_fetch_array($product);
 
   $customer = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
   $customer_values = tep_db_fetch_array($customer);
@@ -110,8 +110,8 @@ function checkForm() {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="main"><b><?php echo SUB_TITLE_PRODUCT; ?></b> <?php echo $product_values['products_name']; ?></td>
-            <td rowspan="4" valign="top" align="right"><br><?php echo tep_image(DIR_WS_IMAGES . $product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
+            <td class="main"><b><?php echo SUB_TITLE_PRODUCT; ?></b> <?php echo $product_info_values['products_name']; ?></td>
+            <td rowspan="4" valign="top" align="right"><br><?php echo tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
           <tr>
             <td class="main"><b><?php echo SUB_TITLE_FROM; ?></b> <?php echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']; ?></td>

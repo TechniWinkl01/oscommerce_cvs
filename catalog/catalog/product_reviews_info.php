@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.39 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: product_reviews_info.php,v 1.40 2002/04/18 22:50:28 harley_vb Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -58,13 +58,13 @@ function popupImageWindow(url) {
   $reviews_text = tep_break_string($reviews_text, 60, '-<br>');
 
   $product = tep_db_query("select p.products_id, pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $reviews_values['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '". $languages_id . "'");
-  $product_values = tep_db_fetch_array($product);
+  $product_info_values = tep_db_fetch_array($product);
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_values['products_name']); ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_info_values['products_name']); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_info_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -74,8 +74,8 @@ function popupImageWindow(url) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="main"><b><?php echo SUB_TITLE_PRODUCT; ?></b> <?php echo $product_values['products_name']; ?></td>
-            <td class="smallText" rowspan="3" align="center"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><?php echo tep_image(DIR_WS_IMAGES . $product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="center" hspace="5" vspace="5"'); ?><br></a></td>
+            <td class="main"><b><?php echo SUB_TITLE_PRODUCT; ?></b> <?php echo $product_info_values['products_name']; ?></td>
+            <td class="smallText" rowspan="3" align="center"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="center" hspace="5" vspace="5"'); ?><br></a></td>
           </tr>
           <tr>
             <td class="main"><b><?php echo SUB_TITLE_FROM; ?></b> <?php echo $reviews_values['customers_name']; ?></td>
@@ -98,7 +98,7 @@ function popupImageWindow(url) {
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
-            <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, 'action=buy_now&products_id=' . $product_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></a></td>
+            <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, 'action=buy_now&products_id=' . $product_info_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></a></td>
           </tr>
         </table></td>
       </tr>

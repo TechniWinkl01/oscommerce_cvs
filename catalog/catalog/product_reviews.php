@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.42 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: product_reviews.php,v 1.43 2002/04/18 22:50:28 harley_vb Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,7 +27,7 @@
   $location = ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 
   $product = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-  $product_values = tep_db_fetch_array($product);
+  $product_info_values = tep_db_fetch_array($product);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -55,8 +55,8 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_values['products_name']); ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_info_values['products_name']); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_info_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
