@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturer_info.php,v 1.3 2001/06/13 13:38:34 hpdl Exp $
+  $Id: manufacturer_info.php,v 1.4 2001/06/14 10:47:17 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
   if (tep_db_num_rows($manufacturer_query)) {
     $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-    $manufacturer_url_query = tep_db_query("select manufacturers_url from manufacturers_info where manufacturers_id = '" . $manufacturer['manufacturers_id'] . "'");
+    $manufacturer_url_query = tep_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $manufacturer['manufacturers_id'] . "'");
     $has_manufacturer_url = (tep_db_num_rows($manufacturer_url_query)) ? true : false;
 ?>
 <!-- manufacturer_info //-->
