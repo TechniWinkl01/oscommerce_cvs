@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.5 2001/06/14 14:42:34 hpdl Exp $
+  $Id: html_output.php,v 1.6 2001/07/16 17:35:17 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,9 +27,8 @@
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
     }
-    // Put the session in the URL if we are we are using cookies and changing to SSL
-    // Otherwise, we loose the cookie and our session
-    if (!SID && !getenv(HTTPS) && $connection=='SSL')
+    // Put SID in the URL, if we are using cookies to propagate it, when changing to SSL
+    if (!SID && !getenv(HTTPS) && $connection=='SSL' && ENABLE_SSL)
       $sess = tep_session_name() . '=' . tep_session_id();
     else
       $sess = SID;
