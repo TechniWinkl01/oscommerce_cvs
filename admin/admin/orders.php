@@ -170,7 +170,7 @@ function alertBox() {
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], 6, 2),substr($info_values['date_purchased'], 0, 4)));
-    if (@$info_values['last_modified'] != '0') {
+    if (@$info_values['last_modified']) {
       $date_updated = date('l, jS F, Y', mktime(0,0,0,substr($info_values['last_modified'], 4, 2),substr($info_values['last_modified'], 6, 2),substr($info_values['last_modified'], 0, 4)));
     } else {
       $date_updated = '';
