@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.43 2002/03/17 03:31:58 harley_vb Exp $
+  $Id: products_attributes.php,v 1.44 2002/03/24 18:49:34 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,8 +125,8 @@ function go_option() {
     $options_values = tep_db_fetch_array($options);
 ?>
               <tr>
-                <td colspan="3" class="pageHeading">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
-                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
+                <td class="pageHeading">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
+                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '53'); ?>&nbsp;</td>
               </tr>
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -137,10 +137,10 @@ function go_option() {
     $products = tep_db_query("select p.products_id, pd.products_name, pov.products_options_values_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pov.language_id = '" . $languages_id . "' and pd.language_id = '" . $languages_id . "' and pa.products_id = p.products_id and pa.options_id='" . $HTTP_GET_VARS['option_id'] . "' and pov.products_options_values_id = pa.options_values_id order by pd.products_name");
     if (tep_db_num_rows($products)) {
 ?>
-                  <tr>
-                    <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                    <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-                    <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+                  <tr class="dataTableHeadingRow">
+                    <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
                   </tr>
                   <tr>
                     <td colspan="3"><?php echo tep_black_line(); ?></td>
@@ -190,7 +190,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="2" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_OPT; ?>&nbsp;</td>
-                <td align="center"><br><form name="option_order_by" action="<?php echo FILENAME_PRODUCTS_ATTRIBUTES; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
+                <td align="right"><br><form name="option_order_by" action="<?php echo FILENAME_PRODUCTS_ATTRIBUTES; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
               </tr>
               <tr>
                 <td colspan="3" class="smallText">
@@ -242,10 +242,10 @@ function go_option() {
               <tr>
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
-              <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
@@ -295,7 +295,7 @@ function go_option() {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
-      echo '<form name="options" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options', 'NONSSL') . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
+      echo '<form name="options" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options&option_page=' . $option_page, 'NONSSL') . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
       $inputs = '';
       for ($i = 0; $i < sizeof($languages); $i ++) {
         $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br>';
@@ -326,7 +326,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo $values_values['products_options_values_name']; ?>&nbsp;</td>
-                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
+                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '53'); ?>&nbsp;</td>
               </tr>
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -337,10 +337,10 @@ function go_option() {
     $products = tep_db_query("select p.products_id, pd.products_name, po.products_options_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "' and po.language_id = '" . $languages_id . "' and pa.products_id = p.products_id and pa.options_values_id='" . $HTTP_GET_VARS['value_id'] . "' and po.products_options_id = pa.options_id order by pd.products_name");
     if (tep_db_num_rows($products)) {
 ?>
-                  <tr>
-                    <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                    <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-                    <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+                  <tr class="dataTableHeadingRow">
+                    <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
                   </tr>
                   <tr>
                     <td colspan="3"><?php echo tep_black_line(); ?></td>
@@ -385,7 +385,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_VAL; ?>&nbsp;</td>
-                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '56'); ?>&nbsp;</td>
+                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '53'); ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4" class="smallText">
@@ -437,11 +437,11 @@ function go_option() {
               <tr>
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
-              <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+                <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
@@ -504,7 +504,7 @@ function go_option() {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
-      echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_option_values', 'NONSSL') . '" method="post">';
+      echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_option_values&value_page=' . $value_page, 'NONSSL') . '" method="post">';
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<select name="option_id">
@@ -543,7 +543,7 @@ function go_option() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE_ATRIB; ?>&nbsp;</td>
-            <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '53'); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -606,14 +606,14 @@ function go_option() {
           <tr>
             <td colspan="7"><?php echo tep_black_line(); ?></td>
           </tr>
-          <tr>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
-            <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
-            <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+          <tr class="dataTableHeadingRow">
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="7"><?php echo tep_black_line(); ?></td>
@@ -689,7 +689,7 @@ function go_option() {
             <td colspan="5">
               <table>
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
-                  <td class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
@@ -778,7 +778,7 @@ function go_option() {
             <td colspan="5">
               <table>
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
-                  <td class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
