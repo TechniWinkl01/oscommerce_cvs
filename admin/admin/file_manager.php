@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.12 2002/01/06 15:10:26 hpdl Exp $
+  $Id: file_manager.php,v 1.13 2002/01/07 12:28:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -128,7 +128,7 @@
             <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
             <td class="main"><?php echo $HTTP_GET_VARS['filename']; ?><input type="hidden" name="filename" value="<?php echo $HTTP_GET_VARS['filename']; ?>"></td>
           </tr>
-<?
+<?php
   }
 ?>
           <tr valign="top">
@@ -147,20 +147,11 @@
 <?php
   } else {
     $showuser = (function_exists('posix_getpwuid') ? true : false);
-    $directory_array = array();
-    $dir = opendir($current_path);
-    $file_count = 0;
-    while ($dir && ($file = readdir($dir)) ) {
-      if ( ($file <> '.') && ($file <> 'CVS') && ($file <> '..' || $current_path <> DIR_FS_DOCUMENT_ROOT) ) {
-        $file_count ++;
-        $file_size = filesize($current_path . '/' . $file);
-        if ($file_size > 999999) {
-          $file_size = number_format($file_size / 1000000, 0) . 'Mb';
-        } elseif ($file_size > 999) {
-          $file_size = number_format($file_size / 1000, 0) . 'Kb';
-        } else {
-          $file_size = number_format($file_size, 0) . 'b';
-        }
+    $contents = array();
+    $dir = dir($current_path);
+    while ($file = $dir->read()) {
+      if ( ($file != '.') && ($file != 'CVS') && ( ($file != '..') || ($current_path != DIR_FS_DOCUMENT_ROOT) ) ) {
+        $file_size = number_format(filesize($current_path . '/' . $file)) . ' bytes';
 
         $permissions = tep_get_file_permissions(fileperms($current_path . '/' . $file));
         if ($showuser) {
@@ -169,86 +160,68 @@
           $permissions .= '&nbsp;' . $user['name'] . '&nbsp;' . $group['name'];
         }
 
-        $directory_array[$file_count] = array('name' => $file, 
-                                              'is_dir' => is_dir($current_path . '/' . $file),
-                                              'last_modified' => filemtime($current_path . '/' . $file),
-                                              'size' => $file_size,
-                                              'permissions' => $permissions
-                                             );
+        $contents[] = array('name' => $file,
+                            'is_dir' => is_dir($current_path . '/' . $file),
+                            'last_modified' => filemtime($current_path . '/' . $file),
+                            'size' => $file_size,
+                            'permissions' => $permissions);
       }
     }
 
-    function cmp($a, $b) {
-      return strcmp( ($a['is_dir']?'D':'F') . $a['name'], ($b['is_dir']?'D':'F') . $b['name']);
+    function tep_cmp($a, $b) {
+      return strcmp( ($a['is_dir'] ? 'D' : 'F') . $a['name'], ($b['is_dir'] ? 'D' : 'F') . $b['name']);
     }
-    uasort($directory_array, "cmp");
+    uasort($contents, 'tep_cmp');
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?php echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;</td>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_FILENAME; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SIZE; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PERMISSIONS; ?>&nbsp;</td>
-                <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_FILENAME; ?></td>
+                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_SIZE; ?></td>
+                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_PERMISSIONS; ?></td>
+                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="5"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
               </tr>
-<?
-  reset($directory_array);
-  while (list($key,$file) = each($directory_array)) {
-    if ( ($key == $HTTP_GET_VARS['info']) || (!$HTTP_GET_VARS['info'] && !$fmInfo) ) {
-      $file['key'] = $key;
-      $fmInfo = new fileManagerInfo($file);
-?>
-              <tr class="selectedRow">
-<?
-    } else {
-?>
-              <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $key); ?>'">
-<?
+<?php
+  for ($i=0; $i<sizeof($contents); $i++) {
+    if ( ($contents[$i]['name'] == $HTTP_GET_VARS['info']) || (!$HTTP_GET_VARS['info'] && !$fInfo) ) {
+      $fInfo = new fileManagerInfo($contents[$i]);
     }
-    if ($file['is_dir']) {
-      $icon = ($key == $HTTP_GET_VARS['info'] ? 'icon_current_folder.gif' : 'icon_folder.gif');
+
+    if ( (is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ) {
+      echo '              <tr class="selectedRow">' . "\n";
+    } else {
+      echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name']) . '\'">' . "\n";
+    }
+
+    if ($contents[$i]['is_dir']) {
+      $icon = ((is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ? 'icon_current_folder.gif' : 'icon_folder.gif');
+      $link = tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $fIndo->name);
+    } else {
+      $icon = 'icon_file.gif';
+      $link = tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
+    }
 ?>          
-                <td class="main"><?php echo tep_image(DIR_WS_IMAGES . $icon); ?></td>
-                <td class="main"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $file['name']); ?>"><?php echo $file['name']; ?></a></td>
-<?
-    } else {
-?>          
-                <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'icon_file.gif'); ?></td>
-                <td class="main"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($file['name'])); ?>"><?php echo $file['name']; ?></a></td>
-<?
-    }
-?>
-                <td class="main" align="right"><?php echo ($file['is_dir'] ? '&nbsp;' : $file['size']); ?></td>
-                <td class="smallText" align="right"><tt><?php echo $file['permissions']; ?></tt></td>
-<?php
-    if (is_object($fmInfo) && ($fmInfo->key == $key)) {
-?>
-                <td align="center" class="main"><?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
-<?php
-    } else {
-?>
-                <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $key); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO); ?></a>&nbsp;</td>
-<?php
-    }
-?>
+                <td class="main"><?php echo tep_image(DIR_WS_IMAGES . $icon); ?>&nbsp;<a href="<?php echo $link; ?>"><?php echo $contents[$i]['name']; ?></a></td>
+                <td class="main" align="right"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
+                <td class="smallText" align="right"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
+                <td class="tableData" align="right"><?php if (is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?
   }
 ?>          
               <tr>
-                <td colspan="5"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr valign="top">
                     <td class="smallText"><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=upload'); ?>" method="post" enctype="multipart/form-data"><input type="file" size="10" name="filename"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD); ?></form></td>
                     <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE); ?></a>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER); ?></a>&nbsp;&nbsp;</td>
