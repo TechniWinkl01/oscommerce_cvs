@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.13 2001/12/19 13:29:49 hpdl Exp $
+  $Id: shopping_cart.php,v 1.14 2001/12/19 13:40:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,7 +67,7 @@
                                 );
   }
 
-  new infoBox($info_box_contents, true);
+  new infoBox($info_box_contents);
 ?>
             </td>
           </tr>
