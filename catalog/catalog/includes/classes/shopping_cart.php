@@ -79,9 +79,9 @@
             if ($customer_id) tep_db_query("insert into customers_basket_attributes (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
           }
         }
+        $new_products_id_in_cart = $products_id;
+        tep_session_register('new_products_id_in_cart');
       }
-      $new_products_id_in_cart = $products_id;
-      tep_session_register('new_products_id_in_cart');
       $this->cleanup();
     }
 
@@ -97,7 +97,7 @@
         while (list($option, $value) = each($attributes)) {
           $this->contents[$products_id]['attributes'][$option] = $value;
 // update database
-          if ($customer_id) tep_db_query("update customers_basket_attributes set products_options_id = '" . $option . "' and products_options_value_id = '" . $value . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+          if ($customer_id) tep_db_query("update customers_basket_attributes set products_options_value_id = '" . $value . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "' and products_options_id = '" . $option . "'");
         }
       }
     }
