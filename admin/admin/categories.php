@@ -321,9 +321,16 @@ function checkForm() {
       </tr>
 <?
     if ($HTTP_GET_VARS['read'] == 'only') {
+      if ($HTTP_GET_VARS['origin']) {
+        $back_url = $HTTP_GET_VARS['origin'];
+        $back_url_params = '';
+      } else {
+        $back_url = FILENAME_CATEGORIES;
+        $back_url_params = tep_get_all_get_params('action', 'pID', 'read', 'info') . 'info=' . $HTTP_GET_VARS['pID'];
+      }
 ?>
       <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID', 'read', 'info') . 'info=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>';?>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link($back_url, $back_url_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>';?>&nbsp;</font></td>
       </tr>
 <?
     } else {

@@ -4,13 +4,6 @@
 <head>
 <title><?=TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript"><!--
-function go() {
-  if (document.order_by.selected.options[document.order_by.selected.selectedIndex].value != "none") {
-    location = "<?=FILENAME_STATS_CUSTOMERS;?>?limit="+document.order_by.selected.options[document.order_by.selected.selectedIndex].value;
-  }
-}
-//--></script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -40,16 +33,9 @@ function go() {
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?
-  if ($HTTP_GET_VARS['limit']) {
-    $limit = $HTTP_GET_VARS['limit'];
-  } else {
-    $limit = '10';
-  }
-?>
           <tr>
             <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap><br><form name="order_by"><select name="selected" onChange="go()"><option value="10"<? if ($limit == '10') { echo ' SELECTED'; } ?>>10</option><option value="20"<? if ($limit == '20') { echo ' SELECTED'; } ?>>20</option></select>&nbsp;&nbsp;</form></td>
+            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_CATALOG . 'images/pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', '');?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -67,27 +53,35 @@ function go() {
             <td colspan="3"><?=tep_black_line();?></td>
           </tr>
 <?
-  $customers = tep_db_query("select customers.customers_firstname, customers.customers_lastname, sum(orders_products.products_quantity * orders_products.products_price) as ordersum from customers, orders_products, orders where customers.customers_id = orders.customers_id and orders.orders_id = orders_products.orders_id group by customers.customers_firstname, customers.customers_lastname order by ordersum DESC limit " . $limit);
-  while ($customers_values = tep_db_fetch_array($customers)) {
+  if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  $customers_query_raw = "select c.customers_firstname, c.customers_lastname, sum(op.products_quantity * op.products_price) as ordersum from customers c, orders_products op, orders o where c.customers_id = o.customers_id and o.orders_id = op.orders_id group by c.customers_firstname, c.customers_lastname order by ordersum DESC";
+  $customers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_query_raw, $customers_query_numrows);
+  $customers_query = tep_db_query($customers_query_raw);
+  while ($customers = tep_db_fetch_array($customers_query)) {
     $rows++;
-    if (floor($rows/2) == ($rows/2)) {
-      echo '          <tr bgcolor="#ffffff">' . "\n";
-    } else {
-      echo '          <tr bgcolor="#f4f7fd">' . "\n";
-    }
+
     if (strlen($rows) < 2) {
       $rows = '0' . $rows;
     }
 ?>
+          <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999';this.style.cursor='hand'" onmouseout="this.style.background='#d8e1eb'" onclick="document.location.href='<?=tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL');?>'">
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$rows;?>.&nbsp;</font></td>
-            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_firstname'] . ' ' . $customers_values['customers_lastname'];?>&nbsp;</font></td>
-            <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;$<?=$customers_values['ordersum'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL') . '" class="blacklink">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>';?>&nbsp;</font></td>
+            <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($customers['ordersum'], false);?>&nbsp;</font></td>
           </tr>
 <?
   }
 ?>
           <tr>
             <td colspan="3"><?=tep_black_line();?></td>
+          </tr>
+          <tr>
+            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS);?>&nbsp;</font></td>
+                <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_RESULT_PAGE;?> <?=$customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']);?>&nbsp;</font></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>
