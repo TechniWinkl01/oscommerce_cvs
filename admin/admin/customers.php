@@ -239,7 +239,7 @@ function go() {
       $firstname = $HTTP_POST_VARS['customers_firstname'];
       $lastname = $HTTP_POST_VARS['customers_lastname'];
       $dob = DOB_FORMAT_STRING;
-      $country = $HTTP_POST_VARS['customers_country_id'];
+      $country = $HTTP_POST_VARS['customers_country'];
       $password = '';
     }
 ?>
@@ -335,11 +335,10 @@ function go() {
 	echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
 	while ($countries_values = tep_db_fetch_array($countries)) {
       echo '<option value="' . $countries_values['countries_id'] . '"';
-	  if ($countries_values['countries_id'] == @$customers_country) echo ' SELECTED';
+	  if ($countries_values['countries_id'] == $country) echo ' SELECTED';
       echo '>' . $countries_values['countries_name'] . '</option>';
     }
 	echo '</select>&nbsp;' . ENTRY_COUNTRY_TEXT;
-	echo @$country;
 	}
 	echo '</font></td>';
 ?>	
@@ -437,7 +436,7 @@ $per_page = MAX_ROW_LISTS;
 	   $search_keywords[$i] . "%' or customers_lastname like '%" .
 	   $search_keywords[$i] . "%' and ";
      }
-     $customers .= "(customers_email_address like '%" . $search_keywords[$i] . "%' or customers_firstname like '%" . $search_keywords[$i] . "%' or customers_lastname like '%" . $search_keywords[$i] . "%') order by '" . $order_by . "' DESC";
+     $customers .= "(customers_email_address like '%" . $search_keywords[$i] . "%' or customers_firstname like '%" . $search_keywords[$i] . "%' or customers_lastname like '%" . $search_keywords[$i] . "%') order by '" . $order_by . "'";
 	 if (!$page)
  	 {
    	 $page = 1;
@@ -544,7 +543,8 @@ $per_page = MAX_ROW_LISTS;
     while ($countries_values = tep_db_fetch_array($countries)) {
       echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
     }
-?></select></font></td>
+?>
+  	  </select></font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><b>&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT);?>&nbsp;</font></td>
 </form>
           </tr>
