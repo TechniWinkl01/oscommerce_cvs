@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.81 2002/03/13 13:52:20 hpdl Exp $
+  $Id: espanol.php,v 1.82 2002/03/16 01:26:40 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -258,9 +258,11 @@ define('IMAGE_BUTTON_HISTORY', 'Historial de Pedidos');
 define('IMAGE_BUTTON_IN_CART', 'Añadir a la Cesta');
 define('IMAGE_BUTTON_NOTIFICATIONS', 'Notifications');
 define('IMAGE_BUTTON_QUICK_FIND', 'Busqueda Rápida');
+define('IMAGE_BUTTON_REMOVE_NOTIFICATIONS', 'Eliminar Notifications');
 define('IMAGE_BUTTON_REVIEWS', 'Comentarios');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Opciones de Envío');
 define('IMAGE_BUTTON_TELL_A_FRIEND', 'Díselo a un Amigo');
+define('IMAGE_BUTTON_UPDATE', 'Actualizar');
 define('IMAGE_BUTTON_UPDATE_CART', 'Actualizar Cesta');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Escribir Comentario');
 
