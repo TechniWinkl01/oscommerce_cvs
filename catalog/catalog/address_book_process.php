@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.67 2002/06/03 20:04:35 dgw_ Exp $
+  $Id: address_book_process.php,v 1.68 2002/06/16 13:40:49 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -207,7 +207,7 @@ function check_form() {
   var postcode = document.add_entry.postcode.value;
   var city = document.add_entry.city.value;
 
-<?
+<?php
  if (ACCOUNT_GENDER == 'true') {
 ?>
   if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
@@ -215,7 +215,7 @@ function check_form() {
     error_message = error_message + "<?php echo JS_GENDER; ?>";
     error = 1;
   }
-<?
+<?php
  }
 ?>
   if (firstname == "" || firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
@@ -358,7 +358,4 @@ function check_form() {
 <br>
 </body>
 </html>
-<?
-
-  require(DIR_WS_INCLUDES . 'application_bottom.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
