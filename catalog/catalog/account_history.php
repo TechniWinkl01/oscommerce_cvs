@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.51 2002/05/21 12:25:07 hpdl Exp $
+  $Id: account_history.php,v 1.52 2002/05/23 01:07:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,7 +58,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeaqding" align="center"><?php echo TABLE_HEADING_ORDER_NUMBER; ?></td>
+            <td class="tableHeading" align="center"><?php echo TABLE_HEADING_ORDER_NUMBER; ?></td>
             <td class="tableHeading"><?php echo TABLE_HEADING_ORDER_DATE; ?></td>
             <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_COST; ?></td>
             <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_STATUS; ?></td>
