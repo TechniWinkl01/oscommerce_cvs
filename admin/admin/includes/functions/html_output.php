@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.27 2003/06/20 00:18:31 hpdl Exp $
+  $Id: html_output.php,v 1.28 2003/06/20 15:51:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -85,10 +85,18 @@
 ////
 // The HTML form submit button wrapper function
 // Outputs a button in the selected language
-  function tep_image_submit($image, $alt, $params = '') {
+  function tep_image_submit($image, $alt = '', $parameters = '') {
     global $language;
 
-    return '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '"' . (($params) ? ' ' . $params : '') . '>';
+    $image_submit = '<input type="image" src="' . tep_output_string(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
+
+    if (tep_not_null($alt)) $image_submit .= ' title=" ' . tep_output_string($alt) . ' "';
+
+    if (tep_not_null($parameters)) $image_submit .= ' ' . $parameters;
+
+    $image_submit .= '>';
+
+    return $image_submit;
   }
 
 ////
@@ -145,14 +153,14 @@
 ////
 // Output a form
   function tep_draw_form($name, $action, $parameters = '', $method = 'post', $params = '') {
-    $form = '<form name="' . $name . '" action="';
-    if ($parameters) {
+    $form = '<form name="' . tep_output_string($name) . '" action="';
+    if (tep_not_null($parameters)) {
       $form .= tep_href_link($action, $parameters);
     } else {
       $form .= tep_href_link($action);
     }
-    $form .= '" method="' . $method . '"';
-    if ($params) {
+    $form .= '" method="' . tep_output_string($method) . '"';
+    if (tep_not_null($params)) {
       $form .= ' ' . $params;
     }
     $form .= '>';
@@ -226,15 +234,15 @@
 
 ////
 // Output a form textarea field
-  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
-    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true) {
+    $field = '<textarea name="' . tep_output_string($name) . '" wrap="' . tep_output_string($wrap) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
 
-    if (tep_not_null($params)) $field .= ' ' . $params;
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
     $field .= '>';
 
-    if (isset($GLOBALS[$name]) && ($reinsert_value == true)) {
-      $field .= $GLOBALS[$name];
+    if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
+      $field .= stripslashes($GLOBALS[$name]);
     } elseif (tep_not_null($text)) {
       $field .= $text;
     }
@@ -264,26 +272,26 @@
 
 ////
 // Output a form pull down menu
-  function tep_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = false) {
-    $field = '<select name="' . $name . '"';
+  function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
+    $field = '<select name="' . tep_output_string($name) . '"';
 
-    if (tep_not_null($params)) $field .= ' ' . $params;
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
     $field .= '>';
 
-    for ($i=0; $i<sizeof($values); $i++) {
-      $field .= '<option value="' . $values[$i]['id'] . '"';
+    if (empty($default) && isset($GLOBALS[$name])) $default = stripslashes($GLOBALS[$name]);
 
-      if ( ((strlen($values[$i]['id']) > 0) && (isset($GLOBALS[$name]) && ($GLOBALS[$name] == $values[$i]['id']))) || ($default == $values[$i]['id']) ) {
+    for ($i=0, $n=sizeof($values); $i<$n; $i++) {
+      $field .= '<option value="' . tep_output_string($values[$i]['id']) . '"';
+      if ($default == $values[$i]['id']) {
         $field .= ' SELECTED';
       }
 
-      $field .= '>' . $values[$i]['text'] . '</option>';
+      $field .= '>' . tep_output_string($values[$i]['text'], array('"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;')) . '</option>';
     }
-
     $field .= '</select>';
 
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
+    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
   }

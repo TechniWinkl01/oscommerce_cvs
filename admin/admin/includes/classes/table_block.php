@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: table_block.php,v 1.7 2003/06/20 15:32:13 hpdl Exp $
+  $Id: table_block.php,v 1.8 2003/06/20 15:51:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -26,7 +26,7 @@
       if (isset($contents['form'])) {
         $tableBox_string .= $contents['form'] . "\n";
         $form_set = true;
-        $contents = array_shift($contents);
+        array_shift($contents);
       }
 
       $tableBox_string .= '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
