@@ -1,0 +1,6 @@
+This script will update the products to manufacturers relationship from
+preview release 1.x standards to preview release 2.1+ standards.
+
+It removes the unnecessary products_to_manufacturers table, and directly
+links the products to its manufacturer with the new manufacturers_id
+record in the 'products' table.
