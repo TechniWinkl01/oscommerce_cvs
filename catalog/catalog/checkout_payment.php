@@ -174,7 +174,7 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
 // load the selection function from the payment modules
-  $payment_modules->selection();
+  echo $payment_modules->selection();
 ?>
             </table></td>
           </tr>

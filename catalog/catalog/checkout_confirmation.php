@@ -233,11 +233,13 @@
           </tr>
 <?
 // load the confirmation function from the payment modules
-    $payment_modules->confirmation();
+    echo $payment_modules->confirmation();
   }
+
   if (!$checkout_form_action) {
     $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
   }
+
   echo '<form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '">';
 
   if ($comments) {
@@ -309,8 +311,8 @@
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 
-   // load the process_button function from the payment modules
-  $payment_modules->process_button();
+// load the process_button function from the payment modules
+  echo $payment_modules->process_button();
 
   if (!$checkout_form_submit) {
     echo tep_image_submit('button_confirm_order.gif', IMAGE_BUTTON_CONFIRM_ORDER) . '&nbsp;' . "\n";

@@ -206,7 +206,7 @@
           </tr>
 <?
 // load the show_info function from the payment modules
-  $payment_modules->show_info();
+  echo $payment_modules->show_info();
 ?>
         </table></td>
       </tr>
