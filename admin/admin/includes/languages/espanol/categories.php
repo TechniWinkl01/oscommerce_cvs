@@ -17,6 +17,7 @@ define('TEXT_CATEGORIES', 'Categorias:');
 define('TEXT_SUBCATEGORIES', 'Subcategorias:');
 define('TEXT_PRODUCTS', 'Productos:');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Precio:');
+define('TEXT_PRODUCTS_TAX_CLASS', 'Tipo Impuesto:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'Evaluacion Media:');
 define('TEXT_PRODUCTS_QUANTITY_INFO', 'Cantidad:');
 define('TEXT_DATE_ADDED', 'Añadido el:');
