@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.9 2001/09/01 00:20:29 hpdl Exp $
+  $Id: table.php,v 1.10 2001/09/12 21:08:05 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -9,6 +9,28 @@
 
   Released under the GNU General Public License
 */
+
+  $table_shipping_options = array('0' => 'weight', '1' => 'ammount');
+
+  function tep_get_shipping_modes($value) {
+    global $table_shipping_options;
+
+    return $table_shipping_options[$value];
+  }
+
+  function tep_set_shipping_modes($key, $value = '') {
+    global $table_shipping_options;
+
+    $return = '<select name="configuration[' . $key . ']">';
+    reset($table_shipping_options);
+    while (list($k, $v) = each($table_shipping_options)) {
+      $selected = ($value == $k ? ' selected' : '');
+      $return .= '<option value="' . $k . '"' . $selected . '>' . $v . '</option>';
+    }
+    $return .= '</select>';
+
+    return $return;
+  }
 
   class table {
     var $code, $title, $description, $icon, $enabled;
@@ -40,7 +62,11 @@
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
         $shipping_quoted = 'table';
 
-        $order_total = $cart->show_total();
+        if (MODULE_SHIPPING_TABLE_MODE == 1) {
+          $order_total = $cart->show_total();
+        } else {
+          $order_total = $cart->show_weight();
+        }
         $table_cost = MODULE_SHIPPING_TABLE_COST;
         $high = split('[-,]' , $table_cost);
         $n = 1;
@@ -123,16 +149,18 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable Table Method', 'MODULE_SHIPPING_TABLE_STATUS', '1', 'Do you want to offer table rate shipping?', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Shipping Table', 'MODULE_SHIPPING_TABLE_COST', '1-25,8.50,25-50,5.50,50-10000,0.00', 'Shipping based on the total cost of items. Example: 1-25,8.50,25-50,5.50,etc.. From 1 to 25 charge 8.50, from 25 to 50 charge 5.50, etc', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Handling Fee', 'MODULE_SHIPPING_TABLE_HANDLING', '5', 'Handling Fee for this shipping method', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Table Method', 'MODULE_SHIPPING_TABLE_MODE', '0', 'Is the shipping table based on total Weight or Total ammount of order.', '6', '0', 'tep_get_shipping_modes', 'tep_set_shipping_modes', now())");
     }
 
     function remove() {
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_STATUS'");
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_COST'");
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_HANDLING'");
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_MODE'");
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_HANDLING');
+      $keys = array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_MODE');
       return $keys;
     }
   }
