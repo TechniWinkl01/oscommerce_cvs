@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.129 2003/01/28 15:02:56 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.130 2003/01/29 19:57:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,14 +38,16 @@
   if (!tep_session_is_registered('payment')) tep_session_register('payment');
   if (isset($HTTP_POST_VARS['payment'])) $payment = $HTTP_POST_VARS['payment'];
 
-  require(DIR_WS_CLASSES . 'order.php');
-  $order = new order;
-
 // load the selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment($payment);
 
-  if ( (is_array($payment_modules->modules)) && (sizeof($payment_modules->modules) > 1) && (!is_object($$payment)) ) {
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
+
+  $payment_modules->update_status();
+
+  if ( ( is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && !is_object($$payment) ) || (is_object($$payment) && ($$payment->enabled == false)) ) {
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
   }
 

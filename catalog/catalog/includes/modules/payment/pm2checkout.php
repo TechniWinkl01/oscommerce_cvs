@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.18 2003/01/14 22:03:00 hpdl Exp $
+  $Id: pm2checkout.php,v 1.19 2003/01/29 19:57:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,6 +27,15 @@
         $this->order_status = MODULE_PAYMENT_2CHECKOUT_ORDER_STATUS_ID;
       }
 
+      if (is_object($order)) $this->update_status();
+
+      $this->form_action_url = 'https://www.2checkout.com/cgi-bin/Abuyers/purchase.2c';
+    }
+
+// class methods
+    function update_status() {
+      global $order;
+
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_2CHECKOUT_ZONE > 0) ) {
         $check_flag = false;
         $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_2CHECKOUT_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
@@ -44,11 +53,8 @@
           $this->enabled = false;
         }
       }
-
-      $this->form_action_url = 'https://www.2checkout.com/cgi-bin/Abuyers/purchase.2c';
     }
 
-// class methods
     function javascript_validation() {
       $js = '  if (payment_value == "' . $this->code . '") {' . "\n" .
             '    var cc_number = document.checkout_payment.pm_2checkout_cc_number.value;' . "\n" .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.51 2003/01/14 22:03:00 hpdl Exp $
+  $Id: cc.php,v 1.52 2003/01/29 19:57:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,6 +27,13 @@
         $this->order_status = MODULE_PAYMENT_CC_ORDER_STATUS_ID;
       }
 
+      if (is_object($order)) $this->update_status();
+    }
+
+// class methods
+    function update_status() {
+      global $order;
+
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_CC_ZONE > 0) ) {
         $check_flag = false;
         $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_COD_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
@@ -46,7 +53,6 @@
       }
     }
 
-// class methods
     function javascript_validation() {
       $js = '  if (payment_value == "' . $this->code . '") {' . "\n" .
             '    var cc_owner = document.checkout_payment.cc_owner.value;' . "\n" .

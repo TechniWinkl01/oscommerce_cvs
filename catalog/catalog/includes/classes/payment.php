@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.34 2003/01/10 20:35:03 hpdl Exp $
+  $Id: payment.php,v 1.35 2003/01/29 19:57:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,6 +56,28 @@
     }
 
 // class methods
+/* The following method is needed in the checkout_confirmation.php page
+   due to a chicken and egg problem with the payment class and order class.
+   The payment modules needs the order destination data for the dynamic status
+   feature, and the order class needs the payment module title.
+   The following method is a work-around to implementing the method in all
+   payment modules available which would break the modules in the contributions
+   section. This should be looked into again post 2.2.
+*/   
+    function update_status() {
+      if (is_array($this->modules)) {
+        if (is_object($GLOBALS[$this->selected_module])) {
+          if (function_exists('method_exists')) {
+            if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
+              $GLOBALS[$this->selected_module]->update_status();
+            }
+          } else { // PHP3 compatibility
+            @call_user_method('update_status', $GLOBALS[$this->selected_module]);
+          }
+        }
+      }
+    }
+
     function javascript_validation() {
       $js = '';
       if (is_array($this->modules)) {

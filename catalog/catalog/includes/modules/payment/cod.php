@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cod.php,v 1.26 2003/01/14 22:03:00 hpdl Exp $
+  $Id: cod.php,v 1.27 2003/01/29 19:57:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,6 +26,13 @@
       if ((int)MODULE_PAYMENT_COD_ORDER_STATUS_ID > 0) {
         $this->order_status = MODULE_PAYMENT_COD_ORDER_STATUS_ID;
       }
+
+      if (is_object($order)) $this->update_status();
+    }
+
+// class methods
+    function update_status() {
+      global $order;
 
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_COD_ZONE > 0) ) {
         $check_flag = false;
@@ -53,7 +60,6 @@
       }
     }
 
-// class methods
     function javascript_validation() {
       return false;
     }

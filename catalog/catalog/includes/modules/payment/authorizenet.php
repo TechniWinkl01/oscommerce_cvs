@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.45 2003/01/14 22:03:00 hpdl Exp $
+  $Id: authorizenet.php,v 1.46 2003/01/29 19:57:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,23 +27,7 @@
         $this->order_status = MODULE_PAYMENT_AUTHORIZENET_ORDER_STATUS_ID;
       }
 
-      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_AUTHORIZENET_ZONE > 0) ) {
-        $check_flag = false;
-        $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_AUTHORIZENET_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
-        while ($check = tep_db_fetch_array($check_query)) {
-          if ($check['zone_id'] < 1) {
-            $check_flag = true;
-            break;
-          } elseif ($check['zone_id'] == $order->billing['zone_id']) {
-            $check_flag = true;
-            break;
-          }
-        }
-
-        if ($check_flag == false) {
-          $this->enabled = false;
-        }
-      }
+      if (is_object($order)) $this->update_status();
 
       $this->form_action_url = 'https://secure.authorize.net/gateway/transact.dll';
     }
@@ -115,6 +99,28 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
 // end authorize.net code
 
 // class methods
+    function update_status() {
+      global $order;
+
+      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_AUTHORIZENET_ZONE > 0) ) {
+        $check_flag = false;
+        $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_AUTHORIZENET_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
+        while ($check = tep_db_fetch_array($check_query)) {
+          if ($check['zone_id'] < 1) {
+            $check_flag = true;
+            break;
+          } elseif ($check['zone_id'] == $order->billing['zone_id']) {
+            $check_flag = true;
+            break;
+          }
+        }
+
+        if ($check_flag == false) {
+          $this->enabled = false;
+        }
+      }
+    }
+
     function javascript_validation() {
       $js = '  if (payment_value == "' . $this->code . '") {' . "\n" .
             '    var cc_owner = document.checkout_payment.authorizenet_cc_owner.value;' . "\n" .

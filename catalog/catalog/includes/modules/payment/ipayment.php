@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.31 2003/01/14 22:03:00 hpdl Exp $
+  $Id: ipayment.php,v 1.32 2003/01/29 19:57:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,6 +27,15 @@
         $this->order_status = MODULE_PAYMENT_IPAYMENT_ORDER_STATUS_ID;
       }
 
+      if (is_object($order)) $this->update_status();
+
+      $this->form_action_url = 'https://ipayment.de/merchant/' . MODULE_PAYMENT_IPAYMENT_ID . '/processor.php';
+    }
+
+// class methods
+    function update_status() {
+      global $order;
+
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_IPAYMENT_ZONE > 0) ) {
         $check_flag = false;
         $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_IPAYMENT_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
@@ -44,11 +53,8 @@
           $this->enabled = false;
         }
       }
-
-      $this->form_action_url = 'https://ipayment.de/merchant/' . MODULE_PAYMENT_IPAYMENT_ID . '/processor.php';
     }
 
-// class methods
     function javascript_validation() {
       $js = '  if (payment_value == "' . $this->code . '") {' . "\n" .
             '    var cc_owner = document.checkout_payment.ipayment_cc_owner.value;' . "\n" .
