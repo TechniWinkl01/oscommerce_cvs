@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.41 2001/06/03 18:08:31 dwatkins Exp $
+  $Id: german.php,v 1.42 2001/06/03 19:02:17 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,10 +19,6 @@ define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-
-// the CURRENCY_* constants will be used to format the currency to the selected locale..
-// this is used with the tep_currency_format() function..
-define('CURRENCY_VALUE', 'DEM'); // currency value for exchange rate
 
 // page title
 define('TITLE', 'The Exchange Project');
