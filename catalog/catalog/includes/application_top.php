@@ -12,7 +12,8 @@
   define('DIR_SERVER_ROOT', '/usr/local/apache/');
   define('DIR_LOGS', DIR_SERVER_ROOT . 'logs/');
   define('DIR_CATALOG', '/catalog/');
-  define('DIR_IMAGES', '/catalog/images/');
+  define('DIR_IMAGES', '/catalog/images/'); // from webserver
+  define('DIR_IMAGES_PHYSICAL', '/usr/local/apache/htdocs/'); // 'images/' is hardcoded in the database .. all these paths will later fixed for a better structure..!!
   define('DIR_INCLUDES', 'includes/');
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');

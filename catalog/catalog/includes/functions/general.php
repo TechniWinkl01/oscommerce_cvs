@@ -87,7 +87,7 @@
       }
     }
     if ($src != '') {
-      $size = GetImageSize( (substr($src,0,1)=='/') ? DIR_SERVER_ROOT . $src : $src );
+      $size = GetImageSize( (substr($src,0,1)=='/') ? DIR_IMAGES_PHYSICAL . $src : $src );
       // width is not set, height is set
       if ($width == 0 || $width=="" && !$height) { 
         $ratio = $height / $size[1];
