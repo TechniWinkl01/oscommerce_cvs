@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.21 2003/02/11 00:04:53 hpdl Exp $
+  $Id: shipping.php,v 1.22 2003/05/08 11:29:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,15 +51,15 @@
         $shipping_num_boxes = 1;
         $shipping_weight = $total_weight;
 
-        if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-          $shipping_num_boxes = ceil($total_weight/SHIPPING_MAX_WEIGHT);
-          $shipping_weight = $total_weight/$shipping_num_boxes;
-        }
-
         if (SHIPPING_BOX_WEIGHT >= $shipping_weight*SHIPPING_BOX_PADDING/100) {
           $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
         } else {
           $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
+        }
+
+        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
+          $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
+          $shipping_weight = $shipping_weight/$shipping_num_boxes;
         }
 
         $include_quotes = array();
