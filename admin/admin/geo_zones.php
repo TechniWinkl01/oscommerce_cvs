@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.19 2002/01/17 15:48:42 jan0815 Exp $
+  $Id: geo_zones.php,v 1.20 2002/01/18 00:59:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,33 +14,59 @@
 
   switch ($HTTP_GET_VARS['saction']) {
     case 'insert_sub':
-      tep_db_query("insert into " . TABLE_ZONES_TO_GEO_ZONES . " (zone_country_id, zone_id, geo_zone_id, date_added) values ('" . $HTTP_POST_VARS['zone_country_id'] . "', '" . $HTTP_POST_VARS['zone_id'] . "', '" . $HTTP_GET_VARS['zID'] . "', now())");
+      $zID = tep_db_prepare_input($HTTP_GET_VARS['zID']);
+      $zone_country_id = tep_db_prepare_input($HTTP_POST_VARS['zone_country_id']);
+      $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+
+      tep_db_query("insert into " . TABLE_ZONES_TO_GEO_ZONES . " (zone_country_id, zone_id, geo_zone_id, date_added) values ('" . tep_db_input($zone_country_id) . "', '" . tep_db_input($zone_id) . "', '" . tep_db_input($zID) . "', now())");
       $new_subzone_id = tep_db_insert_id();
+
       tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $new_subzone_id));
       break;
     case 'save_sub':
-      tep_db_query("update " . TABLE_ZONES_TO_GEO_ZONES . " set geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "', zone_country_id = '" . $HTTP_POST_VARS['zone_country_id'] . "', zone_id = " . (($HTTP_POST_VARS['zone_id']) ? "'" . $HTTP_POST_VARS['zone_id'] . "'" : 'null') . ", last_modified = now() where association_id = '" . $HTTP_GET_VARS['sID'] . "'");
+      $sID = tep_db_prepare_input($HTTP_GET_VARS['sID']);
+      $zID = tep_db_prepare_input($HTTP_GET_VARS['zID']);
+      $zone_country_id = tep_db_prepare_input($HTTP_POST_VARS['zone_country_id']);
+      $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+
+      tep_db_query("update " . TABLE_ZONES_TO_GEO_ZONES . " set geo_zone_id = '" . tep_db_input($zID) . "', zone_country_id = '" . tep_db_input($zone_country_id) . "', zone_id = " . ((tep_db_input($zone_id)) ? "'" . tep_db_input($zone_id) . "'" : 'null') . ", last_modified = now() where association_id = '" . tep_db_input($sID) . "'");
+
       tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $HTTP_GET_VARS['sID']));
       break;
     case 'deleteconfirm_sub':
-      tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where association_id = '" . $HTTP_GET_VARS['sID'] . "'");
+      $sID = tep_db_prepare_input($HTTP_GET_VARS['sID']);
+
+      tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where association_id = '" . tep_db_input($sID) . "'");
+
       tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage']));
       break;
   }
 
   switch ($HTTP_GET_VARS['action']) {
     case 'insert_zone':
-      tep_db_query("insert into " . TABLE_GEO_ZONES . " (geo_zone_name, geo_zone_description, date_added) values ('" . $HTTP_POST_VARS['geo_zone_name'] . "', '" . $HTTP_POST_VARS['geo_zone_description'] . "', now())");
+      $geo_zone_name = tep_db_prepare_input($HTTP_POST_VARS['geo_zone_name']);
+      $geo_zone_description = tep_db_prepare_input($HTTP_POST_VARS['geo_zone_description']);
+
+      tep_db_query("insert into " . TABLE_GEO_ZONES . " (geo_zone_name, geo_zone_description, date_added) values ('" . tep_db_input($geo_zone_name) . "', '" . tep_db_input($geo_zone_description) . "', now())");
       $new_zone_id = tep_db_insert_id();
+
       tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $new_zone_id));
       break;
     case 'save_zone':
-      tep_db_query("update " . TABLE_GEO_ZONES . " set geo_zone_name = '" . $HTTP_POST_VARS['geo_zone_name'] . "', geo_zone_description = '" . $HTTP_POST_VARS['geo_zone_description'] . "', last_modified = now() where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
+      $zID = tep_db_prepare_input($HTTP_GET_VARS['zID']);
+      $geo_zone_name = tep_db_prepare_input($HTTP_POST_VARS['geo_zone_name']);
+      $geo_zone_description = tep_db_prepare_input($HTTP_POST_VARS['geo_zone_description']);
+
+      tep_db_query("update " . TABLE_GEO_ZONES . " set geo_zone_name = '" . tep_db_input($geo_zone_name) . "', geo_zone_description = '" . tep_db_input($geo_zone_description) . "', last_modified = now() where geo_zone_id = '" . tep_db_input($zID) . "'");
+
       tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID']));
       break;
     case 'deleteconfirm_zone':
-      tep_db_query("delete from " . TABLE_GEO_ZONES . " where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
-      tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
+      $zID = tep_db_prepare_input($HTTP_GET_VARS['zID']);
+
+      tep_db_query("delete from " . TABLE_GEO_ZONES . " where geo_zone_id = '" . tep_db_input($zID) . "'");
+      tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . tep_db_input($zID) . "'");
+
       tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage']));
       break;
   }
