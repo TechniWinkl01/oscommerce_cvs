@@ -187,7 +187,7 @@
       } else {
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'";
       }
-      $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from products p, products_to_categories p2c, categories c, categories_description cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id - cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
+      $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from products p, products_to_categories p2c, categories c, categories_description cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
     } else {
       if ($HTTP_GET_VARS['filter_id']) {
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "'";
@@ -382,6 +382,7 @@
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+
 
 
 
