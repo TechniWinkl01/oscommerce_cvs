@@ -531,6 +531,7 @@ CREATE TABLE orders_products (
 
 CREATE TABLE orders_products_attributes (
   orders_products_attributes_id int(5) NOT NULL auto_increment,
+  orders_id int(5) NOT NULL,
   orders_products_id int(5) NOT NULL,
   products_options varchar(32) NOT NULL,
   products_options_values varchar(32) NOT NULL,
