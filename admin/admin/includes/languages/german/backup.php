@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.6 2001/11/21 09:04:08 hpdl Exp $
+  $Id: backup.php,v 1.7 2001/11/22 17:07:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,4 +25,7 @@ define('TEXT_INFO_RESTORE', 'Do not interrupt the restoration process.<br><br>Th
 define('TEXT_INFO_DATE', 'Date:');
 define('TEXT_INFO_SIZE', 'Size:');
 define('TEXT_INFO_COMPRESSION', 'Compression:');
+
+define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: Backup directory does not exist. Please create the backup directory. I failed at creating it automatically.');
+define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not writeable. Please check the directory permissions.');
 ?>

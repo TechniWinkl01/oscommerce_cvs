@@ -66,6 +66,12 @@ TD.infoBox, SPAN.infoBox {
 	font-size : 10px;
 }
 
+TD.errorBox {
+	font-family : Verdana, Arial, sans-serif;
+	font-size : 10px;
+    background-color: #ffb3b5;
+}
+
 TR.selectedRow, TD.box {
   background-color: #b0c8df;
 }

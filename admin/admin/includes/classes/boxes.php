@@ -76,4 +76,11 @@
       $this->tableBox($contents);
     }
   }
+
+  class errorBox extends tableBox {
+    function errorBox($contents) {
+      $this->table_data_parameters = 'class="errorBox"';
+      $this->tableBox($contents);
+    }
+  }
 ?>

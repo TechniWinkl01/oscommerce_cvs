@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.18 2001/11/21 09:04:04 hpdl Exp $
+  $Id: backup.php,v 1.19 2001/11/22 17:07:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -217,6 +217,24 @@
           </tr>
         </table></td>
       </tr>
+<?php
+// check if the backup directory exists, if not try creating it
+  if (is_dir(DIR_FS_BACKUP)) {
+    if (!is_writeable(DIR_FS_BACKUP)) {
+?>
+      <tr>
+        <td><?php new errorBox(array(array('align' => 'left', 'text' => ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE))); ?></td>
+      </tr>
+<?php
+    }
+  } elseif (!@mkdir(DIR_FS_BACKUP, 0777)) {
+?>
+      <tr>
+        <td><?php new errorBox(array(array('align' => 'left', 'text' => ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST))); ?></td>
+      </tr>
+<?php
+  }
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -234,7 +252,7 @@
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-  $dir = opendir(DIR_FS_BACKUP);
+  $dir = @opendir(DIR_FS_BACKUP);
 
   if ($dir) {
     $directory_array = array();
@@ -278,8 +296,8 @@
               </tr>
 <?
     }
+    closedir($dir);
   }
-  closedir($dir);
 ?>
               <tr>
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
