@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.9 2002/04/03 23:30:39 hpdl Exp $
+  $Id: configure.php,v 1.10 2002/04/05 20:07:15 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,6 @@
   define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG . 'includes/languages/');
   define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG . 'images/');
   define('DIR_FS_CATALOG_MODULES', DIR_FS_CATALOG . 'includes/modules/');
-  define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
   define('DIR_FS_BACKUP', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . 'backups/');
 
 // define our database connection
