@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.182 2002/07/19 17:34:31 dgw_ Exp $
+  $Id: general.php,v 1.183 2002/08/01 10:35:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1081,5 +1081,9 @@
     } else {
       return false;
     }
+  }
+
+  function tep_string_to_int($string) {
+    return (int)$string;
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.9 2002/07/21 23:38:58 hpdl Exp $
+  $Id: compatibility.php,v 1.10 2002/08/01 10:35:20 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -126,6 +126,21 @@
       }
 
       return $tmp;
+    }
+  }
+
+  if (!function_exists('array_map')) {
+    function array_map($callback, $array) {
+      if (is_array($array)) {
+        $_new_array = array();
+        reset($array);
+        while (list($key, $value) = each($array)) {
+          $_new_array[$key] = array_map($callback, $array[$key]);
+        }
+        return $_new_array;
+      } else {
+        return $callback($array);
+      }
     }
   }
 ?>
