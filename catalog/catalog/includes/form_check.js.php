@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: form_check.js.php,v 1.10 2004/04/16 14:14:34 hpdl Exp $
+  $Id: form_check.js.php,v 1.11 2004/07/22 21:18:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -102,23 +102,53 @@ function check_form(form_name) {
   form = form_name;
   error_message = "<?php echo JS_ERROR; ?>";
 
-<?php if (ACCOUNT_GENDER == 'true') echo '  check_radio("gender", "' . ENTRY_GENDER_ERROR . '");' . "\n"; ?>
+<?php
+  if (ACCOUNT_GENDER > 0) {
+    echo '  check_radio("gender", "' . ENTRY_GENDER_ERROR . '");' . "\n";
+  }
+?>
 
-  check_input("firstname", <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>, "<?php echo ENTRY_FIRST_NAME_ERROR; ?>");
-  check_input("lastname", <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>, "<?php echo ENTRY_LAST_NAME_ERROR; ?>");
-  check_input("email_address", <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>, "<?php echo ENTRY_EMAIL_ADDRESS_ERROR; ?>");
-  check_input("street_address", <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>, "<?php echo ENTRY_STREET_ADDRESS_ERROR; ?>");
-  check_input("postcode", <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>, "<?php echo ENTRY_POST_CODE_ERROR; ?>");
-  check_input("city", <?php echo ENTRY_CITY_MIN_LENGTH; ?>, "<?php echo ENTRY_CITY_ERROR; ?>");
+  check_input("firstname", <?php echo ACCOUNT_FIRST_NAME; ?>, "<?php echo ENTRY_FIRST_NAME_ERROR; ?>");
+  check_input("lastname", <?php echo ACCOUNT_LAST_NAME; ?>, "<?php echo ENTRY_LAST_NAME_ERROR; ?>");
+  check_input("email_address", <?php echo ACCOUNT_EMAIL_ADDRESS; ?>, "<?php echo ENTRY_EMAIL_ADDRESS_ERROR; ?>");
 
-<?php if (ACCOUNT_STATE == 'true') echo '  check_input("state", ' . ENTRY_STATE_MIN_LENGTH . ', "' . ENTRY_STATE_ERROR . '");' . "\n"; ?>
+<?php
+  if (ACCOUNT_COMPANY > 0) {
+    echo '  check_input("company", ' . ACCOUNT_COMPANY . ', "' . ENTRY_COMPANY_ERROR . '");' . "\n";
+  }
+?>
+
+  check_input("street_address", <?php echo ACCOUNT_STREET_ADDRESS; ?>, "<?php echo ENTRY_STREET_ADDRESS_ERROR; ?>");
+
+<?php
+  if (ACCOUNT_SUBURB > 0) {
+    echo '  check_input("suburb", ' . ACCOUNT_SUBURB . ', "' . ENTRY_SUBURB_ERROR . '");' . "\n";
+  }
+?>
+
+  check_input("postcode", <?php echo ACCOUNT_POST_CODE; ?>, "<?php echo ENTRY_POST_CODE_ERROR; ?>");
+  check_input("city", <?php echo ACCOUNT_CITY; ?>, "<?php echo ENTRY_CITY_ERROR; ?>");
+
+<?php
+  if (ACCOUNT_STATE > 0) {
+    echo '  check_input("state", ' . ACCOUNT_STATE . ', "' . ENTRY_STATE_ERROR . '");' . "\n";
+  }
+?>
 
   check_select("country", "", "<?php echo ENTRY_COUNTRY_ERROR; ?>");
 
-  check_input("telephone", <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>, "<?php echo ENTRY_TELEPHONE_NUMBER_ERROR; ?>");
+<?php
+  if (ACCOUNT_TELEPHONE > 0) {
+    echo '  check_input("telephone", ' . ACCOUNT_TELEPHONE . ', "' . ENTRY_TELEPHONE_NUMBER_ERROR . '");' . "\n";
+  }
 
-  check_password("password", "confirmation", <?php echo ENTRY_PASSWORD_MIN_LENGTH; ?>, "<?php echo ENTRY_PASSWORD_ERROR; ?>", "<?php echo ENTRY_PASSWORD_ERROR_NOT_MATCHING; ?>");
-  check_password_new("password_current", "password_new", "password_confirmation", <?php echo ENTRY_PASSWORD_MIN_LENGTH; ?>, "<?php echo ENTRY_PASSWORD_ERROR; ?>", "<?php echo ENTRY_PASSWORD_NEW_ERROR; ?>", "<?php echo ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING; ?>");
+  if (ACCOUNT_FAX > 0) {
+    echo '  check_input("fax", ' . ACCOUNT_FAX . ', "' . ENTRY_FAX_NUMBER_ERROR . '");' . "\n";
+  }
+?>
+
+  check_password("password", "confirmation", <?php echo ACCOUNT_PASSWORD; ?>, "<?php echo ENTRY_PASSWORD_ERROR; ?>", "<?php echo ENTRY_PASSWORD_ERROR_NOT_MATCHING; ?>");
+  check_password_new("password_current", "password_new", "password_confirmation", <?php echo ACCOUNT_PASSWORD; ?>, "<?php echo ENTRY_PASSWORD_ERROR; ?>", "<?php echo ENTRY_PASSWORD_NEW_ERROR; ?>", "<?php echo ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING; ?>");
 
   if (error == true) {
     alert(error_message);
