@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.137 2002/08/16 12:42:21 hpdl Exp $
+  $Id: general.php,v 1.138 2002/08/17 11:00:40 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -157,7 +157,7 @@
     global $languages_id;
 
     if (!is_array($category_tree_array)) $category_tree_array = array();
-    if ( (sizeof($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => '--Top--');
+    if ( (sizeof($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => TEXT_TOP);
 
     if ($include_itself) {
       $category_query = tep_db_query("select cd.categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " cd where cd.language_id = '" . $languages_id . "' and cd.categories_id = '" . $parent_id . "'");
@@ -807,7 +807,7 @@
       $categories_query = tep_db_query("select categories_id from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $id . "'");
       while ($categories = tep_db_fetch_array($categories_query)) {
         if ($categories['categories_id'] == '0') {
-          $categories_array[$index][] = array('id' => '0', 'text' => 'Top');
+          $categories_array[$index][] = array('id' => '0', 'text' => TEXT_TOP);
         } else {
           $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $categories['categories_id'] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
           $category = tep_db_fetch_array($category_query);
@@ -838,7 +838,7 @@
     }
     $calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
 
-    if (strlen($calculated_category_path_string) < 1) $calculated_category_path_string = 'Top';
+    if (strlen($calculated_category_path_string) < 1) $calculated_category_path_string = TEXT_TOP;
 
     return $calculated_category_path_string;
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.91 2002/08/17 09:43:33 project3000 Exp $
+  $Id: german.php,v 1.92 2002/08/17 11:00:48 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -269,4 +269,5 @@ define('TEXT_CACHE_MANUFACTURERS', 'Hersteller Box');
 define('TEXT_CACHE_ALSO_PURCHASED', 'Modul f&uuml;r ebenfalls gekaufte Artikel');
 
 define('TEXT_NONE', '--keine--');
+define('TEXT_TOP', 'Top');
 ?>
