@@ -26,7 +26,7 @@
         $manufacturer_info = explode('_', $manufacturers_id[$i]); // products_to_manufacturers_id . "_" . manufacturers_id
         $check_link = tep_db_query("select products_id, manufacturers_id from products_to_manufacturers where products_to_manufacturers_id = '" . $manufacturer_info[0] . "'");
         $check_link_values = tep_db_fetch_array($check_link);
-        if ($check_link_values['manufacturers_id'] == $manufacturer_info[1]) {
+        if ($check_link_values['manufacturers_id'] && $check_link_values['manufacturers_id'] == $manufacturer_info[1]) {
           $manufacturers_id_match = '1'; // manufacturers match.. no updated needed
         } else {
           $manufacturers_id_match = '0'; // manufactuers mismatch.. update or remove?
@@ -52,7 +52,7 @@
         $subcategory_info = explode('_', $subcategories_id[$i]); // products_to_subcategories_id . "_" . subcategories_id
         $check_link = tep_db_query("select products_id, subcategories_id from products_to_subcategories where products_to_subcategories_id = '" . $subcategory_info[0] . "'");
         $check_link_values = tep_db_fetch_array($check_link);
-        if ($check_link_values['subcategories_id'] == $subcategory_info[1]) {
+        if ($check_link_values['subcategories_id'] && $check_link_values['subcategories_id'] == $subcategory_info[1]) {
           $subcategories_id_match = '1'; // subcategories match.. no updated needed
         } else {
           $subcategories_id_match = '0'; // subcategories mismatch.. update or remove?
