@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.1 2001/11/19 13:44:47 hpdl Exp $
+  $Id: html_output.php,v 1.2 2001/11/19 13:48:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -184,6 +184,24 @@
     echo '  else {' . "\n" .
          '    ' . $form_name . '.zone_id.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
          '  }' . "\n";
+  }
+
+////
+// Output a form
+  function tep_draw_form($name, $action, $parameters = '', $method = 'post', $params = '') {
+    $form = '<form name="' . $name . '" action="';
+    if ($parameters) {
+      $form .= tep_href_link($action, $parameters);
+    } else {
+      $form .= tep_href_link($action);
+    }
+    $form .= '" method="' . $method . '"';
+    if ($params) {
+      $form .= ' ' . $params;
+    }
+    $form .= '>';
+
+    return $form;
   }
 
 ////
