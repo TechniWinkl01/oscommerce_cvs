@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.6 2001/11/20 21:51:11 dgw_ Exp $
+  $Id: sessions.php,v 1.7 2002/08/08 00:35:34 harley_vb Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -92,7 +92,7 @@
       return true;
     }
 
-    function gc($max_lifteime) {
+    function gc($max_lifetime) {
       $func = $this->gc_func;
       if (function_exists($func)) {
         return $func($max_lifetime);
