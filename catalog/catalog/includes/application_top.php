@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.235 2002/06/05 19:15:49 dgw_ Exp $
+  $Id: application_top.php,v 1.236 2002/06/20 22:02:36 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -312,7 +312,7 @@
                               break;
       // customer adds a product from the products page
       case 'add_product' :    if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
-                                $cart->add_cart($HTTP_POST_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1, $HTTP_POST_VARS['id'], true);
+                                $cart->add_cart($HTTP_POST_VARS['products_id'], $cart->get_quantity($HTTP_POST_VARS['products_id'])+1, $HTTP_POST_VARS['id'], true);
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               break;
