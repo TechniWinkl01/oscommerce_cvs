@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.10 2002/01/31 01:17:51 harley_vb Exp $
+  $Id: specials.php,v 1.11 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,8 +19,9 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_SPECIALS_PRODUCT', 'Produkt:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Angebotspreis:');
+define('TEXT_SPECIALS_STATUS', 'Status:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'G&uuml;ltig bis:<br><small>(dd.mm.yyyy)</small>');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie k&ouml;nnen im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, m&uuml;ssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li><li>Lassen Sie das Feld <b>\'Gültig bis\'</b> leer, wenn der Angebotspreis zeitlich unbegrenzt gelten soll.</li></ul>');
+define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie k&ouml;nnen im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, m&uuml;ssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li><li>Lassen Sie das Feld <b>\'Gltig bis\'</b> leer, wenn der Angebotspreis zeitlich unbegrenzt gelten soll.</li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: index.php,v 1.5 2002/03/30 14:32:08 harley_vb Exp $
+  $Id: index.php,v 1.6 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -24,9 +24,9 @@ define('BOX_ENTRY_LIVE_DISCUSSIONS', 'Live Diskussionen');
 define('BOX_ENTRY_CVS_REPOSITORY', 'CVS Repository');
 define('BOX_ENTRY_INFORMATION_PORTAL', 'Informations Portal');
 
-define('BOX_ENTRY_CUSTOMERS', 'Kunden:');
-define('BOX_ENTRY_PRODUCTS', 'Produkte:');
-define('BOX_ENTRY_REVIEWS', 'Bewertungen:');
+define('BOX_ENTRY_CUSTOMERS', 'Kunden');
+define('BOX_ENTRY_PRODUCTS', 'Produkte');
+define('BOX_ENTRY_REVIEWS', 'Bewertungen');
 
 define('BOX_CONNECTION_PROTECTED', 'Sie sind gesichert durch eine %s sichere SSL Verbindung.');
 define('BOX_CONNECTION_UNPROTECTED', 'Sie sind <font color="#ff0000">nicht</font> durch eine sichere SSL Verbindung gesichert.');

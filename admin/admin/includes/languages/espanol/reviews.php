@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: reviews.php,v 1.5 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: reviews.php,v 1.6 2004/07/22 23:18:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,6 +13,7 @@
 define('HEADING_TITLE', 'Comentarios');
 
 define('TABLE_HEADING_PRODUCTS', 'Productos');
+define('TABLE_HEADING_LANGUAGE', 'Language');
 define('TABLE_HEADING_RATING', 'Evaluaci&oacute;n');
 define('TABLE_HEADING_DATE_ADDED', 'Fecha Alta');
 define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
@@ -24,7 +25,7 @@ define('ENTRY_REVIEW', 'Comentario:');
 define('ENTRY_REVIEW_TEXT', '<small><font color="#ff0000"><b>NOTA:</b></font></small>&nbsp;no se traduce el c&oacute;digo HTML!&nbsp;');
 define('ENTRY_RATING', 'Evaluacion:');
 
-define('TEXT_INFO_DELETE_REVIEW_INTRO', '¿Seguro que desea eliminar este comentario?');
+define('TEXT_INFO_DELETE_REVIEW_INTRO', 'Seguro que desea eliminar este comentario?');
 
 define('TEXT_INFO_DATE_ADDED', 'Fecha Alta:');
 define('TEXT_INFO_LAST_MODIFIED', 'Ultima Modificaci&oacute;n:');

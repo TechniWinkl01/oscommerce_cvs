@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: reviews.php,v 1.6 2002/01/30 16:24:23 harley_vb Exp $
+  $Id: reviews.php,v 1.7 2004/07/22 23:17:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,6 +13,7 @@
 define('HEADING_TITLE', 'Reviews');
 
 define('TABLE_HEADING_PRODUCTS', 'Products');
+define('TABLE_HEADING_LANGUAGE', 'Language');
 define('TABLE_HEADING_RATING', 'Rating');
 define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 define('TABLE_HEADING_ACTION', 'Action');

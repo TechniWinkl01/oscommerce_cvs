@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.10 2002/03/16 15:07:21 project3000 Exp $
+  $Id: specials.php,v 1.11 2004/07/22 23:17:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,6 +19,7 @@ define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_SPECIALS_PRODUCT', 'Product:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Special Price:');
+define('TEXT_SPECIALS_STATUS', 'Status:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'Expiry Date:');
 define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li><li>Leave the expiry date empty for no expiration</li></ul>');
 

@@ -1,18 +1,20 @@
 <?php
 /*
-  $Id: orders.php,v 1.25 2003/06/20 00:28:44 hpdl Exp $
+  $Id: orders.php,v 1.26 2004/07/22 23:17:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('HEADING_TITLE', 'Orders');
-define('HEADING_TITLE_SEARCH', 'Order ID:');
-define('HEADING_TITLE_STATUS', 'Status:');
+
+define('SEARCH_ORDER_ID', 'Order ID:');
+define('SEARCH_CUSTOMER_ID', 'Customer ID:');
+define('SEARCH_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Comments');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
@@ -53,6 +55,7 @@ define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'Date Last Updated:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
 define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
+define('ENTRY_NEW_COMMENT', 'New Comment:');
 define('ENTRY_PRINTABLE', 'Print Invoice');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Delete Order');

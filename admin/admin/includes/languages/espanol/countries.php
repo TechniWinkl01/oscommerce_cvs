@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: countries.php,v 1.7 2003/07/07 09:23:06 dgw_ Exp $
+  $Id: countries.php,v 1.8 2004/07/22 23:18:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,6 +14,7 @@ define('HEADING_TITLE', 'Paises');
 
 define('TABLE_HEADING_COUNTRY_NAME', 'Pa&iacute;s');
 define('TABLE_HEADING_COUNTRY_CODES', 'C&oacute;digos ISO');
+define('TABLE_HEADING_ZONES_TOTAL', 'Defined Zones');
 define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 
 define('TEXT_INFO_EDIT_INTRO', 'Haga los cambios necesarios');
@@ -26,4 +27,8 @@ define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este pa&iacute;s?');
 define('TEXT_INFO_HEADING_NEW_COUNTRY', 'Nuevo Pa&iacute;s');
 define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Editar Pa&iacute;s');
 define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Eliminar Pa&iacute;s');
+
+define('TEXT_INFO_DELETE_PROHIBITED_ADDRESS_BOOK', 'Warning: This Country cannot be deleted as it is currently assigned to %s address book entries.');
+define('TEXT_INFO_DELETE_PROHIBITED_TAX_ZONES', 'Warning: This Country cannot be deleted as it is currently assigned to %s tax zone(s).');
+define('TEXT_INFO_DELETE_COUNTRIES_WARNING', 'Warning: This Country has %s zone(s) assigned which would also be deleted.');
 ?>

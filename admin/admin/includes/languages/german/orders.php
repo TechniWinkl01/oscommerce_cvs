@@ -1,18 +1,20 @@
 <?php
 /*
-  $Id: orders.php,v 1.28 2003/06/20 00:28:44 hpdl Exp $
+  $Id: orders.php,v 1.29 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('HEADING_TITLE', 'Bestellungen');
-define('HEADING_TITLE_SEARCH', 'Bestell-Nr.:');
-define('HEADING_TITLE_STATUS', 'Status:');
+
+define('SEARCH_ORDER_ID', 'Bestellungs ID:');
+define('SEARCH_CUSTOMER_ID', 'Kunde ID:');
+define('SEARCH_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Kommentar');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
@@ -53,6 +55,7 @@ define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
 define('ENTRY_NOTIFY_COMMENTS', 'Kommentare mitsenden:');
+define('ENTRY_NEW_COMMENT', 'Neuer Kommentar:');
 define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung l&ouml;schen');
@@ -66,11 +69,11 @@ define('TEXT_ALL_ORDERS', 'Alle Bestellungen');
 define('TEXT_NO_ORDER_HISTORY', 'Keine Bestellhistorie verf&uuml;gbar');
 
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
-define('EMAIL_TEXT_SUBJECT', 'Statusänderung Ihrer Bestellung');
+define('EMAIL_TEXT_SUBJECT', 'Statusï¿½derung Ihrer Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
-define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adresse einsehen:');
+define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung kï¿½nen Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüssen' . "\n");
+define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geï¿½dert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grssen' . "\n");
 define('EMAIL_TEXT_COMMENTS_UPDATE', 'Anmerkungen und Kommentare zu Ihrer Bestellung:' . "\n\n%s\n\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Fehler: Die Bestellung existiert nicht!.');

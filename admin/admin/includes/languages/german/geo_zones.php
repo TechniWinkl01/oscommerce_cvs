@@ -1,20 +1,21 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.11 2003/05/07 08:59:29 dgw_ Exp $
+  $Id: geo_zones.php,v 1.12 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('HEADING_TITLE', 'Steuerzonen');
 
+define('TABLE_HEADING_TAX_ZONES', 'Steuerzonen');
+define('TABLE_HEADING_TOTAL_ENTRIES', 'Entries');
 define('TABLE_HEADING_COUNTRY', 'Land');
 define('TABLE_HEADING_COUNTRY_ZONE', 'Bundesland');
-define('TABLE_HEADING_TAX_ZONES', 'Steuerzonen');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_INFO_HEADING_NEW_ZONE', 'Neue Steuerzone');
@@ -45,4 +46,7 @@ define('TEXT_INFO_COUNTRY_ZONE', 'Bundesland:');
 define('TYPE_BELOW', 'Alle Bundesl&auml;nder');
 define('PLEASE_SELECT', 'Alle Bundesl&auml;nder');
 define('TEXT_ALL_COUNTRIES', 'Alle L&auml;nder');
+
+define('TEXT_INFO_DELETE_PROHIBITED', 'Warning: This Tax Zone cannot be deleted as it is currently assigned to one or more tax rates.');
+define('TEXT_INFO_DELETE_ZONE_WARNING', 'Warning: This Tax Zone has %s zone(s) assigned which would also be deleted.');
 ?>

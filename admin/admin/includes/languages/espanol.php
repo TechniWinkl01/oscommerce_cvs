@@ -1,20 +1,23 @@
 <?php
 /*
-  $Id: espanol.php,v 1.108 2004/05/12 19:31:34 mevans Exp $
+  $Id: espanol.php,v 1.109 2004/07/22 23:18:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-// look in your $PATH_LOCALE/locale directory for available locales..
-// on RedHat6.0 I used 'es_ES'
-// on FreeBSD 4.0 I use 'es_ES.ISO_8859-1'
-// this may not work under win32 environments..
-setlocale(LC_TIME, 'es_ES.ISO_8859-1');
+// look in your $PATH_LOCALE/locale directory for available locales
+// or execute 'locale -a' on the server.
+// Examples:
+// on Linux try 'es_ES'
+// on FreeBSD try 'es_ES.ISO_8859-1'
+// on Windows try 'sp', or 'Spanish'
+define('LANGUAGE_LOCALE', 'es_ES');
+
 define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd/m/Y');  // this is used for date()
@@ -96,9 +99,7 @@ define('BOX_TAXES_TAX_RATES', 'Impuestos');
 
 // reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Informes');
-define('BOX_REPORTS_PRODUCTS_VIEWED', 'Los Mas Vistos');
-define('BOX_REPORTS_PRODUCTS_PURCHASED', 'Los Mas Comprados');
-define('BOX_REPORTS_ORDERS_TOTAL', 'Total por Cliente');
+define('BOX_REPORTS_STATISTICS', 'Statistics');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Herramientas');
@@ -121,10 +122,8 @@ define('BOX_LOCALIZATION_WEIGHT_CLASSES', 'Weight Classes');
 
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguientes modificaciones:\n\n');
-
 define('JS_OPTIONS_VALUE_PRICE', '* El atributo necesita un precio\n');
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* El atributo necesita un prefijo para el precio\n');
-
 define('JS_PRODUCTS_NAME', '* El producto necesita un nombre\n');
 define('JS_PRODUCTS_DESCRIPTION', '* El producto necesita una descripci&oacute;n\n');
 define('JS_PRODUCTS_PRICE', '* El producto necesita un precio\n');
@@ -132,24 +131,7 @@ define('JS_PRODUCTS_WEIGHT', '* Debe especificar el peso del producto\n');
 define('JS_PRODUCTS_QUANTITY', '* Debe especificar la cantidad\n');
 define('JS_PRODUCTS_MODEL', '* Debe especificar el modelo\n');
 define('JS_PRODUCTS_IMAGE', '* Debe suministrar una imagen\n');
-
 define('JS_SPECIALS_PRODUCTS_PRICE', '* Debe rellenar el precio\n');
-
-define('JS_GENDER', '* Debe elegir un \'Sexo\'.\n');
-define('JS_FIRST_NAME', '* El \'Nombre\' debe tener al menos ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' letras.\n');
-define('JS_LAST_NAME', '* El \'Apellido\' debe tener al menos ' . ENTRY_LAST_NAME_MIN_LENGTH . ' letras.\n');
-define('JS_DOB', '* La \'Fecha de Nacimiento\' debe tener el formato: xx/xx/xxxx (dia/mes/a&ntilde;o).\n');
-define('JS_EMAIL_ADDRESS', '* El \'E-Mail\' debe tener al menos ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' letras.\n');
-define('JS_ADDRESS', '* El \'Domicilio\' debe tener al menos ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' letras.\n');
-define('JS_POST_CODE', '* El \'C&oacute;digo Postal\' debe tener al menos ' . ENTRY_POSTCODE_MIN_LENGTH . ' letras.\n');
-define('JS_CITY', '* La \'Ciudad\' debe tener al menos ' . ENTRY_CITY_MIN_LENGTH . ' letras.\n');
-define('JS_STATE', '* Debe indicar la \'Provincia\'.\n');
-define('JS_STATE_SELECT', '-- Seleccione Arriba --');
-define('JS_ZONE', '* La \'Provincia\' se debe seleccionar de la lista para este pais.');
-define('JS_COUNTRY', '* Debe seleccionar un \'Pais\'.\n');
-define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
-define('JS_PASSWORD', '* La \'Contrase&ntilde;a\' y \'Confirmaci&oacute;n\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
-
 define('JS_ORDER_DOES_NOT_EXIST', 'El n&uacute;mero de pedido %s no existe!');
 
 define('CATEGORY_PERSONAL', 'Personal');
@@ -159,34 +141,43 @@ define('CATEGORY_COMPANY', 'Empresa');
 define('CATEGORY_OPTIONS', 'Opciones');
 
 define('ENTRY_GENDER', 'Sexo:');
-define('ENTRY_GENDER_ERROR', '&nbsp;<span class="errorText">obligatorio</span>');
+define('ENTRY_GENDER_ERROR', 'Debe elegir un Sexo.');
 define('ENTRY_FIRST_NAME', 'Nombre:');
-define('ENTRY_FIRST_NAME_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' letras</span>');
+define('ENTRY_FIRST_NAME_ERROR', 'El Nombre debe tener al menos ' . ACCOUNT_FIRST_NAME . ' letras.');
 define('ENTRY_LAST_NAME', 'Apellidos:');
-define('ENTRY_LAST_NAME_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_LAST_NAME_MIN_LENGTH . ' letras</span>');
+define('ENTRY_LAST_NAME_ERROR', 'El Nombre debe tener al menos ' . ENTRY_LAST_NAME . ' letras.');
 define('ENTRY_DATE_OF_BIRTH', 'Fecha de Nacimiento:');
-define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<span class="errorText">(p.ej. 21/05/1970)</span>');
+define('ENTRY_DATE_OF_BIRTH_ERROR', 'La Fecha de Nacimiento debe tener el formato dia/mes/a&ntilde;o.');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
-define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' letras</span>');
-define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<span class="errorText">Su Email no parece correcto!</span>');
-define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<span class="errorText">email ya existe!</span>');
+define('ENTRY_EMAIL_ADDRESS_ERROR', 'El E-Mail debe tener al menos ' . ACCOUNT_EMAIL_ADDRESS . ' letras.');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Su E-Mail no parece correcto!');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'E-Mail ya existe!');
 define('ENTRY_COMPANY', 'Nombre empresa:');
+define('ENTRY_COMPANY_ERROR', 'El Nombre Empresa debe tener al menos ' . ACCOUNT_COMPANY . ' letras.');
 define('ENTRY_STREET_ADDRESS', 'Direcci&oacute;n:');
-define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' letras</span>');
-define('ENTRY_SUBURB', '');
+define('ENTRY_STREET_ADDRESS_ERROR', 'El Direcci&oacute;n debe tener al menos ' . ACCOUNT_STREET_ADDRESS . ' letras.');
+define('ENTRY_SUBURB', 'Suburb:');
+define('ENTRY_SUBURB_ERROR', 'El Suburb debe tener al menos ' . ACCOUNT_SUBURB . ' letras.');
 define('ENTRY_POST_CODE', 'C&oacute;digo Postal:');
-define('ENTRY_POST_CODE_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_POSTCODE_MIN_LENGTH . ' letras</span>');
+define('ENTRY_POST_CODE_ERROR', 'El C&oacute;digo Postal debe tener al menos ' . ACCOUNT_POST_CODE . ' letras.');
 define('ENTRY_CITY', 'Poblaci&oacute;n:');
-define('ENTRY_CITY_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_CITY_MIN_LENGTH . ' letras</span>');
+define('ENTRY_CITY_ERROR', 'El Poblaci&oacute;n debe tener al menos ' . ACCOUNT_CITY . ' letras.');
 define('ENTRY_STATE', 'Provincia:');
-define('ENTRY_STATE_ERROR', '&nbsp;<span class="errorText">obligatorio</span>');
+define('ENTRY_STATE_ERROR', 'El Provincia debe tener al menos ' . ACCOUNT_STATE . ' letras.');
+define('ENTRY_STATE_ERROR_SELECT', 'Please select a state from the States pull down menu.');
 define('ENTRY_COUNTRY', 'Pa&iacute;s:');
+define('ENTRY_COUNTRY_ERROR', 'You must select a country from the Countries pull down menu.');
 define('ENTRY_TELEPHONE_NUMBER', 'Tel&eacute;fono:');
-define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras</span>');
+define('ENTRY_TELEPHONE_NUMBER_ERROR', 'El Tel&eacute;fono debe tener al menos ' . ACCOUNT_TELEPHONE . ' letras.');
 define('ENTRY_FAX_NUMBER', 'Fax:');
+define('ENTRY_FAX_NUMBER_ERROR', 'El Fax debe tener al menos ' . ACCOUNT_FAX . ' letras.');
 define('ENTRY_NEWSLETTER', 'Bolet&iacute;n:');
 define('ENTRY_NEWSLETTER_YES', 'suscrito');
 define('ENTRY_NEWSLETTER_NO', 'no suscrito');
+define('ENTRY_PASSWORD', 'Password:');
+define('ENTRY_PASSWORD_ERROR', 'Your Password must contain a minimum of ' . ACCOUNT_PASSWORD . ' characters.');
+define('ENTRY_PASSWORD_ERROR_NOT_MATCHING', 'The Password Confirmation must match your Password.');
+define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
 
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'Enviando E-Mail');
@@ -256,8 +247,11 @@ define('ICON_TICK', 'Verdadero');
 define('ICON_UNLOCKED', 'Desbloqueado');
 define('ICON_WARNING', 'Advertencia');
 
+define('ICON_ORDERS', 'Orders');
+define('ICON_PRODUCTS', 'Products');
+
 // constants for use in tep_prev_next_display function
-define('TEXT_RESULT_PAGE', 'P&aacute;gina %s de %d');
+define('TEXT_RESULT_PAGE', 'P&aacute;gina&nbsp;%s&nbsp;de %d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
 define('TEXT_DISPLAY_NUMBER_OF_CREDIT_CARDS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> credit cards)');
@@ -272,9 +266,9 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos esperados)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> ofertas)');
+define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> porcentajes de impuestos)');
-define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_WEIGHT_CLASSES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> weight classes)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 
@@ -304,4 +298,8 @@ define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: Extension de fichero no permitida.'
 define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Exito: Fichero guardado con &eacute;xito.');
 define('WARNING_NO_FILE_UPLOADED', 'Advertencia: No se ha subido ningun archivo.');
 define('WARNING_FILE_UPLOADS_DISABLED', 'Warning: Se ha desactivado la subida de archivos en el fichero de configuraci&oacute;n php.ini.');
+
+define('SUCCESS_DB_ROWS_UPDATED', 'Success: Entry successfully updated!');
+define('WARNING_DB_ROWS_NOT_UPDATED', 'Warning: Entry not updated due to the data content being the same.');
+define('ERROR_DB_ROWS_NOT_UPDATED', 'Error: Entry not updated due to an error.');
 ?>

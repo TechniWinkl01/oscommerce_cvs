@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: zones.php,v 1.6 2002/01/28 00:22:42 harley_vb Exp $
+  $Id: zones.php,v 1.7 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -26,4 +26,7 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie dieses Bundesland l&
 define('TEXT_INFO_HEADING_NEW_ZONE', 'neues Bundesland');
 define('TEXT_INFO_HEADING_EDIT_ZONE', 'Bundesland bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_ZONE', 'Bundesland l&ouml;schen');
+
+define('TEXT_INFO_DELETE_PROHIBITED_ADDRESS_BOOK', 'Warning: This Zone cannot be deleted as it is currently assigned to %s address book entries.');
+define('TEXT_INFO_DELETE_PROHIBITED_TAX_ZONES', 'Warning: This Zone cannot be deleted as it is currently assigned to %s tax zone(s).');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: services.php,v 1.1 2004/04/13 08:19:28 hpdl Exp $
+  $Id: services.php,v 1.2 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,4 +17,6 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_MODULE_DIRECTORY', 'Module Directory:');
+
+define('TEXT_UNINSTALL_INTRO', 'Sind Sie sicher, dass Sie diesen Modul deinstallieren m&ouml;chten?<br><br>(Alle Modul-Parametern werden dann entfernt)');
 ?>

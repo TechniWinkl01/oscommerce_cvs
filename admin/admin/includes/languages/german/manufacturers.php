@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.16 2004/02/15 15:15:21 mevans Exp $
+  $Id: manufacturers.php,v 1.17 2004/07/22 23:19:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,6 +13,7 @@
 define('HEADING_TITLE', 'Hersteller');
 
 define('TABLE_HEADING_MANUFACTURERS', 'Hersteller');
+define('TABLE_HEADING_URL_CLICKS', 'URL CLicks');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_HEADING_NEW_MANUFACTURER', 'Neuer Hersteller');
@@ -23,7 +24,6 @@ define('TEXT_MANUFACTURERS', 'Hersteller:');
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung am:');
 define('TEXT_PRODUCTS', 'Artikel:');
-define('TEXT_IMAGE_NONEXISTENT', 'BILD NICHT VORHANDEN');
 
 define('TEXT_NEW_INTRO', 'Bitte geben Sie den neuen Hersteller mit allen relevanten Daten ein.');
 define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');

@@ -1,18 +1,20 @@
 <?php
 /*
-  $Id: orders.php,v 1.26 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: orders.php,v 1.27 2004/07/22 23:18:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('HEADING_TITLE', 'Pedidos');
-define('HEADING_TITLE_SEARCH', 'Pedido:');
-define('HEADING_TITLE_STATUS', 'Estado:');
+
+define('SEARCH_ORDER_ID', 'Pedido ID:');
+define('SEARCH_CUSTOMER_ID', 'Cliente ID:');
+define('SEARCH_STATUS', 'Estado:');
 
 define('TABLE_HEADING_COMMENTS', 'Comentarios');
 define('TABLE_HEADING_CUSTOMERS', 'Clientes');
@@ -53,6 +55,7 @@ define('ENTRY_STATUS', 'Estado:');
 define('ENTRY_DATE_LAST_UPDATED', 'Ultima Modificaci&oacute;n:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Notificar Cliente:');
 define('ENTRY_NOTIFY_COMMENTS', 'A&ntilde;adir Comentarios:');
+define('ENTRY_NEW_COMMENT', 'Nuevo Comentario:');
 define('ENTRY_PRINTABLE', 'Imprimir Factura');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Eliminar Pedido');

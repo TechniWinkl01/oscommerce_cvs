@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: zones.php,v 1.4 2002/01/28 00:23:17 harley_vb Exp $
+  $Id: zones.php,v 1.5 2004/07/22 23:17:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -26,4 +26,7 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this zone?');
 define('TEXT_INFO_HEADING_NEW_ZONE', 'New Zone');
 define('TEXT_INFO_HEADING_EDIT_ZONE', 'Edit Zone');
 define('TEXT_INFO_HEADING_DELETE_ZONE', 'Delete Zone');
+
+define('TEXT_INFO_DELETE_PROHIBITED_ADDRESS_BOOK', 'Warning: This Zone cannot be deleted as it is currently assigned to %s address book entries.');
+define('TEXT_INFO_DELETE_PROHIBITED_TAX_ZONES', 'Warning: This Zone cannot be deleted as it is currently assigned to %s tax zone(s).');
 ?>
