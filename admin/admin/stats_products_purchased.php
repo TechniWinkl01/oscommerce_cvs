@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_products_purchased.php,v 1.23 2002/01/23 23:19:13 harley_vb Exp $
+  $Id: stats_products_purchased.php,v 1.24 2002/03/16 01:48:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,9 +25,9 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="3" cellpadding="3">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
@@ -45,18 +45,12 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="3"><?php echo tep_draw_separator(); ?></td>
-      </tr>
-      <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_NUMBER; ?></td>
-                <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_PURCHASED; ?>&nbsp;</td>
-          </tr>
-          <tr>
-                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
-          </tr>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NUMBER; ?></td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_PURCHASED; ?>&nbsp;</td>
+              </tr>
 <?php
   if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
   $products_query_raw = "select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op where p.products_id = op.products_id and pd.products_id = op.products_id and pd.language_id = '" . $languages_id. "' group by pd.products_id order by ordersum DESC, pd.products_name";
@@ -73,18 +67,16 @@
       $rows = '0' . $rows;
     }
 ?>
-          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_PURCHASED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL'); ?>'">
-                <td class="tableData"><?php echo $rows; ?>.</td>
-                <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_PURCHASED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>'; ?></td>
-                <td class="tableData" align="center"><?php echo $products['ordersum']; ?>&nbsp;</td>
-          </tr>
+              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_PURCHASED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL'); ?>'">
+                <td class="dataTableContent"><?php echo $rows; ?>.</td>
+                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_PURCHASED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL') . '">' . $products['products_name'] . '</a>'; ?></td>
+                <td class="dataTableContent" align="center"><?php echo $products['ordersum']; ?>&nbsp;</td>
+              </tr>
 <?php
   }
 ?>
-          <tr>
-                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
-          </tr>
             </table></td>
+          </tr>
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
