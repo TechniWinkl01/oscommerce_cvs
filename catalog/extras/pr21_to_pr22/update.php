@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.2 2001/10/25 06:50:40 hpdl Exp $
+  $Id: update.php,v 1.3 2001/10/25 10:57:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -159,6 +159,7 @@ function changeText(where, what) {
 <span id="addressBook"><span id="addressBookMarker">-</span> Address Book</span><br>
 <span id="banners"><span id="bannersMarker">-</span> Banners</span><br>
 <span id="categories"><span id="categoriesMarker">-</span> Categories</span><br>
+<span id="configuration"><span id="configurationMarker">-</span> Configuration</span><br>
 <p>
 Status: <span id="statusText">Preparing</span>
 </body>
@@ -255,6 +256,59 @@ changeText('statusText', 'Updating Categories');
 changeStyle('categories', 'normal');
 changeText('categoriesMarker', '*');
 changeText('statusText', 'Updating Categories .. done!');
+
+changeStyle('configuration', 'bold');
+changeText('configurationMarker', '?');
+changeText('statusText', 'Updating Configuration');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("alter table configuration change last_modified last_modified datetime");
+  tep_db_query("alter table configuration change date_added date_added datetime not null");
+  tep_db_query("alter table configuration add set_function varchar(32) after use_function");
+
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Use MIME HTML when sending emails', 'EMAIL_USE_HTML', '0', '0 = If normal text mails are wanted. 1 = If you want to send the HTML version of the mail too.', '1', '4', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Company', 'ENTRY_COMPANY_LENGTH', '2', 'Minimum length of company name', '2', '6', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Manufacturers Select Size', 'MAX_MANUFACTURERS_LIST', '1', 'Used in manufacturers box; when this value is \'1\' the classic drop-down list will be used for the manufacturers box. Otherwise, a list-box with the specified number of rows will be displayed.', '3', '7', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('New Products Listing', 'MAX_DISPLAY_PRODUCTS_NEW', '10', 'Maximum number of new products to display in new products page', '3', '14', now())");
+
+  tep_db_query("delete from configuration where configuration_group_id = '5'");
+  tep_db_query("delete from configuration where configuration_group_id = '6'");
+
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_PAYMENT_INSTALLED', 'cc.php;cod.php', 'List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: cc.php;cod.php;paypal.php)', '6', '0', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_SHIPPING_INSTALLED', '', 'List of shipping module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ups.php;flat.php;item.php)', '6', '0', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Cash On Delivery (COD)', 'MODULE_PAYMENT_COD_STATUS', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '0', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Credit Card', 'MODULE_PAYMENT_CC_STATUS', '1', 'Do you want to accept credit card payments?', '6', '0', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card TP email address', 'MODULE_PAYMENT_CC_EMAIL', 'NONE', 'If this email address is not NONE then the middle digits of any stored cc numbers will be X-ed out and emailed with the order id.', '6', '0', now())");
+
+  tep_db_query("delete from configuration where configuration_group_id = '7' and configuration_key != 'SHIPPING_BOX_WEIGHT' and configuration_key != 'SHIPPING_BOX_PADDING' and configuration_key != 'SHIPPING_HANDLING' and configuration_key != 'SHIPPING_MAX_WEIGHT' and configuration_key != 'STORE_ORIGIN_ZIP' and configuration_key != 'STORE_ORIGIN_COUNTRY'");
+
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Check stock level', 'STOCK_CHECK', '1', 'Check to see if sufficent stock is available', '9', '1', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Subtract stock', 'STOCK_LIMITED', '1', 'Subtract product in stock by product orders', '9', '2', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Checkout', 'STOCK_ALLOW_CHECKOUT', '1', 'Allow customer to checkout even if there is insufficient stock', '9', '3', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Mark product out of stock', 'STOCK_MARK_PRODUCT_OUT_OF_STOCK', '***', 'Display something on screen so customer can see which product has insufficient stock', '9', '4', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Stock Re-order level', 'STOCK_REORDER_LEVEL', '5', 'Define when stock needs to be re-ordered', '9', '5', now())");
+
+  tep_db_query("delete from configuration_group");
+
+  tep_db_query("alter table configuration_group add visible int(1) default '1'");
+
+  tep_db_query("insert into configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1')");
+  tep_db_query("insert into configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1')");
+  tep_db_query("insert into configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1')");
+  tep_db_query("insert into configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1')");
+  tep_db_query("insert into configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', '6', '0')");
+  tep_db_query("insert into configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1')");
+  tep_db_query("insert into configuration_group VALUES ('8', 'Product Listing', 'Product Listing    configuration options', '8', '1')");
+  tep_db_query("insert into configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1')");
+?>
+
+<script language="javascript"><!--
+changeStyle('configuration', 'normal');
+changeText('configurationMarker', '*');
+changeText('statusText', 'Updating Configuration .. done!');
 
 changeStyle('statusText', 'bold');
 changeText('statusText', 'Update Complete!');
