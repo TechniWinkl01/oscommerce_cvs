@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.140 2001/06/08 21:24:36 hpdl Exp $
+  $Id: application_top.php,v 1.141 2001/06/08 22:36:27 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -207,11 +207,6 @@
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
     include(DIR_WS_CLASSES . 'sessions.php');
-  }
-
-// include mysql session storage handler
-  if (STORE_SESSIONS == 'mysql') {
-    include(DIR_WS_FUNCTIONS . 'sessions_mysql.php');
   }
 
 // define how the session functions will be used
