@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.99 2001/12/30 08:18:46 hpdl Exp $
+  $Id: categories.php,v 1.100 2001/12/30 08:55:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -170,11 +170,7 @@
         if ( ($HTTP_POST_VARS['edit_x']) || ($HTTP_POST_VARS['edit_y']) ) {
           $HTTP_GET_VARS['action'] = 'new_product';
         } else {
-          $products_date_available = $HTTP_POST_VARS['year'];
-          $products_date_available .= '-';
-          $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
-          $products_date_available .= '-';
-          $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
+          $products_date_available = tep_db_prepare_input($HTTP_POST_VARS['products_date_available']);
 
           $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
 
@@ -182,7 +178,7 @@
                                   'products_model' => tep_db_prepare_input($HTTP_POST_VARS['products_model']),
                                   'products_image' => tep_db_prepare_input($HTTP_POST_VARS['products_image']),
                                   'products_price' => tep_db_prepare_input($HTTP_POST_VARS['products_price']),
-                                  'products_date_available' => tep_db_prepare_input($products_date_available),
+                                  'products_date_available' => $products_date_available,
                                   'products_weight' => tep_db_prepare_input($HTTP_POST_VARS['products_weight']),
                                   'products_status' => tep_db_prepare_input($HTTP_POST_VARS['products_status']),
                                   'products_tax_class_id' => tep_db_prepare_input($HTTP_POST_VARS['products_tax_class_id']),
@@ -285,7 +281,7 @@
 
   if ($HTTP_GET_VARS['action'] == 'new_product') {
     if ($HTTP_GET_VARS['pID']) {
-      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
+      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo = new objectInfo($product);
@@ -340,8 +336,8 @@
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br><small>(dd/mm/yyyy)</small></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?><script language="javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="dd/MM/yyyy";</script></td>
+            <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br><small>(YYYY-MM-DD)</small></td>
+            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;'; ?><script language="javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -531,7 +527,7 @@
       if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
       <tr>
-        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->products_date_available)); ?></td>
+        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long(ereg_replace('-', '', $pInfo->products_date_available))); ?></td>
       </tr>
 <?php
       } else {
@@ -587,7 +583,7 @@
       }
       echo tep_draw_hidden_field('products_image', stripslashes($products_image_name));
 
-      echo tep_image_submit(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;M';
+      echo tep_image_submit(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
 
       if ($HTTP_GET_VARS['pID']) {
         echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE);
