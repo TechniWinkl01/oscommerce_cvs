@@ -7,7 +7,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('NAVBAR_TITLE', 'Specials');
 define('TOP_BAR_TITLE', 'Specials');
-define('HEADING_TITLE', 'Get Them While Their Hot!');
+define('HEADING_TITLE', 'Get Them While They're Hot!');
 
 define('IMAGE_MAIN_MENU', 'Main Menu');
 ?>
