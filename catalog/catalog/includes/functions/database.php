@@ -2,10 +2,10 @@
   function tep_db_connect() {
     global $db_link;
     
-    if (@$db_link = mysql_pconnect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD)) {
-      @mysql_select_db(DB_DATABASE);
-    }
-    
+    if (USE_PCONNECT) @$db_link = mysql_pconnect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+    else @$db_link = mysql_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+
+    if ($db_link) @mysql_select_db(DB_DATABASE);
     return $db_link;
   }
 

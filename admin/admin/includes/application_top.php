@@ -52,6 +52,7 @@
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
+  define('USE_PCONNECT', 1);
 
 // customization for the design layout
   define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
