@@ -1,16 +1,14 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'update') {
-    if (ACCOUNT_DOB) {
-       $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-    }
     $update_query = 'update ' . TABLE_CUSTOMERS . ' set ';
     if (ACCOUNT_GENDER) {
-       $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+      $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
      $update_query = $update_query . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
     if (ACCOUNT_DOB) {
-       $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
+      $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+      $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
     }
     $update_query .= "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
     $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
@@ -19,8 +17,8 @@
     // Update address book
     $update_query = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
     if (ACCOUNT_STATE) {
-       $state = ($zone_id > 0) ? $state = '' : $HTTP_POST_VARS['state'];
-       $update_query .= "entry_state = '" . $state . "', entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', ";
+      $state = ($zone_id > 0) ? $state = '' : $HTTP_POST_VARS['state'];
+      $update_query .= "entry_state = '" . $state . "', entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', ";
     }
     $update_query .= "entry_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "' and address_book_id = '" . $HTTP_POST_VARS['default_address_id'] . "'";
     tep_db_query($update_query);
@@ -226,7 +224,7 @@ function check_form() {
     $gender = $customers['customers_gender'];
     $firstname = $customers['customers_firstname'];
     $lastname = $customers['customers_lastname'];
-    $dob = substr($customers['customers_dob'], 8, 2) . '/' . substr($customers['customers_dob'], 5, 2) . '/' . substr($customers['customers_dob'], 0, 4);
+    $dob = tep_date_short($customers['customers_dob']);
     $email_address = $customers['customers_email_address'];
     $street_address = $customers['entry_street_address'];
     $suburb = $customers['entry_suburb'];
