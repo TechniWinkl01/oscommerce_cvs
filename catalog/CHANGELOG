@@ -12,7 +12,7 @@ xx/xx/2001 The Exchange Project Preview Release 2.2
      out-of-the-box approach.
      Can also be used in other areas of the catalog.
 
- * New Who's Online seection in the administration tool.
+ * New Who's Online section in the administration tool.
 
  * Updated payment and shipping modules structure - no longer
    has multiple include statements - and are now classes.
@@ -45,6 +45,22 @@ xx/xx/2001 The Exchange Project Preview Release 2.2
  * Authorize.net support added
 
  * Sessions can now be stored in the database
+
+ * Tell-A-Friend function for products
+
+ * Information box, with all informations about shipping & returns,
+   privacy notice and conditions of use
+
+ * Newsletter function in the administration tool.
+
+ * New zones for germany, swiss and austria.
+
+ * Prices can now be handled with/without tax. The tax would be
+   correct calculated.
+
+ * Prices in all countries which joined the euro currency, displays
+   the prices in euro and national currency. This is a european
+   guideline which is now support by TEP.
 
 
 06/03/2001 The Exchange Project Preview Release 2.1
