@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: downloads.php,v 1.1 2002/02/02 16:32:08 clescuyer Exp $
+  $Id: downloads.php,v 1.2 2002/02/03 01:05:39 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,7 +46,7 @@
       <tr>
         <td colspan="4"><?php echo tep_draw_separator(); ?></td>
       </tr>
-<?PHP
+<?php
     $row = 0;
     while ($downloads_values = tep_db_fetch_array($downloads_query)) {
       if (($row % 2) == 0) {
@@ -81,13 +81,13 @@
       <tr>
         <td class="smalltext" colspan="4"><p><?php printf(FOOTER_DOWNLOAD, '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . HEADER_TITLE_MY_ACCOUNT . '</a>'); ?></p></td>
       </tr>
-<?PHP
+<?php
     }
 ?>
      </table>
     </td>
   </tr>
-<?PHP
+<?php
   }
 ?>
 <!-- downloads_eof //-->

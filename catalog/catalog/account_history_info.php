@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.68 2002/02/03 00:57:14 clescuyer Exp $
+  $Id: account_history_info.php,v 1.69 2002/02/03 01:05:39 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -230,7 +230,7 @@
 ?>
         </table></td>
       </tr>
-<?PHP if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_BOXES . 'downloads.php'); ?>
+<?php if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_BOXES . 'downloads.php'); ?>
       <tr>
         <td align="right" class="main"><br><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, tep_get_all_get_params(array('order_id')), 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
       </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.37 2002/02/03 00:57:59 clescuyer Exp $
+  $Id: products_attributes.php,v 1.38 2002/02/03 01:05:21 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -702,11 +702,11 @@ function go_option() {
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
                   <td class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
-                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
-                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo tep_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
-                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo tep_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
                 </tr>
               </table>
             </td>
@@ -791,11 +791,11 @@ function go_option() {
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
                   <td class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
-                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
-                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo tep_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
-                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo tep_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
                 </tr>
               </table>
             </td>
