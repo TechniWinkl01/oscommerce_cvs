@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.220 2003/05/14 17:12:20 dgw_ Exp $
+  $Id: general.php,v 1.221 2003/05/14 17:39:34 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -458,7 +458,7 @@
 
     $address = stripslashes($address);
 
-    return $boln . $address . $eoln;
+    return $address;
   }
 
 ////
