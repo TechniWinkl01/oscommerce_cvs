@@ -53,7 +53,6 @@ function check_form() {
       error_found = true;
     }
   }
-
   
   if (pfrom.length > 0) {
     pfrom_float = parseFloat(pfrom);

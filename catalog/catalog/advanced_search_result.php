@@ -157,7 +157,6 @@
     if (tep_parse_search_string( StripSlashes($HTTP_GET_VARS['keywords']), $search_keywords)) {
       $where_str .= " and (";
       for ($i=0; $i<sizeof($search_keywords); $i++ ) {
-      
         switch ($search_keywords[$i]) {
           case '(':
           case ')':

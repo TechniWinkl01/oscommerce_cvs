@@ -145,7 +145,6 @@
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_manufacturers p2m, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
-
   if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
       $HTTP_GET_VARS['sort'] = '2a';
   

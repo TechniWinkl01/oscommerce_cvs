@@ -8,7 +8,7 @@
   if (PRODUCT_LIST_MANUFACTURER) echo '<td nowrap><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE .'" color="' . TABLE_HEADING_FONT_COLOR . '"><b>&nbsp;' . tep_create_sort_heading($HTTP_GET_VARS['sort'], 3, TABLE_HEADING_MANUFACTURER) . '&nbsp;</b></font></td>';
 ?>
     <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo tep_create_sort_heading($HTTP_GET_VARS['sort'], 4, TABLE_HEADING_PRICE); ?>&nbsp;</b></font></td>
-<?
+<? 
   if (PRODUCT_LIST_BUY_NOW) echo '<td align="center" nowrap><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE .'" color="' . TABLE_HEADING_FONT_COLOR . '"><b>&nbsp;' . TABLE_HEADING_BUY_NOW . '&nbsp;</b></font></td>';
 ?>
   </tr>

@@ -7,6 +7,7 @@
   for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
     $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
   }
+
   $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') order by ";
 
   if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
