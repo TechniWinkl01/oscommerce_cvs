@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.167 2004/08/18 11:49:37 hpdl Exp $
+  $Id: general.php,v 1.168 2004/08/27 22:06:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,14 +98,15 @@
   }
 
   function tep_get_all_get_params($exclude_array = '') {
-    global $HTTP_GET_VARS;
+    if (PHP_VERSION < 4.1) {
+      global $_GET;
+    }
 
     if ($exclude_array == '') $exclude_array = array();
 
     $get_url = '';
 
-    reset($HTTP_GET_VARS);
-    while (list($key, $value) = each($HTTP_GET_VARS)) {
+    foreach ($_GET as $key => $value) {
       if (($key != tep_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
@@ -161,18 +162,18 @@
   }
 
   function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '', $include_itself = false) {
-    global $languages_id;
+    global $osC_Session;
 
     if (!is_array($category_tree_array)) $category_tree_array = array();
     if ( (sizeof($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => TEXT_TOP);
 
     if ($include_itself) {
-      $category_query = tep_db_query("select cd.categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " cd where cd.language_id = '" . (int)$languages_id . "' and cd.categories_id = '" . (int)$parent_id . "'");
+      $category_query = tep_db_query("select cd.categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " cd where cd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and cd.categories_id = '" . (int)$parent_id . "'");
       $category = tep_db_fetch_array($category_query);
       $category_tree_array[] = array('id' => $parent_id, 'text' => $category['categories_name']);
     }
 
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' and c.parent_id = '" . (int)$parent_id . "' order by c.sort_order, cd.categories_name");
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and c.parent_id = '" . (int)$parent_id . "' order by c.sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
       if ($exclude != $categories['categories_id']) $category_tree_array[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
       $category_tree_array = tep_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $category_tree_array);
@@ -182,7 +183,7 @@
   }
 
   function tep_draw_products_pull_down($name, $parameters = '', $exclude = '') {
-    global $osC_Currencies, $languages_id;
+    global $osC_Session, $osC_Currencies;
 
     if ($exclude == '') {
       $exclude = array();
@@ -196,7 +197,7 @@
 
     $select_string .= '>';
 
-    $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' order by products_name");
+    $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       if (!in_array($products['products_id'], $exclude)) {
         $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $osC_Currencies->format($products['products_price']) . ')</option>';
@@ -209,18 +210,18 @@
   }
 
   function tep_options_name($options_id) {
-    global $languages_id;
+    global $osC_Session;
 
-    $options = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . (int)$options_id . "' and language_id = '" . (int)$languages_id . "'");
+    $options = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . (int)$options_id . "' and language_id = '" . (int)$osC_Session->value('languages_id') . "'");
     $options_values = tep_db_fetch_array($options);
 
     return $options_values['products_options_name'];
   }
 
   function tep_values_name($values_id) {
-    global $languages_id;
+    global $osC_Session;
 
-    $values = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . (int)$values_id . "' and language_id = '" . (int)$languages_id . "'");
+    $values = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . (int)$values_id . "' and language_id = '" . (int)$osC_Session->value('languages_id') . "'");
     $values_values = tep_db_fetch_array($values);
 
     return $values_values['products_options_values_name'];
@@ -473,9 +474,9 @@
   }
 
   function tep_get_orders_status_name($orders_status_id, $language_id = '') {
-    global $languages_id;
+    global $osC_Session;
 
-    if (!$language_id) $language_id = $languages_id;
+    if (!$language_id) $language_id = $osC_Session->value('languages_id');
     $orders_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . (int)$orders_status_id . "' and language_id = '" . (int)$language_id . "'");
     $orders_status = tep_db_fetch_array($orders_status_query);
 
@@ -483,9 +484,9 @@
   }
 
   function tep_get_weight_class_title($weight_class_id, $language_id = '') {
-    global $languages_id;
+    global $osC_Session;
 
-    if (!$language_id) $language_id = $languages_id;
+    if (!$language_id) $language_id = $osC_Session->value('languages_id');
     $weight_class_query = tep_db_query("select weight_class_title from " . TABLE_WEIGHT_CLASS . " where weight_class_id = '" . (int)$weight_class_id . "' and language_id = '" . (int)$language_id . "'");
     $weight_class = tep_db_fetch_array($weight_class_query);
 
@@ -493,9 +494,9 @@
   }
 
   function tep_get_weight_class_key($weight_class_id, $language_id = '') {
-    global $languages_id;
+    global $osC_Session;
 
-    if (!$language_id) $language_id = $languages_id;
+    if (!$language_id) $language_id = $osC_Session->value('languages_id');
     $weight_class_query = tep_db_query("select weight_class_key from " . TABLE_WEIGHT_CLASS . " where weight_class_id = '" . (int)$weight_class_id . "' and language_id = '" . (int)$language_id . "'");
     $weight_class = tep_db_fetch_array($weight_class_query);
 
@@ -503,10 +504,10 @@
   }
 
   function tep_get_orders_status() {
-    global $languages_id;
+    global $osC_Session;
 
     $orders_status_array = array();
-    $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$languages_id . "' order by orders_status_id");
+    $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$osC_Session->value('languages_id') . "' order by orders_status_id");
     while ($orders_status = tep_db_fetch_array($orders_status_query)) {
       $orders_status_array[] = array('id' => $orders_status['orders_status_id'],
                                      'text' => $orders_status['orders_status_name']);
@@ -516,9 +517,9 @@
   }
 
   function tep_get_products_name($product_id, $language_id = 0) {
-    global $languages_id;
+    global $osC_Session;
 
-    if ($language_id == 0) $language_id = $languages_id;
+    if ($language_id == 0) $language_id = $osC_Session->value('languages_id');
     $product_query = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . (int)$product_id . "' and language_id = '" . (int)$language_id . "'");
     $product = tep_db_fetch_array($product_query);
 
@@ -710,12 +711,12 @@
   }
 
   function tep_cfg_pull_down_weight_classes($weight_class_id, $key = '') {
-    global $languages_id;
+    global $osC_Session;
 
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
     $weight_class_array = array();
-    $weight_class_query = tep_db_query("select weight_class_id, weight_class_title from " . TABLE_WEIGHT_CLASS . " where language_id = '" . (int)$languages_id . "' order by weight_class_title");
+    $weight_class_query = tep_db_query("select weight_class_id, weight_class_title from " . TABLE_WEIGHT_CLASS . " where language_id = '" . (int)$osC_Session->value('languages_id') . "' order by weight_class_title");
     while ($weight_class = tep_db_fetch_array($weight_class_query)) {
       $weight_class_array[] = array('id' => $weight_class['weight_class_id'],
                                     'text' => $weight_class['weight_class_title']);
@@ -846,7 +847,7 @@
   }
 
   function tep_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
-    global $languages_id;
+    global $osC_Session;
 
     if (!is_array($categories_array)) $categories_array = array();
 
@@ -856,7 +857,7 @@
         if ($categories['categories_id'] == '0') {
           $categories_array[$index][] = array('id' => '0', 'text' => TEXT_TOP);
         } else {
-          $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$categories['categories_id'] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "'");
+          $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$categories['categories_id'] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$osC_Session->value('languages_id') . "'");
           $category = tep_db_fetch_array($category_query);
           $categories_array[$index][] = array('id' => $categories['categories_id'], 'text' => $category['categories_name']);
           if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
@@ -865,7 +866,7 @@
         $index++;
       }
     } elseif ($from == 'category') {
-      $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "'");
+      $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . (int)$id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$osC_Session->value('languages_id') . "'");
       $category = tep_db_fetch_array($category_query);
       $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
       if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
@@ -1247,12 +1248,12 @@
   }
 
   function tep_cfg_pull_down_order_statuses($order_status_id, $key = '') {
-    global $languages_id;
+    global $osC_Session;
 
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
     $statuses_array = array(array('id' => '0', 'text' => TEXT_DEFAULT));
-    $statuses_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$languages_id . "' order by orders_status_name");
+    $statuses_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$osC_Session->value('languages_id') . "' order by orders_status_name");
     while ($statuses = tep_db_fetch_array($statuses_query)) {
       $statuses_array[] = array('id' => $statuses['orders_status_id'],
                                 'text' => $statuses['orders_status_name']);
@@ -1262,11 +1263,11 @@
   }
 
   function tep_get_order_status_name($order_status_id, $language_id = '') {
-    global $languages_id;
+    global $osC_Session;
 
     if ($order_status_id < 1) return TEXT_DEFAULT;
 
-    if (!is_numeric($language_id)) $language_id = $languages_id;
+    if (!is_numeric($language_id)) $language_id = $osC_Session->value('languages_id');
 
     $status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . (int)$order_status_id . "' and language_id = '" . (int)$language_id . "'");
     $status = tep_db_fetch_array($status_query);
@@ -1407,5 +1408,21 @@
     }
 
     return $serialized_variable;
+  }
+
+  function osc_sanitize_multidimensional_array($array, $key_name = '') {
+    static $new_array = array();
+
+    foreach ($array as $key => $value) {
+      $array_key = (empty($key_name) ? $key : $key_name . '[' . $key . ']');
+
+      if (is_array($value)) {
+        osc_sanitize_multidimensional_array($value, $array_key);
+      } else {
+        $new_array[$array_key] = $value;
+      }
+    }
+
+    return $new_array;
   }
 ?>

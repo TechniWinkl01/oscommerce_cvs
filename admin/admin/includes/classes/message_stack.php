@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.6 2003/06/20 16:23:08 hpdl Exp $
+  $Id: message_stack.php,v 1.7 2004/08/27 22:06:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,15 +21,18 @@
     var $size = 0;
 
     function messageStack() {
-      global $messageToStack;
+      global $osC_Session;
 
       $this->errors = array();
 
-      if (tep_session_is_registered('messageToStack')) {
-        for ($i = 0, $n = sizeof($messageToStack); $i < $n; $i++) {
-          $this->add($messageToStack[$i]['text'], $messageToStack[$i]['type']);
+      if ($osC_Session->exists('messageToStack')) {
+        $messageToStack = $osC_Session->value('messageToStack');
+
+        foreach ($osC_Session->value('messageToStack') as $message) {
+          $this->add($message['text'], $message['type']);
         }
-        tep_session_unregister('messageToStack');
+
+        $osC_Session->remove('messageToStack');
       }
     }
 
@@ -48,14 +51,15 @@
     }
 
     function add_session($message, $type = 'error') {
-      global $messageToStack;
+      global $osC_Session;
 
-      if (!tep_session_is_registered('messageToStack')) {
-        tep_session_register('messageToStack');
+      if ($osC_Session->exists('messageToStack') === false) {
         $messageToStack = array();
       }
 
       $messageToStack[] = array('text' => $message, 'type' => $type);
+
+      $osC_Session->set('messageToStack', $messageToStack);
     }
 
     function reset() {
