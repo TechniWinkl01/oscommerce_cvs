@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.20 2002/09/22 17:54:34 project3000 Exp $
+  $Id: account_details.php,v 1.21 2002/09/26 13:36:32 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
       echo ($account['customers_gender'] == 'm') ? MALE : FEMALE;
     } elseif ($error) {
       if ($entry_gender_error) {
-        echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
+        echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
       } else {
         echo ($gender == 'm') ? MALE : FEMALE;
         echo tep_draw_hidden_field('gender');
