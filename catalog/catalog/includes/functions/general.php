@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.221 2003/05/14 17:39:34 dgw_ Exp $
+  $Id: general.php,v 1.222 2003/05/19 19:46:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -570,7 +570,7 @@
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
 // NOTE: Includes a workaround for dates before 01/01/1970 that fail on windows servers
   function tep_date_short($raw_date) {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if ( ($raw_date == '0000-00-00 00:00:00') || empty($raw_date) ) return false;
 
     $year = substr($raw_date, 0, 4);
     $month = (int)substr($raw_date, 5, 2);
@@ -1221,5 +1221,51 @@
     }
 
     return $ip;
+  }
+
+  function tep_count_customer_orders($id = '', $check_session = true) {
+    global $customer_id;
+
+    if (is_numeric($id) == false) {
+      if (tep_session_is_registered('customer_id')) {
+        $id = $customer_id;
+      } else {
+        return 0;
+      }
+    }
+
+    if ($check_session == true) {
+      if ( (tep_session_is_registered('customer_id') == false) || ($id != $customer_id) ) {
+        return 0;
+      }
+    }
+
+    $orders_check_query = tep_db_query("select count(*) as total from " . TABLE_ORDERS . " where customers_id = '" . (int)$id . "'");
+    $orders_check = tep_db_fetch_array($orders_check_query);
+
+    return $orders_check['total'];
+  }
+
+  function tep_count_customer_address_book_entries($id = '', $check_session = true) {
+    global $customer_id;
+
+    if (is_numeric($id) == false) {
+      if (tep_session_is_registered('customer_id')) {
+        $id = $customer_id;
+      } else {
+        return 0;
+      }
+    }
+
+    if ($check_session == true) {
+      if ( (tep_session_is_registered('customer_id') == false) || ($id != $customer_id) ) {
+        return 0;
+      }
+    }
+
+    $addresses_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$id . "'");
+    $addresses = tep_db_fetch_array($addresses_query);
+
+    return $addresses['total'];
   }
 ?>
