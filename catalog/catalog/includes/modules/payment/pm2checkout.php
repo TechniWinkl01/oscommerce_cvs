@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.21 2003/11/17 20:34:31 hpdl Exp $
+  $Id: pm2checkout.php,v 1.22 2003/12/04 23:43:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,6 +96,8 @@
     }
 
     function pre_confirmation_check() {
+      global $messageStack;
+
       if (PHP_VERSION < 4.1) {
         global $_POST;
       }
@@ -121,9 +123,11 @@
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&pm_2checkout_cc_owner_firstname=' . urlencode($_POST['pm_2checkout_cc_owner_firstname']) . '&pm_2checkout_cc_owner_lastname=' . urlencode($_POST['pm_2checkout_cc_owner_lastname']) . '&pm_2checkout_cc_expires_month=' . $_POST['pm_2checkout_cc_expires_month'] . '&pm_2checkout_cc_expires_year=' . $_POST['pm_2checkout_cc_expires_year'];
+        $messageStack->add_session('checkout_payment', $error, 'error');
 
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
+        $payment_error_return = 'pm_2checkout_cc_owner_firstname=' . urlencode($_POST['pm_2checkout_cc_owner_firstname']) . '&pm_2checkout_cc_owner_lastname=' . urlencode($_POST['pm_2checkout_cc_owner_lastname']) . '&pm_2checkout_cc_expires_month=' . urlencode($_POST['pm_2checkout_cc_expires_month']) . '&pm_2checkout_cc_expires_year=' . urlencode($_POST['pm_2checkout_cc_expires_year']) . '&pm_2checkout_cc_cvv=' . urlencode($_POST['pm_2checkout_cc_cvv']);
+
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
       }
 
       $this->cc_card_type = $cc_validation->cc_type;
@@ -144,6 +148,11 @@
                                                     'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                               array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
                                                     'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['pm_2checkout_cc_expires_month'], 1, '20' . $_POST['pm_2checkout_cc_expires_year'])))));
+
+      if (tep_not_null($_POST['pm_2checkout_cc_cvv'])) {
+        $confirmation['fields'][] = array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER,
+                                          'field' => $_POST['pm_2checkout_cc_cvv']);
+      }
 
       return $confirmation;
     }
@@ -185,12 +194,16 @@
     }
 
     function before_process() {
+      global $messageStack;
+
       if (PHP_VERSION < 4.1) {
         global $_POST;
       }
 
       if ($_POST['x_response_code'] != '1') {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE), 'SSL', true, false));
+        $messageStack->add_session('checkout_payment', MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE, 'error');
+
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
       }
     }
 
@@ -199,14 +212,7 @@
     }
 
     function get_error() {
-      if (PHP_VERSION < 4.1) {
-        global $_GET;
-      }
-
-      $error = array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($_GET['error'])));
-
-      return $error;
+      return false;
     }
 
     function check() {

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.4 2003/07/08 16:45:36 dgw_ Exp $
+  $Id: pm2checkout.php,v 1.5 2003/12/04 23:43:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -22,5 +22,4 @@
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION', '(lo puede encontrar en la parte de atr&aacute;s de la tarjeta de credito)');
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_JS_CC_NUMBER', '* El n&uacute;mero de la tarjeta de cr&eacute;dito debe tener al menos ' . CC_NUMBER_MIN_LENGTH . ' caracteres.\n');
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE', 'Ha ocurrido un error procesando su tarjeta de cr&eacute;dito, por favor int&eacute;ntelo de nuevo.');
-  define('MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR', 'Error de Tarjeta de Cr&eacute;dito!');
 ?>
