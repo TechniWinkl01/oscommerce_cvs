@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: packingslip.php,v 1.1 2002/06/11 17:41:54 dgw_ Exp $
+  $Id: packingslip.php,v 1.2 2002/06/11 17:44:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -120,7 +120,7 @@
     <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
   </tr>
   <tr>
-    <td colspan="2"><?php echo nl2br($order->info['comments']); ?></td>
+    <td class="main"><?php echo nl2br($order->info['comments']); ?></td>
   </tr>
 </table>
 <!-- body_text_eof //-->
