@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.35 2004/11/07 21:00:36 hpdl Exp $
+  $Id: html_output.php,v 1.36 2005/03/07 10:06:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -157,7 +157,7 @@
     $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
     if (isset($GLOBALS[$name]) && ($reinsert_value == true) && is_string($GLOBALS[$name])) {
-      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
+      $field .= ' value="' . tep_output_string($GLOBALS[$name]) . '"';
     } elseif (tep_not_null($value)) {
       $field .= ' value="' . tep_output_string($value) . '"';
     }
@@ -214,7 +214,7 @@
 
     if (tep_not_null($value)) $selection .= ' value="' . tep_output_string($value) . '"';
 
-    if ( ($checked == true) || (isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ($GLOBALS[$name] == 'on')) || (isset($value) && isset($GLOBALS[$name]) && (stripslashes($GLOBALS[$name]) == $value)) || (tep_not_null($value) && tep_not_null($compare) && ($value == $compare)) ) {
+    if ( ($checked == true) || (isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ($GLOBALS[$name] == 'on')) || (isset($value) && isset($GLOBALS[$name]) && ($GLOBALS[$name] == $value)) || (tep_not_null($value) && tep_not_null($compare) && ($value == $compare)) ) {
       $selection .= ' CHECKED';
     }
 
@@ -245,9 +245,9 @@
     $field .= '>';
 
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
-      $field .= stripslashes($GLOBALS[$name]);
+      $field .= $GLOBALS[$name];
     } elseif (tep_not_null($text)) {
-      $field .= stripslashes($text);
+      $field .= $text;
     }
 
     $field .= '</textarea>';
@@ -291,7 +291,7 @@
     if (tep_not_null($value)) {
       $field .= ' value="' . tep_output_string($value) . '"';
     } elseif (isset($GLOBALS[$name]) && is_string($GLOBALS[$name])) {
-      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
+      $field .= ' value="' . tep_output_string($GLOBALS[$name]) . '"';
     }
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
@@ -310,7 +310,7 @@
 
     $field .= '>';
 
-    if (empty($default) && isset($GLOBALS[$name])) $default = stripslashes($GLOBALS[$name]);
+    if (empty($default) && isset($GLOBALS[$name])) $default = $GLOBALS[$name];
 
     for ($i=0, $n=sizeof($values); $i<$n; $i++) {
       $field .= '<option value="' . tep_output_string($values[$i]['id']) . '"';
