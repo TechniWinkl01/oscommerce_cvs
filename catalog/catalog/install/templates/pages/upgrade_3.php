@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.27 2002/05/13 13:33:13 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.28 2002/05/16 19:09:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -339,6 +339,7 @@ changeText('statusText', 'Updating Customers');
 
   osc_db_query("alter table customers_basket change products_id products_id tinytext not null");
   osc_db_query("alter table customers_basket change customers_basket_date_added customers_basket_date_added varchar(8)");
+  osc_db_query("alter table customers_basket change final_price final_price decimal(15,4) not null");
 
   osc_db_query("alter table customers_basket_attributes change products_id products_id tinytext not null");
 
@@ -433,6 +434,9 @@ changeText('statusText', 'Updating Orders');
   osc_db_query("alter table orders change last_modified last_modified datetime");
   osc_db_query("alter table orders change orders_date_finished orders_date_finished datetime");
   osc_db_query("alter table orders_products add column products_model varchar(12)");
+  osc_db_query("alter table orders_products change products_price products_price decimal(15,4) not null");
+  osc_db_query("alter table orders_products change final_price final_price decimal(15,4) not null");
+  osc_db_query("alter table orders_products_attributes change options_values_price options_calues_price decimal(15,4) not null");
 
   osc_db_query("create table orders_status ( orders_status_id int(5) default '0' not null, language_id int(5) default '1' not null, orders_status_name varchar(32) not null, primary key (orders_status_id, language_id), key idx_orders_status_name (orders_status_name))");
 
@@ -472,7 +476,7 @@ changeText('statusText', 'Updating Orders');
 
   osc_db_query("create table orders_products_download ( orders_products_download_id int(5) not null auto_increment, orders_id int(5) not null default '0', orders_products_id int(5) not null default '0', orders_products_filename varchar(255) not null, download_maxdays int(2) not null default '0', download_count int(2) not null default '0', primary key (orders_products_download_id))");
 
-  osc_db_query("create table orders_total ( orders_total_id int unsigned not null auto_increment, orders_id int not null, title varchar(255) not null, text varchar(255) not null, value decimal(8,2) not null, class varchar(32) not null, sort_order int not null, primary key (orders_total_id), key idx_orders_total_orders_id (orders_id))");
+  osc_db_query("create table orders_total ( orders_total_id int unsigned not null auto_increment, orders_id int not null, title varchar(255) not null, text varchar(255) not null, value decimal(15,4) not null, class varchar(32) not null, sort_order int not null, primary key (orders_total_id), key idx_orders_total_orders_id (orders_id))");
 
   $i = 0;
   $orders_query = osc_db_query("select orders_id, shipping_method, shipping_cost, currency, currency_value from orders");
@@ -554,6 +558,7 @@ changeText('statusText', 'Updating Products');
 
   osc_db_query("update products set products_date_added = now() where products_date_added is null");
   osc_db_query("alter table products change products_date_added products_date_added datetime not null");
+  osc_db_query("alter table products change products_price products_price decimal(15,4) not null");
   osc_db_query("alter table products add index idx_products_date_added (products_date_added)");
 
   osc_db_query("alter table products drop index products_name");
@@ -574,6 +579,8 @@ changeText('statusText', 'Updating Products');
   }
 
   osc_db_query("drop table products_expected");
+
+  osc_db_query("alter table products_attributes change options_values_price options_values_price decimal(15,4) not null");
 
   osc_db_query("alter table products_options change products_options_id products_options_id int(5) not null default '0'");
   osc_db_query("alter table products_options add language_id int(5) not null default '1' after products_options_id");
@@ -677,6 +684,7 @@ changeText('statusText', 'Updating Specials');
   flush();
 
   osc_db_query("alter table specials change specials_date_added specials_date_added datetime");
+  osc_db_query("alter table specials change specials_new_products_price specials_new_products_price decimal(15,4) not null");
 
   osc_db_query("alter table specials add specials_last_modified datetime");
   osc_db_query("alter table specials add expires_date datetime");
