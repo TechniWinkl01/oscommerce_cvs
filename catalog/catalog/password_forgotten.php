@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.35 2001/12/14 16:13:23 dgw_ Exp $
+  $Id: password_forgotten.php,v 1.36 2001/12/17 14:26:08 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,7 +25,7 @@
       tep_db_query($sql);
       
       tep_mail($check_customer_values['customers_firstname'] . " " . $check_customer_values['customers_lastname'], $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, nl2br(sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
-      tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
+      tep_redirect(tep_href_link(FILENAME_LOGIN, 'info_message=' . urlencode(TEXT_PASSWORD_SENT), 'NONSSL', true, false));
     } else {
       tep_redirect(tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'email=nonexistent', 'NONSSL'));
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.3 2001/05/26 16:49:37 hpdl Exp $
+  $Id: password_forgotten.php,v 1.4 2001/12/17 14:26:08 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,4 +18,5 @@ define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><b>ACHTUNG:</b></font> Diese E-Mail Adresse ist nicht registriert. Bitte versuchen Sie es noch mal.');
 define('EMAIL_PASSWORD_REMINDER_SUBJECT', STORE_NAME . ' - Ihre Passwort wurdt ermittelt');
 define('EMAIL_PASSWORD_REMINDER_BODY', 'Eine Passwort Ermittelung wurde von ' . $REMOTE_ADDR . ' gefragt.' . "\n\n" . 'Ihre Passwort zu dem \'' . STORE_NAME . '\' lautet:' . "\n\n" . '   %s' . "\n\n");
+define('TEXT_PASSWORD_SENT', 'A New Password Has Been Sent To Your Email Address');
 ?>

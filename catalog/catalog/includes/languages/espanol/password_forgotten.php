@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.3 2001/05/26 16:47:37 hpdl Exp $
+  $Id: password_forgotten.php,v 1.4 2001/12/17 14:26:08 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,6 +16,7 @@ define('TOP_BAR_TITLE', 'Contraseña Olvidada');
 define('HEADING_TITLE', 'He olvidado mi Contraseña!');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><b>NOTA:</b></font> Ese E-Mail no figura en nuestros datos, intentelo de nuevo.');
-define('EMAIL_PASSWORD_REMINDER_SUBJECT', STORE_NAME . ' - Recuperar Contraseña');
-define('EMAIL_PASSWORD_REMINDER_BODY', 'Ha solicitado recuperar su Contraseña desde ' . $REMOTE_ADDR . '.' . "\n\n" . 'Su contraseña para \'' . STORE_NAME . '\' es:' . "\n\n" . '   %s' . "\n\n");
+define('EMAIL_PASSWORD_REMINDER_SUBJECT', STORE_NAME . ' - Nueva Contraseña');
+define('EMAIL_PASSWORD_REMINDER_BODY', 'Ha solicitado una Nueva Contraseña desde ' . $REMOTE_ADDR . '.' . "\n\n" . 'Su nueva contraseña para \'' . STORE_NAME . '\' es:' . "\n\n" . '   %s' . "\n\n");
+define('TEXT_PASSWORD_SENT', 'Se Ha Enviado Una Nueva Contraseña A Tu Email');
 ?>
