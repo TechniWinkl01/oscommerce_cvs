@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.120 2002/01/19 16:26:25 hpdl Exp $
+  $Id: application_top.php,v 1.121 2002/01/20 21:50:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,7 +108,7 @@
 // customization for the design layout
   define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // Display format for tax rate
-  define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
+  define('TAX_INCLUDE', 'false'); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
 // Control what fields of the customer table are used

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.62 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: orders.php,v 1.63 2002/01/20 21:50:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,12 +26,14 @@
     }
   }
 
-// * check if orders exist, if not redirect back to orders page with error
-// * this check is done at the top to avoid headers being sent for the redirect
-  if (@$HTTP_GET_VARS['orders_id']) {
-    $orders = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
-    if (!tep_db_num_rows($orders)) {
-      header('Location: ' . tep_href_link(FILENAME_ORDERS, 'error=' . $HTTP_GET_VARS['orders_id'], 'NONSSL')); tep_exit();
+  if ($HTTP_GET_VARS['orders_id']) {
+    $orders_id = tep_db_prepare_input($HTTP_GET_VARS['orders_id']);
+
+    $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($orders_id) . "'");
+    $order_exists = true;
+    if (!tep_db_num_rows($orders_query)) {
+      $order_exists = false;
+      $errorStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $HTTP_GET_VARS['orders_id']), 'error');
     }
   }
 ?>
@@ -42,54 +44,31 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<?php
-  if (@$HTTP_GET_VARS['error']) {
-?>
-<script language="javascript"><!---
-function alertBox() {
-  alert('<?php echo sprintf(JS_ORDER_DOES_NOT_EXIST, $HTTP_GET_VARS['error']); ?>');
-  return true;
-}
-//--></script>
-<?php
-  }
-?>
-<body <?php if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?>>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td align="right" class="smallText"><br><form name="orders" <?php echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<?php echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<?php echo tep_image_submit('button_search.gif', IMAGE_SEARCH); ?>&nbsp;</form></td>
           </tr>
         </table></td>
       </tr>
 <?php
-  if (@$HTTP_GET_VARS['orders_id']) {
+  if ( ($HTTP_GET_VARS['orders_id']) && ($order_exists) ) {
     $orders = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $orders_values = tep_db_fetch_array($orders);
     $sold_to = tep_db_query("select customers_name as name, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country as country, customers_address_format_id as format_id from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
@@ -224,7 +203,7 @@ function alertBox() {
       echo '          </tr>' . "\n";
 
       $cost = ($products_values['products_quantity'] * $final_price);
-      if (TAX_INCLUDE == true) {
+      if (TAX_INCLUDE == 'true') {
         $total_tax += (($products_values['products_quantity'] * $final_price) - (($products_values['products_quantity'] * $final_price) / (($products_values['products_tax']/100)+1)));
       } else {
         $total_tax += ($cost * $products_values['products_tax']/100);
@@ -258,7 +237,7 @@ function alertBox() {
                   <tr>
                     <td align="right" class="main"><b>&nbsp;<?php echo ENTRY_TOTAL; ?>&nbsp;</b></td>
                     <td align="right" class="main"><b>&nbsp;<?php
-    if (TAX_INCLUDE == true) {
+    if (TAX_INCLUDE == 'true') {
       echo tep_currency_format($total_cost + $shipping);
     } else {
       echo tep_currency_format($total_cost + $total_tax + $shipping);
@@ -321,63 +300,59 @@ function alertBox() {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="5"><?php echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_ORDER_TOTAL; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_DATE_PURCHASED; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
+            <td class="tableHeading"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
           </tr>
           <tr>
-            <td colspan="5"><?php echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
-    if ($HTTP_GET_VARS['customers_id']) {
-      $orders_query_raw = "select orders_id, customers_name, customers_id, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "' order by orders_id DESC";
+    if ($HTTP_GET_VARS['cID']) {
+      $cID = tep_db_prepare_input($HTTP_GET_VARS['cID']);
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . tep_db_input($cID) . "' and o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by orders_id DESC";
     } else {
-      $orders_query_raw = "select orders_id, customers_name, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " order by orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by o.orders_id DESC";
     }
     $orders_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
-    $orders = tep_db_query($orders_query_raw);
-    $rows = 0;
-    while ($orders_values = tep_db_fetch_array($orders)) {
-      $rows++;
+    $orders_query = tep_db_query($orders_query_raw);
+    while ($orders = tep_db_fetch_array($orders_query)) {
       $total = 0;
-      $orders_products = tep_db_query("select products_price, final_price, products_quantity, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders_values['orders_id'] . "'");
-      while ($orders_products_values = tep_db_fetch_array($orders_products)) {
-        $subtotal = ($orders_products_values['final_price'] * $orders_products_values['products_quantity']);
-        $tax = $subtotal * ($orders_products_values['products_tax']/100);
-        if (TAX_INCLUDE == true) {
-          $total = $total + $subtotal;
-        } else {
-          $total = $total + $subtotal + $tax;
-        }
+      $orders_products_query = tep_db_query("select products_price, final_price, products_quantity, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders['orders_id'] . "'");
+      while ($orders_products = tep_db_fetch_array($orders_products_query)) {
+        $subtotal = ($orders_products['final_price'] * $orders_products['products_quantity']);
+        $tax = $subtotal * ($orders_products['products_tax']/100);
+        $total =+ $subtotal;
+        if (TAX_INCLUDE == 'true') $total += $tax;
       }
-      $total = $total + $orders_values['shipping_cost'];
+      $total = $total + $orders['shipping_cost'];
 ?>
-          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
-            <td class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><?php echo $orders_values['customers_name']; ?></a>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<?php echo tep_currency_format($total); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<?php echo $orders_values['payment_method']; ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<?php echo tep_datetime_short($orders_values['date_purchased']); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<?php echo tep_get_orders_status_name($orders_values['orders_status'], $languages_id); ?>&nbsp;</td>
+          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_ORDERS, 'oID=' . $orders['orders_id']); ?>'">
+            <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'oID=' . $orders['orders_id']) . '">' . $orders['customers_name'] . '</a>'; ?></td>
+            <td class="tableData" align="right"><?php echo tep_currency_format($total); ?></td>
+            <td class="tableData" align="right"><?php echo $orders['payment_method']; ?></td>
+            <td class="tableData" align="right"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
+            <td class="tableData" align="right"><?php echo $orders['orders_status_name']; ?></td>
           </tr>
 <?php
     }
 ?>
           <tr>
-            <td colspan="5"><?php echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
           </tr>
+          <tr>
+            <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="smallText">&nbsp;<?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
-                  </tr>
-                </table></td>
+                <td class="smallText"><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' '; echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
               </tr>
+            </table></td>
+          </tr>
         </table></td>
       </tr>
 <?php
@@ -392,6 +367,7 @@ function alertBox() {
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<br>
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
