@@ -1,28 +1,24 @@
 <?php
 /*
-  $Id: mail.php,v 1.6 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: mail.php,v 1.7 2002/01/18 15:34:46 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Mail');
 define('HEADING_TITLE', 'Email an Kunden versenden');
-define('SUB_BAR_TITLE', 'Wählen Sie einen Newsletter-Abonnomenten oder alle Kunden aus.');
 
 define('TEXT_CUSTOMER_NAME', 'Kundenname:');
 define('TEXT_SUBJECT', 'Betreff:');
 define('TEXT_MESSAGE', 'Nachricht:');
-define('TEXT_SELECTCUSTOMER', 'Benutzer auswählen');
-define('TEXT_ALLCUSTOMERS', 'Alle Kunden');
-define('TEXT_NEWSLETTERCUSTOMERS', 'An alle Newsletter-Abonnenten');
-define('TEXT_MSGTO', 'Nachricht an');
-define('TEXT_EMAILSENT', 'Email gesendet');
-define('TEXT_EMAILFROM', EMAIL_FROM);
+define('TEXT_SELECT_CUSTOMER', 'Benutzer Auswählen');
+define('TEXT_ALL_CUSTOMERS', 'Alle Kunden');
+define('TEXT_NEWSLETTER_CUSTOMERS', 'An alle Newsletter-Abonnenten');
+define('TEXT_EMAIL_SENT', 'Email gesendet');
 define('TEXT_NO_EMAILS_TO_SEND', 'Keine Email zum Senden.');
 define('TEXT_EMAIL_FROM', 'Absender Email:');
 define('TEXT_SEND_EMAIL', 'Email senden');

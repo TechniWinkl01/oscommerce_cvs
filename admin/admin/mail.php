@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.22 2002/01/18 13:25:56 hpdl Exp $
+  $Id: mail.php,v 1.23 2002/01/18 15:34:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,11 +16,11 @@
     switch ($HTTP_POST_VARS['customers_email_address']) {
       case '***':
         $mail_query = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS);
-        $mail_sent_to = TEXT_ALLCUSTOMERS;
+        $mail_sent_to = TEXT_ALL_CUSTOMERS;
         break;
       case '**D':
         $mail_query = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter = '1'");
-        $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
+        $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
         break;
       default:
         $customers_email_address = tep_db_prepare_input($HTTP_POST_VARS['customers_email_address']);
@@ -88,7 +88,7 @@
     } elseif ($HTTP_GET_VARS['mail_sent_to']) {
 ?>
               <tr>
-                <td colspan="2" class="main"><b><?php echo TEXT_EMAILSENT . ': ' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
+                <td colspan="2" class="main"><b><?php echo TEXT_EMAIL_SENT . ': ' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
               </tr>
 <?php
     }
@@ -98,9 +98,9 @@
               </tr>
 <?php
     $customers = array();
-    $customers[] = array('id' => '', 'text' => TEXT_SELECTCUSTOMER);
-    $customers[] = array('id' => '***', 'text' => TEXT_ALLCUSTOMERS);
-    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTERCUSTOMERS);
+    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
+    $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
+    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
     $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname");
     while($customers_values = tep_db_fetch_array($mail_query)) {
       $customers[] = array('id' => $customers_values['customers_email_address'],
@@ -116,7 +116,7 @@
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_EMAIL_FROM; ?></td>
-                <td><?php echo tep_draw_input_field('from', TEXT_EMAILFROM); ?></td>
+                <td><?php echo tep_draw_input_field('from', EMAIL_FROM); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
