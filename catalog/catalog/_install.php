@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _install.php,v 1.4 2001/12/12 15:16:45 jan0815 Exp $
+  $Id: _install.php,v 1.5 2001/12/12 15:24:30 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -58,7 +58,7 @@
     exit;
   }
 ?>
-<html <?php echo HTML_PARAMS; ?>>
+<html>
 <head>
 <title>The Exchange Project Preview Release 2.2 Automatic Configuration Script</title>
 <style type=text/css><!--
