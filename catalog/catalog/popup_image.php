@@ -6,7 +6,7 @@
 <html>
 <head>
 <title><?php echo $products_values['products_name']; ?></title>
-<base href="<? echo (getenv('SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<? echo (getenv('HTTPS') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <script language="javascript"><!--
 var i=0;
 function resize() {
