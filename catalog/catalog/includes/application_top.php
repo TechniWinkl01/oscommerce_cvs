@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.113 2001/04/29 22:16:34 hpdl Exp $
+  $Id: application_top.php,v 1.114 2001/05/01 22:04:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -91,6 +91,7 @@
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
+  define('FILENAME_POPUP_IMAGE', 'popup_image.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
