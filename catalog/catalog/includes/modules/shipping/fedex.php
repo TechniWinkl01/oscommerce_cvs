@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.33 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: fedex.php,v 1.34 2002/08/28 22:55:57 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -48,15 +48,15 @@
         if (in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
           include(DIR_WS_CLASSES . '_fedex.php');
           $rate = new _FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
-          $rate->SetDest($address_values['postcode'], $this->fedex_countries[$address_values['country_id']]);
+          $rate->SetDest($address_values['postcode']);//, $this->fedex_countries[$address_values['country_id']]);
 // fedex doesnt accept weights below one
           $rate->SetWeight($shipping_weight);
           $quote = $rate->GetQuote();
-          $shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote['TotalCharges']);
+          if (!isset($quote['Error'])) {
+            $shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote[0]['TotalCharges']);
 // clean up the service text a little
-          $shipping_fedex_method = str_replace(' Package', '', $quote['Service']);
-          $shipping_fedex_method = str_replace(' FedEx', '', $shipping_fedex_method);
-          $shipping_fedex_method .= ' ' . $shipping_num_boxes . ' x ' . ($shipping_weight < 1 ? 1 : $shipping_weight);
+            $shipping_fedex_method = $quote[0]['Service'] . ' (' . $shipping_num_boxes . ' x ' . ($shipping_weight < 1 ? 1 : $shipping_weight) . $rate->WeightUnit . ')';
+          }
         } else {
           $quote['ErrorNbr'] = 1;
           $quote['Error'] = MODULE_SHIPPING_FEDEX_TEXT_NOTAVAILABLE;
@@ -103,7 +103,7 @@
         } else {
           $display_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . ' <small><i>(' . $shipping_fedex_method . ')</i></small></td>' . "\n" .
+                             '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . $shipping_fedex_method . '</td>' . "\n" .
                              '    <td align="right" class="main">' . $currencies->format($shipping_fedex_cost);
           if (tep_count_shipping_modules() > 1) {
             $display_string .= tep_draw_radio_field('shipping_selected', 'fedex') .
@@ -148,9 +148,7 @@
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_FEDEX_STATUS');
-
-      return $keys;
+      return array('MODULE_SHIPPING_FEDEX_STATUS');
     }
   }
 ?>
