@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.20 2001/11/22 18:06:50 hpdl Exp $
+  $Id: backup.php,v 1.21 2001/11/22 19:54:22 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -231,7 +231,7 @@
         </table></td>
       </tr>
 <?php
-// check if the backup directory exists, if not try creating it
+// check if the backup directory exists
   if (is_dir(DIR_FS_BACKUP)) {
     if (!is_writeable(DIR_FS_BACKUP)) {
 ?>
@@ -240,7 +240,7 @@
       </tr>
 <?php
     }
-  } elseif (!@mkdir(DIR_FS_BACKUP, 0777)) {
+  } else {
 ?>
       <tr>
         <td><?php new errorBox(array(array('align' => 'left', 'text' => ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST))); ?></td>
