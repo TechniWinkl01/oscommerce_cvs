@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.19 2001/11/22 17:07:46 hpdl Exp $
+  $Id: backup.php,v 1.20 2001/11/22 18:06:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,6 +14,13 @@
 
   if ($HTTP_GET_VARS['action'] == 'backupnow') {
     tep_set_time_limit(0);
+    $schema = '# The Exchange Project - Community Made Shopping!' . "\n" .
+              '# http://www.theexchangeproject.org' . "\n\n" .
+              '# Database Backup For ' . STORE_NAME . "\n" . 
+              '# Copyright (c) ' . date('Y') . ' ' . STORE_OWNER . "\n\n" .
+              '# Database: ' . DB_DATABASE . "\n" .
+              '# Database Server: ' . DB_SERVER . "\n\n" .
+              '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
     $tables_query = tep_db_query('show tables');
     while ($tables = tep_db_fetch_array($tables_query)) {
       $table = $tables[0];
@@ -125,6 +132,12 @@
           $sql_length = strlen($restore_query);
           $pos = strpos($restore_query, ';');
           for ($i=$pos; $i<$sql_length; $i++) {
+            if ($restore_query[0] == '#') {
+              $restore_query = ltrim(substr($restore_query, strpos($restore_query, "\n")));
+              $sql_length = strlen($restore_query);
+              $i = strpos($restore_query, ';')-1;
+              continue;
+            }
             if ($restore_query[($i+1)] == "\n") {
               for ($j=($i+2); $j<$sql_length; $j++) {
                 if (trim($restore_query[$j]) != '') {
