@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.130 2002/07/09 18:17:44 dgw_ Exp $
+  $Id: general.php,v 1.131 2002/07/14 11:47:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -110,14 +110,14 @@
   }
 
   function tep_datetime_short($raw_datetime) {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if ( ($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == '') ) return false;
 
-    $year = (int)substr($raw_date, 0, 4);
-    $month = (int)substr($raw_date, 5, 2);
-    $day = (int)substr($raw_date, 8, 2);
-    $hour = (int)substr($raw_date, 11, 2);
-    $minute = (int)substr($raw_date, 14, 2);
-    $second = (int)substr($raw_date, 17, 2);
+    $year = (int)substr($raw_datetime, 0, 4);
+    $month = (int)substr($raw_datetime, 5, 2);
+    $day = (int)substr($raw_datetime, 8, 2);
+    $hour = (int)substr($raw_datetime, 11, 2);
+    $minute = (int)substr($raw_datetime, 14, 2);
+    $second = (int)substr($raw_datetime, 17, 2);
 
     return strftime(DATE_TIME_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
   }
