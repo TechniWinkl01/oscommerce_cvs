@@ -2,13 +2,13 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into currencies (title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places) values ('" . $HTTP_POST_VARS['currency_title'] . "', '" . $HTTP_POST_VARS['currency_code'] . "', '" . $HTTP_POST_VARS['symbol_left'] . "', '" . $HTTP_POST_VARS['symbol_right'] . "', '" . $HTTP_POST_VARS['decimal_point'] . "', '" . $HTTP_POST_VARS['thousands_point'] . "', '" . $HTTP_POST_VARS['decimal_places'] . "')");
+      tep_db_query("insert into " . TABLE_CURRENCIES . " (title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places) values ('" . $HTTP_POST_VARS['currency_title'] . "', '" . $HTTP_POST_VARS['currency_code'] . "', '" . $HTTP_POST_VARS['symbol_left'] . "', '" . $HTTP_POST_VARS['symbol_right'] . "', '" . $HTTP_POST_VARS['decimal_point'] . "', '" . $HTTP_POST_VARS['thousands_point'] . "', '" . $HTTP_POST_VARS['decimal_places'] . "')");
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update currencies set title = '" . $HTTP_POST_VARS['currency_title'] . "', code = '" . $HTTP_POST_VARS['currency_code'] . "', symbol_left = '" . $HTTP_POST_VARS['symbol_left'] . "', symbol_right = '" . $HTTP_POST_VARS['symbol_right'] . "', decimal_point = '" . $HTTP_POST_VARS['decimal_point'] . "', thousands_point = '" . $HTTP_POST_VARS['thousands_point'] . "', decimal_places = '" . $HTTP_POST_VARS['decimal_places'] . "' where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
+      tep_db_query("update " . TABLE_CURRENCIES . " set title = '" . $HTTP_POST_VARS['currency_title'] . "', code = '" . $HTTP_POST_VARS['currency_code'] . "', symbol_left = '" . $HTTP_POST_VARS['symbol_left'] . "', symbol_right = '" . $HTTP_POST_VARS['symbol_right'] . "', decimal_point = '" . $HTTP_POST_VARS['decimal_point'] . "', thousands_point = '" . $HTTP_POST_VARS['thousands_point'] . "', decimal_places = '" . $HTTP_POST_VARS['decimal_places'] . "' where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from currencies where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
+      tep_db_query("delete from " . TABLE_CURRENCIES . " where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     }
   }
@@ -70,7 +70,7 @@
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from currencies order by title";
+  $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from " . TABLE_CURRENCIES . " order by title";
   $currencies_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $currencies_query_raw, $currencies_query_numrows);
   $currencies_query = tep_db_query($currencies_query_raw);
 

@@ -71,7 +71,7 @@
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from customers c, customers_info i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit 5");
+  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit 5");
   while ($customers = tep_db_fetch_array($customers_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . addslashes($customers['customers_lastname']) . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">'. $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>&nbsp;</font></td>' . "\n";
@@ -94,10 +94,10 @@
                 <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status, shipping_cost from orders order by orders_id DESC limit 5");
+  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit 5");
   while ($orders = tep_db_fetch_array($orders_query)) {
     $total_cost = 0;
-    $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from orders_products where orders_id = '" . $orders['orders_id'] . "'");
+    $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders['orders_id'] . "'");
     while ($orders_products = tep_db_fetch_array($orders_products_query)) {
       if (TAX_INCLUDE == true) {
         $total_cost += $orders_products['final_price'] * $orders_products['products_quantity'];
@@ -131,7 +131,7 @@
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_date_added from products p, products_description pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by p.products_id DESC limit 5");
+  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by p.products_id DESC limit 5");
   while ($products = tep_db_fetch_array($products_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>&nbsp;</font></td>' . "\n";
@@ -154,7 +154,7 @@
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from reviews_extra r, products_description pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit 5");
+  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS_EXTRA . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit 5");
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $reviews['products_name'] . '</a>&nbsp;</font></td>' . "\n";

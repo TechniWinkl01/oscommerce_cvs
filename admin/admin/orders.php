@@ -3,12 +3,12 @@
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_order') {
       $order_finish = ($HTTP_GET_VARS['status'] == 'Delivered') ? ', orders_date_finished = now()' : '';
-      tep_db_query("update orders set orders_status = '" . $HTTP_GET_VARS['status'] . "', last_modified = now()" . $order_finish . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
-      tep_db_query("update orders set comments = '" . $HTTP_GET_VARS['comments'] . "' where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+      tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . $HTTP_GET_VARS['status'] . "', last_modified = now()" . $order_finish . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+      tep_db_query("update " . TABLE_ORDERS . " set comments = '" . $HTTP_GET_VARS['comments'] . "' where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $HTTP_GET_VARS['orders_id'])); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_order') {
-      tep_db_query("delete from orders where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
-      tep_db_query("delete from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
+      tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
+      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, '')); tep_exit();
     }
   }
@@ -16,7 +16,7 @@
 // * check if orders exist, if not redirect back to orders page with error
 // * this check is done at the top to avoid headers being sent for the redirect
   if (@$HTTP_GET_VARS['orders_id']) {
-    $orders = tep_db_query("select orders_id from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $orders = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     if (!tep_db_num_rows($orders)) {
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'error=' . $HTTP_GET_VARS['orders_id'], 'NONSSL')); tep_exit();
     }
@@ -75,11 +75,11 @@ function alertBox() {
       </tr>
 <?
   if (@$HTTP_GET_VARS['orders_id']) {
-    $orders = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $orders = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $orders_values = tep_db_fetch_array($orders);
-    $sold_to = tep_db_query("select customers_name as name, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country as country, customers_address_format_id as format_id from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $sold_to = tep_db_query("select customers_name as name, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country as country, customers_address_format_id as format_id from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $sold_to_values = tep_db_fetch_array($sold_to);
-    $ship_to = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $ship_to = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $ship_to_values = tep_db_fetch_array($ship_to);
 ?>
       <tr>
@@ -169,7 +169,7 @@ function alertBox() {
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
@@ -177,7 +177,7 @@ function alertBox() {
     if (@$info_values['last_modified'] != '0') {
       $date_updated = date('l, jS F, Y', mktime(0,0,0,substr($info_values['last_modified'], 4, 2),substr($info_values['last_modified'], 6, 2),substr($info_values['last_modified'], 0, 4)));
     } else $date_updated = '';
-    $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $total_cost = 0;
     $total_tax = 0;
     while ($products_values = tep_db_fetch_array($products)) {
@@ -188,7 +188,7 @@ function alertBox() {
       echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
       $attributes_exist = '0';
-      $attributes_query = tep_db_query("select products_options, products_options_values from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['orders_products_id'] . "'");
+      $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['orders_products_id'] . "'");
       if (@tep_db_num_rows($attributes_query)) {
         $attributes_exist = '1';
         while ($attributes = tep_db_fetch_array($attributes_query)) {
@@ -201,7 +201,7 @@ function alertBox() {
       echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($products_values['products_quantity'] * $products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
-      $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
+      $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
       while ($attributes_values = tep_db_fetch_array($attributes)) {
         if ($attributes_values['options_values_price'] != '0') {
           echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
@@ -325,14 +325,14 @@ function alertBox() {
             <td colspan="5"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-    $orders_query_raw = "select orders_id, customers_name, payment_method, date_purchased, shipping_cost, orders_status from orders order by orders_id DESC";
+    $orders_query_raw = "select orders_id, customers_name, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " order by orders_id DESC";
     $orders_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
     $orders = tep_db_query($orders_query_raw);
     $rows = 0;
     while ($orders_values = tep_db_fetch_array($orders)) {
       $rows++;
       $total = 0;
-      $orders_products = tep_db_query("select products_price, final_price, products_quantity, products_tax from orders_products where orders_id = '" . $orders_values['orders_id'] . "'");
+      $orders_products = tep_db_query("select products_price, final_price, products_quantity, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders_values['orders_id'] . "'");
       while ($orders_products_values = tep_db_fetch_array($orders_products)) {
         $subtotal = ($orders_products_values['final_price'] * $orders_products_values['products_quantity']);
         $tax = $subtotal * ($orders_products_values['products_tax']/100);

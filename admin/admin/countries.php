@@ -2,13 +2,13 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into countries (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('" . $HTTP_POST_VARS['countries_name'] . "', '" . $HTTP_POST_VARS['countries_iso_code_2'] . "', '" . $HTTP_POST_VARS['countries_iso_code_3'] . "', '" . $HTTP_POST_VARS['address_format_id'] . "')");
+      tep_db_query("insert into " . TABLE_COUNTRIES . " (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('" . $HTTP_POST_VARS['countries_name'] . "', '" . $HTTP_POST_VARS['countries_iso_code_2'] . "', '" . $HTTP_POST_VARS['countries_iso_code_3'] . "', '" . $HTTP_POST_VARS['address_format_id'] . "')");
       header('Location: ' . tep_href_link(FILENAME_COUNTRIES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update countries set countries_name = '" . $HTTP_POST_VARS['countries_name'] . "', countries_iso_code_2 = '" . $HTTP_POST_VARS['countries_iso_code_2'] . "', countries_iso_code_3 = '" . $HTTP_POST_VARS['countries_iso_code_3'] . "', address_format_id = '" . $HTTP_POST_VARS['address_format_id'] . "' where countries_id = '" . $HTTP_POST_VARS['countries_id'] . "'");
+      tep_db_query("update " . TABLE_COUNTRIES . " set countries_name = '" . $HTTP_POST_VARS['countries_name'] . "', countries_iso_code_2 = '" . $HTTP_POST_VARS['countries_iso_code_2'] . "', countries_iso_code_3 = '" . $HTTP_POST_VARS['countries_iso_code_3'] . "', address_format_id = '" . $HTTP_POST_VARS['address_format_id'] . "' where countries_id = '" . $HTTP_POST_VARS['countries_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from countries where countries_id = '" . $HTTP_POST_VARS['countries_id'] . "'");
+      tep_db_query("delete from " . TABLE_COUNTRIES . " where countries_id = '" . $HTTP_POST_VARS['countries_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     }
   }
@@ -71,7 +71,7 @@
               </tr>
 <?
   $rows = 0;
-  $countries_query_raw = "select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id from countries order by countries_name";
+  $countries_query_raw = "select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id from " . TABLE_COUNTRIES . " order by countries_name";
   $countries_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $countries_query_raw, $countries_query_numrows);
   $countries_query = tep_db_query($countries_query_raw);
   while ($countries = tep_db_fetch_array($countries_query)) {

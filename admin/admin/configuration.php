@@ -2,7 +2,7 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update configuration set configuration_key = '" . $HTTP_POST_VARS['configuration_key'] . "', configuration_value = '" . $HTTP_POST_VARS['configuration_value'] . "', use_function = '" . $HTTP_POST_VARS['use_function'] . "', last_modified = now() where configuration_id = '" . $HTTP_POST_VARS['configuration_id'] . "'");
+      tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_key = '" . $HTTP_POST_VARS['configuration_key'] . "', configuration_value = '" . $HTTP_POST_VARS['configuration_value'] . "', use_function = '" . $HTTP_POST_VARS['use_function'] . "', last_modified = now() where configuration_id = '" . $HTTP_POST_VARS['configuration_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . '&gID=' . $HTTP_GET_VARS['gID'], 'NONSSL')); tep_exit();
     }
   }
@@ -64,7 +64,7 @@
               </tr>
 <?
   $rows = 0;
-  $configuration_query = tep_db_query("select configuration_id as cfgID, configuration_title as cfgTitle, configuration_value as cfgValue, use_function from configuration where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "' order by sort_order");
+  $configuration_query = tep_db_query("select configuration_id as cfgID, configuration_title as cfgTitle, configuration_value as cfgValue, use_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "' order by sort_order");
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     $rows++;
 
@@ -75,7 +75,7 @@
     }
 
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $configuration['cfgID'])) && (!$cfgInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
-      $cfg_extra_query = tep_db_query("select configuration_key as cfgKey, configuration_description as cfgDesc, date_added, last_modified, use_function from configuration where configuration_id = '" . $configuration['cfgID'] . "'");
+      $cfg_extra_query = tep_db_query("select configuration_key as cfgKey, configuration_description as cfgDesc, date_added, last_modified, use_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . $configuration['cfgID'] . "'");
       $cfg_extra = tep_db_fetch_array($cfg_extra_query);
 
       $cfgInfo_array = tep_array_merge($configuration, $cfg_extra);

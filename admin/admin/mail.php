@@ -64,7 +64,7 @@
               <tr>
                 <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_CUSTOMER_NAME; ?></td>
 <?
-    $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from customers order by customers_lastname");
+    $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname");
 ?>
                 <td><select class="textbox" name="customers_email_address"><option value=""><? echo TEXT_SELECTCUSTOMER; ?></option><option value="***"><? echo TEXT_ALLCUSTOMERS; ?></option><option value="**D"><? echo TEXT_NEWSLETTERCUSTOMERS; ?></option>
 <?
@@ -113,13 +113,13 @@
 <?
     } else {
       if ($customers_email_address=="***") {
-        $mail_query = tep_db_query("select customers_email_address from customers");
+        $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS);
         $mail_sent_to = TEXT_ALLCUSTOMERS;
       } elseif ($customers_email_address=="**D") {
-        $mail_query = tep_db_query("select customers_email_address from customers where customers_newsletter='1'");
+        $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter='1'");
         $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
       } else {
-        $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from customers where customers_email_address = '" . $customers_email_address . "'";
+        $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $customers_email_address . "'";
         $mail_query = tep_db_query($mail_query_raw);
         $mail_sent_to = $customers_email_address;
       }

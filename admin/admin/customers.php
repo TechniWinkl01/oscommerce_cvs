@@ -5,7 +5,7 @@
     if (ACCOUNT_DOB) {
        $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
     }
-    $update_query = 'update customers set ';
+    $update_query = 'update ' . TABLE_CUSTOMERS . ' set ';
     if (ACCOUNT_GENDER) {
        $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
@@ -27,11 +27,11 @@
     }
     $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "', customers_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
-    tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')) . 'info=' . $HTTP_POST_VARS['customers_id'], 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-    tep_db_query("delete from customers_info where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
-    tep_db_query("delete from customers where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("delete from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("delete from " . TABLE_CUSTOMERS . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action','info')), 'NONSSL')); 
     tep_exit();
   }
@@ -248,7 +248,7 @@ function check_form() {
     if (ACCOUNT_STATE) {
        $cust_query = $cust_query . "customers_state, customers_zone_id, ";
     }
-    $cust_query = $cust_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from customers where customers_id = '" . $HTTP_GET_VARS['cID'] . "'";
+    $cust_query = $cust_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $HTTP_GET_VARS['cID'] . "'";
     $customers_query = tep_db_query($cust_query);
     $customers = tep_db_fetch_array($customers_query);
     $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;
@@ -431,21 +431,21 @@ function check_form() {
               </tr>
 <?
     $search = (strlen($HTTP_GET_VARS['search']) > 0) ? '%' . $search . '%' : '%';
-    $customers_query_raw = "select customers_id, customers_lastname, customers_firstname, customers_email_address, customers_country_id from customers where customers_lastname like '" . $search . "' or  customers_firstname like '" . $search . "' order by customers_id DESC";
+    $customers_query_raw = "select customers_id, customers_lastname, customers_firstname, customers_email_address, customers_country_id from " . TABLE_CUSTOMERS . " where customers_lastname like '" . $search . "' or  customers_firstname like '" . $search . "' order by customers_id DESC";
     $customers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_query_raw, $customers_query_numrows);
     $customers_query = tep_db_query($customers_query_raw);
     $rows = 0;
     while ($customers = tep_db_fetch_array($customers_query)) {
       $rows++;
 
-      $info_query = tep_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from customers_info where customers_info_id = '" . $customers['customers_id'] . "'");
+      $info_query = tep_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customers['customers_id'] . "'");
       $info = tep_db_fetch_array($info_query);
 
       if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $customers['customers_id'])) && (!$cuInfo)) {
-        $country_query = tep_db_query("select countries_name from countries where countries_id = '" . $customers['customers_country_id'] . "'");
+        $country_query = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $customers['customers_country_id'] . "'");
         $country = tep_db_fetch_array($country_query);
 
-        $reviews_query = tep_db_query("select count(*) as number_of_reviews from reviews_extra where customers_id = '" . $customers['customers_id'] . "'");
+        $reviews_query = tep_db_query("select count(*) as number_of_reviews from " . TABLE_REVIEWS_EXTRA . " where customers_id = '" . $customers['customers_id'] . "'");
         $reviews = tep_db_fetch_array($reviews_query);
 
         $customer_info = tep_array_merge($country, $info, $reviews);

@@ -10,9 +10,9 @@
         $new_manufacturers_id = $HTTP_POST_VARS['original_manufacturers_id'];
       }
       $error = 0;
-      if (tep_db_query("update manufacturers set " . $update_query . " where manufacturers_id = '" . $HTTP_POST_VARS['original_manufacturers_id'] . "'")) {
+      if (tep_db_query("update " . TABLE_MANUFACTURERS . " set " . $update_query . " where manufacturers_id = '" . $HTTP_POST_VARS['original_manufacturers_id'] . "'")) {
         if ($manufacturers_image != 'none') {
-          if (tep_db_query("update manufacturers set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['original_manufacturers_id'] . "'")) {
+          if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['original_manufacturers_id'] . "'")) {
             $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
             if (file_exists($image_location)) @unlink($image_location);
             copy($manufacturers_image, $image_location);
@@ -31,7 +31,7 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      if (tep_db_query("delete from manufacturers where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'")) {
+      if (tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'")) {
         header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
       } else {
@@ -40,10 +40,10 @@
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
       $error = 0;
-      if (tep_db_query("insert into manufacturers (manufacturers_name) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "')")) {
+      if (tep_db_query("insert into " . TABLE_MANUFACTURERS . " (manufacturers_name) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "')")) {
         $manufacturers_id = tep_db_insert_id();
         if ($manufacturers_image != 'none') {
-          if (tep_db_query("update manufacturers set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $manufacturers_id . "'")) {
+          if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $manufacturers_id . "'")) {
             $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
             if (file_exists($image_location)) @unlink($image_location);
             copy($manufacturers_image, $image_location);
@@ -121,14 +121,14 @@
               </tr>
 <?
   $rows = 0;
-  $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image from manufacturers order by manufacturers_name";
+  $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image from " . TABLE_MANUFACTURERS . " order by manufacturers_name";
   $manufacturers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_query_raw, $manufacturers_query_numrows);
   $manufacturers_query = tep_db_query($manufacturers_query_raw);
   while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
     $rows++;
 
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $manufacturers['manufacturers_id'])) && (!$mInfo) && ($HTTP_GET_VARS['action'] != 'new')) {
-      $manufacturer_products_query = tep_db_query("select count(*) as total from products where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
+      $manufacturer_products_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS . " where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = tep_db_fetch_array($manufacturer_products_query);
 
       $mInfo_array = tep_array_merge($manufacturers, $manufacturer_products);

@@ -15,7 +15,7 @@
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
       case 'save' :    while (list($key, $value) = each($HTTP_POST_VARS['configuration'])) {
-                         tep_db_query("update configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
+                         tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
                        }
                        header('Location: ' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&info=' . $HTTP_GET_VARS['info'], 'NONSSL')); tep_exit();
                        break;
@@ -154,14 +154,14 @@
   }
   closedir($dir);
 
-  $check = tep_db_query("select configuration_value from configuration where configuration_key = '" . $module_key . "'");
+  $check = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_key . "'");
   if (tep_db_num_rows($check)) {
     list($check) = tep_db_fetch_array($check);
     if ($check <> $installed_modules) {
-      tep_db_query("update configuration set configuration_value = '" . $installed_modules . "' where configuration_key = '" . $module_key . "'");
+      tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $installed_modules . "' where configuration_key = '" . $module_key . "'");
     }
   } else {
-    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Modules', '" . $module_key . "', '" . $installed_modules . "', 'This is automatically updated. No need to edit.', '6', '0', now())");
+    tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Modules', '" . $module_key . "', '" . $installed_modules . "', 'This is automatically updated. No need to edit.', '6', '0', now())");
   }
 ?>
               <tr>

@@ -3,10 +3,10 @@
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'setflag') {
       switch ($HTTP_GET_VARS['flag']) {
-        case '0' : tep_db_query("update banners set status = '0' where banners_id = '" . $HTTP_GET_VARS['id'] . "'");
+        case '0' : tep_db_query("update " . TABLE_BANNERS . " set status = '0' where banners_id = '" . $HTTP_GET_VARS['id'] . "'");
                    header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
                    break;
-        case '1' : tep_db_query("update banners set status = '1' where banners_id = '" . $HTTP_GET_VARS['id'] . "'");
+        case '1' : tep_db_query("update " . TABLE_BANNERS . " set status = '1' where banners_id = '" . $HTTP_GET_VARS['id'] . "'");
                    header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
                    break;
         default :  header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
@@ -30,7 +30,7 @@
       }
 
       $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? 'images/' . $HTTP_POST_VARS['banners_image_local'] : 'images/' . $banners_image_target . $banners_image_name;
-      tep_db_query("insert into banners values ('', '" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', now(), '1')");
+      tep_db_query("insert into " . TABLE_BANNERS . " ('', '" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', now(), '1')");
 
       header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
     }
@@ -101,7 +101,7 @@ function popupImageWindow(url) {
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">
 <?
     echo '&nbsp;<select name="banners_group">';
-    $groups_query = tep_db_query("select distinct banners_group from banners order by banners_group");
+    $groups_query = tep_db_query("select distinct banners_group from " . TABLE_BANNERS . " order by banners_group");
     while ($groups = tep_db_fetch_array($groups_query)) {
       echo '<option value="' . $groups['banners_group'] . '">' . $groups['banners_group'] . '</option>';
     }
@@ -148,11 +148,11 @@ function popupImageWindow(url) {
           </tr>
 <?
     if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * 20 - 20;
-    $banners_query_raw = "select banners_id, banners_title, banners_image, banners_group, status from banners order by banners_title, banners_group";
+    $banners_query_raw = "select banners_id, banners_title, banners_image, banners_group, status from " . TABLE_BANNERS . " order by banners_title, banners_group";
     $banners_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $banners_query_raw, $banners_query_numrows);
     $banners_query = tep_db_query($banners_query_raw);
     while ($banners = tep_db_fetch_array($banners_query)) {
-      $info_query = tep_db_query("select sum(banners_shown) as banners_shown, sum(banners_clicked) as banners_clicked from banners_history where banners_id = '" . $banners['banners_id'] . "'");
+      $info_query = tep_db_query("select sum(banners_shown) as banners_shown, sum(banners_clicked) as banners_clicked from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banners['banners_id'] . "'");
       $info = tep_db_fetch_array($info_query);
 
      $banners_shown = ($info['banners_shown'] != '') ? $info['banners_shown'] : '0';
