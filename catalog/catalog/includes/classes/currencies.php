@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.4 2001/09/14 22:52:16 dwatkins Exp $
+  $Id: currencies.php,v 1.5 2001/09/15 13:06:28 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -44,8 +44,8 @@
         $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$current_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
 // if the selected currency is in the european euro-conversion and the default currency is euro,
 // the currency will displayed in the national currency and euro currency
-        if ( (DEFAULT_CURRENCY == 'EUR') && ($currency == 'DEM' || $currency == 'BEF' || $currency == 'LUF' || $currency == 'ESP' || $currency == 'FRF' || $currency == 'IEP' || $currency == 'ITL' || $currency == 'NLG' || $currency == 'ATS' || $currency == 'PTE' || $currency == 'FIM' || $currency == 'GRD') ) {
-          $format_string .= ' <small>[' . $this->currencies[DEFAULT_CURRENCY]['symbol_left'] . number_format($number * $this->currencies[DEFAULT_CURRENCY]['value'], $this->currencies[DEFAULT_CURRENCY]['decimal_places'], $this->currencies[DEFAULT_CURRENCY]['decimal_point'], $this->currencies[DEFAULT_CURRENCY]['thousands_point']) . $this->currencies[DEFAULT_CURRENCY]['symbol_right'] . ']</small>';
+        if ( (DEFAULT_CURRENCY == 'EUR') && ($currency_type == 'DEM' || $currency_type == 'BEF' || $currency_type == 'LUF' || $currency_type == 'ESP' || $currency_type == 'FRF' || $currency_type == 'IEP' || $currency_type == 'ITL' || $currency_type == 'NLG' || $currency_type == 'ATS' || $currency_type == 'PTE' || $currency_type == 'FIM' || $currency_type == 'GRD') ) {
+          $format_string .= ' <small>[' . $this->format($number, true, 'EUR') . ']</small>';
         }
       } else {
         $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$current_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
