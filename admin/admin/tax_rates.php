@@ -120,7 +120,7 @@ function update_zone(theForm) {
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $rates['tax_class_title']; ?>&nbsp;</font></td>
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $rates['countries_name']; ?>&nbsp;</font></td>
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $rates['zone_name']; ?>&nbsp;</font></td>
-                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo number_format($rates['tax_rate'], 2); ?>%&nbsp;</font></td>
+                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo number_format($rates['tax_rate'], TAX_DECIMAL_PLACES); ?>%&nbsp;</font></td>
 <?
     if ($rates['tax_rates_id'] == @$trInfo->id) {
 ?>
