@@ -32,7 +32,7 @@
 ?>
 <script language="javascript"><!---
 function alertBox() {
-  alert('<? echo JS_ORDER_DOES_NOT_EXIST; ?>');
+  alert('<? echo sprintf(JS_ORDER_DOES_NOT_EXIST, $HTTP_GET_VARS['error']); ?>');
   return true;
 }
 //--></script>
