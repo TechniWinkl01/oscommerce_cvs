@@ -3,11 +3,48 @@
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
       tep_db_query("insert into " . TABLE_LANGUAGES . " (name, code, image, directory, sort_order) values ('" . $HTTP_POST_VARS['name'] . "', '" . $HTTP_POST_VARS['code'] . "', '" . $HTTP_POST_VARS['image'] . "', '" . $HTTP_POST_VARS['directory'] . "', '" . $HTTP_POST_VARS['sort_order'] . "')");
+      $insert_id = tep_db_insert_id();
+      // Create additional categories_description records
+      $categories = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id where cd.language_id = '" . $languages_id . "'");
+      while ($categories_values = tep_db_fetch_array($categories)) {
+        tep_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, language_id, categories_name) values ('" . $categories_values['categories_id'] . "', '" . $insert_id . "', '" . addslashes($categories_values['categories_name']) . "')");
+      }
+      // Create additional products_description records
+      $products = tep_db_query("select p.products_id, pd.products_name, pd.products_description, pd.products_url from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where pd.language_id = '" . $languages_id . "'");
+      while ($products_values = tep_db_fetch_array($products)) {
+        tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url) values ('" . $products_values['products_id'] . "', '" . $insert_id . "', '" . addslashes($products_values['products_name']) . "', '" . addslashes($products_values['products_description']) . "', '" . addslashes($products_values['products_url']) . "')");
+      }
+      // Create additional products_options records
+      $products_options = tep_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $languages_id . "'");
+      while ($products_options_values = tep_db_fetch_array($products_options)) {
+        tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, language_id, products_options_name) values ('" . $products_options_values['products_options_id'] . "', '" . $insert_id . "', '" . addslashes($products_options_values['products_options_name']) . "')");
+      }
+      // Create additional products_options_values records
+      $products_options_values = tep_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . $languages_id . "'");
+      while ($products_options_values_values = tep_db_fetch_array($products_options_values)) {
+        tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . $products_options_values_values['products_options_values_id'] . "', '" . $insert_id . "', '" . addslashes($products_options_values_values['products_options_values_name']) . "')");
+      }
+      // Create additional manufacturers_info records
+      $manufacturers = tep_db_query("select m.manufacturers_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on m.manufacturers_id = mi.manufacturers_id where mi.languages_id = '" . $languages_id . "'");
+      while ($manufacturers_values = tep_db_fetch_array($manufacturers)) {
+        tep_db_query("insert into " . TABLE_MANUFACTURERS_INFO . " (manufacturers_id, languages_id, manufacturers_url) values ('" . $manufacturers_values['manufacturers_id'] . "', '" . $insert_id . "', '" . addslashes($manufacturers_values['manufacturers_url']) . "')");
+      }
+      // Create additional orders_status records
+      $orders_status = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "'");
+      while ($orders_status_values = tep_db_fetch_array($orders_status)) {
+        tep_db_query("insert into " . TABLE_ORDERS_STATUS . " (orders_status_id, language_id, orders_status_name) values ('" . $orders_status_values['orders_status_id'] . "', '" . $insert_id . "', '" . addslashes($orders_status_values['orders_status_name']) . "')");
+      }
       header('Location: ' . tep_href_link(FILENAME_LANGUAGES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
       tep_db_query("update " . TABLE_LANGUAGES . " set name = '" . $HTTP_POST_VARS['name'] . "', code = '" . $HTTP_POST_VARS['code'] . "', image = '" . $HTTP_POST_VARS['image'] . "', directory = '" . $HTTP_POST_VARS['directory'] . "', sort_order = '" . $HTTP_POST_VARS['sort_order'] . "' where languages_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
+      tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where language_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
+      tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
+      tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
+      tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
+      tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
+      tep_db_query("delete from " . TABLE_ORDERS_STATUS . " where language_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
       tep_db_query("delete from " . TABLE_LANGUAGES . " where languages_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
     }
