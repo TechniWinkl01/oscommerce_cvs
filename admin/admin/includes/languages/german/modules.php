@@ -1,13 +1,13 @@
 <?
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+German Text for The Exchange Project Administration Tool Preview Release 2.2
+Last Update: 20/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('TOP_BAR_TITLE', 'Module');
-define('HEADING_TITLE_MODULES_PAYMENT', 'Zahlung Module');
-define('HEADING_TITLE_MODULES_SHIPPING', 'Lieferung Module');
+define('HEADING_TITLE_MODULES_PAYMENT', 'Zahlungsweisen');
+define('HEADING_TITLE_MODULES_SHIPPING', 'Versandarten');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Dateiname');
 define('TABLE_HEADING_STATUS', 'Status');

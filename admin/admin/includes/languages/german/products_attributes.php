@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Administration Tool Preview Release 2.2
+Last Update: 20/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('TOP_BAR_TITLE', 'Artikelmerkmale');
@@ -20,6 +20,6 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('MAX_ROW_LISTS_OPTIONS', 10);
 
-define('TEXT_WARNING_OF_DELETE', 'Mit dieser Option sind Artikel sowie Optionsmerkmale verbunden - Es wird nicht empfohlen sie zu l&ouml;schen.');
-define('TEXT_OK_TO_DELETE', 'Mit dieser Option sind keine Artikel sowie Optionsmerkmale verbunden - Sie kann gel&ouml;scht werden.');
+define('TEXT_WARNING_OF_DELETE', 'Mit dieser Option sind Artikel, sowie Optionsmerkmale verbunden - Es wird nicht empfohlen sie zu l&ouml;schen.');
+define('TEXT_OK_TO_DELETE', 'Mit dieser Option sind keine Artikel, sowie Optionsmerkmale verbunden - Sie kann gel&ouml;scht werden.');
 ?>

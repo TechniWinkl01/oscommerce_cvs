@@ -26,7 +26,7 @@ define('TEXT_EMAILFROM', 'info@theexchangeproject.org'); // Ihr Absendername
 define('TEXT_NO_EMAILS_TO_SEND', 'Keine eMails zum senden.');
 define('TEXT_EMAIL_FROM', 'Absender eMail:');
 define('TEXT_SEND_EMAIL', 'eMail senden');
-define('TEXT_NO_CUSTOMER_SELECTED', 'Es wurde kein Kunde zum versand einer eMail ausgewählt!');
+define('TEXT_NO_CUSTOMER_SELECTED', 'Es wurde kein Kunde zum versand einer eMail ausgew&auml;hlt!');
 
 define('MAIL_FOOTER','================================================================================\nEs wäre schade, wenn Sie den Newsletter nicht mehr erhalten möchten.\nNatürlich können Sie ihn jederzeit unter ' . HTTP_SERVER . DIR_WS_CATALOG . 'account_edit.php im Kundenbereich abbestellen.\n================================================================================\n');
 

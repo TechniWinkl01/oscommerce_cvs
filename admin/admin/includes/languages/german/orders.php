@@ -1,13 +1,13 @@
 <?
 /*
 German Text for The Exchange Project Administration Tool Preview Release 2.2
-Last Update: 19/05/2001
+Last Update: 20/05/2001
 Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('TOP_BAR_TITLE', 'Bestellungen');
 define('HEADING_TITLE', 'Bestellungen');
-define('HEADING_TITLE_SEARCH', 'tragen Sie die Bestellungsnummer ein');
+define('HEADING_TITLE_SEARCH', 'Tragen Sie die Bestellungsnummer ein');
 
 define('TABLE_HEADING_COMMENTS', 'Kommentar');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
@@ -36,12 +36,12 @@ define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Kreditkartentyp:');
-define('ENTRY_CREDIT_CARD_OWNER', 'Kreditkartenbesitzer:');
+define('ENTRY_CREDIT_CARD_OWNER', 'Kreditkarteninhaber:');
 define('ENTRY_CREDIT_CARD_NUMBER', 'Kerditkartennnummer:');
 define('ENTRY_CREDIT_CARD_EXPIRES', 'Kreditkarte l&auml;uft ab am:');
 define('ENTRY_SUB_TOTAL', 'Zwischensumme:');
-define('ENTRY_TAX', 'Steuer:');
-define('ENTRY_SHIPPING', 'Versand:');
+define('ENTRY_TAX', 'MwSt.:');
+define('ENTRY_SHIPPING', 'Versandkosten:');
 define('ENTRY_TOTAL', 'Gesamtsumme:');
 define('ENTRY_DATE_PURCHASED', 'Bestelldatum:');
 define('ENTRY_STATUS', 'Status:');
