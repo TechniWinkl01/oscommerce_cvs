@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.58 2001/06/07 23:39:47 mbs Exp $
+  $Id: categories.php,v 1.59 2001/06/15 16:34:58 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -155,7 +155,7 @@
   <tr>
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
@@ -165,9 +165,9 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%"><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '" class="blacklink">' . TOP_BAR_TITLE . '</a>'; ?>
+            <td class="topBarTitle">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '" class="blacklink">' . TOP_BAR_TITLE . '</a>'; ?>
 <?
 // output a navigation path of categories entered
   if ($cPath) {
@@ -185,7 +185,7 @@
     }
   }
 ?>
-            &nbsp;</font></td>
+            &nbsp;</td>
           </tr>
         </table></td>
       </tr>
