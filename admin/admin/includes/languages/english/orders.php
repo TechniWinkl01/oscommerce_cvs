@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.17 2002/01/28 03:46:48 hpdl Exp $
+  $Id: orders.php,v 1.18 2002/01/28 04:05:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,6 @@ define('HEADING_TITLE_STATUS', 'Status:');
 define('TABLE_HEADING_COMMENTS', 'Comments');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_ORDER_TOTAL', 'Order Total');
-define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
 define('TABLE_HEADING_DATE_PURCHASED', 'Date Purchased');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
