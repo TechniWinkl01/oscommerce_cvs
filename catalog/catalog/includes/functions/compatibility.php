@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.12 2002/08/13 16:48:00 dgw_ Exp $
+  $Id: compatibility.php,v 1.13 2002/11/01 02:39:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -141,6 +141,18 @@
       } else {
         return $callback($array);
       }
+    }
+  }
+
+  if (!function_exists('str_repeat')) {
+    function str_repeat($string, $number) {
+      $repeat = '';
+
+      for ($i=0; $i<$number; $i++) {
+        $repeat .= $string;
+      }
+
+      return $repeat;
     }
   }
 ?>
