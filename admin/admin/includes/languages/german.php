@@ -72,6 +72,7 @@ define('BOX_STATISTICS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Lokalisation');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
+define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Werkzeuge');
