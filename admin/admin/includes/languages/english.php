@@ -79,6 +79,10 @@ define('BOX_HEADING_LOCALIZATION', 'Localization');
 define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 
+// mail box text in includes/boxes/mail.php
+define('BOX_HEADING_MAIL', 'Mail');
+define('BOX_MAIL_MAIL', 'Send eMail(s)');
+
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 

@@ -79,6 +79,10 @@ define('BOX_HEADING_TOOLS', 'Herramientas');
 define('BOX_TOOLS_BACKUP', 'Copia de seguridad');
 define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 
+// mail box text in includes/boxes/mail.php
+define('BOX_HEADING_MAIL', 'Mail');
+define('BOX_MAIL_MAIL', 'Send eMail(s)');
+
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
 

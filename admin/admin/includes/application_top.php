@@ -56,6 +56,7 @@
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
   define('FILENAME_LANGUAGES', 'languages.php');
+  define('FILENAME_MAIL', 'mail.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_ORDERS', 'orders.php');
   define('FILENAME_PAYMENT_MODULES', 'payment_modules.php');

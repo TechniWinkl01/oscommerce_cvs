@@ -7,4 +7,5 @@
   include('includes/boxes/localization.php');
   include('includes/boxes/statistics.php');
   include('includes/boxes/tools.php');
+  include('includes/boxes/mail.php');
 ?>
