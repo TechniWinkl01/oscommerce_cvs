@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.117 2003/12/17 16:16:16 project3000 Exp $
+  $Id: english.php,v 1.118 2004/02/16 07:13:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,6 +125,7 @@ define('BOX_INFORMATION_PRIVACY', 'Privacy Notice');
 define('BOX_INFORMATION_CONDITIONS', 'Terms & Conditions');
 define('BOX_INFORMATION_SHIPPING', 'Shipping & Returns');
 define('BOX_INFORMATION_CONTACT', 'Contact Us');
+define('BOX_INFORMATION_SITEMAP', 'Sitemap');
 
 // tell a friend box text in includes/boxes/tell_a_friend.php
 define('BOX_HEADING_TELL_A_FRIEND', 'Tell A Friend');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.4 2003/06/11 17:38:00 hpdl Exp $
+  $Id: filenames.php,v 1.5 2004/02/16 07:13:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -55,6 +55,7 @@
   define('FILENAME_REVIEWS', 'reviews.php');
   define('FILENAME_SHIPPING', 'shipping.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
+  define('FILENAME_SITEMAP', 'sitemap.php');
   define('FILENAME_SPECIALS', 'specials.php');
   define('FILENAME_SSL_CHECK', 'ssl_check.php');
   define('FILENAME_TELL_A_FRIEND', 'tell_a_friend.php');
