@@ -42,7 +42,7 @@
           if ($GLOBALS[$class]->enabled) {
             $rows ++;
             $selection_string .= '              <tr class="payment-odd">' . "\n" .
-                                 '                <td colspan="3" class="main">&nbsp;' . $GLOBALS[$class]->description . '&nbsp;</td>' . "\n" .
+                                 '                <td colspan="3" class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
                                  '                <td align="right" class="main">&nbsp;<input type="radio" name="payment" value="' . $GLOBALS[$class]->code . '"';
             if ( (!$payment && $rows == 1) || ($payment == $GLOBALS[$class]->code)) {
               $selection_string .= ' CHECKED';
@@ -69,7 +69,7 @@
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->code == $HTTP_POST_VARS['payment']) {
             $confirmation_string = '          <tr>' . "\n" .
-                                   '            <td class="main">&nbsp;' . $GLOBALS[$class]->description . '&nbsp;</td>' . "\n" .
+                                   '            <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
                                    '          </tr>' . "\n";
             $confirmation_string .= $GLOBALS[$class]->confirmation();
           }
@@ -124,7 +124,7 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->code == $order_values['payment_method']) {
-            $payment_text = $GLOBALS[$class]->description;
+            $payment_text = $GLOBALS[$class]->title;
           }
         }
         $show_info_string = '          <tr>' . "\n" .

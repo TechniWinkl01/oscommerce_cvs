@@ -1,17 +1,18 @@
 <?
   class usps {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 // class constructor
     function usps() {
       $this->code = 'usps';
+      $this->title = MODULE_SHIPPING_USPS_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_USPS_TEXT_DESCRIPTION;
       $this->enabled = MODULE_SHIPPING_USPS_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_DESCRIPTION . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '</td>' .
                        '<td><select name="shipping_usps_prod">' .
                          '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
                          '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
@@ -80,7 +81,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_DESCRIPTION . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_usps_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_usps_cost) . '</td>' . "\n" .
                           '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="usps"';

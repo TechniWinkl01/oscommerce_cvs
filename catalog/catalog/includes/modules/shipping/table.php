@@ -1,17 +1,18 @@
 <?php
   class table {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 // class constructor
     function table() {
       $this->code = 'table';
+      $this->title = MODULE_SHIPPING_TABLE_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_TABLE_TEXT_DESCRIPTION;
       $this->enabled = MODULE_SHIPPING_TABLE_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<tr><td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_DESCRIPTION . '</td>' .
+      $select_string = '<tr><td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_table" value="1" CHECKED></td></tr>' . "\n";
 
@@ -65,7 +66,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_table) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_DESCRIPTION . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '</td>' . "\n" .
                           '  <td class="main">&nbsp;' . $shipping_table_method . '</td>' . "\n" .
                           '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_table_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="table"';

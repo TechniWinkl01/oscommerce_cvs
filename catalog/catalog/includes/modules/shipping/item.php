@@ -1,17 +1,18 @@
 <?
   class item {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 // class constructor
     function item() {
       $this->code = 'item';
+      $this->title = MODULE_SHIPPING_ITEM_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION;
       $this->enabled = MODULE_SHIPPING_ITEM_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_TITLE . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_item" value="1" CHECKED></td></tr>' . "\n";
 
@@ -50,7 +51,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_item) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_TITLE . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_item_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_item_cost) . '</td>' . "\n" .
                           '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="item"';

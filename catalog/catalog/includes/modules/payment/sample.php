@@ -2,13 +2,14 @@
 // sample.php - Sample structure of what a payment module should follow.
 
   class sample {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 ////
 // !Class constructor -> initialize class variables.
 // Sets the class code, description, and status.
     function sample() {
       $this->code = 'sample';
+      $this->title = MODULE_PAYMENT_SAMPLE_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_SAMPLE_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_SAMPLE_STATUS;
     }

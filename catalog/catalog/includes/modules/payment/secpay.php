@@ -1,10 +1,11 @@
 <?
   class secpay {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 // class constructor
     function secpay() {
       $this->code = 'secpay';
+      $this->title = MODULE_PAYMENT_SECPAY_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_SECPAY_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_SECPAY_STATUS;
     }

@@ -18,11 +18,12 @@
 	}
 
   class itransact_split {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 // class constructor
     function itransact_split() {
       $this->code = 'itransact_split';
+      $this->title = MODULE_PAYMENT_ITRANSACT_SPLIT_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_ITRANSACT_SPLIT_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_ITRANSACT_SPLIT_STATUS;
     }

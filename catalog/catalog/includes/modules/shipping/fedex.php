@@ -1,10 +1,11 @@
 <?php
   class fedex {
-    var $code, $description, $enabled, $fedex_countries, $fedex_countries_nbr;
+    var $code, $title, $description, $enabled, $fedex_countries, $fedex_countries_nbr;
 
 // class constructor
     function fedex() {
       $this->code = 'fedex';
+      $this->title = MODULE_SHIPPING_FEDEX_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION;
       $this->enabled = MODULE_SHIPPING_FEDEX_STATUS;
 
@@ -16,7 +17,7 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_TITLE) . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_fedex" value="1" CHECKED></td></tr>' . "\n";
 
@@ -76,14 +77,14 @@
 // check for errors
         if ($quote['ErrorNbr']) {
           $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' . "\n" .
+                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_TITLE) . '</td>' . "\n" .
                              '  <td class="main"><font color="#ff0000">Error:</font> ' . htmlentities($quote['Error']) . '</td>' . "\n" .
                              '  <td align="right" class="main">&nbsp;</td>' . "\n" .
                              '  <td align="right">&nbsp;</td>' . "\n" .
                              '</tr>' . "\n";
         } else {
           $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' . "\n" .
+                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_TITLE) . '</td>' . "\n" .
                              '  <td class="main">' . $shipping_fedex_method . '</td>' . "\n" .
                              '  <td align="right" class="main">' . tep_currency_format($shipping_fedex_cost) . '</td>' . "\n" .
                              '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="fedex"';

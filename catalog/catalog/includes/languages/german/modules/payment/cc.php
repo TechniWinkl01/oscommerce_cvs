@@ -1,5 +1,6 @@
 <?
-  define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Kreditkarte');
+  define('MODULE_PAYMENT_CC_TEXT_TITLE', 'Kreditkarte');
+  define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4111111111111111<br>Expiry: Any');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER', 'Name des Eigentümers:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER', 'Kreditkartenr.:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES', 'Gültig bis:');

@@ -1,10 +1,11 @@
 <?
   class ipayment {
-    var $code, $description, $enabled;
+    var $code, $title, $description, $enabled;
 
 // class constructor
     function ipayment() {
       $this->code = 'ipayment';
+      $this->title = MODULE_PAYMENT_IPAYMENT_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_IPAYMENT_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_IPAYMENT_STATUS;
     }
