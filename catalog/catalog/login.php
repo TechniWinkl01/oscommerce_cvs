@@ -131,22 +131,26 @@ function session_win() {
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><form name="login" method="post" action="<? echo tep_href_link(FILENAME_LOGIN, 'action=process', 'NONSSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
+        <td><form name="login" method="post" action="<? echo tep_href_link(FILENAME_LOGIN, 'action=process', 'NONSSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</font></td>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</font></td>
+          </tr>
+          <tr>
             <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</font></td>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</font></td>
           </tr>
+        </table>
+        <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="4"><br><? echo tep_black_line(); ?></td>
+            <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td valign="top" colspan="2" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</font></td>
-            <td align="right" valign="top" colspan="2" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_log_in.gif', '67', '24', '0', IMAGE_LOGIN); ?>&nbsp;</td>
+            <td valign="top" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</font></td>
+            <td align="right" valign="top" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_log_in.gif', '67', '24', '0', IMAGE_LOGIN); ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" colspan="4" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</font></td>
+            <td align="right" colspan="2" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</font></td>
           </tr>
 <?
    $origin = '';
@@ -170,20 +174,20 @@ function session_win() {
    }
 ?>
           <tr>
-            <td align="right" colspan="4" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo tep_href_link(FILENAME_CREATE_ACCOUNT, $origin, 'NONSSL'); ?>"><? echo TEXT_CREATE_ACCOUNT; ?></a>&nbsp;</font></td>
+            <td align="right" colspan="2" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo tep_href_link(FILENAME_CREATE_ACCOUNT, $origin, 'NONSSL'); ?>"><? echo TEXT_CREATE_ACCOUNT; ?></a>&nbsp;</font></td>
           </tr>
 <?
   if ($nonsess_cart) {
 ?>
           <tr>
-            <td colspan="4"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><br><? echo TEXT_VISITORS_CART; ?></font></td>
+            <td colspan="2"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><br><? echo TEXT_VISITORS_CART; ?></font></td>
           </tr>
 <?
   }
   if ($HTTP_GET_VARS['login'] == 'fail') {
 ?>
           <tr>
-            <td colspan="4" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo TEXT_LOGIN_ERROR; ?></font></td>
+            <td colspan="2" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo TEXT_LOGIN_ERROR; ?></font></td>
           </tr>
 <?
   }
