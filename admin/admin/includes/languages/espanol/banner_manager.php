@@ -12,4 +12,5 @@ define('TABLE_HEADING_NUMBER', 'No.');
 define('TABLE_HEADING_BANNERS', 'Banners');
 define('TABLE_HEADING_GROUPS', 'Groups');
 define('TABLE_HEADING_STATISTICS', 'Displays / Clicks');
+define('TABLE_HEADING_STATUS', 'Status');
 ?>

@@ -186,6 +186,7 @@ define('IMAGE_EDIT', 'Editieren');
 define('IMAGE_INSERT', 'Einf&uuml;gen');
 define('IMAGE_MODIFY', '&Auml;ndern');
 define('IMAGE_MOVE', 'Verschieben');
+define('IMAGE_NEW_BANNER', 'New Banner');
 define('IMAGE_NEW_CATEGORY', 'Neue Kategorie');
 define('IMAGE_NEW_LANGUAGE', 'Neue Sprache');
 define('IMAGE_NEW_PRODUCT', 'Neuer Artikel');

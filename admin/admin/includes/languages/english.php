@@ -187,6 +187,7 @@ define('IMAGE_EDIT', 'Edit');
 define('IMAGE_INSERT', 'Insert');
 define('IMAGE_MODIFY', 'Modify');
 define('IMAGE_MOVE', 'Move');
+define('IMAGE_NEW_BANNER', 'New Banner');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_COUNTRY', 'New Country');
 define('IMAGE_NEW_CURRENCY', 'New Currency');
