@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.121 2001/05/25 11:04:31 hpdl Exp $
+  $Id: application_top.php,v 1.122 2001/05/29 15:26:39 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -103,7 +103,7 @@
   define('FILENAME_SPECIALS', 'specials.php');
   define('FILENAME_SHIPPING', 'shipping.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
-  define('FILENAME_PRODUCT_LISTING', 'product_listing.php'); // 2 possible values: product_listing.php or column_product_listing)
+  define('FILENAME_PRODUCT_LISTING', 'product_listing.php');
 
 // define our database connection
   define('DB_SERVER', ''); // eg, localhost - should not be NULL for productive servers
