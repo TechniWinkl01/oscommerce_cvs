@@ -1,35 +1,73 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.7 2003/06/30 11:02:48 hpdl Exp $
+  $Id: product_notification.php,v 1.8 2004/08/17 23:59:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  class product_notification {
-    var $show_choose_audience, $title, $content;
+  class osC_Newsletter_product_notification {
 
-    function product_notification($title, $content) {
-      $this->show_choose_audience = true;
-      $this->title = $title;
-      $this->content = $content;
+/* Private methods */
+
+    var $_title,
+        $_has_audience_selection = true,
+        $_newsletter_title,
+        $_newsletter_content,
+        $_newsletter_id,
+        $_audience_size = 0;
+
+/* Class constructor */
+
+    function osC_Newsletter_product_notification($title = '', $content = '', $newsletter_id = '') {
+      $this->_title = MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TITLE;
+
+      $this->_newsletter_title = $title;
+      $this->_newsletter_content = $content;
+      $this->_newsletter_id = $newsletter_id;
     }
 
-    function choose_audience() {
-      global $HTTP_GET_VARS, $languages_id;
+/* Public methods */
 
-      $products_array = array();
-      $products_query = tep_db_query("select pd.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.language_id = '" . $languages_id . "' and pd.products_id = p.products_id and p.products_status = '1' order by pd.products_name");
-      while ($products = tep_db_fetch_array($products_query)) {
-        $products_array[] = array('id' => $products['products_id'],
-                                  'text' => $products['products_name']);
+    function getTitle() {
+      return $this->_title;
+    }
+
+    function hasAudienceSelection() {
+      if ($this->_has_audience_selection === true) {
+        return true;
       }
 
-$choose_audience_string = '<script language="javascript"><!--
+      return false;
+    }
+
+    function showAudienceSelectionForm() {
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
+
+      global $osC_Database, $osC_Session;
+
+      $products_array = array();
+
+      $Qproducts = $osC_Database->query('select pd.products_id, pd.products_name from :table_products p, :table_products_description pd where pd.language_id = :language_id and pd.products_id = p.products_id and p.products_status = 1 order by pd.products_name');
+      $Qproducts->bindTable(':table_products', TABLE_PRODUCTS);
+      $Qproducts->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+      $Qproducts->bindInt(':language_id', $osC_Session->value('languages_id'));
+      $Qproducts->execute();
+
+      while ($Qproducts->next()) {
+        $products_array[] = array('id' => $Qproducts->valueInt('products_id'),
+                                  'text' => $Qproducts->value('products_name'));
+      }
+
+      $Qproducts->freeResult();
+
+      $audience_form = '<script language="javascript"><!--
 function mover(move) {
   if (move == \'remove\') {
     for (x=0; x<(document.notifications.products.length); x++) {
@@ -65,7 +103,7 @@ function selectAll(FormName, SelectBox) {
   }
 
   if (x<1) {
-    alert(\'' . JS_PLEASE_SELECT_PRODUCTS . '\');
+    alert(\'' . MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_JS_PLEASE_SELECT_PRODUCTS . '\');
     return false;
   } else {
     return true;
@@ -73,144 +111,166 @@ function selectAll(FormName, SelectBox) {
 }
 //--></script>';
 
-      $global_button = '<script language="javascript"><!--' . "\n" .
-                       'document.write(\'<input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;" onclick="document.location=\\\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm&global=true') . '\\\'">\');' . "\n" .
-                       '//--></script><noscript><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm&global=true') . '">[ ' . BUTTON_GLOBAL . ' ]</a></noscript>';
+      $audience_form .= tep_draw_form('notifications', FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $_GET['nmID'] . '&action=nmConfirm', 'post', 'onSubmit="return selectAll(\'notifications\', \'chosen[]\');"') .
+                        '  <table border="0" width="100%" cellspacing="0" cellpadding="2">' .
+                        '    <tr>' .
+                        '      <td align="center" class="main"><b>' . MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TABLE_HEADING_PRODUCTS . '</b><br>' . osc_draw_pull_down_menu('products', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' .
+                        '      <td align="center" class="main">&nbsp;<br><input type="button" value="' . MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_BUTTON_GLOBAL . '" style="width: 90px;" onClick="document.location=\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $_GET['nmID'] . '&action=nmConfirm&global=true') . '\';" class="operationButton"><br><br><br><input type="button" value="' . MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_BUTTON_SELECT . '" style="width: 90px;" onClick="mover(\'remove\');" class="infoBoxButton"><br><br><input type="button" value="' . MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_BUTTON_UNSELECT . '" style="width: 90px;" onClick="mover(\'add\');" class="infoBoxButton"><br><br><br><input type="submit" value="' . BUTTON_OK . '" style="width: 90px;" class="operationButton"><br><br><input type="button" value="' . BUTTON_CANCEL . '" style="width: 90px;" onClick="document.location=\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $_GET['nmID']) . '\';" class="operationButton"></td>' .
+                        '      <td align="center" class="main"><b>' . MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TABLE_HEADING_SELECTED_PRODUCTS . '</b><br>' . osc_draw_pull_down_menu('chosen[]', array(), '', 'size="20" style="width: 20em;" multiple') . '</td>' .
+                        '    </tr>' .
+                        '  </table>' .
+                        '</form>';
 
-      $cancel_button = '<script language="javascript"><!--' . "\n" .
-                       'document.write(\'<input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;" onclick="document.location=\\\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '\\\'">\');' . "\n" .
-                       '//--></script><noscript><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">[ ' . BUTTON_CANCEL . ' ]</a></noscript>';
-
-      $choose_audience_string .= '<form name="notifications" action="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm') . '" method="post" onSubmit="return selectAll(\'notifications\', \'chosen[]\')"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
-                                 '  <tr>' . "\n" .
-                                 '    <td align="center" class="main"><b>' . TEXT_PRODUCTS . '</b><br>' . tep_draw_pull_down_menu('products', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
-                                 '    <td align="center" class="main">&nbsp;<br>' . $global_button . '<br><br><br><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br><br><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br><br><br><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br><br>' . $cancel_button . '</td>' . "\n" .
-                                 '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br>' . tep_draw_pull_down_menu('chosen[]', array(), '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
-                                 '  </tr>' . "\n" .
-                                 '</table></form>';
-
-      return $choose_audience_string;
+      return $audience_form;
     }
 
-    function confirm() {
-      global $HTTP_GET_VARS, $HTTP_POST_VARS;
-
-      $audience = array();
-
-      if (isset($HTTP_GET_VARS['global']) && ($HTTP_GET_VARS['global'] == 'true')) {
-        $products_query = tep_db_query("select distinct customers_id from " . TABLE_PRODUCTS_NOTIFICATIONS);
-        while ($products = tep_db_fetch_array($products_query)) {
-          $audience[$products['customers_id']] = '1';
-        }
-
-        $customers_query = tep_db_query("select customers_info_id from " . TABLE_CUSTOMERS_INFO . " where global_product_notifications = '1'");
-        while ($customers = tep_db_fetch_array($customers_query)) {
-          $audience[$customers['customers_info_id']] = '1';
-        }
-      } else {
-        $chosen = $HTTP_POST_VARS['chosen'];
-
-        $ids = implode(',', $chosen);
-
-        $products_query = tep_db_query("select distinct customers_id from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id in (" . $ids . ")");
-        while ($products = tep_db_fetch_array($products_query)) {
-          $audience[$products['customers_id']] = '1';
-        }
-
-        $customers_query = tep_db_query("select customers_info_id from " . TABLE_CUSTOMERS_INFO . " where global_product_notifications = '1'");
-        while ($customers = tep_db_fetch_array($customers_query)) {
-          $audience[$customers['customers_info_id']] = '1';
-        }
+    function showConfirmation() {
+      if (PHP_VERSION < 4.1) {
+        global $_GET, $_POST;
       }
 
-      $confirm_string = '<table border="0" cellspacing="0" cellpadding="2">' . "\n" .
-                        '  <tr>' . "\n" .
-                        '    <td class="main"><font color="#ff0000"><b>' . sprintf(TEXT_COUNT_CUSTOMERS, sizeof($audience)) . '</b></font></td>' . "\n" .
-                        '  </tr>' . "\n" .
-                        '  <tr>' . "\n" .
-                        '    <td>' . tep_draw_separator('pixel_trans.gif', '1', '10') . '</td>' . "\n" .
-                        '  </tr>' . "\n" .
-                        '  <tr>' . "\n" .
-                        '    <td class="main"><b>' . $this->title . '</b></td>' . "\n" .
-                        '  </tr>' . "\n" .
-                        '  <tr>' . "\n" .
-                        '    <td>' . tep_draw_separator('pixel_trans.gif', '1', '10') . '</td>' . "\n" .
-                        '  </tr>' . "\n" .
-                        '  <tr>' . "\n" .
-                        '    <td class="main"><tt>' . nl2br($this->content) . '</tt></td>' . "\n" .
-                        '  </tr>' . "\n" .
-                        '  <tr>' . "\n" .
-                        '    <td>' . tep_draw_separator('pixel_trans.gif', '1', '10') . '</td>' . "\n" .
-                        '  </tr>' . "\n" .
-                        '  <tr>' . tep_draw_form('confirm', FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm_send') . "\n" .
-                        '    <td align="right">';
-      if (sizeof($audience) > 0) {
-        if (isset($HTTP_GET_VARS['global']) && ($HTTP_GET_VARS['global'] == 'true')) {
-          $confirm_string .= tep_draw_hidden_field('global', 'true');
-        } else {
-          for ($i = 0, $n = sizeof($chosen); $i < $n; $i++) {
-            $confirm_string .= tep_draw_hidden_field('chosen[]', $chosen[$i]);
+      global $osC_Database;
+
+      if ( (isset($_POST['chosen']) && !empty($_POST['chosen'])) || (isset($_GET['global']) && ($_GET['global'] == 'true')) ) {
+        $Qcustomers = $osC_Database->query('select count(customers_info_id) as total from :table_customers_info where global_product_notifications = 1');
+        $Qcustomers->bindTable(':table_customers_info', TABLE_CUSTOMERS_INFO);
+        $Qcustomers->execute();
+
+        $this->_audience_size = $Qcustomers->valueInt('total');
+
+        $Qcustomers = $osC_Database->query('select count(distinct pn.customers_id) as total from :table_products_notifications pn, :table_customers c left join :table_newsletters_log nl on (c.customers_email_address = nl.email_address and nl.newsletters_id = :newsletters_id) where pn.customers_id = c.customers_id and nl.email_address is null');
+        $Qcustomers->bindTable(':table_products_notifications', TABLE_PRODUCTS_NOTIFICATIONS);
+        $Qcustomers->bindTable(':table_customers', TABLE_CUSTOMERS);
+        $Qcustomers->bindTable(':table_newsletters_log', TABLE_NEWSLETTERS_LOG);
+        $Qcustomers->bindInt(':newsletters_id', $this->_newsletter_id);
+
+        if (isset($_POST['chosen']) && !empty($_POST['chosen'])) {
+          $Qcustomers->appendQuery('and pn.products_id in (:products_id)');
+          $Qcustomers->bindRaw(':products_id', implode(', ', $_POST['chosen']));
+        }
+
+        $Qcustomers->execute();
+
+        $this->_audience_size =+ $Qcustomers->valueInt('total');
+      }
+
+      $confirmation_string = '<p><font color="#ff0000"><b>' . sprintf(MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TEXT_TOTAL_RECIPIENTS, $this->_audience_size) . '</b></font></p>' .
+                             '<p><b>' . $this->_newsletter_title . '</b></p>' .
+                             '<p>' . nl2br(tep_output_string_protected($this->_newsletter_content)) . '</p>' .
+                             tep_draw_form('confirm', FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $_GET['nmID'] . '&action=nmSendConfirm') .
+                             '<p align="right">';
+
+      if ($this->_audience_size > 0) {
+        if (isset($_GET['global']) && ($_GET['global'] == 'true')) {
+          $confirmation_string .= osc_draw_hidden_field('global', 'true');
+        } elseif (isset($_POST['chosen']) && !empty($_POST['chosen'])) {
+          for ($i=0, $n=sizeof($_POST['chosen']); $i<$n; $i++) {
+            $confirmation_string .= osc_draw_hidden_field('chosen[]', $_POST['chosen'][$i]);
           }
         }
-        $confirm_string .= tep_image_submit('button_send.gif', IMAGE_SEND) . ' ';
-      }
-      $confirm_string .= '<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=send') . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> <a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a></td>' . "\n" .
-                         '  </tr>' . "\n" .
-                         '</table>';
 
-      return $confirm_string;
+        $confirmation_string .= '<input type="submit" value="' . BUTTON_SEND . '" class="operationButton">&nbsp;';
+      }
+
+      $confirmation_string .= '<input type="button" value="' . BUTTON_BACK . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $_GET['nmID'] . '&action=nmSend') . '\'" class="operationButton">&nbsp;<input type="button" value="' . BUTTON_CANCEL . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $_GET['nmID']) . '\'" class="operationButton"></p>' .
+                              '</form>';
+
+      return $confirmation_string;
     }
 
-    function send($newsletter_id) {
-      global $HTTP_POST_VARS;
+    function sendEmail() {
+      if (PHP_VERSION < 4.1) {
+        global $_GET, $_POST;
+      }
+
+      global $osC_Database;
+
+      $max_execution_time = 0.8 * (int)ini_get('max_execution_time');
+      $time_start = explode(' ', PAGE_PARSE_START_TIME);
+
+      if (isset($_POST['chosen'])) {
+        $chosen = $_POST['chosen'];
+      } elseif (isset($_GET['chosen'])) {
+        $chosen = $_GET['chosen'];
+      } elseif (isset($_POST['global'])) {
+        $global = $_POST['global'];
+      } elseif (isset($_GET['global'])) {
+        $global = $_GET['global'];
+      }
+
+      $chosen_get_string = '';
+      if (isset($chosen) && !empty($chosen)) {
+        foreach ($chosen as $id) {
+          $chosen_get_string .= 'chosen[]=' . $id . '&';
+        }
+      }
 
       $audience = array();
 
-      if (isset($HTTP_POST_VARS['global']) && ($HTTP_POST_VARS['global'] == 'true')) {
-        $products_query = tep_db_query("select distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where c.customers_id = pn.customers_id");
-        while ($products = tep_db_fetch_array($products_query)) {
-          $audience[$products['customers_id']] = array('firstname' => $products['customers_firstname'],
-                                                       'lastname' => $products['customers_lastname'],
-                                                       'email_address' => $products['customers_email_address']);
-        }
+      $Qcustomers = $osC_Database->query('select c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from :table_customers c, :table_customers_info ci where ci.global_product_notifications = 1 and ci.customers_info_id = c.customers_id');
+      $Qcustomers->bindTable(':table_customers', TABLE_CUSTOMERS);
+      $Qcustomers->bindTable(':table_customers_info', TABLE_CUSTOMERS_INFO);
+      $Qcustomers->execute();
 
-        $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " ci where c.customers_id = ci.customers_info_id and ci.global_product_notifications = '1'");
-        while ($customers = tep_db_fetch_array($customers_query)) {
-          $audience[$customers['customers_id']] = array('firstname' => $customers['customers_firstname'],
-                                                        'lastname' => $customers['customers_lastname'],
-                                                        'email_address' => $customers['customers_email_address']);
-        }
-      } else {
-        $chosen = $HTTP_POST_VARS['chosen'];
-
-        $ids = implode(',', $chosen);
-
-        $products_query = tep_db_query("select distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where c.customers_id = pn.customers_id and pn.products_id in (" . $ids . ")");
-        while ($products = tep_db_fetch_array($products_query)) {
-          $audience[$products['customers_id']] = array('firstname' => $products['customers_firstname'],
-                                                       'lastname' => $products['customers_lastname'],
-                                                       'email_address' => $products['customers_email_address']);
-        }
-
-        $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " ci where c.customers_id = ci.customers_info_id and ci.global_product_notifications = '1'");
-        while ($customers = tep_db_fetch_array($customers_query)) {
-          $audience[$customers['customers_id']] = array('firstname' => $customers['customers_firstname'],
-                                                        'lastname' => $customers['customers_lastname'],
-                                                        'email_address' => $customers['customers_email_address']);
+      while ($Qcustomers->next()) {
+        if (!isset($audience[$Qcustomers->valueInt('customers_id')])) {
+          $audience[$Qcustomers->valueInt('customers_id')] = array('firstname' => $Qcustomers->value('customers_firstname'),
+                                                                   'lastname' => $Qcustomers->value('customers_lastname'),
+                                                                   'email_address' => $Qcustomers->value('customers_email_address'));
         }
       }
 
-      $mimemessage = new email(array('X-Mailer: osCommerce bulk mailer'));
-      $mimemessage->add_text($this->content);
-      $mimemessage->build_message();
+      $Qcustomers = $osC_Database->query('select distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from :table_products_notifications pn, :table_customers c left join :table_newsletters_log nl on (c.customers_email_address = nl.email_address and nl.newsletters_id = :newsletters_id) where pn.customers_id = c.customers_id and nl.email_address is null');
+      $Qcustomers->bindTable(':table_products_notifications', TABLE_PRODUCTS_NOTIFICATIONS);
+      $Qcustomers->bindTable(':table_customers', TABLE_CUSTOMERS);
+      $Qcustomers->bindTable(':table_newsletters_log', TABLE_NEWSLETTERS_LOG);
+      $Qcustomers->bindInt(':newsletters_id', $this->_newsletter_id);
 
-      reset($audience);
-      while (list($key, $value) = each ($audience)) {
-        $mimemessage->send($value['firstname'] . ' ' . $value['lastname'], $value['email_address'], '', EMAIL_FROM, $this->title);
+      if (isset($chosen) && !empty($chosen)) {
+        $Qcustomers->appendQuery('and pn.products_id in (:products_id)');
+        $Qcustomers->bindRaw(':products_id', implode(', ', $chosen));
       }
 
-      $newsletter_id = tep_db_prepare_input($newsletter_id);
-      tep_db_query("update " . TABLE_NEWSLETTERS . " set date_sent = now(), status = '1' where newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+      $Qcustomers->execute();
+
+      while ($Qcustomers->next()) {
+        if (!isset($audience[$Qcustomers->valueInt('customers_id')])) {
+          $audience[$Qcustomers->valueInt('customers_id')] = array('firstname' => $Qcustomers->value('customers_firstname'),
+                                                                   'lastname' => $Qcustomers->value('customers_lastname'),
+                                                                   'email_address' => $Qcustomers->value('customers_email_address'));
+        }
+      }
+
+      if (sizeof($audience) > 0) {
+        $mimemessage = new email(array(base64_decode('WC1NYWlsZXI6IG9zQ29tbWVyY2UgKGh0dHA6Ly93d3cub3Njb21tZXJjZS5jb20p')));
+        $mimemessage->add_text($this->_newsletter_content);
+        $mimemessage->build_message();
+
+        foreach ($audience as $key => $value) {
+          $mimemessage->send($value['firstname'] . ' ' . $value['lastname'], $value['email_address'], '', EMAIL_FROM, $this->_newsletter_title);
+
+          $Qlog = $osC_Database->query('insert into :table_newsletters_log (newsletters_id, email_address, date_sent) values (:newsletters_id, :email_address, now())');
+          $Qlog->bindTable(':table_newsletters_log', TABLE_NEWSLETTERS_LOG);
+          $Qlog->bindInt(':newsletters_id', $this->_newsletter_id);
+          $Qlog->bindValue(':email_address', $value['email_address']);
+          $Qlog->execute();
+
+          $time_end = explode(' ', microtime());
+          $timer_total = number_format(($time_end[1] + $time_end[0] - ($time_start[1] + $time_start[0])), 3);
+
+          if ($timer_total > $max_execution_time) {
+            echo '<p><font color="#38BB68"><b>' . TEXT_REFRESHING_PAGE . '</b></font></p>' .
+                 '<p><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $this->_newsletter_id . '&action=nmSendConfirm&' . ((isset($global) && ($global == 'true')) ? 'global=true' : $chosen_get_string)) . '">' . TEXT_CONTINUE_MANUALLY . '</a></p>' .
+                 '<META HTTP-EQUIV="refresh" content="2; URL=' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $_GET['page'] . '&nmID=' . $this->_newsletter_id . '&action=nmSendConfirm&' . ((isset($global) && ($global == 'true')) ? 'global=true' : $chosen_get_string)) . '">';
+            exit;
+          }
+        }
+      }
+
+      $Qupdate = $osC_Database->query('update :table_newsletters set date_sent = now(), status = 1 where newsletters_id = :newsletters_id');
+      $Qupdate->bindTable(':table_newsletters', TABLE_NEWSLETTERS);
+      $Qupdate->bindInt(':newsletters_id', $this->_newsletter_id);
+      $Qupdate->execute();
     }
   }
 ?>
