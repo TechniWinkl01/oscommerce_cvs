@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.74 2001/12/09 20:30:21 dgw_ Exp $
+  $Id: product_info.php,v 1.75 2001/12/11 22:16:48 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -117,9 +117,15 @@ function popupImageWindow(url) {
               <tr>
                 <td class="main"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a></td>
               </tr>
+<?php
+    if ($product_info_values['products_image'] != '') { // If there is no product image hide the link
+?>
               <tr>
                 <td align="center" class="smallText"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
               </tr>
+<?php
+    }
+?>
             </table><p><?php echo stripslashes($product_info_values['products_description']); ?></p>
 <?php
     if ($products_attributes == '1') {
