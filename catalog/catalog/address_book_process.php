@@ -15,6 +15,12 @@
 
 */
 
+// send to login when there is no Customer_id
+  if (!@tep_session_is_registered('customer_id')) {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK_PROCESS, 'NONSSL'));
+    tep_exit();
+  }
+
 // are we asked to remove an entry?
   if ((@$HTTP_GET_VARS['action'] == 'remove') && (@$HTTP_GET_VARS['entry_id'])) {
     // delete the entry from the address_book
