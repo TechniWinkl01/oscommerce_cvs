@@ -1,17 +1,16 @@
 <?php
 /*
-  $Id: zones.php,v 1.5 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: zones.php,v 1.6 2002/01/28 00:22:42 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Bundesländer');
-define('HEADING_TITLE', 'Bundesländer');
+define('HEADING_TITLE', 'Bundesl&auml;nder');
 
 define('TABLE_HEADING_COUNTRY_NAME', 'Land');
 define('TABLE_HEADING_ZONE_NAME', 'Bundesland');
@@ -22,7 +21,9 @@ define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nde
 define('TEXT_INFO_ZONES_NAME', 'Name des Bundeslandes:');
 define('TEXT_INFO_ZONES_CODE', 'Code des Bundeslandes:');
 define('TEXT_INFO_COUNTRY_NAME', 'Land:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie das neue Bundesland mit den dazugeh&ouml;rigen Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Wollen Sie dieses Bundesland wirklich l&ouml;schen?');
+define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie das neue Bundesland mit allen relevanten Daten ein');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie dieses Bundesland l&ouml;schen wollen?');
 define('TEXT_INFO_HEADING_NEW_ZONE', 'neues Bundesland');
+define('TEXT_INFO_HEADING_EDIT_ZONE', 'Bundesland bearbeiten');
+define('TEXT_INFO_HEADING_DELETE_ZONE', 'Bundesland l&ouml;schen');
 ?>

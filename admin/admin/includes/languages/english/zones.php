@@ -1,16 +1,15 @@
 <?php
 /*
-  $Id: zones.php,v 1.3 2001/09/19 11:11:53 mbs Exp $
+  $Id: zones.php,v 1.4 2002/01/28 00:23:17 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Zones');
 define('HEADING_TITLE', 'Zones');
 
 define('TABLE_HEADING_COUNTRY_NAME', 'Country');
@@ -25,4 +24,6 @@ define('TEXT_INFO_COUNTRY_NAME', 'Country:');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new zone with its related data');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this zone?');
 define('TEXT_INFO_HEADING_NEW_ZONE', 'New Zone');
+define('TEXT_INFO_HEADING_EDIT_ZONE', 'Edit Zone');
+define('TEXT_INFO_HEADING_DELETE_ZONE', 'Delete Zone');
 ?>
