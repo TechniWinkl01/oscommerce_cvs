@@ -272,8 +272,19 @@
         echo '            </font></td>' . "\n";
       }
     }
+// Get the right image for the top-right
+    $image = DIR_IMAGES . 'table_background_list.gif';
+    if ($HTTP_GET_VARS['manufacturers_id']) {
+      $image = tep_db_query("select manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
+      $image = tep_db_fetch_array($image);
+      $image = $image['manufacturers_image'];
+    } elseif ($current_category_id) {
+      $image = tep_db_query("select categories_image from categories where categories_id = '" . $current_category_id . "'");
+      $image = tep_db_fetch_array($image);
+      $image = $image['categories_image'];
+    }
 ?>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_list.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image($image, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
           </tr>
           </form>
         </table></td>
