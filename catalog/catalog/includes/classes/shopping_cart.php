@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.30 2002/11/01 02:32:43 hpdl Exp $
+  $Id: shopping_cart.php,v 1.31 2003/01/09 15:34:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   class shoppingCart {
-    var $contents, $total, $weight, $cartID;
+    var $contents, $total, $weight, $cartID, $content_type;
 
     function shoppingCart() {
       $this->reset();
@@ -63,6 +63,8 @@
 
       $this->contents = array();
       $this->total = 0;
+      $this->weight = 0;
+      $this->content_type = false;
 
       if ($customer_id && $reset_database) {
         tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "'");
@@ -305,6 +307,62 @@
 
     function generate_cart_id($length = 5) {
       return tep_create_random_value($length, 'digits');
+    }
+
+    function get_content_type() {
+      $this->content_type = false;
+
+      if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) ) {
+        reset($this->contents);
+        while (list($products_id, ) = each($this->contents)) {
+          if (isset($this->contents[$products_id]['attributes'])) {
+            reset($this->contents[$products_id]['attributes']);
+            while (list(, $value) = each($this->contents[$products_id]['attributes'])) {
+              $virtual_check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad where pa.products_id = '" . $products_id . "' and pa.options_values_id = '" . $value . "' and pa.products_attributes_id = pad.products_attributes_id");
+              $virtual_check = tep_db_fetch_array($virtual_check_query);
+
+              if ($virtual_check['total'] > 0) {
+                switch ($this->content_type) {
+                  case 'physical':
+                    $this->content_type = 'mixed';
+
+                    return $this->content_type;
+                    break;
+                  default:
+                    $this->content_type = 'virtual';
+                    break;
+                }
+              } else {
+                switch ($this->content_type) {
+                  case 'virtual':
+                    $this->content_type = 'mixed';
+
+                    return $this->content_type;
+                    break;
+                  default:
+                    $this->content_type = 'physical';
+                    break;
+                }
+              }
+            }
+          } else {
+            switch ($this->content_type) {
+              case 'virtual':
+                $this->content_type = 'mixed';
+
+                return $this->content_type;
+                break;
+              default:
+                $this->content_type = 'physical';
+                break;
+            }
+          }
+        }
+      } else {
+        $this->content_type = 'physical';
+      }
+
+      return $this->content_type;
     }
 
     function unserialize($broken) {
