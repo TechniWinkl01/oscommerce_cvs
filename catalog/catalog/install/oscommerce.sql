@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.84 2003/05/27 17:32:16 hpdl Exp $
+# $Id: oscommerce.sql,v 1.85 2003/07/19 20:40:24 project3000 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -1038,7 +1038,7 @@ INSERT INTO countries VALUES (200,'Suriname','SR','SUR','1');
 INSERT INTO countries VALUES (201,'Svalbard and Jan Mayen Islands','SJ','SJM','1');
 INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ','1');
 INSERT INTO countries VALUES (203,'Sweden','SE','SWE','1');
-INSERT INTO countries VALUES (204,'Switzerland','CH','CHE','1');
+INSERT INTO countries VALUES (204,'Switzerland','CH','CHE','5');
 INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR','1');
 INSERT INTO countries VALUES (206,'Taiwan','TW','TWN','1');
 INSERT INTO countries VALUES (207,'Tajikistan','TJ','TJK','1');
