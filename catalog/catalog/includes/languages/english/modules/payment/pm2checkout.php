@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.2 2002/11/01 05:41:27 hpdl Exp $
+  $Id: pm2checkout.php,v 1.3 2002/11/18 14:45:23 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,6 +21,6 @@
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER', 'Credit Card Checknumber:');
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION', '(located at the back of the credit card)');
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_JS_CC_NUMBER', '* The credit card number must be at least ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
-  define('MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE', 'There has been an error processing you credit card, please try again.');
+  define('MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE', 'There has been an error processing your credit card. Please try again.');
   define('MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR', 'Credit Card Error!');
 ?>
