@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.31 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: configuration.php,v 1.32 2002/01/15 09:58:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,15 +82,15 @@
       $cfgValue = $configuration['configuration_value'];
     }
 
-    if (((!$HTTP_GET_VARS['cfgID']) || (@$HTTP_GET_VARS['cfgID'] == $configuration['configuration_id'])) && (!$cfgInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
+    if (((!$HTTP_GET_VARS['cfgID']) || (@$HTTP_GET_VARS['cfgID'] == $configuration['configuration_id'])) && (!$cInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
       $cfg_extra_query = tep_db_query("select configuration_key, configuration_description, date_added, last_modified, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . $configuration['configuration_id'] . "'");
       $cfg_extra = tep_db_fetch_array($cfg_extra_query);
 
-      $cfgInfo_array = tep_array_merge($configuration, $cfg_extra);
-      $cfgInfo = new objectInfo($cfgInfo_array);
+      $cInfo_array = tep_array_merge($configuration, $cfg_extra);
+      $cInfo = new objectInfo($cInfo_array);
     }
 
-    if ( (is_object($cfgInfo)) && ($configuration['configuration_id'] == $cfgInfo->configuration_id) ) {
+    if ( (is_object($cInfo)) && ($configuration['configuration_id'] == $cInfo->configuration_id) ) {
       echo '                  <tr class="selectedRow">' . "\n";
     } else {
       echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $configuration['configuration_id']) . '\'">' . "\n";
@@ -98,7 +98,7 @@
 ?>
                 <td class="tableData"><?php echo $configuration['configuration_title']; ?></td>
                 <td class="tableData"><?php echo htmlspecialchars($cfgValue); ?></td>
-                <td align="right" class="tableData"><?php if ( (is_object($cfgInfo)) && ($configuration['configuration_id'] == $cfgInfo->configuration_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $configuration['configuration_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right" class="tableData"><?php if ( (is_object($cInfo)) && ($configuration['configuration_id'] == $cInfo->configuration_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $configuration['configuration_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
@@ -113,27 +113,27 @@
   $contents = array();
   switch ($HTTP_GET_VARS['action']) {
     case 'edit':
-      $heading[] = array('text' => '<b>' . $cfgInfo->configuration_title . '</b>');
+      $heading[] = array('text' => '<b>' . $cInfo->configuration_title . '</b>');
 
-      if ($cfgInfo->set_function) {
-        eval('$value_field = ' . $cfgInfo->set_function . "'" . $cfgInfo->configuration_value . "');");
+      if ($cInfo->set_function) {
+        eval('$value_field = ' . $cInfo->set_function . "'" . $cInfo->configuration_value . "');");
       } else {
-        $value_field = tep_draw_input_field('configuration_value', $cfgInfo->configuration_value);
+        $value_field = tep_draw_input_field('configuration_value', $cInfo->configuration_value);
       }
 
-      $contents = array('form' => tep_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cfgInfo->configuration_id . '&action=save'));
+      $contents = array('form' => tep_draw_form('configuration', FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cInfo->configuration_id . '&action=save'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
-      $contents[] = array('text' => '<br><b>' . $cfgInfo->configuration_title . '</b><br>' . $cfgInfo->configuration_description . '<br>' . $value_field);
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cfgInfo->configuration_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('text' => '<br><b>' . $cInfo->configuration_title . '</b><br>' . $cInfo->configuration_description . '<br>' . $value_field);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cInfo->configuration_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
-      if (is_object($cfgInfo)) {
-        $heading[] = array('text' => '<b>' . $cfgInfo->configuration_title . '</b>');
+      if (is_object($cInfo)) {
+        $heading[] = array('text' => '<b>' . $cInfo->configuration_title . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cfgInfo->configuration_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>');
-        $contents[] = array('text' => '<br>' . $cfgInfo->configuration_description);
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added));
-        if (tep_not_null($cfgInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cInfo->configuration_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a>');
+        $contents[] = array('text' => '<br>' . $cInfo->configuration_description);
+        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added));
+        if (tep_not_null($cInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cInfo->last_modified));
       }
       break;
   }
