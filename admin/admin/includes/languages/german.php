@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.114 2004/08/27 22:13:13 hpdl Exp $
+  $Id: german.php,v 1.115 2004/08/29 22:22:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,10 +49,10 @@ define('CHARSET', 'iso-8859-1');
 define('TITLE', 'osCommerce');
 
 // header text in includes/header.php
-define('HEADER_TITLE_TOP', 'Administration');
-define('HEADER_TITLE_SUPPORT_SITE', 'Supportseite');
+define('HEADER_TITLE_HELP', 'Hilfe');
+define('HEADER_TITLE_OSCOMMERCE_SUPPORT_SITE', 'osCommerce Supportseite');
 define('HEADER_TITLE_ONLINE_CATALOG', 'Online Katalog');
-define('HEADER_TITLE_ADMINISTRATION', 'Administration');
+define('HEADER_TITLE_LANGUAGES', 'Sprachen');
 
 define('BOX_CONNECTION_PROTECTED', 'Sie sind gesichert durch eine %s sichere SSL Verbindung.');
 define('BOX_CONNECTION_UNPROTECTED', 'Sie sind <font color="#ff0000">nicht</font> durch eine sichere SSL Verbindung gesichert.');
