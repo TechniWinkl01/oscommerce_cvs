@@ -84,6 +84,11 @@ define('BOX_MAIL_MAIL', 'Send eMail(s)');
 define('BOX_HEADING_BANNERS', 'Banners');
 define('BOX_BANNERS_MANAGER', 'Banner Manager');
 
+// Added a new box called "Payment Gateway" for links to outside resources related to selected gateway.
+// gateway box text in includes/boxes/gateway.php
+define('BOX_HEADING_GATEWAY', 'Payment Gateway');
+define('BOX_GATEWAY_ITRANSACT', 'iTransact.com');
+
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 
