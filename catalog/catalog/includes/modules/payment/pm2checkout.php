@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.4 2002/01/22 21:14:47 dgw_ Exp $
+  $Id: pm2checkout.php,v 1.5 2002/03/07 18:25:38 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -116,7 +116,7 @@
                                tep_draw_hidden_field('x_email', $customer_values['customers_email_address']) .
                                tep_draw_hidden_field('x_phone', $customer_values['customers_telephone']) .
                                tep_draw_hidden_field('x_ship_to_first_name', $delivery_values['entry_firstname']) .
-                               tep_draw_hidden_field('x_ship_to_fast_name', $delivery_values['entry_lastname']) .
+                               tep_draw_hidden_field('x_ship_to_last_name', $delivery_values['entry_lastname']) .
                                tep_draw_hidden_field('x_ship_to_address', $delivery_values['entry_street_address']) .
                                tep_draw_hidden_field('x_ship_to_city', $delivery_values['entry_city']) .
                                tep_draw_hidden_field('x_ship_to_state', tep_get_zone_name($delivery_values['entry_country_id'], $delivery_values['entry_zone_id'], $delivery_values['entry_state'])) .
