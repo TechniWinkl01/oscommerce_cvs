@@ -102,9 +102,15 @@
 
   function tep_image($src, $width, $height, $border, $alt) {
     global $image;
-    
+
     $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
-    
+
+    if (!IMAGE_REQUIRED) {
+        if($src == "" || $src == "images/transparent.gif" || $src == "none") {
+           $image = "<!-- NO IMAGE DEFINED -->";
+        }
+    }
+ 
     return $image;
   }
 
@@ -185,9 +191,9 @@
   }
 
   function tep_array_reverse($array) {
-    if (phpversion() >= '4.0.1') {
+    if (phpversion() >= '4.0.1' && phpversion() <= '4.0.9') {
       $array_reversed = array_reverse($array);
-    } else {
+    } else { // Either < 4 or 4.0.0 or 4.0x (like 4.0B2)
       for($i=0; $i<sizeof($array); $i++) $array_reversed[$i] = $array[(sizeof($array)-$i-1)];
     }
 
@@ -221,23 +227,23 @@
 
       $pos_to = strlen($sql);
       $pos_group_by = strpos($sql, " group by", $pos_from);
-      if ($pos_group_by < $pos_to && !($pos_group_by === false))
+      if ($pos_group_by < $pos_to && !($pos_group_by == false))
         $pos_to = $pos_group_by;
         
       $pos_having = strpos($sql, " having", $pos_from);
-      if ($pos_having < $pos_to && !($pos_having === false))
+      if ($pos_having < $pos_to && !($pos_having == false))
         $pos_to = $pos_having;
         
       $pos_order_by = strpos($sql, " order by", $pos_from);
-      if ($pos_order_by < $pos_to && !($pos_order_by === false))
+      if ($pos_order_by < $pos_to && !($pos_order_by == false))
         $pos_to = $pos_order_by;
         
       $pos_limit = strpos($sql, " limit", $pos_from);
-      if ($pos_limit < $pos_to && !($pos_limit === false))
+      if ($pos_limit < $pos_to && !($pos_limit == false))
         $pos_to = $pos_limit;
         
       $pos_procedure = strpos($sql, " procedure", $pos_from);
-      if ($pos_procedure < $pos_to && !($pos_procedure === false))
+      if ($pos_procedure < $pos_to && !($pos_procedure == false))
         $pos_to = $pos_procedure;
 
       $count_query = tep_db_query("select count(*) as count " . substr($sql, $pos_from, $pos_to - $pos_from));
