@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.46 2002/03/17 17:45:17 harley_vb Exp $
+  $Id: manufacturers.php,v 1.47 2002/04/01 23:41:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@
       if ($uploaded_tmp_file != 'none') {
         if (tep_is_uploaded_file($uploaded_tmp_file)) {
           tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $uploaded_file . "' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $uploaded_file;
+          $image_location = DIR_FS_CATALOG_IMAGES . $uploaded_file;
           if (file_exists($image_location)) @unlink($image_location);
           copy($uploaded_tmp_file, $image_location);
         }
