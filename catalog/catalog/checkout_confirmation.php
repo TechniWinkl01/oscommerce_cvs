@@ -11,7 +11,7 @@
 ?>
 <html>
 <head>
-<title><?=TITLE;?></title>
+<title><? echo TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -22,7 +22,7 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
@@ -36,29 +36,29 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<?=TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?=TOP_BAR_FONT_FACE;?>" size="<?=TOP_BAR_FONT_SIZE;?>" color="<?=TOP_BAR_FONT_COLOR;?>">&nbsp;<?=TOP_BAR_TITLE;?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE;?>" size="<? echo TOP_BAR_FONT_SIZE;?>" color="<? echo TOP_BAR_FONT_COLOR;?>">&nbsp;<? echo TOP_BAR_TITLE;?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'table_background_confirmation.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo HEADING_TITLE;?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_confirmation.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><? echo tep_black_line();?></td>
       </tr></table>
 <? 
    if ($cc_val == '1') {
 ?>
-   <form name="checkout_confirmation" method="post" action="<?=tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');?>">
+   <form name="checkout_confirmation" method="post" action="<? echo tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');?>">
 <?
    } else {
 ?>
-   <form name="checkout_confirmation" method="post" action="<?=tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');?>">
+   <form name="checkout_confirmation" method="post" action="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');?>">
 <?
    }
 ?>  
@@ -66,12 +66,12 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_QUANTITY;?></b>&nbsp;</font></td>
-            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_PRODUCTS;?></b>&nbsp;</font></td>
-            <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_TOTAL;?></b>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TABLE_HEADING_QUANTITY;?></b>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TABLE_HEADING_PRODUCTS;?></b>&nbsp;</font></td>
+            <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TABLE_HEADING_TOTAL;?></b>&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="3"><?=tep_black_line();?></td>
+            <td colspan="3"><? echo tep_black_line();?></td>
           </tr>
 <?
   $check_cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price, products.products_weight, products.products_tax_class_id from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
@@ -154,31 +154,31 @@
 
 ?>
           <tr>
-            <td colspan="3"><?=tep_black_line();?></td>
+            <td colspan="3"><? echo tep_black_line();?></td>
           </tr>
           <tr>
             <td colspan="3" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_SUB_TOTAL;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($cart->show_total());?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<? echo SUB_TITLE_SUB_TOTAL;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<? echo tep_currency_format($cart->show_total());?>&nbsp;</font></td>
               </tr>
               <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_TAX;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_tax);?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<? echo SUB_TITLE_TAX;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<? echo tep_currency_format($total_tax);?>&nbsp;</font></td>
               </tr>
 <?
   if (!SHIPPING_FREE) {
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=$shipping_method . " " . SUB_TITLE_SHIPPING;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($shipping_cost);?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<? echo tep_currency_format($shipping_cost);?>&nbsp;</font></td>
               </tr>
 <?
   }
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=SUB_TITLE_TOTAL;?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=tep_currency_format($cart->show_total() + $total_tax + $shipping_cost);?></b>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_TOTAL;?></b>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo tep_currency_format($cart->show_total() + $total_tax + $shipping_cost);?></b>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>
@@ -187,16 +187,16 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_DELIVERY_ADDRESS;?></b>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TABLE_HEADING_DELIVERY_ADDRESS;?></b>&nbsp;</font></td>
           </tr>
           <tr>
-            <td><?=tep_black_line();?></td>
+            <td><? echo tep_black_line();?></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$address_values['firstname'] . ' ' . $address_values['lastname'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo $address_values['firstname'] . ' ' . $address_values['lastname'];?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$address_values['street_address'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo $address_values['street_address'];?>&nbsp;</font></td>
           </tr>
 <?
   if ($address_values['suburb'] != '') {
@@ -206,7 +206,7 @@
   }
 ?>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$address_values['city'] . ', ' . $address_values['postcode'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo $address_values['city'] . ', ' . $address_values['postcode'];?>&nbsp;</font></td>
           </tr>
           <tr>
 <?
@@ -222,10 +222,10 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_PAYMENT_METHOD;?></b>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TABLE_HEADING_PAYMENT_METHOD;?></b>&nbsp;</font></td>
           </tr>
           <tr>
-            <td><?=tep_black_line();?></td>
+            <td><? echo tep_black_line();?></td>
           </tr>
 <?
   if ($HTTP_POST_VARS['payment'] == 'cod') {
@@ -236,34 +236,34 @@
   if ($cc_val == '1') {
 ?>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_CREDIT_CARD;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_CREDIT_CARD;?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_TYPE;?>&nbsp;<?=$CardName;?>&nbsp;</font></td>
+            <td nowrap><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_TYPE;?>&nbsp;<? echo $CardName;?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_OWNER;?>&nbsp;<?=$HTTP_POST_VARS['cc_owner'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_OWNER;?>&nbsp;<? echo $HTTP_POST_VARS['cc_owner'];?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_NUMBER;?>&nbsp;<?=$CardNumber;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_NUMBER;?>&nbsp;<? echo $CardNumber;?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_EXPIRES;?>&nbsp;<?=$HTTP_POST_VARS['cc_expires'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_EXPIRES;?>&nbsp;<? echo $HTTP_POST_VARS['cc_expires'];?>&nbsp;</font></td>
           </tr>
 <?
   } else {
 ?>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_CREDIT_CARD;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_CREDIT_CARD;?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_OWNER;?>&nbsp;<?=$HTTP_POST_VARS['cc_owner'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_OWNER;?>&nbsp;<? echo $HTTP_POST_VARS['cc_owner'];?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_EXPIRES;?>&nbsp;<?=$HTTP_POST_VARS['cc_expires'];?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo TEXT_EXPIRES;?>&nbsp;<? echo $HTTP_POST_VARS['cc_expires'];?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td wrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<font color="#FF0000"><b><?=TEXT_VAL;?></b></font><br>&nbsp;<?=$cc_val;?>&nbsp;</font></td>
+            <td wrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<font color="#FF0000"><b><? echo TEXT_VAL;?></b></font><br>&nbsp;<? echo $cc_val;?>&nbsp;</font></td>
           </tr>
 <?
   }
@@ -272,62 +272,62 @@
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><? echo tep_black_line();?></td>
       </tr>
 <?
    if ($HTTP_POST_VARS['payment'] == 'cc') {
    if ($cc_val == '1') {
 ?> 
       <tr>
-        <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS);?>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS);?>&nbsp;</font></td>
       </tr>
 	  <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<font color="<?=CHECKOUT_BAR_TEXT_COLOR;?>">[ <?=CHECKOUT_BAR_CART_CONTENTS;?> | <?=CHECKOUT_BAR_DELIVERY_ADDRESS;?> | <?=CHECKOUT_BAR_PAYMENT_METHOD;?> | <font color="<?=CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED;?>"><?=CHECKOUT_BAR_CONFIRMATION;?></font> | <?=CHECKOUT_BAR_FINISHED;?> ]</font>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>">&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR;?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS;?> | <? echo CHECKOUT_BAR_DELIVERY_ADDRESS;?> | <? echo CHECKOUT_BAR_PAYMENT_METHOD;?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED;?>"><? echo CHECKOUT_BAR_CONFIRMATION;?></font> | <? echo CHECKOUT_BAR_FINISHED;?> ]</font>&nbsp;</font></td>
       </tr>
     </table>
-    <input type="hidden" name="sendto" value="<?=$HTTP_POST_VARS['sendto'];?>">
-    <input type="hidden" name="payment" value="<?=$HTTP_POST_VARS['payment'];?>">
-	<input type="hidden" name="shipping" value="<?=$shipping_cost;?>">
-	<input type="hidden" name="shipping_method" value="<?=$shipping_method;?>">
-	<input type="hidden" name="cc_type" value="<?=$CardName;?>">
-    <input type="hidden" name="cc_owner" value="<?=$HTTP_POST_VARS['cc_owner'];?>">
-    <input type="hidden" name="cc_number" value="<?=$CardNumber;?>">
-    <input type="hidden" name="cc_expires" value="<?=$HTTP_POST_VARS['cc_expires'];?>">
+    <input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto'];?>">
+    <input type="hidden" name="payment" value="<? echo $HTTP_POST_VARS['payment'];?>">
+	<input type="hidden" name="shipping" value="<? echo $shipping_cost;?>">
+	<input type="hidden" name="shipping_method" value="<? echo $shipping_method;?>">
+	<input type="hidden" name="cc_type" value="<? echo $CardName;?>">
+    <input type="hidden" name="cc_owner" value="<? echo $HTTP_POST_VARS['cc_owner'];?>">
+    <input type="hidden" name="cc_number" value="<? echo $CardNumber;?>">
+    <input type="hidden" name="cc_expires" value="<? echo $HTTP_POST_VARS['cc_expires'];?>">
 <?
   	} else {
 ?>  
 	  <tr>
-        <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK);?>&nbsp;&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK);?>&nbsp;&nbsp;</font></td>
       </tr>
 	  <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<font color="<?=CHECKOUT_BAR_TEXT_COLOR;?>">[ <?=CHECKOUT_BAR_CART_CONTENTS;?> | <?=CHECKOUT_BAR_DELIVERY_ADDRESS;?> | <?=CHECKOUT_BAR_PAYMENT_METHOD;?> | <font color="<?=CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED;?>"><?=CHECKOUT_BAR_CONFIRMATION;?></font> | <?=CHECKOUT_BAR_FINISHED;?> ]</font>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>">&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR;?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS;?> | <? echo CHECKOUT_BAR_DELIVERY_ADDRESS;?> | <? echo CHECKOUT_BAR_PAYMENT_METHOD;?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED;?>"><? echo CHECKOUT_BAR_CONFIRMATION;?></font> | <? echo CHECKOUT_BAR_FINISHED;?> ]</font>&nbsp;</font></td>
       </tr>
     </table>
 	<input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto']; ?>">
     <input type="hidden" name="prod" value="<? echo $HTTP_POST_VARS['prod']; ?>">
-    <input type="hidden" name="cc_owner" value="<?=$HTTP_POST_VARS['cc_owner'];?>">
-    <input type="hidden" name="cc_expires" value="<?=$HTTP_POST_VARS['cc_expires'];?>">
+    <input type="hidden" name="cc_owner" value="<? echo $HTTP_POST_VARS['cc_owner'];?>">
+    <input type="hidden" name="cc_expires" value="<? echo $HTTP_POST_VARS['cc_expires'];?>">
 <?
   	}
 	} else {
 ?> 
       <tr>
-        <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS);?>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS);?>&nbsp;</font></td>
       </tr>
 	  <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<font color="<?=CHECKOUT_BAR_TEXT_COLOR;?>">[ <?=CHECKOUT_BAR_CART_CONTENTS;?> | <?=CHECKOUT_BAR_DELIVERY_ADDRESS;?> | <?=CHECKOUT_BAR_PAYMENT_METHOD;?> | <font color="<?=CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED;?>"><?=CHECKOUT_BAR_CONFIRMATION;?></font> | <?=CHECKOUT_BAR_FINISHED;?> ]</font>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE;?>" size="<? echo SMALL_TEXT_FONT_SIZE;?>" color="<? echo SMALL_TEXT_FONT_COLOR;?>">&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR;?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS;?> | <? echo CHECKOUT_BAR_DELIVERY_ADDRESS;?> | <? echo CHECKOUT_BAR_PAYMENT_METHOD;?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED;?>"><? echo CHECKOUT_BAR_CONFIRMATION;?></font> | <? echo CHECKOUT_BAR_FINISHED;?> ]</font>&nbsp;</font></td>
       </tr>
     </table>
-    <input type="hidden" name="sendto" value="<?=$HTTP_POST_VARS['sendto'];?>">
-    <input type="hidden" name="payment" value="<?=$HTTP_POST_VARS['payment'];?>">
-	<input type="hidden" name="shipping" value="<?=$shipping_cost;?>">
-	<input type="hidden" name="shipping_method" value="<?=$shipping_method;?>">
+    <input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto'];?>">
+    <input type="hidden" name="payment" value="<? echo $HTTP_POST_VARS['payment'];?>">
+	<input type="hidden" name="shipping" value="<? echo $shipping_cost;?>">
+	<input type="hidden" name="shipping_method" value="<? echo $shipping_method;?>">
 <?
   	}
 ?>
     </form></td>
 <!-- body_text_eof //-->
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

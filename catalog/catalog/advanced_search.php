@@ -3,7 +3,7 @@
 <? $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
-<title><?=TITLE;?></title>
+<title><?echo TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
 <script language="javascript"><!--
@@ -107,7 +107,7 @@ function check_form() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<?echo BOX_WIDTH;?>" valign="top"><table border="0" width="<?echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
@@ -117,31 +117,31 @@ function check_form() {
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="advanced_search" method="get" action="<?=tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL');?>" onSubmit="return check_form(this);"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="advanced_search" method="get" action="<?echo tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL');?>" onSubmit="return check_form(this);"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<?=TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?=TOP_BAR_FONT_FACE;?>" size="<?=TOP_BAR_FONT_SIZE;?>" color="<?=TOP_BAR_FONT_COLOR;?>">&nbsp;<?=TOP_BAR_TITLE;?>&nbsp;</font></td>
+            <td bgcolor="<?echo TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?echo TOP_BAR_FONT_FACE;?>" size="<?echo TOP_BAR_FONT_SIZE;?>" color="<?echo TOP_BAR_FONT_COLOR;?>">&nbsp;<?echo TOP_BAR_TITLE;?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'table_background_browse.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
+            <td nowrap><font face="<?echo HEADING_FONT_FACE;?>" size="<?echo HEADING_FONT_SIZE;?>" color="<?echo HEADING_FONT_COLOR;?>">&nbsp;<?echo HEADING_TITLE;?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<?echo tep_image(DIR_IMAGES . 'table_background_browse.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><?echo tep_black_line();?></td>
       </tr>
 
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_CATEGORIES;?>&nbsp;</font></td>
-            <td align="left" colspan="3" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_CATEGORIES;?>&nbsp;</font></td>
+            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>">
 <?
 $selected[0] = 0;
 tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
@@ -149,8 +149,8 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
             &nbsp;&nbsp;(&nbsp;<input type="checkbox"  name="inc_subcat" value="1">&nbsp;<?echo ENTRY_INCLUDES_SUBCATEGORIES;?>&nbsp;)&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_MANUFACTURER;?>&nbsp;</font></td>
-            <td align="left" colspan="3" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_MANUFACTURER;?>&nbsp;</font></td>
+            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>">
               <select name="manufacturers_id">
                 <option value="" selected><? echo TEXT_ALL_MANUFACTURERS; ?>
 <?  
@@ -163,27 +163,27 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
             </td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_KEYWORDS;?>&nbsp;</font></td>
-            <td align="left" colspan="3" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>"><input type="text" name="keywords" size="40" maxlength="40">&nbsp;<?=ENTRY_KEYWORDS_TEXT;?>&nbsp;</font></td>
+            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_KEYWORDS;?>&nbsp;</font></td>
+            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>"><input type="text" name="keywords" size="40" maxlength="40">&nbsp;<?echo ENTRY_KEYWORDS_TEXT;?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_DATE_ADDED_FROM;?>&nbsp;</font></td>
-            <td align="left" width="10%" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>"><input type="text" name="dfrom" value="<?=DOB_FORMAT_STRING;?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING;?>');">&nbsp;</font></td>
-            <td align="left" width="5%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_TO;?>&nbsp;</font></td>
-            <td align="left" width="65%" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>"><input type="text" name="dto" value="<?=DOB_FORMAT_STRING;?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING;?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT;?></font></td>
+            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_DATE_ADDED_FROM;?>&nbsp;</font></td>
+            <td align="left" width="10%" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>"><input type="text" name="dfrom" value="<?echo DOB_FORMAT_STRING;?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING;?>');">&nbsp;</font></td>
+            <td align="left" width="5%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_TO;?>&nbsp;</font></td>
+            <td align="left" width="65%" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>"><input type="text" name="dto" value="<?echo DOB_FORMAT_STRING;?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING;?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT;?></font></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_PRICE_FROM;?>&nbsp;</font></td>
-            <td align="left" width="10%" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>"><input type="text" name="pfrom" size="9" maxlength="9">&nbsp;</font></td>
-            <td align="left" width="5%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_TO;?>&nbsp;</font></td>
-            <td align="left" width="65%" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>"><input type="text" name="pto" size="9" maxlength="9">&nbsp;</font></td>
+            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_PRICE_FROM;?>&nbsp;</font></td>
+            <td align="left" width="10%" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>"><input type="text" name="pfrom" size="9" maxlength="9">&nbsp;</font></td>
+            <td align="left" width="5%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_TO;?>&nbsp;</font></td>
+            <td align="left" width="65%" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>"><input type="text" name="pto" size="9" maxlength="9">&nbsp;</font></td>
           </tr>
           <tr>
             <td colspan="4"><br></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_SORT_BY;?>&nbsp;</font></td>
-            <td align="left" colspan="3" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE;?>" size="<?echo ENTRY_FONT_SIZE;?>" color="<?echo ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_SORT_BY;?>&nbsp;</font></td>
+            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE;?>" size="<?echo VALUE_FONT_SIZE;?>" color="<?echo VALUE_FONT_SIZE;?>">
               <select name="sortby">
                 <option value="1"><?echo TEXT_CATEGORY_NAME;?>
                 <option value="2"><?echo TEXT_MANUFACTURER_NAME;?>
@@ -195,14 +195,14 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
         </table></td>
       </tr>
       <tr>
-        <td><br><?=tep_black_line();?></td>
+        <td><br><?echo tep_black_line();?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', TEXT_PERFORM_ADVANCED_SEARCH);?>&nbsp;&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<?echo TEXT_FONT_FACE;?>" size="<?echo TEXT_FONT_SIZE;?>" color="<?echo TEXT_FONT_COLOR;?>"><?echo tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', TEXT_PERFORM_ADVANCED_SEARCH);?>&nbsp;&nbsp;</font></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<?echo BOX_WIDTH;?>" valign="top"><table border="0" width="<?echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
