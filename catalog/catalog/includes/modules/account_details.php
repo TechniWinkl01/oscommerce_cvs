@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.21 2002/09/26 13:36:32 project3000 Exp $
+  $Id: account_details.php,v 1.22 2002/10/27 17:06:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -409,14 +409,12 @@
       echo tep_draw_password_field('confirmation') . '&nbsp;' . ENTRY_PASSWORD_CONFIRMATION_TEXT;
 ?></td>
           </tr>
-<?php
-    }
-?>
         </table></td>
       </tr>
     </table></td>
   </tr>
 <?php
+    }
   }
 ?>
 </table>
