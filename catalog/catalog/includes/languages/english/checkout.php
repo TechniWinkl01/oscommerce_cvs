@@ -15,10 +15,11 @@ define('TABLE_HEADING_TOTAL', 'Total');
 define('TEXT_CART_EMPTY', 'Your Shopping Cart is empty!');
 define('SUB_TITLE_FINAL', 'Final Price:');
 define('SUB_TITLE_SUB_TOTAL', 'Sub-Total:');
-define('SUB_TITLE_TAX', 'Tax ('. TAX_VALUE . '%):');
+define('SUB_TITLE_TAX', 'Tax:');
 define('SUB_TITLE_TOTAL', 'Total:');
 define('TEXT_CURRENT_CONNECT_STATUS_NONSSL', 'Current Status (click to change)');
 define('TEXT_CURRENT_CONNECT_STATUS_SSL', 'Current Status (click to change)');
+define('NO_SHIPPING_OR_TAX_TEXT', 'Note: Shipping and Tax may be additional charges and will be displayed before order is processed.');
 
 define('IMAGE_SECURE_SERVER', 'Secure Server');
 define('IMAGE_UNSECURE_SERVER', 'Unsecure Server');

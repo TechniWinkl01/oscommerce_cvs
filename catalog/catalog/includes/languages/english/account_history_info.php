@@ -12,6 +12,7 @@ define('TOP_BAR_TITLE', 'Order History');
 define('HEADING_TITLE', 'Order Information');
 define('TABLE_HEADING_QUANTITY', 'Qty.');
 define('TABLE_HEADING_PRODUCT', 'Product');
+define('TABLE_HEADING_TAX', 'Tax');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');

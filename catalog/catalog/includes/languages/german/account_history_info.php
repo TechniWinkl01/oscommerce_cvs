@@ -12,6 +12,7 @@ define('TOP_BAR_TITLE', 'Vorherige Bestellung');
 define('HEADING_TITLE', 'Bestellinformation');
 define('TABLE_HEADING_QUANTITY', 'Menge');
 define('TABLE_HEADING_PRODUCT', 'Produkte');
+define('TABLE_HEADING_TAX', 'Mwst.');
 define('TABLE_HEADING_TOTAL', 'Summe');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferadresse');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Zahlungs Methode');

@@ -16,7 +16,7 @@ define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
 define('SUB_TITLE_FINAL', 'Final Price:');
 define('SUB_TITLE_SUB_TOTAL', 'Sub-Total:');
-define('SUB_TITLE_TAX', 'Tax (' . TAX_VALUE . '%):');
+define('SUB_TITLE_TAX', 'Tax:');
 define('SUB_TITLE_SHIPPING', 'Shipping:');
 define('SUB_TITLE_TOTAL', 'Total:');
 define('TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');

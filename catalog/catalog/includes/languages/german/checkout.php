@@ -18,6 +18,7 @@ define('SUB_TITLE_TAX', 'Mwst. ('. TAX_VALUE . '%):');
 define('SUB_TITLE_TOTAL', 'Summe:');
 define('TEXT_CURRENT_CONNECT_STATUS_NONSSL', 'Aktueller Status (klick zu &auml;ndern)');
 define('TEXT_CURRENT_CONNECT_STATUS_SSL', 'Aktueller Status (klick zu &auml;ndern)');
+define('NO_SHIPPING_OR_TAX_TEXT', 'Anmerkung: Verschiffen und Steuer können zusätzliche Ladungen sein und werden angezeigt werden, bevor Ordnung verarbeitet wird.');
 
 define('IMAGE_SECURE_SERVER', 'Sicherheits-Server');
 define('IMAGE_UNSECURE_SERVER', 'Standard-Server');

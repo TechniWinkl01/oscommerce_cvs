@@ -10,7 +10,7 @@ define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
 define('EMAIL_TEXT_PRODUCTS', 'Products');
 define('EMAIL_TEXT_SUBTOTAL', 'Sub-Total:');
-define('EMAIL_TEXT_TAX', 'Tax');
+define('EMAIL_TEXT_TAX', 'Tax:      ');
 define('EMAIL_TEXT_SHIPPING', 'Shipping: ');
 define('EMAIL_TEXT_TOTAL', 'Total:    ');
 define('EMAIL_TEXT_DELIVERY_ADDRESS', 'Delivery Address');
@@ -18,7 +18,7 @@ define('EMAIL_TEXT_PAYMENT_METHOD', 'Payment Method');
 define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
 define('EMAIL_TEXT_CREDIT_CARD', 'Credit Card');
 
-$email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n" . EMAIL_TEXT_PRODUCTS . "\n" . '------------------------------------------------------' . "\n" . $products_ordered . '------------------------------------------------------' . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($subtotal) . "\n" . EMAIL_TEXT_TAX . ' (' . TAX_VALUE . '%):  ' . tep_currency_format($tax) . "\n";
+$email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n" . EMAIL_TEXT_PRODUCTS . "\n" . '------------------------------------------------------' . "\n" . $products_ordered . '------------------------------------------------------' . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($subtotal) . "\n" . EMAIL_TEXT_TAX . tep_currency_format($tax) . "\n";
 if (!SHIPPING_FREE) {
   $email_order.=EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($shipping_cost) . "     via " . $shipping_method . "\n";
 }
