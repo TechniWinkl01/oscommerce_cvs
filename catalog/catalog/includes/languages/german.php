@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.95 2002/04/17 20:52:29 harley_vb Exp $
+  $Id: german.php,v 1.96 2002/04/19 10:30:43 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -266,6 +266,7 @@ define('IMAGE_BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
+define('ICON_ARROW_RIGHT', 'weitere');
 define('ICON_CART', 'In den Warenkorb');
 define('ICON_WARNING', 'Warnung');
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.82 2002/03/16 01:26:40 harley_vb Exp $
+  $Id: espanol.php,v 1.83 2002/04/19 10:30:43 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -266,8 +266,9 @@ define('IMAGE_BUTTON_UPDATE', 'Actualizar');
 define('IMAGE_BUTTON_UPDATE_CART', 'Actualizar Cesta');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Escribir Comentario');
 
-define('ICON_CART', 'In Cart');
-define('ICON_WARNING', 'Warning');
+define('ICON_ARROW_RIGHT', 'más');
+define('ICON_CART', 'En Cesta');
+define('ICON_WARNING', 'Advertencia');
 
 define('TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo <span class="greetUser">%s!</span> &iquest;Le gustaria ver que <a href="%s"><u>nuevos productos</u></a> hay disponibles?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Si no es %s, por favor <a href="%s"><u>entre aqui</u></a> e introduzca sus datos.</small>');

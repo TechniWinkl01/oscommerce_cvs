@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.89 2002/03/16 01:25:16 harley_vb Exp $
+  $Id: english.php,v 1.90 2002/04/19 10:30:43 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -266,6 +266,7 @@ define('IMAGE_BUTTON_UPDATE', 'Update');
 define('IMAGE_BUTTON_UPDATE_CART', 'Update Cart');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Review');
 
+define('ICON_ARROW_RIGHT', 'more');
 define('ICON_CART', 'In Cart');
 define('ICON_WARNING', 'Warning');
 
