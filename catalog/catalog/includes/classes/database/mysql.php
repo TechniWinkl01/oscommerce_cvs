@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mysql.php,v 1.3 2004/04/13 08:09:35 hpdl Exp $
+  $Id: mysql.php,v 1.4 2004/07/22 16:22:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,8 @@
 
   class osC_Database_mysql extends osC_Database {
     var $sql_parse_string = 'addslashes',
-        $sql_parse_string_with_connection_handler = false;
+        $sql_parse_string_with_connection_handler = false,
+        $use_transactions = false;
 
     function osC_Database_mysql($server, $username, $password) {
       $this->server = $server;
@@ -189,6 +190,45 @@
 
     function affectedRows() {
       return mysql_affected_rows($this->link);
+    }
+
+    function startTransaction() {
+      if ($this->use_transactions === true) {
+        return $this->simpleQuery('start transaction');
+      }
+
+      return false;
+    }
+
+    function commitTransaction() {
+      if ($this->use_transactions === true) {
+        return $this->simpleQuery('commit');
+      }
+
+      return false;
+    }
+
+    function rollbackTransaction() {
+      if ($this->use_transactions === true) {
+        return $this->simpleQuery('rollback');
+      }
+
+      return false;
+    }
+
+    function setBatchLimit($sql_query, $from, $maximum_rows) {
+      return $sql_query . ' limit ' . $from . ', ' . $maximum_rows;
+    }
+
+    function batchSize($sql_query) {
+      if (strpos($sql_query, 'SQL_CALC_FOUND_ROWS') !== false) {
+        $bb = $this->query('select found_rows() as total');
+      } else {
+        $total_query = substr($sql_query, 0, strpos($sql_query, ' limit'));
+        $bb = $this->query('select count(*) as total ' . substr($total_query, strpos($sql_query, 'from ')));
+      }
+
+      return $bb->value('total');
     }
   }
 ?>
