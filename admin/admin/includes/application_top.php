@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.85 2001/11/12 21:32:31 hpdl Exp $
+  $Id: application_top.php,v 1.86 2001/11/17 03:36:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,14 +41,10 @@
   define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
-  define('STORE_PAGE_PARSE_TIME', 0); // store the time it takes to parse the page
-  define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'exchange/parse_time_log');
 
-  define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
-  if (STORE_PAGE_PARSE_TIME == '1') {
+  if (STORE_PAGE_PARSE_TIME == 'true') {
     $parse_start_time = microtime();
   }
-  define('STORE_DB_TRANSACTIONS', 0);
 
 // define the filenames used in the project
   define('FILENAME_BACKUP', 'backup.php');
