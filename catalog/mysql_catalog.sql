@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.127 2001/08/21 17:51:39 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.128 2001/09/07 12:01:28 dwatkins Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -866,7 +866,7 @@ INSERT INTO customers_info VALUES('1', '', '0', now(), '');
 
 INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
-INSERT INTO languages VALUES (3,'Espãnol','es','flag_es.gif','espanol',3);
+INSERT INTO languages VALUES (3,'Español','es','flag_es.gif','espanol',3);
 
 INSERT INTO manufacturers VALUES (1,'Matrox','images/manufacturer_matrox.gif');
 INSERT INTO manufacturers VALUES (2,'Microsoft','images/manufacturer_microsoft.gif');
