@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.33 2001/09/21 14:23:53 dwatkins Exp $
+  $Id: advanced_search_result.php,v 1.34 2001/10/10 18:36:47 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -142,42 +142,51 @@
         <td>
 <?php
   // create column list
-  $configuration_query = tep_db_query("select c.configuration_key from " . TABLE_CONFIGURATION_GROUP . " cg, " . TABLE_CONFIGURATION . " c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION') order by c.configuration_value");
+  $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
+                       'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
+                       'PRODUCT_LIST_MANUFACTURER' => PRODUCT_LIST_MANUFACTURER, 
+                       'PRODUCT_LIST_PRICE' => PRODUCT_LIST_PRICE, 
+                       'PRODUCT_LIST_QUANTITY' => PRODUCT_LIST_QUANTITY, 
+                       'PRODUCT_LIST_WEIGHT' => PRODUCT_LIST_WEIGHT, 
+                       'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE, 
+                       'PRODUCT_LIST_BUY_NOW' => PRODUCT_LIST_BUY_NOW);
+  asort($define_list);
 
-  while ($configuration = tep_db_fetch_array($configuration_query)) {
-    $column_list[] = $configuration['configuration_key'];
+  $column_list = array();
+  reset($define_list);
+  while (list($column, $value) = each($define_list)) {
+    if ($value) $column_list[] = $column;
   }
 
   $select_column_list = '';
 
   for ($col=0; $col<sizeof($column_list); $col++) {
-    if ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW' ||
-        $column_list[$col] == 'PRODUCT_LIST_NAME' ||
-        $column_list[$col] == 'PRODUCT_LIST_PRICE')
+    if ( ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW') || ($column_list[$col] == 'PRODUCT_LIST_NAME') || ($column_list[$col] == 'PRODUCT_LIST_PRICE') ) {
       continue;
+    }
 
-    if ($select_column_list != '')
+    if ($select_column_list != '') {
       $select_column_list .= ', ';
+    }
+
     switch ($column_list[$col]) {
-      case 'PRODUCT_LIST_MODEL':
-        $select_column_list .= 'p.products_model';
-        break;
-      case 'PRODUCT_LIST_MANUFACTURER':
-        $select_column_list .= 'm.manufacturers_name';
-        break;
-      case 'PRODUCT_LIST_QUANTITY':
-        $select_column_list .= 'p.products_quantity';
-        break;
-      case 'PRODUCT_LIST_IMAGE':
-        $select_column_list .= 'p.products_image';
-        break;
+      case 'PRODUCT_LIST_MODEL':        $select_column_list .= 'p.products_model';
+                                        break;
+      case 'PRODUCT_LIST_MANUFACTURER': $select_column_list .= 'm.manufacturers_name';
+                                        break;
+      case 'PRODUCT_LIST_QUANTITY':     $select_column_list .= 'p.products_quantity';
+                                        break;
+      case 'PRODUCT_LIST_IMAGE':        $select_column_list .= 'p.products_image';
+                                        break;
       case 'PRODUCT_LIST_WEIGHT':
         $select_column_list .= 'p.products_weight';
         break;
     }
   }
-  if ($select_column_list != '')
+
+  if ($select_column_list != '') {
     $select_column_list .= ', ';
+  }
 
   $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
   $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m using(manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id";
@@ -242,13 +251,11 @@
     $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) <= " . $pto . ")";
   }
 
-  $order_str = " order by ";
-  
   if (!$HTTP_GET_VARS['sort'] || !ereg("[1-8][ad]", $HTTP_GET_VARS['sort'])) {
     for ($col=0; $col<sizeof($column_list); $col++) {
       if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
         $HTTP_GET_VARS['sort'] = $col+1 . 'a';
-        $order_str .= "pd.products_name";
+        $order_str .= " order by pd.products_name";
       }
     }
   } else {
@@ -256,6 +263,7 @@
     $sort_order = substr($HTTP_GET_VARS['sort'], 1);
 
     if ($sort_col <= sizeof($column_list)) {
+      $order_str = ' order by ';
       switch ($column_list[$sort_col-1]) {
         case 'PRODUCT_LIST_MODEL':
           $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
@@ -283,7 +291,7 @@
       for ($col=0; $col<sizeof($column_list); $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col . 'a';
-          $order_str .= "pd.products_name";
+          $order_str .= " order by pd.products_name";
         }
       }
     }
