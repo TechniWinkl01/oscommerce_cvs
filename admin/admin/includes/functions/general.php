@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.66 2001/11/15 01:57:19 hpdl Exp $
+  $Id: general.php,v 1.67 2001/11/17 05:53:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -947,18 +947,12 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
 ////
 // Alias function for Store configuration values in the Administration Tool
-  function tep_cfg_true_false_option($key_name, $key_value) {
-//    if (function_exists('constant')) {
-//      $key_value = constant($key_name);
-//    } else {
-//      $key_value =  eval('return ' . $key_name . ';');
-//    }
-
-    $string = '<input type="radio" name="configuration_value" value="true"';
-    if ($key_value == 'true') $string .= ' CHECKED';
-    $string .= '> True<br><input type="radio" name="configuration_value" value="false"';
-    if ($key_value != 'true') $string .= ' CHECKED';
-    $string .= '> False';
+  function tep_cfg_select_option($select_array, $key_value) {
+    for ($i=0; $i<sizeof($select_array); $i++) {
+      $string .= '<br><input type="radio" name="configuration_value" value="' . $select_array[$i] . '"';
+      if ($key_value == $select_array[$i]) $string .= ' CHECKED';
+      $string .= '> ' . $select_array[$i];
+    }
 
     return $string;
   }

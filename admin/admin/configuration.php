@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.16 2001/11/15 01:57:19 hpdl Exp $
+  $Id: configuration.php,v 1.17 2001/11/17 05:53:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -140,7 +140,7 @@
     $form = '<form name="configuration" action="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="configuration_id" value="' . $cfgInfo->id . '">' . "\n";
 
     if (tep_not_null($cfgInfo->set_function)) {
-      $value_field = eval('return ' . $cfgInfo->set_function . '(' . $cfgInfo->key . ', ' . $cfgInfo->value . ');');
+      $value_field = eval('return ' . $cfgInfo->set_function . '\'' . $cfgInfo->value . '\');');
     } else {
       $value_field = '<input type="text" name="configuration_value" value="' . $cfgInfo->value . '">';
     }
