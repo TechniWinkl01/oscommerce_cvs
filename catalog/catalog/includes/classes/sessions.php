@@ -70,7 +70,7 @@ class session
 {
     // Public variables
     var $name = "PHPSESSID";    
-    var $auto_start = false;
+    var $auto_start = true;
     var $referer_check = false;  
 
     var $save_path = "/tmp";
@@ -223,7 +223,7 @@ class files
         
         $file = $session->save_path."/sess$sess_id";
         unlink($file);
-        
+
         return(true);    
     }
       
@@ -279,7 +279,7 @@ function _php_encode()
     
     $ret = "";
     // Create a string containing the serialized variables
-    for ($i=0; $i<count($session->vars); $i++)
+    for (reset($session->vars);list($i)=each($session->vars);)
     {
         $ret .= $session->vars[$i].$session->delimiter_value.serialize($GLOBALS[$session->vars[$i]]).$session->delimiter;
     }
@@ -295,7 +295,7 @@ function _php_decode($data)
     $vars = explode($session->delimiter, $data);
 
     // Add the variables to the global namespace
-    for ($i=0; $i<count($vars); $i++)
+    for (reset($vars);list($i)=each($vars);)
     {
         $tmp = explode($session->delimiter_value, $vars[$i]);
         $name = trim($tmp[0]);
@@ -389,7 +389,7 @@ function session_unregister($var)
 {
     global $session;
     
-    for ($i=0; $i<count($session->vars); $i++)
+    for (reset($session->vars);list($i)=each($session->vars);)
     {
         if ($session->vars[$i] == trim($var))
            {
@@ -403,7 +403,7 @@ function session_is_registered($var)
 {
     global $session;
     
-    for ($i=0; $i<count($session->vars); $i++)
+    for (reset($session->vars);list($i)=each($session->vars);)
     {
         if ($session->vars[$i] == trim($var))
            {
@@ -591,7 +591,7 @@ function session_destroy()
     }
     // Destroy session
     $mod = $GLOBALS[$session->mod_name];
-    if (!$mod->destroy($session->name))
+    if (!$mod->destroy($session->id))
     {
         return(false);
     }    
@@ -697,5 +697,5 @@ echo "foo: $foo";
  *
  */
  
-/* $Id: sessions.php,v 1.1 2000/11/26 13:17:41 dwatkins Exp $ */ 
+/* $Id: sessions.php,v 1.2 2000/12/01 22:00:19 dwatkins Exp $ */ 
 ?>
