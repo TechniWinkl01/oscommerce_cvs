@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.58 2001/07/20 07:00:36 jwildeboer Exp $
+  $Id: german.php,v 1.59 2001/07/25 06:38:27 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -59,7 +59,7 @@ define('MALE_ADDRESS', 'Herr');
 define('FEMALE_ADDRESS', 'Frau');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'tt/mm/jjjj');
+define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
 
 // categories box text in includes/boxes/categories.php
 define('BOX_HEADING_CATEGORIES', 'Kategorien');
@@ -272,7 +272,7 @@ define('TEXT_REVIEW_RATING', 'Bewertung: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Datum hinzugefügt: %s');
 define('TEXT_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 
-define('TEXT_UNKNOWN_TAX_RATE', 'Unknown tax rate');
+define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 ?>
