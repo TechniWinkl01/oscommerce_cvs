@@ -47,6 +47,10 @@ define('DOB_FORMAT_STRING', 'tt/mm/jjjj');
 // categories box text in includes/boxes/categories.php
 define('BOX_HEADING_CATEGORIES', 'Kategorien');
 
+// manufacturers box text in includes/boxes/manufacturers.php
+define('BOX_HEADING_MANUFACTURERS', 'Hersteller');
+define('BOX_MANUFACTURERS_SELECT_ONE', 'Wählen Sie ein aus:');
+
 // whats_new box text in includes/boxes/whats_new.php
 define('BOX_HEADING_WHATS_NEW', 'Neuigkeiten');
 

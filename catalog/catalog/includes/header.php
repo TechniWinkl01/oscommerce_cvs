@@ -23,6 +23,10 @@
       $categories = tep_db_fetch_array($categories_query);
       echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="whitelink">' . $categories['categories_name'] . '</a>';
     }
+  } elseif ($HTTP_GET_VARS['manufacturers_id']) {
+    $manufacturers_query = tep_db_query("select manufacturers_name from manufacturers where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
+    $manufacturers = tep_db_fetch_array($manufacturers_query);
+    echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'], 'NONSSL') . '" class="whitelink">' . $manufacturers['manufacturers_name'] . '</a>';
   }
   if ($HTTP_GET_VARS['products_id']) {
     $model = tep_db_query("select products_model from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");

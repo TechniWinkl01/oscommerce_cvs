@@ -1,11 +1,11 @@
 <?
 // define our webserver variables
-  define('HTTP_SERVER', 'http://exchange');
-  define('HTTPS_SERVER', 'https://exchange');
+  define('HTTP_SERVER', 'http://192.168.1.51');
+  define('HTTPS_SERVER', 'https://192.168.1.51');
   define('ENABLE_SSL', 1); // ssl server enable(1)/disable(0)
-  define('DIR_SERVER_ROOT', '/usr/local/apache/');
-  define('DIR_CATALOG', '/catalog/');
-  define('DIR_IMAGES', '/catalog/images/');
+  define('DIR_SERVER_ROOT', '/usr/local/apache/htdocs/');
+  define('DIR_CATALOG', '/catalog_cvs/');
+  define('DIR_IMAGES', '/catalog_cvs/images/');
   define('DIR_INCLUDES', 'includes/');
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
@@ -19,7 +19,7 @@
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
   define('EXIT_AFTER_REDIRECT', 0); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-  define('STORE_PAGE_PARSE_TIME', 1);
+  define('STORE_PAGE_PARSE_TIME', 0);
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_SERVER_ROOT . 'logs/exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
@@ -70,10 +70,10 @@
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
 
 // define our database connection
-  define('DB_SERVER', 'exchange');
-  define('DB_SERVER_USERNAME', 'mysql');
-  define('DB_SERVER_PASSWORD', '');
-  define('DB_DATABASE', 'catalog');
+  define('DB_SERVER', 'localhost');
+  define('DB_SERVER_USERNAME', 'root');
+  define('DB_SERVER_PASSWORD', 'star.wars');
+  define('DB_DATABASE', 'catalog_cvs2');
 
 // include the database functions
   $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
@@ -97,6 +97,8 @@
   define('MAX_DISPLAY_SPECIAL_PRODUCTS', 9);
   define('MAX_DISPLAY_NEW_PRODUCTS', 9); // used when user has chosen a category, how many new products are shown
   define('MAX_DISPLAY_UPCOMING_PRODUCTS', 10); // how many upcoming products should be displayed on the main page
+  define('MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', 0);  // used in manufacturers box; when the no. of manufacturers exceeds this number, a drop-down would be displayed instead of the default list.
+  define('MAX_DISPLAY_MANUFACTURER_NAME_LEN', 15);    // used in manufacturers box; max len of manufacturer name to display
   define('MAX_DISPLAY_NEW_REVIEWS', 6);
   define('MAX_RANDOM_SELECT_REVIEWS', 10); // how many records to select from to choose one random product review (default: 10)
   define('MAX_RANDOM_SELECT_NEW', 10); // how many records to select from to choose one random new product to display (default: 10)
@@ -214,8 +216,9 @@
   define('UPS_PACKAGE', "CP");
   define('UPS_RES', "RES");
 
-// Prodict listing control
+// Product listing control
   define('PRODUCT_LIST_MODEL', 0); // Make true to display Model # before Product name
+  define('PRODUCT_LIST_FILTER', 1); // Display Categories/Manufacturers Filter: 0=disable; 1=enable
 
 // Bestsellers Min/Max Controls 
   define('MIN_DISPLAY_BESTSELLERS', 1);    // Min no. of bestsellers to display
@@ -227,6 +230,13 @@
 
 // Prev/Next Navigation Bar location
   define('PREV_NEXT_BAR_LOCATION', 2) ;    // 1 - top, 2 - bottom, 3 - both
+
+// Manufacturers box
+  define('DISPLAY_MANUFACTURERS_BOX', 1); // Manufacturers Box: 0=disable; 1=enable
+  define('DISPLAY_EMPTY_MANUFACTURERS', 1); // Display Manufacturers with no products: 0=disable; 1=enable
+
+// Rollover Effect
+  define('USE_ROLLOVER_EFFECT', 1); // Rollover Effect: 0=disable; 1=enable
 
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {

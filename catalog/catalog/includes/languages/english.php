@@ -54,6 +54,10 @@ define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
 // categories box text in includes/boxes/categories.php
 define('BOX_HEADING_CATEGORIES', 'Categories');
 
+// manufacturers box text in includes/boxes/manufacturers.php
+define('BOX_HEADING_MANUFACTURERS', 'Manufacturers');
+define('BOX_MANUFACTURERS_SELECT_ONE', 'Select one:');
+
 // whats_new box text in includes/boxes/whats_new.php
 define('BOX_HEADING_WHATS_NEW', 'Whats New?');
 
