@@ -34,7 +34,9 @@ TD.footer {
   font-weight : bold;
 }
 
-TABLE.infoBoxHeading {
+TD.menuBoxHeading {
+	font-family : Tahoma, Verdana, Arial, sans-serif;
+	font-size : 12px;
 	background-color : #aabbdd;
 	border-color : #000000;
 	border-style : solid;
@@ -54,6 +56,14 @@ A.infoBoxHeading:hover {
 TD.infoBox, SPAN.infoBox {
 	font-family : Verdana, Arial, sans-serif;
 	font-size : 10px;
+}
+
+TR.selectedRow, TABLE.Box {
+  background-color: #b0c8df;
+}
+
+TR.BoxHeading {
+  background-color: #81a2b6;
 }
 
 TABLE.topBarTitle {
@@ -110,4 +120,17 @@ TD.main, P.main {
 CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA {
   font-family : Verdana, Arial, sans-serif;
   font-size : 11px;
+}
+
+TD.formArea {
+  background-color : #f1f9fe;
+  border-color : #7b9ebd;
+  border-style : solid;
+  border-width : 1px;
+}
+
+TD.formAreaTitle {
+  font-family : Tahoma, Verdana, Arial, sans-serif;
+  font-size : 12px;
+  font-weight : bold;
 }
