@@ -1,5 +1,15 @@
 <? include('includes/application_top.php'); ?>
 <?
+  if ($HTTP_GET_VARS['action']) {
+    switch ($HTTP_GET_VARS['action']) {
+      case 'save' : while (list($key, $value) = each($HTTP_POST_VARS['configuration'])) {
+                      tep_db_query("update configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
+                    }
+                    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, 'info=' . $HTTP_GET_VARS['info'], 'NONSSL')); tep_exit();
+                    break;
+    }
+  }
+
   if ($HTTP_GET_VARS['install']) {
     include(DIR_FS_PAYMENT_MODULES . $install);
     $class = substr($install, 0, -4);
@@ -69,9 +79,19 @@
               </tr>
 <?
   $installed_modules = '';
-  $dir = dir(DIR_FS_PAYMENT_MODULES);
+  $dir = opendir(DIR_FS_PAYMENT_MODULES);
+
   if ($dir) {
-    while($entry = $dir->read()) {
+    while ($file = readdir($dir)) {
+      if (!is_dir($file)) {
+        $directory_array[] = $file;
+      }
+    }
+    sort($directory_array); 
+
+    for ($files=0; $files<sizeof($directory_array); $files++) {
+      $entry = $directory_array[$files];
+
       if (eregi('.php[34]*$', $entry)) {
         $check = 0;
         include(DIR_FS_PAYMENT_MODULES . $entry);
@@ -82,8 +102,18 @@
           $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
         }
         if ($check) {
+          if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$pmInfo)) {
+            $payment_module_info = array('payment_code' => $payment_module->payment_code);
+            $pmInfo_array = tep_array_merge($payment_module_info, $payment_module->keys());
+            $pmInfo = new paymentModuleInfo($pmInfo_array);
+          }
+
+          if ($class == $pmInfo->payment_code) {
+            echo '              <tr bgcolor="#b0c8df">' . "\n";
+          } else {
+            echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
+          }
 ?>
-              <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $entry; ?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;
 <?
@@ -98,8 +128,8 @@
         }
       }
     }
-    $dir->close();
   }
+  closedir($dir);
 
   $check = tep_db_query("select configuration_value from configuration where configuration_key = 'PAYMENT_MODULES'");
   if (tep_db_num_rows($check) > 0) {
@@ -113,6 +143,67 @@
 ?>
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
+              </tr>
+              <tr>
+                <td colspan="2"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">Module Directory: <? echo DIR_FS_PAYMENT_MODULES; ?></font></td>
+              </tr>
+            </table></td>
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+  $info_box_contents = array();
+  if ($pmInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $pmInfo->payment_code . '</b>&nbsp;');
+?>
+              <tr bgcolor="#81a2b6">
+                <td>
+                  <? new infoBoxHeading($info_box_contents); ?>
+                </td>
+              </tr>
+              <tr bgcolor="#81a2b6">
+                <td><? echo tep_black_line(); ?></td>
+              </tr>
+<?
+  if ($HTTP_GET_VARS['action'] == 'edit') {
+    $keys = '';
+    reset($pmInfo->keys);
+    while (list($key, $value) = each($pmInfo->keys)) {
+      $keys .= '<b>' . $value['title'] . '</b><br>' . $value['description'] . '<br><input type="text" name="configuration[' . $key . ']" value="' . $value['value'] . '"><br><br>';
+    }
+
+    $form = '<form name="payment_module" action="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('action')) . 'action=save&info=' . $HTTP_GET_VARS['info'], 'NONSSL') . '" method="post">' . "\n";
+
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' => 'left', 'text' => $keys);
+    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+  } elseif ($HTTP_GET_VARS['action'] == 'delete') {
+    $form = '<form name="products_expected" action="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_expected_id" value="' . $peInfo->id . '">'  ."\n";
+
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DELETE_INTRO . '<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $peInfo->products_name . '</b><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+  } else {
+    $field_set = 0;
+    $keys = '';
+    reset($pmInfo->keys);
+    while (list(, $value) = each($pmInfo->keys)) {
+      $keys .= '<b>' . $value['title'] . '</b><br>' . $value['value'] . '<br><br>';
+      if ( ($value['title'] != '') && ($value['value'] != '')) $field_set = 1;
+    }
+    $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
+    $info_box_contents = array();
+    if ($field_set == '1') {
+      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a>');
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . $keys);
+    }
+  }
+?>
+              <tr bgcolor="#b0c8df"><? echo $form; ?>
+                <td>
+                  <? new infoBox($info_box_contents); ?>
+                </td>
+              <? if ($form) echo '</form>'; ?></tr>
+              <tr bgcolor="#b0c8df">
+                <td><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>

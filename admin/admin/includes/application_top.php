@@ -238,20 +238,21 @@
   $include_file = DIR_WS_CLASSES . 'split_page_results.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // entry/item info classes
-  $include_file = DIR_WS_CLASSES . 'category_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'configuration_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'countries_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'currencies_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'customer_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'languages_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'manufacturer_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'product_expected_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'product_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'review_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'special_price_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'tax_class_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'tax_rate_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_CLASSES . 'zones_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'category_info.php');
+  require(DIR_WS_CLASSES . 'configuration_info.php');
+  require(DIR_WS_CLASSES . 'countries_info.php');
+  require(DIR_WS_CLASSES . 'currencies_info.php');
+  require(DIR_WS_CLASSES . 'customer_info.php');
+  require(DIR_WS_CLASSES . 'languages_info.php');
+  require(DIR_WS_CLASSES . 'manufacturer_info.php');
+  require(DIR_WS_CLASSES . 'payment_module_info.php');
+  require(DIR_WS_CLASSES . 'product_expected_info.php');
+  require(DIR_WS_CLASSES . 'product_info.php');
+  require(DIR_WS_CLASSES . 'review_info.php');
+  require(DIR_WS_CLASSES . 'special_price_info.php');
+  require(DIR_WS_CLASSES . 'tax_class_info.php');
+  require(DIR_WS_CLASSES . 'tax_rate_info.php');
+  require(DIR_WS_CLASSES . 'zones_info.php');
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
