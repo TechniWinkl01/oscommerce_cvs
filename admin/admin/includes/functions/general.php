@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.64 2001/09/30 09:49:09 mbs Exp $
+  $Id: general.php,v 1.65 2001/10/02 22:33:18 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -189,7 +189,7 @@
   }
 
   function tep_datetime_short($raw_datetime) {
-    $datetime_formated = strftime(DATE_TIME_FORMAT, mktime(substr($raw_datetime, 11, 2),substr($raw_datetime, 14, 2),substr($raw_datetime, 17, 2),substr($raw_datetime, 6, 2),substr($raw_datetime, 8, 2),substr($raw_datetime, 0, 4)));
+    $datetime_formated = strftime(DATE_TIME_FORMAT, mktime(substr($raw_datetime, 11, 2),substr($raw_datetime, 14, 2),substr($raw_datetime, 17, 2),substr($raw_datetime, 5, 2),substr($raw_datetime, 8, 2),substr($raw_datetime, 0, 4)));
     return $datetime_formated;
   }
 
