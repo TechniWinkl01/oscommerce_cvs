@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.11 2002/11/11 21:12:19 hpdl Exp $
+  $Id: split_page_results.php,v 1.12 2003/05/05 17:44:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,18 +26,16 @@
       $pos_order_by = strpos($sql_query, ' order by', $pos_from);
       if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
 
-      $pos_limit = strpos($sql_query, ' limit', $pos_from);
-      if (($pos_limit < $pos_to) && ($pos_limit != false)) $pos_to = $pos_limit;
-
-      $pos_procedure = strpos($sql_query, ' procedure', $pos_from);
-      if (($pos_procedure < $pos_to) && ($pos_procedure != false)) $pos_to = $pos_procedure;
-
-      $offset = ($max_rows_per_page * ($current_page_number - 1));
-      $sql_query .= " limit " . $offset . ", " . $max_rows_per_page;
-
       $reviews_count_query = tep_db_query("select count(*) as total " . substr($sql_query, $pos_from, ($pos_to - $pos_from)));
       $reviews_count = tep_db_fetch_array($reviews_count_query);
       $query_num_rows = $reviews_count['total'];
+
+      $num_pages = ceil($query_num_rows / $max_rows_per_page);
+      if ($current_page_number > $num_pages) {
+        $current_page_number = $num_pages;
+      }
+      $offset = ($max_rows_per_page * ($current_page_number - 1));
+      $sql_query .= " limit " . $offset . ", " . $max_rows_per_page;
     }
 
     function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
@@ -46,10 +44,11 @@
       if ( tep_not_null($parameters) && (substr($parameters, -1) != '&') ) $parameters .= '&';
 
 // calculate number of pages needing links
-      $num_pages = intval($query_numrows / $max_rows_per_page);
+      $num_pages = ceil($query_numrows / $max_rows_per_page);
 
-// $num_pages now contains int of pages needed unless there is a remainder from division
-      if ($query_numrows % $max_rows_per_page) $num_pages++; // has remainder so add one page
+      if ($current_page_number > $num_pages) {
+        $current_page_number = $num_pages;
+      }
 
       $pages_array = array();
       for ($i=1; $i<=$num_pages; $i++) {
@@ -65,7 +64,7 @@
           $display_links .= PREVNEXT_BUTTON_PREV . '&nbsp;&nbsp;';
         }
 
-        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu($page_name, $pages_array, '', 'onChange="this.form.submit();"'), $num_pages);
+        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu($page_name, $pages_array, $current_page_number, 'onChange="this.form.submit();"'), $num_pages);
 
         if (($current_page_number < $num_pages) && ($num_pages != 1)) {
           $display_links .= '&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), $parameters . $page_name . '=' . ($current_page_number + 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';
