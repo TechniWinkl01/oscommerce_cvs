@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.46 2001/11/12 21:43:12 hpdl Exp $
+  $Id: espanol.php,v 1.47 2001/11/13 13:56:40 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -253,6 +253,6 @@ define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;Anterior]');
 define('PREVNEXT_BUTTON_NEXT', '[Siguiente&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'FINAL&gt;&gt;');
 
-define('TEXT_DEFAULT', 'default');
-define('TEXT_SET_DEFAULT', 'Set as default');
+define('TEXT_DEFAULT', 'predeterminado/a');
+define('TEXT_SET_DEFAULT', 'Establecer como predeterminado/a');
 ?>
