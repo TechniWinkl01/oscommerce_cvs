@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.77 2001/11/29 20:49:17 hpdl Exp $
+  $Id: general.php,v 1.78 2001/12/08 22:41:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -730,14 +730,14 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     $db_query = tep_db_query("select date_format(now(), '%b %d %H:%i:%s %Y') as datetime");
     $db = tep_db_fetch_array($db_query);
 
-    list($system, $host, $kernel) = preg_split('/[\s,]+/', exec('uname -a'), 5);
+    list($system, $host, $kernel) = preg_split('/[\s,]+/', @exec('uname -a'), 5);
 
     return array('date' => date('M d H:i:s Y'),
                  'system' => $system,
                  'kernel' => $kernel,
                  'host' => $host,
                  'ip' => gethostbyname($host),
-                 'uptime' => exec('uptime'),
+                 'uptime' => @exec('uptime'),
                  'http_server' => $HTTP_SERVER_VARS['SERVER_SOFTWARE'],
                  'php' => phpversion(),
                  'zend' => (function_exists('zend_version') ? zend_version() : ''),

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.49 2001/12/06 13:45:21 dgw_ Exp $
+  $Id: german.php,v 1.50 2001/12/08 22:41:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -109,8 +109,6 @@ define('BOX_BANNERS_MANAGER', 'Banner Manager');
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
 
-define('JS_OPTIONS_OPTION_NAME', '* Die neue Option muss einen Namen haben\n');
-define('JS_OPTIONS_VALUE_NAME', '* Die neue Option muss einen Wert haben\n');
 define('JS_OPTIONS_VALUE_PRICE', '* Sie müssen diesem Wert einen Preis zuordnen\n');
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* Sie müssen einen Prefix angeben (+/-)\n');
 

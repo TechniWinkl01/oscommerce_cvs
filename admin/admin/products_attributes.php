@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.28 2001/12/07 20:33:36 dgw_ Exp $
+  $Id: products_attributes.php,v 1.29 2001/12/08 22:41:50 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -78,77 +78,11 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
-function checkFormOpt() {
-  var error_message = "<?php echo JS_ERROR; ?>";
-  var error = 0;
-  var option_name = document.options.option_name.value;
-  
-  if (option_name.length < 1) {
-    error_message = error_message + "<?php echo JS_OPTIONS_OPTION_NAME; ?>";
-    error = 1;
-  }
-  
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function checkFormVal() {
-  var error_message = "<?php echo JS_ERROR; ?>";
-  var error = 0;
-  var value_name = document.values.value_name.value;
-  
-  if (value_name.length < 1) {
-    error_message = error_message + "<?php echo JS_OPTIONS_VALUE_NAME; ?>";
-    error = 1;
-  }
-  
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
-
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
-    location = "<?php echo FILENAME_PRODUCTS_ATTRIBUTES . '?option_page=';
-	if (!$HTTP_GET_VARS['option_page']) {
-	$option_page = 1;
-	} else {
-	$option_page = $HTTP_GET_VARS['option_page'];
-	}
-	echo $option_page; ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
+    location = "<?php echo tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . ($HTTP_GET_VARS['option_page'] ? $HTTP_GET_VARS['option_page'] : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
   }
 }
-
-function checkFormAtrib() {
-  var error_message = "<?php echo JS_ERROR; ?>";
-  var error = 0;
-  var price = document.attributes.value_price.value;
-  var price_prefix = document.attributes.price_prefix.value;
-  
-  if (price.length < 1) {
-    error_message = error_message + "<?php echo JS_OPTIONS_VALUE_PRICE; ?>";
-    error = 1;
-  }
-  if (price_prefix.length < 1) {
-    error_message = error_message + "<?php echo JS_OPTIONS_VALUE_PRICE_PREFIX; ?>";
-    error = 1;
-  }
-  
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
-
 //--></script>
 </head>
 <body>
@@ -289,20 +223,20 @@ function checkFormAtrib() {
 
     // Previous
     if ($prev_option_page)  {
-      echo "<a href=\"$PHP_SELF?page=$prev_option_page\"><< </a> | ";
+      echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $prev_option_page) . '"> &lt;&lt; </a> | ';
     }
 
     for ($i = 1; $i <= $num_pages; $i++) {
       if ($i != $option_page) {
-        echo " <a href=\"$PHP_SELF?option_page=$i\">$i</a> | ";
+        echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $i) . '">' . $i . '</a> | ';
       } else {
-        echo " <b><font color=red>$i</font></b> |";
+        echo '<b><font color=red>' . $i . '</font></b> | ';
       }
     }
 
     // Next
     if ($option_page != $num_pages) {
-      echo " <a href=\"$PHP_SELF?option_page=$next_option_page\"> >></a>";
+      echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $next_option_page) . '"> &gt;&gt; </a>';
     }
 ?>
                 </td>
@@ -326,7 +260,7 @@ function checkFormAtrib() {
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
       if (($HTTP_GET_VARS['action'] == 'update_option') && ($HTTP_GET_VARS['option_id'] == $options_values['products_options_id'])) {
-        echo '<form name="option" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name', 'NONSSL') . '" method="post" onSubmit="return checkFormOption();">';
+        echo '<form name="option" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name', 'NONSSL') . '" method="post">';
         $inputs = '';
         for ($i = 0; $i < sizeof($languages); $i ++) {
           $option_name = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
@@ -362,7 +296,7 @@ function checkFormAtrib() {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
-      echo '<form name="options" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options', 'NONSSL') . '" method="post" onSubmit="return checkFormOpt();"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
+      echo '<form name="options" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options', 'NONSSL') . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
       $inputs = '';
       for ($i = 0; $i < sizeof($languages); $i ++) {
         $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br>';
@@ -487,20 +421,20 @@ function checkFormAtrib() {
 
     // Previous
     if ($prev_value_page)  {
-      echo "<a href=\"$PHP_SELF?option_order_by=$option_order_by&value_page=$prev_value_page\"><< </a> | ";
+      echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_order_by=' . $option_order_by . '&value_page=' . $prev_value_page) . '"> &lt;&lt; </a> | ';
     }
 
     for ($i = 1; $i <= $num_pages; $i++) {
       if ($i != $value_page) {
-         echo " <a href=\"$PHP_SELF?option_order_by=$option_order_by&value_page=$i\">$i</a> | ";
+         echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_order_by=' . $option_order_by . '&value_page=' . $i) . '">' . $i . '</a> | ';
       } else {
-         echo " <b><font color=red>$i</font></b> |";
+         echo '<b><font color=red>' . $i . '</font></b> | ';
       }
     }
 
     // Next
     if ($value_page != $num_pages) {
-      echo " <a href=\"$PHP_SELF?option_order_by=$option_order_by&value_page=$next_value_page\"> >></a>";
+      echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_order_by=' . $option_order_by . '&value_page=' . $next_value_page) . '"> &gt;&gt;</a> ';
     }
 ?>
                 </td>
@@ -527,7 +461,7 @@ function checkFormAtrib() {
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
       if (($HTTP_GET_VARS['action'] == 'update_option_value') && ($HTTP_GET_VARS['value_id'] == $values_values['products_options_values_id'])) {
-        echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_value', 'NONSSL') . '" method="post" onSubmit="return checkFormValue();">';
+        echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_value', 'NONSSL') . '" method="post">';
         $inputs = '';
         for ($i = 0; $i < sizeof($languages); $i ++) {
           $value_name = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_values['products_options_values_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
@@ -574,7 +508,7 @@ function checkFormAtrib() {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
-      echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_option_values', 'NONSSL') . '" method="post" onSubmit="return checkFormVal();">';
+      echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_option_values', 'NONSSL') . '" method="post">';
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<select name="option_id">
@@ -652,20 +586,20 @@ function checkFormAtrib() {
 
   // Previous
   if ($prev_attribute_page) {
-    echo "<a href=\"$PHP_SELF?attribute_page=$prev_attribute_page\"><< </a> | ";
+    echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'attribute_page=' . $prev_attribute_page) . '"> &lt;&lt; </a> | ';
   }
 
   for ($i = 1; $i <= $num_pages; $i++) {
     if ($i != $attribute_page) {
-      echo " <a href=\"$PHP_SELF?attribute_page=$i\">$i</a> | ";
+      echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'attribute_page=' . $i) . '">' . $i . '</a> | ';
     } else {
-      echo " <b><font color=red>$i</font></b> |";
+      echo '<b><font color="red">' . $i . '</font></b> | ';
     }
   }
 
   // Next
   if ($attribute_page != $num_pages) {
-    echo " <a href=\"$PHP_SELF?attribute_page=$next_attribute_page\"> >></a>";
+    echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'attribute_page=' . $next_attribute_page) . '"> &gt;&gt; </a>';
   }
 ?>
             </td>
@@ -696,7 +630,7 @@ function checkFormAtrib() {
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
     if (($HTTP_GET_VARS['action'] == 'update_attribute') && ($HTTP_GET_VARS['attribute_id'] == $attributes_values['products_attributes_id'])) {
-      echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_product_attribute' . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '" method="post" onSubmit="return checkFormAtrib();">';
+      echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_product_attribute' . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '" method="post">';
 ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<select name="products_id">
@@ -777,7 +711,7 @@ function checkFormAtrib() {
 ?>
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
-    echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_attributes', 'NONSSL') . '" method="post" onSubmit="return checkFormAtrib();">';
+    echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_attributes', 'NONSSL') . '" method="post">';
 ?>
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
       	    <td align="center" class="smallText">&nbsp;<select name="products_id">
