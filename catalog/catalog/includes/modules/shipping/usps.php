@@ -29,7 +29,7 @@
 // $usps->setWeight($pounds, $ounces);
 // $price = $usps->getPrice();
       if ($shipping_quote_usps == "1") {
-        include('includes/usps.php');
+        include(DIR_INCLUDES . 'usps.php');
         $rate = new USPS;
         $rate->SetServer(SHIPPING_USPS_SERVER);
         $rate->setUserName(SHIPPING_USPS_USERID);
