@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.4 2001/08/13 20:28:59 hpdl Exp $
+  $Id: cache.php,v 1.5 2001/11/13 16:02:30 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,8 +20,12 @@
     $success = false;
 // try to open the file
     if ($fp = fopen($filename, 'w')) {
+// obtain a file lock to stop corruptions occuring
+      flock($fp, 2); // LOCK_EX
 // write serialized data
       fputs($fp, serialize($var));
+// release the file lock
+      flock($fp, 3); // LOCK_UN
       fclose($fp);
       $success = true;
     }
