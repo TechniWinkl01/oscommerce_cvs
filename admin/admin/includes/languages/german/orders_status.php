@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.4 2002/01/28 06:30:43 hpdl Exp $
+  $Id: orders_status.php,v 1.5 2002/01/28 09:14:57 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,6 @@ define('TEXT_INFO_HEADING_NEW_ORDERS_STATUS', 'Neuer Bestellstatus');
 define('TEXT_INFO_HEADING_EDIT_ORDERS_STATUS', 'Bestellstatus bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_ORDERS_STATUS', 'Bestellstatus l&ouml;schen');
 
-define('ERROR_STATUS_USED_IN_ORDERS', 'Error: This order status is currently used in orders.');
-define('ERROR_STATUS_USED_IN_HISTORY', 'Error: This order status is currently used in the order status history.');
+define('ERROR_STATUS_USED_IN_ORDERS', 'Fehler: Dieser Bestellstatus wird zur Zeit noch bei den Bestellungen verwendet.');
+define('ERROR_STATUS_USED_IN_HISTORY', 'Fehler: Dieser Bestellstatus wird zur Zeit noch in der Bestellhistorie verwendet.');
 ?>
