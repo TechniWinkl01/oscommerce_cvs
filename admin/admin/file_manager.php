@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.30 2002/01/15 17:08:06 hpdl Exp $
+  $Id: file_manager.php,v 1.31 2002/01/16 22:01:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,34 +17,16 @@
     tep_session_register('current_path');
   }
 
-  if (!is_dir($current_path)) {
-    $current_path = DIR_FS_DOCUMENT_ROOT;
-  }
-
-  if (!ereg(DIR_FS_DOCUMENT_ROOT, $current_path)) {
-    $current_path = DIR_FS_DOCUMENT_ROOT;
-  }
-
   if ($HTTP_GET_VARS['goto']) {
-    if (strstr($HTTP_GET_VARS['goto'], '../')) {
-      $current_path = DIR_FS_DOCUMENT_ROOT;
-    } elseif ($HTTP_GET_VARS['goto'] == '..') {
-      $current_path = substr($current_path, 0, strrpos($current_path, '/'));
-    } else {
-      $current_path .= '/' . $HTTP_GET_VARS['goto'];
-    }
-    tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
-  } elseif ($HTTP_GET_VARS['current_path']) {
-    $new_path = urldecode($HTTP_GET_VARS['current_path']);
-    if (strstr($new_path, '../')) {
-      $current_path = DIR_FS_DOCUMENT_ROOT;
-    } elseif (!ereg(DIR_FS_DOCUMENT_ROOT, $new_path)) {
-      $current_path = DIR_FS_DOCUMENT_ROOT;
-    } else {
-      $current_path = $new_path;
-    }
+    $current_path = $HTTP_GET_VARS['goto'];
     tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
   }
+
+  if (strstr($current_path, '..')) $current_path = DIR_FS_DOCUMENT_ROOT;
+
+  if (!is_dir($current_path)) $current_path = DIR_FS_DOCUMENT_ROOT;
+
+  if (!ereg('^' . DIR_FS_DOCUMENT_ROOT, $current_path)) $current_path = DIR_FS_DOCUMENT_ROOT;
 
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
@@ -157,7 +139,7 @@
           <tr><?php echo tep_draw_form('goto', FILENAME_FILE_MANAGER, '', 'get'); ?>
             <td class="pageHeading"><?php echo HEADING_TITLE . '<br><span class="smallText">' . $current_path . '</span>'; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '1', HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_pull_down_menu('current_path', $goto_array, '', 'onChange="this.form.submit();"'); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_pull_down_menu('goto', $goto_array, $current_path, 'onChange="this.form.submit();"'); ?></td>
           </form></tr>
         </table></td>
       </tr>
@@ -255,14 +237,23 @@
       $fInfo = new objectInfo($contents[$i]);
     }
 
+    if ($contents[$i]['name'] == '..') {
+      $goto_link = substr($current_path, 0, strrpos($current_path, '/'));
+    } else {
+      $goto_link = $current_path . '/' . $contents[$i]['name'];
+    }
+
     if ( (is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ) {
       if ($fInfo->is_dir) {
-        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $fInfo->name) . '\'">' . "\n";
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'">' . "\n";
+        $onclick_link = 'goto=' . $goto_link;
       } else {
-        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=edit') . '\'">' . "\n";
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'">' . "\n";
+        $onclick_link = 'info=' . urlencode($fInfo->name) . '&action=edit';
       }
     } else {
-      echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '\'">' . "\n";
+      echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'">' . "\n";
+      $onclick_link = 'info=' . urlencode($contents[$i]['name']);
     }
 
     if ($contents[$i]['is_dir']) {
@@ -271,18 +262,18 @@
       } else {
         $icon = ((is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ? tep_image(DIR_WS_ICONS . 'current_folder.gif', ICON_CURRENT_FOLDER) : tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER));
       }
-      $link = tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $contents[$i]['name']);
+      $link = tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $goto_link);
     } else {
       $icon = tep_image(DIR_WS_ICONS . 'file_download.gif', ICON_FILE_DOWNLOAD);
       $link = tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
     }
 ?>
-                <td class="tableData"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
-                <td class="tableData" align="right"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
-                <td class="tableData" align="center"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
-                <td class="tableData"><?php echo $contents[$i]['user']; ?></td>
-                <td class="tableData"><?php echo $contents[$i]['group']; ?></td>
-                <td class="tableData" align="center"><?php echo $contents[$i]['last_modified']; ?></td>
+                <td class="tableData" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
+                <td class="tableData" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
+                <td class="tableData" align="center" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
+                <td class="tableData" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['user']; ?></td>
+                <td class="tableData" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['group']; ?></td>
+                <td class="tableData" align="center" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, $onclick_link); ?>'"><?php echo $contents[$i]['last_modified']; ?></td>
                 <td class="tableData" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($contents[$i]['name']) . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
@@ -306,8 +297,6 @@
     $contents = array();
     switch ($HTTP_GET_VARS['action']) {
       case 'delete':
-        if ( (strstr($fInfo->name, '..')) || (!$fInfo->name) ) echo 'xxx';
-
         $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
 
         $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=deleteconfirm'));
