@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.45 2004/10/28 18:59:51 hpdl Exp $
+  $Id: reviews.php,v 1.46 2004/11/03 08:59:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,8 +38,8 @@
             $Qreview->execute();
 
             if ($osC_Database->isError() === false) {
-              $Qrd = $osC_Database->query('update :table_reviews_description set reviews_text = :reviews_text where reviews_id = :reviews_id');
-              $Qrd->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
+              $Qrd = $osC_Database->query('update :table_reviews set reviews_text = :reviews_text where reviews_id = :reviews_id');
+              $Qrd->bindTable(':table_reviews', TABLE_REVIEWS);
               $Qrd->bindValue(':reviews_text', $_POST['reviews_text']);
               $Qrd->bindInt(':reviews_id', $_GET['rID']);
               $Qrd->execute();
@@ -77,19 +77,54 @@
           $Qreview->execute();
 
           if ($osC_Database->isError() === false) {
-            $Qrd = $osC_Database->query('delete from :table_reviews_description where reviews_id = :reviews_id');
-            $Qrd->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
-            $Qrd->bindInt(':reviews_id', $_GET['rID']);
-            $Qrd->execute();
+            $osC_Database->commitTransaction();
 
-            if ($osC_Database->isError()) {
-              $error = true;
-            }
+            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $error = true;
+            $osC_Database->rollbackTransaction();
+
+            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
-          if ($error === false) {
+          tep_redirect(tep_href_link(FILENAME_REVIEWS, 'page=' . $_GET['page']));
+        }
+        break;
+      case 'rApprove':
+        if (isset($_GET['rID']) && is_numeric($_GET['rID'])) {
+          $error = false;
+
+          $osC_Database->startTransaction();
+
+          $Qreview = $osC_Database->query('update :table_reviews set reviews_status = 1 where reviews_id = :reviews_id');
+          $Qreview->bindTable(':table_reviews', TABLE_REVIEWS);
+          $Qreview->bindInt(':reviews_id', $_GET['rID']);
+          $Qreview->execute();
+
+          if ($osC_Database->isError() === false) {
+            $osC_Database->commitTransaction();
+
+            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          } else {
+            $osC_Database->rollbackTransaction();
+
+            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          }
+
+          tep_redirect(tep_href_link(FILENAME_REVIEWS, 'page=' . $_GET['page']));
+        }
+        break;
+      case 'rReject':
+        if (isset($_GET['rID']) && is_numeric($_GET['rID'])) {
+          $error = false;
+
+          $osC_Database->startTransaction();
+
+          $Qreview = $osC_Database->query('update :table_reviews set reviews_status = 2 where reviews_id = :reviews_id');
+          $Qreview->bindTable(':table_reviews', TABLE_REVIEWS);
+          $Qreview->bindInt(':reviews_id', $_GET['rID']);
+          $Qreview->execute();
+
+          if ($osC_Database->isError() === false) {
             $osC_Database->commitTransaction();
 
             $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database_tables.php,v 1.5 2004/08/25 20:02:46 hpdl Exp $
+  $Id: database_tables.php,v 1.6 2004/11/03 09:00:58 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,7 +51,6 @@
   define('TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS', DB_TABLE_PREFIX . 'products_options_values_to_products_options');
   define('TABLE_PRODUCTS_TO_CATEGORIES', DB_TABLE_PREFIX . 'products_to_categories');
   define('TABLE_REVIEWS', DB_TABLE_PREFIX . 'reviews');
-  define('TABLE_REVIEWS_DESCRIPTION', DB_TABLE_PREFIX . 'reviews_description');
   define('TABLE_SESSIONS', DB_TABLE_PREFIX . 'sessions');
   define('TABLE_SPECIALS', DB_TABLE_PREFIX . 'specials');
   define('TABLE_TAX_CLASS', DB_TABLE_PREFIX . 'tax_class');

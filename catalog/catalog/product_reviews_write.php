@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.60 2004/10/31 09:46:09 mevans Exp $
+  $Id: product_reviews_write.php,v 1.61 2004/11/03 09:00:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,13 @@
 
   require('includes/application_top.php');
 
-  if ($osC_Customer->isLoggedOn() == false) {
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_PRODUCT_REVIEWS_WRITE);
+  
+  if (!$osC_Services->isStarted('reviews')) {
+    tep_redirect(tep_href_link(FILENAME_DEFAULT));
+  }
+ 
+  if ( ($osC_Customer->isLoggedOn() == false ) && (SERVICE_REVIEW_ENABLE_REVIEWS == 1) ) {
     $navigation->set_snapshot();
 
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
@@ -25,13 +31,22 @@
     $product_info = tep_db_fetch_array($product_info_query);
   }
 
-  $customer_query = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
-  $customer = tep_db_fetch_array($customer_query);
-
+  if ($osC_Customer->isLoggedOn() === true) {
+    $customer_query = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
+    $customer = tep_db_fetch_array($customer_query);
+  }
+  
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
     $rating = tep_db_prepare_input($_POST['rating']);
     $review = tep_db_prepare_input($_POST['review']);
 
+  if ($osC_Customer->isLoggedOn() === false) {
+  	 $customer_name = $_POST['customer_name'];
+  } else {
+  	 $customer_name = $customer['customers_firstname'] . ' ' . $customer['customers_lastname'];  	
+  }
+  
+    
     $error = false;
     if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
       $error = true;
@@ -46,11 +61,25 @@
     }
 
     if ($error == false) {
-      tep_db_query("insert into " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added) values ('" . (int)$_GET['products_id'] . "', '" . (int)$osC_Customer->id . "', '" . tep_db_input($customer['customers_firstname']) . ' ' . tep_db_input($customer['customers_lastname']) . "', '" . tep_db_input($rating) . "', now())");
-      $insert_id = tep_db_insert_id();
 
-      tep_db_query("insert into " . TABLE_REVIEWS_DESCRIPTION . " (reviews_id, languages_id, reviews_text) values ('" . (int)$insert_id . "', '" . (int)$osC_Session->value('languages_id') . "', '" . tep_db_input($review) . "')");
-
+    	if ($osC_Reviews->is_moderated === true) {
+        $reviews_status = '0';
+        $messageStack->add_session('reviews', TEXT_REVIEW_MODERATION, 'success');
+    	} else {
+        $reviews_status = '1';    		
+    	}
+    	
+      $Qreview = $osC_Database->query('insert into :table_reviews (products_id, customers_id, customers_name, reviews_rating, languages_id, reviews_text, reviews_status, date_added) values (:products_id, :customer_id, :customers_name, :rating, :language_id, :review, :review_status, now())');
+      $Qreview->bindTable(':table_reviews', TABLE_REVIEWS);
+      $Qreview->bindInt(':products_id', $_GET['products_id']);
+      $Qreview->bindInt(':customer_id', $osC_Customer->id);
+      $Qreview->bindValue(':customers_name', $customer_name);
+      $Qreview->bindValue(':rating', trim($rating));
+      $Qreview->bindInt(':language_id', $osC_Session->value('languages_id'));
+      $Qreview->bindValue(':review', trim($review));
+      $Qreview->bindInt(':review_status', $reviews_status);
+      $Qreview->execute();
+ 
       tep_redirect(tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params(array('action'))));
     }
   }
@@ -66,8 +95,6 @@
   } else {
     $products_name = $product_info['products_name'];
   }
-
-  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_PRODUCT_REVIEWS_WRITE);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params()));
 ?>
@@ -151,9 +178,37 @@ function popupWindow(url) {
         <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  if ($osC_Customer->isLoggedOn() == false) {
+?>  
+              <tr>
+                <td><table width="50%" border="0" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td class="main"><?php echo '<b>' . ENTRY_NAME . '</b> '; ?></td>
+                  <td class="main"><?php echo osc_draw_input_field('customer_name'); ?></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+                </tr>
+                <tr>
+                  <td class="main"><?php echo '<b>' . ENTRY_EMAIL_ADDRESS . '</b> '; ?></td>
+                  <td class="main"><?php echo osc_draw_input_field('customer_email_address'); ?></td>
+                </tr>
+              </table>
+              </td>
+            </tr>
+            <tr>
+              <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+            </tr>
+<?php
+  } else {
+ ?> 
               <tr>
                 <td class="main"><?php echo '<b>' . SUB_TITLE_FROM . '</b> ' . tep_output_string_protected($customer['customers_firstname'] . ' ' . $customer['customers_lastname']); ?></td>
               </tr>
+<?php
+  }
+ ?>         
               <tr>
                 <td class="main"><b><?php echo SUB_TITLE_REVIEW; ?></b></td>
               </tr>

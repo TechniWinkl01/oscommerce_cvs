@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.55 2004/10/31 09:46:09 mevans Exp $
+  $Id: product_reviews_info.php,v 1.56 2004/11/03 09:00:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,8 +12,12 @@
 
   require('includes/application_top.php');
 
+  if (!$osC_Services->isStarted('reviews')) {
+    tep_redirect(tep_href_link(FILENAME_DEFAULT));
+  }
+  
   if (isset($_GET['reviews_id']) && tep_not_null($_GET['reviews_id']) && isset($_GET['products_id']) && tep_not_null($_GET['products_id'])) {
-    $review_check_query = tep_db_query("select count(*) as total from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . (int)$_GET['reviews_id'] . "' and r.products_id = '" . (int)$_GET['products_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$osC_Session->value('languages_id') . "'");
+    $review_check_query = tep_db_query("select count(*) as total from " . TABLE_REVIEWS . " r where r.reviews_id = '" . (int)$_GET['reviews_id'] . "' and r.products_id = '" . (int)$_GET['products_id'] . "' and r.languages_id = '" . (int)$osC_Session->value('languages_id') . "'");
     $review_check = tep_db_fetch_array($review_check_query);
 
     if ($review_check['total'] < 1) {
@@ -25,7 +29,7 @@
 
   tep_db_query("update " . TABLE_REVIEWS . " set reviews_read = reviews_read+1 where reviews_id = '" . (int)$_GET['reviews_id'] . "'");
 
-  $review_query = tep_db_query("select rd.reviews_text, r.reviews_rating, r.reviews_id, r.customers_name, r.date_added, r.reviews_read, p.products_id, p.products_price, p.products_tax_class_id, p.products_image, p.products_model, pd.products_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.reviews_id = '" . (int)$_GET['reviews_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$osC_Session->value('languages_id') . "' and r.products_id = p.products_id and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '". (int)$osC_Session->value('languages_id') . "'");
+  $review_query = tep_db_query("select r.reviews_text, r.reviews_rating, r.reviews_id, r.customers_name, r.date_added, r.reviews_read, p.products_id, p.products_price, p.products_tax_class_id, p.products_image, p.products_model, pd.products_name from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.reviews_id = '" . (int)$_GET['reviews_id'] . "' and r.languages_id = '" . (int)$osC_Session->value('languages_id') . "' and r.products_id = p.products_id and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '". (int)$osC_Session->value('languages_id') . "' and r.reviews_status = 1");
   $review = tep_db_fetch_array($review_query);
 
   if ( ($osC_Services->isStarted('specials')) && ($new_price = $osC_Specials->getPrice($review['products_id'])) ) {

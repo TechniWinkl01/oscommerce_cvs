@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.1 2004/08/24 11:06:04 hpdl Exp $
+  $Id: reviews.php,v 1.2 2004/11/03 08:59:47 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,9 +45,8 @@
                      '  </thead>' .
                      '  <tbody>';
 
-      $Qreviews = $osC_Database->query('select r.reviews_id, r.products_id, greatest(r.date_added, r.last_modified) as date_last_modified, r.reviews_rating, pd.products_name, l.name as languages_name, l.directory as languages_directory, l.image as languages_image from :table_reviews r, :table_reviews_description rd left join :table_products_description pd on (r.products_id = pd.products_id and rd.languages_id = pd.language_id), :table_languages l where r.reviews_id = rd.reviews_id and rd.languages_id = l.languages_id order by date_last_modified desc limit 6');
+      $Qreviews = $osC_Database->query('select r.reviews_id, r.products_id, greatest(r.date_added, r.last_modified) as date_last_modified, r.reviews_rating, pd.products_name, l.name as languages_name, l.directory as languages_directory, l.image as languages_image from :table_reviews r left join :table_products_description pd on (r.products_id = pd.products_id and r.languages_id = pd.language_id), :table_languages l where r.languages_id = l.languages_id order by date_last_modified desc limit 6');
       $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
-      $Qreviews->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
       $Qreviews->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
       $Qreviews->bindTable(':table_languages', TABLE_LANGUAGES);
       $Qreviews->execute();

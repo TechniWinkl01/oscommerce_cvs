@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.7 2004/07/22 23:17:20 hpdl Exp $
+  $Id: reviews.php,v 1.8 2004/11/03 08:59:42 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,6 +16,7 @@ define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_LANGUAGE', 'Language');
 define('TABLE_HEADING_RATING', 'Rating');
 define('TABLE_HEADING_DATE_ADDED', 'Date Added');
+define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('ENTRY_PRODUCT', 'Product:');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.52 2003/11/17 21:06:26 hpdl Exp $
+  $Id: reviews.php,v 1.53 2004/11/03 09:00:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,10 @@
 
   require('includes/application_top.php');
 
+  if (!$osC_Services->isStarted('reviews')) {
+    tep_redirect(tep_href_link(FILENAME_DEFAULT));
+  }
+  
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_REVIEWS);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_REVIEWS));
@@ -53,7 +57,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  $reviews_query_raw = "select r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and rd.languages_id = '" . (int)$osC_Session->value('languages_id') . "' order by r.reviews_id DESC";
+  $reviews_query_raw = "select r.reviews_id, left(r.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = r.products_id and p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and r.languages_id = '" . (int)$osC_Session->value('languages_id') . "' and r.reviews_status = 1 order by r.reviews_id DESC";
   $reviews_split = new splitPageResults($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS);
 
   if ($reviews_split->number_of_rows > 0) {

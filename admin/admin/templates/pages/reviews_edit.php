@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews_edit.php,v 1.1 2004/07/22 23:30:26 hpdl Exp $
+  $Id: reviews_edit.php,v 1.2 2004/11/03 08:59:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,9 +11,8 @@
 */
 
   if (empty($_POST)) {
-    $Qreviews = $osC_Database->query('select r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, p.products_image, pd.products_name from :table_reviews r, :table_reviews_description rd left join :table_products_description pd on (r.products_id = pd.products_id and rd.languages_id = pd.language_id) left join :table_products p on (r.products_id = p.products_id) where r.reviews_id = :reviews_id and r.reviews_id = rd.reviews_id');
+    $Qreviews = $osC_Database->query('select r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, r.reviews_text, r.reviews_rating, p.products_image, pd.products_name from :table_reviews r left join :table_products_description pd on (r.products_id = pd.products_id and r.languages_id = pd.language_id) left join :table_products p on (r.products_id = p.products_id) where r.reviews_id = :reviews_id');
     $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
-    $Qreviews->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
     $Qreviews->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
     $Qreviews->bindTable(':table_products', TABLE_PRODUCTS);
     $Qreviews->bindInt(':reviews_id', $_GET['rID']);
@@ -21,9 +20,8 @@
 
     $rInfo = new objectInfo($Qreviews->toArray());
   } else {
-    $Qreview = $osC_Database->query('select r.customers_name, r.date_added, p.products_image, pd.products_name from :table_reviews r, :table_reviews_description rd, :table_products p, :table_products_description pd where r.reviews_id = :reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and r.reviews_id = rd.reviews_id and rd.languages_id = pd.language_id');
+    $Qreview = $osC_Database->query('select r.customers_name, r.date_added, p.products_image, pd.products_name from :table_reviews r, :table_products p, :table_products_description pd where r.reviews_id = :reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and r.languages_id = pd.language_id');
     $Qreview->bindTable(':table_reviews', TABLE_REVIEWS);
-    $Qreview->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
     $Qreview->bindTable(':table_products', TABLE_PRODUCTS);
     $Qreview->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
     $Qreview->bindInt(':reviews_id', $_GET['rID']);

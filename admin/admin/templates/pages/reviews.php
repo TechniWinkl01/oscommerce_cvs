@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.1 2004/07/22 23:30:26 hpdl Exp $
+  $Id: reviews.php,v 1.2 2004/11/03 08:59:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,14 +21,20 @@
         <th><?php echo TABLE_HEADING_LANGUAGE; ?></th>
         <th><?php echo TABLE_HEADING_RATING; ?></th>
         <th><?php echo TABLE_HEADING_DATE_ADDED; ?></th>
+<?php
+        if ( (defined('SERVICE_REVIEW_ENABLE_MODERATION')) && (SERVICE_REVIEW_ENABLE_MODERATION != -1) ) {      	
+?>
+        <th><?php echo TABLE_HEADING_STATUS; ?></th>
+<?php
+        }
+?>
         <th><?php echo TABLE_HEADING_ACTION; ?></th>
       </tr>
     </thead>
     <tbody>
 <?php
-  $Qreviews = $osC_Database->query('select r.reviews_id, r.products_id, r.date_added, r.last_modified, r.reviews_rating, rd.languages_id, pd.products_name, l.name as languages_name, l.directory as languages_directory, l.image as languages_image from :table_reviews r, :table_reviews_description rd left join :table_products_description pd on (r.products_id = pd.products_id and rd.languages_id = pd.language_id), :table_languages l where r.reviews_id = rd.reviews_id and rd.languages_id = l.languages_id order by r.date_added desc');
+  $Qreviews = $osC_Database->query('select r.reviews_id, r.products_id, r.date_added, r.last_modified, r.reviews_rating, r.reviews_status, r.languages_id, pd.products_name, l.name as languages_name, l.directory as languages_directory, l.image as languages_image from :table_reviews r left join :table_products_description pd on (r.products_id = pd.products_id and r.languages_id = pd.language_id), :table_languages l where r.languages_id = l.languages_id order by r.date_added desc');
   $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
-  $Qreviews->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
   $Qreviews->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
   $Qreviews->bindTable(':table_languages', TABLE_LANGUAGES);
   $Qreviews->setBatchLimit($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS);
@@ -36,9 +42,8 @@
 
   while ($Qreviews->next()) {
     if (!isset($rInfo) && (!isset($_GET['rID']) || (isset($_GET['rID']) && ($_GET['rID'] == $Qreviews->valueInt('reviews_id'))))) {
-      $Qtext = $osC_Database->query('select r.reviews_read, r.customers_name, length(rd.reviews_text) as reviews_text_size from :table_reviews r, :table_reviews_description rd where r.reviews_id = :reviews_id and r.reviews_id = rd.reviews_id');
+      $Qtext = $osC_Database->query('select r.reviews_read, r.customers_name, length(r.reviews_text) as reviews_text_size from :table_reviews r where r.reviews_id = :reviews_id');
       $Qtext->bindTable(':table_reviews', TABLE_REVIEWS);
-      $Qtext->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
       $Qtext->bindInt(':reviews_id', $Qreviews->valueInt('reviews_id'));
       $Qtext->execute();
 
@@ -65,6 +70,18 @@
         <td align="center"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $Qreviews->value('languages_directory') . '/images/' . $Qreviews->value('languages_image'), $Qreviews->value('languages_name')); ?></td>
         <td align="center"><?php echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . 'stars_' . $Qreviews->valueInt('reviews_rating') . '.gif', sprintf(TEXT_OF_5_STARS, $Qreviews->valueInt('reviews_rating'))); ?></td>
         <td><?php echo tep_date_short($Qreviews->value('date_added')); ?></td>
+<?php
+        if ( (defined('SERVICE_REVIEW_ENABLE_MODERATION')) && (SERVICE_REVIEW_ENABLE_MODERATION != -1) ) {      	
+          switch ($Qreviews->valueInt('reviews_status')) {
+            case 1: $status_image = 'checkbox_ticked.gif'; break;
+            case 2: $status_image = 'checkbox_crossed.gif'; break;
+            default: $status_image = 'checkbox.gif';
+          }
+?>
+        <td align="center"><?php echo tep_image('templates/' . $template . '/images/icons/' . $status_image); ?></td>
+<?php
+        }
+?>
         <td align="right">
 <?php
     echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $_GET['page'] . '&rID=' . $Qreviews->valueInt('reviews_id') . '&action=rEdit') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;';

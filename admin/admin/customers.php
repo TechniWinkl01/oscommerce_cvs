@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.90 2004/10/28 18:59:49 hpdl Exp $
+  $Id: customers.php,v 1.91 2004/11/03 08:59:33 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -368,32 +368,13 @@
           $osC_Database->startTransaction();
 
           if (isset($_POST['delete_reviews']) && ($_POST['delete_reviews'] == 'on')) {
-            $Qreviews = $osC_Database->query('select reviews_id from :table_reviews where customers_id = :customers_id');
+            $Qreviews = $osC_Database->query('delete from :table_reviews where customers_id = :customers_id');
             $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
             $Qreviews->bindInt(':customers_id', $_GET['cID']);
             $Qreviews->execute();
 
-            while ($Qreviews->next()) {
-              $Qrd = $osC_Database->query('delete from :table_reviews_description where reviews_id = :reviews_id');
-              $Qrd->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
-              $Qrd->bindInt(':reviews_id', $Qreviews->bindInt('reviews_id'));
-              $Qrd->execute();
-
-              if ($osC_Database->isError()) {
-                $error = true;
-                break;
-              }
-            }
-
-            if ($error === false) {
-              $Qreviews = $osC_Database->query('delete from :table_reviews where customers_id = :customers_id');
-              $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
-              $Qreviews->bindInt(':customers_id', $_GET['cID']);
-              $Qreviews->execute();
-
-              if ($osC_Database->isError()) {
-                $error = true;
-              }
+            if ($osC_Database->isError()) {
+              $error = true;
             }
           } else {
             $Qcheck = $osC_Database->query('select reviews_id from :table_reviews where customers_id = :customers_id limit 1');

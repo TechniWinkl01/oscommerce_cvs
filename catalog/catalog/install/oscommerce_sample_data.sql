@@ -1,4 +1,4 @@
-# $Id: oscommerce_sample_data.sql,v 1.6 2004/10/31 09:46:21 mevans Exp $
+# $Id: oscommerce_sample_data.sql,v 1.7 2004/11/03 09:01:19 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -363,9 +363,7 @@ INSERT INTO osc_products_to_categories VALUES (25,8);
 INSERT INTO osc_products_to_categories VALUES (26,9);
 INSERT INTO osc_products_to_categories VALUES (27,5);
 
-INSERT INTO osc_reviews VALUES (1,19,1,'John doe',5, now(),'',0);
-
-INSERT INTO osc_reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
+INSERT INTO osc_reviews VALUES (1,19,1,'John doe',5,1, 'this has to be one of the funniest movies released for 1999!', now(),'',0, 1);
 
 INSERT INTO osc_specials VALUES (1,3, 39.99, now(), '', '', '', '', '1');
 INSERT INTO osc_specials VALUES (2,5, 30.00, now(), '', '', '', '', '1');

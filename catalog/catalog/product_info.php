@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.105 2004/10/31 09:46:08 mevans Exp $
+  $Id: product_info.php,v 1.106 2004/11/03 09:00:49 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -162,9 +162,10 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-    $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " where products_id = '" . (int)$_GET['products_id'] . "'");
-    $reviews = tep_db_fetch_array($reviews_query);
-    if ($reviews['count'] > 0) {
+    if ($osC_Services->isStarted('reviews')) {
+      $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " where products_id = '" . (int)$_GET['products_id'] . "'");
+      $reviews = tep_db_fetch_array($reviews_query);
+      if ($reviews['count'] > 0) {
 ?>
       <tr>
         <td class="main"><?php echo TEXT_CURRENT_REVIEWS . ' ' . $reviews['count']; ?></td>
@@ -173,8 +174,8 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
+      }
     }
-
     if (tep_not_null($product_info['products_url'])) {
 ?>
       <tr>
@@ -209,7 +210,13 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params()) . '">' . tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS) . '</a>'; ?></td>
+                <td class="main">
+<?php 
+  if ($osC_Services->isStarted('reviews')) {
+    echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params()) . '">' . tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS) . '</a>'; 
+  }
+?>
+                </td>
                 <td class="main" align="right"><?php echo osc_draw_hidden_field('products_id', $product_info['products_id']) . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>

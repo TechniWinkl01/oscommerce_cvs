@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.64 2004/10/28 18:59:47 hpdl Exp $
+  $Id: backup.php,v 1.65 2004/11/03 08:59:33 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -268,7 +268,7 @@
             }
           }
 
-          $Qdrop = $osC_Database->query('drop table if exists :table_address_book, :table_address_format, :table_banners, :table_banners_history, :table_categories, :table_categories_description, :table_configuration, :table_configuration_group, :table_countries, :table_currencies, :table_customers, :table_customers_basket, :table_customers_basket_attributes, :table_customers_info, :table_languages, :table_manufacturers, :table_manufacturers_info, :table_newsletters, :table_orders, :table_orders_products, :table_orders_products_attributes, :table_orders_products_download, :table_orders_status, :table_orders_status_history, :table_orders_total, :table_products, :table_products_attributes, :table_products_attributes_download, :table_products_description, :table_products_notifications, :table_products_options, :table_products_options_values, :table_products_options_values_to_products_options, :table_products_to_categories, :table_reviews, :table_reviews_description, :table_sessions, :table_specials, :table_tax_class, :table_tax_rates, :table_geo_zones, :table_zones_to_geo_zones, :table_whos_online, :table_zones');
+          $Qdrop = $osC_Database->query('drop table if exists :table_address_book, :table_address_format, :table_banners, :table_banners_history, :table_categories, :table_categories_description, :table_configuration, :table_configuration_group, :table_countries, :table_currencies, :table_customers, :table_customers_basket, :table_customers_basket_attributes, :table_customers_info, :table_languages, :table_manufacturers, :table_manufacturers_info, :table_newsletters, :table_orders, :table_orders_products, :table_orders_products_attributes, :table_orders_products_download, :table_orders_status, :table_orders_status_history, :table_orders_total, :table_products, :table_products_attributes, :table_products_attributes_download, :table_products_description, :table_products_notifications, :table_products_options, :table_products_options_values, :table_products_options_values_to_products_options, :table_products_to_categories, :table_reviews, :table_sessions, :table_specials, :table_tax_class, :table_tax_rates, :table_geo_zones, :table_zones_to_geo_zones, :table_whos_online, :table_zones');
           $Qdrop->bindTable(':table_address_book', TABLE_ADDRESS_BOOK);
           $Qdrop->bindTable(':table_address_format', TABLE_ADDRESS_FORMAT);
           $Qdrop->bindTable(':table_banners', TABLE_BANNERS);
@@ -304,7 +304,6 @@
           $Qdrop->bindTable(':table_products_options_values_to_products_options', TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS);
           $Qdrop->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
           $Qdrop->bindTable(':table_reviews', TABLE_REVIEWS);
-          $Qdrop->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
           $Qdrop->bindTable(':table_sessions', TABLE_SESSIONS);
           $Qdrop->bindTable(':table_specials', TABLE_SPECIALS);
           $Qdrop->bindTable(':table_tax_class', TABLE_TAX_CLASS);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.117 2004/10/26 20:20:02 hpdl Exp $
+  $Id: espanol.php,v 1.118 2004/11/03 08:59:38 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -184,6 +184,7 @@ define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
 
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'Enviando E-Mail');
+define('IMAGE_APPROVE', 'Approve');
 define('IMAGE_BACK', 'Volver');
 define('IMAGE_BACKUP', 'Copiar');
 define('IMAGE_CANCEL', 'Cancelar');
@@ -222,6 +223,7 @@ define('IMAGE_ORDERS', 'Pedidos');
 define('IMAGE_ORDERS_INVOICE', 'Factura');
 define('IMAGE_ORDERS_PACKINGSLIP', 'Albar&aacute;n');
 define('IMAGE_PREVIEW', 'Ver');
+define('IMAGE_REJECT', 'Reject');
 define('IMAGE_RESET', 'Resetear');
 define('IMAGE_RESTORE', 'Restaurar');
 define('IMAGE_SAVE', 'Grabar');

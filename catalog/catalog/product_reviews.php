@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.54 2004/10/31 09:46:08 mevans Exp $
+  $Id: product_reviews.php,v 1.55 2004/11/03 09:00:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,10 @@
 
   require('includes/application_top.php');
 
+  if (!$osC_Services->isStarted('reviews')) {
+    tep_redirect(tep_href_link(FILENAME_DEFAULT));
+  }
+    
   $product_info_query = tep_db_query("select p.products_id, p.products_model, p.products_image, p.products_price, p.products_tax_class_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$_GET['products_id'] . "' and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "'");
   if (!tep_db_num_rows($product_info_query)) {
     tep_redirect(tep_href_link(FILENAME_REVIEWS));
@@ -74,12 +78,24 @@ function popupWindow(url) {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
+<?php
+  if ($messageStack->size('reviews') > 0) {
+?>
+      <tr>
+        <td><?php echo $messageStack->output('reviews'); ?></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
+  }
+?>
       <tr>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  $reviews_query_raw = "select r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . (int)$product_info['products_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$osC_Session->value('languages_id') . "' order by r.reviews_id desc";
+  $reviews_query_raw = "select r.reviews_id, left(r.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, customers_name from " . TABLE_REVIEWS . " r where r.products_id = '" . (int)$product_info['products_id'] . "' and languages_id = '" . (int)$osC_Session->value('languages_id') . "' and r.reviews_status = 1 order by reviews_id desc";
   $reviews_split = new splitPageResults($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS);
 
   if ($reviews_split->number_of_rows > 0) {
@@ -164,7 +180,13 @@ function popupWindow(url) {
                       <tr>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                         <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params()) . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
-                        <td class="main" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, tep_get_all_get_params()) . '">' . tep_image_button('button_write_review.gif', IMAGE_BUTTON_WRITE_REVIEW) . '</a>'; ?></td>
+                        <td class="main" align="right">                        
+<?php
+  if ($osC_Reviews->is_enabled === true) {
+    echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, tep_get_all_get_params()) . '">' . tep_image_button('button_write_review.gif', IMAGE_BUTTON_WRITE_REVIEW) . '</a>';
+  }
+?>
+                        </td>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                       </tr>
                     </table></td>
