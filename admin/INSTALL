@@ -20,11 +20,9 @@ For this example, '/usr/local/apache/htdocs/' is used as the WWW root
 directory of Apache.
  
 View the files admin/includes/application_*.php and make necessary changes.
-Changes will also need to be made to admin/includes/functions/database.php for
-your database connections.
  
 ***NOTE******NOTE******NOTE******NOTE******NOTE******NOTE******NOTE***
-It is up to you on how you wish to protect the administration pages
+It is up to you how you wish to protect the administration pages
 against unauthorized use.
 **********************************************************************
 
@@ -34,7 +32,6 @@ and group the apache process runs under, and execute the following:
 
 cd catalog
 chown -R nobody.nobody images
-
 in the above example, the apache process is run by user 'nobody', which belongs
 to the group of 'nobody'. For more information on the 'chmod' command, read its
 manual:
