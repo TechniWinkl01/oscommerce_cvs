@@ -306,7 +306,7 @@
       </tr>
       <tr>
         <td>
-<? $include_file = DIR_WS_MODULES . 'product_listing.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_MODULES . FILENAME_PRODUCT_LISTING; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
         </td>
       </tr>
     </table></td>

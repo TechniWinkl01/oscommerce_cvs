@@ -276,7 +276,7 @@
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;
  
-  $include_file = DIR_WS_MODULES . 'product_listing.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_MODULES . FILENAME_PRODUCT_LISTING; include(DIR_WS_INCLUDES . 'include_once.php');
 ?>
         </td>
       </tr>
