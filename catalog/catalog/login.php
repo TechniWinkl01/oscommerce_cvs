@@ -5,7 +5,8 @@
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
       // Check that password is good
-      if(!validate_password($HTTP_POST_VARS['password'], $check_customer_values['customers_password'])){
+      $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer_values['customers_password']);
+      if ($pass_ok != true) {
 	  if (@$HTTP_POST_VARS['origin']) {
             if (@$HTTP_POST_VARS['products_id']) {
               header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
@@ -20,7 +21,7 @@
 	  }
 	  tep_exit();
       }
-      
+ 
       $customer_id = $check_customer_values['customers_id'];
       tep_session_register('customer_id');
 
