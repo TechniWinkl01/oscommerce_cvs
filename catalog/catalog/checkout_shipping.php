@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.5 2002/11/11 19:26:51 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.6 2002/11/11 22:39:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -304,7 +304,7 @@ function rowOutEffect(object) {
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="50%" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'checkout_bullet.gif'); ?></td>
-                <td width="50%" align="right"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
+                <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
               </tr>
             </table></td>
             <td width="25%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
@@ -312,7 +312,7 @@ function rowOutEffect(object) {
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
-                <td width="1"><?php echo tep_draw_separator('pixel_silver.gif', '1', '5'); ?></td>
+                <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '1', '5'); ?></td>
               </tr>
             </table></td>
           </tr>

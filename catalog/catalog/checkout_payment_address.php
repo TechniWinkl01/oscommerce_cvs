@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.4 2002/11/11 21:13:11 project3000 Exp $
+  $Id: checkout_payment_address.php,v 1.5 2002/11/11 22:39:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -560,7 +560,7 @@ function check_form() {
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="50%" align="right"><?php echo tep_draw_separator('pixel_silver.gif', '1', '5'); ?></td>
-                <td width="50%" align="right"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
+                <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
               </tr>
             </table></td>
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -574,7 +574,7 @@ function check_form() {
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
-                <td width="1"><?php echo tep_draw_separator('pixel_silver.gif', '1', '5'); ?></td>
+                <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '1', '5'); ?></td>
               </tr>
             </table></td>
           </tr>
