@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.14 2003/02/21 16:55:24 dgw_ Exp $
+  $Id: configure.php,v 1.15 2004/04/09 01:54:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,12 +36,14 @@
   define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG . 'images/');
   define('DIR_FS_CATALOG_MODULES', DIR_FS_CATALOG . 'includes/modules/');
   define('DIR_FS_BACKUP', DIR_FS_ADMIN . 'backups/');
+  define('DIR_FS_WORK', '/tmp/');
 
 // define our database connection
   define('DB_SERVER', '');
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'osCommerce');
+  define('DB_TABLE_PREFIX', 'osc_');
   define('USE_PCONNECT', 'false');
   define('STORE_SESSIONS', '');
 ?>
