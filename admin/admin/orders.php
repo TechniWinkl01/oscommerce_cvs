@@ -7,6 +7,7 @@
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $HTTP_GET_VARS['orders_id'])); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_order') {
       tep_db_query("delete from orders where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
+      tep_db_query("delete from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, '')); tep_exit();
     }
   }
