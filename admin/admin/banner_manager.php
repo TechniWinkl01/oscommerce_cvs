@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.37 2001/12/24 00:27:30 hpdl Exp $
+  $Id: banner_manager.php,v 1.38 2001/12/24 00:35:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
         $error[] = array('text' => ERROR_BANNER_TITLE);
       }
       if (empty($banners_group)) {
-        $error[]= array('text' => ERROR_BANNER_GROUP);
+        $error[] = array('text' => ERROR_BANNER_GROUP);
       }
 
       if (empty($error)) {
