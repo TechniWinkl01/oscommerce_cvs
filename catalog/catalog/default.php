@@ -279,9 +279,9 @@
         $option_url = tep_href_link(FILENAME_DEFAULT, $arguments, 'NONSSL');
 
         if (!$HTTP_GET_VARS['filter_id']) {
-          echo '                <option value="' . $option_url . '" SELECTED>All' . "\n";
+          echo '                <option value="' . $option_url . '" SELECTED>' . TEXT_ALL . "\n";
         } else {
-          echo '                <option value="' . $option_url . '">All' . "\n";
+          echo '                <option value="' . $option_url . '">' . TEXT_ALL . "\n";
         }
 
         echo '                <option value="">---------------' . "\n";
