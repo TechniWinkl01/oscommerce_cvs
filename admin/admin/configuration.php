@@ -2,7 +2,7 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_key = '" . $HTTP_POST_VARS['configuration_key'] . "', configuration_value = '" . $HTTP_POST_VARS['configuration_value'] . "', use_function = '" . $HTTP_POST_VARS['use_function'] . "', last_modified = now() where configuration_id = '" . $HTTP_POST_VARS['configuration_id'] . "'");
+      tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $HTTP_POST_VARS['configuration_value'] . "', last_modified = now() where configuration_id = '" . $HTTP_POST_VARS['configuration_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . '&gID=' . $HTTP_GET_VARS['gID'], 'NONSSL')); tep_exit();
     }
   }
@@ -125,37 +125,18 @@
                 <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  if ($HTTP_GET_VARS['action'] == 'new') {
-      $form = '<form name="specials_new" action="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post">'  ."\n";
-
-      $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_INSERT_INTRO . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_PRODUCTS_NAME . '<br>&nbsp;<input type="text" name="products_name"><br>&nbsp;<br>' . TEXT_INFO_DATE_EXPECTED . '<br>&nbsp;<input type="text" name="date_expected"><br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DATE_NOTE . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
-  } elseif ($HTTP_GET_VARS['action'] == 'edit') {
+  if ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="configuration" action="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="configuration_id" value="' . $cfgInfo->id . '">' . "\n";
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_KEY . '<br><input type="text" name="configuration_key" value="' . $cfgInfo->key . '"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_VALUE . '<br><input type="text" name="configuration_value" value="' . $cfgInfo->value . '"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_FUNCTION . '<br><input type="text" name="use_function" value="' . $cfgInfo->use_function . '"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DEFINE_NOTE . '<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_FUNCTION_NOTE . '<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<b>' . $cfgInfo->title . '</b><br>' . $cfgInfo->description . '<br><input type="text" name="configuration_value" value="' . $cfgInfo->value . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
-  } elseif ($HTTP_GET_VARS['action'] == 'delete') {
-    $form = '<form name="products_expected" action="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_expected_id" value="' . $peInfo->id . '">'  ."\n";
-
-    $info_box_contents = array();
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DELETE_INTRO . '<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $peInfo->products_name . '</b><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } else {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DESCRIPTION . '<br>' . $cfgInfo->description);
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added) . '<br>' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
   }
 ?>
               <tr bgcolor="#b0c8df"><? echo $form; ?>
