@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: credit_cards.php,v 1.2 2004/07/22 23:27:42 hpdl Exp $
+  $Id: credit_cards.php,v 1.3 2004/10/28 13:46:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,7 +70,7 @@
       case 'deleteconfirm':
         if (isset($_GET['ccID']) && is_numeric($_GET['ccID'])) {
           $Qdel = $osC_Database->query('delete from :table_credit_cards where credit_card_id = :credit_card_id');
-          $Qdel->bindRaw(':table_credit_cards', TABLE_CREDIT_CARDS);
+          $Qdel->bindTable(':table_credit_cards', TABLE_CREDIT_CARDS);
           $Qdel->bindInt(':credit_card_id', $_GET['ccID']);
           $Qdel->execute();
 

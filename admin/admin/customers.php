@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.88 2004/08/17 23:49:00 hpdl Exp $
+  $Id: customers.php,v 1.89 2004/10/28 13:46:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -238,7 +238,7 @@
                 $customer_id = $osC_Database->nextID();
 
                 $Qinfo = $osC_Database->query('insert into :table_customers_info (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values (:customers_info_id, 0, now())');
-                $Qinfo->bindRaw(':table_customers_info', TABLE_CUSTOMERS_INFO);
+                $Qinfo->bindTable(':table_customers_info', TABLE_CUSTOMERS_INFO);
                 $Qinfo->bindInt(':customers_info_id', $customer_id);
                 $Qinfo->execute();
 

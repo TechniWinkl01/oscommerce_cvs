@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.174 2004/10/28 12:59:50 hpdl Exp $
+  $Id: application_top.php,v 1.175 2004/10/28 13:46:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,7 +61,7 @@
 
 // set application wide parameters
   $Qcfg = $osC_Database->query('select configuration_key as cfgKey, configuration_value as cfgValue from :table_configuration');
-  $Qcfg->bindRaw(':table_configuration', TABLE_CONFIGURATION);
+  $Qcfg->bindTable(':table_configuration', TABLE_CONFIGURATION);
   $Qcfg->setCache('configuration');
   $Qcfg->execute();
 
