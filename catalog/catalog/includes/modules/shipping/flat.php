@@ -41,7 +41,7 @@
         echo ">&nbsp;</td>\n";
         echo "              </tr>\n";
         echo '              <input type="hidden" name="shipping_flat_cost" value=' . $shipping_flat_cost . ">\n";
-        echo '              <input type="hidden" name="shipping_flat_method" value=' . $shipping_flat_method . ">\n";
+        echo '              <input type="hidden" name="shipping_flat_method" value="' . $shipping_flat_method . "\">\n";
       }
   } elseif ($action == 'confirm') {
       if ($HTTP_POST_VARS['shipping_selected'] == 'flat') {

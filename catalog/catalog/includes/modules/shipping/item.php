@@ -41,7 +41,7 @@
         echo ">&nbsp;</td>\n";
         echo "              </tr>\n";
         echo '              <input type="hidden" name="shipping_item_cost" value=' . $shipping_item_cost . ">\n";
-        echo '              <input type="hidden" name="shipping_item_method" value=' . $shipping_item_method . ">\n";
+        echo '              <input type="hidden" name="shipping_item_method" value="' . $shipping_item_method . "\">\n";
       }
   } elseif ($action == 'confirm') {
       if ($HTTP_POST_VARS['shipping_selected'] == 'item') {
