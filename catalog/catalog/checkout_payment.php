@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.91 2002/01/26 19:14:12 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.92 2002/01/27 17:45:05 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
 
 // Register needed checkout variables
   if (!tep_session_is_registered('sendto')) {
-    $sendto = '1';
+    $sendto = $customer_default_address_id;
     tep_session_register('sendto');
   }
   if ($HTTP_POST_VARS['sendto']) {
