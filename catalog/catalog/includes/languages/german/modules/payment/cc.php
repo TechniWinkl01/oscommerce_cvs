@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.9 2002/04/17 20:31:18 harley_vb Exp $
+  $Id: cc.php,v 1.10 2002/04/19 13:23:27 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   define('MODULE_PAYMENT_CC_TEXT_TITLE', 'Kreditkarte');
   define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Kreditkarten Test Info:<br><br>CC#: 4111111111111111<br>G&uuml;ltig bis: Any');
-  define('MODULE_PAYMENT_CC_TEXT_CREDIR_CARD_TYPE', 'Typ:');
+  define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE', 'Typ:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER', 'Kreditkarteninhaber:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER', 'Kreditkarten-Nr.:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES', 'G&uuml;ltig bis:');
