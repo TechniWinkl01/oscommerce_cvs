@@ -130,6 +130,7 @@ define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(z.B. 21
 define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(z.B. 21/05/1970) <font color="#AABBDD">ben&ouml;tigt</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben</font></small>');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<small><font color="#FF0000">Ung&uuml;ltige E-Mail Adresse!</font></small>');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<small><font color="#FF0000">Diese E-Mail Adresse existiert schon!</font></small>');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">ben&ouml;tigt</font></small>');
 define('ENTRY_STREET_ADDRESS', 'Strasse/Nr.:');
