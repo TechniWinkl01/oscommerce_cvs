@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.16 2002/01/07 15:32:24 hpdl Exp $
+  $Id: file_manager.php,v 1.17 2002/01/08 02:02:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,12 +43,12 @@
         tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         break;
       case 'deleteconfirm':
-        if (is_dir($current_path . '/' . $HTTP_POST_VARS['file_name'])) {
-          if (rmdir($current_path . '/' . $HTTP_POST_VARS['file_name']) <> 0) {
+        if (is_dir($current_path . '/' . $HTTP_GET_VARS['info'])) {
+          if (rmdir($current_path . '/' . $HTTP_GET_VARS['info']) <> 0) {
             tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
           }
         } else {
-          if (unlink($current_path . '/' . $HTTP_POST_VARS['file_name'])) {
+          if (unlink($current_path . '/' . $HTTP_GET_VARS['info'])) {
             tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
           }
         }
@@ -65,10 +65,24 @@
           tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         }
         break;
-      case 'upload':
-        if ( ($filename != 'none') && ($filename != '') ) {
-          copy($filename, $current_path . '/' . $filename_name);
+      case 'processuploads':
+        for ($i=1; $i<6; $i++) {
+          if ($HTTP_POST_FILES['file_' . $i]) {
+            $file = $HTTP_POST_FILES['file_' . $i]['tmp_name'];
+            $file_name = $HTTP_POST_FILES['file_' . $i]['name'];
+          } elseif ($HTTP_POST_VARS['file_' . $i]) {
+            $file = $HTTP_POST_VARS['file_' . $i];
+            $file_name = $HTTP_POST_VARS['file_' . $i . '_name'];
+          } else {
+            $file = ${'file_' . $i};
+            $file_name = ${'file_' . $i . '_name'};
+          }
+
+          if ( ($file) && ($file != 'none') && (tep_is_uploaded_file($file)) ) {
+            copy($file, $current_path . '/' . $file_name);
+          }
         }
+
         tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         break;
       case 'download':
@@ -207,7 +221,7 @@
               </tr>
 <?php
   for ($i=0; $i<sizeof($contents); $i++) {
-    if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $contents[$i]['name'])) && (!$fInfo)) {
+    if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $contents[$i]['name'])) && (!$fInfo) && ($HTTP_GET_VARS['action'] != 'upload') ) {
       $fInfo = new objectInfo($contents[$i]);
     }
 
@@ -232,9 +246,9 @@
                 <td class="tableData"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
                 <td class="tableData" align="right"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
                 <td class="tableData" align="center"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
-                <td class="tableData"><tt><?php echo $contents[$i]['user']; ?></tt></td>
-                <td class="tableData"><tt><?php echo $contents[$i]['group']; ?></tt></td>
-                <td class="tableData" align="center"><tt><?php echo $contents[$i]['last_modified']; ?></tt></td>
+                <td class="tableData"><?php echo $contents[$i]['user']; ?></td>
+                <td class="tableData"><?php echo $contents[$i]['group']; ?></td>
+                <td class="tableData" align="center"><?php echo $contents[$i]['last_modified']; ?></td>
                 <td class="tableData" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name'] . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
@@ -246,8 +260,8 @@
               <tr>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr valign="top">
-                    <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=reset') . '">' . tep_image(DIR_WS_IMAGES . 'button_reset.gif', IMAGE_RESET) . '</a>'; ?><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=upload'); ?>" method="post" enctype="multipart/form-data"><input type="file" size="10" name="filename"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD); ?></form></td>
-                    <td align="right" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
+                    <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=reset') . '">' . tep_image(DIR_WS_IMAGES . 'button_reset.gif', IMAGE_RESET) . '</a>'; ?></td>
+                    <td class="smallText" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info'] . '&action=upload') . '">' . tep_image(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -281,13 +295,20 @@
         $info_box_contents[] = array('text' => '<br>' . TEXT_FILE_NAME . '<br>' . tep_draw_input_field('file_name'));
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
+      case 'upload':
+        $info_box_contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=processuploads', 'post', 'enctype="multipart/form-data"'));
+        $info_box_contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
+        for ($i=1; $i<6; $i++) $file_upload .= tep_draw_file_field('file_' . $i) . '<br>';
+        $info_box_contents[] = array('text' => '<br>' . $file_upload);
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        break;
       default:
         $info_box_contents = array();
         if (is_object($fInfo)) {
           if (!$fInfo->is_dir) $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $fInfo->name . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
           $info_box_contents[] = array('text' => '<br>' . TEXT_FILE_NAME . ' <b>' . $fInfo->name . '</b>');
           if (!$fInfo->is_dir) $info_box_contents[] = array('text' => '<br>' . TEXT_FILE_SIZE . ' <b>' . $fInfo->size . '</b>');
-          $info_box_contents[] = array('text' => '<br>' . TEXT_LAST_MODIFIED . ' ' . strftime(DATE_FORMAT_SHORT, $fInfo->last_modified));
+          $info_box_contents[] = array('text' => '<br>' . TEXT_LAST_MODIFIED . ' ' . $fInfo->last_modified);
         }
     }
 ?>
