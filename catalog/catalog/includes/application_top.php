@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.253 2002/11/12 15:11:58 dgw_ Exp $
+  $Id: application_top.php,v 1.254 2002/11/18 21:48:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -211,7 +211,7 @@
   tep_session_start();
 
 // Create the cart & Fix the cart if necesary
-  if ($cart) {
+  if (is_object($cart)) {
     if (PHP_VERSION < 4) {
       $broken_cart = $cart;
       $cart = new shoppingCart;
