@@ -245,25 +245,25 @@
     if ($sort_col <= sizeof($column_list)) {
       switch ($column_list[$sort_col-1]) {
         case 'PRODUCT_LIST_MODEL':
-          $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_NAME':
           $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
           break;
         case 'PRODUCT_LIST_MANUFACTURER':
-          $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_QUANTITY':
-          $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_IMAGE':
           $order_str .= "pd.products_name";
           break;
         case 'PRODUCT_LIST_WEIGHT':
-          $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_PRICE':
-          $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
           break;
       }        
     } else {
