@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.6 2004/08/15 18:20:30 hpdl Exp $
+  $Id: filenames.php,v 1.7 2004/08/18 00:00:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,6 @@
   define('FILENAME_FILE_MANAGER', 'file_manager.php');
   define('FILENAME_GEO_ZONES', 'geo_zones.php');
   define('FILENAME_LANGUAGES', 'languages.php');
-  define('FILENAME_MAIL', 'mail.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_MODULES', 'modules.php');
   define('FILENAME_NEWSLETTERS', 'newsletters.php');
