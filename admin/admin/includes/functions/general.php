@@ -762,4 +762,10 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   function tep_cfg_pull_down_country_list($country_id) {
     return tep_get_country_list('configuration_value', $country_id);
   }
+
+////
+// Sets the status of a banner
+  function tep_set_banner_status($banners_id, $status) {
+    return tep_db_query("update " . TABLE_BANNERS . " set status = '" . $status . "', date_status_change = now() where banners_id = '" . $banners_id . "'");
+  }
 ?>
