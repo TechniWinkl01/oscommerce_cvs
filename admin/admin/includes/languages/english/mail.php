@@ -28,7 +28,7 @@ define('TEXT_EMAIL_FROM', 'From eMail:');
 define('TEXT_SEND_EMAIL', 'send eMail');
 define('TEXT_NO_CUSTOMER_SELECTED', 'No customer(s) selected to send mails!');
 
-define('MAIL_FOOTER','================================================================================\nWe are very sadly, if you doesn\'t want more newsletter us,\nbut you can unsubscribe it at ' . HTTP_SERVER . DIR_WS_CATALOG . 'account_edit.php.\n================================================================================\n');
+define('MAIL_FOOTER','================================================================================\nIf you don\'t want to continue receiving our newsletter,\nyou can unsubscribe at ' . HTTP_SERVER . DIR_WS_CATALOG . 'account_edit.php\n================================================================================\n');
 
 define('HEADING_TITLE_SENDMAIL', 'send eMail');
 ?>
