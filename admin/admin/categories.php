@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.89 2001/12/29 23:41:34 hpdl Exp $
+  $Id: categories.php,v 1.90 2001/12/30 01:53:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,9 +65,37 @@
       case 'delete_category_confirm':
         if ($HTTP_POST_VARS['categories_id']) {
           $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
-          tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($categories_id) . "'");
-          tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . tep_db_input($categories_id) . "'");
+
+          $categories = tep_get_category_tree($categories_id, '', '0', '', true);
+          $products = array();
+          $products_delete = array();
+
+          for ($i=0; $i<sizeof($categories); $i++) {
+            $product_ids_query = tep_db_query("select products_id from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . $categories[$i]['id'] . "'");
+            while ($product_ids = tep_db_fetch_array($product_ids_query)) {
+              $products[$product_ids['products_id']] = $product_ids['products_id'];
+            }
+          }
+
+          reset($products);
+          while (list($key) = each($products)) {
+            $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $key . "'");
+            $check = tep_db_fetch_array($check_query);
+            if ($check['total'] < '2') {
+              $products_delete[$key] = $key;
+            }
+          }
+
+          for ($i=0; $i<sizeof($categories); $i++) {
+            tep_remove_category($categories[$i]['id']);
+          }
+
+          reset($products_delete);
+          while (list($key) = each($products_delete)) {
+            tep_remove_product($key);
+          }
         }
+
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
         break;
       case 'delete_product_confirm':
@@ -674,12 +702,7 @@
         $info_box_contents[] = array('text' => '<br><b>' . $cInfo->categories_name . '</b>');
         if ($cInfo->childs_count > 0) $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_CHILDS, $cInfo->childs_count));
         if ($cInfo->products_count > 0) $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
-        if ( ($cInfo->products_count > 0) || ($cInfo->childs_count > 0) ) {
-          $button = '';
-        } else {
-          $button = tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE);
-        }
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . $button . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'move_category':
         $info_box_contents = array('form' => tep_draw_form('categories', FILENAME_CATEGORIES, 'action=move_category_confirm') . tep_draw_hidden_field('categories_id', $cInfo->categories_id));

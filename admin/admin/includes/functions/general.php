@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.88 2001/12/29 23:26:38 hpdl Exp $
+  $Id: general.php,v 1.89 2001/12/30 01:53:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -155,10 +155,17 @@
     return false;
   }
 
-  function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '') {
+  function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '', $include_itself = false) {
     global $languages_id;
 
-    if (!is_array($category_tree_array)) $category_tree_array = array(array('id' => '0', 'text' => '--Top--'));
+    if (!is_array($category_tree_array)) $category_tree_array = array();
+    if ( (sizeof($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => '--Top--');
+
+    if ($include_itself) {
+      $category_query = tep_db_query("select cd.categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " cd where cd.language_id = '" . $languages_id . "' and cd.categories_id = '" . $parent_id . "'");
+      $category = tep_db_fetch_array($category_query);
+      $category_tree_array[] = array('id' => $parent_id, 'text' => $category['categories_name']);
+    }
 
     $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and c.parent_id = '" . $parent_id . "' order by c.sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
@@ -778,6 +785,12 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     return $calculated_category_path_string;
   }
 
+  function tep_remove_category($category_id) {
+    tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
+    tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . tep_db_input($category_id) . "'");
+    tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
+  }
+
   function tep_remove_product($product_id) {
     $product_image_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($product_id) . "'");
     $product_image = tep_db_fetch_array($product_image_query);
@@ -788,6 +801,9 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($product_id) . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($product_id) . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . tep_db_input($product_id) . "'");
+    tep_db_query("delete from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . tep_db_input($product_id) . "'");
+    tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where products_id = '" . tep_db_input($product_id) . "'");
+    tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where products_id = '" . tep_db_input($product_id) . "'");
 
     $product_reviews_query = tep_db_query("select reviews_id from " . TABLE_REVIEWS . " where products_id = '" . tep_db_input($product_id) . "'");
     while ($product_reviews = tep_db_fetch_array($product_reviews_query)) {
