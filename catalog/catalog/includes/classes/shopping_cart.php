@@ -16,17 +16,17 @@
         reset($this->contents);
         while (list($products_id, ) = each($this->contents)) {
           $qty = $this->contents[$products_id]['qty'];
-          $product_query = tep_db_query("select products_id from " . CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+          $product_query = tep_db_query("select products_id from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
           if (!tep_db_num_rows($product_query)) {
-            tep_db_query("insert into " . CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
+            tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
             if ($this->contents[$products_id]['attributes']) {
               reset($this->contents[$products_id]['attributes']);
               while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
-                tep_db_query("insert into " . CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
+                tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
               }
             }
           } else {
-            tep_db_query("update " . CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $qty . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+            tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $qty . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
           }
         }
       }
@@ -34,11 +34,11 @@
 // reset per-session cart contents, but not the database contents
       $this->reset(FALSE);
 
-      $products_query = tep_db_query("select products_id, customers_basket_quantity from " . CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "'");
+      $products_query = tep_db_query("select products_id, customers_basket_quantity from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "'");
       while ($products = tep_db_fetch_array($products_query)) {
         $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity']);
 // attributes
-        $attributes_query = tep_db_query("select products_options_id, products_options_value_id from " . CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $products['products_id'] . "'");
+        $attributes_query = tep_db_query("select products_options_id, products_options_value_id from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $products['products_id'] . "'");
         while ($attributes = tep_db_fetch_array($attributes_query)) {
           $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
         }
@@ -54,8 +54,8 @@
       $this->total = 0;
 
       if ($customer_id && $reset_database) {
-        tep_db_query("delete from " . CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "'");
-        tep_db_query("delete from " . CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "'");
+        tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "'");
+        tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "'");
       }
     }
 
@@ -72,14 +72,14 @@
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
 // insert into database
-        if ($customer_id) tep_db_query("insert into " . CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
+        if ($customer_id) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
 
         if (is_array($attributes)) {
           reset($attributes);
           while (list($option, $value) = each($attributes)) {
             $this->contents[$products_id]['attributes'][$option] = $value;
 // insert into database
-            if ($customer_id) tep_db_query("insert into " . CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
+            if ($customer_id) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
           }
         }
         $new_products_id_in_cart = $products_id;
@@ -95,14 +95,14 @@
 
       $this->contents[$products_id] = array('qty' => $quantity);
 // update database
-      if ($customer_id) tep_db_query("update " . CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+      if ($customer_id) tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
 
       if ($attributes != '') {
         reset($attributes);
         while (list($option, $value) = each($attributes)) {
           $this->contents[$products_id]['attributes'][$option] = $value;
 // update database
-          if ($customer_id) tep_db_query("update " . CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . $value . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "' and products_options_id = '" . $option . "'");
+          if ($customer_id) tep_db_query("update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . $value . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "' and products_options_id = '" . $option . "'");
         }
       }
     }
@@ -116,8 +116,8 @@
           unset($this->contents[$key]);
 // remove from database
           if ($customer_id) {
-            tep_db_query("delete from " . CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $key . "'");
-            tep_db_query("delete from " . CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $key . "'");
+            tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $key . "'");
+            tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $key . "'");
           }
         }
       }
@@ -149,8 +149,8 @@
       unset($this->contents[$products_id]);
 // remove from database
       if ($customer_id) {
-        tep_db_query("delete from " . CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
-        tep_db_query("delete from " . CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+        tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+        tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
       }
     }
 
