@@ -124,7 +124,7 @@ function checkForm() {
         } else {
           echo '<option name="' . $categories_values['category_top_name'] . '" value="' . $categories_values['category_top_id'] . '">' . $categories_values['category_top_name'] . '</option>';
         }
-      } ?>&nbsp;</font></td>
+      } ?></select>&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$indexes_values['category_index_id'];?><input type="hidden" name="category_index_id" value="<?=$indexes_values['category_index_id'];?>"><input type="hidden" name="category_index_to_top_id" value="<?=$indexes_values['category_index_to_top_id'];?>">&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="category_index_name" value="<?=$indexes_values['category_index_name'];?>" size="20">&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="sort_order" value="<?=$indexes_values['sort_order'];?>" size="2">&nbsp;</font></td>
@@ -177,7 +177,7 @@ function checkForm() {
     $categories = tep_db_query("select category_top_id, category_top_name from category_top order by category_top_id");
     while ($categories_values = tep_db_fetch_array($categories)) {
       echo '<option name="' . $categories_values['category_top_name'] . '" value="' . $categories_values['category_top_id'] . '">' . $categories_values['category_top_name'] . '</option>';
-    } ?>&nbsp;</font></td>
+    } ?></select>&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$next_id;?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="category_index_name" size="20">&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="sort_order" size="2">&nbsp;</font></td>
