@@ -41,6 +41,7 @@
         if ($products_categories['total'] > 1) {
           tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
         } else {
+          tep_db_query("delete from specials where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
           tep_db_query("delete from products where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
           tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
         }
