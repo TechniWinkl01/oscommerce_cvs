@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.70 2003/06/12 12:28:05 hpdl Exp $
+  $Id: advanced_search_result.php,v 1.71 2003/06/23 06:21:04 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,7 +80,7 @@
 
     $price_check_error = false;
     if (tep_not_null($pfrom)) {
-      if (!settype($pfrom, 'float')) {
+      if (!settype($pfrom, 'double')) {
         $error = true;
         $price_check_error = true;
 
@@ -89,7 +89,7 @@
     }
 
     if (tep_not_null($pto)) {
-      if (!settype($pto, 'float')) {
+      if (!settype($pto, 'double')) {
         $error = true;
         $price_check_error = true;
 
