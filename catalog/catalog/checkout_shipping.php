@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.2 2002/11/02 03:06:05 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.3 2002/11/04 01:06:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -194,6 +194,11 @@ function rowOutEffect(object) {
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  $quotes_size = sizeof($quotes);
+
+  if ($quotes_size > 1) {
+?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td class="main" width="50%" valign="top"><?php echo TEXT_CHOOSE_SHIPPING_METHOD; ?></td>
@@ -201,8 +206,18 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
+  } else {
+?>
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main" width="100%" colspan="2"><?php echo TEXT_ENTER_SHIPPING_INFORMATION; ?></td>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+<?php
+  }
+
   $radio_buttons = 0;
-  for ($i=0, $n=sizeof($quotes); $i<$n; $i++) {
+  for ($i=0; $i<$quotes_size; $i++) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -234,8 +249,18 @@ function rowOutEffect(object) {
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" width="75%"><?php echo $quotes[$i]['methods'][$j]['title']; ?></td>
+<?php
+        if ($quotes_size > 1) {
+?>
                     <td class="main"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']); ?></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
+<?php
+        } else {
+?>
+                    <td class="main" align="right" colspan="2"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
+<?php
+        }
+?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
