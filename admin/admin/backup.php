@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.25 2001/11/23 04:33:46 hpdl Exp $
+  $Id: backup.php,v 1.26 2001/11/23 05:09:45 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -84,7 +84,9 @@
           if (!isset($rows[$i])) {
             $schema_insert .= 'NULL, ';
           } elseif ($rows[$i] != '') {
-            $schema_insert .= '\'' . addslashes($rows[$i]) . '\', ';
+            $row = addslashes($rows[$i]);
+            $row = ereg_replace("\n#", "\n".'\#', $row);
+            $schema_insert .= '\'' . $row . '\', ';
           } else {
             $schema_insert .= '\'\', ';
           }
