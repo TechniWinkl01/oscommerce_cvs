@@ -192,7 +192,7 @@
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], -2),substr($info_values['date_purchased'], 0, 4)));
     $products = tep_db_query("select products_name, products_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     while ($products_values = tep_db_fetch_array($products)) {
-      $total = number_format(($products_values['products_quantity'] * $products_values['products_price']), 2);
+      $total = $products_values['products_quantity'] * $products_values['products_price'];
       $subtotal = $subtotal + $total;
 ?>
               <tr>
