@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.75 2001/09/21 14:29:58 dwatkins Exp $
+  $Id: checkout_payment.php,v 1.76 2001/09/21 14:39:38 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,7 +39,13 @@
   } // Stock Check IF
 // Stock Check
 
-  $sendto = ($HTTP_POST_VARS['sendto']) ? $HTTP_POST_VARS['sendto'] : ($HTTP_GET_VARS['sendto']) ? $HTTP_GET_VARS['sendto'] : '1';
+  if ($HTTP_POST_VARS['sendto']) {
+    $sendto = $HTTP_POST_VARS['sendto'];
+  } elseif ($HTTP_GET_VARS['sendto']) {
+    $sendto = $HTTP_GET_VARS['sendto'];
+  } else {
+    $sendto = '1';
+  }
 
   if ($HTTP_POST_VARS['shipping_quote_all'] == '0') {
     $shipping_quote_all = '0';
