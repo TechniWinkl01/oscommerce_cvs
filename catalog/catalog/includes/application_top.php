@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.207 2002/01/03 19:27:47 hpdl Exp $
+  $Id: application_top.php,v 1.208 2002/01/04 10:03:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -334,14 +334,14 @@
 // check if the 'install' directory exists, and warn of its existence
   if (WARN_INSTALL_EXISTENCE == 'true') {
     if (is_dir(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install')) {
-      new errorBox(array(array('text' => WARNING_INSTALL_DIRECTORY_EXISTS)));
+      tep_output_warning(WARNING_INSTALL_DIRECTORY_EXISTS);
     }
   }
 
 // check if the configure.php file is writeable
   if (WARN_CONFIG_WRITEABLE == 'true') {
     if ( (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) && (is_writeable(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) ) {
-      new errorBox(array(array('text' => WARNING_CONFIG_FILE_WRITEABLE)));
+      tep_output_warning(WARNING_CONFIG_FILE_WRITEABLE);
     }
   }
 
@@ -349,9 +349,9 @@
   if (WARN_SESSION_DIRECTORY_NOT_WRITEABLE == 'true') {
     if (STORE_SESSIONS == '') {
       if (!is_dir(tep_session_save_path())) {
-        new errorBox(array(array('text' => WARNING_SESSION_DIRECTORY_NON_EXISTENT)));
+        tep_output_warning(WARNING_SESSION_DIRECTORY_NON_EXISTENT);
       } elseif (!is_writeable(tep_session_save_path())) {
-        new errorBox(array(array('text' => WARNING_SESSION_DIRECTORY_NOT_WRITEABLE)));
+        tep_output_warning(WARNING_SESSION_DIRECTORY_NOT_WRITEABLE);
       }
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.74 2002/01/03 19:36:15 hpdl Exp $
+  $Id: espanol.php,v 1.75 2002/01/04 10:03:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -255,6 +255,8 @@ define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Opciones de Envío');
 define('IMAGE_BUTTON_TELL_A_FRIEND', 'Díselo a un Amigo');
 define('IMAGE_BUTTON_UPDATE_CART', 'Actualizar Cesta');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Escribir Comentario');
+
+define('ICON_WARNING', 'Warning');
 
 define('TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo <span class="greetUser">%s!</span> &iquest;Le gustaria ver que <a href="%s"><u>nuevos productos</u></a> hay disponibles?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Si no es %s, por favor <a href="%s"><u>entre aqui</u></a> e introduzca sus datos.</small>');

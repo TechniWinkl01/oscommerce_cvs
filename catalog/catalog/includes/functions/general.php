@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.148 2002/01/03 19:11:06 dgw_ Exp $
+  $Id: general.php,v 1.149 2002/01/04 10:03:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1071,5 +1071,9 @@
     }
 
     return $rand_value;
+  }
+
+  function tep_output_warning($warning) {
+    new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
   }
 ?>
