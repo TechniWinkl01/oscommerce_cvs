@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_top.php,v 1.217 2002/03/10 01:32:09 hpdl Exp $
+  $Id: application_top.php,v 1.218 2002/03/10 23:04:33 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -124,9 +124,8 @@
   define('TABLE_ZONES', 'zones');
 
 // customization for the design layout
-  define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
-  define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
+  define('DISPLAY_PRICE_WITH_TAX', true); // Display prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
 // Control what fields of the customer table are used
