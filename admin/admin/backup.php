@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.14 2001/11/20 17:30:50 hpdl Exp $
+  $Id: backup.php,v 1.15 2001/11/20 19:29:54 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -184,8 +184,7 @@
       $check = 0;
 
       if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && (!$HTTP_GET_VARS['action'])) {
-        $entry_array = array('entry' => $entry);
-        $buInfo = new backupInfo($entry_array);
+        $buInfo = new backupInfo(array('entry' => $entry));
       }
 
       if ($entry == @$buInfo->file) {

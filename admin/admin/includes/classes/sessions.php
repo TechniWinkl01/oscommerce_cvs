@@ -66,7 +66,7 @@
  */
 
 $SID = "";
-class session
+class php3session
 {
     // Public variables
     var $name = "PHPSESSID";    
@@ -74,7 +74,7 @@ class session
     var $referer_check = false;  
 
     var $save_path = "/tmp";
-    var $save_handler = "files";
+    var $save_handler = "php3session_files";
 
     var $lifetime = 0;
  
@@ -99,13 +99,13 @@ class session
     var $delimiter = "\n";
     var $delimiter_value = "[==]";
     
-    function session()
+    function php3session()
     {
         $this->mod_name = $this->save_handler;
     }
 }
 
-class user
+class php3session_user
 {
     var $open_func;
     var $close_func;
@@ -174,7 +174,7 @@ class user
 
 }
 
-class files
+class php3session_files
 {
     function open($save_path, $sess_name)
     {
@@ -332,7 +332,7 @@ function session_set_save_handler($open, $close, $read, $write, $destroy, $gc)
 {
     global $session, $user;
     
-    $user = new user; 
+    $user = new php3session_user; 
     $user->open_func = $open;
     $user->close_func = $close;
     $user->read_func = $read;
@@ -604,7 +604,7 @@ function session_destroy()
         return(false);
     }    
     unset($session);
-    $session = new session;
+    $session = new php3session;
 
     return(true);
 }
@@ -638,7 +638,7 @@ function session_close()
     return(true);
 }
 
-$session = new session;
+$session = new php3session;
 $mod = $session->save_handler;
 $$mod = new $mod;
 
@@ -648,5 +648,5 @@ if ($session->auto_start)
 }
 register_shutdown_function("session_close");
 
-/* $Id: sessions.php,v 1.3 2001/04/16 22:22:44 dwatkins Exp $ */ 
+/* $Id: sessions.php,v 1.4 2001/11/20 19:29:55 hpdl Exp $ */ 
 ?>
