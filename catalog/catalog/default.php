@@ -85,7 +85,7 @@
 // check to see if there are deeper categories within the current category
       $category_links = tep_array_reverse($cPath_array);
       for($i=0;$i<sizeof($category_links);$i++) {
-        $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order");
+        $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order, categories_name");
         if (tep_db_num_rows($categories) < 1) {
           // do nothing, go through the loop
         } else {
@@ -93,7 +93,7 @@
         }
       }
     } else {
-      $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order");
+      $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
     }
 
     $rows = 0;
