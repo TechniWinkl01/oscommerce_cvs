@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.9 2003/06/20 15:32:13 hpdl Exp $
+  $Id: compatibility.php,v 1.10 2003/06/23 01:20:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,7 +16,7 @@
 // $HTTP_xxx_VARS
 // Ie, products attributes
   function do_magic_quotes_gpc(&$ar) {
-    if (!is_array($ar)) return;
+    if (!is_array($ar)) return false;
 
     while (list($key, $value) = each($ar)) {
       if (is_array($value)) {
