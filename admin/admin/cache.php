@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.18 2002/01/26 17:15:43 hpdl Exp $
+  $Id: cache.php,v 1.19 2002/02/11 05:55:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,7 +96,7 @@
         $dir->close();
       }
 ?>
-              <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
+              <tr class="tableRow" onmouseover="this.className='tableRowOver'" onmouseout="this.className='tableRow'">
                 <td class="tableData"><?php echo $cache_blocks[$i]['title']; ?></td>
                 <td class="tableData" align="right"><?php echo $cache_mtime; ?></td>
                 <td class="tableData" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CACHE, 'action=reset&block=' . $cache_blocks[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_reset.gif', 'Reset', 13, 13) . '</a>'; ?>&nbsp;</td>
