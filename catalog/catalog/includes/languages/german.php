@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: german.php,v 1.114 2003/02/16 00:41:18 harley_vb Exp $
+  $Id: german.php,v 1.115 2003/02/17 07:55:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 - 2003 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -320,5 +320,5 @@ define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'Die ersten 4 Ziffern Ihrer Kreditkarte 
   Please leave this comment intact together with the
   following copyright announcement.
 */
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2002 - 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: english.php,v 1.105 2003/02/13 13:54:41 project3000 Exp $
+  $Id: english.php,v 1.106 2003/02/17 07:55:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -320,5 +320,5 @@ define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'The first four digits of the number ent
   Please leave this comment intact together with the
   following copyright announcement.
 */
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
 ?>

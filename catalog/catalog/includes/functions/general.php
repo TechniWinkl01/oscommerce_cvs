@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.211 2003/02/15 18:28:55 dgw_ Exp $
+  $Id: general.php,v 1.212 2003/02/17 07:55:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -581,7 +581,6 @@
 
 // Break up $search_str on whitespace; quoted string will be reconstructed later
     $pieces = split('[[:space:]]+', $search_str);
-
     $objects = array();
     $tmpstring = '';
     $flag = '';
