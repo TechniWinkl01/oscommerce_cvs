@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.9 2002/11/01 05:14:11 hpdl Exp $
+  $Id: cc.php,v 1.10 2002/11/19 01:34:56 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   define('MODULE_PAYMENT_CC_TEXT_TITLE', 'Tarjeta de Credito');
-  define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4111111111111111<br>Expiry: Any');
+  define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Tarjeta de Credito para Pruebas:<br><br>Numero: 4111111111111111<br>Caducidad: Cualquiera');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE', 'Tipo de Tarjeta:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER', 'Titular de la Tarjeta:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER', 'Numero de la Tarjeta:');
