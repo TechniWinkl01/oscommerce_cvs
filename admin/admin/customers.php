@@ -1,839 +1,518 @@
 <?php
 /*
-  $Id: customers.php,v 1.86 2004/04/03 10:28:43 mevans Exp $
+  $Id: customers.php,v 1.87 2004/07/22 23:28:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
+  require('external/adodb/adodb-time.inc.php');
 
-  $error = false;
-  $processed = false;
+  $selected_box = 'customers';
 
-  if (tep_not_null($action)) {
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  if (!isset($_GET['page']) || (isset($_GET['page']) && !is_numeric($_GET['page']))) {
+    $_GET['page'] = 1;
+  }
+
+  if (!empty($action)) {
     switch ($action) {
-      case 'update':
-        $customers_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
-        $customers_firstname = tep_db_prepare_input($HTTP_POST_VARS['customers_firstname']);
-        $customers_lastname = tep_db_prepare_input($HTTP_POST_VARS['customers_lastname']);
-        $customers_email_address = tep_db_prepare_input($HTTP_POST_VARS['customers_email_address']);
-        $customers_telephone = tep_db_prepare_input($HTTP_POST_VARS['customers_telephone']);
-        $customers_fax = tep_db_prepare_input($HTTP_POST_VARS['customers_fax']);
-        $customers_newsletter = tep_db_prepare_input($HTTP_POST_VARS['customers_newsletter']);
+      case 'save':
+        $error = false;
 
-        $customers_gender = tep_db_prepare_input($HTTP_POST_VARS['customers_gender']);
-        $customers_dob = tep_db_prepare_input($HTTP_POST_VARS['customers_dob']);
-
-        $default_address_id = tep_db_prepare_input($HTTP_POST_VARS['default_address_id']);
-        $entry_street_address = tep_db_prepare_input($HTTP_POST_VARS['entry_street_address']);
-        $entry_suburb = tep_db_prepare_input($HTTP_POST_VARS['entry_suburb']);
-        $entry_postcode = tep_db_prepare_input($HTTP_POST_VARS['entry_postcode']);
-        $entry_city = tep_db_prepare_input($HTTP_POST_VARS['entry_city']);
-        $entry_country_id = tep_db_prepare_input($HTTP_POST_VARS['entry_country_id']);
-
-        $entry_company = tep_db_prepare_input($HTTP_POST_VARS['entry_company']);
-        $entry_state = tep_db_prepare_input($HTTP_POST_VARS['entry_state']);
-        if (isset($HTTP_POST_VARS['entry_zone_id'])) $entry_zone_id = tep_db_prepare_input($HTTP_POST_VARS['entry_zone_id']);
-
-        if (ACCOUNT_GENDER == 'true') {
-          if (($customers_gender != 'm') && ($customers_gender != 'f')) {
+        if (ACCOUNT_GENDER > 0) {
+          if (!isset($_POST['gender']) || (($_POST['gender'] != 'm') && ($_POST['gender'] != 'f'))) {
+            $messageStack->add(ENTRY_GENDER_ERROR);
             $error = true;
-            $entry_gender_error = true;
-          } else {
-            $entry_gender_error = false;
           }
         }
 
-        if (strlen($customers_firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
+        if (!isset($_POST['firstname']) || (strlen(trim($_POST['firstname'])) < ACCOUNT_FIRST_NAME)) {
+          $messageStack->add(ENTRY_FIRST_NAME_ERROR);
           $error = true;
-          $entry_firstname_error = true;
-        } else {
-          $entry_firstname_error = false;
         }
 
-        if (strlen($customers_lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+        if (!isset($_POST['lastname']) || (strlen(trim($_POST['lastname'])) < ACCOUNT_LAST_NAME)) {
+          $messageStack->add(ENTRY_LAST_NAME_ERROR);
           $error = true;
-          $entry_lastname_error = true;
-        } else {
-          $entry_lastname_error = false;
         }
 
-        if (ACCOUNT_DOB == 'true') {
-          if (checkdate(substr(tep_date_raw($customers_dob), 4, 2), substr(tep_date_raw($customers_dob), 6, 2), substr(tep_date_raw($customers_dob), 0, 4))) {
-            $entry_date_of_birth_error = false;
+        if (ACCOUNT_DATE_OF_BIRTH > -1) {
+          if (isset($_POST['dob_days']) && isset($_POST['dob_months']) && isset($_POST['dob_years']) && checkdate($_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years'])) {
+            $dob = adodb_mktime(0, 0, 0, $_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years']);
           } else {
+            $messageStack->add(ENTRY_DATE_OF_BIRTH_ERROR);
             $error = true;
-            $entry_date_of_birth_error = true;
           }
         }
 
-        if (strlen($customers_email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
+        if (!isset($_POST['email_address']) || (strlen(trim($_POST['email_address'])) < ACCOUNT_EMAIL_ADDRESS)) {
+          $messageStack->add(ENTRY_EMAIL_ADDRESS_ERROR);
           $error = true;
-          $entry_email_address_error = true;
+        } elseif (tep_validate_email($_POST['email_address']) == false) {
+          $messageStack->add(ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+          $error = true;
         } else {
-          $entry_email_address_error = false;
+          $Qcheck = $osC_Database->query('select customers_id from :table_customers where customers_email_address = :customers_email_address');
+          if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
+            $Qcheck->appendQuery('and customers_id != :customers_id');
+            $Qcheck->bindInt(':customers_id', $_GET['cID']);
+          }
+          $Qcheck->appendQuery('limit 1');
+          $Qcheck->bindTable(':table_customers', TABLE_CUSTOMERS);
+          $Qcheck->bindValue(':customers_email_address', $_POST['email_address']);
+          $Qcheck->execute();
+
+          if ($Qcheck->numberOfRows() > 0) {
+            $messageStack->add(ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
+            $error = true;
+          }
+
+          $Qcheck->freeResult();
         }
 
-        if (!tep_validate_email($customers_email_address)) {
+        if ( (!isset($_GET['cID']) || (isset($_POST['password']) && !empty($_POST['password']))) && (strlen(trim($_POST['password'])) < ACCOUNT_PASSWORD)) {
+          $messageStack->add(ENTRY_PASSWORD_ERROR);
           $error = true;
-          $entry_email_address_check_error = true;
-        } else {
-          $entry_email_address_check_error = false;
+        } elseif (isset($_POST['confirmation']) && !empty($_POST['confirmation']) && (trim($_POST['password']) != trim($_POST['confirmation']))) {
+          $messageStack->add(ENTRY_PASSWORD_ERROR_NOT_MATCHING);
+          $error = true;
         }
 
-        if (strlen($entry_street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
-          $error = true;
-          $entry_street_address_error = true;
-        } else {
-          $entry_street_address_error = false;
-        }
+        if (!isset($_GET['cID']) || (strlen(trim($_POST['ab_street_address'])) > 0)) {
+          if (ACCOUNT_GENDER > 0) {
+            if (!isset($_POST['ab_gender']) || (($_POST['ab_gender'] != 'm') && ($_POST['ab_gender'] != 'f'))) {
+              $messageStack->add(ENTRY_GENDER_ERROR);
+              $error = true;
+            }
+          }
 
-        if (strlen($entry_postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-          $error = true;
-          $entry_post_code_error = true;
-        } else {
-          $entry_post_code_error = false;
-        }
+          if (!isset($_POST['ab_firstname']) || (strlen(trim($_POST['ab_firstname'])) < ACCOUNT_FIRST_NAME)) {
+            $messageStack->add(ENTRY_FIRST_NAME_ERROR);
+            $error = true;
+          }
 
-        if (strlen($entry_city) < ENTRY_CITY_MIN_LENGTH) {
-          $error = true;
-          $entry_city_error = true;
-        } else {
-          $entry_city_error = false;
-        }
+          if (!isset($_POST['ab_lastname']) || (strlen(trim($_POST['ab_lastname'])) < ACCOUNT_LAST_NAME)) {
+            $messageStack->add(ENTRY_LAST_NAME_ERROR);
+            $error = true;
+          }
 
-        if ($entry_country_id == false) {
-          $error = true;
-          $entry_country_error = true;
-        } else {
-          $entry_country_error = false;
-        }
+          if (ACCOUNT_COMPANY > 0) {
+            if (!isset($_POST['ab_company']) || (strlen(trim($_POST['ab_company'])) < ACCOUNT_COMPANY)) {
+              $messageStack->add(ENTRY_COMPANY_ERROR);
+              $error = true;
+            }
+          }
 
-        if (ACCOUNT_STATE == 'true') {
-          if ($entry_country_error == true) {
-            $entry_state_error = true;
-          } else {
+          if (!isset($_POST['ab_street_address']) || (strlen(trim($_POST['ab_street_address'])) < ACCOUNT_STREET_ADDRESS)) {
+            $messageStack->add(ENTRY_STREET_ADDRESS_ERROR);
+            $error = true;
+          }
+
+          if (ACCOUNT_SUBURB > 0) {
+            if (!isset($_POST['ab_suburb']) || (strlen(trim($_POST['ab_suburb'])) < ACCOUNT_SUBURB)) {
+              $messageStack->add(ENTRY_SUBURB_ERROR);
+              $error = true;
+            }
+          }
+
+          if (!isset($_POST['ab_postcode']) || (strlen(trim($_POST['ab_postcode'])) < ACCOUNT_POST_CODE)) {
+            $messageStack->add(ENTRY_POST_CODE_ERROR);
+            $error = true;
+          }
+
+          if (!isset($_POST['ab_city']) || (strlen(trim($_POST['ab_city'])) < ACCOUNT_CITY)) {
+            $messageStack->add(ENTRY_CITY_ERROR);
+            $error = true;
+          }
+
+          if (ACCOUNT_STATE > 0) {
             $zone_id = 0;
-            $entry_state_error = false;
-            $check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . (int)$entry_country_id . "'");
-            $check_value = tep_db_fetch_array($check_query);
-            $entry_state_has_zones = ($check_value['total'] > 0);
-            if ($entry_state_has_zones == true) {
-              $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$entry_country_id . "' and zone_name = '" . tep_db_input($entry_state) . "'");
-              if (tep_db_num_rows($zone_query) == 1) {
-                $zone_values = tep_db_fetch_array($zone_query);
-                $entry_zone_id = $zone_values['zone_id'];
+
+            $Qcheck = $osC_Database->query('select zone_id from :table_zones where zone_country_id = :zone_country_id limit 1');
+            $Qcheck->bindTable(':table_zones', TABLE_ZONES);
+            $Qcheck->bindInt(':zone_country_id', $_POST['ab_country']);
+            $Qcheck->execute();
+
+            $entry_state_has_zones = ($Qcheck->numberOfRows() > 0);
+
+            $Qcheck->freeResult();
+
+            if ($entry_state_has_zones === true) {
+              $Qzone = $osC_Database->query('select zone_id from :table_zones where zone_country_id = :zone_country_id and zone_code like :zone_code');
+              $Qzone->bindTable(':table_zones', TABLE_ZONES);
+              $Qzone->bindInt(':zone_country_id', $_POST['ab_country']);
+              $Qzone->bindValue(':zone_code', $_POST['ab_state']);
+              $Qzone->execute();
+
+              if ($Qzone->numberOfRows() === 1) {
+                $zone_id = $Qzone->valueInt('zone_id');
               } else {
-                $error = true;
-                $entry_state_error = true;
+                $Qzone = $osC_Database->query('select zone_id from :table_zones where zone_country_id = :zone_country_id and zone_name like :zone_name');
+                $Qzone->bindTable(':table_zones', TABLE_ZONES);
+                $Qzone->bindInt(':zone_country_id', $_POST['ab_country']);
+                $Qzone->bindValue(':zone_name', $_POST['ab_state'] . '%');
+                $Qzone->execute();
+
+                if ($Qzone->numberOfRows() === 1) {
+                  $zone_id = $Qzone->valueInt('zone_id');
+                } else {
+                  $messageStack->add(ENTRY_STATE_ERROR_SELECT);
+                  $error = true;
+                }
               }
+
+              $Qzone->freeResult();
             } else {
-              if ($entry_state == false) {
+              if (strlen(trim($_POST['ab_state'])) < ACCOUNT_STATE) {
+                $messageStack->add(ENTRY_STATE_ERROR);
                 $error = true;
-                $entry_state_error = true;
               }
             }
-         }
-      }
+          }
 
-      if (strlen($customers_telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
-        $error = true;
-        $entry_telephone_error = true;
-      } else {
-        $entry_telephone_error = false;
-      }
+          if ( (is_numeric($_POST['ab_country']) === false) || ($_POST['ab_country'] < 1) ) {
+            $messageStack->add(ENTRY_COUNTRY_ERROR);
+            $error = true;
+          }
 
-      $check_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($customers_email_address) . "' and customers_id != '" . (int)$customers_id . "'");
-      if (tep_db_num_rows($check_email)) {
-        $error = true;
-        $entry_email_address_exists = true;
-      } else {
-        $entry_email_address_exists = false;
-      }
+          if (ACCOUNT_TELEPHONE > 0) {
+            if (!isset($_POST['ab_telephone']) || (strlen(trim($_POST['ab_telephone'])) < ACCOUNT_TELEPHONE)) {
+              $messageStack->add(ENTRY_TELEPHONE_NUMBER_ERROR);
+              $error = true;
+            }
+          }
 
-      if ($error == false) {
-
-        $sql_data_array = array('customers_firstname' => $customers_firstname,
-                                'customers_lastname' => $customers_lastname,
-                                'customers_email_address' => $customers_email_address,
-                                'customers_telephone' => $customers_telephone,
-                                'customers_fax' => $customers_fax,
-                                'customers_newsletter' => $customers_newsletter);
-
-        if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $customers_gender;
-        if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = tep_date_raw($customers_dob);
-
-        tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$customers_id . "'");
-
-        tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$customers_id . "'");
-
-        if ($entry_zone_id > 0) $entry_state = '';
-
-        $sql_data_array = array('entry_firstname' => $customers_firstname,
-                                'entry_lastname' => $customers_lastname,
-                                'entry_street_address' => $entry_street_address,
-                                'entry_postcode' => $entry_postcode,
-                                'entry_city' => $entry_city,
-                                'entry_country_id' => $entry_country_id);
-
-        if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
-        if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $entry_suburb;
-
-        if (ACCOUNT_STATE == 'true') {
-          if ($entry_zone_id > 0) {
-            $sql_data_array['entry_zone_id'] = $entry_zone_id;
-            $sql_data_array['entry_state'] = '';
-          } else {
-            $sql_data_array['entry_zone_id'] = '0';
-            $sql_data_array['entry_state'] = $entry_state;
+          if (ACCOUNT_FAX > 0) {
+            if (!isset($_POST['ab_fax']) || (strlen(trim($_POST['ab_fax'])) < ACCOUNT_FAX)) {
+              $messageStack->add(ENTRY_FAX_NUMBER_ERROR);
+              $error = true;
+            }
           }
         }
 
-        tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . (int)$customers_id . "' and address_book_id = '" . (int)$default_address_id . "'");
+        if ($error === false) {
+          $modified = false;
 
-        tep_redirect(tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $customers_id));
+          $osC_Database->startTransaction();
 
-        } else if ($error == true) {
-          $cInfo = new objectInfo($HTTP_POST_VARS);
-          $processed = true;
+          if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
+            $customer_id = $_GET['cID'];
+
+            $Qcustomer = $osC_Database->query('update :table_customers set customers_gender = :customers_gender, customers_firstname = :customers_firstname, customers_lastname = :customers_lastname, customers_email_address = :customers_email_address, customers_dob = :customers_dob, customers_status = :customers_status where customers_id = :customers_id');
+            $Qcustomer->bindInt(':customers_id', $customer_id);
+          } else {
+            $Qcustomer = $osC_Database->query('insert into :table_customers (customers_gender, customers_firstname, customers_lastname, customers_email_address, customers_dob, customers_status) values (:customers_gender, :customers_firstname, :customers_lastname, :customers_email_address, :customers_dob, :customers_status)');
+          }
+          $Qcustomer->bindTable(':table_customers', TABLE_CUSTOMERS);
+          $Qcustomer->bindValue(':customers_gender', (((ACCOUNT_GENDER > -1) && isset($_POST['gender']) && (($_POST['gender'] == 'm') || ($_POST['gender'] == 'f'))) ? $_POST['gender'] : ''));
+          $Qcustomer->bindValue(':customers_firstname', $_POST['firstname']);
+          $Qcustomer->bindValue(':customers_lastname', $_POST['lastname']);
+          $Qcustomer->bindValue(':customers_email_address', $_POST['email_address']);
+          $Qcustomer->bindValue(':customers_dob', ((ACCOUNT_DATE_OF_BIRTH > -1) ? adodb_date('Ymd', $dob) : ''));
+          $Qcustomer->bindInt(':customers_status', (isset($_POST['status']) && ($_POST['status'] == 'on') ? '1' : '0'));
+          $Qcustomer->execute();
+
+          if ($osC_Database->isError() === false) {
+            if ($Qcustomer->affectedRows()) {
+              $modified = true;
+
+              if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
+                $Qupdate = $osC_Database->query('update :table_customers_info set customers_info_date_account_last_modified = now() where customers_info_id = :customers_info_id');
+                $Qupdate->bindTable(':table_customers_info', TABLE_CUSTOMERS_INFO);
+                $Qupdate->bindInt(':customers_info_id', $customer_id);
+                $Qupdate->execute();
+
+                if ($osC_Database->isError()) {
+                  $error = true;
+                }
+              } else {
+                $customer_id = $osC_Database->nextID();
+
+                $Qinfo = $osC_Database->query('insert into :table_customers_info (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values (:customers_info_id, 0, now())');
+                $Qinfo->bindRaw(':table_customers_info', TABLE_CUSTOMERS_INFO);
+                $Qinfo->bindInt(':customers_info_id', $customer_id);
+                $Qinfo->execute();
+
+                if ($osC_Database->isError()) {
+                  $error = true;
+                }
+              }
+            }
+          } else {
+            $error = true;
+          }
+
+          if ($error === false) {
+            if (isset($_POST['confirmation']) && !empty($_POST['confirmation']) && (trim($_POST['password']) == trim($_POST['confirmation']))) {
+              include('includes/functions/password_funcs.php');
+
+              $Qpassword = $osC_Database->query('update :table_customers set customers_password = :customers_password where customers_id = :customers_id');
+              $Qpassword->bindTable(':table_customers', TABLE_CUSTOMERS);
+              $Qpassword->bindValue(':customers_password', tep_encrypt_password(trim($_POST['password'])));
+              $Qpassword->bindInt(':customers_id', $customer_id);
+              $Qpassword->execute();
+
+              if ($osC_Database->isError() === false) {
+                if ($Qpassword->affectedRows()) {
+                  $modified = true;
+                }
+              } else {
+                $error = true;
+              }
+            }
+          }
+
+          if ($error === false) {
+            if (strlen(trim($_POST['ab_street_address'])) > 0) {
+              $Qcustomer = $osC_Database->query('select customers_gender, customers_firstname, customers_lastname, customers_email_address, customers_default_address_id from :table_customers where customers_id = :customers_id');
+              $Qcustomer->bindTable(':table_customers', TABLE_CUSTOMERS);
+              $Qcustomer->bindInt(':customers_id', $customer_id);
+              $Qcustomer->execute();
+
+              if ($Qcustomer->valueInt('customers_default_address_id') > 0) {
+                $Qab = $osC_Database->query('update :table_address_book set customers_id = :customers_id, entry_gender = :entry_gender, entry_company = :entry_company, entry_firstname = :entry_firstname, entry_lastname = :entry_lastname, entry_street_address = :entry_street_address, entry_suburb = :entry_suburb, entry_postcode = :entry_postcode, entry_city = :entry_city, entry_state = :entry_state, entry_country_id = :entry_country_id, entry_zone_id = :entry_zone_id, entry_telephone = :entry_telephone, entry_fax = :entry_fax where address_book_id = :address_book_id and customers_id = :customers_id');
+                $Qab->bindInt(':address_book_id', $Qcustomer->valueInt('customers_default_address_id'));
+                $Qab->bindInt(':customers_id', $customer_id);
+              } else {
+                $Qab = $osC_Database->query('insert into :table_address_book (customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id, entry_telephone, entry_fax) values (:customers_id, :entry_gender, :entry_company, :entry_firstname, :entry_lastname, :entry_street_address, :entry_suburb, :entry_postcode, :entry_city, :entry_state, :entry_country_id, :entry_zone_id, :entry_telephone, :entry_fax)');
+              }
+              $Qab->bindInt(':customers_id', $customer_id);
+              $Qab->bindTable(':table_address_book', TABLE_ADDRESS_BOOK);
+              $Qab->bindValue(':entry_gender', (((ACCOUNT_GENDER > -1) && isset($_POST['ab_gender']) && (($_POST['ab_gender'] == 'm') || ($_POST['ab_gender'] == 'f'))) ? $_POST['ab_gender'] : ''));
+              $Qab->bindValue(':entry_company', ((ACCOUNT_COMPANY > -1) ? $_POST['ab_company'] : ''));
+              $Qab->bindValue(':entry_firstname', $_POST['ab_firstname']);
+              $Qab->bindValue(':entry_lastname', $_POST['ab_lastname']);
+              $Qab->bindValue(':entry_street_address', $_POST['ab_street_address']);
+              $Qab->bindValue(':entry_suburb', ((ACCOUNT_SUBURB > -1) ? $_POST['ab_suburb'] : ''));
+              $Qab->bindValue(':entry_postcode', $_POST['ab_postcode']);
+              $Qab->bindValue(':entry_city', $_POST['ab_city']);
+              $Qab->bindValue(':entry_state', ((ACCOUNT_STATE > -1) ? (($zone_id > 0) ? '' : $_POST['ab_state']) : ''));
+              $Qab->bindInt(':entry_country_id', $_POST['ab_country']);
+              $Qab->bindInt(':entry_zone_id', ((ACCOUNT_STATE > -1) ? (($zone_id > 0) ? $zone_id : 0) : ''));
+              $Qab->bindValue(':entry_telephone', ((ACCOUNT_TELEPHONE > -1) ? $_POST['ab_telephone'] : ''));
+              $Qab->bindValue(':entry_fax', ((ACCOUNT_FAX > -1) ? $_POST['ab_fax'] : ''));
+              $Qab->execute();
+
+              if ($osC_Database->isError() === false) {
+                if ($Qab->affectedRows()) {
+                  $modified = true;
+
+                  if ($Qcustomer->valueInt('customers_default_address_id') < 1) {
+                    $address_book_id = $osC_Database->nextID();
+
+                    $Qupdate = $osC_Database->query('update :table_customers set customers_default_address_id = :customers_default_address_id where customers_id = :customers_id');
+                    $Qupdate->bindTable(':table_customers', TABLE_CUSTOMERS);
+                    $Qupdate->bindInt(':customers_default_address_id', $address_book_id);
+                    $Qupdate->bindInt(':customers_id', $customer_id);
+                    $Qupdate->execute();
+
+                    if ($osC_Database->isError()) {
+                      $error = true;
+                    }
+                  }
+                }
+              } else {
+                $error = true;
+              }
+            }
+          }
+
+          if ($error === false) {
+            if ($modified === true) {
+              $osC_Database->commitTransaction();
+
+              if (!isset($_GET['cID'])) {
+                $full_name = $Qcustomer->value('customers_firstname') . ' ' . $Qcustomer->value('customers_lastname');
+
+                if (ACCOUNT_GENDER > -1) {
+                  if ($Qcustomer->value('customers_gender') == 'm') {
+                    $email_text = sprintf(EMAIL_GREET_MR, $Qcustomer->value('customers_lastname'));
+                  } else {
+                    $email_text = sprintf(EMAIL_GREET_MS, $Qcustomer->value('customers_lastname'));
+                  }
+                } else {
+                  $email_text = sprintf(EMAIL_GREET_NONE, $full_name);
+                }
+
+                $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT; // . sprintf(EMAIL_PASSWORD, $customers_password);
+                tep_mail($full_name, $Qcustomer->value('customers_email_address'), EMAIL_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+              }
+
+              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            } else {
+              $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            }
+          } else {
+            $osC_Database->rollbackTransaction();
+
+            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          }
+
+          tep_redirect(tep_href_link(FILENAME_CUSTOMERS, (isset($_GET['search']) ? 'search=' . $_GET['search'] . '&' : '') . 'page=' . $_GET['page'] . '&cID=' . $customer_id));
         }
 
         break;
       case 'deleteconfirm':
-        $customers_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
+        if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
+          $error = false;
 
-        if (isset($HTTP_POST_VARS['delete_reviews']) && ($HTTP_POST_VARS['delete_reviews'] == 'on')) {
-          $reviews_query = tep_db_query("select reviews_id from " . TABLE_REVIEWS . " where customers_id = '" . (int)$customers_id . "'");
-          while ($reviews = tep_db_fetch_array($reviews_query)) {
-            tep_db_query("delete from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . (int)$reviews['reviews_id'] . "'");
+          $osC_Database->startTransaction();
+
+          if (isset($_POST['delete_reviews']) && ($_POST['delete_reviews'] == 'on')) {
+            $Qreviews = $osC_Database->query('select reviews_id from :table_reviews where customers_id = :customers_id');
+            $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
+            $Qreviews->bindInt(':customers_id', $_GET['cID']);
+            $Qreviews->execute();
+
+            while ($Qreviews->next()) {
+              $Qrd = $osC_Database->query('delete from :table_reviews_description where reviews_id = :reviews_id');
+              $Qrd->bindTable(':table_reviews_description', TABLE_REVIEWS_DESCRIPTION);
+              $Qrd->bindInt(':reviews_id', $Qreviews->bindInt('reviews_id'));
+              $Qrd->execute();
+
+              if ($osC_Database->isError()) {
+                $error = true;
+                break;
+              }
+            }
+
+            if ($error === false) {
+              $Qreviews = $osC_Database->query('delete from :table_reviews where customers_id = :customers_id');
+              $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
+              $Qreviews->bindInt(':customers_id', $_GET['cID']);
+              $Qreviews->execute();
+
+              if ($osC_Database->isError()) {
+                $error = true;
+              }
+            }
+          } else {
+            $Qcheck = $osC_Database->query('select reviews_id from :table_reviews where customers_id = :customers_id limit 1');
+            $Qcheck->bindTable(':table_reviews', TABLE_REVIEWS);
+            $Qcheck->bindInt(':customers_id', $_GET['cID']);
+            $Qcheck->execute();
+
+            if ($Qcheck->numberOfRows() > 0) {
+              $Qreviews = $osC_Database->query('update :table_reviews set customers_id = null where customers_id = :customers_id');
+              $Qreviews->bindTable(':table_reviews', TABLE_REVIEWS);
+              $Qreviews->bindInt(':customers_id', $_GET['cID']);
+              $Qreviews->execute();
+
+              if ($osC_Database->isError()) {
+                $error = true;
+              }
+            }
           }
 
-          tep_db_query("delete from " . TABLE_REVIEWS . " where customers_id = '" . (int)$customers_id . "'");
-        } else {
-          tep_db_query("update " . TABLE_REVIEWS . " set customers_id = null where customers_id = '" . (int)$customers_id . "'");
+          if ($error === false) {
+            $Qab = $osC_Database->query('delete from :table_address_book where customers_id = :customers_id');
+            $Qab->bindTable(':table_address_book', TABLE_ADDRESS_BOOK);
+            $Qab->bindInt(':customers_id', $_GET['cID']);
+            $Qab->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $Qcustomers = $osC_Database->query('delete from :table_customers where customers_id = :customers_id');
+            $Qcustomers->bindTable(':table_customers', TABLE_CUSTOMERS);
+            $Qcustomers->bindInt(':customers_id', $_GET['cID']);
+            $Qcustomers->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $Qci = $osC_Database->query('delete from :table_customers_info where customers_info_id = :customers_info_id');
+            $Qci->bindTable(':table_customers_info', TABLE_CUSTOMERS_INFO);
+            $Qci->bindInt(':customers_info_id', $_GET['cID']);
+            $Qci->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $Qcb = $osC_Database->query('delete from :table_customers_basket where customers_id = :customers_id');
+            $Qcb->bindTable(':table_customers_basket', TABLE_CUSTOMERS_BASKET);
+            $Qcb->bindInt(':customers_id', $_GET['cID']);
+            $Qcb->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $Qcba = $osC_Database->query('delete from :table_customers_basket_attributes where customers_id = :customers_id');
+            $Qcba->bindTable(':table_customers_basket_attributes', TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+            $Qcba->bindInt(':customers_id', $_GET['cID']);
+            $Qcba->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $Qpn = $osC_Database->query('delete from :table_products_notifications where customers_id = :customers_id');
+            $Qpn->bindTable(':table_products_notifications', TABLE_PRODUCTS_NOTIFICATIONS);
+            $Qpn->bindInt(':customers_id', $_GET['cID']);
+            $Qpn->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $Qwho = $osC_Database->query('delete from :table_whos_online where customer_id = :customer_id');
+            $Qwho->bindTable(':table_whos_online', TABLE_WHOS_ONLINE);
+            $Qwho->bindInt(':customer_id', $_GET['cID']);
+            $Qwho->execute();
+
+            if ($osC_Database->isError()) {
+              $error = true;
+            }
+          }
+
+          if ($error === false) {
+            $osC_Database->commitTransaction();
+
+            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          } else {
+            $osC_Database->rollbackTransaction();
+
+            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          }
         }
 
-        tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customers_id . "'");
-        tep_db_query("delete from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customers_id . "'");
-        tep_db_query("delete from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$customers_id . "'");
-        tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . (int)$customers_id . "'");
-        tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int)$customers_id . "'");
-        tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$customers_id . "'");
-        tep_db_query("delete from " . TABLE_WHOS_ONLINE . " where customer_id = '" . (int)$customers_id . "'");
-
-        tep_redirect(tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action'))));
+        tep_redirect(tep_href_link(FILENAME_CUSTOMERS, (isset($_GET['search']) ? 'search=' . $_GET['search'] . '&' : '') . 'page=' . $_GET['page']));
         break;
-      default:
-        $customers_query = tep_db_query("select c.customers_id, c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . (int)$HTTP_GET_VARS['cID'] . "'");
-        $customers = tep_db_fetch_array($customers_query);
-        $cInfo = new objectInfo($customers);
     }
   }
-?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<script language="javascript" src="includes/general.js"></script>
-<?php
-  if ($action == 'edit' || $action == 'update') {
-?>
-<script language="javascript"><!--
-
-function check_form() {
-  var error = 0;
-  var error_message = "<?php echo JS_ERROR; ?>";
-
-  var customers_firstname = document.customers.customers_firstname.value;
-  var customers_lastname = document.customers.customers_lastname.value;
-<?php if (ACCOUNT_COMPANY == 'true') echo 'var entry_company = document.customers.entry_company.value;' . "\n"; ?>
-<?php if (ACCOUNT_DOB == 'true') echo 'var customers_dob = document.customers.customers_dob.value;' . "\n"; ?>
-  var customers_email_address = document.customers.customers_email_address.value;
-  var entry_street_address = document.customers.entry_street_address.value;
-  var entry_postcode = document.customers.entry_postcode.value;
-  var entry_city = document.customers.entry_city.value;
-  var customers_telephone = document.customers.customers_telephone.value;
-
-<?php if (ACCOUNT_GENDER == 'true') { ?>
-    if (document.customers.elements['customers_gender'].type != "hidden") {
-      if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked) {
-      } else {
-        error_message = error_message + "<?php echo JS_GENDER; ?>";
-        error = 1;
-      }
-    }
-<?php } ?>
-
-  if (customers_firstname == "" || customers_firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
-    error = 1;
-  }
-
-  if (customers_lastname == "" || customers_lastname.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_LAST_NAME; ?>";
-    error = 1;
-  }
-
-<?php if (ACCOUNT_DOB == 'true') { ?>
-  if (customers_dob == "" || customers_dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_DOB; ?>";
-    error = 1;
-  }
-<?php } ?>
-
-  if (customers_email_address == "" || customers_email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
-    error = 1;
-  }
-
-  if (entry_street_address == "" || entry_street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_ADDRESS; ?>";
-    error = 1;
-  }
-
-  if (entry_postcode == "" || entry_postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_POST_CODE; ?>";
-    error = 1;
-  }
-
-  if (entry_city == "" || entry_city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_CITY; ?>";
-    error = 1;
-  }
-
-<?php
-  if (ACCOUNT_STATE == 'true') {
-?>
-  if (document.customers.elements['entry_state'].type != "hidden") {
-    if (document.customers.entry_state.value == '' || document.customers.entry_state.value.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-       error_message = error_message + "<?php echo JS_STATE; ?>";
-       error = 1;
-    }
-  }
-<?php
-  }
-?>
-
-  if (document.customers.elements['entry_country_id'].type != "hidden") {
-    if (document.customers.entry_country_id.value == 0) {
-      error_message = error_message + "<?php echo JS_COUNTRY; ?>";
-      error = 1;
-    }
-  }
-
-  if (customers_telephone == "" || customers_telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_TELEPHONE; ?>";
-    error = 1;
-  }
-
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
-//--></script>
-<?php
-  }
-?>
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
-<!-- header //-->
-<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
-<!-- header_eof //-->
-
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<!-- left_navigation //-->
-<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
-<!-- left_navigation_eof //-->
-    </table></td>
-<!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-  if ($action == 'edit' || $action == 'update') {
-    $newsletter_array = array(array('id' => '1', 'text' => ENTRY_NEWSLETTER_YES),
-                              array('id' => '0', 'text' => ENTRY_NEWSLETTER_NO));
-?>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr><?php echo tep_draw_form('customers', FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')) . 'action=update', 'post', 'onSubmit="return check_form();"') . tep_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
-        <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
-      </tr>
-      <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-<?php
-    if (ACCOUNT_GENDER == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_GENDER; ?></td>
-            <td class="main">
-<?php
-    if ($error == true) {
-      if ($entry_gender_error == true) {
-        echo tep_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
-      } else {
-        echo ($cInfo->customers_gender == 'm') ? MALE : FEMALE;
-        echo tep_draw_hidden_field('customers_gender');
-      }
-    } else {
-      echo tep_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE;
-    }
-?></td>
-          </tr>
-<?php
-    }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_firstname_error == true) {
-      echo tep_draw_input_field('customers_firstname', $cInfo->customers_firstname, 'maxlength="32"') . '&nbsp;' . ENTRY_FIRST_NAME_ERROR;
-    } else {
-      echo $cInfo->customers_firstname . tep_draw_hidden_field('customers_firstname');
-    }
-  } else {
-    echo tep_draw_input_field('customers_firstname', $cInfo->customers_firstname, 'maxlength="32"', true);
-  }
-?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_LAST_NAME; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_lastname_error == true) {
-      echo tep_draw_input_field('customers_lastname', $cInfo->customers_lastname, 'maxlength="32"') . '&nbsp;' . ENTRY_LAST_NAME_ERROR;
-    } else {
-      echo $cInfo->customers_lastname . tep_draw_hidden_field('customers_lastname');
-    }
-  } else {
-    echo tep_draw_input_field('customers_lastname', $cInfo->customers_lastname, 'maxlength="32"', true);
-  }
-?></td>
-          </tr>
-<?php
-    if (ACCOUNT_DOB == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_DATE_OF_BIRTH; ?></td>
-            <td class="main">
-
-<?php
-    if ($error == true) {
-      if ($entry_date_of_birth_error == true) {
-        echo tep_draw_input_field('customers_dob', tep_date_short($cInfo->customers_dob), 'maxlength="10"') . '&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
-      } else {
-        echo $cInfo->customers_dob . tep_draw_hidden_field('customers_dob');
-      }
-    } else {
-      echo tep_draw_input_field('customers_dob', tep_date_short($cInfo->customers_dob), 'maxlength="10"', true);
-    }
-?></td>
-          </tr>
-<?php
-    }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_email_address_error == true) {
-      echo tep_draw_input_field('customers_email_address', $cInfo->customers_email_address, 'maxlength="96"') . '&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR;
-    } elseif ($entry_email_address_check_error == true) {
-      echo tep_draw_input_field('customers_email_address', $cInfo->customers_email_address, 'maxlength="96"') . '&nbsp;' . ENTRY_EMAIL_ADDRESS_CHECK_ERROR;
-    } elseif ($entry_email_address_exists == true) {
-      echo tep_draw_input_field('customers_email_address', $cInfo->customers_email_address, 'maxlength="96"') . '&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR_EXISTS;
-    } else {
-      echo $customers_email_address . tep_draw_hidden_field('customers_email_address');
-    }
-  } else {
-    echo tep_draw_input_field('customers_email_address', $cInfo->customers_email_address, 'maxlength="96"', true);
-  }
-?></td>
-          </tr>
-        </table></td>
-      </tr>
-<?php
-    if (ACCOUNT_COMPANY == 'true') {
-?>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
-        <td class="formAreaTitle"><?php echo CATEGORY_COMPANY; ?></td>
-      </tr>
-      <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo ENTRY_COMPANY; ?></td>
-            <td class="main">
-<?php
-    if ($error == true) {
-      if ($entry_company_error == true) {
-        echo tep_draw_input_field('entry_company', $cInfo->entry_company, 'maxlength="32"') . '&nbsp;' . ENTRY_COMPANY_ERROR;
-      } else {
-        echo $cInfo->entry_company . tep_draw_hidden_field('entry_company');
-      }
-    } else {
-      echo tep_draw_input_field('entry_company', $cInfo->entry_company, 'maxlength="32"');
-    }
-?></td>
-          </tr>
-        </table></td>
-      </tr>
-<?php
-    }
-?>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
-        <td class="formAreaTitle"><?php echo CATEGORY_ADDRESS; ?></td>
-      </tr>
-      <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo ENTRY_STREET_ADDRESS; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_street_address_error == true) {
-      echo tep_draw_input_field('entry_street_address', $cInfo->entry_street_address, 'maxlength="64"') . '&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
-    } else {
-      echo $cInfo->entry_street_address . tep_draw_hidden_field('entry_street_address');
-    }
-  } else {
-    echo tep_draw_input_field('entry_street_address', $cInfo->entry_street_address, 'maxlength="64"', true);
-  }
-?></td>
-          </tr>
-<?php
-    if (ACCOUNT_SUBURB == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_SUBURB; ?></td>
-            <td class="main">
-<?php
-    if ($error == true) {
-      if ($entry_suburb_error == true) {
-        echo tep_draw_input_field('suburb', $cInfo->entry_suburb, 'maxlength="32"') . '&nbsp;' . ENTRY_SUBURB_ERROR;
-      } else {
-        echo $cInfo->entry_suburb . tep_draw_hidden_field('entry_suburb');
-      }
-    } else {
-      echo tep_draw_input_field('entry_suburb', $cInfo->entry_suburb, 'maxlength="32"');
-    }
-?></td>
-          </tr>
-<?php
-    }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_POST_CODE; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_post_code_error == true) {
-      echo tep_draw_input_field('entry_postcode', $cInfo->entry_postcode, 'maxlength="8"') . '&nbsp;' . ENTRY_POST_CODE_ERROR;
-    } else {
-      echo $cInfo->entry_postcode . tep_draw_hidden_field('entry_postcode');
-    }
-  } else {
-    echo tep_draw_input_field('entry_postcode', $cInfo->entry_postcode, 'maxlength="8"', true);
-  }
-?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_CITY; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_city_error == true) {
-      echo tep_draw_input_field('entry_city', $cInfo->entry_city, 'maxlength="32"') . '&nbsp;' . ENTRY_CITY_ERROR;
-    } else {
-      echo $cInfo->entry_city . tep_draw_hidden_field('entry_city');
-    }
-  } else {
-    echo tep_draw_input_field('entry_city', $cInfo->entry_city, 'maxlength="32"', true);
-  }
-?></td>
-          </tr>
-<?php
-    if (ACCOUNT_STATE == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_STATE; ?></td>
-            <td class="main">
-<?php
-    $entry_state = tep_get_zone_name($cInfo->entry_country_id, $cInfo->entry_zone_id, $cInfo->entry_state);
-    if ($error == true) {
-      if ($entry_state_error == true) {
-        if ($entry_state_has_zones == true) {
-          $zones_array = array();
-          $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($cInfo->entry_country_id) . "' order by zone_name");
-          while ($zones_values = tep_db_fetch_array($zones_query)) {
-            $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
-          }
-          echo tep_draw_pull_down_menu('entry_state', $zones_array) . '&nbsp;' . ENTRY_STATE_ERROR;
-        } else {
-          echo tep_draw_input_field('entry_state', tep_get_zone_name($cInfo->entry_country_id, $cInfo->entry_zone_id, $cInfo->entry_state)) . '&nbsp;' . ENTRY_STATE_ERROR;
-        }
-      } else {
-        echo $entry_state . tep_draw_hidden_field('entry_zone_id') . tep_draw_hidden_field('entry_state');
-      }
-    } else {
-      echo tep_draw_input_field('entry_state', tep_get_zone_name($cInfo->entry_country_id, $cInfo->entry_zone_id, $cInfo->entry_state));
-    }
-
-?></td>
-         </tr>
-<?php
-    }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_COUNTRY; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_country_error == true) {
-      echo tep_draw_pull_down_menu('entry_country_id', tep_get_countries(), $cInfo->entry_country_id) . '&nbsp;' . ENTRY_COUNTRY_ERROR;
-    } else {
-      echo tep_get_country_name($cInfo->entry_country_id) . tep_draw_hidden_field('entry_country_id');
-    }
-  } else {
-    echo tep_draw_pull_down_menu('entry_country_id', tep_get_countries(), $cInfo->entry_country_id);
-  }
-?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
-        <td class="formAreaTitle"><?php echo CATEGORY_CONTACT; ?></td>
-      </tr>
-      <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
-            <td class="main">
-<?php
-  if ($error == true) {
-    if ($entry_telephone_error == true) {
-      echo tep_draw_input_field('customers_telephone', $cInfo->customers_telephone, 'maxlength="32"') . '&nbsp;' . ENTRY_TELEPHONE_NUMBER_ERROR;
-    } else {
-      echo $cInfo->customers_telephone . tep_draw_hidden_field('customers_telephone');
-    }
-  } else {
-    echo tep_draw_input_field('customers_telephone', $cInfo->customers_telephone, 'maxlength="32"', true);
-  }
-?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_FAX_NUMBER; ?></td>
-            <td class="main">
-<?php
-  if ($processed == true) {
-    echo $cInfo->customers_fax . tep_draw_hidden_field('customers_fax');
-  } else {
-    echo tep_draw_input_field('customers_fax', $cInfo->customers_fax, 'maxlength="32"');
-  }
-?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
-        <td class="formAreaTitle"><?php echo CATEGORY_OPTIONS; ?></td>
-      </tr>
-      <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo ENTRY_NEWSLETTER; ?></td>
-            <td class="main">
-<?php
-  if ($processed == true) {
-    if ($cInfo->customers_newsletter == '1') {
-      echo ENTRY_NEWSLETTER_YES;
-    } else {
-      echo ENTRY_NEWSLETTER_NO;
-    }
-    echo tep_draw_hidden_field('customers_newsletter');
-  } else {
-    echo tep_draw_pull_down_menu('customers_newsletter', $newsletter_array, (($cInfo->customers_newsletter == '1') ? '1' : '0'));
-  }
-?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
-        <td align="right" class="main"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action'))) .'">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
-      </tr></form>
-<?php
-  } else {
-?>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr><?php echo tep_draw_form('search', FILENAME_CUSTOMERS, '', 'get'); ?>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search'); ?></td>
-          </form></tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LASTNAME; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FIRSTNAME; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACCOUNT_CREATED; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-<?php
-    $search = '';
-    if (isset($HTTP_GET_VARS['search']) && tep_not_null($HTTP_GET_VARS['search'])) {
-      $keywords = tep_db_input(tep_db_prepare_input($HTTP_GET_VARS['search']));
-      $search = "where c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . $keywords . "%' or c.customers_email_address like '%" . $keywords . "%'";
-    }
-    $customers_query_raw = "select c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, c.customers_status, c.customers_ip_address, a.entry_country_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_id = a.customers_id and c.customers_default_address_id = a.address_book_id " . $search . " order by c.customers_lastname, c.customers_firstname";
-    $customers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_query_raw, $customers_query_numrows);
-    $customers_query = tep_db_query($customers_query_raw);
-    while ($customers = tep_db_fetch_array($customers_query)) {
-      $info_query = tep_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customers['customers_id'] . "'");
-      $info = tep_db_fetch_array($info_query);
-
-      if ((!isset($HTTP_GET_VARS['cID']) || (isset($HTTP_GET_VARS['cID']) && ($HTTP_GET_VARS['cID'] == $customers['customers_id']))) && !isset($cInfo)) {
-        $country_query = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . (int)$customers['entry_country_id'] . "'");
-        $country = tep_db_fetch_array($country_query);
-
-        $reviews_query = tep_db_query("select count(*) as number_of_reviews from " . TABLE_REVIEWS . " where customers_id = '" . (int)$customers['customers_id'] . "'");
-        $reviews = tep_db_fetch_array($reviews_query);
-
-        $customer_info = array_merge($country, $info, $reviews);
-
-        $cInfo_array = array_merge($customers, $customer_info);
-        $cInfo = new objectInfo($cInfo_array);
-      }
-
-      if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-        echo '          <tr id="defaultSelected" class="dataTableRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
-      } else {
-        echo '          <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
-      }
-?>
-                <td class="dataTableContent"><?php echo $customers['customers_lastname']; ?></td>
-                <td class="dataTableContent"><?php echo $customers['customers_firstname']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo tep_date_short($info['date_account_created']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
-              </tr>
-<?php
-    }
-?>
-              <tr>
-                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
-                    <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
-                  </tr>
-<?php
-    if (isset($HTTP_GET_VARS['search']) && tep_not_null($HTTP_GET_VARS['search'])) {
-?>
-                  <tr>
-                    <td align="right" colspan="2"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS) . '">' . tep_image_button('button_reset.gif', IMAGE_RESET) . '</a>'; ?></td>
-                  </tr>
-<?php
-    }
-?>
-                </table></td>
-              </tr>
-            </table></td>
-<?php
-  $heading = array();
-  $contents = array();
 
   switch ($action) {
-    case 'confirm':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMER . '</b>');
-
-      $contents = array('form' => tep_draw_form('customers', FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm'));
-      $contents[] = array('text' => TEXT_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
-      if (isset($cInfo->number_of_reviews) && ($cInfo->number_of_reviews) > 0) $contents[] = array('text' => '<br>' . tep_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
-      break;
-    default:
-      if (isset($cInfo) && is_object($cInfo)) {
-        $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
-
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, 'cID=' . $cInfo->customers_id) . '">' . tep_image_button('button_orders.gif', IMAGE_ORDERS) . '</a> <a href="' . tep_href_link(FILENAME_MAIL, 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . tep_image_button('button_email.gif', IMAGE_EMAIL) . '</a>');
-        $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . tep_date_short($cInfo->date_account_created));
-        $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->date_account_last_modified));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . tep_date_short($cInfo->date_last_logon));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons);
-        $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name);
-        $contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews);
-        $contents[] = array('text' => '<br>' . TEXT_IP_ADDRESS . ' ' . $cInfo->customers_ip_address);
-      }
-      break;
+    case 'cEdit':
+    case 'cNew':
+    case 'save': $page_contents = 'customers_edit.php'; break;
+    default: $page_contents = 'customers.php';
   }
 
-  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
+  require('templates/default.php');
 
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
-  }
+  require('includes/application_bottom.php');
 ?>
-          </tr>
-        </table></td>
-      </tr>
-<?php
-  }
-?>
-    </table></td>
-<!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
-
-<!-- footer //-->
-<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
-<!-- footer_eof //-->
-<br>
-</body>
-</html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
