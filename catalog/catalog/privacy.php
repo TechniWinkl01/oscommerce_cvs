@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_INFORMATION; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_INFORMATION, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRIVACY; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<? $location = ' : <a href="' . tep_href_link(FILENAME_PRIVACY, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>

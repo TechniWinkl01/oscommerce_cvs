@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.114 2001/05/01 22:04:47 hpdl Exp $
+  $Id: application_top.php,v 1.115 2001/05/12 19:53:50 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -78,12 +78,12 @@
   define('FILENAME_CHECKOUT_PROCESS', 'checkout_process.php');
   define('FILENAME_CHECKOUT_SUCCESS', 'checkout_success.php');
   define('FILENAME_CONTACT_US', 'contact_us.php');
+  define('FILENAME_CONDITIONS', 'conditions.php');
   define('FILENAME_CREATE_ACCOUNT', 'create_account.php');
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_EMAILPRODUCT', 'emailproduct.php');
-  define('FILENAME_INFORMATION', 'information.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');
   define('FILENAME_LOGIN_CREATE', 'login_create.php');
@@ -92,6 +92,7 @@
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
+  define('FILENAME_PRIVACY', 'privacy.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
@@ -100,6 +101,7 @@
   define('FILENAME_REVIEWS', 'reviews.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
+  define('FILENAME_SHIPPING', 'shipping.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
   define('FILENAME_PRODUCT_LISTING', 'product_listing.php'); // 2 possible values: product_listing.php or column_product_listing)
 
