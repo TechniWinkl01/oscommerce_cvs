@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.13 2002/03/23 11:17:03 project3000 Exp $
+  $Id: account_details.php,v 1.14 2002/03/25 18:49:42 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -250,13 +250,13 @@
     echo tep_get_country_name($account['entry_country_id']);
   } elseif ($error) {
     if ($entry_country_error) {
-      tep_get_country_list('country', $HTTP_POST_VARS['country'], (ACCOUNT_STATE) ? 'onChange="update_zone(this.form);"' : '');
+      tep_get_country_list('country', $HTTP_POST_VARS['country'], (ACCOUNT_STATE == 'true') ? 'onChange="update_zone(this.form);"' : '');
       echo '&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {
       echo tep_get_country_name($HTTP_POST_VARS['country']) . tep_draw_hidden_field('country');
     }
   } else {
-    tep_get_country_list('country', $account['entry_country_id'], (ACCOUNT_STATE) ? 'onChange="update_zone(this.form);"' : '');
+    tep_get_country_list('country', $account['entry_country_id'], (ACCOUNT_STATE == 'true') ? 'onChange="update_zone(this.form);"' : '');
     echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
   }
 ?></td>
