@@ -680,4 +680,8 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     return $categories_count;
   }
+
+  function tep_redirect($destination, $parameters = '', $connection = 'NONSSL') {
+    header('Location: ' . tep_href_link($destination, $parameters, $connection));
+  }
 ?>
