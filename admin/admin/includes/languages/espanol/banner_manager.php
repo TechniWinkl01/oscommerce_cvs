@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.16 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: banner_manager.php,v 1.17 2002/03/16 21:00:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,4 +48,17 @@ define('TEXT_BANNERS_BANNER_CLICKS', 'Clicks');
 
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este banner?');
 define('TEXT_INFO_DELETE_IMAGE', 'Borrar imagen');
+
+define('SUCCESS_BANNER_INSERTED', 'Success: The banner has been inserted.');
+define('SUCCESS_BANNER_UPDATED', 'Success: The banner has been updated.');
+define('SUCCESS_BANNER_REMOVED', 'Success: The banner has been removed.');
+define('SUCCESS_BANNER_STATUS_UPDATED', 'Success: The status of the banner has been updated.');
+
+define('ERROR_BANNER_TITLE_REQUIRED', 'Error: Banner title required.');
+define('ERROR_BANNER_GROUP_REQUIRED', 'Error: Banner group required.');
+define('ERROR_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Target directory does not exist.');
+define('ERROR_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Target directory is not writeable.');
+define('ERROR_IMAGE_DOES_NOT_EXIST', 'Error: Image does not exist.');
+define('ERROR_IMAGE_IS_NOT_WRITEABLE', 'Error: Image can not be removed.');
+define('ERROR_UNKNOWN_STATUS_FLAG', 'Error: Unknown status flag.');
 ?>
