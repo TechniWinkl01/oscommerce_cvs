@@ -4,7 +4,7 @@ if ($HTTP_GET_VARS['action'] == 'sendNewsletter') {
   define('HEADING_TITLE', 'Send newsletter');
   define('SUB_BAR_TITLE', 'Send newsletter with your latest products');
 } elseif ($HTTP_GET_VARS['action'] == 'email_user') {
-  define('HEADING_TITLE', 'Send eMail to costomer(s)');
+  define('HEADING_TITLE', 'Send eMail to customer(s)');
   define('SUB_BAR_TITLE', 'Select a customer, newsletter subscribers or all customers to send a eMail.');
 } elseif ($HTTP_GET_VARS['action'] == 'send_email_to_user') {
   define('HEADING_TITLE', 'eMail was sent');
