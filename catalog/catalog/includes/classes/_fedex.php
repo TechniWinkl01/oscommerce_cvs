@@ -1,131 +1,188 @@
 <?php
-	/*
-	 * $Id: _fedex.php,v 1.2 2002/05/13 11:53:51 thomasamoulton Exp $
-	 *
-	 * FedEx Shipping Calculator.
-	 * Inspired by the UPS Shipping Class.  Calculate shipping costs
-	 * through FedEx.  Currently doesn't support accessorials, but
-	 * that could be added easly enough if needed.
-	 *
-	 * Gotta add error checking soon I suppose.
-	 *
-	 * Error Numbers:
-	 *		902 - An invalid origin zip/postal code was entered.
-	 *		903 - An invalid destination zip/postal code was entered.
-	 *		904 - An invalid origin country code was entered.
-	 *		905 - An invalid destination country code was entered.
-	 *		935 - An invalid weight was entered.
-	 *		946 - An invalid screen was entered.
-	 *		948 - An Invalid Accessorial code was entered.
-	 */
 /*
-	$rate = new FedEx();
-	$rate->SetOrigin(95991, 'US');
-	$rate->SetDest(C1C1C1, 'CA');
-	$rate->SetWeight(50);
-	$quote = $rate->GetQuote();
-	print $quote['Service'] . "<br>";
-	print $quote['TotalCharges'] . "\n";
-*/
-	class _FedEx {
-		var $Screen = 'Ground';
-		var $OriginZip;
-		var $OriginCountryCode = 'US';
-		var $DestZip;
-		var $DestCountryCode = 'US';
-		var $Weight = 0;
-		var $WeightUnit = 'LBS';
-		var $Length = 0;
-		var $Width = 0;
-		var $Height = 0;
-		var $DimUnit = 'IN';
-		function _FedEx($zip = NULL, $country = NULL) {
-			if($zip) {
-				$this->SetOrigin($zip, $country);
-			}
-		}
-		function SetOrigin($zip, $country = NULL) {
-			$this->OriginZip = $zip;
-			if($country) {
-				$this->OriginCountryCode = $country;
-			}
-		}
-		function SetDest($zip, $country = NULL) {
-			$zip = str_replace(" ", "", $zip);
-			$zip = str_replace("-", "", $zip);
-			if ($country == "US") $this->DestZip = substr($zip, 0, 5);
-			else $this->DestZip = $zip;
-			if($country) {
-				$this->DestCountryCode = $country;
-			}
-		}
-		function SetWeight($weight, $units = NULL) {
-			if ($weight < 1) $this->Weight = 1;
-			else $this->Weight = $weight;
-			if($units) {
-				$this->WeightUnit = $units;
-			}
-		}
-		function SetSize($length = NULL, $width = NULL, $height = NULL, $units = NULL) {
-			if($length) {
-				$this->Length = $length;
-			}
-			if($width) {
-				$this->Width = $width;
-			}
-			if($height) {
-				$this->Height = $height;
-			}
-			if($units) {
-				$this->DimUnit = $units;
-			}
-		}
+  $Id: _fedex.php,v 1.3 2002/08/28 22:54:21 hpdl Exp $
 
-		function GetQuote() {
-			$url = array(
-				'http://grd.fedex.com/cgi-bin/rrr2010.exe?func=Rate',
-				'Screen=' . $this->Screen,
-				'OriginZip=' . $this->OriginZip,
-				'OriginCountryCode=' . $this->OriginCountryCode,
-				'DestZip=' . $this->DestZip,
-				'DestCountryCode=' . $this->DestCountryCode,
-				'Weight=' . $this->Weight,
-				'WeightUnit=' . $this->WeightUnit,
-				'DimUnit=' . $this->DimUnit
-			);
-			if($this->Length) {
-				$url[] = 'Length=' . $this->Length;
-			}
-			if($this->Width) {
-				$url[] = 'Width=' . $this->Width;
-			}
-			if($this->Height) {
-				$url[] = 'Height=' . $this->Height;
-			}
-			$url = join('&', $url);
-			$fp = fopen($url, 'r');
-			while(!feof($fp)) {
-				$line = trim(fgets($fp, 1024));
-				if($line == '<!-- End Reply Message -->') {
-					break;
-				}
-				if($ok) {
-					$p = strpos($line, '>');
-					$tag = substr($line, 2, ($p - 2));
-					$text = strip_tags($line);
-					if($line[1] == '!') {
-// print "<!-- " . htmlentities($tag) . " - " . htmlentities($text) . " -->\n";
-						$output[$tag] = $text;
-					}
-				}
-				else {
-					if($line == '<!-- Begin Reply Message -->') {
-						$ok = 1;
-					}
-				}
-			}
-			fclose($fp);
-			return $output;
-		}
-	}
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+
+  class _FedEx {
+    var $Screen = 'Ground';
+    var $OriginZip;
+    var $OriginCountryCode = 'US';
+    var $DestZip;
+    var $DestCountryCode = 'U.S.A.';
+    var $Weight = 0;
+    var $WeightUnit = 'lbs';
+    var $Length;
+    var $Width;
+    var $Height;
+    var $DimUnit = 'in';
+
+    function _FedEx($zip = '', $country = '') {
+      if (tep_not_null($zip)) {
+        $this->SetOrigin($zip, $country);
+      }
+    }
+
+    function SetOrigin($zip, $country = '') {
+      $this->OriginZip = $zip;
+
+      if (tep_not_null($country)) {
+        $this->OriginCountryCode = $country;
+      }
+    }
+
+    function SetDest($zip, $country = '') {
+      $zip = str_replace(' ', '', $zip);
+      $zip = str_replace('-', '', $zip);
+
+      if ($country == 'US') {
+        $this->DestZip = substr($zip, 0, 5);
+      } else {
+        $this->DestZip = $zip;
+      }
+
+      if($country) {
+        $this->DestCountryCode = $country;
+      }
+    }
+
+    function SetWeight($weight, $units = '') {
+      if ($weight < 1) {
+        $this->Weight = 1;
+      } else {
+        $this->Weight = $weight;
+      }
+
+      if (tep_not_null($units)) {
+        $this->WeightUnit = $units;
+      }
+    }
+
+    function SetSize($length = '', $width = '', $height = '', $units = '') {
+      if (tep_not_null($length)) {
+        $this->Length = $length;
+      }
+
+      if (tep_not_null($width)) {
+        $this->Width = $width;
+      }
+
+      if (tep_not_null($height)) {
+        $this->Height = $height;
+      }
+
+      if (tep_not_null($units)) {
+        $this->DimUnit = $units;
+      }
+    }
+
+    function GetQuote() {
+      $parameters = array(/* static variables begin */
+                          'jsp_name=index',
+                          'orig_country=' . $this->OriginCountryCode,
+                          'language=english',
+                          'portal=xx',
+                          'account=',
+                          'heavy_weight=NO',
+                          'packet_zip=',
+                          'hold_packaging=',
+                          /* static variable end */
+
+                          'orig_zip=' . $this->OriginZip, //maxlength=6
+                          'dest_zip=' . $this->DestZip, //maxlength=6
+                          'dest_country_val=' . $this->DestCountryCode,
+
+                          'company_type=' . $this->Screen, //Express,Ground,Home
+                          'packaging=1', //only used with Express
+
+                          'weight=' . $this->Weight, //maxlength=4
+                          'weight_units=' . $this->WeightUnit, //lbs,kgs
+
+                          'dim_units=' . $this->DimUnit, //in, cm
+                          'dim_width=' . $this->Width,
+                          'dim_height=' . $this->Height,
+
+                          'dropoff_type=4', // 4=Dropoff at FedEx location, 1=Give to scheduled courier at my location, 2=Schedule a pickup
+
+                          'submit_button=Get Rate');
+
+      $parameters = join('&', $parameters);
+
+      if ($result = $this->request_url('http://www.fedex.com/servlet/RateFinderServlet', '', $parameters)) {
+// convert the string to an array for easier parsing
+        $result_array = explode("\n", $result);
+
+// get the html table rows containing the shipping rates
+        $rates = array();
+        $set = false;
+        for ($i=0, $n=sizeof($result_array); $i<$n; $i++) {
+          if (substr($result_array[$i], 0, 47) == '<TR><TD BGCOLOR="#FFFFFF" class=\'resultstable\'>' || substr($result_array[$i], 0, 47) == '<TR><TD BGCOLOR="#CCCCCC" class=\'resultstable\'>') {
+            $rates[] = strip_tags($result_array[$i], '<td><br>');
+            $set = true;
+          } elseif ($set == true) {
+            break;
+          }
+        }
+
+// split the table row into an array (mimicking <td>)
+// title, drop off rate, other charges, total rate: used below in $rates_raw
+        $rates_split = array();
+        for ($i=0, $n=sizeof($rates); $i<$n; $i++) {
+          $rates_split[] = explode('</TD>', $rates[$i]);
+        }
+
+// remove the html tags
+        $rates_raw = array();
+        for ($i=0, $n=sizeof($rates_split); $i<$n; $i++) {
+          if (strlen($rates_split[$i][0]) > 15) {
+            $title = explode('&reg;', $rates_split[$i][0]);
+            if (strstr($title[0], '<BR>')) $title = explode('<BR>', $title[0]);
+            $rates_raw[] = array('Service' => strip_tags($title[0]),
+                                 'TotalCharges' => strip_tags($rates_split[$i][3]));
+          }
+        }
+      } else {
+        $rates_raw['ErrorNbr'] = 1;
+        $rates_raw['Error'] = MODULE_SHIPPING_FEDEX_TEXT_ERROR;
+      }
+
+      return $rates_raw;
+    }
+
+    function request_url($url, $get_data, $post_data = '', $port = '80') {
+      $response = '';
+
+      $url = ereg_replace('^http://', '', $url);
+
+      $host = substr($url, 0, strpos($url, '/'));
+      $uri = strstr($url, '/');
+
+      $method = ((empty($post_data)) ? 'GET' : 'POST');
+
+      if ($method == 'GET') $uri .= '?' . $get_data;
+
+      if ($fp = @fsockopen($host, $port)) {
+        fputs($fp, $method . ' ' . $uri . ' HTTP/1.1' . "\n");
+        fputs($fp, 'Host: ' . $host . "\n");
+        fputs($fp, 'Content-Type: application/x-www-form-urlencoded' . "\n");
+        fputs($fp, 'Content-Length: ' . strlen($post_data) . "\n");
+        fputs($fp, 'User-Agent: ' . getenv('HTTP_USER_AGENT') . "\n");
+        fputs($fp, 'Connection: close' . "\n\n");
+
+        if ($method == 'POST') fputs($fp, $post_data);
+
+        while (!feof($fp)) $response .= fgets($fp, 128);
+
+        fclose($fp);
+      }
+
+      return $response;
+    }
+  }
 ?>
