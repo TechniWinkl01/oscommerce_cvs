@@ -14,6 +14,7 @@
   define('DIR_LOGS', '/usr/local/apache/logs/');
   define('DIR_ADMIN', '/admin/');
   define('DIR_CATALOG', '/catalog/');
+  define('DIR_CATALOG_PHYSICAL', DIR_SERVER_ROOT . DIR_CATALOG);
   define('DIR_CATALOG_IMAGES', DIR_CATALOG . 'images/');
   define('DIR_PAYMENT_MODULES', DIR_SERVER_ROOT . DIR_CATALOG . 'includes/modules/payment/');
   define('DIR_SHIPPING_MODULES', DIR_SERVER_ROOT . DIR_CATALOG . 'includes/modules/shipping/');
@@ -58,6 +59,7 @@
   define('FILENAME_TAX_CLASSES', 'tax_classes.php');
   define('FILENAME_TAX_RATES', 'tax_rates.php');
   define('FILENAME_ZONES', 'zones.php');
+  define('FILENAME_CURRENCIES', 'currencies.php');
 
 // define our database connection
   define('DB_SERVER', $HTTP_ENV_VARS['HOSTNAME']);
@@ -193,6 +195,7 @@
   }
   tep_session_register('language');
 
+  $include_file = DIR_CATALOG_PHYSICAL . 'includes/data/rates.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_INCLUDES . 'include_once.php');
 
@@ -215,6 +218,7 @@
   $include_file = DIR_CLASSES . 'category_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'configuration_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'countries_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'currencies_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'customer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'manufacturer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'product_expected_info.php'; include(DIR_INCLUDES . 'include_once.php');
