@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.37 2001/09/12 21:33:16 dwatkins Exp $
+  $Id: ups.php,v 1.38 2001/11/04 19:10:27 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,7 @@
 */
 
   class ups {
-    var $code, $title, $descrption, $icon, $enabled;
+    var $code, $title, $descrption, $icon, $enabled, $quote;
 
 // class constructor
     function ups() {
@@ -49,6 +49,7 @@
       global $HTTP_POST_VARS, $address_values, $shipping_weight, $shipping_ups_cost, $shipping_ups_method, $shipping_num_boxes, $shipping_quoted;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_ups'] == '1') ) {
+        $shipping_quoted = 'ups';
         $prod = ($HTTP_POST_VARS['shipping_ups_prod']) ? $HTTP_POST_VARS['shipping_ups_prod'] : 'GND';
         include(DIR_WS_CLASSES . '_ups.php');
         $rate = new _Ups;
@@ -62,15 +63,9 @@
         $rate->container(MODULE_SHIPPING_UPS_PACKAGE);    // See the container() function for codes
         $rate->weight($shipping_weight);
         $rate->rescom(MODULE_SHIPPING_UPS_RES);    // See the rescom() function for codes
-        $quote = $rate->getQuote();
-        $shipping_ups_cost = SHIPPING_HANDLING + $quote;
+        $this->quote = $rate->getQuote();
+        $shipping_ups_cost = (SHIPPING_HANDLING + $this->quote) * $shipping_num_boxes;
         $shipping_ups_method = 'UPS ' . $prod . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
-        if ($shipping_ups_cost == SHIPPING_HANDLING) {
-          $shipping_ups_method = 'UPS ' . $quote;
-        } else {
-          $shipping_quoted = 'ups';
-          $shipping_ups_cost = $shipping_ups_cost * $shipping_num_boxes;
-        }
       }
     }
 
@@ -98,21 +93,30 @@
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_ups'] == '1') ) {
-        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . ' <small><i>(' . $shipping_ups_method . ')</i></small>&nbsp;</td>' . "\n" .
-                          '    <td align="right" class="main">&nbsp;' . $currencies->format($shipping_ups_cost);
-        if (tep_count_shipping_modules() > 1) {
-          $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'ups') .
-                                              tep_draw_hidden_field('shipping_ups_cost', $shipping_ups_cost) .
-                                              tep_draw_hidden_field('shipping_ups_method', $shipping_ups_method) . '&nbsp;</td>' . "\n";
+        if ($this->quote > 0) {
+          $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                            '  <tr>' . "\n" .
+                            '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . ' <small><i>(' . $shipping_ups_method . ')</i></small>&nbsp;</td>' . "\n" .
+                            '    <td align="right" class="main">&nbsp;' . $currencies->format($shipping_ups_cost);
+          if (tep_count_shipping_modules() > 1) {
+            $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'ups') .
+                                                tep_draw_hidden_field('shipping_ups_cost', $shipping_ups_cost) .
+                                                tep_draw_hidden_field('shipping_ups_method', $shipping_ups_method) . '&nbsp;</td>' . "\n";
+          } else {
+            $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'ups') .
+                                                tep_draw_hidden_field('shipping_ups_cost', $shipping_ups_cost) .
+                                                tep_draw_hidden_field('shipping_ups_method', $shipping_ups_method) . '&nbsp;</td>' . "\n";
+          }
+          $display_string .= '  </tr>' . "\n" .
+                             '</table>' . "\n";
         } else {
-          $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'ups') .
-                                              tep_draw_hidden_field('shipping_ups_cost', $shipping_ups_cost) .
-                                              tep_draw_hidden_field('shipping_ups_method', $shipping_ups_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;<font color="#ff0000">Error:</font> ' . $this->quote . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '</table>' . "\n";
         }
-        $display_string .= '  </tr>' . "\n" .
-                           '</table>' . "\n";
       }
 
       return $display_string;
@@ -136,9 +140,9 @@
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable UPS Shipping', 'MODULE_SHIPPING_UPS_STATUS', '1', 'Do you want to offer UPS shipping?', '6', '9', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('UPS Pickup Method', 'MODULE_SHIPPING_UPS_PICKUP', 'CC', 'How do you give packages to UPS? CC - Customer Counter, RDP - Daily Pickup, OTP - One Time Pickup, LC - Letter Center, OCA - On Call Air', '6', '10', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('UPS Packaging?', 'MODULE_SHIPPING_UPS_PACKAGE', 'CP', 'CP - Your Packaging, ULE - UPS Letter, UT - UPS Tube, UBE - UPS Express Box', '6', '11', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Residential Delivery?', 'MODULE_SHIPPING_UPS_RES', 'RES', 'Quote for Residential (RES) or Commercial Delivery (COM)', '6', '12', now())");
+  	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('UPS Pickup Method', 'MODULE_SHIPPING_UPS_PICKUP', 'CC', 'How do you give packages to UPS? CC - Customer Counter, RDP - Daily Pickup, OTP - One Time Pickup, LC - Letter Center, OCA - On Call Air', '6', '10', now())");
+	    tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('UPS Packaging?', 'MODULE_SHIPPING_UPS_PACKAGE', 'CP', 'CP - Your Packaging, ULE - UPS Letter, UT - UPS Tube, UBE - UPS Express Box', '6', '11', now())");
+	    tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Residential Delivery?', 'MODULE_SHIPPING_UPS_RES', 'RES', 'Quote for Residential (RES) or Commercial Delivery (COM)', '6', '12', now())");
     }
 
     function remove() {
