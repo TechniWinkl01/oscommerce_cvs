@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.141 2002/03/16 00:20:10 hpdl Exp $
+  $Id: application_top.php,v 1.142 2002/03/16 13:14:22 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,10 +37,10 @@
   define('LOCAL_EXE_UNZIP', '/usr/local/bin/unzip');
 
 // define the filenames used in the project
-  define('FILENAME_CATALOG_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
   define('FILENAME_BACKUP', 'backup.php');
   define('FILENAME_BANNER_MANAGER', 'banner_manager.php');
   define('FILENAME_CACHE', 'cache.php');
+  define('FILENAME_CATALOG_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_COUNTRIES', 'countries.php');
@@ -254,6 +254,6 @@
 
 // check if a default language is set
   if (!defined('DEFAULT_LANGUAGE')) {
-    $messageStack->add('Error: There is currently no default language set. Please set one at: Administration Tool->Localization->Languages', 'error');
+    $messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
   }
 ?>
