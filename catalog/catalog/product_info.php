@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.87 2002/08/24 10:36:31 project3000 Exp $
+  $Id: product_info.php,v 1.88 2003/02/05 19:34:06 wilt Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -110,7 +110,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
     if ($products_attributes == '1') {
       $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
       echo '<b>' . TEXT_PRODUCT_OPTIONS . '</b><br>';
-      echo '<table border="0" cellpading="0" cellspacing"0">';
+      echo '<table border="0" cellpadding="0" cellspacing"0">';
       while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
         $selected = 0;
         $products_options_array = array();
