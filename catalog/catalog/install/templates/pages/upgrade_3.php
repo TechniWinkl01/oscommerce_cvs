@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.17 2002/04/04 22:59:35 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.18 2002/04/08 01:13:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -463,6 +463,8 @@ changeText('statusText', 'Updating Orders');
   }
 
   osc_db_query("create table orders_products_download ( orders_products_download_id int(5) not null auto_increment, orders_id int(5) not null default '0', orders_products_id int(5) not null default '0', orders_products_filename varchar(255) not null, download_maxdays int(2) not null default '0', download_count int(2) not null default '0', primary key (orders_products_download_id))");
+
+  osc_db_query("create table orders_total ( orders_total_id int unsigned not null auto_increment, orders_id int not null, title varchar(255) not null, text varchar(255) not null, value decimal(8,2) not null, class varchar(32) not null, sort_order int not null, primary key (orders_total_id), key idx_orders_total_orders_id (orders_id))");
 ?>
 
 <script language="javascript"><!--

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.75 2002/04/06 18:20:30 hpdl Exp $
+  $Id: account_history_info.php,v 1.76 2002/04/08 01:13:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,10 +27,8 @@
 
   $location = ' &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $HTTP_GET_VARS['order_id'], 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_3 . '</a>';
 
-  require(DIR_WS_CLASSES . 'order_total.php');
   require(DIR_WS_CLASSES . 'order.php');
   $order = new order($HTTP_GET_VARS['order_id']);
-  $order_total_modules = new order_total;
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -106,10 +104,13 @@
           </tr>
           <tr>
             <td colspan="4" align="right"><table border="0" cellspacing="0" cellpadding="1">
+              <tr>
 <?php
-  if (MODULE_ORDER_TOTAL_INSTALLED) {
-    $order_total_modules->process();
-    echo $order_total_modules->output();
+  for ($i=0; $i<sizeof($order->totals); $i++) {
+    echo '              <tr>' . "\n" .
+         '                <td class="main" align="right">' . $order->totals[$i]['title'] . '</td>' . "\n" .
+         '                <td class="main" align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .
+         '              </tr>' . "\n";
   }
 ?>
             </table></td>

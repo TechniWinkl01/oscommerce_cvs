@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_subtotal.php,v 1.1 2002/04/03 23:09:49 hpdl Exp $
+  $Id: ot_subtotal.php,v 1.2 2002/04/08 01:13:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,7 +27,8 @@
       global $order, $currencies;
 
       $this->output[] = array('title' => $this->title . ':',
-                              'text' => $currencies->format($order->info['subtotal'], true, $order->info['currency'], $order->info['currency_value']));
+                              'text' => $currencies->format($order->info['subtotal'], true, $order->info['currency'], $order->info['currency_value']),
+                              'value' => $order->info['subtotal']);
     }
 
     function check() {

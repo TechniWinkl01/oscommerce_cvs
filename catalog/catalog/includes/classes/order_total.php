@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_total.php,v 1.1 2002/04/03 23:00:37 hpdl Exp $
+  $Id: order_total.php,v 1.2 2002/04/08 01:13:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,15 +32,28 @@
     }
 
     function process() {
+      $order_total_array = array();
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $GLOBALS[$class]->process();
+
+            for ($i=0; $i<sizeof($GLOBALS[$class]->output); $i++) {
+              if (tep_not_null($GLOBALS[$class]->output[$i]['title']) && tep_not_null($GLOBALS[$class]->output[$i]['text'])) {
+                $order_total_array[] = array('code' => $GLOBALS[$class]->code,
+                                             'title' => $GLOBALS[$class]->output[$i]['title'],
+                                             'text' => $GLOBALS[$class]->output[$i]['text'],
+                                             'value' => $GLOBALS[$class]->output[$i]['value'],
+                                             'sort_order' => $GLOBALS[$class]->sort_order);
+              }
+            }
           }
         }
       }
+
+      return $order_total_array;
     }
 
     function output() {

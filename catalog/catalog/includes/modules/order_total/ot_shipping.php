@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.1 2002/04/03 23:09:49 hpdl Exp $
+  $Id: ot_shipping.php,v 1.2 2002/04/08 01:13:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,8 @@
 
       if (tep_not_null($order->info['shipping_method'])) {
         $this->output[] = array('title' => $order->info['shipping_method'] . ':',
-                                'text' => $currencies->format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']));
+                                'text' => $currencies->format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']),
+                                'value' => $order->info['shipping_cost']);
       }
     }
 

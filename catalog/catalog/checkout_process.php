@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.100 2002/04/05 00:40:45 hpdl Exp $
+  $Id: checkout_process.php,v 1.101 2002/04/08 01:13:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,10 +35,14 @@
   $order = new order;
   $order_total_modules = new order_total;
 
-  $order_total_modules->process();
+  $order_totals = $order_total_modules->process();
 
   tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $order->customer['firstname'] . ' ' . $order->customer['lastname'] . "', '" . $order->customer['street_address'] . "', '" . $order->customer['suburb'] . "', '" . $order->customer['city'] . "', '" . $order->customer['postcode'] . "', '" . $order->customer['state'] . "', '" . $order->customer['country'] . "', '" . $order->customer['telephone'] . "', '" . $order->customer['email_address'] . "', '" . $order->customer['format_id'] . "', '" . $order->delivery['firstname'] . ' ' . $order->delivery['lastname'] . "', '" . $order->delivery['street_address'] . "', '" . $order->delivery['suburb'] . "', '" . $order->delivery['city'] . "', '" . $order->delivery['postcode'] . "', '" . $order->delivery['state'] . "', '" . $order->delivery['country'] . "', '" . $order->delivery['format_id'] . "', '" . $order->info['payment_method'] . "', '" . $order->info['cc_type'] . "', '" . $order->info['cc_owner'] . "', '" . $order->info['cc_number'] . "', '" . $order->info['cc_expires'] . "', now(), '" . $order->info['shipping_cost'] . "', '" . $order->info['shipping_method'] . "', '" . DEFAULT_ORDERS_STATUS_ID . "', '" . addslashes($order->info['comments']) . "', '" . $order->info['currency'] . "', '" . $order->info['currency_value'] . "')");
   $insert_id = tep_db_insert_id();
+
+  for ($i=0; $i<sizeof($order_totals); $i++) {
+    tep_db_query("insert into " . TABLE_ORDERS_TOTAL . " (orders_total_id, orders_id, title, text, value, class, sort_order) values ('', '" . $insert_id . "', '" . $order_totals[$i]['title'] . "', '" . $order_totals[$i]['text'] . "', '" . $order_totals[$i]['value'] . "', '" . $order_totals[$i]['code'] . "', '" . $order_totals[$i]['sort_order'] . "')");
+  }
 
   $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
   tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, date_added, customer_notified) values ('" . $insert_id . "', '" . DEFAULT_ORDERS_STATUS_ID . "', now(), '" . $customer_notification . "')");

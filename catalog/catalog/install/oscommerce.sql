@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.33 2002/04/04 22:59:34 dgw_ Exp $
+# $Id: oscommerce.sql,v 1.34 2002/04/08 01:13:43 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -345,6 +345,19 @@ CREATE TABLE orders_products_download (
   download_count int(2) NOT NULL default '0',
   PRIMARY KEY  (orders_products_download_id)
 );
+
+DROP TABLE IF EXISTS orders_total;
+CREATE TABLE orders_total (
+  orders_total_id int unsigned NOT NULL auto_increment,
+  orders_id int NOT NULL,
+  title varchar(255) NOT NULL,
+  text varchar(255) NOT NULL,
+  value decimal(8,2) NOT NULL,
+  class varchar(32) NOT NULL,
+  sort_order int NOT NULL,
+  PRIMARY KEY (orders_total_id),
+  KEY idx_orders_total_orders_id (orders_id)
+)
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
