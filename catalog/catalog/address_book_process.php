@@ -1,12 +1,34 @@
 <? include('includes/application_top.php'); ?>
 <?
+/* addres_book_process.php
+
+   Default action: add an entry to the address book of the customer
+   Other actions:
+
+   process:      Check for errors
+   update:       Check for errors and enter the altered data in the
+                 address_book table
+   modify:       modify an existing entry in the address book, needs
+                 the GET-Var entry_id with the address_book_id to modify
+   remove:       remove the entry identified with the GET_Var entry_id
+                 from the address_book table
+
+*/
+
+// are we asked to remove an entry?
   if ((@$HTTP_GET_VARS['action'] == 'remove') && (@$HTTP_GET_VARS['entry_id'])) {
-    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
-    tep_db_query("delete from " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
+    // delete the entry from the address_book
+    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "' and customers_id = '" . $customer_id . "'");
+    // make sure the list of ids is correct
+    tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id -1 where address_book_id > " . $HTTP_GET_VARS['entry_id']  . "' and customers_id = '" . $customer_id . "'");
+    // adjust the default_address_id when necessary
+//    if ($HTTP_GET_VARS['entry_id'] < $customer_default_address_id) {
+//      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = customers_default_address_id - 1 where customers_id = '" . $customer_id . "'")};
+//    }
     header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     tep_exit();
   }
-
+//post-entry error checking when updating or modifying an entry
   $process = 0;
   if ((@$HTTP_POST_VARS['action'] == 'process') || (@$HTTP_POST_VARS['action'] == 'update')) {
     $process = 1;
@@ -17,6 +39,15 @@
       } else {
         $gender_error = 1;
         $error = 1;
+      }
+    }
+
+    if (ACCOUNT_COMPANY) {
+      if (@strlen(trim($HTTP_POST_VARS['company'])) < ENTRY_COMPANY_MIN_LENGTH) {
+        $company_error = 1;
+        $error = 1;
+      } else {
+        $company_error = 0;
       }
     }
 
@@ -62,11 +93,14 @@
       $country_error = 0;
     }
   }
-
+//update when no errors occured
   if ((@$process == 1) && (@$error == 0) && (@$HTTP_POST_VARS['action'] == 'update')) {
     $update_query = 'update ' . TABLE_ADDRESS_BOOK . ' set ';
     if (ACCOUNT_GENDER) {
        $update_query = $update_query . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    }
+    if (ACCOUNT_COMPANY) {
+       $update_query = $update_query . "entry_company = '" . $HTTP_POST_VARS['company'] . "', ";
     }
     $update_query = $update_query . "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
     if (ACCOUNT_SUBURB) {
@@ -80,17 +114,22 @@
          $update_query = $update_query . "entry_zone_id = '0', entry_state = '" . $HTTP_POST_VARS['state']. "', ";
        }
     }
-    $update_query = $update_query . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id']. "'";
+    $update_query = $update_query . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id']. "' and customers_id ='" . $customer_id . "'";
     tep_db_query($update_query);
+// go back ot the address book page
     header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     tep_exit();
   } elseif ((@$process == 1) && (@$error == 0)) {
+    $company = "";
     $gender = "";
     $suburb = "";
     $state = "";
     $zone_id = 0;
     if (ACCOUNT_GENDER) {
        $gender = $HTTP_POST_VARS['gender'];
+    }
+    if (ACCOUNT_COMPANY) {
+       $company = $HTTP_POST_VARS['company'];
     }
     if (ACCOUNT_SUBURB) {
        $suburb = $HTTP_POST_VARS['suburb'];
@@ -100,11 +139,10 @@
        $zone_id = $HTTP_POST_VARS['zone_id'];
        if ($zone_id != 0) $state = '';
     }
-    $update_query = "insert into " . TABLE_ADDRESS_BOOK . " values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
+// insert the new entry
+    $update_query = "insert into " . TABLE_ADDRESS_BOOK . " values ('" . $customer_id . "', '" . $HTTP_POST_VARS['entry_id'] . "', '" . $gender . "', '" . $HTTP_POST_VARS['company'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
     tep_db_query($update_query);
-    $insert_id = tep_db_insert_id();
-    tep_db_query("insert into " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " values ('', '" . $insert_id . "', '" . $customer_id . "')");
-
+// Go back to where we came from
     if (@$HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['origin_connection'] == 'SSL') {
         $connection_type = 'SSL';
@@ -125,6 +163,9 @@
       if (ACCOUNT_GENDER) {
          $entry_query = $entry_query . "entry_gender, ";
       }
+      if (ACCOUNT_COMPANY) {
+         $entry_query = $entry_query . "entry_company, ";
+      }
       $entry_query = $entry_query . "entry_firstname, entry_lastname, entry_street_address, ";
       if (ACCOUNT_SUBURB) {
          $entry_query = $entry_query . "entry_suburb, ";
@@ -133,11 +174,14 @@
       if (ACCOUNT_STATE) {
          $entry_query = $entry_query . "entry_state, entry_zone_id, ";
       }
-      $entry_query = $entry_query . "entry_country_id from " . TABLE_ADDRESS_BOOK . " ab, " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " abtc where abtc.customers_id = '" . $customer_id . "' and abtc.address_book_id = ab.address_book_id and ab.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
+      $entry_query = $entry_query . "entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
       $entry = tep_db_query($entry_query);
       $entry_values = tep_db_fetch_array($entry);
       if (ACCOUNT_GENDER) {
          $gender = $entry_values['entry_gender'];
+      }
+      if (ACCOUNT_COMPANY) {
+         $company = $entry_values['entry_company'];
       }
       $firstname = $entry_values['entry_firstname'];
       $lastname = $entry_values['entry_lastname'];
@@ -260,7 +304,7 @@ function check_form() {
 <?
   }
 ?>
-  
+
   if (document.add_entry.country.value == 0) {
     error_message = error_message + "<? echo JS_COUNTRY; ?>";
     error = 1;
@@ -318,7 +362,7 @@ function check_form() {
     echo '            <td class="pageHeading">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
   }
   echo '            <td align="right">&nbsp;' . tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '&nbsp;</td>' . "\n";
-  $rowspan = 5+ACCOUNT_GENDER;
+  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_COMPANY;
 ?>
           </tr>
         </table></td>
@@ -361,6 +405,27 @@ function check_form() {
           </tr>
 <?
   }
+   if (ACCOUNT_COMPANY) {
+?>
+
+          <tr>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_COMPANY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
+    if (@$process == 1) {
+      if (@$company_error == '1') {
+        echo '<input type="text" name="company" maxlength="32" value="' . $HTTP_POST_VARS['company'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
+      } else {
+        echo $HTTP_POST_VARS['company'] . '<input type="hidden" name="company" value="' . $HTTP_POST_VARS['company'] . '">';
+      }
+    } else {
+      echo '<input type="text" name="company" value="' . @$company . '" maxlength="32">&nbsp;' . ENTRY_COMPANY_TEXT;
+    } ?></td>
+      </tr>
+<?
+  }
 ?>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
@@ -390,7 +455,7 @@ function check_form() {
     } else {
       echo '<input type="text" name="lastname" value="' . @$lastname . '" maxlength="32">&nbsp;' . ENTRY_LAST_NAME_TEXT;
     }
-    $rowspan = 6+ACCOUNT_STATE+ACCOUNT_SUBURB; 
+    $rowspan = 6+ACCOUNT_STATE+ACCOUNT_SUBURB;
     ?></td>
           </tr>
           <tr>
@@ -520,7 +585,7 @@ function check_form() {
         <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', (($HTTP_GET_VARS['connection'] == 'SSL') ? 'SSL' : 'NONSSL')); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td align="right" class="main"><br><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="<? echo @$HTTP_GET_VARS['connection']; ?>"><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td align="right" class="main"><br><input type="hidden" name="entry_id" value="<? echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="<? echo @$HTTP_GET_VARS['connection']; ?>"><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
 <?

@@ -2,6 +2,7 @@
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_2 . '</a>'; ?>
 <?
+// send to login when there is no Customer_id
   if (!@tep_session_is_registered('customer_id')) {
     header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK, 'NONSSL'));
     tep_exit();
@@ -61,10 +62,9 @@
           </tr>
 <?
 // get all address_book entries of this customer
-  $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' order by address_book_id");
-  $entries = tep_db_num_rows($address_book);
-// if we find only one address then that will be the default address and we're done
-  if ($entries = 1) {
+  $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and  address_book_id > 0 order by address_book_id");
+// if we find only one address then that must be the default address and we're done
+  if (tep_db_num_rows($address_book)==0) {
 ?>
           <tr class="addressBook-odd">
             <td colspan="3" class="smallText">&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
@@ -92,13 +92,14 @@
             <td colspan="3"><? echo tep_black_line(); ?></td>
           </tr>
 <?
+// Is the maximum number of addresses already used?
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
           <tr>
             <td colspan="3" class="smallText"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td valign="top" class="smallText">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?><br><br><?php echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
-                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?>&nbsp;&nbsp;</td>
+                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS,  'entry_id=' . ($row + 1), 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>
