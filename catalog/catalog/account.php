@@ -31,28 +31,8 @@
     </table></td>
 <!-- body_text //-->
 <?
-  $account_query = 'select ';
-  if (ACCOUNT_GENDER) {
-    $account_query = $account_query . 'customers_gender, ';
-  }
-  $account_query = $account_query . 'customers_firstname, customers_lastname, ';
-  if (ACCOUNT_DOB) {
-    $account_query = $account_query . 'customers_dob, ';
-  }
-  $account_query = $account_query . 'customers_email_address, customers_street_address, ';
-  if (ACCOUNT_SUBURB) {
-    $account_query = $account_query . 'customers_suburb, ';
-  }
-  $account_query = $account_query . 'customers_postcode, customers_city, ';
-  if (ACCOUNT_STATE) {
-    $account_query = $account_query . 'customers_zone_id, customers_state, ';
-  }
-  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'";
-  $account = tep_db_query($account_query);
-  $account_values = tep_db_fetch_array($account);
-
-  $customers_country = tep_get_countries($account_values['customers_country_id']);
-  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_DOB;
+  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_zone_id, customers_state, customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+  $account = tep_db_fetch_array($account_query);
 ?>
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
@@ -74,94 +54,11 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
-          </tr>
-<?
-   if (ACCOUNT_GENDER) {
+        <td><br>
+<?php
+  $is_read_only = true;
+  require(DIR_WS_MODULES . 'account_details.php');
 ?>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? if ($account_values['customers_gender'] == 'm') { echo MALE; } else { echo FEMALE; } ?>&nbsp;</td>
-          </tr>
-<?
-   }
-?>
-          <tr>
-            <td colspan="2" class="fieldKey">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo $account_values['customers_firstname']; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo $account_values['customers_lastname']; ?>&nbsp;</td>
-          </tr>
-<?
-   if (ACCOUNT_DOB) {
-?>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo date(DATE_FORMAT, mktime(0, 0, 0, substr($account_values['customers_dob'], 4, 2), substr($account_values['customers_dob'], 6, 2), substr($account_values['customers_dob'], 0, 4))); ?>&nbsp;</td>
-          </tr>
-<?
-   }
-?>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo $account_values['customers_email_address']; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="2" class="fieldKey">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" valign="top" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;&nbsp;</td>
-            <td align="left" class="fieldValue"><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', "<br>"); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="fieldKey">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_CONTACT; ?></td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo $account_values['customers_telephone']; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo $account_values['customers_fax']; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="2" class="fieldKey">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory"><? echo CATEGORY_OPTIONS; ?></td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? if ($account_values['customers_newsletter'] == "1") { echo ENTRY_NEWSLETTER_YES; } else { echo ENTRY_NEWSLETTER_NO; } ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="2" class="fieldKey">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_PASSWORD; ?></td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<? echo PASSWORD_HIDDEN; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><br><? echo tep_black_line(); ?></td>
-      </tr>
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
