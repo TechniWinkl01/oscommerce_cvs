@@ -89,7 +89,7 @@ define('BOX_HEADING_BESTSELLERS', 'Los Mas Vendidos');
 define('BOX_HEADING_BESTSELLERS_IN', 'Los Mas Vendidos en <br>&nbsp;&nbsp;');
 
 // pull down default text
-define('PULL_DOWN_DEFAULT', '--Seleccionar--');
+define('PULL_DOWN_DEFAULT', 'Seleccionar');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');

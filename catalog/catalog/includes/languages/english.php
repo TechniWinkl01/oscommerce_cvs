@@ -96,7 +96,7 @@ define('CHECKOUT_BAR_CONFIRMATION', 'confirmation');
 define('CHECKOUT_BAR_FINISHED', 'finished!');
 
 // pull down default text
-define('PULL_DOWN_DEFAULT', '--Please Select--');
+define('PULL_DOWN_DEFAULT', 'Please Select');
 
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');

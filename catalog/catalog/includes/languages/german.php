@@ -82,7 +82,7 @@ define('BOX_HEADING_BESTSELLERS', 'Bestseller');
 define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller in<br>&nbsp;&nbsp;');
 
 // pull down default text
-define('PULL_DOWN_DEFAULT', '--Bitte W&auml;hlen--');
+define('PULL_DOWN_DEFAULT', 'Bitte W&auml;hlen');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'Warenkorbinhalt');
