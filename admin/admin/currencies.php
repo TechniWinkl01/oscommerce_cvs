@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.25 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: currencies.php,v 1.26 2001/12/14 14:01:09 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -158,7 +158,7 @@
   if (!$HTTP_GET_VARS['action']) {
 ?>
                   <tr>
-                    <td class="main">&nbsp;&nbsp;<? if (CURRENCY_SERVER_PRIMARY) { ?><a href="<?php echo tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')) . 'action=update', 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_update_currencies.gif', IMAGE_UPDATE_CURRENCIES); ?></a><? } ?></td>
+                    <td class="main">&nbsp;&nbsp;<?php if (CURRENCY_SERVER_PRIMARY) { ?><a href="<?php echo tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')) . 'action=update', 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_update_currencies.gif', IMAGE_UPDATE_CURRENCIES); ?></a><?php } ?></td>
                     <td class="main" align="right"><a href="<?php echo tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_currency.gif', IMAGE_NEW_CURRENCY); ?></a>&nbsp;&nbsp;</td>
                   </tr>
 <?php
