@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.38 2001/08/26 15:28:04 dwatkins Exp $
+  $Id: create_account.php,v 1.39 2001/08/26 21:18:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,7 @@
 <html>
 <head>
 <title><?php echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function resetStateText(theForm) {

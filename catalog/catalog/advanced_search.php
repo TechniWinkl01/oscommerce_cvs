@@ -3,7 +3,7 @@
 <? $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
-<base href="<? echo (getenv('HTTPS') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <title><?echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>

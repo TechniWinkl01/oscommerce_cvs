@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.164 2001/08/22 21:24:27 hpdl Exp $
+  $Id: application_top.php,v 1.165 2001/08/26 21:19:25 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -218,7 +218,7 @@
   if ($HTTP_POST_VARS[tep_session_name()]) {
     tep_session_id($HTTP_POST_VARS[tep_session_name()]);
   }
-  if ( (getenv('HTTPS')) && ($HTTP_GET_VARS[tep_session_name()]) ) {
+  if ( (getenv('HTTPS') == 'on') && ($HTTP_GET_VARS[tep_session_name()]) ) {
     tep_session_id($HTTP_GET_VARS[tep_session_name()]);
   }
   if (function_exists('session_set_cookie_params')) {
