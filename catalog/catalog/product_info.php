@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.82 2002/04/26 20:28:06 dgw_ Exp $
+  $Id: product_info.php,v 1.83 2002/05/27 13:10:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,8 +24,8 @@
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
-function popupImageWindow(url) {
-  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
+function popupWindow(url) {
+  window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
 }
 //--></script>
 </head>
@@ -92,10 +92,17 @@ function popupImageWindow(url) {
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2" align="right">
 <?php
-    if ($product_info_values['products_image'] != '') { // If there is no product image hide the link
+    if ($product_info_values['products_image'] != '') {
 ?>
           <tr>
-            <td align="center" class="smallText"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?><br><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
+            <td align="center" class="smallText">
+<script language="javascript"><!--
+document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']) . '\\\')">' . tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], addslashes($product_info_values['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '<br>' . TEXT_CLICK_TO_ENLARGE . '</a>'; ?>');
+//--></script>
+<noscript>
+<?php echo '<a href="' . tep_href_link(DIR_WS_IMAGES . $product_info_values['products_image']) . '">' . tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '<br>' . TEXT_CLICK_TO_ENLARGE . '</a>'; ?>
+</noscript>
+            </td>
           </tr>
 <?php
     }
