@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.92 2001/12/30 02:26:37 hpdl Exp $
+  $Id: categories.php,v 1.93 2001/12/30 03:17:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,15 +84,21 @@
           for ($i=0; $i<sizeof($categories); $i++) {
             $product_ids_query = tep_db_query("select products_id from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . $categories[$i]['id'] . "'");
             while ($product_ids = tep_db_fetch_array($product_ids_query)) {
-              $products[$product_ids['products_id']] = $product_ids['products_id'];
+              $products[$product_ids['products_id']]['categories'][] = $categories[$i]['id'];
             }
           }
 
           reset($products);
-          while (list($key) = each($products)) {
-            $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $key . "'");
+          while (list($key, $value) = each($products)) {
+            $category_ids = '';
+            for ($i=0; $i<sizeof($value['categories']); $i++) {
+              $category_ids .= '\'' . $value['categories'][$i] . '\', ';
+            }
+            $category_ids = substr($category_ids, 0, -2);
+
+            $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $key . "' and categories_id not in (" . $category_ids . ")");
             $check = tep_db_fetch_array($check_query);
-            if ($check['total'] < '2') {
+            if ($check['total'] < '1') {
               $products_delete[$key] = $key;
             }
           }
