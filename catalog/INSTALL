@@ -1,4 +1,4 @@
-The Exchange Project Preview Release 2.0 (01/12/2000)
+The Exchange Project Preview Release 2.1 (xx/02/2001)
 
 QUICK INSTALLATION STEPS
 ------------------------
@@ -8,13 +8,13 @@ follow these steps to get the online shop running:
 
 1. Extract the files from within the package
 
-   tar -xzf tep_catalog-pr2.0.tar.gz
+   tar -xzf tep_catalog-pr2.1.tar.gz
  
-2. This creates a directory called 'tep_catalog-pr2.0'. Enter
+2. This creates a directory called 'tep_catalog-pr2.1'. Enter
    this directory and copy the 'catalog' directory to your
    webroot directory of your webserver:
 
-   cd tep_catalog-pr2.0
+   cd tep_catalog-pr2.1
    cp -R catalog /usr/local/apache/htdocs/
 
    For this example, '/usr/local/apache/htdocs/' is used as
@@ -40,28 +40,16 @@ Now you can use your browser to view the pages which should be
 located at 'http://localhost/catalog/'. You can also use your
 browser, or a graphics viewer/editor, to view the database
 model which is located in the directory where you extracted
-the files 'tep_catalog-pr1.1/dbmodel_catalog.gif'. 
+the files 'tep_catalog-pr2.1/tep_database_model-pr2.1.gif'. 
 
-Although localization functions have been implemented in this
-release, it is not yet complete. To test the functions out,
-you will need to add a GET parameter to the url:
-
-http://server/catalog/default.php?language=english
-
-available languages include
-
-English
-German
-Spanish
 
 APACHE/SSL/PHP INSTALLATION
 ---------------------------
 
-This is a quick and dirty guide of installing PHP as an
-dynamic apache module with SSL. For a more in-depth
-installation guide, it is recommended to read through the
-documentation of each package. Remember, if you want to
-learn, theres only one way to do it.. RTFM(s) ;)
+This is a quick guide of installing PHP as a dynamic
+apache module with SSL. For a more in-depth installation
+guide, it is recommended to read through the documentation
+of each package individually.
  
 The following was done under a RedHat 6.0/6.1 system
 

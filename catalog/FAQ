@@ -23,12 +23,12 @@ q. Variables are'nt being parsed along pages. Why?
 a. Your PHP is not compiled to track variables. Compile PHP with --enable-track-vars
 
 q. The session-ID is screwing up my urls in href links! Why?
-a. This is PHP's fault :P In this project, there is a custom function being called where all
-   links are made, called tep_href_link() - this function is used for normal href links, forms,
-   and header redirects. The best way to avoid this problem is to use the function as
+a. This is (was?) PHP's fault :P In this project, there is a custom function being called where
+   all links are made, called tep_href_link() - this function is used for normal href links,
+   forms, and header redirects. The best way to avoid this problem is to use the function as
 
-   <? echo '<a href="' . tep_href_link('index.php', 'a=b', 'NONSSL') . '">'; ?>my link</a>
+   <?php echo '<a href="' . tep_href_link('index.php', 'a=b', 'NONSSL') . '">my link</a>'; ?>
 
 q. An error is reported of not being able to write to the parse_time_log file.
 a. This file needs to have the correct write permissions for the apache user to be able to write
-   to it.
+   to it. If you continue to get this error, create a 0 byte file with the right permissions.
