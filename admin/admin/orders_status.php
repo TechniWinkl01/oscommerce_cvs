@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.7 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: orders_status.php,v 1.8 2002/01/25 16:48:25 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@
         $orders_status_name_array = $HTTP_POST_VARS['orders_status_name'];
         $language_id = $languages[$i]['id'];
         $orders_status_name = $orders_status_name_array[$language_id];
-        tep_db_query("update " . TABLE_ORDERS_STATUS . " set orders_status_name = '" . $orders_status_name . "' where orders_status_id = '" . $HTTP_POST_VARS['orders_status_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
+        tep_db_query("update " . TABLE_ORDERS_STATUS . " set orders_status_name = '" . $orders_status_name . "', orders_status_id = '" . $HTTP_POST_VARS['orders_status_id'] . "' where orders_status_id = '" . $HTTP_POST_VARS['original_orders_status_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
       }
       header('Location: ' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action', 'info')) . 'info=' . $HTTP_POST_VARS['order_status_id'], 'NONSSL'));
       tep_exit();
