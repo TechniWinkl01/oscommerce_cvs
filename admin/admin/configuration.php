@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.34 2002/01/15 12:01:49 hpdl Exp $
+  $Id: configuration.php,v 1.35 2002/01/18 10:40:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
   }
 
-  $cfg_group_query = tep_db_query("select configuration_group_title from configuration_group where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "'");
+  $cfg_group_query = tep_db_query("select configuration_group_title from " . TABLE_CONFIGURATION_GROUP . " where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "'");
   $cfg_group = tep_db_fetch_array($cfg_group_query);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
