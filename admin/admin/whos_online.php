@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.24 2002/05/16 15:32:22 hpdl Exp $
+  $Id: whos_online.php,v 1.25 2002/05/20 11:42:00 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,23 +99,26 @@
 
     $session_data = tep_db_query("select value from " . TABLE_SESSIONS . " WHERE sesskey = '" . $info . "'");
     if (tep_db_num_rows($session_data)) {
-      $session_data = trim(tep_db_fetch_array($session_data));
+      $session_data = tep_db_fetch_array($session_data);
+      $session_data = trim($session_data['value']);
     } else {
       $session_data = @file(tep_session_save_path() . '/sess_' . $info);
       $session_data = trim($session_data[0]);
     }
     session_decode($session_data);
 
-    $products = $cart->get_products();
-    for ($i=0; $i<sizeof($products); $i++) {
-      $contents[] = array('text' => $products[$i]['quantity'] . ' x ' . $products[$i]['name']);
-    }
+    if (is_object($cart)) {
+      $products = $cart->get_products();
+      for ($i=0; $i<sizeof($products); $i++) {
+        $contents[] = array('text' => $products[$i]['quantity'] . ' x ' . $products[$i]['name']);
+      }
 
-    if (sizeof($contents) > 0) {
-      $contents[] = array('text' => tep_draw_separator('pixel_black.gif', '100%', '1'));
-      $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total(), true, $currency));
-    } else {
-      $contents[] = array('text' => '');
+      if (sizeof($products) > 0) {
+        $contents[] = array('text' => tep_draw_separator('pixel_black.gif', '100%', '1'));
+        $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total(), true, $currency));
+      } else {
+        $contents[] = array('text' => '&nbsp;');
+      }
     }
   }
 
