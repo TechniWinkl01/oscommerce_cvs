@@ -1,80 +1,43 @@
-<?
-  if (($HTTP_GET_VARS['category_id']) && ($HTTP_GET_VARS['index_id']) && ($HTTP_GET_VARS['subcategory_id'])) {
-    $listby_query = tep_db_query("select sql_select from category_index where category_index_id = '" . $HTTP_GET_VARS['index_id'] . "'");
-    $listby_values = tep_db_fetch_array($listby_query);
-    $listby = $listby_values['sql_select'];
-    tep_db_free_result($listby_query) ;
-
-    $subcategory_name_query = tep_db_query("select " . $listby . "_name as name from " . $listby . " where " . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "'");
-    $subcategory_name_values = tep_db_fetch_array($subcategory_name_query);
-    tep_db_free_result($subcategory_name_query) ;
-
-    $box_header = BOX_HEADING_BESTSELLERS_IN . substr($subcategory_name_values['name'], 0, 15);
-    
-    $best_sellers_sql = "select products.products_id, products.products_name, sum(orders_products.products_quantity) as ordersum from products, orders_products, products_to_" . $listby . " where products.products_id = orders_products.products_id 
-and products.products_id = products_to_" . $listby . ".products_id and products_to_" . $listby . "." . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "' group by products.products_id order by ordersum DESC, products.products_name 
-limit " . MAX_DISPLAY_BESTSELLERS;
-  }
-  elseif ($HTTP_GET_VARS['category_id']) {
-    $category_name_sql = tep_db_query("select category_top_name from category_top where category_top_id = '" . $HTTP_GET_VARS['category_id'] . "'");
-    $category_name_values = tep_db_fetch_array($category_name_sql);
-    tep_db_free_result($category_name_sql) ;
-
-    $box_header = BOX_HEADING_BESTSELLERS_IN . $category_name_values['category_top_name'];
-    
-    $best_sellers_sql = "select products.products_id, products.products_name, sum(orders_products.products_quantity) as ordersum from products, orders_products, products_to_subcategories, subcategories_to_category where products.products_id = orders_products.products_id and products.products_id = products_to_subcategories.products_id and products_to_subcategories.subcategories_id = subcategories_to_category.subcategories_id and subcategories_to_category.category_top_id = '" . $HTTP_GET_VARS['category_id'] . "' group by products.products_id 
-order by ordersum DESC, products.products_name limit " . MAX_DISPLAY_BESTSELLERS;
-  }
-  else {
-    $best_sellers_sql = "select products.products_id, products.products_name, sum(orders_products.products_quantity) as ordersum from products, orders_products where products.products_id = orders_products.products_id group by products.products_id order by ordersum DESC, products.products_name limit " . MAX_DISPLAY_BESTSELLERS;
-    $box_header = BOX_HEADING_BESTSELLERS ;
-  }
-
-  $best_sellers = tep_db_query($best_sellers_sql);
-  if (tep_db_num_rows($best_sellers) >= MIN_DISPLAY_BESTSELLERS) {
-?>  
 <!-- best_sellers //-->
-          <tr><td>
-            <TABLE border="0" cellPadding="0" cellSpacing="0" width="100%">
-            <TBODY>    
-          
+<?
+  $class = 'class="blacklinkwithrollover"'; // To use standard attributes, enter ''
+  $use_mouseover = 1; // To use no mouseover effect, enter 0
+
+  if ($HTTP_GET_VARS['cPath']) {
+    $best_sellers_query = tep_db_query("select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op, products_to_categories p2c, categories c where p.products_id = op.products_id and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and ((c.categories_id = '" . $current_category_id . "') OR (c.parent_id = '" . $current_category_id . "')) group by p.products_id order by ordersum DESC, p.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+  } else {
+    $best_sellers_query = tep_db_query("select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op where p.products_id = op.products_id group by p.products_id order by ordersum DESC, p.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+  }
+  if (tep_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
+?>  
+          <tr>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2" bgcolor="<?=BOX_HEADING_BACKGROUND_COLOR;?>" class="boxborder" nowrap><font face="<?=BOX_HEADING_FONT_FACE;?>" color="<?=BOX_HEADING_FONT_COLOR;?>" size="<?=BOX_HEADING_FONT_SIZE;?>">&nbsp;&nbsp;<?=$box_header;?>&nbsp;&nbsp;</font></td>
+                <td colspan="2" bgcolor="<?=BOX_HEADING_BACKGROUND_COLOR;?>" class="boxborder" nowrap><font face="<?=BOX_HEADING_FONT_FACE;?>" color="<?=BOX_HEADING_FONT_COLOR;?>" size="<?=BOX_HEADING_FONT_SIZE;?>">&nbsp;<?=BOX_HEADING_BESTSELLERS;?>&nbsp;</font></td>
               </tr>
 <?
-    $class = 'class="blacklinkwithrollover"';	// To use standard attributes, enter ''
-    $use_mouseover = 1;			// To use no mouseover effect, enter 0
-
-    $row_num = 0;
-    while ($best_sellers_values = tep_db_fetch_array($best_sellers)) {
-      $row_num++;
-
-      // assuming the product will have only one manufacturer; if else the
-      // name of the first manufacturer retrieved will be displayed
-      $product_info_query = tep_db_query("select manufacturers.manufacturers_location, manufacturers.manufacturers_name  from products_to_manufacturers, manufacturers where products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and products_to_manufacturers.products_id = '" . $best_sellers_values['products_id'] . "'");
-      $product_info_values = tep_db_fetch_array($product_info_query);
-
-      $products_name = tep_products_name($product_info_values['manufacturers_location'], $product_info_values['manufacturers_name'], $best_sellers_values['products_name']);
-
+    $rows = 0;
+    while ($best_sellers = tep_db_fetch_array($best_sellers_query)) {
+      $rows++;
+      $product_info_query = tep_db_query("select m.manufacturers_location, m.manufacturers_name from products_to_manufacturers p2m, manufacturers m where p2m.manufacturers_id = m.manufacturers_id and p2m.products_id = '" . $best_sellers['products_id'] . "'");
+      $product_info = tep_db_fetch_array($product_info_query);
+      $products_name = tep_products_name($product_info['manufacturers_location'], $product_info['manufacturers_name'], $best_sellers['products_name']);
       tep_db_free_result($product_info_query);
-  
+
       if ($use_mouseover) {
-        echo '              <tr onclick="window.location.href=\'' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers_values['products_id'], 'NONSSL') . '\';" onmouseout="this.style.backgroundColor=\'' . BOX_CONTENT_BACKGROUND_COLOR . '\';" onmouseover="this.style.backgroundColor=\'' . BOX_CONTENT_HIGHLIGHT_COLOR . '\';this.style.cursor=\'hand\';">' . "\n";
+        echo '              <tr onclick="window.location.href=\'' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id'], 'NONSSL') . '\';" onmouseout="this.style.backgroundColor=\'' . BOX_CONTENT_BACKGROUND_COLOR . '\';" onmouseover="this.style.backgroundColor=\'' . BOX_CONTENT_HIGHLIGHT_COLOR . '\';this.style.cursor=\'hand\';">' . "\n";
       } else {
         echo '              <tr>' . "\n";
       }
-  
-      echo '                <td width="20%" align="center" valign="top"><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . $row_num . '.</font></td>' . "\n";
-      echo '                <td width="80%"><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . '<a ' . $class . 'href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers_values['products_id'], 'NONSSL') . '">' . $products_name . '</a></font></td>' . "\n";
+
+      echo '                <td valign="top"><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . $rows . '.</font></td>' . "\n";
+      echo '                <td><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . '<a ' . $class . 'href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id'], 'NONSSL') . '">' . $products_name . '</a></font></td>' . "\n";
       echo '              </tr>' . "\n";
     }
-    echo "\n";
 ?>
-            </TBODY>    
-            </TABLE>
-          </tr></td>
-<!-- best_sellers_eof //-->
+            </table></td>
+          </tr>
 <?
   }
 ?>
-
+<!-- best_sellers_eof //-->
