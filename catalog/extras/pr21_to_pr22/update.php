@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.23 2001/12/15 14:02:42 hpdl Exp $
+  $Id: update.php,v 1.24 2001/12/17 14:16:09 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -448,7 +448,7 @@ changeText('statusText', 'Updating Manufacturers');
   flush();
 
   tep_db_query("alter table manufacturers add date_added datetime null after manufacturers_image, add last_modified datetime null after date_added");
-  tep_db_query("create table manufacturers_info (manufacturers_id int(5) not null, languages_id int(5) not null, manufacturers_url varchar(255) not null, url_clicked int(5), date_last_click datetime, primary key (manufacturers_id, languages_id))");
+  tep_db_query("create table manufacturers_info (manufacturers_id int(5) not null, languages_id int(5) not null, manufacturers_url varchar(255) not null, url_clicked int(5) not null default '0', date_last_click datetime, primary key (manufacturers_id, languages_id))");
 
 ?>
 
@@ -560,7 +560,7 @@ changeText('statusText', 'Updating Reviews');
   tep_db_query("alter table reviews add customers_name varchar(64) not null default '' after customers_id");
   tep_db_query("alter table reviews add date_added datetime after reviews_rating");
   tep_db_query("alter table reviews add last_modified datetime after date_added");
-  tep_db_query("alter table reviews add reviews_read int(5)");
+  tep_db_query("alter table reviews add reviews_read int(5) not null default '0'");
 
   $reviews_query = tep_db_query("select r.reviews_id, re.products_id, re.customers_id, r.reviews_rating, re.date_added, re.reviews_read, r.reviews_text from reviews r, reviews_extra re where r.reviews_id = re.reviews_id order by r.reviews_id");
   while ($reviews = tep_db_fetch_array($reviews_query)) {

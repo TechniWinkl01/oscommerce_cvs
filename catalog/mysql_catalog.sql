@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.162 2001/12/15 14:02:42 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.163 2001/12/17 14:16:09 dgw_ Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -231,7 +231,7 @@ CREATE TABLE manufacturers_info (
   manufacturers_id int(5) NOT NULL,
   languages_id int(5) NOT NULL,
   manufacturers_url varchar(255) NOT NULL,
-  url_clicked int(5) NULL,
+  url_clicked int(5) NOT NULL default '0',
   date_last_click datetime NULL,
   PRIMARY KEY (manufacturers_id, languages_id)
 );
@@ -390,7 +390,7 @@ CREATE TABLE reviews (
   reviews_rating int(1),
   date_added datetime,
   last_modified datetime,
-  reviews_read int(5),
+  reviews_read int(5) NOT NULL default '0',
   PRIMARY KEY (reviews_id)
 );
 
