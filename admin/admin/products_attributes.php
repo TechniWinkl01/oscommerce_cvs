@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.27 2001/12/06 18:10:42 dgw_ Exp $
+  $Id: products_attributes.php,v 1.28 2001/12/07 20:33:36 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -189,15 +189,11 @@ function checkFormAtrib() {
     $options_values = tep_db_fetch_array($options);
 ?>
               <tr>
-                <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td class="pageHeading">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
-                    <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
-                  </tr>
-                </table></td>
+                <td colspan="3" class="pageHeading">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
+                <td>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
               </tr>
               <tr>
-                <td><table border="0" width="100% " cellspacing="0" cellpadding="2">
+                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td colspan="3"><?php echo tep_black_line(); ?></td>
                   </tr>
@@ -234,19 +230,21 @@ function checkFormAtrib() {
                   <tr>
                     <td align="right" colspan="3" class="main"><br><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
                   </tr>
-                </table></td>
-              </tr>
 <?php
     } else {
 ?>
-              <tr>
-                <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
-              </tr>
-              <tr>
-                <td class="main" align="right" colspan="3"><br><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $HTTP_GET_VARS['option_id'], 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', ' delete '); ?></a>&nbsp;&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
-              </tr>
+                  <tr>
+                    <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $HTTP_GET_VARS['option_id'], 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', ' delete '); ?></a>&nbsp;&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
+                  </tr>
 <?php
     }
+?>
+                </table></td>
+              </tr>
+<?php
   } else {
     if ($HTTP_GET_VARS['option_order_by']) {
       $option_order_by = $HTTP_GET_VARS['option_order_by'];
