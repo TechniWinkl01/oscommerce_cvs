@@ -26,6 +26,7 @@
         if (is_array($contents[$i][0])) {
           for ($x=0; $x<sizeof($contents[$i]); $x++) {
             if ($contents[$i][$x]['text']) { // 'text' must always be explicit (ie, set) .. used in conjunction with alternate row colours
+              if ($contents[$i][$x]['form']) echo $contents[$i][$x]['form'] . "\n";
               echo '    <td';
               if ($contents[$i][$x]['align'] != 'left') echo ' align="' . $contents[$i][$x]['align'] . '"';
               if ($contents[$i][$x]['params']) {
@@ -34,6 +35,7 @@
                 echo ' ' . $this->table_data_parameters;
               }
               echo '>' . $contents[$i][$x]['text'] . '</td>' . "\n";
+              if ($contents[$i][$x]['form']) echo '</form>' . "\n";
             }
           }
         } else {
