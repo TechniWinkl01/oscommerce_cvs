@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.284 2004/02/16 07:05:23 hpdl Exp $
+  $Id: application_top.php,v 1.285 2004/04/04 20:09:12 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -513,4 +513,6 @@
   define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 
   $messageStack->add('header', 'This is a development version of osCommerce - please use it for testing purposes only! [' . PROJECT_VERSION . ']');
+
+  header("Content-Type: text/html; charset=" . CHARSET);
 ?>
