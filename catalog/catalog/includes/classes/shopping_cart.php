@@ -1,6 +1,6 @@
 <?
   class shoppingCart {
-    var $contents, $total;
+    var $contents, $total, $weight;
 
     function shoppingCart() {
       $this->reset();
@@ -171,14 +171,16 @@
 
     function calculate() {
       $this->total = 0;
+       $this->weight = 0;
       $sql_in = $this->get_product_id_list();
       if (empty($sql_in)) return 0;
 
 // products price
-      $product_query = tep_db_query("select products_id, products_price from products where products_id in (" . $sql_in . ")");
+      $product_query = tep_db_query("select products_id, products_price, products_weight from products where products_id in (" . $sql_in . ")");
       while ($product = tep_db_fetch_array($product_query)) {
         $products_id = $product['products_id'];
         $products_price = $product['products_price'];
+        $products_weight = $product['products_weight'];
 
         $specials_query = tep_db_query("select specials_new_products_price from specials where products_id = '" . $products_id . "'");
         if (tep_db_num_rows ($specials_query)) {
@@ -187,6 +189,7 @@
         }
 
         $this->total += ($this->contents[$products_id]['qty'] * $products_price);
+        $this->weight += ($this->contents[$products_id]['qty'] * $products_weight);
       }
 
 // attributes price
@@ -258,6 +261,12 @@
       $this->calculate();
 
       return $this->total;
+    }
+
+    function show_weight() {
+      $this->calculate();
+
+      return $this->weight;
     }
 
     function unserialize($broken) { 

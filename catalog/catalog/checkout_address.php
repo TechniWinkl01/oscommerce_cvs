@@ -56,39 +56,32 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+   if (!SHIPPING_FREE) {
+?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-<?
-   if (!SHIPPING_FREE) {
-     if (SHIPPING_MODEL == SHIPPING_UPS) {
-?>
-                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font><br><br></td>
+                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
+                <td nowrap colspan=2 align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
               </tr>
-              <tr>
-                <td><SELECT NAME="prod">
-                  <OPTION SELECTED VALUE="GND">UPS Ground</OPTION>
-                  <OPTION VALUE="1DM">Next Day Air Early AM</OPTION>
-                  <OPTION VALUE="1DA">Next Day Air</OPTION>
-                  <OPTION VALUE="1DP">Next Day Air Saver</OPTION>
-                  <OPTION VALUE="2DM">2nd Day Air Early AM</OPTION>
-                  <OPTION VALUE="3DS">3 Day Select</OPTION>
-                  <OPTION VALUE="STD">Canada Standard</OPTION>
-                  <OPTION VALUE="XPR">Worldwide Express</OPTION>
-                  <OPTION VALUE="XDM">Worldwide Express Plus</OPTION>
-                  <OPTION VALUE="XPD">Worldwide Expedited</OPTION></SELECT><br></td>
-            </tr>
+          <tr>
+            <td colspan=3><? echo tep_black_line(); ?><br><br></td>
+          </tr>
+<?
+      $action = 'select';
+      include(DIR_MODULES . 'shipping.php');
+?>
             </table></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
 <?
-      }
     }
 ?>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
                 <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_MY_ADDRESS; ?></b>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_DELIVER_TO; ?></b>&nbsp;</font></td>
               </tr>

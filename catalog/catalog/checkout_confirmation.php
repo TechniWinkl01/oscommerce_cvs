@@ -127,21 +127,8 @@
   $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0.0;
   if (!SHIPPING_FREE) {
-    if (SHIPPING_MODEL == SHIPPING_UPS) {
-      include('includes/ups.php');
-      $rate = new Ups;
-      $rate->upsProduct($HTTP_POST_VARS['prod']);    // See upsProduct() function for codes
-      // $rate->upsProduct(UPS_SPEED);    // See upsProduct() function for codes
-      $rate->origin(UPS_ORIGIN_ZIP, "US"); // Use ISO country codes!
-      $rate->dest($address_values['postcode'], "US");      // Use ISO country codes!
-      // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
-      $rate->rate(UPS_PICKUP);        // See the rate() function for codes
-      $rate->container(UPS_PACKAGE);    // See the container() function for codes
-      $rate->weight($total_weight);
-      $rate->rescom(UPS_RES);    // See the rescom() function for codes
-      $shipping_cost = $rate->getQuote();
-      $shipping_method = "UPS " . $prod;
-    }
+      $action = 'confirm';
+      include(DIR_MODULES . 'shipping.php');
   }
 ?>
           <tr>
@@ -153,11 +140,15 @@
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</font></td>
               </tr>
+<?
+  if ($total_tax > 0) {
+?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</font></td>
               </tr>
 <?
+  }
   if (!SHIPPING_FREE) {
 ?>
               <tr>
@@ -228,7 +219,7 @@
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 // Draw the checkout process button
   $payment_action = 'PM_PROCESS_BUTTON';
-  include(DIR_PAYMENT_MODULES . $payment_file); 
+  include(DIR_PAYMENT_MODULES . $payment_file);
   if (!$checkout_form_submit) {
     echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {

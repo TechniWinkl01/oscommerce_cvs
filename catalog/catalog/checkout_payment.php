@@ -121,11 +121,29 @@ function check_form() {
   }
 ?>
               <tr>
-                <td colspan="2"><br><? echo tep_black_line(); ?></td>
+                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
+                <td nowrap colspan=2 align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
               </tr>
+          <tr>
+            <td colspan=4><? echo tep_black_line(); ?><br><br></td>
+          </tr>
+<?
+      if ($HTTP_POST_VARS['sendto'] == '0') {
+        $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
+      } else {
+        $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+      }
+      $address_values = tep_db_fetch_array($address);
+      $total_weight = $cart->show_weight();
+      $total_count = $cart->count_contents();
+      $action = 'quote'; 
+      include(DIR_MODULES . 'shipping.php');
+?>          
             </table></td>
           </tr>
           <tr>
+            <td><br><? echo tep_black_line(); ?></td>
+          </tr>
             <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', '50', '24', '0', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>
@@ -134,7 +152,7 @@ function check_form() {
         </table></td>
       </tr>
     </table><input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto']; ?>">
-            <input type="hidden" name="prod" value="<? echo $HTTP_POST_VARS['prod']; ?>"></form></td>
+    </form></td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
