@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: countries.php,v 1.3 2002/01/04 06:06:27 hpdl Exp $
+  $Id: countries.php,v 1.4 2002/01/12 17:02:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 define('HEADING_TITLE', 'Paises');
 
 define('TABLE_HEADING_COUNTRY_NAME', 'Pais');
-define('TABLE_HEADING_COUNTRY_CODES', 'Codigos');
+define('TABLE_HEADING_COUNTRY_CODES', 'ISO Codigos');
 define('TABLE_HEADING_ACTION', 'Accion');
 
 define('TEXT_INFO_EDIT_INTRO', 'Haga los cambios necesarios');
@@ -24,4 +24,6 @@ define('TEXT_INFO_ADDRESS_FORMAT', 'Formato de Direccion:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca el nuevo pais con sus datos');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este pais?');
 define('TEXT_INFO_HEADING_NEW_COUNTRY', 'Nuevo Pais');
+define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Edit Country');
+define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Delete Country');
 ?>
