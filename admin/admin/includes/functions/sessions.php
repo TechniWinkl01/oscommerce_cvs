@@ -23,6 +23,32 @@
 
   }
 
+  function tep_session_id($sessid='') {
+
+    if ($sessid) 
+       return session_id($sessid);
+    else
+       return session_id();
+      
+  }
+
+  function tep_session_name($name='') {
+
+    if ($name)
+      return session_name($name);
+    else
+      return session_name();
+
+  }
+
+  function tep_session_close() {
+
+    if (function_exists('session_close')) {
+      return session_close();
+    }
+
+  }
+
   function tep_session_destroy() {
 
     return session_destroy();
