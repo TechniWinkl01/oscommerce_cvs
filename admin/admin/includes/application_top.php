@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.117 2002/01/13 17:26:47 hpdl Exp $
+  $Id: application_top.php,v 1.118 2002/01/16 19:29:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -212,7 +212,6 @@
   require(DIR_WS_CLASSES . 'review_info.php');
   require(DIR_WS_CLASSES . 'special_price_info.php');
   require(DIR_WS_CLASSES . 'tax_class_info.php');
-  require(DIR_WS_CLASSES . 'geo_zone_info.php');
   require(DIR_WS_CLASSES . 'tax_rate_info.php');
   require(DIR_WS_CLASSES . 'zones_info.php');
 
