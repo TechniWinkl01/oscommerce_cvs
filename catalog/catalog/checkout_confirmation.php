@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.134 2003/02/13 04:23:22 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.135 2003/02/14 20:28:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -287,9 +287,16 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
-      <tr class="infoBoxContents">
-        <td class="main"><?php echo nl2br($order->info['comments']); ?></td>
-        <?php echo tep_draw_hidden_field('comments', $order->info['comments']); ?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><?php echo nl2br($order->info['comments']) . tep_draw_hidden_field('comments', $order->info['comments']); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

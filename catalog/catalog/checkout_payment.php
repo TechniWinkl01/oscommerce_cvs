@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.108 2003/02/13 04:23:22 hpdl Exp $
+  $Id: checkout_payment.php,v 1.109 2003/02/14 20:28:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -314,16 +314,22 @@ function rowOutEffect(object) {
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+          </tr>
+        </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-      <tr>
-        <td>
-          <?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?>
-          <?php echo tep_draw_hidden_field('comments_added', 'YES'); ?>
-        </td>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5') . tep_draw_hidden_field('comments_added', 'YES'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
