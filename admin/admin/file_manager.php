@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.10 2002/01/04 11:28:48 hpdl Exp $
+  $Id: file_manager.php,v 1.11 2002/01/06 14:41:46 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,6 +15,10 @@
   if (!tep_session_is_registered('current_path')) {
     $current_path = DIR_FS_DOCUMENT_ROOT;
     tep_session_register('current_path');
+  }
+
+  if (!is_dir($current_path)) {
+    $current_path = DIR_FS_DOCUMENT_ROOT;
   }
 
   if ($HTTP_GET_VARS['goto']) {
