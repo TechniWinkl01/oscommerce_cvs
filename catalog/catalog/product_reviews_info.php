@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.31 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: product_reviews_info.php,v 1.32 2001/11/22 22:28:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -121,7 +121,7 @@ function popupImageWindow(url) {
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?>&nbsp;&nbsp;</td>
-            <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, 'action=add_a_quickie&products_id=' . $product_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></a>&nbsp;&nbsp;</td>
+            <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, 'action=buy_now&products_id=' . $product_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></a>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
       </tr>
