@@ -14,11 +14,11 @@
         }
         copy($subcategories_image, $image_location);
       }
-      header('Location: ' . tep_href_link(FILENAME_SUBCATEGORIES, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_SUBCATEGORIES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'update_subcategory') {
       tep_db_query("update subcategories set subcategories_name = '" . $HTTP_POST_VARS['subcategories_name'] . "', subcategories_image = '" . $HTTP_POST_VARS['subcategories_image'] . "' where subcategories_id = '" . $HTTP_POST_VARS['subcategories_id'] . "'");
       tep_db_query("update subcategories_to_category set category_top_id = '" . $HTTP_POST_VARS['category_top_id'] . "' where subcategories_id = '" . $HTTP_POST_VARS['subcategories_id'] . "'");
-      header('Location: ' . tep_href_link(FILENAME_SUBCATEGORIES, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_SUBCATEGORIES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_subcategory') {
       $products = tep_db_query("select products_id from products_to_subcategories where subcategories_id = '" . $HTTP_GET_VARS['subcategories_id'] . "'");
       while ($products_delete = tep_db_fetch_array($products)) {
@@ -52,7 +52,7 @@
         if (!@unlink(DIR_SERVER_ROOT . DIR_CATALOG . $subcategories_image)) echo 'Can\'t delete this file:<br><br>' . DIR_SERVER_ROOT . DIR_CATALOG . $subcategories_image . '<br><br>';
       }
       tep_db_query("delete from subcategories_to_category where subcategories_top_id = '" . $HTTP_GET_VARS['subcategories_id'] . "'");
-      header('Location: ' . tep_href_link(FILENAME_SUBCATEGORIES, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_SUBCATEGORIES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
     }
   }
 ?>
@@ -97,7 +97,7 @@ function go() {
 
 function remove_all() {
   if (confirm("<?=JS_SUBCATEGORIES_DELETE_CONFIRM;?>")) {
-    document.location = "<?=FILENAME_SUBCATEGORIES;?>?action=delete_subcategory&subcategories_id=<?=$HTTP_GET_VARS['subcategories_id'];?>";
+    document.location = "<?=FILENAME_SUBCATEGORIES;?>?action=delete_subcategory&subcategories_id=<?=$HTTP_GET_VARS['subcategories_id'];?>&order_by=<?=$order_by;?>";
   } else {
   }
 }
@@ -183,7 +183,7 @@ function remove_all() {
             <td colspan="3"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=TEXT_WARNING_OF_DELETE;?></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="3"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><a href="javascript:remove_all();"><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', 'Delete');?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', 'Cancel');?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="3"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><a href="javascript:remove_all();"><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', 'Delete');?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', 'Cancel');?></a>&nbsp;&nbsp;</font></td>
           </tr>
 <?
     } else {
@@ -192,7 +192,7 @@ function remove_all() {
             <td colspan="3"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=TEXT_OK_TO_DELETE;?></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="3"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=delete_subcategory&subcategories_id=' . $HTTP_GET_VARS['subcategories_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="3"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=delete_subcategory&subcategories_id=' . $HTTP_GET_VARS['subcategories_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;&nbsp;</font></td>
           </tr>
 <?
     }
@@ -294,7 +294,7 @@ echo '</td></tr>';
         echo '          <tr bgcolor="#f4f7fd">' . "\n";
       }
       if ($HTTP_GET_VARS['subcategories_id'] == $subcategories_values['subcategories_id']) {
-        echo '<form name="subcategories" action="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=update_subcategory', 'NONSSL') . '" method="post" onSubmit="return checkForm();">' . "\n";
+        echo '<form name="subcategories" action="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=update_subcategory' . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '" method="post" onSubmit="return checkForm();">' . "\n";
 ?>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<select name="category_top_id"><?
         $categories = tep_db_query("select category_top_id, category_top_name from category_top order by category_top_id");
@@ -310,7 +310,7 @@ echo '</td></tr>';
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$subcategories_values['subcategories_id'];?><input type="hidden" name="subcategories_id" value="<?=$subcategories_values['subcategories_id'];?>"><input type="hidden" name="subcategories_to_category_id" value="<?=$subcategories_values['subcategories_to_category_id'];?>">&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="subcategories_name" value="<?=$subcategories_values['subcategories_name'];?>" size="20">&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="subcategories_image" value="<?=$subcategories_values['subcategories_image'];?>" size="20">&nbsp;</font></td>
-            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE);?>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE);?>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</font></td>
 </form>
           </tr>
 <?
@@ -326,7 +326,7 @@ echo '</td></tr>';
         } else {
           echo tep_image(DIR_IMAGES . 'dot_red.gif', '4', '4', '0', TEXT_IMAGE_DOES_NOT_EXIST);
         } ?>&nbsp;<a href="javascript:new_win('<?=DIR_CATALOG . $subcategories_values['subcategories_image'];?>')"><?=$subcategories_values['subcategories_image'];?></a>&nbsp;</font></td>
-            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=update&subcategories_id=' . $subcategories_values['subcategories_id'] . '&order_by=' . $order_by, 'NONSSL') , '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=delete&subcategories_id=' . $subcategories_values['subcategories_id'] . '&order_by=' . $order_by, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=update&subcategories_id=' . $subcategories_values['subcategories_id'] . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') , '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=delete&subcategories_id=' . $subcategories_values['subcategories_id'] . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?
   		$max_subcategories_id_query = tep_db_query("select max(subcategories_id) + 1 as next_id from subcategories");
@@ -345,7 +345,7 @@ echo '</td></tr>';
       } else {
         echo '          <tr bgcolor="#ffffff">' . "\n";
       }
-      echo '<form name="subcategories" action="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=add_subcategory', 'NONSSL') . '" method="post" enctype="multipart/form-data" onSubmit="return checkForm();">' . "\n";
+      echo '<form name="subcategories" action="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=add_subcategory' . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '" method="post" enctype="multipart/form-data" onSubmit="return checkForm();">' . "\n";
 ?>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<select name="category_top_id"><?
       $categories = tep_db_query("select category_top_id, category_top_name from category_top order by category_top_id");

@@ -22,7 +22,7 @@
     tep_db_query("insert into customers values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "', '" . $HTTP_POST_VARS['country'] . "')");
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
-    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
+    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'update_customers') {
     $date_now = date('Ymd');
     if (ACCOUNT_DOB) {
@@ -47,7 +47,7 @@
     $update_query = $update_query . "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "', customers_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
-    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
+    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'delete_customers') {
     tep_db_query("delete from customers where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     tep_db_query("delete from customers_info where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
@@ -62,7 +62,7 @@
       tep_db_query("delete from address_book where address_book_id = '" . $address_book_values['address_book_id'] . "'");
     }
     tep_db_query("delete from address_book_to_customers where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
-    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
+    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
   }
 ?>
 <html>
@@ -262,11 +262,11 @@ function go() {
       </tr>
 <?
     if ($action == 'add') {
-      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=add_customers', 'NONSSL') . '" onSubmit="return check_form();"><input type="hidden" name="insert" value="1">' . "\n";
+      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=add_customers' . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '" onSubmit="return check_form();"><input type="hidden" name="insert" value="1">' . "\n";
     } elseif ($action == 'update') {
-      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update_customers', 'NONSSL') . '" onSubmit="return check_form();"><input type="hidden" name="customers_id" value="' . $HTTP_GET_VARS['customers_id'] . '">' . "\n";
+      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update_customers' . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '" onSubmit="return check_form();"><input type="hidden" name="customers_id" value="' . $HTTP_GET_VARS['customers_id'] . '">' . "\n";
     } else {
-      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete_customers', 'NONSSL') . '"><input type="hidden" name="customers_id" value="' . $HTTP_GET_VARS['customers_id'] . '">' . "\n";
+      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete_customers' . '&order_by=' . $order_by, 'NONSSL') . '"><input type="hidden" name="customers_id" value="' . $HTTP_GET_VARS['customers_id'] . '">' . "\n";
     }
 
     if (($action == 'update') || ($action == 'delete')) {
@@ -492,11 +492,11 @@ function go() {
       <tr>
 <?
     if ($action == 'add') {
-      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
     } elseif ($action == 'update') {
-      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_update.gif', '50', '14', '0', IMAGE_UPDATE) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_update.gif', '50', '14', '0', IMAGE_UPDATE) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
     } elseif ($action == 'delete') {
-      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
     }
 ?>
       </tr></form>
@@ -615,7 +615,7 @@ $per_page = MAX_ROW_LISTS;
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_firstname'];?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_lastname'];?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['countries_name'];?>&nbsp;</font></td>
-            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update&customers_id=' . $customers_values['customers_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete&customers_id=' . $customers_values['customers_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update&customers_id=' . $customers_values['customers_id'] . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete&customers_id=' . $customers_values['customers_id'] . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?
   		  $max_customers_id_query = tep_db_query("select max(customers_id) + 1 as next_id from customers");
@@ -632,7 +632,7 @@ $per_page = MAX_ROW_LISTS;
     } else {
       echo '          <tr bgcolor="#ffffff">' . "\n";
     }
-    echo '<form name="customers" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=add_customers', 'NONSSL') . '" method="post" onSubmit="return checkForm();">' . "\n";
+    echo '<form name="customers" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=add_customers' . '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '" method="post" onSubmit="return checkForm();">' . "\n";
 ?>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$next_id;?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_firstname" size="20">&nbsp;</font></td>

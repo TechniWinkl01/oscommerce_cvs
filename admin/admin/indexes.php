@@ -6,15 +6,15 @@
       tep_db_query("insert into category_index values ('', '" . $HTTP_POST_VARS['category_index_name'] . "', '" . $HTTP_POST_VARS['sql_select'] . "')");
       $category_index_id = tep_db_insert_id();
       tep_db_query("insert into category_index_to_top values ('', '" . $HTTP_POST_VARS['category_top_id'] . "', '" . $category_index_id . "', '" . $HTTP_POST_VARS['sort_order'] . "')");
-      header('Location: ' . tep_href_link(FILENAME_INDEXES, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_INDEXES, '&page=' . $page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'update_index') {
       tep_db_query("update category_index set category_index_name = '" . $HTTP_POST_VARS['category_index_name'] . "', sql_select = '" . $HTTP_POST_VARS['sql_select'] . "' where category_index_id = '" . $HTTP_POST_VARS['category_index_id'] . "'");
       tep_db_query("update category_index_to_top set category_top_id = '" . $HTTP_POST_VARS['category_top_id'] . "', sort_order = '" . $HTTP_POST_VARS['sort_order'] . "' where category_index_to_top_id = '" . $HTTP_POST_VARS['category_index_to_top_id'] . "'");
-      header('Location: ' . tep_href_link(FILENAME_INDEXES, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_INDEXES, '&page=' . $page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_index') {
       tep_db_query("delete from category_index where category_index_id = '" . $HTTP_GET_VARS['index_id'] . "'");
       tep_db_query("delete from category_index_to_top where category_index_id = '" . $HTTP_GET_VARS['index_id'] . "'");
-      header('Location: ' . tep_href_link(FILENAME_INDEXES, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_INDEXES, '&page=' . $page, 'NONSSL')); tep_exit();
     }
   }
 ?>
@@ -164,7 +164,7 @@ echo '</td></tr>';
       echo '          <tr bgcolor="#f4f7fd">' . "\n";
     }
     if (($HTTP_GET_VARS['action'] == 'update') && ($HTTP_GET_VARS['index_id'] == $indexes_values['category_index_id'])) {
-      echo '<form name="category_index" action="' . tep_href_link(FILENAME_INDEXES, 'action=update_index', 'NONSSL') . '" method="post" onSubmit="return checkForm();">';
+      echo '<form name="category_index" action="' . tep_href_link(FILENAME_INDEXES, 'action=update_index' . '&page=' . $page, 'NONSSL') . '" method="post" onSubmit="return checkForm();">';
 ?>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<select name="category_top_id"><?
       $categories = tep_db_query("select category_top_id, category_top_name from category_top order by category_top_id");
@@ -179,20 +179,22 @@ echo '</td></tr>';
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="category_index_name" value="<?=$indexes_values['category_index_name'];?>" size="20">&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="sort_order" value="<?=$indexes_values['sort_order'];?>" size="2">&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="sql_select" value="<?=$indexes_values['sql_select'];?>" size="20">&nbsp;</font></td>
-            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE);?>&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE);?>&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</font></td>
 <?
       echo '</form>' . "\n";
 ?>
           </tr>
 <?
     } elseif (($HTTP_GET_VARS['action'] == 'delete') && ($HTTP_GET_VARS['index_id'] == $indexes_values['category_index_id'])) {
+	  $delete_page = $HTTP_GET_VARS['page'];
+	  if (tep_db_num_rows($indexes) == '1' && $HTTP_GET_VARS['page'] != '1') {$delete_page = $HTTP_GET_VARS['page']-1;};
 ?>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$indexes_values['category_top_name'];?></b>&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$indexes_values['category_index_id'];?></b>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$indexes_values['category_index_name'];?></b>&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$indexes_values['sort_order'];?></b>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$indexes_values['sql_select'];?></b>&nbsp;</font></td>
-            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?='<a href="' . tep_href_link(FILENAME_INDEXES, 'action=delete_index&index_id=' . $HTTP_GET_VARS['index_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_confirm_red.gif', '50', '14', '0', IMAGE_CONFIRM);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</b></font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?='<a href="' . tep_href_link(FILENAME_INDEXES, 'action=delete_index&index_id=' . $HTTP_GET_VARS['index_id'] . '&page=' . $delete_page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_confirm_red.gif', '50', '14', '0', IMAGE_CONFIRM);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</b></font></td>
           </tr>
 <?
     } else {
@@ -202,7 +204,7 @@ echo '</td></tr>';
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$indexes_values["category_index_name"];?>&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$indexes_values["sort_order"];?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$indexes_values["sql_select"];?>&nbsp;</font></td>
-            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, 'action=update&index_id=' . $indexes_values['category_index_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, 'action=delete&index_id=' . $indexes_values['category_index_id'], 'NONSSL') , '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, 'action=update&index_id=' . $indexes_values['category_index_id'] . '&page=' . $page, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_INDEXES, 'action=delete&index_id=' . $indexes_values['category_index_id'] . '&page=' . $page, 'NONSSL') , '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?
     }
@@ -221,7 +223,7 @@ echo '</td></tr>';
     } else {
       echo '          <tr bgcolor="#ffffff">' . "\n";
     }
-    echo '<form name="category_index" action="' . tep_href_link(FILENAME_INDEXES, 'action=add_index', 'NONSSL') . '" method="post" onSubmit="return checkForm();">';
+    echo '<form name="category_index" action="' . tep_href_link(FILENAME_INDEXES, 'action=add_index' . '&page=' . $page, 'NONSSL') . '" method="post" onSubmit="return checkForm();">';
 ?>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<select name="category_top_id"><?
     $categories = tep_db_query("select category_top_id, category_top_name from category_top order by category_top_id");
