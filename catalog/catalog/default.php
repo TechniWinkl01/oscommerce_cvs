@@ -78,7 +78,8 @@
             <td><?=tep_black_line();?></td>
           </tr>
 <?
-    $new_products_category_id = $current_category_id; $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
+    $new_products_category_id = $current_category_id;
+    $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
 ?>
         </table></td>
       </tr>
@@ -96,25 +97,19 @@
       </tr>
 <?
     if ($HTTP_GET_VARS['manufacturers_id']) {
-
-      if ($HTTP_GET_VARS['filter_id'])
+      if ($HTTP_GET_VARS['filter_id']) {
         $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_location, p.products_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "' order by p.products_name";
-      else
+      } else {
         $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_location, p.products_price from products p, manufacturers m, products_to_manufacturers p2m where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by p.products_name";
-        
+      }
       $filterlist_sql = "select distinct c.categories_id as id, c.categories_name as name from products p, products_to_manufacturers p2m, products_to_categories p2c, categories c where p.products_status = '1' and p.products_id = p2m.products_id and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by c.categories_name";
-      
     } else {
-
-      if ($HTTP_GET_VARS['filter_id'])
+      if ($HTTP_GET_VARS['filter_id']) {
         $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_location, p.products_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by p.products_name";
-
-      else
-        $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_location, p.products_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c
-where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by p.products_name";
-
+      } else {
+        $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_location, p.products_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by p.products_name";
+      }
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_manufacturers p2m, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
-
     }
 ?>
       <tr>
@@ -123,42 +118,41 @@ where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufa
           <tr>
             <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
 <?
-  //============================================================================================================
-  // optional Product List Filter
-  //============================================================================================================
-  if (PRODUCT_LIST_FILTER) {
-    $filterlist = tep_db_query($filterlist_sql);
-    if (tep_db_num_rows($filterlist) > 1) {
-      echo '            <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . "\n";
-      echo '              ' . TEXT_SHOW . "\n";
-      echo '              <select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">' . "\n";
-  
-      if ($HTTP_GET_VARS['manufacturers_id'])
-        $arguments = 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] ;
-      else
-        $arguments = 'cPath=' . $cPath ;
-  
-      $option_url = tep_href_link(FILENAME_DEFAULT, $arguments, 'NONSSL');
-  
-      if (!$HTTP_GET_VARS['filter_id'])
-        echo '                <option value="' . $option_url . '" SELECTED>All' . "\n";
-      else
-        echo '                <option value="' . $option_url . '">All' . "\n";
-  
-      echo '                <option value="">---------------' . "\n";
-            
-      while ($filterlist_values = tep_db_fetch_array($filterlist)) {
-        $option_url = tep_href_link(FILENAME_DEFAULT, $arguments . '&filter_id=' . $filterlist_values['id'], 'NONSSL');
-  
-        if ($HTTP_GET_VARS['filter_id'] && $HTTP_GET_VARS['filter_id'] == $filterlist_values['id'])
-          echo '              <option value="' . $option_url . '" SELECTED>' . $filterlist_values['name'] . '&nbsp;' . "\n" ;
-        else
-          echo '              <option value="' . $option_url . '">' . $filterlist_values['name'] . '&nbsp;' . "\n" ;
+// optional Product List Filter
+    if (PRODUCT_LIST_FILTER) {
+      $filterlist = tep_db_query($filterlist_sql);
+      if (tep_db_num_rows($filterlist) > 1) {
+        echo '            <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . "\n";
+        echo '              ' . TEXT_SHOW . "\n";
+        echo '              <select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">' . "\n";
+
+        if ($HTTP_GET_VARS['manufacturers_id']) {
+          $arguments = 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] ;
+        } else {
+          $arguments = 'cPath=' . $cPath ;
+        }
+
+        $option_url = tep_href_link(FILENAME_DEFAULT, $arguments, 'NONSSL');
+
+        if (!$HTTP_GET_VARS['filter_id']) {
+          echo '                <option value="' . $option_url . '" SELECTED>All' . "\n";
+        } else {
+          echo '                <option value="' . $option_url . '">All' . "\n";
+        }
+
+        echo '                <option value="">---------------' . "\n";
+        while ($filterlist_values = tep_db_fetch_array($filterlist)) {
+          $option_url = tep_href_link(FILENAME_DEFAULT, $arguments . '&filter_id=' . $filterlist_values['id'], 'NONSSL');
+          if ($HTTP_GET_VARS['filter_id'] && $HTTP_GET_VARS['filter_id'] == $filterlist_values['id']) {
+            echo '              <option value="' . $option_url . '" SELECTED>' . $filterlist_values['name'] . '&nbsp;' . "\n" ;
+          } else {
+            echo '              <option value="' . $option_url . '">' . $filterlist_values['name'] . '&nbsp;' . "\n" ;
+          }
+        }
+        echo '              </select>' . "\n";
+        echo '            </font></td>' . "\n";
       }
-      echo '              </select>' . "\n";
-      echo '            </font></td>' . "\n";
     }
-  }
 ?>
             <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'table_background_list.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
           </tr>
@@ -169,75 +163,9 @@ where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufa
         <td><?=tep_black_line();?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-<?
-    if (PRODUCT_LIST_MODEL) {
-      echo '<td nowrap><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE .'" color="' . TABLE_HEADING_FONT_COLOR . '"><b>&nbsp;' . TABLE_HEADING_MODEL . '&nbsp;</b></font></td>';
-    }
-?>
-            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_PRODUCTS;?>&nbsp;</b></font></td>
-            <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_PRICE;?>&nbsp;</b></font></td>
-          </tr>
-          <tr>
-<?
-    $colspan=2;
-    if (PRODUCT_LIST_MODEL)
-      $colspan++;
-    echo '  <td colspan="' . $colspan . '">' . tep_black_line() . '</td>';
-    echo '</tr>';
-
-    $listing = tep_db_query($listing_sql);
-
-    $number_of_products = '0';
-    if (tep_db_num_rows($listing)) {
-      while ($listing_values = tep_db_fetch_array($listing)) {
-        $number_of_products++;
-        if (($number_of_products / 2) == floor($number_of_products / 2)) {
-          echo '          <tr bgcolor="#ffffff">' . "\n";
-        } else {
-          echo '          <tr bgcolor="#f4f7fd">' . "\n";
-        }
-        if (PRODUCT_LIST_MODEL) {
-          echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $listing_values['products_model'] . '&nbsp;</font></td>';
-        }
-        if ($HTTP_GET_VARS['manufacturers_id'])
-          echo '<td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">';
-        else
-          echo '<td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">';
-
-        $products_name = tep_products_name($listing_values['manufacturers_location'], $listing_values['manufacturers_name'], $listing_values['products_name']);
-        echo $products_name . '</a>&nbsp;</font></td>' . "\n";
-        $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $listing_values['products_id'] . "'");
-        if (tep_db_num_rows($check_special)) {
-          $check_special_values = tep_db_fetch_array($check_special);
-          $new_price = $check_special_values['specials_new_products_price'];
-        }
-        echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;';
-        if ($new_price) {
-          echo '<s>' .  tep_currency_format($listing_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>';
-          unset($new_price);
-        } else {
-          echo tep_currency_format($listing_values['products_price']);
-        }
-        echo '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-      }
-    } else {
-?>
-          <tr bgcolor="#f4f7fd">
-            <td colspan="<?=$colspan;?>" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS);?>&nbsp;</font></td>
-          </tr>
-<?
-    }
-?>
-        </td></table>
-      </tr>
-      <tr>
-        <td><?=tep_black_line();?></td>
-      </tr>
-      <tr>
-        <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_NUMBER_OF_PRODUCTS . $number_of_products;?>&nbsp;&nbsp;</font></td>
+        <td>
+<? $include_file = DIR_MODULES . 'product_listing.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+        </td>
       </tr>
     </table></td>
 <?
