@@ -104,10 +104,6 @@ define('CHECKOUT_BAR_FINISHED', 'finalizado!');
 // javascript messages
 define('JS_ERROR', 'Hay errores en su formulario!\nPor favor, haga las siguiente correciones:\n\n');
 
-define('JS_CC_OWNER', '* El nombre del titular de la tarjeta de credito debe tener al menos ' . CC_OWNER_MIN_LENGTH . ' letras.\n');
-define('JS_CC_NUMBER', '* El numero de la tarjeta de credito debe tener al menos ' . CC_NUMBER_MIN_LENGTH . ' letras.\n');
-define('JS_CC_EXPIRES', '* La fecha de caducidad de la tarjeta de credito debe tener al menos ' . CC_EXPIRY_MIN_LENGTH . ' letras.\n');
-
 define('JS_REVIEW_TEXT', '* Su \'Comentario\' debe tener al menos ' . REVIEW_TEXT_MIN_LENGTH . ' letras.\n');
 define('JS_REVIEW_RATING', '* Debe evaluar el producto sobre el que opina.\n');
 

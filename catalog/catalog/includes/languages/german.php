@@ -106,10 +106,6 @@ define('CHECKOUT_BAR_FINISHED', 'fertig');
 // javascript messages
 define('JS_ERROR', 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n');
 
-define('JS_CC_OWNER', '* Der \'Name des Eigentümers\' muß mindestens aus ' . CC_OWNER_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_CC_NUMBER', '* Die \'Kreditkartenr.\' muß mindestens aus ' . CC_NUMBER_MIN_LENGTH . ' Zahlen bestehen.\n');
-define('JS_CC_EXPIRES', '* Das Gültigkeitsdatum muß mindestens aus ' . CC_EXPIRY_MIN_LENGTH . ' Zahlen bestehen.\n');
-
 define('JS_REVIEW_TEXT', '* Der Text muß mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_REVIEW_RATING', '* Geben Sie ihre Bewertung ein.\n');
 

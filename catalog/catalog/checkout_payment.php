@@ -46,14 +46,9 @@ function check_form() {
     payment_value = document.payment.payment.value;
   }
 <?
-// Call payment validation
-  if (defined('PAYMENT_MODULES')) {
-    $modules = explode(';', PAYMENT_MODULES);
-    while (list(,$value) = each($modules)) {
-      $payment_action = 'PM_VALIDATION';
-      include(DIR_PAYMENT_MODULES . $value);
-    }
-  }
+// payment validation
+  $payment_action = 'PM_VALIDATION';
+  include(DIR_MODULES . 'payment.php');
 ?>
   if (error == 1) {
     alert(error_message);
@@ -118,10 +113,9 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $rows = 0;
+  $modules = array();
   if (defined('PAYMENT_MODULES'))
     $modules = explode(';', PAYMENT_MODULES);
-  else
-    $modules = array();
   while (list(,$value) = each($modules)) {
     $rows ++;
     // Get id and description from payment modules

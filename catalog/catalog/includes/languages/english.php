@@ -104,10 +104,6 @@ define('TYPE_BELOW', 'Type Below');
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 
-define('JS_CC_OWNER', '* The owner\'s name of the credit card must be atleast ' . CC_OWNER_MIN_LENGTH . ' characters.\n');
-define('JS_CC_NUMBER', '* The credit card number must be atleast ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
-define('JS_CC_EXPIRES', '* The credit card expiry date must be atleast ' . CC_EXPIRY_MIN_LENGTH . ' characters.\n');
-
 define('JS_REVIEW_TEXT', '* The \'Review Text\' must have atleast ' . REVIEW_TEXT_MIN_LENGTH . ' characters.\n');
 define('JS_REVIEW_RATING', '* You must rate the product for your review.\n');
 

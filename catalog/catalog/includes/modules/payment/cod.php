@@ -1,9 +1,5 @@
 <?
-  if ($language == 'english') {
-    define('TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
-  } elseif ($language == 'espanol') {
-    define('TEXT_CASH_ON_DELIVERY', 'Contra Reembolso');
-  }
+  $include_file = DIR_LANGUAGES . $language . '/modules/payment/cod.php'; include(DIR_INCLUDES . 'include_once.php');
 
   $payment_code = 'cod';
   $payment_description = TEXT_CASH_ON_DELIVERY;

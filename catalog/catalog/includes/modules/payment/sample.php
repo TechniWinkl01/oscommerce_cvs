@@ -1,10 +1,5 @@
 <?
-// Language defines, should be removed from here
-  if ($language == 'english') {
-    define('TEXT_SAMPLE', 'Sample Payment Module');
-  } elseif ($language == 'espanol') {
-    define('TEXT_SAMPLE', 'Modulo de Pago de Ejemplo');
-  }
+  $include_file = DIR_LANGUAGES . $language . '/modules/payment/sample.php'; include(DIR_INCLUDES . 'include_once.php');
 
   $payment_code = 'sample';
   $payment_description = TEXT_SAMPLE; 

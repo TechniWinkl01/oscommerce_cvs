@@ -1,5 +1,5 @@
 <?
-  define('TEXT_PAYPAL', 'PayPal');
+  $include_file = DIR_LANGUAGES . $language . '/modules/payment/paypal.php'; include(DIR_INCLUDES . 'include_once.php');
 
   $payment_code = 'paypal';
   $payment_description = TEXT_PAYPAL;
