@@ -119,7 +119,8 @@
         } else {
           echo "\n" . '<br>&nbsp;';
         }
-        $total_price += $attributes_values['options_values_price'];
+        if ($attributes_values['price_prefix'] == '+') $total_price += $attributes_values['options_values_price'];
+        else $total_price -= $attributes_values['options_values_price'];
       }
     }
 //------display customer choosen option eof-----
