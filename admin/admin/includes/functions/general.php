@@ -173,6 +173,8 @@
 
   function tep_array_merge($array1, $array2, $array3 = '') {
 
+    if ($array3 == '') $array3 = array();
+
     if (function_exists('array_merge')) {
       $array_merged = array_merge($array1, $array2, $array3);
     } else {
