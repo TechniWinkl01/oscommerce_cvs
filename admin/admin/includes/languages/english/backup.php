@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.14 2002/03/16 03:01:23 hpdl Exp $
+  $Id: backup.php,v 1.15 2002/03/16 03:14:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,7 @@ define('TEXT_INFO_USE_ZIP', 'Use ZIP');
 define('TEXT_INFO_USE_NO_COMPRESSION', 'No Compression (Pure SQL)');
 define('TEXT_INFO_DOWNLOAD_ONLY', 'Download only (do not store server side)');
 define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Best through a HTTPS connection');
+define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this backup?');
 define('TEXT_NO_EXTENSION', 'None');
 define('TEXT_BACKUP_DIRECTORY', 'Backup Directory:');
 define('TEXT_LAST_RESTORATION', 'Last Restoration:');
@@ -43,4 +44,5 @@ define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not w
 define('SUCCESS_LAST_RESTORE_CLEARED', 'Success: The last restoration date has been cleared.');
 define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');
 define('SUCCESS_DATABASE_RESTORED', 'Success: The database has been restored.');
+define('SUCCESS_BACKUP_DELETED', 'Success: The backup has been removed.');
 ?>

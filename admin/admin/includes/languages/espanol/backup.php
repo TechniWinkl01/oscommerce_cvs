@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.18 2002/03/16 03:01:23 hpdl Exp $
+  $Id: backup.php,v 1.19 2002/03/16 03:14:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,4 +43,5 @@ define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: No hay permiso de escritu
 define('SUCCESS_LAST_RESTORE_CLEARED', 'Success: The last restoration date has been cleared.');
 define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');
 define('SUCCESS_DATABASE_RESTORED', 'Success: The database has been restored.');
+define('SUCCESS_BACKUP_DELETED', 'Success: The backup has been removed.');
 ?>

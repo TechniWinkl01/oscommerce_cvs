@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.49 2002/03/16 03:01:23 hpdl Exp $
+  $Id: backup.php,v 1.50 2002/03/16 03:14:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -285,6 +285,15 @@
           }
         }
         break;
+      case 'deleteconfirm':
+        if (strstr($HTTP_GET_VARS['file'], '..')) tep_redirect(tep_href_link(FILENAME_BACKUP));
+
+        tep_remove(DIR_FS_BACKUP . '/' . $HTTP_GET_VARS['file']);
+        if (!$tep_remove_error) {
+          $messageStack->add_session(SUCCESS_BACKUP_DELETED, 'success');
+          tep_redirect(tep_href_link(FILENAME_BACKUP));
+        }
+        break;
     }
   }
 
@@ -432,11 +441,19 @@
       $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE);
       $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_restore.gif', IMAGE_restore) . '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
+    case 'delete':
+      $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
+
+      $contents = array('form' => tep_draw_form('delete', FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=deleteconfirm'));
+      $contents[] = array('text' => TEXT_DELETE_INTRO);
+      $contents[] = array('text' => '<br><b>' . $buInfo->file . '</b>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      break;
     default:
       if (is_object($buInfo)) {
         $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restore') . '">' . tep_image_button('button_restore.gif', IMAGE_RESTORE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=restore') . '">' . tep_image_button('button_restore.gif', IMAGE_RESTORE) . '</a> <a href="' . tep_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file . '&action=delete') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
         $contents[] = array('text' => '<br>' . TEXT_INFO_DATE . ' ' . $buInfo->date);
         $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
         $contents[] = array('text' => '<br>' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);
