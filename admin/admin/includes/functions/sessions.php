@@ -1,4 +1,4 @@
-<?
+<?php
   function tep_session_start() {
 
     return session_start();
