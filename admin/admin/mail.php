@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.24 2002/01/18 17:28:53 hpdl Exp $
+  $Id: mail.php,v 1.25 2002/01/19 13:32:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -81,9 +81,6 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
 <?php
   if ( ($HTTP_GET_VARS['action'] == 'preview') && ($HTTP_POST_VARS['customers_email_address']) ) {
     switch ($HTTP_POST_VARS['customers_email_address']) {
