@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.1 2004/08/27 22:13:15 hpdl Exp $
+  $Id: products.php,v 1.2 2004/08/29 22:17:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,8 @@
     <thead>
       <tr>
         <th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+        <th><?php echo TABLE_HEADING_PRICE; ?></th>
+        <th><?php echo TABLE_HEADING_QUANTITY; ?></th>
         <th><?php echo TABLE_HEADING_STATUS; ?></th>
         <th><?php echo TABLE_HEADING_ACTION; ?></th>
       </tr>
@@ -39,10 +41,10 @@
     <tbody>
 <?php
   if (isset($_GET['search']) && !empty($_GET['search'])) {
-    $Qproducts = $osC_Database->query('select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p2c.categories_id from :table_products p, :table_products_description pd, :table_products_to_categories p2c where p.products_id = pd.products_id and pd.language_id = :language_id and p.products_id = p2c.products_id and pd.products_name like :products_name order by pd.products_name');
+    $Qproducts = $osC_Database->query('select p.products_id, pd.products_name, p.products_quantity, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p2c.categories_id from :table_products p, :table_products_description pd, :table_products_to_categories p2c where p.products_id = pd.products_id and pd.language_id = :language_id and p.products_id = p2c.products_id and pd.products_name like :products_name order by pd.products_name');
     $Qproducts->bindValue(':products_name', '%' . $_GET['search'] . '%');
   } else {
-    $Qproducts = $osC_Database->query('select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from :table_products p, :table_products_description pd where p.products_id = pd.products_id and pd.language_id = :language_id order by pd.products_name');
+    $Qproducts = $osC_Database->query('select p.products_id, pd.products_name, p.products_quantity, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from :table_products p, :table_products_description pd where p.products_id = pd.products_id and pd.language_id = :language_id order by pd.products_name');
   }
   $Qproducts->bindTable(':table_products', TABLE_PRODUCTS);
   $Qproducts->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
@@ -72,6 +74,8 @@
     }
 ?>
         <td><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&pID=' . $Qproducts->valueInt('products_id') . '&action=new_product_preview&read=only') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '&nbsp;' . $Qproducts->value('products_name') . '</a>'; ?></td>
+        <td align="right"><?php echo $osC_Currencies->format($Qproducts->value('products_price')); ?></td>
+        <td align="right"><?php echo $Qproducts->valueInt('products_quantity'); ?></td>
         <td align="center"><?php echo tep_image('templates/' . $template . '/images/icons/' . (($Qproducts->valueInt('products_status') === 1) ? 'checkbox_ticked.gif' : 'checkbox_crossed.gif')); ?></td>
         <td align="right">
 <?php

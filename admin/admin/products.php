@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.13 2004/08/27 22:13:11 hpdl Exp $
+  $Id: products.php,v 1.14 2004/08/29 22:17:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -216,21 +216,33 @@
               }
             }
 
-            $Qcheck = $osC_Database->query('select products_attributes_id from :table_products_attributes where products_id = :products_id and concat(options_id, "-", options_values_id) not in (":attributes") limit 1');
+            $Qcheck = $osC_Database->query('select products_attributes_id from :table_products_attributes where products_id = :products_id and concat(options_id, "-", options_values_id) not in (":attributes")');
             $Qcheck->bindTable(':table_products_attributes', TABLE_PRODUCTS_ATTRIBUTES);
             $Qcheck->bindInt(':products_id', $products_id);
             $Qcheck->bindRaw(':attributes', implode('", "', $attributes_array));
             $Qcheck->execute();
 
             if ($Qcheck->numberOfRows()) {
-              $Qdelete = $osC_Database->query('delete from :table_products_attributes where products_id = :products_id and concat(options_id, "-", options_values_id) not in (":attributes")');
-              $Qdelete->bindTable(':table_products_attributes', TABLE_PRODUCTS_ATTRIBUTES);
-              $Qdelete->bindInt(':products_id', $products_id);
-              $Qdelete->bindRaw(':attributes', implode('", "', $attributes_array));
-              $Qdelete->execute();
+              while ($Qcheck->next()) {
+                $Qdelete = $osC_Database->query('delete from :table_products_attributes where products_attributes_id = :products_attributes_id');
+                $Qdelete->bindTable(':table_products_attributes', TABLE_PRODUCTS_ATTRIBUTES);
+                $Qdelete->bindInt(':products_attributes_id', $Qcheck->valueInt('products_attributes_id'));
+                $Qdelete->execute();
 
-              if ($osC_Database->isError()) {
-                $error = true;
+                if ($osC_Database->isError() === false) {
+                  $Qdelete = $osC_Database->query('delete from :table_products_attributes_download where products_attributes_id = :products_attributes_id');
+                  $Qdelete->bindTable(':table_products_attributes_download', TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD);
+                  $Qdelete->bindInt(':products_attributes_id', $Qcheck->valueInt('products_attributes_id'));
+                  $Qdelete->execute();
+
+                  if ($osC_Database->isError()) {
+                    $error = true;
+                    break;
+                  }
+                } else {
+                  $error = true;
+                  break;
+                }
               }
             }
           }

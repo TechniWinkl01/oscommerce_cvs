@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_preview.php,v 1.1 2004/08/27 22:13:15 hpdl Exp $
+  $Id: products_preview.php,v 1.2 2004/08/29 22:17:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,11 +35,15 @@
     $pInfo = new objectInfo($_POST);
 
     if (!isset($_GET['read'])) {
-// copy image only if modified
-      if ($products_image = new upload('products_image', DIR_FS_CATALOG_IMAGES)) {
-        $products_image_name = $products_image->filename;
-      } else {
-        $products_image_name = (isset($_POST['products_previous_image']) ? $_POST['products_previous_image'] : '');
+      $products_image_name = $_POST['products_image'];
+
+      $destination = realpath(DIR_FS_CATALOG_IMAGES . $_POST['products_image_location']);
+      if (substr($destination, 0, strlen(DIR_FS_CATALOG_IMAGES)) == DIR_FS_CATALOG_IMAGES) {
+        $products_image = new upload('products_image_new');
+        $products_image->set_destination($destination);
+        if ($products_image->parse() && $products_image->save()) {
+          $products_image_name = (!empty($_POST['products_image_location']) ? $_POST['products_image_location'] . '/' : '') . $products_image->filename;
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.1 2004/08/27 22:13:14 hpdl Exp $
+  $Id: products.php,v 1.2 2004/08/29 22:17:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,8 +20,10 @@
   define('FIELDSET_ASSIGNED_ATTRIBUTES', 'Assigned Attributes');
 
   define('TABLE_HEADING_PRODUCTS', 'Produkte');
-  define('TABLE_HEADING_ACTION', 'Aktion');
+  define('TABLE_HEADING_PRICE', 'Preis');
+  define('TABLE_HEADING_QUANTITY', 'Anzahl');
   define('TABLE_HEADING_STATUS', 'Status');
+  define('TABLE_HEADING_ACTION', 'Aktion');
 
   define('TEXT_NEW_PRODUCT', 'Neuer Produkt in &quot;%s&quot;');
   define('TEXT_CATEGORIES', 'Kategorien:');

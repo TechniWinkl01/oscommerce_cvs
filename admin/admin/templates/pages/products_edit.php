@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_edit.php,v 1.1 2004/08/27 22:13:15 hpdl Exp $
+  $Id: products_edit.php,v 1.2 2004/08/29 22:17:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,6 +65,19 @@
   }
 
   $languages = tep_get_languages();
+
+  require('includes/classes/directory_listing.php');
+  $osC_Dir_Images = new osC_DirectoryListing('../images');
+  $osC_Dir_Images->setExcludeEntries('CVS');
+  $osC_Dir_Images->setIncludeFiles(false);
+  $osC_Dir_Images->setRecursive(true);
+  $osC_Dir_Images->setAddDirectoryToFilename(true);
+  $files = $osC_Dir_Images->getFiles();
+
+  $image_directories = array(array('id' => '', 'text' => 'images/'));
+  foreach ($files as $file) {
+    $image_directories[] = array('id' => $file['name'], 'text' => 'images/' . $file['name']);
+  }
 ?>
 
 <script type="text/javascript" src="external/FCKeditor/2.0b1/fckeditor.js"></script>
@@ -137,7 +150,7 @@
     var attributeExists = false;
 
     for (i=0; i<existingFields.length; i++) {
-      if (existingFields[i].name == 'attribute_prefix[' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].parentNode.id + '][' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].value + ']') {
+      if (existingFields[i].name == 'attribute_price[' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].parentNode.id + '][' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].value + ']') {
         attributeExists = true;
         break;
       }
@@ -151,13 +164,21 @@
 
       var spanFields = newFields.getElementsByTagName('span');
       var inputFields = newFields.getElementsByTagName('input');
+      var selectFields = newFields.getElementsByTagName('select');
 
       spanFields[0].innerHTML = document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].parentNode.label;
       spanFields[1].innerHTML = document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].text;
 
       for (y=0; y<inputFields.length; y++) {
-        inputFields[y].name = inputFields[y].name.substr(4) + '[' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].parentNode.id + '][' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].value + ']';
-        inputFields[y].disabled = false;
+        if (inputFields[y].type != 'button') {
+          inputFields[y].name = inputFields[y].name.substr(4) + '[' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].parentNode.id + '][' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].value + ']';
+          inputFields[y].disabled = false;
+        }
+      }
+
+      for (y=0; y<selectFields.length; y++) {
+        selectFields[y].name = selectFields[y].name.substr(4) + '[' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].parentNode.id + '][' + document.new_product.attributes.options[document.new_product.attributes.options.selectedIndex].value + ']';
+        selectFields[y].disabled = false;
       }
 
       var insertHere = document.getElementById('writeroot');
@@ -168,22 +189,31 @@
   function toggleAttributeStatus(attributeID) {
     var row = document.getElementById(attributeID);
     var rowButton = document.getElementById(attributeID + '-button');
-    var rowFields = row.getElementsByTagName('input');
+    var inputFields = row.getElementsByTagName('input');
+    var selectFields = row.getElementsByTagName('select');
 
     if (rowButton.value == '-') {
-      for (rF=0; rF<rowFields.length; rF++) {
-        if (rowFields[rF].type != 'button') {
-          rowFields[rF].disabled = true;
+      for (rF=0; rF<inputFields.length; rF++) {
+        if (inputFields[rF].type != 'button') {
+          inputFields[rF].disabled = true;
         }
+      }
+
+      for (rF=0; rF<selectFields.length; rF++) {
+        selectFields[rF].disabled = true;
       }
 
       row.className = 'attributeRemove';
       rowButton.value = '+';
     } else {
-      for (rF=0; rF<rowFields.length; rF++) {
-        if (rowFields[rF].type != 'button') {
-          rowFields[rF].disabled = false;
+      for (rF=0; rF<inputFields.length; rF++) {
+        if (inputFields[rF].type != 'button') {
+          inputFields[rF].disabled = false;
         }
+      }
+
+      for (rF=0; rF<selectFields.length; rF++) {
+        selectFields[rF].disabled = false;
       }
 
       row.className = '';
@@ -191,6 +221,12 @@
     }
   }
 
+  function reloadImage() {
+    var image = document.new_product.products_image.value;
+    var preview = document.getElementById('previewImage');
+
+    preview.src = '<?php echo DIR_WS_CATALOG_IMAGES; ?>' + image;
+  }
 //--></script>
 
 <link type="text/css" rel="stylesheet" href="external/tabpane/css/luna/tab.css" />
@@ -198,144 +234,209 @@
 
 <h1><?php echo sprintf(TEXT_NEW_PRODUCT, tep_output_generated_category_path($current_category_id)); ?></h1>
 
-<div class="tab-pane" id="tabPane1">
-  <script type="text/javascript">
-    tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ) );
-  </script>
+<div class="tab-pane" id="mainTabPane">
+  <script type="text/javascript"><!--
+    var mainTabPane = new WebFXTabPane( document.getElementById( "mainTabPane" ) );
+  //--></script>
 
 <?php
   echo tep_draw_form('new_product', FILENAME_PRODUCTS, 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"');
 ?>
 
-  <div class="tab-page" id="tabPage1">
+  <div class="tab-page" id="tabDescription">
     <h2 class="tab"><?php echo TAB_GENERAL; ?></h2>
 
-    <script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+    <script type="text/javascript"><!--
+      mainTabPane.addTabPage( document.getElementById( "tabDescription" ) );
+    //--></script>
+
+    <div class="tab-pane" id="descriptionTabPane">
+      <script type="text/javascript"><!--
+        var descriptionTabPane = new WebFXTabPane( document.getElementById( "descriptionTabPane" ) );
+      //--></script>
+
+<?php
+  foreach ($languages as $l_entry) {
+?>
+
+      <div class="tab-page" id="tabDescriptionLanguages_<?php echo $l_entry['code']; ?>">
+        <h2 class="tab"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . $l_entry['name']; ?></h2>
+
+        <script type="text/javascript"><!--
+          descriptionTabPane.addTabPage( document.getElementById( "tabDescriptionLanguages_<?php echo $l_entry['code']; ?>" ) );
+        //--></script>
+
+        <table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="smallText"><?php echo TEXT_PRODUCTS_NAME; ?></td>
+            <td class="smallText"><?php echo osc_draw_input_field('products_name[' . $l_entry['id'] . ']', (isset($pInfo) && is_array($pInfo->products_name) && isset($pInfo->products_name[$l_entry['id']]) ? $pInfo->products_name[$l_entry['id']] : '')); ?></td>
+          </tr>
+          <tr>
+            <td class="smallText" valign="top"><?php echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
+            <td class="smallText"><?php echo tep_draw_textarea_field('products_description[' . $l_entry['id'] . ']', 'soft', '70', '15', (isset($pInfo) && is_array($pInfo->products_description) && isset($pInfo->products_description[$l_entry['id']]) ? $pInfo->products_description[$l_entry['id']] : ''), 'id="fckpd_' . $l_entry['code'] . '" style="width: 100%;"'); ?></td>
+          </tr>
+          <tr>
+            <td class="smallText"><?php echo TEXT_PRODUCTS_URL; ?></td>
+            <td class="smallText"><?php echo osc_draw_input_field('products_url[' . $l_entry['id'] . ']', (isset($pInfo) && is_array($pInfo->products_url) && isset($pInfo->products_url[$l_entry['id']]) ? $pInfo->products_url[$l_entry['id']] : '')); ?></td>
+          </tr>
+        </table>
+
+        <script type="text/javascript"><!--
+          var fckpd_<?php echo $l_entry['code']; ?> = new FCKeditor('fckpd_<?php echo $l_entry['code']; ?>');
+          fckpd_<?php echo $l_entry['code']; ?>.BasePath = "<?php echo DIR_WS_ADMIN . 'external/FCKeditor/2.0b1/'; ?>";
+          fckpd_<?php echo $l_entry['code']; ?>.Height = "400";
+          fckpd_<?php echo $l_entry['code']; ?>.ReplaceTextarea();
+        //--></script>
+      </div>
+
+<?php
+  }
+?>
+
+    </div>
+  </div>
+
+  <div class="tab-page" id="tabData">
+    <h2 class="tab"><?php echo 'Data'; ?></h2>
+
+    <script type="text/javascript"><!--
+      mainTabPane.addTabPage( document.getElementById( "tabData" ) );
+    //--></script>
 
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
-        <td class="main"><?php echo osc_draw_radio_field('products_status', array(array('id' => '1', 'text' => TEXT_PRODUCT_AVAILABLE), array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE)), (isset($pInfo) ? $pInfo->products_status : '0')); ?></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br><small>(YYYY-MM-DD)</small></td>
-        <td class="main"><?php echo osc_draw_input_field('products_date_available', (isset($pInfo) ? $pInfo->products_date_available : ''), 'id="calendarValue"'); ?><input type="button" value="..." id="calendarTrigger" class="operationButton"><script type="text/javascript">Calendar.setup( { inputField: "calendarValue", ifFormat: "%Y-%m-%d", button: "calendarTrigger" } );</script></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
-        <td class="main"><?php echo osc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, (isset($pInfo) ? $pInfo->manufacturers_id : '')); ?></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr bgcolor="#fff3e7">
-        <td class="main">&nbsp;</td>
-        <td>
-<?php
-  foreach ($languages as $l_entry) {
-    echo '          <span id="lang_' . $l_entry['code'] . '"' . (($l_entry['directory'] == $osC_Session->value('language')) ? ' class="highlight"' : '') . '><a href="javascript:toggleDivBlocks(\'pName_\', \'pName_' . $l_entry['code'] . '\'); toggleDivBlocks(\'pDesc_\', \'pDesc_' . $l_entry['code'] . '\'); toggleDivBlocks(\'pURL_\', \'pURL_' . $l_entry['code'] . '\'); toggleClass(\'lang_\', \'lang_' . $l_entry['code'] . '\', \'highlight\', \'span\');">' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '</a></span>&nbsp;&nbsp;';
-  }
-?>
-        </td>
-      </tr>
-      <tr bgcolor="#fff3e7">
-        <td class="main"><?php echo TEXT_PRODUCTS_NAME; ?></td>
-        <td>
-<?php
-  foreach ($languages as $l_entry) {
-    echo '          <div id="pName_' . $l_entry['code'] . '"' . (($l_entry['directory'] != $osC_Session->value('language')) ? ' style="display: none;"' : '') . '>' . osc_draw_input_field('products_name[' . $l_entry['id'] . ']', (isset($pInfo) && is_array($pInfo->products_name) && isset($pInfo->products_name[$l_entry['id']]) ? $pInfo->products_name[$l_entry['id']] : '')) . '</div>';
-  }
-?>
-        </td>
-      </tr>
-      <tr bgcolor="#fff3e7">
-        <td class="main" valign="top"><?php echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
-        <td>
-<?php
-  foreach ($languages as $l_entry) {
-    echo '        <div id="pDesc_' . $l_entry['code'] . '"' . (($l_entry['directory'] != $osC_Session->value('language')) ? ' style="display: none;"' : '') . '>' . tep_draw_textarea_field('products_description[' . $l_entry['id'] . ']', 'soft', '70', '15', (isset($pInfo) && is_array($pInfo->products_description) && isset($pInfo->products_description[$l_entry['id']]) ? $pInfo->products_description[$l_entry['id']] : ''), 'id="fckpd_' . $l_entry['code'] . '" style="width: 100%;"') . '</div>';
+        <td class="smallText" width="50%" height="100%" valign="top">
+          <fieldset style="height: 100%;">
+            <legend>Price</legend>
 
-    echo '<script type="text/javascript"><!--' . "\n" .
-         '  var fckpd_' . $l_entry['code'] . ' = new FCKeditor(\'fckpd_' . $l_entry['code'] . '\');' . "\n" .
-         '  fckpd_' . $l_entry['code'] . '.BasePath = "' . DIR_WS_ADMIN . 'external/FCKeditor/2.0b1/";' . "\n" .
-         '  fckpd_' . $l_entry['code'] . '.Height = "400";' . "\n" .
-         '  fckpd_' . $l_entry['code'] . '.ReplaceTextarea();' . "\n" .
-         '//--></script>';
-  }
-?>
+            <table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
+                <td class="smallText"><?php echo osc_draw_pull_down_menu('products_tax_class_id', $tax_class_array, (isset($pInfo) ? $pInfo->products_tax_class_id : ''), 'onchange="updateGross()"'); ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_PRICE_NET; ?></td>
+                <td class="smallText"><?php echo osc_draw_input_field('products_price', (isset($pInfo) ? $pInfo->products_price : ''), 'onKeyUp="updateGross()"'); ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_PRICE_GROSS; ?></td>
+                <td class="smallText"><?php echo osc_draw_input_field('products_price_gross', (isset($pInfo) ? $pInfo->products_price : ''), 'OnKeyUp="updateNet()"'); ?></td>
+              </tr>
+            </table>
+
+            <script language="javascript"><!--
+              updateGross();
+            //--></script>
+          </fieldset>
+        </td>
+        <td class="smallText" width="50%" height="100%" valign="top">
+          <fieldset style="height: 100%;">
+            <legend>Data</legend>
+
+            <table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
+                <td class="smallText"><?php echo osc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, (isset($pInfo) ? $pInfo->manufacturers_id : '')); ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
+                <td class="smallText"><?php echo osc_draw_input_field('products_model', (isset($pInfo) ? $pInfo->products_model : '')); ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
+                <td class="smallText"><?php echo osc_draw_input_field('products_quantity', (isset($pInfo) ? $pInfo->products_quantity : '')); ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
+                <td class="smallText"><?php echo osc_draw_input_field('products_weight', (isset($pInfo) ? $pInfo->products_weight : '')). '&nbsp;' . osc_draw_pull_down_menu('products_weight_class', $weight_class_array, (isset($pInfo) ? $pInfo->products_weight_class : SHIPPING_WEIGHT_UNIT)); ?></td>
+              </tr>
+            </table>
+          </fieldset>
         </td>
       </tr>
-      <tr bgcolor="#fff3e7">
-        <td class="main"><?php echo TEXT_PRODUCTS_URL . '<br><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></td>
-        <td>
-<?php
-  foreach ($languages as $l_entry) {
-    echo '        <div id="pURL_' . $l_entry['code'] . '"' . (($l_entry['directory'] != $osC_Session->value('language')) ? ' style="display: none;"' : '') . '>' . osc_draw_input_field('products_url[' . $l_entry['id'] . ']', (isset($pInfo) && is_array($pInfo->products_url) && isset($pInfo->products_url[$l_entry['id']]) ? $pInfo->products_url[$l_entry['id']] : '')) . '</div>';
-  }
-?>
+      <tr>
+        <td class="smallText" width="50%" height="100%" valign="top">
+          <fieldset style="height: 100%;">
+            <legend><?php echo TEXT_PRODUCTS_STATUS; ?></legend>
+
+            <?php echo osc_draw_radio_field('products_status', array(array('id' => '1', 'text' => TEXT_PRODUCT_AVAILABLE), array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE)), (isset($pInfo) ? $pInfo->products_status : '0'), '', false, '<br>'); ?>
+          </fieldset>
         </td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr bgcolor="#ebebff">
-        <td class="main"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
-        <td class="main"><?php echo osc_draw_pull_down_menu('products_tax_class_id', $tax_class_array, (isset($pInfo) ? $pInfo->products_tax_class_id : ''), 'onchange="updateGross()"'); ?></td>
-      </tr>
-      <tr bgcolor="#ebebff">
-        <td class="main"><?php echo TEXT_PRODUCTS_PRICE_NET; ?></td>
-        <td class="main"><?php echo osc_draw_input_field('products_price', (isset($pInfo) ? $pInfo->products_price : ''), 'onKeyUp="updateGross()"'); ?></td>
-      </tr>
-      <tr bgcolor="#ebebff">
-        <td class="main"><?php echo TEXT_PRODUCTS_PRICE_GROSS; ?></td>
-        <td class="main"><?php echo osc_draw_input_field('products_price_gross', (isset($pInfo) ? $pInfo->products_price : ''), 'OnKeyUp="updateNet()"'); ?></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
-        <td class="main"><?php echo osc_draw_input_field('products_quantity', (isset($pInfo) ? $pInfo->products_quantity : '')); ?></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
-        <td class="main"><?php echo osc_draw_input_field('products_model', (isset($pInfo) ? $pInfo->products_model : '')); ?></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
-        <td class="main"><?php echo osc_draw_file_field('products_image') . '<br>' . (isset($pInfo) ? $pInfo->products_image . osc_draw_hidden_field('products_previous_image', $pInfo->products_image) : ''); ?></td>
-      </tr>
-      <tr>
-        <td class="smallText" colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
-        <td class="main"><?php echo osc_draw_input_field('products_weight', (isset($pInfo) ? $pInfo->products_weight : '')). '&nbsp;' . osc_draw_pull_down_menu('products_weight_class', $weight_class_array, (isset($pInfo) ? $pInfo->products_weight_class : SHIPPING_WEIGHT_UNIT)); ?></td>
+        <td class="smallText" width="50%" height="100%" valign="top">
+          <fieldset style="height: 100%;">
+            <legend>Information</legend>
+
+            <table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="smallText"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?></td>
+                <td class="smallText"><?php echo osc_draw_input_field('products_date_available', (isset($pInfo) ? $pInfo->products_date_available : ''), 'id="calendarValue"'); ?><input type="button" value="..." id="calendarTrigger" class="operationButton"><script type="text/javascript">Calendar.setup( { inputField: "calendarValue", ifFormat: "%Y-%m-%d", button: "calendarTrigger" } );</script><small>(YYYY-MM-DD)</small></td>
+              </tr>
+            </table>
+          </fieldset>
+        </td>
       </tr>
     </table>
-
-<script language="javascript"><!--
-  updateGross();
-//--></script>
-
   </div>
 
-  <div class="tab-page" id="tabPage2">
+  <div class="tab-page" id="tabImage">
+    <h2 class="tab"><?php echo 'Image'; ?></h2>
+
+    <script type="text/javascript"><!--
+      mainTabPane.addTabPage( document.getElementById( "tabImage" ) );
+    //--></script>
+
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
+        <td class="smallText" width="50%" height="100%" valign="top">
+          <table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <tr>
+              <td class="smallText" width="50%" height="100%" valign="top">
+                <fieldset style="height: 100%;">
+                  <legend>Image Location</legend>
+
+                  <p><?php echo DIR_WS_CATALOG_IMAGES . osc_draw_input_field('products_image', (isset($pInfo) ? $pInfo->products_image : '')) . '&nbsp;<input type="button" value="Preview" onClick="reloadImage();" class="infoBoxButton">'; ?></p>
+                </fieldset>
+              </td>
+            </tr>
+            <tr>
+              <td class="smallText" width="50%" height="100%" valign="top">
+                <fieldset style="height: 100%;">
+                  <legend>Upload New Image</legend>
+
+                  <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                    <tr>
+                      <td class="smallText"><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
+                      <td class="smallText"><?php echo osc_draw_file_field('products_image_new'); ?></td>
+                    </tr>
+                    <tr>
+                      <td class="smallText"><?php echo 'Destination'; ?></td>
+                      <td class="smallText"><?php echo osc_draw_pull_down_menu('products_image_location', $image_directories, dirname($pInfo->products_image)); ?></td>
+                    </tr>
+                  </table>
+                </fieldset>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="smallText" width="50%" height="100%" valign="top">
+          <fieldset style="height: 100%;">
+            <legend>Preview</legend>
+
+            <table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td align="center"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->products_image, '', '', '', 'id="previewImage"'); ?></td>
+              </tr>
+            </table>
+          </fieldset>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tab-page" id="tabAttributes">
     <h2 class="tab"><?php echo TAB_ATTRIBUTES; ?></h2>
 
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script>
+<script type="text/javascript">mainTabPane.addTabPage( document.getElementById( "tabAttributes" ) );</script>
 
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -365,7 +466,7 @@
 ?>
         </select></td>
         <td align="center" width="10%" class="smallText">
-          <input type="button" value=">>" onClick="moreFields()">
+          <input type="button" value=">>" onClick="moreFields()" class="infoBoxButton">
         </td>
         <td width="60%" valign="top" class="smallText">
           <fieldset>
@@ -395,8 +496,8 @@
 
     echo '              <tr id="attribute-' . $Qattributes->valueInt('products_options_id') . '_' . $Qattributes->valueInt('products_options_values_id') . '">' . "\n" .
          '                <td class="smallText" width="50%">' . $Qattributes->value('products_options_values_name') . '</td>' . "\n" .
-         '                <td class="smallText">' . osc_draw_input_field('attribute_prefix[' . $Qattributes->valueInt('products_options_id') . '][' . $Qattributes->valueInt('products_options_values_id') . ']', $Qattributes->value('price_prefix'), 'size="1" maxlength="1"') . '&nbsp;' . osc_draw_input_field('attribute_price[' . $Qattributes->valueInt('products_options_id') . '][' . $Qattributes->valueInt('products_options_values_id') . ']', $Qattributes->value('options_values_price')) . '</td>' . "\n" .
-         '                <td class="smallText" align="right"><input type="button" value="-" id="attribute-' . $Qattributes->valueInt('products_options_id') . '_' . $Qattributes->valueInt('products_options_values_id') . '-button" onClick="toggleAttributeStatus(\'attribute-' . $Qattributes->valueInt('products_options_id') . '_' . $Qattributes->valueInt('products_options_values_id') . '\');"></td>' . "\n" .
+         '                <td class="smallText">' . osc_draw_pull_down_menu('attribute_prefix[' . $Qattributes->valueInt('products_options_id') . '][' . $Qattributes->valueInt('products_options_values_id') . ']', array(array('id' => '+', 'text' => '+'), array('id' => '-', 'text' => '-')), $Qattributes->value('price_prefix')) . '&nbsp;' . osc_draw_input_field('attribute_price[' . $Qattributes->valueInt('products_options_id') . '][' . $Qattributes->valueInt('products_options_values_id') . ']', $Qattributes->value('options_values_price')) . '</td>' . "\n" .
+         '                <td class="smallText" align="right"><input type="button" value="-" id="attribute-' . $Qattributes->valueInt('products_options_id') . '_' . $Qattributes->valueInt('products_options_values_id') . '-button" onClick="toggleAttributeStatus(\'attribute-' . $Qattributes->valueInt('products_options_id') . '_' . $Qattributes->valueInt('products_options_values_id') . '\');" class="infoBoxButton"></td>' . "\n" .
          '              </tr>' . "\n";
   }
 ?>
@@ -411,8 +512,8 @@
                 </tr>
                 <tr class="attributeAdd">
                   <td class="smallText" width="50%"><span id="attributeKey">&nbsp;</span></td>
-                  <td class="smallText"><?php echo osc_draw_input_field('new_attribute_prefix', '+', 'disabled size="1" maxlength="1"') . '&nbsp;' . osc_draw_input_field('new_attribute_price', '', 'disabled'); ?></td>
-                  <td class="smallText" align="right"><input type="button" value="-" onClick="this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode);"></td>
+                  <td class="smallText"><?php echo osc_draw_pull_down_menu('new_attribute_prefix', array(array('id' => '+', 'text' => '+'), array('id' => '-', 'text' => '-')), '+', 'disabled') . '&nbsp;' . osc_draw_input_field('new_attribute_price', '', 'disabled'); ?></td>
+                  <td class="smallText" align="right"><input type="button" value="-" onClick="this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode);" class="infoBoxButton"></td>
                 </tr>
               </table>
             </div>
