@@ -31,13 +31,13 @@
         include('includes/ups.php');
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
-        $rate->origin(UPS_ORIGIN_ZIP, "US"); // Use ISO country codes!
+        $rate->origin(STORE_ORIGIN_ZIP, "US"); // Use ISO country codes!
         $rate->dest($address_values['postcode'], "US");      // Use ISO country codes!
         // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
-        $rate->rate(UPS_PICKUP);        // See the rate() function for codes
-        $rate->container(UPS_PACKAGE);    // See the container() function for codes
+        $rate->rate(SHIPPING_UPS_PICKUP);        // See the rate() function for codes
+        $rate->container(SHIPPING_UPS_PACKAGE);    // See the container() function for codes
         $rate->weight($total_weight);
-        $rate->rescom(UPS_RES);    // See the rescom() function for codes
+        $rate->rescom(SHIPPING_UPS_RES);    // See the rescom() function for codes
         $shipping_ups_cost = SHIPPING_HANDLING + $rate->getQuote();
         $shipping_ups_method = "UPS " . $HTTP_POST_VARS['shipping_ups_prod'];
       }

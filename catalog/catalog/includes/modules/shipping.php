@@ -10,6 +10,7 @@
   // define('SHIPPING_ITEM_COST', '2.50');
 
   define('SHIPPING_UPS_NAME', 'United Parcel Service'); // It's a trademark, can't translate
+  define('SHIPPING_USPS_NAME', 'United States Postal Service'); // It's a trademark, can't translate
 
   if ($language == 'german') {
     define('SHIPPING_FLAT_NAME', 'Einzelne Kosten');

@@ -167,13 +167,6 @@
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
 
-// Vars for UPS Shipping Model (Only really useful for USA Stores)
-  define('UPS_SPEED', "GND");
-  define('UPS_ORIGIN_ZIP', "34685");
-  define('UPS_PICKUP', "CC");
-  define('UPS_PACKAGE', "CP");
-  define('UPS_RES', "RES");
-
 // Advanced Search controls
   define('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and'); // default boolean search operator: or/and
   define('ADVANCED_SEARCH_DISPLAY_TIPS', 1); // Display Advanced Search Tips at the bottom of the page: 0=disable; 1=enable
