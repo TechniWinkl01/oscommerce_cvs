@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cod.php,v 1.22 2002/11/25 18:23:15 dgw_ Exp $
+  $Id: cod.php,v 1.23 2003/01/09 15:47:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,6 +33,13 @@
         }
 
         if ($check_flag == false) {
+          $this->enabled = false;
+        }
+      }
+
+// disable the module if the order only contains virtual products
+      if ($this->enabled == true) {
+        if ($order->content_type == 'virtual') {
           $this->enabled = false;
         }
       }
