@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _fedex.php,v 1.3 2002/08/28 22:54:21 hpdl Exp $
+  $Id: _fedex.php,v 1.4 2002/08/28 23:13:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -146,6 +146,11 @@
             $rates_raw[] = array('Service' => strip_tags($title[0]),
                                  'TotalCharges' => strip_tags($rates_split[$i][3]));
           }
+        }
+
+        if (sizeof($rates_raw) < 1) {
+          $rates_raw['ErrorNbr'] = 1;
+          $rates_raw['Error'] = MODULE_SHIPPING_FEDEX_TEXT_ERROR;
         }
       } else {
         $rates_raw['ErrorNbr'] = 1;
