@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.52 2002/03/07 19:58:10 hpdl Exp $
+  $Id: create_account.php,v 1.53 2002/05/30 18:35:50 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -93,7 +93,7 @@ function update_zone(theForm) {
       <tr>
         <td>
 <?php
-  $email_address = $HTTP_GET_VARS['email_address'];
+  $email_address = tep_db_prepare_input($HTTP_GET_VARS['email_address']);
   $account['entry_country_id'] = STORE_COUNTRY;
   require(DIR_WS_MODULES . 'account_details.php');
 ?>
