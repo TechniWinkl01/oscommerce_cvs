@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.180 2001/11/17 00:37:43 hpdl Exp $
+  $Id: application_top.php,v 1.181 2001/11/17 03:00:01 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -140,14 +140,6 @@
 // Advanced Search controls
   define('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and'); // default boolean search operator: or/and
   define('ADVANCED_SEARCH_DISPLAY_TIPS', 1); // Display Advanced Search Tips at the bottom of the page: 0=disable; 1=enable
-
-// Bestsellers Min/Max Controls
-  define('MIN_DISPLAY_BESTSELLERS', 1);    // Min no. of bestsellers to display
-  define('MAX_DISPLAY_BESTSELLERS', 10);   // Max no. of bestsellers to display
-
-// Min/Max Controls for also_purchased_products.php : 'Customers who bought this product also purchased' module
-  define('MIN_DISPLAY_ALSO_PURCHASED', 1);   // Min no. of products in purchased list to qualify
-  define('MAX_DISPLAY_ALSO_PURCHASED', 5);   // Max no. of products to display
 
 // Manufacturers box
   define('DISPLAY_EMPTY_MANUFACTURERS', 1); // Display Manufacturers with no products: 0=disable; 1=enable
