@@ -107,9 +107,9 @@
   $email_order .= EMAIL_TEXT_TOTAL . ' ' . tep_currency_format($cart->show_total() + $total_tax + $shipping_cost) . "\n\n";
   $email_order .= EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
   $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
-  $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
   if (is_object($GLOBALS[$payment])) {
-    $email_order .= $GLOBALS[$payment]->payment_description . "\n\n";
+    $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
+    $email_order .= $GLOBALS[$payment]->description . "\n\n";
   }
   mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
 
