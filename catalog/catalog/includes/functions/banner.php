@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.13 2004/02/16 07:23:17 hpdl Exp $
+  $Id: banner.php,v 1.14 2004/11/24 15:55:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,7 +92,7 @@
         $Qbanner = $osC_Database->query('select banners_id, banners_title, banners_image, banners_html_text from :table_banners where banners_group = :banners_group and status = 1');
         $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
         $Qbanner->bindValue(':banners_group', $identifier);
-        $Qbanner->executeRandomSingle();
+        $Qbanner->executeRandom();
       }
 
       $Qbannercheck->freeResult();
