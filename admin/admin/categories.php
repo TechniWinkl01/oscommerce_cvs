@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.107 2002/01/09 10:27:22 hpdl Exp $
+  $Id: categories.php,v 1.108 2002/01/09 11:28:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -170,13 +170,14 @@
         if ( ($HTTP_POST_VARS['edit_x']) || ($HTTP_POST_VARS['edit_y']) ) {
           $HTTP_GET_VARS['action'] = 'new_product';
         } else {
+          $products_id = tep_db_prepare_input($HTTP_GET_VARS['pID']);
           $products_date_available = tep_db_prepare_input($HTTP_POST_VARS['products_date_available']);
 
           $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
 
           $sql_data_array = array('products_quantity' => tep_db_prepare_input($HTTP_POST_VARS['products_quantity']),
                                   'products_model' => tep_db_prepare_input($HTTP_POST_VARS['products_model']),
-                                  'products_image' => tep_db_prepare_input($HTTP_POST_VARS['products_image']),
+                                  'products_image' => (($HTTP_POST_VARS['products_image'] == 'none') ? '' : tep_db_prepare_input($HTTP_POST_VARS['products_image'])),
                                   'products_price' => tep_db_prepare_input($HTTP_POST_VARS['products_price']),
                                   'products_date_available' => $products_date_available,
                                   'products_weight' => tep_db_prepare_input($HTTP_POST_VARS['products_weight']),
@@ -188,12 +189,12 @@
             $insert_sql_data = array('products_date_added' => 'now()');
             $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
             tep_db_perform(TABLE_PRODUCTS, $sql_data_array);
-            $new_products_id = tep_db_insert_id();
-            tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
+            $products_id = tep_db_insert_id();
+            tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $products_id . "', '" . $current_category_id . "')");
           } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
             $update_sql_data = array('products_last_modified' => 'now()');
             $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
-            tep_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', 'products_id = \'' . tep_db_prepare_input($HTTP_GET_VARS['pID']) . '\'');
+            tep_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', 'products_id = \'' . tep_db_input($products_id) . '\'');
           }
 
           $languages = tep_get_languages();
@@ -205,16 +206,16 @@
                                     'products_url' => tep_db_prepare_input($HTTP_POST_VARS['products_url'][$language_id]));
 
             if ($HTTP_GET_VARS['action'] == 'insert_product') {
-              $insert_sql_data = array('products_id' => $new_products_id,
+              $insert_sql_data = array('products_id' => $products_id,
                                        'language_id' => $language_id);
               $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
               tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
             } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
-              tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \'' . tep_db_prepare_input($HTTP_GET_VARS['pID']) . '\' and language_id = \'' . $language_id . '\'');
+              tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \'' . tep_db_input($products_id) . '\' and language_id = \'' . $language_id . '\'');
             }
           }
 
-          tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $HTTP_GET_VARS['pID']));
+          tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products_id));
         }
         break;
       case 'copy_to_confirm':
@@ -443,7 +444,7 @@
       $products_url = $HTTP_POST_VARS['products_url'];
 
 // copy image only if modified
-      if ($products_image && ($products_image != 'none')) {
+      if ( ($products_image != 'none') && ($products_image != '') ) {
         $image_location = DIR_FS_CATALOG_IMAGES . $products_image_name;
         if (file_exists($image_location)) @unlink($image_location);
         copy($products_image, $image_location);
