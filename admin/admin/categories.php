@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.133 2002/06/09 15:32:43 dgw_ Exp $
+  $Id: categories.php,v 1.134 2002/07/19 16:59:43 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -164,18 +164,16 @@
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $new_parent_id . '&cID=' . $categories_id));
         break;
       case 'move_product_confirm':
-        if ( ($HTTP_POST_VARS['products_id']) && ($HTTP_POST_VARS['products_id'] != $HTTP_POST_VARS['move_to_category_id']) ) {
-          $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
-          $new_parent_id = tep_db_prepare_input($HTTP_POST_VARS['move_to_category_id']);
+        $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
+        $new_parent_id = tep_db_prepare_input($HTTP_POST_VARS['move_to_category_id']);
 
-          $duplicate_check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . tep_db_input($new_parent_id) . "'");
-          $duplicate_check = tep_db_fetch_array($duplicate_check_query);
-          if ($duplicate_check['total'] < 1) tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . tep_db_input($new_parent_id) . "' where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
+        $duplicate_check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . tep_db_input($new_parent_id) . "'");
+        $duplicate_check = tep_db_fetch_array($duplicate_check_query);
+        if ($duplicate_check['total'] < 1) tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . tep_db_input($new_parent_id) . "' where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
 
-          if (USE_CACHE == 'true') {
-            tep_reset_cache_block('categories');
-            tep_reset_cache_block('also_purchased');
-          }
+        if (USE_CACHE == 'true') {
+          tep_reset_cache_block('categories');
+          tep_reset_cache_block('also_purchased');
         }
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $new_parent_id . '&pID=' . $products_id));
