@@ -72,6 +72,7 @@ define('BOX_STATISTICS_ORDERS_TOTAL', 'Customer Orders-Total');
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Tools');
 define('BOX_TOOLS_BACKUP', 'Backup');
+define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localization');
