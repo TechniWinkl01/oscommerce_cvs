@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ccval.php,v 1.4 2002/01/15 20:27:22 dgw_ Exp $
+  $Id: ccval.php,v 1.5 2002/01/17 19:17:25 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 
@@ -28,7 +28,10 @@
 */
 
   function CCValidationSolution($Number) {
-    global $CardName, $CardNumber;
+    global $CardName, $CardNumber, $language
+
+    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CCVAL_FUNCTION); 
+
 
 // Get rid of spaces and non-numeric characters.
     $Number = OnlyNumericSolution($Number);
@@ -65,8 +68,8 @@
       } elseif ($NumberLength < 14) {
         $ShouldLength = 13;
       } else {
-        $cc_val = 'The <b>Visa</b> number entered, ' . $Number . ', in is 14 digits long. <b>Visa</b> cards usually have 16 digits, though some have 13.<br>Please check the number and try again.';
-        return $cc_val;
+      $cc_val = sprintf(TEXT_CCVAL_ERROR_VISA_14CHAR, $Number); 
+      return $cc_val;
       }
     } elseif ( ($NumberLeft >= 5100) && ($NumberLeft <= 5599) ) {
       $CardName = 'MasterCard';
@@ -78,7 +81,7 @@
       $CardName = 'Discover/Novus';
       $ShouldLength = 16;
     } else {
-      $cc_val = 'The first four digits of the number entered are ' . $NumberLeft . '.<br>If that\'s correct, we don\'t accept that type of credit card.<br>If it\'s wrong, please try again.';
+      $cc_val = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, $NumberLeft);
       return $cc_val;
     }
 
@@ -86,9 +89,9 @@
     if ($NumberLength <> $ShouldLength) {
       $Missing = $NumberLength - $ShouldLength;
       if ($Missing < 0) {
-        $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', is <font color="#FF0000"><b>missing</b></font> ' . abs($Missing) . ' digit(s).<br>Please check the number and try again.';
+        $cc_val = sprintf(TEXT_CCVAL_ERROR_TOO_SHORT, $CardName, $Number, abs($Missing));
       } else {
-        $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', has ' . $Missing . ' too many digit(s).<br>Please check the number and try again.';
+        $cc_val = sprintf(TEXT_CCVAL_ERROR_TOO_LONG, $CardName, $Number, $Missing);
       }
 
       return $cc_val;
@@ -99,7 +102,7 @@
      $CardNumber = $Number;
      return true;
     } else {
-      $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', is <font color="#FF0000"><b>invalid</b></font>. Please check the number and try again.';
+      $cc_val = sprintf(TEXT_CCVAL_ERROR_INVALID_NUMBER, $CardName, $Number);
       return $cc_val;
     }
   }
@@ -141,10 +144,10 @@
       if (date('m') <= $month) {
         $cc_val = '1';
       } else {
-        $cc_val = 'The expiry date entered, ' . $month . '/' . $year . ', is <font color="#FF0000"><b>invalid</b></font>. Please check the date and try again.';
+        $cc_val = sprintf(TEXT_CCVAL_ERROR_INVALID_DATE, $month, $year);
       }
     } elseif (date('Y') > $year) {
-        $cc_val = 'The expiry date entered, ' . $month . '/' . $year . ', is <font color="#FF0000"><b>invalid</b></font>. Please check the date and try again.';
+        $cc_val = sprintf(TEXT_CCVAL_ERROR_INVALID_DATE, $month, $year);
     } else {
       $cc_val = '1';
     }
