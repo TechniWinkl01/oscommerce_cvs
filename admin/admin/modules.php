@@ -189,7 +189,14 @@
     $keys = '';
     reset($mInfo->keys);
     while (list($key, $value) = each($mInfo->keys)) {
-      $keys .= '<b>' . $value['title'] . '</b><br>' . $value['description'] . '<br><input type="text" name="configuration[' . $key . ']" value="' . $value['value'] . '"><br><br>';
+      $keys .= '<b>' . $value['title'] . '</b><br>' . $value['description'] . '<br>';
+      if ($value['set_function']) {
+        $set_function = $value['set_function'];
+        $keys .= $set_function($key, $value['value']);
+      } else {
+        $keys .= '<input type="text" name="configuration[' . $key . ']" value="' . $value['value'] . '">';
+      }
+      $keys .= '<br><br>';
     }
 
     $form = '<form name="module" action="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action')) . 'action=save&info=' . $HTTP_GET_VARS['info'], 'NONSSL') . '" method="post">' . "\n";
@@ -204,7 +211,14 @@
       $keys = '';
       reset($mInfo->keys);
       while (list(, $value) = each($mInfo->keys)) {
-        $keys .= '<b>' . $value['title'] . '</b><br>' . $value['value'] . '<br><br>';
+        $keys .= '<b>' . $value['title'] . '</b><br>';
+        if ($value['use_function']) {
+          $use_function = $value['use_function'];
+          $keys .= $use_function($value['value']);
+        } else {
+          $keys .= $value['value'];
+        }
+        $keys .= '<br><br>';
         if ( ($value['title'] != '') && ($value['value'] != '')) $field_set = 1;
       }
       $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
