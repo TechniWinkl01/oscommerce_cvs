@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.4 2002/03/31 16:47:46 hpdl Exp $
+  $Id: install.php,v 1.5 2002/08/06 13:23:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,8 +10,24 @@
   Released under the GNU General Public License
 */
 
-  $script_filename = (($SCRIPT_FILENAME) ? $SCRIPT_FILENAME : $HTTP_SERVER_VARS['SCRIPT_FILENAME']);
-  $request_uri = (($REQUEST_URI) ? $REQUEST_URI : $HTTP_SERVER_VARS['REQUEST_URI']);
+  if (isset($HTTP_SERVER_VARS['PATH_TRANSLATED'])) {
+    $script_filename = str_replace('\\', '/', $HTTP_SERVER_VARS['PATH_TRANSLATED']);
+  } else {
+    $script_filename = $HTTP_SERVER_VARS['SCRIPT_FILENAME'];
+  }
+  $script_filename = str_replace('//', '/', $script_filename);
+
+  if (isset($HTTP_SERVER_VARS['REQUEST_URI'])) {
+    $request_uri = $HTTP_SERVER_VARS['REQUEST_URI'];
+  } else {
+    if (isset($HTTP_SERVER_VARS['PATH_INFO'])) {
+      $request_uri = $HTTP_SERVER_VARS['PATH_INFO'];
+    } else {
+      $request_uri = $HTTP_SERVER_VARS['SCRIPT_NAME'];
+    }
+
+    if (isset($HTTP_SERVER_VARS['QUERY_STRING'])) $request_uri .=  '?' . $HTTP_SERVER_VARS['QUERY_STRING'];
+  }
 
   $dir_fs_www_root_array = explode('/', dirname($script_filename));
   $dir_fs_www_root = array();
