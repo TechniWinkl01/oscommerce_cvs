@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_statistics.php,v 1.1 2002/05/07 23:07:11 hpdl Exp $
+  $Id: banner_statistics.php,v 1.2 2002/05/09 14:09:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,9 +12,11 @@
 
   require('includes/application_top.php');
 
+  $banner_extension = tep_banner_image_extension();
+
 // check if the graphs directory exists
   $dir_ok = false;
-  if (function_exists('imagecreate')) {
+  if ( (function_exists('imagecreate')) && ($banner_extension) ) {
     if (is_dir(DIR_WS_IMAGES . 'graphs')) {
       if (is_writeable(DIR_WS_IMAGES . 'graphs')) {
         $dir_ok = true;
@@ -99,21 +101,21 @@
       <tr>
         <td align="center">
 <?php
-  if ( (function_exists('imagecreate')) && ($dir_ok) ) {
+  if ( (function_exists('imagecreate')) && ($dir_ok) && ($banner_extension) ) {
     $banner_id = $HTTP_GET_VARS['bID'];
     switch ($HTTP_GET_VARS['type']) {
       case 'yearly':
         include(DIR_WS_INCLUDES . 'graphs/banner_yearly.php');
-        echo tep_image(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banner_id . '.png');
+        echo tep_image(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banner_id . '.' . $banner_extension);
         break;
       case 'monthly':
         include(DIR_WS_INCLUDES . 'graphs/banner_monthly.php');
-        echo tep_image(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.png');
+        echo tep_image(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension);
         break;
       default:
       case 'daily':
         include(DIR_WS_INCLUDES . 'graphs/banner_daily.php');
-        echo tep_image(DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.png');
+        echo tep_image(DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension);
         break;
     }
 ?>

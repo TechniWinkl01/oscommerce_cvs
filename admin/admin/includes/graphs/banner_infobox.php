@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_infobox.php,v 1.1 2002/05/07 23:03:56 hpdl Exp $
+  $Id: banner_infobox.php,v 1.2 2002/05/09 14:09:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,9 +20,9 @@
 
   if (sizeof($stats) < 1) $stats = array(array(date('j'), 0, 0));
 
-  $graph = new PHPlot(200, 220, 'images/graphs/banner_infobox-' . $banner_id . '.png');
+  $graph = new PHPlot(200, 220, 'images/graphs/banner_infobox-' . $banner_id . '.' . $banner_extension);
 
-  $graph->SetFileFormat('png');
+  $graph->SetFileFormat($banner_extension);
   $graph->SetIsInline(1);
   $graph->SetPrintImage(0);
 

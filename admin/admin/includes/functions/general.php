@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.125 2002/05/03 10:39:45 hpdl Exp $
+  $Id: general.php,v 1.126 2002/05/09 14:09:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1140,6 +1140,18 @@
       $classes = tep_db_fetch_array($classes_query);
 
       return $classes['tax_class_title'];
+    }
+  }
+
+  function tep_banner_image_extension() {
+    if (function_exists('imagecreatefrompng') && function_exists('imagepng')) {
+      return 'png';
+    } elseif (function_exists('imagecreatefromjpeg') && function_exists('imagejpeg')) {
+      return 'jpg';
+    } elseif (function_exists('imagecreatefromgif') && function_exists('imagegif')) {
+      return 'gif';
+    } else {
+      return false;
     }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_yearly.php,v 1.1 2002/05/07 23:03:56 hpdl Exp $
+  $Id: banner_yearly.php,v 1.2 2002/05/09 14:09:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,9 +18,9 @@
     $stats[] = array($banner_stats['year'], (($banner_stats['value']) ? $banner_stats['value'] : '0'), (($banner_stats['dvalue']) ? $banner_stats['dvalue'] : '0'));
   }
 
-  $graph = new PHPlot(600, 350, 'images/graphs/banner_yearly-' . $banner_id . '.png');
+  $graph = new PHPlot(600, 350, 'images/graphs/banner_yearly-' . $banner_id . '.' . $banner_extension);
 
-  $graph->SetFileFormat('png');
+  $graph->SetFileFormat($banner_extension);
   $graph->SetIsInline(1);
   $graph->SetPrintImage(0);
 
