@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.83 2002/03/17 01:58:54 hpdl Exp $
+  $Id: german.php,v 1.84 2002/03/17 03:31:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -236,6 +236,7 @@ define('ICON_UNLOCKED', 'Entsperrt');
 define('ICON_WARNING', 'Warnung');
 
 // constants for use in tep_prev_next_display function
+define('TEXT_RESULT_PAGE', 'Seite %s von %d');
 define('TEXT_RESULT_PAGE', 'Seite:');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bannern)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> L&auml;ndern)');
@@ -255,17 +256,8 @@ define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuers&auml;tzen)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bundesl&auml;ndern)');
 
-define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
-define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');
-define('PREVNEXT_TITLE_NEXT_PAGE', 'n&auml;chste Seite');
-define('PREVNEXT_TITLE_LAST_PAGE', 'letzte Seite');
-define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');
-define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehende %d Seiten');
-define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'N&auml;chste %d Seiten');
-define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ERSTE');
-define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;vorherige]');
-define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
-define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
+define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
+define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 
 define('TEXT_DEFAULT', 'Standard');
 define('TEXT_SET_DEFAULT', 'als Standard definieren');

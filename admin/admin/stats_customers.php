@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.25 2002/03/16 01:45:52 hpdl Exp $
+  $Id: stats_customers.php,v 1.26 2002/03/17 03:31:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -81,7 +81,7 @@
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="smallText"><?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
-                <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE; ?> <?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
+                <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

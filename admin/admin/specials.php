@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.34 2002/03/16 01:42:09 hpdl Exp $
+  $Id: specials.php,v 1.35 2002/03/17 03:31:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -195,8 +195,8 @@
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0"cellspacing="2">
                   <tr>
-                    <td valign="top" class="smallText"><?php echo $specials_split->display_count($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_SPECIALS); ?></td>
-                    <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE; ?> <?php echo $specials_split->display_links($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
+                    <td class="smallText"><?php echo $specials_split->display_count($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_SPECIALS); ?></td>
+                    <td class="smallText" align="right"><?php echo $specials_split->display_links($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
                   </tr>
 <?php
   if (!$HTTP_GET_VARS['action']) {

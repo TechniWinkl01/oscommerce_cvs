@@ -1,17 +1,17 @@
 <?php
-  class splitPageResults {
-
 /*
-NOTE: the constructor (also) builds an sql query that counts the total records from $sql_query..
-      this value is then saved as $query_num_rows (which does not have to be set before
-      creating an instance of this class.
-      Please note the function references (&$variable) - please read up on this in the PHP documentation.
+  $Id: split_page_results.php,v 1.9 2002/03/17 03:31:39 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
 */
 
-/* class constructor */
-
+  class splitPageResults {
     function splitPageResults(&$current_page_number, $max_rows_per_page, &$sql_query, &$query_num_rows) {
-
       if (empty($current_page_number)) $current_page_number = 1;
 
       $pos_to = strlen($sql_query);
@@ -40,60 +40,55 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
       $query_num_rows = $reviews_count['total'];
     }
 
-/* class functions */
-
-// display split-page-number-links
     function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
       global $PHP_SELF;
 
-      $class = 'class="splitPageLink"';
-
       if ($parameters != '') $parameters . '&';
 
-// calculate number of pages needing links 
+// calculate number of pages needing links
       $num_pages = intval($query_numrows / $max_rows_per_page);
 
-// $num_pages now contains int of pages needed unless there is a remainder from division 
-      if ($query_numrows % $max_rows_per_page) $num_pages++; // has remainder so add one page 
+// $num_pages now contains int of pages needed unless there is a remainder from division
+      if ($query_numrows % $max_rows_per_page) $num_pages++; // has remainder so add one page
 
-// first button - not displayed on first page
-//      if ($current_page_number > 1) echo '<a href="' . tep_href_link(basename($PHP_SELF),  $parameters . 'page=1', 'NONSSL') . '" ' . $class . ' title=" ' . PREVNEXT_TITLE_FIRST_PAGE . ' ">' . PREVNEXT_BUTTON_FIRST . '</a>&nbsp;';
-
-// previous button - not displayed on first page
-      if ($current_page_number > 1) echo '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . ($current_page_number - 1), 'NONSSL') . '" ' . $class . ' title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' ">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';
-
-// check if num_pages > $max_page_links
-      $cur_window_num = intval($current_page_number / $max_page_links);
-      if ($current_page_number % $max_page_links) $cur_window_num++;
-
-      $max_window_num = intval($num_pages / $max_page_links);
-      if ($num_pages % $max_page_links) $max_window_num++;
-
-// previous window of pages
-      if ($cur_window_num > 1) echo '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . (($cur_window_num - 1) * $max_page_links), 'NONSSL') . '" ' . $class . ' title=" ' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a>';
-
-// page nn button
-      for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $num_pages); $jump_to_page++) {
-        if ($jump_to_page == $current_page_number) {
-          echo '&nbsp;<b>' . $jump_to_page . '</b>&nbsp;';
-        } else {
-          echo '&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . $jump_to_page, 'NONSSL') . '" ' . $class . ' title=" ' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . ' ">' . $jump_to_page . '</a>&nbsp;';
-        }
+      $pages_array = array();
+      for ($i=1; $i<=$num_pages; $i++) {
+        $pages_array[] = array('id' => $i, 'text' => $i);
       }
 
-// next window of pages
-      if ($cur_window_num < $max_window_num) echo '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . (($cur_window_num) * $max_page_links + 1), 'NONSSL') . '" ' . $class . ' title=" ' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a>&nbsp;';
+      if ($num_pages > 1) {
+        $display_links = tep_draw_form('pages', basename($PHP_SELF), $parameters, 'get');
 
-// next button
-      if (($current_page_number < $num_pages) && ($num_pages != 1)) echo '&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . ($current_page_number + 1), 'NONSSL') . '" ' . $class . ' title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' ">' . PREVNEXT_BUTTON_NEXT . '</a>&nbsp;';
+        if ($current_page_number > 1) {
+          $display_links .= '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . ($current_page_number - 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';
+        } else {
+          $display_links .= PREVNEXT_BUTTON_PREV . '&nbsp;&nbsp;';
+        }
 
-// last button
-//      if (($current_page_number < $num_pages) && ($num_pages != 1)) echo '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . $num_pages, 'NONSSL') . '" ' . $class . ' title=" ' . PREVNEXT_TITLE_LAST_PAGE . ' ">' . PREVNEXT_BUTTON_LAST . '</a>&nbsp;';
+        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu('page', $pages_array, '', 'onChange="this.form.submit();"'), $num_pages);
+
+        if (($current_page_number < $num_pages) && ($num_pages != 1)) {
+          $display_links .= '&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . ($current_page_number + 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';
+        } else {
+          $display_links .= '&nbsp;&nbsp;' . PREVNEXT_BUTTON_NEXT;
+        }
+
+        if ($HTTP_POST_VARS) {
+          reset($HTTP_POST_VARS);
+          while (list($key, $value) = each($HTTP_POST_VARS)) {
+            $display_links .= tep_draw_hidden_field($key, $value);
+          }
+        }
+
+        $display_links .= '</form>';
+      } else {
+        $display_links = sprintf(TEXT_RESULT_PAGE, $num_pages, $num_pages);
+      }
+
+      return $display_links;
     }
 
-// display number of total products found
     function display_count($query_numrows, $max_rows_per_page, $current_page_number, $text_output) {
-
       $to_num = ($max_rows_per_page * $current_page_number);
       if ($to_num > $query_numrows) $to_num = $query_numrows;
       $from_num = ($max_rows_per_page * ($current_page_number - 1));

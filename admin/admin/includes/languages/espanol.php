@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.83 2002/03/17 01:58:54 hpdl Exp $
+  $Id: espanol.php,v 1.84 2002/03/17 03:31:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -236,7 +236,7 @@ define('ICON_UNLOCKED', 'Desbloqueado');
 define('ICON_WARNING', 'Advertencia');
 
 // constants for use in tep_prev_next_display function
-define('TEXT_RESULT_PAGE', 'Paginas:');
+define('TEXT_RESULT_PAGE', 'Pagina %s de %d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
@@ -255,17 +255,8 @@ define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (d
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 
-define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
-define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
-define('PREVNEXT_TITLE_NEXT_PAGE', 'Siguinete');
-define('PREVNEXT_TITLE_LAST_PAGE', 'Final');
-define('PREVNEXT_TITLE_PAGE_NO', 'Pagina %d');
-define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Anteriores %d Paginas');
-define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Siguientes %d Paginas');
-define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;PRINCIPIO');
-define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;Anterior]');
-define('PREVNEXT_BUTTON_NEXT', '[Siguiente&nbsp;&gt;&gt;]');
-define('PREVNEXT_BUTTON_LAST', 'FINAL&gt;&gt;');
+define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
+define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 
 define('TEXT_DEFAULT', 'predeterminado/a');
 define('TEXT_SET_DEFAULT', 'Establecer como predeterminado/a');
