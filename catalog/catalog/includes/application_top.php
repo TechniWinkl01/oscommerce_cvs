@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.108 2001/04/19 22:00:43 dwatkins Exp $
+  $Id: application_top.php,v 1.109 2001/04/25 16:00:46 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -82,6 +82,7 @@
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
   define('FILENAME_DEFAULT', 'default.php');
+  define('FILENAME_EMAILPRODUCT', 'emailproduct.php');
   define('FILENAME_INFORMATION', 'information.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');

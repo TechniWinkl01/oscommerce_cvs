@@ -173,6 +173,8 @@ function popupImageWindow(url) {
       echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_reviews.gif', IMAGE_REVIEWS) . '</a>&nbsp;</font></td>' . "\n";
     }
 
+    echo '<td align="center" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_EMAILPRODUCT, 'action=where&' . $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_tellafriend.gif', IMAGE_TELLAFRIEND) . '</a>&nbsp;</font></td>' . "\n";
+
     echo '<td align="right" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">';
     if ($product_exists_in_cart == '1') {
       echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL) . '</a>';

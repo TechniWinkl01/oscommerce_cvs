@@ -21,4 +21,5 @@ define('IMAGE_UPDATE_CART', 'Einkaufswagen Aktuallisieren');
 define('IMAGE_REMOVE_ALL', 'Alles L&ouml;schen');
 define('IMAGE_ADD_TO_CART', 'In den Einkaufswagen');
 define('IMAGE_BACK', 'Zur&uuml;ck');
+define('IMAGE_TELLAFRIEND', 'Tell A Friend');
 ?>

@@ -22,4 +22,5 @@ define('IMAGE_UPDATE_CART', 'Actualizar Cesta');
 define('IMAGE_REMOVE_ALL', 'Quitar Todos');
 define('IMAGE_ADD_TO_CART', 'Añadir a la Cesta');
 define('IMAGE_BACK', 'Volver');
+define('IMAGE_TELLAFRIEND', 'Tell A Friend');
 ?>
