@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.86 2001/05/17 19:47:37 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.87 2001/05/20 21:00:43 jwildeboer Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -60,13 +60,19 @@ CREATE TABLE banners_history (
 );
 
 CREATE TABLE categories (
-  categories_id int(5) NOT NULL auto_increment,
-  categories_name varchar(32) NOT NULL,
-  categories_image varchar(64),
-  parent_id int(5),
-  sort_order int(3),
-  PRIMARY KEY (categories_id),
-  KEY IDX_CATEGORIES_NAME (categories_name)
+   categories_id int(5) NOT NULL auto_increment,
+   categories_image varchar(64),
+   parent_id int(5),
+   sort_order int(3),
+   PRIMARY KEY (categories_id)
+);
+
+CREATE TABLE categories_description (
+   categories_id int(5) DEFAULT '0' NOT NULL,
+   language_id int(5) DEFAULT '1' NOT NULL,
+   categories_name varchar(32) NOT NULL,
+   PRIMARY KEY (categories_id, language_id),
+   KEY categories_name (categories_name)
 );
 
 CREATE TABLE configuration (
@@ -387,26 +393,87 @@ INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city (
 
 INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
 
-INSERT INTO categories VALUES (1,'Hardware','images/category_hardware.gif',0,1);
-INSERT INTO categories VALUES (2,'Software','images/category_software.gif',0,2);
-INSERT INTO categories VALUES (3,'DVD Movies','images/category_dvd_movies.gif',0,3);
-INSERT INTO categories VALUES (4,'Graphics Cards','images/subcategory_graphic_cards.gif',1,0);
-INSERT INTO categories VALUES (5,'Printers','images/subcategory_printers.gif',1,0);
-INSERT INTO categories VALUES (6,'Monitors','images/subcategory_monitors.gif',1,0);
-INSERT INTO categories VALUES (7,'Speakers','images/subcategory_speakers.gif',1,0);
-INSERT INTO categories VALUES (8,'Keyboards','images/subcategory_keyboards.gif',1,0);
-INSERT INTO categories VALUES (9,'Mice','images/subcategory_mice.gif',1,0);
-INSERT INTO categories VALUES (10,'Action','images/subcategory_action.gif',3,0);
-INSERT INTO categories VALUES (11,'Science Fiction','images/subcategory_science_fiction.gif',3,0);
-INSERT INTO categories VALUES (12,'Comedy','images/subcategory_comedy.gif',3,0);
-INSERT INTO categories VALUES (13,'Cartoons','images/subcategory_cartoons.gif',3,0);
-INSERT INTO categories VALUES (14,'Thriller','images/subcategory_thriller.gif',3,0);
-INSERT INTO categories VALUES (15,'Drama','images/subcategory_drama.gif',3,0);
-INSERT INTO categories VALUES (16,'Memory','images/subcategory_memory.gif',1,0);
-INSERT INTO categories VALUES (17,'CDROM Drives','images/subcategory_cdrom_drives.gif',1,0);
-INSERT INTO categories VALUES (18,'Simulation','images/subcategory_simulation.gif',2,0);
-INSERT INTO categories VALUES (19,'Action','images/subcategory_action_games.gif',2,0);
-INSERT INTO categories VALUES (20,'Strategy','images/subcategory_strategy.gif',2,0);
+NSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1');
+INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2');
+INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3');
+INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0');
+INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0');
+INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0');
+INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0');
+INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0');
+INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0');
+INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0');
+INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0');
+INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0');
+INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0');
+INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0');
+INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0');
+INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0');
+INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0');
+INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0');
+INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0');
+INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0');
+
+INSERT INTO categories_description VALUES ( '1', '1', 'Hardware');
+INSERT INTO categories_description VALUES ( '2', '1', 'Software');
+INSERT INTO categories_description VALUES ( '3', '1', 'DVD Movies');
+INSERT INTO categories_description VALUES ( '4', '1', 'Graphics Cards');
+INSERT INTO categories_description VALUES ( '5', '1', 'Printers');
+INSERT INTO categories_description VALUES ( '6', '1', 'Monitors');
+INSERT INTO categories_description VALUES ( '7', '1', 'Speakers');
+INSERT INTO categories_description VALUES ( '8', '1', 'Keyboards');
+INSERT INTO categories_description VALUES ( '9', '1', 'Mice');
+INSERT INTO categories_description VALUES ( '10', '1', 'Action');
+INSERT INTO categories_description VALUES ( '11', '1', 'Science Fiction');
+INSERT INTO categories_description VALUES ( '12', '1', 'Comedy');
+INSERT INTO categories_description VALUES ( '13', '1', 'Cartoons');
+INSERT INTO categories_description VALUES ( '14', '1', 'Thriller');
+INSERT INTO categories_description VALUES ( '15', '1', 'Drama');
+INSERT INTO categories_description VALUES ( '16', '1', 'Memory');
+INSERT INTO categories_description VALUES ( '17', '1', 'CDROM Drives');
+INSERT INTO categories_description VALUES ( '18', '1', 'Simulation');
+INSERT INTO categories_description VALUES ( '19', '1', 'Action');
+INSERT INTO categories_description VALUES ( '20', '1', 'Strategy');
+INSERT INTO categories_description VALUES ( '1', '2', 'Hardware');
+INSERT INTO categories_description VALUES ( '2', '2', 'Software');
+INSERT INTO categories_description VALUES ( '3', '2', 'DVD Filme');
+INSERT INTO categories_description VALUES ( '4', '2', 'Grafikkarten');
+INSERT INTO categories_description VALUES ( '5', '2', 'Drucker');
+INSERT INTO categories_description VALUES ( '6', '2', 'Bildschirme');
+INSERT INTO categories_description VALUES ( '7', '2', 'Lautsprecher');
+INSERT INTO categories_description VALUES ( '8', '2', 'Tastaturen');
+INSERT INTO categories_description VALUES ( '9', '2', 'Mäuse');
+INSERT INTO categories_description VALUES ( '10', '2', 'Action');
+INSERT INTO categories_description VALUES ( '11', '2', 'Science Fiction');
+INSERT INTO categories_description VALUES ( '12', '2', 'Komödie');
+INSERT INTO categories_description VALUES ( '13', '2', 'Zeichentrick');
+INSERT INTO categories_description VALUES ( '14', '2', 'Thriller');
+INSERT INTO categories_description VALUES ( '15', '2', 'Drama');
+INSERT INTO categories_description VALUES ( '16', '2', 'Speicher');
+INSERT INTO categories_description VALUES ( '17', '2', 'CDROM Laufwerke');
+INSERT INTO categories_description VALUES ( '18', '2', 'Simulation');
+INSERT INTO categories_description VALUES ( '19', '2', 'Action');
+INSERT INTO categories_description VALUES ( '20', '2', 'Strategie');
+INSERT INTO categories_description VALUES ( '1', '3', 'Hardware');
+INSERT INTO categories_description VALUES ( '2', '3', 'Software');
+INSERT INTO categories_description VALUES ( '3', '3', 'Peliculas DVD');
+INSERT INTO categories_description VALUES ( '4', '3', 'Tarjetas Graficas');
+INSERT INTO categories_description VALUES ( '5', '3', 'Impresoras');
+INSERT INTO categories_description VALUES ( '6', '3', 'Monitores');
+INSERT INTO categories_description VALUES ( '7', '3', 'Altavoces');
+INSERT INTO categories_description VALUES ( '8', '3', 'Teclados');
+INSERT INTO categories_description VALUES ( '9', '3', 'Ratones');
+INSERT INTO categories_description VALUES ( '10', '3', 'Accion');
+INSERT INTO categories_description VALUES ( '11', '3', 'Ciencia Ficcion');
+INSERT INTO categories_description VALUES ( '12', '3', 'Comedia');
+INSERT INTO categories_description VALUES ( '13', '3', 'Dibujos Animados');
+INSERT INTO categories_description VALUES ( '14', '3', 'Suspense');
+INSERT INTO categories_description VALUES ( '15', '3', 'Drama');
+INSERT INTO categories_description VALUES ( '16', '3', 'Memoria');
+INSERT INTO categories_description VALUES ( '17', '3', 'Unidades CDROM');
+INSERT INTO categories_description VALUES ( '18', '3', 'Simulacion');
+INSERT INTO categories_description VALUES ( '19', '3', 'Accion');
+INSERT INTO categories_description VALUES ( '20', '3', 'Estrategia');
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'The Exchange Project', 'The name of my store', '1', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Owner', 'STORE_OWNER', 'Harald Ponce de Leon', 'The name of my store owner', '1', '2', now());
@@ -729,7 +796,7 @@ INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2');
 INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
 INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
-INSERT INTO currencies VALUES (4,'Euro','EUR','€','','.',',','2');
+INSERT INTO currencies VALUES (4,'Euro','EUR','','','.',',','2');
 
 INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
@@ -929,4 +996,5 @@ INSERT INTO zones VALUES (75,38,'PE','Prince Edward Island');
 INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
+
 
