@@ -92,11 +92,11 @@ define('BOX_LANGUAGES_ESPANOL', 'Español');
 define('BOX_HEADING_CURRENCIES', 'Monedas');
 
 // information box text in includes/boxes/information.php
-define('BOX_HEADING_INFORMATION', 'Information');
-define('BOX_INFORMATION_PRIVACY', 'Privacy Notice');
-define('BOX_INFORMATION_CONDITIONS', 'Conditions of Use');
-define('BOX_INFORMATION_SHIPPING', 'Shipping & Returns');
-define('BOX_INFORMATION_CONTACT', 'Contact Us');
+define('BOX_HEADING_INFORMATION', 'Información');
+define('BOX_INFORMATION_PRIVACY', 'Confidencialidad');
+define('BOX_INFORMATION_CONDITIONS', 'Condiciones de uso');
+define('BOX_INFORMATION_SHIPPING', 'Envios y Devoluciones');
+define('BOX_INFORMATION_CONTACT', 'Contactenos');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
@@ -134,7 +134,7 @@ define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Direccion ]</b>');
 define('CATEGORY_CONTACT', '<b>[ Contacto ]</b>');
 define('CATEGORY_PASSWORD', '<b>[ Contraseña ]</b>');
-define('CATEGORY_OPTIONS', '<b>[ Options ]</b>');
+define('CATEGORY_OPTIONS', '<b>[ Opciones ]</b>');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
@@ -176,9 +176,9 @@ define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#AABBDD">obliga
 define('ENTRY_FAX_NUMBER', 'Fax:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
-define('ENTRY_NEWSLETTER', 'Newsletter:');
-define('ENTRY_NEWSLETTER_YES', 'subscribes');
-define('ENTRY_NEWSLETTER_NO', 'unsubscribes');
+define('ENTRY_NEWSLETTER', 'Boletín de noticias:');
+define('ENTRY_NEWSLETTER_YES', 'suscribirse');
+define('ENTRY_NEWSLETTER_NO', 'no suscribirse');
 define('ENTRY_PASSWORD', 'Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Confirme Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
