@@ -1,8 +1,7 @@
 <? include('includes/application_top.php')?>
 <?
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
   }
 
 // Stock Check
@@ -17,8 +16,7 @@
     } else {
       if ($any_out_of_stock) {
         // Out of Stock
-        header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
       }
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.9 2001/08/26 21:18:33 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.10 2001/09/01 15:50:39 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,13 +20,11 @@
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
   } elseif (EMAILPRODUCT_GUEST == false) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_TELL_A_FRIEND . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_TELL_A_FRIEND . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'NONSSL'));
   }
 
   if (!$HTTP_GET_VARS['products_id']) {
-    header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
   }
 
   $product_info = tep_db_query("select pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");

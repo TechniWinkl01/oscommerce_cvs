@@ -4,8 +4,7 @@
 <?
 // send to login when there is no Customer_id
   if (!@tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK, 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK, 'NONSSL'));
   }
 ?>
 <html>

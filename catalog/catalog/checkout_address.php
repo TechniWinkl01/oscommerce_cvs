@@ -6,8 +6,7 @@
     $connection = 'NONSSL';
   }
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
   }
 ?>
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

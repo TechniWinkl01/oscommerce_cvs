@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.52 2001/09/01 14:53:29 hpdl Exp $
+  $Id: account_history_info.php,v 1.53 2001/09/01 15:50:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,16 +16,13 @@
     $customer_number = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
     $customer_number_values = tep_db_fetch_array($customer_number);
     if ($customer_number_values['customers_id'] != $customer_id) {
-      header('Location: ' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'));
     }
   } else {
     if (@$HTTP_GET_VARS['order_id']) {
-      header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY_INFO . '&order_id=' . $HTTP_GET_VARS['order_id'], 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY_INFO . '&order_id=' . $HTTP_GET_VARS['order_id'], 'NONSSL'));
     } else {
-      header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'NONSSL'));
     }
   }
 

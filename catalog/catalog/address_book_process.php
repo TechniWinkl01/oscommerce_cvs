@@ -17,8 +17,7 @@
 
 // send to login when there is no Customer_id
   if (!@tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK_PROCESS, 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK_PROCESS, 'NONSSL'));
   }
 
 // are we asked to remove an entry?
@@ -31,8 +30,7 @@
 //    if ($HTTP_GET_VARS['entry_id'] < $customer_default_address_id) {
 //      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = customers_default_address_id - 1 where customers_id = '" . $customer_id . "'")};
 //    }
-    header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
   }
 //post-entry error checking when updating or modifying an entry
   $process = 0;
@@ -123,8 +121,7 @@
     $update_query = $update_query . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id']. "' and customers_id ='" . $customer_id . "'";
     tep_db_query($update_query);
 // go back ot the address book page
-    header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
   } elseif ((@$process == 1) && (@$error == 0)) {
     $company = "";
     $gender = "";
@@ -155,11 +152,9 @@
       } else {
         $connection_type = 'NONSSL';
       }
-      header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
-      tep_exit();
+      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
     } else {
-      header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     }
   } else {
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {

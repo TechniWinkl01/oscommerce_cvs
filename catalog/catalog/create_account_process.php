@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.58 2001/08/26 21:18:18 hpdl Exp $
+  $Id: create_account_process.php,v 1.59 2001/09/01 15:50:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,8 +14,7 @@
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_PROCESS);
 
   if (!@$HTTP_POST_VARS['action']) {
-    header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
   }
 
   $error = 0; // reset error flag
@@ -279,11 +278,9 @@
       } else {
         $connection_type = 'NONSSL';
       }
-      header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
-      tep_exit();
+      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
     } else {
-      header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'NONSSL'));
     }
   }
   require(DIR_WS_INCLUDES . 'application_bottom.php');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.10 2001/08/29 23:34:24 hpdl Exp $
+  $Id: secpay.php,v 1.11 2001/09/01 15:50:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -62,8 +62,7 @@
         $remote_host = gethostbyaddr($remote_host);
       }
       if ( ($remote_host != 'secpay.com') || ($HTTP_POST_VARS['valid'] != 'true') ) {
-        header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS['session'] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS['session'] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL'));
       }
     }
 

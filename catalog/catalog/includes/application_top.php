@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.166 2001/09/01 00:23:32 hpdl Exp $
+  $Id: application_top.php,v 1.167 2001/09/01 15:50:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -311,8 +311,7 @@
           $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
         }
       }
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
     } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
       if ($HTTP_GET_VARS['products_id']) {
 // performed by the 'buy now' button in product listings
@@ -325,17 +324,14 @@
         }
       }
       if (tep_db_num_rows($quickie_query) != 1) {
-        header( 'Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
       }
       $quickie = tep_db_fetch_array($quickie_query);
       if (tep_has_product_attributes($quickie['products_id'])) {
-        header('Location: ' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $quickie['products_id'], 'NONSSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $quickie['products_id'], 'NONSSL'));
       } else {
         $cart->add_cart($quickie['products_id'], 1);
-        header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
-        tep_exit();
+        tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
       }
     }
   }

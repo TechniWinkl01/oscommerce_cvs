@@ -77,8 +77,7 @@
   }
   
   if ($error == 1) {
-    header('Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH, tep_get_all_get_params(array('x', 'y')) . '&errorno=' . $errorno, 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH, tep_get_all_get_params(array('x', 'y')) . '&errorno=' . $errorno, 'NONSSL'));
   }
   else {
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.21 2001/09/01 15:34:11 hpdl Exp $
+  $Id: authorizenet.php,v 1.22 2001/09/01 15:50:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -68,8 +68,7 @@
 
       if ($cc_val != '1') {
         $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
-        header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
       }
     }
 
@@ -116,8 +115,7 @@
       global $HTTP_POST_VARS;
 
       if ($HTTP_POST_VARS['x_response_code'] != '1') {
-        header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
       }
     }
 

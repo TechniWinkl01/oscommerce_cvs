@@ -1,8 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_PRODUCT_REVIEWS_WRITE . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_PRODUCT_REVIEWS_WRITE . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
   }
 
   if (@$HTTP_GET_VARS['action'] == 'process') {
@@ -13,8 +12,7 @@
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into " . TABLE_REVIEWS_DESCRIPTION . " (reviews_id, languages_id, reviews_text) values ('" . $insert_id . "', '" . $languages_id . "', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "')");
 
-    header('Location: ' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $HTTP_POST_VARS['get_params'], 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_PRODUCT_REVIEWS, $HTTP_POST_VARS['get_params'], 'NONSSL'));
   }
 
 // lets retrieve all $HTTP_GET_VARS keys and values..

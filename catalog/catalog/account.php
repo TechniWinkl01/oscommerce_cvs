@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.41 2001/09/01 14:53:25 hpdl Exp $
+  $Id: account.php,v 1.42 2001/09/01 15:50:33 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,8 +17,7 @@
   $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
 
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT, 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT, 'NONSSL'));
   }
 ?>
 <html>

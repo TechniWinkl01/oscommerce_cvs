@@ -5,11 +5,9 @@
 
     if ($HTTP_POST_VARS['user'] == 'new') {
       if (!tep_db_num_rows($check_customer_query)) {
-        header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
       } else {
-        header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail_email&email_address=' . $HTTP_POST_VARS['email_address'], 'NONSSL'));
-        tep_exit();
+        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail_email&email_address=' . $HTTP_POST_VARS['email_address'], 'NONSSL'));
       }
     } else {
 
@@ -20,18 +18,14 @@
         if ($pass_ok != true) {
           if (@$HTTP_POST_VARS['origin']) {
             if (@$HTTP_POST_VARS['products_id']) {
-              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-              tep_exit();
+              tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
             } elseif (@$HTTP_POST_VARS['order_id']) {
-              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-              tep_exit();
+              tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
             } else {
-              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-              tep_exit();
+              tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
             }
           } else {
-            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
-            tep_exit();
+            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
           }
         } else {
 
@@ -60,43 +54,34 @@
 
           if (@$HTTP_POST_VARS['origin']) {
             if (@$HTTP_POST_VARS['products_id']) {
-              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-              tep_exit();
+              tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], 'products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
             } elseif (@$HTTP_POST_VARS['order_id']) {
-              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-              tep_exit();
+              tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], 'order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
             } elseif (@$HTTP_POST_VARS['emailproduct']) {
-              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'action=where&products_id=' . $HTTP_POST_VARS['emailproduct'] . '&send_to=' . $HTTP_POST_VARS['send_to'], 'NONSSL'));
-              tep_exit();
+              tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], 'action=where&products_id=' . $HTTP_POST_VARS['emailproduct'] . '&send_to=' . $HTTP_POST_VARS['send_to'], 'NONSSL'));
             } else {
               if (@$HTTP_POST_VARS['connection'] == 'SSL') {
                 $connection_type = 'SSL';
               } else {
                 $connection_type = 'NONSSL';
               }
-              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
-              tep_exit();
+              tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
             }
           } else {
-            header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
-            tep_exit();
+            tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
           }
         }
       } else {
         if (@$HTTP_POST_VARS['origin']) {
           if (@$HTTP_POST_VARS['products_id']) {
-            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-            tep_exit();
+            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
           } elseif (@$HTTP_POST_VARS['order_id']) {
-            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-            tep_exit();
+            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
           } else {
-            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-            tep_exit();
+            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
           }
         } else {
-          header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
-          tep_exit();
+          tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
         }
       }
     }

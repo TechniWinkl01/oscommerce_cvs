@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.66 2001/08/29 23:34:16 hpdl Exp $
+  $Id: checkout_process.php,v 1.67 2001/09/01 15:50:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -140,6 +140,6 @@
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
-  header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
+  tep_redirect(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 ?>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.6 2001/08/29 23:34:23 hpdl Exp $
+  $Id: itransact_split.php,v 1.7 2001/09/01 15:50:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -203,12 +203,10 @@
 
       if ( ($HTTP_POST_VARS['payment'] == $this->code) && (($HTTP_POST_VARS['die'] == '1') || ($HTTP_POST_VARS['err'])) ) {
         if ($HTTP_POST_VARS['die'] == '1') {
-          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_ITRANSACT_SPLIT_TEXT_DIE_MESSAGE), 'SSL'));
-          tep_exit();
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_ITRANSACT_SPLIT_TEXT_DIE_MESSAGE), 'SSL'));
         }
         if ($HTTP_POST_VARS['err']) {
-          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($HTTP_POST_VARS['err']), 'SSL'));
-          tep_exit();
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($HTTP_POST_VARS['err']), 'SSL'));
         }
       }
     }

@@ -12,11 +12,9 @@
       tep_db_query($sql);
       
       tep_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, nl2br(sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
-      header('Location: ' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
     } else {
-      header('Location: ' . tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'email=nonexistent', 'NONSSL'));
-      tep_exit();
+      tep_redirect(tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'email=nonexistent', 'NONSSL'));
     }
   } else {
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.129 2001/08/31 21:37:04 hpdl Exp $
+  $Id: general.php,v 1.130 2001/09/01 15:50:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,6 +17,13 @@
      tep_session_close();
      return exit();
     }
+  }
+
+////
+// Redirect to another page or site
+  function tep_redirect($url) {
+    header('Location: ' . $url);
+    tep_exit();
   }
 
 ////

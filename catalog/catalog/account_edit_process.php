@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.44 2001/09/01 14:53:27 hpdl Exp $
+  $Id: account_edit_process.php,v 1.45 2001/09/01 15:50:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,8 +13,7 @@
   require('includes/application_top.php');
 
   if (!@$HTTP_POST_VARS['action']) {
-    header('Location: ' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL'));
   }
 
   $error = false; // reset error flag
@@ -262,8 +261,7 @@
     tep_db_query($update_query_address);
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . $customer_id . "'");
 
-    header('Location: ' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));
-    tep_exit();
+    tep_redirect(tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));
   }
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
