@@ -33,7 +33,7 @@
         </table></td>
       </tr>
 <?
-  $product_info = tep_db_query("select m.manufacturers_name, m.manufacturers_image, p.products_id, p.products_name, p.products_description, p.products_model, p.products_quantity, p.products_image, p.products_url, p.products_price, p.products_date_added, p.manufacturers_id from manufacturers m, products p where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and p.manufacturers_id = m.manufacturers_id");
+  $product_info = tep_db_query("select products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   if (!tep_db_num_rows($product_info)) { // product not found in database
 ?>
       <tr>
@@ -49,6 +49,12 @@
   } else {
     tep_db_query("update products set products_viewed = products_viewed+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $product_info_values = tep_db_fetch_array($product_info);
+
+    $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $product_info_values['manufacturers_id'] . "'");
+    if (tep_db_num_rows($manufacturer_query)) {
+      $manufacturer = tep_db_fetch_array($manufacturer_query);
+    }
+
     $raw_date_added = $product_info_values['products_date_added'];
     $date_added = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date_added, 4, 2),substr($raw_date_added, -2),substr($raw_date_added, 0, 4)));
 
@@ -73,7 +79,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image($product_info_values['manufacturers_image'], $product_info_values['manufacturers_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? if (isset($manufacturer)) echo tep_image($manufacturer['manufacturers_image'], $manufacturer['manufacturers_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
 <?
     if (PRODUCT_LIST_MODEL) {
