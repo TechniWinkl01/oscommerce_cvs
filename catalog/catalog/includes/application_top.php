@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.209 2002/01/17 19:17:25 project3000 Exp $
+  $Id: application_top.php,v 1.210 2002/01/27 04:28:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,6 +99,7 @@
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
   define('TABLE_ORDERS_STATUS', 'orders_status');
+  define('TABLE_ORDERS_STATUS_HISTORY', 'orders_status_history');
   define('TABLE_PRODUCTS', 'products');
   define('TABLE_PRODUCTS_ATTRIBUTES', 'products_attributes');
   define('TABLE_PRODUCTS_DESCRIPTION', 'products_description');
