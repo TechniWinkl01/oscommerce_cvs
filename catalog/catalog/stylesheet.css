@@ -8,10 +8,12 @@ A {
   text-decoration: none; 
 }
 
-.blacklink { color:#000000; text-decoration:none; }
+A:hover { 
+  color:#AABBDD; 
+  text-decoration:underline; 
+}
+
 .bluelink { color:#0000FF; text-decoration:none; }
-A:hover { color:#AABBDD; text-decoration:underline; }
-A:hover.blacklink { color:#000000; text-decoration:underline; }
 A:hover.bluelink { color:#0000FF; background-color: #FFFF33; text-decoration:underline; }
 
 TR.header {
@@ -81,6 +83,14 @@ TABLE.infoBoxHeading {
 TD.infoBoxHeading {
   font-family : Tahoma, Verdana, Arial, sans-serif;
   font-size : 12px;
+}
+
+A.infoBoxHeading { 
+  color: #000000; 
+}
+
+A:hover.infoBoxHeading { 
+  color: #000000; 
 }
 
 TD.infoBox, SPAN.infoBox {

@@ -4,7 +4,7 @@
 <?
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
-                               'text'  => '<a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="blacklink">' . BOX_HEADING_SHOPPING_CART . '</a>'
+                               'text'  => '<a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_SHOPPING_CART . '</a>'
                               );
   new infoBoxHeading($info_box_contents);
 

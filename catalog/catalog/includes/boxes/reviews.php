@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.21 2001/06/14 20:50:05 hpdl Exp $
+  $Id: reviews.php,v 1.22 2001/11/09 19:53:30 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@
 <?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
-                               'text'  => '<a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '" class="blacklink">' . BOX_HEADING_REVIEWS . '</a>');
+                               'text'  => '<a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_REVIEWS . '</a>');
   new infoBoxHeading($info_box_contents);
 
   if ($HTTP_GET_VARS['products_id']) {

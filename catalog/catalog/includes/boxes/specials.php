@@ -7,7 +7,7 @@
 <?
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="blacklink">' . BOX_HEADING_SPECIALS . '</a>'
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_SPECIALS . '</a>'
                                 );
     new infoBoxHeading($info_box_contents);
 
