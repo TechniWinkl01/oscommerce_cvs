@@ -103,12 +103,12 @@ function showCalendar(frmName, dteBox,btnImg, hideDrops, MnDt, MnMo, MnYr, MxDt,
         curImg = btnImg;
         curDateBox = dteBox;
         if ( ppcIE ) {
-            ppcX = getOffsetLeft(document.images[btnImg]);    
+            ppcX = getOffsetLeft(document.images[btnImg]);
             ppcY = getOffsetTop(document.images[btnImg]) + document.images[btnImg].height;
         }
         else if (ppcNN){
-            ppcX = document.images[btnImg].x; 
-            ppcY = document.images[btnImg].y + document.images[btnImg].height;
+            ppcX = document.images[btnImg].x + 90; 
+            ppcY = document.images[btnImg].y - 45;
         }
 
         domlay('popupcalendar',1,ppcX,ppcY,Calendar(todayDate.getMonth(),todayDate.getFullYear()));       
