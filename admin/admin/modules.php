@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.49 2004/07/22 23:29:30 hpdl Exp $
+  $Id: modules.php,v 1.50 2005/04/06 00:12:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
+  $file_extension = substr(__FILE__, strrpos(__FILE__, '.'));
 
   if (!empty($set)) {
     switch ($set) {
