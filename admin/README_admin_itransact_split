@@ -8,8 +8,6 @@ Included files for admin:
   - gateway.php - Put in admin/includes/boxes/
   - itransact.php - Put in admin/includes/languages/english/
 
-PLEASE READ!!  I would appreciate feedback, bug reports, etc.
-
 ADMIN INFO (See separate catalog README)
 
   This admin module was built to work with the TEP itransact_split payment module.  The purpose
@@ -18,22 +16,4 @@ ADMIN INFO (See separate catalog README)
 
   In addition, I've kept the new column_left.php box generic ("Payment Gateway") so that links to other
   payment gateways can be easily added.
-
-  The install is fairly straightforward.
-
-  1.  Put the files, listed above, in their correct directories.
-
-  *   These next two steps are not required if you do not want the new "gateway" box in admin.  It's nice to have, however.
-
-  2.  In admin/includes/application_top.php - add a filename definition for itransact.php as:
-      // TriciaB
-      define('FILENAME_GATEWAY_ITRANSACT', 'itransact.php');
-
-  3.  In admin/includes/languages/english.php - define the new boxes as:
-      // TriciaB
-      // Added a new box called "Payment Gateway" for links to outside resources related to selected gateway.
-      // gateway box text in includes/boxes/gateway.php
-      define('BOX_HEADING_GATEWAY', 'Payment Gateway');
-      define('BOX_GATEWAY_ITRANSACT', 'iTransact.com');
-
 
