@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.16 2003/01/29 19:57:15 hpdl Exp $
+  $Id: psigate.php,v 1.17 2003/06/30 20:30:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -191,25 +191,34 @@
 
       $process_button_string = tep_draw_hidden_field('MerchantID', MODULE_PAYMENT_PSIGATE_MERCHANT_ID) .
                                tep_draw_hidden_field('FullTotal', number_format($order->info['total'] * $currencies->get_value(MODULE_PAYMENT_PSIGATE_CURRENCY), $currencies->currencies[MODULE_PAYMENT_PSIGATE_CURRENCY]['decimal_places'])) .
-                               tep_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) . 
-                               tep_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'NONSSL', true)) . 
+                               tep_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
+                               tep_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'NONSSL', true)) .
                                tep_draw_hidden_field('Bname', $order->billing['firstname'] . ' ' . $order->billing['lastname']) .
                                tep_draw_hidden_field('Baddr1', $order->billing['street_address']) .
-                               tep_draw_hidden_field('Bcity', $order->billing['city']) .
-                               tep_draw_hidden_field('Bstate', $order->billing['state']) .
-                               tep_draw_hidden_field('Bzip', $order->billing['postcode']) .
-                               tep_draw_hidden_field('Bcountry', $order->billing['country']['iso_code_2']) .
-                               tep_draw_hidden_field('Phone', $order->customer['telephone']) .
-                               tep_draw_hidden_field('Email', $order->customer['email_address']) .
-                               tep_draw_hidden_field('Sname', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
-                               tep_draw_hidden_field('Saddr1', $order->delivery['street_address']) .
-                               tep_draw_hidden_field('Scity', $order->delivery['city']) .
-                               tep_draw_hidden_field('Sstate', $order->delivery['state']) .
-                               tep_draw_hidden_field('Szip', $order->delivery['postcode']) .
-                               tep_draw_hidden_field('Scountry', $order->delivery['country']['iso_code_2']) .
-                               tep_draw_hidden_field('ChargeType', $transaction_type) .
-                               tep_draw_hidden_field('Result', $transaction_mode) .
-                               tep_draw_hidden_field('IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
+                               tep_draw_hidden_field('Bcity', $order->billing['city']);
+
+      if ($order->billing['country']['iso_code_2'] == 'US') {
+        $billing_state_query = tep_db_query("select zone_code from " . TABLE_ZONES . " where zone_id = '" . (int)$order->billing['zone_id'] . "'");
+        $billing_state = tep_db_fetch_array($billing_state_query);
+
+        $process_button_string .= tep_draw_hidden_field('Bstate', $billing_state['zone_code']);
+      } else {
+        $process_button_string .= tep_draw_hidden_field('Bstate', $order->billing['state']);
+      }
+
+      $process_button_string .= tep_draw_hidden_field('Bzip', $order->billing['postcode']) .
+                                tep_draw_hidden_field('Bcountry', $order->billing['country']['iso_code_2']) .
+                                tep_draw_hidden_field('Phone', $order->customer['telephone']) .
+                                tep_draw_hidden_field('Email', $order->customer['email_address']) .
+                                tep_draw_hidden_field('Sname', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
+                                tep_draw_hidden_field('Saddr1', $order->delivery['street_address']) .
+                                tep_draw_hidden_field('Scity', $order->delivery['city']) .
+                                tep_draw_hidden_field('Sstate', $order->delivery['state']) .
+                                tep_draw_hidden_field('Szip', $order->delivery['postcode']) .
+                                tep_draw_hidden_field('Scountry', $order->delivery['country']['iso_code_2']) .
+                                tep_draw_hidden_field('ChargeType', $transaction_type) .
+                                tep_draw_hidden_field('Result', $transaction_mode) .
+                                tep_draw_hidden_field('IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
 
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
         $process_button_string .= tep_draw_hidden_field('CardNumber', $this->cc_card_number) .
@@ -231,9 +240,11 @@
     function get_error() {
       global $HTTP_GET_VARS;
 
-      if (isset($HTTP_GET_VARS['ErrMsg']) && (strlen($HTTP_GET_VARS['ErrMsg']) > 0)) {
+      if (isset($HTTP_GET_VARS['ErrMsg']) && tep_not_null($HTTP_GET_VARS['ErrMsg'])) {
         $error = stripslashes(urldecode($HTTP_GET_VARS['ErrMsg']));
-      } elseif (isset($HTTP_GET_VARS['error']) && (strlen($HTTP_GET_VARS['error']) > 0)) {
+      } elseif (isset($HTTP_GET_VARS['Err']) && tep_not_null($HTTP_GET_VARS['Err'])) {
+        $error = stripslashes(urldecode($HTTP_GET_VARS['Err']));
+      } elseif (isset($HTTP_GET_VARS['error']) && tep_not_null($HTTP_GET_VARS['error'])) {
         $error = stripslashes(urldecode($HTTP_GET_VARS['error']));
       } else {
         $error = MODULE_PAYMENT_PSIGATE_TEXT_ERROR_MESSAGE;
