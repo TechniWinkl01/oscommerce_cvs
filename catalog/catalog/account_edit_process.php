@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.71 2002/07/21 23:38:57 hpdl Exp $
+  $Id: account_edit_process.php,v 1.72 2002/08/06 12:11:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -288,7 +288,7 @@
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . tep_db_input($customer_id) . "'");
 
     $customer_first_name = $firstname;
-    if ($HTTP_COOKIE_VARS['first_name']) setcookie('first_name', $customer_first_name, time()+2592000);
+    if ($HTTP_COOKIE_VARS['first_name']) setcookie('first_name', $customer_first_name, time()+2592000, substr(DIR_WS_CATALOG, 0, -1));
     $customer_country_id = $country;
     $customer_zone_id = $zone_id;
 

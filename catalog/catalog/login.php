@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.69 2002/07/21 23:38:57 hpdl Exp $
+  $Id: login.php,v 1.70 2002/08/06 12:11:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,8 +40,8 @@
         tep_session_register('customer_country_id');
         tep_session_register('customer_zone_id');
 
-        setcookie('email_address', $email_address, time()+2592000);
-        setcookie('first_name', $customer_first_name, time()+2592000);
+        setcookie('email_address', $email_address, time()+2592000, substr(DIR_WS_CATALOG, 0, -1));
+        setcookie('first_name', $customer_first_name, time()+2592000, substr(DIR_WS_CATALOG, 0, -1));
 
         $date_now = date('Ymd');
         tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
