@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.2 2002/01/11 10:59:20 hpdl Exp $
+  $Id: index.php,v 1.3 2002/01/11 11:14:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -171,7 +171,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         </table></td>
       </tr>
       <tr>
-        <td align="center" class="text">Copyright (c) 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a>&nbsp;&nbsp;</td>
+        <td align="center" class="text">Copyright (c) 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a></td>
       </tr>
     </table></td>
   </tr>
