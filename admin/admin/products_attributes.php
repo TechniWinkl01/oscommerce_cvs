@@ -5,12 +5,12 @@
       tep_db_query("insert into products_options values ('', '" . $HTTP_POST_VARS['option_name'] . "')");
       $products_options_id = tep_db_insert_id();
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); tep_exit();
-	} elseif ($HTTP_GET_VARS['action'] == 'add_product_option_values') {
+    } elseif ($HTTP_GET_VARS['action'] == 'add_product_option_values') {
       tep_db_query("insert into products_options_values values ('', '" . $HTTP_POST_VARS['value_name'] . "')");
       $products_options_values_id = tep_db_insert_id();
-      tep_db_query("insert into products_options_values_to_products_options values ('', '" . $HTTP_POST_VARS['option_id'] . "', '" . $HTTP_POST_VARS['value_id'] . "')");
-	  header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); tep_exit();  
-	} elseif ($HTTP_GET_VARS['action'] == 'add_product_attributes') {
+      tep_db_query("insert into products_options_values_to_products_options values ('', '" . $HTTP_POST_VARS['option_id'] . "', '" . $products_options_values_id . "')");
+      header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); tep_exit();  
+    } elseif ($HTTP_GET_VARS['action'] == 'add_product_attributes') {
       tep_db_query("insert into products_attributes values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['options_id'] . "', '" . $HTTP_POST_VARS['values_id'] . "', '" . $HTTP_POST_VARS['value_price'] . "', '" . $HTTP_POST_VARS['price_prefix'] . "')");
       $products_attributes_id = tep_db_insert_id();
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); tep_exit(); 
@@ -19,7 +19,7 @@
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'update_value') {
       tep_db_query("update products_options_values_to_products_options set products_options_id = '" . $HTTP_POST_VARS['option_id'] . "', products_options_values_id = '" . $HTTP_POST_VARS['value_id'] . "'  where products_options_values_to_products_options_id = '" . $HTTP_POST_VARS['value_id'] . "'");
-	  tep_db_query("update products_options_values set products_options_values_name = '" . $HTTP_POST_VARS['value_name'] . "' where products_options_values_id = '" . $HTTP_POST_VARS['value_id'] . "'");
+      tep_db_query("update products_options_values set products_options_values_name = '" . $HTTP_POST_VARS['value_name'] . "' where products_options_values_id = '" . $HTTP_POST_VARS['value_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'update_product_attribute') {
       tep_db_query("update products_attributes set products_id = '" . $HTTP_POST_VARS['products_id'] . "', options_id = '" . $HTTP_POST_VARS['options_id'] . "', options_values_id = '" . $HTTP_POST_VARS['values_id'] . "', options_values_price = '" . $HTTP_POST_VARS['value_price'] . "', price_prefix = '" . $HTTP_POST_VARS['price_prefix'] . "' where products_attributes_id = '" . $HTTP_POST_VARS['attribute_id'] . "'");
@@ -27,11 +27,11 @@
     } elseif ($HTTP_GET_VARS['action'] == 'delete_option') {
       tep_db_query("delete from products_options where products_options_id = '" . $HTTP_GET_VARS['option_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL')); tep_exit();
-	} elseif ($HTTP_GET_VARS['action'] == 'delete_value') {
+    } elseif ($HTTP_GET_VARS['action'] == 'delete_value') {
       tep_db_query("delete from products_options_values where products_options_values_id = '" . $HTTP_GET_VARS['value_id'] . "'");
       tep_db_query("delete from products_options_values_to_products_options where products_options_values_to_products_options_id = '" . $HTTP_GET_VARS['value_id'] . "'");
-	  header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL')); tep_exit();  
-	} elseif ($HTTP_GET_VARS['action'] == 'delete_attribute') {
+      header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL')); tep_exit();  
+    } elseif ($HTTP_GET_VARS['action'] == 'delete_attribute') {
       tep_db_query("delete from products_attributes where products_attributes_id = '" . $HTTP_GET_VARS['attribute_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page, 'NONSSL')); tep_exit(); 
     }
@@ -733,7 +733,7 @@ function checkFormAtrib() {
     } else {
       echo '          <tr bgcolor="#ffffff">' . "\n";
     }
-    echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_attributes', 'NONSSL') . '" method="post" onSubmit="return checkFormAtrib();">';
+      echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_attributes', 'NONSSL') . '" method="post" onSubmit="return checkFormAtrib();">';
 ?>
             <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $next_id; ?>&nbsp;</font></td>
 	    <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<select name="products_id"><?
