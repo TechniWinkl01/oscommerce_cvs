@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.19 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: mail.php,v 1.20 2001/12/28 12:12:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -108,8 +108,9 @@
     $customers[] = array('id' => '***', 'text' => TEXT_ALLCUSTOMERS);
     $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTERCUSTOMERS);
     $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname");
-    while(list($customers_email_address, $customers_firstname, $customers_lastname) = tep_db_fetch_array($mail_query)) {
-      $customers[] = array('id' => $customers_email_address, 'text' => $customers_lastname . ', ' . $customers_firstname . ' (' . $customers_email_address . ')');
+    while($customers_values = tep_db_fetch_array($mail_query)) {
+      $customers[] = array('id' => $customers_values['customers_email_address'],
+                           'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
     }
 ?>
               <tr>
