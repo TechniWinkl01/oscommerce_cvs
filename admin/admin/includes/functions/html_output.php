@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.32 2004/08/03 11:00:28 hpdl Exp $
+  $Id: html_output.php,v 1.33 2004/08/15 18:12:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -274,6 +274,34 @@
     }
 
     $field .= '</textarea>';
+
+    return $field;
+  }
+
+  function osc_draw_textarea_field($name, $value = '', $width = '60', $height = '5', $wrap = 'soft', $parameters = '', $reinsert_value = true, $required = false) {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    if ($reinsert_value === true) {
+      if (isset($_GET[$name])) {
+        $value = $_GET[$name];
+      } elseif (isset($_POST[$name])) {
+        $value = $_POST[$name];
+      }
+    }
+
+    $field = '<textarea name="' . tep_output_string($name) . '" wrap="' . tep_output_string($wrap) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
+
+    if (!empty($parameters)) {
+      $field .= ' ' . $parameters;
+    }
+
+    $field .= '>' . $value . '</textarea>';
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
 
     return $field;
   }
