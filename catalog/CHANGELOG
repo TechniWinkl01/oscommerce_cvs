@@ -13,6 +13,9 @@ xx/02/2001 The Exchange Project Preview Release 2.1
  * Db query clean up a few AS clauses were added for earlier MySQL
    versions. Error checking added for when no records exist.
 
+ * Added languages box - customers can now choose their language anywhere
+   except during the checkout procedure (due to POST variables in forms)
+
 13/12/2000 The Exchange Project Preview Release 2.0a
 ----------------------------------------------------
 
