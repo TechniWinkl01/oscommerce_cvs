@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.5 2002/01/27 03:15:47 hpdl Exp $
+  $Id: configure.php,v 1.6 2002/01/28 02:06:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,10 @@
 // define our webserver variables
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
-  define('HTTP_SERVER', '');
+  define('HTTP_SERVER', ''); // eg, http://localhost - should not be NULL for productive servers
+  define('HTTPS_SERVER', ''); // eg, https://localhost - should not be NULL for productive servers
   define('HTTP_CATALOG_SERVER', '');
+  define('HTTPS_CATALOG_SERVER', '');
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
   define('DIR_WS_ADMIN', '/admin/');
   define('DIR_WS_CATALOG', '/catalog/');
@@ -41,6 +43,6 @@
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
-  define('USE_PCONNECT', 1);
+  define('USE_PCONNECT', 'false');
   define('STORE_SESSIONS', '');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.13 2001/12/30 09:20:16 hpdl Exp $
+  $Id: database.php,v 1.14 2002/01/28 02:06:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
   function tep_db_connect($server = DB_SERVER, $username = DB_SERVER_USERNAME, $password = DB_SERVER_PASSWORD, $database = DB_DATABASE, $link = 'db_link') {
     global $$link;
 
-    if (USE_PCONNECT) {
+    if (USE_PCONNECT == 'true') {
       $$link = mysql_pconnect($server, $username, $password);
     } else {
       $$link = mysql_connect($server, $username, $password);
