@@ -143,6 +143,19 @@ function check_form() {
       <tr>
         <td><? echo tep_black_line(); ?></td>
       </tr>
+
+<?
+  if ($HTTP_GET_VARS['ipayment_return']) {
+    echo'      <tr>';
+    echo'      <td class="main">' . IPAYMENT_ERROR_MESSAGE . '<br>';
+    echo'<b><font color="red">' . urldecode($HTTP_GET_VARS['cc_errormsg']) . '<br>';
+      if ($HTTP_GET_VARS['cc_additional']) {
+        echo'(' . urldecode($HTTP_GET_VARS['cc_additional']) . ')<br>';
+      }
+    echo IPAYMENT_ERROR_MESSAGE2 . '</font></b><br><br></td></tr>';
+  }
+?>
+
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?
