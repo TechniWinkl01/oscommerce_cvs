@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.33 2002/03/10 23:30:37 harley_vb Exp $
+  $Id: product_listing.php,v 1.34 2002/04/20 14:42:18 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,24 +12,6 @@
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  // create column list
-  $define_list = array(
-    'PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
-    'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
-    'PRODUCT_LIST_MANUFACTURER' => PRODUCT_LIST_MANUFACTURER, 
-    'PRODUCT_LIST_PRICE' => PRODUCT_LIST_PRICE, 
-    'PRODUCT_LIST_QUANTITY' => PRODUCT_LIST_QUANTITY, 
-    'PRODUCT_LIST_WEIGHT' => PRODUCT_LIST_WEIGHT, 
-    'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE, 
-    'PRODUCT_LIST_BUY_NOW' => PRODUCT_LIST_BUY_NOW
-  );
-  asort($define_list);
-  
-  $column_list = array();
-  reset($define_list);
-  while (list($column, $value) = each($define_list)) {
-    if ($value) $column_list[] = $column;
-  }
 
   $colspan = sizeof($column_list);
 
