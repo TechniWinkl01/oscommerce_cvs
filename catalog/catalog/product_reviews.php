@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.40 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: product_reviews.php,v 1.41 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,39 +45,35 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo sprintf(HEADING_TITLE, $product_values['products_name']); ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_values['products_name']); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_AUTHOR; ?>&nbsp;</td>
-            <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_RATING; ?>&nbsp;</td>
-            <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_READ; ?>&nbsp;</td>
-            <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</td>
+            <td class="tableHeading"><?php echo TABLE_HEADING_NUMBER; ?></td>
+            <td class="tableHeading"><?php echo TABLE_HEADING_AUTHOR; ?></td>
+            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_RATING; ?></td>
+            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_READ; ?></td>
+            <td align="right" class="tableHeading"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
           </tr>
           <tr>
-            <td colspan="5"><?php echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
   $reviews = tep_db_query("select reviews_rating, reviews_id, customers_name, date_added, last_modified, reviews_read from " . TABLE_REVIEWS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "' order by reviews_id DESC");
@@ -94,29 +90,29 @@
       } else {
         echo '          <tr class="productReviews-odd">' . "\n";
       }
-      echo '            <td class="smallText">&nbsp;' . $row . '.&nbsp;</td>' . "\n";
-      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $reviews_values['customers_name'] . '</a>&nbsp;</td>' . "\n";
-      echo '            <td align="center" class="smallText">&nbsp;' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '&nbsp;</td>' . "\n";
-      echo '            <td align="center" class="smallText">&nbsp;' . $reviews_values['reviews_read'] . '&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText">&nbsp;' . $date_added . '&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">' . $row . '.</td>' . "\n";
+      echo '            <td class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $reviews_values['customers_name'] . '</a></td>' . "\n";
+      echo '            <td align="center" class="smallText">' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '</td>' . "\n";
+      echo '            <td align="center" class="smallText">' . $reviews_values['reviews_read'] . '</td>' . "\n";
+      echo '            <td align="right" class="smallText">' . $date_added . '</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   } else {
 ?>
           <tr class="productReviews-odd">
-            <td colspan="5" class="smallText">&nbsp;<?php echo TEXT_NO_REVIEWS; ?>&nbsp;</td>
+            <td colspan="5" class="smallText"><?php echo TEXT_NO_REVIEWS; ?></td>
           </tr>
 <?php
   }
 ?>
           <tr>
-            <td colspan="5"><?php echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td class="main" colspan="5"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $get_params_back, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
-                <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image_button('button_write_review.gif', IMAGE_BUTTON_WRITE_REVIEW) . '</a>'; ?>&nbsp;&nbsp;</td>
+                <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $get_params_back, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+                <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image_button('button_write_review.gif', IMAGE_BUTTON_WRITE_REVIEW) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -124,14 +120,10 @@
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>

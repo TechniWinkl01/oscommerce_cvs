@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.40 2001/12/20 14:36:50 dgw_ Exp $
+  $Id: product_reviews_write.php,v 1.41 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -88,78 +88,58 @@ function checkForm() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="product_reviews_write" method="post" action="<?php echo tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'); ?>" onSubmit="return checkForm();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="main">&nbsp;<b><?php echo SUB_TITLE_PRODUCT; ?></b>&nbsp;<?php echo $product_values['products_name']; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td class="main">&nbsp;<b><?php echo SUB_TITLE_FROM; ?></b>&nbsp;<?php echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']; ?>&nbsp;</td>
-              </tr>
-            </table></td>
-            <td align="right"><br><?php echo tep_image(DIR_WS_IMAGES . $product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
-          </tr>
-        </table>
-      </tr>
-      <tr>
-        <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top" class="main">&nbsp;<b><?php echo SUB_TITLE_REVIEW; ?></b>&nbsp;</td>
-            <td class="main"><textarea name="review" wrap="soft" cols="60" rows="15"></textarea></td>
+            <td class="main"><b><?php echo SUB_TITLE_PRODUCT; ?></b> <?php echo $product_values['products_name']; ?></td>
+            <td rowspan="4" valign="top" align="right"><br><?php echo tep_image(DIR_WS_IMAGES . $product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
           <tr>
-            <td align="right" colspan="2" class="smallText">&nbsp;<?php echo TEXT_NO_HTML; ?>&nbsp;</td>
+            <td class="main"><b><?php echo SUB_TITLE_FROM; ?></b> <?php echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']; ?></td>
+          </tr>
+          <tr>
+            <td class="main"><br><b><?php echo SUB_TITLE_REVIEW; ?></b><br><textarea name="review" wrap="soft" cols="60" rows="15"></textarea></td>
+          </tr>
+          <tr>
+            <td class="smallText"><?php echo TEXT_NO_HTML; ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td class="main"><br>&nbsp;<b><?php echo SUB_TITLE_RATING; ?></b>&nbsp;&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<input type="radio" name="rating" value="1">&nbsp;<input type="radio" name="rating" value="2">&nbsp;<input type="radio" name="rating" value="3">&nbsp;<input type="radio" name="rating" value="4">&nbsp;<input type="radio" name="rating" value="5">&nbsp;<?php echo TEXT_GOOD; ?>&nbsp;</td>
-      </tr>
-      <tr>
-        <td><br><?php echo tep_black_line(); ?></td>
+        <td class="main"><br><b><?php echo SUB_TITLE_RATING; ?></b> <?php echo TEXT_BAD; ?> <input type="radio" name="rating" value="1"> <input type="radio" name="rating" value="2"> <input type="radio" name="rating" value="3"> <input type="radio" name="rating" value="4"> <input type="radio" name="rating" value="5"> <?php echo TEXT_GOOD; ?></td>
       </tr>
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params_back, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
-            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params_back, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
       </tr>
     </table><input type="hidden" name="get_params" value="<?php echo $get_params; ?>"></form></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>

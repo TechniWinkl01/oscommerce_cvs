@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.63 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: checkout_address.php,v 1.64 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,27 +39,23 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="checkout_address" method="post" action="<?php echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -69,13 +65,13 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
+                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td><?php echo $shipping_modules->selection(); ?></td>
@@ -86,36 +82,36 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_MY_ADDRESS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_MY_ADDRESS; ?></td>
+                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_DELIVER_TO; ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td class="main"><?php echo tep_address_label($customer_id, 1, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+                    <td class="main"><?php echo tep_address_label($customer_id, 1, 1, ' ', '<br>'); ?></td>
                   </tr>
                 </table></td>
-                <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="1"<?php if ($sendto == '1') echo ' checked'; ?>>&nbsp;</td>
+                <td align="right" valign="middle" class="main"><input type="radio" name="sendto" value="1"<?php if ($sendto == '1') echo ' checked'; ?>></td>
               </tr>
             </table></td>
           </tr>
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ADDRESS_BOOK; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_ADDRESS_BOOK; ?></td>
+                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_DELIVER_TO; ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
   $address_book = tep_db_query("select address_book_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id > 1 order by address_book_id");
@@ -123,7 +119,7 @@
   if (!tep_db_num_rows($address_book)) {
 ?>
           <tr>
-            <td class="smallText">&nbsp;<?php echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?>&nbsp;</td>
+            <td class="smallText"><?php echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?></td>
           </tr>
 <?php
   } else {
@@ -134,9 +130,9 @@
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
       echo '              <tr class="shippingOptions-' . ($row / 2 == floor($row / 2) ? 'odd' : 'even') . '">' . "\n";
-      echo '                <td align="right" valign="top" class="smallText">' . number_format($row - 1) . '.&nbsp;</td>' . "\n";
+      echo '                <td align="right" valign="top" class="smallText">' . number_format($row - 1) . '.</td>' . "\n";
       echo '                <td class="smallText">' . tep_address_label($customer_id, $address_book_values['address_book_id'], true) . '</td>' . "\n";
-      echo '                <td align="right" class="smallText">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '"' . ($address_book_values['address_book_id'] == $sendto ? ' checked' : '') . '>&nbsp;</td>' . "\n";
+      echo '                <td align="right" class="smallText"><input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '"' . ($address_book_values['address_book_id'] == $sendto ? ' checked' : '') . '></td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>
@@ -146,37 +142,33 @@
   }
 ?>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
 <?php
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
-    echo '                <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&entry_id=' . ($row + 1), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>&nbsp;</td>' . "\n";
+    echo '                <td class="main"><a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&entry_id=' . ($row + 1), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a></td>' . "\n";
   } else {
-    echo '                <td valign="top" class="smallText">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";
+    echo '                <td valign="top" class="smallText">' . TEXT_MAXIMUM_ENTRIES_REACHED . '</td>' . "\n";
   }
 ?>
-                <td align="right" class="main">&nbsp;<?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+                <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td align="right" class="checkoutBar"><br>&nbsp;[ <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></span> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]&nbsp;</td>
+            <td align="right" class="checkoutBar"><br>[ <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></span> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</td>
           </tr>
         </table></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>

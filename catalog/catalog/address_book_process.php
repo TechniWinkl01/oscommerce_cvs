@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.57 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: address_book_process.php,v 1.58 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -338,40 +338,28 @@ function check_form() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="add_entry" method="post" action="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-<?php
-  if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
-    echo '            <td class="pageHeading">&nbsp;' . HEADING_TITLE_MODIFY_ENTRY . '&nbsp;</td>' . "\n";
-    echo '            <td class="pageHeading"><br>' . tep_address_label($customer_id, $HTTP_GET_VARS['entry_id'], 1, '&nbsp;', '<br>') . '&nbsp;</td>' . "\n";
-  } else {
-    echo '            <td class="pageHeading">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
-  }
-  echo '            <td align="right">&nbsp;' . tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '&nbsp;</td>' . "\n";
-  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_COMPANY*2;
-?>
+            <td class="pageHeading"><?php echo ($HTTP_GET_VARS['action'] == 'modify') ? HEADING_TITLE_MODIFY_ENTRY : HEADING_TITLE_ADD_ENTRY; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" rowspan="<?php echo $rowspan; ?>" class="accountCategory"><?php echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" rowspan="<?php echo $rowspan =  5 + ACCOUNT_GENDER + ACCOUNT_COMPANY * 2; ?>" class="accountCategory"><?php echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?php
    if (ACCOUNT_GENDER) {
@@ -555,34 +543,32 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><br><?php echo tep_black_line(); ?></td>
-      </tr>
-      <tr>
 <?php
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
 ?>
-        <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
+        <td><br><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td class="main" align="right"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'SSL'); ?>"><?php echo tep_image_button('button_delete.gif', IMAGE_BUTTON_DELETE); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main" align="center"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'SSL'); ?>"><?php echo tep_image_button('button_delete.gif', IMAGE_BUTTON_DELETE); ?></a></td>
+            <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
 <?php
     } elseif ((@$HTTP_POST_VARS['action'] == 'update') && (@$HTTP_POST_VARS['entry_id'])) {
 ?>
-        <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
+        <td><br><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_POST_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_POST_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
             <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
 <?php
     } else {
 ?>
-        <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;&nbsp;<a href="<?php echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td align="right" class="main"><br><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td class="main"><a href="<?php echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td align="right" class="main"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
 <?php
@@ -591,14 +577,10 @@ function check_form() {
       </tr>
     </table><?php if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>

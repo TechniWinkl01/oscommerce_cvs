@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.57 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: login.php,v 1.58 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -116,27 +116,23 @@ function session_win() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td rowspan="2" align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td rowspan="2" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><form name="login" method="post" action="<?php echo tep_href_link(FILENAME_LOGIN, 'action=process&email_address=' . $HTTP_POST_VARS['email_address'], 'SSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -144,51 +140,46 @@ function session_win() {
   if ($HTTP_GET_VARS['login'] == 'fail') {
 ?>
           <tr>
-            <td colspan="2" class="smallText"><?php echo TEXT_LOGIN_ERROR; ?>&nbsp;<br>&nbsp;</td>
+            <td colspan="2" class="smallText"><?php echo TEXT_LOGIN_ERROR; ?></td>
           </tr>
 <?php
   } elseif ($HTTP_GET_VARS['login'] == 'fail_email') {
 ?>
           <tr>
-            <td colspan="2" class="smallText"><?php echo TEXT_LOGIN_ERROR_EMAIL; ?>&nbsp;<br>&nbsp;</td>
+            <td colspan="2" class="smallText"><?php echo TEXT_LOGIN_ERROR_EMAIL; ?></td>
           </tr>
 <?php
   } elseif ($cart->count_contents()) {
 ?>
           <tr>
-            <td colspan="2" class="smallText"><?php echo TEXT_VISITORS_CART; ?>&nbsp;<br>&nbsp;</td>
+            <td colspan="2" class="smallText"><?php echo TEXT_VISITORS_CART; ?></td>
           </tr>
 <?
   }
 ?>
           <tr>
-            <td align="right" class="main">&nbsp;<?php echo ENTRY_EMAIL_ADDRESS2; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="email_address" maxlength="96" value="<?php if ($HTTP_GET_VARS['email_address']) echo $HTTP_GET_VARS['email_address']; elseif (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
+            <td align="right" class="main"><?php echo ENTRY_EMAIL_ADDRESS2; ?></td>
+            <td class="main"><input type="text" name="email_address" maxlength="96" value="<?php if ($HTTP_GET_VARS['email_address']) echo $HTTP_GET_VARS['email_address']; elseif (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>"></td>
           </tr>
           <tr>
             <td align="right" class="main"><input type="radio" name="user" value="new"<?php if ((!$HTTP_COOKIE_VARS['email_address'] || !$HTTP_COOKIE_VARS['password']) && (!$HTTP_GET_VARS['email_address'])) { echo ' checked'; } ?>></td>
-            <td class="main">&nbsp;<?php echo TEXT_NEW_CUSTOMER; ?>&nbsp;</td>
+            <td class="main"><?php echo TEXT_NEW_CUSTOMER; ?></td>
           </tr>
           <tr>
             <td align="right" class="main"><input type="radio" name="user" value="returning"<?php if (($HTTP_COOKIE_VARS['email_address'] && $HTTP_COOKIE_VARS['password']) || ($HTTP_GET_VARS['email_address'])) { echo ' checked'; } ?>></td>
-            <td class="main">&nbsp;<?php echo TEXT_RETURNING_CUSTOMER; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td class="main">&nbsp;</td>
-            <td class="main">&nbsp;<input type="password" name="password" maxlength="40" value="<?php if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</td>
+            <td class="main"><?php echo TEXT_RETURNING_CUSTOMER; ?><br><input type="password" name="password" maxlength="40" value="<?php if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>"></td>
           </tr>
           <tr><label for="setcookie">
             <td align="right" class="main"><input type="checkbox" name="setcookie" value="1" id="setcookie" <?php if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>></td>
-            <td class="main">&nbsp;<?php echo TEXT_COOKIE; ?></td>
+            <td class="main"><?php echo TEXT_COOKIE; ?></td>
           </label></tr>
-        </table>
-        <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><br><?php echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td valign="top" class="smallText">&nbsp;<a href="<?php echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL'); ?>"><?php echo TEXT_PASSWORD_FORGOTTEN; ?></a></td>
-            <td align="right" class="smallText"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;</td>
+            <td colspan="2"><br><table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td valign="top" class="smallText"><a href="<?php echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL'); ?>"><?php echo TEXT_PASSWORD_FORGOTTEN; ?></a></td>
+                <td align="right" class="smallText"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+              </tr>
+            </table></td>
           </tr>
         </table>
 <?php 
@@ -211,14 +202,10 @@ function session_win() {
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>

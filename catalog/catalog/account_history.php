@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.44 2001/12/20 14:36:48 dgw_ Exp $
+  $Id: account_history.php,v 1.45 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -36,38 +36,34 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ORDER_NUMBER; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ORDER_DATE; ?>&nbsp;</td>
-            <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ORDER_COST; ?>&nbsp;</td>
-            <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ORDER_STATUS; ?>&nbsp;</td>
+            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_ORDER_NUMBER; ?></td>
+            <td class="tableHeading"><?php echo TABLE_HEADING_ORDER_DATE; ?></td>
+            <td align="right" class="tableHeading"><?php echo TABLE_HEADING_ORDER_COST; ?></td>
+            <td align="right" class="tableHeading"><?php echo TABLE_HEADING_ORDER_STATUS; ?></td>
           </tr>
           <tr>
-            <td colspan="4"><?php echo tep_black_line(); ?></td>
+            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
   $history_query_raw = "select orders_id, date_purchased, shipping_cost, orders_status, currency, currency_value from " . TABLE_ORDERS . " where customers_id = '" . $customer_id . "' order by orders_id DESC";
@@ -76,7 +72,7 @@
   if (@!tep_db_num_rows($history_query)) {
 ?>
           <tr class="accountHistory-odd">
-            <td colspan="4" class="smallText">&nbsp;<?php echo TEXT_NO_PURCHASES; ?>&nbsp;</td>
+            <td colspan="4" class="smallText"><?php echo TEXT_NO_PURCHASES; ?></td>
           </tr>
 <?php
   } else {
@@ -100,22 +96,22 @@
       } else {
         echo '          <tr class="accountHistory-odd">' . "\n";
       }
-      echo '            <td align="center" class="smallText">&nbsp;' . $history['orders_id'] . '&nbsp;</td>' . "\n";
-      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'SSL') . '">' . tep_date_long($history['date_purchased']) . '</a>&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText">&nbsp;' . $currencies->format($total_cost, true, $history['currency'], $history['currency_value']) . '&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText">&nbsp;' . tep_get_orders_status_name($history['orders_status'], $languages_id) . '&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText">' . $history['orders_id'] . '</td>' . "\n";
+      echo '            <td class="smallText"><a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'SSL') . '">' . tep_date_long($history['date_purchased']) . '</a></td>' . "\n";
+      echo '            <td align="right" class="smallText">' . $currencies->format($total_cost, true, $history['currency'], $history['currency_value']) . '</td>' . "\n";
+      echo '            <td align="right" class="smallText">' . tep_get_orders_status_name($history['orders_status'], $languages_id) . '</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }
 ?>
           <tr>
-            <td colspan="4"><?php echo tep_black_line(); ?></td>
+            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td valign="top" class="smallText">&nbsp;&nbsp;<?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?><br>&nbsp;&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
-                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?>&nbsp;&nbsp;<br><br><?php echo TABLE_TEXT; ?>&nbsp;&nbsp;</td>
+                <td valign="top" class="smallText"><?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?><br><?php echo TEXT_RESULT_PAGE; ?> <?php echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
+                <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a><br><br><?php echo TABLE_TEXT; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -123,14 +119,10 @@
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>

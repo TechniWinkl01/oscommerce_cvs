@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.86 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.87 2002/01/11 22:28:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -126,27 +126,23 @@ function check_form() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="payment" method="post" action="<?php echo tep_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'); ?>" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
   if ($HTTP_GET_VARS['payment_error']) {
@@ -165,8 +161,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_METHODS; ?></td>
+                <td align="right" class="tableHeading"><?php if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -182,13 +178,13 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+                <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, ' ', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -199,8 +195,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td colspan="2" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
-                <td colspan="2" align="right" class="tableHeading">&nbsp;<?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
+                <td colspan="2" class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
+                <td colspan="2" align="right" class="tableHeading"><?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -214,13 +210,7 @@ function check_form() {
   }
 ?>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td class="main">&nbsp;</td>
-          </tr>
-          <tr>
-            <td class="main"><b>&nbsp;<?php echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
           </tr>
           <tr>
             <td><?php echo tep_black_line(); ?></td>
@@ -234,27 +224,24 @@ function check_form() {
           <tr>
             <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main">&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
-                <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+                <td class="main"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a></td>
+                <td class="main" align="center"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
+                <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td align="right" class="checkoutBar"><br>&nbsp;[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></span> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]&nbsp;</td>
+            <td align="right" class="checkoutBar"><br>[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></span> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</td>
           </tr>
         </table></td>
       </tr>
     </table>
     </form></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>
