@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.76 2002/01/27 23:59:36 hpdl Exp $
+  $Id: orders.php,v 1.77 2002/01/28 01:49:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -403,7 +403,7 @@
       $total += $orders['shipping_cost'];
 ?>
           <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']); ?>'">
-            <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']) . '">' . $orders['customers_name'] . '</a>'; ?></td>
+            <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
             <td class="tableData" align="right"><?php echo tep_currency_format($total); ?></td>
             <td class="tableData" align="right"><?php echo $orders['payment_method']; ?></td>
             <td class="tableData" align="right"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
