@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.191 2002/11/11 20:52:35 hpdl Exp $
+  $Id: general.php,v 1.192 2002/11/11 21:13:13 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -552,7 +552,6 @@
     } else {
       return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
     }
-  }
 
 ////
 // Parse search string into indivual objects
