@@ -9,6 +9,9 @@ TODO
    + more options when deleting products or categories
    + more expert options
    + update database structure for date added and last modified entries in info box
+   + add upload image support
+   + add multiple categories / manufacturers support
+   + when deleting a product, and it is in more than one category, only remove the product_to_category link, and not the product itself
 */
 ?>
 <? include('includes/application_top.php'); ?>
@@ -192,27 +195,13 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select manufacturers_id from products_to_manufacturers where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo->name = $product['products_name'];
-      $pInfo->description = stripslashes($product['products_description']);
-      $pInfo->quantity = $product['products_quantity'];
-      $pInfo->model = $product['products_model'];
-      $pInfo->image = $product['products_image'];
-      $pInfo->url = $product['products_url'];
-      $pInfo->price = $product['products_price'];
-      $pInfo->weight = $product['products_weight'];
-      $pInfo->date_added = $product['products_date_added'];
-      $pInfo->manufacturers_id = $manufacturer['manufacturers_id'];
+      $pInfo = new Product_Info();
+      $pInfo_array = tep_array_merge($product, $manufacturer);
+      tep_set_product_info($pInfo_array);
     } elseif ($HTTP_POST_VARS) {
-      $pInfo->name = $HTTP_POST_VARS['products_name'];
-      $pInfo->description = stripslashes($HTTP_POST_VARS['products_description']);
-      $pInfo->quantity = $HTTP_POST_VARS['products_quantity'];
-      $pInfo->model = $HTTP_POST_VARS['products_model'];
-      $pInfo->image = $HTTP_POST_VARS['products_image'];
-      $pInfo->url = $HTTP_POST_VARS['products_url'];
-      $pInfo->price = $HTTP_POST_VARS['products_price'];
-      $pInfo->weight = $HTTP_POST_VARS['products_weight'];
-      $pInfo->date_added = $HTTP_POST_VARS['products_date_added'];
-      $pInfo->manufacturers_id = $HTTP_POST_VARS['manufacturers_id'];
+/* not in use at the moment! this should be used when the user presses 'BACK' on the products preview page.. */
+      $pInfo = new Product_Info();
+      tep_set_product_info($HTTP_POST_VARS);
     }
 
     $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from manufacturers order by manufacturers_name");
@@ -284,34 +273,22 @@ function checkForm() {
       </tr>
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'new_product_preview') {
-    $pInfo = new Product_Info();
-
     if ($HTTP_POST_VARS) {
       $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo->name = tep_products_name('', $HTTP_POST_VARS['manufacturers_id'], $HTTP_POST_VARS['products_name']);
-      $pInfo->description = stripslashes($HTTP_POST_VARS['products_description']);
-      $pInfo->image = DIR_CATALOG . $HTTP_POST_VARS['products_image'];
-      $pInfo->price = tep_currency_format($HTTP_POST_VARS['products_price']);
-      $pInfo->date_added = tep_date_long($HTTP_POST_VARS['products_date_added']);
-      $pInfo->url = $HTTP_POST_VARS['products_url'];
-      $pInfo->manufacturer = $manufacturer['manufacturers_name'];
-      $pInfo->manufacturers_image = $manufacturer['manufacturers_image'];
+      $pInfo = new Product_Info();
+      $pInfo_array = tep_array_merge($HTTP_POST_VARS, $manufacturer);
+      tep_set_product_info($pInfo_array);
     } else {
       $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
-      $manufacturer_query = tep_db_query("select m.manufacturers_name, m.manufacturers_image from manufacturers m, products_to_manufacturers p2m where p2m.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p2m.manufacturers_id = m.manufacturers_id");
+      $manufacturer_query = tep_db_query("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image from manufacturers m, products_to_manufacturers p2m where p2m.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p2m.manufacturers_id = m.manufacturers_id");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo->name = $product['products_name'];
-      $pInfo->description = stripslashes($product['products_description']);
-      $pInfo->image = DIR_CATALOG . $product['products_image'];
-      $pInfo->price = tep_currency_format($product['products_price']);
-      $pInfo->date_added = tep_date_long($product['products_date_added']);
-      $pInfo->url = $product['products_url'];
-      $pInfo->manufacturer = $manufacturer['manufacturers_name'];
-      $pInfo->manufacturers_image = $manufacturer['manufacturers_image'];
+      $pInfo = new Product_Info();
+      $pInfo_array = tep_array_merge($product, $manufacturer);
+      tep_set_product_info($pInfo_array);
     }
 
     $form_action = 'insert_product';
@@ -320,7 +297,7 @@ function checkForm() {
       <tr><form name="<?=$form_action;?>" <?='action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=' . $form_action, 'NONSSL') . '"';?> method="post">
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=$pInfo->name . ' @ ' . $pInfo->price;?>&nbsp;</font></td>
+            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=tep_products_name('', $pInfo->manufacturers_id, $pInfo->name) . ' @ ' . tep_currency_format($pInfo->price);?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<?=tep_image(DIR_CATALOG . $pInfo->manufacturers_image, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $pInfo->manufacturer);?>&nbsp;</td>
           </tr>
         </table></td>
@@ -329,7 +306,7 @@ function checkForm() {
         <td><?=tep_black_line();?></td>
       </tr>
       <tr>
-        <td wrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image($pInfo->image, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $pInfo->name);?><?=$pInfo->description;?></font></td>
+        <td wrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image(DIR_CATALOG . $pInfo->image, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', tep_products_name('', $pInfo->manufacturers_id, $pInfo->name));?><?=$pInfo->description;?></font></td>
       </tr>
 <?
     if ($pInfo->url) {
@@ -341,7 +318,7 @@ function checkForm() {
     }
 ?>
       <tr>
-        <td align="center" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_PRODUCT_DATE_ADDED, $pInfo->date_added);?></font></td>
+        <td align="center" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->date_added));?></font></td>
       </tr>
       <tr>
         <td><br><?=tep_black_line();?></td>
@@ -403,21 +380,16 @@ function checkForm() {
 
       if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $categories['categories_id'])) && (!$cInfo) && (!$pInfo) && (substr($HTTP_GET_VARS['action'], 0, 4) != 'new_') ) {
 // count category childs
-        $category_childs_query = tep_db_query("select count(*) as total from categories where parent_id = '" . $categories['categories_id'] . "'");
+        $category_childs_query = tep_db_query("select count(*) as childs_count from categories where parent_id = '" . $categories['categories_id'] . "'");
         $category_childs = tep_db_fetch_array($category_childs_query);
+
 // count category proucts (direct links)
-        $category_products_query = tep_db_query("select count(*) as total from products_to_categories where categories_id = '" . $categories['categories_id'] . "'");
+        $category_products_query = tep_db_query("select count(*) as products_count from products_to_categories where categories_id = '" . $categories['categories_id'] . "'");
         $category_products = tep_db_fetch_array($category_products_query);
 
-// new category info instance
         $cInfo = new Category_Info();
-        $cInfo->id = $categories['categories_id'];
-        $cInfo->name = $categories['categories_name'];
-        $cInfo->image = $categories['categories_image'];
-        $cInfo->parent_id = $categories['parent_id'];
-        $cInfo->sort_order = $categories['sort_order'];
-        $cInfo->childs_count = $category_childs['total'];
-        $cInfo->products_count = $category_products['total'];
+        $cInfo_array = tep_array_merge($categories, $category_childs, $category_products);
+        tep_set_category_info($cInfo_array);
       }
 
       if ($categories['categories_id'] == $cInfo->id) {
@@ -451,14 +423,8 @@ function checkForm() {
       $rows++;
 
       if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($HTTP_GET_VARS['action'], 0, 4) != 'new_') ) {
-// new product info instance
         $pInfo = new Product_Info();
-        $pInfo->id = $products['products_id'];
-        $pInfo->name = tep_products_name($products['products_id']);
-        $pInfo->quantity = $products['products_quantity'];
-        $pInfo->image = $products['products_image'];
-        $pInfo->price = tep_currency_format($products['products_price']);
-        $pInfo->date_added = tep_date_short($products['products_date_added']);
+        tep_set_product_info($products);
       }
 
       if ($products['products_id'] == $pInfo->id) {
@@ -520,15 +486,13 @@ function checkForm() {
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr bgcolor="#81a2b6">
-                <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="#ffffff">&nbsp;<b><? if ($cInfo && !$pInfo) echo $cInfo->name;if ($pInfo && !$cInfo) echo $pInfo->name;?></b>&nbsp;</font></td>
+                <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="#ffffff">&nbsp;<b><? if ($cInfo && !$pInfo) echo $cInfo->name;if ($pInfo && !$cInfo) echo tep_products_name($pInfo->id);?></b>&nbsp;</font></td>
               </tr>
               <tr bgcolor="#81a2b6">
                 <td><?=tep_black_line();?></td>
               </tr>
 <?
-/*
-  here we display the info box on the right of the main table
-*/
+/* here we display the info box on the right of the main table */
 
     if ($HTTP_GET_VARS['action'] == 'edit_category') {
 ?>
@@ -606,7 +570,7 @@ function checkForm() {
                     <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=TEXT_DELETE_PRODUCTS_INTRO;?>&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$pInfo->name;?></b>&nbsp;</font></td>
+                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=tep_products_name($pInfo->id);?></b>&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td align="center"><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE);?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?></font></td>
@@ -622,18 +586,11 @@ function checkForm() {
                     <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_MOVE_INTRO, $cInfo->name);?>&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(TEXT_MOVE, $cInfo->name);?><br>&nbsp;<select name="move_to_category_id" style="font-size:10px">
+                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(TEXT_MOVE, $cInfo->name);?><br>&nbsp;
 <?
-      $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
-      while ($categories_all = tep_db_fetch_array($categories_all_query)) {
-        if ($cInfo->id != $categories_all['categories_id']) {
-          $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories_all['parent_id'] . "'");
-          $categories_parent = tep_db_fetch_array($categories_parent_query);
-          echo '<option value="' . $categories_all['categories_id'] . '">' . $categories_all['categories_name'] . ' (' . $categories_parent['categories_name'] . ')</option>';
-        }
-      }
+      tep_categories_pull_down('name="move_to_category_id" style="font-size:10px"', $cInfo->id);
 ?>
-                    </select><? if (!EXPERT_MODE) echo '<br>&nbsp;<br>' . TEXT_MOVE_NOTE; ?>&nbsp;</font></td>
+                    <? if (!EXPERT_MODE) echo '<br>&nbsp;<br>' . TEXT_MOVE_NOTE; ?>&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td align="center"><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE);?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?></font></td>
@@ -646,21 +603,14 @@ function checkForm() {
               <tr bgcolor="#b0c8df"><form name="products" <?='action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=moveconfirm', 'NONSSL') . '"';?> method="post"><input type="hidden" name="products_id" value="<?=$pInfo->id;?>">
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_MOVE_PRODUCTS_INTRO, $pInfo->name);?>&nbsp;</font></td>
+                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_MOVE_PRODUCTS_INTRO, tep_products_name($pInfo->id));?>&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(TEXT_MOVE, $pInfo->name);?><br>&nbsp;<select name="move_to_category_id" style="font-size:10px">
+                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(TEXT_MOVE, tep_products_name($pInfo->id));?><br>&nbsp;
 <?
-      $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
-      while ($categories_all = tep_db_fetch_array($categories_all_query)) {
-        if ($cInfo->id != $categories_all['categories_id']) {
-          $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories_all['parent_id'] . "'");
-          $categories_parent = tep_db_fetch_array($categories_parent_query);
-          echo '<option value="' . $categories_all['categories_id'] . '">' . $categories_all['categories_name'] . ' (' . $categories_parent['categories_name'] . ')</option>';
-        }
-      }
+      tep_categories_pull_down('name="move_to_category_id" style="font-size:10px"', $current_category_id);
 ?>
-                    </select><? if (!EXPERT_MODE) echo '<br>&nbsp;<br>' . TEXT_MOVE_NOTE; ?>&nbsp;</font></td>
+                    <? if (!EXPERT_MODE) echo '<br>&nbsp;<br>' . TEXT_MOVE_NOTE; ?>&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td align="center"><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE);?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?></font></td>
@@ -711,13 +661,13 @@ function checkForm() {
                     <td align="center"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a>';?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>';?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>';?></font></td>
                   </tr>
                   <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_DATE_ADDED;?>&nbsp;<?=$pInfo->date_added;?><br>&nbsp;<?=TEXT_LAST_MODIFIED;?>&nbsp;</font></td>
+                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_DATE_ADDED;?>&nbsp;<?=tep_date_short($pInfo->date_added);?><br>&nbsp;<?=TEXT_LAST_MODIFIED;?>&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<? $image_size = @getimagesize(DIR_SERVER_ROOT . DIR_CATALOG . $pInfo->image); if ($image_size) { echo tep_image(DIR_CATALOG . $pInfo->image, $image_size[0], $image_size[1], 0, $pInfo->name); } else { echo TEXT_IMAGE_NONEXISTENT; } ?>&nbsp;<br>&nbsp;<?=$pInfo->image;?>&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_PRICE_INFO;?> <?=$pInfo->price;?><br>&nbsp;<?=TEXT_PRODUCTS_QUANTITY_INFO;?> <?=$pInfo->quantity;?>&nbsp;</font></td>
+                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_PRICE_INFO;?> <?=tep_currency_format($pInfo->price);?><br>&nbsp;<?=TEXT_PRODUCTS_QUANTITY_INFO;?> <?=$pInfo->quantity;?>&nbsp;</font></td>
                   </tr>
 <?
         }
