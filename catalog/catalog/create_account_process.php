@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.53 2001/07/25 06:19:56 mbs Exp $
+  $Id: create_account_process.php,v 1.54 2001/07/31 21:18:48 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -238,17 +238,17 @@
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 0, 2) . substr($HTTP_POST_VARS['dob'], 2, 2);
 // Crypted passwords mods
     $crypted_password = crypt_password($HTTP_POST_VARS['password']);
-    tep_db_query("insert into " . TABLE_CUSTOMERS . " values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', '" . $HTTP_POST_VARS['email_address'] . "', '0', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" .  $HTTP_POST_VARS['newsletter'] . "')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS . " (customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_default_address_id, customers_telephone, customers_fax, customers_password, customers_newsletter) values ('" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', '" . $HTTP_POST_VARS['email_address'] . "', '1', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" .  $HTTP_POST_VARS['newsletter'] . "')");
     $insert_id = tep_db_insert_id();
-    tep_db_query("insert into " . TABLE_ADDRESS_BOOK . " values ('" . $insert_id . "', '0', '" . $HTTP_POST_VARS['gender'] .  "', '" . $HTTP_POST_VARS['company'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" .  $HTTP_POST_VARS['country'] . "', '0')");
-
-    tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', now(), '')");
+    tep_db_query("insert into " . TABLE_ADDRESS_BOOK . " (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $insert_id . "', '1', '" . $HTTP_POST_VARS['gender'] .  "', '" . $HTTP_POST_VARS['company'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" .  $HTTP_POST_VARS['country'] . "', '" . $HTTP_POST_VARS['zone_id'] . "')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . $insert_id . "', '0', now())");
 
     $customer_id = $insert_id;
     $customer_first_name = $HTTP_POST_VARS['firstname'];
+    $customer_default_address_id = 1;
     tep_session_register('customer_id');
     tep_session_register('customer_first_name');
-
+    tep_session_register('customer_default_address_id');
 
 // restore cart contents
     $cart->restore_contents();
