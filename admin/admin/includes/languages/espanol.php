@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.105 2004/04/13 08:19:22 hpdl Exp $
+  $Id: espanol.php,v 1.106 2004/04/15 16:06:42 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -113,6 +113,7 @@ define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
 define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
 define('BOX_LOCALIZATION_LANGUAGES', 'Idiomas');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Estado Pedidos');
+define('BOX_LOCALIZATION_WEIGHT_CLASSES', 'Weight Classes');
 
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguientes modificaciones:\n\n');
@@ -269,6 +270,7 @@ define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo del <b>%d</b> al <b>%d</b> (de
 define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> porcentajes de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
+define('TEXT_DISPLAY_NUMBER_OF_WEIGHT_CLASSES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> weight classes)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 
 define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');

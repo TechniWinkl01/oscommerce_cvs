@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.2 2004/04/13 08:19:17 hpdl Exp $
+  $Id: filenames.php,v 1.3 2004/04/15 16:06:40 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,6 +47,7 @@
   define('FILENAME_STATS_PRODUCTS_VIEWED', 'stats_products_viewed.php');
   define('FILENAME_TAX_CLASSES', 'tax_classes.php');
   define('FILENAME_TAX_RATES', 'tax_rates.php');
+  define('FILENAME_WEIGHT_CLASSES', 'weight_classes.php');
   define('FILENAME_WHOS_ONLINE', 'whos_online.php');
   define('FILENAME_ZONES', 'zones.php');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database_tables.php,v 1.3 2004/04/08 04:47:42 hpdl Exp $
+  $Id: database_tables.php,v 1.4 2004/04/15 16:06:40 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -55,6 +55,8 @@
   define('TABLE_TAX_RATES', DB_TABLE_PREFIX . 'tax_rates');
   define('TABLE_GEO_ZONES', DB_TABLE_PREFIX . 'geo_zones');
   define('TABLE_ZONES_TO_GEO_ZONES', DB_TABLE_PREFIX . 'zones_to_geo_zones');
+  define('TABLE_WEIGHT_CLASS', DB_TABLE_PREFIX . 'weight_classes');
+  define('TABLE_WEIGHT_CLASS_RULES', DB_TABLE_PREFIX . 'weight_classes_rules');
   define('TABLE_WHOS_ONLINE', DB_TABLE_PREFIX . 'whos_online');
   define('TABLE_ZONES', DB_TABLE_PREFIX . 'zones');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.148 2004/04/10 15:13:22 mevans Exp $
+  $Id: categories.php,v 1.149 2004/04/15 16:06:39 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -217,6 +217,7 @@
                                   'products_price' => tep_db_prepare_input($HTTP_POST_VARS['products_price']),
                                   'products_date_available' => $products_date_available,
                                   'products_weight' => tep_db_prepare_input($HTTP_POST_VARS['products_weight']),
+                                  'products_weight_class' => tep_db_prepare_input($HTTP_POST_VARS['products_weight_class']),
                                   'products_status' => tep_db_prepare_input($HTTP_POST_VARS['products_status']),
                                   'products_tax_class_id' => tep_db_prepare_input($HTTP_POST_VARS['products_tax_class_id']),
                                   'manufacturers_id' => tep_db_prepare_input($HTTP_POST_VARS['manufacturers_id']));
@@ -366,6 +367,7 @@
                        'products_image' => '',
                        'products_price' => '',
                        'products_weight' => '',
+                       'products_weight_class' => SHIPPING_WEIGHT_UNIT,
                        'products_date_added' => '',
                        'products_last_modified' => '',
                        'products_date_available' => '',
@@ -376,7 +378,7 @@
     $pInfo = new objectInfo($parameters);
 
     if (isset($HTTP_GET_VARS['pID']) && empty($HTTP_POST_VARS)) {
-      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
+      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_weight_class, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo->objectInfo($product);
@@ -408,6 +410,13 @@
       case '0': $in_status = false; $out_status = true; break;
       case '1':
       default: $in_status = true; $out_status = false;
+    }
+
+    $weight_class_array = array();
+    $weight_class_query = tep_db_query("select weight_class_id, weight_class_title from " . TABLE_WEIGHT_CLASS . " where language_id = '" . (int)$languages_id . "' order by weight_class_title");
+    while ($weight_class = tep_db_fetch_array($weight_class_query)) {
+      $weight_class_array[] = array('id' => $weight_class['weight_class_id'],
+                                    'text' => $weight_class['weight_class_title']);
     }
 ?>
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
@@ -583,7 +592,7 @@ updateGross();
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
+            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_input_field('products_weight', $pInfo->products_weight). '&nbsp;' . tep_draw_pull_down_menu('products_weight_class', $weight_class_array, $pInfo->products_weight_class); ?></td>
           </tr>
         </table></td>
       </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.161 2004/04/10 15:13:23 mevans Exp $
+  $Id: general.php,v 1.162 2004/04/15 16:06:42 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -482,6 +482,26 @@
     return $orders_status['orders_status_name'];
   }
 
+  function tep_get_weight_class_title($weight_class_id, $language_id = '') {
+    global $languages_id;
+
+    if (!$language_id) $language_id = $languages_id;
+    $weight_class_query = tep_db_query("select weight_class_title from " . TABLE_WEIGHT_CLASS . " where weight_class_id = '" . (int)$weight_class_id . "' and language_id = '" . (int)$language_id . "'");
+    $weight_class = tep_db_fetch_array($weight_class_query);
+
+    return $weight_class['weight_class_title'];
+  }
+
+  function tep_get_weight_class_key($weight_class_id, $language_id = '') {
+    global $languages_id;
+
+    if (!$language_id) $language_id = $languages_id;
+    $weight_class_query = tep_db_query("select weight_class_key from " . TABLE_WEIGHT_CLASS . " where weight_class_id = '" . (int)$weight_class_id . "' and language_id = '" . (int)$language_id . "'");
+    $weight_class = tep_db_fetch_array($weight_class_query);
+
+    return $weight_class['weight_class_key'];
+  }
+
   function tep_get_orders_status() {
     global $languages_id;
 
@@ -687,6 +707,21 @@
       $zone = tep_db_fetch_array($zone_query);
       return $zone['zone_name'];
     }
+  }
+
+  function tep_cfg_pull_down_weight_classes($weight_class_id, $key = '') {
+    global $languages_id;
+
+    $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+
+    $weight_class_array = array();
+    $weight_class_query = tep_db_query("select weight_class_id, weight_class_title from " . TABLE_WEIGHT_CLASS . " where language_id = '" . (int)$languages_id . "' order by weight_class_title");
+    while ($weight_class = tep_db_fetch_array($weight_class_query)) {
+      $weight_class_array[] = array('id' => $weight_class['weight_class_id'],
+                                    'text' => $weight_class['weight_class_title']);
+    }
+
+    return tep_draw_pull_down_menu($name, $weight_class_array, $weight_class_id);
   }
 
 ////
