@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.14 2003/06/20 00:32:40 hpdl Exp $
+  $Id: define_language.php,v 1.15 2003/07/08 21:51:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,7 +20,7 @@
     switch ($action) {
       case 'save':
         if (isset($HTTP_GET_VARS['lngdir']) && isset($HTTP_GET_VARS['filename'])) {
-          if ($HTTP_GET_VARS['filename'] == $HTTP_GET_VARS['lng_dir'] . '.php') {
+          if ($HTTP_GET_VARS['filename'] == $HTTP_GET_VARS['lngdir'] . '.php') {
             $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['filename'];
           } else {
             $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['lngdir'] . '/' . $HTTP_GET_VARS['filename'];
@@ -99,7 +99,7 @@
 
     if (file_exists($file)) {
       $file_array = file($file);
-      $file_contents = implode('', $file_array);
+      $contents = implode('', $file_array);
 
       $file_writeable = true;
       if (!is_writeable($file)) {
@@ -116,7 +116,7 @@
                 <td class="main"><b><?php echo $HTTP_GET_VARS['filename']; ?></b></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_draw_textarea_field('file_contents', 'soft', '80', '20', $file_contents, (($file_writeable) ? '' : 'readonly')); ?></td>
+                <td class="main"><?php echo tep_draw_textarea_field('file_contents', 'soft', '80', '20', $contents, (($file_writeable) ? '' : 'readonly')); ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
