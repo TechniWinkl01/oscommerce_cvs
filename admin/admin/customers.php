@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.71 2002/04/29 15:12:19 hpdl Exp $
+  $Id: customers.php,v 1.72 2002/11/18 16:02:36 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,7 +52,9 @@
         $entry_zone_id = tep_db_prepare_input($HTTP_POST_VARS['entry_zone_id']);
         if ($entry_zone_id > 0) $entry_state = '';
 
-        $sql_data_array = array('entry_street_address' => $entry_street_address,
+        $sql_data_array = array('entry_firstname' => $customers_firstname,
+                                'entry_lastname' => $customers_lastname,
+                                'entry_street_address' => $entry_postcode,
                                 'entry_postcode' => $entry_postcode,
                                 'entry_city' => $entry_city,
                                 'entry_country_id' => $entry_country_id);
