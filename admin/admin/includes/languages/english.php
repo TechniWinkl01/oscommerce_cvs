@@ -14,18 +14,9 @@ define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
-// the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
-// tep_number_format() function.. although the function is here, it is not in use yet..
-define('CURRENCY_BEFORE', '$'); // currency character(s) before value
-define('CURRENCY_AFTER', ''); // currency character(s) after value
-define('CURRENCY_DECIMAL', '.'); // currency decimal point character
-define('CURRENCY_DECIMAL_PLACES', 2);
-define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
-define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
-// for example:
-// products_price = 30.00 (in Euro)
-// currency_value = 0.9551 (US to Euro)
-// products price with locale currency = currency_value * products_price
+// the CURRENCY_* constants will be used to format the currency to the selected locale..
+// this is used with the tep_currency_format() function..
+define('CURRENCY_VALUE', 'USD'); // currency value for exchange rate
 
 // page title
 define('TITLE', 'The Exchange Project');
@@ -33,7 +24,7 @@ define('TITLE', 'The Exchange Project');
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
 define('HEADER_TITLE_SUPPORT_SITE', 'Support Site');
-define('HEADER_TITLE_ONLINE_DEMO', 'Online Demo');
+define('HEADER_TITLE_ONLINE_CATALOG', 'Online Catalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
 
 // text for gender
@@ -42,9 +33,6 @@ define('FEMALE', 'Female');
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
-
-// categories box text in all boxes
-define('BOX_HEADING_SEARCH', 'Quick Find');
 
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Configuration');
@@ -63,7 +51,7 @@ define('BOX_CATALOG_REVIEWS', 'Reviews');
 define('BOX_CATALOG_SPECIALS', 'Specials');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Products Expected');
 
-// categories box text in includes/boxes/customers.php
+// customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Customers');
 define('BOX_CUSTOMERS_ORDERS', 'Orders');
@@ -75,11 +63,15 @@ define('BOX_TAXES_ZONES', 'Zones');
 define('BOX_TAXES_TAX_CLASSES', 'Tax Classes');
 define('BOX_TAXES_TAX_RATES', 'Tax Rates');
 
-// whats_new box text in includes/boxes/statistics.php
+// statistics box text in includes/boxes/statistics.php
 define('BOX_HEADING_STATISTICS', 'Statistics');
 define('BOX_STATISTICS_PRODUCTS_VIEWED', 'Products Viewed');
 define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'Products Purchased');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Customer Orders-Total');
+
+// localizaion box text in includes/boxes/localization.php
+define('BOX_HEADING_LOCALIZATION', 'Localization');
+define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
@@ -181,10 +173,11 @@ define('IMAGE_INSERT', 'Insert');
 define('IMAGE_MODIFY', 'Modify');
 define('IMAGE_MOVE', 'Move');
 define('IMAGE_NEW_CATEGORY', 'New Category');
+define('IMAGE_NEW_COUNTRY', 'New Country');
+define('IMAGE_NEW_CURRENCY', 'New Currency');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
 define('IMAGE_NEW_ZONE', 'New Zone');
-define('IMAGE_NEW_COUNTRY', 'New Country');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');
@@ -195,17 +188,18 @@ define('IMAGE_ICON_INFO', 'Info');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Result Pages:');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> product reviews)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> countries)');
+define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
+define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> currencies)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> manufacturers)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products on special)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products expected)');
-define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> product reviews)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products on special)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax classes)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax rates)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> zones)');
-define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> countries)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');

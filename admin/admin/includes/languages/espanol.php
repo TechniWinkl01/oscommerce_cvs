@@ -14,18 +14,9 @@ define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
-// the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
-// tep_number_format() function.. although the function is here, it is not in use yet..
-define('CURRENCY_BEFORE', ''); // currency character(s) before value
-define('CURRENCY_AFTER', 'Pts'); // currency character(s) after value
-define('CURRENCY_DECIMAL', '.'); // currency decimal point character
-define('CURRENCY_DECIMAL_PLACES', 0);
-define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
-define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
-// for example:
-// products_price = 30.00 (in Euro)
-// currency_value = 0.9551 (US to Euro)
-// products price with locale currency = currency_value * products_price
+// the CURRENCY_* constants will be used to format the currency to the selected locale..
+// this is used with the tep_currency_format() function..
+define('CURRENCY_VALUE', 'ESP'); // currency value for exchange rate
 
 // page title
 define('TITLE', 'The Exchange Project');
@@ -33,7 +24,7 @@ define('TITLE', 'The Exchange Project');
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administracion');
 define('HEADER_TITLE_SUPPORT_SITE', 'Soporte');
-define('HEADER_TITLE_ONLINE_DEMO', 'Demostracion');
+define('HEADER_TITLE_ONLINE_CATALOG', 'Catalogo');
 define('HEADER_TITLE_ADMINISTRATION', 'Administracion');
 
 // text for gender
@@ -42,9 +33,6 @@ define('FEMALE', 'Mujer');
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
-
-// categories box text in all boxes
-define('BOX_HEADING_SEARCH', 'Buscar');
 
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Configuracion');
