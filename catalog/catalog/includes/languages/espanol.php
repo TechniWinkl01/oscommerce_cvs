@@ -87,6 +87,9 @@ define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Ver Contenido');
 define('BOX_HEADING_BESTSELLERS', 'Los Mas Vendidos');
 define('BOX_HEADING_BESTSELLERS_IN', 'Los Mas Vendidos en <br>&nbsp;&nbsp;');
 
+// pull down default text
+define('PULL_DOWN_DEFAULT', '--Selecto--');
+
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'entrega');

@@ -80,6 +80,9 @@ define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Inhalt einsehen');
 define('BOX_HEADING_BESTSELLERS', 'Bestseller');
 define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller in<br>&nbsp;&nbsp;');
 
+// pull down default text
+define('PULL_DOWN_DEFAULT', '--Bitte W&auml;hlen--');
+
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'Warenkorbinhalt');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'Lieferanschrift');
