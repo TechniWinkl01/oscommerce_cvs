@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.135 2002/08/12 09:16:27 project3000 Exp $
+  $Id: general.php,v 1.136 2002/08/13 18:51:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -742,7 +742,7 @@
                  'ip' => gethostbyname($host),
                  'uptime' => @exec('uptime'),
                  'http_server' => $HTTP_SERVER_VARS['SERVER_SOFTWARE'],
-                 'php' => phpversion(),
+                 'php' => PHP_VERSION,
                  'zend' => (function_exists('zend_version') ? zend_version() : ''),
                  'db_server' => DB_SERVER,
                  'db_ip' => gethostbyname(DB_SERVER),
@@ -1129,7 +1129,7 @@
 ////
 // Wrapper function for round() for php3 compatibility
   function tep_round($value, $precision) {
-    if (eregi('^3\.', phpversion())) {
+    if (PHP_VERSION < 4) {
       $exp = pow(10, $precision);
       return round($value * $exp) / $exp;
     } else {
@@ -1181,6 +1181,16 @@
       return $tax_multiplier;
     } else {
       return 0;
+    }
+  }
+
+  function tep_call_function($function, $parameter, $object = '') {
+    if ($object == '') {
+      return call_user_func($function, $parameter);
+    } elseif (PHP_VERSION < 4) {
+      return call_user_method($function, $object, $parameter);
+    } else {
+      return call_user_func(array($object, $function), $parameter);
     }
   }
 ?>
