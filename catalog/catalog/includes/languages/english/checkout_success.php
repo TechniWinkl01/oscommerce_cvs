@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.9 2002/03/13 13:07:05 hpdl Exp $
+  $Id: checkout_success.php,v 1.10 2002/06/25 21:25:41 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,8 +18,8 @@ define('TEXT_NOTIFY_PRODUCTS', 'Please notify me of updates to the products I ha
 define('TEXT_SEE_ORDERS', 'You can view your order history by going to the <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">\'My Account\'</a> page and by clicking on <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">\'History\'</a>.');
 define('TEXT_CONTACT_STORE_OWNER', 'Please direct any questions you have to the <a href="' . tep_href_link(FILENAME_CONTACT_US) . '">store owner</a>.');
 define('TEXT_THANKS_FOR_SHOPPING', 'Thanks for shopping with us online!');
-define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry Date');
-define('TABLE_HEADING_DOWNLOAD_COUNT', 'Max # downloads');
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry date: ');
+define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remain.');
 define('HEADING_DOWNLOAD', 'Download your products here:');
 define('FOOTER_DOWNLOAD', 'You can also download your products at a later time at \'%s\'');
 ?>

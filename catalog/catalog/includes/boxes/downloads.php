@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: downloads.php,v 1.3 2002/02/08 14:11:10 clescuyer Exp $
+  $Id: downloads.php,v 1.4 2002/06/25 21:25:41 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,16 +23,9 @@
   }
 
 // Now get all downloadable products in that order
-  $downloads_query_raw = "SELECT date_purchased + INTERVAL opd.download_maxdays DAY as download_expiry, UNIX_TIMESTAMP(date_purchased + INTERVAL opd.download_maxdays DAY) as download_timestamp, op.products_name, opd.orders_products_download_id, opd.orders_products_filename, opd.download_count, opd.download_maxdays
-                          FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd
-                          WHERE customers_id = '" . $customer_id . "' 
-                           AND o.orders_id = '" . $last_order . "'
-                           AND op.orders_id = '" . $last_order . "'
-                           AND opd.orders_products_id=op.orders_products_id
-                           AND opd.orders_products_filename<>''";
   $downloads_query_raw = "SELECT DATE_FORMAT(date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, op.products_name, opd.orders_products_download_id, opd.orders_products_filename, opd.download_count, opd.download_maxdays
                           FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd
-                          WHERE customers_id = '" . $customer_id . "' 
+                          WHERE customers_id = '" . $customer_id . "'
                            AND o.orders_id = '" . $last_order . "'
                            AND op.orders_id = '" . $last_order . "'
                            AND opd.orders_products_id=op.orders_products_id
@@ -42,31 +35,34 @@
 // Don't display if there is no downloadable product
   if (tep_db_num_rows($downloads_query) > 0) {
 ?>
-<tr>
-  <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '30'); ?>
-    <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="tableHeading"><?php echo HEADING_DOWNLOAD; ?></td>
-        <td align="center"class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD_DATE; ?></td>
-        <td align="center"class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD_COUNT; ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+        <td class="main"><b><?php echo HEADING_DOWNLOAD; ?></b></td>
       </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td>
+          <table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+
+<!-- list of products -->
 <?php
-    $row = 0;
     while ($downloads_values = tep_db_fetch_array($downloads_query)) {
+?>
+            <tr class="infoBoxContents">
+<!-- left box -->
+              <td width="30%" valign="top">
+                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+<?php
 // MySQL 3.22 does not have INTERVAL
     	list($dt_year, $dt_month, $dt_day) = explode('-', $downloads_values['date_purchased_day']);
     	$download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads_values['download_maxdays'], $dt_year);
   	  $download_expiry = date('Y-m-d H:i:s', $download_timestamp);
-  	  
-      if (($row % 2) == 0) {
-        echo '          <tr class="accountHistory-even">' . "\n";
-      } else {
-        echo '          <tr class="accountHistory-odd">' . "\n";
-      }
-      $row++;
+
 // The link will appear only if:
 // - Download remaining count is > 0, AND
 // - The file is present in the DOWNLOAD directory, AND EITHER
@@ -76,30 +72,47 @@
           (file_exists(DIR_FS_DOWNLOAD . $downloads_values['orders_products_filename'])) &&
           (($downloads_values['download_maxdays'] == 0) ||
            ($download_timestamp > time()))) {
-        echo '            <td class="smallText"><a href="' . tep_href_link(FILENAME_DOWNLOAD, 'order=' . $last_order . '&id=' . $downloads_values['orders_products_download_id']) . '">' . $downloads_values['products_name'] . '</a></td>' . "\n";
+        echo '            <td class="main"><a href="' . tep_href_link(FILENAME_DOWNLOAD, 'order=' . $last_order . '&id=' . $downloads_values['orders_products_download_id']) . '">' . $downloads_values['products_name'] . '</a></td>' . "\n";
       } else {
-        echo '            <td class="smallText">' . $downloads_values['products_name'] . '</td>' . "\n";
+        echo '            <td class="main">' . $downloads_values['products_name'] . '</td>' . "\n";
       }
-      echo '            <td align="center" class="smallText">' . tep_date_long($download_expiry) . '</td>' . "\n";
-      echo '            <td align="center" class="smallText">' . $downloads_values['download_count'] . '</td>' . "\n";
+?>
+                  </tr>
+                </table>
+              </td>
+<!-- right box -->
+              <td width="70%" valign="top">
+                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+<?php
+      echo '            <td class="main">' . TABLE_HEADING_DOWNLOAD_DATE . tep_date_long($download_expiry) . '</td>' . "\n";
+      echo '            <td class="main" align="right">' . $downloads_values['download_count'] . TABLE_HEADING_DOWNLOAD_COUNT . '</td>' . "\n";
       echo '          </tr>' . "\n";
     }
+?>
+                  </tr>
+                  <tr>
+                    <td class="main">
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
 
+<?php
     if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
 ?>
       <tr>
-        <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td class="smalltext" colspan="4"><p><?php printf(FOOTER_DOWNLOAD, '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . HEADER_TITLE_MY_ACCOUNT . '</a>'); ?></p></td>
       </tr>
 <?php
     }
-?>
-     </table>
-    </td>
-  </tr>
-<?php
   }
 ?>
 <!-- downloads_eof //-->
