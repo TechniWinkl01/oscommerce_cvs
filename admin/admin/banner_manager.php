@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.46 2002/01/05 12:19:48 hpdl Exp $
+  $Id: banner_manager.php,v 1.47 2002/01/09 09:14:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
         if ( ($HTTP_GET_VARS['flag'] == '0') || ($HTTP_GET_VARS['flag'] == '1') ) {
           tep_set_banner_status($HTTP_GET_VARS['id'], $HTTP_GET_VARS['flag']);
         }
-        tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER));
+        tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $HTTP_GET_VARS['id']));
         break;
       case 'insert':
       case 'update':
@@ -33,11 +33,17 @@
         $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
         $db_image_location = '';
 
-        $error = array();
-        if (empty($banners_title)) $error[] = array('text' => ERROR_BANNER_TITLE);
-        if (empty($banners_group)) $error[] = array('text' => ERROR_BANNER_GROUP);
+        $banner_error = false;
+        if (empty($banners_title)) {
+          $errorStack->add(ERROR_BANNER_TITLE, 'error');
+          $banner_error = true;
+        }
+        if (empty($banners_group)) {
+          $errorStack->add(ERROR_BANNER_GROUP, 'error');
+          $banner_error = true;
+        }
 
-        if (empty($error)) {
+        if (!$banner_error) {
           if (empty($html_text)) {
             if ($banners_image != 'none') {
               $image_location = DIR_FS_CATALOG_IMAGES . $banners_image_target . $banners_image_name;
@@ -87,7 +93,7 @@
             tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . tep_db_input($date_scheduled) . "' where banners_id = '" . $banners_id . "'");
           }
 
-          tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'bID=' . $banners_id));
+          tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners_id));
         } else {
           $HTTP_GET_VARS['action'] = 'new';
         }
@@ -107,7 +113,7 @@
         tep_db_query("delete from " . TABLE_BANNERS . " where banners_id = '" . tep_db_input($banners_id) . "'");
         tep_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . tep_db_input($banners_id) . "'");
 
-        tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID'))));
+        tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page']));
     }
   }
 ?>
@@ -125,6 +131,9 @@ function popupImageWindow(url) {
 </head>
 <body>
 <div id="spiffycalendar" class="text"></div>
+
+<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -139,15 +148,6 @@ function popupImageWindow(url) {
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-  if ($error) {
-?>
-      <tr>
-        <td><?php new errorBox($error); ?></td>
-      </tr>
-<?php
-  }
-?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -188,7 +188,7 @@ function popupImageWindow(url) {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('new_banner', FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'action=' . $form_action, 'post', 'enctype="multipart/form-data"'); if ($form_action == 'update') echo tep_draw_hidden_field('banners_id', $bID); ?>
+      <tr><?php echo tep_draw_form('new_banner', FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"'); if ($form_action == 'update') echo tep_draw_hidden_field('banners_id', $bID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_TITLE; ?></td>
@@ -329,53 +329,45 @@ function popupImageWindow(url) {
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td width="25%" valign="top">
 <?php
-    $info_box_contents = array();
-    if (is_object($bInfo)) $info_box_contents[] = array('text' => '<b>' . $bInfo->banners_title . '</b>');
-?>
-              <tr class="boxHeading">
-                <td><?php new infoBoxHeading($info_box_contents); ?></td>
-              </tr>
-              <tr class="boxHeading">
-                <td><?php echo tep_draw_separator(); ?></td>
-              </tr>
-<?php
+  $heading = array();
+  $contents = array();
   switch ($HTTP_GET_VARS['action']) {
     case 'delete':
-      $info_box_contents = array('form' => tep_draw_form('banners', FILENAME_BANNERS_MANAGER, 'bID=' . $bInfo->banners_id . '&action=deleteconfirm'));
-      $info_box_contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-      $info_box_contents[] = array('text' => '<br><b>' . $bInfo->banners_title . '</b>');
-      $info_box_contents[] = array('text' => '<br>' . tep_draw_checkbox_field('delete_image', 'on', true) . ' ' . TEXT_INFO_DELETE_IMAGE);
-      $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'bID=' . $HTTP_GET_VARS['bID']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $heading[] = array('text' => '<b>' . $bInfo->banners_title . '</b>');
+
+      $contents = array('form' => tep_draw_form('banners', FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id . '&action=deleteconfirm'));
+      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
+      $contents[] = array('text' => '<br><b>' . $bInfo->banners_title . '</b>');
+      $contents[] = array('text' => '<br>' . tep_draw_checkbox_field('delete_image', 'on', true) . ' ' . TEXT_INFO_DELETE_IMAGE);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $HTTP_GET_VARS['bID']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
-      $info_box_contents = array();
       if (is_object($bInfo)) {
-        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'action=new&bID=' . $bInfo->banners_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'action=delete&bID=' . $bInfo->banners_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-        $info_box_contents[] = array('text' => '<br>' . TEXT_BANNERS_DATE_ADDED . ' ' . tep_date_short($bInfo->date_added));
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_banner_graph_infoBox($bInfo->banners_id, '3'));
-        $info_box_contents[] = array('text' => tep_image(DIR_WS_IMAGES . 'graph_hbar_blue.gif', 'Blue', '5', '5') . ' ' . TEXT_BANNERS_BANNER_VIEWS . '<br>' . tep_image(DIR_WS_IMAGES . 'graph_hbar_red.gif', 'Red', '5', '5') . ' ' . TEXT_BANNERS_BANNER_CLICKS);
+        $heading[] = array('text' => '<b>' . $bInfo->banners_title . '</b>');
 
-        if ($bInfo->date_scheduled) $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_SCHEDULED_AT_DATE, tep_date_short($bInfo->date_scheduled)));
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id . '&action=new') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id . '&action=delete') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('text' => '<br>' . TEXT_BANNERS_DATE_ADDED . ' ' . tep_date_short($bInfo->date_added));
+        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_banner_graph_infoBox($bInfo->banners_id, '3'));
+        $contents[] = array('text' => tep_image(DIR_WS_IMAGES . 'graph_hbar_blue.gif', 'Blue', '5', '5') . ' ' . TEXT_BANNERS_BANNER_VIEWS . '<br>' . tep_image(DIR_WS_IMAGES . 'graph_hbar_red.gif', 'Red', '5', '5') . ' ' . TEXT_BANNERS_BANNER_CLICKS);
+
+        if ($bInfo->date_scheduled) $contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_SCHEDULED_AT_DATE, tep_date_short($bInfo->date_scheduled)));
 
         if ($bInfo->expires_date) {
-          $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_EXPIRES_AT_DATE, tep_date_short($bInfo->expires_date)));
+          $contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_EXPIRES_AT_DATE, tep_date_short($bInfo->expires_date)));
         } elseif ($bInfo->expires_impressions) {
-          $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS, $bInfo->expires_impressions));
+          $contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS, $bInfo->expires_impressions));
         }
 
-        if ($bInfo->date_status_change) $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_STATUS_CHANGE, tep_date_short($bInfo->date_status_change)));
+        if ($bInfo->date_status_change) $contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_STATUS_CHANGE, tep_date_short($bInfo->date_status_change)));
       }
   }
+
+  $box = new box;
+  echo $box->infoBox($heading, $contents);
 ?>
-              <tr>
-                <td class="box"><?php new infoBox($info_box_contents); ?></td>
-              </tr>
-              <tr>
-                <td class="box"><?php echo tep_draw_separator(); ?></td>
-              </tr>
-            </table></td>
+            </td>
           </tr>
         </table></td>
       </tr>
