@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.60 2001/07/31 17:54:45 dwatkins Exp $
+  $Id: german.php,v 1.61 2001/08/20 21:04:50 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -151,7 +151,7 @@ define('JS_EMAIL_ADDRESS', '* Die \'E-Mail Adresse\' muß mindestens aus ' . ENTR
 define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muß mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muß mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_CITY', '* Die \'Stadt\' muß mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_STATE', '* Das \'Bundesland\' muß mindestens aus ' . ENTRY_STATE_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
 define('JS_STATE_SELECT', '-- wählen sie oberhalb aus --');
 define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.');
 define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.');
