@@ -82,7 +82,7 @@
 
         if ($cc_val != '1') {
           $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');
-          $checkout_form_submit = tep_image_submit('button_back.gif', IMAGE_BACK) . '&nbsp;' . "\n";
+          $checkout_form_submit = tep_image_submit('button_back.gif', IMAGE_BUTTON_BACK) . '&nbsp;' . "\n";
         } else {
           $checkout_form_action = 'https://www.authorize.net/gateway/transact.dll';
         }
