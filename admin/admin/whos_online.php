@@ -90,6 +90,9 @@
               <tr>
                 <td colspan="7"><? echo tep_black_line(); ?></td>
               </tr>
+              <tr>
+                <td class="smallText" colspan="7">&nbsp;<? echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, tep_db_num_rows($whos_online_query)); ?></td>
+              </tr>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
