@@ -165,20 +165,24 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
             </td>
           </tr>
           <tr>
-            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_KEYWORDS; ?>&nbsp;</td>
+            <td align="left" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_KEYWORDS; ?>&nbsp;</td>
             <td align="left" colspan="3" class="fieldValue" nowrap><input type="text" name="keywords" size="40" <?if ($HTTP_GET_VARS['keywords']) echo 'value="' . htmlspecialchars(StripSlashes($HTTP_GET_VARS['keywords'])) . '"';?>>&nbsp;<?echo ENTRY_KEYWORDS_TEXT; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_DATE_ADDED_FROM; ?>&nbsp;</td>
-            <td align="left" width="10%" class="fieldValue" nowrap><input type="text" name="dfrom" value="<?if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;</td>
-            <td align="left" width="5%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</td>
-            <td align="left" width="65%" class="fieldValue" nowrap><input type="text" name="dto" value="<?if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT; ?></td>
+            <td align="left" class="fieldKey" nowrap>&nbsp;</td>
+            <td align="left" colspan="3" class="fieldValue" nowrap>&nbsp;(&nbsp;<input type="checkbox" name="search_in_description" value="1">&nbsp;<? echo TEXT_SEARCH_IN_DESCRIPTION; ?>&nbsp;)&nbsp;</td>
           </tr>
           <tr>
-            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_PRICE_FROM; ?>&nbsp;</td>
-            <td align="left" width="10%" class="fieldValue" nowrap><input type="text" name="pfrom" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</td>
-            <td align="left" width="5%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</td>
-            <td align="left" width="65%" class="fieldValue" nowrap><input type="text" name="pto" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</td>
+            <td align="left" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_DATE_ADDED_FROM; ?>&nbsp;</td>
+            <td align="left" class="fieldValue" nowrap><input type="text" name="dfrom" value="<?if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;</td>
+            <td align="left" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</td>
+            <td align="left" class="fieldValue" nowrap><input type="text" name="dto" value="<?if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT; ?></td>
+          </tr>
+          <tr>
+            <td align="left" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_PRICE_FROM; ?>&nbsp;</td>
+            <td align="left" class="fieldValue" nowrap><input type="text" name="pfrom" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</td>
+            <td align="left" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</td>
+            <td align="left" class="fieldValue" nowrap><input type="text" name="pto" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -218,8 +222,9 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
     }
   }
   else {
-    if (ADVANCED_SEARCH_DISPLAY_TIPS)
-      echo TEXT_ADVANCED_SEARCH_TIPS;
+    if (ADVANCED_SEARCH_DISPLAY_TIPS) {
+      new infoBox(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS)));
+    }
   }
 ?>
         </td>

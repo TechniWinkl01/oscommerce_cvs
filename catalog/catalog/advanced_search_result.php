@@ -203,7 +203,8 @@
             $where_str .= " " . $search_keywords[$i] . " ";
             break;
           default:
-            $where_str .= "(p.products_name like '%" . AddSlashes($search_keywords[$i]) . "%' or p.products_description like '%" . AddSlashes($search_keywords[$i]) . "%' or p.products_model like '%" . AddSlashes($search_keywords[$i]) . "%' or m.manufacturers_name like '%" . AddSlashes($search_keywords[$i]) . "%')";
+            $where_str .= "(p.products_name like '%" . AddSlashes($search_keywords[$i]) . "%' or p.products_model like '%" . AddSlashes($search_keywords[$i]) . "%' or m.manufacturers_name like '%" . AddSlashes($search_keywords[$i]) . "%')";
+            if ($HTTP_GET_VARS['search_in_description']) $where_str .= " or p.products_description like '%" . AddSlashes($search_keywords[$i]) . "%'";
             break;
         }
       }
