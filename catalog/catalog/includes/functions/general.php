@@ -133,12 +133,18 @@
             }
           }
         }
-
-        if ($width)
-          $image .= ' width="' . $width . '"';
-        if ($height)
-          $image .= ' height="' . $height . '"';
+      } else { // Neither specified
+        $size = @GetImageSize( (substr($src,0,1)=='/') ? DIR_IMAGES_PHYSICAL . $src : $src );
+        if ($size[0] != 0 && $size[1] != 0) { // Set to real values from image
+          $width = $size[0];
+          $height = $size[1];
+        }
       }
+
+      if ($width)
+        $image .= ' width="' . $width . '"';
+      if ($height)
+        $image .= ' height="' . $height . '"';
 
       if ($alt != '') {
         $image .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
