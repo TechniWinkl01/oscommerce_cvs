@@ -60,7 +60,7 @@
 
   $categories_string = '';
 
-  $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from categories c, categories_description cd where c.parent_id = '0' and c.categories_id = cd.categories_id and cd.language_id='" . $languages_id ."' order by sort_order, cd.categories_name");
+  $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '0' and c.categories_id = cd.categories_id and cd.language_id='" . $languages_id ."' order by sort_order, cd.categories_name");
   while ($categories = tep_db_fetch_array($categories_query))  {
     $foo[$categories['categories_id']] = array(
                                         'name' => $categories['categories_name'],
@@ -89,7 +89,7 @@
       $new_path .= $value;
       unset($prev_id);
       unset($first_id);
-      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from categories c, categories_description cd where c.parent_id = '" . $value . "' and c.categories_id = cd.categories_id and cd.language_id='" . $languages_id ."' order by sort_order, cd.categories_name");
+      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $value . "' and c.categories_id = cd.categories_id and cd.language_id='" . $languages_id ."' order by sort_order, cd.categories_name");
       $category_check = tep_db_num_rows($categories_query);
       while ($row = tep_db_fetch_array($categories_query)) {
         $foo[$row['categories_id']] = array(

@@ -1,8 +1,8 @@
 <?
   if ($HTTP_GET_VARS['products_id']) {
-    $random_product = tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from reviews r, reviews_extra re, products p, products_description pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
+    $random_product = tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
   } else {
-    $random_product = tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from reviews r, reviews_extra re, products p, products_description pd where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
+    $random_product = tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
   }
 
   if ($random_product) {

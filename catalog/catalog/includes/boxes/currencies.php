@@ -8,7 +8,7 @@
                               );
   new infoBoxHeading($info_box_contents);
 
-  $currencies_query = tep_db_query("select title, code from currencies order by title");
+  $currencies_query = tep_db_query("select title, code from " . TABLE_CURRENCIES . " order by title");
 
   $select_box = '<select name="currency" onChange="this.form.submit();">';
   while ($currencies = tep_db_fetch_array($currencies_query)) {
