@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.144 2003/06/29 22:50:51 hpdl Exp $
+  $Id: categories.php,v 1.145 2003/06/30 14:29:20 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -343,7 +343,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="100%" valign="top">
 <?php
   if ($action == 'new_product') {
     $parameters = array('products_name' => '',
@@ -451,6 +451,8 @@ function updateNet() {
   document.forms["new_product"].products_price.value = doRound(netValue, 4);
 }
 //--></script>
+    <?php echo tep_draw_form('new_product', FILENAME_CATEGORIES, 'cPath=' . $cPath . (isset($HTTP_GET_VARS['pID']) ? '&pID=' . $HTTP_GET_VARS['pID'] : '') . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"'); ?>
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -462,7 +464,7 @@ function updateNet() {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('new_product', FILENAME_CATEGORIES, 'cPath=' . $cPath . (isset($HTTP_GET_VARS['pID']) ? '&pID=' . $HTTP_GET_VARS['pID'] : '') . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"'); ?>
+      <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
@@ -579,7 +581,8 @@ updateGross();
       </tr>
       <tr>
         <td class="main" align="right"><?php echo tep_draw_hidden_field('products_date_added', (tep_not_null($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . tep_image_submit('button_preview.gif', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . (isset($HTTP_GET_VARS['pID']) ? '&pID=' . $HTTP_GET_VARS['pID'] : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
-      </form></tr>
+      </tr>
+    </table></form>
 <?php
   } elseif ($action == 'new_product_preview') {
     if (tep_not_null($HTTP_POST_VARS)) {
@@ -611,6 +614,7 @@ updateGross();
         $pInfo->products_url = tep_db_prepare_input($products_url[$languages[$i]['id']]);
       }
 ?>
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -709,23 +713,37 @@ updateGross();
       }
       echo '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . (isset($HTTP_GET_VARS['pID']) ? '&pID=' . $HTTP_GET_VARS['pID'] : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>';
 ?></td>
-      </form></tr>
+      </tr>
+    </table></form>
 <?php
     }
   } else {
 ?>
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr><?php echo tep_draw_form('search', FILENAME_CATEGORIES, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search'); ?></td>
-              </form></tr>
-              <tr><?php echo tep_draw_form('goto', FILENAME_CATEGORIES, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_GOTO . ' ' . tep_draw_pull_down_menu('cPath', tep_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?></td>
-              </form></tr>
+              <tr>
+                <td class="smallText" align="right">
+<?php
+    echo tep_draw_form('search', FILENAME_CATEGORIES, '', 'get');
+    echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search');
+    echo '</form>';
+?>
+                </td>
+              </tr>
+              <tr>
+                <td class="smallText" align="right">
+<?php
+    echo tep_draw_form('goto', FILENAME_CATEGORIES, '', 'get');
+    echo HEADING_TITLE_GOTO . ' ' . tep_draw_pull_down_menu('cPath', tep_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"');
+    echo '</form>';
+?>
+                </td>
+              </tr>
             </table></td>
           </tr>
         </table></td>
@@ -979,10 +997,11 @@ updateGross();
           </tr>
         </table></td>
       </tr>
+    </table>
 <?php
   }
 ?>
-    </table></td>
+    </td>
 <!-- body_text_eof //-->
   </tr>
 </table>
