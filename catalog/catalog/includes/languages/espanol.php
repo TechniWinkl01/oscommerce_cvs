@@ -180,6 +180,7 @@ define('ENTRY_NEWSLETTER', 'Boletín de noticias:');
 define('ENTRY_NEWSLETTER_TEXT', '');
 define('ENTRY_NEWSLETTER_YES', 'suscribirse');
 define('ENTRY_NEWSLETTER_NO', 'no suscribirse');
+define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Confirme Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
