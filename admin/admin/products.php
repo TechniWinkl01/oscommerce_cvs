@@ -16,7 +16,7 @@
       }
       tep_db_query("insert into products_to_subcategories values ('', '" . $products_id . "', '" . $HTTP_POST_VARS['subcategories_id'] . "')");
       tep_db_query("insert into products_to_manufacturers values ('', '" . $products_id . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
-      header('Location: ' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_PRODUCTS, 'order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
     } elseif (($HTTP_GET_VARS["action"] == "add_product") && ($HTTP_POST_VARS['update'] == '1')) {
       tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
 /* manufacturers */
@@ -71,7 +71,7 @@
           }
         }
       }
-      header('Location: ' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_PRODUCTS, 'order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_product') {
       $products = tep_db_query("select products_image from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
       $products_values = tep_db_fetch_array($products);
@@ -88,7 +88,7 @@
       if (file_exists(DIR_SERVER_ROOT . DIR_CATALOG . $products_image)) { // delete products image
         if (!@unlink(DIR_SERVER_ROOT . DIR_CATALOG . $products_image)) echo 'Can\'t delete this file:<br><br>' . DIR_SERVER_ROOT . DIR_CATALOG . $products_image . '<br><br>';
       }
-      header('Location: ' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_PRODUCTS, 'order_by=' . $order_by . '&page=' . $page, 'NONSSL')); tep_exit();
     }
   }
 ?>
@@ -281,7 +281,7 @@ function go() {
         <td width="100%"><br><?=tep_black_line();?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, 'action=delete_product&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, 'action=delete_product&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL') . 'order_by=' . $order_by . '&page=' . $page . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;</font></td>
       </tr>
 <?
   }  elseif ((($HTTP_GET_VARS['action'] == 'add_product') && (!$HTTP_POST_VARS['insert'])) || ($HTTP_GET_VARS['action'] == 'update')) {
@@ -313,7 +313,7 @@ function go() {
 ?>
         </table></td>
       </tr>
-      <tr><form name="products" <?='action="' . tep_href_link(FILENAME_PRODUCTS, 'action=add_product', 'NONSSL') . '"';?> enctype="multipart/form-data" method="post" onSubmit="return checkForm('2');">
+      <tr><form name="products" <?='action="' . tep_href_link(FILENAME_PRODUCTS, 'action=add_product&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '"';?> enctype="multipart/form-data" method="post" onSubmit="return checkForm('2');">
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="2"><?=tep_black_line();?></td>
@@ -487,14 +487,14 @@ function go() {
 ?>
           <tr>
             <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_MODEL;?>&nbsp;</b></font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_model" value="" size="10">&nbsp;</font></td>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_model" value="" size="20">&nbsp;</font></td>
           </tr>
 <?
     } else {
 ?>
           <tr>
             <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_MODEL;?>&nbsp;</b></font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_model" value="<?=$products_values['products_model'];?>" size="10">&nbsp;</font></td>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_model" value="<?=$products_values['products_model'];?>" size="20">&nbsp;</font></td>
           </tr>
 <?
     }
@@ -536,13 +536,13 @@ function go() {
     if ($update == 0) {
 ?>
           <tr>
-            <td align="right" colspan="5" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><input type="hidden" name="products_name" value="<?=$HTTP_POST_VARS['products_name'];?>"><input type="hidden" name="insert" value="1"><?=tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT);?>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="5" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><input type="hidden" name="products_name" value="<?=$HTTP_POST_VARS['products_name'];?>"><input type="hidden" name="insert" value="1"><?=tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT);?>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL') . 'order_by=' . $order_by . '&page=' . $page . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;&nbsp;</font></td>
           </tr>
 <?
     } else {
 ?>
           <tr>
-            <td align="right" colspan="5" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><input type="hidden" name="products_id" value="<?=$HTTP_GET_VARS['products_id'];?>"><input type="hidden" name="update" value="1"><?=tep_image_submit(DIR_IMAGES . 'button_update.gif', '50', '14', '0', IMAGE_UPDATE);?>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="5" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><input type="hidden" name="products_id" value="<?=$HTTP_GET_VARS['products_id'];?>"><input type="hidden" name="update" value="1"><?=tep_image_submit(DIR_IMAGES . 'button_update.gif', '50', '14', '0', IMAGE_UPDATE);?>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL') . 'order_by=' . $order_by . '&page=' . $page . '">';?><?=tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL);?></a>&nbsp;&nbsp;</font></td>
           </tr>
 <?
     }
@@ -685,7 +685,7 @@ $per_page = MAX_ROW_LISTS;
     } else {
       echo '          <tr bgcolor="#ffffff">' . "\n";
     }
-    echo '<form name="products" action="' . tep_href_link(FILENAME_PRODUCTS, 'action=add_product', 'NONSSL') . '" method="post" onSubmit="return checkForm(\'1\');">' . "\n";
+    echo '<form name="products" action="' . tep_href_link(FILENAME_PRODUCTS, 'action=add_product&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '" method="post" onSubmit="return checkForm(\'1\');">' . "\n";
 ?>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<select name="subcategories_id"><?
     $subcategories = tep_db_query("select subcategories.subcategories_id, subcategories.subcategories_name, category_top.category_top_name from subcategories, subcategories_to_category, category_top where subcategories.subcategories_id = subcategories_to_category.subcategories_id and subcategories_to_category.category_top_id = category_top.category_top_id order by subcategories_name");
