@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cache.php,v 1.4 2001/12/24 01:59:45 hpdl Exp $
+  $Id: cache.php,v 1.5 2001/12/27 16:48:18 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,6 +20,7 @@ define('TEXT_CACHE_CATEGORIES', 'Categories Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Manufacturers Box');
 define('TEXT_CACHE_ALSO_PURCHASED', 'Also Purchased Module');
 define('TEXT_FILE_DOES_NOT_EXIST', 'File does not exist');
+define('TEXT_CACHE_DIRECTORY', 'Cache Directory:');
 
 define('ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST', 'Error: Cache directory does not exist.');
 define('ERROR_CACHE_DIRECTORY_NOT_WRITEABLE', 'Error: Cache directory is not writeable.');

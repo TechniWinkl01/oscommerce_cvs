@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.10 2001/12/24 01:59:44 hpdl Exp $
+  $Id: cache.php,v 1.11 2001/12/27 16:48:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,9 +49,7 @@
 // check if the cache directory exists
   $error = array();
   if (is_dir(DIR_FS_CACHE)) {
-    if (!is_writeable(DIR_FS_CACHE)) {
-      $error[] = array('text' => ERROR_CACHE_DIRECTORY_NOT_WRITEABLE);
-    }
+    if (!is_writeable(DIR_FS_CACHE)) $error[] = array('text' => ERROR_CACHE_DIRECTORY_NOT_WRITEABLE);
   } else {
     $error[] = array('text' => ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST);
   }
@@ -149,7 +147,7 @@
                 <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
-                <td class="smallText" colspan="3">Cache Directory: <?php echo DIR_FS_CACHE; ?></td>
+                <td class="smallText" colspan="3"><?php echo TEXT_CACHE_DIRECTORY . ' ' . DIR_FS_CACHE; ?></td>
               </tr>
             </table></td>
           </tr>
