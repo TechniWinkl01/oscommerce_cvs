@@ -396,18 +396,23 @@
 // restore cart contents
     $cart->restore_contents();
 
+    // build the message content
+    $firstname = $HTTP_POST_VARS['firstname'];
+    $lastname = $HTTP_POST_VARS['lastname'];
+    $email_address = $HTTP_POST_VARS['email_address'];
+
     if (ACCOUNT_GENDER) {
        if ($HTTP_POST_VARS['gender'] == 'm') {
-         $gender = MALE_ADDRESS;
+         $email_text = EMAIL_GREET_MR;
        } else {
-         $gender = FEMALE_ADDRESS;
+         $email_text = EMAIL_GREET_MS;
        }
     } else {
-      $gender = $firstname;
+      $email_text = EMAIL_GREET_NONE;
     }
 
-    $message = sprintf(EMAIL_WELCOME, $gender, $HTTP_POST_VARS['lastname']);
-    tep_mail($HTTP_POST_VARS['email_address'], EMAIL_WELCOME_SUBJECT, $message, "From: " . EMAIL_FROM);
+    $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
+    include(DIR_WS_INCLUDES . 'mail/default.php');
     
     if ($HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['connection'] == 'SSL') {
