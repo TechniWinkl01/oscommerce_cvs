@@ -1,6 +1,6 @@
 <?php
 /*
-  $id: $
+  $Id: ccval.php,v 1.3 2002/01/17 21:16:54 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
