@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.1 2001/08/09 18:06:15 hpdl Exp $
+  $Id: cache.php,v 1.2 2001/08/09 19:59:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -83,12 +83,12 @@
   function tep_cache_categories_box($refresh = false) {
     global $HTTP_GET_VARS, $foo, $languages_id, $id, $categories_string;
 
-    if ($refresh || !read_cache($cache_output, 'categories_box_output-' . $HTTP_GET_VARS['cPath'] . '.cache')) {
+    if ($refresh || !read_cache($cache_output, 'categories_box.cache' . $HTTP_GET_VARS['cPath'])) {
       ob_start();
       include(DIR_WS_BOXES . 'categories.php');
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'categories_box_output-' . $HTTP_GET_VARS['cPath'] . '.cache');
+      write_cache($cache_output, 'categories_box.cache' . $HTTP_GET_VARS['cPath']);
     }
 
     return $cache_output;
@@ -100,12 +100,12 @@
   function tep_cache_manufacturers_box($refresh = false) {
     global $HTTP_GET_VARS;
 
-    if ($refresh || !read_cache($cache_output, 'manufacturers_box_output-' . $HTTP_GET_VARS['manufacturers_id'] . '.cache')) {
+    if ($refresh || !read_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id'])) {
       ob_start();
       include(DIR_WS_BOXES . 'manufacturers.php');
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'manufacturers_box_output-' . $HTTP_GET_VARS['manufacturers_id'] . '.cache');
+      write_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id']);
     }
 
     return $cache_output;
