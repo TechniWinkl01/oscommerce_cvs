@@ -7,8 +7,6 @@
   }
 
   function tep_random_select($db_query) {
-    global $select_products, $random_row, $random_product;
-
     $random_product = '';
     $select_products = tep_db_query($db_query);
     srand((double)microtime()*1000000); // seed the random number generator
