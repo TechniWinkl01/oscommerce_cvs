@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.56 2001/06/15 23:49:00 hpdl Exp $
+  $Id: german.php,v 1.57 2001/07/11 13:16:29 mkowalkowski Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -133,8 +133,8 @@ define('CHECKOUT_BAR_CONFIRMATION', 'Best&auml;tigung');
 define('CHECKOUT_BAR_FINISHED', 'fertig');
 
 // pull down default text
-define('PULL_DOWN_DEFAULT', 'Bitte w&auml;hlen');
-define('PLEASE_SELECT', 'Bitte w&auml;hlen');
+define('PULL_DOWN_DEFAULT', 'Bitte wählen');
+define('PLEASE_SELECT', 'Bitte wählen');
 define('TYPE_BELOW', 'bitte unten eingeben');
 
 // javascript messages
