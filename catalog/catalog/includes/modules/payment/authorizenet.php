@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.27 2001/12/18 11:58:52 dgw_ Exp $
+  $Id: authorizenet.php,v 1.28 2001/12/28 15:01:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -67,7 +67,7 @@
       if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
+        $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
@@ -105,12 +105,12 @@
                                tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
                                tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
                                tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
-                               tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
+                               tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
                                tep_draw_hidden_field('x_Method', MODULE_PAYMENT_AUTHORIZENET_METHOD) .
                                tep_draw_hidden_field('x_Version', '3.0') .
                                tep_draw_hidden_field('x_Cust_ID', $customer_id) .
-                               tep_draw_hidden_field('x_Email_Customer', ($email_customers=='1'? 'TRUE': 'FALSE')) .
-                               tep_draw_hidden_field('x_Email_Merchant', ($email_customers=='1'? 'TRUE': 'FALSE')) .
+                               tep_draw_hidden_field('x_Email_Customer', (MODULE_PAYMENT_AUTHORIZENET_EMAIL == '1'? 'TRUE': 'FALSE')) .
+                               tep_draw_hidden_field('x_Email_Merchant', (MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT == '1'? 'TRUE': 'FALSE')) .
                                tep_draw_hidden_field('x_first_name', $customer_values['customers_firstname']) .
                                tep_draw_hidden_field('x_last_name', $customer_values['customers_lastname']) .
                                tep_draw_hidden_field('x_address', $customer_values['entry_street_address']) .
@@ -130,7 +130,7 @@
                                tep_draw_hidden_field('x_Customer_IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
       if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == '1') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
 
-      if (!SID) $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
+      $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
       return $process_button_string;
     }
