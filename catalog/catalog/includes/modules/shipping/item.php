@@ -17,6 +17,7 @@
 <?
   } elseif ($action == 'quote') {
     if ($shipping_quote_item == "1") {
+      $shipping_quoted = 'item';
       $shipping_item_cost = SHIPPING_HANDLING + (SHIPPING_ITEM_COST * $total_count);
       $shipping_item_method = SHIPPING_ITEM_WAY;
     }

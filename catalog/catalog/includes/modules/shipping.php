@@ -30,6 +30,7 @@
 
   $shipping_count = 0;
   if ($action == 'quote') {
+    $shipping_quoted = '';
     if ($total_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) $total_weight = $total_weight+SHIPPING_BOX_PADDING;
     else $total_weight = $total_weight + ($total_weight*100/SHIPPING_BOX_PADDING);
   }

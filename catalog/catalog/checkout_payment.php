@@ -1,4 +1,31 @@
 <? include('includes/application_top.php'); ?>
+<?
+  if (!tep_session_is_registered('customer_id')) {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT, 'NONSSL'));
+    tep_exit();
+  }
+?>
+<?
+  if ($HTTP_POST_VARS['sendto'] == '0') {
+    $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
+  } else {
+    $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+  }
+  $address_values = tep_db_fetch_array($address);
+  $total_weight = $cart->show_weight();
+  $total_count = $cart->count_contents();
+  $action = 'quote'; 
+  include(DIR_MODULES . 'shipping.php');
+  if ($shipping_quoted == '' && SHIPPING_MODULES != '') { // Null if no quotes selected
+    if (getenv(HTTPS)) {
+      $connection = 'SSL';
+    } else {
+      $connection = 'NONSSL';
+    } 
+    header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection));
+    tep_exit();
+  }
+?> 
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
@@ -139,16 +166,6 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
-      if ($HTTP_POST_VARS['sendto'] == '0') {
-        $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
-      } else {
-        $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
-      }
-      $address_values = tep_db_fetch_array($address);
-      $total_weight = $cart->show_weight();
-      $total_count = $cart->count_contents();
-      $action = 'quote'; 
-      include(DIR_MODULES . 'shipping.php');
       $action = 'cheapest'; 
       include(DIR_MODULES . 'shipping.php');
       $action = 'display'; 

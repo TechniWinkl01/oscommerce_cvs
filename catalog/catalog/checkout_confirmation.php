@@ -1,12 +1,7 @@
 <? include('includes/application_top.php')?>
 <?
   if (!tep_session_is_registered('customer_id')) {
-    if (getenv(HTTPS)) {
-      $connection = 'secure';
-    } else {
-      $connection = 'normal';
-    }
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_CONFIRMATION . '&connection=' . $connection, 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT, 'NONSSL'));
     tep_exit();
   }
 ?>

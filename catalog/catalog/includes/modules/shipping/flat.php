@@ -17,6 +17,7 @@
 <?
   } elseif ($action == 'quote') {
     if ($shipping_quote_flat == "1") {
+      $shipping_quoted = 'flat';
       $shipping_flat_cost = SHIPPING_HANDLING + SHIPPING_FLAT_COST;
       $shipping_flat_method = SHIPPING_FLAT_WAY;
     }

@@ -27,6 +27,7 @@
 <?
   } elseif ($action == 'quote') {
       if ($shipping_quote_ups == "1") {
+      $shipping_quoted = 'ups';
         include('includes/ups.php');
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
