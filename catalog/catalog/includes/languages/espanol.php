@@ -1,7 +1,7 @@
 <?
 /*
 Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 11/10/2000
+Last Update: 01/12/2000
 Author(s): David Garcia Watkins (dgw@q-logic.org)
 */
 
@@ -147,7 +147,7 @@ define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">obligator
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
 define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' letras</font></small>');
 define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
-define('ENTRY_SUBURB', '');
+define('ENTRY_SUBURB', 'Suburbio');
 define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Codigo Postal:');
@@ -178,6 +178,7 @@ define('PASSWORD_HIDDEN', '--OCULTO--');
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Paginas de Resultados:'); 
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)'); 
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');

@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2
-Last Update: 13/05/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+German Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -13,11 +13,18 @@ setlocale('LC_TIME', 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-define('CURRENCY_BEFORE', '');
-define('CURRENCY_AFTER', 'DM');
-define('CURRENCY_DECIMAL', ',');
-define('CURRENCY_THOUSANDS', '.');
-define('CURRENCY_VALUE', 1);
+
+// the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
+// tep_currency_format() function.. although the function is here, it is not in use yet..
+define('CURRENCY_BEFORE', ''); // currency character(s) before value
+define('CURRENCY_AFTER', 'DM'); // currency character(s) after value
+define('CURRENCY_DECIMAL', ','); // currency decimal point character
+define('CURRENCY_THOUSANDS', '.'); // currency thousands separator character
+define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
+// for example:
+// products_price = 30.00 (in Euro)
+// currency_value = 0.9551 (US to Euro)
+// products price with locale currency = currency_value * products_price
 
 // page title
 define('TITLE', 'The Exchange Project');
@@ -171,6 +178,7 @@ define('PASSWORD_HIDDEN', '--VERSTECKT--');
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Ergebniss Seiten:');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Ergebnisse <b>%d</b> bis <b>%d</b> (von <b>%d</b> Produkte)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Ergebnisse <b>%d</b> bis <b>%d</b> (von <b>%d</b> Bestellungen)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Vorherige Seite');
@@ -183,5 +191,4 @@ define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ZUERST');
 define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; Vorhergehend]');
 define('PREVNEXT_BUTTON_NEXT', '[Zun&auml;chst &gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTES&gt;&gt;');
-
 ?>
