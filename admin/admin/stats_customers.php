@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.23 2002/01/23 23:12:35 harley_vb Exp $
+  $Id: stats_customers.php,v 1.24 2002/01/28 03:52:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,7 +37,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?>&nbsp;<?php if (TAX_INCLUDE == 'true') { echo TEXT_INCL_TAX; } else { echo TEXT_EXCL_TAX; } ?></td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
