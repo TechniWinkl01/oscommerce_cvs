@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.151 2001/11/20 20:56:02 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.152 2001/11/24 15:42:13 dgw_ Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -14,6 +14,8 @@
 #       * To see the 'diff'erence between MySQL databases, use
 #         the mysqldiff perl script located in the extras
 #         directory of the 'catalog' module.
+#       * Comments should be made by starting the line with
+#         a '#' symbol. (don't use inline comments)
 
 DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
@@ -1205,9 +1207,10 @@ INSERT INTO specials VALUES (4,16, 29.99, now(), '', '', '', '1');
 
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
 
+# USA/Florida
 INSERT INTO tax_rates VALUES (1, 1, 1, 1, 7.0, 'FL TAX 7.0%', now(), now());
 INSERT INTO geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,date_added) VALUES (1,"Florida","Florida local sales tax zone",now());
-INSERT INTO zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now()); # USA/Florida
+INSERT INTO zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now());
 
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
 INSERT INTO zones VALUES (2,223,'AK','Alaska');
