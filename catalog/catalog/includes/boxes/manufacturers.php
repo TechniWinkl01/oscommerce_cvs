@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.13 2002/01/03 00:19:55 dgw_ Exp $
+  $Id: manufacturers.php,v 1.14 2002/02/01 01:00:39 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
 // Display a drop-down
     $select_box = '<select name="manufacturers_id" onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '">';
     if (MAX_MANUFACTURERS_LIST < 2) {
-      $select_box .= '<option value="">' . PULL_DOWN_DEFAULT . '</option>';
+      $select_box .= '<option value="">' . BOX_MANUFACTURERS_SELECT_ONE . '</option>';
     }
     while ($manufacturers_values = tep_db_fetch_array($manufacturers_query)) {
       $select_box .= '<option value="' . $manufacturers_values['manufacturers_id'] . '"';
