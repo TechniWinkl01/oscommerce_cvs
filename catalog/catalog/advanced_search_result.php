@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.69 2003/06/05 23:25:46 hpdl Exp $
+  $Id: advanced_search_result.php,v 1.70 2003/06/12 12:28:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -112,6 +112,12 @@
         $messageStack->add_session('search', ERROR_INVALID_KEYWORDS);
       }
     }
+  }
+
+  if (empty($dfrom) && empty($dto) && empty($pfrom) && empty($pto) && empty($keywords)) {
+    $error = true;
+
+    $messageStack->add_session('search', ERROR_AT_LEAST_ONE_INPUT);
   }
 
   if ($error == true) {
