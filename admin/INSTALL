@@ -17,7 +17,7 @@ is located
     cp -R admin /usr/local/apache/htdocs/
 
 For this example, '/usr/local/apache/htdocs/' is used as the WWW root
-directory of Apache
+directory of Apache.
  
 View the files admin/includes/application_*.php and make necessary changes.
 Changes will also need to be made to admin/includes/functions/database.php for
