@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.19 2002/04/04 20:27:10 dgw_ Exp $
+  $Id: categories.php,v 1.20 2002/06/05 19:18:22 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,8 +93,8 @@
   }
 
   //------------------------
-  if ($HTTP_GET_VARS['cPath']) {
-    $id = split('_', $HTTP_GET_VARS['cPath']);
+  if ($cPath) {
+    $id = split('_', $cPath);
     reset($id);
     while (list($key, $value) = each($id)) {
       $new_path .= $value;
