@@ -12,7 +12,7 @@
 // class constructor
     function tableBox($contents) {
       echo '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-      if ($table_parameters != '') echo ' ' . $this->table_parameters;
+      if ($this->table_parameters != '') echo ' ' . $this->table_parameters;
       echo '>' . "\n";
 
       for ($i=0; $i<sizeof($contents); $i++) {
