@@ -47,7 +47,7 @@
   if (ACCOUNT_STATE) {
     $account_query = $account_query . 'customers_zone_id, customers_state, ';
   }
-  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $customer_id . "'";
+  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from customers where customers_id = '" . $customer_id . "'";
   $account = tep_db_query($account_query);
   $account_values = tep_db_fetch_array($account);
 
@@ -141,6 +141,16 @@
           <tr>
             <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</font></td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $account_values['customers_fax']; ?>&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="2" nowrap><?php echo FONT_STYLE_ACCOUNT_CATEGORY; ?><? echo CATEGORY_OPTIONS; ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? if ($account_values['customers_newsletter'] == "1") { echo ENTRY_NEWSLETTER_YES; } else { echo ENTRY_NEWSLETTER_NO; } ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>

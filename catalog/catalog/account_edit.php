@@ -193,7 +193,7 @@ function check_form() {
   if (ACCOUNT_STATE) {
     $account_query = $account_query . 'customers_state, customers_zone_id, ';
   }
-  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $customer_id . "'";
+  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from customers where customers_id = '" . $customer_id . "'";
   $account = tep_db_query($account_query);
   $account_values = tep_db_fetch_array($account);
   $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;
@@ -324,6 +324,16 @@ function check_form() {
           <tr>
             <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</font></td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="fax" maxlength="32" value="<? echo $account_values['customers_fax']; ?>">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="2" nowrap><?php echo FONT_STYLE_ACCOUNT_CATEGORY; ?><? echo CATEGORY_OPTIONS; ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<select name="newsletter"><?php if ($account_values['customers_newsletter']=="1") { echo '<option selected value="1">'; } else { echo '<option value="1">'; } ?><?php echo ENTRY_NEWSLETTER_YES; ?></option><?php if ($account_values['customers_newsletter']=="0") { echo '<option selected value="0">'; } else { echo '<option value="0">'; } ?><? echo ENTRY_NEWSLETTER_NO; ?></option>&nbsp;<? echo ENTRY_NEWSLETTER_TEXT; ?></font></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>

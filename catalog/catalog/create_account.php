@@ -310,6 +310,16 @@ function check_form() {
             <td colspan="2" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
           </tr>
           <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="2" nowrap><?php echo FONT_STYLE_ACCOUNT_CATEGORY; ?><? echo CATEGORY_OPTIONS; ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<select name="newsletter"><option value="1"><?php echo ENTRY_NEWSLETTER_YES; ?></option><option selected value="0"><? echo ENTRY_NEWSLETTER_NO; ?></option></font></td>
+          </tr>
+          <tr>
+            <td colspan="2" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+          </tr>
+          <tr>
             <td align="right" valign="middle" colspan="2" rowspan="3" nowrap><?php echo FONT_STYLE_ACCOUNT_CATEGORY; ?><? echo CATEGORY_PASSWORD; ?></font></td>
           </tr>
           <tr>

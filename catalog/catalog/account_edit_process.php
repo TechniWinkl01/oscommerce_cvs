@@ -316,6 +316,16 @@
             <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
           </tr>
           <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="2" nowrap><?php echo FONT_STYLE_ACCOUNT_CATEGORY; ?><? echo CATEGORY_OPTIONS; ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $HTTP_POST_VARS['newsletter'] . '<input type="hidden" name="newsletter" value="' . $HTTP_POST_VARS['newsletter'] . '">&nbsp;' . ENTRY_NEWSLETTER_ERROR; ?></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+          </tr>
+          <tr>
             <td align="right" valign="middle" colspan="2" rowspan="3" nowrap><?php echo FONT_STYLE_ACCOUNT_CATEGORY; ?><? echo CATEGORY_PASSWORD; ?></font></td>
           </tr>
           <tr>
@@ -389,7 +399,7 @@
        $cryptpass = crypt_password($HTTP_POST_VARS['password']);
        $update_query = $update_query . "customers_password = '" . $cryptpass . "', ";
     }
-    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "' where customers_id = '" . $customer_id . "'";
+    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
 
     tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");

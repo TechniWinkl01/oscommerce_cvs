@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.76 2001/04/17 21:25:53 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.77 2001/04/18 11:53:32 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -120,6 +120,7 @@ CREATE TABLE customers (
   customers_password varchar(40) NOT NULL,
   customers_country_id int(5) NOT NULL,
   customers_zone_id int(5) NOT NULL,
+  customers_newsletter char(1),
   PRIMARY KEY (customers_id)
 );
 

@@ -175,6 +175,9 @@ define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#AABBDD">obliga
 define('ENTRY_FAX_NUMBER', 'Fax:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
+define('ENTRY_NEWSLETTER', 'Newsletter:');
+define('ENTRY_NEWSLETTER_YES', 'subscribes');
+define('ENTRY_NEWSLETTER_NO', 'unsubscribes');
 define('ENTRY_PASSWORD', 'Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Confirme Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');

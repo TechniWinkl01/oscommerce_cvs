@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Preview Release 2.2
+Last Update: 04/18/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -175,6 +175,9 @@ define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#AABBDD">notwen
 define('ENTRY_FAX_NUMBER', 'Faxnummer:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
+define('ENTRY_NEWSLETTER', 'Newsletter:');
+define('ENTRY_NEWSLETTER_YES', 'abonniert');
+define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
 define('ENTRY_PASSWORD', 'Passwort:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Best&auml;tigung:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
