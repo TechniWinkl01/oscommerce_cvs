@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.49 2001/12/20 14:36:46 dgw_ Exp $
+  $Id: account.php,v 1.50 2002/01/11 22:23:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -36,30 +36,26 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><br>
+        <td>
 <?php
   $is_read_only = true;
 
@@ -73,21 +69,18 @@
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '">' . tep_image_button('button_address_book.gif', IMAGE_BUTTON_ADDRESS_BOOK) . '</a>'; ?>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">' . tep_image_button('button_history.gif', IMAGE_BUTTON_HISTORY) . '</a>'; ?></td>
-            <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL') . '">' . tep_image_button('button_edit_account.gif', IMAGE_BUTTON_EDIT_ACCOUNT) . '</a>'; ?>&nbsp;&nbsp;</td>
+            <td class="main"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_address_book.gif', IMAGE_BUTTON_ADDRESS_BOOK); ?></a></td>
+            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'); ?>"><?php echo tep_image_button('button_history.gif', IMAGE_BUTTON_HISTORY); ?></a></td>
+            <td align="right" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'); ?>"><?php echo tep_image_button('button_edit_account.gif', IMAGE_BUTTON_EDIT_ACCOUNT); ?></a></td>
           </tr>
         </table></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>
