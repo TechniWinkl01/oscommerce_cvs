@@ -53,6 +53,18 @@ xx/02/2001 The Exchange Project Preview Release 2.1
 
  * tep_image now optionally calculates image size if omitted
 
+ * products_to_manufacturers table removed. Manufacturers are now
+   directly link to products, via manufacturers_id record in the
+   products table
+
+ * tep_href_link now removes extra & and ? characters in the URL
+
+ * Products with no manufacturers are now listed in the catalog module
+
+ * New DIR_* definitions for easier understanding ->
+   FS = Filesystem (physical)
+   WS = Webserver (virtual)
+
 
 13/12/2000 The Exchange Project Preview Release 2.0a
 ----------------------------------------------------
