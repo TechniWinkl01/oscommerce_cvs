@@ -6,23 +6,51 @@
       $this->reset();
     }
 
+    function restore_contents() {
+      global $customer_id;
+
+      if (!$customer_id) return 0;
+
+      $products_query = tep_db_query("select products_id, customers_basket_quantity from customers_basket where customers_id = '" . $customer_id . "'");
+      while ($products = tep_db_fetch_array($products_query)) {
+        $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity']);
+// attributes
+        $attributes_query = tep_db_query("select products_options_id, products_options_value_id from customers_basket_attributes where customers_id = '" . $customer_id . "' and products_id = '" . $products['products_id'] . "'");
+        while ($attributes = tep_db_fetch_array($attributes_query)) {
+          $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+        }
+      }
+    }
+
     function reset() {
+      global $customer_id;
+
       $this->contents = array();
       $this->total = 0;
+
+      if ($customer_id) {
+        tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "'");
+        tep_db_query("delete from customers_basket_attributes where customers_id = '" . $customer_id . "'");
+      }
     }
 
     function add_cart($products_id, $qty, $attributes = '') {
-      global $new_products_id_in_cart;
+      global $new_products_id_in_cart, $customer_id;
 
       if ($this->in_cart($products_id)) {
         $this->update_quantity($products_id, $qty, $attributes);
       } else {
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
+// insert into database
+        if ($customer_id) tep_db_query("insert into customers_basket (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
+
         if ($attributes != '') {
           reset($attributes);
           while (list($option, $value) = each($attributes)) {
             $this->contents[$products_id]['attributes'][$option] = $value;
+// insert into database
+            if ($customer_id) tep_db_query("insert into customers_basket_attributes (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
           }
         }
       }
@@ -32,20 +60,34 @@
     }
 
     function update_quantity($products_id, $quantity, $attributes = '') {
+      global $customer_id;
+
       $this->contents[$products_id] = array('qty' => $quantity);
+// update database
+      if ($customer_id) tep_db_query("update customers_basket set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+
       if ($attributes != '') {
         reset($attributes);
         while (list($option, $value) = each($attributes)) {
           $this->contents[$products_id]['attributes'][$option] = $value;
+// update database
+          if ($customer_id) tep_db_query("update customers_basket_attributes set products_options_id = '" . $option . "' and products_options_value_id = '" . $value . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
         }
       }
     }
 
 	function cleanup() {
+      global $customer_id;
+
       reset($this->contents);
       while (list($key,) = each($this->contents)) {
         if ($this->contents[$key]['qty'] < 1) {
           unset($this->contents[$key]);
+// remove from database
+          if ($customer_id) {
+            tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $key . "'");
+            tep_db_query("delete from customers_basket_attributes where customers_id = '" . $customer_id . "' and products_id = '" . $key . "'");
+          }
         }
       }
     }
@@ -75,7 +117,14 @@
     }
 
     function remove($products_id) {
+      global $customer_id;
+
       unset($this->contents[$products_id]);
+// remove from database
+      if ($customer_id) {
+        tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+        tep_db_query("delete from customers_basket_attributes where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
+      }
     }
 
     function remove_all() {
