@@ -224,7 +224,7 @@ function check_form() {
     $gender = $customers['customers_gender'];
     $firstname = $customers['customers_firstname'];
     $lastname = $customers['customers_lastname'];
-    $dob = substr($customers['customers_dob'], -2) . '/' . substr($customers['customers_dob'], 4, 2) . '/' . substr($customers['customers_dob'], 0, 4);
+    $dob = substr($customers['customers_dob'], 8, 2) . '/' . substr($customers['customers_dob'], 5, 2) . '/' . substr($customers['customers_dob'], 0, 4);
     $email_address = $customers['customers_email_address'];
     $street_address = $customers['customers_street_address'];
     $suburb = $customers['customers_suburb'];
