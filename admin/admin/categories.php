@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.123 2002/02/08 17:46:20 hpdl Exp $
+  $Id: categories.php,v 1.124 2002/03/09 17:14:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -314,7 +314,7 @@
                                      'text' => $manufacturers['manufacturers_name']);
     }
 
-    $tax_class_array = array(array('id' => '0', 'text' => '--none--'));
+    $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
     $tax_class_query = tep_db_query("select tax_class_id, tax_class_title from " . TABLE_TAX_CLASS . " order by tax_class_title");
     while ($tax_class = tep_db_fetch_array($tax_class_query)) {
       $tax_class_array[] = array('id' => $tax_class['tax_class_id'],

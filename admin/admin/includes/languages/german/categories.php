@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.17 2002/01/17 11:41:26 jan0815 Exp $
+  $Id: categories.php,v 1.18 2002/03/09 17:14:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,6 +82,7 @@ define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne f&uuml;hrendes http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Artikelpreis:');
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
+define('TEXT_NONE', '--none--');
 
 define('EMPTY_CATEGORY', 'Leere Kategorie');
 
