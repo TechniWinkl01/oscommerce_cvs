@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shipping.php,v 1.11 2002/04/03 22:14:58 hpdl Exp $
+  $Id: shipping.php,v 1.12 2002/04/20 17:02:13 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -61,7 +61,7 @@
           $shipping_weight = $total_weight/$shipping_num_boxes;
         }
 
-        if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) {
+        if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING/100) {
           $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
         } else {
           $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
