@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.56 2001/12/17 23:10:05 dgw_ Exp $
+  $Id: address_book_process.php,v 1.57 2001/12/20 14:36:49 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -336,7 +336,7 @@ function check_form() {
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
@@ -349,19 +349,6 @@ function check_form() {
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="add_entry" method="post" action="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-<?php
-  if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
-    echo '            <td width="100%" class="topBarTitle">&nbsp;' . TOP_BAR_TITLE_MODIFY_ENTRY . '&nbsp;</td>' . "\n";
-  } else {
-    echo '            <td width="100%" class="topBarTitle">&nbsp;' . TOP_BAR_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
-  }
-?>
-          </tr>
-        </table></td>
-      </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_success.php,v 1.23 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: create_account_success.php,v 1.24 2001/12/20 14:36:49 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,7 +30,7 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
@@ -44,14 +44,7 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-            <td width="100%" class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="5">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td><?php echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
             <td class="main"><div align="center" class="pageHeading"><?php echo HEADING_TITLE; ?>&nbsp;</div><br><?php echo TEXT_ACCOUNT_CREATED; ?></td>
