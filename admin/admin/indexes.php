@@ -90,7 +90,57 @@ function checkForm() {
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
+        <tr><td colspan=6><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
+<?
+$per_page = MAX_ROW_LISTS;
+$indexes = ("select category_top.category_top_name, category_index.category_index_id, category_index.category_index_name, category_index.sql_select, category_index_to_top.sort_order, category_index_to_top.category_index_to_top_id from category_index, category_index_to_top, category_top where category_index.category_index_id = category_index_to_top.category_index_id and category_index_to_top.category_top_id = category_top.category_top_id order by category_top.category_top_id, category_index_to_top.sort_order");
+if (!$page)
+ {
+   $page = 1;
+ }
+$prev_page = $page - 1;
+$next_page = $page + 1;
+
+$query = tep_db_query($indexes);
+
+$page_start = ($per_page * $page) - $per_page;
+$num_rows = tep_db_num_rows($query);
+
+if ($num_rows <= $per_page) {
+   $num_pages = 1;
+} else if (($num_rows % $per_page) == 0) {
+   $num_pages = ($num_rows / $per_page);
+} else {
+   $num_pages = ($num_rows / $per_page) + 1;
+}
+$num_pages = (int) $num_pages;
+
+if (($page > $num_pages) || ($page < 0)) {
+   error("You have specified an invalid page number");
+}
+
+	 $indexes = $indexes . " LIMIT $page_start, $per_page";
+
+// Previous
+if ($prev_page)  {
+   echo "<a href=\"$PHP_SELF?page=$prev_page\"><< </a> | ";
+}
+
+for ($i = 1; $i <= $num_pages; $i++) {
+   if ($i != $page) {
+      echo " <a href=\"$PHP_SELF?page=$i\">$i</a> | ";
+   } else {
+      echo " <b><font color=red>$i<font color=black></b> |";
+   }
+}
+
+// Next
+if ($page != $num_pages) {
+   echo " <a href=\"$PHP_SELF?page=$next_page\"> >></a>";
+}
+echo '</td></tr>';
+
+?>
             <td colspan="6"><?=tep_black_line();?></td>
           </tr>
           <tr>
@@ -105,7 +155,7 @@ function checkForm() {
             <td colspan="6"><?=tep_black_line();?></td>
           </tr>
 <?
-  $indexes = tep_db_query("select category_top.category_top_name, category_index.category_index_id, category_index.category_index_name, category_index.sql_select, category_index_to_top.sort_order, category_index_to_top.category_index_to_top_id from category_index, category_index_to_top, category_top where category_index.category_index_id = category_index_to_top.category_index_id and category_index_to_top.category_top_id = category_top.category_top_id order by category_top.category_top_id, category_index_to_top.sort_order");
+  $indexes = tep_db_query("$indexes");
   while ($indexes_values = tep_db_fetch_array($indexes)) {
     $rows++;
     if (floor($rows/2) == ($rows/2)) {
@@ -156,9 +206,9 @@ function checkForm() {
           </tr>
 <?
     }
-    $ids[] = $indexes_values['category_index_id'];
-    rsort($ids);
-    $next_id = ($ids[0] + 1);
+    $max_indexes_id_query = tep_db_query("select max(category_index_id) + 1 as next_id from category_index");
+	$max_indexes_id_values = tep_db_fetch_array($max_indexes_id_query);
+	$next_id = $max_indexes_id_values['next_id'];
   }
 ?>
           <tr>

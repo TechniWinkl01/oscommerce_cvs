@@ -21,4 +21,6 @@ define('TABLE_HEADING_FIRSTNAME', 'First Name');
 define('TABLE_HEADING_LASTNAME', 'Last Name');
 define('TABLE_HEADING_COUNTRY', 'Country');
 define('TABLE_HEADING_ACTION', 'Action');
+
+define('CUSTOMER_SEARCH_TEXT', 'Search customer by Email, First Name, Last Name:');
 ?>

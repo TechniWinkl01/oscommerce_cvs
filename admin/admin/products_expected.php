@@ -44,6 +44,12 @@ function checkForm() {
     return true;
   }
 }
+
+function go() {
+  if (document.order_by.selected.options[document.order_by.selected.selectedIndex].value != "none") {
+    location = "<?=FILENAME_PRODUCTS_EXPECTED;?>?order_by="+document.order_by.selected.options[document.order_by.selected.selectedIndex].value;
+  }
+}
 //--></script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -73,12 +79,20 @@ function checkForm() {
         </table></td>
       </tr>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td width="100%"><br>
+<?
+    if ($HTTP_GET_VARS['order_by']) {
+      $order_by = $HTTP_GET_VARS['order_by'];
+    } else {
+      $order_by = 'products_name';
+    }
+?>			
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', '');?>&nbsp;</td>
+            <td align="right" nowrap><form name="order_by"><select name="selected" onChange="go()"><option value="products_name"<? if ($order_by == 'products_name') { echo ' SELECTED'; } ?>>Products Name</option><option value="date_expected"<? if ($order_by == 'date_expected') { echo ' SELECTED'; } ?>>Date Expected</option></form></td>
           </tr>
-        </table></td>
+        </table><br></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -94,7 +108,7 @@ function checkForm() {
             <td colspan="3"><?=tep_black_line();?></td>
           </tr>
 <?
-  $products = tep_db_query("select products_expected_id, products_name, date_expected from products_expected order by date_expected DESC");
+  $products = tep_db_query("select products_expected_id, products_name, date_expected from products_expected order by '" . $order_by . "'");
   while ($products_values = tep_db_fetch_array($products)) {
     $rows++;
     if (floor($rows/2) == ($rows/2)) {

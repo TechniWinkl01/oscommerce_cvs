@@ -62,6 +62,7 @@
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // customization for the design layout
+  define('MAX_ROW_LISTS', 25); // how many rows for all list
   define('TAX_VALUE', 16); // propducts tax
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('SMALL_IMAGE_WIDTH', 100); // the width in pixels of small images (default: 100);

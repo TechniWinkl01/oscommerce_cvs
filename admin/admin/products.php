@@ -558,7 +558,7 @@ function go() {
     if ($HTTP_GET_VARS['order_by']) {
       $order_by = $HTTP_GET_VARS['order_by'];
     } else {
-      $order_by = 'products_name';
+      $order_by = 'products_id';
     }
 ?>
           <tr>
@@ -568,8 +568,74 @@ function go() {
         </table></td>
       </tr>
       <tr>
+	    <td nowrap align="right"><form name="quick_find" method="post" action="products.php?"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=PRODUCTS_SEARCH_TEXT;?>&nbsp;</font>
+	    <input type="text" name="query" size="13" maxlength="30"<? if ($HTTP_POST_VARS["query"]) { echo ' value="' . $HTTP_POST_VARS["query"] . '"'; } ?>>&nbsp;
+	    <?=tep_image_submit(DIR_CATALOG_IMAGES . 'button_quick_find.gif', '16', '17', '0', BOX_HEADING_SEARCH);?></form></td>
+      </tr>
+      <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
+        <tr><td colspan=4><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
+<?
+$per_page = MAX_ROW_LISTS;
+  $row = 0;
+    $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
+     $products = "select products_id, products_name, products_description, products_image, products_status from products where ";
+     for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
+       $products .= "products_name like '%" .
+	   $search_keywords[$i] . "%' or products_description like '%" .
+	   $search_keywords[$i] . "%' and ";
+     }
+     $products .= "products_name like '%" . $search_keywords[$i] . "%' or products_description like '%" . $search_keywords[$i] . "%' order by '" . $order_by . "'";
+	 if (!$page)
+ 	 {
+   	 $page = 1;
+ 	 }
+	 $prev_page = $page - 1;
+	 $next_page = $page + 1;
+	 $query = tep_db_query($products);
+	 $page_start = ($per_page * $page) - $per_page;
+	 $num_rows = tep_db_num_rows($query);
+	 if ($num_rows <= $per_page) {
+   	 $num_pages = 1;
+	 } else if (($num_rows % $per_page) == 0) {
+   	 $num_pages = ($num_rows / $per_page);
+	 } else {
+   	 $num_pages = ($num_rows / $per_page) + 1;
+	 }
+	 $num_pages = (int) $num_pages;
+
+	 if (($page > $num_pages) || ($page < 0)) {
+   	 error("You have specified an invalid page number");
+	 }
+
+	 $products = $products . " LIMIT $page_start, $per_page";
+	 $query = tep_db_query($products);
+
+	 while ($result = tep_db_fetch_array($query)) {
+     echo $result[description];
+     echo "";
+	 }
+
+// Previous
+   if ($prev_page)  {
+   echo "<a href=\"$PHP_SELF?page=$prev_page&order_by=$order_by\"><<</a> | ";
+   }
+
+   for ($i = 1; $i <= $num_pages; $i++) {
+   if ($i != $page) {
+      echo " <a href=\"$PHP_SELF?page=$i&order_by=$order_by\">$i</a> | ";
+   	  } else {
+      echo " <b><font color=red>$i<font color=black></b> |";
+   	  }
+	  }
+
+// Next
+   if ($page != $num_pages) {
+   echo " <a href=\"$PHP_SELF?page=$next_page&order_by=$order_by\">>></a> ";
+   }
+   echo '</td></tr>';
+?>
+  	 	  <tr>
             <td colspan="4"><?=tep_black_line();?></td>
           </tr>
           <tr>
@@ -582,7 +648,7 @@ function go() {
             <td colspan="4"><?=tep_black_line();?></td>
           </tr>
 <?
-    $products = tep_db_query("select products_id, products_name, products_image, products_status from products order by '" . $order_by . "'");
+    $products = tep_db_query("$products");
     while ($products_values = tep_db_fetch_array($products)) {
       tep_products_subcategories($products_values['products_id']); // returns $products_subcategories
       $rows++;
@@ -605,9 +671,9 @@ function go() {
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, 'action=update&products_id=' . $products_values['products_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, 'action=delete&products_id=' . $products_values['products_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?
-      $ids[] = $products_values['products_id'];
-      rsort($ids);
-      $next_id = ($ids[0] + 1);
+  		  $max_products_id_query = tep_db_query("select max(products_id) + 1 as next_id from products");
+		  $max_products_id_values = tep_db_fetch_array($max_products_id_query);
+		  $next_id = $max_products_id_values['next_id'];
     }
 ?>
           <tr>

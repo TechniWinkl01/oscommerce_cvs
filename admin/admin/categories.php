@@ -114,6 +114,12 @@ function new_win(image) {
   window.open(image,"image","height=80,width=120,toolbar=no,statusbar=no,scrollbars=no").focus();
 }
 
+function go() {
+  if (document.order_by.selected.options[document.order_by.selected.selectedIndex].value != "none") {
+    location = "<?=FILENAME_CATEGORIES;?>?order_by="+document.order_by.selected.options[document.order_by.selected.selectedIndex].value;
+  }
+}
+
 function remove_all() {
   if (confirm("<?=JS_CATEGORY_DELETE_CONFIRM;?>")) {
     document.location = "<?=FILENAME_CATEGORIES;?>?action=delete_category&category_id=<?=$HTTP_GET_VARS['category_id'];?>";
@@ -222,15 +228,74 @@ function remove_all() {
   } else { // modify or insert category
 ?>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td width="100%">
+<?
+    if ($HTTP_GET_VARS['order_by']) {
+      $order_by = $HTTP_GET_VARS['order_by'];
+    } else {
+      $order_by = 'category_top_id';
+    }
+?>		
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', '');?>&nbsp;</td>
+            <td align="right" nowrap><br><form name="order_by"><select name="selected" onChange="go()"><option value="category_top_name"<? if ($order_by == 'category_top_name') { echo ' SELECTED'; } ?>>Category Name</option><option value="category_top_id"<? if ($order_by == 'category_top_id') { echo ' SELECTED'; } ?>>Category ID</option><option value="sort_order"<? if ($order_by == 'sort_order') { echo ' SELECTED'; } ?>>Category Sort</option></select>&nbsp;&nbsp;</form></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tr><td colspan=5><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
+<?
+$per_page = MAX_ROW_LISTS;
+$categories = ("select category_top_id, category_top_name, sort_order, category_image from category_top order by '" . $order_by . "'");
+if (!$page)
+ {
+   $page = 1;
+ }
+$prev_page = $page - 1;
+$next_page = $page + 1;
+
+$query = tep_db_query($categories);
+
+$page_start = ($per_page * $page) - $per_page;
+$num_rows = tep_db_num_rows($query);
+
+if ($num_rows <= $per_page) {
+   $num_pages = 1;
+} else if (($num_rows % $per_page) == 0) {
+   $num_pages = ($num_rows / $per_page);
+} else {
+   $num_pages = ($num_rows / $per_page) + 1;
+}
+$num_pages = (int) $num_pages;
+
+if (($page > $num_pages) || ($page < 0)) {
+   error("You have specified an invalid page number");
+}
+
+	 $categories = $categories . " LIMIT $page_start, $per_page";
+	 
+// Previous
+if ($prev_page)  {
+   echo "<a href=\"$PHP_SELF?page=$prev_page&order_by=$order_by\"><< </a> | ";
+}
+
+for ($i = 1; $i <= $num_pages; $i++) {
+   if ($i != $page) {
+      echo " <a href=\"$PHP_SELF?page=$i&order_by=$order_by\">$i</a> | ";
+   } else {
+      echo " <b><font color=red>$i<font color=black></b> |";
+   }
+}
+
+// Next
+if ($page != $num_pages) {
+   echo " <a href=\"$PHP_SELF?page=$next_page&order_by=$order_by\"> >></a>";
+}
+echo '</td></tr>';
+
+?>
           <tr>
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
@@ -245,7 +310,7 @@ function remove_all() {
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
 <?
-    $categories = tep_db_query("select category_top_id, category_top_name, sort_order, category_image from category_top order by category_top_id");
+    $categories = tep_db_query("$categories");
     $rows = 0;
     while ($categories_values = tep_db_fetch_array($categories)) {
       $rows++;
@@ -280,7 +345,9 @@ function remove_all() {
           </tr>
 <?
       }
-      $next_id = ($categories_values['category_top_id'] + 1);
+	  $max_category_query = tep_db_query("select max(category_top_id) + 1 as next_id from category_top");
+	  $max_category_id_values = tep_db_fetch_array($max_category_query);
+	  $next_id = $max_category_id_values['next_id'];
     }
 ?>
           <tr>

@@ -203,15 +203,16 @@ function remove_all() {
   } else  {
 ?>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td width="100%">
 <?
     if ($HTTP_GET_VARS['order_by']) {
       $order_by = $HTTP_GET_VARS['order_by'];
     } else {
-      $order_by = 'subcategories_name';
+      $order_by = 'subcategories_id';
     }
 ?>
-          <tr>
+          <table border="0" width="100%" cellspacing="0" cellpadding="0">
+		  <tr>
             <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
             <td align="right" nowrap><br><form name="order_by"><select name="selected" onChange="go()"><option value="subcategories_name"<? if ($order_by == 'subcategories_name') { echo ' SELECTED'; } ?>>Subcategories Name</option><option value="subcategories_id"<? if ($order_by == 'subcategories_id') { echo ' SELECTED'; } ?>>Subcategories ID</option></select>&nbsp;&nbsp;</form></td>
           </tr>
@@ -219,6 +220,57 @@ function remove_all() {
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <tr><td colspan=5><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
+<?
+$per_page = MAX_ROW_LISTS;
+$subcategories = ("select subcategories_id, subcategories_name, subcategories_image  from subcategories order by '" . $order_by . "'");
+if (!$page)
+ {
+   $page = 1;
+ }
+$prev_page = $page - 1;
+$next_page = $page + 1;
+
+$query = tep_db_query($subcategories);
+
+$page_start = ($per_page * $page) - $per_page;
+$num_rows = tep_db_num_rows($query);
+
+if ($num_rows <= $per_page) {
+   $num_pages = 1;
+} else if (($num_rows % $per_page) == 0) {
+   $num_pages = ($num_rows / $per_page);
+} else {
+   $num_pages = ($num_rows / $per_page) + 1;
+}
+$num_pages = (int) $num_pages;
+
+if (($page > $num_pages) || ($page < 0)) {
+   error("You have specified an invalid page number");
+}
+
+$subcategories = $subcategories . " LIMIT $page_start, $per_page";
+
+// Previous
+if ($prev_page)  {
+   echo "<a href=\"$PHP_SELF?page=$prev_page&order_by=$order_by\"><< </a> | ";
+}
+
+for ($i = 1; $i <= $num_pages; $i++) {
+   if ($i != $page) {
+      echo " <a href=\"$PHP_SELF?page=$i&order_by=$order_by\">$i</a> | ";
+   } else {
+      echo " <b><font color=red>$i<font color=black></b> |";
+   }
+}
+
+// Next
+if ($page != $num_pages) {
+   echo " <a href=\"$PHP_SELF?page=$next_page&order_by=$order_by\"> >></a>";
+}
+echo '</td></tr>';
+
+?>
           <tr>
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
@@ -233,7 +285,7 @@ function remove_all() {
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
 <?
-    $subcategories = tep_db_query("select subcategories_id, subcategories_name, subcategories_image from subcategories order by '" . $order_by . "'");
+    $subcategories = tep_db_query("$subcategories");
     while ($subcategories_values = tep_db_fetch_array($subcategories)) {
       $rows++;
       if (floor($rows/2) == ($rows/2)) {
@@ -277,9 +329,9 @@ function remove_all() {
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=update&subcategories_id=' . $subcategories_values['subcategories_id'] . '&order_by=' . $order_by, 'NONSSL') , '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_SUBCATEGORIES, 'action=delete&subcategories_id=' . $subcategories_values['subcategories_id'] . '&order_by=' . $order_by, 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?
-        $ids[] = $subcategories_values['subcategories_id'];
-        rsort($ids);
-        $next_id = ($ids[0] + 1);
+  		$max_subcategories_id_query = tep_db_query("select max(subcategories_id) + 1 as next_id from subcategories");
+		$max_subcategories_id_values = tep_db_fetch_array($max_subcategories_id_query);
+		$next_id = $max_subcategories_id_values['next_id'];
       }
     }
 ?>
