@@ -1,11 +1,11 @@
 <?
 // define our webserver variables
-  define('HTTP_SERVER', 'http://192.168.1.51');
-  define('HTTPS_SERVER', 'https://192.168.1.51');
+  define('HTTP_SERVER', 'http://exchange');
+  define('HTTPS_SERVER', 'https://exchange');
   define('ENABLE_SSL', 1); // ssl server enable(1)/disable(0)
-  define('DIR_SERVER_ROOT', '/usr/local/apache/htdocs/');
-  define('DIR_CATALOG', '/catalog_cvs/');
-  define('DIR_IMAGES', '/catalog_cvs/images/');
+  define('DIR_SERVER_ROOT', '/usr/local/apache/');
+  define('DIR_CATALOG', '/catalog/');
+  define('DIR_IMAGES', '/catalog/images/');
   define('DIR_INCLUDES', 'includes/');
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
@@ -70,10 +70,10 @@
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
 
 // define our database connection
-  define('DB_SERVER', 'localhost');
-  define('DB_SERVER_USERNAME', 'root');
-  define('DB_SERVER_PASSWORD', 'star.wars');
-  define('DB_DATABASE', 'catalog_cvs2');
+  define('DB_SERVER', 'exchange');
+  define('DB_SERVER_USERNAME', 'mysql');
+  define('DB_SERVER_PASSWORD', '');
+  define('DB_DATABASE', 'catalog');
 
 // include the database functions
   $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
@@ -84,7 +84,7 @@
 // define our general functions used application-wide
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
 // Include the password crypto functions
- $include_file = DIR_INCLUDES . '/functions/' . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
+ $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
 
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
