@@ -79,8 +79,6 @@
   }
 
   function tep_break_string($string, $len) {
-    global $l, $output, $i, $char;
-
     $l = 0;
     $output = '';
     for ($i = 0; $i < strlen($string); $i++) {
