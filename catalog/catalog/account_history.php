@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.52 2002/05/23 01:07:36 hpdl Exp $
+  $Id: account_history.php,v 1.53 2002/05/23 21:43:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,7 +67,7 @@
             <td colspan="4"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
-  $history_query_raw = "select o.orders_id, o.date_purchased, o.orders_status, ot.text as order_total from " . TABLE_ORDERS . " o left join " . TABLE_ORDERS_TOTAL . " ot on (o.orders_id = ot.orders_id) where o.customers_id = '" . $customer_id . "' and ot.class = 'ot_total' order by orders_id DESC";
+  $history_query_raw = "select o.orders_id, o.date_purchased, o.orders_status, ot.text as order_total, s.orders_status_name from " . TABLE_ORDERS . " o left join " . TABLE_ORDERS_TOTAL . " ot on (o.orders_id = ot.orders_id) left join " . TABLE_ORDERS_STATUS . " s on (o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "') where o.customers_id = '" . $customer_id . "' and ot.class = 'ot_total' order by orders_id DESC";
   $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $history_query_raw, $history_numrows);
   $history_query = tep_db_query($history_query_raw);
   if (!tep_db_num_rows($history_query)) {
@@ -89,7 +89,7 @@
       echo '            <td class="smallText" align="center">' . $history['orders_id'] . '</td>' . "\n" .
            '            <td class="smallText"><a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'SSL') . '">' . tep_date_long($history['date_purchased']) . '</a></td>' . "\n" .
            '            <td class="smallText" align="right">' . strip_tags($history['order_total']) . '</td>' . "\n" .
-           '            <td class="smallText" align="right">' . tep_get_orders_status_name($history['orders_status'], $languages_id) . '</td>' . "\n" .
+           '            <td class="smallText" align="right">' . $history['orders_status_name'] . '</td>' . "\n" .
            '          </tr>' . "\n";
     }
   }
@@ -101,7 +101,7 @@
             <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="smallText" valign="top"><?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE; ?><?php echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
+                <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE; echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
