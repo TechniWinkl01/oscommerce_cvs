@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.69 2001/11/17 21:30:40 hpdl Exp $
+  $Id: general.php,v 1.70 2001/11/19 12:09:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -943,6 +943,22 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 // Output a form checkbox field
   function tep_draw_checkbox_field($name, $value = '', $checked = false) {
     return tep_draw_selection_field($name, 'checkbox', $value, $checked);
+  }
+
+////
+// Output a form pull down menu
+  function tep_draw_pull_down_menu($name, $values, $default = '') {
+    $field = '<select name="' . $name . '">';
+    for ($i=0; $i<sizeof($values); $i++) {
+      $field .= '<option value="' . $values[$i]['id'] . '"';
+      if ( ($GLOBALS[$name] == $values[$i]['id']) || ($default == $values[$i]['id']) ) {
+        $field .= ' SELECTED';
+      }
+      $field .= '>' . $values[$i]['text'] . '</option>';
+    }
+    $field .= '</select>';
+
+    return $field;
   }
 
 ////

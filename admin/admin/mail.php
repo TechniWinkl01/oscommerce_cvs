@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.16 2001/11/10 17:58:38 dgw_ Exp $
+  $Id: mail.php,v 1.17 2001/11/19 12:09:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -101,18 +101,18 @@
               <tr>
                 <td colspan="2">&nbsp;</td>
               </tr>
-              <tr>
-                <td class="main"><?php echo TEXT_CUSTOMER_NAME; ?></td>
 <?php
+    $customers[] = array('id' => '', 'text' => TEXT_SELECTCUSTOMER);
+    $customers[] = array('id' => '***', 'text' => TEXT_ALLCUSTOMERS);
+    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTERCUSTOMERS);
     $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname");
-?>
-                <td><select name="customers_email_address"><option value=""><?php echo TEXT_SELECTCUSTOMER; ?></option><option value="***"><?php echo TEXT_ALLCUSTOMERS; ?></option><option value="**D"><?php echo TEXT_NEWSLETTERCUSTOMERS; ?></option>
-<?php
     while(list($customers_email_address, $customers_firstname, $customers_lastname) = tep_db_fetch_array($mail_query)) {
-      echo '<option value="' . $customers_email_address . '">' . $customers_lastname . ', ' . $customers_firstname . ' - (' . $customers_email_address . ')</option>';
+      $customers[] = array('id' => $customers_email_address, 'text' => $customers_lastname . ', ' . $customers_firstname . ' (' . $customers_email_address . ')');
     }
 ?>
-                </select></td>
+              <tr>
+                <td class="main"><?php echo TEXT_CUSTOMER_NAME; ?></td>
+                <td><?php echo tep_draw_pull_down_menu('customers_email_address', $customers, $HTTP_GET_VARS['customer']);?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_EMAIL_FROM; ?></td>
