@@ -47,9 +47,6 @@ define('ENTRY_DATE_PURCHASED', 'Date Purchased:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'Date Last Updated:');
 
-define('TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
-define('TEXT_CREDIT_CARD', 'Credit Card');
 define('TEXT_ORDER_INFORMATION', '<font color="#ff0000"><b>NOTE:</b></font> Click on the customers name to see their order information');
-define('TEXT_PAYPAL', 'PayPal');
 define('TEXT_UNKNOWN', 'Unknown');
 ?>

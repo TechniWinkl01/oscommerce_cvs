@@ -47,9 +47,6 @@ define('ENTRY_DATE_PURCHASED', 'Fecha de Compra:');
 define('ENTRY_STATUS', 'Estado:');
 define('ENTRY_DATE_LAST_UPDATED', 'Ultima Modificacion:');
 
-define('TEXT_CASH_ON_DELIVERY', 'Contra Reembolso');
-define('TEXT_CREDIT_CARD', 'Tarjeta de Credito');
 define('TEXT_ORDER_INFORMATION', '<font color="#ff0000"><b>NOTA:</b></font> Haga click en el nombre del cliente para ver la informacion del pedido');
-define('TEXT_PAYPAL', 'PayPal');
 define('TEXT_UNKNOWN', 'Desconocido');
 ?>
