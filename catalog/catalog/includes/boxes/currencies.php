@@ -11,13 +11,13 @@
   $currencies_query = tep_db_query("select title, code from " . TABLE_CURRENCIES . " order by title");
 
   $select_box = '<select name="currency" onChange="this.form.submit();">';
-  while ($currencies = tep_db_fetch_array($currencies_query)) {
-    $select_box .= '<option value="' . $currencies['code'] . '"';
+  while ($currencies_values = tep_db_fetch_array($currencies_query)) {
+    $select_box .= '<option value="' . $currencies_values['code'] . '"';
 // $currency is a session variable
-    if ($currency == $currencies['code']) {
+    if ($currency == $currencies_values['code']) {
       $select_box .= ' SELECTED';
     }
-    $select_box .= '>' . $currencies['title'] . '</option>';
+    $select_box .= '>' . $currencies_values['title'] . '</option>';
   }
   $select_box .= "</select>";
   $select_box .= tep_hide_session_id();
