@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.55 2002/01/26 17:15:42 hpdl Exp $
+  $Id: banner_manager.php,v 1.56 2002/01/29 15:37:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -296,7 +296,7 @@ function popupImageWindow(url) {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['path'] . '&bID=' . $banners['banners_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="tableData"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?action=banner&id=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
+                <td class="tableData"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
                 <td class="tableData" align="right"><?php echo $banners['banners_group']; ?></td>
                 <td class="tableData" align="right"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
                 <td class="tableData" align="right">

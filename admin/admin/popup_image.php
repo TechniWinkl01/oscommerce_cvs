@@ -1,16 +1,33 @@
 <?php
+/*
+  $Id: popup_image.php,v 1.5 2002/01/29 15:37:31 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+
   require('includes/application_top.php');
 
-  if ($HTTP_GET_VARS['action'] == 'banner') {
-    $banner_query = tep_db_query("select banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['id'] . "'");
-    $banner = tep_db_fetch_array($banner_query);
+  while (list($key, ) = each($HTTP_GET_VARS)) {
+    switch ($key) {
+      case 'banner':
+        $banners_id = tep_db_prepare_input($HTTP_GET_VARS['banner']);
 
-    $page_title = $banner['banners_title'];
+        $banner_query = tep_db_query("select banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where banners_id = '" . tep_db_input($banners_id) . "'");
+        $banner = tep_db_fetch_array($banner_query);
 
-    if ($banner['banners_html_text']) {
-      $image_source = $banner['banners_html_text'];
-    } elseif ($banner['banners_image']) {
-      $image_source = '<img src="' . DIR_WS_CATALOG_IMAGES . $banner['banners_image'] . '" border="0" alt="' . $page_title . '">';
+        $page_title = $banner['banners_title'];
+
+        if ($banner['banners_html_text']) {
+          $image_source = $banner['banners_html_text'];
+        } elseif ($banner['banners_image']) {
+          $image_source = tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $banner['banners_image'], $page_title);
+        }
+        break;
     }
   }
 ?>
