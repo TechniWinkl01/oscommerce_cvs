@@ -5,6 +5,10 @@
        die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted.<br>&nbsp;<br>Please add the following to that file:<br>&nbsp;<br>define(\'CONFIGURE_STATUS_COMPLETED\', \'1\');');
     }
   }
+
+// for internal use until final v1.0 version is ready
+  define('PROJECT_VERSION', 'Preview Release 2.1');
+
 // define our webserver variables
   define('HTTP_SERVER', 'http://exchange');
   define('HTTPS_SERVER', 'https://exchange');
