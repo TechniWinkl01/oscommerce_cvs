@@ -4,7 +4,7 @@
   if ($HTTP_GET_VARS['action']) {
     if (($HTTP_GET_VARS['action'] == 'add_product') && ($HTTP_POST_VARS['insert'] == '1')) {
       $date_now = date('Ymd');
-      tep_db_query("insert into products values ('', '" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $date_now . "', '0', '" . $HTTP_POST_VARS['products_weight'] . "')");
+      tep_db_query("insert into products values ('', '" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $date_now . "', '0', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "')");
       $products_id = tep_db_insert_id();
       if (!empty($products_image)) {
       	tep_db_query("update products set products_image = 'images/" . $products_image_name . "' where products_id = '" . $products_id . "'");
@@ -18,7 +18,7 @@
       tep_db_query("insert into products_to_manufacturers values ('', '" . $products_id . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL')); tep_exit();
     } elseif (($HTTP_GET_VARS["action"] == "add_product") && ($HTTP_POST_VARS['update'] == '1')) {
-      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
 /* manufacturers */
       $manufacturers_id = $HTTP_POST_VARS['manufacturers_id'];
       $number_manufacturers = sizeof($manufacturers_id);
@@ -202,7 +202,7 @@ function go() {
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'delete') {
-    $products = tep_db_query("select products_id, products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    $products = tep_db_query("select products_id, products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_status from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $products_values = tep_db_fetch_array($products);
     $manufacturers = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, manufacturers.manufacturers_image from manufacturers, products_to_manufacturers where products_to_manufacturers.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
     $products_manufacturers = '';
@@ -233,6 +233,11 @@ function go() {
     } else {
       $products_name = $products_values['products_name'] . ' (' . $products_manufacturers . ')';
     }
+	if ($products_values['products_status'] == '1') {
+	$products_status_value = ENTRY_STATUS_TEXT_AVAILABLE;
+	} else {
+	$products_status_value = ENTRY_STATUS_TEXT_NOT_AVAILABLE;
+	}
 ?>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -245,6 +250,9 @@ function go() {
       <tr>
         <td><?=tep_black_line();?></td>
       </tr>
+	  <tr>
+	    <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=ENTRY_STATUS;?>&nbsp;<font color="#FF0000"><b><?=$products_status_value;?></b></font></font></td>
+	  </tr>
       <tr>
         <td><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image(DIR_CATALOG . $products_values['products_image'], '100', '80', '0" align="right" hspace="5" vspace="5"', $products_name);?><?=$products_values['products_description'];?></font></td>
       </tr>
@@ -280,7 +288,7 @@ function go() {
     $update = 0;
     if ($HTTP_GET_VARS['action'] == 'update') {
       $update = 1;
-      $products = tep_db_query("select products_id, products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+      $products = tep_db_query("select products_id, products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_status from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
       $products_values = tep_db_fetch_array($products);
     }
 ?>
@@ -311,6 +319,27 @@ function go() {
             <td colspan="2"><?=tep_black_line();?></td>
           </tr>
 <?
+    if ($update == 0) {
+?>
+          <tr>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_STATUS;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="products_status" value="1" CHECKED>&nbsp;<?=ENTRY_STATUS_TEXT_AVAILABLE;?>&nbsp;<input type="radio" name="products_status" value="0">&nbsp;<font color="#FF0000"><b><?=ENTRY_STATUS_TEXT_NOT_AVAILABLE;?></b></font></font></td>
+          </tr>
+<?
+    } else {
+?>
+          <tr>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_STATUS;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="products_status" value="1"<?
+      if ($products_values['products_status'] == '1') {
+        echo ' CHECKED';
+      } ?>>&nbsp;<?=ENTRY_STATUS_TEXT_AVAILABLE;?>&nbsp;<input type="radio" name="products_status" value="0"<?
+      if ($products_values['products_status'] == '0') {
+        echo ' CHECKED';
+      } ?>>&nbsp;<font color="#FF0000"><b><?=ENTRY_STATUS_TEXT_NOT_AVAILABLE;?></b></font></font></td>
+          </tr>
+<?
+    }
     if ($update == 0) {
 ?>
           <tr>
@@ -534,7 +563,7 @@ function go() {
 ?>
           <tr>
             <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap><br><form name="order_by"><select name="selected" onChange="go()"><option value="products_name"<? if ($order_by == 'products_name') { echo ' SELECTED'; } ?>>Products Name</option><option value="products_id"<? if ($order_by == 'products_id') { echo ' SELECTED'; } ?>>Products ID</option></select>&nbsp;&nbsp;</form></td>
+            <td align="right" nowrap><br><form name="order_by"><select name="selected" onChange="go()"><option value="products_name"<? if ($order_by == 'products_name') { echo ' SELECTED'; } ?>>Products Name</option><option value="products_id"<? if ($order_by == 'products_id') { echo ' SELECTED'; } ?>>Products ID</option><option value="products_status"<? if ($order_by == 'products_status') { echo ' SELECTED'; } ?>>Products Status</option></select>&nbsp;&nbsp;</form></td>
           </tr>
         </table></td>
       </tr>
@@ -553,7 +582,7 @@ function go() {
             <td colspan="4"><?=tep_black_line();?></td>
           </tr>
 <?
-    $products = tep_db_query("select products_id, products_name, products_image from products order by '" . $order_by . "'");
+    $products = tep_db_query("select products_id, products_name, products_image, products_status from products order by '" . $order_by . "'");
     while ($products_values = tep_db_fetch_array($products)) {
       tep_products_subcategories($products_values['products_id']); // returns $products_subcategories
       $rows++;
@@ -570,7 +599,9 @@ function go() {
       echo tep_image(DIR_IMAGES . 'dot_green.gif', '4', '4', '0', TEXT_IMAGE_EXISTS);
     } else {
       echo tep_image(DIR_IMAGES . 'dot_red.gif', '4', '4', '0', TEXT_IMAGE_DOES_NOT_EXIST);
-    } ?>&nbsp;<a href="javascript:new_win('<?=DIR_CATALOG . $products_values['products_image'];?>')"><?=$products_values['products_name'];?></a>&nbsp;</font></td>
+    } ?>&nbsp;<a href="javascript:new_win('<?=DIR_CATALOG . $products_values['products_image'];?>')"><?=$products_values['products_name'];?></a>&nbsp;<font color="#FF0000"><b><?
+	if ($products_values['products_status'] == '0') {
+	echo ENTRY_STATUS_TEXT_NOT_AVAILABLE;}?></b></font></font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, 'action=update&products_id=' . $products_values['products_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;<?='<a href="' . tep_href_link(FILENAME_PRODUCTS, 'action=delete&products_id=' . $products_values['products_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?

@@ -13,6 +13,9 @@ define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_ACTION', 'Action');
 
+define('ENTRY_STATUS', 'Product Status:');
+define('ENTRY_STATUS_TEXT_AVAILABLE', 'Available');
+define('ENTRY_STATUS_TEXT_NOT_AVAILABLE', 'Not Available!');
 define('ENTRY_MANUFACTURERS', 'Manufacturers:');
 define('ENTRY_MANUFACTURERS_TEXT', '<small><font color="#FF0000"><b>NOTE:</b></font> To add this product to multiple manufacturers, store it first<br>&nbsp;with one manufacturer, and modify it afterwards to add the others.</small>');
 define('ENTRY_PRODUCTS_NAME', 'Products Name:');

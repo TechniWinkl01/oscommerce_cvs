@@ -1,6 +1,6 @@
 <!-- whats_new //-->
 <?
-  tep_random_select("select products.products_id, products.products_name, products.products_image, manufacturers.manufacturers_name, manufacturers.manufacturers_location from products, products_to_manufacturers, manufacturers where products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by products.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW);
+  tep_random_select("select products.products_id, products.products_name, products.products_image, manufacturers.manufacturers_name, manufacturers.manufacturers_location from products, products_to_manufacturers, manufacturers where products.products_status='1' and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by products.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW);
 
   $products_name = tep_products_name($random_product['manufacturers_location'], $random_product['manufacturers_name'], $random_product['products_name']);
 ?>

@@ -47,7 +47,7 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
 <?
-    $new = tep_db_query("select products.products_id, products.products_name, products.products_price, products.products_image, manufacturers.manufacturers_name, manufacturers.manufacturers_location, specials.specials_new_products_price from products, products_to_manufacturers, manufacturers, specials where products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and specials.products_id = products.products_id order by specials.specials_date_added DESC limit " . MAX_DISPLAY_SPECIAL_PRODUCTS);
+    $new = tep_db_query("select products.products_id, products.products_name, products.products_price, products.products_image, manufacturers.manufacturers_name, manufacturers.manufacturers_location, specials.specials_new_products_price from products, products_to_manufacturers, manufacturers, specials where  products.products_status='1' and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and specials.products_id = products.products_id order by specials.specials_date_added DESC limit " . MAX_DISPLAY_SPECIAL_PRODUCTS);
     $row = 0;
     while ($new_values = tep_db_fetch_array($new)) {
       $row++;

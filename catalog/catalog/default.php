@@ -85,7 +85,7 @@
       $row = 0;
       while ($subcategories_values = tep_db_fetch_array($subcategories)) {
         $row++;
-        $number_of_products = tep_db_query('select count(*) as total from products_to_' . $listby . ' where ' . $listby . '_id = ' . $subcategories_values['id']);
+        $number_of_products = tep_db_query("select count(*) as total from products, products_to_" . $listby . " where products_status='1' and products.products_id = products_to_" . $listby . ".products_id and " . $listby . "_id = '" . $subcategories_values['id'] . "'");
         $number_of_products_values = tep_db_fetch_array($number_of_products);
         echo '                <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_LIST, 'category_id=' . $HTTP_GET_VARS['category_id'] . '&index_id=' . $HTTP_GET_VARS['index_id'] . '&subcategory_id=' . $subcategories_values['id'], 'NONSSL') . '">' . tep_image($subcategories_values['image'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT, '0', $subcategories_values['name']) . '</a>&nbsp;<br>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_LIST, 'category_id=' . $HTTP_GET_VARS['category_id'] . '&index_id=' . $HTTP_GET_VARS['index_id'] . '&subcategory_id=' . $subcategories_values['id'], 'NONSSL') . '">' . $subcategories_values['name'] . '</a>&nbsp;(' . $number_of_products_values['total'] . ')&nbsp;</font></td>' . "\n";
         if ((($row / 3) == floor($row / 3)) && ($row != $categories_count_values['count'])) {
