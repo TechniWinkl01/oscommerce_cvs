@@ -1,5 +1,5 @@
 <?
-  /* $Id: usps.php,v 1.6 2001/02/12 11:48:39 tmoulton Exp $ */
+  /* $Id: usps.php,v 1.7 2001/02/14 20:44:38 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -32,7 +32,7 @@
 // $usps->setWeight($pounds, $ounces);
 // $price = $usps->getPrice();
       if ($shipping_quote_usps == "1") {
-        include(DIR_INCLUDES . 'usps.php');
+        include(DIR_CLASSES . 'usps.php');
         $rate = new USPS;
         $rate->SetServer(SHIPPING_USPS_SERVER);
         $rate->setUserName(SHIPPING_USPS_USERID);
