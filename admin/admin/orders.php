@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.54 2001/10/10 18:43:56 dgw_ Exp $
+  $Id: orders.php,v 1.55 2001/11/19 13:18:32 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -63,7 +63,7 @@ function alertBox() {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<?php $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
