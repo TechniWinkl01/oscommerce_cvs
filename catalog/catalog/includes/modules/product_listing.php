@@ -2,12 +2,22 @@
   <tr>
 <?
   // create column list
-  $configuration_query = tep_db_query("select c.configuration_key from configuration_group cg, configuration c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION', 'PRODUCT_LIST_USE_ROLLOVER', 'PRODUCT_LIST_BACKGROUND_COLOR', 'PRODUCT_LIST_ALTERNATE_COLOR') order by c.configuration_value");
-
+  $define_list = array(
+    'PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
+    'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
+    'PRODUCT_LIST_MANUFACTURER' => PRODUCT_LIST_MANUFACTURER, 
+    'PRODUCT_LIST_PRICE' => PRODUCT_LIST_PRICE, 
+    'PRODUCT_LIST_QUANTITY' => PRODUCT_LIST_QUANTITY, 
+    'PRODUCT_LIST_WEIGHT' => PRODUCT_LIST_WEIGHT, 
+    'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE, 
+    'PRODUCT_LIST_BUY_NOW' => PRODUCT_LIST_BUY_NOW
+  );
+  asort($define_list);
+  
   $column_list = array();
-
-  while ($configuration = tep_db_fetch_array($configuration_query)) {
-    $column_list[] = $configuration['configuration_key'];
+  reset($define_list);
+  while (list($column, $value) = each($define_list)) {
+    if ($value) $column_list[] = $column;
   }
 
   $colspan = sizeof($column_list);
