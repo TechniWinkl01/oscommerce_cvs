@@ -6,17 +6,17 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('EMAIL_TEXT_SUBJECT', 'Bestellung');
-define('EMAIL_TEXT_ORDER_NUMBER', 'Bestellung Nummer:');
-define('EMAIL_TEXT_DATE_ORDERED', 'Bestellung Datum:');
-define('EMAIL_TEXT_PRODUCTS', 'Produkte');
+define('EMAIL_TEXT_ORDER_NUMBER', 'Bestellnummer:');
+define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
+define('EMAIL_TEXT_PRODUCTS', 'Artikel');
 define('EMAIL_TEXT_SUBTOTAL', 'Zwischensumme:');
-define('EMAIL_TEXT_TAX', 'Mwst.');
+define('EMAIL_TEXT_TAX', 'MwSt.');
 define('EMAIL_TEXT_SHIPPING', 'Versandkosten:');
 define('EMAIL_TEXT_TOTAL', 'Summe:        ');
-define('EMAIL_TEXT_DELIVERY_ADDRESS', 'Lieferadresse');
-define('EMAIL_TEXT_PAYMENT_METHOD', 'Zahlungsart');
+define('EMAIL_TEXT_DELIVERY_ADDRESS', 'Lieferanschrift');
+define('EMAIL_TEXT_PAYMENT_METHOD', 'Zahlweise');
 define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Nachnahme');
-define('EMAIL_TEXT_CREDIT_CARD', 'Kredit Karte');
+define('EMAIL_TEXT_CREDIT_CARD', 'Kreditkarte');
 
 $email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n" . EMAIL_TEXT_PRODUCTS . "\n" . '------------------------------------------------------' . "\n" . $products_ordered . '------------------------------------------------------' . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($subtotal) . "\n" . EMAIL_TEXT_TAX . ' (' . TAX_VALUE . '%): ' . tep_currency_format($tax) . "\n";
 if (!SHIPPING_FREE) {
