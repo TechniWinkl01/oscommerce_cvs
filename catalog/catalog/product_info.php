@@ -182,7 +182,7 @@ function popupImageWindow(url) {
       </tr>
 <?
     if (CACHE_ON && !SID) {
-      echo tep_cache_also_purchased();
+      echo tep_cache_also_purchased(3600);
     } else {
       $include_file = DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
     }

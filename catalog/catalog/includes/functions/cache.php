@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.3 2001/08/10 21:18:20 mbs Exp $
+  $Id: cache.php,v 1.4 2001/08/13 20:28:59 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@
 //  $var      -  The variable to be written out.
 //  $filename -  The name of the file to write to.
   function write_cache(&$var, $filename) {
-    $filename = CACHE_DIR . $filename;
+    $filename = DIR_FS_CACHE . $filename;
     $success = false;
 // try to open the file
     if ($fp = fopen($filename, 'w')) {
@@ -35,9 +35,20 @@
 //  fills $var using unserialize().
 //  $var      -  The variable to be filled.
 //  $filename -  The name of the file to read.
-  function read_cache(&$var, $filename){
-    $filename = CACHE_DIR . $filename;
+  function read_cache(&$var, $filename, $auto_expire = false){
+    $filename = DIR_FS_CACHE . $filename;
     $success = false;
+
+    if ($auto_expire) {
+      $now = time();
+      $filetime = filemtime($filename);
+      $difference = $now - $filetime;
+
+      if ($difference >= $auto_expire) {
+        return false;
+      }
+    }
+
 // try to open file
     if ($fp = @fopen($filename, 'r')) {
 // read in serialized data
@@ -45,6 +56,7 @@
       fclose($fp);
 // unserialze the data
       $var = unserialize($szdata);
+
       $success = true;
     }
 
@@ -80,10 +92,10 @@
 ////
 //! Cache the categories box
 // Cache the categories box
-  function tep_cache_categories_box($refresh = false) {
+  function tep_cache_categories_box($auto_expire = false, $refresh = false) {
     global $HTTP_GET_VARS, $foo, $languages_id, $id, $categories_string;
 
-    if ($refresh || !read_cache($cache_output, 'categories_box.cache' . $HTTP_GET_VARS['cPath'])) {
+    if ($refresh || !read_cache($cache_output, 'categories_box.cache' . $HTTP_GET_VARS['cPath'], $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'categories.php');
       $cache_output = ob_get_contents();
@@ -97,10 +109,10 @@
 ////
 //! Cache the manufacturers box
 // Cache the manufacturers box
-  function tep_cache_manufacturers_box($refresh = false) {
+  function tep_cache_manufacturers_box($auto_expire = false, $refresh = false) {
     global $HTTP_GET_VARS;
 
-    if ($refresh || !read_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id'])) {
+    if ($refresh || !read_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id'], $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'manufacturers.php');
       $cache_output = ob_get_contents();
@@ -114,10 +126,10 @@
 ////
 //! Cache the also purchased module
 // Cache the also purchased module
-  function tep_cache_also_purchased($refresh = false) {
+  function tep_cache_also_purchased($auto_expire = false, $refresh = false) {
     global $HTTP_GET_VARS, $languages_id;
 
-    if ($refresh || !read_cache($cache_output, 'also_purchased.cache' . $HTTP_GET_VARS['products_id'])) {
+    if ($refresh || !read_cache($cache_output, 'also_purchased.cache' . $HTTP_GET_VARS['products_id'], $auto_expire)) {
       ob_start();
       include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
       $cache_output = ob_get_contents();

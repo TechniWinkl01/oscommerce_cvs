@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.3 2001/08/11 11:36:35 dwatkins Exp $
+  $Id: configure.php,v 1.4 2001/08/13 20:28:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -49,7 +49,7 @@
 
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off
-  define('CACHE_DIR', '/tmp/'); // Default: /tmp/ - Default cache directory
+  define('DIR_FS_CACHE', '/tmp/'); // Default: /tmp/ - Default cache directory
 
 /* phpCache defines ******
   define('CACHE_DEBUG', false); // Default: false - Turn debugging on/off
