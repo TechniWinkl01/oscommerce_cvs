@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.37 2002/11/14 19:41:04 hpdl Exp $
+  $Id: upgrade_3.php,v 1.38 2003/01/13 18:52:49 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,6 +199,18 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("update configuration set set_function = 'tep_cfg_pull_down_country_list(' where configuration_key = 'STORE_COUNTRY'");
   osc_db_query("update configuration set configuration_value = 'desc', configuration_description = 'This is the sort order used in the expected products box.', set_function = 'tep_cfg_select_option(array(\'asc\', \'desc\'), ' where configuration_key = 'EXPECTED_PRODUCTS_SORT'");
   osc_db_query("update configuration set configuration_value = 'date_expected', configuration_description = 'The column to sort by in the expected products box.', set_function = 'tep_cfg_select_option(array(\'products_name\', \'date_expected\'), ' where configuration_key = 'EXPECTED_PRODUCTS_FIELD'");
+
+  $config_query = osc_db_query("select configuration_key, configuration_value from configuration where configuration_key = 'IMAGE_REQUIRED'");
+  $config_value = osc_db_fetch_array($config_query);
+  if ($config_value['configuration_value'] == '1') $config_flag = 'true';
+  else $config_flag = 'false';
+  osc_db_query("update configuration set configuration_value = '" . $config_flag . "', set_function = 'tep_cfg_select_option(array(\'true\', \'false\'),' where configuration_key = 'IMAGE_REQUIRED'");
+
+  $config_query = osc_db_query("select configuration_key, configuration_value from configuration where configuration_key = 'CONFIG_CALCULATE_IMAGE_SIZE'");
+  $config_value = osc_db_fetch_array($config_query);
+  if ($config_value['configuration_value'] == '1') $config_flag = 'true';
+  else $config_flag = 'false';
+  osc_db_query("update configuration set configuration_value = '" . $config_flag . "', set_function = 'tep_cfg_select_option(array(\'true\', \'false\'),' where configuration_key = 'CONFIG_CALCULATE_IMAGE_SIZE'");
 
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Zone', 'STORE_ZONE', '88', 'The zone my store is located in', '1', '7', 'tep_get_zone_name', 'tep_cfg_pull_down_zone_list(', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Switch To Default Currency', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 'Automatically switch to the language\'s currency when it is changed', '1', '10', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
