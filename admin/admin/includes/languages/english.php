@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.97 2002/05/07 23:07:11 hpdl Exp $
+  $Id: english.php,v 1.98 2002/08/17 09:43:32 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -267,4 +267,6 @@ define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no defaul
 define('TEXT_CACHE_CATEGORIES', 'Categories Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Manufacturers Box');
 define('TEXT_CACHE_ALSO_PURCHASED', 'Also Purchased Module');
+
+define('TEXT_NONE', '--none--');
 ?>

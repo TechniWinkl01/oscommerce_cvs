@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.135 2002/07/20 14:26:16 project3000 Exp $
+  $Id: categories.php,v 1.136 2002/08/17 09:43:31 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -325,7 +325,7 @@
       $pInfo = new objectInfo(array());
     }
 
-    $manufacturers_array = array(array('id' => '', 'text' => '--none--'));
+    $manufacturers_array = array(array('id' => '', 'text' => TEXT_NONE));
     $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
     while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
       $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],

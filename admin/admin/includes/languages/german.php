@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.90 2002/05/07 23:07:11 hpdl Exp $
+  $Id: german.php,v 1.91 2002/08/17 09:43:33 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -267,4 +267,6 @@ define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardw&au
 define('TEXT_CACHE_CATEGORIES', 'Kategorien Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Hersteller Box');
 define('TEXT_CACHE_ALSO_PURCHASED', 'Modul f&uuml;r ebenfalls gekaufte Artikel');
+
+define('TEXT_NONE', '--keine--');
 ?>
