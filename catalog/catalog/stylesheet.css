@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.38 2002/01/03 15:49:39 dgw_ Exp $
+  $Id: stylesheet.css,v 1.39 2002/01/03 16:25:25 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -165,6 +165,7 @@ TD.subBar {
 TD.main, P.main {
   font-family : Verdana, Arial, sans-serif;
   font-size : 11px;
+  line-height : 1.5;
 }
 
 TD.smallText, SPAN.smallText {
