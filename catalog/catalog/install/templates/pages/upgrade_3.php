@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.34 2002/08/15 17:36:18 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.35 2002/11/01 02:56:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -431,6 +431,14 @@ changeText('statusText', 'Updating Orders');
 <?php
   flush();
 
+  osc_db_query("alter table orders add billing_name varchar(64) not null after delivery_address_format_id");
+  osc_db_query("alter table orders add billing_street_address varchar(64) not null after billing_name");
+  osc_db_query("alter table orders add billing_suburb varchar(32) after billing_street_address");
+  osc_db_query("alter table orders add billing_city varchar(32) not null after billing_suburb");
+  osc_db_query("alter table orders add billing_postcode varchar(10) not null after billing_city");
+  osc_db_query("alter table orders add billing_state varchar(32) after billing_postcode");
+  osc_db_query("alter table orders add billing_country varchar(32) not null after billing_state");
+  osc_db_query("alter table orders add billing_address_format_id int(5) not null after billing_country");
   osc_db_query("alter table orders change payment_method payment_method varchar(32) not null");
   osc_db_query("alter table orders change date_purchased date_purchased datetime");
   osc_db_query("alter table orders change last_modified last_modified datetime");
