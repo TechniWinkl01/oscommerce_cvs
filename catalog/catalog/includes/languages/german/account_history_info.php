@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.12 2002/02/02 21:59:49 harley_vb Exp $
+  $Id: account_history_info.php,v 1.13 2002/03/31 20:10:43 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,7 +16,7 @@ define('NAVBAR_TITLE_3', 'Bestellinformation');
 define('HEADING_TITLE', 'Bestellinformation');
 define('TABLE_HEADING_COMMENTS', 'Kommentar');
 define('TABLE_HEADING_QUANTITY', 'Anzahl');
-define('TABLE_HEADING_PRODUCT', 'Artikel');
+define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_TAX', 'MwSt.');
 define('TABLE_HEADING_TOTAL', 'Summe');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferanschrift');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.110 2002/03/10 22:24:01 harley_vb Exp $
+  $Id: checkout_confirmation.php,v 1.111 2002/03/31 20:10:42 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,16 +102,9 @@
       </tr>
     </table><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_QUANTITY; ?></td>
-            <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td align="right" class="tableHeading"><?php echo TABLE_HEADING_TOTAL; ?></td>
-          </tr>
-          <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-          </tr>
+        <td>
+          <table border="0" width="100%" cellspacing="0" cellpadding="2">
+
 <?php
   $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $address_values = tep_db_fetch_array($address);
@@ -126,62 +119,44 @@
     $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
 // proving the country_id from the customers
     $products_tax = tep_get_tax_rate($address_values['country_id'], $address_values['zone_id'], $products[$i]['tax_class_id']);
+    $products[$i]['tax'] = $products_tax;
     $products_weight = $products[$i]['weight'];
-
-    echo '          <tr>' . "\n";
-    echo '            <td align="center" valign="top" class="main">' . $products[$i]['quantity'] . '</td>' . "\n";
-    echo '            <td valign="top" class="main"><b>' . $products_name . '</b>';
 
     if (STOCK_CHECK == 'true') {
       echo tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
     }
 
-    //------display customer choosen option --------
-    $attributes_exist = '0';
-    if ($products[$i]['attributes']) {
-      $attributes_exist = '1';
-      reset($products[$i]['attributes']);
-      while (list($option, $value) = each($products[$i]['attributes'])) {
-        $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
-        $attributes_values = tep_db_fetch_array($attributes);
-        echo '<br><small><i> - ' . $attributes_values['products_options_name'] . ' : ' . $attributes_values['products_options_values_name'] . '</i></small>';
-      }
-    }
-//------display customer choosen option eof-----
-    echo '</td>' . "\n";
-    echo '            <td align="center" valign="top" class="main">' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%</td>' . "\n";
-    if (DISPLAY_PRICE_WITH_TAX == true) {
-    echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['quantity'] * $products_price * (1 + $products_tax/100)) . '</b>';
-    } else {
-    echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['quantity'] * $products_price) . '</b>';
-    }
-//------display customer choosen option --------
-    if ($attributes_exist == '1') {
-      reset($products[$i]['attributes']);
-      while (list($option, $value) = each($products[$i]['attributes'])) {
-        $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_values_id = '" . $value . "'");
-        $attributes_values = tep_db_fetch_array($attributes);
-        if ($attributes_values['options_values_price'] != '0') {
-          if (DISPLAY_PRICE_WITH_TAX == true) {
-            echo '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']* (1 + $products_tax/100)) . '</i></small>';
-          } else {
-          echo '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>';
+// Push all attributes information in an array
+      if ($products[$i]['attributes']) {
+        reset($products[$i]['attributes']);
+        while (list($option, $value) = each($products[$i]['attributes'])) {
+          $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix
+                                      from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa 
+                                      where pa.products_id = '" . $products[$i]['id'] . "'
+                                       and pa.options_id = '" . $option . "' 
+                                       and pa.options_id = popt.products_options_id 
+                                       and pa.options_values_id = '" . $value . "' 
+                                       and pa.options_values_id = poval.products_options_values_id 
+                                       and popt.language_id = '" . $languages_id . "' 
+                                       and poval.language_id = '" . $languages_id . "'");
+          $attributes_values = tep_db_fetch_array($attributes);
+          
+          $products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
+          $products[$i][$option]['options_values_id'] = $value;
+          $products[$i][$option]['products_options_values_name'] = $attributes_values['products_options_values_name'];
+          $products[$i][$option]['options_values_price'] = $attributes_values['options_values_price'];
+          $products[$i][$option]['price_prefix'] = $attributes_values['price_prefix'];
         }
       }
-    }
-    }
-//------display customer choosen option eof-----
-    echo '</td>' . "\n";
-    echo '</tr>' . "\n";
-
     $total_weight += ($products[$i]['quantity'] * $products_weight);
       $total_taxes[number_format($products_tax, TAX_DECIMAL_PLACES)] += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
     if (DISPLAY_PRICE_WITH_TAX == true) {
       $total_cost += ($total_products_price * $products[$i]['quantity'] * (1 + $products_tax/100));
     } else {
     $total_cost += ($total_products_price * $products[$i]['quantity']);
+    }
   }
-  }
+  require(DIR_WS_MODULES. 'order_details.php');
 
   $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0;

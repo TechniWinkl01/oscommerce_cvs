@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.8 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: account_history_info.php,v 1.9 2002/03/31 20:10:43 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@ define('NAVBAR_TITLE_3', 'Detalle del Pedido');
 define('HEADING_TITLE', 'Detalle del Pedido');
 define('TABLE_HEADING_COMMENTS', 'Comentarios');
 define('TABLE_HEADING_QUANTITY', 'Cantidad');
-define('TABLE_HEADING_PRODUCT', 'Producto');
+define('TABLE_HEADING_PRODUCTS', 'Producto');
 define('TABLE_HEADING_TAX', 'Impuestos');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Direccion de Entrega');

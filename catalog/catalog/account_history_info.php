@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.72 2002/03/10 22:19:41 harley_vb Exp $
+  $Id: account_history_info.php,v 1.73 2002/03/31 20:10:42 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,60 +67,40 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_QUANTITY; ?></td>
-            <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCT; ?></td>
-            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td align="right" class="tableHeading"><?php echo TABLE_HEADING_TOTAL; ?></td>
-          </tr>
-          <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-          </tr>
+
 <?php
   $order_currency_query = tep_db_query("select currency, currency_value from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_currency = tep_db_fetch_array($order_currency_query);
 
-  $orders_products_query = tep_db_query("select products_id, products_name, products_price, final_price, products_tax, products_quantity, orders_products_id from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $orders_products_query = tep_db_query("select products_id, products_name, products_price, final_price, products_tax, products_quantity, orders_products_id 
+                                         from " . TABLE_ORDERS_PRODUCTS . " 
+                                         where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $total_cost = 0;
   $total_tax = 0;
+  $i = 0;
   while ($orders_products = tep_db_fetch_array($orders_products_query)) {
+    $products[$i]['name'] = $orders_products['products_name'];
+    $products[$i]['quantity'] = $orders_products['products_quantity'];
+    $products[$i]['tax'] = $orders_products['products_tax'];
+    $products[$i]['price'] = $orders_products['products_price'];
     $final_price = $orders_products['final_price'];
-    echo '          <tr>' . "\n";
-    echo '            <td align="center" valign="top" class="main">' . $orders_products['products_quantity'] . '</td>' . "\n";
-    echo '            <td valign="top" class="main"><b>' . $orders_products['products_name'] . '</b>' . "\n";
-//------display customer choosen option --------
-    $attributes_exist = '0';
-    $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
+    $attributes_query = tep_db_query("select products_options, products_options_values, price_prefix, options_values_price 
+                        from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " 
+                        where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'
+                         and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
+// Build data structure for order_details module
     if (@tep_db_num_rows($attributes_query)) {
-      $attributes_exist = '1';
+      $j = 0;
       while ($attributes = tep_db_fetch_array($attributes_query)) {
-		echo '<br><small><i> - ' . $attributes['products_options'] . ' : ' . $attributes['products_options_values'] . '</i></small>';
+        $products[$i][$j]['products_options_name'] = $attributes['products_options'];
+        $products[$i][$j]['products_options_values_name'] = $attributes['products_options_values'];
+        $products[$i][$j]['price_prefix'] = $attributes['price_prefix'];
+        $products[$i][$j]['options_values_price'] = $attributes['options_values_price'];
+        $products[$i]['attributes'][$j] = 1;
+        $j++;
       }
     }
-//------display customer choosen option eof-----
-	echo '</td>' . "\n";
-    echo '            <td align="center" valign="top" class="main">' . number_format($orders_products['products_tax'], TAX_DECIMAL_PLACES) . '%</td>' . "\n";
-    if (DISPLAY_PRICE_WITH_TAX == true) {
-      echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'] * (($orders_products['products_tax']/100)+1), true, $order_currency['currency'], $order_currency['currency_value']) . '</b>';
-    } else {
-      echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>';
-    }
-//------display customer choosen option --------
-    if ($attributes_exist == '1') {
-      $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
-      while ($attributes = tep_db_fetch_array($attributes_query)) {
-        if ($attributes['options_values_price'] != '0') {
-          if (DISPLAY_PRICE_WITH_TAX == true) {
-            echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'] * (($orders_products['products_tax']/100)+1), true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>';
-          } else {
-            echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>';
-          }
-        }
-      }
-    }
-//------display customer choosen option eof-----
-    echo '</td>' . "\n";
-    echo '          </tr>' . "\n";
+    $i++;
 
     $cost = ($orders_products['products_quantity'] * $final_price);
     if (DISPLAY_PRICE_WITH_TAX == true) {
@@ -130,6 +110,8 @@
     }
     $total_cost += $cost;
   }
+  require(DIR_WS_MODULES. 'order_details.php');
+
 ?>
           <tr>
             <td colspan="4"><?php echo tep_draw_separator(); ?></td>
