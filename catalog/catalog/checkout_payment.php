@@ -26,14 +26,16 @@
   $address_values = tep_db_fetch_array($address);
   $total_weight = $cart->show_weight();
   $total_count = $cart->count_contents();
-  $action = 'quote'; 
-  include(DIR_WS_MODULES . 'shipping.php');
-  if ($shipping_quoted == '' && SHIPPING_MODULES != '') { // Null if no quotes selected
-    header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection));
-    tep_exit();
+
+// load shipping modules as objects
+  include(DIR_WS_CLASSES . 'shipping.php');
+  $shipping_modules = new shipping;
+  $shipping_modules->quote();
+
+  if ( ($shipping_quoted == '') && (SHIPPING_MODULES != '') ) { // Null if no quotes selected
+    header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection)); tep_exit();
   }
-?> 
-<?php
+
   $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_WS_INCLUDES . 'include_once.php');
   $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
@@ -160,10 +162,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
-      $action = 'cheapest'; 
-      include(DIR_WS_MODULES . 'shipping.php');
-      $action = 'display'; 
-      include(DIR_WS_MODULES . 'shipping.php');
+    $shipping_modules->cheapest();
+    $shipping_modules->display();
 ?>          
             </table></td>
           </tr>

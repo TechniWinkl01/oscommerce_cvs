@@ -12,6 +12,10 @@
 ?>
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
+<?php
+  include(DIR_WS_CLASSES . 'shipping.php');
+  $shipping_modules = new shipping;
+?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -71,8 +75,7 @@
             </tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
-      $action = 'select';
-      include(DIR_WS_MODULES . 'shipping.php');
+  $shipping_modules->select();
 ?>
             </table></td>
           </tr>

@@ -9,6 +9,10 @@
   $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php');
   $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
+// load shipping modules as objects
+  include(DIR_WS_CLASSES . 'shipping.php');
+  $shipping_modules = new shipping;
+
 // load payment modules as objects
   include(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
@@ -128,8 +132,7 @@
   $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0.0;
   if (SHIPPING_MODULES != '') {
-      $action = 'confirm';
-      include(DIR_WS_MODULES . 'shipping.php');
+    $shipping_modules->confirm();
   }
 ?>
           <tr>
