@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.30 2004/02/14 21:12:37 mevans Exp $
+  $Id: html_output.php,v 1.31 2004/07/22 23:12:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,6 +80,12 @@
     $image .= '>';
 
     return $image;
+  }
+
+  function tep_icon($image, $alt = '', $width = '', $height = '', $params = '') {
+    global $template;
+
+    return tep_image('templates/' . $template . '/images/icons/16x16/' . $image, $alt, $width, $height, $params);
   }
 
 ////
@@ -294,5 +300,245 @@
     if ($required == true) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
+  }
+
+  function osc_draw_selection_field($name, $type, $values, $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    if (!is_array($values)) {
+      $values = array($values);
+    }
+
+    if (isset($_GET[$name])) {
+      $default = $_GET[$name];
+    } elseif (isset($_POST[$name])) {
+      $default = $_POST[$name];
+    }
+
+    $field = '';
+
+    $counter = 0;
+    foreach ($values as $key => $value) {
+      $counter++;
+
+      if (is_array($value)) {
+        $selection_value = $value['id'];
+        $selection_text = '<label for="' . tep_output_string($name) . '_' . $counter . '">&nbsp;' . $value['text'] . '</label>';
+      } else {
+        $selection_value = $value;
+        $selection_text = '';
+      }
+
+      $field .= '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+
+      if (!empty($selection_value)) {
+        $field .= ' value="' . tep_output_string($selection_value) . '"';
+      }
+
+      if ((is_bool($default) && $default === true) || (!empty($default) && ($default == $selection_value))) {
+        $field .= ' CHECKED';
+      }
+
+      if (!empty($parameters)) {
+        $field .= ' ' . $parameters;
+      }
+
+      $field .= ' id="' . tep_output_string($name) . '_' . $counter . '">' . $selection_text . $separator;
+    }
+
+    $field = substr($field, 0, strlen($field)-strlen($separator));
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
+
+    return $field;
+  }
+
+  function osc_draw_checkbox_field($name, $values = '', $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
+    return osc_draw_selection_field($name, 'checkbox', $values, $default, $parameters, $required, $separator);
+  }
+
+  function osc_draw_radio_field($name, $values = '', $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
+    return osc_draw_selection_field($name, 'radio', $values, $default, $parameters, $required, $separator);
+  }
+
+  function osc_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    $field_value = $value;
+
+    $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+
+    if ($reinsert_value === true) {
+      if (isset($_GET[$name])) {
+        $field_value = $_GET[$name];
+      } elseif (isset($_POST[$name])) {
+        $field_value = $_POST[$name];
+      }
+    }
+
+    if (strlen(trim($field_value)) > 0) {
+      $field .= ' value="' . tep_output_string($field_value) . '"';
+    }
+
+    if (!empty($parameters)) {
+      $field .= ' ' . $parameters;
+    }
+
+    $field .= '>';
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
+
+    return $field;
+  }
+
+  function osc_draw_password_field($name, $value = '', $parameters = '', $required = false) {
+    return osc_draw_input_field($name, $value, $parameters, $required, 'password', false);
+  }
+
+  function osc_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    $field = '<select name="' . tep_output_string($name) . '"';
+
+    if (!empty($parameters)) $field .= ' ' . $parameters;
+
+    $field .= '>';
+
+    $default_value = $default;
+
+    if (isset($_GET[$name])) {
+      $default_value = $_GET[$name];
+    } elseif (isset($_POST[$name])) {
+      $default_value = $_POST[$name];
+    }
+
+    for ($i=0, $n=sizeof($values); $i<$n; $i++) {
+      $field .= '<option value="' . tep_output_string($values[$i]['id']) . '"';
+
+      if ($default_value == $values[$i]['id']) {
+        $field .= ' SELECTED';
+      }
+
+      $field .= '>' . tep_output_string($values[$i]['text'], array('"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;')) . '</option>';
+    }
+
+    $field .= '</select>';
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
+
+    return $field;
+  }
+
+  function osc_draw_hidden_field($name, $value = '', $parameters = '') {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    if (empty($value)) {
+      if (isset($_GET[$name])) {
+        $value = $_GET[$name];
+      } elseif (isset($_POST[$name])) {
+        $value = $_POST[$name];
+      }
+    }
+
+    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
+
+    if (!empty($value)) {
+      $field .= ' value="' . tep_output_string($value) . '"';
+    }
+
+    if (!empty($parameters)) {
+      $field .= ' ' . $parameters;
+    }
+
+    $field .= '>';
+
+    return $field;
+  }
+
+  function tep_draw_date_pull_down_menu($name, $value = '', $default_today = true, $show_days = true, $use_month_names = true, $year_range_start = '0', $year_range_end  = '1') {
+    $params = '';
+
+// days pull down menu
+    $days_select_string = '';
+
+    if ($show_days === true) {
+      $params = 'onChange="updateDatePullDownMenu(this.form, \'' . $name . '\');"';
+
+      $days_in_month = ($default_today === true) ? date('t') : 31;
+
+      $days_array = array();
+      for ($i=1; $i<=$days_in_month; $i++) {
+        $days_array[] = array('id' => $i,
+                              'text' => $i);
+      }
+
+      if (isset($GLOBALS[$name . '_days'])) {
+        $days_default = $GLOBALS[$name . '_days'];
+      } elseif (!empty($value)) {
+        $days_default = date('j', $value);
+      } elseif ($default_today === true) {
+        $days_default = date('j');
+      } else {
+        $days_default = 1;
+      }
+
+      $days_select_string = osc_draw_pull_down_menu($name . '_days', $days_array, $days_default);
+    }
+
+// months pull down menu
+    $months_array = array();
+    for ($i=1; $i<=12; $i++) {
+      $months_array[] = array('id' => $i,
+                              'text' => (($use_month_names === true) ? strftime('%B', mktime(0, 0, 0, $i)) : $i));
+    }
+
+    if (isset($GLOBALS[$name . '_months'])) {
+      $months_default = $GLOBALS[$name . '_months'];
+    } elseif (!empty($value)) {
+      $months_default = date('n', $value);
+    } elseif ($default_today === true) {
+      $months_default = date('n');
+    } else {
+      $months_default = 1;
+    }
+
+    $months_select_string = osc_draw_pull_down_menu($name . '_months', $months_array, $months_default, $params);
+
+// year pull down menu
+    $year = date('Y');
+
+    $years_array = array();
+    for ($i = ($year - $year_range_start); $i <= ($year + $year_range_end); $i++) {
+      $years_array[] = array('id' => $i,
+                             'text' => $i);
+    }
+
+    if (isset($GLOBALS[$name . '_years'])) {
+      $years_default = $GLOBALS[$name . '_years'];
+    } elseif (!empty($value)) {
+      $years_default = date('Y', $value);
+    } elseif ($default_today === true) {
+      $years_default = $year;
+    } else {
+      $years_default = $year - $year_range_start;
+    }
+
+    $years_select_string = osc_draw_pull_down_menu($name . '_years', $years_array, $years_default, $params);
+
+    return $days_select_string . $months_select_string . $years_select_string;
   }
 ?>
