@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.32 2003/02/13 13:54:41 project3000 Exp $
+  $Id: tell_a_friend.php,v 1.33 2003/02/13 14:04:59 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,7 +114,7 @@
       $error = true;
     }
 
-    if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process') && $error == false) {
+    if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process') && ($error == false)) {
       if (tep_session_is_registered('customer_id')) {
         $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
         $from_email_address = $account_values['customers_email_address'];
