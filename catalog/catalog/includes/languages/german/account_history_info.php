@@ -22,6 +22,7 @@ define('TABLE_SUBHEADING_SHIPPING', 'Versandkosten:');
 define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
 define('TEXT_CC', 'Kreditkarte');
+define('TEXT_PAYPAL', 'PayPal.com Credit Card/eCheck Processing');
 
 define('IMAGE_BACK', 'Zur&uuml;ck');
 ?>

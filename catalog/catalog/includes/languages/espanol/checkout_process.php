@@ -34,12 +34,12 @@ if ($delivery_values['state'] != '') {
   $email_order.="\n" . $delivery_country['countries_name'];
 }
 $email_order.="\n\n" . EMAIL_TEXT_PAYMENT_METHOD . "\n" . '------------------------------------------------------' . "\n";
-switch($HTTP_POST_VARS['payment']) {
+switch($payment) {
 	case 'cod' : // Cash On Delivery
 		$email_order.=EMAIL_TEXT_CASH_ON_DELIVERY . "\n\n";
 		break;
 	case 'cc' : // Credit Card
-		$email_order.=EMAIL_TEXT_CREDIT_CARD . ' ' . $HTTP_POST_VARS['cc_type'] . "\n\n";
+		$email_order.=EMAIL_TEXT_CREDIT_CARD . ' ' . $cc_type . "\n\n";
 		break;
 	case 'paypal' : // PayPal
 		$email_order.=EMAIL_TEXT_PAYPAL . "\n\n";

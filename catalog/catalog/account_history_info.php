@@ -177,6 +177,10 @@
     echo '          <tr>' . "\n";
     echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_CC . '&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
+  } elseif ($order_values['payment_method'] == 'paypal') {
+    echo '          <tr>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_PAYPAL . '&nbsp;</font></td>' . "\n";
+    echo '          </tr>' . "\n";
   }
 ?>
         </table></font></td>

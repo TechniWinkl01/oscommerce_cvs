@@ -23,6 +23,7 @@ define('TABLE_SUBHEADING_SHIPPING', 'Shipping:');
 define('TABLE_SUBHEADING_TOTAL', 'Total:');
 define('TEXT_COD', 'Cash on Delivery');
 define('TEXT_CC', 'Credit Card');
+define('TEXT_PAYPAL', 'PayPal.com Credit Card/eCheck Processing');
 
 define('IMAGE_BACK', 'Back');
 ?>
