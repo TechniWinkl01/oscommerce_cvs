@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.112 2002/01/11 02:20:56 hpdl Exp $
+  $Id: categories.php,v 1.113 2002/01/12 16:30:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
-      case 'setflag': // update the products status
+      case 'setflag':
         if ( ($HTTP_GET_VARS['flag'] == '0') || ($HTTP_GET_VARS['flag'] == '1') ) {
           if ($HTTP_GET_VARS['cID']) {
             tep_set_category_status($HTTP_GET_VARS['cID'], $HTTP_GET_VARS['flag']);
@@ -256,6 +256,7 @@
         }
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $categories_id . '&pID=' . $products_id));
+        break;
     }
   }
 
@@ -274,7 +275,7 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
 </head>
-<body onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
 <div id="spiffycalendar" class="text"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
@@ -848,6 +849,7 @@
 
           $contents[] = array('text' => sprintf(TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS, $parent_categories_name));
         }
+        break;
     }
 
   $box = new box;
@@ -869,6 +871,7 @@
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<br>
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

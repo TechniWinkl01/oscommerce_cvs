@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.40 2002/01/11 02:20:56 hpdl Exp $
+  $Id: backup.php,v 1.41 2002/01/12 16:30:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -280,6 +280,7 @@
             exit;
           }
         }
+        break;
     }
   }
 
@@ -297,7 +298,7 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -360,7 +361,7 @@
         switch (substr($entry, -3)) {
           case 'zip': $file_array['compression'] = 'ZIP'; break;
           case '.gz': $file_array['compression'] = 'GZIP'; break;
-          default: $file_array['compression'] = TEXT_NO_EXTENSION;
+          default: $file_array['compression'] = TEXT_NO_EXTENSION; break;
         }
 
         $buInfo = new objectInfo($file_array);
@@ -446,6 +447,7 @@
         $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
         $contents[] = array('text' => '<br>' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);
       }
+      break;
   }
 
   $box = new box;
@@ -464,6 +466,7 @@
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<br>
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

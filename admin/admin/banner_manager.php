@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.48 2002/01/11 02:20:56 hpdl Exp $
+  $Id: banner_manager.php,v 1.49 2002/01/12 16:30:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,6 +114,7 @@
         tep_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . tep_db_input($banners_id) . "'");
 
         tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, 'page=' . $HTTP_GET_VARS['page']));
+        break;
     }
   }
 ?>
@@ -129,7 +130,7 @@ function popupImageWindow(url) {
 }
 //--></script>
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <div id="spiffycalendar" class="text"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
@@ -359,6 +360,7 @@ function popupImageWindow(url) {
 
         if ($bInfo->date_status_change) $contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_STATUS_CHANGE, tep_date_short($bInfo->date_status_change)));
       }
+      break;
   }
 
   $box = new box;
@@ -380,6 +382,7 @@ function popupImageWindow(url) {
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<br>
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
