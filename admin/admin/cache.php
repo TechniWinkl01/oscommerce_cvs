@@ -1,7 +1,8 @@
 <? include('includes/application_top.php'); ?>
 <?
   $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box.cache', 'multiple' => true),
-                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box.cache', 'multiple' => true)
+                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box.cache', 'multiple' => true),
+                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased.cache', 'multiple' => true)
                        );
 
   if ($HTTP_GET_VARS['action']) {
