@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.9 2001/08/25 12:17:12 hpdl Exp $
+  $Id: ipayment.php,v 1.10 2001/08/25 14:20:26 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -92,8 +92,6 @@
       $customer_email_values = tep_db_fetch_array($customer_email);
 
       if ($this->enabled) {
-        $ipayment_return = $HTTP_POST_VARS['payment'] . '&' . SID . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']);
-
         $process_button_string = tep_draw_hidden_field('silent', 'true') .
                                  tep_draw_hidden_field('cc_userid', MODULE_PAYMENT_IPAYMENT_USER_ID) .
                                  tep_draw_hidden_field('item_name', STORE_NAME) .
@@ -106,9 +104,8 @@
                                  tep_draw_hidden_field('cc_email', $customer_email_values['customers_email_address']) .
                                  tep_draw_hidden_field('redirect_action', 'GET') .
                                  tep_draw_hidden_field('cc_currency', MODULE_PAYMENT_IPAYMENT_CURRENCY) .
-                                 tep_draw_hidden_field('redirect_url', HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS) .
-                                 tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $ipayment_return, 'SSL')) .
-                                 tep_draw_hidden_field(tep_session_name(), tep_session_id());
+                                 tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                                 tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $HTTP_POST_VARS['payment'] . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']), 'SSL'));
       }
 
       return $process_button_string;
