@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: gzip_compression.php,v 1.3 2003/02/11 01:31:02 hpdl Exp $
+  $Id: gzip_compression.php,v 1.4 2003/11/17 18:38:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,17 @@
 */
 
   function tep_check_gzip() {
-    global $HTTP_ACCEPT_ENCODING;
+    if (PHP_VERSION < 4.1) {
+      global $_SERVER;
+    }
 
     if (headers_sent() || connection_aborted()) {
       return false;
     }
 
-    if (strpos($HTTP_ACCEPT_ENCODING, 'x-gzip') !== false) return 'x-gzip';
+    if (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== false) return 'x-gzip';
 
-    if (strpos($HTTP_ACCEPT_ENCODING,'gzip') !== false) return 'gzip';
+    if (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false) return 'gzip';
 
     return false;
   }
