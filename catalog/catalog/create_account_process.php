@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.89 2003/04/13 11:52:47 project3000 Exp $
+  $Id: create_account_process.php,v 1.90 2003/04/15 18:04:34 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@
   $error = false; // reset error flag
 
   if (ACCOUNT_GENDER == 'true') {
-    if (($gender == 'm') || ($gender == 'f')) {
+    if ( ($gender == 'm') || ($gender == 'f') ) {
       $entry_gender_error = false;
     } else {
       $error = true;
@@ -115,7 +115,7 @@
     $entry_city_error = false;
   }
 
-  if (!$country) {
+  if (!is_numeric($country)) {
     $error = true;
     $entry_country_error = true;
   } else {
