@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.247 2002/08/13 18:49:07 dgw_ Exp $
+  $Id: application_top.php,v 1.248 2002/09/20 20:47:35 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -368,7 +368,7 @@
                                 if (tep_has_product_attributes($HTTP_GET_VARS['pid'])) {
                                   tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['pid'], 'NONSSL'));
                                 } else {
-                                  $cart->add_cart($HTTP_GET_VARS['pid'], 1);
+                                  $cart->add_cart($HTTP_GET_VARS['pid'],$cart->get_quantity($HTTP_GET_VARS['pid'])+1);
                                 }
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
