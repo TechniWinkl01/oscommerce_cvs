@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.3 2002/01/09 17:19:25 hpdl Exp $
+# $Id: oscommerce.sql,v 1.4 2002/01/10 13:47:15 jan0815 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -947,9 +947,9 @@ INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', '
 
 INSERT INTO customers_info VALUES('1', '', '0', now(), '');
 
-INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
-INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
-INSERT INTO languages VALUES (3,'Español','es','flag_es.gif','espanol',3);
+INSERT INTO languages VALUES (1,'English','en','icon.gif','english',1);
+INSERT INTO languages VALUES (2,'Deutsch','de','icon.gif','german',2);
+INSERT INTO languages VALUES (3,'Español','es','icon.gif','espanol',3);
 
 INSERT INTO manufacturers VALUES (1,'Matrox','manufacturer_matrox.gif', now(), '');
 INSERT INTO manufacturers VALUES (2,'Microsoft','manufacturer_microsoft.gif', now(), '');
