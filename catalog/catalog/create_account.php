@@ -46,10 +46,12 @@ function check_form() {
   var last_name = document.create_account.lastname.value;
 <?
   if (ACCOUNT_DOB) {
-     echo 'var dob = document.create_account.dob.value;';
+     echo 'var dob = document.create_account.dob.value;' . "\n";
   }
 ?>
-  var zone_id = document.create_account.zone_id.options[document.create_account.zone_id.selectedIndex].value;
+  if (document.create_account.zone_id.options.length > 0) {
+    var zone_id = document.create_account.zone_id.options[document.create_account.zone_id.selectedIndex].value;
+  }
   var country = document.create_account.country.options[document.create_account.country.selectedIndex].value;
   var email_address = document.create_account.email_address.value;  
   var street_address = document.create_account.street_address.value;
@@ -150,7 +152,7 @@ function check_form() {
 }
 //--></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="update_zone(document.create_account);">
 <!-- header //-->
 <? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
