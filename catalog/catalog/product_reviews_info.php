@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.42 2002/07/20 15:00:22 project3000 Exp $
+  $Id: product_reviews_info.php,v 1.43 2002/07/21 18:21:30 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,7 +54,8 @@ function popupImageWindow(url) {
   $reviews = tep_db_query("select rd.reviews_text, r.reviews_rating, r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "' and r.reviews_id = rd.reviews_id");
   $reviews_values = tep_db_fetch_array($reviews);
 
-  $reviews_text = tep_break_string($reviews_values['reviews_text'], 60, '-<br>');
+  $reviews_text = htmlspecialchars($reviews_values['reviews_text']);
+  $reviews_text = tep_break_string($reviews_text, 60, '-<br>');
 
   $product = tep_db_query("select p.products_id, pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $reviews_values['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '". $languages_id . "'");
   $product_info_values = tep_db_fetch_array($product);
