@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.165 2001/08/26 21:19:25 hpdl Exp $
+  $Id: application_top.php,v 1.166 2001/09/01 00:23:32 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -191,8 +191,6 @@
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
   if (CACHE_ON) {
-//    include(DIR_WS_CLASSES . 'cache.php');
-//    $cache = new phpCache;
     include(DIR_WS_FUNCTIONS . 'cache.php');
   }
 
