@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.177 2002/05/27 13:48:07 thomasamoulton Exp $
+  $Id: general.php,v 1.178 2002/05/28 01:13:07 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -269,7 +269,7 @@
     if (tep_db_num_rows($tax_query)) {
       $tax_multiplier = 0;
       while ($tax = tep_db_fetch_array($tax_query)) {
-        $tax_multiplier += ($tax['tax_rate'] / 100);
+        $tax_multiplier += $tax['tax_rate'];
       }
       return $tax_multiplier;
     } else {
