@@ -1,35 +1,31 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.1 2003/05/19 19:45:42 hpdl Exp $
+  $Id: message_stack.php,v 1.2 2003/11/17 19:15:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
-
-  Example usage:
-
-  $messageStack = new messageStack();
-  $messageStack->add('general', 'Error: Error 1', 'error');
-  $messageStack->add('general', 'Error: Error 2', 'warning');
-  if ($messageStack->size('general') > 0) echo $messageStack->output('general');
 */
 
   class messageStack extends tableBox {
 
 // class constructor
     function messageStack() {
-      global $messageToStack;
+      global $osC_Session;
 
       $this->messages = array();
 
-      if (tep_session_is_registered('messageToStack')) {
+      if ($osC_Session->exists('messageToStack')) {
+        $messageToStack = $osC_Session->value('messageToStack');
+
         for ($i=0, $n=sizeof($messageToStack); $i<$n; $i++) {
           $this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);
         }
-        tep_session_unregister('messageToStack');
+
+        $osC_Session->remove('messageToStack');
       }
     }
 
@@ -47,14 +43,17 @@
     }
 
     function add_session($class, $message, $type = 'error') {
-      global $messageToStack;
+      global $osC_Session;
 
-      if (!tep_session_is_registered('messageToStack')) {
-        tep_session_register('messageToStack');
+      if ($osC_Session->exists('messageToStack')) {
+        $messageToStack = $osC_Session->value('messageToStack');
+      } else {
         $messageToStack = array();
       }
 
       $messageToStack[] = array('class' => $class, 'text' => $message, 'type' => $type);
+
+      $osC_Session->set('messageToStack', $messageToStack);
     }
 
     function reset() {
