@@ -1,20 +1,29 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Preview Release 2.2
+Last Update: 05/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
-define('NAVBAR_TITLE', 'Anmelden');
-define('TOP_BAR_TITLE', 'Anmelden zu dem \'' . STORE_NAME .  '\'');
-define('HEADING_TITLE', 'Melden Sie sich an');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
-define('ENTRY_PASSWORD', 'Passwort:');
-define('TEXT_COOKIE', 'Speichern Sie die Anmeldeinformation in einem cookie?');
-define('TEXT_PASSWORD_FORGOTTEN', 'Passwort Vergessen? Klicken Sie hier.');
-define('TEXT_CREATE_ACCOUNT', 'Kein Konto?  Klicken Sie hier, um ein zu erstellen.');
-define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>ACHTUNG:</b></font> Ihre Besuchereingaben werden automatisch mit ihrem Mitgliedschaft Konto verbunden. <a href="javascript:session_win();">[Mehr Information]</a>');
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der \'E-Mail Adresse\' und/oder dem \'Passwort\'.');
+if ($HTTP_GET_VARS['origin'] == 'checkout_payment.php') {
+  define('NAVBAR_TITLE', 'Bestellen');
+  define('TOP_BAR_TITLE', 'Bestellen');
+  define('HEADING_TITLE', 'Eine Online-Bestellung ist einfach.');
+  define('TEXT_STEP_BY_STEP', 'Wir begleiten Sie Schritt für Schritt bei dem Vorgang.');
+} else {
+  define('NAVBAR_TITLE', 'Anmelden');
+  define('TOP_BAR_TITLE', 'Anmelden zu dem \'' . STORE_NAME .  '\'');
+  define('HEADING_TITLE', 'Melden Sie sich an');
+  define('TEXT_STEP_BY_STEP', ''); // should be empty
+}
 
-define('IMAGE_LOGIN', 'Anmelden');
+define('ENTRY_EMAIL_ADDRESS2', 'Geben Sie Ihre EMail-Adresse ein:');
+define('TEXT_NEW_CUSTOMER', 'Ich bin ein neuer Kunde.');
+define('TEXT_RETURNING_CUSTOMER', 'Ich bin bereits Kunde<br>&nbsp;und mein Passwort ist:');
+define('TEXT_COOKIE', 'Wollen Sie die Anmeldeinformation in einem Cookie speichern?');
+define('TEXT_PASSWORD_FORGOTTEN', 'Haben Sie Ihr Paßwort vergessen?');
+define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der \'E-Mail Adresse\' und/oder dem \'Passwort\'.');
+define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>FEHLER:</b></font> Ihre \'E-Mail Adresse\' befindet sich bereits in unserer Datenbank, bitte melden Sie sich mit Ihrem Passwort an.');
+
+define('IMAGE_NEXT', 'Weiter');
 ?>

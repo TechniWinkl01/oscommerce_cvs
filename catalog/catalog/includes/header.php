@@ -3,13 +3,7 @@
     <td valign="middle" nowrap><?php echo tep_image(DIR_WS_IMAGES . 'header_exchange_logo.gif', STORE_NAME) . tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '6', '1') . tep_image(DIR_WS_IMAGES . 'header_exchange.gif', STORE_NAME); ?></td>
     <td align="right" nowrap>
 <?php
-  if ($customer_id) {
-    echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_MY_ACCOUNT) . '</a>';
-  } else {
-    echo '<a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_CREATE_ACCOUNT) . '</a>';
-  }
-
-  echo '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_cart.gif', HEADER_TITLE_CART_CONTENTS) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_checkout.gif', HEADER_TITLE_CHECKOUT) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_contact_us.gif', HEADER_TITLE_CONTACT_US) . '</a>&nbsp;&nbsp;';
+  echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_MY_ACCOUNT) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_cart.gif', HEADER_TITLE_CART_CONTENTS) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_checkout.gif', HEADER_TITLE_CHECKOUT) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_contact_us.gif', HEADER_TITLE_CONTACT_US) . '</a>&nbsp;&nbsp;';
 ?>
     </td>
   </tr>
@@ -55,7 +49,7 @@
   if (tep_session_is_registered('customer_id')) {
     echo '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_LOGOFF . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
   } else {
-    echo '<a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_LOGIN . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CREATE_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
+    echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
   }
 ?>
     </td>

@@ -1,6 +1,16 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
+    $check_email = tep_db_query("select customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    if ($user == 'new') {
+      if (!tep_db_num_rows($check_email)) {
+        header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
+        tep_exit();
+      } else {
+        header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail_email', 'NONSSL'));
+        tep_exit();
+      }
+    }
     $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
@@ -126,7 +136,10 @@ function session_win() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td rowspan="2" align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="main">&nbsp;&nbsp;<? echo TEXT_STEP_BY_STEP; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -134,14 +147,46 @@ function session_win() {
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><form name="login" method="post" action="<? echo tep_href_link(FILENAME_LOGIN, 'action=process', 'NONSSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form name="login" method="post" action="<? echo tep_href_link(FILENAME_LOGIN, 'action=process&email_address=' . $HTTP_POST_VARS['email_address'], 'NONSSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+  if ($HTTP_GET_VARS['login'] == 'fail') {
+?>
           <tr>
-            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td colspan="2" class="smallText" nowrap><? echo TEXT_LOGIN_ERROR; ?>&nbsp;<br>&nbsp;</td>
+          </tr>
+<?
+  }
+  if ($HTTP_GET_VARS['login'] == 'fail_email') {
+?>
+          <tr>
+            <td colspan="2" class="smallText" nowrap><? echo TEXT_LOGIN_ERROR_EMAIL; ?>&nbsp;<br>&nbsp;</td>
+          </tr>
+<?
+  }
+?>
+          <tr>
+            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS2; ?>&nbsp;</td>
             <td class="main" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td align="right" class="main"><input type="radio" name="user" value="new"></td>
+            <td class="main">&nbsp;<? echo TEXT_NEW_CUSTOMER; ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="main">&nbsp;</td>
+            <td class="main">&nbsp;<? echo TEXT_RETURNING_CUSTOMER; ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="main" nowrap>&nbsp;</td>
             <td class="main" nowrap>&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="main">&nbsp;</td>
+            <td><? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="main">&nbsp;</td>
+            <td class="smallText">&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
           </tr>
         </table>
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -149,11 +194,7 @@ function session_win() {
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td valign="top" class="smallText" nowrap>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
-            <td align="right" valign="top" nowrap><? echo tep_image_submit(DIR_WS_IMAGES . 'button_log_in.gif', IMAGE_LOGIN); ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" colspan="2" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
+            <td colspan="2" valign="top" class="smallText" nowrap>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
           </tr>
 <?
    $origin = '';
@@ -178,25 +219,6 @@ function session_win() {
      }
      $origin = $origin . 'connection=' . $HTTP_GET_VARS['connection'];
    }
-?>
-          <tr>
-            <td align="right" colspan="2" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_CREATE_ACCOUNT, $origin, 'NONSSL'); ?>"><? echo TEXT_CREATE_ACCOUNT; ?></a>&nbsp;</td>
-          </tr>
-<?
-  if (sizeof($cart->contents) > 0) {
-?>
-          <tr>
-            <td colspan="2" class="smallText"><br><? echo TEXT_VISITORS_CART; ?></td>
-          </tr>
-<?
-  }
-  if ($HTTP_GET_VARS['login'] == 'fail') {
-?>
-          <tr>
-            <td colspan="2" class="smallText" nowrap><? echo TEXT_LOGIN_ERROR; ?></td>
-          </tr>
-<?
-  }
 ?>
         </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><? if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?><? if ($HTTP_GET_VARS['products_id']) { echo '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">'; } ?><? if ($HTTP_GET_VARS['order_id']) { echo '<input type="hidden" name="order_id" value="' . $HTTP_GET_VARS['order_id'] . '">'; } ?><? if ($HTTP_GET_VARS['emailproduct']) { echo '<input type="hidden" name="emailproduct" value="' . $HTTP_GET_VARS['emailproduct'] . '">'; } ?></form></td>
       </tr>

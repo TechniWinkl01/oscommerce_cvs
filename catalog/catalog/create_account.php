@@ -241,7 +241,7 @@ function check_form() {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? echo $HTTP_GET_VARS['email_address']; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey" nowrap>&nbsp;</td>

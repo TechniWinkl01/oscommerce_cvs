@@ -1,20 +1,29 @@
 <?
 /*
-English Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+English Text for The Exchange Project Preview Release 2.2
+Last Update: 05/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@werich.de)
 */
 
-define('NAVBAR_TITLE', 'Login');
-define('TOP_BAR_TITLE', 'Login to \'' . STORE_NAME . '\'');
-define('HEADING_TITLE', 'Let Me In!');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
-define('ENTRY_PASSWORD', 'Password:');
-define('TEXT_COOKIE', 'Save login information in a cookie?');
-define('TEXT_PASSWORD_FORGOTTEN', 'Password forgotten? Click here to get it sent to you.');
-define('TEXT_CREATE_ACCOUNT', 'No account with us? Click here to create one.');
-define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. <a href="javascript:session_win();">[More Info]</a>');
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
+if ($HTTP_GET_VARS['origin'] == 'checkout_payment.php') {
+  define('NAVBAR_TITLE', 'Order');
+  define('TOP_BAR_TITLE', 'Order');
+  define('HEADING_TITLE', 'Ordering online is easy.');
+  define('TEXT_STEP_BY_STEP', 'We\'ll walk you through the process, step by step.');
+} else {
+  define('NAVBAR_TITLE', 'Login');
+  define('TOP_BAR_TITLE', 'Login to \'' . STORE_NAME . '\'');
+  define('HEADING_TITLE', 'Let Me In!');
+  define('TEXT_STEP_BY_STEP', ''); // should be empty
+}
 
-define('IMAGE_LOGIN', 'Login');
+define('ENTRY_EMAIL_ADDRESS2', 'Enter your e-mail address:');
+define('TEXT_NEW_CUSTOMER', 'I am a new customer.');
+define('TEXT_RETURNING_CUSTOMER', 'I am a returning customer,<br>&nbsp;and my password is:');
+define('TEXT_COOKIE', 'Save login information in a cookie?');
+define('TEXT_PASSWORD_FORGOTTEN', 'Forgot your password? Click here');
+define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
+define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> You\'r \'E-Mail Address\' was not found on our database, please use your \'Password\' for login.');
+
+define('IMAGE_NEXT', 'Next');
 ?>
