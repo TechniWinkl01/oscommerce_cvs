@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_details.php,v 1.3 2002/04/26 20:28:07 dgw_ Exp $
+  $Id: order_details.php,v 1.4 2002/05/01 14:37:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@ for ($i=0; $i<sizeof($products); $i++) {
 
 // Quantity box or information as an input box or text
   if (strstr($PHP_SELF, FILENAME_SHOPPING_CART)) {
-    echo '    <td align="center" valign="top"><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
+    echo '    <td align="center" valign="top"><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" size="4"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
   } else {
     echo '    <td align="center" valign="top" class ="main">' . $products[$i]['quantity'] . '</td>' . "\n";
   }
