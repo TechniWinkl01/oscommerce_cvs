@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.21 2002/01/09 06:04:45 hpdl Exp $
+  $Id: file_manager.php,v 1.22 2002/01/09 07:57:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -263,7 +263,7 @@
       }
       $link = tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $contents[$i]['name']);
     } else {
-      $icon = tep_image(DIR_WS_ICONS . 'file.gif', ICON_FILE);
+      $icon = tep_image(DIR_WS_ICONS . 'file_download.gif', ICON_FILE_DOWNLOAD);
       $link = tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
     }
 ?>
@@ -312,7 +312,7 @@
         $contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable) ? tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'upload':
-        $heading[] = array('text' => '<b>' . TEXT_UPLOAD . '</b>');
+        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_UPLOAD . '</b>');
 
         $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'action=processuploads', 'post', 'enctype="multipart/form-data"'));
         $contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.38 2002/01/08 02:41:08 hpdl Exp $
+  $Id: backup.php,v 1.39 2002/01/09 07:57:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -284,11 +284,10 @@
   }
 
 // check if the backup directory exists
-  $error = array();
   if (is_dir(DIR_FS_BACKUP)) {
-    if (!is_writeable(DIR_FS_BACKUP)) $error[] = array('text' => ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE);
+    if (!is_writeable(DIR_FS_BACKUP)) $errorStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
-    $error[] = array('text' => ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST);
+    $errorStack->add(ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -299,6 +298,9 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
+
+<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
+
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -313,15 +315,6 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-  if (tep_not_null($error)) {
-?>
-      <tr>
-        <td><?php tep_output_error($error); ?></td>
-      </tr>
-<?php
-  }
-?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -347,11 +340,11 @@
                 <td colspan="4"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $dir = @opendir(DIR_FS_BACKUP);
+  $dir = @dir(DIR_FS_BACKUP);
 
   if ($dir) {
     $contents = array();
-    while ($file = readdir($dir)) {
+    while ($file = $dir->read()) {
       if (!is_dir(DIR_FS_BACKUP . $file)) {
         $contents[] = $file;
       }
@@ -382,90 +375,86 @@
         echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('file', 'action')) . 'file=' . $entry, 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td class="tableData"><?php echo $entry; ?></td>
+                <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_BACKUP, 'action=download&file=' . $entry) . '">' . tep_image(DIR_WS_ICONS . 'file_download.gif', ICON_FILE_DOWNLOAD) . '</a>&nbsp;' . $entry; ?></td>
                 <td align="center" class="tableData"><?php echo date(PHP_DATE_TIME_FORMAT, filemtime(DIR_FS_BACKUP . $entry)); ?></td>
                 <td align="right" class="tableData"><?php echo number_format(filesize(DIR_FS_BACKUP . $entry)); ?> bytes</td>
-                <td align="right" class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_BACKUP, 'action=download&file=' . $entry) . '">' . tep_image(DIR_WS_IMAGES . 'icon_save.gif', 'Save Dump') . '</a>&nbsp;'; if ( (is_object($buInfo)) && ($entry == $buInfo->file) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('file', 'action')) . 'file=' . $entry) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td align="right" class="tableData"><?php if ( (is_object($buInfo)) && ($entry == $buInfo->file) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('file', 'action')) . 'file=' . $entry) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?
     }
-    closedir($dir);
+    $dir->close();
   }
 ?>
               <tr>
                 <td colspan="4"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
-                <td class="smallText" colspan="3">Backup Directory: <?php echo DIR_FS_BACKUP; ?></td>
+                <td class="smallText" colspan="3"><?php echo TEXT_BACKUP_DIRECTORY . ' ' . DIR_FS_BACKUP; ?></td>
                 <td align="right" class="smallText"><?php if ($HTTP_GET_VARS['action'] != 'backup') echo '<a href="' . tep_href_link(FILENAME_BACKUP, 'action=backup') . '">' . tep_image(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP) . '</a>'; if ($HTTP_GET_VARS['action'] != 'restorelocal') echo '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, 'action=restorelocal') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>'; ?></td>
               </tr>
 <?php
   if (defined('DB_LAST_RESTORE')) {
 ?>
               <tr>
-                <td class="smallText" colspan="4">Last Restoration: <?php echo DB_LAST_RESTORE . ' (<a href="' . tep_href_link(FILENAME_BACKUP, 'action=forget') . '"><u>forget</u></a>)'; ?></td>
+                <td class="smallText" colspan="4"><?php echo TEXT_LAST_RESTORATION . ' ' . DB_LAST_RESTORE . ' <a href="' . tep_href_link(FILENAME_BACKUP, 'action=forget') . '">' . TEXT_FORGET . '</a>'; ?></td>
               </tr>
 <?php
   }
 ?>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td width="25%" valign="top">
 <?php
-  $info_box_contents = array();
-  if (is_object($buInfo)) $info_box_contents[] = array('text' => '<b>' . $buInfo->date . '</b>');
-  if ( (!is_object($buInfo)) && ($HTTP_GET_VARS['action'] == 'backup') ) $info_box_contents[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
-?>
-              <tr class="boxHeading">
-                <td><?php new infoBoxHeading($info_box_contents); ?></td>
-              </tr>
-              <tr class="boxHeading">
-                <td><?php echo tep_draw_separator(); ?></td>
-              </tr>
-<?php
+  $heading = array();
+  $contents = array();
   switch ($HTTP_GET_VARS['action']) {
     case 'backup':
-      $info_box_contents = array('form' => tep_draw_form('backup', FILENAME_BACKUP, 'action=backupnow'));
-      $info_box_contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
-      if (empty($error)) {
-        $info_box_contents[] = array('text' => '<br>' . tep_draw_radio_field('compress', 'gzip', true) . ' ' . TEXT_INFO_USE_GZIP);
-        $info_box_contents[] = array('text' => tep_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
-        $info_box_contents[] = array('text' => tep_draw_radio_field('compress', 'no') . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
-        $info_box_contents[] = array('text' => '<br>' . tep_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
+
+      $contents = array('form' => tep_draw_form('backup', FILENAME_BACKUP, 'action=backupnow'));
+      $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
+
+      if ($errorStack->size > 0) {
+        $contents[] = array('text' => '<br>' . tep_draw_radio_field('compress', 'no', true) . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
+        $contents[] = array('text' => '<br>' . tep_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       } else {
-        $info_box_contents[] = array('text' => '<br>' . tep_draw_radio_field('compress', 'no', true) . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
-        $info_box_contents[] = array('text' => '<br>' . tep_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
+        $contents[] = array('text' => '<br>' . tep_draw_radio_field('compress', 'gzip', true) . ' ' . TEXT_INFO_USE_GZIP);
+        $contents[] = array('text' => tep_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
+        $contents[] = array('text' => tep_draw_radio_field('compress', 'no') . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
+        $contents[] = array('text' => '<br>' . tep_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       }
-      $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP) . '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP) . '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     case 'restore':
-      $info_box_contents = array();
-      $info_box_contents[] = array('text' => tep_break_string(sprintf(TEXT_INFO_RESTORE, DIR_FS_BACKUP . (($buInfo->compression != TEXT_NO_EXTENSION) ? substr($buInfo->file, 0, strrpos($buInfo->file, '.')) : $buInfo->file), ($buInfo->compression != TEXT_NO_EXTENSION) ? TEXT_INFO_UNPACK : ''), 35, ' '));
-      $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'action=restorenow&file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
+
+      $contents[] = array('text' => tep_break_string(sprintf(TEXT_INFO_RESTORE, DIR_FS_BACKUP . (($buInfo->compression != TEXT_NO_EXTENSION) ? substr($buInfo->file, 0, strrpos($buInfo->file, '.')) : $buInfo->file), ($buInfo->compression != TEXT_NO_EXTENSION) ? TEXT_INFO_UNPACK : ''), 35, ' '));
+      $contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'action=restorenow&file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     case 'restorelocal':
-      $info_box_contents = array('form' => tep_draw_form('restore', FILENAME_BACKUP, 'action=restorelocalnow', 'post', 'enctype="multipart/form-data"'));
-      $info_box_contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br><br>' . TEXT_INFO_BEST_THROUGH_HTTPS);
-      $info_box_contents[] = array('text' => '<br>' . tep_draw_file_field('sql_file'));
-      $info_box_contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE);
-      $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_restore) . '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_RESTORE_LOCAL . '</b>');
+
+      $contents = array('form' => tep_draw_form('restore', FILENAME_BACKUP, 'action=restorelocalnow', 'post', 'enctype="multipart/form-data"'));
+      $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br><br>' . TEXT_INFO_BEST_THROUGH_HTTPS);
+      $contents[] = array('text' => '<br>' . tep_draw_file_field('sql_file'));
+      $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_restore) . '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
-      $info_box_contents = array();
       if (is_object($buInfo)) {
-        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'action=restore&file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>');
-        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_DATE . ' ' . $buInfo->date);
-        $info_box_contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
-        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);
+        $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
+
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'action=restore&file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE . ' ' . $buInfo->date);
+        $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
+        $contents[] = array('text' => '<br>' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);
       }
   }
+
+  $box = new box;
+  echo $box->infoBox($heading, $contents);
 ?>
-              <tr>
-                <td class="box"><?php new infoBox($info_box_contents); ?></td>
-              </tr>
-              <tr>
-                <td class="box"><?php echo tep_draw_separator(); ?></td>
-              </tr>
-            </table></td>
+            </td>
           </tr>
         </table></td>
       </tr>
