@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.13 2001/05/26 16:49:33 hpdl Exp $
+  $Id: default.php,v 1.14 2001/06/02 19:00:45 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -9,10 +9,6 @@
 
   Released under the GNU General Public License
 */
-
-define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span>');
-define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Wenn Sie nicht %s sind, melden Sie sich bitte <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '"><u>hier</u></a> mit Ihrem Kundenkonto an.</small>');
-define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchtne Sie sich <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '"><u>anmelden</u></a>? Oder wollen Sie ein <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '"><u>Kundenkonto</u></a> eröffnen?');
 
 define('TEXT_MAIN', 'Dies ist eine Vorf&uuml;hr-Online-Shop, es werden hier weder Produkte verkauft noch verschickt. Die Informationen über in diese Online-Shop vorhande Produkte sind rein erfunden. M&ouml;chten Sie diesen Online-Shop runterladen, oder an diesem Projekt mitarbeiten, so besuchen Sie bitte die <a href="http://theexchangeproject.org"><u>Supportseite</u></a>. Kommentare und Anregungen nehmen wir gerne entgegen.<br><br>Dieser Online-Shop basiert auf <font color="#ff0000"><b>' . PROJECT_VERSION . '</b></font>, und kann auf der Supportseite heruntergeladen werden.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Neue Produkte im %s');
