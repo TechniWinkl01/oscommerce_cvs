@@ -151,7 +151,7 @@ function popupImageWindow(url) {
 <?
     }
 
-    if ($product_info_values['products_date_available'] > date('Ymd')) {
+    if ($product_info_values['products_date_available'] > date('Y-m-d H:i:s')) {
 ?>
       <tr>
         <td align="center" class="smallText"><? echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></td>

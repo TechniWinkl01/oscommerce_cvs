@@ -28,8 +28,8 @@
       }
 
       $this->date_available_caljs_year = substr($this->date_available, 0, 4);
-      $this->date_available_caljs_month = substr($this->date_available, 4, 2);
-      $this->date_available_caljs_day = substr($this->date_available, 6, 2);
+      $this->date_available_caljs_month = substr($this->date_available, 5, 2);
+      $this->date_available_caljs_day = substr($this->date_available, 8, 2);
 
       $this->weight = $pInfo_array['products_weight'];
       $this->tax_class = $pInfo_array['products_tax_class_id'];
