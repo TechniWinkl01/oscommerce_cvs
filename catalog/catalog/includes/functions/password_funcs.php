@@ -23,13 +23,18 @@
 *    USA
 *   
 *   $Log: password_funcs.php,v $
+*   Revision 1.3  2000/10/18 14:28:25  dmcclelland
+*   Made a change in validate_password() to allow
+*   allow it to work on an unencrypted password
+*   database or with NULL passwords.
+*
 *   Revision 1.2  2000/10/18 14:16:08  dmcclelland
 *   Replaced calls to gettimeofday() with mt_rand() and mt_srand().
 *   gettimeofday() is very new in PHP4.
 *
 *    
 *
-*   $Id: password_funcs.php,v 1.2 2000/10/18 14:16:08 dmcclelland Exp $ 
+*   $Id: password_funcs.php,v 1.3 2000/10/18 14:28:25 dmcclelland Exp $ 
 *********************************************************************/
 
 /*  This funstion validates a candidate password.
@@ -41,6 +46,12 @@
 *   and salt is a two character 'salt'.*/
 
 function validate_password($plain_pass, $db_pass){
+     
+     /*Quick test to let this work on unencrypted passwords and NULL
+     Passwords*/
+     if($plain_pass == $db_pass){
+     	return(TRUE);
+     }
      
      /* split apart the hash / salt*/
      if(!($subbits = split(":", $db_pass, 2))){
