@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ms1_to_ms2.php,v 1.3 2003/06/23 01:27:34 thomasamoulton Exp $
+  $Id: ms1_to_ms2.php,v 1.4 2003/07/20 13:14:35 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,7 +58,7 @@ that the MS release was made, not *any* MS1 like CVS tree.
 
 So if you upgraded to MS1 and stayed there you can use this script.
 <?php
-  if (!$HTTP_POST_VARS['DB_SERVER']) {
+  if (!isset($HTTP_POST_VARS['DB_SERVER'])) {
 ?>
 <form name="database" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
