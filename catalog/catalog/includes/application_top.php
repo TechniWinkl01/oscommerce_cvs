@@ -185,7 +185,7 @@
   }
 
 // Create the cart Fix the cart if necesary
-  if (is_object($cart)) {
+  if ($cart) {
     if (gettype($cart->count_contents) == 'integer') {
       $broken_cart = $cart;
       $cart = new shoppingCart;
