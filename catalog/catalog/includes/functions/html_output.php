@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.27 2002/04/19 15:05:42 harley_vb Exp $
+  $Id: html_output.php,v 1.28 2002/04/21 15:01:29 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -77,10 +77,9 @@
       return;
     }
 
-    if ($alt == '') {
-      $image = '<img src="' . $src . '" border="0"';
-    } else {
-      $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
+    $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars($alt) . ' "';
+    if (tep_not_null($alt)) {
+      $image .= ' label=" ' . htmlspecialchars($alt) . ' "';
     }
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
