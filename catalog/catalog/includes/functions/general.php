@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.157 2002/02/05 06:02:04 jan0815 Exp $
+  $Id: general.php,v 1.158 2002/02/07 11:05:28 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,7 +67,7 @@
   function tep_check_stock($products_id, $products_quantity) {
     $stock_left = tep_get_products_stock($products_id) - $products_quantity;
     $out_of_stock = '';
-    if ($stock_left < 1) {
+    if ($stock_left < 0) {
       $out_of_stock = '<span class="markProductOutOfStock">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</span>';
     }
     return $out_of_stock;
