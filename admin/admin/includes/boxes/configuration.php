@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.16 2002/03/16 00:20:11 hpdl Exp $
+  $Id: configuration.php,v 1.17 2003/07/09 01:18:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
   $contents = array();
 
   $heading[] = array('text'  => BOX_HEADING_CONFIGURATION,
-                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=configuration'));
+                     'link'  => tep_href_link(FILENAME_CONFIGURATION, 'gID=1&selected_box=configuration'));
 
   if ($selected_box == 'configuration') {
     $cfg_groups = '';

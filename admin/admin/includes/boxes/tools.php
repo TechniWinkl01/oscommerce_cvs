@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tools.php,v 1.20 2002/03/16 00:20:11 hpdl Exp $
+  $Id: tools.php,v 1.21 2003/07/09 01:18:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
   $contents = array();
 
   $heading[] = array('text'  => BOX_HEADING_TOOLS,
-                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
+                     'link'  => tep_href_link(FILENAME_BACKUP, 'selected_box=tools'));
 
   if ($selected_box == 'tools') {
     $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_BACKUP) . '" class="menuBoxContentLink">' . BOX_TOOLS_BACKUP . '</a><br>' .

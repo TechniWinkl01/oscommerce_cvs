@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.15 2002/04/03 23:25:41 hpdl Exp $
+  $Id: modules.php,v 1.16 2003/07/09 01:18:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
   $contents = array();
 
   $heading[] = array('text'  => BOX_HEADING_MODULES,
-                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=modules'));
+                     'link'  => tep_href_link(FILENAME_MODULES, 'set=payment&selected_box=modules'));
 
   if ($selected_box == 'modules') {
     $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_MODULES, 'set=payment', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_MODULES_PAYMENT . '</a><br>' .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: catalog.php,v 1.20 2002/03/16 00:20:11 hpdl Exp $
+  $Id: catalog.php,v 1.21 2003/07/09 01:18:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
   $contents = array();
 
   $heading[] = array('text'  => BOX_HEADING_CATALOG,
-                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=catalog'));
+                     'link'  => tep_href_link(FILENAME_CATEGORIES, 'selected_box=catalog'));
 
   if ($selected_box == 'catalog') {
     $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CATALOG_CATEGORIES_PRODUCTS . '</a><br>' .

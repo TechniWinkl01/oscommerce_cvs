@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.15 2002/03/16 00:20:11 hpdl Exp $
+  $Id: customers.php,v 1.16 2003/07/09 01:18:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
   $contents = array();
 
   $heading[] = array('text'  => BOX_HEADING_CUSTOMERS,
-                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=customers'));
+                     'link'  => tep_href_link(FILENAME_CUSTOMERS, 'selected_box=customers'));
 
   if ($selected_box == 'customers') {
     $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CUSTOMERS_CUSTOMERS . '</a><br>' .
