@@ -178,6 +178,7 @@ CREATE TABLE orders (
   shipping_method varchar(32),
   orders_status varchar(10) NOT NULL,
   orders_date_finished timestamp(14),
+  comments text,
   PRIMARY KEY (orders_id)
 );
 

@@ -18,6 +18,9 @@ xx/02/2001 The Exchange Project Preview Release 2.1
 
  * Added a 'Contact Us' Page.
 
+ * Added COMMENTS field to Orders table - an order history
+   Need to ALTER TABLE orders ADD comments TEXT not null;
+
  * Selectable columns in 'Product Listings'.
 
  * Added a delete button to the orders in the admin tool.
