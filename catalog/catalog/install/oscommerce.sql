@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.89 2003/12/18 12:06:18 project3000 Exp $
+# $Id: oscommerce.sql,v 1.90 2004/02/14 17:54:25 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -1442,7 +1442,7 @@ INSERT INTO zones VALUES (65,223,'WY','Wyoming');
 INSERT INTO zones VALUES (66,38,'AB','Alberta');
 INSERT INTO zones VALUES (67,38,'BC','British Columbia');
 INSERT INTO zones VALUES (68,38,'MB','Manitoba');
-INSERT INTO zones VALUES (69,38,'NF','Newfoundland');
+INSERT INTO zones VALUES (69,38,'NL','Newfoundland and Labrador');
 INSERT INTO zones VALUES (70,38,'NB','New Brunswick');
 INSERT INTO zones VALUES (71,38,'NS','Nova Scotia');
 INSERT INTO zones VALUES (72,38,'NT','Northwest Territories');
