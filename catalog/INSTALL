@@ -31,7 +31,10 @@ follow these steps to get the online shop running:
    mysqlshow catalog
  
 4. View the file catalog/includes/application_top.php and make
-   necessary changes.
+   necessary changes. 
+
+Note: You need to enable the option REPAIR_BROKEN_CART for
+tep to run properly under PHP3.
 
 Now you can use your browser to view the pages which should be
 located at 'http://localhost/catalog/'. You can also use your
@@ -49,7 +52,7 @@ available languages include
 
 English
 German
-
+Spanish
 
 APACHE/SSL/PHP INSTALLATION
 ---------------------------
