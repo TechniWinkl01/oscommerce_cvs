@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.98 2002/04/04 22:59:34 dgw_ Exp $
+  $Id: checkout_process.php,v 1.99 2002/04/05 00:21:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,7 +37,7 @@
 
   $order_total_modules->process();
 
-  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $order->customer['name'] . "', '" . $order->customer['street_address'] . "', '" . $order->customer['suburb'] . "', '" . $order->customer['city'] . "', '" . $order->customer['postcode'] . "', '" . $order->customer['state'] . "', '" . $order->customer['country'] . "', '" . $order->customer['telephone'] . "', '" . $order->customer['email_address'] . "', '" . $order->customer['format_id'] . "', '" . $order->delivery['name'] . "', '" . $order->delivery['street_address'] . "', '" . $order->delivery['suburb'] . "', '" . $order->delivery['city'] . "', '" . $order->delivery['postcode'] . "', '" . $order->delivery['state'] . "', '" . $order->delivery['country'] . "', '" . $order->delivery['format_id'] . "', '" . $order->info['payment_method'] . "', '" . $order->info['cc_type'] . "', '" . $order->info['cc_owner'] . "', '" . $order->info['cc_number'] . "', '" . $order->info['cc_expires'] . "', now(), '" . $order->info['shipping_cost'] . "', '" . $order->info['shipping_method'] . "', '" . DEFAULT_ORDERS_STATUS_ID . "', '" . addslashes($order->info['comments']) . "', '" . $order->info['currency'] . "', '" . $order->info['currency_value'] . "')");
+  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $order->customer['first_name'] . ' ' . $order->customer['last_name'] . "', '" . $order->customer['street_address'] . "', '" . $order->customer['suburb'] . "', '" . $order->customer['city'] . "', '" . $order->customer['postcode'] . "', '" . $order->customer['state'] . "', '" . $order->customer['country'] . "', '" . $order->customer['telephone'] . "', '" . $order->customer['email_address'] . "', '" . $order->customer['format_id'] . "', '" . $order->delivery['first_name'] . ' ' . $order->delivery['last_name'] . "', '" . $order->delivery['street_address'] . "', '" . $order->delivery['suburb'] . "', '" . $order->delivery['city'] . "', '" . $order->delivery['postcode'] . "', '" . $order->delivery['state'] . "', '" . $order->delivery['country'] . "', '" . $order->delivery['format_id'] . "', '" . $order->info['payment_method'] . "', '" . $order->info['cc_type'] . "', '" . $order->info['cc_owner'] . "', '" . $order->info['cc_number'] . "', '" . $order->info['cc_expires'] . "', now(), '" . $order->info['shipping_cost'] . "', '" . $order->info['shipping_method'] . "', '" . DEFAULT_ORDERS_STATUS_ID . "', '" . addslashes($order->info['comments']) . "', '" . $order->info['currency'] . "', '" . $order->info['currency_value'] . "')");
   $insert_id = tep_db_insert_id();
 
   $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
@@ -155,7 +155,7 @@
       $email_order .= $payment_class->email_footer . "\n\n";
     }
   }
-  tep_mail($order->customer['name'], $order->customer['email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+  tep_mail($order->customer['first_name'] . ' ' . $order->customer['last_name'], $order->customer['email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
 // send emails to other people
   if (SEND_EXTRA_ORDER_EMAILS_TO != '') {

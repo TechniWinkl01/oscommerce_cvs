@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.2 2002/04/04 22:56:42 hpdl Exp $
+  $Id: order.php,v 1.3 2002/04/05 00:21:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -127,7 +127,8 @@
                           'shipping_cost' => $GLOBALS['shipping_cost'],
                           'comments' => $GLOBALS['comments']);
 
-      $this->customer = array('name' => $customer_address['customers_firstname'] . ' ' . $customer_address['customers_lastname'],
+      $this->customer = array('first_name' => $customer_address['customers_firstname'],
+                              'last_name' => $customer_address['customers_lastname'],
                               'street_address' => $customer_address['entry_street_address'],
                               'suburb' => $customer_address['entry_suburb'],
                               'city' => $customer_address['entry_city'],
@@ -138,7 +139,8 @@
                               'telephone' => $customer_address['customers_telephone'],
                               'email_address' => $customer_address['customers_email_address']);
 
-      $this->delivery = array('name' => $shipping_address['entry_firstname'] . ' ' . $shipping_address['entry_lastname'],
+      $this->delivery = array('first_name' => $shipping_address['entry_firstname'],
+                              'last_name' => $shipping_address['entry_lastname'],
                               'street_address' => $shipping_address['entry_street_address'],
                               'suburb' => $shipping_address['entry_suburb'],
                               'city' => $shipping_address['entry_city'],
