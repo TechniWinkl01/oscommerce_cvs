@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.38 2003/02/13 04:23:22 hpdl Exp $
+  $Id: contact_us.php,v 1.39 2003/02/14 05:51:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -77,7 +77,7 @@
   } else {
 ?>
       <tr>
-        <td><form action="<?php echo tep_href_link(FILENAME_CONTACT_US, 'action=send'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><?php echo tep_draw_form('contact_us', tep_href_link(FILENAME_CONTACT_US, 'action=send')); ?><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo ENTRY_NAME; ?><br><?php echo tep_draw_input_field('name', ($error ? $HTTP_POST_VARS['name'] : $first_name)); ?></td>
           </tr>

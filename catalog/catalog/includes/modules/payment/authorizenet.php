@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.46 2003/01/29 19:57:14 hpdl Exp $
+  $Id: authorizenet.php,v 1.47 2003/02/14 05:51:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,9 +90,9 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
   $tstamp = time ();
   $fingerprint = $this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency);
 
-  $str = '<input type="hidden" name="x_fp_sequence" value="' . $sequence . '">';
-  $str .= '<input type="hidden" name="x_fp_timestamp" value="' . $tstamp . '">';
-  $str .= '<input type="hidden" name="x_fp_hash" value="' . $fingerprint . '">';
+  $str = tep_draw_hidden_field('x_fp_sequence', $sequence) .
+         tep_draw_hidden_field('x_fp_timestamp', $tstamp) .
+         tep_draw_hidden_field('x_fp_hash', $fingerprint);
 
   return $str;
 }

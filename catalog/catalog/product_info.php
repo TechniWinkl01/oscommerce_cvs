@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.91 2003/02/13 04:23:23 hpdl Exp $
+  $Id: product_info.php,v 1.92 2003/02/14 05:51:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,7 @@ function popupWindow(url) {
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product'); ?>"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product')); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?php
   $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
   if (!tep_db_num_rows($product_info_query)) { // product not found in database
@@ -163,7 +163,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_REVIEWS, substr(tep_get_all_get_params(), 0, -1)); ?>"><?php echo tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS); ?></a></td>
-            <td align="right" class="main"><input type="hidden" name="products_id" value="<?php echo $product_info['products_id']; ?>"><?php echo tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
+            <td align="right" class="main"><?php echo tep_draw_hidden_field('products_id', $product_info['products_id']) . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
           </tr>
         </table></td>
       </tr>

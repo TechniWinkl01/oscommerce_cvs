@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.70 2003/02/13 04:23:23 hpdl Exp $
+  $Id: shopping_cart.php,v 1.71 2003/02/14 05:51:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,7 +54,7 @@
   if ($cart->count_contents() > 0) {
 ?>
       <tr>
-        <td><form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_SHOPPING_CART, 'action=update_product'); ?>">
+        <td><?php echo tep_draw_form('cart_quantity', tep_href_link(FILENAME_SHOPPING_CART, 'action=update_product')); ?>
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
     $any_out_of_stock = 0;
