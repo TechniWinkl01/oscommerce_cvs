@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.28 2002/08/13 20:37:48 dgw_ Exp $
+  $Id: whos_online.php,v 1.29 2002/11/11 21:37:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,8 +102,8 @@
       $session_data = tep_db_fetch_array($session_data);
       $session_data = trim($session_data['value']);
     } else {
-      if (file_exists(tep_session_save_path() . '/sess_' . $info)) {
-        $session_data = @file(tep_session_save_path() . '/sess_' . $info);
+      if ( (file_exists(tep_session_save_path() . '/sess_' . $info)) && (filesize(tep_session_save_path() . '/sess_' . $info) > 0) ) {
+        $session_data = file(tep_session_save_path() . '/sess_' . $info);
         $session_data = trim(implode('', $session_data));
       }
     }
