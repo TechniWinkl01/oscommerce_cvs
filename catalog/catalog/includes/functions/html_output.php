@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.45 2002/10/15 20:46:08 hpdl Exp $
+  $Id: html_output.php,v 1.46 2002/11/18 11:54:32 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -260,11 +260,14 @@
 
     $field .= '>';
 
+    if ($default == '') $default = $GLOBALS[$name];
+
     for ($i=0; $i<sizeof($values); $i++) {
       $field .= '<option value="' . tep_parse_input_field_data($values[$i]['id'], array('"' => '&quot;')) . '"';
-      if ( ($GLOBALS[$name] == $values[$i]['id']) || ($default == $values[$i]['id']) ) {
+      if ($default == $values[$i]['id']) {
         $field .= ' SELECTED';
       }
+
       $field .= '>' . tep_parse_input_field_data($values[$i]['text'], array('"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;')) . '</option>';
     }
     $field .= '</select>';
