@@ -3,7 +3,7 @@
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
       tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
-      if ($manufacturers_image != 'none') {
+      if ( ($manufacturers_image != 'none') && ($manufacturers_image != '') ) {
         tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
         if (file_exists($image_location)) @unlink($image_location);
