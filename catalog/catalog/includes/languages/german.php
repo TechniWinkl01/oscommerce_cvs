@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.86 2002/01/18 15:43:15 harley_vb Exp $
+  $Id: german.php,v 1.87 2002/02/01 01:23:17 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,6 @@ define('BOX_HEADING_CATEGORIES', 'Kategorien');
 
 // manufacturers box text in includes/boxes/manufacturers.php
 define('BOX_HEADING_MANUFACTURERS', 'Hersteller');
-define('BOX_MANUFACTURERS_SELECT_ONE', 'Wählen Sie aus:');
 
 // whats_new box text in includes/boxes/whats_new.php
 define('BOX_HEADING_WHATS_NEW', 'Neue Produkte');
@@ -131,7 +130,6 @@ define('CHECKOUT_BAR_FINISHED', 'fertig');
 
 // pull down default text
 define('PULL_DOWN_DEFAULT', 'Bitte wählen');
-define('PLEASE_SELECT', 'Bitte wählen');
 define('TYPE_BELOW', 'bitte unten eingeben');
 
 // javascript messages

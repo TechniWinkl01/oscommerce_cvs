@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.24 2002/01/15 20:24:37 dgw_ Exp $
+  $Id: html_output.php,v 1.25 2002/02/01 01:23:16 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -148,7 +148,7 @@
 
     if ($javascript != '') $result .= ' ' . $javascript;
 
-    $result .= '><option value="">' . PLEASE_SELECT . '</option>';
+    $result .= '><option value="">' . PULL_DOWN_DEFAULT . '</option>';
 
     $countries = tep_get_countries();
     for ($i=0; $i<sizeof($countries); $i++) {
@@ -186,7 +186,7 @@
 
     $state_prov_result = tep_db_query("select zone_id, zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_code . "' order by zone_name");
     if (tep_db_num_rows($state_prov_result)) {
-      $result .= '<option>' . PLEASE_SELECT . '</option>';
+      $result .= '<option>' . PULL_DOWN_DEFAULT . '</option>';
     } else {
       $result .= '<option>' . TYPE_BELOW . '</option>';
     }
@@ -234,7 +234,7 @@
       $num_state = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
         if ($num_state == 1) {
-          echo '    ' . $form_name . '.zone_id.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
+          echo '    ' . $form_name . '.zone_id.options[0] = new Option("' . PULL_DOWN_DEFAULT . '", "");' . "\n";
         }
         echo '    ' . $form_name . '.zone_id.options[' . $num_state . '] = new Option("' . $state_values['zone_name'] . '", "' . $state_values['zone_id'] . '");' . "\n";
         $num_state++;
