@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.62 2001/11/18 18:45:54 dgw_ Exp $
+  $Id: espanol.php,v 1.63 2001/11/22 22:03:19 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -127,7 +127,7 @@ define('BOX_TELL_A_FRIEND_TEXT', 'Envia esta pagina a un amigo con un comentario
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'entrega');
 define('CHECKOUT_BAR_PAYMENT_METHOD', 'pago');
-define('CHECKOUT_BAR_CONFIRMATION', 'confirmacion');
+define('CHECKOUT_BAR_CONFIRMATION', 'confirmación');
 define('CHECKOUT_BAR_FINISHED', 'finalizado!');
 
 // pull down default text
@@ -154,18 +154,18 @@ define('JS_STATE_SELECT', '-- Seleccione Arriba --');
 define('JS_ZONE', '* La \'Provincia\' se debe seleccionar de la lista para este pais.');
 define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
-define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmacion\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
+define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmación\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
-define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un metodo de pago para su pedido.');
-define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un metodo de pago para su perdido.');
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un método de pago para su pedido.');
+define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un método de pago para su pedido.');
 
-define('CATEGORY_COMPANY', 'Company');
+define('CATEGORY_COMPANY', 'Empresa');
 define('CATEGORY_PERSONAL', 'Personal');
 define('CATEGORY_ADDRESS', 'Direccion');
 define('CATEGORY_CONTACT', 'Contacto');
 define('CATEGORY_OPTIONS', 'Opciones');
 define('CATEGORY_PASSWORD', 'Contraseña');
-define('ENTRY_COMPANY', 'Company:');
+define('ENTRY_COMPANY', 'Empresa:');
 define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_GENDER', 'Sexo:');
