@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.74 2002/04/06 15:46:43 hpdl Exp $
+  $Id: account_history_info.php,v 1.75 2002/04/06 18:20:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -85,7 +85,7 @@
       if (sizeof($order->products[$i]['attributes']) > 0) {
         for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price']) . ')';
+          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'], true, $order->info['currency'], $order->info['currency_value']) . ')';
           echo '</i></small></nobr>';
         }
       }
@@ -94,9 +94,9 @@
            '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
 
       if (DISPLAY_PRICE_WITH_TAX == true) {
-        echo '            <td class="main" align="right" valign="top">' . $currencies->format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty'])) . '</td>' . "\n";
+        echo '            <td class="main" align="right" valign="top">' . $currencies->format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty']), true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n";
       } else {
-        echo '            <td class="main" align="right" valign="top">' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty']) . '</td>' . "\n";
+        echo '            <td class="main" align="right" valign="top">' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n";
       }
       echo '          </tr>' . "\n";
   }
