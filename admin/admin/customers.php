@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.57 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: customers.php,v 1.58 2002/01/15 10:17:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -267,7 +267,7 @@ function check_form() {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('customers', FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $HTTP_GET_VARS['cID'] . '&action=update', 'post', 'onSubmit="return check_form();"') . tep_draw_hidden_field('default_address_id', $cInfo->default_address_id); ?>
+      <tr><?php echo tep_draw_form('customers', FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $HTTP_GET_VARS['cID'] . '&action=update', 'post', 'onSubmit="return check_form();"') . tep_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
       <tr>
@@ -500,7 +500,6 @@ function check_form() {
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top">
 <?php
   $heading = array();
   $contents = array();
@@ -528,10 +527,15 @@ function check_form() {
       break;
   }
 
-  $box = new box;
-  echo $box->infoBox($heading, $contents);
+  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+    echo '            <td width="25%" valign="top">' . "\n";
+
+    $box = new box;
+    echo $box->infoBox($heading, $contents);
+
+    echo '            </td>' . "\n";
+  }
 ?>
-            </td>
           </tr>
         </table></td>
       </tr>
