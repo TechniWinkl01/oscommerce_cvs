@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.16 2003/01/31 01:01:07 hpdl Exp $
+  $Id: default.php,v 1.17 2003/02/14 12:51:58 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-define('TEXT_MAIN', 'This is a default setup of the osCommerce project, products shown are for demonstrational purposes, <b>any products purchased will not be delivered nor will the customer be billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download the solution powering this shop, or if you wish to contribute to the osCommerce project, please visit the <a href="http://oscommerce.com"><u>support site of osCommerce</u></a>. This shop is running on osCommerce version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>The text shown here can be modified in the following file, on each language basis: [path&nbsp;to&nbsp;catalog]/includes/languages/[language]/default.php.<br><br>That can be edited manually, or via the Administration Tool with the Languages->[language]->Define option, or by using the Tools->File Manager feature.');
+define('TEXT_MAIN', 'Esta es la configuracion por defecto de osCommerce, los productos mostrados aqui son unicamente para demonstracion, <b>cualquier compra realizada no será entregada al cliente, ni se le cobrara</b>. Cualquier informacion que vea sobre estos productos debe ser tratada como ficticia.<br><br>Si desea descargar la solucion que hace posible esta tienda, o si quiere contribuir al proyecto de osCommerce, por favor visite <a href="http://oscommerce.com"><u>la web de soporte de osCommerce</u></a>. Esta tienda corre bajo la version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>Este texto se puede cambiar editando el siguiente fichero, uno por cada idioma: [camino&nbsp;al&nbsp;catalogo]/includes/languages/[language]/default.php.<br><br>Puede editarlo manualmente, o a traves de la Herramienta de Administracion con la opcion Idiomas->[idioma]->Definir, o utilizando el Herramientas->Administrador de Ficheros.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Nuevos Productos En %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Proximamente');
 define('TABLE_HEADING_DATE_EXPECTED', 'Lanzamiento');
