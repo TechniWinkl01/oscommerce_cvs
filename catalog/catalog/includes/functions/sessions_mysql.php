@@ -45,69 +45,64 @@
  * ------------------------------------------------------------------------
  * Include this file in your scripts before you call session_start(), you
  * don't have to do anything special after that.
- */
-if (!$SESS_LIFE = get_cfg_var("session.gc_maxlifetime")) {
-  $SESS_LIFE = 1440;
-}  
+*/
 
-function sess_open($save_path, $session_name) {
-	return true;
-}
+  if (!$SESS_LIFE = get_cfg_var("session.gc_maxlifetime")) {
+    $SESS_LIFE = 1440;
+  }
 
-function sess_close() {
-	return true;
-}
+  function sess_open($save_path, $session_name) {
+    return true;
+  }
 
-function sess_read($key) {
-	$qry = "SELECT value FROM sessions WHERE sesskey = '$key' AND expiry > " . time();
-	$qid = tep_db_query($qry);
+  function sess_close() {
+    return true;
+  }
 
-	if (list($value) = tep_db_fetch_array($qid)) {
-		return $value;
-	}
+  function sess_read($key) {
+    $qry = "SELECT value FROM sessions WHERE sesskey = '$key' AND expiry > " . time();
+    $qid = tep_db_query($qry);
 
-	return false;
-}
+    if (list($value) = tep_db_fetch_array($qid)) {
+      return $value;
+    }
 
-function sess_write($key, $val) {
-	global $SESS_LIFE;
+    return false;
+  }
 
-	$expiry = time() + $SESS_LIFE;
-	$value = addslashes($val);
+  function sess_write($key, $val) {
+    global $SESS_LIFE;
 
-        $qry = "SELECT count(*) as total FROM sessions  WHERE sesskey = '$key' AND expiry > " . time();
-        $qid = tep_db_query($qry);
-        list($total) = tep_db_fetch_array($qid);
+    $expiry = time() + $SESS_LIFE;
+    $value = addslashes($val);
 
-	if ($total > 0) {
-          $qry = "UPDATE sessions SET expiry = $expiry, value = '$value' WHERE sesskey = '$key' AND expiry > " . time();
-        } else {
-          $qry = "INSERT INTO sessions VALUES ('$key', $expiry, '$value')";
-	}
-        $qid = tep_db_query($qry);
+    $qry = "SELECT count(*) as total FROM sessions  WHERE sesskey = '$key'";
+    $qid = tep_db_query($qry);
+    list($total) = tep_db_fetch_array($qid);
 
-	return $qid;
-}
+    if ($total > 0) {
+      $qry = "UPDATE sessions SET expiry = $expiry, value = '$value' WHERE sesskey = '$key'";
+    } else {
+      $qry = "INSERT INTO sessions VALUES ('$key', $expiry, '$value')";
+    }
+    $qid = tep_db_query($qry);
 
-function sess_destroy($key) {
-	$qry = "DELETE FROM sessions WHERE sesskey = '$key'";
-	$qid = tep_db_query($qry);
+    return $qid;
+  } 
 
-	return $qid;
-}
+  function sess_destroy($key) {
+    $qry = "DELETE FROM sessions WHERE sesskey = '$key'";
+    $qid = tep_db_query($qry);
 
-function sess_gc($maxlifetime) {
-	$qry = "DELETE FROM sessions WHERE expiry < " . time();
-	$qid = tep_db_query($qry);
+    return $qid;
+  }
 
-	return mysql_affected_rows();
-}
+  function sess_gc($maxlifetime) {
+    $qry = "DELETE FROM sessions WHERE expiry < " . time();
+    $qid = tep_db_query($qry);
 
-session_set_save_handler(
-	"sess_open",
-	"sess_close",
-	"sess_read",
-	"sess_write",
-	"sess_destroy",
-	"sess_gc");
+    return mysql_affected_rows();
+  }
+
+  session_set_save_handler("sess_open", "sess_close", "sess_read", "sess_write", "sess_destroy", "sess_gc");
 ?>
