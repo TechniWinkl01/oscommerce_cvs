@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.1 2004/02/16 06:38:27 hpdl Exp $
+  $Id: database.php,v 1.2 2004/04/08 02:32:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -267,6 +267,7 @@
         $query_handler,
         $result,
         $rows,
+        $affected_rows,
         $cache_key,
         $cache_expire,
         $cache_data,
@@ -425,6 +426,18 @@
       }
 
       return $this->rows;
+    }
+
+    function affectedRows() {
+      if (!isset($this->affected_rows)) {
+        if (!isset($this->query_handler)) {
+          $this->execute();
+        }
+
+        $this->affected_rows = $this->db_class->affectedRows();
+      }
+
+      return $this->affected_rows;
     }
 
     function execute() {

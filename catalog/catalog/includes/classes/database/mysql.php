@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mysql.php,v 1.1 2004/02/16 06:38:28 hpdl Exp $
+  $Id: mysql.php,v 1.2 2004/04/08 02:32:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,6 +9,12 @@
 
   Released under the GNU General Public License
 */
+
+  if (!function_exists('mysql_fetch_assoc')) {
+    function mysql_fetch_assoc($resource) {
+      return mysql_fetch_array($resource, MYSQL_ASSOC);
+    }
+  }
 
   class osC_Database_mysql extends osC_Database {
     var $sql_parse_string = 'addslashes',
@@ -148,7 +154,7 @@
     }
 
     function next($resource) {
-      return @mysql_fetch_array($resource, MYSQL_ASSOC);
+      return @mysql_fetch_assoc($resource);
     }
 
     function freeResult($resource) {
@@ -173,6 +179,10 @@
 
     function numberOfRows($resource) {
       return @mysql_num_rows($resource);
+    }
+
+    function affectedRows() {
+      return mysql_affected_rows($this->link);
     }
   }
 ?>
