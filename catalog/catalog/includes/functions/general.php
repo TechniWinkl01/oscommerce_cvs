@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.132 2001/09/10 11:14:36 jwildeboer Exp $
+  $Id: general.php,v 1.133 2001/09/10 11:33:37 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -959,25 +959,24 @@
 // Send email (text/html)
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
     if (!SEND_EMAILS) return true;
+
       // Build all required headers
       // add From: header
       $headers = "From: $from_email_name <$from_email_address>\r\n";
 
     // should we use HTML or not?
-		if EMAIL_USE_HTML {
-
+    if EMAIL_USE_HTML {
       // specify MIME version 1.0
       $headers .= "MIME-Version: 1.0\r\n";
 
-      // tell e-mail client this e-mail contains alternate versions
+      // generate the unique boundary
+      $boundary = uniqid("TheExchangeProject");
+
+      // tell e-mail client this e-mail contains//alternate versions
       $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
 
-  		// Build the body text of the message
       // message to people with clients who don't understand MIME
-      $body = "This is a MIME encoded message.\r\n\r\n";
-
-      // Build the unique boundary
-      $boundary = uniqid("TheExchangeProject");
+      $body .= "This is a MIME encoded message. Please use a MIME compliant program.\r\n\r\n";
 
       //plain text version of message
       $body .= "--$boundary\r\nContent-Type: text/plain; charset=ISO-8859-1\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
@@ -991,12 +990,13 @@
       $body .= "\r\n--$boundary--\r\n";
 
     } else {
-	    // send the text-only version
+      // send the text-only version
       $body = strip_tags($email_text);  	
     }
       //send message
       $to_email_address = $to_name . " <" . $to_email_address . ">";
       mail($to_email_address, $email_subject, $body, $headers);
+
   }
 
 ////
