@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.73 2002/03/23 11:17:02 project3000 Exp $
+  $Id: create_account_process.php,v 1.74 2002/03/25 13:40:58 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -217,9 +217,13 @@
     $customer_id = $insert_id;
     $customer_first_name = $HTTP_POST_VARS['firstname'];
     $customer_default_address_id = 1;
+    $customer_country_id = $HTTP_POST_VARS['country'];
+    $customer_zone_id = $HTTP_POST_VARS['zone_id'];
     tep_session_register('customer_id');
     tep_session_register('customer_first_name');
     tep_session_register('customer_default_address_id');
+    tep_session_register('customer_country_id');
+    tep_session_register('customer_zone_id');
 
 // restore cart contents
     $cart->restore_contents();
