@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: login.php,v 1.72 2003/01/10 20:33:25 hpdl Exp $
+  $Id: login.php,v 1.73 2003/01/14 18:04:42 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -39,8 +39,6 @@
         tep_session_register('customer_first_name');
         tep_session_register('customer_country_id');
         tep_session_register('customer_zone_id');
-
-        setcookie('email_address', $email_address, time()+2592000, substr(DIR_WS_CATALOG, 0, -1));
 
         $date_now = date('Ymd');
         tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
