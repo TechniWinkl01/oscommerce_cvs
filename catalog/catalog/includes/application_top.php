@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.249 2002/11/01 03:39:01 hpdl Exp $
+  $Id: application_top.php,v 1.250 2002/11/01 04:34:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,6 @@
   define('FILENAME_ADVANCED_SEARCH', 'advanced_search.php');
   define('FILENAME_ADVANCED_SEARCH_RESULT', 'advanced_search_result.php');
   define('FILENAME_ALSO_PURCHASED_PRODUCTS', 'also_purchased_products.php'); // This is the bottom of product_info.php (found in modules)
-  define('FILENAME_CCVAL_FUNCTION', 'ccval.php');
   define('FILENAME_CHECKOUT_CONFIRMATION', 'checkout_confirmation.php');
   define('FILENAME_CHECKOUT_PAYMENT', 'checkout_payment.php');
   define('FILENAME_CHECKOUT_PAYMENT_ADDRESS', 'checkout_payment_address.php');
