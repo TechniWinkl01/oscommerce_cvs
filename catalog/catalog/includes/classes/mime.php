@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mime.php,v 1.3 2002/02/05 06:02:04 jan0815 Exp $
+  $Id: mime.php,v 1.4 2002/02/05 22:22:33 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,10 @@ class mime {
    *                  description  - Content description
    * @access public
    */
-  function mime($body, $params = array()) {
+  function mime($body, $params = '') {
+    if ($params == '') {
+      $params = array();
+    }
     // Make sure we use the correct linfeed sequence
     if (EMAIL_LINEFEED == 'CRLF') {
       $this->lf = "\r\n";
