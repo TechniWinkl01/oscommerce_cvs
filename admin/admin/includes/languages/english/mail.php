@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.5 2001/09/19 11:12:04 mbs Exp $
+  $Id: mail.php,v 1.6 2001/11/19 11:39:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,8 +11,8 @@
 */
 
 define('TOP_BAR_TITLE', 'Mail');
-define('HEADING_TITLE', 'Send eMail to customer(s)');
-define('SUB_BAR_TITLE', 'Select a customer, newsletter subscribers or all customers to send a eMail.');
+define('HEADING_TITLE', 'Send Email To Customers');
+define('SUB_BAR_TITLE', 'Select a customer, newsletter subscribers or all customers to send a email.');
 
 define('TEXT_CUSTOMER_NAME', 'Customer name:');
 define('TEXT_SUBJECT', 'Subject:');
@@ -21,10 +21,10 @@ define('TEXT_SELECTCUSTOMER', 'Select customer');
 define('TEXT_ALLCUSTOMERS', 'All customers');
 define('TEXT_NEWSLETTERCUSTOMERS', 'To all newsletter subscribers');
 define('TEXT_MSGTO', 'Message to');
-define('TEXT_EMAILSENT', 'eMail(s) sent');
+define('TEXT_EMAILSENT', 'Email sent');
 define('TEXT_EMAILFROM', EMAIL_FROM);
-define('TEXT_NO_EMAILS_TO_SEND', 'No eMails to sent.');
-define('TEXT_EMAIL_FROM', 'From eMail:');
-define('TEXT_SEND_EMAIL', 'send eMail');
-define('TEXT_NO_CUSTOMER_SELECTED', 'No customer(s) selected to send mails!');
+define('TEXT_NO_EMAILS_TO_SEND', 'No email to send.');
+define('TEXT_EMAIL_FROM', 'From Email:');
+define('TEXT_SEND_EMAIL', 'Send Email');
+define('TEXT_NO_CUSTOMER_SELECTED', 'No customer selected to send email!');
 ?>

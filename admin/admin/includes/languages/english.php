@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.55 2001/11/12 21:43:12 hpdl Exp $
+  $Id: english.php,v 1.56 2001/11/19 11:39:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -58,7 +58,7 @@ define('BOX_MODULES_SHIPPING', 'Shipping');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalog');
-define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categories / Products');
+define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categories/Products');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Products Attributes');
 define('BOX_CATALOG_MANUFACTURERS', 'Manufacturers');
 define('BOX_CATALOG_REVIEWS', 'Reviews');
@@ -90,6 +90,7 @@ define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_BACKUP', 'Backup');
 define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
 define('BOX_TOOLS_CACHE', 'Cache Control');
+define('BOX_TOOLS_MAIL', 'Send Email');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localization');
@@ -97,17 +98,9 @@ define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
 
-// mail box text in includes/boxes/mail.php
-define('BOX_HEADING_MAIL', 'Mail');
-define('BOX_MAIL_MAIL', 'Send eMail(s)');
-
 // banners box text in includes/boxes/banners.php
 define('BOX_HEADING_BANNERS', 'Banners');
 define('BOX_BANNERS_MANAGER', 'Banner Manager');
-
-// gateway box text in includes/boxes/gateway.php
-define('BOX_HEADING_GATEWAY', 'Payment Gateway');
-define('BOX_GATEWAY_ITRANSACT', 'iTransact.com');
 
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.42 2001/11/12 21:43:12 hpdl Exp $
+  $Id: german.php,v 1.43 2001/11/19 11:39:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -78,7 +78,7 @@ define('BOX_TAXES_GEO_ZONES', 'Steuerzonen');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
 define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
 
-// statistics box text in includes/boxes/reports.php
+// reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Berichte');
 define('BOX_REPORTS_PRODUCTS_VIEWED', 'besuchte Artikel');
 define('BOX_REPORTS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
@@ -90,16 +90,13 @@ define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_BACKUP', 'Datensicherung');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 define('BOX_TOOLS_CACHE', 'Cache Steuerung');
+define('BOX_TOOLS_MAIL', 'Email senden');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Sprachen / W&auml;hrungen');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
-
-// mail box text in includes/boxes/mail.php
-define('BOX_HEADING_MAIL', 'Mail');
-define('BOX_MAIL_MAIL', 'eMail(s) senden');
 
 // banners box text in includes/boxes/banners.php
 define('BOX_HEADING_BANNERS', 'Banner');

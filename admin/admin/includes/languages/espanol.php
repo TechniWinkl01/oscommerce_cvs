@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.47 2001/11/13 13:56:40 dgw_ Exp $
+  $Id: espanol.php,v 1.48 2001/11/19 11:39:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -90,6 +90,7 @@ define('BOX_TOOLS_FILE_MANAGER', 'Administrador de Archivos');
 define('BOX_TOOLS_BACKUP', 'Copia de seguridad');
 define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 define('BOX_TOOLS_CACHE', 'Cache Control');
+define('BOX_TOOLS_MAIL', 'Send Email');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
@@ -97,17 +98,9 @@ define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
 define('BOX_LOCALIZATION_LANGUAGES', 'Idiomas');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Estado Pedidos');
 
-// mail box text in includes/boxes/mail.php
-define('BOX_HEADING_MAIL', 'Mail');
-define('BOX_MAIL_MAIL', 'Send eMail(s)');
-
 // banners box text in includes/boxes/banners.php
 define('BOX_HEADING_BANNERS', 'Banners');
 define('BOX_BANNERS_MANAGER', 'Banner Manager');
-
-// gateway box text in includes/boxes/gateway.php
-define('BOX_HEADING_GATEWAY', 'Pasarelas de Pago');
-define('BOX_GATEWAY_ITRANSACT', 'iTransact.com');
 
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
