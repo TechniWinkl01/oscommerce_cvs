@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.81 2001/09/22 14:30:38 dwatkins Exp $
+  $Id: application_top.php,v 1.82 2001/09/30 20:21:12 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -154,19 +154,21 @@
   define('EMAIL_FROM', 'The Exchange Project <root@localhost>');
 
 // minimum length of text field values accepted
-  define('ENTRY_FIRST_NAME_MIN_LENGTH', 3);
-  define('ENTRY_LAST_NAME_MIN_LENGTH', 3);
+  define('ENTRY_FIRST_NAME_MIN_LENGTH', 2);
+  define('ENTRY_LAST_NAME_MIN_LENGTH', 2);
   define('ENTRY_DOB_MIN_LENGTH', 10);
   define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH', 6);
   define('ENTRY_STREET_ADDRESS_MIN_LENGTH', 5);
+  define('ENTRY_COMPANY_LENGTH', 2);
   define('ENTRY_POSTCODE_MIN_LENGTH', 4);
-  define('ENTRY_CITY_MIN_LENGTH', 4);
+  define('ENTRY_CITY_MIN_LENGTH', 3);
   define('ENTRY_TELEPHONE_MIN_LENGTH', 3);
   define('ENTRY_PASSWORD_MIN_LENGTH', 5);
 
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
   define('ACCOUNT_DOB', 1);
+  define('ACCOUNT_COMPANY', 0);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
 
