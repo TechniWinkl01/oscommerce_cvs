@@ -81,7 +81,7 @@ function checkForm() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
 <?
-  $product = tep_db_query("select products_name, products_image from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  $product = tep_db_query("select pd.products_name, p.products_image from products p, products_description pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
   $product_values = tep_db_fetch_array($product);
 
   $customer = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $customer_id . "'");
@@ -166,3 +166,4 @@ function checkForm() {
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+
