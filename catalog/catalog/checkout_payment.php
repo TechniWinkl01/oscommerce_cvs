@@ -13,7 +13,6 @@ function check_form() {
 
   var cc_owner = document.payment.cc_owner.value;
   var cc_number = document.payment.cc_number.value;
-  var cc_expires = document.payment.cc_expires.value;
 
   if (document.payment.payment[<?php print (PAYMENT_SUPPORT_COD + PAYMENT_SUPPORT_PAYPAL) ?>].checked) {
     if (cc_owner == "" || cc_owner.length < <? echo CC_OWNER_MIN_LENGTH; ?>) {
@@ -23,11 +22,6 @@ function check_form() {
 
     if (cc_number == "" || cc_number.length < <? echo CC_NUMBER_MIN_LENGTH; ?>) {
       error_message = error_message + "<? echo JS_CC_NUMBER; ?>";
-      error = 1;
-    }
-
-    if (cc_expires == "" || cc_expires.length < <? echo CC_EXPIRY_MIN_LENGTH; ?>) {
-      error_message = error_message + "<? echo JS_CC_EXPIRES; ?>";
       error = 1;
     }
   }
