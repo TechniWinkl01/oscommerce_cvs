@@ -89,7 +89,7 @@ define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
 define('BOX_LANGUAGES_ESPANOL', 'Español');
 
 // currencies box text in includes/boxes/currencies.php
-define('BOX_HEADING_CURRENCIES', 'Modernidades');
+define('BOX_HEADING_CURRENCIES', 'Monedas');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
