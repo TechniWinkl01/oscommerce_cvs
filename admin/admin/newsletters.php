@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.7 2002/03/08 22:11:58 hpdl Exp $
+  $Id: newsletters.php,v 1.8 2002/03/08 22:14:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -69,7 +69,7 @@
         tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'delete':
-      case 'new':
+      case 'new': if (!$HTTP_GET_VARS['nID']) break;
       case 'send':
       case 'confirm_send':
         $newsletter_id = tep_db_prepare_input($HTTP_GET_VARS['nID']);
