@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.32 2001/05/26 17:07:43 dwatkins Exp $
+  $Id: espanol.php,v 1.33 2001/05/28 23:51:48 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -215,12 +215,15 @@ define('PREVNEXT_BUTTON_NEXT', '[Siguiente&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'FINAL&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Añadir Dirección');
+define('IMAGE_BUTTON_ADDRESS_BOOK', 'Direcciones');
 define('IMAGE_BUTTON_ADD_QUICK', 'Compra Rápida!');
 define('IMAGE_BUTTON_BACK', 'Atrás');
 define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Cambiar Dirección');
 define('IMAGE_BUTTON_CHECKOUT', 'Realizar Pedido');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirmar Pedido');
 define('IMAGE_BUTTON_CONTINUE', 'Continuar');
+define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Editar Cuenta');
+define('IMAGE_BUTTON_HISTORY', 'Historial de Pedidos');
 define('IMAGE_BUTTON_IN_CART', 'Añadir a la Cesta');
 define('IMAGE_BUTTON_QUICK_FIND', 'Busqueda Rápida');
 define('IMAGE_BUTTON_REVIEWS', 'Comentarios');
