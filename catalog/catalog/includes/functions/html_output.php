@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.10 2001/08/22 12:12:44 dwatkins Exp $
+  $Id: html_output.php,v 1.11 2001/08/23 21:37:57 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -294,7 +294,7 @@
     if ($value != '') {
       $checkbox .= ' value="' . $value . '"';
     }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') ) {
+    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) ) {
       $checkbox .= ' CHECKED';
     }
     $checkbox .= '>';

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.14 2001/05/26 16:49:25 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.15 2001/08/23 21:38:09 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,6 @@ define('TEXT_TYPE', 'Typ:');
 define('TEXT_OWNER', 'Eigent&uuml;mer:');
 define('TEXT_NUMBER', 'Nummer:');
 define('TEXT_EXPIRES', 'G&uuml;ltig bis:');
-define('TEXT_VAL', 'Fehler bei der &Uuml;berp&uuml;fung der Kreditkarte!');
 
 define('TEXT_STOCK_WARNING', 'Lieferwarnung'); 
 define('TEXT_MULTIPLE_SHIPMENT', 'Teillieferung'); 

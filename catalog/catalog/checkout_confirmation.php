@@ -33,6 +33,10 @@
 // load payment modules as objects
   include(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
+
+  if (MODULE_PAYMENT_INSTALLED) {
+    $payment_modules->pre_confirmation_check();
+  }
 ?>
 <html>
 <head>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.8 2001/05/26 17:18:16 dwatkins Exp $
+  $Id: checkout_confirmation.php,v 1.9 2001/08/23 21:38:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,6 @@ define('TEXT_TYPE', 'Tipo:');
 define('TEXT_OWNER', 'Titular:');
 define('TEXT_NUMBER', 'Numero:');
 define('TEXT_EXPIRES', 'Caducidad:');
-define('TEXT_VAL', 'Error en Tarjeta de Credito!');
 
 define('TEXT_STOCK_WARNING', 'Advertencia sobre existencias');
 define('TEXT_MULTIPLE_SHIPMENT', 'Multiples Envios');

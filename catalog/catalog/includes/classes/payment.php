@@ -135,7 +135,7 @@
       }
     }
 
-    function output_error() {
+    function pre_confirmation_check() {
       global $payment;
 
       if (MODULE_PAYMENT_INSTALLED) {
@@ -143,6 +143,20 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->code == $payment) {
+            echo $GLOBALS[$class]->pre_confirmation_check();
+          }
+        }
+      }
+    }
+
+    function output_error() {
+      global $HTTP_GET_VARS;
+
+      if (MODULE_PAYMENT_INSTALLED) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, strrpos($value, '.'));
+          if ($GLOBALS[$class]->code == $HTTP_GET_VARS['payment_error']) {
             echo $GLOBALS[$class]->output_error();
           }
         }
