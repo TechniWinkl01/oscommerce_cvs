@@ -96,8 +96,10 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
 
       $to_num = ($max_rows_per_page * $current_page_number);
       if ($to_num > $query_numrows) $to_num = $query_numrows;
+      $from_num = ($max_rows_per_page * ($current_page_number - 1));
+      if ($from_num == 0 && $to_num >= 1) $from_num = 1;
 
-      return sprintf($text_output, ($max_rows_per_page * ($current_page_number - 1))+1, $to_num, $query_numrows);
+      return sprintf($text_output, $from_num, $to_num, $query_numrows);
     }
   }
 ?>
