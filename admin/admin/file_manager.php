@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.27 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: file_manager.php,v 1.28 2002/01/14 17:01:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
   }
 
   if ($HTTP_GET_VARS['goto']) {
-    if (ereg('../', $HTTP_GET_VARS['goto'])) {
+    if (strstr($HTTP_GET_VARS['goto'], '../')) {
       $current_path = DIR_FS_DOCUMENT_ROOT;
     } elseif ($HTTP_GET_VARS['goto'] == '..') {
       $current_path = substr($current_path, 0, strrpos($current_path, '/'));
