@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.59 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: orders.php,v 1.60 2001/12/23 16:36:43 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -184,12 +184,6 @@ function alertBox() {
     $info_values = tep_db_fetch_array($info);
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
-    $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], 6, 2),substr($info_values['date_purchased'], 0, 4)));
-    if (@$info_values['last_modified']) {
-      $date_updated = date('l, jS F, Y', mktime(0,0,0,substr($info_values['last_modified'], 4, 2),substr($info_values['last_modified'], 6, 2),substr($info_values['last_modified'], 0, 4)));
-    } else {
-      $date_updated = '';
-    }
     $products = tep_db_query("select orders_products_id, products_id, products_model, products_name, products_price, products_quantity, final_price, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $total_cost = 0;
     $total_tax = 0;
@@ -299,7 +293,7 @@ function alertBox() {
             <td colspan="2" class="main"><br><b>&nbsp;<?php echo ENTRY_STATUS; ?></b> <?php echo tep_orders_status_pull_down('name="status"', $info_values['orders_status']); ?>&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</td>
           </tr></form>
 <?php
-    if ($date_updated != '') {
+    if (@$info_values['last_modified']) {
 ?>
           <tr>
             <td colspan="2" class="main"><br><b>&nbsp;<?php echo ENTRY_DATE_LAST_UPDATED; ?></b> <?php echo tep_date_long($info_values['last_modified']); ?>&nbsp;</td>
