@@ -108,7 +108,7 @@
     }
 //------display customer choosen option eof-----
     echo '</font></td>' . "\n";
-    echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($products[$i]['quantity'] * $price) . '&nbsp;';
+    echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $price) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       reset($cart->contents[$products[$i]['id']]['attributes']);

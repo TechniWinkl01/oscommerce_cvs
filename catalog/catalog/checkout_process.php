@@ -36,7 +36,7 @@
 	$final_price = $products[$i]['final_price'];
     $taxrate = tep_get_tax_rate($delivery_values['zone_id'], $products[$i]['tax_class_id']);
 
-    tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . $products_id . "', '" . addslashes($products_name) . "', '" . $price . "', '" . $final_price . "', '" . $taxrate . "', '" . $products[$i]['final_quantity'] . "')");
+    tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . $products_id . "', '" . addslashes($products_name) . "', '" . $price . "', '" . $final_price . "', '" . $taxrate . "', '" . $products[$i]['quantity'] . "')");
 //------insert customer choosen option to order--------
     if ($cart->contents[$products[$i]['id']]['attributes']) {
       reset($cart->contents[$products[$i]['id']]['attributes']);
