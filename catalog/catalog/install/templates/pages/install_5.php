@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.4 2002/01/05 12:21:29 hpdl Exp $
+  $Id: install_5.php,v 1.5 2002/01/17 20:50:19 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -167,7 +167,7 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><a href="<?php echo $HTTP_POST_VARS['HTTP_SERVER'] . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'default.php'; ?>" target="_blank"><img src="images/button_catalog.gif" border="0" alt="Catalog"></a></td>
-    <td align="center"><a href="<?php echo $HTTP_POST_VARS['HTTP_SERVER'] . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'default.php'; ?>" target="_blank"><img src="images/button_administration_tool.gif" border="0" alt="Administration Tool"></a></td>
+    <td align="center"><a href="<?php echo $HTTP_POST_VARS['HTTP_SERVER'] . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'index.php'; ?>" target="_blank"><img src="images/button_administration_tool.gif" border="0" alt="Administration Tool"></a></td>
   </tr>
 </table>
 
