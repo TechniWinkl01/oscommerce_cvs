@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.173 2002/05/17 12:08:14 thomasamoulton Exp $
+  $Id: general.php,v 1.174 2002/05/23 21:44:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -970,15 +970,6 @@
   function tep_word_count($string, $needle) {
     $temp_array = split($needle, $string);
     return sizeof($temp_array);
-  }
-
-////
-// Get the name of the orders status
-  function tep_get_orders_status_name($orders_status_id, $language_id) {
-    $orders_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $orders_status_id . "' and language_id = '" . $language_id . "'");
-    $orders_status = tep_db_fetch_array($orders_status_query);
-
-    return $orders_status['orders_status_name'];
   }
 
   function tep_count_modules($modules = '') {
