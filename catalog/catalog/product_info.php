@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.83 2002/05/27 13:10:44 hpdl Exp $
+  $Id: product_info.php,v 1.84 2002/06/10 16:46:54 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,7 +125,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
           }
           echo '>' . $products_options_values['products_options_values_name'];
           if ($products_options_values['options_values_price'] != '0') {
-            echo ' (' . $products_options_values['price_prefix'] . $currencies->display_price($products_options_values['options_values_price'], $product_info_values['products_tax_class_id']) .')&nbsp';
+            echo ' (' . $products_options_values['price_prefix'] . $currencies->display_price($products_options_values['options_values_price'], tep_get_tax_rate($product_info_values['products_tax_class_id'])) .')&nbsp';
           }
           echo  '</option>';
         };
