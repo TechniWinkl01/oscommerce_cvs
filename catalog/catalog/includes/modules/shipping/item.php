@@ -7,7 +7,7 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_ITEM_NAME . '</font></td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_ITEM_NAME . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_item" value="1" CHECKED></td></tr>' . "\n";
 
@@ -46,9 +46,9 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_item) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_ITEM_NAME . '</font></td>' . "\n" .
-                          '  <td>' . FONT_STYLE_MAIN . $shipping_item_method . '</font></td>' . "\n" .
-                          '  <td align="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_item_cost) . '</font></td>' . "\n" .
+                          '  <td class="main">&nbsp;' . SHIPPING_ITEM_NAME . '</td>' . "\n" .
+                          '  <td class="main">' . $shipping_item_method . '</td>' . "\n" .
+                          '  <td align="right" class="main">' . tep_currency_format($shipping_item_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="item"';
         if ($shipping_cheapest == 'item') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .

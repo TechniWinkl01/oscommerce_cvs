@@ -37,7 +37,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="5">
           <tr>
             <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td><div align="center" class="pageHeading"><br><? echo HEADING_TITLE; ?>&nbsp;</div><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_SUCCESS; ?></font></td>
+            <td class="main"><div align="center" class="pageHeading"><br><? echo HEADING_TITLE; ?>&nbsp;</div><br><? echo TEXT_SUCCESS; ?></td>
           </tr>
         </table></td>
       </tr>

@@ -7,7 +7,7 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_USPS_NAME . '</font></td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_USPS_NAME . '</td>' .
                        '<td><select name="shipping_usps_prod">' .
                          '<option value="Parcel">' . SHIPPING_USPS_OPT_PP . '</option>' .
                          '<option value="Priority" SELECTED>' . SHIPPING_USPS_OPT_PM . '</option>' .
@@ -73,9 +73,9 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_USPS_NAME . '</font></td>' . "\n" .
-                          '  <td>' . FONT_STYLE_MAIN . $shipping_usps_method . '</font></td>' . "\n" .
-                          '  <td align="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_usps_cost) . '</font></td>' . "\n" .
+                          '  <td class="main">&nbsp;' . SHIPPING_USPS_NAME . '</td>' . "\n" .
+                          '  <td class="main">' . $shipping_usps_method . '</td>' . "\n" .
+                          '  <td align="right" class="main">' . tep_currency_format($shipping_usps_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="usps"';
         if ($shipping_cheapest == 'usps') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .

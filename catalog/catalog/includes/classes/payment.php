@@ -40,12 +40,12 @@
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_enabled) {
             $selection_string .= '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n" .
-                                 '                <td nowrap colspan="3">' . FONT_STYLE_MAIN . '&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</font></td>' . "\n" .
-                                 '                <td align="right" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<input type="radio" name="payment" value="' . $GLOBALS[$class]->payment_code . '"';
+                                 '                <td colspan="3" class="main" nowrap>&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</td>' . "\n" .
+                                 '                <td align="right" class="main" nowrap>&nbsp;<input type="radio" name="payment" value="' . $GLOBALS[$class]->payment_code . '"';
             if ( (!$payment && $rows == 1) || ($payment == $GLOBALS[$class]->payment_code)) {
               $selection_string .= ' CHECKED';
             }
-            $selection_string .= '>&nbsp;</font></td>' . "\n" .
+            $selection_string .= '>&nbsp;</td>' . "\n" .
                                  '              </tr>' . "\n" .
                                  '              <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n" .
                                  '                <td colspan="2">';
@@ -67,7 +67,7 @@
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_code == $HTTP_POST_VARS['payment']) {
             $confirmation_string = '          <tr>' . "\n" .
-                                   '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</font></td>' . "\n" .
+                                   '            <td class="main" nowrap>&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</td>' . "\n" .
                                    '          </tr>' . "\n";
             $confirmation_string .= $GLOBALS[$class]->confirmation();
           }
@@ -122,7 +122,7 @@
           }
         }
         $show_info_string = '          <tr>' . "\n" .
-                            '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . $payment_text. '&nbsp;</font></td>' . "\n" .
+                            '            <td class="main" nowrap>&nbsp;' . $payment_text. '&nbsp;</td>' . "\n" .
                             '          </tr>' . "\n";
 
         echo $show_info_string;

@@ -116,3 +116,8 @@ TD.subBar {
     font-size : 10px;
     color : #000000;
 }
+
+TD.main, P.main {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 12px;
+}

@@ -136,12 +136,12 @@ function session_win() {
       <tr>
         <td><form name="login" method="post" action="<? echo tep_href_link(FILENAME_LOGIN, 'action=process', 'NONSSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</font></td>
-            <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</font></td>
+            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td class="main" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</font></td>
-            <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</font></td>
+            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td class="main" nowrap>&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</td>
           </tr>
         </table>
         <table border="0" width="100%" cellspacing="0" cellpadding="2">

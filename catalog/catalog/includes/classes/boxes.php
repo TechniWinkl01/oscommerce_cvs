@@ -7,7 +7,6 @@
     var $table_parameters = '';
     var $table_row_parameters = '';
     var $table_data_parameters = '';
-    var $font_style = FONT_STYLE_MAIN;
 
 // class constructor
     function tableBox($contents) {

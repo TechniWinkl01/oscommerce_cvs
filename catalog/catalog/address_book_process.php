@@ -499,11 +499,11 @@ function check_form() {
       <tr>
 <?
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
-      echo '        <td align="right" nowrap><br>' . FONT_STYLE_MAIN . '<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="' . $HTTP_GET_VARS['entry_id'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '        <td align="right" class="main" nowrap><br><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="' . $HTTP_GET_VARS['entry_id'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</td>' . "\n";
     } elseif ((@$HTTP_POST_VARS['action'] == 'update') && (@$HTTP_POST_VARS['entry_id'])) {
-      echo '        <td align="right" nowrap><br>' . FONT_STYLE_MAIN . '<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="' . $HTTP_POST_VARS['entry_id'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '        <td align="right" class="main" nowrap><br><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="' . $HTTP_POST_VARS['entry_id'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</td>' . "\n";
     } else {
-      echo '        <td align="right" nowrap><br>' . FONT_STYLE_MAIN . '<input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="' . @$HTTP_GET_VARS['connection'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;&nbsp;&nbsp;&nbsp;';
+      echo '        <td align="right" class="main" nowrap><br><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="' . @$HTTP_GET_VARS['connection'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;&nbsp;&nbsp;&nbsp;';
       if (@$HTTP_GET_VARS['origin']) {
         if (@$HTTP_GET_VARS['connection'] == 'SSL') {
           $connection_type = 'SSL';
@@ -514,7 +514,7 @@ function check_form() {
       } else {
         echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">';
       }
-      echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</td>' . "\n";
     }
 ?>
       </tr>

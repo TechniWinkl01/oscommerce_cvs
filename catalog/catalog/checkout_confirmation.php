@@ -90,8 +90,8 @@
     $products_weight = $products[$i]['weight'];
 
     echo '          <tr>' . "\n";
-    echo '            <td align="center" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . $products[$i]['quantity'] . '&nbsp;</font></td>' . "\n";
-    echo '            <td valign="top" nowrap>' . FONT_STYLE_MAIN . '<b>&nbsp;' . $products_name . '&nbsp;</b>';
+    echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . $products[$i]['quantity'] . '&nbsp;</td>' . "\n";
+    echo '            <td valign="top" class="main" nowrap><b>&nbsp;' . $products_name . '&nbsp;</b>';
 //------display customer choosen option --------
     $attributes_exist = '0';
     if ($products[$i]['attributes']) {
@@ -104,9 +104,9 @@
       }
     }
 //------display customer choosen option eof-----
-    echo '</font></td>' . "\n";
-    echo '            <td align="center" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</font></td>' . "\n";
-    echo '            <td align="right" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
+    echo '</td>' . "\n";
+    echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
+    echo '            <td align="right" valign="top" class="main" nowrap>&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       reset($products[$i]['attributes']);
@@ -121,7 +121,7 @@
       }
     }
 //------display customer choosen option eof-----
-    echo '</font></td>' . "\n";
+    echo '</td>' . "\n";
     echo '          </tr>' . "\n";
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
@@ -179,7 +179,7 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
+            <td class="main" nowrap><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -198,16 +198,16 @@
   if ($comments) {
 ?>
         <tr>
-            <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
+            <td class="main">&nbsp;</td>
         </tr>
         <tr>
-          <td nowrap colspan="2"><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+          <td colspan="2" class="main" nowrap><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
         </tr>
         <tr>
           <td colspan="2"><? echo tep_black_line(); ?></td>
         </tr>
         <tr>
-          <td colspan="2"><?php echo FONT_STYLE_MAIN; ?><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></font></td>
+          <td colspan="2" class="main"><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></td>
         </tr>
 <?
   }

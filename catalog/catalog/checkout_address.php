@@ -97,10 +97,10 @@
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
+                    <td class="main" nowrap><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
                   </tr>
                 </table></td>
-                <td align="right" valign="middle"><?php echo FONT_STYLE_MAIN; ?>&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</font></td>
+                <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -153,12 +153,12 @@
               <tr>
 <?
   if ($row < 5) {
-    echo '                <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</font></td>' . "\n";
+    echo '                <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</td>' . "\n";
   } else {
     echo '                <td valign="top" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</font></td>' . "\n";
   }
 ?>
-                <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</font></td>
+                <td align="right" class="main" nowrap>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>

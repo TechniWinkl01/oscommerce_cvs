@@ -100,7 +100,7 @@
     while ($categories_values = tep_db_fetch_array($categories)) {
       $rows++;
       $cPath_new = tep_get_path($categories_values['categories_id']);
-      echo '                <td align="center">' . FONT_STYLE_MAIN . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image($categories_values['categories_image'], $categories_values['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br>' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
+      echo '                <td align="center" class="main"><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image($categories_values['categories_image'], $categories_values['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br>' . $categories_values['categories_name'] . '</a></td>' . "\n";
       if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != tep_db_num_rows($categories))) {
         echo '              </tr>' . "\n";
         echo '              <tr>' . "\n";
@@ -252,7 +252,7 @@
     if (PRODUCT_LIST_FILTER) {
       $filterlist = tep_db_query($filterlist_sql);
       if (tep_db_num_rows($filterlist) > 1) {
-        echo '            <td align="center">' . FONT_STYLE_MAIN . "\n";
+        echo '            <td align="center" class="main">' . "\n";
         echo '              ' . TEXT_SHOW . "\n";
         echo '              <select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">' . "\n";
 
@@ -281,7 +281,7 @@
           }
         }
         echo '              </select>' . "\n";
-        echo '            </font></td>' . "\n";
+        echo '            </td>' . "\n";
       }
     }
 // Get the right image for the top-right
@@ -341,7 +341,7 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_MAIN; ?></font></td>
+            <td class="main"><? echo TEXT_MAIN; ?></td>
           </tr>
 <?
   $new_products_category_id = '0'; $include_file = DIR_WS_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');

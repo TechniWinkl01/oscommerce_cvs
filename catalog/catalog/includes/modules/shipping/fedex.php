@@ -12,7 +12,7 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD>' . FONT_STYLE_MAIN . '&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</font></td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_fedex" value="1" CHECKED></td></tr>' . "\n";
 
@@ -72,16 +72,16 @@
 // check for errors
         if ($quote['ErrorNbr']) {
           $display_string .= '<tr>' . "\n" .
-                             '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</font></td>' . "\n" .
-                             '  <td>' . FONT_STYLE_MAIN . '<font color="#ff0000">Error:</font> ' . htmlentities($quote['Error']) . '</font></td>' . "\n" .
-                             '  <td align="right">' . FONT_STYLE_MAIN . '&nbsp;</font></td>' . "\n" .
+                             '  <td class="main">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</td>' . "\n" .
+                             '  <td class="main"><font color="#ff0000">Error:</font> ' . htmlentities($quote['Error']) . '</td>' . "\n" .
+                             '  <td align="right" class="main">&nbsp;</td>' . "\n" .
                              '  <td align="right" nowrap>&nbsp;</td>' . "\n" .
                              '</tr>' . "\n";
         } else {
           $display_string .= '<tr>' . "\n" .
-                             '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</font></td>' . "\n" .
-                             '  <td>' . FONT_STYLE_MAIN . $shipping_fedex_method . '</font></td>' . "\n" .
-                             '  <td align="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_fedex_cost) . '</font></td>' . "\n" .
+                             '  <td class="main">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</td>' . "\n" .
+                             '  <td class="main">' . $shipping_fedex_method . '</td>' . "\n" .
+                             '  <td align="right" class="main">' . tep_currency_format($shipping_fedex_cost) . '</td>' . "\n" .
                              '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="fedex"';
           if ($shipping_cheapest == 'fedex') {
             $display_string .= ' CHECKED';

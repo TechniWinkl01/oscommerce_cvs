@@ -59,7 +59,7 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT; ?> <?php echo $products_name; ?> <?php echo TEXT_EMAILPRODUCT_HAS_BEEN_SENT; ?> <? echo $friendemail; ?></td>
+            <td class="main"><? echo TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT; ?> <?php echo $products_name; ?> <?php echo TEXT_EMAILPRODUCT_HAS_BEEN_SENT; ?> <? echo $friendemail; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -67,7 +67,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
+        <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
       </tr>
 <?
   }
@@ -82,22 +82,22 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
+                <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
                 <td width="100%"><input type="text" name="from" value="<? echo $account_values['customers_email_address']; ?>"></td>
               </tr>
               <tr>
-                <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
+                <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
                 <td><input type="text" name="yourname" value="<? echo $account_values['customers_firstname']; ?> <? echo $account_values['customers_lastname']; ?>"></td>
               </tr>
               <tr>
-                <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
+                <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
                 <td><input type="text" name="friendemail"></td>
               </tr>
               <tr>
-                <td colspan="2"><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_MESSAGE; ?>&nbsp;<br><textarea cols="40" rows="8" name="yourmessage"></textarea></td>
+                <td colspan="2" class="main"><br><? echo TEXT_EMAILPRODUCT_MESSAGE; ?>&nbsp;<br><textarea cols="40" rows="8" name="yourmessage"></textarea></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_TELLAFRIEND; ?> <b><?php echo $product_info_values['products_name']; ?></b></td>
+                <td colspan="2" class="main"><? echo TEXT_EMAILPRODUCT_TELLAFRIEND; ?> <b><?php echo $product_info_values['products_name']; ?></b></td>
               </tr>
             </table></td>
           </tr>
@@ -109,8 +109,8 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="left" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_PROCESS); ?></a>&nbsp;&nbsp;</font></td>
-            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info_values['products_id'], 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
+            <td class="main" nowrap><? echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_PROCESS); ?></a>&nbsp;&nbsp;</td>
+            <td align="right" class="main" nowrap><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info_values['products_id'], 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
       </tr></form>

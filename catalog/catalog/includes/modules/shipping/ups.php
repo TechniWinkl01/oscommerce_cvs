@@ -7,7 +7,7 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_UPS_NAME . '</font></td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_UPS_NAME . '</td>' .
                        '<td><select name="shipping_ups_prod">' .
                          '<option value="GND" SELECTED>' . SHIPPING_UPS_OPT_GND . '</option>' .
                          '<option value="1DM">' . SHIPPING_UPS_OPT_1DM . '</option>' .
@@ -77,9 +77,9 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_UPS_NAME . '</font></td>' . "\n" .
-                          '  <td>' . FONT_STYLE_MAIN . $shipping_ups_method . '</font></td>' . "\n" .
-                          '  <td align="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_ups_cost) . '</font></td>' . "\n" .
+                          '  <td class="main">&nbsp;' . SHIPPING_UPS_NAME . '</td>' . "\n" .
+                          '  <td class="main">' . $shipping_ups_method . '</td>' . "\n" .
+                          '  <td align="right" class="main">' . tep_currency_format($shipping_ups_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="ups"';
         if ($shipping_cheapest == 'ups') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .

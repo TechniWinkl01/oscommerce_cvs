@@ -34,16 +34,16 @@
         if ($this->payment_enabled) {
         $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_CREDIT_CARD_OWNER . '&nbsp;</font></td>' . "\n" .
-                            '    <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<input type="text" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">&nbsp;</font></td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_CREDIT_CARD_NUMBER . '&nbsp;</font></td>' . "\n" .
-                            '    <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<input type="text" name="cc_number">&nbsp;</font></td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_number">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</font></td>' . "\n" .
-                            '    <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<select name="cc_expires_month">';
+                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;<select name="cc_expires_month">';
         for ($i=1; $i < 13; $i++) {
           $selected = ($HTTP_POST_VARS['cc_expires_month'] == $i) ? ' selected' : '';
           $selection_string .= '<option' . $selected . ' value="' . sprintf('%02d', $i) . '">' . strftime("%B",mktime(0,0,0,$i,1,2000)) . '</option>';
@@ -54,7 +54,7 @@
           $selected = ($HTTP_POST_VARS['cc_expires_year'] == strftime("%y",mktime(0,0,0,1,1,$i))) ? ' selected' : '';
           $selection_string .= '<option' . $selected . ' value="' . strftime("%y",mktime(0,0,0,1,1,$i)) . '">' . strftime("%Y",mktime(0,0,0,1,1,$i)) . '</option>';
         }
-        $selection_string .= '</select></font></td>' . "\n" .
+        $selection_string .= '</select></td>' . "\n" .
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
         return $selection_string;
@@ -71,31 +71,31 @@
         $cc_val = CCValidationSolution($cc_val);
 
         $confirmation_string = '          <tr>' . "\n" .
-                               '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</font></td>' . "\n" .
+                               '            <td class="main" nowrap>&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</td>' . "\n" .
                                '          </tr>' . "\n";
 
         if ($cc_val == '1') {
           $confirmation_string .= '          <tr>' . "\n" .
-                                  '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</font></td>' . "\n" .
+                                  '            <td class="main" nowrap>&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
                                   '          </tr>' . "\n" .
                                   '          <tr>' . "\n" .
-                                  '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</font></td>' . "\n" .
+                                  '            <td class="main" nowrap>&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
                                   '          </tr>' . "\n";
         }
 
         $confirmation_string .= '          <tr>' . "\n" .
-                                '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n" .
+                                '            <td class="main" nowrap>&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
                                 '          </tr>' . "\n";
 
         if ($cc_val != '1') {
           $confirmation_string .= '          <tr>' . "\n" .
-                                  '            <td>' . FONT_STYLE_MAIN . '&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</font></td>' . "\n" .
+                                  '            <td class="main">&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</td>' . "\n" .
                                   '          </tr>' . "\n";
         }
 
         if ($cc_val != '1') {
           $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');
-          $checkout_form_submit = tep_image_submit(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '&nbsp;</font>' . "\n";
+          $checkout_form_submit = tep_image_submit(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '&nbsp;' . "\n";
         }
 
         return $confirmation_string;

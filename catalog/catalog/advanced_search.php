@@ -183,13 +183,13 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
         </table></td>
       </tr>
       <tr>
-        <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_image_submit(DIR_WS_IMAGES . 'button_done.gif', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
+        <td align="right" class="main" nowrap><? echo tep_image_submit(DIR_WS_IMAGES . 'button_done.gif', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</td>
       </tr>
       <tr>
         <td><?echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><?php echo FONT_STYLE_MAIN; ?>
+        <td class="main">
 <?
   if ($HTTP_GET_VARS['errorno']) {
     if (($HTTP_GET_VARS['errorno'] & 1) == 1) {
@@ -222,7 +222,7 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
       echo TEXT_ADVANCED_SEARCH_TIPS;
   }
 ?>
-        </font></td>
+        </td>
       </tr>
       <tr>
         <td><?echo tep_black_line(); ?></td>

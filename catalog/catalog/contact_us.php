@@ -46,7 +46,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td valign="top"><div align="center" class="pageHeading"><br><? echo SUB_BAR_TITLE; ?>&nbsp;</div><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_SUCCESS; ?></font></td>
+            <td valign="top" class="main"><div align="center" class="pageHeading"><br><? echo SUB_BAR_TITLE; ?>&nbsp;</div><br><? echo TEXT_SUCCESS; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -92,20 +92,20 @@
             <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo ENTRY_NAME; ?></font></td>
-            <td><?php echo FONT_STYLE_MAIN; ?><input name="name" maxlength="32"></font></td>
+            <td align="right" class="main" nowrap><? echo ENTRY_NAME; ?></td>
+            <td><input name="name" maxlength="32"></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo ENTRY_EMAIL; ?></font></td>
-            <td><?php echo FONT_STYLE_MAIN; ?><input name="email" maxlength="96"></font></td>
+            <td align="right" class="main" nowrap><? echo ENTRY_EMAIL; ?></td>
+            <td><input name="email" maxlength="96"></td>
           </tr>
           <tr>
-            <td valign="top" align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo ENTRY_ENQUIRY; ?></font></td>
-            <td><?php echo FONT_STYLE_MAIN; ?><textarea name="enquiry" wrap="soft" cols="40" rows="15"></textarea></font></td>
+            <td valign="top" align="right" class="main" nowrap><? echo ENTRY_ENQUIRY; ?></td>
+            <td><textarea name="enquiry" wrap="soft" cols="40" rows="15"></textarea></td>
           </tr>
           <tr>
-            <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
-            <td><?php echo FONT_STYLE_MAIN; ?><? echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_SUBMIT); ?>&nbsp;&nbsp;</font></td>
+            <td class="main">&nbsp;</td>
+            <td class="main"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_SUBMIT); ?>&nbsp;&nbsp;</td>
           </tr>
         </table></form></td>
 <?

@@ -168,7 +168,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right"><br><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_edit_account.gif', IMAGE_EDIT_ACCOUNT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_address_book.gif', IMAGE_ADDRESS_BOOK); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_history.gif', IMAGE_HISTORY); ?></a>&nbsp;&nbsp;</font></td>
+        <td align="right" class="main"><br><a href="<? echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_edit_account.gif', IMAGE_EDIT_ACCOUNT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_address_book.gif', IMAGE_ADDRESS_BOOK); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_history.gif', IMAGE_HISTORY); ?></a>&nbsp;&nbsp;</td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
