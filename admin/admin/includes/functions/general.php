@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.131 2002/07/14 11:47:28 project3000 Exp $
+  $Id: general.php,v 1.132 2002/07/19 17:42:09 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,6 +96,7 @@
 ////
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
+// NOTE: Includes a workaround for dates before 01/01/1970 that fail on windows servers
   function tep_date_short($raw_date) {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
@@ -106,7 +107,12 @@
     $minute = (int)substr($raw_date, 14, 2);
     $second = (int)substr($raw_date, 17, 2);
 
-    return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
+    if (ereg('WIN', PHP_OS) && $year <= 1970) {
+      $delta = $year + (2038-$year);
+      return ereg_replace($delta . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $delta)));
+    } else {
+      return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
+    }
   }
 
   function tep_datetime_short($raw_datetime) {
