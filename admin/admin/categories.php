@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.109 2002/01/09 11:46:44 hpdl Exp $
+  $Id: categories.php,v 1.110 2002/01/09 13:38:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -113,6 +113,11 @@
           }
         }
 
+        if (USE_CACHE == 'true') {
+          tep_reset_cache_block('categories');
+          tep_reset_cache_block('also_purchased');
+        }
+
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
         break;
       case 'delete_product_confirm':
@@ -130,6 +135,11 @@
           if ($product_categories['total'] == '0') {
             tep_remove_product($product_id);
           }
+        }
+
+        if (USE_CACHE == 'true') {
+          tep_reset_cache_block('categories');
+          tep_reset_cache_block('also_purchased');
         }
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
@@ -214,6 +224,11 @@
               tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \'' . tep_db_input($products_id) . '\' and language_id = \'' . $language_id . '\'');
             }
           }
+
+        if (USE_CACHE == 'true') {
+          tep_reset_cache_block('categories');
+          tep_reset_cache_block('also_purchased');
+        }
 
           tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products_id));
         }
