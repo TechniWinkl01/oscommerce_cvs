@@ -1,25 +1,40 @@
-<? include("includes/application_top.php"); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_SHOPPING_CART; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
+<?php
+/*
+  $Id: shopping_cart.php,v 1.47 2001/09/20 09:52:06 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require("includes/application_top.php");
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_SHOPPING_CART);
+
+  $location = ' : <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
+?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -29,24 +44,24 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?
+<?php
   $cart_empty = ($cart->count_contents() > 0) ? 0 : 1;
 
   if (!$cart_empty) {
@@ -61,27 +76,24 @@
       $colspan = 4;
     }
 ?>
-<form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL'); ?>">
-
+<form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL'); ?>">
           <tr>
-            <td <? $col_idx=0; echo $col_width[$col_idx++]; ?> align="center" class="smallText"><b>&nbsp;<?php echo TABLE_HEADING_REMOVE; ?>&nbsp;</b></td>
-            <td <? echo $col_width[$col_idx++]; ?> align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
-
-<?
+            <td <?php $col_idx=0; echo $col_width[$col_idx++]; ?> align="center" class="smallText"><b>&nbsp;<?php echo TABLE_HEADING_REMOVE; ?>&nbsp;</b></td>
+            <td <?php echo $col_width[$col_idx++]; ?> align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+<?php
     if (PRODUCT_LIST_MODEL) {
 ?>
-            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading">&nbsp;<? echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
-<?
+            <td <?php echo $col_width[$col_idx++]; ?> class="tableHeading">&nbsp;<?php echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
+<?php
     }
 ?>
-
-            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
-            <td <? echo $col_width[$col_idx++]; ?> align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
+            <td <?php echo $col_width[$col_idx++]; ?> class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+            <td <?php echo $col_width[$col_idx++]; ?> align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
+            <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?></td>
           </tr>
-<?
+<?php
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
       $col_idx=0;
@@ -95,7 +107,6 @@
       if (STOCK_CHECK) {
         echo check_stock($products[$i]['id'], $products[$i]['quantity']);
       }
-
 
 //------display customer choosen option --------
       $attributes_exist = '0';
@@ -131,37 +142,38 @@
     }
 ?>
           <tr>
-            <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?>
-            <? if ($any_out_of_stock) {
-                   if (STOCK_ALLOW_CHECKOUT) {
-            echo "<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK_CAN_CHECKOUT."</font><br><br></center>";
-                   } else {
-            echo "<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK_CANT_CHECKOUT."</font><br><br></center>";
-                   }
-            } ?>
-            </td>
+            <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?>
+<?php
+    if ($any_out_of_stock) {
+      if (STOCK_ALLOW_CHECKOUT) {
+            echo "<br><center><font size=\"1\" color=\"crimson\" face=\"verdana\"><center>".OUT_OF_STOCK_CAN_CHECKOUT."</font><br><br></center>";
+      } else {
+            echo "<br><center><font size=\"1\" color=\"crimson\" face=\"verdana\"><center>".OUT_OF_STOCK_CANT_CHECKOUT."</font><br><br></center>";
+      }
+    }
+?></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
+            <td colspan="<?php echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($cart->show_total()); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($cart->show_total()); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
+            <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="<?php echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><? echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
-                <td align="right" class="main"><a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT); ?></a></td>
+                <td class="main"><?php echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
+                <td align="right" class="main"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><?php echo tep_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT); ?></a></td>
               </tr>
             </table></td>
           </tr>
 </form>
-<?
+<?php
   } else {
     echo '          <tr>' . "\n";
     echo '            <td colspan="' . $colspan . '" class="main">&nbsp;' . TEXT_CART_EMPTY . '&nbsp;</td>' . "\n";
@@ -178,11 +190,11 @@
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -192,10 +204,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

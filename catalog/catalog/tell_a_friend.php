@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.11 2001/09/13 20:54:12 dwatkins Exp $
+  $Id: tell_a_friend.php,v 1.12 2001/09/20 09:52:04 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -33,14 +33,12 @@
 <html>
 <head>
 <title><?php echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -50,9 +48,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_left.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -189,7 +185,7 @@
 ?>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
@@ -205,13 +201,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-  require(DIR_WS_INCLUDES . 'footer.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<?php
-  require(DIR_WS_INCLUDES . 'application_bottom.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

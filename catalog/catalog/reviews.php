@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.32 2001/09/13 20:54:09 dwatkins Exp $
+  $Id: reviews.php,v 1.33 2001/09/20 09:52:08 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,14 +19,12 @@
 <html>
 <head>
 <title><?php echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -36,9 +34,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_left.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -67,9 +63,7 @@
         <td><br>
 <?php
   $reviews_query_raw = "select r.reviews_id, rd.reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' order by r.reviews_id DESC";
-
   $reviews_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_NEW_REVIEWS, $reviews_query_raw, $reviews_numrows);
-
   $reviews_query = tep_db_query($reviews_query_raw);
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     $reviews_array[] = array('id' => $reviews['reviews_id'],
@@ -98,7 +92,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="smallText">&nbsp;<?php echo $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_REVIEWS); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -111,9 +105,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_right.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -123,13 +115,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-  require(DIR_WS_INCLUDES . 'footer.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<?php
-  require(DIR_WS_INCLUDES . 'application_bottom.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

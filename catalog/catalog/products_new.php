@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.6 2001/09/13 20:54:08 dwatkins Exp $
+  $Id: products_new.php,v 1.7 2001/09/20 09:52:09 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,14 +19,12 @@
 <html>
 <head>
 <title><?php echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -36,9 +34,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_left.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -95,7 +91,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="smallText">&nbsp;<?php echo $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -108,9 +104,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_right.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -120,13 +114,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-  require(DIR_WS_INCLUDES . 'footer.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<?php
-  require(DIR_WS_INCLUDES . 'application_bottom.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

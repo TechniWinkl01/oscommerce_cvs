@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: product_reviews_write.php,v 1.32 2001/09/20 09:52:11 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if (!tep_session_is_registered('customer_id')) {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_PRODUCT_REVIEWS_WRITE . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
   }
@@ -24,29 +36,30 @@
   } else {
     $get_params_back = $get_params;
   }
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS_WRITE);
+  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
 ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS_WRITE; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function checkForm() {
   var error = 0;
-  var error_message = "<? echo JS_ERROR; ?>";
+  var error_message = "<?php echo JS_ERROR; ?>";
 
   var review = document.product_reviews_write.review.value;
 
-  if (review.length < <? echo REVIEW_TEXT_MIN_LENGTH; ?>) {
-    error_message = error_message + "<? echo JS_REVIEW_TEXT; ?>";
+  if (review.length < <?php echo REVIEW_TEXT_MIN_LENGTH; ?>) {
+    error_message = error_message + "<?php echo JS_REVIEW_TEXT; ?>";
     error = 1;
   }
 
   if ((document.product_reviews_write.rating[0].checked) || (document.product_reviews_write.rating[1].checked) || (document.product_reviews_write.rating[2].checked) || (document.product_reviews_write.rating[3].checked) || (document.product_reviews_write.rating[4].checked)) {
   } else {
-    error_message = error_message + "<? echo JS_REVIEW_RATING; ?>";
+    error_message = error_message + "<?php echo JS_REVIEW_RATING; ?>";
     error = 1;
   }
 
@@ -61,79 +74,79 @@ function checkForm() {
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="product_reviews_write" method="post" action="<? echo tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'); ?>" onSubmit="return checkForm();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="product_reviews_write" method="post" action="<?php echo tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'); ?>" onSubmit="return checkForm();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-<?
+<?php
   $product = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
   $product_values = tep_db_fetch_array($product);
 
   $customer = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
   $customer_values = tep_db_fetch_array($customer);
 ?>
-            <td width="100%" class="topBarTitle">&nbsp;<? echo sprintf(TOP_BAR_TITLE, $product_values['products_name']); ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<?php echo sprintf(TOP_BAR_TITLE, $product_values['products_name']); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="main">&nbsp;<b><? echo SUB_TITLE_PRODUCT; ?></b>&nbsp;<? echo $product_values['products_name']; ?>&nbsp;</td>
+                <td class="main">&nbsp;<b><?php echo SUB_TITLE_PRODUCT; ?></b>&nbsp;<?php echo $product_values['products_name']; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td class="main">&nbsp;<b><? echo SUB_TITLE_FROM; ?></b>&nbsp;<? echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']; ?>&nbsp;</td>
+                <td class="main">&nbsp;<b><?php echo SUB_TITLE_FROM; ?></b>&nbsp;<?php echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']; ?>&nbsp;</td>
               </tr>
             </table></td>
-            <td align="right"><br><? echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
+            <td align="right"><br><?php echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
         </table>
       </tr>
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top" class="main">&nbsp;<b><? echo SUB_TITLE_REVIEW; ?></b>&nbsp;</td>
+            <td valign="top" class="main">&nbsp;<b><?php echo SUB_TITLE_REVIEW; ?></b>&nbsp;</td>
             <td class="main"><textarea name="review" wrap="soft" cols="60" rows="15"></textarea></td>
           </tr>
           <tr>
-            <td align="right" colspan="2" class="smallText">&nbsp;<? echo TEXT_NO_HTML; ?>&nbsp;</td>
+            <td align="right" colspan="2" class="smallText">&nbsp;<?php echo TEXT_NO_HTML; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td class="main"><br>&nbsp;<b><? echo SUB_TITLE_RATING; ?></b>&nbsp;&nbsp;<? echo TEXT_BAD; ?>&nbsp;<input type="radio" name="rating" value="1">&nbsp;<input type="radio" name="rating" value="2">&nbsp;<input type="radio" name="rating" value="3">&nbsp;<input type="radio" name="rating" value="4">&nbsp;<input type="radio" name="rating" value="5">&nbsp;<? echo TEXT_GOOD; ?>&nbsp;</td>
+        <td class="main"><br>&nbsp;<b><?php echo SUB_TITLE_RATING; ?></b>&nbsp;&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<input type="radio" name="rating" value="1">&nbsp;<input type="radio" name="rating" value="2">&nbsp;<input type="radio" name="rating" value="3">&nbsp;<input type="radio" name="rating" value="4">&nbsp;<input type="radio" name="rating" value="5">&nbsp;<?php echo TEXT_GOOD; ?>&nbsp;</td>
       </tr>
       <tr>
-        <td><br><? echo tep_black_line(); ?></td>
+        <td><br><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -143,13 +156,13 @@ function checkForm() {
           </tr>
         </table></td>
       </tr>
-    </table><input type="hidden" name="get_params" value="<? echo $get_params; ?>"></form></td>
+    </table><input type="hidden" name="get_params" value="<?php echo $get_params; ?>"></form></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -159,10 +172,9 @@ function checkForm() {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

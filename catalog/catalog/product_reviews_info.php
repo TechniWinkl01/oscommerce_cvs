@@ -1,15 +1,29 @@
-<? include('includes/application_top.php'); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS_INFO; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<?
+<?php
+/*
+  $Id: product_reviews_info.php,v 1.29 2001/09/20 09:52:11 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS_INFO);
+
 // lets retrieve all $HTTP_GET_VARS keys and values..
   $get_params = tep_get_all_get_params(array('reviews_id'));
   $get_params = substr($get_params, 0, -1); //remove trailing &
+
+  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
 ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function popupImageWindow(url) {
@@ -19,17 +33,17 @@ function popupImageWindow(url) {
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -39,11 +53,11 @@ function popupImageWindow(url) {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
-<?
+<?php
   tep_db_query("update " . TABLE_REVIEWS . " set reviews_read = reviews_read+1 where reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "'");
 
   $reviews = tep_db_query("select rd.reviews_text, r.reviews_rating, r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "' and r.reviews_id = rd.reviews_id");
@@ -58,50 +72,50 @@ function popupImageWindow(url) {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo sprintf(HEADING_TITLE, $product_values['products_name']); ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo sprintf(HEADING_TITLE, $product_values['products_name']); ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="main">&nbsp;<b><? echo SUB_TITLE_PRODUCT; ?></b>&nbsp;<? echo $product_values['products_name']; ?>&nbsp;</td>
+                <td class="main">&nbsp;<b><?php echo SUB_TITLE_PRODUCT; ?></b>&nbsp;<?php echo $product_values['products_name']; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td class="main">&nbsp;<b><? echo SUB_TITLE_FROM; ?></b>&nbsp;<? echo $reviews_values['customers_name']; ?>&nbsp;</td>
+                <td class="main">&nbsp;<b><?php echo SUB_TITLE_FROM; ?></b>&nbsp;<?php echo $reviews_values['customers_name']; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td class="main">&nbsp;<b><? echo SUB_TITLE_DATE; ?></b>&nbsp;<? echo tep_date_long($reviews_values['date_added']); ?>&nbsp;</td>
+                <td class="main">&nbsp;<b><?php echo SUB_TITLE_DATE; ?></b>&nbsp;<?php echo tep_date_long($reviews_values['date_added']); ?>&nbsp;</td>
               </tr>
             </table></td>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="main" align="right"><a href="javascript:popupImageWindow('<? echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><? echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="center" hspace="5" vspace="5"'); ?></a></td>
+                <td class="main" align="right"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><?php echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="center" hspace="5" vspace="5"'); ?></a></td>
               </tr>
               <tr>
-                <td align="right" class="smallText"><a href="javascript:popupImageWindow('<? echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
+                <td align="right" class="smallText"><a href="javascript:popupImageWindow('<?php echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
               </tr>
             </table></td>
           </tr>
         </table>
       </tr>
       <tr>
-        <td class="main"><b>&nbsp;<? echo SUB_TITLE_REVIEW; ?>&nbsp;</b></td>
+        <td class="main"><b>&nbsp;<?php echo SUB_TITLE_REVIEW; ?>&nbsp;</b></td>
       </tr>
       <tr>
-        <td class="main"><br><? echo nl2br($reviews_text); ?></td>
+        <td class="main"><br><?php echo nl2br($reviews_text); ?></td>
       </tr>
       <tr>
-        <td class="main"><br><b>&nbsp;<? echo SUB_TITLE_RATING; ?>&nbsp;</b>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])); ?>&nbsp;&nbsp;<small>[<? echo sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating']); ?>]</small>&nbsp;</td>
+        <td class="main"><br><b>&nbsp;<?php echo SUB_TITLE_RATING; ?>&nbsp;</b>&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])); ?>&nbsp;&nbsp;<small>[<?php echo sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating']); ?>]</small>&nbsp;</td>
       </tr>
       <tr>
-        <td><br><? echo tep_black_line(); ?></td>
+        <td><br><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -113,11 +127,11 @@ function popupImageWindow(url) {
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -127,9 +141,9 @@ function popupImageWindow(url) {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
