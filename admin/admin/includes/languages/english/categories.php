@@ -60,5 +60,7 @@ define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price:');
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
 
+define('EMPTY_CATEGORY', 'Empty Category');
+
 define('ERROR_ACTION', 'AN ERROR HAS OCCURED! LAST ACTION : ' . $HTTP_GET_VARS['error']);
 ?>
