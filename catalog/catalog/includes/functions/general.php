@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.203 2002/12/13 17:33:09 thomasamoulton Exp $
+  $Id: general.php,v 1.204 2003/01/23 19:11:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -291,11 +291,16 @@
 ////
 // Return the tax description for a zone / class
 // TABLES: tax_rates;
-  function tep_get_tax_description($zone_id, $class_id) {
-    $tax_query = tep_db_query("select tax_description from " . TABLE_TAX_RATES . " where tax_zone_id = '" . $zone_id . "' and tax_class_id = '" . $class_id . "'");
+  function tep_get_tax_description($class_id, $country_id, $zone_id) {
+    $tax_query = tep_db_query("select tax_description from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id = za.geo_zone_id left join " . TABLE_GEO_ZONES . " tz ON tz.geo_zone_id = tr.tax_zone_id WHERE (za.zone_country_id IS NULL OR za.zone_country_id = '0' OR za.zone_country_id = '" . $country_id . "') AND (za.zone_id IS NULL OR za.zone_id = '0' OR za.zone_id = '" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "' order by tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
-      $tax = tep_db_fetch_array($tax_query);
-      return $tax['tax_description'];
+      $tax_description = '';
+      while ($tax = tep_db_fetch_array($tax_query)) {
+        $tax_description .= $tax['tax_description'] . ' + ';
+      }
+      $tax_description = substr($tax_description, 0, -3);
+
+      return $tax_description;
     } else {
       return TEXT_UNKNOWN_TAX_RATE;
     }

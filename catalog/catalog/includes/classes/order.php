@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.22 2003/01/14 00:10:35 hpdl Exp $
+  $Id: order.php,v 1.23 2003/01/23 19:11:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -211,6 +211,7 @@
                                         'name' => $products[$i]['name'],
                                         'model' => $products[$i]['model'],
                                         'tax' => tep_get_tax_rate($products[$i]['tax_class_id'], $shipping_address['entry_country_id'], $shipping_address['entry_zone_id']),
+                                        'tax_description' => tep_get_tax_description($products[$i]['tax_class_id'], $shipping_address['entry_country_id'], $shipping_address['entry_zone_id']),
                                         'price' => $products[$i]['price'],
                                         'final_price' => $products[$i]['price'] + $cart->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
@@ -238,12 +239,13 @@
         $this->info['subtotal'] += $shown_price;
 
         $products_tax = $this->products[$index]['tax'];
+        $products_tax_description = $this->products[$index]['tax_description'];
         if (DISPLAY_PRICE_WITH_TAX == true) {
           $this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-          $this->info['tax_groups']["$products_tax"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+          $this->info['tax_groups']["$products_tax_description"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
         } else {
           $this->info['tax'] += ($products_tax / 100) * $shown_price;
-          $this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $shown_price;
+          $this->info['tax_groups']["$products_tax_description"] += ($products_tax / 100) * $shown_price;
         }
 
         $index++;
