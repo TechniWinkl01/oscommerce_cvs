@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_top.php,v 1.283 2003/12/18 23:52:14 hpdl Exp $
+  $Id: application_top.php,v 1.284 2004/02/16 07:05:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -59,17 +59,37 @@
 // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
+// initialize the message stack for output messages
+  require(DIR_WS_CLASSES . 'message_stack.php');
+  $messageStack = new messageStack;
+
+// initialize the cache class
+  require(DIR_WS_CLASSES . 'cache.php');
+  $osC_Cache = new osC_Cache;
+
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
 
+// include the database class
+  require(DIR_WS_CLASSES . 'database.php');
+
 // make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
+  $osC_Database = osC_Database::connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+  $osC_Database->selectDatabase(DB_DATABASE);
+//  $osC_Database->setDebug(true);
 
 // set the application parameters
-  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
-  while ($configuration = tep_db_fetch_array($configuration_query)) {
-    define($configuration['cfgKey'], $configuration['cfgValue']);
+  $Qconfiguration = $osC_Database->query('select configuration_key as cfgKey, configuration_value as cfgValue from :table_configuration');
+  $Qconfiguration->bindRaw(':table_configuration', TABLE_CONFIGURATION);
+
+  $Qconfiguration->setCache('configuration');
+
+  $Qconfiguration->execute();
+
+  while ($Qconfiguration->next()) {
+    define($Qconfiguration->value('cfgKey'), $Qconfiguration->value('cfgValue'));
   }
+  $Qconfiguration->freeResult();
 
 // if gzip_compression is enabled, start to buffer the output
   if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= 4) ) {
@@ -112,9 +132,6 @@
 // define general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
-
-// include cache functions if enabled
-  if (USE_CACHE == 'true') include(DIR_WS_FUNCTIONS . 'cache.php');
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
@@ -429,6 +446,9 @@
     $current_category_id = 0;
   }
 
+// initialize the category tree
+  require(DIR_WS_CLASSES . 'category_tree.php');
+
 // include the breadcrumb class and start the breadcrumb trail
   require(DIR_WS_CLASSES . 'breadcrumb.php');
   $breadcrumb = new breadcrumb;
@@ -437,36 +457,53 @@
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
 
 // add category names or the manufacturer name to the breadcrumb trail
-  if (isset($cPath_array)) {
+  if (isset($cPath_array) && (sizeof($cPath_array) > 0)) {
+    $Qcategories = $osC_Database->query('select categories_id, categories_name from :table_categories_description where categories_id in (:categories_id) and language_id = :language_id');
+    $Qcategories->bindRaw(':table_categories_description', TABLE_CATEGORIES_DESCRIPTION);
+    $Qcategories->bindRaw(':categories_id', implode(',', $cPath_array));
+    $Qcategories->bindInt(':language_id', $osC_Session->value('languages_id'));
+    $Qcategories->execute();
+
+    $categories = array();
+
+    while ($Qcategories->next()) {
+      $categories[$Qcategories->value('categories_id')] = $Qcategories->value('categories_name');
+    }
+
+    $Qcategories->freeResult();
+
     for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
-      $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$cPath_array[$i] . "' and language_id = '" . (int)$osC_Session->value('languages_id') . "'");
-      if (tep_db_num_rows($categories_query) > 0) {
-        $categories = tep_db_fetch_array($categories_query);
-        $breadcrumb->add($categories['categories_name'], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
-      } else {
-        break;
-      }
+      $breadcrumb->add($categories[$cPath_array[$i]], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
     }
-  } elseif (isset($_GET['manufacturers_id'])) {
-    $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "'");
-    if (tep_db_num_rows($manufacturers_query)) {
-      $manufacturers = tep_db_fetch_array($manufacturers_query);
-      $breadcrumb->add($manufacturers['manufacturers_name'], tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $_GET['manufacturers_id']));
+  } elseif (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
+    $Qmanufacturers = $osC_Database->query('select manufacturers_name from :table_manufacturers where manufacturers_id = :manufacturers_id');
+    $Qmanufacturers->bindRaw(':table_manufacturers', TABLE_MANUFACTURERS);
+    $Qmanufacturers->bindInt(':manufacturers_id', $_GET['manufacturers_id']);
+    $Qmanufacturers->execute();
+
+    if ($Qmanufacturers->numberOfRows() > 0) {
+      $breadcrumb->add($Qmanufacturers->value('manufacturers_name'), tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $_GET['manufacturers_id']));
     }
+
+    $Qmanufacturers->freeResult();
   }
 
 // add the products model to the breadcrumb trail
-  if (isset($_GET['products_id'])) {
-    $model_query = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . (int)$_GET['products_id'] . "'");
-    if (tep_db_num_rows($model_query)) {
-      $model = tep_db_fetch_array($model_query);
-      $breadcrumb->add($model['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $_GET['products_id']));
+  if (isset($_GET['products_id']) && is_numeric($_GET['products_id'])) {
+    $Qmodel = $osC_Database->query('select products_model from :table_products where products_id = :products_id');
+    $Qmodel->bindRaw(':table_products', TABLE_PRODUCTS);
+    $Qmodel->bindInt(':products_id', $_GET['products_id']);
+    $Qmodel->execute();
+
+    if ($Qmodel->numberOfRows() > 0) {
+      $breadcrumb->add($Qmodel->value('products_model'), tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $_GET['products_id']));
     }
+
+    $Qmodel->freeResult();
   }
 
-// initialize the message stack for output messages
-  require(DIR_WS_CLASSES . 'message_stack.php');
-  $messageStack = new messageStack;
+// add messages in the session to the message stack
+  $messageStack->loadFromSession();
 
 // set which precautions should be checked
   define('WARN_INSTALL_EXISTENCE', 'true');
@@ -474,4 +511,6 @@
   define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
   define('WARN_SESSION_AUTO_START', 'true');
   define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
+
+  $messageStack->add('header', 'This is a development version of osCommerce - please use it for testing purposes only! [' . PROJECT_VERSION . ']');
 ?>
