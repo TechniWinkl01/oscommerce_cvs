@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.131 2001/09/09 22:12:11 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.132 2001/09/10 09:18:51 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -448,7 +448,7 @@ INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$c
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
-INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','banners/theexchangeproject.org.gif','468x50', '1000', '2001-12-12 00:00:00', now(), now(), 1);
+INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','banners/theexchangeproject.org.gif','468x50','','1000', '', '', now(), '', 1);
 
 INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', now(), '');
 INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', now(), '');
@@ -1126,10 +1126,10 @@ INSERT INTO reviews VALUES (1,19,1,'John doe',5, now(),'',0);
 
 INSERT INTO reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
 
-INSERT INTO specials VALUES (1,3, 39.99, now(), '', '');
-INSERT INTO specials VALUES (2,5, 30.00, now(), '', '');
-INSERT INTO specials VALUES (3,6, 30.00, now(), '', '');
-INSERT INTO specials VALUES (4,16, 29.99, now(), '', '');
+INSERT INTO specials VALUES (1,3, 39.99, now(), '', '', '', '1');
+INSERT INTO specials VALUES (2,5, 30.00, now(), '', '', '', '1');
+INSERT INTO specials VALUES (3,6, 30.00, now(), '', '', '', '1');
+INSERT INTO specials VALUES (4,16, 29.99, now(), '', '', '', '1');
 
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
 
