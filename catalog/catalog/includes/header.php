@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: header.php,v 1.29 2001/12/19 15:02:38 hpdl Exp $
+  $Id: header.php,v 1.30 2001/12/19 15:06:22 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,7 +20,7 @@
   <tr class="headerNavigation">
     <td class="headerNavigation">
 <?php
-  echo '&nbsp;&nbsp;<a href="' . HTTP_SERVER . '" class="headerNavigation">' . HEADER_TITLE_TOP . '</a> : <a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="headerNavigation">' . HEADER_TITLE_CATALOG . '</a>';
+  echo '&nbsp;&nbsp;<a href="' . HTTP_SERVER . '" class="headerNavigation">' . HEADER_TITLE_TOP . '</a> &raquo; <a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="headerNavigation">' . HEADER_TITLE_CATALOG . '</a>';
 
   if ($cPath) {
     if (!ereg('_', $cPath)) {
@@ -35,17 +35,17 @@
       }
       $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
       $categories = tep_db_fetch_array($categories_query);
-      echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="headerNavigation">' . $categories['categories_name'] . '</a>';
+      echo ' &raquo; <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="headerNavigation">' . $categories['categories_name'] . '</a>';
     }
   } elseif ($HTTP_GET_VARS['manufacturers_id']) {
     $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
     $manufacturers = tep_db_fetch_array($manufacturers_query);
-    echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'], 'NONSSL') . '" class="headerNavigation">' . $manufacturers['manufacturers_name'] . '</a>';
+    echo ' &raquo; <a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'], 'NONSSL') . '" class="headerNavigation">' . $manufacturers['manufacturers_name'] . '</a>';
   }
   if ($HTTP_GET_VARS['products_id']) {
     $model = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $model_values = tep_db_fetch_array($model);
-    echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="headerNavigation">' . $model_values['products_model'] . '</a>';
+    echo ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="headerNavigation">' . $model_values['products_model'] . '</a>';
   }
   if ($location) {
     echo $location;
