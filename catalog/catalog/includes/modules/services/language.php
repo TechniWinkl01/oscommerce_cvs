@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.1 2004/04/13 08:02:18 hpdl Exp $
+  $Id: language.php,v 1.2 2004/04/14 23:22:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,9 @@
 
       require('includes/languages/' . $osC_Session->value('language') . '.php');
 
-      header("Content-Type: text/html; charset=" . CHARSET);
+      header('Content-Type: text/html; charset=' . CHARSET);
+
+      setlocale(LC_TIME, LANGUAGE_LOCALE);
 
       return true;
     }
