@@ -20,7 +20,8 @@
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
         if ($attributes != '') {
-          while(list($option, $value) = each($attributes)) {
+          reset($attributes);
+          while (list($option, $value) = each($attributes)) {
             $this->contents[$products_id]['attributes'][$option] = $value;
           }
         }
@@ -33,14 +34,16 @@
     function update_quantity($products_id, $quantity, $attributes = '') {
       $this->contents[$products_id] = array('qty' => $quantity);
       if ($attributes != '') {
-        while(list($option, $value) = each($attributes)) {
+        reset($attributes);
+        while (list($option, $value) = each($attributes)) {
           $this->contents[$products_id]['attributes'][$option] = $value;
         }
       }
     }
 
 	function cleanup() {
-      while(list($key,) = each($this->contents)) {
+      reset($this->contents);
+      while (list($key,) = each($this->contents)) {
         if ($this->contents[$key]['qty'] < 1) {
           unset($this->contents[$key]);
         }
@@ -82,7 +85,7 @@
 	function get_product_id_list() {
       $product_id_list = '';
       reset($this->contents);
-      while(list($products_id, ) = each($this->contents)) {
+      while (list($products_id, ) = each($this->contents)) {
         $product_id_list .= ', ' . $products_id;
       }
       return substr($product_id_list, 2);
@@ -110,7 +113,7 @@
 
 // attributes price
       reset($this->contents);
-      while(list($products_id, ) = each($this->contents)) {
+      while (list($products_id, ) = each($this->contents)) {
         $qty = $this->contents[$products_id]['qty'];
         if ($this->contents[$products_id]['attributes']) {
           reset($this->contents[$products_id]['attributes']);
