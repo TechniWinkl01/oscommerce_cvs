@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.93 2003/03/23 19:59:38 project3000 Exp $
+  $Id: product_info.php,v 1.94 2003/05/04 08:59:15 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,7 +106,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
     if ($products_attributes['total'] > 0) {
       echo '<b>' . TEXT_PRODUCT_OPTIONS . '</b><br>' .
            '<table border="0" cellpadding="0" cellspacing"0">';
-      $products_options_name_query = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
+      $products_options_name_query = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "' order by popt.products_options_name");
       while ($products_options_name = tep_db_fetch_array($products_options_name_query)) {
         $selected = 0;
         $products_options_array = array();
