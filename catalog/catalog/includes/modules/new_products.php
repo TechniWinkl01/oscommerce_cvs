@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: new_products.php,v 1.23 2001/12/19 21:30:55 hpdl Exp $
+  $Id: new_products.php,v 1.24 2001/12/23 20:04:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,20 +24,17 @@
 
   $info_box_contents = array();
   $row = 0;
+  $col = 0;
   while ($new_products = tep_db_fetch_array($new_products_query)) {
-    $new_products_array[] = array('id' => $new_products['products_id'],
-                                  'name' => $new_products['products_name'],
-                                  'image' => $new_products['products_image'],
-                                  'price' => $new_products['products_price']);
+    $info_box_contents[$row][$col] = array('align' => 'center',
+                                           'params' => 'class="main"',
+                                           'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $new_products['products_image'], $new_products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . $new_products['products_name'] . '</a><br>' . $currencies->format($new_products['products_price']));
+    $col ++;
+    if ($col > 2) {
+      $col = 0;
+      $row ++;
+    }
   }
-
-  for ($i=0; $i<sizeof($new_products_array); $i++) {
-    $info_box_contents[] = array(array('align' => 'center', 'params' => 'class="main"', 'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products_array[$i]['id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_products_array[$i]['image'], $new_products_array[$i]['name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products_array[$i]['id'], 'NONSSL') . '">' . $new_products_array[$i]['name'] . '</a><br>' . $currencies->format($new_products_array[$i]['price'])),
-                                 array('align' => 'center', 'params' => 'class="main"', 'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products_array[$i+1]['id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_products_array[$i+1]['image'], $new_products_array[$i+1]['name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products_array[$i+1]['id'], 'NONSSL') . '">' . $new_products_array[$i+1]['name'] . '</a><br>' . $currencies->format($new_products_array[$i+1]['price'])),
-                                 array('align' => 'center', 'params' => 'class="main"', 'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products_array[$i+2]['id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_products_array[$i+2]['image'], $new_products_array[$i+2]['name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products_array[$i+2]['id'], 'NONSSL') . '">' . $new_products_array[$i+2]['name'] . '</a><br>' . $currencies->format($new_products_array[$i+2]['price'])));
-    $i = $i+2;
-  }
-
   new contentBox($info_box_contents);
 ?>
 <!-- new_products_eof //-->
