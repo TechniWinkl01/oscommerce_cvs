@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.21 2004/02/16 07:26:45 hpdl Exp $
+  $Id: manufacturers.php,v 1.22 2004/07/22 16:56:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,7 +70,7 @@
 
       $info_box_contents = array();
       $info_box_contents[] = array('form' => tep_draw_form('manufacturers', tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false), 'get'),
-                                   'text' => tep_draw_pull_down_menu('manufacturers_id', $manufacturers_array, (isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id'] : ''), 'onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 100%"') . tep_hide_session_id());
+                                   'text' => osc_draw_pull_down_menu('manufacturers_id', $manufacturers_array, (isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id'] : ''), 'onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 100%"') . tep_hide_session_id());
     }
 
     new infoBox($info_box_contents);
