@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.18 2003/02/11 01:31:01 hpdl Exp $
+  $Id: compatibility.php,v 1.19 2003/04/09 16:12:54 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -153,6 +153,20 @@
       }
 
       return $repeat;
+    }
+  }
+
+  if (!function_exists('checkdnsrr')) {
+    function checkdnsrr($host, $type) {
+      if(tep_not_null($host) && tep_not_null($type)) {
+        @exec("nslookup -type=$type $host", $output);
+        while(list($k, $line) = each($output)) {
+          if(eregi("^$host", $line)) {
+            return true;
+          }
+        }
+      }
+      return false;
     }
   }
 ?>
