@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.2 2002/02/03 00:57:14 clescuyer Exp $
+  $Id: download.php,v 1.3 2002/02/08 14:11:10 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
   include('includes/application_top.php');
   
 // Check that order_id, customer_id and filename match
-  $downloads_query_raw = "SELECT UNIX_TIMESTAMP(date_purchased + INTERVAL opd.download_maxdays DAY) as download_timestamp, opd.download_count, opd.download_maxdays, opd.orders_products_filename
+  $downloads_query_raw = "SELECT DATE_FORMAT(date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, opd.download_count, opd.download_maxdays, opd.orders_products_filename
                           FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd
                           WHERE customers_id = '" . $customer_id . "' 
                            AND o.orders_id = '" . $HTTP_GET_VARS['order'] . "'
@@ -29,9 +29,12 @@
 // Die if no record in database
   if (tep_db_num_rows($downloads_query) == 0) die;
   $downloads_values = tep_db_fetch_array($downloads_query);
-  print_r($download_values);
+// MySQL 3.22 does not have INTERVAL
+	list($dt_year, $dt_month, $dt_day) = explode('-', $downloads_values['date_purchased_day']);
+ 	$download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads_values['download_maxdays'], $dt_year);
+  	  
 // Die if time expired (maxdays = 0 means no time limit)
-  if (($downloads_values['download_maxdays'] != 0) && ($downloads_values['download_timestamp'] <= time())) die;
+  if (($downloads_values['download_maxdays'] != 0) && ($download_timestamp <= time())) die;
 // Die if remaining count is <=0
   if ($downloads_values['download_count'] <= 0) die;
 // Die if file is not there
