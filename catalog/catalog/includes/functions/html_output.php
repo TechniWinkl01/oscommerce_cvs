@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.43 2002/08/02 13:03:04 hpdl Exp $
+  $Id: html_output.php,v 1.44 2002/08/02 13:16:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,7 +63,7 @@
 
 ////
 // The HTML image wrapper function
-  function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
+  function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '') {
     if ( (($src == '') || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
       return false;
     }
@@ -97,7 +97,7 @@
       $image .= ' width="' . $width . '" height="' . $height . '"';
     }
 
-    if (tep_not_null($params)) $image .= ' ' . $params;
+    if (tep_not_null($parameters)) $image .= ' ' . $parameters;
 
     $image .= '>';
 
@@ -107,12 +107,14 @@
 ////
 // The HTML form submit button wrapper function
 // Outputs a button in the selected language
-  function tep_image_submit($image, $alt) {
+  function tep_image_submit($image, $alt = '', $parameters = '') {
     global $language;
 
     $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . htmlspecialchars($alt) . '"';
 
     if (tep_not_null($alt)) $image_submit .= ' title=" ' . htmlspecialchars($alt) . ' "';
+
+    if (tep_not_null($parameters)) $image_submit .= ' ' . $parameters;
 
     $image_submit .= '>';
 
@@ -121,10 +123,10 @@
 
 ////
 // Output a function button in the selected language
-  function tep_image_button($image, $alt = '', $params = '') {
+  function tep_image_button($image, $alt = '', $parameters = '') {
     global $language;
 
-    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $params);
+    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $parameters);
   }
 
 ////
@@ -137,7 +139,9 @@
 // Output a form
   function tep_draw_form($name, $action, $method = 'post', $parameters = '') {
     $form = '<form name="' . $name . '" action="' . $action . '" method="' . $method . '"';
-    if ($parameters) $form .= ' ' . $parameters;
+
+    if (tep_not_null($parameters)) $form .= ' ' . $parameters;
+
     $form .= '>';
 
     return $form;
@@ -163,13 +167,13 @@
 
 ////
 // Output a form password field
-  function tep_draw_password_field($name, $value = '') {
-    return tep_draw_input_field($name, $value, 'maxlength="40"', 'password', false);
+  function tep_draw_password_field($name, $value = '', $parameters = 'maxlength="40"') {
+    return tep_draw_input_field($name, $value, $parameters, 'password', false);
   }
 
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
-  function tep_draw_selection_field($name, $type, $value = '', $checked = false) {
+  function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '') {
     $selection = '<input type="' . $type . '" name="' . $name . '"';
 
     if (tep_not_null($value)) $selection .= ' value="' . $value . '"';
@@ -178,6 +182,8 @@
       $selection .= ' CHECKED';
     }
 
+    if (tep_not_null($parameters)) $selection .= ' ' . $parameters;
+
     $selection .= '>';
 
     return $selection;
@@ -185,20 +191,24 @@
 
 ////
 // Output a form checkbox field
-  function tep_draw_checkbox_field($name, $value = '', $checked = false) {
-    return tep_draw_selection_field($name, 'checkbox', $value, $checked);
+  function tep_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
+    return tep_draw_selection_field($name, 'checkbox', $value, $checked, $parameters);
   }
 
 ////
 // Output a form radio field
-  function tep_draw_radio_field($name, $value = '', $checked = false) {
-    return tep_draw_selection_field($name, 'radio', $value, $checked);
+  function tep_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
+    return tep_draw_selection_field($name, 'radio', $value, $checked, $parameters);
   }
 
 ////
 // Output a form textarea field
-  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $reinsert_value = true) {
-    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '">';
+  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true) {
+    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+
+    $field .= '>';
 
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
       $field .= $GLOBALS[$name];
@@ -213,13 +223,17 @@
 
 ////
 // Output a form hidden field
-  function tep_draw_hidden_field($name, $value = '') {
+  function tep_draw_hidden_field($name, $value = '', $parameters = '') {
     $field = '<input type="hidden" name="' . $name . '" value="';
+
     if (tep_not_null($value)) {
       $field .= htmlspecialchars(trim($value));
     } else {
       $field .= htmlspecialchars(trim($GLOBALS[$name]));
     }
+
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+
     $field .= '">';
 
     return $field;
