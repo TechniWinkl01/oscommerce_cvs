@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.29 2002/04/23 10:41:37 jan0815 Exp $
+  $Id: html_output.php,v 1.30 2002/04/23 10:49:06 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,7 +74,7 @@
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
     if ( (($src == '') || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
-      return;
+      return '';
     }
 
     $image = '<img src="' . $src . '" border="0" alt="' . htmlspecialchars($alt) . '"';
