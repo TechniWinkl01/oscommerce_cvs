@@ -47,3 +47,27 @@
   } ?></b></font></td>
   </tr>
 </table>
+<?
+  if ($HTTP_GET_VARS['error_message'] != '') {
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_ERROR_COLOR; ?>" height="19">
+    <td align="center" nowrap><font face="<? echo HEADER_NAVIGATION_BAR_FONT_FACE; ?>" color="<? echo HEADER_NAVIGATION_BAR_FONT_ERROR_COLOR; ?>" size="<? echo HEADER_NAVIGATION_BAR_FONT_SIZE; ?>"><b><? echo $HTTP_GET_VARS['error_message']; ?></b>
+    </td>
+  </tr>
+</table>
+<?
+  }
+?>
+<?
+  if ($HTTP_GET_VARS['info_message'] != '') {
+?>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_INFO_COLOR; ?>" height="19">
+    <td align="center" nowrap><font face="<? echo HEADER_NAVIGATION_BAR_FONT_FACE; ?>" color="<? echo HEADER_NAVIGATION_BAR_FONT_INFO_COLOR; ?>" size="<? echo HEADER_NAVIGATION_BAR_FONT_SIZE; ?>"><b><? echo $HTTP_GET_VARS['info_message']; ?></b>
+    </td>
+  </tr>
+</table>
+<?
+  }
+?>
