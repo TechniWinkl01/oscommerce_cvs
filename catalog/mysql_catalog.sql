@@ -272,6 +272,9 @@ CREATE TABLE orders (
   date_purchased varchar(8),
   products_tax int(2),
   shipping_cost decimal (8,2) DEFAULT '0.00' NOT NULL,
+  shipping_method varchar(32),
+  orders_status varchar(10) not null default 'Pending',
+  orders_date_finished varchar(14) null,
   PRIMARY KEY (orders_id)
 );
 
