@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.113 2003/06/20 14:26:49 hpdl Exp $
+  $Id: english.php,v 1.114 2003/07/09 18:13:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,11 +10,14 @@
   Released under the GNU General Public License
 */
 
-// look in your $PATH_LOCALE/locale directory for available locales..
+// look in your $PATH_LOCALE/locale directory for available locales
+// or type locale -a on the server.
+// Examples:
 // on RedHat try 'en_US'
 // on FreeBSD try 'en_US.ISO_8859-1'
 // on Windows try 'en', or 'English'
 @setlocale(LC_TIME, 'en_US.ISO_8859-1');
+
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
