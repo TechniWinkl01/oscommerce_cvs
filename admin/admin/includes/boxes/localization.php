@@ -4,7 +4,8 @@
 <?
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
-                               'text'  => '<a class="blacklink" href="' . tep_href_link(basename($PHP_SELF), 'selected_box=localization') . '">' . BOX_HEADING_LOCALIZATION . '</a>'
+                               'text'  => BOX_HEADING_LOCALIZATION,
+                               'link'  => ($selected_box == 'localization') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '11', '11', '0', '') : '<a class="blacklink" href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=localization') . '">' . tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '11', '11', '0', '') . '</a>'
                               );
   new navigationBoxHeading($info_box_contents);
 
