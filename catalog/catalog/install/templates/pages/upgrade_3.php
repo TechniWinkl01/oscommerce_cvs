@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.19 2002/04/08 14:19:03 clescuyer Exp $
+  $Id: upgrade_3.php,v 1.20 2002/04/12 21:58:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,6 +38,28 @@
     }
 
     return $languages_array;
+  }
+
+  function osc_currency_format($number, $calculate_currency_value = true, $currency_code = DEFAULT_CURRENCY, $value = '') {
+    $currency_query = osc_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from currencies where code = '" . $currency_code . "'");
+    $currency = osc_db_fetch_array($currency_query);
+
+    if ($calculate_currency_value == true) {
+      if (strlen($currency_code) == 3) {
+        if ($value) {
+          $rate = $value;
+        } else {
+          $rate = $currency['value'];
+        }
+      } else {
+        $rate = 1;
+      }
+      $number2currency = $currency['symbol_left'] . number_format(($number * $rate), $currency['decimal_places'], $currency['decimal_point'], $currency['thousands_point']) . $currency['symbol_right'];
+    } else {
+      $number2currency = $currency['symbol_left'] . number_format($number, $currency['decimal_places'], $currency['decimal_point'], $currency['thousands_point']) . $currency['symbol_right'];
+    }
+
+    return $number2currency;
   }
 
   set_time_limit(0);
@@ -448,6 +470,58 @@ changeText('statusText', 'Updating Orders');
   osc_db_query("create table orders_products_download ( orders_products_download_id int(5) not null auto_increment, orders_id int(5) not null default '0', orders_products_id int(5) not null default '0', orders_products_filename varchar(255) not null, download_maxdays int(2) not null default '0', download_count int(2) not null default '0', primary key (orders_products_download_id))");
 
   osc_db_query("create table orders_total ( orders_total_id int unsigned not null auto_increment, orders_id int not null, title varchar(255) not null, text varchar(255) not null, value decimal(8,2) not null, class varchar(32) not null, sort_order int not null, primary key (orders_total_id), key idx_orders_total_orders_id (orders_id))");
+
+  $i = 0;
+  $orders_query = osc_db_query("select orders_id, shipping_method, shipping_cost, currency, currency_value from orders");
+  while ($orders = osc_db_fetch_array($orders_query)) {
+    $o = array();
+    $total_cost = 0;
+
+    $o['id'] = $orders['orders_id'];
+    $o['shipping_method'] = $orders['shipping_method'];
+    $o['shipping_cost'] = $orders['shipping_cost'];
+    $o['currency'] = $orders['currency'];
+    $o['currency_value'] = $orders['currency_value'];
+    $o['tax'] = 0;
+
+    $orders_products_query = osc_db_query("select final_price, products_tax, products_quantity from orders_products where orders_id = '" . $orders['orders_id'] . "'");
+    while ($orders_products = osc_db_fetch_array($orders_products_query)) {
+      $o['products'][$i]['final_price'] = $orders_products['final_price'];
+      $o['products'][$i]['qty'] = $orders_products['products_quantity'];
+
+      $o['products'][$i]['tax_groups']["{$orders_products['products_tax']}"] += $orders_products['products_tax']/100 * ($orders_products['final_price'] * $orders_products['products_quantity']);
+      $o['tax'] += $orders_products['products_tax']/100 * ($orders_products['final_price'] * $orders_products['products_quantity']);
+
+      $total_cost += ($o['products'][$i]['final_price'] * $o['products'][$i]['qty']);
+    }
+
+    $subtotal_text = osc_currency_format($total_cost, true, $o['currency'], $o['currency_value']);
+    $subtotal_value = $total_cost;
+
+    osc_db_query("insert into orders_total (orders_total_id, orders_id, title, text, value, class, sort_order) values ('', '" . $o['id'] . "', 'Sub-Total:', '" . $subtotal_text . "', '" . $subtotal_value . "', 'ot_subtotal', '1')");
+
+    $tax_text = osc_currency_format($o['tax'], true, $o['currency'], $o['currency_value']);
+    $tax_value = $o['tax'];
+    osc_db_query("insert into orders_total (orders_total_id, orders_id, title, text, value, class, sort_order) values ('', '" . $o['id'] . "', 'Tax:', '" . $tax_text . "', '" . $tax_value . "', 'ot_tax', '2')");
+
+    if (strlen($o['shipping_method']) < 1) {
+      $o['shipping_method'] = 'Shipping:';
+    } else {
+      $o['shipping_method'] .= ':';
+    }
+
+    if ($o['shipping_cost'] > 0) {
+      $shipping_text = osc_currency_format($o['shipping_cost'], true, $o['currency'], $o['currency_value']);
+      $shipping_value = $o['shipping_cost'];
+      osc_db_query("insert into orders_total (orders_total_id, orders_id, title, text, value, class, sort_order) values ('', '" . $o['id'] . "', '" . $o['shipping_method'] . "', '" . $shipping_text . "', '" . $shipping_value . "', 'ot_shipping', '3')");
+    }
+
+    $total_text = osc_currency_format($total_cost + $o['tax'] + $o['shipping_cost'], true, $o['currency'], $o['currency_value']);
+    $total_value = $total_cost + $o['tax'] + $o['shipping_cost'];
+    osc_db_query("insert into orders_total (orders_total_id, orders_id, title, text, value, class, sort_order) values ('', '" . $o['id'] . "', 'Total:', '" . $total_text . "', '" . $total_value . "', 'ot_total', '4')");
+
+    $i++;
+  }
 ?>
 
 <script language="javascript"><!--
