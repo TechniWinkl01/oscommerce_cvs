@@ -695,7 +695,7 @@ CREATE TABLE products (
   products_price decimal(8,2) NOT NULL,
   products_date_added varchar(8),
   products_viewed int(5),
-  products_weight decimal(4,2) NOT NULL,
+  products_weight decimal(5,2) NOT NULL,
   products_status tinyint(1) NOT NULL,
   products_tax_class_id int(5) NOT NULL,
   PRIMARY KEY (products_id),
