@@ -29,8 +29,7 @@
       } else {
         echo '    <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">';
       }
-      $products_name = tep_products_name($listing_values['manufacturers_location'], $listing_values['manufacturers_name'], $listing_values['products_name']);
-      echo $products_name . '</a>&nbsp;</font></td>' . "\n";
+      echo $listing_values['products_name'] . '</a>&nbsp;</font></td>' . "\n";
       $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $listing_values['products_id'] . "'");
       if (tep_db_num_rows($check_special)) {
         $check_special_values = tep_db_fetch_array($check_special);
