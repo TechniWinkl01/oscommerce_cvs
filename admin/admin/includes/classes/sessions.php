@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.5 2001/11/20 20:04:57 hpdl Exp $
+  $Id: sessions.php,v 1.6 2001/11/20 21:51:11 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,7 +30,7 @@
 
     var $use_cookies = true;
     var $cookie_lifetime = 0;
-    var $cookie_path = DIR_WS_CATALOG;
+    var $cookie_path = substr(DIR_WS_ADMIN, 0, -1);
     var $cookie_domain = '';
 
     var $gc_probability = 1;
