@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.87 2002/01/27 04:28:25 hpdl Exp $
+  $Id: checkout_process.php,v 1.88 2002/01/27 04:32:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,7 +53,8 @@
   tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $cust_state . "', '" . $customers_country['countries_name'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $cust_fmt_id . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $del_state . "', '" . $delivery_country['countries_name'] . "', '" . $del_fmt_id . "', '" . $payment . "', '" . $GLOBALS['cc_type'] . "', '" . $GLOBALS['cc_owner'] . "', '" . $GLOBALS['cc_number'] . "', '" . $GLOBALS['cc_expires'] . "', now(), '" . $GLOBALS['shipping_cost'] . "', '" . $GLOBALS['shipping_method'] . "', '" . DEFAULT_ORDERS_STATUS_ID . "', '" . addslashes($comments) . "', '" . $currency . "', '" . $currencies->get_value($currency) . "')");
   $insert_id = tep_db_insert_id();
 
-  tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, date_added, customer_notified) values ('" . $insert_id . "', '" . DEFAULT_ORDERS_STATUS_ID . "', now(), '1')");
+  $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
+  tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, date_added, customer_notified) values ('" . $insert_id . "', '" . DEFAULT_ORDERS_STATUS_ID . "', now(), '" . $customer_notification . "')");
 
 // initialized for the email confirmation
   $products_ordered = '';
