@@ -9,30 +9,35 @@ A:hover.bluelink { color:#0000FF; background-color: #FFFF33; text-decoration:und
 .specialPrice { color: #ff0000; }
 .oldPrice { text-decoration: line-through; }
 
+BODY {
+  background-color: #ffffff;
+  color: #000000;
+  margin: 0px;
+}
+
 TR.header {
 	background-color: #aabbdd;
 }
 
 TR.headerNavigation {
 	background-color: #000000;
+	color: #ffffff;
 }
 
 TD.headerNavigation {
 	font-family: Tahoma, Verdana, Arial, sans-serif;
 	font-size: 12px;
-	background-color: #000000;
-	color: #ffffff;
 	font-weight : bold;
 }
 
 TR.footer {
   background-color : #000000;
+  color : #ffffff;
 }
 
 TD.footer {
   font-family : Tahoma, Verdana, Arial, sans-serif;
   font-size : 12px;
-  color : #ffffff;
   font-weight : bold;
 }
 
@@ -48,7 +53,7 @@ TD.menuBoxHeading {
 TD.infoBoxHeading {
 	font-family : Tahoma, Verdana, Arial, sans-serif;
 	font-size : 10px;
-    font-weight: bold;
+  font-weight: bold;
 }
 
 A.infoBoxHeading:hover {
@@ -61,11 +66,11 @@ TD.infoBox, SPAN.infoBox {
 	font-size : 10px;
 }
 
-TR.selectedRow, TD.Box {
+TR.selectedRow, TD.box {
   background-color: #b0c8df;
 }
 
-TR.BoxHeading {
+TR.boxHeading {
   background-color: #81a2b6;
 }
 
