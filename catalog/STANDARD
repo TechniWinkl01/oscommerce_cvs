@@ -20,6 +20,16 @@ in the coding practice.
   $HTTP_COOKIE_VARS['variable']
   $variable (either local, or session)
 
+* Use include() and require() where appropriate:
+
+  require('file.php');
+
+  if (condition) {
+    include('file_true.php');
+  } else {
+    tep_false();
+  }
+
 * Instances of objects should be called as:
 
   new className;
