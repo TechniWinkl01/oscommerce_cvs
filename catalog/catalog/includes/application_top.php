@@ -2,7 +2,7 @@
 /*
   The Exchange Project - Community Made Shopping!
 
-  $Id: application_top.php,v 1.94 2001/03/15 21:52:25 hpdl Exp $
+  $Id: application_top.php,v 1.95 2001/03/21 17:30:55 tmoulton Exp $
 */
 
   if (file_exists('includes/local/configure.php')) {
@@ -77,6 +77,7 @@
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');
+  define('FILENAME_LOGIN_CREATE', 'login_create.php');
   define('FILENAME_LOGOFF', 'logoff.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
