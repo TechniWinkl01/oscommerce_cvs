@@ -1,33 +1,46 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.5 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: geo_zones.php,v 1.6 2002/01/16 15:28:09 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Geographische Zonen');
-define('HEADING_TITLE', 'Geographische Zonen');
+define('HEADING_TITLE', 'Tax Zones');
 
-define('TABLE_HEADING_ACTION', 'Aktion');
-define('TABLE_HEADING_COUNTRY_NAME', 'Land');
-define('TABLE_HEADING_COUNTRY_ZONE', 'Region');
-define('TABLE_HEADING_GEO_ZONE_NAME', 'Zonenname');
+define('TABLE_HEADING_COUNTRY', 'Country');
+define('TABLE_HEADING_COUNTRY_ZONE', 'Zone');
+define('TABLE_HEADING_TAX_ZONES', 'Tax Zones');
+define('TABLE_HEADING_ACTION', 'Action');
 
-define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
-define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie die notwendigen &Auml;nderungen durch');
-define('TEXT_INFO_GEO_ZONE_NAME', 'Zonenname:');
-define('TEXT_INFO_GEO_ZONE_COUNTRY', 'Land:');
-define('TEXT_INFO_GEO_ZONE_COUNTRY_ZONE', 'Region:');
-define('TEXT_INFO_GEO_ZONE_DESCRIPTION', 'Beschreibung:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue geographische Zone mit den dazugeh&ouml;rigen Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese geographische Zone l&ouml;schen m&ouml;chten?');
-define('TEXT_INFO_HEADING_NEW_GEO_ZONE', 'neue geographischen Zone');
-define('TYPE_BELOW', 'Unten eingeben');
-define('PLEASE_SELECT', 'Ausw&auml;hlen');
+define('TEXT_INFO_HEADING_NEW_ZONE', 'New Zone');
+define('TEXT_INFO_NEW_ZONE_INTRO', 'Please enter the new zone information');
+
+define('TEXT_INFO_HEADING_EDIT_ZONE', 'Edit Zone');
+define('TEXT_INFO_EDIT_ZONE_INTRO', 'Please make any necessary changes');
+
+define('TEXT_INFO_HEADING_DELETE_ZONE', 'Delete Zone');
+define('TEXT_INFO_DELETE_ZONE_INTRO', 'Are you sure you want to delete this zone?');
+
+define('TEXT_INFO_HEADING_NEW_SUB_ZONE', 'New Sub Zone');
+define('TEXT_INFO_NEW_SUB_ZONE_INTRO', 'Please enter the new sub zone information');
+
+define('TEXT_INFO_HEADING_EDIT_SUB_ZONE', 'Edit Sub Zone');
+define('TEXT_INFO_EDIT_SUB_ZONE_INTRO', 'Please make any necessary changes');
+
+define('TEXT_INFO_HEADING_DELETE_SUB_ZONE', 'Delete Sub Zone');
+define('TEXT_INFO_DELETE_SUB_ZONE_INTRO', 'Are you sure you want to delete this sub zone?');
+
+define('TEXT_INFO_DATE_ADDED', 'Date Added:');
+define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
+define('TEXT_INFO_ZONE_NAME', 'Zone Name:');
+define('TEXT_INFO_ZONE_DESCRIPTION', 'Description:');
+define('TEXT_INFO_COUNTRY', 'Country:');
+define('TEXT_INFO_COUNTRY_ZONE', 'Zone:');
+define('TYPE_BELOW', '*');
+define('PLEASE_SELECT', '*');
 ?>
