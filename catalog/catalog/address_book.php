@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.52 2002/05/23 23:01:47 hpdl Exp $
+  $Id: address_book.php,v 1.53 2002/05/27 13:07:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
@@ -99,7 +99,7 @@
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
           <tr>
-            <td colspan="3" class="smallText"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="smallText" valign="top"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a><br><br>' . sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
                 <td class="smallText" align="right" valign="top"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS,  'entry_id=' . ($row + 2), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?></td>
@@ -110,7 +110,7 @@
   } else {
 ?>
           <tr>
-            <td colspan="3" class="smallText"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="smallText"><?php echo sprintf(TEXT_MAXIMUM_ENTRIES_REACHED, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
                 <td class="smallText" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
