@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.35 2001/09/25 18:20:17 dwatkins Exp $
+  $Id: cc.php,v 1.36 2001/09/27 14:46:13 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -136,7 +136,7 @@
 
       $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_CC_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_CC_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes(urldecode($HTTP_GET_VARS['cc_val'])) . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
 
