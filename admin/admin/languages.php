@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.15 2001/11/12 21:32:31 hpdl Exp $
+  $Id: languages.php,v 1.16 2001/11/12 21:43:11 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -143,7 +143,7 @@
     }
 
     if (DEFAULT_LANGUAGE == $languages['code']) {
-      echo '                <td class="smallText">&nbsp;<b>' . $languages['name'] . ' (default)</b>&nbsp;</td>' . "\n";
+      echo '                <td class="smallText">&nbsp;<b>' . $languages['name'] . ' (' . TEXT_DEFAULT . ')</b>&nbsp;</td>' . "\n";
     } else {
       echo '                <td class="smallText">&nbsp;' . $languages['name'] . '&nbsp;</td>' . "\n";
     }
@@ -200,7 +200,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_IMAGE . '<br><input type="text" name="image"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_DIRECTORY . '<br><input type="text" name="directory"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_SORT_ORDER . '<br><input type="text" name="sort_order"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> Set as default<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> ' . TEXT_SET_DEFAULT . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="languages" action="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="languages_id" value="' . $lInfo->id . '">'  ."\n";
@@ -212,7 +212,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_IMAGE . '<br><input type="text" name="image" value="' . $lInfo->image . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_DIRECTORY . '<br><input type="text" name="directory" value="' . $lInfo->directory . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_SORT_ORDER . '<br><input type="text" name="sort_order" value="' . $lInfo->sort_order . '"><br>&nbsp;');
-    if (DEFAULT_LANGUAGE != $lInfo->code) $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> Set as default<br>&nbsp;');
+    if (DEFAULT_LANGUAGE != $lInfo->code) $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> ' . TEXT_SET_DEFAULT . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="languages" action="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="languages_id" value="' . $lInfo->id . '">'  ."\n";

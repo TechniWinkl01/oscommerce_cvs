@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.19 2001/11/12 21:32:30 hpdl Exp $
+  $Id: currencies.php,v 1.20 2001/11/12 21:43:11 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -116,7 +116,7 @@
     }
 
     if (DEFAULT_CURRENCY == $currencies['code']) {
-      echo '                <td class="smallText">&nbsp;<b>' . $currencies['title'] . ' (default)</b>&nbsp;</td>' . "\n";
+      echo '                <td class="smallText">&nbsp;<b>' . $currencies['title'] . ' (' . TEXT_DEFAULT . ')</b>&nbsp;</td>' . "\n";
     } else {
       echo '                <td class="smallText">&nbsp;' . $currencies['title'] . '&nbsp;</td>' . "\n";
     }
@@ -186,7 +186,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br><input type="text" name="thousands_point"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br><input type="text" name="decimal_places"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_VALUE . '<br><input type="text" name="value"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> Set as default<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> ' . TEXT_SET_DEFAULT . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="currencies" action="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="currencies_id" value="' . $cInfo->id . '">'  ."\n";
@@ -201,7 +201,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br><input type="text" name="thousands_point" value="' . $cInfo->thousands_point . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br><input type="text" name="decimal_places" value="' . $cInfo->decimal_places . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_VALUE . '<br><input type="text" name="value" value="' . $cInfo->value . '"><br>&nbsp;');
-    if (DEFAULT_CURRENCY != $cInfo->code) $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> Set as default<br>&nbsp;');
+    if (DEFAULT_CURRENCY != $cInfo->code) $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> ' . TEXT_SET_DEFAULT . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="currencies" action="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="currencies_id" value="' . $cInfo->id . '">'  ."\n";
