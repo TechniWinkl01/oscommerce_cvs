@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.37 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: specials.php,v 1.38 2002/03/10 22:55:24 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -54,11 +54,11 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
 <?php
-    $new = tep_db_query("select p.products_id, pd.products_name, p.products_price, p.products_image, s.specials_new_products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_SPECIALS . " s, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_status = '1' and s.products_id = p.products_id and s.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and s.status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and c.status = '1' order by s.specials_date_added DESC limit " . MAX_DISPLAY_SPECIAL_PRODUCTS);
+    $new = tep_db_query("select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, s.specials_new_products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_SPECIALS . " s, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_status = '1' and s.products_id = p.products_id and s.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and s.status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and c.status = '1' order by s.specials_date_added DESC limit " . MAX_DISPLAY_SPECIAL_PRODUCTS);
     $row = 0;
     while ($new_values = tep_db_fetch_array($new)) {
       $row++;
-      echo '            <td align="center" class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_values['products_image'], $new_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $new_values['products_name'] . '</a><br><s>' . $currencies->format($new_values['products_price']) . '</s><br><span class="productSpecialPrice">' . $currencies->format($new_values['specials_new_products_price']) . '</span></td>' . "\n";
+      echo '            <td align="center" class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_values['products_image'], $new_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $new_values['products_name'] . '</a><br><s>' . $currencies->display_price($new_values['products_price'], $new_values['products_tax_class_id']) . '</s><br><span class="productSpecialPrice">' . $currencies->display_price($new_values['specials_new_products_price'], $new_values['products_tax_class_id']) . '</span></td>' . "\n";
       if ((($row / 3) == floor($row / 3))) {
 ?>
           </tr>
