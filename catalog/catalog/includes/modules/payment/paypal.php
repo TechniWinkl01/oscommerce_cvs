@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.31 2002/11/04 00:25:55 hpdl Exp $
+  $Id: paypal.php,v 1.32 2002/11/22 11:10:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -42,13 +42,19 @@
     }
 
     function process_button() {
-      global $order, $currencies;
+      global $order, $currencies, $currency;
 
+      if (in_array($currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
+        $my_currency = $currency;
+      } else {
+        $my_currency = 'USD';
+      }
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencies->currencies['USD']['value'], $currencies->currencies['USD']['decimal_places'])) .
-                               tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencies->get_value('USD'), 2)) .
+                               tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencies->get_value($my_currency), $currencies->get_decimal_places($my_currency))) .
+                               tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencies->get_value($my_currency), $currencies->get_decimal_places($my_currency))) .
+                               tep_draw_hidden_field('currency_code', $my_currency) .
                                tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
                                tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.12 2002/09/01 13:47:28 project3000 Exp $
+  $Id: currencies.php,v 1.13 2002/11/22 11:10:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,6 +56,10 @@
 
     function get_value($code) {
       return $this->currencies[$code]['value'];
+    }
+
+    function get_decimal_places($code) {
+      return $this->currencies[$code]['decimal_places'];
     }
 
     function display_price($products_price, $products_tax, $quantity = 1) {
