@@ -1,8 +1,10 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.2
-Last Update: 19/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  The Exchange Project - Community Made Shopping!
+
+  German Text for The Exchange Project Administration Tool
+
+  $Id: german.php,v 1.36 2001/08/18 15:39:43 mbs Exp $
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -24,11 +26,11 @@ define('HEADER_TITLE_ONLINE_CATALOG', 'Online Katalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
 
 // text for gender
-define('MALE', 'm&auuml;nnlich');
+define('MALE', 'männlich');
 define('FEMALE', 'weiblich');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'tt/mm/jjjj');
+define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
 
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Konfiguration');
@@ -196,7 +198,7 @@ define('IMAGE_ICON_INFO', 'Information');
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Banner)');
-define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Land)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Länder)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Währungen)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
@@ -208,7 +210,7 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Angezeigt werden <b>%d</b> b
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Berichten)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sonderartikeln)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerklassen)');
-define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax zones)');
+define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuers&auml;tzen)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
 
