@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.107 2001/06/26 13:24:58 mbs Exp $
+  $Id: general.php,v 1.108 2001/06/26 13:54:03 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -985,7 +985,8 @@
     if (mail($to_email_address, $email_subject, "", $headers)) {
       return true;
     } else {
-      return tep_error_message(ERROR_TEP_MAIL); 
+      return tep_error_message(ERROR_TEP_MAIL);
+    }
   }
 
 ////

@@ -2,7 +2,7 @@
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_PASSWORD_FORGOTTEN; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $check_customer = tep_db_query("select customers_password, customers_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    $check_customer = tep_db_query("select customers_firstname, customers_lastname, customers_password, customers_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
       // Crypted password mods - create a new password, update the database and mail it to them
@@ -11,7 +11,7 @@
       $sql = sprintf("UPDATE " . TABLE_CUSTOMERS . " SET customers_password = '%s' WHERE customers_id = %d", $crpted_password, $check_customer_values['customers_id']);
       tep_db_query($sql);
       
-      tep_mail('', '', $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass), '', EMAIL_FROM, '');
+      tep_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
       header('Location: ' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
       tep_exit();
     } else {
