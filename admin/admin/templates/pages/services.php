@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: services.php,v 1.2 2004/11/07 21:00:48 hpdl Exp $
+  $Id: services.php,v 1.3 2004/11/28 19:40:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,12 +54,12 @@
                            'keys' => array());
 
       if (is_array($module_keys) && (sizeof($module_keys) > 0)) {
-        $Qsm = $osC_Database->query('select configuration_title, configuration_key, configuration_value, configuration_description, use_function, set_function from :table_configuration where configuration_key in (:configuration_key)');
-        $Qsm->bindTable(':table_configuration', TABLE_CONFIGURATION);
-        $Qsm->bindRaw(':configuration_key', "'" . implode("', '", $module_keys) . "'");
-        $Qsm->execute();
+        foreach ($module_keys as $key) {
+          $Qsm = $osC_Database->query('select configuration_title, configuration_key, configuration_value, configuration_description, use_function, set_function from :table_configuration where configuration_key = :configuration_key');
+          $Qsm->bindTable(':table_configuration', TABLE_CONFIGURATION);
+          $Qsm->bindValue(':configuration_key', $key);
+          $Qsm->execute();
 
-        while ($Qsm->next()) {
           $module_info['keys'][$Qsm->value('configuration_key')] = array('title' => $Qsm->value('configuration_title'),
                                                                          'value' => $Qsm->value('configuration_value'),
                                                                          'description' => $Qsm->value('configuration_description'),
