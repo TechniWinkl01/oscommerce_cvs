@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: new_products.php,v 1.24 2001/12/23 20:04:49 dgw_ Exp $
+  $Id: new_products.php,v 1.25 2001/12/23 20:10:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,7 +27,7 @@
   $col = 0;
   while ($new_products = tep_db_fetch_array($new_products_query)) {
     $info_box_contents[$row][$col] = array('align' => 'center',
-                                           'params' => 'class="main"',
+                                           'params' => 'class="main" width="33%" valign="top"',
                                            'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $new_products['products_image'], $new_products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . $new_products['products_name'] . '</a><br>' . $currencies->format($new_products['products_price']));
     $col ++;
     if ($col > 2) {
