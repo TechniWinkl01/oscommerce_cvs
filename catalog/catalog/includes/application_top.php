@@ -37,7 +37,7 @@
   define('STORE_DB_TRANSACTIONS', 0);
 
   define('SESSION_OBJECTS_ALLOWED', 1);
-  define('REPAIR_BROKEN_CART', 0);
+  define('REPAIR_BROKEN_CART', 1);
 
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
