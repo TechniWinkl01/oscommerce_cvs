@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.22 2001/08/29 23:34:19 hpdl Exp $
+  $Id: payment.php,v 1.23 2001/09/01 14:56:09 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -164,14 +164,14 @@
     }
 
     function show_info() {
-      global $order_values;
+      global $order;
 
       $show_info_string = '';
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->code == $order_values['payment_method']) {
+          if ($GLOBALS[$class]->code == $order['payment_method']) {
             $payment_text = $GLOBALS[$class]->title;
           }
         }
