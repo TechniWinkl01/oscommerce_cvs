@@ -1,0 +1,94 @@
+The Exchange Project Preview Release 2.1 Coding Standards Practice
+
+** THIS DOCUMENT IS A DRAFT **
+
+In order to keep the source code sane, a standard has to be followed
+in the practice. Everyone has their own coding style, which has
+advantages and disadvantages to somebody elses style. This document
+will force a unified way to write code, while at the same time
+allow for modifications to be made, to provide an optimial standard.
+
+A general note regarding PHP3 and PHP4 compatibilty, developers are
+requried to test their changes under both environments. Code may work
+in PHP4, but may not in PHP3, and vica-versa.
+
+Read the PHP installation guide, on how to install both PHP3 and PHP4
+together on the same server.
+
+PHP3 Compatibility Issues
+-------------------------
+* Something that will be done once the template structure has been
+  implemented, is to change all <? php start tags to <?php for proper
+  compatibility.
+
+* It is best to define the constants early before 'includes' are made,
+  as these includes cannot access constants that are set after the
+  file has been 'included'. For example,
+  
+  define('TEXT', 'This text is shown in the include file');
+  include('include_file.php');
+
+* Classes that are called without parameters should be called as
+
+  new className;
+  
+  and not as
+  
+  new className();
+
+* Do not use the short version of echo, this will not work under PHP3.
+  Please get in the habit of writing
+  
+  <?php echo $variable; ?>
+
+  instead of
+  
+  <?=$varaible;?>
+
+
+General
+-------
+
+* TABs should not be used as a indentations. To indent, use 2 whitespaces
+
+
+Function Structure
+------------------
+
+* All custom functions should start with tep_
+
+  function tep_my_function($parameter, $optional = '') {
+    global $HTTP_GET_VARS, $another_variable;
+    
+    <function code>
+    
+    return true;
+  }
+
+
+Class Structure
+---------------
+* Class names should be in this format -> myWorkingClass
+
+  class myWorkingClass {
+    var $variable;
+    
+// class constuctor
+    function myWorkingClass() {
+    
+      <function code>
+    
+      return true;
+    }
+
+// class methods
+    function do_something() {
+    
+      $this->variable = 'set';
+      
+      return tue;
+    }
+  }
+  
+  $class = new myWorkingClass;
+  $class->do_something();     
