@@ -1373,4 +1373,13 @@ function tep_address_summary($customers_id, $address_id) {
       return false;
     }
   }
+
+  function tep_currency_exists($code) {
+    $currency_code = tep_db_query("select count(*) as count from currencies where code = '" . $code . "'");
+    if (tep_db_num_rows($currency_code)) {
+      return $code;
+    } else {
+      return false;
+    }
+  }
 ?>

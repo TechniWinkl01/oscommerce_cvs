@@ -26,7 +26,8 @@
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
 // default values
-  define('DEFAULT_LANGUAGE', 'en');
+  define('DEFAULT_LANGUAGE', 'en'); // use the code
+  define('DEFAULT_CURRENCY', 'DEM'); // use the code
 
 // who to send order confirmation emails to.. there is always one being sent to the customer, so there
 // is no need to add their address to the following constant..
@@ -205,14 +206,20 @@
 // define our general functions used application-wide
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
 
-// languages
+// language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
     if (!$language) tep_session_register('language');
 
     $language = tep_get_languages_directory($HTTP_GET_VARS['language']);
-    if (!$language) {
-      $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
-    }
+    if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
+  }
+
+// currency
+  if ( (!$currency) || ($HTTP_GET_VARS['currency']) ) {
+    if (!$currency) tep_session_register('currency');
+
+    $currency = tep_currency_exists($HTTP_GET_VARS['currency']);
+    if (!$currency) $currency = DEFAULT_CURRENCY;
   }
 
 // include the currency rates, and the language translations
@@ -286,15 +293,5 @@
     }
   } else {
     $current_category_id = 0;
-  }
-
-// calculate selected currency
-  if (!tep_session_is_registered('currency')) {
-    $currency = CURRENCY_VALUE;
-    tep_session_register('currency');
-  }
-
-  if (@$HTTP_GET_VARS['currency']) {
-    $currency = $HTTP_GET_VARS['currency'];
   }
 ?>
