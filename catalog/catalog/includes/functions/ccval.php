@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ccval.php,v 1.2 2001/06/09 19:09:14 hpdl Exp $
+  $Id: ccval.php,v 1.3 2001/09/01 15:24:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -131,5 +131,24 @@
 
 // Is the checksum divisible by ten?
     return ($Checksum % 10 == 0);
+  }
+
+  function ValidateExpiry ($month, $year) {
+    $cc_val = '';
+    $year = '20' . $year;
+
+    if (date('Y') == $year) {
+      if (date('m') <= $month) {
+        $cc_val = '1';
+      } else {
+        $cc_val = 'The expiry date entered, ' . $month . '/' . $year . ', is <font color="#FF0000"><b>invalid</b></font>. Please check the date and try again.';
+      }
+    } elseif (date('Y') > $year) {
+        $cc_val = 'The expiry date entered, ' . $month . '/' . $year . ', is <font color="#FF0000"><b>invalid</b></font>. Please check the date and try again.';
+    } else {
+      $cc_val = '1';
+    }
+
+    return $cc_val;
   }
 ?>

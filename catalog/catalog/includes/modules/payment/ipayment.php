@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.11 2001/08/29 23:34:23 hpdl Exp $
+  $Id: ipayment.php,v 1.12 2001/09/01 15:24:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -65,6 +65,7 @@
 
       $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
       $cc_val = CCValidationSolution($cc_val);
+      if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
 
       if ($cc_val != '1') {
         $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
