@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.64 2002/01/13 11:00:08 jan0815 Exp $
+  $Id: german.php,v 1.65 2002/01/14 06:40:18 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@ define('HTML_PARAMS','dir="ltr" lang="de"');
 define('CHARSET', 'iso-8859-1');
 
 // page title
-define('TITLE', 'The Exchange Project');
+define('TITLE', 'osCommerce');
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
@@ -49,8 +49,8 @@ define('HEADER_TITLE_ONLINE_CATALOG', 'Online Katalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
 
 // text for gender
-define('MALE', 'männlich');
-define('FEMALE', 'weiblich');
+define('MALE', 'Herr');
+define('FEMALE', 'Frau');
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
@@ -92,18 +92,18 @@ define('BOX_REPORTS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
 define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 
 // tools text in includes/boxes/tools.php
-define('BOX_HEADING_TOOLS', 'Werkzeuge');
+define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
 define('BOX_TOOLS_BACKUP', 'Datenbanksicherung');
 define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
 define('BOX_TOOLS_CACHE', 'Cache Steuerung');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
 define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
-define('BOX_TOOLS_MAIL', 'Email senden');
+define('BOX_TOOLS_MAIL', 'eMail senden');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Sprachen / W&auml;hrungen');
+define('BOX_HEADING_LOCALIZATION', 'Sprachen/W&auml;hrungen');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
@@ -127,7 +127,7 @@ define('JS_PRODUCTS_EXPECTED_DATE', '* Das Datum des Eintreffens muss in diesem 
 
 define('JS_SPECIALS_PRODUCTS_PRICE', '* Es muss ein neuer Preis für diesen Artikel festgelegt werden\n');
 
-define('JS_GENDER', '* Das \'Geschlecht\' muss ausgewählt werden.\n');
+define('JS_GENDER', '* Die \'Anrede\' muss ausgewählt werden.\n');
 define('JS_FIRST_NAME', '* Der \'Vorname\' muss mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_LAST_NAME', '* Der \'Nachname\' muss mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_DOB', '* Das \'Geburtsdatum\' muss folgendes Format haben: xx.xx.xxxx (Tag/Jahr/Monat).\n');
@@ -150,7 +150,7 @@ define('CATEGORY_CONTACT', 'Kontakt');
 define('CATEGORY_PASSWORD', 'Passwort');
 define('CATEGORY_COMPANY', 'Firma');
 define('CATEGORY_OPTIONS', 'Optionen');
-define('ENTRY_GENDER', 'Geschlecht:');
+define('ENTRY_GENDER', 'Anrede:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_FIRST_NAME', 'Vorname:');
@@ -158,7 +158,7 @@ define('ENTRY_FIRST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich
 define('ENTRY_LAST_NAME', 'Nachname:');
 define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 21/05/1970) <font color="#AABBDD">erforderlich</font></small>');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 21.05.1970) <font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_COMPANY', 'Firmenname:');
@@ -225,21 +225,21 @@ define('IMAGE_SEARCH', 'suchen');
 define('IMAGE_SELECT', 'auswählen');
 define('IMAGE_UPDATE', 'aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
-define('IMAGE_UPLOAD', 'Upload');
+define('IMAGE_UPLOAD', 'Hochladen');
 
-define('ICON_CURRENT_FOLDER', 'Current Folder');
-define('ICON_DELETE', 'Delete');
-define('ICON_ERROR', 'Error');
-define('ICON_FILE', 'File');
-define('ICON_FILE_DOWNLOAD', 'Download');
-define('ICON_FOLDER', 'Folder');
+define('ICON_CURRENT_FOLDER', 'aktueller Ordner');
+define('ICON_DELETE', 'Löschen');
+define('ICON_ERROR', 'Fehler');
+define('ICON_FILE', 'Datei');
+define('ICON_FILE_DOWNLOAD', 'Herunterladen');
+define('ICON_FOLDER', 'Ordner');
 define('ICON_PREVIOUS_LEVEL', 'Previous Level');
-define('ICON_WARNING', 'Warning');
+define('ICON_WARNING', 'Warnung');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');
-define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Banner)');
-define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Länder)');
+define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bannern)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Ländern)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Währungen)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
@@ -253,7 +253,7 @@ define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d<
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerklassen)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuers&auml;tzen)');
-define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
+define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bundesländern)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');
@@ -268,8 +268,8 @@ define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
 define('TEXT_DEFAULT', 'Standard');
-define('TEXT_SET_DEFAULT', 'als Standard setzen');
-define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</span>');
+define('TEXT_SET_DEFAULT', 'als Standard definieren');
+define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* erforderlich</span>');
 
 define('ERROR_BANNER_TITLE', 'Fehler: Banner Titel fehlt');
 define('ERROR_BANNER_GROUP', 'Fehler: Banner Gruppe fehlt');

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.10 2002/01/05 05:29:22 hpdl Exp $
+  $Id: geo_zones.php,v 1.11 2002/01/14 06:40:17 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -217,8 +217,8 @@ function update_zone(theForm) {
                     <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?php
   if (!$HTTP_GET_VARS['action']) {
     echo '<br><br>&nbsp;';
-    if ($HTTP_GET_VARS['zList']) echo '<a href="' . FILENAME_GEO_ZONES . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';
-    echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_zone.gif', IMAGE_NEW_TAX_CLASS) . '</a>&nbsp;'; 
+    if ($HTTP_GET_VARS['zList']) echo '<a href="' . FILENAME_GEO_ZONES . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>';
+    echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image_button('button_new_zone.gif', IMAGE_NEW_TAX_CLASS) . '</a>&nbsp;'; 
   }
 ?></td>
                   </tr>
@@ -246,23 +246,23 @@ function update_zone(theForm) {
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY . '<br>' . tep_draw_pull_down_menu('zone_country_id', tep_get_countries(), $tzaInfo->country_id, 'onChange="update_zone(this.form);"') . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY_ZONE . '<br>' . tep_draw_pull_down_menu('zone_id', tep_prepare_country_zones_pull_down($tzaInfo->country_id), $tzaInfo->zone_id) . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } elseif ($HTTP_GET_VARS['action'] == 'edit') {
       $form = '<form name="rates" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="association_id" value="' . $tzaInfo->id . '"><input type="hidden" name="geo_zone_id" value="' . $HTTP_GET_VARS['zList'] . '">'  ."\n";
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY . '<br>' . tep_draw_pull_down_menu('zone_country_id', tep_get_countries(), $tzaInfo->country_id, 'onChange="update_zone(this.form);"') . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY_ZONE . '<br>' . tep_draw_pull_down_menu('zone_id', tep_prepare_country_zones_pull_down($tzaInfo->country_id), $tzaInfo->zone_id) . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } elseif ($HTTP_GET_VARS['action'] == 'delete') {
       $form = '<form name="zones" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="association_id" value="' . $tzaInfo->id . '"><input type="hidden" name="geo_zone_id" value="' . $HTTP_GET_VARS['zList'] . '">'  ."\n";
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DELETE_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $tzaInfo->title . '</b><br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_delete.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } else {
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
       $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($tzaInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($tzaInfo->last_modified));
     }
   } else {
@@ -272,23 +272,23 @@ function update_zone(theForm) {
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_INSERT_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_NAME . '<br><input type="text" name="geo_zone_name"><br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_DESCRIPTION . '<br><input type="text" name="geo_zone_description"><br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } elseif ($HTTP_GET_VARS['action'] == 'edit') {
       $form = '<form name="zones" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="geo_zone_id" value="' . $tzInfo->id . '">'  ."\n";
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_NAME . '<br><input type="text" name="geo_zone_name" value="' . $tzInfo->title . '"><br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_DESCRIPTION . '<br><input type="text" name="geo_zone_description" value="' . $tzInfo->description . '"><br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } elseif ($HTTP_GET_VARS['action'] == 'delete') {
       $form = '<form name="zones" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="geo_zone_id" value="' . $tzInfo->id . '">'  ."\n";
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DELETE_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $tzInfo->title . '</b><br>&nbsp;');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_delete.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } else {
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
       $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($tzInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($tzInfo->last_modified));
       $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_GEO_ZONE_DESCRIPTION . '<br>' . $tzInfo->description);
     }

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.14 2002/01/10 11:47:07 hpdl Exp $
+  $Id: html_output.php,v 1.15 2002/01/14 06:40:18 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -59,8 +59,12 @@
 ////
 // The HTML form submit button wrapper function
 // Outputs a button in the selected language
-  function tep_image_submit($image, $alt, $params = '') {
-    return '<input type="image" src="' . $image . '" border="0" alt="' . $alt . '"' . (($params) ? ' ' . $params : '') . '>';
+  function tep_image_submit($image, $alt) {
+    global $language;
+
+    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '">';
+
+    return $image_submit;
   }
 
 ////
@@ -73,6 +77,14 @@
 // Output a separator either through whitespace, or with an image
   function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
     return tep_image(DIR_WS_IMAGES . $image, '', $width, $height);
+  }
+
+////
+// Output a function button in the selected language
+  function tep_image_button($image, $alt = '', $params = '') {
+    global $language;
+
+    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $params);
   }
 
 ////

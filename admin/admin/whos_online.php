@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.18 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: whos_online.php,v 1.19 2002/01/14 06:40:18 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

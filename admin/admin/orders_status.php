@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.6 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: orders_status.php,v 1.7 2002/01/14 06:40:17 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -153,7 +153,7 @@
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td class="main" align="right" colspan="3"><a href="<?php echo tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')) . 'action=new', 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?></a>&nbsp;</td>
+                <td class="main" align="right" colspan="3"><a href="<?php echo tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')) . 'action=new', 'NONSSL'); ?>"><?php echo tep_image_button('button_insert.gif', IMAGE_INSERT); ?></a>&nbsp;</td>
               </tr>
 <?php
   if ($HTTP_GET_VARS['error']) {
@@ -190,7 +190,7 @@
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_ORDERS_STATUS_NAME . ' (' . $languages[$i]['name'] . ')<br><input type="text" name="orders_status_name[' . $languages[$i]['id'] . ']"><br>');
         }
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_ORDERS_STATUS_ID . '<br>&nbsp;<input type="text" name="orders_status_id" value="' . $osInfo->id . '" size="2"><br>&nbsp;');
-        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
 
         break;
 
@@ -206,7 +206,7 @@
         }
 
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_ORDERS_STATUS_ID . '<br>&nbsp;<input type="text" name="orders_status_id" value="' . $osInfo->id . '" size="2"><br>&nbsp;');
-        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit('button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
 
         break;
 
@@ -219,7 +219,7 @@
         for ($i=0; $i<sizeof($languages); $i++) {
           $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . tep_get_orders_status_name($osInfo->id, $languages[$i]['id']) . '&nbsp;(' . $languages[$i]['name'] . ')</b>');
         } 
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
 
         break;
 /* display default info boxes */
@@ -230,7 +230,7 @@
             $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_ORDERS_STATUS_NAME . ' (' . $languages[$i]['name'] . ')<br>&nbsp;' . tep_get_orders_status_name($osInfo->id, $languages[$i]['id']) . '<br>');
           }
           $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_ORDERS_STATUS_ID . '&nbsp;' . $osInfo->id . '<br>&nbsp;');
-          $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+          $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
       } // end switch
 // display box contents by creating an instance of "infoBox" (down a couple of lines)
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.76 2002/01/11 05:03:25 hpdl Exp $
+  $Id: english.php,v 1.77 2002/01/14 06:40:18 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@ define('HTML_PARAMS','dir="ltr" lang="en"');
 define('CHARSET', 'iso-8859-1');
 
 // page title
-define('TITLE', 'The Exchange Project');
+define('TITLE', 'osCommerce');
 
 // header text in includes/header.php
 define('HEADER_TITLE_TOP', 'Administration');
