@@ -24,7 +24,7 @@
 // who to send order confirmation emails to.. there is always one being sent to the customer, so there
 // is no need to add their address to the following constant..
 // use comma's to separate email addresses (as in the example)
-  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
+//  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
   define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse a page
@@ -37,7 +37,7 @@
   define('STORE_DB_TRANSACTIONS', 0);
 
 // enable this under PHP3
-  define('REPAIR_BROKEN_CART', 1);
+  define('REPAIR_BROKEN_CART', 0);
 
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
