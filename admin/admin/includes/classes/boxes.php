@@ -39,7 +39,7 @@
     function infoBox($contents) {
       $this->font_style = FONT_STYLE_INFO_BOX_BODY;
 
-      tableBox::tableBox($contents);
+      $this->tableBox($contents);
     }
 
   }
@@ -52,7 +52,7 @@
       $this->table_data_parameters = 'nowrap';
       $this->font_style = FONT_STYLE_INFO_BOX_HEADING;
 
-      tableBox::tableBox($contents);
+      $this->tableBox($contents);
     }
 
   }
