@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.12 2002/04/20 17:02:13 project3000 Exp $
+  $Id: shipping.php,v 1.13 2002/05/27 18:19:55 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -105,8 +105,6 @@
     }
 
     function confirm() {
-      global $shipping_cost, $shipping_method;
-
       if (MODULE_SHIPPING_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
