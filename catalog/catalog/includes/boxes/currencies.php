@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.13 2002/05/27 13:24:35 hpdl Exp $
+  $Id: currencies.php,v 1.14 2002/08/01 12:49:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,7 +37,7 @@
   reset($HTTP_GET_VARS);
   while (list($key, $value) = each ($HTTP_GET_VARS)) {
     if ( ($key != 'currency') && ($key != tep_session_name()) ) {
-      $hidden_get_variables .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+      $hidden_get_variables .= tep_draw_hidden_field($key, $value);
     }
   }
 
