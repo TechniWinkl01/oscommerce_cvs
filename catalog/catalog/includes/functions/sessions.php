@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.8 2001/06/08 22:36:31 hpdl Exp $
+  $Id: sessions.php,v 1.9 2001/06/08 22:40:25 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,8 +24,7 @@
     }
 
     function _sess_read($key) {
-      $qry = "select value from " . TABLE_SESSIONS . " where sesskey = '" . $key . "' and expiry > '" . time() . "'";
-      $qid = tep_db_query($qry);
+      $qid = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . $key . "' and expiry > '" . time() . "'");
 
       if (list($value) = tep_db_fetch_array($qid)) {
         return $value;
@@ -40,30 +39,22 @@
       $expiry = time() + $SESS_LIFE;
       $value = addslashes($val);
 
-      $qry = "select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'";
-      $qid = tep_db_query($qry);
+      $qid = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
       list($total) = tep_db_fetch_array($qid);
 
       if ($total > 0) {
-        $qry = "update " . TABLE_SESSIONS . " set expiry = '" . $expiry . "', value = '" . $value . "' where sesskey = '" . $key . "'";
+        return tep_db_query("update " . TABLE_SESSIONS . " set expiry = '" . $expiry . "', value = '" . $value . "' where sesskey = '" . $key . "'");
       } else {
-        $qry = "insert into " . TABLE_SESSIONS . " values ('" . $key . "', '" . $expiry . "', '" . $value . "')";
+        return tep_db_query("insert into " . TABLE_SESSIONS . " values ('" . $key . "', '" . $expiry . "', '" . $value . "')");
       }
-      $qid = tep_db_query($qry);
-
-      return $qid;
     }
 
     function _sess_destroy($key) {
-      $qry = "delete from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'";
-      $qid = tep_db_query($qry);
-
-      return $qid;
+      return tep_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
     }
 
     function _sess_gc($maxlifetime) {
-      $qry = "delete from " . TABLE_SESSIONS . " where expiry < '" . time() . "'";
-      $qid = tep_db_query($qry);
+      tep_db_query("delete from " . TABLE_SESSIONS . " where expiry < '" . time() . "'");
 
       return mysql_affected_rows();
     }
