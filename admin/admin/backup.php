@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.22 2001/11/22 21:27:42 hpdl Exp $
+  $Id: backup.php,v 1.23 2001/11/22 21:34:25 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,11 +18,14 @@
   } elseif ($HTTP_GET_VARS['action'] == 'backupnow') {
     tep_set_time_limit(0);
     $schema = '# The Exchange Project - Community Made Shopping!' . "\n" .
-              '# http://www.theexchangeproject.org' . "\n\n" .
+              '# http://www.theexchangeproject.org' . "\n" .
+              '#' . "\n" .
               '# Database Backup For ' . STORE_NAME . "\n" . 
-              '# Copyright (c) ' . date('Y') . ' ' . STORE_OWNER . "\n\n" .
+              '# Copyright (c) ' . date('Y') . ' ' . STORE_OWNER . "\n" .
+              '#' . "\n" .
               '# Database: ' . DB_DATABASE . "\n" .
-              '# Database Server: ' . DB_SERVER . "\n\n" .
+              '# Database Server: ' . DB_SERVER . "\n" . 
+              '#' . "\n" .
               '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
     $tables_query = tep_db_query('show tables');
     while ($tables = tep_db_fetch_array($tables_query)) {
