@@ -1,7 +1,7 @@
 <?php
 // here you could insert the page_close() function for phplib..
 
-  if (STORE_PAGE_PARSE_TIME == '1') {
+  if (STORE_PAGE_PARSE_TIME == 'true') {
     $parse_end_time = microtime();
     $time_start = explode(' ', $parse_start_time);
     $time_end = explode(' ', $parse_end_time);
