@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.60 2003/06/29 22:50:51 hpdl Exp $
+  $Id: backup.php,v 1.61 2004/02/14 18:00:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -244,7 +244,7 @@
             }
           }
 
-          tep_db_query("drop table if exists address_book, address_format, banners, banners_history, categories, categories_description, configuration, configuration_group, counter, counter_history, countries, currencies, customers, customers_basket, customers_basket_attributes, customers_info, languages, manufacturers, manufacturers_info, orders, orders_products, orders_status, orders_status_history, orders_products_attributes, orders_products_download, products, products_attributes, products_attributes_download, prodcts_description, products_options, products_options_values, products_options_values_to_products_options, products_to_categories, reviews, reviews_description, sessions, specials, tax_class, tax_rates, geo_zones, whos_online, zones, zones_to_geo_zones");
+          tep_db_query("drop table if exists " . TABLE_ADDRESS_BOOK . ", " . TABLE_ADDRESS_FORMAT . ", " . TABLE_BANNERS . ", " . TABLE_BANNERS_HISTORY . ", " . TABLE_CATEGORIES . ", " . TABLE_CATEGORIES_DESCRIPTION . ", " . TABLE_CONFIGURATION . ", " . TABLE_CONFIGURATION_GROUP . ", " . TABLE_COUNTRIES . ", " . TABLE_CURRENCIES . ", " . TABLE_CUSTOMERS . ", " . TABLE_CUSTOMERS_BASKET . ", " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . ", " . TABLE_CUSTOMERS_INFO . ", " . TABLE_LANGUAGES . ", " . TABLE_MANUFACTURERS . ", " . TABLE_MANUFACTURERS_INFO . ", " . TABLE_NEWSLETTERS . ", " . TABLE_ORDERS . ", " . TABLE_ORDERS_PRODUCTS . ", " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . ", " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . ", " . TABLE_ORDERS_STATUS . ", " . TABLE_ORDERS_STATUS_HISTORY . ", " . TABLE_ORDERS_TOTAL . ", " . TABLE_PRODUCTS . ", " . TABLE_PRODUCTS_ATTRIBUTES . ", " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . ", " . TABLE_PRODUCTS_DESCRIPTION . ", " . TABLE_PRODUCTS_NOTIFICATIONS . ", " . TABLE_PRODUCTS_OPTIONS . ", " . TABLE_PRODUCTS_OPTIONS_VALUES . ", " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . ", " . TABLE_PRODUCTS_TO_CATEGORIES . ", " . TABLE_REVIEWS . ", " . TABLE_REVIEWS_DESCRIPTION . ", " . TABLE_SESSIONS . ", " . TABLE_SPECIALS . ", " . TABLE_TAX_CLASS . ", " . TABLE_TAX_RATES . ", " . TABLE_GEO_ZONES . ", " . TABLE_ZONES_TO_GEO_ZONES . ", " . TABLE_WHOS_ONLINE . ", " . TABLE_ZONES . "");
 
           for ($i=0, $n=sizeof($sql_array); $i<$n; $i++) {
             tep_db_query($sql_array[$i]);
