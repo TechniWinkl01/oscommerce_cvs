@@ -146,7 +146,7 @@ function popupImageWindow(url) {
     if ($product_info_values['products_url']) {
 ?>
       <tr>
-        <td class="main"><? echo sprintf(TEXT_MORE_INFORMATION, $product_info_values['products_url']); ?><br>&nbsp;</td>
+        <td class="main"><? echo sprintf(TEXT_MORE_INFORMATION, tep_href_link(FILENAME_REDIRECT, 'action=url&goto=' . $product_info_values['products_url'])); ?><br>&nbsp;</td>
       </tr>
 <?
     }
