@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.139 2001/11/10 19:12:36 dgw_ Exp $
+  $Id: general.php,v 1.140 2001/11/13 12:03:47 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -975,7 +975,7 @@
     // Build all required headers
     // add From: header
     $headers = "From: $from_email_name <$from_email_address>\r\n";
-    $headers .= "To: $to_name <$to_email_address>\r\n";
+//    $headers .= "To: $to_name <$to_email_address>\r\n";
 
     // Global check:
     // should we use HTML or not?
