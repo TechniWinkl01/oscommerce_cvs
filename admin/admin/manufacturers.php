@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.58 2004/07/22 23:29:21 hpdl Exp $
+  $Id: manufacturers.php,v 1.59 2004/08/18 11:49:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -81,7 +81,7 @@
         if ($error === false) {
           $osC_Database->commitTransaction();
 
-          tep_reset_cache_block('manufacturers');
+          osC_Cache::reset('manufacturers');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
@@ -135,7 +135,7 @@
             $Qupdate->execute();
           }
 
-          tep_reset_cache_block('manufacturers');
+          osC_Cache::reset('manufacturers');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.152 2004/07/22 23:26:52 hpdl Exp $
+  $Id: categories.php,v 1.153 2004/08/18 11:49:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,8 +87,8 @@
         if ($error === false) {
           $osC_Database->commitTransaction();
 
-          tep_reset_cache_block('categories');
-          tep_reset_cache_block('also_purchased');
+          osC_Cache::reset('categories');
+          osC_Cache::reset('also_purchased');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
@@ -138,8 +138,8 @@
             tep_remove_product($key);
           }
 
-          tep_reset_cache_block('categories');
-          tep_reset_cache_block('also_purchased');
+          osC_Cache::reset('categories');
+          osC_Cache::reset('also_purchased');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         }
@@ -164,8 +164,8 @@
               tep_remove_product($_GET['pID']);
             }
 
-            tep_reset_cache_block('categories');
-            tep_reset_cache_block('also_purchased');
+            osC_Cache::reset('categories');
+            osC_Cache::reset('also_purchased');
 
             $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
           }
@@ -187,8 +187,8 @@
             $Qupdate->execute();
 
             if ($Qupdate->affectedRows()) {
-              tep_reset_cache_block('categories');
-              tep_reset_cache_block('also_purchased');
+              osC_Cache::reset('categories');
+              osC_Cache::reset('also_purchased');
 
               $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
@@ -216,8 +216,8 @@
             $Qupdate->execute();
 
             if ($Qupdate->affectedRows()) {
-              tep_reset_cache_block('categories');
-              tep_reset_cache_block('also_purchased');
+              osC_Cache::reset('categories');
+              osC_Cache::reset('also_purchased');
 
               $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
@@ -320,8 +320,8 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            tep_reset_cache_block('categories');
-            tep_reset_cache_block('also_purchased');
+            osC_Cache::reset('categories');
+            osC_Cache::reset('also_purchased');
 
             $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
@@ -425,8 +425,8 @@
               if ($error === false) {
                 $osC_Database->commitTransaction();
 
-                tep_reset_cache_block('categories');
-                tep_reset_cache_block('also_purchased');
+                osC_Cache::reset('categories');
+                osC_Cache::reset('also_purchased');
 
                 $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 

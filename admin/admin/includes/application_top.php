@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.168 2004/08/15 18:11:32 hpdl Exp $
+  $Id: application_top.php,v 1.169 2004/08/18 11:49:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -149,13 +149,6 @@
 
 // file uploading class
   require('includes/classes/upload.php');
-
-// the following cache blocks are used in the Tools->Cache section
-// ('language' in the filename is automatically replaced by available languages)
-  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'category_tree', 'file' => 'category_tree-language.cache', 'multiple' => false),
-                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
-                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
-                       );
 
 // check if a default currency is set
   if (!defined('DEFAULT_CURRENCY')) {
