@@ -1,6 +1,6 @@
 <?
   class reviewInfo {
-    var $id, $products_id, $products_name, $products_image, $customers_id, $author, $date_added, $read, $text_size, $rating, $average_rating, $text;
+    var $id, $products_id, $products_name, $products_image, $customers_id, $author, $date_added, $last_modified, $read, $text_size, $rating, $average_rating, $text;
 
 // class constructor
     function reviewInfo($rInfo_array) {
@@ -11,6 +11,7 @@
       $this->customers_id = $rInfo_array['customers_id'];
       $this->author = tep_customers_name($rInfo_array['customers_id']);
       $this->date_added = $rInfo_array['date_added'];
+      $this->last_modified = $rInfo_array['last_modified'];
       $this->read = $rInfo_array['reviews_read'];
       $this->text_size = $rInfo_array['reviews_text_size'];
       $this->rating = $rInfo_array['reviews_rating'];

@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.99 2001/06/07 07:53:41 mbs Exp $
+# $Id: mysql_catalog.sql,v 1.100 2001/06/07 08:15:05 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -332,6 +332,7 @@ CREATE TABLE reviews (
   customers_id int(5) NOT NULL,
   reviews_rating int(1),
   date_added datetime,
+  last_modified datetime,
   reviews_read int(5),
   PRIMARY KEY (reviews_id)
 );
@@ -1028,7 +1029,7 @@ INSERT INTO products_to_categories VALUES (25,8);
 INSERT INTO products_to_categories VALUES (26,9);
 INSERT INTO products_to_categories VALUES (27,5);
 
-INSERT INTO reviews VALUES (1,19,1,5, now(), 0);
+INSERT INTO reviews VALUES (1,19,1,5,'2001-06-07 00:02:20','',0);
 
 INSERT INTO reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
 

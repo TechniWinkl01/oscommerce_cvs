@@ -2,7 +2,7 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_review') {
-      tep_db_query("update reviews set reviews_rating = '" . $HTTP_POST_VARS['reviews_rating'] . "' where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
+      tep_db_query("update reviews set reviews_rating = '" . $HTTP_POST_VARS['reviews_rating'] . "', last_modified = now() where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
       tep_db_query("update reviews_description set reviews_text = '" . htmlspecialchars($HTTP_POST_VARS['reviews_text']) . "' where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID')) . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_review') {
@@ -46,7 +46,7 @@
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'edit') {
-    $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.reviews_read, rd.reviews_text, r.reviews_rating from reviews r, reviews_description rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
+    $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating from reviews r, reviews_description rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
     $reviews = tep_db_fetch_array($reviews_query);
     $products_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
     $products = tep_db_fetch_array($products_query);
@@ -97,7 +97,7 @@
     if ($HTTP_POST_VARS) {
       $rInfo = new reviewInfo($HTTP_POST_VARS);
     } else {
-      $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.reviews_read, rd.reviews_text, r.reviews_rating from reviews r, reviews_description rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
+      $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating from reviews r, reviews_description rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
       $reviews = tep_db_fetch_array($reviews_query);
       $products_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
       $products = tep_db_fetch_array($products_query);
@@ -192,7 +192,7 @@
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $reviews_query_raw = "select reviews_id, products_id, date_added, reviews_rating from reviews order by date_added DESC";
+    $reviews_query_raw = "select reviews_id, products_id, date_added, last_modified, reviews_rating from reviews order by date_added DESC";
     $reviews_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $reviews_query_raw, $reviews_query_numrows);
     $reviews_query = tep_db_query($reviews_query_raw);
     while ($reviews = tep_db_fetch_array($reviews_query)) {
@@ -272,7 +272,7 @@
       } else {
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info')) . 'action=edit&rID=' . $rInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action')) . 'action=delete&rID=' . $rInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($rInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($rInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($rInfo->last_modified));
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($rInfo->products_image, $rInfo->products_name));
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_REVIEW_AUTHOR . ' ' . $rInfo->author);
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_REVIEW_RATING . ' ' . $rInfo->rating . ' / 5');
