@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.84 2002/06/01 18:41:23 dgw_ Exp $
+  $Id: account_history_info.php,v 1.85 2002/06/11 19:49:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,42 +67,113 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL; ?></td>
+            <td class="main" colspan="2"><b><?php echo sprintf(HEADING_ORDER_NUMBER, $HTTP_GET_VARS['order_id']) . ' <small>(' . $order->info['orders_status'] . ')</small>'; ?></b></td>
           </tr>
           <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+            <td class="smallText"><?php echo HEADING_ORDER_DATE . ' ' . tep_date_long($order->info['date_purchased']); ?></td>
+            <td class="smallText" align="right"><?php echo HEADING_ORDER_TOTAL . ' ' . $order->info['total']; ?></td>
           </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><b><?php echo HEADING_DELIVERY_ADDRESS; ?></b></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>'); ?></td>
+              </tr>
 <?php
+  if ($order->info['shipping_method']) {
+?>
+              <tr>
+                <td class="main"><b><?php echo HEADING_SHIPPING_METHOD; ?></b></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo $order->info['shipping_method']; ?></td>
+              </tr>
+<?php
+  }
+?>
+            </table></td>
+            <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  if (sizeof($order->info['tax_groups']) > 1) {
+?>
+                  <tr>
+                    <td class="main" colspan="2"><b><?php echo HEADING_PRODUCTS; ?></b></td>
+                    <td class="smallText" align="right"><b><?php echo HEADING_TAX; ?></b></td>
+                    <td class="smallText" align="right"><b><?php echo HEADING_TOTAL; ?></b></td>
+                  </tr>
+<?php
+  } else {
+?>
+                  <tr>
+                    <td class="main" colspan="3"><b><?php echo HEADING_PRODUCTS; ?></b></td>
+                  </tr>
+<?php
+  }
+
   for ($i=0; $i<sizeof($order->products); $i++) {
     echo '          <tr>' . "\n" .
-         '            <td class="main" valign="top" align="right" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+         '            <td class="main" align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
          '            <td class="main" valign="top">' . $order->products[$i]['name'];
 
     if (sizeof($order->products[$i]['attributes']) > 0) {
       for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
-        echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-        if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
-        echo '</i></small></nobr>';
+        echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
       }
     }
 
-    echo '</td>' . "\n" .
-         '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
-         '            <td class="main" align="right" valign="top">' . $currencies->format( tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
+    echo '</td>' . "\n";
+
+    if (sizeof($order->info['tax_groups']) > 1) echo '            <td class="main" valign="top" align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
+
+    echo '            <td class="main" align="right" valign="top">' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
          '          </tr>' . "\n";
   }
 ?>
-          <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+                </table></td>
+              </tr>
+            </table></td>
           </tr>
-          <tr>
-            <td colspan="4" align="right"><table border="0" cellspacing="0" cellpadding="1">
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><b><?php echo HEADING_BILLING_INFORMATION; ?></b></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><b><?php echo HEADING_BILLING_ADDRESS; ?></b></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, ' ', '<br>'); ?></td>
+              </tr>
+              <tr>
+                <td class="main"><b><?php echo HEADING_PAYMENT_METHOD; ?></b></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo $order->info['payment_method']; ?></td>
+              </tr>
+            </table></td>
+            <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   for ($i=0; $i<sizeof($order->totals); $i++) {
     echo '              <tr>' . "\n" .
-         '                <td class="main" align="right">' . $order->totals[$i]['title'] . '</td>' . "\n" .
+         '                <td class="main" align="right" width="100%">' . $order->totals[$i]['title'] . '</td>' . "\n" .
          '                <td class="main" align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .
          '              </tr>' . "\n";
   }
@@ -115,61 +186,37 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="tableHeading"><?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>'); ?></td>
-          </tr>
-        </table></td>
+        <td class="main"><b><?php echo HEADING_ORDER_STATUS; ?></b></td>
       </tr>
-<?php
-  if (tep_not_null($order->info['payment_method'])) {
-?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><b><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></b></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo $order->info['payment_method']; ?></td>
-          </tr>
-        </table></td>
-      </tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
+  $statuses_query = tep_db_query("select os.orders_status_name, osh.date_added from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh where osh.orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and osh.new_value = os.orders_status_id and os.language_id = '" . $languages_id . "' order by osh.date_added desc");
+  while ($statuses = tep_db_fetch_array($statuses_query)) {
+    echo '              <tr>' . "\n" .
+         '                <td class="main">' . tep_date_short($statuses['date_added']) . '</td>' . "\n" .
+         '                <td class="main">' . $statuses['orders_status_name'] . '</td>' . "\n" .
+         '              </tr>' . "\n";
   }
-
-  if (tep_not_null($order->info['comments'])) {
 ?>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo nl2br($order->info['comments']); ?></td>
+            </table></td>
+            <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><b><?php echo HEADING_COMMENT; ?></b></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo ((strlen($order->info['comments']) > 0) ? nl2br($order->info['comments']) : '<i>' . TEXT_NO_COMMENTS_AVAILABLE . '</i>'); ?></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>
 <?php
-  }
-
   if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_BOXES . 'downloads.php');
 ?>
       <tr>

@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.46 2002/06/11 18:58:36 jan0815 Exp $
+  $Id: stylesheet.css,v 1.47 2002/06/11 19:49:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,12 +95,14 @@ TD.footer {
   font-weight: bold;
 }
 
-TABLE.infoBox {
+.infoBox {
   background: #b6b7cb;
 }
 
-TABLE.infoBoxContents {
+.infoBoxContents {
   background: #f8f8f9;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
 }
 
 TD.infoBoxHeading {

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.9 2002/03/31 20:10:43 clescuyer Exp $
+  $Id: account_history_info.php,v 1.10 2002/06/11 19:49:52 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,19 +13,29 @@
 define('NAVBAR_TITLE_1', 'Mi Cuenta');
 define('NAVBAR_TITLE_2', 'Historial');
 define('NAVBAR_TITLE_3', 'Detalle del Pedido');
+
 define('HEADING_TITLE', 'Detalle del Pedido');
-define('TABLE_HEADING_COMMENTS', 'Comentarios');
-define('TABLE_HEADING_QUANTITY', 'Cantidad');
-define('TABLE_HEADING_PRODUCTS', 'Producto');
-define('TABLE_HEADING_TAX', 'Impuestos');
-define('TABLE_HEADING_TOTAL', 'Total');
-define('TABLE_HEADING_DELIVERY_ADDRESS', 'Direccion de Entrega');
-define('TABLE_HEADING_PAYMENT_METHOD', 'Forma de Pago');
-define('TABLE_SUBHEADING_SUBTOTAL', 'Subtotal:');
-define('TABLE_SUBHEADING_TAX', 'Impuestos');
-define('TABLE_SUBHEADING_SHIPPING', 'Gastos de Envio:');
-define('TABLE_SUBHEADING_TOTAL', 'Total:');
-define('TEXT_COD', 'Contra Reembolso');
-define('TEXT_CC', 'Tarjeta de Credito');
-define('TEXT_PAYPAL', 'Paypal');
+
+define('HEADING_ORDER_NUMBER', 'Order #%s');
+define('HEADING_ORDER_DATE', 'Order Date:');
+define('HEADING_ORDER_TOTAL', 'Order Total:');
+
+define('HEADING_DELIVERY_ADDRESS', 'Direccion de Entrega');
+define('HEADING_SHIPPING_METHOD', 'Gastos de Envio');
+
+define('HEADING_PRODUCTS', 'Producto');
+define('HEADING_TAX', 'Impuestos');
+define('HEADING_TOTAL', 'Total');
+
+define('HEADING_BILLING_INFORMATION', 'Billing Information');
+define('HEADING_BILLING_ADDRESS', 'Billing Address');
+define('HEADING_PAYMENT_METHOD', 'Forma de Pago');
+
+define('HEADING_ORDER_STATUS', 'Order Status');
+define('HEADING_COMMENT', 'Comment');
+define('TEXT_NO_COMMENTS_AVAILABLE', 'No comments available.');
+
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry Date');
+define('TABLE_HEADING_DOWNLOAD_COUNT', 'Max # downloads');
+define('HEADING_DOWNLOAD', 'Download your products here:');
 ?>

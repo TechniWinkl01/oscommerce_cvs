@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.15 2002/01/15 20:12:48 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.16 2002/06/11 19:49:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,20 +25,20 @@
     $cart_contents_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
     $products = $cart->get_products(); // $products[$i]['id'] .. $products[$i]['name'] .. $products[$i]['quantity']
     for ($i=0; $i<sizeof($products); $i++) {
-      $cart_contents_string .= '<tr><td align="right" valign="top" class="infoBox">';
+      $cart_contents_string .= '<tr><td align="right" valign="top" class="infoBoxContents">';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
         $cart_contents_string .= '<span class="newItemInCart">'; // highlight product quantity
       } else {
-        $cart_contents_string .= '<span class="infoBox">';
+        $cart_contents_string .= '<span class="infoBoxContents">';
       }
 
-      $cart_contents_string .= $products[$i]['quantity'] . '&nbsp;x&nbsp;</span></td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
+      $cart_contents_string .= $products[$i]['quantity'] . '&nbsp;x&nbsp;</span></td><td valign="top" class="infoBoxContents"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
         $cart_contents_string .= '<span class="newItemInCart">'; // highlight product name
       } else {
-        $cart_contents_string .= '<span class="infoBox">';
+        $cart_contents_string .= '<span class="infoBoxContents">';
       }
 
       $cart_contents_string .= $products[$i]['name'] . '</span></a></td></tr>';

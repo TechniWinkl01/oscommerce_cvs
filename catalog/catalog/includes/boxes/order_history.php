@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_history.php,v 1.2 2002/06/05 20:59:08 dgw_ Exp $
+  $Id: order_history.php,v 1.3 2002/06/11 19:49:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,8 +34,8 @@
     $products_query = tep_db_query("select products_id, products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id in (" . $product_ids . ") and language_id = '" . $languages_id . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $customer_orders_string .= '  <tr>' . "\n" .
-                                 '    <td class="infoBox"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id']) . '">' . $products['products_name'] . '</a></td>' . "\n" .
-                                 '    <td class="infoBox" align="right" valign="top"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_ICONS . 'cart.gif', ICON_CART) . '</a></td>' . "\n" .
+                                 '    <td class="infoBoxContents"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id']) . '">' . $products['products_name'] . '</a></td>' . "\n" .
+                                 '    <td class="infoBoxContents" align="right" valign="top"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_ICONS . 'cart.gif', ICON_CART) . '</a></td>' . "\n" .
                                  '  </tr>' . "\n";
     }
     $customer_orders_string .= '</table>';

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.14 2002/06/07 01:07:53 hpdl Exp $
+  $Id: order.php,v 1.15 2002/06/11 19:49:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,6 +44,9 @@
       $order_total_query = tep_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
       $order_total = tep_db_fetch_array($order_total_query);
 
+      $shipping_method_query = tep_db_query("select title from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_shipping'");
+      $shipping_method = tep_db_fetch_array($shipping_method_query);
+
       $order_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $order['orders_status'] . "' and language_id = '" . $languages_id . "'");
       $order_status = tep_db_fetch_array($order_status_query);
 
@@ -58,7 +61,8 @@
                           'date_purchased' => $order['date_purchased'],
                           'orders_status' => $order_status['orders_status_name'],
                           'last_modified' => $order['last_modified'],
-                          'total' => strip_tags($order_total['text']));
+                          'total' => strip_tags($order_total['text']),
+                          'shipping_method' => ((substr($shipping_method['title'], -1) == ':') ? substr(strip_tags($shipping_method['title']), 0, -1) : strip_tags($shipping_method['title'])));
 
       $this->customer = array('name' => $order['customers_name'],
                               'street_address' => $order['customers_street_address'],
@@ -102,6 +106,9 @@
             $subindex++;
           }
         }
+
+        $this->info['tax_groups']["{$this->products[$index]['tax']}"] = '1';
+
         $index++;
       }
     }
