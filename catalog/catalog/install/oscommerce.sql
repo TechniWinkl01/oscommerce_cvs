@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.169 2001/12/27 23:58:18 dgw_ Exp $
+# $Id: oscommerce.sql,v 1.1 2002/01/02 13:07:35 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
