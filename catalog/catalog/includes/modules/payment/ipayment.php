@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.21 2002/04/19 14:28:25 harley_vb Exp $
+  $Id: ipayment.php,v 1.22 2002/05/30 15:36:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,7 +68,7 @@
       if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['ipayment_cc_expires_month'], $HTTP_POST_VARS['ipayment_cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['ipayment_cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['ipayment_cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['ipayment_cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['ipayment_cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['ipayment_cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['ipayment_cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['ipayment_cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['ipayment_cc_expires_year'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }

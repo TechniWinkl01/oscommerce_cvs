@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.27 2002/04/05 00:52:43 hpdl Exp $
+  $Id: paypal.php,v 1.28 2002/05/30 15:36:36 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,18 +41,15 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $order, $shipping_selected, $currencies;
-
-      $paypal_return = 'shipping_selected=' . $shipping_selected . '&shipping_cost=' . $order->info['shipping_cost'] . '&shipping_method=' . urlencode($order->info['shipping_method']);
-      $paypal_cancel_return = 'shipping_selected=' . $shipping_selected;
+      global $order, $currencies;
 
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
                                tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencies->currencies['USD']['value'], 2)) .
                                tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencies->get_value('USD'), 2)) .
-                               tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, $paypal_return, 'SSL')) .
-                               tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $paypal_cancel_return, 'SSL'));
+                               tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                               tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
       return $process_button_string;
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.19 2002/04/05 01:20:56 hpdl Exp $
+  $Id: secpay.php,v 1.20 2002/05/30 15:36:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,9 +63,9 @@
                                tep_draw_hidden_field('ship_post_code', $order->delivery['postcode']) .
                                tep_draw_hidden_field('ship_country', $order->delivery['country']) .
                                tep_draw_hidden_field('currency', MODULE_PAYMENT_SECPAY_CURRENCY) .
-                               tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, 'shipping_cost=' . $order->info['shipping_cost'] . '&shipping_method=' . urlencode($order->info['shipping_method'])), true) .
+                               tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
                                tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
-                               tep_draw_hidden_field('options', 'test_status=' . MODULE_PAYMENT_SECPAY_TEST_STATUS . ',dups=false,cb_post=true,cb_flds=payment:shipping_cost:shipping_method:' . tep_session_name());
+                               tep_draw_hidden_field('options', 'test_status=' . MODULE_PAYMENT_SECPAY_TEST_STATUS . ',dups=false,cb_post=true,cb_flds=' . tep_session_name());
 
       return $process_button_string;
     }
