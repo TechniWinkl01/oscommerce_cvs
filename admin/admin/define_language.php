@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.19 2004/11/07 21:00:29 hpdl Exp $
+  $Id: define_language.php,v 1.20 2004/11/20 02:16:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,15 +19,14 @@
   $lng = (isset($_GET['lng']) ? $_GET['lng'] : $osC_Session->value('language'));
 
   $languages_array = array();
-  $languages = tep_get_languages();
   $exists = false;
-  for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-    if ($languages[$i]['directory'] == $lng) {
+  foreach ($osC_Language->getAll() as $language) {
+    if ($language['directory'] == $lng) {
       $exists = true;
     }
 
-    $languages_array[] = array('id' => $languages[$i]['directory'],
-                               'text' => $languages[$i]['name']);
+    $languages_array[] = array('id' => $language['directory'],
+                               'text' => $language['name']);
   }
 
   if ($exists === false) {

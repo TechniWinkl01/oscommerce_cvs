@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.24 2004/10/28 18:59:50 hpdl Exp $
+  $Id: orders_status.php,v 1.25 2004/11/20 02:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,8 +23,6 @@
   if (!empty($action)) {
     switch ($action) {
       case 'save':
-        $languages = tep_get_languages();
-
         if (isset($_GET['osID']) && is_numeric($_GET['osID'])) {
           $orders_status_id = $_GET['osID'];
         } else {
@@ -39,7 +37,7 @@
 
         $osC_Database->startTransaction();
 
-        foreach ($languages as $l_entry) {
+        foreach ($osC_Language->getAll() as $language) {
           if (isset($_GET['osID']) && is_numeric($_GET['osID'])) {
             $Qstatus = $osC_Database->query('update :table_orders_status set orders_status_name = :orders_status_name where orders_status_id = :orders_status_id and language_id = :language_id');
           } else {
@@ -47,8 +45,8 @@
           }
           $Qstatus->bindTable(':table_orders_status', TABLE_ORDERS_STATUS);
           $Qstatus->bindInt(':orders_status_id', $orders_status_id);
-          $Qstatus->bindValue(':orders_status_name', $_POST['orders_status_name'][$l_entry['id']]);
-          $Qstatus->bindInt(':language_id', $l_entry['id']);
+          $Qstatus->bindValue(':orders_status_name', $_POST['orders_status_name'][$language['id']]);
+          $Qstatus->bindInt(':language_id', $language['id']);
           $Qstatus->execute();
 
           if ($osC_Database->isError()) {

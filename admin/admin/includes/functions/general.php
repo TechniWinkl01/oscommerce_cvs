@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.175 2004/11/07 21:00:36 hpdl Exp $
+  $Id: general.php,v 1.176 2004/11/20 02:16:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -278,26 +278,6 @@
     $pieces = explode('{', $uprid);
 
     return $pieces[0];
-  }
-
-  function tep_get_languages() {
-    global $osC_Database;
-
-    $languages_array = array();
-
-    $Qlanguages = $osC_Database->query('select languages_id, name, code, image, directory from :table_languages order by sort_order, name');
-    $Qlanguages->bindTable(':table_languages', TABLE_LANGUAGES);
-    $Qlanguages->execute();
-
-    while ($Qlanguages->next()) {
-      $languages_array[] = array('id' => $Qlanguages->valueInt('languages_id'),
-                                 'name' => $Qlanguages->value('name'),
-                                 'code' => $Qlanguages->value('code'),
-                                 'image' => $Qlanguages->value('image'),
-                                 'directory' => $Qlanguages->value('directory'));
-    }
-
-    return $languages_array;
   }
 
   function tep_get_weight_class_title($weight_class_id, $language_id = '') {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_edit.php,v 1.4 2004/11/07 21:00:48 hpdl Exp $
+  $Id: products_edit.php,v 1.5 2004/11/20 02:16:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,8 +63,6 @@
     $weight_class_array[] = array('id' => $Qwc->valueInt('weight_class_id'),
                                   'text' => $Qwc->value('weight_class_title'));
   }
-
-  $languages = tep_get_languages();
 
   require('includes/classes/directory_listing.php');
   $osC_Dir_Images = new osC_DirectoryListing('../images');
@@ -256,36 +254,36 @@
       //--></script>
 
 <?php
-  foreach ($languages as $l_entry) {
+  foreach ($osC_Language->getAll() as $language) {
 ?>
 
-      <div class="tab-page" id="tabDescriptionLanguages_<?php echo $l_entry['code']; ?>">
-        <h2 class="tab"><?php echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . $l_entry['name']; ?></h2>
+      <div class="tab-page" id="tabDescriptionLanguages_<?php echo $language['code']; ?>">
+        <h2 class="tab"><?php echo tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . $language['name']; ?></h2>
 
         <script type="text/javascript"><!--
-          descriptionTabPane.addTabPage( document.getElementById( "tabDescriptionLanguages_<?php echo $l_entry['code']; ?>" ) );
+          descriptionTabPane.addTabPage( document.getElementById( "tabDescriptionLanguages_<?php echo $language['code']; ?>" ) );
         //--></script>
 
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="smallText"><?php echo TEXT_PRODUCTS_NAME; ?></td>
-            <td class="smallText"><?php echo osc_draw_input_field('products_name[' . $l_entry['id'] . ']', (isset($pInfo) && is_array($pInfo->products_name) && isset($pInfo->products_name[$l_entry['id']]) ? $pInfo->products_name[$l_entry['id']] : '')); ?></td>
+            <td class="smallText"><?php echo osc_draw_input_field('products_name[' . $language['id'] . ']', (isset($pInfo) && is_array($pInfo->products_name) && isset($pInfo->products_name[$language['id']]) ? $pInfo->products_name[$language['id']] : '')); ?></td>
           </tr>
           <tr>
             <td class="smallText" valign="top"><?php echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
-            <td class="smallText"><?php echo tep_draw_textarea_field('products_description[' . $l_entry['id'] . ']', 'soft', '70', '15', (isset($pInfo) && is_array($pInfo->products_description) && isset($pInfo->products_description[$l_entry['id']]) ? $pInfo->products_description[$l_entry['id']] : ''), 'id="fckpd_' . $l_entry['code'] . '" style="width: 100%;"'); ?></td>
+            <td class="smallText"><?php echo tep_draw_textarea_field('products_description[' . $language['id'] . ']', 'soft', '70', '15', (isset($pInfo) && is_array($pInfo->products_description) && isset($pInfo->products_description[$language['id']]) ? $pInfo->products_description[$language['id']] : ''), 'id="fckpd_' . $language['code'] . '" style="width: 100%;"'); ?></td>
           </tr>
           <tr>
             <td class="smallText"><?php echo TEXT_PRODUCTS_URL; ?></td>
-            <td class="smallText"><?php echo osc_draw_input_field('products_url[' . $l_entry['id'] . ']', (isset($pInfo) && is_array($pInfo->products_url) && isset($pInfo->products_url[$l_entry['id']]) ? $pInfo->products_url[$l_entry['id']] : '')); ?></td>
+            <td class="smallText"><?php echo osc_draw_input_field('products_url[' . $language['id'] . ']', (isset($pInfo) && is_array($pInfo->products_url) && isset($pInfo->products_url[$language['id']]) ? $pInfo->products_url[$language['id']] : '')); ?></td>
           </tr>
         </table>
 
         <script type="text/javascript"><!--
-          var fckpd_<?php echo $l_entry['code']; ?> = new FCKeditor('fckpd_<?php echo $l_entry['code']; ?>');
-          fckpd_<?php echo $l_entry['code']; ?>.BasePath = "<?php echo DIR_WS_CATALOG . 'admin/external/FCKeditor/2.0b1/'; ?>";
-          fckpd_<?php echo $l_entry['code']; ?>.Height = "400";
-          fckpd_<?php echo $l_entry['code']; ?>.ReplaceTextarea();
+          var fckpd_<?php echo $language['code']; ?> = new FCKeditor('fckpd_<?php echo $language['code']; ?>');
+          fckpd_<?php echo $language['code']; ?>.BasePath = "<?php echo DIR_WS_CATALOG . 'admin/external/FCKeditor/2.0b1/'; ?>";
+          fckpd_<?php echo $language['code']; ?>.Height = "400";
+          fckpd_<?php echo $language['code']; ?>.ReplaceTextarea();
         //--></script>
       </div>
 

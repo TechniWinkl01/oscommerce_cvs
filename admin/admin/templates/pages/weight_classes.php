@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: weight_classes.php,v 1.2 2004/11/07 21:00:48 hpdl Exp $
+  $Id: weight_classes.php,v 1.3 2004/11/20 02:16:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -88,9 +88,8 @@
         <td class="smallText" width="40%"><?php echo '<b>' . TEXT_INFO_WEIGHT_CLASS_TITLE . '</b>'; ?></td>
         <td class="smallText" width="60%">
 <?php
-  $languages = tep_get_languages();
-  foreach ($languages as $l_entry) {
-    echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $l_entry['id'] . ']') . osc_draw_input_field('weight_class_key[' . $l_entry['id'] . ']', '', 'size="4"') . '<br>';
+  foreach ($osC_Language->getAll() as $language) {
+    echo tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $language['id'] . ']') . osc_draw_input_field('weight_class_key[' . $language['id'] . ']', '', 'size="4"') . '<br>';
   }
 ?>
         </td>
@@ -154,9 +153,8 @@
                                                          'title' => $Qwc->value('weight_class_title'));
     }
 
-    $languages = tep_get_languages();
-    foreach ($languages as $l_entry) {
-      echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $l_entry['id'] . ']', $class_name[$l_entry['id']]['title']) . osc_draw_input_field('weight_class_key[' . $l_entry['id'] . ']', $class_name[$l_entry['id']]['key'], 'size="4"') . '<br>';
+    foreach ($osC_Language->getAll() as $language) {
+      echo tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $language['id'] . ']', $class_name[$language['id']]['title']) . osc_draw_input_field('weight_class_key[' . $language['id'] . ']', $class_name[$language['id']]['key'], 'size="4"') . '<br>';
     }
 ?>
         </td>

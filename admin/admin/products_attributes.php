@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.56 2004/10/28 18:59:51 hpdl Exp $
+  $Id: products_attributes.php,v 1.57 2004/11/20 02:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,8 +39,6 @@
 
   $selected_box = 'catalog';
 
-  $languages = tep_get_languages();
-
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!isset($_GET['page']) || (isset($_GET['page']) && !is_numeric($_GET['page']))) {
@@ -56,7 +54,6 @@
   if (!empty($action)) {
     switch ($action) {
       case 'saveGroup':
-        $languages = tep_get_languages();
         $error = false;
 
         if (isset($_GET['paID']) && is_numeric($_GET['paID'])) {
@@ -71,7 +68,7 @@
 
         $osC_Database->startTransaction();
 
-        foreach ($languages as $l_entry) {
+        foreach ($osC_Language->getAll() as $language) {
           if (isset($_GET['paID']) && is_numeric($_GET['paID'])) {
             $Qgroup = $osC_Database->query('update :table_products_options set products_options_name = :products_options_name where products_options_id = :products_options_id and language_id = :language_id');
           } else {
@@ -79,8 +76,8 @@
           }
           $Qgroup->bindTable(':table_products_options', TABLE_PRODUCTS_OPTIONS);
           $Qgroup->bindInt(':products_options_id', $group_id);
-          $Qgroup->bindValue(':products_options_name', $_POST['group_name'][$l_entry['id']]);
-          $Qgroup->bindInt(':language_id', $l_entry['id']);
+          $Qgroup->bindValue(':products_options_name', $_POST['group_name'][$language['id']]);
+          $Qgroup->bindInt(':language_id', $language['id']);
           $Qgroup->execute();
 
           if ($osC_Database->isError()) {
@@ -167,7 +164,6 @@
   if (!empty($entriesAction)) {
     switch ($entriesAction) {
       case 'saveGroupEntry':
-        $languages = tep_get_languages();
         $error = false;
 
         if (isset($_GET['paeID']) && is_numeric($_GET['paeID'])) {
@@ -182,7 +178,7 @@
 
         $osC_Database->startTransaction();
 
-        foreach ($languages as $l_entry) {
+        foreach ($osC_Language->getAll() as $language) {
           if (isset($_GET['paeID']) && is_numeric($_GET['paeID'])) {
             $Qentry = $osC_Database->query('update :table_products_options_values set products_options_values_name = :products_options_values_name where products_options_values_id = :products_options_values_id and language_id = :language_id');
           } else {
@@ -190,8 +186,8 @@
           }
           $Qentry->bindTable(':table_products_options_values', TABLE_PRODUCTS_OPTIONS_VALUES);
           $Qentry->bindInt(':products_options_values_id', $entry_id);
-          $Qentry->bindValue(':products_options_values_name', $_POST['entry_name'][$l_entry['id']]);
-          $Qentry->bindInt(':language_id', $l_entry['id']);
+          $Qentry->bindValue(':products_options_values_name', $_POST['entry_name'][$language['id']]);
+          $Qentry->bindInt(':language_id', $language['id']);
           $Qentry->execute();
 
           if ($osC_Database->isError()) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.158 2004/11/07 21:00:29 hpdl Exp $
+  $Id: categories.php,v 1.159 2004/11/20 02:16:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,9 +64,7 @@
         if ($osC_Database->isError() === false) {
           $category_id = (isset($_GET['cID']) && is_numeric($_GET['cID'])) ? $_GET['cID'] : $osC_Database->nextID();
 
-          $languages = tep_get_languages();
-
-          foreach ($languages as $l_entry) {
+          foreach ($osC_Language->getAll() as $language) {
             if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
               $Qcd = $osC_Database->query('update :table_categories_description set categories_name = :categories_name where categories_id = :categories_id and language_id = :language_id');
             } else {
@@ -74,8 +72,8 @@
             }
             $Qcd->bindTable(':table_categories_description', TABLE_CATEGORIES_DESCRIPTION);
             $Qcd->bindInt(':categories_id', $category_id);
-            $Qcd->bindInt(':language_id', $l_entry['id']);
-            $Qcd->bindValue(':categories_name', $_POST['categories_name'][$l_entry['id']]);
+            $Qcd->bindInt(':language_id', $language['id']);
+            $Qcd->bindValue(':categories_name', $_POST['categories_name'][$language['id']]);
             $Qcd->execute();
 
             if ($osC_Database->isError()) {

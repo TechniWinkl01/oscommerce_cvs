@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.61 2004/11/07 21:00:30 hpdl Exp $
+  $Id: manufacturers.php,v 1.62 2004/11/20 02:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,8 +58,7 @@
         }
 
         if ($error === false) {
-          $languages = tep_get_languages();
-          foreach ($languages as $l_entry) {
+          foreach ($osC_Language->getAll() as $language) {
             if (isset($_GET['mID']) && is_numeric($_GET['mID'])) {
               $Qurl = $osC_Database->query('update :table_manufacturers_info set manufacturers_url = :manufacturers_url where manufacturers_id = :manufacturers_id and languages_id = :languages_id');
             } else {
@@ -67,8 +66,8 @@
             }
             $Qurl->bindTable(':table_manufacturers_info', TABLE_MANUFACTURERS_INFO);
             $Qurl->bindInt(':manufacturers_id', $manufacturers_id);
-            $Qurl->bindInt(':languages_id', $l_entry['id']);
-            $Qurl->bindValue(':manufacturers_url', $_POST['manufacturers_url'][$l_entry['id']]);
+            $Qurl->bindInt(':languages_id', $language['id']);
+            $Qurl->bindValue(':manufacturers_url', $_POST['manufacturers_url'][$language['id']]);
             $Qurl->execute();
 
             if ($osC_Database->isError()) {
@@ -81,7 +80,7 @@
         if ($error === false) {
           $osC_Database->commitTransaction();
 
-          osC_Cache::reset('manufacturers');
+          osC_Cache::clear('manufacturers');
 
           $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
@@ -133,7 +132,7 @@
             $Qupdate->execute();
           }
 
-          osC_Cache::reset('manufacturers');
+          osC_Cache::clear('manufacturers');
 
           $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         }

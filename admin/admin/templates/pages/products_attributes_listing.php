@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes_listing.php,v 1.2 2004/11/07 21:00:47 hpdl Exp $
+  $Id: products_attributes_listing.php,v 1.3 2004/11/20 02:16:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -88,8 +88,8 @@
         <td class="smallText" width="40%" valign="top"><?php echo '<b>' . TEXT_INFO_ATTRIBUTE_ENTRY_NAME . '</b>'; ?></td>
         <td class="smallText" width="60%">
 <?php
-  foreach ($languages as $l_entry) {
-    echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('entry_name[' . $l_entry['id'] . ']') . '<br>';
+  foreach ($osC_Language->getAll() as $language) {
+    echo tep_image('../includes/languages/' . $language['directory'] . '/images/icon.gif', $language['name']) . '&nbsp;' .  osc_draw_input_field('entry_name[' . $language['id'] . ']') . '<br>';
   }
 ?>
         </td>
@@ -128,8 +128,8 @@
       $entry_names[$Qed->valueInt('language_id')] = $Qed->value('products_options_values_name');
     }
 
-    foreach ($languages as $l_entry) {
-      echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('entry_name[' . $l_entry['id'] . ']', (isset($entry_names[$l_entry['id']]) ? $entry_names[$l_entry['id']] : '')) . '<br>';
+    foreach ($osC_Language->getAll() as $language) {
+      echo tep_image('../includes/languages/' . $language['directory'] . '/images/icon.gif', $language['name']) . '&nbsp;' .  osc_draw_input_field('entry_name[' . $language['id'] . ']', (isset($entry_names[$language['id']]) ? $entry_names[$language['id']] : '')) . '<br>';
     }
 ?>
         </td>

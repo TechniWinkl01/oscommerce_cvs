@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.17 2004/11/07 21:00:30 hpdl Exp $
+  $Id: products.php,v 1.18 2004/11/20 02:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -183,8 +183,7 @@
           }
 
           if ($error === false) {
-            $languages = tep_get_languages();
-            foreach ($languages as $l_entry) {
+            foreach ($osC_Language->getAll() as $language) {
               if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
                 $Qpd = $osC_Database->query('update :table_products_description set products_name = :products_name, products_description = :products_description, products_url = :products_url where products_id = :products_id and language_id = :language_id');
               } else {
@@ -192,10 +191,10 @@
               }
               $Qpd->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
               $Qpd->bindInt(':products_id', $products_id);
-              $Qpd->bindInt(':language_id', $l_entry['id']);
-              $Qpd->bindValue(':products_name', $_POST['products_name'][$l_entry['id']]);
-              $Qpd->bindValue(':products_description', $_POST['products_description'][$l_entry['id']]);
-              $Qpd->bindValue(':products_url', $_POST['products_url'][$l_entry['id']]);
+              $Qpd->bindInt(':language_id', $language['id']);
+              $Qpd->bindValue(':products_name', $_POST['products_name'][$language['id']]);
+              $Qpd->bindValue(':products_description', $_POST['products_description'][$language['id']]);
+              $Qpd->bindValue(':products_url', $_POST['products_url'][$language['id']]);
               $Qpd->execute();
 
               if ($osC_Database->isError()) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.2 2004/11/07 21:00:47 hpdl Exp $
+  $Id: products_attributes.php,v 1.3 2004/11/20 02:16:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,8 +43,6 @@
 <?php
       }
 */
-
-  $languages = tep_get_languages();
 ?>
 
 <h1><?php echo HEADING_TITLE;?></h1>
@@ -129,8 +127,8 @@
         <td class="smallText" width="40%" valign="top"><?php echo '<b>' . TEXT_INFO_ATTRIBUTE_GROUP_NAME . '</b>'; ?></td>
         <td class="smallText" width="60%">
 <?php
-  foreach ($languages as $l_entry) {
-    echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $l_entry['id'] . ']') . '<br>';
+  foreach ($osC_Language->getAll() as $language) {
+    echo tep_image('../includes/languages/' . $language['directory'] . '/images/icon.gif', $language['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $language['id'] . ']') . '<br>';
   }
 ?>
         </td>
@@ -161,7 +159,7 @@
 <?php
     $Qgd = $osC_Database->query('select language_id, products_options_name from :table_products_options where products_options_id = :products_options_id');
     $Qgd->bindTable(':table_products_options', TABLE_PRODUCTS_OPTIONS);
-    $Qgd->bindInt(':products_options_id', $_GET['paID']);
+    $Qgd->bindInt(':products_options_id', $paInfo->products_options_id);
     $Qgd->execute();
 
     $group_names = array();
@@ -169,8 +167,8 @@
       $group_names[$Qgd->valueInt('language_id')] = $Qgd->value('products_options_name');
     }
 
-    foreach ($languages as $l_entry) {
-      echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $l_entry['id'] . ']', (isset($group_names[$l_entry['id']]) ? $group_names[$l_entry['id']] : '')) . '<br>';
+    foreach ($osC_Language->getAll() as $language) {
+      echo tep_image('../includes/languages/' . $language['directory'] . '/images/icon.gif', $language['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $language['id'] . ']', (isset($group_names[$language['id']]) ? $group_names[$language['id']] : '')) . '<br>';
     }
 ?>
         </td>

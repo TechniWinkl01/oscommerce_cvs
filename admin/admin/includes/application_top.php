@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.180 2004/11/07 21:00:34 hpdl Exp $
+  $Id: application_top.php,v 1.181 2004/11/20 02:16:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -91,18 +91,18 @@
   $osC_Session->start();
 
 // set the language
-  if (($osC_Session->exists('language') == false) || isset($_GET['language'])) {
-    include('../includes/classes/language.php');
-    $lng = new language;
+  require('../includes/classes/language.php');
+  $osC_Language = new language();
 
-    if (isset($_GET['language']) && tep_not_null($_GET['language'])) {
-      $lng->set_language($_GET['language']);
-    } else {
-      $lng->get_browser_language();
-    }
+  if (isset($_GET['language']) && !empty($_GET['language'])) {
+    $osC_Language->set_language($_GET['language']);
+  } elseif ($osC_Session->exists('language') == false) {
+    $osC_Language->get_browser_language();
+  }
 
-    $osC_Session->set('language', $lng->language['directory']);
-    $osC_Session->set('languages_id', $lng->language['id']);
+  if ( ($osC_Session->exists('language') == false) || ($osC_Session->value('language') != $osC_Language->language['directory']) ) {
+    $osC_Session->set('language', $osC_Language->language['directory']);
+    $osC_Session->set('languages_id', $osC_Language->language['id']);
   }
 
   require('includes/languages/' . $osC_Session->value('language') . '.php');

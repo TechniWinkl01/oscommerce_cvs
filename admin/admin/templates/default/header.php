@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.7 2004/11/07 21:00:45 hpdl Exp $
+  $Id: header.php,v 1.8 2004/11/20 02:16:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,8 +9,6 @@
 
   Released under the GNU General Public License
 */
-
-  $languages = tep_get_languages();
 
   if ($osC_MessageStack->size('header') > 0) {
     echo $osC_MessageStack->output('header');
@@ -96,8 +94,8 @@
        '        ],' . "\n" .
        '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/locale.png', '', '16', '16') . '\', \'' . addslashes(HEADER_TITLE_LANGUAGES) . '\', null, null, null,' . "\n";
 
-  foreach ($languages as $l_entry) {
-    echo '            [\'' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif') . '\', \'' . addslashes($l_entry['name']) . '\', \'' . tep_href_link(FILENAME_DEFAULT, 'language=' . $l_entry['code']) . '\', null, null],' . "\n";
+  foreach ($osC_Language->getAll() as $language) {
+    echo '            [\'' . tep_image('../includes/languages/' . $language['directory'] . '/images/icon.gif') . '\', \'' . addslashes($language['name']) . '\', \'' . tep_href_link(FILENAME_DEFAULT, 'language=' . $language['code']) . '\', null, null],' . "\n";
   }
 
   echo '        ],' . "\n" .

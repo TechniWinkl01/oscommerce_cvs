@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.5 2004/11/07 21:00:46 hpdl Exp $
+  $Id: categories.php,v 1.6 2004/11/20 02:16:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -123,9 +123,8 @@
 <?php
   echo TEXT_CATEGORIES_NAME;
 
-  $languages = tep_get_languages();
-  foreach ($languages as $l_entry) {
-    echo '<br>' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $l_entry['id'] . ']');
+  foreach ($osC_Language->getAll() as $language) {
+    echo '<br>' . tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $language['id'] . ']');
   }
 ?>
     </p>
@@ -193,9 +192,8 @@
       $categories_name[$Qcd->valueInt('language_id')] = $Qcd->value('categories_name');
     }
 
-    $languages = tep_get_languages();
-    foreach ($languages as $l_entry) {
-      echo '<br>' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $l_entry['id'] . ']', (isset($categories_name[$l_entry['id']]) ? $categories_name[$l_entry['id']] : ''));
+    foreach ($osC_Language->getAll() as $language) {
+      echo '<br>' . tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $language['id'] . ']', (isset($categories_name[$language['id']]) ? $categories_name[$language['id']] : ''));
     }
 ?>
     </p>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.2 2004/11/07 21:00:47 hpdl Exp $
+  $Id: orders_status.php,v 1.3 2004/11/20 02:16:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -86,9 +86,8 @@
         <td class="smallText" width="40%"><?php echo '<b>' . TEXT_INFO_ORDERS_STATUS_NAME . '</b>'; ?></td>
         <td class="smallText" width="60%">
 <?php
-  $languages = tep_get_languages();
-  foreach ($languages as $l_entry) {
-    echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('orders_status_name[' . $l_entry['id'] . ']') . '<br>';
+  foreach ($osC_Language->getAll() as $language) {
+    echo tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . osc_draw_input_field('orders_status_name[' . $language['id'] . ']') . '<br>';
   }
 ?>
         </td>
@@ -131,9 +130,8 @@
       $status_name[$Qsd->valueInt('language_id')] = $Qsd->value('orders_status_name');
     }
 
-    $languages = tep_get_languages();
-    foreach ($languages as $l_entry) {
-      echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('orders_status_name[' . $l_entry['id'] . ']', (isset($status_name[$l_entry['id']]) ? $status_name[$l_entry['id']] : '')) . '<br>';
+    foreach ($osC_Language->getAll() as $language) {
+      echo tep_image('../includes/languages/' . $language['directory'] . '/images/' . $language['image'], $language['name']) . '&nbsp;' . osc_draw_input_field('orders_status_name[' . $language['id'] . ']', (isset($status_name[$language['id']]) ? $status_name[$language['id']] : '')) . '<br>';
     }
 ?>
         </td>

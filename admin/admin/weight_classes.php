@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: weight_classes.php,v 1.3 2004/10/28 18:59:52 hpdl Exp $
+  $Id: weight_classes.php,v 1.4 2004/11/20 02:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,8 +23,6 @@
   if (!empty($action)) {
     switch ($action) {
       case 'save':
-        $languages = tep_get_languages();
-
         if (isset($_GET['wcID']) && is_numeric($_GET['wcID'])) {
           $weight_class_id = $_GET['wcID'];
         } else {
@@ -39,7 +37,7 @@
 
         $osC_Database->startTransaction();
 
-        foreach ($languages as $l_entry) {
+        foreach ($osC_Language->getAll() as $language) {
           if (isset($_GET['wcID']) && is_numeric($_GET['wcID'])) {
             $Qwc = $osC_Database->query('update :table_weight_classes set weight_class_key = :weight_class_key, weight_class_title = :weight_class_title where weight_class_id = :weight_class_id and language_id = :language_id');
           } else {
@@ -47,9 +45,9 @@
           }
           $Qwc->bindTable(':table_weight_classes', TABLE_WEIGHT_CLASS);
           $Qwc->bindInt(':weight_class_id', $weight_class_id);
-          $Qwc->bindInt(':language_id', $l_entry['id']);
-          $Qwc->bindValue(':weight_class_key', $_POST['weight_class_key'][$l_entry['id']]);
-          $Qwc->bindValue(':weight_class_title', $_POST['weight_class_title'][$l_entry['id']]);
+          $Qwc->bindInt(':language_id', $language['id']);
+          $Qwc->bindValue(':weight_class_key', $_POST['weight_class_key'][$language['id']]);
+          $Qwc->bindValue(':weight_class_title', $_POST['weight_class_title'][$language['id']]);
           $Qwc->execute();
 
           if ($osC_Database->isError()) {
