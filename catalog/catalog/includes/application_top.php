@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.230 2002/05/22 06:32:19 hpdl Exp $
+  $Id: application_top.php,v 1.231 2002/05/26 10:57:21 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -300,14 +300,14 @@
                                   } else {
                                     $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
                                   }
-                                  $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
+                                  $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes, false);
                                 }
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               break;
       // customer adds a product from the products page
       case 'add_product' :    if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
-                                $cart->add_cart($HTTP_POST_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1, $HTTP_POST_VARS['id']);
+                                $cart->add_cart($HTTP_POST_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1, $HTTP_POST_VARS['id'], true);
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               break;
@@ -315,7 +315,7 @@
       case 'buy_now' :        if (tep_has_product_attributes($HTTP_GET_VARS['products_id'])) {
                                 tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
                               } else {
-                                $cart->add_cart($HTTP_GET_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1);
+                                $cart->add_cart($HTTP_GET_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1, true);
                                 tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               }
                               break;
@@ -356,7 +356,7 @@
                                 if (tep_has_product_attributes($HTTP_GET_VARS['pid'])) {
                                   tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['pid'], 'NONSSL'));
                                 } else {
-                                  $cart->add_cart($HTTP_GET_VARS['pid'], 1);
+                                  $cart->add_cart($HTTP_GET_VARS['pid'], 1, true);
                                 }
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));

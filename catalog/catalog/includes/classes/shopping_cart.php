@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.28 2002/05/16 15:33:25 hpdl Exp $
+  $Id: shopping_cart.php,v 1.29 2002/05/26 10:57:21 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,10 +70,14 @@
       }
     }
 
-    function add_cart($products_id, $qty = '', $attributes = '') {
+    function add_cart($products_id, $qty = '', $attributes = '', $notify = true) {
       global $new_products_id_in_cart, $customer_id;
 
       $products_id = tep_get_uprid($products_id, $attributes);
+      if ($notify == true) {
+        $new_products_id_in_cart = $products_id;
+        tep_session_register('new_products_id_in_cart');
+      }
 
       if ($this->in_cart($products_id)) {
         $this->update_quantity($products_id, $qty, $attributes);
@@ -93,8 +97,6 @@
             if ($customer_id) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . $customer_id . "', '" . $products_id . "', '" . $option . "', '" . $value . "')");
           }
         }
-        $new_products_id_in_cart = $products_id;
-        tep_session_register('new_products_id_in_cart');
       }
       $this->cleanup();
     }
