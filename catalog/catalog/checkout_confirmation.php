@@ -2,7 +2,7 @@
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <? 
-   $cc_val = '';
+   $cc_val = '1';
    if ($HTTP_POST_VARS['payment'] == 'cc') {
    $include_file = DIR_FUNCTIONS . 'ccval.php'; include(DIR_INCLUDES . 'include_once.php');
    $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
