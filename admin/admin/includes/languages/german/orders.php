@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.25 2003/02/06 17:37:16 thomasamoulton Exp $
+  $Id: orders.php,v 1.26 2003/02/09 13:15:23 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,6 @@ define('HEADING_TITLE_SEARCH', 'Bestell-Nr.:');
 define('HEADING_TITLE_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Kommentar');
-define('TABLE_HEADING_SPECIAL_INSTRUCTIONS', 'Special Instructions');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
 define('TABLE_HEADING_ORDER_TOTAL', 'Gesamtwert');
 define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.25 2003/02/07 22:01:56 dgw_ Exp $
+  $Id: order.php,v 1.26 2003/02/09 13:15:23 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,7 +57,6 @@
                           'cc_owner' => $order['cc_owner'],
                           'cc_number' => $order['cc_number'],
                           'cc_expires' => $order['cc_expires'],
-                          'comments' => $order['comments'],
                           'date_purchased' => $order['date_purchased'],
                           'orders_status' => $order_status['orders_status_name'],
                           'last_modified' => $order['last_modified'],
