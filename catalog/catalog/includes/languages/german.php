@@ -134,6 +134,7 @@ define('CATEGORY_PERSONAL', '<b>[ Pers&ouml;nliche Daten ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Adresse ]</b>');
 define('CATEGORY_CONTACT', '<b>[ Kontakt ]</b>');
 define('CATEGORY_PASSWORD', '<b>[ Passwort ]</b>');
+define('CATEGORY_OPTIONS', '<b>[ Optionen ]</b>');
 define('ENTRY_GENDER', 'Geschlecht:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
