@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.83 2001/12/28 23:03:32 hpdl Exp $
+  $Id: general.php,v 1.84 2001/12/28 23:59:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -189,25 +189,6 @@
     for ($i=0; $i<sizeof($products_categories_array); $i++) $products_categories .= '<b>' . $products_categories_array[$i] . '</b><br>&nbsp;';
 
     return $products_categories;
-  }
-
-  function tep_categories_pull_down($parameters, $exclude = '') {
-    global $languages_id;
-
-    $select_string = '<select ' . $parameters . '>';
-    $categories_all_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by cd.categories_name");
-    while ($categories_all = tep_db_fetch_array($categories_all_query)) {
-      if (!tep_in_array($categories_all['categories_id'], (array)$exclude)) {
-        $categories_parent_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $categories_all['parent_id'] . "' and language_id = '" . $languages_id . "'");
-        $categories_parent = tep_db_fetch_array($categories_parent_query);
-        $select_string .= '<option value="' . $categories_all['categories_id'] . '">' . $categories_all['categories_name'];
-        if (tep_db_num_rows($categories_parent_query) > 0) $select_string .= ' (' . $categories_parent['categories_name'] . ')';
-        $select_string .= '</option>';
-      }
-    }
-    $select_string .= '</select>';
-
-    return $select_string;
   }
 
   function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '') {
