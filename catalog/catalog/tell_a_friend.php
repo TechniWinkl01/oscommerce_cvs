@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.34 2003/02/14 05:51:30 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.35 2003/02/17 04:28:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,6 +67,8 @@
           <tr>
             <td class="main"><?php echo ERROR_INVALID_PRODUCT; ?></td>
           </tr>
+        </table></td>
+      </tr>
 <?php
   } else {
     $product_info = tep_db_fetch_array($product_info_query);
