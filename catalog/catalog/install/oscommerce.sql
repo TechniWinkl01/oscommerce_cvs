@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.24 2002/02/05 07:07:36 jan0815 Exp $
+# $Id: oscommerce.sql,v 1.25 2002/03/08 18:43:18 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -235,6 +235,18 @@ CREATE TABLE manufacturers_info (
   url_clicked int(5) NOT NULL default '0',
   date_last_click datetime NULL,
   PRIMARY KEY (manufacturers_id, languages_id)
+);
+
+DROP TABLE IF EXISTS newsletters;
+CREATE TABLE newsletters (
+  newsletters_id int(5) NOT NULL auto_increment,
+  title varchar(255) NOT NULL,
+  content text NOT NULL,
+  module varchar(255) NOT NULL,
+  date_added datetime NOT NULL,
+  date_sent datetime,
+  status int(1),
+  PRIMARY KEY (newsletters_id)
 );
 
 DROP TABLE IF EXISTS orders;
