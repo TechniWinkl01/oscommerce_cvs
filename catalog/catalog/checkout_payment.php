@@ -230,7 +230,7 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><textarea name="comments" rows=5 cols=60></textarea></td>
+            <td><?php echo tep_draw_textarea_field('comments', 'virtual', '60', '5'); ?></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
