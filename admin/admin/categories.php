@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.71 2001/09/30 09:49:15 mbs Exp $
+  $Id: categories.php,v 1.72 2001/09/30 10:10:51 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -554,7 +554,7 @@
                 <td class="smallText">&nbsp;<b><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '" class="blacklink"><u>' . $categories['categories_name'] . '</u></a>'; ?></b>&nbsp;</td>
                 <td class="smallText" align="center">
 <?php
-      echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10);
+      echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10);
 ?></a>&nbsp;&nbsp;</td>
 <?php
       if ($categories['categories_id'] == @$cInfo->id) {
@@ -597,9 +597,9 @@
                 <td class="smallText" align="center">
 <?php
       if ($products['products_status'] == '1') {
-        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=setflag&flag=0&id=' . $products['products_id'] . '&cPath=' . $cPath, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
+        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=setflag&flag=0&id=' . $products['products_id'] . '&cPath=' . $cPath, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
-        echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=setflag&flag=1&id=' . $products['products_id'] . '&cPath=' . $cPath, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
+        echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=setflag&flag=1&id=' . $products['products_id'] . '&cPath=' . $cPath, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
       }
 ?>&nbsp;</td>
 <?php

@@ -1,10 +1,13 @@
 <?php
 /*
+  $Id: german.php,v 1.40 2001/09/30 10:10:56 mbs Exp $
+
   The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
 
-  German Text for The Exchange Project Administration Tool
+  Copyright (c) 2000,2001 The Exchange Project
 
-  $Id: german.php,v 1.39 2001/09/14 22:43:02 dwatkins Exp $
+  Released under the GNU General Public License
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -71,7 +74,7 @@ define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
 define('BOX_TAXES_COUNTRIES', 'Land');
 define('BOX_TAXES_ZONES', 'Bundesländer');
-define('BOX_TAXES_GEO_ZONES', 'Tax Zones');
+define('BOX_TAXES_GEO_ZONES', 'Steuerzonen');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
 define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
 
@@ -85,10 +88,10 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 define('BOX_HEADING_TOOLS', 'Werkzeuge');
 define('BOX_TOOLS_BACKUP', 'Datensicherung');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
-define('BOX_TOOLS_CACHE', 'Cache Control');
+define('BOX_TOOLS_CACHE', 'Cache Steuerung');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Sprachen / Währungen');
+define('BOX_HEADING_LOCALIZATION', 'Sprachen / W&auml;hrungen');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
@@ -125,7 +128,7 @@ define('JS_SPECIALS_PRODUCTS_PRICE', '* Es muss ein neuer Preis für diesen Artik
 define('JS_GENDER', '* Das \'Geschlecht\' muss ausgewählt werden.\n');
 define('JS_FIRST_NAME', '* Der \'Vorname\' muss mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_LAST_NAME', '* Der \'Nachname\' muss mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Zeichen bestehen.\n');
-define('JS_DOB', '* Das \'Geburtsdatum\' muss folgendes Format haben: xx/xx/xxxx (Tag/Jahr/Monat).\n');
+define('JS_DOB', '* Das \'Geburtsdatum\' muss folgendes Format haben: xx.xx.xxxx (Tag/Jahr/Monat).\n');
 define('JS_EMAIL_ADDRESS', '* Die \'E-Mail Adresse\' muss mindestens aus ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_ADDRESS', '* Die \'Strasse\' muss mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muss mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zeichen bestehen.\n');
@@ -189,6 +192,11 @@ define('IMAGE_COPY_TO', 'Kopieren nach');
 define('IMAGE_DEFINE', 'Definieren');
 define('IMAGE_DELETE', 'Löschen');
 define('IMAGE_EDIT', 'Editieren');
+define('IMAGE_ICON_STATUS_GREEN', 'aktiv');
+define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'aktivieren');
+define('IMAGE_ICON_STATUS_RED', 'inaktiv');
+define('IMAGE_ICON_STATUS_RED_LIGHT', 'deaktivieren');
+define('IMAGE_ICON_INFO', 'Information');
 define('IMAGE_INSERT', 'Einfügen');
 define('IMAGE_MODIFY', 'Ändern');
 define('IMAGE_MOVE', 'Verschieben');
@@ -207,7 +215,6 @@ define('IMAGE_SEARCH', 'suchen');
 define('IMAGE_SELECT', 'auswählen');
 define('IMAGE_UPDATE', 'aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
-define('IMAGE_ICON_INFO', 'Information');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');

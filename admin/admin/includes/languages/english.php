@@ -1,10 +1,13 @@
 <?php
 /*
+  $Id: english.php,v 1.52 2001/09/30 10:10:57 mbs Exp $
+
   The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
 
-  German Text for The Exchange Project Administration Tool
+  Copyright (c) 2000,2001 The Exchange Project
 
-  $Id: english.php,v 1.51 2001/09/14 22:43:01 dwatkins Exp $
+  Released under the GNU General Public License
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -193,6 +196,11 @@ define('IMAGE_COPY_TO', 'Copy To');
 define('IMAGE_DEFINE', 'Define');
 define('IMAGE_DELETE', 'Delete');
 define('IMAGE_EDIT', 'Edit');
+define('IMAGE_ICON_STATUS_GREEN', 'Active');
+define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'Set Active');
+define('IMAGE_ICON_STATUS_RED', 'Inactive');
+define('IMAGE_ICON_STATUS_RED_LIGHT', 'Set Inactive');
+define('IMAGE_ICON_INFO', 'Info');
 define('IMAGE_INSERT', 'Insert');
 define('IMAGE_MODIFY', 'Modify');
 define('IMAGE_MOVE', 'Move');
@@ -211,7 +219,6 @@ define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
 define('IMAGE_UPDATE', 'Update');
 define('IMAGE_UPDATE_CURRENCIES', 'Update Exchange Rate');
-define('IMAGE_ICON_INFO', 'Info');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Result Pages:');

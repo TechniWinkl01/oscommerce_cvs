@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.22 2001/09/19 11:51:57 mbs Exp $
+  $Id: modules.php,v 1.23 2001/09/30 10:10:51 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -143,9 +143,9 @@
                 <td align="right" class="smallText">&nbsp;
 <?php
         if ($module->check() == '1') {
-          echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
+          echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
         } else {
-          echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
+          echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
         }
 ?>&nbsp;</td>
 <?php
