@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upload.php,v 1.3 2004/07/22 23:08:18 hpdl Exp $
+  $Id: upload.php,v 1.4 2004/08/03 10:54:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,7 +74,11 @@
         $this->set_filename($file['name']);
         $this->set_tmp_filename($file['tmp_name']);
 
-        return $this->check_destination();
+        if (tep_not_null($this->destination)) {
+          return $this->check_destination();
+        } else {
+          return true;
+        }
       } else {
         if ($this->message_location == 'direct') {
           $messageStack->add(WARNING_NO_FILE_UPLOADED, 'warning');
