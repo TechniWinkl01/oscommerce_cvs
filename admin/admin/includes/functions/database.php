@@ -1,101 +1,92 @@
 <?php
 /*
-  $Id: database.php,v 1.8 2001/11/17 03:39:23 hpdl Exp $
+  $Id: database.php,v 1.9 2001/12/21 02:02:00 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
 
-  function tep_db_connect() {
-    global $db_link;
-    
-    if (USE_PCONNECT == true) {
-      @$db_link = mysql_pconnect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+  function tep_db_connect($server = DB_SERVER, $username = DB_SERVER_USERNAME, $password = DB_SERVER_PASSWORD, $database = DB_DATABASE, $link = 'db_link') {
+    global $$link;
+
+    if (USE_PCONNECT) {
+      $$link = mysql_pconnect($server, $username, $password);
     } else {
-      @$db_link = mysql_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
+      $$link = mysql_connect($server, $username, $password);
     }
 
-    if ($db_link) @mysql_select_db(DB_DATABASE);
-    return $db_link;
+    if ($$link) mysql_select_db($database);
+
+    return $$link;
   }
 
-  function tep_db_close() {
-    global $db_link;
+  function tep_db_close($link = 'db_link') {
+    global $$link;
 
-    $result = mysql_close($db_link);
-    
-    return $result;
+    return mysql_close($$link);
   }
 
   function tep_db_error($query, $errno, $error) { 
     die('<font color="#000000"><b>' . $errno . ' - ' . $error . '<br><br>' . $query . '<br><br><small><font color="#ff0000">[TEP STOP]</font></small><br><br></b></font>');
   }
 
-  function tep_db_query($db_query) {
-    global $db_link;
+  function tep_db_query($query, $link = 'db_link') {
+    global $$link;
 
     if (STORE_DB_TRANSACTIONS == 'true') {
-       error_log("QUERY " . $db_query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      error_log('QUERY ' . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
-    $result = mysql_query($db_query, $db_link) or tep_db_error($db_query, mysql_errno(), mysql_error());
+    $result = mysql_query($query, $$link) or tep_db_error($query, mysql_errno(), mysql_error());
 
     if (STORE_DB_TRANSACTIONS == 'true') {
-       $result_error = mysql_error();
-       error_log("RESULT " . $result . " " . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      error_log('RESULT ' . $result . ' ' . mysql_error() . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
     return $result;
   }
 
   function tep_db_fetch_array($db_query) {
-
-    $result = mysql_fetch_array($db_query);
-
-    return $result;
+    return mysql_fetch_array($db_query);
   }
 
   function tep_db_result($result, $row, $field = '') {
-    $result = mysql_result($result, $row, $field);
-
-    return $result;
+    return mysql_result($result, $row, $field);
   }
 
   function tep_db_num_rows($db_query) {
-
-    $result = mysql_num_rows($db_query);
-
-    return $result;
+    return mysql_num_rows($db_query);
   }
 
   function tep_db_data_seek($db_query, $row_number) {
-
-    $result = mysql_data_seek($db_query, $row_number);
-
-    return $result;
+    return mysql_data_seek($db_query, $row_number);
   }
 
   function tep_db_insert_id() {
-
-    $result = mysql_insert_id();
-
-    return $result;
+    return mysql_insert_id();
   }
 
   function tep_db_free_result($db_query) {
-
-    $result = mysql_free_result($db_query);
-
-    return $result;
+    return mysql_free_result($db_query);
   }
 
   function tep_db_fetch_fields($db_query) {
-    $result = mysql_fetch_field($db_query);
+    return mysql_fetch_field($db_query);
+  }
 
-    return $result;
+  function tep_db_output($string) {
+    return stripslashes($string);
+  }
+
+  function tep_db_input($string) {
+    return addslashes($string);
+  }
+
+  function tep_db_prepare_input($string) {
+    return trim(stripslashes($string));
   }
 ?>
