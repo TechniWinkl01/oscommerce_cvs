@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.52 2002/04/09 22:00:19 harley_vb Exp $
+  $Id: advanced_search_result.php,v 1.53 2002/05/27 14:14:54 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -57,7 +57,7 @@
       $error = 1;
     }
   }
-  
+
   if (strlen($HTTP_GET_VARS['pfrom']) > 0) {
     $pfrom_to_check = $HTTP_GET_VARS['pfrom'];
     if (!settype($pfrom_to_check, "double")) {
@@ -291,6 +291,12 @@
 ?>
         </td>
       </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, tep_get_all_get_params(array('sort', 'page', 'x', 'y'))) . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+      </tr>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
@@ -301,6 +307,7 @@
   </tr>
 </table>
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
@@ -309,6 +316,6 @@
 </html>
 <?php
   }
- 
+
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>
