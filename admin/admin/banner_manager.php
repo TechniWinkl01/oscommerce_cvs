@@ -128,7 +128,7 @@ function popupImageWindow(url) {
             <td align="right" valign="top"><br><? echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT) . '&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
-      <form></tr>
+      </form></tr>
 <?
   } else {
 ?>
