@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.14 2002/01/07 14:49:36 hpdl Exp $
+  $Id: file_manager.php,v 1.15 2002/01/07 15:23:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -197,8 +197,8 @@
                 <td class="tableHeading"><?php echo TABLE_HEADING_FILENAME; ?></td>
                 <td class="tableHeading" align="right"><?php echo TABLE_HEADING_SIZE; ?></td>
                 <td class="tableHeading" align="center"><?php echo TABLE_HEADING_PERMISSIONS; ?></td>
-                <td class="tableHeading">User</td>
-                <td class="tableHeading">Group</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_USER; ?></td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_GROUP; ?></td>
                 <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
@@ -217,24 +217,23 @@
     }
 
     if ($contents[$i]['is_dir']) {
-      $icon = ((is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ? 'icon_current_folder.gif' : 'icon_folder.gif');
+      if ($contents[$i]['name'] == '..') {
+        $icon = tep_image(DIR_WS_ICONS . 'previous_level.gif', ICON_PREVIOUS_LEVEL);
+      } else {
+        $icon = ((is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ? tep_image(DIR_WS_ICONS . 'current_folder.gif', ICON_CURRENT_FOLDER) : tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER));
+      }
       $link = tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $contents[$i]['name']);
     } else {
-      $icon = 'icon_file.gif';
+      $icon = tep_image(DIR_WS_ICONS . 'file.gif', ICON_FILE);
       $link = tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($contents[$i]['name']));
     }
-
-    if ($contents[$i]['name'] == '..') {
-      $contents[$i]['name'] = '&lt;previous level&gt;';
-      $icon = 'icons/previous_level.gif';
-    }
 ?>
-                <td class="tableData"><?php echo '<a href="' . $link . '">' . tep_image(DIR_WS_IMAGES . $icon) . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
+                <td class="tableData"><?php echo '<a href="' . $link . '">' . $icon . '</a>&nbsp;' . $contents[$i]['name']; ?></td>
                 <td class="tableData" align="right"><?php echo ($contents[$i]['is_dir'] ? '&nbsp;' : $contents[$i]['size']); ?></td>
                 <td class="tableData" align="center"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
                 <td class="tableData"><tt><?php echo $contents[$i]['user']; ?></tt></td>
                 <td class="tableData"><tt><?php echo $contents[$i]['group']; ?></tt></td>
-                <td class="tableData" align="right"><?php if ($contents[$i]['name'] != '&lt;previous level&gt;') echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name'] . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="tableData" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name'] . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
