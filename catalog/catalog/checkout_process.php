@@ -120,11 +120,11 @@
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
     $email_order .= $GLOBALS[$payment]->description . "\n\n";
   }
-  tep_mail($customers_values['customers_firstname'], $customers_values['customers_lastname'], $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, '', EMAIL_FROM, '');
+  tep_mail($customer_name, $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
 // send emails to other people
   if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
-    tep_mail('', '', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $email_order, '', EMAIL_FROM, '');
+    tep_mail('', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
   }
 
   $cart->reset(TRUE);
