@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.100 2001/04/12 19:40:21 dwatkins Exp $
+  $Id: application_top.php,v 1.101 2001/04/14 22:20:02 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -173,9 +173,6 @@
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
-// define our general functions used application-wide
-  require(DIR_WS_FUNCTIONS . 'general.php');
-
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off
   define('CACHE_DIR', '/tmp/'); // Default: /tmp/ - Default cache directory
@@ -192,6 +189,12 @@
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
+
+// set the application parameters (can be modified through the administration tool)
+  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration');
+  while ($configuration = tep_db_fetch_array($configuration_query)) {
+    define($configuration['cfgKey'], $configuration['cfgValue']);
+  }
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
@@ -233,11 +236,8 @@
     $cart = new shoppingCart;
   }
 
-// set the application parameters (can be modified through the administration tool)
-  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration');
-  while ($configuration = tep_db_fetch_array($configuration_query)) {
-    define($configuration['cfgKey'], $configuration['cfgValue']);
-  }
+// define our general functions used application-wide
+  require(DIR_WS_FUNCTIONS . 'general.php');
 
 // include the who's online functions
   require(DIR_WS_FUNCTIONS . 'whos_online.php');
