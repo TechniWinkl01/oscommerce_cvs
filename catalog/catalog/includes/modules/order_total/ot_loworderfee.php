@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_loworderfee.php,v 1.8 2002/12/09 19:07:16 dgw_ Exp $
+  $Id: ot_loworderfee.php,v 1.9 2003/02/06 01:18:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,7 +39,7 @@
         }
 
         if ( ($pass == true) && ( ($order->info['total'] - $order->info['shipping_cost']) <= MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
-          $tax = tep_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS);
+          $tax = tep_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $order->delivery['country']['id'], $order->delivery['zone_id']);
 
           $order->info['tax'] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
           $order->info['tax_groups']["{$tax}"] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
