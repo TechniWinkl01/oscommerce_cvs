@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: column_left.php,v 1.14 2001/11/19 11:39:23 hpdl Exp $
+  $Id: column_left.php,v 1.15 2002/01/11 05:03:25 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,7 +15,6 @@
   require(DIR_WS_BOXES . 'modules.php');
   require(DIR_WS_BOXES . 'customers.php');
   require(DIR_WS_BOXES . 'taxes.php');
-  require(DIR_WS_BOXES . 'banners.php');
   require(DIR_WS_BOXES . 'localization.php');
   require(DIR_WS_BOXES . 'reports.php');
   require(DIR_WS_BOXES . 'tools.php');

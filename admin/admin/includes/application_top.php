@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.113 2002/01/11 02:20:56 hpdl Exp $
+  $Id: application_top.php,v 1.114 2002/01/11 05:03:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,7 @@
 
 // define the filenames used in the project
   define('FILENAME_BACKUP', 'backup.php');
-  define('FILENAME_BANNERS_MANAGER', 'banner_manager.php');
+  define('FILENAME_BANNER_MANAGER', 'banner_manager.php');
   define('FILENAME_CACHE', 'cache.php');
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');

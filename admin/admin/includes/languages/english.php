@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.75 2002/01/11 02:20:56 hpdl Exp $
+  $Id: english.php,v 1.76 2002/01/11 05:03:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,23 +93,20 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Customer Orders-Total');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Tools');
-define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_BACKUP', 'Database Backup');
-define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
+define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
 define('BOX_TOOLS_CACHE', 'Cache Control');
+define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
+define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_MAIL', 'Send Email');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
-define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
+define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localization');
 define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
-
-// banners box text in includes/boxes/banners.php
-define('BOX_HEADING_BANNERS', 'Banners');
-define('BOX_BANNERS_MANAGER', 'Banner Manager');
 
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
