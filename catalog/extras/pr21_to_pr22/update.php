@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.35 2002/01/28 05:21:23 hpdl Exp $
+  $Id: update.php,v 1.36 2002/01/28 23:59:03 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -166,6 +166,7 @@ function changeText(where, what) {
 <span id="languages"><span id="languagesMarker">-</span> Languages</span><br>
 <span id="manufacturers"><span id="manufacturersMarker">-</span> Manufacturers</span><br>
 <span id="orders"><span id="ordersMarker">-</span> Orders</span><br>
+<span id="attributes"><span id="attributesMarker">-</span> Orders Products Attributes</span><br>
 <span id="products"><span id="productsMarker">-</span> Products</span><br>
 <span id="reviews"><span id="reviewsMarker">-</span> Reviews</span><br>
 <span id="sessions"><span id="sessionsMarker">-</span> Sessions</span><br>
@@ -526,6 +527,26 @@ changeText('statusText', 'Updating Orders');
 changeStyle('orders', 'normal');
 changeText('ordersMarker', '*');
 changeText('statusText', 'Updating Orders .. done!');
+
+changeStyle('attributes', 'bold');
+changeText('attributesMarker', '?');
+changeText('statusText', 'Updating Orders Products Attributes');
+//--></script>
+
+<?php
+  flush();
+
+  $orders_products_query = tep_db_query("select op.orders_products_id, opa.orders_products_attributes_id, op.products_id from orders_products op, orders_products_attributes opa where op.orders_id = opa.orders_id");
+  while ($orders_products = tep_db_fetch_array($orders_products_query)) {
+    tep_db_query("update orders_products_attributes set orders_products_id = '" . $orders_products['orders_products_id'] . "' where orders_products_attributes_id = '" . $orders_products['orders_products_attributes_id'] . "' and orders_products_id = '" . $orders_products['products_id'] . "'");
+  }
+?>
+
+<script language="javascript"><!--
+changeStyle('attributes', 'normal');
+changeText('attributesMarker', '*');
+changeText('statusText', 'Updating Orders Products Attributes .. done!');
+
 
 changeStyle('products', 'bold');
 changeText('productsMarker', '?');
