@@ -5,7 +5,7 @@
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from customers where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
   } elseif (EMAILPRODUCT_GUEST == false) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_EMAILPRODUCT, 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_EMAILPRODUCT . '&emailproduct=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
     tep_exit();
   }
 ?>

@@ -49,6 +49,9 @@
         } elseif (@$HTTP_POST_VARS['order_id']) {
           header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
           tep_exit();
+        } elseif (@$HTTP_POST_VARS['emailproduct']) {
+          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'action=where&products_id=' . $HTTP_POST_VARS['emailproduct'], 'NONSSL'));
+          tep_exit();
         } else {
           if (@$HTTP_POST_VARS['connection'] == 'SSL') {
             $connection_type = 'SSL';
@@ -160,6 +163,9 @@ function session_win() {
    if ($HTTP_GET_VARS['order_id']) {
      $origin = 'order_id=' . $HTTP_GET_VARS['order_id'];
    }
+   if ($HTTP_GET_VARS['emailproduct']) {
+     $origin = 'emailproduct=' . $HTTP_GET_VARS['emailproduct'];
+   }
    if ($HTTP_GET_VARS['origin']) {
      if ($origin != '') {
        $origin = $origin . '?';
@@ -192,7 +198,7 @@ function session_win() {
 <?
   }
 ?>
-        </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><? if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?><? if ($HTTP_GET_VARS['products_id']) { echo '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">'; } ?><? if ($HTTP_GET_VARS['order_id']) { echo '<input type="hidden" name="order_id" value="' . $HTTP_GET_VARS['order_id'] . '">'; } ?></form></td>
+        </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><? if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?><? if ($HTTP_GET_VARS['products_id']) { echo '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">'; } ?><? if ($HTTP_GET_VARS['order_id']) { echo '<input type="hidden" name="order_id" value="' . $HTTP_GET_VARS['order_id'] . '">'; } ?><? if ($HTTP_GET_VARS['emailproduct']) { echo '<input type="hidden" name="emailproduct" value="' . $HTTP_GET_VARS['emailproduct'] . '">'; } ?></form></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
