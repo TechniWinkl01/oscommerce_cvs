@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.76 2002/04/08 01:13:42 hpdl Exp $
+  $Id: account_history_info.php,v 1.77 2002/04/08 01:55:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -104,7 +104,6 @@
           </tr>
           <tr>
             <td colspan="4" align="right"><table border="0" cellspacing="0" cellpadding="1">
-              <tr>
 <?php
   for ($i=0; $i<sizeof($order->totals); $i++) {
     echo '              <tr>' . "\n" .
