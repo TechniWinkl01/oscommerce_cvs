@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.104 2001/06/10 15:51:34 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.105 2001/06/11 22:40:26 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -199,6 +199,16 @@ CREATE TABLE manufacturers (
   manufacturers_image varchar(64),
   PRIMARY KEY (manufacturers_id),
   KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
+);
+
+CREATE TABLE manufacturers_info (
+  manufacturers_id int(5) NOT NULL,
+  languages_id int(5) NOT NULL,
+  manufacturers_url varchar(255) NOT NULL,
+  url_clicked int(5) NULL,
+  date_last_click datetime NULL,
+  date_added datetime NULL,
+  PRIMARY KEY (manufacturers_id, languages_id)
 );
 
 CREATE TABLE orders (
@@ -829,9 +839,30 @@ INSERT INTO manufacturers VALUES (7,'Sierra','images/manufacturer_sierra.gif');
 INSERT INTO manufacturers VALUES (8,'GT Interactive','images/manufacturer_gt_interactive.gif');
 INSERT INTO manufacturers VALUES (9,'Hewlett Packard','images/manufacturer_hewlett_packard.gif');
 
+INSERT INTO manufacturers_info VALUES (1, 1, 'http://www.matrox.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (1, 2, 'http://www.matrox.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (2, 1, 'http://www.microsoft.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (2, 2, 'http://www.microsoft.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (2, 3, 'http://www.microsoft.es', 0, '', now());
+INSERT INTO manufacturers_info VALUES (3, 1, 'http://www.warner.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (3, 2, 'http://www.warner.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (4, 1, 'http://www.fox.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (4, 2, 'http://www.fox.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (5, 1, 'http://www.logitech.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (6, 1, 'http://www.canon.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (6, 2, 'http://www.canon.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (6, 3, 'http://www.canon.es', 0, '', now());
+INSERT INTO manufacturers_info VALUES (7, 1, 'http://www.sierra.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (7, 2, 'http://www.sierra.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (8, 1, 'http://www.infogrames.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (8, 2, 'http://www.infogrames.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0, '', now());
+INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, '', now());
+INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, '', now());
+
 INSERT INTO products VALUES (1,32,'MG200MMS','images/matrox/mg200mms.gif',299.99,'2001-06-07 00:02:20','','',23.00,1,1,1);
 INSERT INTO products VALUES (2,32,'MG400-32MB','images/matrox/mg400-32mb.gif',499.99,'2001-06-07 00:02:20','','',23.00,1,1,1);
-INSERT INTO products VALUES (3,32,'MSIMPRO','images/microsoft/msimpro.gif',49.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (3,2,'MSIMPRO','images/microsoft/msimpro.gif',49.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
 INSERT INTO products VALUES (4,13,'DVD-RPMK','images/dvd/replacement_killers.gif',42.00,'2001-06-07 00:02:20','','',23.00,1,1,2);
 INSERT INTO products VALUES (5,17,'DVD-BLDRNDC','images/dvd/blade_runner.gif',35.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
 INSERT INTO products VALUES (6,10,'DVD-MATR','images/dvd/the_matrix.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,3);

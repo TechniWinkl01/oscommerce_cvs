@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.48 2001/06/11 11:55:24 mbs Exp $
+  $Id: german.php,v 1.49 2001/06/11 22:40:36 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -87,6 +87,11 @@ define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Inhalt einsehen');
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Bestseller');
 define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller<br>&nbsp;&nbsp;');
+
+// manufacturer box text
+define('BOX_HEADING_MANUFACTURER_INFO', 'Hersteller Info');
+define('BOX_MANUFACTURER_INFO_HOMEPAGE', '%s Homepage');
+define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Mehrer Produkte');
 
 // languages box test in includes/boxes/languages.php
 define('BOX_HEADING_LANGUAGES', 'Sprachen');
