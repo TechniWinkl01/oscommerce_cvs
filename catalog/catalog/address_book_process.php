@@ -502,18 +502,12 @@ function check_form() {
     } elseif ((@$HTTP_POST_VARS['action'] == 'update') && (@$HTTP_POST_VARS['entry_id'])) {
       echo '        <td align="right" class="main" nowrap><br><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="' . $HTTP_POST_VARS['entry_id'] . '">' . tep_image_submit('button_update.gif', IMAGE_UPDATE) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</td>' . "\n";
     } else {
-      echo '        <td align="right" class="main" nowrap><br><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="' . @$HTTP_GET_VARS['connection'] . '">' . tep_image_submit('button_insert.gif', IMAGE_INSERT) . '&nbsp;&nbsp;&nbsp;&nbsp;';
-      if (@$HTTP_GET_VARS['origin']) {
-        if (@$HTTP_GET_VARS['connection'] == 'SSL') {
-          $connection_type = 'SSL';
-        } else {
-          $connection_type = 'NONSSL';
-        }
-        echo '<a href="' . tep_href_link($HTTP_GET_VARS['origin'], '', $connection_type) . '">';
-      } else {
-        echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">';
-      }
-      echo tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</td>' . "\n";
+      echo '        <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
+           '          <tr>' . "\n" .
+           '            <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', (($HTTP_GET_VARS['connection'] == 'SSL') ? 'SSL' : 'NONSSL')) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a></td>' . "\n" .
+           '            <td align="right" class="main"><br><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="' . @$HTTP_GET_VARS['connection'] . '">' . tep_image_submit('button_continue.gif', IMAGE_CONTINUE) . '&nbsp;&nbsp;</td>' . "\n" .
+           '          </tr>' . "\n" .
+           '        </table></td>' . "\n";
     }
 ?>
       </tr>
