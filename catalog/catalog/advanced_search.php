@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.42 2002/01/07 23:17:08 project3000 Exp $
+  $Id: advanced_search.php,v 1.43 2002/01/11 21:05:19 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -124,14 +124,10 @@ function check_form() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="advanced_search" method="get" action="<?php echo tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false); ?>" onSubmit="return check_form(this);"><?php echo tep_hide_session_id(); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -204,28 +200,28 @@ function check_form() {
 <?php
   if ($HTTP_GET_VARS['errorno']) {
     if (($HTTP_GET_VARS['errorno'] & 1) == 1) {
-      echo nl2br(JS_AT_LEAST_ONE_INPUT);
+      echo str_replace('\n', '<br>', JS_AT_LEAST_ONE_INPUT);
     }
     if (($HTTP_GET_VARS['errorno'] & 10) == 10) {
-      echo nl2br(JS_INVALID_FROM_DATE);
+      echo str_replace('\n', '<br>', JS_INVALID_FROM_DATE);
     }
     if (($HTTP_GET_VARS['errorno'] & 100) == 100) {
-      echo nl2br(JS_INVALID_TO_DATE);
+      echo str_replace('\n', '<br>', JS_INVALID_TO_DATE);
     }
     if (($HTTP_GET_VARS['errorno'] & 1000) == 1000) {
-      echo nl2br(JS_TO_DATE_LESS_THAN_FROM_DATE);
+      echo str_replace('\n', '<br>', JS_TO_DATE_LESS_THAN_FROM_DATE);
     }
     if (($HTTP_GET_VARS['errorno'] & 10000) == 10000) {
-      echo nl2br(JS_PRICE_FROM_MUST_BE_NUM);
+      echo str_replace('\n', '<br>', JS_PRICE_FROM_MUST_BE_NUM);
     }
     if (($HTTP_GET_VARS['errorno'] & 100000) == 100000) {
-      echo nl2br(JS_PRICE_TO_MUST_BE_NUM);
+      echo str_replace('\n', '<br>', JS_PRICE_TO_MUST_BE_NUM);
     }
     if (($HTTP_GET_VARS['errorno'] & 1000000) == 1000000) {
-      echo nl2br(JS_PRICE_TO_LESS_THAN_PRICE_FROM);
+      echo str_replace('\n', '<br>', JS_PRICE_TO_LESS_THAN_PRICE_FROM);
     }
     if (($HTTP_GET_VARS['errorno'] & 10000000) == 10000000) {
-      echo nl2br(JS_INVALID_KEYWORDS);
+      echo str_replace('\n', '<br>', JS_INVALID_KEYWORDS);
     }
   } else {
     new infoBoxHeading(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS_HEADING)), true, false);
@@ -236,14 +232,10 @@ function check_form() {
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
   </tr>
 </table>
