@@ -123,37 +123,6 @@
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
-<script language="javascript"><!--
-function checkForm() {
-  var error_message = "<? echo JS_ERROR; ?>";
-  var error = 0;
-  var categories_name = document.categories.categories_name.value;
-  var sort_order = document.categories.sort_order.value;
-  var categories_image = document.categories.categories_image.value;
-
-  if (categories_name.length < 1) {
-    error_message = error_message + "<? echo JS_CATEGORIES_NAME; ?>";
-    error = 1;
-  }
-
-  if (sort_order = "" || sort_order.length < 1) {
-    error_message = error_message + "<? echo JS_SORT_ORDER; ?>";
-    error = 1;
-  }
-
-  if (categories_image.length < 1) {
-    error_message = error_message + "<? echo JS_CATEGORIES_IMAGE; ?>";
-    error = 1;
-  }
-
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
-//--></script>
 <?
   if ($HTTP_GET_VARS['action'] == 'new_product') {
 ?>
