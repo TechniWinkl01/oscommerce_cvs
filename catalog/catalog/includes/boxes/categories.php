@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.21 2002/07/03 09:48:06 dgw_ Exp $
+  $Id: categories.php,v 1.22 2002/11/12 13:34:22 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,44 +94,43 @@
 
   //------------------------
   if ($cPath) {
+    $new_path = '';
     $id = split('_', $cPath);
     reset($id);
     while (list($key, $value) = each($id)) {
-      $new_path .= $value;
       unset($prev_id);
       unset($first_id);
       $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $value . "' and c.categories_id = cd.categories_id and cd.language_id='" . $languages_id ."' order by sort_order, cd.categories_name");
       $category_check = tep_db_num_rows($categories_query);
-      while ($row = tep_db_fetch_array($categories_query)) {
-        $foo[$row['categories_id']] = array(
-                                            'name' => $row['categories_name'],
-                                            'parent' => $row['parent_id'],
-                                            'level' => $key+1,
-                                            'path' => $new_path . '_' . $row['categories_id'],
-                                            'next_id' => false
-                                           );
+      if ($category_check > 0) {
+        $new_path .= $value;
+        while ($row = tep_db_fetch_array($categories_query)) {
+          $foo[$row['categories_id']] = array(
+                                              'name' => $row['categories_name'],
+                                              'parent' => $row['parent_id'],
+                                              'level' => $key+1,
+                                              'path' => $new_path . '_' . $row['categories_id'],
+                                              'next_id' => false
+                                             );
 
-        if (isset($prev_id)) {
-          $foo[$prev_id]['next_id'] = $row['categories_id'];
+          if (isset($prev_id)) {
+            $foo[$prev_id]['next_id'] = $row['categories_id'];
+          }
+
+          $prev_id = $row['categories_id'];
+
+          if (!isset($first_id)) {
+            $first_id = $row['categories_id'];
+          }
+
+          $last_id = $row['categories_id'];
         }
-
-        $prev_id = $row['categories_id'];
-
-        if (!isset($first_id)) {
-          $first_id = $row['categories_id'];
-        }
-
-        $last_id = $row['categories_id'];
-      }
-      if ($category_check != 0) {
         $foo[$last_id]['next_id'] = $foo[$value]['next_id'];
         $foo[$value]['next_id'] = $first_id;
+        $new_path .= '_';
       }
-
-   	  $new_path .= '_';
     }
   }
-
   tep_show_category($first_element); 
 
   $info_box_contents = array();
