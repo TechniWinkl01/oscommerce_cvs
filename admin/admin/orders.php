@@ -193,7 +193,7 @@
     $products = tep_db_query("select products_name, products_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     while ($products_values = tep_db_fetch_array($products)) {
       $total = number_format(($products_values['products_quantity'] * $products_values['products_price']), 2);
-      $subtotal = number_format(($subtotal + $total), 2);
+      $subtotal = $subtotal + $total;
 ?>
               <tr>
                 <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$products_values['products_quantity'];?>&nbsp;</font></td>
@@ -204,8 +204,9 @@
     }
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
-    $taxed = number_format(($subtotal * ($info_values['products_tax']/100)), 2);
+    $taxed = ($subtotal * ($info_values['products_tax']/100));
     $grandtotal = number_format(($subtotal + $taxed + $shipping), 2);
+    $taxed = number_format($taxed, 2);
 ?>
               <tr>
                 <td colspan="3"><?=tep_black_line();?></td>
