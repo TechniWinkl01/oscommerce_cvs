@@ -187,6 +187,15 @@
 // split-page-results
   $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
 
+// entry/item info classes
+  $include_file = DIR_CLASSES . 'category_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'customer_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'manufacturer_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'product_expected_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'product_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'review_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'special_price_info.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
   if (strlen($cPath) > 0) {
