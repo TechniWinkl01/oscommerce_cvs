@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: customer.php,v 1.1 2003/11/17 16:51:59 hpdl Exp $
+  $Id: customer.php,v 1.2 2004/07/22 20:33:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -30,26 +30,45 @@
 // class methods
     function setCustomerData($customer_id = -1) {
       if (is_numeric($customer_id) && ($customer_id > 0)) {
-        $customer_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_email_address, c.customers_default_address_id, ab.entry_country_id, ab.entry_zone_id from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " ab where c.customers_id = '" . (int)$customer_id . "' and c.customers_default_address_id = ab.address_book_id and c.customers_id = ab.customers_id");
-        if (tep_db_num_rows($customer_query)) {
-          $customer = tep_db_fetch_array($customer_query);
+        global $osC_Database;
 
+        $Qcustomer = $osC_Database->query('select customers_gender, customers_firstname, customers_lastname, customers_email_address, customers_default_address_id from :table_customers where customers_id = :customers_id');
+        $Qcustomer->bindRaw(':table_customers', TABLE_CUSTOMERS);
+        $Qcustomer->bindInt(':customers_id', $customer_id);
+        $Qcustomer->execute();
+
+        if ($Qcustomer->numberOfRows() === 1) {
           $this->setIsLoggedOn(true);
           $this->setID($customer_id);
-          $this->setGender($customer['customers_gender']);
-          $this->setFirstName($customer['customers_firstname']);
-          $this->setLastName($customer['customers_lastname']);
+          $this->setGender($Qcustomer->value('customers_gender'));
+          $this->setFirstName($Qcustomer->value('customers_firstname'));
+          $this->setLastName($Qcustomer->value('customers_lastname'));
           $this->setFullName();
-          $this->setEmailAddress($customer['customers_email_address']);
-          $this->setCountryID($customer['entry_country_id']);
-          $this->setZoneID($customer['entry_zone_id']);
-          $this->setDefaultAddressID($customer['customers_default_address_id']);
+          $this->setEmailAddress($Qcustomer->value('customers_email_address'));
+
+          if (is_numeric($Qcustomer->value('customers_default_address_id')) && ($Qcustomer->value('customers_default_address_id') > 0)) {
+            $Qab = $osC_Database->query('select entry_country_id, entry_zone_id from :table_address_book where address_book_id = :address_book_id and customers_id = :customers_id');
+            $Qab->bindRaw(':table_address_book', TABLE_ADDRESS_BOOK);
+            $Qab->bindInt(':address_book_id', $Qcustomer->value('customers_default_address_id'));
+            $Qab->bindInt(':customers_id', $customer_id);
+            $Qab->execute();
+
+            if ($Qab->numberOfRows() === 1) {
+              $this->setCountryID($Qab->value('entry_country_id'));
+              $this->setZoneID($Qab->value('entry_zone_id'));
+              $this->setDefaultAddressID($Qcustomer->value('customers_default_address_id'));
+
+              $Qab->freeResult();
+            }
+          }
         }
+
+        $Qcustomer->freeResult();
       }
     }
 
     function setIsLoggedOn($state) {
-      if ($state == true) {
+      if ($state === true) {
         $this->is_logged_on = true;
       } else {
         $this->is_logged_on = false;
@@ -57,7 +76,7 @@
     }
 
     function isLoggedOn() {
-      if ($this->is_logged_on == true) {
+      if ($this->is_logged_on === true) {
         return true;
       }
 
@@ -76,6 +95,14 @@
       $this->default_address_id = $id;
     }
 
+    function hasDefaultAddress() {
+      if (is_numeric($this->default_address_id) && ($this->default_address_id > 0)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     function setGender($gender) {
       $this->gender = $gender;
     }
@@ -89,10 +116,10 @@
     }
 
     function setFullName($fullname = '') {
-      if (tep_not_null($fullname)) {
-        $this->full_name = $fullname;
-      } else {
+      if (empty($fullname)) {
         $this->full_name = $this->first_name . ' ' . $this->last_name;
+      } else {
+        $this->full_name = $fullname;
       }
     }
 
