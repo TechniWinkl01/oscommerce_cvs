@@ -593,26 +593,41 @@
   // Description : Function to count products in a category including all child categories
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_count_products_in_category($categories_id, $include_deactivated=0) {
+  function tep_count_products_in_category($categories_id, $include_deactivated = false) {
     $products_count = 0;
 
-    if ($include_deactivated)
+    if ($include_deactivated) {
       $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $categories_id . "'");
-    else
+    } else {
       $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = '" . $categories_id . "'");
+    }
 
     $total_products_values = tep_db_fetch_array($total_products);
 
     $products_count += $total_products_values['total'];
-    
-    $child_categories = tep_db_query("select categories_id from categories where parent_id = '" . $categories_id . "'");
-    if (tep_db_num_rows($child_categories)) {
-      while ($child_categories_values = tep_db_fetch_array($child_categories)) {
-        $products_count += tep_count_products_in_category($child_categories_values['categories_id'], $include_deactivated);
+
+    if (USE_RECURSIVE_COUNT) {
+      $child_categories = tep_db_query("select categories_id from categories where parent_id = '" . $categories_id . "'");
+      if (tep_db_num_rows($child_categories)) {
+        while ($child_categories_values = tep_db_fetch_array($child_categories)) {
+          $products_count += tep_count_products_in_category($child_categories_values['categories_id'], $include_deactivated);
+        }
       }
     }
 
     return $products_count;
+  }
+
+// return true if the current category has subcategories
+  function tep_has_category_subcategories($category_id) {
+    $child_category_query = tep_db_query("select count(*) as count from categories where parent_id = '" . $category_id . "'");
+    $child_category = tep_db_fetch_array($child_category_query);
+
+    if ($child_category['count'] > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////
