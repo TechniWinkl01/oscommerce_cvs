@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.111 2002/01/27 04:02:21 hpdl Exp $
+  $Id: general.php,v 1.112 2002/01/28 03:58:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   function tep_exit() {
-    if (EXIT_AFTER_REDIRECT == 1) {
+    if (EXIT_AFTER_REDIRECT == 'true') {
      return exit();
     }
   }

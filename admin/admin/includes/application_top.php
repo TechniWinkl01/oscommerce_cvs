@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.127 2002/01/28 03:57:36 hpdl Exp $
+  $Id: application_top.php,v 1.128 2002/01/28 03:58:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,7 +29,7 @@
   define('LOCAL_EXE_UNZIP', '/usr/local/bin/unzip');
 
 // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-  define('EXIT_AFTER_REDIRECT', 1);
+  define('EXIT_AFTER_REDIRECT', 'true');
 
 // define the filenames used in the project
   define('FILENAME_CATALOG_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
