@@ -131,7 +131,7 @@
         $dest_country = $destination['countries_iso_code_2'];
         $dest_zone = 0;
         for ($i = 1; $i <= $this->num_zones; $i ++) {
-          $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
+          $countries_table = tep_constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
           $country_zones = split("[,]", $countries_table);
           if ( in_array($dest_country, $country_zones ) ) {
             $dest_zone = $i;
@@ -144,7 +144,7 @@
           return;
         }
         $shipping = -1;
-        $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $i);
+        $zones_cost = tep_constant('MODULE_SHIPPING_ZONES_COST_' . $i);
         $zones_table = split("[-:,]" , $zones_cost);
         $n=1;
         $y=2;

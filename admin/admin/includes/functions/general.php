@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.101 2002/01/09 17:18:24 hpdl Exp $
+  $Id: general.php,v 1.102 2002/01/14 16:27:00 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1029,5 +1029,17 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
         $tep_remove_error = true;
       }
     }
+  }
+
+////
+// Wrapper for constant() function
+// Needed because its only available in PHP 4.0.4 and higher.
+  function tep_constant($constant) {
+    if (function_exists('constant')) {
+      $temp = constant($constant);
+    } else {
+      eval("\$temp=$constant;");
+    }
+    return $temp;
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.153 2002/01/13 22:10:22 project3000 Exp $
+  $Id: general.php,v 1.154 2002/01/14 16:27:00 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1030,5 +1030,17 @@
 
   function tep_output_warning($warning) {
     new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
+  }
+
+////
+// Wrapper for constant() function
+// Needed because its only available in PHP 4.0.4 and higher.
+  function tep_constant($constant) {
+    if (function_exists('constant')) {
+      $temp = constant($constant);
+    } else {
+      eval("\$temp=$constant;");
+    }
+    return $temp;
   }
 ?>
