@@ -1,62 +1,80 @@
-<? include('includes/application_top.php'); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
-<?
-  if (!@tep_session_is_registered('customer_id')) {
+<?php
+/*
+  $Id: account.php,v 1.34 2001/06/14 01:11:47 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT);
+
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
+
+  if (!tep_session_is_registered('customer_id')) {
     header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT, 'NONSSL'));
     tep_exit();
   }
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+  require(DIR_WS_INCLUDES . 'header.php');
+?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+  require(DIR_WS_INCLUDES . 'column_left.php');
+?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
     </table></td>
 <!-- body_text //-->
-<?
-  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_zone_id, customers_state, customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
-  $account = tep_db_fetch_array($account_query);
-?>
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td><br>
 <?php
   $is_read_only = true;
+
+  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_zone_id, customers_state, customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+  $account = tep_db_fetch_array($account_query);
+
   require(DIR_WS_MODULES . 'account_details.php');
 ?>
       <tr>
@@ -69,11 +87,13 @@
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+  require(DIR_WS_INCLUDES . 'column_right.php');
+?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -83,9 +103,13 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+  require(DIR_WS_INCLUDES . 'footer.php');
+?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+  require(DIR_WS_INCLUDES . 'application_bottom.php');
+?>
