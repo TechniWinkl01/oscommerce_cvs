@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.60 2002/05/23 01:02:16 hpdl Exp $
+  $Id: account_edit_process.php,v 1.61 2002/05/23 20:26:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  if (!$HTTP_POST_VARS['action']) {
+  if ($HTTP_POST_VARS['action'] != 'process') {
     tep_redirect(tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
   }
 
@@ -62,7 +62,7 @@
     $entry_email_address_error = false;
   }
 
-  if (!(tep_validate_email(trim($HTTP_POST_VARS['email_address'])))) {
+  if (!tep_validate_email(trim($HTTP_POST_VARS['email_address']))) {
     $error = true;
     $entry_email_address_check_error = true;
   } else {
@@ -134,7 +134,7 @@
     $entry_email_address_exists = false;
   }
 
-  if ($error) {
+  if ($error == true) {
     $processed = true;
 
     include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_EDIT_PROCESS);
