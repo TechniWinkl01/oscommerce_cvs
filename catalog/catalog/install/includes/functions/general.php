@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.2 2002/08/15 17:36:17 dgw_ Exp $
+  $Id: general.php,v 1.3 2002/08/16 12:40:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
 // Cant be used in safe mode.
   function osc_set_time_limit($limit) {
     if (!get_cfg_var('safe_mode')) {
-      set_time_limit(180);
+      set_time_limit($limit);
     }
   }
 ?>
