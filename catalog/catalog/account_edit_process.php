@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.43 2001/08/26 21:18:05 hpdl Exp $
+  $Id: account_edit_process.php,v 1.44 2001/09/01 14:53:27 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,13 +17,13 @@
     tep_exit();
   }
 
-  $error = 0; // reset error flag
+  $error = false; // reset error flag
 
   if (ACCOUNT_GENDER) {
     if (($HTTP_POST_VARS['gender'] == 'm') || ($HTTP_POST_VARS['gender'] == 'f')) {
       $entry_gender_error = false;
     } else {
-      $error = 1;
+      $error = true;
       $entry_gender_error = true;
     }
   }
@@ -130,27 +130,23 @@
     $entry_email_address_exists = false;
   }
 
-  if ($error == 1) {
+  if ($error) {
     $processed = true;
 
-    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_EDIT_PROCESS);
+    include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_EDIT_PROCESS);
 
     $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_2 . '</a>';
 ?>
 <html>
 <head>
 <title><?php echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
-<?php
-  require('includes/form_check.js.php');
-?>
+<?php require('includes/form_check.js.php'); ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -160,9 +156,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_left.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -189,9 +183,7 @@
       </tr>
       <tr>
         <td><br>
-<?php
-  require(DIR_WS_MODULES . 'account_details.php');
-?>
+<?php include(DIR_WS_MODULES . 'account_details.php'); ?>
         </td>
       </tr>
       <tr>
@@ -208,9 +200,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_right.php');
-?>
+<?php include(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -220,9 +210,7 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-  require(DIR_WS_INCLUDES . 'footer.php');
-?>
+<?php include(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
