@@ -156,23 +156,14 @@ function checkForm() {
 <?
   if ($HTTP_GET_VARS['action'] == 'new_product') {
 ?>
-<script language="JavaScript" src="includes/javascript/dynapi/dynlayer.js"></script>
-<script language="JavaScript" src="includes/javascript/dynapi/calendar.js"></script>
-<style type="text/css">
-.cal { font-family: Tahoma, Verdana; font-size: 9pt; color: #000000; }
-.calDay { font-family: Tahoma, Verdana; font-size: 9pt; color: #000000; font-weight: bold; }
-.calNormal { font-family: Tahoma, Verdana; font-size: 9pt; color: #000000; }
-.calShaded { font-family: Tahoma, Verdana; font-size: 9pt; color: #B0B0B0; }
-.calHighlighted { font-family: Tahoma, Verdana; font-size: 9pt; color: #ffffff; background-color: #000000; a: #d9d9d9; font-weight: bold }
-</style>
-</head>
+<link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
+<script language="JavaScript" src="includes/javascript/calendarcode.js"></script>
 <?
-    $body_onload = "SetFocus(); init();";
-  } else {
-    $body_onload = "SetFocus();";
   }
 ?>
-<body onload="<? echo $body_onload; ?>" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+</head>
+<body onload="SetFocus();" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<div id="popupcalendar" class="text"></div>
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -246,30 +237,7 @@ function checkForm() {
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td>
-<script language="JavaScript"><!--
-function init() {
-  mycalendar.activate()
-}
-
-mycalendar = new Calendar(560,190,27,18)
-mycalendar.build(<? if ($pInfo) { echo $pInfo->date_available_caljs_year; } else { echo date('Y'); }?>, <? if ($pInfo) { echo $pInfo->date_available_caljs_month; } else { echo date('m') - 1; } ?>, <? if ($pInfo) { echo $pInfo->date_available_caljs_day; } else { echo date('d'); }?>)
-mycalendar.onChange = updateDisplay
-
-function updateDisplay() {
-  document.new_product.year.value = this.year
-  document.new_product.month.value = this.month
-  document.new_product.day.value = this.day
-}
-
-function changeCalendar() {
-  mycalendar.setDate(document.new_product.year.value, document.new_product.month.value, document.new_product.day.value)
-}
-
-writeCSS(mycalendar.css)
-
-document.write(mycalendar.div)
-//--></script><br><table border="0" cellspacing="0" cellpadding="2">
+        <td><br><table border="0" cellspacing="0" cellpadding="2">
 	  <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_STATUS; ?>&nbsp;</font></td>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="products_status" value="1" 
@@ -285,7 +253,7 @@ document.write(mycalendar.div)
           </tr>
           <tr>
             <td nowrap valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_DATE_AVAILABLE; ?>&nbsp;</font></td>
-            <td nowrap valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="day" value="<? echo $pInfo->date_available_caljs_day; ?>" size="2" maxlength="2" onChange="changeCalendar()"><select name="month" onChange="changeCalendar()"><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select><input type="text" name="year" value="<? echo $pInfo->date_available_caljs_year; ?>" size="4" maxlength="4" onChange="changeCalendar()"><br>&nbsp;<a href="javascript:mycalendar.setDate()"><u>reset calendar to today</u></a>&nbsp;</font></td>
+            <td nowrap valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input class="cal-TextBox" size="2" maxlength="2" type="text" name="day" value="<?php echo $pInfo->date_available_caljs_day; ?>"><input class="cal-TextBox" size="2" maxlength="2" type="text" name="month" value="<?php echo $pInfo->date_available_caljs_month; ?>"><input class="cal-TextBox" size="4" maxlength="2" type="text" name="year" value="<? echo $pInfo->date_available_caljs_year; ?>"><a class="so-BtnLink" href="javascript:calClick();return false;" onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);" onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_product','dteWhen','BTN_date');return false;"><img align="absmiddle" border="0" name="BTN_date" src="<?php echo DIR_WS_IMAGES; ?>cal_date_up.gif" width="22" height="17"></a>&nbsp;</font></td>
           </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_MANUFACTURER; ?>&nbsp;</font></td>
@@ -346,8 +314,6 @@ document.write(mycalendar.div)
     if ($HTTP_POST_VARS) {
       $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
-
-      $HTTP_POST_VARS['month'] += 1; // due to calendar
 
       $pInfo_array = tep_array_merge((array)$HTTP_POST_VARS, (array)$manufacturer);
       $pInfo = new productInfo($pInfo_array);
