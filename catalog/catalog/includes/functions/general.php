@@ -135,7 +135,7 @@
       }
     } else {
       if ($iso = '1') {
-        $countries = tep_db_query("select countries_name, countries_iso_code_2, countries_iso_code3 from countries where countries_id = '" . $countries_id . "'");
+        $countries = tep_db_query("select countries_name, countries_iso_code_2, countries_iso_code_3 from countries where countries_id = '" . $countries_id . "'");
         $countries_values = tep_db_fetch_array($countries);
         $list = array('countries_name' => $countries_values['countries_name'], 'countries_iso_code_2' => $countries_values['countries_iso_code_2'], 'countries_iso_code_3' => $countries_values['countries_iso_code_3']);
       } else {
