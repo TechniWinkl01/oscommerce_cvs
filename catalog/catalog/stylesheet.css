@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.53 2003/05/19 20:17:49 hpdl Exp $
+  $Id: stylesheet.css,v 1.54 2003/05/27 17:06:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,14 +21,14 @@ BODY {
   margin: 0px;
 }
 
-A { 
-  color: #000000; 
-  text-decoration: none; 
+A {
+  color: #000000;
+  text-decoration: none;
 }
 
-A:hover { 
-  color: #AABBDD; 
-  text-decoration: underline; 
+A:hover {
+  color: #AABBDD;
+  text-decoration: underline;
 }
 
 FORM {
@@ -131,24 +131,26 @@ TD.infoBox, SPAN.infoBox {
 }
 
 TR.accountHistory-odd, TR.addressBook-odd, TR.alsoPurchased-odd, TR.payment-odd, TR.productListing-odd, TR.productReviews-odd, TR.upcomingProducts-odd, TR.shippingOptions-odd {
-  background: #f4f7fd;
+  background: #f8f8f9;
 }
 
 TR.accountHistory-even, TR.addressBook-even, TR.alsoPurchased-even, TR.payment-even, TR.productListing-even, TR.productReviews-even, TR.upcomingProducts-even, TR.shippingOptions-even {
-  background: #ffffff;
+  background: #f8f8f9;
 }
 
-TR.productListing-heading {
-  background: #d2e9fb;
+TABLE.productListing {
+  border: 1px;
+  border-style: solid;
+  border-color: #b6b7cb;
+  border-spacing: 1px;
 }
 
-TD.productListing-heading {
+.productListing-heading {
   font-family: Verdana, Arial, sans-serif;
   font-size: 10px;
-  background: #d2e9fb;
-  color: #000000;
+  background: #b6b7cb;
+  color: #FFFFFF;
   font-weight: bold;
-  font-variant: small-caps;
 }
 
 TD.productListing-data {
@@ -156,13 +158,13 @@ TD.productListing-data {
   font-size: 10px;
 }
 
-A.pageResults { 
-  color: #0000FF; 
+A.pageResults {
+  color: #0000FF;
 }
 
-A.pageResults:hover { 
-  color: #0000FF; 
-  background: #FFFF33; 
+A.pageResults:hover {
+  color: #0000FF;
+  background: #FFFF33;
 }
 
 TD.pageHeading, DIV.pageHeading {
