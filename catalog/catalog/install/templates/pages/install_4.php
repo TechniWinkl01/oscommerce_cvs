@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.1 2002/01/02 13:02:39 hpdl Exp $
+  $Id: install_4.php,v 1.2 2002/01/03 20:27:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,28 +17,14 @@
 <p><b>Step 2: osCommerce Configuration</b></p>
 
 <?php
-  $dir_fs_www_root_array = explode('/', dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']));
-  $dir_fs_www_root = array();
-  for ($i=0; $i<sizeof($dir_fs_www_root_array)-2; $i++) {
-    $dir_fs_www_root[] = $dir_fs_www_root_array[$i];
-  }
-  $dir_fs_www_root = implode('/', $dir_fs_www_root);
-
-  $dir_ws_www_root_array = explode('/', dirname($HTTP_SERVER_VARS['REQUEST_URI']));
-  $dir_ws_www_root = array();
-  for ($i=0; $i<sizeof($dir_ws_www_root_array)-1; $i++) {
-    $dir_ws_www_root[] = $dir_ws_www_root_array[$i];
-  }
-  $dir_ws_www_root = implode('/', $dir_ws_www_root);
-
-  if ( (!$fp = @fopen($dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'includes/configure.php', 'w')) || (!$fp = @fopen($dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'includes/configure.php', 'w')) ) {
+  if ( (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'includes/configure.php')) || (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'includes/configure.php')) ) {
 ?>
 
 <p>The following error has occurred:</p>
 
 <p><div class="boxMe"><b>The configuration files do not exist, or permission levels are not set.</b><br><br>Please perform the following actions:
-<ul class="boxMe"><li>cd <?php echo $dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_CATALOG']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul>
-<ul class="boxMe"><li>cd <?php echo $dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_ADMIN']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p>
+<ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul>
+<ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p>
 
 <form name="install" action="install.php?step=4" method="post">
 
@@ -72,7 +58,7 @@
 
 <form name="install" action="install.php?step=5" method="post">
 
-<p>The following configuration values will be written to:<br><br><?php echo $dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_CATALOG']; ?>includes/configure.php<br><?php echo $dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_ADMIN']; ?>includes/configure.php</p>
+<p>The following configuration values will be written to:<br><br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG']; ?>includes/configure.php<br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN']; ?>includes/configure.php</p>
 
 <p><b>1. Please enter your web server information:</b></p>
 
@@ -84,6 +70,9 @@ The secure web server can be in the form of a hostname, such as <i>https://www.m
 
 <p><?php echo osc_draw_checkbox_field('ENABLE_SSL', 'true'); ?> <b>Enable SSL Connections</b><br>
 Enable Secure Connections With SSL (HTTPS)</p>
+
+<p><b>Webserver Root Directory</b><br><?php echo osc_draw_input_field('DIR_FS_DOCUMENT_ROOT'); ?><br>
+The directory where your web pages are being served from, usually <i>/home/myname/public_html</i>.</p>
 
 <p><b>WWW Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_WS_CATALOG'); ?><br>
 The directory where the osCommerce Catalog module resides, usually <i>/catalog/</i>.</p>

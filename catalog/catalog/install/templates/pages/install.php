@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.1 2002/01/02 13:02:39 hpdl Exp $
+  $Id: install.php,v 1.2 2002/01/03 20:27:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,11 +40,14 @@ The information you submit regarding the web server and database server will be 
 
 <p><b>2. Please enter your web server information:</b></p>
 
+<p><b>Webserver Root Directory</b><br><?php echo osc_draw_input_field('DIR_FS_DOCUMENT_ROOT', $dir_fs_www_root); ?><br>
+The directory where your web pages are being served from, usually <i>/home/myname/public_html</i>.</p>
+
 <p><b>WWW Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_WS_CATALOG', $dir_ws_www_root . '/'); ?><br>
-The directory where the osCommerce Catalog module resides, usually <i>/catalog/</i>.</p>
+The virtual directory where the osCommerce Catalog module resides, usually <i>/catalog/</i>.</p>
 
 <p><b>WWW Administration Tool Directory</b><br><?php echo osc_draw_input_field('DIR_WS_ADMIN', $dir_ws_www_root . '/admin/'); ?><br>
-The directory where the osCommerce Administration Tool resides, usually <i>/admin/</i>.</p>
+The virtual directory where the osCommerce Administration Tool resides, usually <i>/catalog/admin/</i>.</p>
 
 <p><b>3. Please enter your database server information:</b></p>
 

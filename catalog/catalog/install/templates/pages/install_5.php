@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.1 2002/01/02 13:02:39 hpdl Exp $
+  $Id: install_5.php,v 1.2 2002/01/03 20:27:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,20 +70,6 @@
 </form>
 <?php
   } else {
-    $dir_fs_www_root_array = explode('/', dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']));
-    $dir_fs_www_root = array();
-    for ($i=0; $i<sizeof($dir_fs_www_root_array)-2; $i++) {
-      $dir_fs_www_root[] = $dir_fs_www_root_array[$i];
-    }
-    $dir_fs_www_root = implode('/', $dir_fs_www_root);
-
-    $dir_ws_www_root_array = explode('/', dirname($HTTP_SERVER_VARS['REQUEST_URI']));
-    $dir_ws_www_root = array();
-    for ($i=0; $i<sizeof($dir_ws_www_root_array)-1; $i++) {
-      $dir_ws_www_root[] = $dir_ws_www_root_array[$i];
-    }
-    $dir_ws_www_root = implode('/', $dir_ws_www_root);
-
     $file_contents = '<?php' . "\n" .
                      '/*' . "\n" .
                      'osCommerce, Open Source E-Commerce Solutions' . "\n" .
@@ -121,7 +107,7 @@
                      'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
-    $fp = fopen($dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'includes/configure.php', 'w');
+    $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'includes/configure.php', 'w');
     fputs($fp, $file_contents);
     fclose($fp);
 
@@ -141,7 +127,7 @@
                      'define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
                      'define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
                      'define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
-                     'define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $dir_fs_www_root . '\'); // where the pages are located on the server' . "\n" .
+                     'define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . '\'); // where the pages are located on the server' . "\n" .
                      'define(\'DIR_WS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_WS_ADMIN'] . '\'); // absolute path required' . "\n" .
                      'define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
                      'define(\'DIR_FS_CATALOG\', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG); // absolute path required' . "\n" .
@@ -170,7 +156,7 @@
                      'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
-    $fp = fopen($dir_fs_www_root . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'includes/configure.php', 'w');
+    $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'includes/configure.php', 'w');
     fputs($fp, $file_contents);
     fclose($fp);
 ?>
