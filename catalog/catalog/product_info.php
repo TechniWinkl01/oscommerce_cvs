@@ -92,18 +92,6 @@
     } else {
       $product_exists_in_cart = '0';
     }
-
-// lets retrieve all $HTTP_GET_VARS keys and values..
-    $get_params = '';
-    $get_params_back = ''; // this one is for the back button (needs to remove the last GET parameter (products_id))
-    for(reset($HTTP_GET_VARS);$kv=each($HTTP_GET_VARS);) {
-      $get_params.=$kv[key] . '=' . $kv[value] . '&';
-      if (($kv[key] != 'products_id')&&($kv[key] != 'PHPSESSID')) {
-        $get_params_back.=$kv[key] . '=' . $kv[value] . '&';
-      }
-    }
-    $get_params = substr($get_params, 0, -1); //remove trailing &
-    $get_params_back = substr($get_params_back, 0, -1); //remove trailing &
 ?>	  
     <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -159,6 +147,7 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
 <?
+    $get_params = substr(tep_get_all_get_params(), 0, -1);
     if ($reviews_values['count'] == '0') {
       echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_write_a_review.gif', '140', '24', '0', IMAGE_WRITE_A_REVIEW) . '</a>&nbsp;</font></td>' . "\n";
     } else {
@@ -169,6 +158,7 @@
       echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '116', '24', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $product_info_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
     } else {
       echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
+      $get_params_back = substr(tep_get_all_get_params(array('products_id')), 0, -1);
       if ($get_params_back != '') {
         echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
       }

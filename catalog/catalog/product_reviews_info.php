@@ -2,12 +2,7 @@
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS_INFO; include(DIR_INCLUDES . 'include_once.php'); ?>
 <?
 // lets retrieve all $HTTP_GET_VARS keys and values..
-  $get_params = '';
-  for (reset($HTTP_GET_VARS);$kv=each($HTTP_GET_VARS);) {
-    if (($kv[key] != 'reviews_id')&&($kv[key] != 'PHPSESSID')) {
-      $get_params.=$kv[key] . '=' . $kv[value] . '&';
-    }
-  }
+  $get_params = tep_get_all_get_params(array('reviews_id'));
   $get_params = substr($get_params, 0, -1); //remove trailing &
 ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>

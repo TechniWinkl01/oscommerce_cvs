@@ -2,14 +2,8 @@
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS; include(DIR_INCLUDES . 'include_once.php'); ?>
 <?
 // lets retrieve all $HTTP_GET_VARS keys and values..
-  $get_params = '';
-  $get_params_back = ''; // for back button
-  for (reset($HTTP_GET_VARS);$kv=each($HTTP_GET_VARS);) {
-    $get_params.=$kv[key] . '=' . $kv[value] . '&';
-    if (($kv[key] != 'reviews_id')&&($kv[key] != 'PHPSESSID')) {
-      $get_params_back.=$kv[key] . '=' . $kv[value] . '&';
-    }
-  }
+  $get_params = tep_get_all_get_params();
+  $get_params_back = tep_get_all_get_params(array('reviews_id')); // for back button
   $get_params = substr($get_params, 0, -1); //remove trailing &
   if ($get_params_back != '') {
     $get_params_back = substr($get_params_back, 0, -1); //remove trailing &
