@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.10 2002/04/05 20:07:15 project3000 Exp $
+  $Id: configure.php,v 1.11 2002/04/13 15:58:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,10 +21,11 @@
   define('ENABLE_SSL_CATALOG', 'false'); // secure webserver for catalog module
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
   define('DIR_WS_ADMIN', '/admin/');
+  define('DIR_FS_ADMIN', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN);
   define('DIR_WS_CATALOG', '/catalog/');
   define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);
-  define('DIR_WS_IMAGES', DIR_WS_ADMIN . 'images/');
-  define('DIR_WS_ICONS', DIR_WS_ADMIN . 'images/icons/');
+  define('DIR_WS_IMAGES', 'images/');
+  define('DIR_WS_ICONS', DIR_WS_IMAGES . 'icons/');
   define('DIR_WS_CATALOG_IMAGES', DIR_WS_CATALOG . 'images/');
   define('DIR_WS_INCLUDES', 'includes/');
   define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');
@@ -36,7 +37,7 @@
   define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG . 'includes/languages/');
   define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG . 'images/');
   define('DIR_FS_CATALOG_MODULES', DIR_FS_CATALOG . 'includes/modules/');
-  define('DIR_FS_BACKUP', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . 'backups/');
+  define('DIR_FS_BACKUP', DIR_FS_ADMIN . 'backups/');
 
 // define our database connection
   define('DB_SERVER', '');
