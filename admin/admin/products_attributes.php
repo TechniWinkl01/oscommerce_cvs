@@ -647,7 +647,7 @@ function checkFormAtrib() {
 <?
   $attributes = tep_db_query("$attributes");
   while ($attributes_values = tep_db_fetch_array($attributes)) {
-  $products_name_only = tep_products_name_only($attributes_values['products_id']);
+  $products_name_only = tep_products_name($attributes_values['products_id']);
   $options_name = tep_options_name($attributes_values['options_id']);
   $values_name = tep_values_name($attributes_values['options_values_id']);
     $rows++;

@@ -62,46 +62,6 @@
     return $number2currency;
   }
 
-  function tep_products_name($products_id, $manufacturers_id = '', $products_name = '') {
-    if (($products_id != '') && ($products_name == '')) {
-      $products_query = tep_db_query("select products_name from products where products_id = '" . $products_id . "'");
-      $products = tep_db_fetch_array($products_query);
-      $products_name = $products['products_name'];
-
-      $manufacturers_query = tep_db_query("select m.manufacturers_name, m.manufacturers_location from manufacturers m, products_to_manufacturers p2m where p2m.products_id = '" . $products_id . "' and p2m.manufacturers_id = m.manufacturers_id");
-    } else {
-      $manufacturers_query = tep_db_query("select manufacturers_name, manufacturers_location from manufacturers where manufacturers_id = '" . $manufacturers_id . "'");
-    }
-
-    $products_manufacturers = '';
-    if (tep_db_num_rows($manufacturers_query) > 1) {
-      while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
-        $products_manufacturers .= $manufacturers['manufacturers_name'] . ' / ';
-        if ($manufacturers['manufacturers_location'] == '1') {
-          $manufacturers_location = '1';
-        } else {
-          if ($manufacturers_location == '1') {
-            $manufacturers_location = '1';
-          } else {
-            $manufacturers_location = '0';
-          }
-        }
-      }
-      $products_manufacturers = substr($products_manufacturers, 0, -3); // remove last ' / '
-    } else {
-      $manufacturers = tep_db_fetch_array($manufacturers_query);
-      $products_manufacturers = $manufacturers['manufacturers_name'];
-      $manufacturers_location = $manufacturers['manufacturers_location'];
-    }
-    if ($manufacturers_location == '0') {
-      $products_name = $products_manufacturers . ' ' . $products_name;
-    } elseif ($manufacturers_location == '1') {
-      $products_name = $products_name . ' (' . $products_manufacturers . ')';
-    }
-
-    return $products_name;
-  }
-
   function tep_customers_name($customers_id) {
     $customers = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $customers_id . "'");
     $customers_values = tep_db_fetch_array($customers);
@@ -260,9 +220,9 @@
 
   function tep_products_pull_down($parameters) {
     $select_string = '<select ' . $parameters . '>';
-    $products_query = tep_db_query("select products_id from products order by products_name");
+    $products_query = tep_db_query("select products_id, products_name from products order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
-      $select_string .= '<option value="' . $products['products_id'] . '">' . tep_products_name($products['products_id']) . '</option>';
+      $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . '</option>';
     }
     $select_string .= '</select>';
 
@@ -282,15 +242,13 @@
     return $select_string;
   }
 
-  function tep_products_name_only($products_id) {
-    global $products_name_only;
+  function tep_products_name($products_id) {
+    $products_query = tep_db_query("select products_name from products where products_id = '" . $products_id . "'");
+    $products = tep_db_fetch_array($products_query);
 
-    $products_only = tep_db_query("select products_name from products where products_id = '" . $products_id . "'");
-    $products_values_only = tep_db_fetch_array($products_only);
+    $products_name = $products['products_name'];
 
-    $products_name_only = $products_values_only['products_name'];
-
-    return $products_name_only;
+    return $products_name;
   }
 
   function tep_options_name($options_id) {
