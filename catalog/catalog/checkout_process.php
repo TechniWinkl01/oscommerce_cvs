@@ -65,7 +65,13 @@
   $paypal_total = round(($subtotal + $tax)*100)/100;
   $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;
+
   mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
+
+// send emails to other people
+  if (SEND_EXTRA_ORDER_EMAILS_TO) {
+    mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
+  }
 
 // why a redirect? if the user pushes 'Refresh' on their browser, it wont process the products a second time..
 	switch($HTTP_POST_VARS['payment']) {

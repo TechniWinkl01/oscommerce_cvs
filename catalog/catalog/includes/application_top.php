@@ -21,6 +21,11 @@
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
+// who to send order confirmation emails to.. there is always one being sent to the customer, so there
+// is no need to add their address to the following constant..
+// use comma's to separate email addresses (as in the example)
+  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
+
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
   define('STORE_PAGE_PARSE_TIME', 0);
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_LOGS . 'exchange/parse_time_log');
