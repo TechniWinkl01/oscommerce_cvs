@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.71 2002/01/27 03:15:46 hpdl Exp $
+  $Id: orders.php,v 1.72 2002/01/27 03:28:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -194,10 +194,10 @@
             <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
             <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
             <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td class="tableHeading" align="right">Price (ex)</td>
-            <td class="tableHeading" align="right">Price (inc)</td>
-            <td class="tableHeading" align="right">Total (ex)</td>
-            <td class="tableHeading" align="right">Total (inc)</td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
           </tr>
           <tr>
             <td colspan="8"><?php echo tep_draw_separator(); ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.11 2002/01/27 03:15:47 hpdl Exp $
+  $Id: orders.php,v 1.12 2002/01/27 03:28:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,6 +26,10 @@ define('TABLE_HEADING_PRODUCTS', 'Productos');
 define('TABLE_HEADING_TAX', 'Impuesto');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_STATUS', 'Estado');
+define('TABLE_HEADING_PRICE_EXCLUDING_TAX', 'Price (ex)');
+define('TABLE_HEADING_PRICE_INCLUDING_TAX', 'Price (inc)');
+define('TABLE_HEADING_TOTAL_EXCLUDING_TAX', 'Total (ex)');
+define('TABLE_HEADING_TOTAL_INCLUDING_TAX', 'Total (inc)');
 
 define('TABLE_HEADING_NEW_VALUE', 'New Value');
 define('TABLE_HEADING_OLD_VALUE', 'Old Value');
