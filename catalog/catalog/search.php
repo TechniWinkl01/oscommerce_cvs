@@ -57,7 +57,7 @@
   $row = 0;
 
   $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
-  $search_query = "select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from manufacturers, products_to_manufacturers, products where products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and ";
+  $search_query = "select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from manufacturers, products_to_manufacturers, products where products.products_status='1' and products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and ";
   for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
     $search_query .= "(products.products_name like '%" . $search_keywords[$i] . "%' or manufacturers.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
   }
@@ -72,8 +72,20 @@
       echo '          <tr bgcolor="#f4f7fd">' . "\n";
     }
     echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $search_values['products_id'], 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
-    echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;$' . $search_values['products_price'] . '&nbsp;</font></td>' . "\n";
-    echo '          </tr>' . "\n";
+    $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $search_values['products_id'] . "'");
+      if (tep_db_num_rows($check_special)) {
+        $check_special_values = tep_db_fetch_array($check_special);
+        $new_price = $check_special_values['specials_new_products_price'];
+      }	
+      echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;';
+      if ($new_price) {
+        echo '<s>$' .  $search_values['products_price'] . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">$' . $new_price . '</font>';
+        unset($new_price);
+      } else {
+        echo '$' . $search_values['products_price'];
+      }
+      echo '&nbsp;</font></td>' . "\n";
+      echo '          </tr>' . "\n";
   }
 ?>
           <tr>
