@@ -44,15 +44,7 @@
   }
 ?>
     </td>
-    <td align="right" nowrap class="headerNavigation">
-<?php
-  if (tep_session_is_registered('customer_id')) {
-    echo '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_LOGOFF . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
-  } else {
-    echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
-  }
-?>
-    </td>
+    <td align="right" nowrap class="headerNavigation"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>'; ?>&nbsp;&nbsp;</td>
   </tr>
 </table>
 <?php
@@ -63,7 +55,7 @@
     <td nowrap class="headerError"><?php echo $HTTP_GET_VARS['error_message']; ?></td>
   </tr>
 </table>
-<?
+<?php
   }
 
   if ($HTTP_GET_VARS['info_message'] != '') {
@@ -73,6 +65,6 @@
     <td nowrap class="headerInfo"><?php echo $HTTP_GET_VARS['info_message']; ?></td>
   </tr>
 </table>
-<?
+<?php
   }
 ?>
