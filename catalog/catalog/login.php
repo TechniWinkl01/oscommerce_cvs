@@ -8,7 +8,7 @@
         header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
         tep_exit();
       } else {
-        header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail_email', 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail_email&email_address=' . $HTTP_POST_VARS['email_address'], 'NONSSL'));
         tep_exit();
       }
     } else {
@@ -144,9 +144,6 @@ function session_win() {
             <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
             <td rowspan="2" align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
-          <tr>
-            <td colspan="2" class="main">&nbsp;&nbsp;<? echo TEXT_STEP_BY_STEP; ?>&nbsp;</td>
-          </tr>
         </table></td>
       </tr>
       <tr>
@@ -172,14 +169,14 @@ function session_win() {
 ?>
           <tr>
             <td align="right" class="main">&nbsp;<? echo ENTRY_EMAIL_ADDRESS2; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if ($HTTP_GET_VARS['email_address']) echo $HTTP_GET_VARS['email_address']; elseif (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main"><input type="radio" name="user" value="new"></td>
+            <td align="right" class="main"><input type="radio" name="user" value="new"<? if ((!$HTTP_COOKIE_VARS['email_address'] || !$HTTP_COOKIE_VARS['password']) && (!$HTTP_GET_VARS['email_address'])) { echo ' checked'; } ?>></td>
             <td class="main">&nbsp;<? echo TEXT_NEW_CUSTOMER; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main"><input type="radio" name="user" value="returning" checked></td>
+            <td align="right" class="main"><input type="radio" name="user" value="returning"<? if (($HTTP_COOKIE_VARS['email_address'] && $HTTP_COOKIE_VARS['password']) || ($HTTP_GET_VARS['email_address'])) { echo ' checked'; } ?>></td>
             <td class="main">&nbsp;<? echo TEXT_RETURNING_CUSTOMER; ?>&nbsp;</td>
           </tr>
           <tr>
