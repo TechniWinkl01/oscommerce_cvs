@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.8 2001/09/20 19:41:10 mbs Exp $
+  $Id: authorizenet.php,v 1.9 2002/01/04 10:45:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,7 @@
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_TYPE', 'Type:');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER', 'Credit Card Number:');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES', 'Credit Card Expiry Date:');
-  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER', '* The credit card number must be atleast ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER', '* The credit card number must be at least ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE', 'There has been an error processing you credit card, please try again.');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR', 'Credit Card Error!');
 ?>
