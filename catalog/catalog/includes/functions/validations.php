@@ -2,7 +2,7 @@
 
 function tep_validate_email($email)  // Validate the email address by checking the users mail server
 {  
- if (!eregi("(.+)@(.+[.].+)", $email))
+ if (!eregi("^[a-z0-9]+([\.%!][_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$", $email))
  {
   $return = false;
  }
