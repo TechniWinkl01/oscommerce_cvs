@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.225 2002/04/24 16:48:12 hpdl Exp $
+  $Id: application_top.php,v 1.226 2002/05/03 10:28:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -150,6 +150,7 @@
 
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
+  tep_session_name('osCsid');
 
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
