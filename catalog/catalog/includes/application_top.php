@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.135 2001/06/06 10:08:41 hpdl Exp $
+  $Id: application_top.php,v 1.136 2001/06/06 10:16:33 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -155,7 +155,7 @@
 
 // customization for the design layout
   define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
-  define('TAX_VALUE', 16); // propducts tax
+  define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -258,13 +258,14 @@
 // lets start our session
   if ($HTTP_POST_VARS[tep_session_name()]) {
     tep_session_id($HTTP_POST_VARS[tep_session_name()]);
-  } elseif ($HTTP_GET_VARS[tep_session_name()]) {
+  }
+  if ( (getenv('HTTPS')) && ($HTTP_GET_VARS[tep_session_name()]) ) {
     tep_session_id($HTTP_GET_VARS[tep_session_name()]);
   }
-  tep_session_start();
   if (function_exists('session_set_cookie_params')) {
     session_set_cookie_params(0, DIR_WS_CATALOG);
   }
+  tep_session_start();
 
 // Create the cart & Fix the cart if necesary
   if ($cart) {
