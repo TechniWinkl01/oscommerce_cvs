@@ -3,7 +3,7 @@
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_review') {
       tep_db_query("update reviews set reviews_text = '" . htmlspecialchars($HTTP_POST_VARS['reviews_text']) . "', reviews_rating = '" . $HTTP_POST_VARS['reviews_rating'] . "' where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
-      header('Location: ' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL')); tep_exit();
+      header('Location: ' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID')) . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_review') {
       tep_db_query("delete from reviews where reviews_id = '" . $HTTP_GET_VARS['rID'] . "'");
       tep_db_query("delete from reviews_extra where reviews_id = '" . $HTTP_GET_VARS['rID'] . "'");
@@ -133,10 +133,7 @@
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_REVIEW; ?></b><br>&nbsp;<br><? if ($HTTP_GET_VARS['action'] == 'update') { echo '<textarea name="review" wrap="off" cols="60" rows="15">' . $reviews_values['reviews_text'] . '</textarea>'; } else { echo tep_break_string(htmlspecialchars($rInfo->text), 15); } ?></font></td>
-          </tr>
-          <tr>
-            <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? if ($HTTP_GET_VARS['action'] == 'update') echo ENTRY_REVIEW_TEXT; ?></font></td>
+            <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_REVIEW; ?></b><br>&nbsp;<br><? echo tep_break_string($rInfo->text, 15); ?></font></td>
           </tr>
         </table></td>
       </tr>
