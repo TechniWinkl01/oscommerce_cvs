@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.54 2001/09/21 14:32:55 dwatkins Exp $
+  $Id: checkout_address.php,v 1.55 2001/11/04 22:19:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -136,13 +136,11 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?php
-    $boln = '<td class="smallText">&nbsp;';
-    $eoln = '&nbsp;</td>' . "\n";
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
-      echo '              <tr>' . "\n";
-      echo '                <td class="smallText">&nbsp;0' . ($row - 1) . '.&nbsp;</td>' . "\n";
-      echo tep_address_label($customer_id, $address_book_values['address_book_id'], 1, $boln, $eoln);
+      echo '              <tr class="shippingOptions-' . ($row / 2 == floor($row / 2) ? 'odd' : 'even') . '">' . "\n";
+      echo '                <td align="right" valign="top" class="smallText">' . number_format($row - 1) . '.&nbsp;</td>' . "\n";
+      echo '                <td class="smallText">' . tep_address_label($customer_id, $address_book_values['address_book_id'], true) . '</td>' . "\n";
       echo '                <td align="right" class="smallText">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";
     }
