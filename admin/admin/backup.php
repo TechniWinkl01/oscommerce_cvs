@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.24 2001/11/22 23:56:50 hpdl Exp $
+  $Id: backup.php,v 1.25 2001/11/23 04:33:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -216,13 +216,26 @@
           for ($j=($i+2); $j<$sql_length; $j++) {
             if (trim($restore_query[$j]) != '') {
               $next = substr($restore_query, $j, 6);
+              if ($next[0] == '#') {
+// find out where the break position is so we can remove this line (#comment line)
+                for ($k=$j; $k<$sql_length; $k++) {
+                  if ($restore_query[$k] == "\n") break;
+                }
+                $query = substr($restore_query, 0, $i+1);
+                $restore_query = substr($restore_query, $k);
+// join the query before the comment appeared, with the rest of the dump
+                $restore_query = $query . $restore_query;
+                $sql_length = strlen($restore_query);
+                $i = strpos($restore_query, ';')-1;
+                continue 2;
+              }
               break;
             }
           }
           if ($next == '') { // get the last insert query
             $next = 'insert';
           }
-          if ( ($next == 'create') || ($next == 'insert') || ($next == 'drop t') ) {
+          if ( (eregi('create', $next)) || (eregi('insert', $next)) || (eregi('drop t', $next)) ) {
             $next = '';
             $sql_array[] = substr($restore_query, 0, $i);
             $restore_query = ltrim(substr($restore_query, $i+1));
@@ -357,7 +370,7 @@
 
       $check = 0;
 
-      if (((!$HTTP_GET_VARS['info']) || ($HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && ($HTTP_GET_VARS['action'] != 'backup')) {
+      if (((!$HTTP_GET_VARS['info']) || ($HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && ($HTTP_GET_VARS['action'] != 'backup') && ($HTTP_GET_VARS['action'] != 'restorelocal')) {
         $buInfo = new backupInfo(array('entry' => $entry));
       }
 
