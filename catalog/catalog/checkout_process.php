@@ -67,6 +67,14 @@
   mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
 
 // why a redirect? if the user pushes 'Refresh' on their browser, it wont process the products a second time..
-  header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); tep_exit();
+	switch($HTTP_POST_VARS['payment']) {
+		case 'cc' : // Credit Card
+		case 'cod' : // Cash On Delivery
+			header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); tep_exit();
+			break;
+		case 'paypal' : // PayPal
+			header("Location: https://secure.paypal.com/xclick/business=" . rawurlencode(PAYPAL_ID) . "&item_name=" . rawurlencode(STORE_NAME . " " . TEXT_PAYMENT) . "&item_number=" . rawurlencode($insert_id) . "&amount=" . round($subtotal + $tax, 2) . "&shipping=" . $shipping_cost . "&return=" . urlencode(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')));
+			break;
+	}
 ?>
 <? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>

@@ -5,6 +5,7 @@
 <head>
 <title><? echo TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<?php if(PAYMENT_SUPPORT_CC) { ?>
 <script language="javascript"><!--
 function check_form() {
   var error = 0;
@@ -14,7 +15,7 @@ function check_form() {
   var cc_number = document.payment.cc_number.value;
   var cc_expires = document.payment.cc_expires.value;
 
-  if (document.payment.payment[1].checked) {
+  if (document.payment.payment[<?php print (PAYMENT_SUPPORT_COD + PAYMENT_SUPPORT_PAYPAL) ?>].checked) {
     if (cc_owner == "" || cc_owner.length < <? echo CC_OWNER_MIN_LENGTH;?>) {
       error_message = error_message + "<? echo JS_CC_OWNER;?>";
       error = 1;
@@ -39,6 +40,7 @@ function check_form() {
   }
 }
 //--></script>
+<?php } /* cc */ ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -92,11 +94,20 @@ function check_form() {
           </tr>
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<?php if(PAYMENT_SUPPORT_COD) { ?>
               <tr>
                 <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo SUB_TITLE_CASH_ON_DELIVERY;?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="cod"
 <? if (@$HTTP_POST_VARS['cc_owner'] == '' || @$HTTP_POST_VARS['cc_expires'] == '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
               </tr>
+<?php } /* cod */ ?>
+<?php if(PAYMENT_SUPPORT_PAYPAL) { ?>
+              <tr>
+                <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo SUB_TITLE_PAYPAL;?>&nbsp;</font></td>
+                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="paypal">&nbsp;</font></td>
+              </tr>
+<?php } /* paypal */ ?>
+<?php if(PAYMENT_SUPPORT_CC) { ?>
               <tr>
                 <td nowrap><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD;?>&nbsp;</font></td>
                 <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="cc"
@@ -118,6 +129,7 @@ function check_form() {
                   </tr>
                 </table></td>
               </tr>
+<?php } /* cc */ ?>
               <tr>
                 <td colspan="2"><br><? echo tep_black_line();?></td>
               </tr>

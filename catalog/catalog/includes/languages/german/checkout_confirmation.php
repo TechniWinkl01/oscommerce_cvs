@@ -24,6 +24,7 @@ define('TEXT_TYPE', 'Typ:');
 define('TEXT_OWNER', 'Eigent&uuml;mer:');
 define('TEXT_NUMBER', 'Nummer:');
 define('TEXT_EXPIRES', 'G&uuml;ltig bis:');
+define('TEXT_PAYPAL', 'PayPal');
 
 define('IMAGE_PROCESS', 'Best&auml;tigung');
 ?>

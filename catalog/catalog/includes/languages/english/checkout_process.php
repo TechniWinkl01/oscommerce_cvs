@@ -17,6 +17,9 @@ define('EMAIL_TEXT_DELIVERY_ADDRESS', 'Delivery Address');
 define('EMAIL_TEXT_PAYMENT_METHOD', 'Payment Method');
 define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
 define('EMAIL_TEXT_CREDIT_CARD', 'Credit Card');
+define('EMAIL_TEXT_PAYPAL', 'PayPal');
+
+define('TEXT_PAYMENT', 'Payment');
 
 $email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n" . EMAIL_TEXT_PRODUCTS . "\n" . '------------------------------------------------------' . "\n" . $products_ordered . '------------------------------------------------------' . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($subtotal) . "\n" . EMAIL_TEXT_TAX . tep_currency_format($tax) . "\n";
 if (!SHIPPING_FREE) {
@@ -33,10 +36,16 @@ if ($delivery_values['state'] != '') {
   $email_order.="\n" . $delivery_country['countries_name'];
 }
 $email_order.="\n\n" . EMAIL_TEXT_PAYMENT_METHOD . "\n" . '------------------------------------------------------' . "\n";
-if ($HTTP_POST_VARS['payment'] == 'cod') {
-  $email_order.=EMAIL_TEXT_CASH_ON_DELIVERY . "\n\n";
-} else {
-  $email_order.=EMAIL_TEXT_CREDIT_CARD . ' ' . $HTTP_POST_VARS['cc_type'] . "\n\n";
+switch($HTTP_POST_VARS['payment']) {
+	case 'cod' : // Cash On Delivery
+		$email_order.=EMAIL_TEXT_CASH_ON_DELIVERY . "\n\n";
+		break;
+	case 'cc' : // Credit Card
+		$email_order.=EMAIL_TEXT_CREDIT_CARD . ' ' . $HTTP_POST_VARS['cc_type'] . "\n\n";
+		break;
+	case 'paypal' : // PayPal
+		$email_order.=EMAIL_TEXT_PAYPAL . "\n\n";
+		break;
 }
 
 define('EMAIL_ORDER', $email_order);

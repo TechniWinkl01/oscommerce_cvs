@@ -17,6 +17,7 @@ define('SUB_TITLE_CREDIT_CARD_TYPE', 'Typ:');
 define('SUB_TITLE_CREDIT_CARD_OWNER', 'Eigent&uuml;mer:');
 define('SUB_TITLE_CREDIT_CARD_NUMBER', 'Nummer:');
 define('SUB_TITLE_CREDIT_CARD_EXPIRES', 'G&uuml;ltig bis:');
+define('SUB_TITLE_PAYPAL', 'PayPal');
 
 define('IMAGE_NEXT', 'Weiter');
 ?>
