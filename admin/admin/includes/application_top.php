@@ -1,11 +1,17 @@
 <?
+  if (file_exists('includes/local/configure.php')) {
+    include('includes/local/configure.php');
+  }
+  if (CONFIGURE_STATUS != 'COMPLETED') { // File not read properly
+     die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted or did not exist.');
+  }
 // expert mode?
   define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure
 
 // define our webserver variables
   define('HTTP_SERVER', 'http://exchange');
   define('DIR_SERVER_ROOT', '/www'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
-  define('DIR_LOGS', '/usr/local/apache/logs/');
+  define('DIR_LOGS', DIR_SERVER_ROOT . 'logs/');
   define('DIR_ADMIN', '/admin/');
   define('DIR_CATALOG', '/catalog/');
   define('DIR_CATALOG_IMAGES', DIR_CATALOG . 'images/');
