@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: tax_rates.php,v 1.16 2001/09/18 17:15:30 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
       tep_db_query("insert into " . TABLE_TAX_RATES . " (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) values ('" . $HTTP_POST_VARS['tax_zone_id'] . "', '" . $HTTP_POST_VARS['tax_class_id'] . "', '" . $HTTP_POST_VARS['tax_rate'] . "', '" . $HTTP_POST_VARS['tax_description'] . "', now())");
@@ -15,27 +27,27 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
-<?
+<?php
   if (($HTTP_GET_VARS['action'] == 'edit') || ($HTTP_GET_VARS['action'] == 'new')) {
   }
 ?>
 </head>
 <body onload="SetFocus();">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -45,36 +57,36 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="5"><? echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX_RATE_PRIORITY; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX_CLASS_TITLE; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ZONE; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX_RATE; ?>&nbsp;</td>
-                <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_TAX_RATE_PRIORITY; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_TAX_CLASS_TITLE; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ZONE; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_TAX_RATE; ?>&nbsp;</td>
+                <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="5"><? echo tep_black_line(); ?></td>
+                <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   $rows = 0;
   $rates_query_raw = "select r.tax_rates_id, z.geo_zone_id, z.geo_zone_name, tc.tax_class_title, tc.tax_class_id, r.tax_priority, r.tax_rate, r.tax_description, r.date_added, r.last_modified from " . TABLE_TAX_CLASS . " tc, " . TABLE_TAX_RATES . " r left join " . TABLE_GEO_ZONES . " z on r.tax_zone_id = z.geo_zone_id where r.tax_class_id = tc.tax_class_id";
   $rates_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $rates_query_raw, $rates_query_numrows);
@@ -92,51 +104,50 @@
       echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $rates['tax_rates_id'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
-                <td width="10%" class="smallText">&nbsp;<? echo $rates['tax_priority']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? echo $rates['tax_class_title']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? echo $rates['geo_zone_name']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? echo number_format($rates['tax_rate'], TAX_DECIMAL_PLACES); ?>%&nbsp;</td>
-<?
+                <td width="10%" class="smallText">&nbsp;<?php echo $rates['tax_priority']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo $rates['tax_class_title']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo $rates['geo_zone_name']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo number_format($rates['tax_rate'], TAX_DECIMAL_PLACES); ?>%&nbsp;</td>
+<?php
     if ($rates['tax_rates_id'] == @$trInfo->id) {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
+<?php
     } else {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $rates['tax_class_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $rates['tax_class_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+<?php
     }
 ?>
               </tr>
-<?
+<?php
   }
 ?>
               <tr>
-                <td colspan="5"><? echo tep_black_line(); ?></td>
+                <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td valign="top" class="smallText">&nbsp;<? echo $rates_split->display_count($rates_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_TAX_RATES); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $rates_split->display_links($rates_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<? if (!$HTTP_GET_VARS['action']) echo '<br><br>&nbsp;<a href="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_tax_rate.gif', IMAGE_NEW_TAX_RATE) . '</a>&nbsp;'; ?></td>
+                    <td valign="top" class="smallText">&nbsp;<?php echo $rates_split->display_count($rates_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_TAX_RATES); ?>&nbsp;</td>
+                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $rates_split->display_links($rates_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?php if (!$HTTP_GET_VARS['action']) echo '<br><br>&nbsp;<a href="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_tax_rate.gif', IMAGE_NEW_TAX_RATE) . '</a>&nbsp;'; ?></td>
                   </tr>
                 </table></td>
               </tr>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?
+<?php
   $info_box_contents = array();
   if ($trInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $trInfo->class_title . '</b>&nbsp;');
   if ((!$tcInfo) && ($HTTP_GET_VARS['action'] == 'new')) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . TEXT_INFO_HEADING_NEW_TAX_CLASS . '</b>&nbsp;');
-
 ?>
               <tr class="boxHeading">
-                <td><? new infoBoxHeading($info_box_contents); ?></td>
+                <td><?php new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr class="boxHeading">
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['action'] == 'new') {
     $form = '<form name="rates" action="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post">'  ."\n";
 
@@ -156,7 +167,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_ZONE_NAME . '<br>' . tep_geo_zones_pull_down('name="tax_zone_id" style="font-size:10px"', $trInfo->zone_id) . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_TAX_RATE . '<br><input type="text" name="tax_rate" value="' . $trInfo->rate . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_RATE_DESCRIPTION . '<br><input type="text" name="tax_description" value="' . $trInfo->description . '"><br>&nbsp;');
-	$info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_TAX_RATE_PRIORITY . '<br><input type="text" name="tax_priority" value="' . $trInfo->priority . '"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_TAX_RATE_PRIORITY . '<br><input type="text" name="tax_priority" value="' . $trInfo->priority . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="rates" action="' . tep_href_link(FILENAME_TAX_RATES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="tax_rates_id" value="' . $trInfo->id . '">'  ."\n";
@@ -172,11 +183,11 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . $trInfo->description);
   }
 ?>
-              <tr><? echo $form; ?>
-                <td class="box"><? new infoBox($info_box_contents); ?></td>
-              <? if ($form) echo '</form>'; ?></tr>
+              <tr><?php echo $form; ?>
+                <td class="box"><?php new infoBox($info_box_contents); ?></td>
+              <?php if ($form) echo '</form>'; ?></tr>
               <tr>
-                <td class="box"><? echo tep_black_line(); ?></td>
+                <td class="box"><?php echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -189,8 +200,8 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

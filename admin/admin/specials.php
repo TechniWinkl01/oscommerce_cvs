@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.21 2001/09/09 18:52:36 hpdl Exp $
+  $Id: specials.php,v 1.22 2001/09/18 17:15:32 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -132,7 +132,7 @@
             <td class="main">&nbsp;<?php echo TEXT_SPECIALS_PRODUCT; ?>&nbsp;</td>
             <td class="main">&nbsp;<?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . tep_currency_format($sInfo->products_price) . ')</small>' : tep_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo tep_draw_hidden_field('products_price', $sInfo->products_price); ?>&nbsp;</td>
           </tr>
-  	      <tr>
+          <tr>
             <td class="main">&nbsp;<?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
             <td class="main">&nbsp;<?php echo tep_draw_input_field('specials_price', $sInfo->specials_price); ?>&nbsp;</td>
           </tr>
