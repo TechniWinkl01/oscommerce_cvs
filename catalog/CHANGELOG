@@ -1,3 +1,54 @@
+01/12/2000
+----------
+
+The Exchange Project Preview Release 2.0 -
+
+ * PHP3 / PHP4 compatible out of the box
+
+ * Administration Tool has been majorly rewritten, and
+   has also been given a new friendlier GUI
+
+ * Tax calculated by zones
+
+ * Objects - In a start to sort out and organize the code,
+   various classes have been implemented to take care of
+   certain functions/features
+
+ * Some application configuration parameters are now
+   in the database. Two advantages are
+     (i) no conflicts can be made by developers
+    (ii) each parameter can be given description,
+         and can be easily modified over the web
+
+ * New category structure
+
+ * Manufacturers are now linked to each product, the
+   function to obtain the manufactures name and the
+   products name together has been removed - this
+   improves the applications performance.
+
+ * The status to orders can be modified
+
+ * Three standard languages are included in the 
+   download packge - English, German, and Spanish.
+
+ * Advanced Search
+
+ * New modules/templates
+
+ * BestSellers list
+ * MAnufacturers box
+ * This customer also purchased..
+
+ * Send Order Confirmation E-Mails to multiple people
+
+ * Address Formating
+
+ * PayPal Payments
+
+ * Currency format
+
+
 14/05/2000
 ----------
 

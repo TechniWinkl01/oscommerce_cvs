@@ -1,7 +1,7 @@
 <?
 /*
 German Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 29.11.2000
+Last Update: 02/12/2000
 Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 */
 

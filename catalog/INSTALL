@@ -1,4 +1,4 @@
-The Exchange Project Preview Release 1.1 (14/05/2000)
+The Exchange Project Preview Release 2.0 (01/12/2000)
 
 QUICK INSTALLATION STEPS
 ------------------------
@@ -8,13 +8,13 @@ follow these steps to get the online shop running:
 
 1. Extract the files from within the package
 
-   tar -xzf tep_catalog-pr1.1.tar.gz
+   tar -xzf tep_catalog-pr2.0.tar.gz
  
-2. This creates a directory called 'tep_catalog-pr1.1'. Enter
+2. This creates a directory called 'tep_catalog-pr2.0'. Enter
    this directory and copy the 'catalog' directory to your
    webroot directory of your webserver:
 
-   cd tep_catalog-pr1.1
+   cd tep_catalog-pr2.0
    cp -R catalog /usr/local/apache/htdocs/
 
    For this example, '/usr/local/apache/htdocs/' is used as
@@ -23,7 +23,7 @@ follow these steps to get the online shop running:
 3. Create the 'catalog' database and import the sample data:
 
    mysqladmin create catalog
-   mysql catalog <./mysql_catalog.sql
+   mysql catalog < ./mysql_catalog.sql
 
    To check if the tables have been successfully imported, you
    can list them by using mysqlshow:
@@ -34,7 +34,7 @@ follow these steps to get the online shop running:
    necessary changes. 
 
 Note: You need to enable the option REPAIR_BROKEN_CART for
-tep to run properly under PHP3.
+the application to run properly under PHP3.
 
 Now you can use your browser to view the pages which should be
 located at 'http://localhost/catalog/'. You can also use your

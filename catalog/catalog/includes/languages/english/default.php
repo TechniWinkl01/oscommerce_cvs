@@ -5,7 +5,7 @@ Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
-define('TEXT_MAIN', 'Welcome to \'' . STORE_NAME . '\'! This is a demonstration online-shop, <b>any products purchased will not be delivered nor billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download this sample shop, or to contribute to this project, please visit the <a href="http://theexchangeproject.org"><u>support site</u></a>. This shop is based on the upcoming Preview Release 2 - which will be made available to download when it is complete. Preview Release 1 is available to download at the support site.<br><br>All outgoing emails sent from this online demonstration has been disabled.');
+define('TEXT_MAIN', 'Welcome to \'' . STORE_NAME . '\'! This is a demonstration online-shop, <b>any products purchased will not be delivered nor billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download this sample shop, or to contribute to this project, please visit the <a href="http://theexchangeproject.org"><u>support site</u></a>. This shop is based on <font color="#f0000">Preview Release 2.0</font>.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'New Products For %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Upcoming Products');
 define('TABLE_HEADING_DATE_EXPECTED', 'Date Expected');
