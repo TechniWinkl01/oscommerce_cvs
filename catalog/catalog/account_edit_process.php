@@ -262,7 +262,9 @@
       echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
       $countries = tep_get_countries();
       for ($i=0; $i < sizeof($countries); $i++) {
-        echo '<option value="' . $countries[$i]['countries_id'] . '">' . $countries[$i]['countries_name'] . '</option>';
+        echo '<option value="' . $countries[$i]['countries_id'] . '"';
+        if ($countries[$i]['countries_id'] == STORE_COUNTRY) echo ' SELECTED';
+        echo '>' . $countries[$i]['countries_name'] . '</option>';
       }
       echo '</select>&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {

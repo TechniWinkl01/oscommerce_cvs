@@ -408,10 +408,12 @@ function check_form() {
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$country_error == '1') {
-        echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
+        echo '<select name="country"><option value="0">' . PLEASE_SELECT . "Store " . STORE_COUNTRY . '</option>';
         $countries = tep_get_countries();
         for ($i=0; $i < sizeof($countries); $i++) {
-          echo '<option value="' . $countries[$i]['countries_id'] . '">' . $countries[$i]['countries_name'] . '</option>';
+          echo '<option value="' . $countries[$i]['countries_id'] . '"';
+          if ($countries[$i]['countries_id'] == STORE_COUNTRY) echo ' SELECTED';
+          echo '>' . $countries[$i]['countries_name'] . '</option>';
         }
         echo '</select>&nbsp;' . ENTRY_COUNTRY_ERROR;
       } else {
@@ -419,11 +421,13 @@ function check_form() {
         echo $entry_country['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
       }
     } else {
-      echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
+      if ($country == "") $def_country = STORE_COUNTRY;
+      else $def_country = $country;
+      echo '<select name="country"><option value="0">' . PLEASE_SELECT . "Country " . $country . '</option>';
       $countries = tep_get_countries();
       for ($i=0; $i < sizeof($countries); $i++) {
         echo '<option value="' . $countries[$i]['countries_id'] . '"';
-        if ($countries[$i]['countries_id'] == @$country) echo ' SELECTED';
+        if ($countries[$i]['countries_id'] == $def_country) echo ' SELECTED';
         echo '>' . $countries[$i]['countries_name'] . '</option>';
       }
       echo '</select>&nbsp;' . ENTRY_COUNTRY_TEXT;

@@ -435,7 +435,7 @@ function go() {
 	echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
 	while ($countries_values = tep_db_fetch_array($countries)) {
       echo '<option value="' . $countries_values['countries_id'] . '"';
-	  if ($countries_values['countries_id'] == $country) echo ' SELECTED';
+      if ($countries_values['countries_id'] == $country) echo ' SELECTED';
       echo '>' . $countries_values['countries_name'] . '</option>';
     }
 	echo '</select>&nbsp;' . ENTRY_COUNTRY_TEXT;
@@ -641,7 +641,9 @@ $per_page = MAX_ROW_LISTS;
 <?
     $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
     while ($countries_values = tep_db_fetch_array($countries)) {
-      echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
+      echo '<option value="' . $countries_values['countries_id'] . '"';
+      if ($countries_values['countries_id'] == STORE_COUNTRY) echo ' SELECTED';
+      echo '>' . $countries_values['countries_name'] . '</option>';
     }
 ?>
   	  </select></font></td>

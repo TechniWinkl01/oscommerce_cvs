@@ -229,7 +229,9 @@ function check_form() {
 <?
     $countries = tep_get_countries();
     for ($i=0; $i < sizeof($countries); $i++) {
-      echo '<option value="' . $countries[$i]['countries_id'] . '">' . $countries[$i]['countries_name'] . '</option>';
+      echo '<option value="' . $countries[$i]['countries_id'] . '"';
+      if ($countries[$i]['countries_id'] == STORE_COUNTRY) echo ' SELECTED';
+      echo '>' . $countries[$i]['countries_name'] . '</option>';
     }
 ?></select>&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
           </tr>

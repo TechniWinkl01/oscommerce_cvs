@@ -14,6 +14,7 @@
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
   define('STORE_NAME', 'The Exchange Project');
+  define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
   define('EXIT_AFTER_REDIRECT', 0); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
   define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse the page
