@@ -345,7 +345,7 @@ function alertBox() {
             <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($total, 2); ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo tep_date_short($orders_values['date_purchased']); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo $orders_values['orders_status']; ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<? echo tep_get_orders_status_name($orders_values['orders_status'], $languages_id); ?>&nbsp;</td>
           </tr>
 <?
     }
