@@ -1,5 +1,16 @@
 <?
 /*
+  $Id: itransact_split.php,v 1.4 2001/08/23 21:35:24 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+/*
   See README_catalog_itransact_split 
   iTransact Payment Module itransact_split.php
   Author: TriciaB (info@barestyle.com)
@@ -369,6 +380,10 @@
 </html>
 <?
         tep_exit();
+    }
+
+    function pre_confirmation_check() {
+      return false;
     }
 
     function output_error() {

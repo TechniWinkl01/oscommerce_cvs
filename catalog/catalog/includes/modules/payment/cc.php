@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: cc.php,v 1.27 2001/08/23 21:35:24 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class cc {
     var $code, $title, $description, $enabled;
 
@@ -32,38 +43,37 @@
     function selection() {
       global $HTTP_POST_VARS;
 
-        if ($this->enabled) {
+      if ($this->enabled) {
+        for ($i=1; $i < 13; $i++) {
+          $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
+        }
+
+        $today = getdate(); 
+        for ($i=$today['year']; $i < $today['year']+10; $i++) {
+          $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
+        }
+
         $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                             '  <tr>' . "\n" .
                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
-                            '    <td class="main">&nbsp;<input type="text" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;' . tep_draw_input_field('cc_owner') . '&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                            '    <td class="main">&nbsp;<input type="text" name="cc_number">&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;' . tep_draw_input_field('cc_number') . '&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                            '    <td class="main">&nbsp;<select name="cc_expires_month">';
-        for ($i=1; $i < 13; $i++) {
-          $selected = ($HTTP_POST_VARS['cc_expires_month'] == $i) ? ' selected' : '';
-          $selection_string .= '<option' . $selected . ' value="' . sprintf('%02d', $i) . '">' . strftime("%B",mktime(0,0,0,$i,1,2000)) . '</option>';
-        }
-        $selection_string .= '</select>&nbsp;/&nbsp;<select name="cc_expires_year">';
-        $today = getdate(); 
-        for ($i=$today['year']; $i < $today['year']+10; $i++) {
-          $selected = ($HTTP_POST_VARS['cc_expires_year'] == strftime("%y",mktime(0,0,0,1,1,$i))) ? ' selected' : '';
-          $selection_string .= '<option' . $selected . ' value="' . strftime("%y",mktime(0,0,0,1,1,$i)) . '">' . strftime("%Y",mktime(0,0,0,1,1,$i)) . '</option>';
-        }
-        $selection_string .= '</select></td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '</table>' . "\n";
+                            '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('cc_expires_year', $expires_year) . '</td>' . "\n" .
+                            '  </tr>' . "\n" .
+                            '</table>' . "\n";
+
         return $selection_string;
       }
     }
 
-    function confirmation() {
-      global $HTTP_POST_VARS, $cc_val, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
+    function pre_confirmation_check() {
+      global $HTTP_POST_VARS;
 
       if ($this->enabled) {
         $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
@@ -71,52 +81,44 @@
         $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
         $cc_val = CCValidationSolution($cc_val);
 
+        if ($cc_val != '1') {
+          $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
+          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
+        }
+      }
+    }
+
+    function confirmation() {
+      global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
+
+      if ($this->enabled) {
+        $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+
         $confirmation_string = '          <tr>' . "\n" .
                                '            <td class="main">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</td>' . "\n" .
+                               '          </tr>' . "\n" .
+                               '          <tr>' . "\n" .
+                               '            <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
+                               '          </tr>' . "\n" .
+                               '          <tr>' . "\n" .
+                               '            <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
+                               '          </tr>' . "\n" .
+                               '          <tr>' . "\n" .
+                               '            <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
                                '          </tr>' . "\n";
-
-        if ($cc_val == '1') {
-          $confirmation_string .= '          <tr>' . "\n" .
-                                  '            <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
-                                  '          </tr>' . "\n" .
-                                  '          <tr>' . "\n" .
-                                  '            <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
-                                  '          </tr>' . "\n";
-        }
-
-        $confirmation_string .= '          <tr>' . "\n" .
-                                '            <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
-                                '          </tr>' . "\n";
-
-        if ($cc_val != '1') {
-          $confirmation_string .= '          <tr>' . "\n" .
-                                  '            <td class="main">&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</td>' . "\n" .
-                                  '          </tr>' . "\n";
-        }
-
-        if ($cc_val != '1') {
-          $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');
-          $checkout_form_submit = tep_image_submit('button_back.gif', IMAGE_BUTTON_BACK) . '&nbsp;' . "\n";
-        }
 
         return $confirmation_string;
       }
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $CardName, $CardNumber, $cc_val;
+      global $HTTP_POST_VARS, $CardName, $CardNumber;
 
       if ($this->enabled) {
         $process_button_string = '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                                 '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">';
-
-        if ($cc_val == '1') {
-          $process_button_string .= '<input type="hidden" name="cc_type" value="' . $CardName . '">' .
-                                    '<input type="hidden" name="cc_number" value="' . $CardNumber . '">';
-        } else {
-          $process_button_string .= '<input type="hidden" name="cc_expires_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
-                                    '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">';
-        }
+                                 '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
+                                 '<input type="hidden" name="cc_type" value="' . $CardName . '">' .
+                                 '<input type="hidden" name="cc_number" value="' . $CardNumber . '">';
 
         return $process_button_string;
       }
@@ -147,7 +149,13 @@
     }
 
     function output_error() {
-      return false;
+      global $HTTP_GET_VARS;
+
+      $output_error_string = '<tr>' . "\n" .
+                             '  <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_CC_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
+                             '</tr>' . "\n";
+
+      return $output_error_string;
     }
 
     function check() {

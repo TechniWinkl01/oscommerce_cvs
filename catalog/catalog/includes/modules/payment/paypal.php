@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: paypal.php,v 1.19 2001/08/23 21:35:25 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class paypal {
     var $code, $title, $description, $enabled;
 
@@ -16,6 +27,10 @@
     }
 
     function selection() {
+      return false;
+    }
+
+    function pre_confirmation_check() {
       return false;
     }
 

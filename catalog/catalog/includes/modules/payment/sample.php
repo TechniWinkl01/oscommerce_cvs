@@ -1,5 +1,14 @@
 <?php
-// sample.php - Sample structure of what a payment module should follow.
+/*
+  $Id: sample.php,v 1.14 2001/08/23 21:35:25 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
 
   class sample {
     var $code, $title, $description, $enabled;
@@ -32,6 +41,13 @@
       if ($this->enabled) {
 // insert code here
       }
+    }
+
+////
+// Pre confirmation checks (ie, check if credit card information is right before sending the info to
+// the payment server
+    function pre_confirmation_check() {
+      return false;
     }
 
 ////
