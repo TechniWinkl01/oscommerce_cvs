@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.50 2001/06/13 20:15:51 hpdl Exp $
+  $Id: german.php,v 1.51 2001/06/14 10:25:06 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -91,7 +91,7 @@ define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller<br>&nbsp;&nbsp;');
 // manufacturer box text
 define('BOX_HEADING_MANUFACTURER_INFO', 'Hersteller Info');
 define('BOX_MANUFACTURER_INFO_HOMEPAGE', '%s Homepage');
-define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Mehrer Produkte');
+define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Mehr Produkte');
 
 // languages box test in includes/boxes/languages.php
 define('BOX_HEADING_LANGUAGES', 'Sprachen');
@@ -146,9 +146,9 @@ define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('CATEGORY_PERSONAL', 'Ihre Pers&ouml;nliche Daten');
+define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nliche Daten');
 define('CATEGORY_ADDRESS', 'Ihre Adresse');
-define('CATEGORY_CONTACT', 'Ihre Kontaktsinformation');
+define('CATEGORY_CONTACT', 'Ihre Kontaktinformation');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('CATEGORY_PASSWORD', 'Ihre Passwort');
 define('ENTRY_GENDER', 'Geschlecht:');
