@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.17 2003/06/11 17:35:03 hpdl Exp $
+  $Id: sessions.php,v 1.18 2003/06/26 22:26:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -72,6 +72,8 @@
 
     if ($session_started == true) {
       return session_register($variable);
+    } else {
+      return false;
     }
   }
 
