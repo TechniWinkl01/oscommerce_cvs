@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: psigate.php,v 1.21 2004/05/12 19:34:36 mevans Exp $
+  $Id: psigate.php,v 1.22 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -100,13 +100,13 @@
         $selection = array('id' => $this->code,
                            'module' => $this->title,
                            'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
-                                                   'field' => tep_draw_input_field('psigate_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                                   'field' => osc_draw_input_field('psigate_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                                              array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
-                                                   'field' => tep_draw_pull_down_menu('psigate_cc_type', $credit_cards)),
+                                                   'field' => osc_draw_pull_down_menu('psigate_cc_type', $credit_cards)),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
-                                                   'field' => tep_draw_input_field('psigate_cc_number')),
+                                                   'field' => osc_draw_input_field('psigate_cc_number')),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
-                                                   'field' => tep_draw_pull_down_menu('psigate_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('psigate_cc_expires_year', $expires_year))));
+                                                   'field' => osc_draw_pull_down_menu('psigate_cc_expires_month', $expires_month) . '&nbsp;' . osc_draw_pull_down_menu('psigate_cc_expires_year', $expires_year))));
       } else {
         $selection = array('id' => $this->code,
                            'module' => $this->title);
@@ -205,41 +205,41 @@
         $payment_error_return = '';
       }
 
-      $process_button_string = tep_draw_hidden_field('MerchantID', MODULE_PAYMENT_PSIGATE_MERCHANT_ID) .
-                               tep_draw_hidden_field('FullTotal', number_format($order->info['total'] * $osC_Currencies->value(MODULE_PAYMENT_PSIGATE_CURRENCY), $osC_Currencies->currencies[MODULE_PAYMENT_PSIGATE_CURRENCY]['decimal_places'])) .
-                               tep_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
-                               tep_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . $payment_error_return, 'SSL')) .
-                               tep_draw_hidden_field('Bname', ((MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') ? $_POST['psigate_cc_owner'] : $order->billing['firstname'] . ' ' . $order->billing['lastname'])) .
-                               tep_draw_hidden_field('Baddr1', $order->billing['street_address']) .
-                               tep_draw_hidden_field('Bcity', $order->billing['city']);
+      $process_button_string = osc_draw_hidden_field('MerchantID', MODULE_PAYMENT_PSIGATE_MERCHANT_ID) .
+                               osc_draw_hidden_field('FullTotal', number_format($order->info['total'] * $osC_Currencies->value(MODULE_PAYMENT_PSIGATE_CURRENCY), $osC_Currencies->currencies[MODULE_PAYMENT_PSIGATE_CURRENCY]['decimal_places'])) .
+                               osc_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
+                               osc_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . $payment_error_return, 'SSL')) .
+                               osc_draw_hidden_field('Bname', ((MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') ? $_POST['psigate_cc_owner'] : $order->billing['firstname'] . ' ' . $order->billing['lastname'])) .
+                               osc_draw_hidden_field('Baddr1', $order->billing['street_address']) .
+                               osc_draw_hidden_field('Bcity', $order->billing['city']);
 
       if ($order->billing['country']['iso_code_2'] == 'US') {
         $billing_state_query = tep_db_query("select zone_code from " . TABLE_ZONES . " where zone_id = '" . (int)$order->billing['zone_id'] . "'");
         $billing_state = tep_db_fetch_array($billing_state_query);
 
-        $process_button_string .= tep_draw_hidden_field('Bstate', $billing_state['zone_code']);
+        $process_button_string .= osc_draw_hidden_field('Bstate', $billing_state['zone_code']);
       } else {
-        $process_button_string .= tep_draw_hidden_field('Bstate', $order->billing['state']);
+        $process_button_string .= osc_draw_hidden_field('Bstate', $order->billing['state']);
       }
 
-      $process_button_string .= tep_draw_hidden_field('Bzip', $order->billing['postcode']) .
-                                tep_draw_hidden_field('Bcountry', $order->billing['country']['iso_code_2']) .
-                                tep_draw_hidden_field('Phone', $order->customer['telephone']) .
-                                tep_draw_hidden_field('Email', $order->customer['email_address']) .
-                                tep_draw_hidden_field('Sname', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
-                                tep_draw_hidden_field('Saddr1', $order->delivery['street_address']) .
-                                tep_draw_hidden_field('Scity', $order->delivery['city']) .
-                                tep_draw_hidden_field('Sstate', $order->delivery['state']) .
-                                tep_draw_hidden_field('Szip', $order->delivery['postcode']) .
-                                tep_draw_hidden_field('Scountry', $order->delivery['country']['iso_code_2']) .
-                                tep_draw_hidden_field('ChargeType', $transaction_type) .
-                                tep_draw_hidden_field('Result', $transaction_mode) .
-                                tep_draw_hidden_field('IP', tep_get_ip_address());
+      $process_button_string .= osc_draw_hidden_field('Bzip', $order->billing['postcode']) .
+                                osc_draw_hidden_field('Bcountry', $order->billing['country']['iso_code_2']) .
+                                osc_draw_hidden_field('Phone', $order->customer['telephone']) .
+                                osc_draw_hidden_field('Email', $order->customer['email_address']) .
+                                osc_draw_hidden_field('Sname', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
+                                osc_draw_hidden_field('Saddr1', $order->delivery['street_address']) .
+                                osc_draw_hidden_field('Scity', $order->delivery['city']) .
+                                osc_draw_hidden_field('Sstate', $order->delivery['state']) .
+                                osc_draw_hidden_field('Szip', $order->delivery['postcode']) .
+                                osc_draw_hidden_field('Scountry', $order->delivery['country']['iso_code_2']) .
+                                osc_draw_hidden_field('ChargeType', $transaction_type) .
+                                osc_draw_hidden_field('Result', $transaction_mode) .
+                                osc_draw_hidden_field('IP', tep_get_ip_address());
 
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
-        $process_button_string .= tep_draw_hidden_field('CardNumber', $this->cc_card_number) .
-                                  tep_draw_hidden_field('ExpMonth', $this->cc_expiry_month) .
-                                  tep_draw_hidden_field('ExpYear', substr($this->cc_expiry_year, -2));
+        $process_button_string .= osc_draw_hidden_field('CardNumber', $this->cc_card_number) .
+                                  osc_draw_hidden_field('ExpMonth', $this->cc_expiry_month) .
+                                  osc_draw_hidden_field('ExpYear', substr($this->cc_expiry_year, -2));
       }
 
       return $process_button_string;
@@ -259,11 +259,11 @@
       }
 
       if (isset($_GET['ErrMsg']) && tep_not_null($_GET['ErrMsg'])) {
-        $error = stripslashes(urldecode($_GET['ErrMsg']));
+        $error = urldecode($_GET['ErrMsg']);
       } elseif (isset($_GET['Err']) && tep_not_null($_GET['Err'])) {
-        $error = stripslashes(urldecode($_GET['Err']));
+        $error = urldecode($_GET['Err']);
       } elseif (isset($_GET['error']) && tep_not_null($_GET['error'])) {
-        $error = stripslashes(urldecode($_GET['error']));
+        $error = urldecode($_GET['error']);
       } else {
         $error = MODULE_PAYMENT_PSIGATE_TEXT_ERROR_MESSAGE;
       }

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: secpay.php,v 1.37 2004/03/26 18:33:59 mevans Exp $
+  $Id: secpay.php,v 1.38 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -108,32 +108,32 @@
       $trans_id = STORE_NAME . date('Ymdhis');
       $digest = md5($trans_id . number_format($order->info['total'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '') . MODULE_PAYMENT_SECPAY_DIGEST_KEY);
 
-      $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
-                               tep_draw_hidden_field('trans_id', $trans_id) .
-                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '')) .
-                               tep_draw_hidden_field('bill_name', $order->billing['firstname'] . ' ' . $order->billing['lastname']) .
-                               tep_draw_hidden_field('bill_addr_1', $order->billing['street_address']) .
-                               tep_draw_hidden_field('bill_addr_2', $order->billing['suburb']) .
-                               tep_draw_hidden_field('bill_city', $order->billing['city']) .
-                               tep_draw_hidden_field('bill_state', $order->billing['state']) .
-                               tep_draw_hidden_field('bill_post_code', $order->billing['postcode']) .
-                               tep_draw_hidden_field('bill_country', $order->billing['country']['title']) .
-                               tep_draw_hidden_field('bill_tel', $order->customer['telephone']) .
-                               tep_draw_hidden_field('bill_email', $order->customer['email_address']) .
-                               tep_draw_hidden_field('ship_name', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
-                               tep_draw_hidden_field('ship_addr_1', $order->delivery['street_address']) .
-                               tep_draw_hidden_field('ship_addr_2', $order->delivery['suburb']) .
-                               tep_draw_hidden_field('ship_city', $order->delivery['city']) .
-                               tep_draw_hidden_field('ship_state', $order->delivery['state']) .
-                               tep_draw_hidden_field('ship_post_code', $order->delivery['postcode']) .
-                               tep_draw_hidden_field('ship_country', $order->delivery['country']['title']) .
-                               tep_draw_hidden_field('currency', $sec_currency) .
-                               tep_draw_hidden_field('order', $order_details) .
-                               tep_draw_hidden_field('digest', $digest) .
-                               tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false) . ';' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'SSL', false)) .
-                               tep_draw_hidden_field('backcallback', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', false)) .
-                               tep_draw_hidden_field($osC_Session->name, $osC_Session->id) .
-                               tep_draw_hidden_field('options', 'test_status=' . $test_status . ',dups=false,cb_flds=' . $osC_Session->name);
+      $process_button_string = osc_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
+                               osc_draw_hidden_field('trans_id', $trans_id) .
+                               osc_draw_hidden_field('amount', number_format($order->info['total'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '')) .
+                               osc_draw_hidden_field('bill_name', $order->billing['firstname'] . ' ' . $order->billing['lastname']) .
+                               osc_draw_hidden_field('bill_addr_1', $order->billing['street_address']) .
+                               osc_draw_hidden_field('bill_addr_2', $order->billing['suburb']) .
+                               osc_draw_hidden_field('bill_city', $order->billing['city']) .
+                               osc_draw_hidden_field('bill_state', $order->billing['state']) .
+                               osc_draw_hidden_field('bill_post_code', $order->billing['postcode']) .
+                               osc_draw_hidden_field('bill_country', $order->billing['country']['title']) .
+                               osc_draw_hidden_field('bill_tel', $order->customer['telephone']) .
+                               osc_draw_hidden_field('bill_email', $order->customer['email_address']) .
+                               osc_draw_hidden_field('ship_name', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
+                               osc_draw_hidden_field('ship_addr_1', $order->delivery['street_address']) .
+                               osc_draw_hidden_field('ship_addr_2', $order->delivery['suburb']) .
+                               osc_draw_hidden_field('ship_city', $order->delivery['city']) .
+                               osc_draw_hidden_field('ship_state', $order->delivery['state']) .
+                               osc_draw_hidden_field('ship_post_code', $order->delivery['postcode']) .
+                               osc_draw_hidden_field('ship_country', $order->delivery['country']['title']) .
+                               osc_draw_hidden_field('currency', $sec_currency) .
+                               osc_draw_hidden_field('order', $order_details) .
+                               osc_draw_hidden_field('digest', $digest) .
+                               osc_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false) . ';' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'SSL', false)) .
+                               osc_draw_hidden_field('backcallback', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', false)) .
+                               osc_draw_hidden_field($osC_Session->name, $osC_Session->id) .
+                               osc_draw_hidden_field('options', 'test_status=' . $test_status . ',dups=false,cb_flds=' . $osC_Session->name);
 
       return $process_button_string;
     }
@@ -165,7 +165,7 @@
       }
 
       if (isset($_GET['message']) && (strlen($_GET['message']) > 0)) {
-        $error = stripslashes(urldecode($_GET['message']));
+        $error = urldecode($_GET['message']);
       } else {
         $error = MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE;
       }

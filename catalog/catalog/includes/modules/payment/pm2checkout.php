@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.23 2004/05/12 19:34:36 mevans Exp $
+  $Id: pm2checkout.php,v 1.24 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,7 +74,7 @@
         $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
       }
 
-      $today = getdate(); 
+      $today = getdate();
       for ($i=$today['year']; $i < $today['year']+10; $i++) {
         $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
       }
@@ -95,17 +95,17 @@
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'fields' => array(array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER_FIRST_NAME,
-                                                 'field' => tep_draw_input_field('pm_2checkout_cc_owner_firstname', $order->billing['firstname'])),
+                                                 'field' => osc_draw_input_field('pm_2checkout_cc_owner_firstname', $order->billing['firstname'])),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER_LAST_NAME,
-                                                 'field' => tep_draw_input_field('pm_2checkout_cc_owner_lastname', $order->billing['lastname'])),
+                                                 'field' => osc_draw_input_field('pm_2checkout_cc_owner_lastname', $order->billing['lastname'])),
                                            array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
-                                                 'field' => tep_draw_pull_down_menu('pm_2checkout_cc_type', $credit_cards)),
+                                                 'field' => osc_draw_pull_down_menu('pm_2checkout_cc_type', $credit_cards)),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER,
-                                                 'field' => tep_draw_input_field('pm_2checkout_cc_number')),
+                                                 'field' => osc_draw_input_field('pm_2checkout_cc_number')),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
-                                                 'field' => tep_draw_pull_down_menu('pm_2checkout_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('pm_2checkout_cc_expires_year', $expires_year)),
+                                                 'field' => osc_draw_pull_down_menu('pm_2checkout_cc_expires_month', $expires_month) . '&nbsp;' . osc_draw_pull_down_menu('pm_2checkout_cc_expires_year', $expires_year)),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER,
-                                                 'field' => tep_draw_input_field('pm_2checkout_cc_cvv', '', 'size="4" maxlength="4"') . '&nbsp;<small>' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
+                                                 'field' => osc_draw_input_field('pm_2checkout_cc_cvv', '', 'size="4" maxlength="4"') . '&nbsp;<small>' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
 
       return $selection;
     }
@@ -160,31 +160,31 @@
         global $_POST;
       }
 
-      $process_button_string = tep_draw_hidden_field('x_login', MODULE_PAYMENT_2CHECKOUT_LOGIN) .
-                               tep_draw_hidden_field('x_amount', number_format($order->info['total'], 2)) .
-                               tep_draw_hidden_field('x_invoice_num', date('YmdHis')) .
-                               tep_draw_hidden_field('x_test_request', ((MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') ? 'Y' : 'N')) .
-                               tep_draw_hidden_field('x_card_num', $this->cc_card_number) .
-                               tep_draw_hidden_field('cvv', $this->cc_checkcode) .
-                               tep_draw_hidden_field('x_exp_date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
-                               tep_draw_hidden_field('x_first_name', $_POST['pm_2checkout_cc_owner_firstname']) .
-                               tep_draw_hidden_field('x_last_name', $_POST['pm_2checkout_cc_owner_lastname']) .
-                               tep_draw_hidden_field('x_address', $order->customer['street_address']) .
-                               tep_draw_hidden_field('x_city', $order->customer['city']) .
-                               tep_draw_hidden_field('x_state', $order->customer['state']) .
-                               tep_draw_hidden_field('x_zip', $order->customer['postcode']) .
-                               tep_draw_hidden_field('x_country', $order->customer['country']['title']) .
-                               tep_draw_hidden_field('x_email', $order->customer['email_address']) .
-                               tep_draw_hidden_field('x_phone', $order->customer['telephone']) .
-                               tep_draw_hidden_field('x_ship_to_first_name', $order->delivery['firstname']) .
-                               tep_draw_hidden_field('x_ship_to_last_name', $order->delivery['lastname']) .
-                               tep_draw_hidden_field('x_ship_to_address', $order->delivery['street_address']) .
-                               tep_draw_hidden_field('x_ship_to_city', $order->delivery['city']) .
-                               tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
-                               tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
-                               tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
-                               tep_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
-                               tep_draw_hidden_field('x_email_merchant', ((MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT == 'True') ? 'TRUE' : 'FALSE'));
+      $process_button_string = osc_draw_hidden_field('x_login', MODULE_PAYMENT_2CHECKOUT_LOGIN) .
+                               osc_draw_hidden_field('x_amount', number_format($order->info['total'], 2)) .
+                               osc_draw_hidden_field('x_invoice_num', date('YmdHis')) .
+                               osc_draw_hidden_field('x_test_request', ((MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') ? 'Y' : 'N')) .
+                               osc_draw_hidden_field('x_card_num', $this->cc_card_number) .
+                               osc_draw_hidden_field('cvv', $this->cc_checkcode) .
+                               osc_draw_hidden_field('x_exp_date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
+                               osc_draw_hidden_field('x_first_name', $_POST['pm_2checkout_cc_owner_firstname']) .
+                               osc_draw_hidden_field('x_last_name', $_POST['pm_2checkout_cc_owner_lastname']) .
+                               osc_draw_hidden_field('x_address', $order->customer['street_address']) .
+                               osc_draw_hidden_field('x_city', $order->customer['city']) .
+                               osc_draw_hidden_field('x_state', $order->customer['state']) .
+                               osc_draw_hidden_field('x_zip', $order->customer['postcode']) .
+                               osc_draw_hidden_field('x_country', $order->customer['country']['title']) .
+                               osc_draw_hidden_field('x_email', $order->customer['email_address']) .
+                               osc_draw_hidden_field('x_phone', $order->customer['telephone']) .
+                               osc_draw_hidden_field('x_ship_to_first_name', $order->delivery['firstname']) .
+                               osc_draw_hidden_field('x_ship_to_last_name', $order->delivery['lastname']) .
+                               osc_draw_hidden_field('x_ship_to_address', $order->delivery['street_address']) .
+                               osc_draw_hidden_field('x_ship_to_city', $order->delivery['city']) .
+                               osc_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
+                               osc_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
+                               osc_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
+                               osc_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                               osc_draw_hidden_field('x_email_merchant', ((MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT == 'True') ? 'TRUE' : 'FALSE'));
 
       return $process_button_string;
     }

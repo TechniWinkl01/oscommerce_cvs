@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.38 2004/05/12 19:34:36 mevans Exp $
+  $Id: ipayment.php,v 1.39 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -100,15 +100,15 @@
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'fields' => array(array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_OWNER,
-                                                 'field' => tep_draw_input_field('ipayment_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                                 'field' => osc_draw_input_field('ipayment_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                                            array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
-                                                 'field' => tep_draw_pull_down_menu('ipayment_cc_type', $credit_cards)),
+                                                 'field' => osc_draw_pull_down_menu('ipayment_cc_type', $credit_cards)),
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_NUMBER,
-                                                 'field' => tep_draw_input_field('ipayment_cc_number')),
+                                                 'field' => osc_draw_input_field('ipayment_cc_number')),
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_EXPIRES,
-                                                 'field' => tep_draw_pull_down_menu('ipayment_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('ipayment_cc_expires_year', $expires_year)),
+                                                 'field' => osc_draw_pull_down_menu('ipayment_cc_expires_month', $expires_month) . '&nbsp;' . osc_draw_pull_down_menu('ipayment_cc_expires_year', $expires_year)),
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER,
-                                                 'field' => tep_draw_input_field('ipayment_cc_checkcode', '', 'size="4" maxlength="4"') . '&nbsp;<small>' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
+                                                 'field' => osc_draw_input_field('ipayment_cc_checkcode', '', 'size="4" maxlength="4"') . '&nbsp;<small>' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
 
       return $selection;
     }
@@ -189,33 +189,33 @@
 
       $payment_error_return = 'ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']) . '&ipayment_cc_expires_month=' . urlencode($_POST['ipayment_cc_expires_month']) . '&ipayment_cc_expires_year=' . urlencode($_POST['ipayment_cc_expires_year']) . '&ipayment_cc_checkcode=' . urlencode($_POST['ipayment_cc_checkcode']);
 
-      $process_button_string = tep_draw_hidden_field('trxuser_id', MODULE_PAYMENT_IPAYMENT_USER_ID) .
-                               tep_draw_hidden_field('trxpassword', MODULE_PAYMENT_IPAYMENT_PASSWORD) .
-                               tep_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $osC_Currencies->value($trx_currency), 0, '','')) .
-                               tep_draw_hidden_field('trx_currency', $trx_currency) .
-                               tep_draw_hidden_field('trx_paymenttyp', 'cc') .
-                               tep_draw_hidden_field('addr_name', $this->cc_card_owner) .
-                               tep_draw_hidden_field('addr_street', $order->billing['street_address']) .
-                               tep_draw_hidden_field('addr_city', $order->billing['city']) .
-                               tep_draw_hidden_field('addr_zip', $order->billing['postcode']) .
-                               tep_draw_hidden_field('addr_country', $order->billing['country']['iso_code_2']) .
-                               tep_draw_hidden_field('addr_telefon', $order->customer['telephone']) .
-                               tep_draw_hidden_field('addr_email', $order->customer['email_address']) .
-                               tep_draw_hidden_field('error_lang', ($osC_Session->value('language') == 'english') ? 'en' : 'de') .
-                               tep_draw_hidden_field('silent', '1') .
-                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . '&' . $payment_error_return, 'SSL')) .
-                               tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
-                               tep_draw_hidden_field('cc_number', $this->cc_card_number) .
-                               tep_draw_hidden_field('cc_expdate_month', $this->cc_expiry_month) .
-                               tep_draw_hidden_field('cc_expdate_year', $this->cc_expiry_year);
+      $process_button_string = osc_draw_hidden_field('trxuser_id', MODULE_PAYMENT_IPAYMENT_USER_ID) .
+                               osc_draw_hidden_field('trxpassword', MODULE_PAYMENT_IPAYMENT_PASSWORD) .
+                               osc_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $osC_Currencies->value($trx_currency), 0, '','')) .
+                               osc_draw_hidden_field('trx_currency', $trx_currency) .
+                               osc_draw_hidden_field('trx_paymenttyp', 'cc') .
+                               osc_draw_hidden_field('addr_name', $this->cc_card_owner) .
+                               osc_draw_hidden_field('addr_street', $order->billing['street_address']) .
+                               osc_draw_hidden_field('addr_city', $order->billing['city']) .
+                               osc_draw_hidden_field('addr_zip', $order->billing['postcode']) .
+                               osc_draw_hidden_field('addr_country', $order->billing['country']['iso_code_2']) .
+                               osc_draw_hidden_field('addr_telefon', $order->customer['telephone']) .
+                               osc_draw_hidden_field('addr_email', $order->customer['email_address']) .
+                               osc_draw_hidden_field('error_lang', ($osC_Session->value('language') == 'english') ? 'en' : 'de') .
+                               osc_draw_hidden_field('silent', '1') .
+                               osc_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . '&' . $payment_error_return, 'SSL')) .
+                               osc_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                               osc_draw_hidden_field('cc_number', $this->cc_card_number) .
+                               osc_draw_hidden_field('cc_expdate_month', $this->cc_expiry_month) .
+                               osc_draw_hidden_field('cc_expdate_year', $this->cc_expiry_year);
 
 
       if (tep_not_null($this->cc_checkcode)) {
-        $process_button_string .= tep_draw_hidden_field('cc_checkcode', $this->cc_checkcode);
+        $process_button_string .= osc_draw_hidden_field('cc_checkcode', $this->cc_checkcode);
       }
 
       if (tep_not_null(MODULE_PAYMENT_IPAYMENT_SECURITY_KEY)) {
-        $process_button_string .= tep_draw_hidden_field('trx_securityhash', md5(MODULE_PAYMENT_IPAYMENT_USER_ID . number_format($order->info['total'] * 100 * $osC_Currencies->value($trx_currency), 0, '','') . $trx_currency . MODULE_PAYMENT_IPAYMENT_PASSWORD . MODULE_PAYMENT_IPAYMENT_SECURITY_KEY));
+        $process_button_string .= osc_draw_hidden_field('trx_securityhash', md5(MODULE_PAYMENT_IPAYMENT_USER_ID . number_format($order->info['total'] * 100 * $osC_Currencies->value($trx_currency), 0, '','') . $trx_currency . MODULE_PAYMENT_IPAYMENT_PASSWORD . MODULE_PAYMENT_IPAYMENT_SECURITY_KEY));
       }
 
       return $process_button_string;
@@ -235,7 +235,7 @@
       }
 
       $error = array('title' => IPAYMENT_ERROR_HEADING,
-                     'error' => (isset($_GET['ret_errormsg']) ? stripslashes(urldecode($_GET['ret_errormsg'])) : IPAYMENT_ERROR_MESSAGE));
+                     'error' => (isset($_GET['ret_errormsg']) ? urldecode($_GET['ret_errormsg']) : IPAYMENT_ERROR_MESSAGE));
 
       return $error;
     }

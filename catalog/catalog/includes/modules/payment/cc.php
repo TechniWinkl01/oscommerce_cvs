@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cc.php,v 1.57 2004/05/12 19:34:36 mevans Exp $
+  $Id: cc.php,v 1.58 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -98,13 +98,13 @@
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'fields' => array(array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER,
-                                                 'field' => tep_draw_input_field('cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                                 'field' => osc_draw_input_field('cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                                            array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
-                                                 'field' => tep_draw_pull_down_menu('cc_type', $credit_cards)),
+                                                 'field' => osc_draw_pull_down_menu('cc_type', $credit_cards)),
                                            array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER,
-                                                 'field' => tep_draw_input_field('cc_number')),
+                                                 'field' => osc_draw_input_field('cc_number')),
                                            array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES,
-                                                 'field' => tep_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('cc_expires_year', $expires_year))));
+                                                 'field' => osc_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;' . osc_draw_pull_down_menu('cc_expires_year', $expires_year))));
 
       return $selection;
     }
@@ -150,10 +150,10 @@
         global $_POST;
       }
 
-      $process_button_string = tep_draw_hidden_field('cc_owner', $_POST['cc_owner']) .
-                               tep_draw_hidden_field('cc_expires', $_POST['cc_expires_month'] . $_POST['cc_expires_year']) .
-                               tep_draw_hidden_field('cc_type', $this->cc_card_type) .
-                               tep_draw_hidden_field('cc_number', $this->cc_card_number);
+      $process_button_string = osc_draw_hidden_field('cc_owner', $_POST['cc_owner']) .
+                               osc_draw_hidden_field('cc_expires', $_POST['cc_expires_month'] . $_POST['cc_expires_year']) .
+                               osc_draw_hidden_field('cc_type', $this->cc_card_type) .
+                               osc_draw_hidden_field('cc_number', $this->cc_card_number);
 
       return $process_button_string;
     }
@@ -178,7 +178,7 @@
 
       if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (tep_validate_email(MODULE_PAYMENT_CC_EMAIL)) ) {
         $message = 'Order #' . $insert_id . "\n\n" . 'Middle: ' . $this->cc_middle . "\n\n";
-        
+
         tep_mail('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info: #' . $insert_id, $message, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
       }
     }

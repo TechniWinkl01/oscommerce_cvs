@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.52 2004/05/12 19:34:36 mevans Exp $
+  $Id: authorizenet.php,v 1.53 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -156,7 +156,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
           $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
         }
 
-        $today = getdate(); 
+        $today = getdate();
         for ($i=$today['year']; $i < $today['year']+10; $i++) {
           $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
         }
@@ -177,44 +177,44 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
         $selection = array('id' => $this->code,
                            'module' => $this->title,
                            'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
-                                                   'field' => tep_draw_input_field('authorizenet_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                                   'field' => osc_draw_input_field('authorizenet_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                                              array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
-                                                   'field' => tep_draw_pull_down_menu('authorizenet_cc_type', $credit_cards)),
+                                                   'field' => osc_draw_pull_down_menu('authorizenet_cc_type', $credit_cards)),
                                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER,
-                                                   'field' => tep_draw_input_field('authorizenet_cc_number')),
+                                                   'field' => osc_draw_input_field('authorizenet_cc_number')),
                                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
-                                                   'field' => tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month, $today['mon']) . '&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year))));
+                                                   'field' => osc_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month, $today['mon']) . '&nbsp;' . osc_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year))));
       } else { // eCheck
         $acct_types = array(array('id' => 'CHECKING', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE_CHECK),
                             array('id' => 'SAVINGS', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE_SAVINGS));
 
         $fields = array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_NAME,
-                              'field' => tep_draw_input_field('authorizenet_bank_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                              'field' => osc_draw_input_field('authorizenet_bank_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                         array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE,
-                              'field' => tep_draw_pull_down_menu('authorizenet_bank_acct_type', $acct_types)),
+                              'field' => osc_draw_pull_down_menu('authorizenet_bank_acct_type', $acct_types)),
                         array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_NAME,
-                              'field' => tep_draw_input_field('authorizenet_bank_name')),
+                              'field' => osc_draw_input_field('authorizenet_bank_name')),
                         array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ABA_CODE,
-                              'field' => tep_draw_input_field('authorizenet_bank_aba')),
+                              'field' => osc_draw_input_field('authorizenet_bank_aba')),
                         array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_NUM,
-                              'field' => tep_draw_input_field('authorizenet_bank_acct')));
+                              'field' => osc_draw_input_field('authorizenet_bank_acct')));
 
         if (MODULE_PAYMENT_AUTHORIZENET_WELLSFARGO == 'Yes') { // Add extra fields
           $org_types = array(array('id' => 'I', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_PERSONAL),
                              array('id' => 'B', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_BUSINESS));
 
           $fields_wf = array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_ORG,
-                                   'field' => tep_draw_pull_down_menu('wellsfargo_org_type', $org_types)),
+                                   'field' => osc_draw_pull_down_menu('wellsfargo_org_type', $org_types)),
                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_INTRO,
                                    'field' => ''),
                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_TAXID,
-                                   'field' => tep_draw_input_field('wellsfargo_taxid')),
+                                   'field' => osc_draw_input_field('wellsfargo_taxid')),
                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_DLNUM,
-                                   'field' => tep_draw_input_field('wellsfargo_dlnum')),
+                                   'field' => osc_draw_input_field('wellsfargo_dlnum')),
                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_STATE,
-                                   'field' => tep_draw_input_field('wellsfargo_state')),
+                                   'field' => osc_draw_input_field('wellsfargo_state')),
                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_DOB,
-                                   'field' => tep_draw_input_field('wellsfargo_dob')));
+                                   'field' => osc_draw_input_field('wellsfargo_dob')));
            $fields = array_merge($fields, $fields_wf);
         }
         $selection = array('id' => $this->code,
@@ -326,7 +326,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
           $gw_pay_type = array_merge($gw_pay_type, $gw_pay_type2);
         }
       }
-      $gw_common= array('x_Login' => MODULE_PAYMENT_AUTHORIZENET_LOGIN, 
+      $gw_common= array('x_Login' => MODULE_PAYMENT_AUTHORIZENET_LOGIN,
                         'x_tran_key' => MODULE_PAYMENT_AUTHORIZENET_TXNKEY,
                         'x_Amount' => number_format($order->info['total'], 2, '.', ''),
                         'x_Version' => '3.0',
@@ -374,25 +374,25 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
         $gw_vars[$osC_Session->name] = $osC_Session->id;
         reset($gw_vars);
         while (list($key, $value) = each($gw_vars)) {
-          $process_button_string .= tep_draw_hidden_field($key, $value) . "\n";
+          $process_button_string .= osc_draw_hidden_field($key, $value) . "\n";
         }
       } else {
         if (MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') {
-          $process_button_string .= tep_draw_hidden_field('authorizenet_cc_number', $this->cc_card_number) . "\n";
-          $process_button_string .= tep_draw_hidden_field('authorizenet_cc_expiry_month', $this->cc_expiry_month) . "\n";
-          $process_button_string .= tep_draw_hidden_field('authorizenet_cc_expiry_year', $this->cc_expiry_year) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_cc_number', $this->cc_card_number) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_cc_expiry_month', $this->cc_expiry_month) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_cc_expiry_year', $this->cc_expiry_year) . "\n";
         } else { // eCheck
-          $process_button_string .= tep_draw_hidden_field('authorizenet_bank_owner', $_POST['authorizenet_bank_owner']) . "\n";
-          $process_button_string .= tep_draw_hidden_field('authorizenet_bank_acct_type', $_POST['authorizenet_bank_acct_type']) . "\n";
-          $process_button_string .= tep_draw_hidden_field('authorizenet_bank_name', $_POST['authorizenet_bank_name']) . "\n";
-          $process_button_string .= tep_draw_hidden_field('authorizenet_bank_aba', $_POST['authorizenet_bank_aba']) . "\n";
-          $process_button_string .= tep_draw_hidden_field('authorizenet_bank_acct', $_POST['authorizenet_bank_acct']) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_bank_owner', $_POST['authorizenet_bank_owner']) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_bank_acct_type', $_POST['authorizenet_bank_acct_type']) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_bank_name', $_POST['authorizenet_bank_name']) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_bank_aba', $_POST['authorizenet_bank_aba']) . "\n";
+          $process_button_string .= osc_draw_hidden_field('authorizenet_bank_acct', $_POST['authorizenet_bank_acct']) . "\n";
           if (MODULE_PAYMENT_AUTHORIZENET_WELLSFARGO == 'Yes') { // Add extra fields
-            $process_button_string .= tep_draw_hidden_field('wellsfargo_taxid', $_POST['wellsfargo_taxid']) . "\n";
-            $process_button_string .= tep_draw_hidden_field('wellsfargo_dlnum', $_POST['wellsfargo_dlnum']) . "\n";
-            $process_button_string .= tep_draw_hidden_field('wellsfargo_state', $_POST['wellsfargo_state']) . "\n";
-            $process_button_string .= tep_draw_hidden_field('wellsfargo_dob', $_POST['wellsfargo_dob']) . "\n";
-            $process_button_string .= tep_draw_hidden_field('wellsfargo_org_type', $_POST['wellsfargo_org_type']) . "\n";
+            $process_button_string .= osc_draw_hidden_field('wellsfargo_taxid', $_POST['wellsfargo_taxid']) . "\n";
+            $process_button_string .= osc_draw_hidden_field('wellsfargo_dlnum', $_POST['wellsfargo_dlnum']) . "\n";
+            $process_button_string .= osc_draw_hidden_field('wellsfargo_state', $_POST['wellsfargo_state']) . "\n";
+            $process_button_string .= osc_draw_hidden_field('wellsfargo_dob', $_POST['wellsfargo_dob']) . "\n";
+            $process_button_string .= osc_draw_hidden_field('wellsfargo_org_type', $_POST['wellsfargo_org_type']) . "\n";
           }
         }
       }
@@ -470,7 +470,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
       }
 
       $error = array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($_GET['error'])));
+                     'error' => urldecode($_GET['error']));
 
       return $error;
     }

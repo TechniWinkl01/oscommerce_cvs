@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: paypal.php,v 1.42 2004/03/28 18:23:46 mevans Exp $
+  $Id: paypal.php,v 1.43 2004/07/22 17:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -83,25 +83,25 @@
       if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
         $my_currency = 'USD';
       }
-      $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
-                               tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
-                               tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $osC_Currencies->value($my_currency), $osC_Currencies->decimalPlaces($my_currency))) .
-                               tep_draw_hidden_field('first_name', $order->billing['firstname']) .
-                               tep_draw_hidden_field('last_name', $order->billing['lastname']) .
-                               tep_draw_hidden_field('address1', $order->billing['street_address']) .
-                               tep_draw_hidden_field('address2', $order->billing['suburb']) .
-                               tep_draw_hidden_field('city', $order->billing['city']) .
-                               tep_draw_hidden_field('state', $order->billing['state']) .
-                               tep_draw_hidden_field('zip', $order->billing['postcode']) .
-                               tep_draw_hidden_field('lc', $order->billing['country']['iso_code_2']) .
-                               tep_draw_hidden_field('email', $order->customer['email_address']) .
-                               tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $osC_Currencies->value($my_currency), $osC_Currencies->decimalPlaces($my_currency))) .
-                               tep_draw_hidden_field('currency_code', $my_currency) .
-                               tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
-                               tep_draw_hidden_field('rm', '2') .
-                               tep_draw_hidden_field('no_note', '1') .
-                               tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+      $process_button_string = osc_draw_hidden_field('cmd', '_xclick') .
+                               osc_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
+                               osc_draw_hidden_field('item_name', STORE_NAME) .
+                               osc_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $osC_Currencies->value($my_currency), $osC_Currencies->decimalPlaces($my_currency))) .
+                               osc_draw_hidden_field('first_name', $order->billing['firstname']) .
+                               osc_draw_hidden_field('last_name', $order->billing['lastname']) .
+                               osc_draw_hidden_field('address1', $order->billing['street_address']) .
+                               osc_draw_hidden_field('address2', $order->billing['suburb']) .
+                               osc_draw_hidden_field('city', $order->billing['city']) .
+                               osc_draw_hidden_field('state', $order->billing['state']) .
+                               osc_draw_hidden_field('zip', $order->billing['postcode']) .
+                               osc_draw_hidden_field('lc', $order->billing['country']['iso_code_2']) .
+                               osc_draw_hidden_field('email', $order->customer['email_address']) .
+                               osc_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $osC_Currencies->value($my_currency), $osC_Currencies->decimalPlaces($my_currency))) .
+                               osc_draw_hidden_field('currency_code', $my_currency) .
+                               osc_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                               osc_draw_hidden_field('rm', '2') .
+                               osc_draw_hidden_field('no_note', '1') .
+                               osc_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
       return $process_button_string;
     }
