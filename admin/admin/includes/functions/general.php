@@ -156,7 +156,7 @@
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
   function tep_date_short($raw_date) {
-    if ($raw_date == '0000-00-00 00:00:00') return false;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
 // remove the first digit if it is 0 - as php treats these as Octals
     $year = substr($raw_date, 0, 4);
