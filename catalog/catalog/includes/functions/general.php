@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.131 2001/09/10 11:00:03 jwildeboer Exp $
+  $Id: general.php,v 1.132 2001/09/10 11:14:36 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
