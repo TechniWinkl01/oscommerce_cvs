@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.17 2004/02/14 17:34:07 mevans Exp $
+  $Id: checkout_shipping_address.php,v 1.18 2004/03/18 09:56:48 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,12 +108,12 @@
         $check = tep_db_fetch_array($check_query);
         $entry_state_has_zones = ($check['total'] > 0);
         if ($entry_state_has_zones == true) {
-          $zone_query = tep_db_query("select distinct zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and zone_name = '" . tep_db_input($state) . "'");
+          $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and zone_code = '" . tep_db_input($state) . "'");
           if (tep_db_num_rows($zone_query) == 1) {
             $zone = tep_db_fetch_array($zone_query);
             $zone_id = $zone['zone_id'];
           } else {
-            $zone_query = tep_db_query("select distinct zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and (zone_name like '" . tep_db_input($state) . "%' or zone_code like '%" . tep_db_input($state) . "%')");
+            $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and zone_name like '" . tep_db_input($state) . "%'");
             if (tep_db_num_rows($zone_query) == 1) {
               $zone = tep_db_fetch_array($zone_query);
               $zone_id = $zone['zone_id'];
