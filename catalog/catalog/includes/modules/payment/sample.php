@@ -1,117 +1,98 @@
-<?
+<?php
+// sample.php - Sample structure of what a payment module should follow.
+
   class sample {
     var $code, $description, $enabled;
 
-// class constructor
-    function sample() {
+////
+// !Class constructor -> initialize class variables.
+// Sets the class code, description, and status.
       $this->code = 'sample';
       $this->description = MODULE_PAYMENT_SAMPLE_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_SAMPLE_STATUS;
     }
 
+////
+// !Javascript form validation
+// Check the user input submited on checkout_payment.php with javascript (client-side).
+// Examples: validate credit card number, make sure required fields are filled in
     function javascript_validation() {
       if ($this->enabled) {
-/*
-  Description: Javascript from validation
-  Called from: checkout_payment.php
-  Note: this is javascript code
-  Examples: 
-   - validate credit card numbers 
-   - make sure required fields are filled in
-*/
+// insert code here
       }
     }
 
+////
+// !Form fields for user input
+// Output any required information in form fields
+// Examples: ask for extra fields (credit card number), display extra information
     function selection() {
       if ($this->enabled) {
-/*
-  Description: Extra info for this type of payment
-  Called from: checkout_payment.php
-  Examples: 
-   - ask for extra fields (credit card number)
-   - display extra info 
-*/
+// insert code here
       }
     }
 
+////
+// !Functions to execute before displaying the checkout confirmation page
+// Note: Set the variable $checkout_form_action to set the form action value
+// Examples: validate (server-side with PHP) extra fields, redirect to online payment services (eg, PayPal)
     function confirmation() {
       if ($this->enabled) {
-/*
-  Description: Things to do before displaying confirmation form
-  Called from: checkout_confirmation.php
-  Note: We can tell the form where to go by setting the variable
-        $checkout_form_action
-  Examples: 
-   - Validate (this time with PHP) extra fields
-   - Redirect to online payment service (Paypal)
-*/
+// insert code here
       }
     }
 
+////
+// !Functions to execute before finishing the form
+// Examples: add extra hidden fields to the form
     function process_button() {
       if ($this->enabled) {
-/*
-  Description: Things to do just before finishing the form
-  Called from: checkout_confirmation.php
-  Examples: 
-   - Include extra fields as hidden fields in the form
-*/
+// insert code here
       }
     }
 
+////
+// !Functions to execute before processing the order
+// Examples: retreive result from online payment services
     function before_process() {
       if ($this->enabled) {
-/*
-  Description: Things to do before processing the order
-  Called from: checkout_process.php
-  Examples: 
-   - Get results from an online payment service
-*/
+// insert code here
       }
     }
 
+////
+// !Functions to execute after processing the order
+// Examples: email part of the credit card number
     function after_process() {
       if ($this->enabled) {
-/*
-  Description: Things to do after processing the order
-  Called from: checkout_process.php
-  Examples: 
-   - Email part of the credit number
-*/
+// insert code here
       }
     }
 
+////
+// !Check if module is installed (Administration Tool)_
     function check() {
-/*
-  Description: Check if a module is installed
-  Called from: payment_modules.php (admin)
-*/
       $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
       $check = tep_db_num_rows($check);
 
       return $check;
     }
 
+////
+// !Install the module (Administration Tool)_
     function install() {
-/*
-  Description: Install a module
-  Called from: payment_modules.php (admin)
-*/
       tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Sample Payments', 'MODULE_PAYMENT_SAMPLE_STATUS', '0', 'Do you want to accept sample payments?', '6', '6', now())");
     }
 
+////
+// !Remove the module (Administration Tool)_
     function remove() {
-/*
-  Description: Remove a module
-  Called from: payment_modules.php (admin)
-*/
       tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
     }
 
-/*
-  Description: Retreive module configuration keys
-  Called from: payment_modules.php (admin)
-*/
+////
+// !Retreive the modules configuration keys (Administration Tool)_
+// Check the user input submited on checkout_payment.php with javascript (client-side).
     function keys() {
       $keys = array('MODULE_PAYMENT_SAMPLE_STATUS');
 
