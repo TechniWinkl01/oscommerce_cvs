@@ -1,6 +1,6 @@
 <?php
-	/* $Id: fedex.php,v 1.1 2001/02/03 08:53:52 pkellum Exp $ */
-	define('SHIPPING_FEDEX_NAME', 'FedEx'); // It's a trademark, can't translate
+	/* $Id: fedex.php,v 1.2 2001/02/03 12:57:27 tmoulton Exp $ */
+	define('SHIPPING_FEDEX_NAME', 'Federal Express Ground'); // It's a trademark, can't translate
 	switch($action) {
 		case 'select' :
 			print "<TR><TD><FONT FACE=\"" . TEXT_FONT_FACE . "\" SIZE=\"" . TEXT_FONT_SIZE . "\" COLOR=\"" . TEXT_FONT_COLOR . "\">&nbsp;";
@@ -25,12 +25,13 @@
 				include('includes/fedex.php');
 				$rate = new FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
 				$rate->SetDest($address_values['postcode'], $fedex_countries[$address_values['country']]);
-				$rate->SetWeight($total_weight);
+				$rate->SetWeight($shipping_weight);
 				$quote = $rate->GetQuote();
-				$shipping_fedex_cost = SHIPPING_HANDLING + $quote['TotalCharges'];
+				$shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote['TotalCharges']);
 				// clean up the service text a little
 				$shipping_fedex_method = str_replace(' Package', '', $quote['Service']);
 				$shipping_fedex_method = str_replace(' FedEx', '', $shipping_fedex_method);
+                                $shipping_fedex_method = $shipping_fedex_method . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
 			}
 			break;
 		case 'cheapest' :
