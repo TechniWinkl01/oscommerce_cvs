@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.6 2002/03/15 02:52:25 hpdl Exp $
+  $Id: sessions.php,v 1.7 2002/03/18 16:37:22 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,8 +26,9 @@
     function _sess_read($key) {
       $qid = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . $key . "' and expiry > '" . time() . "'");
 
-      if (list($value) = tep_db_fetch_array($qid)) {
-        return $value;
+      $value = tep_db_fetch_array($qid);
+      if ($value['value']) {
+        return $value['value'];
       }
 
       return false;
@@ -40,9 +41,9 @@
       $value = addslashes($val);
 
       $qid = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
-      list($total) = tep_db_fetch_array($qid);
+      $total = tep_db_fetch_array($qid);
 
-      if ($total > 0) {
+      if ($total['total'] > 0) {
         return tep_db_query("update " . TABLE_SESSIONS . " set expiry = '" . $expiry . "', value = '" . $value . "' where sesskey = '" . $key . "'");
       } else {
         return tep_db_query("insert into " . TABLE_SESSIONS . " values ('" . $key . "', '" . $expiry . "', '" . $value . "')");
