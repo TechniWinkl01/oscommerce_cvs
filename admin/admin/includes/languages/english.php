@@ -4,7 +4,7 @@
 
   German Text for The Exchange Project Administration Tool
 
-  $Id: english.php,v 1.49 2001/08/18 15:58:23 mbs Exp $
+  $Id: english.php,v 1.50 2001/08/19 18:15:16 mbs Exp $
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -14,7 +14,20 @@
 setlocale(LC_TIME, 'en_US.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
+define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+
+////
+// Return date in raw format
+// $date should be in format mm/dd/yyyy
+// raw date is in format YYYYMMDD, or DDMMYYYY
+function tep_date_raw($date, $reverse = false) {
+  if ($reverse) {
+    return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+  } else {
+    return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+  }
+}
 
 // page title
 define('TITLE', 'The Exchange Project');

@@ -7,8 +7,7 @@
     }
      $update_query = $update_query . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
     if (ACCOUNT_DOB) {
-      $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-      $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
+      $update_query = $update_query . "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
     }
     $update_query .= "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
     $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
