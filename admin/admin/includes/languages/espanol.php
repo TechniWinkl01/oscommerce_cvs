@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.52 2001/11/22 18:49:35 hpdl Exp $
+  $Id: espanol.php,v 1.53 2001/12/05 09:13:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -145,6 +145,7 @@ define('CATEGORY_PERSONAL', 'Personal');
 define('CATEGORY_ADDRESS', 'Domicilio');
 define('CATEGORY_CONTACT', 'Contacto');
 define('CATEGORY_PASSWORD', 'Contraseña');
+define('CATEGORY_COMPANY', 'Company');
 define('CATEGORY_OPTIONS', 'Options');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
@@ -157,6 +158,8 @@ define('ENTRY_DATE_OF_BIRTH', 'Fecha de Nacimiento:');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(ej. 21/05/1970) <font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
+define('ENTRY_COMPANY', 'Company name:');
+define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
 define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_SUBURB', '');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.60 2001/11/22 18:49:35 hpdl Exp $
+  $Id: english.php,v 1.61 2001/12/05 09:13:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -144,6 +144,7 @@ define('JS_ORDER_DOES_NOT_EXIST', 'Order Number %s does not exist!');
 define('CATEGORY_PERSONAL', 'Personal');
 define('CATEGORY_ADDRESS', 'Address');
 define('CATEGORY_CONTACT', 'Contact');
+define('CATEGORY_COMPANY', 'Company');
 define('CATEGORY_PASSWORD', 'Password');
 define('CATEGORY_OPTIONS', 'Options');
 define('ENTRY_GENDER', 'Gender:');
@@ -157,6 +158,8 @@ define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 05/21/1970) <font color="#AABBDD">required</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
+define('ENTRY_COMPANY', 'Company name:');
+define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
 define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_SUBURB', 'Suburb:');

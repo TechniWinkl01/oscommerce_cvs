@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.47 2001/11/22 18:49:35 hpdl Exp $
+  $Id: german.php,v 1.48 2001/12/05 09:13:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -145,6 +145,7 @@ define('CATEGORY_PERSONAL', 'Pers&ouml;nliche Daten');
 define('CATEGORY_ADDRESS', 'Adresse');
 define('CATEGORY_CONTACT', 'Kontakt');
 define('CATEGORY_PASSWORD', 'Passwort');
+define('CATEGORY_COMPANY', 'Firma');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('ENTRY_GENDER', 'Geschlecht:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
@@ -157,6 +158,8 @@ define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 21/05/1970) <font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
+define('ENTRY_COMPANY', 'Firmenname:');
+define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_STREET_ADDRESS', 'Strasse:');
 define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_SUBURB', 'weitere Anschrift:');

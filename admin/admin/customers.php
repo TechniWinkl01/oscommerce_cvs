@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.45 2001/11/19 12:09:13 hpdl Exp $
+  $Id: customers.php,v 1.46 2001/12/05 09:13:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,8 +25,14 @@
     $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
-    // Update address book
+// Update address book
     $update_query = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
+
+// This is for Update the Company Information
+    if (ACCOUNT_COMPANY) {
+      $update_query = $update_query . "entry_company = '" . $HTTP_POST_VARS['company'] . "', ";
+    }
+// End of Update Company Information
     if (ACCOUNT_STATE) {
       $state = ($zone_id > 0) ? $state = '' : $HTTP_POST_VARS['state'];
       $update_query .= "entry_state = '" . $state . "', entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', ";
@@ -94,6 +100,13 @@ function check_form() {
 
   var firstname = document.customers.firstname.value;
   var lastname = document.customers.lastname.value;
+<?php
+    if (ACCOUNT_COMPANY) {
+?>
+  var company = document.customers.company.value;
+<?php
+    }
+?>
 <?php
     if (ACCOUNT_DOB) {
 ?>
@@ -213,7 +226,7 @@ function check_form() {
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
@@ -223,7 +236,7 @@ function check_form() {
       </tr>
 <?php
   if ($HTTP_GET_VARS['action'] == 'edit') {
-    $customers_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . $HTTP_GET_VARS['cID'] . "'");
+    $customers_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where a.customers_id = c.customers_id and c.customers_id = '" . $HTTP_GET_VARS['cID'] . "'");
     $customers = tep_db_fetch_array($customers_query);
 
     $gender = $customers['customers_gender'];
@@ -231,6 +244,7 @@ function check_form() {
     $lastname = $customers['customers_lastname'];
     $dob = tep_date_short($customers['customers_dob']);
     $email_address = $customers['customers_email_address'];
+    $company = $customers['entry_company'];  //companies name
     $street_address = $customers['entry_street_address'];
     $suburb = $customers['entry_suburb'];
     $postcode = $customers['entry_postcode'];
@@ -247,7 +261,7 @@ function check_form() {
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', HEADING_TITLE, 30, 30); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -297,6 +311,25 @@ function check_form() {
             <td class="main">&nbsp;<?php echo ENTRY_EMAIL_ADDRESS; ?></td>
             <td class="main">&nbsp;<?php if ($action == 'delete') { echo $email_address; } else { echo '<input type="text" name="email_address" maxlength="96" value="' . @$email_address . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_TEXT; } ?></td>
           </tr>
+<?php
+// Beginning for Company Information
+    if (ACCOUNT_COMPANY) {
+?>
+        </table></td>
+      </tr>
+      <tr>
+        <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
+      </tr>
+      <tr>
+        <td class="formArea"><table border="0" cellpadding="2" cellspacing="0">
+          <tr>
+            <td class="main">&nbsp;<?php echo ENTRY_COMPANY; ?></td>
+            <td class="main">&nbsp;<?php if ($action == 'delete') { echo $company; } else { echo '<input type="text" name="company" maxlength="32" value="' . @$company . '">&nbsp;' . ENTRY_COMPANY_TEXT; } ?></td>
+          </tr>
+<?php
+    }
+// End for Company Information
+?>
         </table></td>
       </tr>
       <tr>
@@ -463,8 +496,8 @@ function check_form() {
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText">&nbsp;<?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?>&nbsp;<br>&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
-                    <td class="smallText" align="right"><?php if ($HTTP_GET_VARS['search']) echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_reset.gif', IMAGE_RESET) . '</a>'; ?>&nbsp;</td>
+                    <td valign="top" class="smallText">&nbsp;<?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?>&nbsp;</td>
+                    <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE; ?> <?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;<br><br><?php if ($HTTP_GET_VARS['search']) echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_reset.gif', IMAGE_RESET) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -503,9 +536,6 @@ function check_form() {
               <tr><?php echo $form; ?>
                 <td class="box"><?php new infoBox($info_box_contents); ?></td>
               <?php if ($form) echo '</form>'; ?></tr>
-              <tr>
-                <td class="box"><?php echo tep_black_line(); ?></td>
-              </tr>
             </table></td>
           </tr>
         </table></td>
