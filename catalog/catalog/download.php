@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.5 2002/04/09 13:14:31 dgw_ Exp $
+  $Id: download.php,v 1.6 2002/06/04 15:46:05 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -78,7 +78,7 @@ function tep_unlink_temp_dir($dir)
       @unlink($dir . $subdir . '/' . $file);
     }
     closedir($h2); 
-    rmdir($dir . $subdir);
+    @rmdir($dir . $subdir);
   }
   closedir($h1);
 }
