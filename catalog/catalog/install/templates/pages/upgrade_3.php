@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.70 2004/07/22 20:47:11 hpdl Exp $
+  $Id: upgrade_3.php,v 1.71 2004/07/22 21:15:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -369,6 +369,7 @@ changeText('statusText', '<?php echo sprintf(TEXT_UPDATING, TEXT_CUSTOMERS); ?>'
   $osC_Database->simpleQuery("alter table customers drop customers_country_id");
   $osC_Database->simpleQuery("alter table customers change customers_dob customers_dob datetime not null default '0000-00-00 00:00:00'");
   $osC_Database->simpleQuery("alter table customers add customers_newsletter char(1)");
+  $osC_Database->simpleQuery("alter table customers add customers_ip_address varchar(15)");
 
   $osC_Database->simpleQuery("alter table customers_basket change products_id products_id tinytext not null");
   $osC_Database->simpleQuery("alter table customers_basket change customers_basket_date_added customers_basket_date_added varchar(8)");
@@ -488,6 +489,7 @@ changeText('statusText', '<?php echo sprintf(TEXT_UPDATING, TEXT_ORDERS); ?>');
   $osC_Database->simpleQuery("alter table orders add billing_state varchar(32) after billing_postcode");
   $osC_Database->simpleQuery("alter table orders add billing_country varchar(32) not null after billing_state");
   $osC_Database->simpleQuery("alter table orders add billing_address_format_id int(5) not null after billing_country");
+  $osC_Database->simpleQuery("alter table orders add customers_ip_address varchar(15)");
   $osC_Database->simpleQuery("alter table orders change payment_method payment_method varchar(32) not null");
   $osC_Database->simpleQuery("alter table orders change date_purchased date_purchased datetime");
   $osC_Database->simpleQuery("alter table orders change last_modified last_modified datetime");
