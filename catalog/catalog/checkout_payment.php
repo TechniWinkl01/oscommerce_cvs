@@ -138,6 +138,10 @@ function check_form() {
       $total_count = $cart->count_contents();
       $action = 'quote'; 
       include(DIR_MODULES . 'shipping.php');
+      $action = 'cheapest'; 
+      include(DIR_MODULES . 'shipping.php');
+      $action = 'display'; 
+      include(DIR_MODULES . 'shipping.php');
 ?>          
             </table></td>
           </tr>
