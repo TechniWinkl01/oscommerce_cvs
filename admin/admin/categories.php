@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.101 2001/12/30 09:20:16 hpdl Exp $
+  $Id: categories.php,v 1.102 2002/01/02 14:40:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -214,7 +214,7 @@
             }
           }
 
-          tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pinfo=' . $HTTP_GET_VARS['pID']));
+          tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $HTTP_GET_VARS['pID']));
         }
         break;
       case 'copy_to_confirm':
@@ -287,6 +287,9 @@
       $pInfo = new objectInfo($product);
     } elseif ($HTTP_POST_VARS) {
       $pInfo = new objectInfo($HTTP_POST_VARS);
+      $products_name = $HTTP_POST_VARS['products_name'];
+      $products_description = $HTTP_POST_VARS['products_description'];
+      $products_url = $HTTP_POST_VARS['products_url'];
     } else {
       $pInfo = new objectInfo(array());
     }
@@ -326,7 +329,7 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('new_product', FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"'); ?>
+      <tr><?php echo tep_draw_form('new_product', FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $HTTP_GET_VARS['pID'] . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"'); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
@@ -350,7 +353,6 @@
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
 <?php
-    $products_name = $HTTP_POST_VARS['products_name'];
     for ($i=0; $i<sizeof($languages); $i++) {
 ?>
           <tr>
@@ -364,7 +366,6 @@
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
 <?php
-    $products_description = $HTTP_POST_VARS['products_description'];
     for ($i=0; $i<sizeof($languages); $i++) {
 ?>
           <tr>
@@ -404,7 +405,6 @@
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
 <?php
-    $products_url = $HTTP_POST_VARS['products_url'];
     for ($i=0; $i<sizeof($languages); $i++) {
 ?>
           <tr>
@@ -457,6 +457,9 @@
 
       $pInfo_array = tep_array_merge($HTTP_POST_VARS, $manufacturer);
       $pInfo = new objectInfo($pInfo_array);
+      $products_name = $HTTP_POST_VARS['products_name'];
+      $products_description = $HTTP_POST_VARS['products_description'];
+      $products_url = $HTTP_POST_VARS['products_url'];
 
 // copy image only if modified
       if ($products_image && ($products_image != 'none')) {
@@ -477,10 +480,6 @@
     $form_action = ($HTTP_GET_VARS['pID']) ? 'update_product' : 'insert_product';
 
     echo tep_draw_form($form_action, FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $HTTP_GET_VARS['pID'] . '&action=' . $form_action, 'post', 'enctype="multipart/form-data"');
-
-    $products_name = $HTTP_POST_VARS['products_name'];
-    $products_description = $HTTP_POST_VARS['products_description'];
-    $products_url = $HTTP_POST_VARS['products_url'];
 
     $languages = tep_get_languages();
     for ($i=0; $i<sizeof($languages); $i++) {
