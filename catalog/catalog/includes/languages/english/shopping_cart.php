@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.10 2001/05/26 16:45:29 hpdl Exp $
+  $Id: shopping_cart.php,v 1.11 2001/06/12 11:22:15 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,6 +13,7 @@
 define('NAVBAR_TITLE', 'Cart Contents');
 define('TOP_BAR_TITLE', 'Shopping Cart Contents');
 define('HEADING_TITLE', 'What\'s In My Cart?');
+define('TABLE_HEADING_REMOVE', 'Remove');
 define('TABLE_HEADING_QUANTITY', 'Qty.');
 define('TABLE_HEADING_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCTS', 'Product(s)');

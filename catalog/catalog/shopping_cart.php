@@ -63,7 +63,7 @@
 <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL'); ?>">
 
           <tr>
-            <td <? $col_idx=0; echo $col_width[$col_idx++]; ?>></td>
+            <td <? $col_idx=0; echo $col_width[$col_idx++]; ?> align="center" class="smallText"><b>&nbsp;<?php echo TABLE_HEADING_REMOVE; ?>&nbsp;</b></td>
             <td <? echo $col_width[$col_idx++]; ?> align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
 
 <?
