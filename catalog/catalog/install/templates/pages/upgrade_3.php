@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.15 2002/04/03 23:23:18 hpdl Exp $
+  $Id: upgrade_3.php,v 1.16 2002/04/04 20:14:52 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -154,7 +154,6 @@ changeText('statusText', 'Updating Categories');
   osc_db_query("alter table categories change parent_id parent_id int(5) not null default '0'");
   osc_db_query("alter table categories add date_added datetime after sort_order");
   osc_db_query("alter table categories add last_modified datetime after date_added");
-  osc_db_query("alter table categories add status int(1) default '1' after date_added");
   osc_db_query("alter table categories add index idx_categories_parent_id (parent_id)");
 ?>
 <script language="javascript"><!--
