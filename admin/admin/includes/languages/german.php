@@ -70,8 +70,8 @@ define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Localization');
-define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
+define('BOX_HEADING_LOCALIZATION', 'Lokalisation');
+define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');

@@ -70,8 +70,8 @@ define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'Productos Mas Comprados');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Localization');
-define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
+define('BOX_HEADING_LOCALIZATION', 'localizaci&oacute;n');
+define('BOX_LOCALIZATION_CURRENCIES', 'Modernidades');
 
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
