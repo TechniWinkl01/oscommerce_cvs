@@ -59,11 +59,11 @@ define('BOX_TAXES_ZONES', 'Zonas');
 define('BOX_TAXES_TAX_CLASSES', 'Tipos de Impuesto');
 define('BOX_TAXES_TAX_RATES', 'Porcentajes');
 
-// whats_new box text in includes/boxes/statistics.php
-define('BOX_HEADING_STATISTICS', 'Estadisticas');
-define('BOX_STATISTICS_PRODUCTS_VIEWED', 'Productos Mas Vistos');
-define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'Productos Mas Comprados');
-define('BOX_STATISTICS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
+// whats_new box text in includes/boxes/reports.php
+define('BOX_HEADING_REPORTS', 'Informes');
+define('BOX_REPORTS_PRODUCTS_VIEWED', 'Productos Mas Vistos');
+define('BOX_REPORTS_PRODUCTS_PURCHASED', 'Productos Mas Comprados');
+define('BOX_REPORTS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');

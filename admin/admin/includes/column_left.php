@@ -6,7 +6,7 @@
   require('includes/boxes/taxes.php');
   require('includes/boxes/banners.php');
   require('includes/boxes/localization.php');
-  require('includes/boxes/statistics.php');
+  require('includes/boxes/reports.php');
   require('includes/boxes/tools.php');
   require('includes/boxes/mail.php');
 ?>
