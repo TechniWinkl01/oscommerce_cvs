@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ms1_to_ms2.php,v 1.2 2003/06/17 02:50:32 thomasamoulton Exp $
+  $Id: ms1_to_ms2.php,v 1.3 2003/06/23 01:27:34 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,17 +9,43 @@
 
   Released under the GNU General Public License
 */
-
-  if (!$HTTP_POST_VARS['DB_SERVER']) {
 ?>
+
+<script language="JavaScript"><!--
+function changeStyle(what, how) {
+  if (document.getElementById) {
+    document.getElementById(what).style.fontWeight = how;
+  } else if (document.all) {
+    document.all[what].style.fontWeight = how;
+  }
+}
+
+function changeText(where, what) {
+  if (document.getElementById) {
+    document.getElementById(where).innerHTML = what;
+  } else if (document.all) {
+    document.all[where].innerHTML = what;
+  }
+}
+//--></script>
+
 <html>
 <head>
 <title>osCommerce Preview Release 2.2 Database Update Script</title>
 <style type=text/css><!--
-  TD, P, BODY {
-    font-family: Verdana, Arial, sans-serif;
-    font-size: 14px;
-    color: #000000;
+A:link, A:visited { color: #0029A3; text-decoration: none; }
+A:hover { color: #5D59ac; text-decoration: underline; }
+TD, UL, P, BODY { font-family: Verdana, Arial, sans-serif; font-size: 11px; line-height: 1.5; }
+.boxMe { font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #000000; background-color: #e5e5e5; }
+.noteBox { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.5; background-color: #fef3da; border: thin dashed; padding: 6px; }
+.navigationBar { font-family: Verdana, Arial, sans-serif; font-size: 10px; font-weight: bold; color: #ffffff; }
+.footerBar { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; }
+.mainText { font-family: Verdana, Arial, sans-serif; font-size: 11px; line-height: 1.5; }
+.smallText { font-family: Verdana, Arial, sans-serif; font-size: 10px; line-height: 1.5; }
+.infoBoxHeading { font-family: Verdana, Arial, sans-serif; font-size: 10px; font-weight: bold; color: #ffffff; }
+.infoBoxText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
+.pageHeading { font-family: Verdana, Arial, sans-serif; font-size: 20px; color: #9a9a9a; font-weight: bold; }
+.pageTitle { font-family: Verdana, Arial, sans-serif; font-size: 11px; line-height: 1.5; font-weight: bold; text-decoration: underline; }
   }
 //--></style>
 </head>
@@ -31,6 +57,9 @@ to a MS2 database. By MS1 and MS2 I mean the state of the database the DAY
 that the MS release was made, not *any* MS1 like CVS tree.
 
 So if you upgraded to MS1 and stayed there you can use this script.
+<?php
+  if (!$HTTP_POST_VARS['DB_SERVER']) {
+?>
 <form name="database" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
   <tr>
@@ -117,6 +146,9 @@ So if you upgraded to MS1 and stayed there you can use this script.
 
     $sql = "update configuration set configuration_key = '" . $new_key . "' where configuration_key = '" . $key . "'";
     osc_db_query($sql);
+    $db_error = mysql_error();
+    if ($db_error != false) die($db_error);
+    osc_db_query("update configuration set last_modified = NOW() where configuration_key = '" . $new_key . "'");
   }
 
   function osc_db_update_configuration_title($key, $new_title) {
@@ -125,6 +157,7 @@ So if you upgraded to MS1 and stayed there you can use this script.
     osc_db_query($sql);
     $db_error = mysql_error();
     if ($db_error != false) die($db_error);
+    osc_db_query("update configuration set last_modified = NOW() where configuration_key = '" . $key . "'");
   }
 
   function osc_db_update_configuration_description($key, $new_description) {
@@ -133,6 +166,7 @@ So if you upgraded to MS1 and stayed there you can use this script.
     osc_db_query($sql);
     $db_error = mysql_error();
     if ($db_error != false) die($db_error);
+    osc_db_query("update configuration set last_modified = NOW() where configuration_key = '" . $key . "'");
   }
 
   function osc_db_update_configuration_use_null($key) {
@@ -141,6 +175,7 @@ So if you upgraded to MS1 and stayed there you can use this script.
     osc_db_query($sql);
     $db_error = mysql_error();
     if ($db_error != false) die($db_error);
+    osc_db_query("update configuration set last_modified = NOW() where configuration_key = '" . $key . "'");
   }
 
   osc_set_time_limit(0);
@@ -151,22 +186,7 @@ So if you upgraded to MS1 and stayed there you can use this script.
 ?>
 
 <p><span id="addressBook"><span id="addressBookMarker">-</span> Address Book</span><br>
-<span id="banners"><span id="bannersMarker">-</span> Banners</span><br>
-<span id="categories"><span id="categoriesMarker">-</span> Categories</span><br>
 <span id="configuration"><span id="configurationMarker">-</span> Configuration</span><br>
-<span id="currencies"><span id="currenciesMarker">-</span> Currencies</span><br>
-<span id="countries"><span id="countriesMarker">-</span> Countries</span><br>
-<span id="customers"><span id="customersMarker">-</span> Customers</span><br>
-<span id="languages"><span id="languagesMarker">-</span> Languages</span><br>
-<span id="zones"><span id="zonesMarker">-</span> Zones</span><br>
-<span id="manufacturers"><span id="manufacturersMarker">-</span> Manufacturers</span><br>
-<span id="newsletters"><span id="newslettersMarker">-</span> Newsletters</span><br>
-<span id="orders"><span id="ordersMarker">-</span> Orders</span><br>
-<span id="products"><span id="productsMarker">-</span> Products</span><br>
-<span id="reviews"><span id="reviewsMarker">-</span> Reviews</span><br>
-<span id="specials"><span id="specialsMarker">-</span> Specials</span><br>
-<span id="taxes"><span id="taxesMarker">-</span> Taxes</span><br>
-<span id="whosOnline"><span id="whosOnlineMarker">-</span> Whos Online</span></p>
 
 <p>Status: <span id="statusText">Preparing</span></p>
 
@@ -180,10 +200,6 @@ changeText('statusText', 'Updating Address Book');
 
 <?php
   flush();
-
-  osc_db_query("ALTER TABLE address_book CHANGE COLUMN entry_country_id entry_country_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE address_book CHANGE COLUMN entry_zone_id entry_zone_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE address_book CHANGE COLUMN customers_id customers_id int(11) NOT NULL default '0'");
 
   /* Now convert the address_book_id to unique entries, now most are =1 */
   osc_db_query("alter table address_book add temp_id int(11) not NULL default '0' FIRST");
@@ -201,49 +217,12 @@ changeText('statusText', 'Updating Address Book');
   osc_db_query("ALTER TABLE address_book CHANGE COLUMN temp_id address_book_id int(11) NOT NULL auto_increment");
   osc_db_query("ALTER TABLE address_book ADD INDEX idx_address_book_customers_id (customers_id)");
 
-  osc_db_query("ALTER TABLE address_format CHANGE COLUMN address_format_id address_format_id int(11) NOT NULL auto_increment");
+  osc_db_query("ALTER TABLE customers CHANGE COLUMN customers_default_address_id customers_default_address_id int(11) NOT NULL default '0'");
 ?>
 <script language="javascript"><!--
 changeStyle('addressBook', 'normal');
 changeText('addressBookMarker', '*');
 changeText('statusText', 'Updating Address Book .. done!');
-
-changeStyle('banners', 'bold');
-changeText('bannersMarker', '?');
-changeText('statusText', 'Updating Banners');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE banners CHANGE COLUMN banners_id banners_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE banners_history CHANGE COLUMN banners_id banners_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE banners_history CHANGE COLUMN banners_history_id banners_history_id int(11) NOT NULL auto_increment");
-
-?>
-<script language="javascript"><!--
-changeStyle('banners', 'normal');
-changeText('bannersMarker', '*');
-changeText('statusText', 'Updating Banners .. done!');
-
-changeStyle('categories', 'bold');
-changeText('categoriesMarker', '?');
-changeText('statusText', 'Updating Categories');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE categories CHANGE COLUMN parent_id parent_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE categories CHANGE COLUMN categories_id categories_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE categories_description CHANGE COLUMN language_id language_id int(11) NOT NULL default '1'");
-  osc_db_query("ALTER TABLE categories_description CHANGE COLUMN categories_id categories_id int(11) NOT NULL default '0'");
-
-?>
-<script language="javascript"><!--
-changeStyle('categories', 'normal');
-changeText('categoriesMarker', '*');
-changeText('statusText', 'Updating Categories .. done!');
 
 changeStyle('configuration', 'bold');
 changeText('configurationMarker', '?');
@@ -253,40 +232,11 @@ changeText('statusText', 'Updating Configuration');
 <?php
   flush();
 
-  osc_db_query("ALTER TABLE configuration CHANGE COLUMN configuration_id configuration_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE configuration CHANGE COLUMN configuration_group_id configuration_group_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE configuration_group CHANGE COLUMN configuration_group_id configuration_group_id int(11) NOT NULL auto_increment");
-
-  osc_db_update_configuration_key('download_by_redirect', 'DOWNLOAD_BY_REDIRECT');
-  osc_db_update_configuration_key('download_enabled', 'DOWNLOAD_ENABLED');
-  osc_db_update_configuration_key('download_max_count', 'DOWNLOAD_MAX_COUNT');
-  osc_db_update_configuration_key('download_max_days', 'DOWNLOAD_MAX_DAYS');
-
-  osc_db_update_configuration_use_null('EMAIL_FROM');
-
   osc_db_update_configuration_key('ENTRY_COMPANY_LENGTH', 'ENTRY_COMPANY_MIN_LENGTH');
-
-  osc_db_update_configuration_use_null('ENTRY_FIRST_NAME_MIN_LENGTH');
-  osc_db_update_configuration_use_null('ENTRY_LAST_NAME_MIN_LENGTH');
-
-  osc_db_update_configuration_use_null('ENTRY_STATE_MIN_LENGTH');
-  osc_db_update_configuration_use_null('HEADING_IMAGE_HEIGHT');
-  osc_db_update_configuration_use_null('HEADING_IMAGE_WIDTH');
-  osc_db_update_configuration_use_null('IMAGE_REQUIRED');
-  osc_db_update_configuration_use_null('PRODUCT_LIST_BUY_NOW');
-  osc_db_update_configuration_use_null('PRODUCT_LIST_MODEL');
-  osc_db_update_configuration_use_null('PRODUCT_LIST_WEIGHT');
-  osc_db_update_configuration_use_null('SHIPPING_BOX_WEIGHT');
-  osc_db_update_configuration_use_null('SMALL_IMAGE_HEIGHT');
-  osc_db_update_configuration_use_null('STORE_NAME');
-  osc_db_update_configuration_use_null('STORE_OWNER');
-  osc_db_update_configuration_use_null('STORE_OWNER_EMAIL_ADDRESS');
-  osc_db_update_configuration_use_null('SUBCATEGORY_IMAGE_HEIGHT');
 
   osc_db_query("update configuration set use_function = 'tep_cfg_get_zone_name' where configuration_key = 'STORE_ZONE'");
 
   osc_db_update_configuration_key('STORE_ORIGIN_ZIP', 'SHIPPING_ORIGIN_ZIP');
-  osc_db_update_configuration_use_null('SHIPPING_ORIGIN_ZIP');
 
   osc_db_query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Country of Origin', 'SHIPPING_ORIGIN_COUNTRY', '223', 'Select the country of origin to be used in shipping quotes.', '7', '1', 'tep_get_country_name', 'tep_cfg_pull_down_country_list(', now())");
 
@@ -314,285 +264,20 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Prevent Spider Sessions', 'SESSION_BLOCK_SPIDERS', 'False', 'Prevent known spiders from starting a session.', '15', '6', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Recreate Session', 'SESSION_RECREATE', 'False', 'Recreate the session to generate a new session ID when the customer logs on or creates an account (PHP >=4.1 needed).', '15', '7', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
 
+  osc_db_update_configuration_title('SHIPPING_ORIGIN_COUNTRY', 'Country of Origin');
+
+  osc_db_update_configuration_description('ACCOUNT_COMPANY', 'Display company in the customers account');
+  osc_db_update_configuration_description('ACCOUNT_DOB', 'Display date of birth in the customers account');
+  osc_db_update_configuration_description('ACCOUNT_GENDER', 'Display gender in the customers account');
+  osc_db_update_configuration_description('ACCOUNT_STATE', 'Display state in the customers account');
+  osc_db_update_configuration_description('ACCOUNT_SUBURB', 'Display suburb in the customers account');
+  osc_db_update_configuration_description('SHIPPING_ORIGIN_COUNTRY', 'Select the country of origin to be used in shipping quotes.');
 ?>
 
 <script language="javascript"><!--
 changeStyle('configuration', 'normal');
 changeText('configurationMarker', '*');
 changeText('statusText', 'Updating Configuration .. done!');
-
-changeStyle('currencies', 'bold');
-changeText('currenciesMarker', '?');
-changeText('statusText', 'Updating Currencies');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE currencies CHANGE COLUMN currencies_id currencies_id int(11) NOT NULL auto_increment");
-
-?>
-
-<script language="javascript"><!--
-changeStyle('currencies', 'normal');
-changeText('currenciesMarker', '*');
-changeText('statusText', 'Updating Currencies .. done!');
-
-changeStyle('countries', 'bold');
-changeText('countriesMarker', '?');
-changeText('statusText', 'Updating Countries');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE countries CHANGE COLUMN countries_id countries_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE countries CHANGE COLUMN address_format_id address_format_id int(11) NOT NULL default '0'");
-
-?>
-
-<script language="javascript"><!--
-changeStyle('countries', 'normal');
-changeText('countriesMarker', '*');
-changeText('statusText', 'Updating Currencies .. done!');
-
-changeStyle('customers', 'bold');
-changeText('customersMarker', '?');
-changeText('statusText', 'Updating Customers');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE customers CHANGE COLUMN customers_default_address_id customers_default_address_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE customers CHANGE COLUMN customers_id customers_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE customers_basket CHANGE COLUMN customers_basket_id customers_basket_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE customers_basket CHANGE COLUMN customers_id customers_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE customers_basket_attributes CHANGE COLUMN customers_basket_attributes_id customers_basket_attributes_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE customers_basket_attributes CHANGE COLUMN products_options_id products_options_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE customers_basket_attributes CHANGE COLUMN products_options_value_id products_options_value_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE customers_basket_attributes CHANGE COLUMN customers_id customers_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE customers_info CHANGE COLUMN customers_info_id customers_info_id int(11) NOT NULL default '0'");
-?>
-
-<script language="javascript"><!--
-changeStyle('customers', 'normal');
-changeText('customersMarker', '*');
-changeText('statusText', 'Updating Customers .. done!');
-
-changeStyle('languages', 'bold');
-changeText('languagesMarker', '?');
-changeText('statusText', 'Updating Languages');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE languages CHANGE COLUMN languages_id languages_id int(11) NOT NULL auto_increment");
-?>
-
-<script language="javascript"><!--
-changeStyle('languages', 'normal');
-changeText('languagesMarker', '*');
-changeText('statusText', 'Updating Languages .. done!');
-
-changeStyle('zones', 'bold');
-changeText('zonesMarker', '?');
-changeText('statusText', 'Updating Zones');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE geo_zones CHANGE COLUMN geo_zone_id geo_zone_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE zones CHANGE COLUMN zone_country_id zone_country_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE zones CHANGE COLUMN zone_id zone_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE zones_to_geo_zones CHANGE COLUMN zone_country_id zone_country_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE zones_to_geo_zones CHANGE COLUMN association_id association_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE zones_to_geo_zones CHANGE COLUMN zone_id zone_id int(11) default NULL");
-  osc_db_query("ALTER TABLE zones_to_geo_zones CHANGE COLUMN geo_zone_id geo_zone_id int(11) default NULL");
-?>
-
-<script language="javascript"><!--
-changeStyle('zones', 'normal');
-changeText('zonesMarker', '*');
-changeText('statusText', 'Updating Zones .. done!');
-
-changeStyle('manufacturers', 'bold');
-changeText('manufacturersMarker', '?');
-changeText('statusText', 'Updating Manufacturers');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE manufacturers CHANGE COLUMN manufacturers_id manufacturers_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE manufacturers_info CHANGE COLUMN manufacturers_id manufacturers_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE manufacturers_info CHANGE COLUMN languages_id languages_id int(11) NOT NULL default '0'");
-?>
-
-<script language="javascript"><!--
-changeStyle('manufacturers', 'normal');
-changeText('manufacturersMarker', '*');
-changeText('statusText', 'Updating Manufacturers .. done!');
-
-changeStyle('newsletters', 'bold');
-changeText('newslettersMarker', '?');
-changeText('statusText', 'Updating Newsletters');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE newsletters CHANGE COLUMN newsletters_id newsletters_id int(11) NOT NULL auto_increment");
-?>
-
-<script language="javascript"><!--
-changeStyle('newsletters', 'normal');
-changeText('newslettersMarker', '*');
-changeText('statusText', 'Updating Newsletters .. done!');
-
-changeStyle('orders', 'bold');
-changeText('ordersMarker', '?');
-changeText('statusText', 'Updating Orders');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE orders CHANGE COLUMN customers_id customers_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders CHANGE COLUMN orders_id orders_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE orders CHANGE COLUMN currency_value currency_value decimal(14,6) default NULL");
-  osc_db_query("ALTER TABLE orders_products CHANGE COLUMN orders_products_id orders_products_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE orders_products CHANGE COLUMN products_id products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_products CHANGE COLUMN orders_id orders_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_products CHANGE COLUMN products_tax products_tax decimal(7,4) NOT NULL default '0.0000'");
-  osc_db_query("ALTER TABLE orders_products_attributes CHANGE COLUMN orders_products_id orders_products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_products_attributes CHANGE COLUMN orders_products_attributes_id orders_products_attributes_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE orders_products_attributes CHANGE COLUMN orders_id orders_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_products_download CHANGE COLUMN orders_products_id orders_products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_products_download CHANGE COLUMN orders_products_download_id orders_products_download_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE orders_products_download CHANGE COLUMN orders_id orders_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_status CHANGE COLUMN language_id language_id int(11) NOT NULL default '1'");
-  osc_db_query("ALTER TABLE orders_status CHANGE COLUMN orders_status_id orders_status_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_status_history CHANGE COLUMN orders_id orders_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE orders_status_history CHANGE COLUMN orders_status_history_id orders_status_history_id int(11) NOT NULL auto_increment");
-?>
-
-<script language="javascript"><!--
-changeStyle('orders', 'normal');
-changeText('ordersMarker', '*');
-changeText('statusText', 'Updating Orders .. done!');
-
-changeStyle('products', 'bold');
-changeText('productsMarker', '?');
-changeText('statusText', 'Updating Products');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE products CHANGE COLUMN manufacturers_id manufacturers_id int(11) default NULL");
-  osc_db_query("ALTER TABLE products CHANGE COLUMN products_tax_class_id products_tax_class_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products CHANGE COLUMN products_id products_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE products CHANGE COLUMN products_weight products_weight decimal(5,2) NOT NULL default '0.00'");
-  osc_db_query("ALTER TABLE products_attributes CHANGE COLUMN options_values_id options_values_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_attributes CHANGE COLUMN products_id products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_attributes CHANGE COLUMN options_id options_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_attributes CHANGE COLUMN products_attributes_id products_attributes_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE products_attributes_download CHANGE COLUMN products_attributes_id products_attributes_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_description CHANGE COLUMN products_id products_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE products_description CHANGE COLUMN language_id language_id int(11) NOT NULL default '1'");
-  osc_db_query("ALTER TABLE products_notifications CHANGE COLUMN customers_id customers_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_notifications CHANGE COLUMN products_id products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_options CHANGE COLUMN language_id language_id int(11) NOT NULL default '1'");
-  osc_db_query("ALTER TABLE products_options CHANGE COLUMN products_options_id products_options_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_options_values CHANGE COLUMN products_options_values_id products_options_values_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_options_values CHANGE COLUMN language_id language_id int(11) NOT NULL default '1'");
-  osc_db_query("ALTER TABLE products_options_values_to_products_options CHANGE COLUMN products_options_values_to_products_options_id products_options_values_to_products_options_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE products_options_values_to_products_options CHANGE COLUMN products_options_values_id products_options_values_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_options_values_to_products_options CHANGE COLUMN products_options_id products_options_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_to_categories CHANGE COLUMN products_id products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE products_to_categories CHANGE COLUMN categories_id categories_id int(11) NOT NULL default '0'");
-?>
-
-<script language="javascript"><!--
-changeStyle('products', 'normal');
-changeText('productsMarker', '*');
-changeText('statusText', 'Updating Products .. done!');
-
-changeStyle('reviews', 'bold');
-changeText('reviewsMarker', '?');
-changeText('statusText', 'Updating Reviews');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE reviews CHANGE COLUMN reviews_id reviews_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE reviews CHANGE COLUMN customers_id customers_id int(11) default NULL");
-  osc_db_query("ALTER TABLE reviews CHANGE COLUMN products_id products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE reviews_description CHANGE COLUMN reviews_id reviews_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE reviews_description CHANGE COLUMN languages_id languages_id int(11) NOT NULL default '0'");
-?>
-
-<script language="javascript"><!--
-changeStyle('reviews', 'normal');
-changeText('reviewsMarker', '*');
-changeText('statusText', 'Updating Reviews .. done!');
-
-changeStyle('specials', 'bold');
-changeText('specialsMarker', '?');
-changeText('statusText', 'Updating Specials');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE specials CHANGE COLUMN products_id products_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE specials CHANGE COLUMN specials_id specials_id int(11) NOT NULL auto_increment");
-?>
-
-<script language="javascript"><!--
-changeStyle('specials', 'normal');
-changeText('specialsMarker', '*');
-changeText('statusText', 'Updating Specials .. done!');
-
-changeStyle('taxes', 'bold');
-changeText('taxesMarker', '?');
-changeText('statusText', 'Updating Taxes');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE tax_class CHANGE COLUMN tax_class_id tax_class_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE tax_rates CHANGE COLUMN tax_rate tax_rate decimal(7,4) NOT NULL default '0.0000'");
-  osc_db_query("ALTER TABLE tax_rates CHANGE COLUMN tax_rates_id tax_rates_id int(11) NOT NULL auto_increment");
-  osc_db_query("ALTER TABLE tax_rates CHANGE COLUMN tax_zone_id tax_zone_id int(11) NOT NULL default '0'");
-  osc_db_query("ALTER TABLE tax_rates CHANGE COLUMN tax_class_id tax_class_id int(11) NOT NULL default '0'");
-?>
-
-<script language="javascript"><!--
-changeStyle('taxes', 'normal');
-changeText('taxesMarker', '*');
-changeText('statusText', 'Updating Taxes .. done!');
-
-changeStyle('whosOnline', 'bold');
-changeText('whosOnlineMarker', '?');
-changeText('statusText', 'Updating Whos Online');
-//--></script>
-
-<?php
-  flush();
-
-  osc_db_query("ALTER TABLE whos_online CHANGE COLUMN customer_id customer_id int(11) default NULL");
-?>
-
-<script language="javascript"><!--
-changeStyle('whosOnline', 'normal');
-changeText('whosOnlineMarker', '*');
-changeText('statusText', 'Updating Whos Online .. done!');
 
 changeStyle('statusText', 'bold');
 changeText('statusText', 'Update Complete!');
