@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: server_info.php,v 1.5 2003/06/20 00:41:03 hpdl Exp $
+  $Id: server_info.php,v 1.6 2003/06/30 13:13:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center"><table border="0" cellspacing="0" cellpadding="3">
+            <td><table border="0" cellspacing="0" cellpadding="3">
               <tr>
                 <td class="smallText"><b><?php echo TITLE_SERVER_HOST; ?></b></td>
                 <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
@@ -92,20 +92,29 @@
         <td>
 <?php
   if (function_exists('ob_start')) {
+?>
+<style type="text/css">
+body, td, th {font-family: sans-serif; font-size: 10px;}
+.p {text-align: left;}
+.e {background-color: #ccccff; font-weight: bold;}
+.h {background-color: #9999cc; font-weight: bold;}
+.v {background-color: #cccccc;}
+i {color: #666666;}
+hr {display: none;}
+</style>
+<?php
     ob_start();
     phpinfo();
     $phpinfo = ob_get_contents();
     ob_end_clean();
 
     $phpinfo = str_replace('border: 1px', '', $phpinfo);
-    ereg("(<style type=\"text/css\">{1})(.*)(</style>{1})", $phpinfo, $regs);
-    echo '<style type="text/css">' . $regs[2] . '</style>';
-    ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);
-    echo '<table border="1" cellpadding="3" width="600" align="center" style="border: 0px; border-color: #000000;">' .
+    ereg('<body>(.*)</body>', $phpinfo, $regs);
+    echo '<table border="1" cellpadding="3" width="600" style="border: 0px; border-color: #000000;">' .
          '  <tr><td><a href="http://www.oscommerce.com"><img border="0" src="images/oscommerce.gif" alt=" osCommerce " /></a><h1 class="p"> ' . PROJECT_VERSION . '</h1></td>' . 
          '  </tr>' .
          '</table>';
-    echo $regs[2];
+    echo $regs[1];
   } else {
     phpinfo();
   }
