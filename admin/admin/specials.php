@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.29 2002/01/14 06:40:18 jan0815 Exp $
+  $Id: specials.php,v 1.30 2002/01/30 17:16:16 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,38 +68,27 @@
   }
 ?>
 </head>
-<body onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
 <div id="popupcalendar" class="text"></div>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -126,26 +115,26 @@
     }
 ?>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator(); ?></td>
       </tr>
       <tr><form name="new_special" <?php echo 'action="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post"><?php if ($form_action == 'update') echo tep_draw_hidden_field('specials_id', $HTTP_GET_VARS['sID']); ?>
         <td><br><table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;<?php echo TEXT_SPECIALS_PRODUCT; ?>&nbsp;</td>
-            <td class="main">&nbsp;<?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . tep_currency_format($sInfo->products_price) . ')</small>' : tep_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo tep_draw_hidden_field('products_price', $sInfo->products_price); ?>&nbsp;</td>
+            <td class="main"><?php echo TEXT_SPECIALS_PRODUCT; ?>&nbsp;</td>
+            <td class="main"><?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . tep_currency_format($sInfo->products_price) . ')</small>' : tep_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo tep_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
           </tr>
           <tr>
-            <td class="main">&nbsp;<?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
-            <td class="main">&nbsp;<?php echo tep_draw_input_field('specials_price', $sInfo->specials_price); ?>&nbsp;</td>
+            <td class="main"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
+            <td class="main"><?php echo tep_draw_input_field('specials_price', $sInfo->specials_price); ?></td>
           </tr>
           <tr>
-            <td class="main">&nbsp;<?php echo TEXT_SPECIALS_EXPIRES_DATE; ?><br>&nbsp;<span class="smallText">(dd/mm/yyyy)</span>&nbsp;</td>
-            <td class="main">&nbsp;<?php echo tep_draw_input_field('day', $sInfo->expires_date_caljs_day, 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('month', $sInfo->expires_date_caljs_month, 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('year', $sInfo->expires_date_caljs_year, 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);" onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_special','dteWhen','BTN_date');return false;"><?php echo tep_image(DIR_WS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a>&nbsp;</td>
+            <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?><br>&nbsp;<span class="smallText">(dd/mm/yyyy)</span>&nbsp;</td>
+            <td class="main">&nbsp;<?php echo tep_draw_input_field('day', $sInfo->expires_date_caljs_day, 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('month', $sInfo->expires_date_caljs_month, 'size="2" maxlength="2" class="cal-TextBox"') . tep_draw_input_field('year', $sInfo->expires_date_caljs_year, 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);" onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_special','dteWhen','BTN_date');return false;"><?php echo tep_image(DIR_WS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><br><?php echo tep_black_line(); ?></td>
+        <td><br><?php echo tep_draw_separator(); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -161,18 +150,18 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?php echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_PRODUCTS_PRICE; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
-                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PRODUCTS_PRICE; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
     $rows = 0;
@@ -196,24 +185,24 @@
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $specials['specials_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td class="smallText">&nbsp;<?php echo $specials['products_name']; ?>&nbsp;</td>
-                <td align="right" class="smallText">&nbsp;<span class="oldPrice"><?php echo tep_currency_format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo tep_currency_format($specials['specials_new_products_price']); ?></span>&nbsp;</td>
-                <td align="right" class="smallText">&nbsp;
+                <td  class="tableData"><?php echo $specials['products_name']; ?></td>
+                <td  class="tableData" align="right"><span class="oldPrice"><?php echo tep_currency_format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo tep_currency_format($specials['specials_new_products_price']); ?></span></td>
+                <td  class="tableData" align="right">
 <?php
       if ($specials['status'] == '1') {
         echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, 'action=setflag&flag=0&id=' . $specials['specials_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
         echo '<a href="' . tep_href_link(FILENAME_SPECIALS, 'action=setflag&flag=1&id=' . $specials['specials_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10);
       }
-?>&nbsp;</td>
+?></td>
 <?php
       if ($specials['specials_id'] == $sInfo->id) {
 ?>
-                <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
+                <td  class="tableData" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
 <?php
       } else {
 ?>
-                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $specials['specials_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+                <td  class="tableData" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $specials['specials_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
 <?php
       }
 ?>
@@ -222,13 +211,13 @@
     }
 ?>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0"cellspacing="2">
                   <tr>
-                    <td valign="top" class="smallText">&nbsp;<?php echo $specials_split->display_count($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_SPECIALS); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $specials_split->display_links($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<br><br>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image_button('button_new_product.gif', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</td>
+                    <td valign="top" class="smallText"><?php echo $specials_split->display_count($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_SPECIALS); ?></td>
+                    <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE; ?> <?php echo $specials_split->display_links($specials_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<br><br>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image_button('button_new_product.gif', IMAGE_NEW_PRODUCT) . '</a>'; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -242,7 +231,7 @@
                 <td><?php new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr class="boxHeading">
-                <td><?php echo tep_black_line(); ?></td>
+                <td><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
     $info_box_contents = array();
@@ -275,7 +264,7 @@
                 <td class="box"><?php new infoBox($info_box_contents); ?></td>
               <?php if ($form) echo '</form>'; ?></tr>
               <tr>
-                <td class="box"><?php echo tep_black_line(); ?></td>
+                <td class="box"><?php echo tep_draw_separator(); ?></td>
               </tr>
             </table></td>
           </tr>
