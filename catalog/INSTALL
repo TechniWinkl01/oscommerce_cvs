@@ -102,7 +102,7 @@ The individual packages are available at:
    module (DS0):
  
    cd php-4.0.4pl1
-   ./configure --enable-track-vars --enable-trans-sid --with-mysql --disable-debug --with-apxs=/usr/local/apache/bin/apxs
+   ./configure --with-mysql=/usr/local/mysql --disable-debug --with-apxs=/usr/local/apache/bin/apxs
    make
    make install
    cp php.ini-dist /usr/local/lib/php.ini
