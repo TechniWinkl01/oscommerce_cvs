@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.80 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: categories.php,v 1.81 2001/12/23 16:45:25 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -99,10 +99,12 @@
                               break;
 // insert product
       case 'insert_product':  $products_date_available = $HTTP_POST_VARS['year'];
+                              $products_date_available .= '-';
                               $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
+                              $products_date_available .= '-';
                               $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
 
-                              $products_date_available = (date('Y-m-d H:i:s') < $products_date_available) ? $products_date_available : '';
+                              $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
 
                               tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, products_model, products_image, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_price'] . "', now(), '" . $products_date_available . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
                               $new_products_id = tep_db_insert_id();
@@ -118,10 +120,12 @@
                               break;
 // update product
       case 'update_product':  $products_date_available = $HTTP_POST_VARS['year'];
+                              $products_date_available .= '-';
                               $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
+                              $products_date_available .= '-';
                               $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
 
-                              $products_date_available = (date('Y-m-d H:i:s') < $products_date_available) ? $products_date_available : '';
+                              $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
 
                               tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_last_modified = now(), products_date_available = '" . $products_date_available . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
 
@@ -384,7 +388,7 @@
 <?php
         }
 
-        if ($pInfo->date_available > date('Y-m-d H:i:s')) {
+        if ($pInfo->date_available > date('Y-m-d')) {
 ?>
       <tr>
         <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->date_available)); ?></td>
@@ -430,7 +434,7 @@
 <?php
         }
 
-        if ($pInfo->date_available > date('Y-m-d H:i:s')) {
+        if ($pInfo->date_available > date('Y-m-d')) {
 ?>
       <tr>
         <td align="center" class="smallText"><br><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->date_available)); ?></td>
@@ -784,7 +788,7 @@
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', IMAGE_MOVE) . '</a>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added));
             $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($pInfo->last_modified));
-            if (date('Y-m-d H:i:s') < $pInfo->date_available) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->date_available) . '<br>');
+            if (date('Y-m-d') < $pInfo->date_available) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->date_available) . '<br>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, $pInfo->name) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) . '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
