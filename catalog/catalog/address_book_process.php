@@ -53,7 +53,7 @@
       $city_error = 0;
     }
 
-    if (@strlen(trim($HTTP_POST_VARS['country'])) < ADDRESS_BOOK_COUNTRY_MIN_LENGTH) {
+    if (@$HTTP_POST_VARS['country'] == "0") {
       $country_error = 1;
       $error = 1;
     } else {
@@ -62,7 +62,7 @@
   }
 
   if ((@$process == 1) && (@$error == 0) && (@$HTTP_POST_VARS['action'] == 'update')) {
-    tep_db_query("update address_book set entry_gender = '" . $HTTP_POST_VARS['gender'] . "', entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', entry_state = '" . $HTTP_POST_VARS['state'] . "', entry_country = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id'] . "'");
+    tep_db_query("update address_book set entry_gender = '" . $HTTP_POST_VARS['gender'] . "', entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', entry_state = '" . $HTTP_POST_VARS['state'] . "', entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     tep_exit();
   } elseif ((@$process == 1) && (@$error == 0)) {
@@ -84,7 +84,7 @@
     }
   } else {
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
-      $entry = tep_db_query("select entry_gender, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id and address_book.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
+      $entry = tep_db_query("select entry_gender, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id and address_book.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
       $entry_values = tep_db_fetch_array($entry);
       $gender = $entry_values['entry_gender'];
       $firstname = $entry_values['entry_firstname'];
@@ -94,7 +94,7 @@
       $postcode = $entry_values['entry_postcode'];
       $city = $entry_values['entry_city'];
       $state = $entry_values['entry_state'];
-      $country = $entry_values['entry_country'];
+      $country = $entry_values['entry_country_id'];
     }
 ?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK_PROCESS; include(DIR_INCLUDES . 'include_once.php'); ?>
@@ -120,7 +120,6 @@ function check_form() {
   var street_address = document.add_entry.street_address.value;
   var postcode = document.add_entry.postcode.value;
   var city = document.add_entry.city.value;
-  var country = document.add_entry.country.value;
 
   if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
   } else {
@@ -150,11 +149,6 @@ function check_form() {
 
   if (city = "" || city.length < <?=ADDRESS_BOOK_CITY_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_CITY;?>";
-    error = 1;
-  }
-
-  if (country = "" || country.length < <?=ADDRESS_BOOK_COUNTRY_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
 
@@ -342,12 +336,26 @@ function check_form() {
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$country_error == '1') {
-        echo '<input type="text" name="country" maxlength="32" value="' . $HTTP_POST_VARS['country'] . '">&nbsp;' . ENTRY_COUNTRY_ERROR;
+        echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
+        $countries = tep_db_query("select countries_id, countries_name from countries");
+        while ($countries_values = tep_db_fetch_array($countries)) {
+          echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
+        }
+        echo '</select>&nbsp;' . ENTRY_COUNTRY_ERROR;
       } else {
-        echo $HTTP_POST_VARS['country'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
+        $country = tep_db_query("select countries_name from countries where countries_id = '" . $HTTP_POST_VARS['country'] . "'");
+        $country_values = tep_db_fetch_array($country);
+        echo $country_values['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
       }
     } else {
-      echo '<input type="text" name="country" value="' . @$country . '" maxlength="32">&nbsp;' . ENTRY_COUNTRY_TEXT;
+      echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
+      $countries = tep_db_query("select countries_id, countries_name from countries");
+      while ($countries_values = tep_db_fetch_array($countries)) {
+        echo '<option value="' . $countries_values['countries_id'] . '"';
+        if ($countries_values['countries_id'] == @$country) echo ' SELECTED';
+        echo '>' . $countries_values['countries_name'] . '</option>';
+      }
+      echo '</select>&nbsp;' . ENTRY_COUNTRY_TEXT;
     } ?></font></td>
           </tr>
         </table></td>

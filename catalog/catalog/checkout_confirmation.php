@@ -76,11 +76,14 @@
   }
 
   if ($HTTP_POST_VARS['sendto'] == '0') {
-    $address = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_postcode as postcode, customers_city as city, customers_state as state, customers_country as country from customers where customers_id = '" . $customer_id . "'");
+    $address = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_postcode as postcode, customers_city as city, customers_state as state, customers_country_id as country from customers where customers_id = '" . $customer_id . "'");
   } else {
-    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_state as state, entry_country as country from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_state as state, entry_country_id as country from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   }
   $address_values = tep_db_fetch_array($address);
+  $country = tep_db_query("select countries_name from countries where countries_id = '" . $address_values['country'] . "'");
+  $country_values = tep_db_fetch_array($country);
+  $country = $country_values['countries_name'];
   $shipping_cost = 0.0;
   if (!SHIPPING_FREE) {
     if (SHIPPING_MODEL == SHIPPING_UPS) {
@@ -159,9 +162,9 @@
           <tr>
 <?
   if ($address_values['state'] != '') {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['state'] . ', ' . $address_values['country'] . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['state'] . ', ' . $country . '&nbsp;</font></td>' . "\n";
   } else {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['country'] . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $country . '&nbsp;</font></td>' . "\n";
   }
 ?>
           </tr>

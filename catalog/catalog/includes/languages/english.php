@@ -104,7 +104,6 @@ define('JS_EMAIL_ADDRESS', '* The \'E-Mail Address\' entry must have atleast ' .
 define('JS_ADDRESS', '* The \'Street Address\' entry must have atleast ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.\n');
 define('JS_POST_CODE', '* The \'Post Code\' entry must have atleast ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.\n');
 define('JS_CITY', '* The \'City\' entry must have atleast ' . ENTRY_CITY_MIN_LENGTH . ' characters.\n');
-define('JS_COUNTRY', '* The \'Country\' entry must have atleast ' . ENTRY_COUNTRY_MIN_LENGTH . ' characters.\n');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' amd \'Confirmation\' entries must match amd have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
@@ -144,7 +143,7 @@ define('ENTRY_STATE', 'State:');
 define('ENTRY_STATE_ERROR', '');
 define('ENTRY_STATE_TEXT', '');
 define('ENTRY_COUNTRY', 'Country:');
-define('ENTRY_COUNTRY_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_COUNTRY_MIN_LENGTH . ' chars</font></small>');
+define('ENTRY_COUNTRY_ERROR', '');
 define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_TELEPHONE_NUMBER', 'Telephone Number:');
 define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_TELEPHONE_MIN_LENGTH . ' chars</font></small>');

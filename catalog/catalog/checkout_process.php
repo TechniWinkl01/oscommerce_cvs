@@ -1,14 +1,20 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_POST_VARS['sendto'] == '0') {
-    $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country as country from customers where customers_id = '" . $customer_id . "'");
+    $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country_id as country from customers where customers_id = '" . $customer_id . "'");
   } else {
-    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_country as country from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_country_id as country from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   }
   $delivery_values = tep_db_fetch_array($delivery);
+  $country = tep_db_query("select countries_name from countries where countries_id = '" . $delivery_values['country'] . "'");
+  $country_values = tep_db_fetch_array($country);
+  $delivery_country = $country_values['countries_name'];
 
-  $customer = tep_db_query("select customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address from customers where customers_id = '" . $customer_id . "'");
+  $customer = tep_db_query("select customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country_id, customers_telephone, customers_email_address from customers where customers_id = '" . $customer_id . "'");
   $customer_values = tep_db_fetch_array($customer);
+  $country = tep_db_query("select countries_name from countries where countries_id = '" . $customer_values['customers_country_id'] . "'");
+  $country_values = tep_db_fetch_array($country);
+  $customers_country = $country_values['countries_name'];
 
   $date_now = date('Ymd');
 
@@ -17,7 +23,7 @@
   $shipping_cost = $HTTP_POST_VARS['shipping'];
   $shipping_method = $HTTP_POST_VARS['shipping_method'];
 
-  tep_db_query("insert into orders values ('', '" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $customer_values['customers_state'] . "', '" . $customer_values['customers_country'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $delivery_values['state'] . "', '" . $delivery_values['country'] . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', '" . $date_now . "', '" . TAX_VALUE . "', '" . $shipping_cost . "', '" . $shipping_method . "' , 'Pending', '')");
+  tep_db_query("insert into orders values ('', '" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $customer_values['customers_state'] . "', '" . $customers_country . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $delivery_values['state'] . "', '" . $delivery_country . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', '" . $date_now . "', '" . TAX_VALUE . "', '" . $shipping_cost . "', '" . $shipping_method . "' , 'Pending', '')");
   $insert_id = tep_db_insert_id();  
 
   $cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");

@@ -13,6 +13,7 @@ define('TOP_BAR_TITLE_ADD_ENTRY', 'Add A New Address Book Entry');
 define('TOP_BAR_TITLE_MODIFY_ENTRY', 'Modify an Entry');
 define('HEADING_TITLE_ADD_ENTRY', 'New Address Book Entry');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Address Book Entry');
+define('PLEASE_SELECT', '-- Please Select --');
 
 define('IMAGE_INSERT', 'Insert');
 define('IMAGE_CANCEL', 'Cancel');

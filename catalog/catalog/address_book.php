@@ -54,7 +54,7 @@
             <td colspan="3"><?=tep_black_line();?></td>
           </tr>
 <?
-  $address_book = tep_db_query("select address_book.address_book_id, address_book.entry_firstname, address_book.entry_lastname, address_book.entry_city, address_book.entry_country from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id order by address_book.address_book_id");
+  $address_book = tep_db_query("select address_book.address_book_id, address_book.entry_firstname, address_book.entry_lastname, address_book.entry_city, address_book.entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id order by address_book.address_book_id");
   if (!tep_db_num_rows($address_book)) {
 ?>
           <tr bgcolor="#f4f7fd">
@@ -65,6 +65,8 @@
     $row = 0;
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
+      $country = tep_db_query("select countries_name from countries where countries_id = '" . $address_book_values['entry_country_id'] . "'");
+      $country_values = tep_db_fetch_array($country);
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
       } else {
@@ -72,7 +74,7 @@
       }
       echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;0' . $row . '.&nbsp;</font></td>' . "\n";
       echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_city'] . ' / ' . $address_book_values['entry_country'] . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_city'] . ' / ' . $country_values['countries_name'] . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }

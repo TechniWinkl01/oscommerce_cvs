@@ -13,6 +13,7 @@ define('TOP_BAR_TITLE_ADD_ENTRY', 'Neue Adre&szlig;bucheintr&auml;ge');
 define('TOP_BAR_TITLE_MODIFY_ENTRY', 'Eingabe &Auml;nderung');
 define('HEADING_TITLE_ADD_ENTRY', 'Neue Adre&szlig;bucheintr&auml;ge');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Adre&szlig;bucheintr&auml;ge');
+define('PLEASE_SELECT', '-- Bitte W&auml;hlen --');
 
 define('IMAGE_INSERT', 'Einf&uuml;gen');
 define('IMAGE_CANCEL', 'Abbrechen');

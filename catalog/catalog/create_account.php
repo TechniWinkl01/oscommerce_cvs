@@ -17,7 +17,6 @@ function check_form() {
   var street_address = document.create_account.street_address.value;
   var postcode = document.create_account.postcode.value;
   var city = document.create_account.city.value;
-  var country = document.create_account.country.value;
   var telephone = document.create_account.telephone.value;
   var password = document.create_account.password.value;
   var confirmation = document.create_account.confirmation.value;
@@ -60,11 +59,6 @@ function check_form() {
 
   if (city = "" || city.length < <?=ENTRY_CITY_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_CITY;?>";
-    error = 1;
-  }
-
-  if (country = "" || country.length < <?=ENTRY_COUNTRY_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
 
@@ -189,7 +183,13 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;<input type="text" name="country" maxlength="32">&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;<select name="country"><option value="0"><?=PLEASE_SELECT;?></option>
+<?
+    $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+    while ($countries_values = tep_db_fetch_array($countries)) {
+      echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
+    }
+?></select>&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
           </tr>
           <tr>
             <td colspan="2" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;</font></td>

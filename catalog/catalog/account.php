@@ -25,8 +25,11 @@
     </table></td>
 <!-- body_text //-->
 <?
-  $account = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country, customers_telephone, customers_fax from customers where customers_id = '" . $customer_id . "'");
+  $account = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $customer_id . "'");
   $account_values = tep_db_fetch_array($account);
+
+  $country = tep_db_query("select countries_name from countries where countries_id = '" . $account_values['customers_country_id'] . "'");
+  $country_value = tep_db_fetch_array($country);
 ?>
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
@@ -110,7 +113,7 @@
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?=$account_values['customers_country'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?=$country_value['countries_name'];?>&nbsp;</font></td>
           </tr>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>

@@ -97,7 +97,6 @@ define('JS_EMAIL_ADDRESS', '* Die Eingabe der \'E-Mail Adresse\' muﬂ mindestens 
 define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muﬂ mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muﬂ mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_CITY', '* Der \'Stadtname\' muﬂ mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_COUNTRY', '* Der Name des \'Landes\' muﬂ mindestens aus ' . ENTRY_COUNTRY_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muﬂ mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen enthalten.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Best‰tigung\' muﬂ ¸bereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
@@ -137,7 +136,7 @@ define('ENTRY_STATE', 'Bundesland:');
 define('ENTRY_STATE_ERROR', '');
 define('ENTRY_STATE_TEXT', '');
 define('ENTRY_COUNTRY', 'Land:');
-define('ENTRY_COUNTRY_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_COUNTRY_MIN_LENGTH . ' Buchstaben</font></small>');
+define('ENTRY_COUNTRY_ERROR', '');
 define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">ben&ouml;tigt</font></small>');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
 define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen</font></small>');

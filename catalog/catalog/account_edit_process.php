@@ -63,7 +63,7 @@
     $city_error = 0;
   }
 
-  if (strlen(trim($HTTP_POST_VARS['country'])) < ENTRY_COUNTRY_MIN_LENGTH) {
+  if ($HTTP_POST_VARS['country'] == '0') {
     $country_error = 1;
     $error = 1;
   } else {
@@ -236,9 +236,16 @@
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($country_error == 1) {
-      echo '<input type="text" name="country" maxlength="32" value="' . $HTTP_POST_VARS['country'] . '">&nbsp;' . ENTRY_COUNTRY_ERROR;
+      echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
+      $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+      while ($countries_values = tep_db_fetch_array($countries)) {
+        echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
+      }
+      echo '</select>&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {
-      echo $HTTP_POST_VARS['country'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
+      $country = tep_db_query("select countries_name from countries where countries_id = '" . $HTTP_POST_VARS['country'] . "'");
+      $country_value = tep_db_fetch_array($country);
+      echo $country_value['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
     } ?></font></td>
           </tr>
           <tr>
@@ -310,7 +317,7 @@
     $date_now = date('Ymd');
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
 
-    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_country = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $customer_id . "'");
+    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $customer_id . "'");
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
 
     header('Location: ' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));

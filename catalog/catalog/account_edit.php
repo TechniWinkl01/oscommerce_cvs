@@ -17,7 +17,6 @@ function check_form() {
   var street_address = document.account_edit.street_address.value;
   var postcode = document.account_edit.postcode.value;
   var city = document.account_edit.city.value;
-  var country = document.account_edit.country.value;
   var telephone = document.account_edit.telephone.value;
   var password = document.account_edit.password.value;
   var confirmation = document.account_edit.confirmation.value;
@@ -63,11 +62,6 @@ function check_form() {
     error = 1;
   }
 
-  if (country = "" || country.length < <?=ENTRY_COUNTRY_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_COUNTRY;?>";
-    error = 1;
-  }
-
   if (telephone = "" || telephone.length < <?=ENTRY_TELEPHONE_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_TELEPHONE;?>";
     error = 1;
@@ -106,7 +100,7 @@ function check_form() {
     </table></td>
 <!-- body_text //-->
 <?
-  $account = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $customer_id . "'");
+  $account = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $customer_id . "'");
   $account_values = tep_db_fetch_array($account);
 ?>
     <td width="100%" valign="top"><form name="account_edit" method="post" action="<?=tep_href_link(FILENAME_ACCOUNT_EDIT_PROCESS, '', 'NONSSL');?>" onSubmit="return check_form();"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -190,7 +184,15 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="country" maxlength="32" value="<?=$account_values['customers_country'];?>">&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<select name="country"><option value="0"><?=PLEASE_SELECT;?></option>
+<?
+    $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+    while ($countries_values = tep_db_fetch_array($countries)) {
+      echo '<option value="' . $countries_values['countries_id'] . '"';
+      if ($countries_values['countries_id'] == $account_values['customers_country_id']) echo ' SELECTED';
+      echo '>' . $countries_values['countries_name'] . '</option>';
+    }
+?></select>&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
           </tr>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
