@@ -8,7 +8,7 @@
     }
     rename($full_filename, $full_filename . '.bak');
     $new_file = fopen($full_filename, 'w');
-    $file_contents = stripslashes($HTTP_POST_VARS['file_contents']);
+    $file_contents = str_replace("\r\n", "\n", stripslashes($HTTP_POST_VARS['file_contents']));
     fwrite($new_file, $file_contents, strlen($file_contents));
     fclose($new_file);
     Header('Location: ' . tep_href_link(FILENAME_DEFINE_LANGUAGE, 'directory=' . $HTTP_GET_VARS['directory']));
