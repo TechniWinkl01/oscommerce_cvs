@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cod.php,v 1.23 2003/01/09 15:47:25 hpdl Exp $
+  $Id: cod.php,v 1.24 2003/01/14 00:10:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -22,11 +22,18 @@
       $this->description = MODULE_PAYMENT_COD_TEXT_DESCRIPTION;
       $this->enabled = ((MODULE_PAYMENT_COD_STATUS == 'True') ? true : false);
 
-      if ( ($this->enabled == true) && (MODULE_PAYMENT_COD_ZONE != '0') ) {
+      if ((int)MODULE_PAYMENT_COD_ORDER_STATUS_ID > 0) {
+        $this->order_status = MODULE_PAYMENT_COD_ORDER_STATUS_ID;
+      }
+
+      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_COD_ZONE > 0) ) {
         $check_flag = false;
-        $check_query = tep_db_query("select zone_country_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_COD_ZONE . "'");
+        $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_COD_ZONE . "' and zone_country_id = '" . $order->delivery['country']['id'] . "' order by zone_id");
         while ($check = tep_db_fetch_array($check_query)) {
-          if ($check['zone_country_id'] == $order->delivery['country']['id']) {
+          if ($check['zone_id'] < 1) {
+            $check_flag = true;
+            break;
+          } elseif ($check['zone_id'] == $order->delivery['zone_id']) {
             $check_flag = true;
             break;
           }
@@ -90,14 +97,15 @@
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Cash On Delivery Module', 'MODULE_PAYMENT_COD_STATUS', 'True', 'Do you want to accept Cash On Delevery payments?', '6', '1', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now());");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Payment Zone', 'MODULE_PAYMENT_COD_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', '6', '2', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
-    }
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Set Order Status', 'MODULE_PAYMENT_COD_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', '6', '0', 'tep_cfg_pull_down_order_statuses(', 'tep_get_order_Status_name', now())");
+   }
 
     function remove() {
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_COD_STATUS', 'MODULE_PAYMENT_COD_ZONE');
+      return array('MODULE_PAYMENT_COD_STATUS', 'MODULE_PAYMENT_COD_ZONE', 'MODULE_PAYMENT_COD_ORDER_STATUS_ID');
     }
   }
 ?>

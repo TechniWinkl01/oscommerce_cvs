@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.117 2003/01/09 15:53:47 hpdl Exp $
+  $Id: checkout_process.php,v 1.118 2003/01/14 00:10:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -86,7 +86,7 @@
                           'cc_number' => $order->info['cc_number'], 
                           'cc_expires' => $order->info['cc_expires'], 
                           'date_purchased' => 'now()', 
-                          'orders_status' => DEFAULT_ORDERS_STATUS_ID, 
+                          'orders_status' => $order->info['order_status'], 
                           'comments' => $order->info['comments'], 
                           'currency' => $order->info['currency'], 
                           'currency_value' => $order->info['currency_value']);

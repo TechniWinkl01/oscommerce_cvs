@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: paypal.php,v 1.35 2002/11/25 18:23:15 dgw_ Exp $
+  $Id: paypal.php,v 1.36 2003/01/14 00:10:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,10 +15,34 @@
 
 // class constructor
     function paypal() {
+      global $order;
+
       $this->code = 'paypal';
       $this->title = MODULE_PAYMENT_PAYPAL_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_PAYPAL_TEXT_DESCRIPTION;
       $this->enabled = ((MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? true : false);
+
+      if ((int)MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID > 0) {
+        $this->order_status = MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID;
+      }
+
+      if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_PAYPAL_ZONE > 0) ) {
+        $check_flag = false;
+        $check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
+        while ($check = tep_db_fetch_array($check_query)) {
+          if ($check['zone_id'] < 1) {
+            $check_flag = true;
+            break;
+          } elseif ($check['zone_id'] == $order->billing['zone_id']) {
+            $check_flag = true;
+            break;
+          }
+        }
+
+        if ($check_flag == false) {
+          $this->enabled = false;
+        }
+      }
 
       $this->form_action_url = 'https://secure.paypal.com/cgi-bin/webscr';
     }
@@ -88,6 +112,8 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?', '6', '3', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service', '6', '4', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', '6', '6', 'tep_cfg_select_option(array(\'Selected Currency\',\'Only USD\',\'Only CAD\',\'Only EUR\',\'Only GBP\',\'Only JPY\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Payment Zone', 'MODULE_PAYMENT_PAYPAL_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', '6', '2', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Set Order Status', 'MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', '6', '0', 'tep_cfg_pull_down_order_statuses(', 'tep_get_order_Status_name', now())");
     }
 
     function remove() {
@@ -95,7 +121,7 @@
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID', 'MODULE_PAYMENT_PAYPAL_CURRENCY');
+      return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'MODULE_PAYMENT_PAYPAL_ZONE', 'MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID');
     }
   }
 ?>

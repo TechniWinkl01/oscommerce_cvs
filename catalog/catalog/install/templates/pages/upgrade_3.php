@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.38 2003/01/13 18:52:49 thomasamoulton Exp $
+  $Id: upgrade_3.php,v 1.39 2003/01/14 00:10:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -258,7 +258,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Sort Order', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '4', 'Sort order of display.', '6', '2', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function) VALUES ('Tax Class', 'MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS', '0', 'Use the following tax class on the shipping fee.', '6', '6', now(), 'tep_get_tax_class_title', 'tep_cfg_pull_down_tax_classes(')");
 
-  osc_db_query("delete from configuration where configuration_group_id = '7' and configuration_key != 'SHIPPING_BOX_WEIGHT' and configuration_key != 'SHIPPING_BOX_PADDING' and configuration_key != 'SHIPPING_HANDLING' and configuration_key != 'SHIPPING_MAX_WEIGHT' and configuration_key != 'STORE_ORIGIN_ZIP' and configuration_key != 'STORE_ORIGIN_COUNTRY'");
+  osc_db_query("delete from configuration where configuration_group_id = '7' and configuration_key != 'SHIPPING_BOX_WEIGHT' and configuration_key != 'SHIPPING_BOX_PADDING' and configuration_key != 'SHIPPING_MAX_WEIGHT' and configuration_key != 'STORE_ORIGIN_ZIP' and configuration_key != 'STORE_ORIGIN_COUNTRY'");
   osc_db_query("update configuration set sort_order = '5' where sort_order = '2'");
   osc_db_query("update configuration set configuration_group_id = '7', sort_order = '1' where configuration_key = 'STORE_ORIGIN_ZIP'");
   osc_db_query("update configuration set configuration_group_id = '7', sort_order = '2' where configuration_key = 'STORE_ORIGIN_COUNTRY'");

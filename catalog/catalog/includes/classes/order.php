@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: order.php,v 1.21 2003/01/09 15:43:02 hpdl Exp $
+  $Id: order.php,v 1.22 2003/01/14 00:10:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -143,7 +143,8 @@
       $billing_address_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $customer_id . "' and ab.address_book_id = '" . $billto . "'");
       $billing_address = tep_db_fetch_array($billing_address_query);
 
-      $this->info = array('currency' => $currency,
+      $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
+                          'currency' => $currency,
                           'currency_value' => $currencies->currencies[$currency]['value'],
                           'payment_method' => $payment,
                           'cc_type' => $GLOBALS['cc_type'],
@@ -156,6 +157,10 @@
 
       if (is_object($GLOBALS[$payment])) {
         $this->info['payment_method'] = $GLOBALS[$payment]->title;
+
+        if ( isset($GLOBALS[$payment]->order_status) && is_numeric($GLOBALS[$payment]->order_status) && ($GLOBALS[$payment]->order_status > 0) ) {
+          $this->info['order_status'] = $GLOBALS[$payment]->order_status;
+        }
       }
 
       $this->customer = array('firstname' => $customer_address['customers_firstname'],
@@ -166,6 +171,7 @@
                               'city' => $customer_address['entry_city'],
                               'postcode' => $customer_address['entry_postcode'],
                               'state' => ((tep_not_null($customer_address['entry_state'])) ? $customer_address['entry_state'] : $customer_address['zone_name']),
+                              'zone_id' => $customer_address['entry_zone_id'],
                               'country' => array('id' => $customer_address['countries_id'], 'title' => $customer_address['countries_name'], 'iso_code_2' => $customer_address['countries_iso_code_2'], 'iso_code_3' => $customer_address['countries_iso_code_3']),
                               'format_id' => $customer_address['address_format_id'],
                               'telephone' => $customer_address['customers_telephone'],
@@ -179,6 +185,7 @@
                               'city' => $shipping_address['entry_city'],
                               'postcode' => $shipping_address['entry_postcode'],
                               'state' => ((tep_not_null($shipping_address['entry_state'])) ? $shipping_address['entry_state'] : $shipping_address['zone_name']),
+                              'zone_id' => $shipping_address['entry_zone_id'],
                               'country' => array('id' => $shipping_address['countries_id'], 'title' => $shipping_address['countries_name'], 'iso_code_2' => $shipping_address['countries_iso_code_2'], 'iso_code_3' => $shipping_address['countries_iso_code_3']),
                               'country_id' => $shipping_address['entry_country_id'],
                               'format_id' => $shipping_address['address_format_id']);
@@ -191,6 +198,7 @@
                              'city' => $billing_address['entry_city'],
                              'postcode' => $billing_address['entry_postcode'],
                              'state' => ((tep_not_null($billing_address['entry_state'])) ? $billing_address['entry_state'] : $billing_address['zone_name']),
+                             'zone_id' => $billing_address['entry_zone_id'],
                              'country' => array('id' => $billing_address['countries_id'], 'title' => $billing_address['countries_name'], 'iso_code_2' => $billing_address['countries_iso_code_2'], 'iso_code_3' => $billing_address['countries_iso_code_3']),
                              'country_id' => $billing_address['entry_country_id'],
                              'format_id' => $billing_address['address_format_id']);

@@ -1,12 +1,12 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.16 2002/12/09 19:07:18 dgw_ Exp $
+  $Id: zones.php,v 1.17 2003/01/14 00:10:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 
@@ -103,7 +103,7 @@
       $this->title = MODULE_SHIPPING_ZONES_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_ZONES_TEXT_DESCRIPTION;
       $this->icon = '';
-      $this->enabled = MODULE_SHIPPING_ZONES_STATUS;
+      $this->enabled = ((MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
 
       // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
       $this->num_zones = 1;
@@ -130,7 +130,7 @@
         $error = true;
       } else {
         $shipping = -1;
-        $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $i);
+        $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);
 
         $zones_table = split("[:,]" , $zones_cost);
         $size = sizeof($zones_table);
@@ -146,7 +146,7 @@
           $shipping_cost = 0;
           $shipping_method = MODULE_SHIPPING_ZONES_UNDEFINED_RATE;
         } else {
-          $shipping_cost = ($shipping + MODULE_SHIPPING_ZONES_HANDLING + SHIPPING_HANDLING);
+          $shipping_cost = ($shipping + constant('MODULE_SHIPPING_ZONES_HANDLING_' . $dest_zone));
         }
       }
 
@@ -172,8 +172,7 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable Zones Method', 'MODULE_SHIPPING_ZONES_STATUS', '1', 'Do you want to offer zone rate shipping?', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Handling Fee', 'MODULE_SHIPPING_ZONES_HANDLING', '0', 'Handling Fee for this shipping method', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Zones Method', 'MODULE_SHIPPING_ZONES_STATUS', 'True', 'Do you want to offer zone rate shipping?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       for ($i = 1; $i <= $this->num_zones; $i++) {
         $default_countries = '';
         if ($i == 1) {
@@ -181,6 +180,7 @@
         }
         tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Countries', 'MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."', '" . $default_countries . "', 'Comma separated list of two character ISO country codes that are part of Zone " . $i . ".', '6', '0', now())");
         tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Shipping Table', 'MODULE_SHIPPING_ZONES_COST_" . $i ."', '3:8.50,7:10.50,99:20.00', 'Shipping rates to Zone " . $i . " destinations based on a group of maximum order weights. Example: 3:8.50,7:10.50,... Weights less than or equal to 3 would cost 8.50 for Zone " . $i . " destinations.', '6', '0', now())");
+        tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Handling Fee', 'MODULE_SHIPPING_ZONES_HANDLING_" . $i."', '0', 'Handling Fee for this shipping zone', '6', '0', now())");
       }
     }
 
@@ -189,11 +189,12 @@
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_HANDLING');
+      $keys = array('MODULE_SHIPPING_ZONES_STATUS');
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
         $keys[] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
+        $keys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
       }
 
       return $keys;
