@@ -133,9 +133,9 @@
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?>
             <? if ($any_out_of_stock) {
                    if (STOCK_ALLOW_CHECKOUT) {
-            echo "<br>&nbsp;<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK_CAN_CHECKOUT."</font><p></center>";
+            echo "<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK_CAN_CHECKOUT."</font><br><br></center>";
                    } else {
-            echo "<br>&nbsp;<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK_CANT_CHECKOUT."</font><p></center>";
+            echo "<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK_CANT_CHECKOUT."</font><br><br></center>";
                    }
             } ?>
             </td>
