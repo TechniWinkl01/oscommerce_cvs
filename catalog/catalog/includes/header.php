@@ -21,17 +21,17 @@
       } else {
         $cPath_new .= '_' . $cPath_array[$i];
       }
-      $categories_query = tep_db_query("select categories_name from categories_description where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
+      $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
       $categories = tep_db_fetch_array($categories_query);
       echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="whitelink">' . $categories['categories_name'] . '</a>';
     }
   } elseif ($HTTP_GET_VARS['manufacturers_id']) {
-    $manufacturers_query = tep_db_query("select manufacturers_name from manufacturers where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
+    $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
     $manufacturers = tep_db_fetch_array($manufacturers_query);
     echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'], 'NONSSL') . '" class="whitelink">' . $manufacturers['manufacturers_name'] . '</a>';
   }
   if ($HTTP_GET_VARS['products_id']) {
-    $model = tep_db_query("select products_model from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    $model = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $model_values = tep_db_fetch_array($model);
     echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="whitelink">' . $model_values['products_model'] . '</a>';
   }
