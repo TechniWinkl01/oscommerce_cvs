@@ -9,5 +9,4 @@
   require('includes/boxes/reports.php');
   require('includes/boxes/tools.php');
   require('includes/boxes/mail.php');
-  require('includes/boxes/gateway.php');
 ?>
