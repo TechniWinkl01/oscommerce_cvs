@@ -28,3 +28,14 @@ Oh yea, as of 11/4/00 the admin portion was not done.
 
 Tom Moulton
 w2vy@xanthus.net
+
+
+**********************
+WARNING
+
+The update script will drop the tax rates for orders already placed.
+
+It should move the orders_tax into orders_products_tax... oops
+
+Also people will need to set their ZONE (state) if they are in US, etc otherwise
+TAX_VALUE will still be used.
