@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.58 2003/05/02 11:26:49 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.59 2003/05/19 20:21:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -101,34 +101,27 @@ changeText('statusText', 'Updating Address Book');
 <?php
   flush();
 
-  osc_db_query("alter table address_book change address_book_id address_book_id int(5) not null default '1'");
-  osc_db_query("alter table address_book add customers_id int(5) not null default '0' first");
+  osc_db_query("alter table address_book add customers_id int not null after address_book_id");
   osc_db_query("alter table address_book add entry_company varchar(32) after entry_gender");
-  osc_db_query("alter table address_book drop primary key");
+
+  osc_db_query("alter table customers add customers_default_address_id int(5) not null after customers_email_address");
+
+  $entries_query = osc_db_query("select address_book_id, customers_id from address_book_to_customers");
+  while ($entries = osc_db_fetch_array($entries_query)) {
+    osc_db_query("update address_book set customers_id = '" . $entries['customers_id'] . "' where address_book_id = '" . $entries['address_book_id'] . "'");
+  }
 
   $customer_query = osc_db_query("select customers_id, customers_gender, customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_zone_id from customers");
   while ($customer = osc_db_fetch_array($customer_query)) {
-    osc_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $customer['customers_id'] . "', '1', '" . $customer['customers_gender'] . "', '', '" . addslashes($customer['customers_firstname']) . "', '" . addslashes($customer['customers_lastname']) . "', '" . addslashes($customer['customers_street_address']) . "', '" . addslashes($customer['customers_suburb']) . "', '" . addslashes($customer['customers_postcode']) . "', '" . addslashes($customer['customers_city']) . "', '" . addslashes($customer['customers_state']) . "', '" . $customer['customers_country_id'] . "', '" . $customer['customers_zone_id'] . "')");
+    osc_db_query("insert into address_book (customers_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $customer['customers_id'] . "', '" . $customer['customers_gender'] . "', '', '" . addslashes($customer['customers_firstname']) . "', '" . addslashes($customer['customers_lastname']) . "', '" . addslashes($customer['customers_street_address']) . "', '" . addslashes($customer['customers_suburb']) . "', '" . addslashes($customer['customers_postcode']) . "', '" . addslashes($customer['customers_city']) . "', '" . addslashes($customer['customers_state']) . "', '" . $customer['customers_country_id'] . "', '" . $customer['customers_zone_id'] . "')");
+
+    $address_book_id = osc_db_insert_id();
+
+    osc_db_query("update customers set customers_default_address_id = '" . $address_book_id . "' where customers_id = '" . $customer['customers_id'] . "'");
   }
 
-  $entries_query = osc_db_query("select address_book_id, customers_id from address_book_to_customers order by customers_id, address_book_id DESC");
-  $ab_id = '1'; // set new address_book_id
-  $c_id = '-1'; // when customer_id does not equal $c_id, reset $ab_id
-  while ($entries = osc_db_fetch_array($entries_query)) {
-    if ($entries['customers_id'] != $c_id) {
-      $ab_id = '1';
-      $c_id = $entries['customers_id'];
-    }
-    $ab_id++;
+  osc_db_query("alter table address_book add index idx_address_book_customers_id (customers_id)");
 
-    $ab_query = osc_db_query("select entry_gender, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id from address_book where address_book_id = '" . $entries['address_book_id'] . "'");
-    $ab = osc_db_fetch_array($ab_query);
-
-    osc_db_query("delete from address_book where address_book_id = '" . $entries['address_book_id'] . "' and customers_id = ''");
-    osc_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $c_id . "', '" . $ab_id . "', '" . $ab['entry_gender'] . "', '', '" . addslashes($ab['entry_firstname']) . "', '" . addslashes($ab['entry_lastname']) . "', '" . addslashes($ab['entry_street_address']) . "', '" . addslashes($ab['entry_suburb']) . "', '" . addslashes($ab['entry_postcode']) . "', '" . addslashes($ab['entry_city']) . "', '" . addslashes($ab['entry_state']) . "', '" . $ab['entry_country_id'] . "', '" . $ab['entry_zone_id'] . "')");
-  }
-
-  osc_db_query("alter table address_book add primary key (address_book_id, customers_id)");
   osc_db_query("drop table address_book_to_customers");
 ?>
 <script language="javascript"><!--
@@ -380,7 +373,6 @@ changeText('statusText', 'Updating Customers');
   osc_db_query("alter table customers drop customers_country_id");
   osc_db_query("alter table customers change customers_dob customers_dob datetime not null default '0000-00-00 00:00:00'");
   osc_db_query("alter table customers add customers_newsletter char(1)");
-  osc_db_query("alter table customers add customers_default_address_id int(5) not null default '1' after customers_email_address");
 
   osc_db_query("alter table customers_basket change products_id products_id tinytext not null");
   osc_db_query("alter table customers_basket change customers_basket_date_added customers_basket_date_added varchar(8)");

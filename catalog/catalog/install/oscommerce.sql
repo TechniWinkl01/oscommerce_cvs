@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.82 2003/04/30 09:50:45 dgw_ Exp $
+# $Id: oscommerce.sql,v 1.83 2003/05/19 20:21:17 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -21,8 +21,8 @@
 
 DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
-   customers_id int DEFAULT '0' NOT NULL,
-   address_book_id int DEFAULT '1' NOT NULL,
+   address_book_id int NOT NULL auto_increment,
+   customers_id int NOT NULL,
    entry_gender char(1) NOT NULL,
    entry_company varchar(32),
    entry_firstname varchar(32) NOT NULL,
@@ -34,7 +34,8 @@ CREATE TABLE address_book (
    entry_state varchar(32),
    entry_country_id int DEFAULT '0' NOT NULL,
    entry_zone_id int DEFAULT '0' NOT NULL,
-   PRIMARY KEY (address_book_id, customers_id)
+   PRIMARY KEY (address_book_id),
+   KEY idx_address_book_customers_id (customers_id)
 );
 
 DROP TABLE IF EXISTS address_format;
@@ -165,7 +166,7 @@ CREATE TABLE customers (
    customers_lastname varchar(32) NOT NULL,
    customers_dob datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
    customers_email_address varchar(96) NOT NULL,
-   customers_default_address_id int(5) DEFAULT '1' NOT NULL,
+   customers_default_address_id int NOT NULL,
    customers_telephone varchar(32) NOT NULL,
    customers_fax varchar(32),
    customers_password varchar(40) NOT NULL,
