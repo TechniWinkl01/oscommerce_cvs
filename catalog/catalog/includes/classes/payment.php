@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.36 2003/02/11 00:04:53 hpdl Exp $
+  $Id: payment.php,v 1.37 2003/06/09 22:26:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
 // if there is only one payment method, select it as default because in
 // checkout_confirmation.php the $payment variable is being assigned the
 // $HTTP_POST_VARS['payment'] value which will be empty (no radio button selection possible)
-        if ( (tep_count_payment_modules() == 1) && (!is_object($GLOBALS[$payment])) ) {
+        if ( (tep_count_payment_modules() == 1) && (!isset($GLOBALS[$payment]) || (isset($GLOBALS[$payment]) && !is_object($GLOBALS[$payment]))) ) {
           $payment = $include_modules[0]['class'];
         }
 
