@@ -25,9 +25,12 @@
     function quote() {
       global $HTTP_POST_VARS, $shipping_quote_usps, $shipping_quote_all, $address_values, $shipping_weight, $rate, $shipping_usps_cost, $shipping_usps_method, $shipping_num_boxes, $shipping_quoted;
 
-      $prod = $HTTP_POST_VARS['shipping_usps_prod'];
       if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
-        $prod = 'Priority';
+        if (!$HTTP_POST_VARS['shipping_usps_prod']){
+          $prod = 'priority';
+        } else {
+          $prod = $HTTP_POST_VARS['shipping_usps_prod'];
+        }
         include(DIR_WS_CLASSES . '_usps.php');
         $rate = new _USPS;
         $rate->SetServer(MODULE_SHIPPING_USPS_SERVER);

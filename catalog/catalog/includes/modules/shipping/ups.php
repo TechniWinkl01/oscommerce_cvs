@@ -32,9 +32,12 @@
     function quote() {
       global $HTTP_POST_VARS, $shipping_quote_ups, $shipping_quote_all, $address_values, $shipping_weight, $shipping_ups_cost, $shipping_ups_method, $shipping_num_boxes, $shipping_quoted;
 
-      $prod = $HTTP_POST_VARS['shipping_ups_prod'];
       if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
-        $prod = 'GND';
+        if (!$HTTP_POST_VARS['shipping_ups_prod']){
+          $prod = 'GND';
+        } else {
+          $prod = $HTTP_POST_VARS['shipping_ups_prod'];
+        }
         include(DIR_WS_CLASSES . '_ups.php');
         $rate = new _Ups;
         $rate->upsProduct($prod); // See upsProduct() function for codes
