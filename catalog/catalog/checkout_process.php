@@ -24,7 +24,7 @@
 
   $cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
   $products_ordered = ''; // initialized for the email confirmation
-  $subtotal = ''; // initialized for the email confirmation
+  $subtotal = 0; // initialized for the email confirmation
   while ($cart_values = tep_db_fetch_array($cart)) {
     $price = $cart_values['products_price'];
     $check_special = tep_db_query("select specials_new_products_price from specials where products_id = '" . $cart_values[products_id] . "'");
@@ -44,9 +44,7 @@
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
   $tax = $subtotal * TAX_VALUE/100;
-  $total = number_format(($subtotal + $tax + $shipping_cost), 2);
-  $tax = number_format($tax, 2);
-  $subtotal = number_format($subtotal, 2);
+  $total = $subtotal + $tax + $shipping_cost;
 
   $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;
