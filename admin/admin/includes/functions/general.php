@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.119 2002/03/28 15:28:09 hpdl Exp $
+  $Id: general.php,v 1.120 2002/04/04 20:29:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -659,24 +659,6 @@
       return tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0', products_last_modified = now() where products_id = '" . $products_id . "'");
     } else {
       return -1;
-    }
-  }
-
-////
-// Sets the status of a product
-  function tep_set_category_status($category_id, $status) {
-    if ($status == '1') {
-      tep_db_query("update " . TABLE_CATEGORIES . " set status = '1', last_modified = now() where categories_id = '" . $category_id . "'");
-      $tree = tep_get_category_tree($category_id);
-      for ($i=1; $i<sizeof($tree); $i++) {
-        tep_db_query("update " . TABLE_CATEGORIES . " set status = '1', last_modified = now() where categories_id = '" . $tree[$i]['id'] . "'");
-      }
-    } elseif ($status == '0') {
-      tep_db_query("update " . TABLE_CATEGORIES . " set status = '0', last_modified = now() where categories_id = '" . $category_id . "'");
-      $tree = tep_get_category_tree($category_id);
-      for ($i=1; $i<sizeof($tree); $i++) {
-        tep_db_query("update " . TABLE_CATEGORIES . " set status = '0', last_modified = now() where categories_id = '" . $tree[$i]['id'] . "'");
-      }
     }
   }
 
