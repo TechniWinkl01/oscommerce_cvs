@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.15 2003/07/08 21:51:37 hpdl Exp $
+  $Id: define_language.php,v 1.16 2003/07/30 08:14:30 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,7 +83,7 @@
           <tr><?php echo tep_draw_form('lng', FILENAME_DEFINE_LANGUAGE, '', 'get'); ?>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '1', HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_pull_down_menu('lngdir', $languages_array, $language, 'onChange="this.form.submit();"'); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_pull_down_menu('lngdir', $languages_array, $HTTP_GET_VARS['lngdir'], 'onChange="this.form.submit();"'); ?></td>
           </form></tr>
         </table></td>
       </tr>
