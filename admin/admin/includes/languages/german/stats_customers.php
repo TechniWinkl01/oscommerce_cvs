@@ -6,7 +6,7 @@ Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 */
 
 define('TOP_BAR_TITLE', 'Statistiken');
-define('HEADING_TITLE', 'Kunden mit den häufigsten Bestellungen (Gesamtwert)');
+define('HEADING_TITLE', 'Kunden mit den häufigsten Bestellungen (ohne MwSt)');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');

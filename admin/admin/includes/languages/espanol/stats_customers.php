@@ -6,7 +6,7 @@ Author(s): David Garcia Watkins (dgw@q-logic.org)
 */
 
 define('TOP_BAR_TITLE', 'Estatisticas');
-define('HEADING_TITLE', 'Mejores Clientes por Total Pedido');
+define('HEADING_TITLE', 'Mejores Clientes por Total Pedido (excepto impuesto)');
 
 define('TABLE_HEADING_NUMBER', 'Nº');
 define('TABLE_HEADING_CUSTOMERS', 'Clientes');

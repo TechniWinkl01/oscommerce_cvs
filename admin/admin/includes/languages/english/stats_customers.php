@@ -6,7 +6,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('TOP_BAR_TITLE', 'Statistics');
-define('HEADING_TITLE', 'Best Customer Orders-Total');
+define('HEADING_TITLE', 'Best Customer Orders-Total (excl. tax)');
 
 define('TABLE_HEADING_NUMBER', 'No.');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
