@@ -1,8 +1,8 @@
-# MySQL dump 8.8
+# MySQL dump 7.1
 #
 # Host: localhost    Database: catalog
 #--------------------------------------------------------
-# Server version	3.23.22-beta-debug
+# Server version	3.22.32
 
 #
 # Table structure for table 'address_book'
@@ -42,71 +42,43 @@ CREATE TABLE address_book_to_customers (
 # Dumping data for table 'address_book_to_customers'
 #
 
-
 #
-# Table structure for table 'category_index'
-#
-
-CREATE TABLE category_index (
-  category_index_id int(5) NOT NULL auto_increment,
-  category_index_name varchar(32) DEFAULT '' NOT NULL,
-  sql_select varchar(16) DEFAULT '' NOT NULL,
-  PRIMARY KEY (category_index_id)
-);
-
-#
-# Dumping data for table 'category_index'
+# Table structure for table 'categories'
 #
 
-INSERT INTO category_index VALUES (1,'Products','subcategories');
-INSERT INTO category_index VALUES (2,'Manufacturers','manufacturers');
-INSERT INTO category_index VALUES (3,'Genre','subcategories');
-INSERT INTO category_index VALUES (4,'Developers','manufacturers');
-INSERT INTO category_index VALUES (5,'Genre','subcategories');
-INSERT INTO category_index VALUES (6,'Distributors','manufacturers');
-
-#
-# Table structure for table 'category_index_to_top'
-#
-
-CREATE TABLE category_index_to_top (
-  category_index_to_top_id int(5) NOT NULL auto_increment,
-  category_top_id int(5) DEFAULT '0' NOT NULL,
-  category_index_id int(5),
+CREATE TABLE categories (
+  categories_id int(5) DEFAULT '0' NOT NULL auto_increment,
+  categories_name varchar(32) DEFAULT '' NOT NULL,
+  categories_image varchar(64),
+  parent_id int(5),
   sort_order int(3),
-  PRIMARY KEY (category_index_to_top_id)
+  PRIMARY KEY (categories_id)
 );
 
 #
-# Dumping data for table 'category_index_to_top'
+# Dumping data for table 'categories'
 #
 
-INSERT INTO category_index_to_top VALUES (1,1,1,1);
-INSERT INTO category_index_to_top VALUES (2,1,2,2);
-INSERT INTO category_index_to_top VALUES (3,2,3,1);
-INSERT INTO category_index_to_top VALUES (4,2,4,2);
-INSERT INTO category_index_to_top VALUES (5,3,5,1);
-INSERT INTO category_index_to_top VALUES (6,3,6,2);
-
-#
-# Table structure for table 'category_top'
-#
-
-CREATE TABLE category_top (
-  category_top_id int(5) NOT NULL auto_increment,
-  category_top_name varchar(32) DEFAULT '' NOT NULL,
-  sort_order int(3),
-  category_image varchar(64),
-  PRIMARY KEY (category_top_id)
-);
-
-#
-# Dumping data for table 'category_top'
-#
-
-INSERT INTO category_top VALUES (1,'Hardware',1,'images/category_hardware.gif');
-INSERT INTO category_top VALUES (2,'Software',2,'images/category_software.gif');
-INSERT INTO category_top VALUES (3,'DVD Movies',3,'images/category_dvd_movies.gif');
+INSERT INTO categories VALUES (1,'Hardware','images/category_hardware.gif',0,1);
+INSERT INTO categories VALUES (2,'Software','images/category_software.gif',0,2);
+INSERT INTO categories VALUES (3,'DVD Movies','images/category_dvd_movies.gif',0,3);
+INSERT INTO categories VALUES (4,'Graphics Cards','images/subcategory_graphic_cards.gif',1,0);
+INSERT INTO categories VALUES (5,'Printers','images/subcategory_printers.gif',1,0);
+INSERT INTO categories VALUES (6,'Monitors','images/subcategory_monitors.gif',1,0);
+INSERT INTO categories VALUES (7,'Speakers','images/subcategory_speakers.gif',1,0);
+INSERT INTO categories VALUES (8,'Keyboards','images/subcategory_keyboards.gif',1,0);
+INSERT INTO categories VALUES (9,'Mice','images/subcategory_mice.gif',1,0);
+INSERT INTO categories VALUES (10,'Action','images/subcategory_action.gif',3,0);
+INSERT INTO categories VALUES (11,'Science Fiction','images/subcategory_science_fiction.gif',3,0);
+INSERT INTO categories VALUES (12,'Comedy','images/subcategory_comedy.gif',3,0);
+INSERT INTO categories VALUES (13,'Cartoons','images/subcategory_cartoons.gif',3,0);
+INSERT INTO categories VALUES (14,'Thriller','images/subcategory_thriller.gif',3,0);
+INSERT INTO categories VALUES (15,'Drama','images/subcategory_drama.gif',3,0);
+INSERT INTO categories VALUES (16,'Memory','images/subcategory_memory.gif',1,0);
+INSERT INTO categories VALUES (17,'CDROM Drives','images/subcategory_cdrom_drives.gif',1,0);
+INSERT INTO categories VALUES (18,'Simulation','images/subcategory_simulation.gif',2,0);
+INSERT INTO categories VALUES (19,'Action','images/subcategory_action_games.gif',2,0);
+INSERT INTO categories VALUES (20,'Strategy','images/subcategory_strategy.gif',2,0);
 
 #
 # Table structure for table 'counter'
@@ -486,31 +458,6 @@ INSERT INTO manufacturers VALUES (8,'GT Interactive',1,'images/manufacturer_gt_i
 INSERT INTO manufacturers VALUES (9,'Hewlett Packard',0,'images/manufacturer_hewlett_packard.gif');
 
 #
-# Table structure for table 'manufacturers_to_category'
-#
-
-CREATE TABLE manufacturers_to_category (
-  manufacturers_to_category_id int(5) NOT NULL auto_increment,
-  manufacturers_id int(5) DEFAULT '0' NOT NULL,
-  category_top_id int(5) DEFAULT '0' NOT NULL,
-  PRIMARY KEY (manufacturers_to_category_id)
-);
-
-#
-# Dumping data for table 'manufacturers_to_category'
-#
-
-INSERT INTO manufacturers_to_category VALUES (1,1,1);
-INSERT INTO manufacturers_to_category VALUES (2,2,1);
-INSERT INTO manufacturers_to_category VALUES (3,3,3);
-INSERT INTO manufacturers_to_category VALUES (4,4,3);
-INSERT INTO manufacturers_to_category VALUES (5,5,1);
-INSERT INTO manufacturers_to_category VALUES (6,6,1);
-INSERT INTO manufacturers_to_category VALUES (7,7,2);
-INSERT INTO manufacturers_to_category VALUES (8,8,2);
-INSERT INTO manufacturers_to_category VALUES (9,9,1);
-
-#
 # Table structure for table 'orders'
 #
 
@@ -644,6 +591,48 @@ INSERT INTO products_expected VALUES (2,'Alien Triology (Warner)','20000317');
 INSERT INTO products_expected VALUES (3,'American Pie (Warner)','20000317');
 
 #
+# Table structure for table 'products_to_categories'
+#
+
+CREATE TABLE products_to_categories (
+  products_id int(5) DEFAULT '0' NOT NULL auto_increment,
+  categories_id int(5) DEFAULT '0' NOT NULL,
+  PRIMARY KEY (products_id,categories_id)
+);
+
+#
+# Dumping data for table 'products_to_categories'
+#
+
+INSERT INTO products_to_categories VALUES (1,4);
+INSERT INTO products_to_categories VALUES (2,4);
+INSERT INTO products_to_categories VALUES (3,9);
+INSERT INTO products_to_categories VALUES (4,10);
+INSERT INTO products_to_categories VALUES (5,11);
+INSERT INTO products_to_categories VALUES (6,10);
+INSERT INTO products_to_categories VALUES (7,12);
+INSERT INTO products_to_categories VALUES (8,13);
+INSERT INTO products_to_categories VALUES (9,10);
+INSERT INTO products_to_categories VALUES (10,10);
+INSERT INTO products_to_categories VALUES (11,10);
+INSERT INTO products_to_categories VALUES (12,10);
+INSERT INTO products_to_categories VALUES (13,10);
+INSERT INTO products_to_categories VALUES (14,15);
+INSERT INTO products_to_categories VALUES (15,14);
+INSERT INTO products_to_categories VALUES (16,15);
+INSERT INTO products_to_categories VALUES (17,10);
+INSERT INTO products_to_categories VALUES (18,10);
+INSERT INTO products_to_categories VALUES (19,12);
+INSERT INTO products_to_categories VALUES (20,15);
+INSERT INTO products_to_categories VALUES (21,18);
+INSERT INTO products_to_categories VALUES (22,19);
+INSERT INTO products_to_categories VALUES (23,20);
+INSERT INTO products_to_categories VALUES (24,20);
+INSERT INTO products_to_categories VALUES (25,8);
+INSERT INTO products_to_categories VALUES (26,9);
+INSERT INTO products_to_categories VALUES (27,5);
+
+#
 # Table structure for table 'products_to_manufacturers'
 #
 
@@ -685,49 +674,6 @@ INSERT INTO products_to_manufacturers VALUES (24,24,8);
 INSERT INTO products_to_manufacturers VALUES (25,25,2);
 INSERT INTO products_to_manufacturers VALUES (26,26,2);
 INSERT INTO products_to_manufacturers VALUES (27,27,9);
-
-#
-# Table structure for table 'products_to_subcategories'
-#
-
-CREATE TABLE products_to_subcategories (
-  products_to_subcategories_id int(5) NOT NULL auto_increment,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  subcategories_id int(5) DEFAULT '0' NOT NULL,
-  PRIMARY KEY (products_to_subcategories_id)
-);
-
-#
-# Dumping data for table 'products_to_subcategories'
-#
-
-INSERT INTO products_to_subcategories VALUES (1,1,1);
-INSERT INTO products_to_subcategories VALUES (2,2,1);
-INSERT INTO products_to_subcategories VALUES (3,3,6);
-INSERT INTO products_to_subcategories VALUES (4,4,7);
-INSERT INTO products_to_subcategories VALUES (5,5,8);
-INSERT INTO products_to_subcategories VALUES (6,6,7);
-INSERT INTO products_to_subcategories VALUES (7,7,9);
-INSERT INTO products_to_subcategories VALUES (8,8,10);
-INSERT INTO products_to_subcategories VALUES (9,9,7);
-INSERT INTO products_to_subcategories VALUES (10,10,7);
-INSERT INTO products_to_subcategories VALUES (11,11,7);
-INSERT INTO products_to_subcategories VALUES (12,12,7);
-INSERT INTO products_to_subcategories VALUES (13,13,7);
-INSERT INTO products_to_subcategories VALUES (14,14,12);
-INSERT INTO products_to_subcategories VALUES (15,15,11);
-INSERT INTO products_to_subcategories VALUES (16,16,12);
-INSERT INTO products_to_subcategories VALUES (17,17,7);
-INSERT INTO products_to_subcategories VALUES (18,18,7);
-INSERT INTO products_to_subcategories VALUES (19,19,9);
-INSERT INTO products_to_subcategories VALUES (20,20,12);
-INSERT INTO products_to_subcategories VALUES (21,21,15);
-INSERT INTO products_to_subcategories VALUES (22,22,16);
-INSERT INTO products_to_subcategories VALUES (23,23,17);
-INSERT INTO products_to_subcategories VALUES (24,24,17);
-INSERT INTO products_to_subcategories VALUES (25,25,5);
-INSERT INTO products_to_subcategories VALUES (26,26,6);
-INSERT INTO products_to_subcategories VALUES (27,27,2);
 
 #
 # Table structure for table 'reviews'
@@ -784,70 +730,3 @@ INSERT INTO specials VALUES (1,3,39.99,'20000114');
 INSERT INTO specials VALUES (2,5,30.00,'20000114');
 INSERT INTO specials VALUES (3,6,30.00,'20000115');
 INSERT INTO specials VALUES (4,16,29.99,'20000217');
-
-#
-# Table structure for table 'subcategories'
-#
-
-CREATE TABLE subcategories (
-  subcategories_id int(5) NOT NULL auto_increment,
-  subcategories_name varchar(32) DEFAULT '' NOT NULL,
-  subcategories_image varchar(64),
-  PRIMARY KEY (subcategories_id),
-  KEY subcategories_name (subcategories_name)
-);
-
-#
-# Dumping data for table 'subcategories'
-#
-
-INSERT INTO subcategories VALUES (1,'Graphic Cards','images/subcategory_graphic_cards.gif');
-INSERT INTO subcategories VALUES (2,'Printers','images/subcategory_printers.gif');
-INSERT INTO subcategories VALUES (3,'Monitors','images/subcategory_monitors.gif');
-INSERT INTO subcategories VALUES (4,'Speakers','images/subcategory_speakers.gif');
-INSERT INTO subcategories VALUES (5,'Keyboards','images/subcategory_keyboards.gif');
-INSERT INTO subcategories VALUES (6,'Mice','images/subcategory_mice.gif');
-INSERT INTO subcategories VALUES (7,'Action','images/subcategory_action.gif');
-INSERT INTO subcategories VALUES (8,'Science Fiction','images/subcategory_science_fiction.gif');
-INSERT INTO subcategories VALUES (9,'Comedy','images/subcategory_comedy.gif');
-INSERT INTO subcategories VALUES (10,'Cartoons','images/subcategory_cartoons.gif');
-INSERT INTO subcategories VALUES (11,'Thriller','images/subcategory_thriller.gif');
-INSERT INTO subcategories VALUES (12,'Drama','images/subcategory_drama.gif');
-INSERT INTO subcategories VALUES (13,'Memory','images/subcategory_memory.gif');
-INSERT INTO subcategories VALUES (14,'CDROM Drives','images/subcategory_cdrom_drives.gif');
-INSERT INTO subcategories VALUES (15,'Simulation','images/subcategory_simulation.gif');
-INSERT INTO subcategories VALUES (16,'Action','images/subcategory_action_games.gif');
-INSERT INTO subcategories VALUES (17,'Strategy','images/subcategory_strategy.gif');
-
-#
-# Table structure for table 'subcategories_to_category'
-#
-
-CREATE TABLE subcategories_to_category (
-  subcategories_to_category_id int(5) NOT NULL auto_increment,
-  subcategories_id int(5) DEFAULT '0' NOT NULL,
-  category_top_id int(5) DEFAULT '0' NOT NULL,
-  PRIMARY KEY (subcategories_to_category_id)
-);
-
-#
-# Dumping data for table 'subcategories_to_category'
-#
-
-INSERT INTO subcategories_to_category VALUES (1,1,1);
-INSERT INTO subcategories_to_category VALUES (2,2,1);
-INSERT INTO subcategories_to_category VALUES (3,3,1);
-INSERT INTO subcategories_to_category VALUES (4,4,1);
-INSERT INTO subcategories_to_category VALUES (5,5,1);
-INSERT INTO subcategories_to_category VALUES (6,6,1);
-INSERT INTO subcategories_to_category VALUES (7,7,3);
-INSERT INTO subcategories_to_category VALUES (8,8,3);
-INSERT INTO subcategories_to_category VALUES (9,9,3);
-INSERT INTO subcategories_to_category VALUES (10,10,3);
-INSERT INTO subcategories_to_category VALUES (11,11,3);
-INSERT INTO subcategories_to_category VALUES (12,12,3);
-INSERT INTO subcategories_to_category VALUES (13,13,1);
-INSERT INTO subcategories_to_category VALUES (14,14,1);
-INSERT INTO subcategories_to_category VALUES (15,15,2);
-INSERT INTO subcategories_to_category VALUES (16,16,2);
-INSERT INTO subcategories_to_category VALUES (17,17,2);
