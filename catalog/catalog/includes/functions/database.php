@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.21 2003/06/09 21:21:59 hpdl Exp $
+  $Id: database.php,v 1.22 2003/12/28 22:29:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -123,7 +123,15 @@
     return htmlspecialchars($string);
   }
 
-  function tep_db_input($string) {
+  function tep_db_input($string, $link = 'db_link') {
+    global $$link;
+
+    if (function_exists('mysql_real_escape_string')) {
+      return mysql_real_escape_string($string, $$link);
+    } elseif (function_exists('mysql_escape_string')) {
+      return mysql_escape_string($string);
+    }
+
     return addslashes($string);
   }
 
