@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.54 2003/04/08 23:23:42 dgw_ Exp $
+  $Id: ups.php,v 1.55 2003/11/17 20:36:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,9 +68,9 @@
 
 // class methods
     function quote($method = '') {
-      global $HTTP_POST_VARS, $order, $shipping_weight, $shipping_num_boxes;
+      global $osC_Tax, $order, $shipping_weight, $shipping_num_boxes;
 
-      if ( (tep_not_null($method)) && (isset($this->types[$method])) ) {
+      if (tep_not_null($method) && isset($this->types[$method])) {
         $prod = $method;
       } else {
         $prod = 'GNDRES';
@@ -91,7 +91,8 @@
 
       if ( (is_array($upsQuote)) && (sizeof($upsQuote) > 0) ) {
         $this->quotes = array('id' => $this->code,
-                              'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . 'lbs)');
+                              'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . 'lbs)',
+                              'tax' => 0);
 
         $methods = array();
         $qsize = sizeof($upsQuote);
@@ -105,7 +106,7 @@
         $this->quotes['methods'] = $methods;
 
         if ($this->tax_class > 0) {
-          $this->quotes['tax'] = tep_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+          $this->quotes['tax'] = $osC_Tax->getTaxRate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
         }
       } else {
         $this->quotes = array('module' => $this->title,

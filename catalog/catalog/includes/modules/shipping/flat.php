@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: flat.php,v 1.40 2003/02/05 22:41:52 hpdl Exp $
+  $Id: flat.php,v 1.41 2003/11/17 20:36:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,16 +46,17 @@
 
 // class methods
     function quote($method = '') {
-      global $order;
+      global $osC_Tax, $order;
 
       $this->quotes = array('id' => $this->code,
                             'module' => MODULE_SHIPPING_FLAT_TEXT_TITLE,
                             'methods' => array(array('id' => $this->code,
                                                      'title' => MODULE_SHIPPING_FLAT_TEXT_WAY,
-                                                     'cost' => MODULE_SHIPPING_FLAT_COST)));
+                                                     'cost' => MODULE_SHIPPING_FLAT_COST)),
+                            'tax' => 0);
 
       if ($this->tax_class > 0) {
-        $this->quotes['tax'] = tep_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+        $this->quotes['tax'] = $osC_Tax->getTaxRate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
       }
 
       if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);

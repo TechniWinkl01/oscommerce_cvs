@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.20 2003/06/15 19:48:09 thomasamoulton Exp $
+  $Id: zones.php,v 1.21 2003/11/17 20:36:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -113,7 +113,7 @@
 
 // class methods
     function quote($method = '') {
-      global $order, $shipping_weight, $shipping_num_boxes;
+      global $osC_Tax, $order, $shipping_weight, $shipping_num_boxes;
 
       $dest_country = $order->delivery['country']['iso_code_2'];
       $dest_zone = 0;
@@ -156,10 +156,11 @@
                             'module' => MODULE_SHIPPING_ZONES_TEXT_TITLE,
                             'methods' => array(array('id' => $this->code,
                                                      'title' => $shipping_method,
-                                                     'cost' => $shipping_cost)));
+                                                     'cost' => $shipping_cost)),
+                            'tax' => 0);
 
       if ($this->tax_class > 0) {
-        $this->quotes['tax'] = tep_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+        $this->quotes['tax'] = $osC_Tax->getTaxRate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
       }
 
       if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.27 2003/02/05 22:41:52 hpdl Exp $
+  $Id: table.php,v 1.28 2003/11/17 20:36:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,7 +46,7 @@
 
 // class methods
     function quote($method = '') {
-      global $order, $cart, $shipping_weight, $shipping_num_boxes;
+      global $osC_Tax, $order, $cart, $shipping_weight, $shipping_num_boxes;
 
       if (MODULE_SHIPPING_TABLE_MODE == 'price') {
         $order_total = $cart->show_total();
@@ -71,10 +71,11 @@
                             'module' => MODULE_SHIPPING_TABLE_TEXT_TITLE,
                             'methods' => array(array('id' => $this->code,
                                                      'title' => MODULE_SHIPPING_TABLE_TEXT_WAY,
-                                                     'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)));
+                                                     'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)),
+                            'tax' => 0);
 
       if ($this->tax_class > 0) {
-        $this->quotes['tax'] = tep_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+        $this->quotes['tax'] = $osC_Tax->getTaxRate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
       }
 
       if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);
