@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.35 2004/10/31 09:46:13 mevans Exp $
+  $Id: specials.php,v 1.36 2004/11/28 20:49:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,6 @@
 */
 
   if ($osC_Services->isStarted('specials')) {
-
     $Qspecials = $osC_Database->query('select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, s.specials_new_products_price from :table_products p, :table_products_description pd, :table_specials s where s.status = 1 and s.products_id = p.products_id and p.products_status = 1 and p.products_id = pd.products_id and pd.language_id = :language_id order by s.specials_date_added desc limit :max_random_select_specials');
     $Qspecials->bindRaw(':table_products', TABLE_PRODUCTS);
     $Qspecials->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: new_products.php,v 1.39 2004/10/31 09:46:17 mevans Exp $
+  $Id: new_products.php,v 1.40 2004/11/28 20:49:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,14 +46,11 @@
     $info_box_contents = array();
 
     while ($Qnewproducts->next()) {
-    	
-    	if ($osC_Services->isStarted('specials')) {
-        $specials_price = $osC_Specials->getPrice($Qnewproducts->valueInt('products_id'));
-      }
-
       $products_price = $osC_Currencies->displayPrice($Qnewproducts->valueDecimal('products_price'), $Qnewproducts->valueInt('products_tax_class_id'));
 
-      if (tep_not_null($specials_price)) {
+      if ($osC_Services->isStarted('specials') && $osC_Specials->isActive($Qnewproducts->valueInt('products_id'))) {
+        $specials_price = $osC_Specials->getPrice($Qnewproducts->valueInt('products_id'));
+
         $products_price = '<s>' . $products_price . '</s>&nbsp;<span class="productSpecialPrice">' . $osC_Currencies->displayPrice($specials_price, $Qnewproducts->valueInt('products_tax_class_id')) . '</span>';
       }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whats_new.php,v 1.36 2004/10/31 09:46:14 mevans Exp $
+  $Id: whats_new.php,v 1.37 2004/11/28 20:49:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   $Qwhatsnew = $osC_Database->query('select products_id, products_image, products_tax_class_id, products_price from :table_products where products_status = 1 order by products_date_added desc limit :max_random_select_new');
-  $Qwhatsnew->bindRaw(':table_products', TABLE_PRODUCTS);
+  $Qwhatsnew->bindTable(':table_products', TABLE_PRODUCTS);
   $Qwhatsnew->bindInt(':max_random_select_new', MAX_RANDOM_SELECT_NEW);
 
   if ($Qwhatsnew->executeRandomMulti()) {
@@ -22,10 +22,6 @@
 <?php
     $new_products_name = tep_get_products_name($Qwhatsnew->valueInt('products_id'));
 
-    if ($osC_Services->isStarted('specials')) {
-      $new_products_specials_price = $osC_Specials->getPrice($Qwhatsnew->valueInt('products_id'));
-    }
-    
     $info_box_contents = array();
     $info_box_contents[] = array('text' => BOX_HEADING_WHATS_NEW);
 
@@ -33,7 +29,9 @@
 
     $new_products_price = $osC_Currencies->displayPrice($Qwhatsnew->valueDecimal('products_price'), $Qwhatsnew->valueInt('products_tax_class_id'));
 
-    if (tep_not_null($new_products_specials_price)) {
+    if ($osC_Services->isStarted('specials') && $osC_Specials->isActive($Qwhatsnew->valueInt('products_id'))) {
+      $new_products_specials_price = $osC_Specials->getPrice($Qwhatsnew->valueInt('products_id'));
+
       $new_products_price = '<s>' . $new_products_price . '</s>&nbsp;<span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_products_specials_price, $Qwhatsnew->valueInt('products_tax_class_id')) . '</span>';
     }
 

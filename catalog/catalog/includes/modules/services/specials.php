@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.3 2004/11/28 18:39:10 hpdl Exp $
+  $Id: specials.php,v 1.4 2004/11/28 20:49:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,9 +20,12 @@
     function start() {
       global $osC_Specials;
 
-      include('includes/classes/specials.php');
-
+      require('includes/classes/specials.php');
       $osC_Specials = new osC_Specials();
+
+      $osC_Specials->activateAll();
+      $osC_Specials->expireAll();
+
       return true;
     }
 
