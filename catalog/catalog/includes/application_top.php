@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.200 2001/12/18 11:36:32 hpdl Exp $
+  $Id: application_top.php,v 1.201 2001/12/18 11:47:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -278,25 +278,24 @@
     switch ($HTTP_GET_VARS['action']) {
       // customer wants to update the product quantity in their shopping cart
       case 'update_product' : for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
-                                if ( tep_in_array($HTTP_POST_VARS['products_id'][$i], ( is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array() ) ) ) {
+                                if (tep_in_array($HTTP_POST_VARS['products_id'][$i], (is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array()))) {
                                   $cart->remove($HTTP_POST_VARS['products_id'][$i]);
-                                } else {
-				   // if PHP3, make correction for lack of multidimensional array in PHP3
-                                   if (ereg('^3\.', phpversion()) ) {
- 				     reset($HTTP_POST_VARS);
- 				     while (list($key, $value) = each ($HTTP_POST_VARS)) {
-                                        if(is_array($value)) {
-                                           while (list($key2, $value2) = each ($value)) {
- 					      if (ereg ("(.*)\]\[(.*)", $key2, $var)) {
- 					         $id2[$var[1]][$var[2]] = $value2;
- 					      }
- 					   }
- 					}
- 				     }
- 				     $attributes = ($id2[$HTTP_POST_VARS['products_id'][$i]]) ? $id2[$HTTP_POST_VARS['products_id'][$i]] : '';
- 				   } else {
- 				     $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
- 				  }                                
+                                } else { // if PHP3, make correction for lack of multidimensional array in PHP3
+                                  if (ereg('^3\.', phpversion())) {
+                                    reset($HTTP_POST_VARS);
+                                    while (list($key, $value) = each($HTTP_POST_VARS)) {
+                                      if (is_array($value)) {
+                                        while (list($key2, $value2) = each($value)) {
+                                          if (ereg ("(.*)\]\[(.*)", $key2, $var)) {
+                                            $id2[$var[1]][$var[2]] = $value2;
+                                          }
+                                        }
+                                      }
+                                    }
+                                    $attributes = ($id2[$HTTP_POST_VARS['products_id'][$i]]) ? $id2[$HTTP_POST_VARS['products_id'][$i]] : '';
+                                  } else {
+                                    $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
+                                  }
                                   $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
                                 }
                               }
