@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.9 2001/12/27 16:24:30 dgw_ Exp $
+  $Id: geo_zones.php,v 1.10 2002/01/05 05:29:22 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -69,7 +69,7 @@ function update_zone(theForm) {
   }         
 
   SelectedCountry = theForm.zone_country_id.options[theForm.zone_country_id.selectedIndex].value;
-<?php tep_js_zone_list('SelectedCountry', 'theForm', 'zone_id'); ?>
+<?php echo tep_js_zone_list('SelectedCountry', 'theForm', 'zone_id'); ?>
 }
 //--></script>
 <?php  
@@ -244,15 +244,15 @@ function update_zone(theForm) {
       $form = '<form name="rates" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post"><input type="hidden" name="association_id" value="' . $tzaInfo->id . '"><input type="hidden" name="geo_zone_id" value="' . $HTTP_GET_VARS['zList'] . '">'  ."\n";
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY . '<br>' . tep_countries_pull_down('name="zone_country_id" style="font-size:10px" onChange="update_zone(this.form);"', $tzaInfo->country_id) . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY_ZONE . '<br>' . tep_get_zone_list('zone_id', $tzaInfo->country_id, $tzaInfo->zone_id, 'style="font-size:10px"') . '<br>&nbsp;');
+      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY . '<br>' . tep_draw_pull_down_menu('zone_country_id', tep_get_countries(), $tzaInfo->country_id, 'onChange="update_zone(this.form);"') . '<br>&nbsp;');
+      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY_ZONE . '<br>' . tep_draw_pull_down_menu('zone_id', tep_prepare_country_zones_pull_down($tzaInfo->country_id), $tzaInfo->zone_id) . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } elseif ($HTTP_GET_VARS['action'] == 'edit') {
       $form = '<form name="rates" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="association_id" value="' . $tzaInfo->id . '"><input type="hidden" name="geo_zone_id" value="' . $HTTP_GET_VARS['zList'] . '">'  ."\n";
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY . '<br>' . tep_countries_pull_down('name="zone_country_id" style="font-size:10px" onChange="update_zone(this.form);"', $tzaInfo->country_id) . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY_ZONE . '<br>' . tep_get_zone_list('zone_id', $tzaInfo->country_id, $tzaInfo->zone_id, 'style="font-size:10px"') . '<br>&nbsp;');
+      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY . '<br>' . tep_draw_pull_down_menu('zone_country_id', tep_get_countries(), $tzaInfo->country_id, 'onChange="update_zone(this.form);"') . '<br>&nbsp;');
+      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_GEO_ZONE_COUNTRY_ZONE . '<br>' . tep_draw_pull_down_menu('zone_id', tep_prepare_country_zones_pull_down($tzaInfo->country_id), $tzaInfo->zone_id) . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } elseif ($HTTP_GET_VARS['action'] == 'delete') {
       $form = '<form name="zones" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="association_id" value="' . $tzaInfo->id . '"><input type="hidden" name="geo_zone_id" value="' . $HTTP_GET_VARS['zList'] . '">'  ."\n";

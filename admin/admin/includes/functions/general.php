@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.93 2002/01/04 11:28:48 hpdl Exp $
+  $Id: general.php,v 1.94 2002/01/05 05:29:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -192,19 +192,6 @@
       if (!tep_in_array($products['products_id'], $exclude)) {
         $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . tep_currency_format($products['products_price']) . ')</option>';
       }
-    }
-    $select_string .= '</select>';
-
-    return $select_string;
-  }
-
-  function tep_countries_pull_down($parameters, $selected = '') {
-    $select_string = '<select ' . $parameters . '>';
-    $countries_query = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " order by countries_name");
-    while ($countries = tep_db_fetch_array($countries_query)) {
-      $select_string .= '<option value="' . $countries['countries_id'] . '"';
-      if ($selected == $countries['countries_id']) $select_string .= ' SELECTED';
-      $select_string .= '>' . $countries['countries_name'] . '</option>';
     }
     $select_string .= '</select>';
 
@@ -571,21 +558,23 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     $countries_array = array();
     if ($countries_id) {
       if ($with_iso_codes) {
-        $countries = tep_db_query("select countries_name, countries_iso_code_2, countries_iso_code_3 from " . TABLE_COUNTRIES . " where countries_id = '" . $countries_id . "' order by countries_name");
-        $countries_values = tep_db_fetch_array($countries);
-        $countries_array = array('countries_name' => $countries_values['countries_name'],
-                                 'countries_iso_code_2' => $countries_values['countries_iso_code_2'],
-                                 'countries_iso_code_3' => $countries_values['countries_iso_code_3']);
+        $countries_query = tep_db_query("select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3 from " . TABLE_COUNTRIES . " where countries_id = '" . tep_db_input($countries_id) . "'");
+        $countries = tep_db_fetch_array($countries_query);
+        $countries_array = array('id' => $countries['countries_id'],
+                                 'text' => $countries['countries_name'],
+                                 'countries_iso_code_2' => $countries['countries_iso_code_2'],
+                                 'countries_iso_code_3' => $countries['countries_iso_code_3']);
       } else {
-        $countries = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $countries_id . "'");
-        $countries_values = tep_db_fetch_array($countries);
-        $countries_array = array('countries_name' => $countries_values['countries_name']);
+        $countries_query = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . tep_db_input($countries_id) . "'");
+        $countries = tep_db_fetch_array($countries_query);
+        $countries_array = array('id' => $countries['countries_id'],
+                                 'text' => $countries['countries_name']);
       }
     } else {
-      $countries = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " order by countries_name");
-      while ($countries_values = tep_db_fetch_array($countries)) {
-        $countries_array[] = array('countries_id' => $countries_values['countries_id'],
-                                   'countries_name' => $countries_values['countries_name']);
+      $countries_query = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " order by countries_name");
+      while ($countries = tep_db_fetch_array($countries_query)) {
+        $countries_array[] = array('id' => $countries['countries_id'],
+                                   'text' => $countries['countries_name']);
       }
     }
 
@@ -593,9 +582,46 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   }
 
 ////
+// return an array with country zones
+  function tep_get_country_zones($country_id) {
+    $zones_array = array();
+    $zones_query = tep_db_query("select zone_id, zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_id . "' order by zone_name");
+    while ($zones = tep_db_fetch_array($zones_query)) {
+      $zones_array[] = array('id' => $zones['zone_id'],
+                             'text' => $zones['zone_name']);
+    }
+
+    return $zones_array;
+  }
+
+  function tep_prepare_country_zones_pull_down($country_id) {
+// preset the width of the drop-down for Netscape
+    $pre = '';
+    if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
+      for ($i=0; $i<45; $i++) $pre .= '&nbsp;';
+    }
+
+    $zones = tep_get_country_zones($country_id);
+
+    if (sizeof($zones) < 1) {
+      $zones[] = array('id' => '',
+                       'text' => TYPE_BELOW);
+// create dummy options for Netscape to preset the height of the drop-down
+      if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
+        for ($i=0; $i<9; $i++) {
+          $zones[] = array('id' => '',
+                           'text' => '');
+        }
+      }
+    }
+
+    return $zones;
+  }
+
+////
 // Alias function for Store configuration values in the Administration Tool
   function tep_cfg_pull_down_country_list($country_id) {
-    return tep_get_country_list('configuration_value', $country_id);
+    return tep_draw_pull_down_menu('configuration_value', tep_get_countries(), $country_id);
   }
 
 ////

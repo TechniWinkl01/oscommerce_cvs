@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.40 2001/12/27 16:42:28 hpdl Exp $
+  $Id: banner_manager.php,v 1.41 2002/01/05 05:29:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -175,9 +175,6 @@ function popupImageWindow(url) {
   var dateExpires = new ctlSpiffyCalendarBox("dateExpires", "new_banner", "expires_date","btnDate1","<?php echo $bInfo->expires_date; ?>",scBTNMODE_CUSTOMBLUE);
   var dateScheduled = new ctlSpiffyCalendarBox("dateScheduled", "new_banner", "date_scheduled","btnDate2","<?php echo $bInfo->date_scheduled; ?>",scBTNMODE_CUSTOMBLUE);
 </script>
-      <tr>
-        <td><?php echo tep_draw_separator(); ?></td>
-      </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>

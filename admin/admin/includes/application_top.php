@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.107 2002/01/04 07:49:49 hpdl Exp $
+  $Id: application_top.php,v 1.108 2002/01/05 05:29:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -111,11 +111,11 @@
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
 // Control what fields of the customer table are used
-  define('ACCOUNT_GENDER', 1);
-  define('ACCOUNT_DOB', 1);
-  define('ACCOUNT_COMPANY', 0);
-  define('ACCOUNT_SUBURB', 1);
-  define('ACCOUNT_STATE', 1);
+  define('ACCOUNT_GENDER', 'true');
+  define('ACCOUNT_DOB', 'true');
+  define('ACCOUNT_COMPANY', 'false');
+  define('ACCOUNT_SUBURB', 'true');
+  define('ACCOUNT_STATE', 'true');
 
 // Define how do we update currency exchange rates
 // Possible values are 'oanda' 'xe' or ''
@@ -198,7 +198,6 @@
   require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // entry/item info classes
-  require(DIR_WS_CLASSES . 'customer_info.php');
   require(DIR_WS_CLASSES . 'file_manager_info.php');
   require(DIR_WS_CLASSES . 'languages_info.php');
   require(DIR_WS_CLASSES . 'manufacturer_info.php');

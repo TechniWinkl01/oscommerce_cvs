@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: zones.php,v 1.15 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: zones.php,v 1.16 2002/01/05 05:29:22 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -151,7 +151,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_INSERT_INTRO . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_ZONES_NAME . '<br><input type="text" name="zone_name"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_ZONES_CODE . '<br><input type="text" name="zone_code"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COUNTRY_NAME . '<br>' . tep_countries_pull_down('name="zone_country_id" style="font-size:10px"') . '<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COUNTRY_NAME . '<br>' . tep_draw_pull_down_menu('zone_country_id', tep_get_countries()) . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="zones" action="' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="zone_id" value="' . $zInfo->id . '">'  ."\n";
@@ -160,7 +160,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_EDIT_INTRO . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_ZONES_NAME . '<br><input type="text" name="zone_name" value="' . $zInfo->name . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_ZONES_CODE . '<br><input type="text" name="zone_code" value="' . $zInfo->code . '"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COUNTRY_NAME . '<br>' . tep_countries_pull_down('name="zone_country_id" style="font-size:10px"', $zInfo->country_id) . '<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COUNTRY_NAME . '<br>' . tep_draw_pull_down_menu('zone_country_id', tep_get_countries(), $zInfo->country_id) . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="zones" action="' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="zone_id" value="' . $zInfo->id . '">'  ."\n";

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.11 2001/12/30 08:18:46 hpdl Exp $
+  $Id: html_output.php,v 1.12 2002/01/05 05:29:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -76,116 +76,33 @@
   }
 
 ////
-// Creates a pull-down list of countries
-// Parameters:
-// popup_name: the name of the pull-down list
-// selected:   the default selected item
-// javascript: javascript for the pull-down list (ie, onChange="this.form.submit()")
-// size:       pull-down list size
-  function tep_get_country_list($popup_name, $selected = '', $javascript = '', $size = 1) {
-    $result = '<select name="' . $popup_name . '"';
-
-    if ($size != 1) $result .= ' size="' . $size . '"';
-
-    if ($javascript != '') $result .= ' ' . $javascript;
-
-    $result .= '><option value="">' . PLEASE_SELECT . '</option>';
-
-    $countries = tep_get_countries();
-    for ($i=0; $i<sizeof($countries); $i++) {
-      $result .= '<option value="' . $countries[$i]['countries_id'] . '"';
-      if ($selected == $countries[$i]['countries_id']) $result .= ' SELECTED';
-      $result .= '>' . $countries[$i]['countries_name'] . '</option>';
-     }
-    $result .= '</select>';
-
-    return $result;
-  }
-
-////
-// Creates a pull-down list of states and provinces
-// Parameters:
-// popup_name:   the name of the pull-down list
-// country_code: the default selected item
-// selected:     the default selected item
-// javascript:   javascript for the pull-down list (ie, onChange="this.form.submit()")
-// size:         pull-down list size
-// TABLES: zones
-  function tep_get_zone_list($popup_name, $country_code = '', $selected = '', $javascript = '', $size = 1) {
-    $result = '<select name="' . $popup_name . '"';
-
-    if ($size != 1) $result .= ' size="' . $size . '"';
-
-    if ($javascript) $result .= ' ' . $javascript;
-
-    $result .= '>';
-
-    // Preset the width of the drop-down for Netscape
-    if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
-      for ($i=0; $i<53; $i++) $result .= '&nbsp;';
-    }
-
-    $state_prov_result = tep_db_query("select zone_id, zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_code . "' order by zone_name");
-    if (tep_db_num_rows($state_prov_result)) {
-      $result .= '<option>' . PLEASE_SELECT . '</option>';
-    } else {
-      $result .= '<option>' . TYPE_BELOW . '</option>';
-    }
-
-    $populated = 0;
-    while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
-      $populated++;
-      $result .= '<option value="' . $state_prov_values['zone_id'] . '"';
-      if ($selected == $state_prov_values['zone_id']) $result .= ' SELECTED';
-      $result .= '>' . $state_prov_values['zone_name'] . '</option>';
-    }
-
-    // Create dummy options for Netscape to preset the height of the drop-down
-    if ($populated == 0) {
-      if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
-        for ($i=0; $i<9; $i++) {
-          $result .= '<option></option>';
-        }
-      }
-    }
-
-    $result .= '</select>';
-
-    return $result;
-  }
-
-////
 // javascript to dynamically update the states/provinces list when the country is changed
-// Parameters:
-// selectedcountryvar: string that contains the selected country variable
-// formname:           the form name
 // TABLES: zones
-  function tep_js_zone_list($selected_country_var, $form_name) {
-    $country_query = tep_db_query("select distinct zone_country_id from " . TABLE_ZONES . " order by zone_country_id");
+  function tep_js_zone_list($country, $form, $field) {
+    $countries_query = tep_db_query("select distinct zone_country_id from " . TABLE_ZONES . " order by zone_country_id");
     $num_country = 1;
-    while ($country_values = tep_db_fetch_array($country_query)) {
+    $output_string = '';
+    while ($countries = tep_db_fetch_array($countries_query)) {
       if ($num_country == 1) {
-        echo '  if (' . $selected_country_var . ' == "' . $country_values['zone_country_id'] . '") {' . "\n";
+        $output_string .= '  if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
       } else {
-        echo '  else if (' . $selected_country_var . ' == "' . $country_values['zone_country_id'] . '") {' . "\n";
+        $output_string .= '  } else if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
       }
 
-      $state_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $country_values['zone_country_id'] . "' order by zone_name");
+      $states_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $countries['zone_country_id'] . "' order by zone_name");
 
-      $num_state = 1;
-      while ($state_values = tep_db_fetch_array($state_query)) {
-        if ($num_state == 1) {
-          echo '    ' . $form_name . '.zone_id.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
-        }
-        echo '    ' . $form_name . '.zone_id.options[' . $num_state . '] = new Option("' . $state_values['zone_name'] . '", "' . $state_values['zone_id'] . '");' . "\n";
+      $num_state = 0;
+      while ($states = tep_db_fetch_array($states_query)) {
+        $output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $states['zone_name'] . '", "' . $states['zone_id'] . '");' . "\n";
         $num_state++;
       }
       $num_country++;
-      echo '  }' . "\n";
     }
-    echo '  else {' . "\n" .
-         '    ' . $form_name . '.zone_id.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
-         '  }' . "\n";
+    $output_string .= '  } else {' . "\n" .
+                      '    ' . $form . '.' . $field . '.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
+                      '  }' . "\n";
+
+    return $output_string;
   }
 
 ////
@@ -243,12 +160,12 @@
 
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
-  function tep_draw_selection_field($name, $type, $value = '', $checked = false) {
+  function tep_draw_selection_field($name, $type, $value = '', $checked = false, $compare = '') {
     $selection = '<input type="' . $type . '" name="' . $name . '"';
     if ($value != '') {
       $selection .= ' value="' . $value . '"';
     }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) ) {
+    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) || ($value == $compare) ) {
       $selection .= ' CHECKED';
     }
     $selection .= '>';
@@ -258,14 +175,14 @@
 
 ////
 // Output a form checkbox field
-  function tep_draw_checkbox_field($name, $value = '', $checked = false) {
-    return tep_draw_selection_field($name, 'checkbox', $value, $checked);
+  function tep_draw_checkbox_field($name, $value = '', $checked = false, $compare = '') {
+    return tep_draw_selection_field($name, 'checkbox', $value, $checked, $compare);
   }
 
 ////
 // Output a form radio field
-  function tep_draw_radio_field($name, $value = '', $checked = false) {
-    return tep_draw_selection_field($name, 'radio', $value, $checked);
+  function tep_draw_radio_field($name, $value = '', $checked = false, $compare = '') {
+    return tep_draw_selection_field($name, 'radio', $value, $checked, $compare);
   }
 
 ////
