@@ -1,15 +1,17 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['install']) {
-    $action = 'install';
     include(DIR_FS_SHIPPING_MODULES . $install);
-    header('Location: ' . tep_href_link(FILENAME_SHIPPING_MODULES, '', 'NONSSL')); 
-    tep_exit();
+    $class = substr($install, 0, -4);
+    $shipping_module = new $class;
+    $shipping_module->install();
+    header('Location: ' . tep_href_link(FILENAME_SHIPPING_MODULES, '', 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['remove']) {
-    $action = 'remove';
     include(DIR_FS_SHIPPING_MODULES . $remove);
-    header('Location: ' . tep_href_link(FILENAME_SHIPPING_MODULES, '', 'NONSSL')); 
-    tep_exit();
+    $class = substr($remove, 0, -4);
+    $shipping_module = new $class;
+    $shipping_module->remove();
+    header('Location: ' . tep_href_link(FILENAME_SHIPPING_MODULES, '', 'NONSSL')); tep_exit();
   }
 ?>
 <html>
@@ -70,13 +72,15 @@
   $installed_modules = '';
   $dir = dir(DIR_FS_SHIPPING_MODULES);
   if ($dir) {
-    while($entry=$dir->read()) {
+    while($entry = $dir->read()) {
       if (eregi('.php[34]*$', $entry)) {
         $check = 0;
-        $action = 'check';
         include(DIR_FS_SHIPPING_MODULES . $entry);
+        $class = substr($entry, 0, -4);
+        $shipping_module = new $class;
+        $check = $shipping_module->check();
         if ($check > 1) {
-          $installed_modules .= ($installed_modules)?';' . $entry:$entry;
+          $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
         }
         if ($check) {
 ?>
@@ -96,10 +100,10 @@
   if (tep_db_num_rows($check) > 0) {
     list($check) = tep_db_fetch_array($check);
     if ($check <> $installed_modules) {
-      tep_db_query("UPDATE configuration set configuration_value = '$installed_modules' where configuration_key = 'SHIPPING_MODULES'");
+      tep_db_query("update configuration set configuration_value = '" . $installed_modules . "' where configuration_key = 'SHIPPING_MODULES'");
     }
   } else {
-    tep_db_query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Shipping Modules', 'SHIPPING_MODULES', '$installed_modules', 'This is automatically updated. No need to edit.', '7', '1', now())");
+    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Shipping Modules', 'SHIPPING_MODULES', '$installed_modules', 'This is automatically updated. No need to edit.', '7', '1', now())");
   }
 ?>
               <tr>
