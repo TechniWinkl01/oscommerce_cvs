@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.86 2002/07/21 23:38:57 hpdl Exp $
+  $Id: account_history_info.php,v 1.87 2002/08/08 22:36:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,7 +125,7 @@
          '            <td class="main" align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
          '            <td class="main" valign="top">' . $order->products[$i]['name'];
 
-    if (sizeof($order->products[$i]['attributes']) > 0) {
+    if ( (isset($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0) ) {
       for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
         echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
       }
