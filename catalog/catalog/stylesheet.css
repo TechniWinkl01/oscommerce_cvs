@@ -132,3 +132,8 @@ TD.accountCategory {
     font-size : 13px;
     color : #aabbdd;
 }
+
+TD.fieldKey {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 12px;
+}

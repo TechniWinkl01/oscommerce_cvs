@@ -139,7 +139,7 @@ function check_form() {
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="left" width="20%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_CATEGORIES; ?>&nbsp;</font></td>
+            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_CATEGORIES; ?>&nbsp;</td>
             <td align="left" colspan="3" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>
 <?
 if ($HTTP_GET_VARS['categories_id'])
@@ -151,7 +151,7 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
             &nbsp;&nbsp;(&nbsp;<input type="checkbox"  name="inc_subcat" value="1">&nbsp;<?echo ENTRY_INCLUDES_SUBCATEGORIES; ?>&nbsp;)&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_MANUFACTURER; ?>&nbsp;</font></td>
+            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_MANUFACTURER; ?>&nbsp;</td>
             <td align="left" colspan="3" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>
               <select name="manufacturers_id">
                 <option value="" selected><? echo TEXT_ALL_MANUFACTURERS; ?>
@@ -165,19 +165,19 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
             </td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_KEYWORDS; ?>&nbsp;</font></td>
+            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_KEYWORDS; ?>&nbsp;</td>
             <td align="left" colspan="3" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?><input type="text" name="keywords" size="40" <?if ($HTTP_GET_VARS['keywords']) echo 'value="' . htmlspecialchars(StripSlashes($HTTP_GET_VARS['keywords'])) . '"';?>>&nbsp;<?echo ENTRY_KEYWORDS_TEXT; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_DATE_ADDED_FROM; ?>&nbsp;</font></td>
+            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_DATE_ADDED_FROM; ?>&nbsp;</td>
             <td align="left" width="10%" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?><input type="text" name="dfrom" value="<?if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;</font></td>
-            <td align="left" width="5%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</font></td>
+            <td align="left" width="5%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</td>
             <td align="left" width="65%" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?><input type="text" name="dto" value="<?if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT; ?></font></td>
           </tr>
           <tr>
-            <td align="left" width="20%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_PRICE_FROM; ?>&nbsp;</font></td>
+            <td align="left" width="20%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_PRICE_FROM; ?>&nbsp;</td>
             <td align="left" width="10%" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?><input type="text" name="pfrom" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</font></td>
-            <td align="left" width="5%" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</font></td>
+            <td align="left" width="5%" class="fieldKey" nowrap>&nbsp;<?echo ENTRY_TO; ?>&nbsp;</td>
             <td align="left" width="65%" nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?><input type="text" name="pto" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</font></td>
           </tr>
         </table></td>

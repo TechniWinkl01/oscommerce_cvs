@@ -51,7 +51,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+        <td class="fieldKey">&nbsp;</td>
       </tr>
       <tr>
         <td><? echo tep_black_line(); ?></td>
@@ -84,12 +84,12 @@
         </td></table>
       </tr>
       <tr>
-        <td><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+        <td class="fieldKey">&nbsp;</td>
       </tr>
       <tr>
         <td><form action="<? echo tep_href_link(FILENAME_CONTACT_US, 'action=send', 'NONSSL'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" class="main" nowrap><? echo ENTRY_NAME; ?></td>

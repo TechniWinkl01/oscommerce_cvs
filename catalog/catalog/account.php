@@ -82,7 +82,7 @@
    if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
   if ($account_values['customers_gender'] == 'm') {
     echo MALE;
@@ -94,72 +94,72 @@
    }
 ?>
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $account_values['customers_firstname']; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $account_values['customers_lastname']; ?>&nbsp;</font></td>
           </tr>
 <?
    if (ACCOUNT_DOB) {
 ?>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo date(DATE_FORMAT, mktime(0, 0, 0, substr($account_values['customers_dob'], 4, 2), substr($account_values['customers_dob'], 6, 2), substr($account_values['customers_dob'], 0, 4))); ?>&nbsp;</font></td>
           </tr>
 <?
    }
 ?>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $account_values['customers_email_address']; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" valign="top" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;&nbsp;</font></td>
-            <td align="left" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', "<br>"); ?></font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;&nbsp;</td>
+            <td align="left" class="fieldKey" nowrap><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', "<br>"); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_CONTACT; ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $account_values['customers_telephone']; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo $account_values['customers_fax']; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory" nowrap><? echo CATEGORY_OPTIONS; ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? if ($account_values['customers_newsletter'] == "1") { echo ENTRY_NEWSLETTER_YES; } else { echo ENTRY_NEWSLETTER_NO; } ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_PASSWORD; ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
             <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<? echo PASSWORD_HIDDEN; ?>&nbsp;</font></td>
           </tr>
         </table></td>
