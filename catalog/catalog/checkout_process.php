@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.108 2002/05/31 17:36:19 dgw_ Exp $
+  $Id: checkout_process.php,v 1.109 2002/06/10 17:40:34 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -119,11 +119,14 @@
       } else {
         $stock_left = $stock_values['products_quantity'];
       }
-      tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "', products_ordered = products_ordered + " . sprintf('%d', $order->products[$i]['qty']) . " where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
+      tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
       if ($stock_left < 1) {
         tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
       }
     }
+
+// Update products_ordered (for bestsellers list)
+    tep_db_query("update " . TABLE_PRODUCTS . " set products_ordered = products_ordered + " . sprintf('%d', $order->products[$i]['qty']) . " where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
 
     $sql_data_array = array('orders_id' => $insert_id, 
                             'products_id' => tep_get_prid($order->products[$i]['id']), 
