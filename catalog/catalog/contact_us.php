@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.33 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: contact_us.php,v 1.34 2002/06/16 15:40:34 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -53,7 +53,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -85,7 +85,10 @@
             <td class="main"><?php echo ENTRY_EMAIL; ?><br><?php echo tep_draw_input_field('email', ($error ? $HTTP_POST_VARS['email'] : $email_address)); if ($error) echo ENTRY_EMAIL_ADDRESS_CHECK_ERROR; ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo ENTRY_ENQUIRY; ?><br><?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15, $HTTP_POST_VARS['enquiry']); ?></td>
+            <td class="main"><?php echo ENTRY_ENQUIRY; ?></td>
+          </tr>
+          <tr>
+            <td><?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15, $HTTP_POST_VARS['enquiry']); ?></td>
           </tr>
           <tr>
             <td class="main" align="right"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
