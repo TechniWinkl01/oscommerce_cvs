@@ -8,5 +8,6 @@ payment_options
 address_format
 add_attributes
 taxes
+products_expected
 
 and then you may include misc_updates.sql from this directory.
