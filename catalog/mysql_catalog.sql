@@ -629,11 +629,12 @@ CREATE TABLE orders (
   cc_owner varchar(64),
   cc_number varchar(32),
   cc_expires varchar(4),
-  date_purchased varchar(8),
+  last_modified timestamp(14),
+  date_purchased timestamp(14),
   shipping_cost decimal(8,2) NOT NULL,
   shipping_method varchar(32),
   orders_status varchar(10) NOT NULL,
-  orders_date_finished varchar(14),
+  orders_date_finished timestamp(14),
   PRIMARY KEY (orders_id)
 );
 
