@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.10 2002/04/03 22:03:43 hpdl Exp $
+  $Id: configure.php,v 1.11 2002/04/06 15:54:42 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -37,6 +37,6 @@
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
-  define('USE_PCONNECT', true); // use persistent connections?
+  define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 ?>
