@@ -267,11 +267,57 @@
     $cuInfo->number_of_reviews = $cuInfo_array['number_of_reviews'];
   }
 
+  function tep_in_array($lookup_value, $lookup_array) {
+    if (function_exists('in_array')) {
+      if (in_array($lookup_value, $lookup_array)) return true;
+    } else {
+      while (list($key, $value) = each($lookup_array)) {
+        if ($value == $lookup_value) return true;
+      }
+    }
+
+    return false;
+  }
+
+  function tep_categories_name_with_parent($categories_id) {
+    $categories_query = tep_db_query("select categories_name, parent_id from categories where categories_id = '" . $categories_id . "'");
+    $categories = tep_db_fetch_array($categories_query);
+    
+    $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories['parent_id'] . "'");
+    $categories_parent = tep_db_fetch_array($categories_parent_query);
+    
+    $categories_name = $categories['categories_name'];
+    if (tep_db_num_rows($categories_parent_query) > 0) $categories_name .= ' (' . $categories_parent['categories_name'] . ')';
+
+    return $categories_name;
+  }
+
+  function tep_products_categories_array($products_id, $return_id = false) {
+    $products_categories_query = tep_db_query("select categories_id from products_to_categories p2c where p2c.products_id = '" . $products_id . "'");
+    while ($products_categories = tep_db_fetch_array($products_categories_query)) {
+      if ($return_id) {
+        $products_categories_array[] = $products_categories['categories_id'];
+      } else {
+        $products_categories_array[] = tep_categories_name_with_parent($products_categories['categories_id']);
+      }
+    }
+
+    return $products_categories_array;
+  }
+
+  function tep_products_categories_info_box($products_id) {
+    $products_categories_array = tep_products_categories_array($products_id);
+
+    for ($i=0; $i<sizeof($products_categories_array); $i++) $products_categories .= '<b>' . $products_categories_array[$i] . '</b><br>&nbsp;';
+
+    return $products_categories;
+  }
+
   function tep_categories_pull_down($parameters, $exclude = '') {
     $select_string = '<select ' . $parameters . '>';
     $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
     while ($categories_all = tep_db_fetch_array($categories_all_query)) {
-      if ($categories_all['categories_id'] != $exclude) {
+      if (!tep_in_array($categories_all['categories_id'], (array)$exclude)) {
         $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories_all['parent_id'] . "'");
         $categories_parent = tep_db_fetch_array($categories_parent_query);
         $select_string .= '<option value="' . $categories_all['categories_id'] . '">' . $categories_all['categories_name'];
