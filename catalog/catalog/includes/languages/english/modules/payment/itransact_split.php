@@ -1,9 +1,13 @@
-<?
+<?php
 /*
-  iTransact Split Form Payment Module Definitions
-  Author: TriciaB (info@barestyle.com)
-  File resides in: catalog/includes/languages/english/modules/payment/
-  See README_catalog_itransact_split
+  $Id: itransact_split.php,v 1.3 2001/09/20 19:41:06 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 // Defines the payment options shown to the customer.  For example, you could change "Checking Account" to "EFT" but it may confuse your customers, since most don't know what EFT or ACH is.  The final values are defined based on what iTransact payment types you have defined in admin.

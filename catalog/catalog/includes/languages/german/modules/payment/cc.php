@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: cc.php,v 1.8 2001/09/20 19:41:25 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   define('MODULE_PAYMENT_CC_TEXT_TITLE', 'Kreditkarte');
   define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4111111111111111<br>Expiry: Any');
   define('MODULE_PAYMENT_CC_TEXT_CREDIR_CARD_TYPE', 'Typ:');

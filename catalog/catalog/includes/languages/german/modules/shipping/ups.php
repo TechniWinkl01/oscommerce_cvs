@@ -1,5 +1,15 @@
 <?php
-/* $Id: */
+/*
+  $Id: ups.php,v 1.4 2001/09/20 19:40:58 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
 define('MODULE_SHIPPING_UPS_TEXT_TITLE', 'United Parcel Service');
 define('MODULE_SHIPPING_UPS_TEXT_DESCRIPTION', 'United Parcel Service');
 define('MODULE_SHIPPING_UPS_TEXT_OPT_GND', 'UPS Ground');
