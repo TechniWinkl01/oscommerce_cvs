@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.64 2002/01/21 21:47:46 hpdl Exp $
+  $Id: orders.php,v 1.65 2002/01/21 21:57:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -212,7 +212,7 @@
         }
       }
       echo '</td>' . "\n" .
-           '            <td class="main" align="center" valign="top">' . number_format($products['products_tax'], TAX_DECIMAL_PLACES) . '%</td>' . "\n" .
+           '            <td class="main" align="center" valign="top">' . tep_display_tax_value($products['products_tax']) . '%</td>' . "\n" .
            '            <td class="main" align="right" valign="top"><b>' . tep_currency_format($products['products_quantity'] * $products['products_price']) . '</b>';
 
       if ($attributes_exist) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.121 2002/01/20 21:50:39 hpdl Exp $
+  $Id: application_top.php,v 1.122 2002/01/21 21:57:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -107,7 +107,7 @@
 
 // customization for the design layout
   define('TAX_VALUE', 0); // propducts tax
-  define('TAX_DECIMAL_PLACES', 0); // Display format for tax rate
+  define('TAX_DECIMAL_PLACES', 0); // Pad the tax value this amount of decimal places
   define('TAX_INCLUDE', 'false'); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
