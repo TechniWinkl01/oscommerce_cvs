@@ -73,7 +73,7 @@
       echo '          </tr>' . "\n";
     }
     echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'],1,2000)) . ' / ' . strftime('%Y',mktime(0,0,0,1,1,$HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
     if ($cc_val != '1') 
     {
