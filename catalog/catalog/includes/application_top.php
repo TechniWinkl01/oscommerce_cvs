@@ -1,8 +1,8 @@
 <?
   if (file_exists('includes/local/configure.php')) {
     include('includes/local/configure.php');
-    if (!CONFIGURE_STATUS_COMPLETED) { // File not read properly
-       die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted.');
+    if ((!defined(CONFIGURE_STATUS_COMPLETED)) && (CONFIGURE_STATUS_COMPLETED != '1')) { // File not read properly
+       die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted.<br>&nbsp;<br>Please add the following to that file:<br>&nbsp;<br>define(\'CONFIGURE_STATUS_COMPLETED\', \'1\');');
     }
   }
 // define our webserver variables
