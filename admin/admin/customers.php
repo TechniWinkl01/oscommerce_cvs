@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.43 2001/09/30 21:49:37 mbs Exp $
+  $Id: customers.php,v 1.44 2001/11/10 18:38:16 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -382,7 +382,7 @@ function check_form() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right"><br><form name="search" <?php echo 'action="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get"><span class="smallText">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="search" value="<?php echo $HTTP_GET_VARS['search']; ?>" size="8">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?></form></td>
+            <td align="right"><br><form name="search" action="<?php echo tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(), 'NONSSL'); ?>" method="get"><span class="smallText">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="search" value="<?php echo stripslashes($HTTP_GET_VARS['search']); ?>" size="8">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?></form></td>
           </tr>
         </table></td>
       </tr>
