@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.55 2001/08/21 17:51:48 hpdl Exp $
+  $Id: espanol.php,v 1.56 2001/08/22 14:49:55 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -225,7 +225,7 @@ define('TEXT_RESULT_PAGE', 'Paginas de Resultados:');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> new products)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos nuevos)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
@@ -273,7 +273,7 @@ define('TEXT_REVIEW_RATING', 'Evaluacion: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Fecha Alta: %s');
 define('TEXT_NO_REVIEWS', 'En este momento, no hay ningun comentario.');
 
-define('TEXT_NO_NEW_PRODUCTS', 'There are currently no products.');
+define('TEXT_NO_NEW_PRODUCTS', 'Ahora mismo no hay novedades.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Impuesto desconocido');
 

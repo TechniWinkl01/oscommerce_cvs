@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.1 2001/08/21 17:51:51 hpdl Exp $
+  $Id: products_new.php,v 1.2 2001/08/22 14:49:58 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'New Products');
-define('TOP_BAR_TITLE', 'New Products');
-define('HEADING_TITLE', 'New Products');
+define('NAVBAR_TITLE', 'Novedades');
+define('TOP_BAR_TITLE', 'Novedades');
+define('HEADING_TITLE', 'Novedades');
 
 define('TEXT_DATE_ADDED', 'Fecha Alta:');
 define('TEXT_MANUFACTURER', 'Fabricante:');
