@@ -1,27 +1,28 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Administration Tool Preview Release 2.2
-Last Update: 07/16/2000
-Author(s): Mike Bradley (mike@logomanager.co.uk)
+  The Exchange Project - Community Made Shopping!
+
+  German Text for The Exchange Project Administration Tool
+
+  $Id: geo_zones.php,v 1.2 2001/08/08 13:50:17 mbs Exp $
 */
 
-define('TOP_BAR_TITLE', 'Geographical Zones');
-define('HEADING_TITLE', 'Geographical Zones');
+define('TOP_BAR_TITLE', 'Geographische Zonen');
+define('HEADING_TITLE', 'Geographische Zonen');
 
-define('TABLE_HEADING_ACTION', 'Action');
-define('TABLE_HEADING_COUNTRY_NAME', 'Country');
+define('TABLE_HEADING_ACTION', 'Aktion');
+define('TABLE_HEADING_COUNTRY_NAME', 'Land');
 define('TABLE_HEADING_COUNTRY_ZONE', 'Region');
-define('TABLE_HEADING_GEO_ZONE_NAME', 'Zone name');
+define('TABLE_HEADING_GEO_ZONE_NAME', 'Zonenname');
 
-
-define('TEXT_INFO_DATE_ADDED', 'Date Added:');
-define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
-define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
-define('TEXT_INFO_GEO_ZONE_NAME', 'Zone Name:');
-define('TEXT_INFO_GEO_ZONE_COUNTRY', 'Country:');
+define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
+define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
+define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie die notwendigen &Auml;nderungen durch');
+define('TEXT_INFO_GEO_ZONE_NAME', 'Zonenname:');
+define('TEXT_INFO_GEO_ZONE_COUNTRY', 'Land:');
 define('TEXT_INFO_GEO_ZONE_COUNTRY_ZONE', 'Region:');
-define('TEXT_INFO_GEO_ZONE_DESCRIPTION', 'Description:');
-define('TEXT_INFO_INSERT_INTRO', 'Please enter the new geographical zone with its related data');
-define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this zone?');
-define('TEXT_INFO_HEADING_NEW_GEO_ZONE', 'New Geographical Zone');
+define('TEXT_INFO_GEO_ZONE_DESCRIPTION', 'Beschreibung:');
+define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue geographische Zone mit den dazugeh&ouml;rigen Daten ein');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese geographische Zone l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_HEADING_NEW_GEO_ZONE', 'neue geographischen Zone');
 ?>

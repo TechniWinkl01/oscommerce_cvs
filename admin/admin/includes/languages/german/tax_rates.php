@@ -1,14 +1,16 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.2
-Last Update: 20/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de), Mathias Kowalkowski (mathias@zoomed.de)
+  The Exchange Project - Community Made Shopping!
+
+  German Text for The Exchange Project Administration Tool
+
+  $Id: tax_rates.php,v 1.6 2001/08/08 13:50:16 mbs Exp $
 */
 
 define('TOP_BAR_TITLE', 'Steuers&auml;tze');
 define('HEADING_TITLE', 'Steuers&auml;tze');
 
-define('TABLE_HEADING_TAX_RATE_PRIORITY', 'Priority');
+define('TABLE_HEADING_TAX_RATE_PRIORITY', 'Priorität');
 define('TABLE_HEADING_TAX_CLASS_TITLE', 'Steuerklasse');
 define('TABLE_HEADING_COUNTRIES_NAME', 'Land');
 define('TABLE_HEADING_ZONE', 'Zone');
@@ -22,7 +24,7 @@ define('TEXT_INFO_CLASS_TITLE', 'Name der Steuerklasse:');
 define('TEXT_INFO_COUNTRY_NAME', 'Land:');
 define('TEXT_INFO_ZONE_NAME', 'Zone:');
 define('TEXT_INFO_TAX_RATE', 'Steuersatz (%):');
-define('TEXT_INFO_TAX_RATE_PRIORITY', 'Priority:');
+define('TEXT_INFO_TAX_RATE_PRIORITY', 'Priorität:');
 define('TEXT_INFO_RATE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie den neuen Steuersatz mit den dazugeh&ouml;rigen Daten ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Steuersatz l&ouml;schen m&ouml;chten?');

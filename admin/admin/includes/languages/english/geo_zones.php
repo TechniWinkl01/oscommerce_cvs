@@ -13,7 +13,6 @@ define('TABLE_HEADING_COUNTRY_NAME', 'Country');
 define('TABLE_HEADING_COUNTRY_ZONE', 'Region');
 define('TABLE_HEADING_GEO_ZONE_NAME', 'Zone name');
 
-
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
