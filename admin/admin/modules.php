@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.40 2002/04/08 22:17:56 hpdl Exp $
+  $Id: modules.php,v 1.41 2002/05/23 13:46:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -225,7 +225,16 @@
           $keys .= '<b>' . $value['title'] . '</b><br>';
           if ($value['use_function']) {
             $use_function = $value['use_function'];
-            $keys .= $use_function($value['value']);
+            if (ereg('->', $use_function)) {
+              $class_method = explode('->', $use_function);
+              if (!is_object(${$class_method[0]})) {
+                include(DIR_WS_CLASSES . $class_method[0] . '.php');
+                ${$class_method[0]} = new $class_method[0]();
+              }
+              $keys .= call_user_func(array(&${$class_method[0]}, $class_method[1]), $value['value']);
+            } else {
+              $keys .= call_user_func($use_function, $value['value']);
+            }
           } else {
             $keys .= $value['value'];
           }
