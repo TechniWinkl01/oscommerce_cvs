@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.139 2003/03/22 02:44:55 hpdl Exp $
+  $Id: categories.php,v 1.140 2003/03/24 12:00:23 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -198,7 +198,7 @@
                                   'manufacturers_id' => tep_db_prepare_input($HTTP_POST_VARS['manufacturers_id']));
 
           if (isset($HTTP_POST_VARS['products_image']) && tep_not_null($HTTP_POST_VARS['products_image']) && ($HTTP_POST_VARS['products_image'] != 'none')) {
-            $sql_data_attay['products_image'] = tep_db_prepare_input($HTTP_POST_VARS['products_image']);
+            $sql_data_array['products_image'] = tep_db_prepare_input($HTTP_POST_VARS['products_image']);
           }
 
           if ($HTTP_GET_VARS['action'] == 'insert_product') {
