@@ -11,7 +11,7 @@
 
   if (tep_db_num_rows($manufacturers_query) <= MAX_DISPLAY_MANUFACTURERS_IN_A_LIST) {
 // Display a list
-    $manufaucters_list = '';
+    $manufacturers_list = '';
     while ($manufacturers_values = tep_db_fetch_array($manufacturers_query)) {
       $manufacturers_list .= '<a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturers_values['manufacturers_id'], 'NONSSL') . '">' . substr($manufacturers_values['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '</a><br>';
     }
