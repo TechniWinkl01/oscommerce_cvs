@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.4 2001/11/19 16:52:48 hpdl Exp $
+  $Id: backup.php,v 1.5 2001/11/19 18:41:31 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,14 +13,14 @@
 define('TOP_BAR_TITLE', 'Copia de Seguridad');
 define('HEADING_TITLE', 'Copia de Seguridad');
 
-define('TABLE_HEADING_TITLE', 'Title');
-define('TABLE_HEADING_FILE_DATE', 'Date');
-define('TABLE_HEADING_FILE_SIZE', 'Size');
-define('TABLE_HEADING_ACTION', 'Action');
+define('TABLE_HEADING_TITLE', 'Título');
+define('TABLE_HEADING_FILE_DATE', 'Fecha');
+define('TABLE_HEADING_FILE_SIZE', 'Tamaño');
+define('TABLE_HEADING_ACTION', 'Acción');
 
-define('TEXT_INFO_HEADING_NEW_BACKUP', 'New Backup');
-define('TEXT_INFO_NEW_BACKUP', 'Do not interrupt the backup process which might take a couple of minutes.');
-define('TEXT_INFO_DATE', 'Date:');
-define('TEXT_INFO_SIZE', 'Size:');
-define('TEXT_INFO_COMPRESSION', 'Compression:');
+define('TEXT_INFO_HEADING_NEW_BACKUP', 'Nueva Copia De Seguridad');
+define('TEXT_INFO_NEW_BACKUP', 'No interrumpa el proceso de copia, que puede durar unos minutos.');
+define('TEXT_INFO_DATE', 'Fecha:');
+define('TEXT_INFO_SIZE', 'Tamaño:');
+define('TEXT_INFO_COMPRESSION', 'Compresión:');
 ?>
