@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.101 2004/02/14 18:16:06 mevans Exp $
+  $Id: product_info.php,v 1.102 2004/02/16 07:31:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -221,17 +221,11 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td>
+        <td><?php include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS); ?></td>
+      </tr>
 <?php
-    if ((USE_CACHE == 'true') && empty($SID)) {
-      echo tep_cache_also_purchased(3600);
-    } else {
-      include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
-    }
   }
 ?>
-        </td>
-      </tr>
     </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">

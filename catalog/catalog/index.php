@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: index.php,v 1.5 2004/01/10 20:59:53 project3000 Exp $
+  $Id: index.php,v 1.6 2004/02/16 07:31:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -107,9 +107,6 @@
         echo '              <tr>' . "\n";
       }
     }
-
-// needed for the new products module shown below
-    $new_products_category_id = $current_category_id;
 ?>
               </tr>
             </table></td>
