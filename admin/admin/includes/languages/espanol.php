@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.60 2001/12/24 00:34:31 hpdl Exp $
+  $Id: espanol.php,v 1.61 2001/12/28 14:08:43 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -265,4 +265,8 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</spa
 
 define('ERROR_BANNER_TITLE', 'Error: Banner title required');
 define('ERROR_BANNER_GROUP', 'Error: Banner group required');
+
+define('TEXT_CACHE_CATEGORIES', 'Categorias');
+define('TEXT_CACHE_MANUFACTURERS', 'Fabricantes');
+define('TEXT_CACHE_ALSO_PURCHASED', 'Tambien Han Comprado');
 ?>
