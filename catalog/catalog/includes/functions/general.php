@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.179 2002/06/03 12:34:01 dgw_ Exp $
+  $Id: general.php,v 1.180 2002/06/07 10:49:30 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -534,7 +534,7 @@
 ////
 // Parse search string into indivual objects
   function tep_parse_search_string($search_str = '', &$objects) {
-    $search_str = strtolower($search_str);
+    $search_str = trim(strtolower($search_str));
 
 // Break up $search_str on whitespace; quoted string will be reconstructed later
     $pieces = split('[[:space:]]+', $search_str);
