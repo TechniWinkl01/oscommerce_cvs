@@ -1,4 +1,4 @@
-<?
+<?php
   class customerInfo {
     var $id, $name, $country, $date_account_created, $date_account_last_modified, $date_last_logon, $number_of_logons, $number_of_reviews;
 

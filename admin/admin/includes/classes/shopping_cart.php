@@ -1,4 +1,4 @@
-<?
+<?php
   class shoppingCart {
     var $contents, $total, $weight;
 

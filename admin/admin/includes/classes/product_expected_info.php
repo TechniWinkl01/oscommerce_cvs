@@ -1,4 +1,4 @@
-<?
+<?php
   class productExpectedInfo {
     var $id, $products_name, $date_available;
 

@@ -1,4 +1,4 @@
-<?
+<?php
   class taxRateInfo {
     var $id, $country, $country_id, $zone, $zone_id, $class_title, $class_id, $priority, $rate, $description, $date_added, $last_modified;
 

@@ -1,4 +1,4 @@
-<?
+<?php
   class ordersstatusInfo {
     var $id, $language, $name;
 

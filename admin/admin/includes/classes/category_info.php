@@ -1,4 +1,4 @@
-<?
+<?php
   class categoryInfo {
     var $id, $name, $image, $sort_order, $parent_id, $childs_count, $products_count, $date_added, $last_modified;
 

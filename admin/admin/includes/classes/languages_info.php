@@ -1,4 +1,4 @@
-<?
+<?php
   class languagesInfo {
     var $id, $name, $code, $image, $directory, $sort_order;
 

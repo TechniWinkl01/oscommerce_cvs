@@ -1,4 +1,4 @@
-<?
+<?php
   class productInfo {
     var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $date_available, $date_available_caljs_year, $date_available_caljs_month, $date_available_caljs_day, $status, $tax_class, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating, $last_modified;
 

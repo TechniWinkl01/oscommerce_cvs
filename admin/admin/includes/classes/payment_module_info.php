@@ -1,4 +1,4 @@
-<?
+<?php
   class paymentModuleInfo {
     var $payment_code, $keys;
 

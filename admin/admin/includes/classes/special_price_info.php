@@ -1,4 +1,4 @@
-<?
+<?php
   class specialPriceInfo {
     var $id, $products_id, $products_price, $products_image, $products_name, $specials_price, $percentage, $date_added, $last_modified, $expires_date, $date_status_change, $status, $expires_date_caljs_day, $expires_date_caljs_month, $expires_date_caljs_year;
 

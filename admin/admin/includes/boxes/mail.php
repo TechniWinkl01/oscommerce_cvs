@@ -1,7 +1,7 @@
 <!-- mail //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'params' => 'class="menuBoxHeading"',

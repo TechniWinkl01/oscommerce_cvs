@@ -1,4 +1,4 @@
-<?
+<?php
   class manufacturerInfo {
     var $id, $name, $image, $location, $products_count;
 

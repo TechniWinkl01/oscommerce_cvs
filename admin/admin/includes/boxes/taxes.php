@@ -1,7 +1,7 @@
-<!-- customers //-->
+<!-- taxes //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'params' => 'class="menuBoxHeading"',
@@ -24,4 +24,4 @@
 ?>
             </td>
           </tr>
-<!-- customers_eof //-->
+<!-- taxes_eof //-->

@@ -1,4 +1,4 @@
-<?
+<?php
   class bannerInfo {
     var $id, $title, $url, $image, $group, $html_text, $expires_impressions, $expires_date, $date_scheduled, $date_added, $date_status_change, $status, $clicked, $shown, $expires_date_caljs_year, $expires_date_caljs_month, $expires_date_caljs_day, $scheduled_date_caljs_year, $scheduled_date_caljs_month, $scheduled_date_caljs_day;
 

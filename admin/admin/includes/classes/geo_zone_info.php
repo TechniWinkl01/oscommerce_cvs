@@ -1,4 +1,4 @@
-<?
+<?php
   class geoZoneInfo {
     var $id, $title, $priority, $description, $last_modified, $date_added;
 

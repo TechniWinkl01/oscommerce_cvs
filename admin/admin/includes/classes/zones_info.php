@@ -1,4 +1,4 @@
-<?
+<?php
   class zonesInfo {
     var $id, $country, $name, $code;
 

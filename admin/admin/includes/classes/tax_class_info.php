@@ -1,4 +1,4 @@
-<?
+<?php
   class taxClassInfo {
     var $id, $title, $description, $last_modified, $date_added;
 

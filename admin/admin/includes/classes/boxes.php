@@ -1,4 +1,4 @@
-<?
+<?php
   class tableBox {
     var $table_border = '0';
     var $table_width = '100%';

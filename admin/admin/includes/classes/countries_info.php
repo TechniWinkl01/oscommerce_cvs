@@ -1,4 +1,4 @@
-<?
+<?php
   class countriesInfo {
     var $id, $name, $iso_code_2, $iso_code_3, $address_format_id;
 

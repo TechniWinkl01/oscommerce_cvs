@@ -1,4 +1,4 @@
-<?
+<?php
   class moduleInfo {
     var $code, $title, $description, $keys, $status;
 

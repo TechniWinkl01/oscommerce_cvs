@@ -1,4 +1,4 @@
-<?
+<?php
   class reviewInfo {
     var $id, $products_id, $products_name, $products_image, $author, $date_added, $last_modified, $read, $text_size, $rating, $average_rating, $text;
 
