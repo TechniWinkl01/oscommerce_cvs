@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.51 2001/11/21 09:04:08 hpdl Exp $
+  $Id: espanol.php,v 1.52 2001/11/22 18:49:35 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -88,7 +88,7 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Herramientas');
 define('BOX_TOOLS_FILE_MANAGER', 'Administrador de Archivos');
-define('BOX_TOOLS_BACKUP', 'Copia de seguridad');
+define('BOX_TOOLS_BACKUP', 'Copia Base de Datos');
 define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 define('BOX_TOOLS_CACHE', 'Cache Control');
 define('BOX_TOOLS_MAIL', 'Send Email');

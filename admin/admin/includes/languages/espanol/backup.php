@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.8 2001/11/22 17:07:46 hpdl Exp $
+  $Id: backup.php,v 1.9 2001/11/22 18:49:36 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,8 +10,8 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Copia de Seguridad');
-define('HEADING_TITLE', 'Copia de Seguridad');
+define('TOP_BAR_TITLE', 'Copia de Seguridad de la Base de Datos');
+define('HEADING_TITLE', 'Copia de Seguridad de la Base de Datos');
 
 define('TABLE_HEADING_TITLE', 'Título');
 define('TABLE_HEADING_FILE_DATE', 'Fecha');
