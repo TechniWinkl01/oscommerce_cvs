@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.11 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: account_history_info.php,v 1.12 2002/02/02 21:59:49 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -28,5 +28,8 @@ define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
 define('TEXT_CC', 'Kreditkarte');
 define('TEXT_PAYPAL', 'PayPal.com Kredit Karte/eCheck Abrechnung');
-?>
 
+define('TABLE_HEADING_DOWNLOAD_DATE', 'herunterladen m&ouml;glich bis:');
+define('TABLE_HEADING_DOWNLOAD_COUNT', 'max. Anz. Downloads');
+define('HEADING_DOWNLOAD', 'Artikel herunterladen:');
+?>
