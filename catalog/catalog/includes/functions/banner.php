@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.3 2001/07/20 12:40:25 hpdl Exp $
+  $Id: banner.php,v 1.4 2001/07/23 09:14:40 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,7 @@
 ////
 // Check and expire a banner
   function tep_expire_banner_check($banners_id) {
-    $banners_query = tep_db_query("select b.expires_date, b.expires_impressions, b.date_added, sum(bh.banners_shown) as banners_shown from banners b, banners_history bh where b.banners_id = '" . $banners_id . "' and b.banners_id = bh.banners_id group by b.banners_id");
+    $banners_query = tep_db_query("select b.expires_date, b.expires_impressions, b.date_added, sum(bh.banners_shown) as banners_shown from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_HISTORY . " bh where b.banners_id = '" . $banners_id . "' and b.banners_id = bh.banners_id group by b.banners_id");
     if (tep_db_num_rows($banners_query)) {
       $banners = tep_db_fetch_array($banners_query);
       if ($banners['expires_date']) {
