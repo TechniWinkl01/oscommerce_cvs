@@ -1,17 +1,21 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr bgcolor="<? echo HEADER_BACKGROUND_COLOR; ?>">
+  <tr class="header">
     <td align="left" valign="middle" nowrap><? echo tep_image(DIR_WS_IMAGES . 'header_exchange_logo.gif', STORE_NAME) . tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '6', '1') . tep_image(DIR_WS_IMAGES . 'header_exchange.gif', STORE_NAME); ?></td>
-    <td align="right" nowrap><?
+    <td align="right" nowrap>
+<?
   if ($customer_id) {
     echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_MY_ACCOUNT) . '</a>';
   } else {
     echo '<a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_CREATE_ACCOUNT) . '</a>';
-  } ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_cart.gif', HEADER_TITLE_CART_CONTENTS); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_checkout.gif', HEADER_TITLE_CHECKOUT); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_contact_us.gif', HEADER_TITLE_CONTACT_US); ?></a>&nbsp;&nbsp;</td>
+  }
+?>
+&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_cart.gif', HEADER_TITLE_CART_CONTENTS); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_checkout.gif', HEADER_TITLE_CHECKOUT); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_contact_us.gif', HEADER_TITLE_CONTACT_US); ?></a>&nbsp;&nbsp;</td>
   </tr>
 </table>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_COLOR; ?>" height="19">
-    <td align="left" nowrap><?php echo FONT_STYLE_HEADER_NAVIGATION_BAR; ?><b>&nbsp;&nbsp;<a href="<? echo HTTP_SERVER; ?>" class="whitelink"><? echo HEADER_TITLE_TOP; ?></a> : <a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>" class="whitelink"><? echo HEADER_TITLE_CATALOG; ?></a><?
+  <tr class="headerNavigation" height="19">
+    <td nowrap class="headerNavigation">&nbsp;&nbsp;<a href="<? echo HTTP_SERVER; ?>" class="whitelink"><? echo HEADER_TITLE_TOP; ?></a> : <a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>" class="whitelink"><? echo HEADER_TITLE_CATALOG; ?></a>
+<?
   if ($cPath) {
     if (!ereg('_', $cPath)) $cPath_array = array($cPath);
     $cPath_new = '';
@@ -38,22 +42,21 @@
   if ($location) {
     echo $location;
   }
-  echo '</b></font></td>' . "\n"; ?>
-    <td align="right" nowrap><?php echo FONT_STYLE_HEADER_NAVIGATION_BAR; ?><b><?
+  echo '</td>' . "\n"; ?>
+    <td align="right" nowrap class="headerNavigation"><?
   if (tep_session_is_registered('customer_id')) {
     echo '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_LOGOFF . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
   } else {
     echo '<a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_LOGIN . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CREATE_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
-  } ?></b></font></td>
+  } ?></td>
   </tr>
 </table>
 <?
   if ($HTTP_GET_VARS['error_message'] != '') {
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_ERROR_COLOR; ?>" height="19">
-    <td align="center" nowrap><?php echo FONT_STYLE_HEADER_NAVIGATION_BAR; ?><b><? echo $HTTP_GET_VARS['error_message']; ?></b>
-    </td>
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+  <tr class="headerError">
+    <td nowrap class="headerError"><? echo $HTTP_GET_VARS['error_message']; ?></td>
   </tr>
 </table>
 <?
@@ -62,10 +65,9 @@
 <?
   if ($HTTP_GET_VARS['info_message'] != '') {
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_INFO_COLOR; ?>" height="19">
-    <td align="center" nowrap><?php echo FONT_STYLE_HEADER_NAVIGATION_BAR; ?><b><? echo $HTTP_GET_VARS['info_message']; ?></b>
-    </td>
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+  <tr class="headerInfo">
+    <td nowrap class="headerInfo"><? echo $HTTP_GET_VARS['info_message']; ?></td>
   </tr>
 </table>
 <?

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.103 2001/04/15 16:26:38 dwatkins Exp $
+  $Id: application_top.php,v 1.104 2001/04/15 17:43:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -112,10 +112,6 @@
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
-  define('HEADER_BACKGROUND_COLOR', '#AABBDD');
-  define('HEADER_NAVIGATION_BAR_BACKGROUND_COLOR', '#000000');
-  define('HEADER_NAVIGATION_BAR_BACKGROUND_ERROR_COLOR', '#FF0000');
-  define('HEADER_NAVIGATION_BAR_BACKGROUND_INFO_COLOR', '#00FF00');
   define('HEADER_NAVIGATION_BAR_FONT_ERROR_COLOR', '#FFFFFF');
   define('HEADER_NAVIGATION_BAR_FONT_INFO_COLOR', '#000000');
 

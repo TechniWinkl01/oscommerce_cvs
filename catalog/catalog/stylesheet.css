@@ -1,10 +1,52 @@
 A { color:#000000; text-decoration:none; }
-.whitelink { color:#FFFFFF; text-decoration:none; }
+A.whitelink { color:#FFFFFF; text-decoration:none; }
 .blacklink { color:#000000; text-decoration:none; }
 .bluelink { color:#0000FF; text-decoration:none; }
 A:hover { color:#AABBDD; text-decoration:underline; }
 A:hover.blacklink { color:#000000; text-decoration:underline; }
 A:hover.bluelink { color:#0000FF; background-color: #FFFF33; text-decoration:underline; }
+
+TR.header {
+	background-color: #aabbdd;
+}
+
+TR.headerNavigation {
+	background-color: #000000;
+}
+
+TD.headerNavigation {
+	font-family: Tahoma, Verdana, Arial, sans-serif;
+	font-size: 12px;
+	background-color: #000000;
+	color: #ffffff;
+	font-weight : bold;
+}
+
+TR.headerError {
+	background-color: #ff0000;
+}
+
+TD.headerError {
+	font-family: Tahoma, Verdana, Arial, sans-serif;
+	font-size: 12px;
+	background-color: #ff0000;
+	color: #ffffff;
+	font-weight : bold;
+	text-align : center;
+}
+
+TR.headerInfo {
+	background-color: #00ff00;
+}
+
+TD.headerInfo {
+	font-family: Tahoma, Verdana, Arial, sans-serif;
+	font-size: 12px;
+	background-color: #00ff00;
+	color: #ffffff;
+	font-weight : bold;
+	text-align : center;
+}
 
 TABLE.infoBoxHeading {
 	background-color : #aabbdd;
@@ -51,7 +93,7 @@ TD.productListing-heading {
 	font-size : 10px;
     background-color : #d2e9fb;
 	color : #000000;
-	font-weight : bolder;
+	font-weight : bold;
 	font-variant : small-caps;
 }
 
