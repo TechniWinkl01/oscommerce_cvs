@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.26 2002/08/09 15:16:00 hpdl Exp $
+  $Id: whos_online.php,v 1.27 2002/08/11 23:00:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,53 +102,71 @@
       $session_data = tep_db_fetch_array($session_data);
       $session_data = trim($session_data['value']);
     } else {
-      $session_data = @file(tep_session_save_path() . '/sess_' . $info);
-      $session_data = trim(implode('', $session_data));
-    }
-
-    if (eregi('^3\.', phpversion())) {
-      $start = strpos($session_data, 'cart[==]o');
-    } else {
-      $start = strpos($session_data, 'cart|O');
-    }
-
-    $length = strlen($session_data);
-
-    for ($i=$start; $i<$length; $i++) {
-      if ($session_data[$i] == '{') {
-        if (isset($tag)) {
-          $tag++;
-        } else {
-          $tag = 1;
-        }
-      } elseif ($session_data[$i] == '}') {
-        $tag--;
-      } elseif ( (isset($tag)) && ($tag < 1) ) {
-        break;
+      if (file_exists(tep_session_save_path() . '/sess_' . $info)) {
+        $session_data = @file(tep_session_save_path() . '/sess_' . $info);
+        $session_data = trim(implode('', $session_data));
       }
     }
 
-    $session_data = substr($session_data, $start, $i);
-
-    session_decode($session_data);
-
-    if (eregi('^3\.', phpversion())) {
-      $broken_cart = $cart;
-      $cart = new shoppingCart;
-      $cart->unserialize($broken_cart);
-    }
-
-    if (is_object($cart)) {
-      $products = $cart->get_products();
-      for ($i=0; $i<sizeof($products); $i++) {
-        $contents[] = array('text' => $products[$i]['quantity'] . ' x ' . $products[$i]['name']);
-      }
-
-      if (sizeof($products) > 0) {
-        $contents[] = array('text' => tep_draw_separator('pixel_black.gif', '100%', '1'));
-        $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total(), true, $currency));
+    if ($length = strlen($session_data)) {
+      if (eregi('^3\.', phpversion())) {
+        $start_id = strpos($session_data, 'customer_id[==]s');
+        $start_cart = strpos($session_data, 'cart[==]o');
+        $start_currency = strpos($session_data, 'currency[==]s');
+        $start_country = strpos($session_data, 'customer_country_id[==]s');
+        $start_zone = strpos($session_data, 'customer_zone_id[==]s');
       } else {
-        $contents[] = array('text' => '&nbsp;');
+        $start_id = strpos($session_data, 'customer_id|s');
+        $start_cart = strpos($session_data, 'cart|O');
+        $start_currency = strpos($session_data, 'currency|s');
+        $start_country = strpos($session_data, 'customer_country_id|s');
+        $start_zone = strpos($session_data, 'customer_zone_id|s');
+      }
+
+      for ($i=$start_cart; $i<$length; $i++) {
+        if ($session_data[$i] == '{') {
+          if (isset($tag)) {
+            $tag++;
+          } else {
+            $tag = 1;
+          }
+        } elseif ($session_data[$i] == '}') {
+          $tag--;
+        } elseif ( (isset($tag)) && ($tag < 1) ) {
+          break;
+        }
+      }
+
+      $session_data_id = substr($session_data, $start_id, (strpos($session_data, ';', $start_id) - $start_id + 1));
+      $session_data_cart = substr($session_data, $start_cart, $i);
+      $session_data_currency = substr($session_data, $start_currency, (strpos($session_data, ';', $start_currency) - $start_currency + 1));
+      $session_data_country = substr($session_data, $start_country, (strpos($session_data, ';', $start_country) - $start_country + 1));
+      $session_data_zone = substr($session_data, $start_zone, (strpos($session_data, ';', $start_zone) - $start_zone + 1));
+
+      session_decode($session_data_id);
+      session_decode($session_data_currency);
+      session_decode($session_data_country);
+      session_decode($session_data_zone);
+      session_decode($session_data_cart);
+
+      if (eregi('^3\.', phpversion())) {
+        $broken_cart = $cart;
+        $cart = new shoppingCart;
+        $cart->unserialize($broken_cart);
+      }
+
+      if (is_object($cart)) {
+        $products = $cart->get_products();
+        for ($i=0; $i<sizeof($products); $i++) {
+          $contents[] = array('text' => $products[$i]['quantity'] . ' x ' . $products[$i]['name']);
+        }
+
+        if (sizeof($products) > 0) {
+          $contents[] = array('text' => tep_draw_separator('pixel_black.gif', '100%', '1'));
+          $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total(), true, $currency));
+        } else {
+          $contents[] = array('text' => '&nbsp;');
+        }
       }
     }
   }
