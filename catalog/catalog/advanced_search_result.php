@@ -39,7 +39,7 @@
 
   if (strlen($dfrom_to_check) > 0 && !(($errorno & 10) == 10) &&
       strlen($dto_to_check) > 0 && !(($errorno & 100) == 100)) {
-    if (GregorianToJD($dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > GregorianToJD($dto_array[1], $dto_array[2], $dto_array[0])) {
+    if (mktime(0, 0, 0, $dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > mktime(0, 0, 0, $dto_array[1], $dto_array[2], $dto_array[0])) {
       $errorno += 1000;
       $error = 1;
     }
