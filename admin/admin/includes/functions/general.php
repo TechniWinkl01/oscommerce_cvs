@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.139 2002/08/17 12:56:55 hpdl Exp $
+  $Id: general.php,v 1.140 2002/08/18 18:53:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -776,11 +776,7 @@
 // the $filename parameter is an array with the following elements:
 // name, type, size, tmp_name
   function tep_copy_uploaded_file($filename, $target) {
-    if (strstr(PHP_OS, 'WIN')) {
-      if (substr($target, -1) != '\\') $target .= '\\';
-    } else {
-      if (substr($target, -1) != '/') $target .= '/';
-    }
+    if (substr($target, -1) != '/') $target .= '/';
 
     $target .= $filename['name'];
 
@@ -790,8 +786,6 @@
 // return a local directory path (without trailing slash)
   function tep_get_local_path($path) {
     if (substr($path, -1) == '/') $path = substr($path, 0, -1);
-
-    if (strstr(PHP_OS, 'WIN')) $path = str_replace('/', '\\', $path);
 
     return $path;
   }
