@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sample.php,v 1.16 2001/09/04 06:28:08 mbs Exp $
+  $Id: sample.php,v 1.17 2001/10/10 19:02:43 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,7 +20,7 @@
       $this->code = 'sample';
       $this->title = MODULE_PAYMENT_SAMPLE_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_SAMPLE_TEXT_DESCRIPTION;
-      $this->email_description = MODULE_PAYMENT_SAMPLE_TEXT_EMAIL_FOOTER;
+      $this->email_footer = MODULE_PAYMENT_SAMPLE_TEXT_EMAIL_FOOTER;
       $this->enabled = MODULE_PAYMENT_SAMPLE_STATUS;
     }
 
