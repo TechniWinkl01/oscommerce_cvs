@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_3.php,v 1.2 2002/01/05 06:40:40 hpdl Exp $
+  $Id: install_3.php,v 1.3 2002/03/02 01:25:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,7 +31,7 @@
     $script_directory = dirname($script_filename);
     $sql_file = $script_directory . '/oscommerce.sql';
 
-    set_time_limit(180);
+    set_time_limit(0);
     osc_db_install($db['DB_DATABASE'], $sql_file);
 
     if ($db_error) {

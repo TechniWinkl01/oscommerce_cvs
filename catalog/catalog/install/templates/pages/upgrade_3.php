@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.9 2002/02/23 23:24:05 thomasamoulton Exp $
+  $Id: upgrade_3.php,v 1.10 2002/03/02 01:25:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,6 +39,8 @@
 
     return $languages_array;
   }
+
+  set_time_limit(0);
 
   $languages = osc_get_languages();
 
