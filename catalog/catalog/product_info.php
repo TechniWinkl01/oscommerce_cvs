@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.81 2002/04/05 10:16:15 dgw_ Exp $
+  $Id: product_info.php,v 1.82 2002/04/26 20:28:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -59,15 +59,10 @@ function popupImageWindow(url) {
     tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and language_id = '" . $languages_id . "'");
     $product_info_values = tep_db_fetch_array($product_info);
 
-    $check_special = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $product_info_values['products_id'] . "' and status = '1'");
-    if (tep_db_num_rows($check_special)) {
-      $check_special_values = tep_db_fetch_array($check_special);
-      $new_price = $check_special_values['specials_new_products_price'];
-    }
-    if ($new_price) {
-      $products_price = '<s>' . $currencies->display_price($product_info_values['products_price'], $product_info_values['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, $product_info_values['products_tax_class_id']) . '</span>';
+    if ($new_price = tep_get_products_special_price($product_info_values['products_id'])) {
+      $products_price = '<s>' . $currencies->display_price($product_info_values['products_price'], tep_get_tax_rate($product_info_values['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info_values['products_tax_class_id'])) . '</span>';
     } else {
-      $products_price = $currencies->display_price($product_info_values['products_price'], $product_info_values['products_tax_class_id']);
+      $products_price = $currencies->display_price($product_info_values['products_price'], tep_get_tax_rate($product_info_values['products_tax_class_id']));
     }
     $products_attributes = tep_db_query("select popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
     if (tep_db_num_rows($products_attributes)) {

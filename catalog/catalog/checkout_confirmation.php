@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.113 2002/04/03 23:10:32 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.114 2002/04/26 20:28:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -141,12 +141,7 @@
 
       echo '</td>' . "\n" .
            '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
-
-      if (DISPLAY_PRICE_WITH_TAX == true) {
-        echo '            <td class="main" align="right" valign="top">' . $currencies->format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty'])) . '</td>' . "\n";
-      } else {
-        echo '            <td class="main" align="right" valign="top">' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty']) . '</td>' . "\n";
-      }
+      echo '            <td class="main" align="right" valign="top">' . $currencies->display_price($order->products[$i]['final_price'], $order->products[$i]['tax'], $order->products[$i]['qty']) . '</td>' . "\n";
       echo '          </tr>' . "\n";
   }
 ?>

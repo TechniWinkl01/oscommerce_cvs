@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.7 2002/03/10 23:33:25 harley_vb Exp $
+  $Id: products_new.php,v 1.8 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,9 +21,9 @@
   } else {
     for($i=0; $i<sizeof($products_new_array); $i++) {
       if ($products_new_array[$i]['specials_price']) {
-        $products_price = '<s>' .  $currencies->display_price($products_new_array[$i]['price'], $products_new_array[$i]['tax_class_id']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($products_new_array[$i]['specials_price'], $products_new_array[$i]['tax_class_id']) . '</span>';
+        $products_price = '<s>' .  $currencies->display_price($products_new_array[$i]['price'], tep_get_tax_rate($products_new_array[$i]['tax_class_id'])) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($products_new_array[$i]['specials_price'], tep_get_tax_rate($products_new_array[$i]['tax_class_id'])) . '</span>';
       } else {
-        $products_price = $currencies->display_price($products_new_array[$i]['price'], $products_new_array[$i]['tax_class_id']);
+        $products_price = $currencies->display_price($products_new_array[$i]['price'], tep_get_tax_rate($products_new_array[$i]['tax_class_id']));
       }
 ?>
   <tr>

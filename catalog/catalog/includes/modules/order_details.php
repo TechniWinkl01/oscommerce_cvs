@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_details.php,v 1.2 2002/04/03 00:47:53 clescuyer Exp $
+  $Id: order_details.php,v 1.3 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -91,13 +91,9 @@ for ($i=0; $i<sizeof($products); $i++) {
 
 // Product price  
   if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
-    echo '    <td align="right" valign="top" class="main"><b>' . $currencies->display_price($products[$i]['price'] * $products[$i]['quantity'], $products[$i]['tax_class_id']) . '</b>' . "\n";
+    echo '    <td align="right" valign="top" class="main"><b>' . $currencies->display_price($products[$i]['price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>' . "\n";
   } else {
-    if (DISPLAY_PRICE_WITH_TAX == true) {
-      echo '    <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['price'] * $products[$i]['quantity'] * (1 + $products[$i]['tax']/100)) . '</b>' . "\n";
-    } else {
-      echo '    <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['price'] * $products[$i]['quantity']) . '</b>' . "\n";
-    }
+    echo '    <td align="right" valign="top" class="main"><b>' . $currencies->display_price($products[$i]['price'], $products[$i]['tax'], $products[$i]['quantity']) . '</b>' . "\n";
   }    
 
 // Product options prices
@@ -106,13 +102,9 @@ for ($i=0; $i<sizeof($products); $i++) {
     while (list($option, $value) = each($products[$i]['attributes'])) {
       if ($products[$i][$option]['options_values_price'] != 0) {
         if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
-          echo '<br><small><i>' . $products[$i][$option]['price_prefix'] . $currencies->display_price($products[$i][$option]['options_values_price'] * $products[$i]['quantity'], $products[$i]['tax_class_id']) . '</i></small>';
+          echo '<br><small><i>' . $products[$i][$option]['price_prefix'] . $currencies->display_price($products[$i][$option]['options_values_price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</i></small>';
         } else {
-          if (DISPLAY_PRICE_WITH_TAX == true) {
-            echo '<br><small><i>' . $products[$i][$option]['price_prefix'] . $currencies->format($products[$i][$option]['options_values_price'] * $products[$i]['quantity'] * (1 + $products[$i]['tax']/100)) . '</i></small>';
-          } else {
-            echo '<br><small><i>' . $products[$i][$option]['price_prefix'] . $currencies->format($products[$i][$option]['options_values_price'] * $products[$i]['quantity']) . '</i></small>';
-          }
+          echo '<br><small><i>' . $products[$i][$option]['price_prefix'] . $currencies->display_price($products[$i][$option]['options_values_price'], $products[$i]['tax'], $products[$i]['quantity']) . '</i></small>';
         }
       } else {
 // Keep price aligned with corresponding option

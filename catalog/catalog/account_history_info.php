@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.77 2002/04/08 01:55:53 hpdl Exp $
+  $Id: account_history_info.php,v 1.78 2002/04/26 20:28:05 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,12 +90,7 @@
 
       echo '</td>' . "\n" .
            '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
-
-      if (DISPLAY_PRICE_WITH_TAX == true) {
-        echo '            <td class="main" align="right" valign="top">' . $currencies->format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty']), true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n";
-      } else {
-        echo '            <td class="main" align="right" valign="top">' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n";
-      }
+      echo '            <td class="main" align="right" valign="top">' . $currencies->format( tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n";
       echo '          </tr>' . "\n";
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.34 2002/04/20 14:42:18 project3000 Exp $
+  $Id: product_listing.php,v 1.35 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -119,9 +119,9 @@
           case 'PRODUCT_LIST_PRICE':
             $lc_align = 'right';
             if ($listing_values['specials_new_products_price']) {
-              $lc_text = '&nbsp;<s>' .  $currencies->display_price($listing_values['products_price'], $listing_values['products_tax_class_id']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing_values['specials_new_products_price'], $listing_values['products_tax_class_id']) . '</span>&nbsp;';
+              $lc_text = '&nbsp;<s>' .  $currencies->display_price($listing_values['products_price'], tep_get_tax_rate($listing_values['products_tax_class_id'])) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing_values['specials_new_products_price'], tep_get_tax_rate($listing_values['products_tax_class_id'])) . '</span>&nbsp;';
             } else {
-              $lc_text = '&nbsp;' . $currencies->display_price($listing_values['products_price'], $listing_values['products_tax_class_id']) . '&nbsp;';
+              $lc_text = '&nbsp;' . $currencies->display_price($listing_values['products_price'], tep_get_tax_rate($listing_values['products_tax_class_id'])) . '&nbsp;';
             }
             break;
           case 'PRODUCT_LIST_QUANTITY':

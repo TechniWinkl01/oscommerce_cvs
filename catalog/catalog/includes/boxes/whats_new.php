@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whats_new.php,v 1.28 2002/04/23 10:28:10 dgw_ Exp $
+  $Id: whats_new.php,v 1.29 2002/04/26 20:28:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,10 +25,10 @@
     new infoBoxHeading($info_box_contents, false, false, tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL'));
 
     if ($random_product['specials_new_products_price']) {
-      $whats_new_price =  '<s>' . $currencies->display_price($random_product['products_price'], $random_product['products_tax_class_id']) . '</s><br>';
-      $whats_new_price .= '<span class="productSpecialPrice">' . $currencies->display_price($random_product['specials_new_products_price'], $random_product['products_tax_class_id']) . '</span>';
+      $whats_new_price =  '<s>' . $currencies->display_price($random_product['products_price'], tep_get_tax_rate($random_product['products_tax_class_id'])) . '</s><br>';
+      $whats_new_price .= '<span class="productSpecialPrice">' . $currencies->display_price($random_product['specials_new_products_price'], tep_get_tax_rate($random_product['products_tax_class_id'])) . '</span>';
     } else {
-      $whats_new_price =  $currencies->display_price($random_product['products_price'], $random_product['products_tax_class_id']);
+      $whats_new_price =  $currencies->display_price($random_product['products_price'], tep_get_tax_rate($random_product['products_tax_class_id']));
     }
 
     $info_box_contents = array();

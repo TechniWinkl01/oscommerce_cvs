@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_loworderfee.php,v 1.1 2002/04/08 22:12:08 hpdl Exp $
+  $Id: ot_loworderfee.php,v 1.2 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
 
     function process() {
-      global $order, $currencies, $customer_country_id, $customer_zone_id;
+      global $order, $currencies;
 
       if (MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE == 'true') {
         switch (MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION) {
@@ -39,15 +39,15 @@
         }
 
         if ( ($pass == true) && ( ($order->info['total'] - $order->info['shipping_cost']) <= MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
-          $tax = tep_get_tax_rate($customer_country_id, $customer_zone_id, MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS);
+          $tax = tep_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS);
 
-          $order->info['tax'] += $tax/100 * MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
-          $order->info['tax_groups']["{$tax}"] += $tax/100 * MODULE_ORDER_TOTAL_LOWORDERFEE_FEE;
-          $order->info['total'] += MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + ($tax/100 * MODULE_ORDER_TOTAL_LOWORDERFEE_FEE);
+          $order->info['tax'] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+          $order->info['tax_groups']["{$tax}"] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+          $order->info['total'] += tep_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
 
           $this->output[] = array('title' => $this->title . ':',
-                                  'text' => $currencies->format(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + ($tax/100 * MODULE_ORDER_TOTAL_LOWORDERFEE_FEE), true, $order->info['currency'], $order->info['currency_value']),
-                                  'value' => MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + ($tax/100 * MODULE_ORDER_TOTAL_LOWORDERFEE_FEE));
+                                  'text' => $currencies->format(tep_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $order->info['currency'], $order->info['currency_value']),
+                                  'value' => tep_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax));
         }
       }
     }

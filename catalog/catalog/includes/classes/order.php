@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.8 2002/04/18 13:43:27 hpdl Exp $
+  $Id: order.php,v 1.9 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -148,7 +148,7 @@
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
                                         'model' => $products[$i]['model'],
-                                        'tax' => tep_get_tax_rate($shipping_address['entry_country_id'], $shipping_address['entry_zone_id'], $products[$i]['tax_class_id']),
+                                        'tax' => tep_get_tax_rate($products[$i]['tax_class_id'], $shipping_address['entry_country_id'], $shipping_address['entry_zone_id']),
                                         'price' => $products[$i]['price'],
                                         'final_price' => $products[$i]['price'] + $cart->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
@@ -172,14 +172,9 @@
           }
         }
 
-        if (DISPLAY_PRICE_WITH_TAX == true) {
-          $this->info['subtotal'] += $this->products[$index]['final_price'] * $this->products[$index]['qty'] * (1 + $this->products[$index]['tax']/100);
-        } else {
-          $this->info['subtotal'] += $this->products[$index]['final_price'] * $this->products[$index]['qty'];
-        }
-
-        $this->info['tax'] += $this->products[$index]['tax']/100 * ($this->products[$index]['final_price'] * $this->products[$index]['qty']);
-        $this->info['tax_groups']["{$this->products[$index]['tax']}"] += $this->products[$index]['tax']/100 * ($this->products[$index]['final_price'] * $this->products[$index]['qty']);
+        $this->info['subtotal'] += tep_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
+        $this->info['tax'] += tep_calculate_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
+        $this->info['tax_groups']["{$this->products[$index]['tax']}"] += tep_calculate_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
 
         $index++;
       }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.39 2002/04/04 20:27:10 dgw_ Exp $
+  $Id: specials.php,v 1.40 2002/04/26 20:28:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,7 +58,7 @@
     $row = 0;
     while ($new_values = tep_db_fetch_array($new)) {
       $row++;
-      echo '            <td align="center" class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_values['products_image'], $new_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $new_values['products_name'] . '</a><br><s>' . $currencies->display_price($new_values['products_price'], $new_values['products_tax_class_id']) . '</s><br><span class="productSpecialPrice">' . $currencies->display_price($new_values['specials_new_products_price'], $new_values['products_tax_class_id']) . '</span></td>' . "\n";
+      echo '            <td align="center" class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $new_values['products_image'], $new_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $new_values['products_name'] . '</a><br><s>' . $currencies->display_price($new_values['products_price'], tep_get_tax_rate($new_values['products_tax_class_id'])) . '</s><br><span class="productSpecialPrice">' . $currencies->display_price($new_values['specials_new_products_price'], tep_get_tax_rate($new_values['products_tax_class_id'])) . '</span></td>' . "\n";
       if ((($row / 3) == floor($row / 3))) {
 ?>
           </tr>

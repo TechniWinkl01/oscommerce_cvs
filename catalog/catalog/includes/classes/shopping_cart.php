@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.25 2002/03/10 23:25:09 harley_vb Exp $
+  $Id: shopping_cart.php,v 1.26 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -189,7 +189,6 @@
     }
 
     function calculate() {
-      global $customer_country_id, $customer_zone_id;
       $this->total = 0;
       $this->weight = 0;
       if (!is_array($this->contents)) return 0;
@@ -202,23 +201,14 @@
         $product_query = tep_db_query("select products_id, products_price, products_tax_class_id, products_weight from " . TABLE_PRODUCTS . " where products_id='" . tep_get_prid($products_id) . "'");
         if ($product = tep_db_fetch_array($product_query)) {
           $prid = $product['products_id'];
-          if (!tep_session_is_registered('customer_id')) {
-            if (DISPLAY_PRICE_WITH_TAX == 'true') {
-              $country_id = STORE_COUNTRY;
-              $zone_id = STORE_ZONE;
-            }
-          } elseif (DISPLAY_PRICE_WITH_TAX == 'true') {
-              $country_id = $customer_country_id;
-              $zone_id = $customer_zone_id;
-          } 
-          $products_tax = tep_get_tax_rate($country_id, $zone_id, $product['products_tax_class_id']);
-          $products_price = $product['products_price'] * (1 + $products_tax/100);
+          $products_tax = tep_get_tax_rate($product['products_tax_class_id']);
+          $products_price = tep_add_tax($product['products_price'], $products_tax);
           $products_weight = $product['products_weight'];
 
           $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (tep_db_num_rows ($specials_query)) {
             $specials = tep_db_fetch_array($specials_query);
-            $products_price = $specials['specials_new_products_price'] * (1 + $products_tax/100);
+            $products_price = tep_add_tax($specials['specials_new_products_price'], $products_tax);
           }
 
           $this->total += ($qty * $products_price);
@@ -232,9 +222,9 @@
             $attribute_price_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . $prid . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
             $attribute_price = tep_db_fetch_array($attribute_price_query);
             if ($attribute_price['price_prefix'] == '+') {
-              $this->total += $qty * $attribute_price['options_values_price'] * (1 + $products_tax/100);
+              $this->total += $qty * tep_add_tax($attribute_price['options_values_price'], $products_tax);
             } else {
-              $this->total -= $qty * $attribute_price['options_values_price'] * (1 + $products_tax/100);
+              $this->total -= $qty * tep_add_tax($attribute_price['options_values_price'], $products_tax);
             }
           }
         }

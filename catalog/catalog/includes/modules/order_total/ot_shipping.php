@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.3 2002/04/08 21:45:51 hpdl Exp $
+  $Id: ot_shipping.php,v 1.4 2002/04/26 20:28:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
 
     function process() {
-      global $order, $currencies, $customer_country_id, $customer_zone_id;
+      global $order, $currencies;
 
       if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -46,12 +46,12 @@
       }
 
       if (tep_not_null($order->info['shipping_method'])) {
-        $shipping_tax = tep_get_tax_rate($customer_country_id, $customer_zone_id, MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS);
+        $shipping_tax = tep_get_tax_rate(MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS);
 
-        $order->info['tax'] += $shipping_tax/100 * $order->info['shipping_cost'];
-        $order->info['tax_groups']["{$shipping_tax}"] += $shipping_tax/100 * $order->info['shipping_cost'];
-        $order->info['total'] += $shipping_tax/100 * $order->info['shipping_cost'];
-        $order->info['shipping_cost'] += $shipping_tax/100 * $order->info['shipping_cost'];
+        $order->info['tax'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+        $order->info['tax_groups']["{$shipping_tax}"] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+        $order->info['total'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+        $order->info['shipping_cost'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
 
         $this->output[] = array('title' => $order->info['shipping_method'] . ':',
                                 'text' => $currencies->format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']),
