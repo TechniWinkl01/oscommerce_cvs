@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.60 2001/12/23 16:36:43 dgw_ Exp $
+  $Id: orders.php,v 1.61 2002/01/13 16:34:16 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,6 +21,7 @@
     } elseif ($HTTP_GET_VARS['action'] == 'delete_order') {
       tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
       tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
+      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, '')); tep_exit();
     }
   }
