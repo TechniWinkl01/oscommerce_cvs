@@ -117,6 +117,7 @@
           </tr>
 <?
   $address_book = tep_db_query("select address_book_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id > 1 order by address_book_id");
+  $row = 1;
   if (!tep_db_num_rows($address_book)) {
 ?>
           <tr>
@@ -128,7 +129,6 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
-    $row = 0;
     $boln = '<td class="smallText">&nbsp;';
     $eoln = '&nbsp;</td>' . "\n";
     while ($address_book_values = tep_db_fetch_array($address_book)) {
