@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.164 2004/07/22 23:12:35 hpdl Exp $
+  $Id: general.php,v 1.165 2004/08/15 18:10:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1141,24 +1141,28 @@
     }
   }
 
-  function tep_banner_image_extension() {
-    if (function_exists('imagetypes')) {
-      if (imagetypes() & IMG_PNG) {
-        return 'png';
-      } elseif (imagetypes() & IMG_JPG) {
-        return 'jpg';
-      } elseif (imagetypes() & IMG_GIF) {
-        return 'gif';
+  function tep_dynamic_image_extension() {
+    static $extension;
+
+    if (!isset($extension)) {
+      if (function_exists('imagetypes')) {
+        if (imagetypes() & IMG_PNG) {
+          $extension = 'png';
+        } elseif (imagetypes() & IMG_JPG) {
+          $extension = 'jpeg';
+        } elseif (imagetypes() & IMG_GIF) {
+          $extension = 'gif';
+        }
+      } elseif (function_exists('imagepng')) {
+        $extension = 'png';
+      } elseif (function_exists('imagejpeg')) {
+        $extension = 'jpeg';
+      } elseif (function_exists('imagegif')) {
+        $extension = 'gif';
       }
-    } elseif (function_exists('imagecreatefrompng') && function_exists('imagepng')) {
-      return 'png';
-    } elseif (function_exists('imagecreatefromjpeg') && function_exists('imagejpeg')) {
-      return 'jpg';
-    } elseif (function_exists('imagecreatefromgif') && function_exists('imagegif')) {
-      return 'gif';
     }
 
-    return false;
+    return $extension;
   }
 
 ////
@@ -1377,5 +1381,58 @@
     } else {
       return 'False';
     }
+  }
+
+  function tep_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
+    if (!is_array($exclude)) $exclude = array();
+
+    $get_string = '';
+    if (sizeof($array) > 0) {
+      while (list($key, $value) = each($array)) {
+        if ( (!in_array($key, $exclude)) && ($key != 'x') && ($key != 'y') ) {
+          $get_string .= $key . $equals . $value . $separator;
+        }
+      }
+      $remove_chars = strlen($separator);
+      $get_string = substr($get_string, 0, -$remove_chars);
+    }
+
+    return $get_string;
+  }
+
+  function tep_get_serialized_variable(&$serialization_data, $variable_name, $variable_type = 'string') {
+    $serialized_variable = '';
+
+    switch ($variable_type) {
+      case 'string':
+        $start_position = strpos($serialization_data, $variable_name . '|s');
+
+        $serialized_variable = substr($serialization_data, strpos($serialization_data, '|', $start_position) + 1, strpos($serialization_data, '|', $start_position) - 1);
+        break;
+      case 'array':
+      case 'object':
+        if ($variable_type == 'array') {
+          $start_position = strpos($serialization_data, $variable_name . '|a');
+        } else {
+          $start_position = strpos($serialization_data, $variable_name . '|O');
+        }
+
+        $tag = 0;
+
+        for ($i=$start_position, $n=sizeof($serialization_data); $i<$n; $i++) {
+          if ($serialization_data[$i] == '{') {
+            $tag++;
+          } elseif ($serialization_data[$i] == '}') {
+            $tag--;
+          } elseif ($tag < 1) {
+            break;
+          }
+        }
+
+        $serialized_variable = substr($serialization_data, strpos($serialization_data, '|', $start_position) + 1, $i - strpos($serialization_data, '|', $start_position) - 1);
+        break;
+    }
+
+    return $serialized_variable;
   }
 ?>
