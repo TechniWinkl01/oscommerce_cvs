@@ -222,25 +222,25 @@
         $listing_sql .= ' order by ';
         switch ($column_list[$sort_col-1]) {
           case 'PRODUCT_LIST_MODEL':
-            $listing_sql .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            $listing_sql .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
             break;
           case 'PRODUCT_LIST_NAME':
             $listing_sql .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
             break;
           case 'PRODUCT_LIST_MANUFACTURER':
-            $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
             break;
           case 'PRODUCT_LIST_QUANTITY':
-            $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
             break;
           case 'PRODUCT_LIST_IMAGE':
             $listing_sql .= "pd.products_name";
             break;
           case 'PRODUCT_LIST_WEIGHT':
-            $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
             break;
           case 'PRODUCT_LIST_PRICE':
-            $listing_sql .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            $listing_sql .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
             break;
         }        
       }
