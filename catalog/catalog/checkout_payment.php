@@ -125,6 +125,20 @@ function check_form() {
 ?>
             </table></td>
           </tr>
+      <tr>
+        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td nowrap colspan="2"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_DELIVERY_ADDRESS; ?></b>&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection) . '">' . CHANGE_DELIVERY_ADDRESS; ?></a>&nbsp;</font></td>
+          </tr>
+        </table></td>
+      </tr>
 <?
    if (SHIPPING_MODULES != '') {
 ?>

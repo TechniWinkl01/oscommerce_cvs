@@ -12,8 +12,10 @@ define('HEADING_TITLE', 'Zahlungsweise :');
 define('TABLE_HEADING_COMMENTS', 'Fügen Sie Kommentar Über Ihre Ordnung Hinzu');
 define('TABLE_HEADING_METHODS', 'Zahlungsmethoden');
 define('TABLE_HEADING_SELECTION', 'Zahlungsweise');
+define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferanschrift');
 define('TABLE_HEADING_SHIPPING_INFO', 'VerschiffenFördermaschine');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Wählen Sie Bevorzugte Kosten Aus');
+define('CHANGE_DELIVERY_ADDRESS', 'Ändern Sie Adresse oder Verschiffenoptionen');
 
 define('IMAGE_NEXT', 'Weiter');
 ?>

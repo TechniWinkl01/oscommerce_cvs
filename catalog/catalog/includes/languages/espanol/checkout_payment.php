@@ -12,8 +12,10 @@ define('HEADING_TITLE', 'Forma de Pago');
 define('TABLE_HEADING_COMMENTS', 'Agregue Los Comentarios Sobre Su Orden');
 define('TABLE_HEADING_METHODS', 'Formas');
 define('TABLE_HEADING_SELECTION', 'Seleccion');
+define('TABLE_HEADING_DELIVERY_ADDRESS', 'Direccion de Envio');
 define('TABLE_HEADING_SHIPPING_INFO', 'Portador Del Envío');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Seleccione Preferida La Tarifa');
+define('CHANGE_DELIVERY_ADDRESS', 'Cambie las opciones del direccionamiento o del envío');
 
 define('IMAGE_NEXT', 'Siguiente');
 ?>
