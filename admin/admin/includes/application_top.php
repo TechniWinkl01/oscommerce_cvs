@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.178 2004/10/28 19:14:26 hpdl Exp $
+  $Id: application_top.php,v 1.179 2004/11/02 00:59:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,10 +48,7 @@
 
 // initialize the cache class
   require('../includes/classes/cache.php');
-  $osC_Cache = new osC_Cache;
-
-// include the database functions
-  require('../includes/functions/database.php');
+  $osC_Cache = new osC_Cache();
 
 // include the database class
   require('../includes/classes/database.php');

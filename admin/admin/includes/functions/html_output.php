@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.33 2004/08/15 18:12:17 hpdl Exp $
+  $Id: html_output.php,v 1.34 2004/11/02 00:59:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -129,26 +129,42 @@
 // javascript to dynamically update the states/provinces list when the country is changed
 // TABLES: zones
   function tep_js_zone_list($country, $form, $field) {
-    $countries_query = tep_db_query("select distinct zone_country_id from " . TABLE_ZONES . " order by zone_country_id");
+    global $osC_Database;
+
     $num_country = 1;
     $output_string = '';
-    while ($countries = tep_db_fetch_array($countries_query)) {
-      if ($num_country == 1) {
-        $output_string .= '  if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
-      } else {
-        $output_string .= '  } else if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
-      }
 
-      $states_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $countries['zone_country_id'] . "' order by zone_name");
+    $Qcountries = $osC_Database->query('select distinct zone_country_id from :table_zones order by zone_country_id');
+    $Qcountries->bindTable(':table_zones', TABLE_ZONES);
+    $Qcountries->execute();
+
+    while ($Qcountries->next()) {
+      if ($num_country == 1) {
+        $output_string .= '  if (' . $country . ' == "' . $Qcountries->valueInt('zone_country_id') . '") {' . "\n";
+      } else {
+        $output_string .= '  } else if (' . $country . ' == "' . $Qcountries->valueInt('zone_country_id') . '") {' . "\n";
+      }
 
       $num_state = 1;
-      while ($states = tep_db_fetch_array($states_query)) {
-        if ($num_state == '1') $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
-        $output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $states['zone_name'] . '", "' . $states['zone_id'] . '");' . "\n";
+
+      $Qzones = $osC_Database->query('select zone_name, zone_id from :table_zones where zone_country_id = :zone_country_id order by zone_name');
+      $Qzones->bindTable(':table_zones', TABLE_ZONES);
+      $Qzones->bindInt(':zone_country_id', $Qcountries->valueInt('zone_country_id'));
+      $Qzones->execute();
+
+      while ($Qzones->next()) {
+        if ($num_state == '1') {
+          $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
+        }
+
+        $output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $Qzones->value('zone_name') . '", "' . $Qzones->valueInt('zone_id') . '");' . "\n";
+
         $num_state++;
       }
+
       $num_country++;
     }
+
     $output_string .= '  } else {' . "\n" .
                       '    ' . $form . '.' . $field . '.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
                       '  }' . "\n";
