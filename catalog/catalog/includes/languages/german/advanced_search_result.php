@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.8 2001/06/02 19:28:02 dwatkins Exp $
+  $Id: advanced_search_result.php,v 1.9 2001/06/06 09:25:33 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,4 +27,3 @@ define('TEXT_NO_PRODUCTS2', 'Es wurden keine Artikel gefunden, die den Suchkrite
 define('TEXT_BUY', 'Kaufen 1 \'');
 define('TEXT_NOW', '\' jetzt');
 ?>
-

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.7 2001/06/02 19:27:59 dwatkins Exp $
+  $Id: advanced_search_result.php,v 1.8 2001/06/06 09:25:24 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
