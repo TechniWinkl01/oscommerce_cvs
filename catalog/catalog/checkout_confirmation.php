@@ -2,7 +2,7 @@
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <? 
-   $cc_val = '1';
+   $cc_val = '1';  // Assume that the payment is Ok (for Non-cc payment types)
    if ($HTTP_POST_VARS['payment'] == 'cc') {
    $include_file = DIR_FUNCTIONS . 'ccval.php'; include(DIR_INCLUDES . 'include_once.php');
    $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
@@ -74,8 +74,15 @@
             <td colspan="3"><?=tep_black_line();?></td>
           </tr>
 <?
-  $check_cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price, products.products_weight from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
+  $check_cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price, products.products_weight, products.products_tax_class_id from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
+  if ($HTTP_POST_VARS['sendto'] == '0') {
+    $address = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_postcode as postcode, customers_city as city, customers_zone_id as zone_id, customers_country_id as country_id, customers_state as state from customers where customers_id = '" . $customer_id . "'");
+  } else {
+    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+  }
+  $address_values = tep_db_fetch_array($address);
   $total_cost = 0;
+  $total_tax = 0;
   $total_weight = 0;
   while ($check_cart_values = tep_db_fetch_array($check_cart)) {
     $price = $check_cart_values['products_price'];
@@ -89,19 +96,51 @@
     $products_name = tep_products_name($check_cart_values['manufacturers_location'], $check_cart_values['manufacturers_name'], $check_cart_values['products_name']);
     echo '          <tr>' . "\n";
     echo '            <td align="center" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $check_cart_values['customers_basket_quantity'] . '&nbsp;</font></td>' . "\n";
-    echo '            <td nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $products_name . '&nbsp;</font></td>' . "\n";
-    echo '            <td align="right" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($check_cart_values['customers_basket_quantity'] * $price) . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $products_name . '&nbsp;</b>' . "\n";
+//------insert customer choosen option --------
+                $attributes_exist = '';
+                $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $customer_id . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
+        if (tep_db_num_rows($attributes)) {
+                $attributes_exist = '1';
+                while ($attributes_values = tep_db_fetch_array($attributes)) {
+                echo "\n" . '<br>&nbsp;-&nbsp;' . $attributes_values['products_options_name'] . '&nbsp:&nbsp' . $attributes_values['products_options_values_name'];
+                }
+                }
+//------insert customer choosen option eof-----
+    echo '</font></td>' . "\n";
+    echo '            <td align="right" nowrap valign="top"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($check_cart_values['customers_basket_quantity'] * $price) . '&nbsp;';
+//------insert customer choosen option --------
+                if ($attributes_exist == '1') {
+        $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $customer_id . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
+                $final_price=$price;
+                while ($attributes_values = tep_db_fetch_array($attributes)) {
+                          if ($attributes_values['options_values_price'] != '0') {
+                                if ($attributes_values['price_prefix'] == '+') {
+                                $final_price=$final_price+$attributes_values['options_values_price'];
+                                } else {
+                                $final_price=$final_price-$attributes_values['options_values_price'];
+                                }
+                          echo "\n" . '<br>' . $attributes_values['price_prefix'] . tep_currency_format($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']) . '&nbsp;';
+                          } else {
+                          echo "\n" . '<br>&nbsp;';
+                          }
+                }
+                }
+//------insert customer choosen option eof-----
+    echo '</font></td>' . "\n";
     echo '          </tr>' . "\n";
-    $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $price);
+//------insert customer choosen option --------
+                if ($attributes_exist=='1') {
+                } else {
+                $final_price = $price;
+                }
+//------insert customer choosen option eof-----
+    $cost = $check_cart_values['customers_basket_quantity'] * $final_price;
+    $total_cost = $total_cost + $cost;
+    $total_tax = $total_tax + ($cost * tep_get_tax_rate($address_values['zone_id'], $check_cart_values['products_tax_class_id'])/100);
   }
 
-  if ($HTTP_POST_VARS['sendto'] == '0') {
-    $address = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_postcode as postcode, customers_city as city, customers_state as state, customers_country_id as country from customers where customers_id = '" . $customer_id . "'");
-  } else {
-    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_state as state, entry_country_id as country from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
-  }
-  $address_values = tep_db_fetch_array($address);
-  $country = tep_get_countries($address_values['country']);
+  $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0.0;
   if (!SHIPPING_FREE) {
     if (SHIPPING_MODEL == SHIPPING_UPS) {
@@ -133,7 +172,7 @@
               </tr>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_TAX;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_cost * TAX_VALUE/100);?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_tax);?>&nbsp;</font></td>
               </tr>
 <?
   if (!SHIPPING_FREE) {
@@ -147,7 +186,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=SUB_TITLE_TOTAL;?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=tep_currency_format(($total_cost * TAX_VALUE/100) + $total_cost + $shipping_cost);?></b>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=tep_currency_format($total_cost + $total_tax + $shipping_cost);?></b>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>
@@ -179,11 +218,11 @@
           </tr>
           <tr>
 <?
-  if ($address_values['state'] != '') {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['state'] . ', ' . $country['countries_name'] . '&nbsp;</font></td>' . "\n";
-  } else {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $country['countries_name'] . '&nbsp;</font></td>' . "\n";
+  $state_str = '';
+  if ($address_values['zone_id'] != 0 || $address_values['state'] != '') {
+    $state_str = tep_get_zone_name($address_values['country_id'], $address_values['zone_id'], $address_values['state']) . ', ';
   }
+  echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $state_str . $country['countries_name'] . '&nbsp;</font></td>' . "\n";
 ?>
           </tr>
         </table></td>

@@ -74,7 +74,11 @@
     }
     $update_query = $update_query . "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
     if (ACCOUNT_STATE) {
-       $update_query = $update_query . "entry_state = '" . $HTTP_POST_VARS['state']. "', ";
+       if ($HTTP_POST_VARS['zone_id'] > 0) {
+         $update_query = $update_query . "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
+       } else {
+         $update_query = $update_query . "entry_zone_id = '0', entry_state = '" . $HTTP_POST_VARS['state']. "', ";
+       }
     }
     $update_query = $update_query . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id']. "'";
     tep_db_query($update_query);
@@ -84,6 +88,7 @@
     $gender = "";
     $suburb = "";
     $state = "";
+    $zone_id = 0;
     if (ACCOUNT_GENDER) {
        $gender = $HTTP_POST_VARS['gender'];
     }
@@ -92,8 +97,9 @@
     }
     if (ACCOUNT_STATE) {
        $state = $HTTP_POST_VARS['state'];
+       $zone_id = $HTTP_POST_VARS['zone_id'];
     }
-    $update_query = "insert into address_book values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "')";
+    $update_query = "insert into address_book values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
     tep_db_query($update_query);
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into address_book_to_customers values ('', '" . $insert_id . "', '" . $customer_id . "')");
@@ -113,6 +119,8 @@
   } else {
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
       $entry_query = 'select ';
+      $state = '';
+      $zone_id = 0;
       if (ACCOUNT_GENDER) {
          $entry_query = $entry_query . "entry_gender, ";
       }
@@ -122,7 +130,7 @@
       }
       $entry_query = $entry_query . "entry_postcode, entry_city, ";
       if (ACCOUNT_STATE) {
-         $entry_query = $entry_query . "entry_state, ";
+         $entry_query = $entry_query . "entry_state, entry_zone_id, ";
       }
       $entry_query = $entry_query . "entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id and address_book.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
       $entry = tep_db_query($entry_query);
@@ -140,6 +148,7 @@
       $city = $entry_values['entry_city'];
       if (ACCOUNT_STATE) {
          $state = $entry_values['entry_state'];
+         $zone_id = $entry_values['entry_zone_id'];
       }
       $country = $entry_values['entry_country_id'];
     }
@@ -158,6 +167,23 @@
 <title><?=TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
+function update_zone(theForm) {
+
+  var NumState = theForm.state.options.length;
+
+  while(NumState > 0) {
+    NumState--;
+    theForm.state.options[NumState] = null;
+  }
+
+  var SelectedCountry = "";
+
+  SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
+
+<? tep_js_zone_list("SelectedCountry", "theForm"); ?>
+
+}
+
 function check_form() {
   var error = 0;
   var error_message = "<?=JS_ERROR;?>";
@@ -167,6 +193,8 @@ function check_form() {
   var street_address = document.add_entry.street_address.value;
   var postcode = document.add_entry.postcode.value;
   var city = document.add_entry.city.value;
+  var state = document.account_edit.state.options[document.account_edit.state.selectedIndex].value;
+  var country = document.account_edit.country.options[document.account_edit.country.selectedIndex].value;
 
 <?
  if (ACCOUNT_GENDER) {
@@ -179,28 +207,38 @@ function check_form() {
 <?
  }
 ?>
-  if (firstname = "" || firstname.length < <?=ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH;?>) {
+  if (firstname == "" || firstname.length < <?=ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_FIRST_NAME;?>";
     error = 1;
   }
 
-  if (lastname = "" || lastname.length < <?=ADDRESS_BOOK_LAST_NAME_MIN_LENGTH;?>) {
+  if (lastname == "" || lastname.length < <?=ADDRESS_BOOK_LAST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_LAST_NAME;?>";
     error = 1;
   }
 
-  if (street_address = "" || street_address.length < <?=ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH;?>) {
+  if (street_address == "" || street_address.length < <?=ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_ADDRESS;?>";
     error = 1;
   }
 
-  if (postcode = "" || postcode.length < <?=ADDRESS_BOOK_POST_CODE_MIN_LENGTH;?>) {
+  if (postcode == "" || postcode.length < <?=ADDRESS_BOOK_POST_CODE_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_POST_CODE;?>";
     error = 1;
   }
 
-  if (city = "" || city.length < <?=ADDRESS_BOOK_CITY_MIN_LENGTH;?>) {
+  if (city == "" || city.length < <?=ADDRESS_BOOK_CITY_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_CITY;?>";
+    error = 1;
+  }
+
+  if ((country == "US" || country == "CA" || country == "") && (state == "" || state.length < <?=ENTRY_STATE_MIN_LENGTH;?>)) {
+    error_message = error_message + "<?=JS_STATE;?>";
+    error = 1;
+  }
+
+  if (country == "" || country.length < <?=ENTRY_COUNTRY_MIN_LENGTH;?>) {
+    error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
 
@@ -388,6 +426,23 @@ function check_form() {
       echo '<input type="text" name="city" value="' . @$city . '" maxlength="32">&nbsp;' . ENTRY_CITY_TEXT;
     } ?></font></td>
           </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+    if (@$process == 1) {
+      if (@$country_error == '1') {
+        tep_get_country_list("country", STORE_COUNTRY, "onChange=\"update_zone(this.form);\"");
+        echo '&nbsp;' . ENTRY_COUNTRY_ERROR;
+      } else {
+        $entry_country = tep_get_countries($HTTP_POST_VARS['country']);
+        echo $entry_country['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
+      }
+    } else {
+      if ($country == "") $country = STORE_COUNTRY;
+      tep_get_country_list("country", $country, "onChange=\"update_zone(this.form);\"");
+      echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
+    } ?></font></td>
+          </tr>
 <?
    if (ACCOUNT_STATE) {
 ?>
@@ -395,44 +450,15 @@ function check_form() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
-      echo $HTTP_POST_VARS['state'] . '<input type="hidden" name="state" value="' . $HTTP_POST_VARS['state'] . '">';
+      echo $HTTP_POST_VARS['zone_id'] . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
     } else {
-      echo '<input type="text" name="state" value="' . @$state . '" maxlength="32">&nbsp;' . ENTRY_STATE_TEXT;
+      tep_get_zone_list("zone_id", $country, $zone_id);
+      echo '&nbsp;' . ENTRY_STATE_TEXT;
     } ?></font></td>
           </tr>
 <?
    }
 ?>
-          <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
-    if (@$process == 1) {
-      if (@$country_error == '1') {
-        echo '<select name="country"><option value="0">' . PLEASE_SELECT . "Store " . STORE_COUNTRY . '</option>';
-        $countries = tep_get_countries();
-        for ($i=0; $i < sizeof($countries); $i++) {
-          echo '<option value="' . $countries[$i]['countries_id'] . '"';
-          if ($countries[$i]['countries_id'] == STORE_COUNTRY) echo ' SELECTED';
-          echo '>' . $countries[$i]['countries_name'] . '</option>';
-        }
-        echo '</select>&nbsp;' . ENTRY_COUNTRY_ERROR;
-      } else {
-        $entry_country = tep_get_countries($HTTP_POST_VARS['country']);
-        echo $entry_country['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
-      }
-    } else {
-      if ($country == "") $def_country = STORE_COUNTRY;
-      else $def_country = $country;
-      echo '<select name="country"><option value="0">' . PLEASE_SELECT . "Country " . $country . '</option>';
-      $countries = tep_get_countries();
-      for ($i=0; $i < sizeof($countries); $i++) {
-        echo '<option value="' . $countries[$i]['countries_id'] . '"';
-        if ($countries[$i]['countries_id'] == $def_country) echo ' SELECTED';
-        echo '>' . $countries[$i]['countries_name'] . '</option>';
-      }
-      echo '</select>&nbsp;' . ENTRY_COUNTRY_TEXT;
-    } ?></font></td>
-          </tr>
         </table></td>
       </tr>
       <tr>

@@ -45,7 +45,7 @@
   }
   $account_query = $account_query . 'customers_postcode, customers_city, ';
   if (ACCOUNT_STATE) {
-    $account_query = $account_query . 'customers_state, ';
+    $account_query = $account_query . 'customers_zone_id, customers_state, ';
   }
   $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $customer_id . "'";
   $account = tep_db_query($account_query);
@@ -154,14 +154,14 @@
 ?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?=$account_values['customers_state'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?=tep_get_zone_name($account_values['customers_country_id'], $account_values['customers_zone_id'], $account_values['customers_state']);?>&nbsp;</font></td>
           </tr>
 <?
    }
 ?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?=$customers_country['countries_name'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?=tep_get_country_name($account_values['customers_country_id']);?>&nbsp;</font></td>
           </tr>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>

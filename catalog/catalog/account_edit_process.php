@@ -250,7 +250,7 @@
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
-    echo $HTTP_POST_VARS['state'] . '<input type="hidden" name="state" value="' . $HTTP_POST_VARS['state'] . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
+    echo $HTTP_POST_VARS['zone_id'] . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
           </tr>
 <?
   }
@@ -357,7 +357,11 @@
     }
     $update_query = $update_query . "customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', ";
     if (ACCOUNT_STATE) {
-       $update_query = $update_query . "customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
+       if ($HTTP_POST_VARS['zone_id'] > 0) {
+           $update_query = $update_query . "customers_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', customers_state = '', ";
+       } else {
+           $update_query = $update_query . "customers_zone_id = '0', customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
+       }
     }
     // Encrypted password mods
     // Encrypt the plaintext password

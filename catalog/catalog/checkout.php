@@ -1,4 +1,10 @@
 <? include('includes/application_top.php'); ?>
+<?
+  if (!tep_session_is_registered('customer_id')) {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=checkout', 'NONSSL'));
+    tep_exit();
+  }
+?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
@@ -60,7 +66,7 @@
           </tr>
 <?
     if (tep_session_is_registered('customer_id')) {
-      $check_cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
+      $check_cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price, products.products_tax_class_id from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
       $total_cost = 0;
       while ($check_cart_values = tep_db_fetch_array($check_cart)) {
         $price = $check_cart_values['products_price'];
@@ -88,13 +94,13 @@
 //------insert customer choosen option --------
 		if ($attributes_exist == '1') {
         $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $customer_id . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
-		$final_price=$check_cart_values['customers_basket_quantity'] * $price;
+		$final_price=$price;
 		while ($attributes_values = tep_db_fetch_array($attributes)) {
 			  if ($attributes_values['options_values_price'] != '0') {
-			  	if ($attributes_values['price_prefix'] =='+') {
-			  	$final_price=$final_price+($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+			  	if ($attributes_values['price_prefix'] == '+') {
+			  	$final_price=$final_price+$attributes_values['options_values_price'];
 				} else {
-				$final_price=$final_price-($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+				$final_price=$final_price-$attributes_values['options_values_price'];
 				}
 			  echo "\n" . '<br>' . $attributes_values['price_prefix'] . tep_currency_format($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']) . '&nbsp;';
 			  } else {
@@ -107,13 +113,14 @@
         echo '          </tr>' . "\n";
 //------insert customer choosen option --------
 		if ($attributes_exist=='1') {
-		echo '<tr><td colspan="2" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
-		echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price) . '&nbsp;</b></font></td>';
+		// echo '<tr><td colspan="2" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
+		// echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price) . '&nbsp;</b></font></td>';
 		} else {
 		$final_price = $price;
 		}
 //------insert customer choosen option eof-----
-        $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $final_price);
+        $cost = $check_cart_values['customers_basket_quantity'] * $final_price;
+        $total_cost = $total_cost + $cost;
       }
     } elseif (tep_session_is_registered('nonsess_cart')) {
       $total_cost = 0;
@@ -123,7 +130,7 @@
         $product_info = explode(':', $nonsess_cart_contents[$i]);
         if (($product_info[0] != 0) && ($product_info[1] != 0)) {
           $product_in_cart = 1;
-          $check_cart = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products_name, products_price from manufacturers, products, products_to_manufacturers where products.products_id = '" . $product_info[0] . "' and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
+          $check_cart = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products_name, products_price, products_tax_class_id from manufacturers, products, products_to_manufacturers where products.products_id = '" . $product_info[0] . "' and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
           $check_cart_values = tep_db_fetch_array($check_cart);
           $price = $check_cart_values['products_price'];
           $check_special = tep_db_query("select specials_new_products_price from specials where products_id = '" . $product_info[0] . "'");
@@ -170,18 +177,13 @@
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_SUB_TOTAL;?>&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_cost);?>&nbsp;</font></td>
               </tr>
-              <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_TAX;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_cost * TAX_VALUE/100);?>&nbsp;</font></td>
-              </tr>
-              <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=SUB_TITLE_TOTAL;?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=tep_currency_format(($total_cost * TAX_VALUE/100) + $total_cost);?></b>&nbsp;</font></td>
-              </tr>
             </table></td>
           </tr>
           <tr>
             <td colspan="3"><?=tep_black_line();?></td>
+          </tr>
+          <tr>
+            <td colspan="3" align="right"><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=NO_SHIPPING_OR_TAX_TEXT;?>&nbsp;</font></td>
           </tr>
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="0">
