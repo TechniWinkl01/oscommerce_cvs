@@ -88,7 +88,8 @@
       $rate = new Ups;
       $rate->upsProduct(UPS_SPEED);    // See upsProduct() function for codes
       $rate->origin(UPS_ORIGIN_ZIP, "US"); // Use ISO country codes!
-      $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
+      $rate->dest($address_values['postcode'], "US");      // Use ISO country codes!
+      // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
       $rate->rate(UPS_PICKUP);        // See the rate() function for codes
       $rate->container(UPS_PACKAGE);    // See the container() function for codes
       $rate->weight("$total_weight");
