@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: item.php,v 1.29 2001/09/12 21:33:14 dwatkins Exp $
+  $Id: item.php,v 1.30 2002/01/15 20:27:22 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -26,8 +26,8 @@
     function selection() {
       $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                           '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp; ' . MODULE_SHIPPING_ITEM_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                          '    <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_item', '1', true) . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_ITEM_TEXT_TITLE . '</td>' . "\n" .
+                          '    <td align="right" class="main">' . tep_draw_checkbox_field('shipping_quote_item', '1', true) . '</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '</table>' . "\n";
 
@@ -70,16 +70,16 @@
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_item'] == '1') ) {
         $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
                           '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : ''). '&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_TITLE . ' <small><i>(' . $shipping_item_method . ')</i></small>&nbsp;</td>' . "\n" .
-                          '    <td align="right" class="main">&nbsp;' . $currencies->format($shipping_item_cost);
+                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_ITEM_TEXT_TITLE . ' <small><i>(' . $shipping_item_method . ')</i></small></td>' . "\n" .
+                          '    <td align="right" class="main">' . $currencies->format($shipping_item_cost);
         if (tep_count_shipping_modules() > 1) {
-          $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'item') .
-                                              tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
-                                              tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '&nbsp;</td>' . "\n";
+          $display_string .= tep_draw_radio_field('shipping_selected', 'item') .
+                             tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
+                             tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '</td>' . "\n";
         } else {
-          $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'item') .
-                                              tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
-                                              tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '&nbsp;</td>' . "\n";
+          $display_string .= tep_draw_hidden_field('shipping_selected', 'item') .
+                             tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
+                             tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '</td>' . "\n";
         }
         $display_string .= '  </tr>' . "\n" .
                            '</table>' . "\n";

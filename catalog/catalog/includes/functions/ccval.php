@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ccval.php,v 1.3 2001/09/01 15:24:46 hpdl Exp $
+  $Id: ccval.php,v 1.4 2002/01/15 20:27:22 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -78,7 +78,7 @@
       $CardName = 'Discover/Novus';
       $ShouldLength = 16;
     } else {
-      $cc_val = 'The first four digits of the number entered are ' . $NumberLeft . '.<br>&nbsp;If that\'s correct, we don\'t accept that type of credit card.<br>&nbsp;If it\'s wrong, please try again.';
+      $cc_val = 'The first four digits of the number entered are ' . $NumberLeft . '.<br>If that\'s correct, we don\'t accept that type of credit card.<br>If it\'s wrong, please try again.';
       return $cc_val;
     }
 
@@ -86,9 +86,9 @@
     if ($NumberLength <> $ShouldLength) {
       $Missing = $NumberLength - $ShouldLength;
       if ($Missing < 0) {
-        $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', is <font color="#FF0000"><b>missing</b></font> ' . abs($Missing) . ' digit(s).<br>&nbsp;Please check the number and try again.';
+        $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', is <font color="#FF0000"><b>missing</b></font> ' . abs($Missing) . ' digit(s).<br>Please check the number and try again.';
       } else {
-        $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', has ' . $Missing . ' too many digit(s).<br>&nbsp;Please check the number and try again.';
+        $cc_val = 'The <b>' . $CardName . '</b> number entered, ' . $Number . ', has ' . $Missing . ' too many digit(s).<br>Please check the number and try again.';
       }
 
       return $cc_val;
