@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.26 2001/12/20 22:23:36 hpdl Exp $
+  $Id: update.php,v 1.27 2002/01/02 15:13:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -409,9 +409,9 @@ changeText('customersMarker', '*');
 changeText('statusText', 'Updating Customers .. done!');
 
 changeStyle('images', 'bold');
-changeStyle('imagesMarker', '?');
-changeStyle('statusText', 'Updating Images');
-//-->
+changeText('imagesMarker', '?');
+changeText('statusText', 'Updating Images');
+//--></script>
 
 <?php
   flush();
