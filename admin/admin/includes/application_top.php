@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.160 2003/06/20 00:18:30 hpdl Exp $
+  $Id: application_top.php,v 1.161 2003/07/11 07:47:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -97,10 +97,10 @@
 
 // set the session cookie parameters
    if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, '/');
+    session_set_cookie_params(0, DIR_WS_ADMIN);
   } elseif (function_exists('ini_set')) {
     ini_set('session.cookie_lifetime', '0');
-    ini_set('session.cookie_path', '/');
+    ini_set('session.cookie_path', DIR_WS_ADMIN);
   }
 
 // lets start our session
