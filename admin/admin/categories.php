@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.52 2001/06/04 22:21:01 dwatkins Exp $
+  $Id: categories.php,v 1.53 2001/06/05 15:08:23 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,7 @@
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
 // update category
-      case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
+      case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "', date_added = '" . $HTTP_POST_VARS['date_added'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
 
                               $languages = tep_get_languages();
                               for ($i=0; $i<sizeof($languages); $i++) {
@@ -56,7 +56,7 @@
                               break;
 // move category
       case 'moveconfirm':     if ($HTTP_POST_VARS['categories_id']) {
-                                tep_db_query("update " . TABLE_CATEGORIES . " set parent_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
+                                tep_db_query("update " . TABLE_CATEGORIES . " set parent_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
                               } elseif ($HTTP_POST_VARS['products_id']) {
                                 tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
                               }
@@ -64,7 +64,7 @@
                               tep_redirect(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')));
                               break;
 // insert category
-      case 'insert_category': tep_db_query("insert into " . TABLE_CATEGORIES . " (parent_id, sort_order) values ('" . $current_category_id . "', '" . $HTTP_POST_VARS['sort_order'] . "')");
+      case 'insert_category': tep_db_query("insert into " . TABLE_CATEGORIES . " (parent_id, sort_order, date_added) values ('" . $current_category_id . "', '" . $HTTP_POST_VARS['sort_order'] . "', now())");
                               $categories_id = tep_db_insert_id();
 
                               $languages = tep_get_languages();
@@ -515,7 +515,7 @@
 <?
     $categories_count = 0;
     $rows = 0;
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by c.sort_order, cd.categories_name");
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by c.sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
       $categories_count++;
       $rows++;
@@ -645,7 +645,7 @@
     switch ($HTTP_GET_VARS['action']) {
 /* edit category box contents */
       case 'edit_category':
-        $form = '<form name="categories" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="date_added" value="' . $cInfo->date_added . '"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>');
@@ -747,7 +747,7 @@
           if ($cInfo) { // category info box contents
             $info_box_contents = array();
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=edit_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
-            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . '&nbsp;<br>&nbsp;' . TEXT_LAST_MODIFIED);
+            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' tep_date_short($cInfo->last_modified));
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . tep_info_image($cInfo->image, $cInfo->name) . '<br>&nbsp;' . $cInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif ($pInfo) { // product info box contents

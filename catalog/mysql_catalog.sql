@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.94 2001/06/03 17:36:58 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.95 2001/06/05 15:08:17 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -64,6 +64,8 @@ CREATE TABLE categories (
    categories_image varchar(64),
    parent_id int(5),
    sort_order int(3),
+   date_added timestamp(14),
+   last_modified timestamp(14),
    PRIMARY KEY (categories_id)
 );
 
@@ -393,34 +395,35 @@ CREATE TABLE zones (
 
 # data
 
-# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore
+# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany
 INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
 INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
 INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$city / $country');
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
+INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
 INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
 
-INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1');
-INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2');
-INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3');
-INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0');
-INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0');
-INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0');
-INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0');
-INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0');
-INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0');
-INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0');
-INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0');
-INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0');
-INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0');
-INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0');
-INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0');
-INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0');
-INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0');
-INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0');
-INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0');
-INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0');
+INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', '20010605000000', '');
+INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', '20010605000000', '');
+INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3', '20010605000000', '');
+INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0', '20010605000000', '');
 
 INSERT INTO categories_description VALUES ( '1', '1', 'Hardware');
 INSERT INTO categories_description VALUES ( '2', '1', 'Software');
@@ -574,7 +577,7 @@ INSERT INTO countries VALUES (10,'Argentina','AR','ARG','1');
 INSERT INTO countries VALUES (11,'Armenia','AM','ARM','1');
 INSERT INTO countries VALUES (12,'Aruba','AW','ABW','1');
 INSERT INTO countries VALUES (13,'Australia','AU','AUS','1');
-INSERT INTO countries VALUES (14,'Austria','AT','AUT','1');
+INSERT INTO countries VALUES (14,'Austria','AT','AUT','5');
 INSERT INTO countries VALUES (15,'Azerbaijan','AZ','AZE','1');
 INSERT INTO countries VALUES (16,'Bahamas','BS','BHS','1');
 INSERT INTO countries VALUES (17,'Bahrain','BH','BHR','1');
@@ -641,7 +644,7 @@ INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF','1');
 INSERT INTO countries VALUES (78,'Gabon','GA','GAB','1');
 INSERT INTO countries VALUES (79,'Gambia','GM','GMB','1');
 INSERT INTO countries VALUES (80,'Georgia','GE','GEO','1');
-INSERT INTO countries VALUES (81,'Germany','DE','DEU','1');
+INSERT INTO countries VALUES (81,'Germany','DE','DEU','5');
 INSERT INTO countries VALUES (82,'Ghana','GH','GHA','1');
 INSERT INTO countries VALUES (83,'Gibraltar','GI','GIB','1');
 INSERT INTO countries VALUES (84,'Greece','GR','GRC','1');
