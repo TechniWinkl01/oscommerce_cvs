@@ -15,7 +15,7 @@
 // define our webserver variables
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
-  define('HTTP_SERVER', 'http://exchange');
+  define('HTTP_SERVER', '');
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT . '/'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
   define('DIR_FS_LOGS', '/usr/local/apache/logs/');
   define('DIR_WS_ADMIN', '/admin/');
@@ -54,6 +54,7 @@
   define('FILENAME_CURRENCIES', 'currencies.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
+  define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
   define('FILENAME_LANGUAGES', 'languages.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_ORDERS', 'orders.php');
@@ -77,6 +78,7 @@
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
   define('USE_PCONNECT', 1);
+  define('STORE_SESSIONS', 'mysql');
 
 // customization for the design layout
   define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
@@ -172,12 +174,26 @@
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
 
+// include the database functions
+  $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
+
+// make a connection to the database... now
+  tep_db_connect() or die('Unable to connect to database server!');
+
 // include shopping cart class
   $include_file = DIR_WS_CLASSES . 'shopping_cart.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+
+// some code to solve compatibility issues
+  require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
     $include_file = DIR_WS_CLASSES . 'sessions.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  }
+
+// include mysql session storage handler
+  if (STORE_SESSIONS == 'mysql') {
+    include(DIR_WS_FUNCTIONS . 'sessions_mysql.php');
   }
 
 // define how the session functions will be used
@@ -208,12 +224,6 @@
   $include_file = DIR_FS_CATALOG . 'includes/data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   $include_file = DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_WS_INCLUDES . 'include_once.php');
-
-// include the database functions
-  $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
-
-// make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
 
 // define our general functions used application-wide
   $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');

@@ -70,7 +70,7 @@ class session
 {
     // Public variables
     var $name = "PHPSESSID";    
-    var $auto_start = true;
+    var $auto_start = false;
     var $referer_check = false;  
 
     var $save_path = "/tmp";
@@ -223,7 +223,7 @@ class files
         
         $file = $session->save_path."/sess$sess_id";
         unlink($file);
-        
+
         return(true);    
     }
       
@@ -279,7 +279,7 @@ function _php_encode()
     
     $ret = "";
     // Create a string containing the serialized variables
-    for ($i=0; $i<count($session->vars); $i++)
+    for (reset($session->vars);list($i)=each($session->vars);)
     {
         $ret .= $session->vars[$i].$session->delimiter_value.serialize($GLOBALS[$session->vars[$i]]).$session->delimiter;
     }
@@ -295,12 +295,13 @@ function _php_decode($data)
     $vars = explode($session->delimiter, $data);
 
     // Add the variables to the global namespace
-    for ($i=0; $i<count($vars); $i++)
+    for (reset($vars);list($i)=each($vars);)
     {
         $tmp = explode($session->delimiter_value, $vars[$i]);
         $name = trim($tmp[0]);
         $value = trim($tmp[1]);
         $GLOBALS[$name] = unserialize($value);
+        $session->vars[] = trim($name);
     }
 }
 
@@ -389,7 +390,7 @@ function session_unregister($var)
 {
     global $session;
     
-    for ($i=0; $i<count($session->vars); $i++)
+    for (reset($session->vars);list($i)=each($session->vars);)
     {
         if ($session->vars[$i] == trim($var))
            {
@@ -403,7 +404,7 @@ function session_is_registered($var)
 {
     global $session;
     
-    for ($i=0; $i<count($session->vars); $i++)
+    for (reset($session->vars);list($i)=each($session->vars);)
     {
         if ($session->vars[$i] == trim($var))
            {
@@ -436,7 +437,7 @@ function session_decode($data)
 
 function session_start()
 {
-    global $session, $SID, $HTTP_COOKIE_VARS;
+    global $session, $SID, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_POST_VARS;
 
     // Define the global variable $SID?
     $define_sid = true;
@@ -492,6 +493,7 @@ function session_start()
     }
     
     
+    /*
     // Check the REQUEST_URI symbol for a string of the form
     // '<session-name>=<session-id>' to allow URLs of the form
     // http://yoursite/<session-name>=<session-id>/script.php 
@@ -504,8 +506,8 @@ function session_start()
             $session->id = $regs[1];
         }
     }
+    */
 
-    
     // Check whether the current request was referred to by
 	// an external site which invalidates the previously found ID
     if(!empty($session->id) && $session->referer_check)
@@ -578,6 +580,12 @@ function session_start()
         }
     }
 
+    if ($define_sid) {
+      define('SID', $SID);
+    } else {
+      define('SID', '');
+    }
+
     return(true);
 }
 
@@ -591,7 +599,7 @@ function session_destroy()
     }
     // Destroy session
     $mod = $GLOBALS[$session->mod_name];
-    if (!$mod->destroy($session->name))
+    if (!$mod->destroy($session->id))
     {
         return(false);
     }    
@@ -640,62 +648,5 @@ if ($session->auto_start)
 }
 register_shutdown_function("session_close");
 
-define('SID', session_name() . '=' . session_id());
-
-/*
- *      Basic Example
- *      
- *      This basic example shows the normal use. The code is the same as in 
- *      PHP 4, except for the require("sessions.php3");
-
-require("sessions.php3");
-session_start();
-print("Our session ID is: ".session_id()."<br>");
-print("The counter value is: $counter<br>");
-print("The foo value is: $foo<br>");
-$counter++;
-$foo = "Foobar=Fobar";
-session_register("counter");
-session_register("foo");
-
- *
- */
-  
-/*
- *      User Callback Example
- *      
- *      This example uses callback functions. It's a slightly modified version
- *      of Sascha Schumann's original test script for the callbacks. 100%
- *      the same code as in PHP 4 (except for the require(), of course).
-
-require("sessions.php3");
-function my_open($save_path, $sess_name)
-{
-    echo $save_path."<br>";
-    echo $sess_name."<br>";
-    return true;    
-}
-    
-function my_read($sess_id)
-{
-    echo $sess_id."<br>";
-    return true;
-}
-    
-function my_write($sess_id, $val)
-{
-    echo $val."<br>";
-    return true;    
-}
-
-$foo = 10;    
-session_set_save_handler("my_open", "", "my_read", "my_write", "", "");
-session_start();
-session_register("foo");
-echo "foo: $foo";
-
- *
- */
- 
-/* $Id: sessions.php,v 1.2 2001/03/13 17:53:12 dwatkins Exp $ */ 
+/* $Id: sessions.php,v 1.3 2001/04/16 22:22:44 dwatkins Exp $ */ 
 ?>

@@ -66,7 +66,11 @@
       $this->table_data_parameters = 'nowrap';
       $this->font_style = FONT_STYLE_NAVIGATION_BOX_HEADING;
 
-      $contents[0]['text'] = '&nbsp;<a class="blacklink" href="' . $contents[0]['link'] . '">' . $contents[0]['text'] . '</a>&nbsp;</font></td><td align="right">' . $this->font_style . '<a href="' . $contents[0]['link'] . '">' . $contents[0]['img'] . '</a>&nbsp;';
+      if ($contents[0]['link']) {
+        $contents[0]['text'] = '&nbsp;<a class="blacklink" href="' . $contents[0]['link'] . '">' . $contents[0]['text'] . '</a>&nbsp;</font></td><td align="right">' . $this->font_style . '<a href="' . $contents[0]['link'] . '">' . $contents[0]['img'] . '</a>&nbsp;';
+      } else {
+        $contents[0]['text'] = '&nbsp;' . $contents[0]['text'];
+      }
 
       $this->tableBox($contents);
     }
