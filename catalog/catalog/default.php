@@ -71,8 +71,8 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-            <td nowrap><?php echo FONT_STYLE_SUB_BAR; ?>&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
+          <tr class="subBar">
+            <td class="subBar" nowrap>&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -334,8 +334,8 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-            <td nowrap><?php echo FONT_STYLE_SUB_BAR; ?>&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
+          <tr class="subBar">
+            <td class="subBar" nowrap>&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

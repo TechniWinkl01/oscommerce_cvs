@@ -106,3 +106,13 @@ TD.pageHeading, DIV.pageHeading {
     font-family : Verdana, Arial, sans-serif;
     font-size : 18px;
 }
+
+TR.subBar {
+    background-color : #f4f7fd;
+}
+
+TD.subBar {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 10px;
+    color : #000000;
+}
