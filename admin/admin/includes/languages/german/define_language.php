@@ -1,18 +1,25 @@
 <?php
 /*
-  $Id: define_language.php,v 1.6 2002/01/17 11:41:26 jan0815 Exp $
+  $Id: define_language.php,v 1.7 2004/08/15 18:17:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Sprache definieren');
+  define('HEADING_TITLE', 'Sprache definieren');
 
-define('TEXT_FILE_DOES_NOT_EXIST', 'Datei nicht vorhanden.');
+  define('TABLE_HEADING_FILES', 'Dateien');
+  define('TABLE_HEADING_FILE_SIZE', 'Dateigr&ouml;&szlig;e');
+  define('TABLE_HEADING_WRITEABLE', 'Beschreibbar');
+  define('TABLE_HEADING_LAST_MODIFIED', 'Letzte &Auml;nderung');
 
-define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
+  define('TEXT_LANGUAGE_DIRECTORY', 'Sprache Verzeichnis:');
+
+  define('TEXT_FILE_DOES_NOT_EXIST', 'Datei nicht vorhanden.');
+
+  define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
 ?>
