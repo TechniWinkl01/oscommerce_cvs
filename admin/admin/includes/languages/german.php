@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.97 2003/03/22 02:44:58 hpdl Exp $
+  $Id: german.php,v 1.98 2003/05/07 15:27:41 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -190,7 +190,7 @@ define('IMAGE_CANCEL', 'Abbruch');
 define('IMAGE_CONFIRM', 'Best&auml;tigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
-define('IMAGE_DEFINE', 'Definieren');
+define('IMAGE_DETAILS', 'Details');
 define('IMAGE_DELETE', 'L&ouml;schen');
 define('IMAGE_EDIT', 'Bearbeiten');
 define('IMAGE_EMAIL', 'eMail versenden');
