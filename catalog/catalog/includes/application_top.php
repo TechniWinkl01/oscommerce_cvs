@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.190 2001/11/22 21:26:05 dgw_ Exp $
+  $Id: application_top.php,v 1.191 2001/11/22 21:48:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -262,46 +262,55 @@
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
-    $goto = (CART_DISPLAY == 'true') ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
-    $parameters = (CART_DISPLAY == 'true') ? array('action', 'cPath', 'products_id') : array('action');
-    if ($HTTP_GET_VARS['action'] == 'add_update_product') {
+    if (CART_DISPLAY == 'true') {
+      $goto =  FILENAME_SHOPPING_CART;
+      $parameters = array('action', 'cPath', 'products_id');
+    } else {
+      $goto = basename($PHP_SELF);
+      $parameters = array('action');
+    }
+    switch ($HTTP_GET_VARS['action']) {
       // customer wants to update the product quantity in their shopping cart
-      if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
-        for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
-          if ( tep_in_array($HTTP_POST_VARS['products_id'][$i], ( is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array() ) ) ) {
-            $cart->remove($HTTP_POST_VARS['products_id'][$i]);
-          } else {
-            $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
-            $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
-          }
-        }
-      } else {
-        if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
-          $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
-        }
-      }
-      tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
-    } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
-      if ($HTTP_GET_VARS['products_id']) {
-// performed by the 'buy now' button in product listings
-        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-      } else {
-// customer wants to add a quickie to the cart (called from a box)
-        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
-        if (!tep_db_num_rows($quickie_query)) {
-          $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '%" . $HTTP_POST_VARS['quickie'] . "%'");
-        }
-      }
-      if (tep_db_num_rows($quickie_query) != 1) {
-        tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
-      }
-      $quickie = tep_db_fetch_array($quickie_query);
-      if (tep_has_product_attributes($quickie['products_id'])) {
-        tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $quickie['products_id'], 'NONSSL'));
-      } else {
-        $cart->add_cart($quickie['products_id'], 1);
-        tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
-      }
+      case 'update_product' : for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
+                                if ( tep_in_array($HTTP_POST_VARS['products_id'][$i], ( is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array() ) ) ) {
+                                  $cart->remove($HTTP_POST_VARS['products_id'][$i]);
+                                } else {
+                                  $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
+                                  $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
+                                }
+                              }
+                              tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
+                              break;
+      // customer adds a product from the products page
+      case 'add_product' :    if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
+                                $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
+                              }
+                              tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
+                              break;
+      // performed by the 'buy now' button in product listings and review page
+      case 'buy_now' :        if (tep_has_product_attributes($HTTP_GET_VARS['products_id'])) {
+                                tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
+                              } else {
+                                $cart->add_cart($HTTP_GET_VARS['products_id'], 1);
+                                tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
+                              }
+                              break;
+      // customer wants to add a quickie to the cart (called from a box)
+      case 'add_a_quickie' :  $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
+                              if (!tep_db_num_rows($quickie_query)) {
+                                $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '%" . $HTTP_POST_VARS['quickie'] . "%'");
+                              }
+                              if (tep_db_num_rows($quickie_query) != 1) {
+                                tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
+                              }
+                              $quickie = tep_db_fetch_array($quickie_query);
+                              if (tep_has_product_attributes($quickie['products_id'])) {
+                                tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $quickie['products_id'], 'NONSSL'));
+                              } else {
+                                $cart->add_cart($quickie['products_id'], 1);
+                                tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
+                              }
+                              break;
     }
   }
 

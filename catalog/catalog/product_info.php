@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.70 2001/11/17 03:34:17 hpdl Exp $
+  $Id: product_info.php,v 1.71 2001/11/22 21:48:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -106,7 +106,7 @@ function popupImageWindow(url) {
       <tr>
         <td><?php echo tep_black_line(); ?></td>
       </tr></table>
-    <form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL'); ?>">
+    <form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.51 2001/11/20 01:11:33 project3000 Exp $
+  $Id: shopping_cart.php,v 1.52 2001/11/22 21:48:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -76,7 +76,7 @@
       $colspan = 4;
     }
 ?>
-<form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL'); ?>">
+<form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_SHOPPING_CART, 'action=update_product', 'NONSSL'); ?>">
           <tr>
             <td <?php $col_idx=0; echo $col_width[$col_idx++]; ?> align="center" class="smallText"><b>&nbsp;<?php echo TABLE_HEADING_REMOVE; ?>&nbsp;</b></td>
             <td <?php echo $col_width[$col_idx++]; ?> align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
