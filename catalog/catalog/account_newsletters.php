@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_newsletters.php,v 1.6 2005/02/23 15:24:25 hpdl Exp $
+  $Id: account_newsletters.php,v 1.7 2005/02/23 15:25:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,8 +46,6 @@
         $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');
       }
     }
-
-    $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');
 
     tep_redirect(tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   }
