@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.24 2001/12/19 01:37:55 hpdl Exp $
+  $Id: specials.php,v 1.25 2001/12/19 12:39:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,13 +19,13 @@
 <?php
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_SPECIALS . '</a>'
+                                 'text'  => BOX_HEADING_SPECIALS
                                 );
-    new infoBoxHeading($info_box_contents, false, false);
+    new infoBoxHeading($info_box_contents, false, false, tep_href_link(FILENAME_SPECIALS, '', 'NONSSL'));
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center',
-                                 'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product["products_id"], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $random_product['products_image'], $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id'], 'NONSSL') . '">' . $random_product['products_name'] . '</a><br><s>' . $currencies->format($random_product['products_price']) . '</s><br><span class="productSpecialPrice">' . $currencies->format($random_product['specials_new_products_price']) . '</span><br><a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '">' . BOX_SPECIALS_MORE . '</a>'
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product["products_id"], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $random_product['products_image'], $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id'], 'NONSSL') . '">' . $random_product['products_name'] . '</a><br><s>' . $currencies->format($random_product['products_price']) . '</s><br><span class="productSpecialPrice">' . $currencies->format($random_product['specials_new_products_price']) . '</span>'
                                 );
     new infoBox($info_box_contents);
 ?>

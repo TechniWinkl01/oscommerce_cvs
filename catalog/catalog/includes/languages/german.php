@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.74 2001/12/17 17:36:31 hpdl Exp $
+  $Id: german.php,v 1.75 2001/12/19 12:39:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -89,13 +89,11 @@ define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe des gew&uuml;nschten Produktcodes.');
 
 // specials box text in includes/boxes/specials.php
 define('BOX_HEADING_SPECIALS', 'Angebote');
-define('BOX_SPECIALS_MORE', 'Mehr Angebote..');
 
 // reviews box text in includes/boxes/reviews.php
 define('BOX_HEADING_REVIEWS', 'Bewertungen');
 define('BOX_REVIEWS_WRITE_REVIEW', 'Bewerten Sie dieses Produkt!');
 define('BOX_REVIEWS_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor');
-define('BOX_REVIEWS_MORE', 'Mehr Bewertungen..');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
 define('BOX_HEADING_SHOPPING_CART', 'Warenkorb');
