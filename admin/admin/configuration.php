@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.38 2002/08/10 16:05:10 dgw_ Exp $
+  $Id: configuration.php,v 1.39 2002/08/13 18:53:04 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -78,9 +78,9 @@
           include(DIR_WS_CLASSES . $class_method[0] . '.php');
           ${$class_method[0]} = new $class_method[0]();
         }
-        $cfgValue = call_user_func(array(&${$class_method[0]}, $class_method[1]), $configuration['configuration_value']);
+        $cfgValue = tep_call_function($class_method[1], $configuration['configuration_value'], ${$class_method[0]});
       } else {
-        $cfgValue = call_user_func($use_function, $configuration['configuration_value']);
+        $cfgValue = tep_call_function($use_function, $configuration['configuration_value']);
       }
     } else {
       $cfgValue = $configuration['configuration_value'];

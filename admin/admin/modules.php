@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.42 2002/06/01 20:54:51 clescuyer Exp $
+  $Id: modules.php,v 1.43 2002/08/13 18:53:04 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,8 +25,8 @@
       $module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
       define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
       break;
-    default:
     case 'payment':
+    default:
       $module_type = 'payment';
       $module_directory = DIR_FS_CATALOG_MODULES . 'payment/';
       $module_key = 'MODULE_PAYMENT_INSTALLED';
@@ -231,9 +231,9 @@
                 include(DIR_WS_CLASSES . $class_method[0] . '.php');
                 ${$class_method[0]} = new $class_method[0]();
               }
-              $keys .= call_user_func(array(&${$class_method[0]}, $class_method[1]), $value['value']);
+              $keys .= tep_call_function($class_method[1], $value['value'], ${$class_method[0]});
             } else {
-              $keys .= call_user_func($use_function, $value['value']);
+              $keys .= tep_call_function($use_function, $value['value']);
             }
           } else {
             $keys .= $value['value'];
