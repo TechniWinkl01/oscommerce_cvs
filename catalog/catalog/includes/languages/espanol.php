@@ -27,7 +27,7 @@ define('HEADER_TITLE_CREATE_ACCOUNT', 'Crear Cuenta');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mi Cuenta');
 define('HEADER_TITLE_CART_CONTENTS', 'Ver Cesta');
 define('HEADER_TITLE_CHECKOUT', 'Realizar Pedido');
- define('HEADER_TITLE_CONTACT_US', 'Contactenos');
+define('HEADER_TITLE_CONTACT_US', 'Contactenos');
 define('HEADER_TITLE_TOP', 'Inicio');
 define('HEADER_TITLE_CATALOG', 'Catalogo');
 define('HEADER_TITLE_LOGOFF', 'Salir');
@@ -88,9 +88,8 @@ define('BOX_LANGUAGES_ENGLISH', 'English');
 define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
 define('BOX_LANGUAGES_ESPANOL', 'Español');
 
-// pull down default text
-define('PULL_DOWN_DEFAULT', 'Seleccionar');
-define('TYPE_BELOW', 'Escriba Debajo');
+// currencies box text in includes/boxes/currencies.php
+define('BOX_HEADING_CURRENCIES', 'Modernidades');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
@@ -98,6 +97,10 @@ define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'entrega');
 define('CHECKOUT_BAR_PAYMENT_METHOD', 'pago');
 define('CHECKOUT_BAR_CONFIRMATION', 'confirmacion');
 define('CHECKOUT_BAR_FINISHED', 'finalizado!');
+
+// pull down default text
+define('PULL_DOWN_DEFAULT', 'Seleccionar');
+define('TYPE_BELOW', 'Escriba Debajo');
 
 // javascript messages
 define('JS_ERROR', 'Hay errores en su formulario!\nPor favor, haga las siguiente correciones:\n\n');

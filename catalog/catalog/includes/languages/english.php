@@ -102,8 +102,6 @@ define('CHECKOUT_BAR_FINISHED', 'finished!');
 define('PULL_DOWN_DEFAULT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');
 
-
-
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 

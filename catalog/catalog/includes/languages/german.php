@@ -27,6 +27,7 @@ define('HEADER_TITLE_CREATE_ACCOUNT', 'Neuer Zugang');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mein Konto');
 define('HEADER_TITLE_CART_CONTENTS', 'Warenkorb');
 define('HEADER_TITLE_CHECKOUT', 'Kasse');
+define('HEADER_TITLE_CONTACT_US', 'Kontakt');
 define('HEADER_TITLE_TOP', 'Startseite');
 define('HEADER_TITLE_CATALOG', 'Katalog');
 define('HEADER_TITLE_LOGOFF', 'Abmelden');
@@ -87,9 +88,8 @@ define('BOX_LANGUAGES_ENGLISH', 'English');
 define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
 define('BOX_LANGUAGES_ESPANOL', 'Espanol');
 
-// pull down default text
-define('PULL_DOWN_DEFAULT', 'Bitte w&auml;hlen');
-define('TYPE_BELOW', 'bitte unten eingeben');
+// currencies box text in includes/boxes/currencies.php
+define('BOX_HEADING_CURRENCIES', 'W&auml;hrungen');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'Warenkorbinhalt');
@@ -97,6 +97,10 @@ define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'Lieferanschrift');
 define('CHECKOUT_BAR_PAYMENT_METHOD', 'Zahlungsweise');
 define('CHECKOUT_BAR_CONFIRMATION', 'Best&auml;tigung');
 define('CHECKOUT_BAR_FINISHED', 'fertig');
+
+// pull down default text
+define('PULL_DOWN_DEFAULT', 'Bitte w&auml;hlen');
+define('TYPE_BELOW', 'bitte unten eingeben');
 
 // javascript messages
 define('JS_ERROR', 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n');
