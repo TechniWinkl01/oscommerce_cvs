@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.188 2001/11/20 20:56:02 hpdl Exp $
+  $Id: application_top.php,v 1.189 2001/11/20 22:58:26 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -180,7 +180,7 @@
     tep_session_id($HTTP_GET_VARS[tep_session_name()]);
   }
   if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, DIR_WS_CATALOG);
+    session_set_cookie_params(0, substr(DIR_WS_CATALOG, 0, -1));
   }
   tep_session_start();
 
