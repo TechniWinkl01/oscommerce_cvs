@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.31 2002/01/03 00:23:07 dgw_ Exp $
+  $Id: product_listing.php,v 1.32 2002/01/15 20:19:52 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,7 +46,7 @@
     </table></td>
   </tr>
   <tr>
-    <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?></td>
+    <td colspan="<?php echo $colspan; ?>"><?php echo tep_draw_separator(); ?></td>
   </tr>
 <?php
   }
@@ -183,7 +183,7 @@
   }
 ?>
   <tr>
-    <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?></td>
+    <td colspan="<?php echo $colspan; ?>"><?php echo tep_draw_separator(); ?></td>
   </tr>
 <?php
   if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '2' || PREV_NEXT_BAR_LOCATION == '3')) {

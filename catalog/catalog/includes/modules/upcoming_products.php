@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upcoming_products.php,v 1.20 2001/09/22 20:26:05 hpdl Exp $
+  $Id: upcoming_products.php,v 1.21 2002/01/15 20:19:52 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,7 +21,7 @@
                 <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
 <?php
@@ -39,7 +39,7 @@
     }
 ?>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
             </table></td>
           </tr>
