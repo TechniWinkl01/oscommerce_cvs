@@ -1,4 +1,35 @@
-xx/02/2001 The Exchange Project Preview Release 2.1
+xx/xx/2001 The Exchange Project Preview Release 2.2
+---------------------------------------------------
+
+ * Manufacturer now saved when adding products (bug fix).
+
+ * Added .htaccess file in the 'includes' directory for some
+   security (blocks direct http requests to .php files).
+   ie, http://server/catalog/includes/application_top.php
+
+ * New cache class added for the categoies box (only for PHP4)
+   - Note, this is disabled by default due to our run
+     out-of-the-box approach.
+     Can also be used in other areas of the catalog.
+
+ * New Who's Online seection in the administration tool.
+
+ * Updated payment and shipping modules structure - no longer
+   has multiple include statements - and are now classes.
+
+ * Administration Tool sections now with opened/closed box
+   approach (the list of functions was getting too long!).
+
+ * New login and create account page merged to one file
+   - Note, by default this is not in use.
+
+ * Click on the products image (in products details) and a
+   new browser window will open and resize itself to the image
+   shown - will be used later to display larger pictures
+   of the product.
+
+
+06/03/2001 The Exchange Project Preview Release 2.1
 ---------------------------------------------------
 
  * Payment methods are now modules, makes it easier
