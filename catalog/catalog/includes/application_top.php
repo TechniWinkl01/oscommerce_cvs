@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.161 2001/08/21 17:51:43 hpdl Exp $
+  $Id: application_top.php,v 1.162 2001/08/22 12:02:27 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -157,9 +157,6 @@
 // Min/Max Controls for also_purchased_products.php : 'Customers who bought this product also purchased' module
   define('MIN_DISPLAY_ALSO_PURCHASED', 1);   // Min no. of products in purchased list to qualify
   define('MAX_DISPLAY_ALSO_PURCHASED', 5);   // Max no. of products to display
-
-// Prev/Next Navigation Bar location
-  define('PREV_NEXT_BAR_LOCATION', 2) ;    // 1 - top, 2 - bottom, 3 - both
 
 // Manufacturers box
   define('DISPLAY_EMPTY_MANUFACTURERS', 1); // Display Manufacturers with no products: 0=disable; 1=enable
