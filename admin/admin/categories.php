@@ -27,7 +27,15 @@
           tep_exit();
         }
       } elseif ($HTTP_POST_VARS['products_id']) {
-        tep_db_query("update products set products_status = '0' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+        $products_categories_query = tep_db_query("select count(*) as total from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+        $products_categories = tep_db_fetch_array($products_categories_query);
+
+        if ($products_categories['total'] > 1) {
+          tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
+        } else {
+          tep_db_query("update products set products_status = '0' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+          tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+        }
         header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
         tep_exit();
       }
@@ -41,7 +49,7 @@
           tep_exit();
         }
       } elseif ($HTTP_POST_VARS['products_id']) {
-        tep_db_query("update products_to_categories set categories_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+        tep_db_query("update products_to_categories set categories_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
         header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
         tep_exit();
       }
@@ -78,6 +86,10 @@
         tep_db_query("delete from products_to_manufacturers where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       }
       header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID'), 'NONSSL'));
+      tep_exit();
+    } elseif ($HTTP_GET_VARS['action'] == 'copy_to_confirm') {
+      tep_db_query("insert into products_to_categories (products_id, categories_id) values ('" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['categories_id'] . "')");
+      header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL'));
       tep_exit();
     }
   }
@@ -535,11 +547,13 @@ function checkForm() {
         break;
 /* move product box contents */
       case 'move_product':
+        $products_categories_array = tep_products_categories_array($pInfo->id, true);
+
         $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, tep_products_name($pInfo->id)));
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_MOVE, tep_products_name($pInfo->id)) . '<br>&nbsp;' . tep_categories_pull_down('name="move_to_category_id" style="font-size:10px"', $current_category_id));
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_MOVE, tep_products_name($pInfo->id)) . '<br>&nbsp;' . tep_categories_pull_down('name="move_to_category_id" style="font-size:10px"', $products_categories_array));
         if (!EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<br>' . TEXT_MOVE_NOTE);
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
@@ -554,6 +568,19 @@ function checkForm() {
         $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
+/* display copy_to info box */
+      case 'copy_to':
+        $products_categories_array = tep_products_categories_array($pInfo->id, true);
+
+        $form = '<form name="copy_to" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=copy_to_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
+
+        $info_box_contents = array();
+        $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COPY_TO_INTRO . '<br>&nbsp;');
+        $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENT_CATEGORIES . '<br>&nbsp;' . tep_products_categories_info_box($pInfo->id));
+        $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_CATEGORIES . '<br>&nbsp;' . tep_categories_pull_down('name="categories_id" style="font-size:10px"', $products_categories_array) . '<br>&nbsp;');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_copy.gif', '66', '20', '0', IMAGE_COPY) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+
+        break;
 /* display default info boxes */
       default:
         if ($rows > 0) {
@@ -565,11 +592,12 @@ function checkForm() {
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif ($pInfo) { // product info box contents
             $info_box_contents = array();
-            $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
+            $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, tep_products_name($pInfo->id)) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) , '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
+            $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=copy_to', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_copy_to.gif', '66', '20', '0', IMAGE_COPY_TO) . '</a>');
           }
         } else { // create-category-or-product box contents
           $info_box_contents = array();
