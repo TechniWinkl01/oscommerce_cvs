@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.88 2001/11/18 17:59:26 dgw_ Exp $
+  $Id: application_top.php,v 1.89 2001/11/19 13:44:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -198,6 +198,7 @@
 
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
+  require(DIR_WS_FUNCTIONS . 'html_output.php');
 
 // include the html graph class
   require(DIR_WS_FUNCTIONS . 'html_graphs.php');
