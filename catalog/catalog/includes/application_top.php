@@ -153,6 +153,7 @@
   define('SMALL_TEXT_FONT_COLOR', '#000000');
 
   define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
+  define('NEW_CART_ITEM_COLOR', '#0000FF');  // font color for the new item in shopping cart box
 
   define('CHECKOUT_BAR_TEXT_COLOR', '#AABBDD');
   define('CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED', '#000000');

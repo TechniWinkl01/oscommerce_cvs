@@ -90,6 +90,8 @@
             if ($new_quantity[$i] > 0) {
               $date_now = date('Ymd');
               tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $products_id_to_change[$i] . "', '" . $new_quantity[$i] . "', '" . $date_now . "')");
+              $new_products_id_in_cart = $products_id_to_change[$i];
+              tep_session_register('new_products_id_in_cart');
             }
           }
         }
@@ -129,6 +131,8 @@
               $nonsess_cart = implode('|', $nonsess_cart_contents);
             } else {
               $nonsess_cart .= '|' . $products_id_to_change[$i] . ':' . $new_quantity[$i]; // add the product to their basket
+              $new_products_id_in_cart = $products_id_to_change[$i];
+              tep_session_register('new_products_id_in_cart');
             }
           }
         } else { // they do not yet have a per session basket
@@ -148,6 +152,8 @@
               $nonsess_cart .= '|';
               
             $nonsess_cart .= $products_id_to_change[$i] . ':' . $new_quantity[$i]; 
+            $new_products_id_in_cart = $products_id_to_change[$i];
+            tep_session_register('new_products_id_in_cart');
           }
         }
         if ($nonsess_cart == '') {
