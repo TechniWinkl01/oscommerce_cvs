@@ -20,7 +20,7 @@ define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
 define('EMAIL_TEXT_CREDIT_CARD', 'Credit Card');
 define('EMAIL_TEXT_PAYPAL', 'PayPal');
 
-$email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_INVOICE_URL . " " . HTTP_SERVER . DIR_CATALOG . FILENAME_ACCOUNT_HISTORY_INFO . '?order_id=' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n";
+$email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_INVOICE_URL . " " . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_ACCOUNT_HISTORY_INFO . '?order_id=' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n";
 if ($comments != '') {
   $email_order .= $comments . "\n\n";
 }

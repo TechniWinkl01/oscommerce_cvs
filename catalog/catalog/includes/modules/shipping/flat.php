@@ -1,7 +1,7 @@
 <?
-  /* $Id: flat.php,v 1.16 2001/03/04 14:04:50 hpdl Exp $ */
+  /* $Id: flat.php,v 1.17 2001/03/05 22:26:08 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
-    $include_file = DIR_LANGUAGES . $language . '/modules/shipping/flat.php';include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/flat.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
 
   if ($action == 'select') {

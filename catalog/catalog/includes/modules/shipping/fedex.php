@@ -1,7 +1,7 @@
 <?php
-	/* $Id: fedex.php,v 1.10 2001/03/04 14:04:49 hpdl Exp $ */
+	/* $Id: fedex.php,v 1.11 2001/03/05 22:26:08 hpdl Exp $ */
         if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
-	  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
+	  $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_WS_INCLUDES . 'include_once.php');
         }
 	// only these three are needed since FedEx only ships to them
 	// convert TEP country id to ISO 3166 id
@@ -23,7 +23,7 @@
 				$shipping_quoted = 'fedex';
 				// only calculate if FedEx ships there.
 				if(in_array($address_values['country_id'], $fedex_countries_nbr)) {
-					include(DIR_CLASSES . 'fedex.php');
+					include(DIR_WS_CLASSES . 'fedex.php');
 					$rate = new FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
 					$rate->SetDest($address_values['postcode'], $fedex_countries[$address_values['country_id']]);
 					$rate->SetWeight($shipping_weight);

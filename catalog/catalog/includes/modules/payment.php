@@ -7,15 +7,15 @@
     // Get language defines
     reset($modules);
     while (list(,$value) = each($modules)) {
-      $include_file = DIR_LANGUAGES . $language . '/modules/payment/' . $value; 
-      include(DIR_INCLUDES . 'include_once.php');
+      $include_file = DIR_WS_LANGUAGES . $language . '/modules/payment/' . $value; 
+      include(DIR_WS_INCLUDES . 'include_once.php');
     }
 
     // Include Javascript Code for every payment method
     if ($payment_action == 'PM_VALIDATION') {
       reset($modules);
       while (list(,$value) = each($modules)) {
-        include(DIR_PAYMENT_MODULES . $value);
+        include(DIR_WS_PAYMENT_MODULES . $value);
       }
     }
 
@@ -27,7 +27,7 @@
         $rows ++;
         // Get id and description from payment modules
         $payment_action = '';
-        include(DIR_PAYMENT_MODULES . $value);
+        include(DIR_WS_PAYMENT_MODULES . $value);
         if ($payment_enabled) {
 ?>
               <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
@@ -40,7 +40,7 @@
 <? 
           // Display extra fields for each payment
           $payment_action = 'PM_SELECTION'; 
-          include(DIR_PAYMENT_MODULES . $value); 
+          include(DIR_WS_PAYMENT_MODULES . $value); 
         }
 ?>
                 </td>
@@ -53,26 +53,26 @@
       reset($modules);
       while (list(,$payment_file) = each($modules)) {
         $payment_action = '';
-        include(DIR_PAYMENT_MODULES . $payment_file);
+        include(DIR_WS_PAYMENT_MODULES . $payment_file);
         if ($payment_code == $HTTP_POST_VARS['payment']) {
           echo '          <tr>' . "\n";
           echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . $payment_description . '&nbsp;</font></td>' . "\n";
           echo '          </tr>' . "\n";
           $payment_action = 'PM_CONFIRMATION';
-          include(DIR_PAYMENT_MODULES . $payment_file);
+          include(DIR_WS_PAYMENT_MODULES . $payment_file);
           break;
         }
       }
     }
 
     if ($payment_action == 'PM_PROCESS_BUTTON') {
-      include(DIR_PAYMENT_MODULES . $payment_file);
+      include(DIR_WS_PAYMENT_MODULES . $payment_file);
     }
 
     if ($payment_action == 'PM_BEFORE_PROCESS') {
       reset($modules);
       while (list(,$payment_file) = each($modules)) {
-        include(DIR_PAYMENT_MODULES . $payment_file);
+        include(DIR_WS_PAYMENT_MODULES . $payment_file);
       }
     }
 
@@ -80,10 +80,10 @@
       reset($modules);
       while (list(,$payment_file) = each($modules)) {
         $payment_action = '';
-        include(DIR_PAYMENT_MODULES . $payment_file);
+        include(DIR_WS_PAYMENT_MODULES . $payment_file);
         if ($payment_code == $payment) {
           $payment_action = 'PM_AFTER_PROCESS';
-          include(DIR_PAYMENT_MODULES . $payment_file);
+          include(DIR_WS_PAYMENT_MODULES . $payment_file);
           break;
         }
       }
@@ -93,7 +93,7 @@
       reset($modules);
       while (list(,$payment_file) = each($modules)) {
         $payment_action = '';
-        include(DIR_PAYMENT_MODULES . $payment_file);
+        include(DIR_WS_PAYMENT_MODULES . $payment_file);
         if ($payment_code == $order_values['payment_method']) {
           $payment_text = $payment_description;
           break;

@@ -1,12 +1,12 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr bgcolor="<? echo HEADER_BACKGROUND_COLOR; ?>">
-    <td align="left" valign="middle" nowrap><? echo tep_image(DIR_IMAGES . 'header_exchange_logo.gif', STORE_NAME) . tep_image(DIR_IMAGES . 'pixel_trans.gif', '', '6', '1') . tep_image(DIR_IMAGES . 'header_exchange.gif', STORE_NAME); ?></td>
+    <td align="left" valign="middle" nowrap><? echo tep_image(DIR_WS_IMAGES . 'header_exchange_logo.gif', STORE_NAME) . tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '6', '1') . tep_image(DIR_WS_IMAGES . 'header_exchange.gif', STORE_NAME); ?></td>
     <td align="right" nowrap><?
   if ($customer_id) {
-    echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'header_account.gif', HEADER_TITLE_MY_ACCOUNT) . '</a>';
+    echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_MY_ACCOUNT) . '</a>';
   } else {
-    echo '<a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'header_account.gif', HEADER_TITLE_CREATE_ACCOUNT) . '</a>';
-  } ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'header_cart.gif', HEADER_TITLE_CART_CONTENTS); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_IMAGES . 'header_checkout.gif', HEADER_TITLE_CHECKOUT); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'header_contact_us.gif', HEADER_TITLE_CONTACT_US); ?></a>&nbsp;&nbsp;</td>
+    echo '<a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'header_account.gif', HEADER_TITLE_CREATE_ACCOUNT) . '</a>';
+  } ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_cart.gif', HEADER_TITLE_CART_CONTENTS); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_checkout.gif', HEADER_TITLE_CHECKOUT); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'header_contact_us.gif', HEADER_TITLE_CONTACT_US); ?></a>&nbsp;&nbsp;</td>
   </tr>
 </table>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">

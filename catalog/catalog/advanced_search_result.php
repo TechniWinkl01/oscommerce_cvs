@@ -1,5 +1,5 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH_RESULT; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH_RESULT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <?
   $error = 0; // reset error flag to false
   $errorno = 0;
@@ -90,7 +90,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -100,7 +100,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -118,7 +118,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<?echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?echo tep_image(DIR_IMAGES . 'table_background_browse.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<?echo tep_image(DIR_WS_IMAGES . 'table_background_browse.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -276,7 +276,7 @@
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;
  
-  $include_file = DIR_MODULES . 'product_listing.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_MODULES . 'product_listing.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 ?>
         </td>
       </tr>
@@ -286,7 +286,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_right.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -295,7 +295,7 @@
 </table>
 <!-- body_eof //-->
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
@@ -303,4 +303,4 @@
 <?
   }
 ?>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

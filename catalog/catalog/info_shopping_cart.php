@@ -1,5 +1,5 @@
 <? include("includes/application_top.php"); ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_INFO_SHOPPING_CART; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_INFO_SHOPPING_CART; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -16,4 +16,4 @@
 </body>
 </html>
 <?  include("includes/counter.php"); ?>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

@@ -27,13 +27,13 @@
   $total_weight = $cart->show_weight();
   $total_count = $cart->count_contents();
   $action = 'quote'; 
-  include(DIR_MODULES . 'shipping.php');
+  include(DIR_WS_MODULES . 'shipping.php');
   if ($shipping_quoted == '' && SHIPPING_MODULES != '') { // Null if no quotes selected
     header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection));
     tep_exit();
   }
 ?> 
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
 <head>
@@ -55,7 +55,7 @@ function check_form() {
 <?
 // payment validation
   $payment_action = 'PM_VALIDATION';
-  include(DIR_MODULES . 'payment.php');
+  include(DIR_WS_MODULES . 'payment.php');
 ?>
   if (error == 1) {
     alert(error_message);
@@ -68,7 +68,7 @@ function check_form() {
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -78,7 +78,7 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -96,7 +96,7 @@ function check_form() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -121,7 +121,7 @@ function check_form() {
 <?
 // list payment options
   $payment_action = 'PM_SELECTION';
-  include(DIR_MODULES . 'payment.php');
+  include(DIR_WS_MODULES . 'payment.php');
 ?>
             </table></td>
           </tr>
@@ -135,7 +135,7 @@ function check_form() {
           </tr>
           <tr>
             <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
-            <td nowrap><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection) . '">' . tep_image(DIR_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection) . '">' . tep_image(DIR_WS_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
@@ -157,9 +157,9 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
       $action = 'cheapest'; 
-      include(DIR_MODULES . 'shipping.php');
+      include(DIR_WS_MODULES . 'shipping.php');
       $action = 'display'; 
-      include(DIR_MODULES . 'shipping.php');
+      include(DIR_WS_MODULES . 'shipping.php');
 ?>          
             </table></td>
           </tr>
@@ -182,7 +182,7 @@ function check_form() {
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
+            <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
@@ -196,7 +196,7 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_right.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -206,9 +206,9 @@ function check_form() {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

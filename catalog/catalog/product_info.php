@@ -1,5 +1,5 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_PRODUCT_INFO; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_INFO; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ''; ?>
 <html>
 <head>
@@ -8,7 +8,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -18,7 +18,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -43,7 +43,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a></td>
+        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a></td>
       </tr>
 <?
   } else {
@@ -149,20 +149,20 @@
 <?
     $get_params = substr(tep_get_all_get_params(), 0, -1);
     if ($reviews_values['count'] == '0') {
-      echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_write_a_review.gif', IMAGE_WRITE_A_REVIEW) . '</a>&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_write_a_review.gif', IMAGE_WRITE_A_REVIEW) . '</a>&nbsp;</font></td>' . "\n";
     } else {
-      echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_reviews.gif', IMAGE_REVIEWS) . '</a>&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_reviews.gif', IMAGE_REVIEWS) . '</a>&nbsp;</font></td>' . "\n";
     }
 
     echo '<td align="right" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">';
     if ($product_exists_in_cart == '1') {
-      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL) . '</a>';
+      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL) . '</a>';
     } else {
-      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', IMAGE_ADD_TO_CART);
+      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_add_to_cart.gif', IMAGE_ADD_TO_CART);
     }
     $get_params_back = substr(tep_get_all_get_params(array('products_id','language','currency')), 0, -1);
     if ($get_params_back != '') {
-      echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';
+      echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';
     }
     echo '&nbsp;&nbsp;</font></td>' . "\n";
 ?>
@@ -170,7 +170,7 @@
         </table></td>
       </tr>
 <?
-  $include_file = DIR_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
   }
 ?>
     </table></form></td>
@@ -179,7 +179,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_right.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -189,9 +189,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

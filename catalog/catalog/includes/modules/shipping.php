@@ -1,6 +1,6 @@
 <?
   /* Include the configured shipping methods */
-  define('DIR_SHIPPING_MODULES', DIR_MODULES . 'shipping/');
+  define('DIR_SHIPPING_MODULES', DIR_WS_MODULES . 'shipping/');
 
   $shipping_count = 0;
   if ($action == 'quote') {

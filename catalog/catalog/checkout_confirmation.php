@@ -5,7 +5,7 @@
     tep_exit();
   }
 ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
 <head>
@@ -14,7 +14,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -24,7 +24,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -42,7 +42,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -123,7 +123,7 @@
   $shipping_cost = 0.0;
   if (SHIPPING_MODULES != '') {
       $action = 'confirm';
-      include(DIR_MODULES . 'shipping.php');
+      include(DIR_WS_MODULES . 'shipping.php');
   }
 ?>
           <tr>
@@ -185,7 +185,7 @@
 <?
 // Validate payment data again
   $payment_action = 'PM_CONFIRMATION';
-  include(DIR_MODULES . 'payment.php');
+  include(DIR_WS_MODULES . 'payment.php');
   if ($comments) {
 ?>
         <tr>
@@ -220,9 +220,9 @@
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 // Draw the checkout process button
   $payment_action = 'PM_PROCESS_BUTTON';
-  include(DIR_MODULES . 'payment.php');
+  include(DIR_WS_MODULES . 'payment.php');
   if (!$checkout_form_submit) {
-    echo tep_image_submit(DIR_IMAGES . 'button_process.gif', IMAGE_PROCESS) . '&nbsp;' . "\n";
+    echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {
     echo $checkout_form_submit;
   }
@@ -240,7 +240,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_right.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -250,9 +250,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

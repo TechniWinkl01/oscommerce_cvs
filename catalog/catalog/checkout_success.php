@@ -1,5 +1,5 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SUCCESS; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SUCCESS; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : ' . NAVBAR_TITLE_1 . ' : ' . NAVBAR_TITLE_2; ?>
 <html>
 <head>
@@ -8,7 +8,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -18,7 +18,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -35,7 +35,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="5">
           <tr>
-            <td nowrap><? echo tep_image(DIR_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
+            <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
             <td><div align="center"><br><?php echo FONT_STYLE_HEADING; ?><? echo HEADING_TITLE; ?>&nbsp;</font></div><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_SUCCESS; ?></font></td>
           </tr>
         </table></td>
@@ -44,7 +44,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       </tr>
       <tr>
         <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | ' . CHECKOUT_BAR_CONFIRMATION . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_FINISHED . '</font> ]</font>&nbsp;'; ?></font></td>
@@ -55,7 +55,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_right.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -65,9 +65,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

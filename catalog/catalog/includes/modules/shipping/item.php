@@ -1,7 +1,7 @@
 <?
-  /* $Id: item.php,v 1.15 2001/03/04 14:04:51 hpdl Exp $ */
+  /* $Id: item.php,v 1.16 2001/03/05 22:26:09 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
-    $include_file = DIR_LANGUAGES . $language . '/modules/shipping/item.php';include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/item.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
 
   if ($action == 'select') {

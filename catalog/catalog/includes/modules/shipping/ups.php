@@ -1,7 +1,7 @@
 <?
-  /* $Id: ups.php,v 1.20 2001/03/04 14:04:51 hpdl Exp $ */
+  /* $Id: ups.php,v 1.21 2001/03/05 22:26:10 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
-    $include_file = DIR_LANGUAGES . $language . '/modules/shipping/ups.php';include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/ups.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
 
   if ($action == 'select') {
@@ -32,7 +32,7 @@
       $prod = $HTTP_POST_VARS['shipping_ups_prod'];
       if ($shipping_quote_all == "1") $prod = "GND";
       if ($shipping_quote_ups == "1" || $shipping_quote_all == "1") {
-        include(DIR_CLASSES . 'ups.php');
+        include(DIR_WS_CLASSES . 'ups.php');
         $rate = new Ups;
         $rate->upsProduct($prod);    // See upsProduct() function for codes
         $rate->origin(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY); // Use ISO country codes!

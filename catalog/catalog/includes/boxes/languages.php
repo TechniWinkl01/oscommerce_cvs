@@ -12,7 +12,7 @@
 
   $languages_string = '';
   for ($i=0; $i<sizeof($languages); $i++) {
-    $languages_string .= '&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language')) . 'language=' . $languages[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . $languages[$i]['image'], $languages[$i]['name']) . '</a>&nbsp;';
+    $languages_string .= '&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language')) . 'language=' . $languages[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $languages[$i]['image'], $languages[$i]['name']) . '</a>&nbsp;';
   }
 
   $info_box_contents = array();

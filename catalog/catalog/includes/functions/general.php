@@ -28,12 +28,12 @@
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
     }
     if ($connection == 'NONSSL') {
-      $link = HTTP_SERVER . DIR_CATALOG;
+      $link = HTTP_SERVER . DIR_WS_CATALOG;
     } elseif ($connection == 'SSL') {
       if (ENABLE_SSL == 1) {
-        $link = HTTPS_SERVER . DIR_CATALOG;
+        $link = HTTPS_SERVER . DIR_WS_CATALOG;
       } else {
-        $link = HTTP_SERVER . DIR_CATALOG;
+        $link = HTTP_SERVER . DIR_WS_CATALOG;
       }
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
@@ -165,7 +165,7 @@
   function tep_black_line() {
     global $black_line;
     
-    $black_line = tep_image(DIR_IMAGES . 'pixel_black.gif', '', '100%', '1');
+    $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
     
     return $black_line;
   }

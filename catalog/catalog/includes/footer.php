@@ -1,4 +1,4 @@
-<? $include_file = DIR_INCLUDES . 'counter.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'counter.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr bgcolor="<? echo FOOTER_BAR_BACKGROUND_COLOR; ?>" height="19">
     <td align="left" nowrap><?php echo FONT_STYLE_FOOTER; ?><b>&nbsp;&nbsp;<? echo strftime(DATE_FORMAT_LONG); ?>&nbsp;&nbsp;</b></font></td>

@@ -1,7 +1,7 @@
 <?
-  /* $Id: usps.php,v 1.9 2001/03/04 14:04:52 hpdl Exp $ */
+  /* $Id: usps.php,v 1.10 2001/03/05 22:26:11 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
-    $include_file = DIR_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
 
   if ($action == 'select') {
@@ -34,7 +34,7 @@
       $prod = $HTTP_POST_VARS['shipping_usps_prod'];
       if ($shipping_quote_all == "1") $prod = "Priority";
       if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
-        include(DIR_CLASSES . 'usps.php');
+        include(DIR_WS_CLASSES . 'usps.php');
         $rate = new USPS;
         $rate->SetServer(SHIPPING_USPS_SERVER);
         $rate->setUserName(SHIPPING_USPS_USERID);

@@ -56,7 +56,7 @@
   } 
   elseif ($payment_action == 'PM_CONFIRMATION' && $payment_enabled) 
   {
-    $include_file = DIR_FUNCTIONS . 'ccval.php'; include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
     $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
     $cc_val = CCValidationSolution($cc_val);
 
@@ -84,7 +84,7 @@
     if ($cc_val != '1') 
     {
       $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');
-      $checkout_form_submit = tep_image_submit(DIR_IMAGES . 'button_back.gif', IMAGE_BACK) . '&nbsp;</font>' . "\n";
+      $checkout_form_submit = tep_image_submit(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '&nbsp;</font>' . "\n";
     }
   } 
   elseif ($payment_action == 'PM_PROCESS_BUTTON' && $payment_enabled) 

@@ -10,20 +10,22 @@
   define('PROJECT_VERSION', 'Preview Release 2.1');
 
 // define our webserver variables
+// FS = Filesystem (physical)
+// WS = Webserver (virtual)
   define('HTTP_SERVER', 'http://exchange');
   define('HTTPS_SERVER', 'https://exchange');
   define('ENABLE_SSL', 1); // ssl server enable(1)/disable(0)
-  define('DIR_SERVER_ROOT', '/usr/local/apache/');
-  define('DIR_LOGS', DIR_SERVER_ROOT . 'logs/');
-  define('DIR_CATALOG', '/catalog/');
-  define('DIR_IMAGES', 'images/'); // from webserver
-  define('DIR_INCLUDES', 'includes/');
-  define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
-  define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
-  define('DIR_CLASSES', DIR_INCLUDES . 'classes/');
-  define('DIR_MODULES', DIR_INCLUDES . 'modules/');
-  define('DIR_PAYMENT_MODULES', DIR_MODULES . 'payment/');
-  define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
+  define('DIR_FS_DOCUMENT_ROOT', '/usr/local/apache/htdocs');
+  define('DIR_FS_LOGS', '/usr/local/apache/logs/');
+  define('DIR_WS_CATALOG', '/catalog/');
+  define('DIR_WS_IMAGES', 'images/');
+  define('DIR_WS_INCLUDES', 'includes/');
+  define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');
+  define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
+  define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
+  define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
+  define('DIR_WS_PAYMENT_MODULES', DIR_WS_MODULES . 'payment/');
+  define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
 
 // default values
   define('DEFAULT_LANGUAGE', 'en'); // use the code
@@ -36,7 +38,7 @@
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
   define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse a page
-  define('STORE_PAGE_PARSE_TIME_LOG', DIR_LOGS . 'exchange/parse_time_log');
+  define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
   if (STORE_PAGE_PARSE_TIME == '1') {
@@ -158,31 +160,31 @@
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
 // include the database functions
-  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
 
 // include shopping cart class
-  $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'shopping_cart.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // some code to solve compatibility issues
-  $include_file = DIR_FUNCTIONS . 'compatibility.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'compatibility.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
-    $include_file = DIR_CLASSES . 'sessions.php'; include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_CLASSES . 'sessions.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   }
 
 // define how the session functions will be used
-  $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
 // lets start our session
   if (!SID && $HTTP_GET_VARS[tep_session_name()]) 
     tep_session_id( $HTTP_GET_VARS[tep_session_name()] );
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, DIR_CATALOG);
+    session_set_cookie_params(0, DIR_WS_CATALOG);
   }
 
 // Fix the cart if necesary
@@ -204,7 +206,7 @@
   }
 
 // define our general functions used application-wide
-  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
@@ -223,20 +225,20 @@
   }
 
 // include the currency rates, and the language translations
-  $include_file = DIR_INCLUDES . 'data/rates.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_INCLUDES . 'data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // Include the password crypto functions
- $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
+ $include_file = DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_WS_INCLUDES . 'include_once.php'); 
 
 // Include validation functions (right now only email address)
- $include_file = DIR_FUNCTIONS . 'validations.php'; include(DIR_INCLUDES . 'include_once.php'); 
+ $include_file = DIR_WS_FUNCTIONS . 'validations.php'; include(DIR_WS_INCLUDES . 'include_once.php'); 
 
 // split-page-results
-  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'split_page_results.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // infobox
-  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'boxes.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {

@@ -18,7 +18,7 @@
     }
   }
 ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_DEFAULT; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_DEFAULT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <? $location = ''; ?>
 <html>
 <head>
@@ -27,7 +27,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -37,7 +37,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -112,7 +112,7 @@
           </tr>
 <?
     $new_products_category_id = $current_category_id;
-    $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
 ?>
         </table></td>
       </tr>
@@ -273,7 +273,7 @@
       }
     }
 // Get the right image for the top-right
-    $image = DIR_IMAGES . 'table_background_list.gif';
+    $image = DIR_WS_IMAGES . 'table_background_list.gif';
     if ($HTTP_GET_VARS['manufacturers_id']) {
       $image = tep_db_query("select manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
       $image = tep_db_fetch_array($image);
@@ -294,7 +294,7 @@
       </tr>
       <tr>
         <td>
-<? $include_file = DIR_MODULES . 'product_listing.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_MODULES . 'product_listing.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
         </td>
       </tr>
     </table></td>
@@ -313,7 +313,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_default.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_default.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -332,8 +332,8 @@
             <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_MAIN; ?></font></td>
           </tr>
 <?
-  $new_products_category_id = '0'; $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_MODULES . FILENAME_UPCOMING_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
+  $new_products_category_id = '0'; $include_file = DIR_WS_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_MODULES . FILENAME_UPCOMING_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
 ?>
         </table></td>
       </tr>
@@ -346,7 +346,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_right.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -356,9 +356,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

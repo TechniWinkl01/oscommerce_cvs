@@ -1,7 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
   $payment_action = 'PM_BEFORE_PROCESS';
-  include(DIR_MODULES . 'payment.php');
+  include(DIR_WS_MODULES . 'payment.php');
 
   if ($sendto == '0') {
     $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
@@ -70,7 +70,7 @@
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
 
-  $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_WS_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;
 
   mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
@@ -84,7 +84,7 @@
 
   $payment_action = 'PM_AFTER_PROCESS';
 
-  include(DIR_MODULES . 'payment.php');
+  include(DIR_WS_MODULES . 'payment.php');
 
 ?>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
