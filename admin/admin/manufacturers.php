@@ -130,7 +130,9 @@ function checkForm() {
               </tr>
 <?
   $rows = 0;
-  $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name, manufacturers_image, manufacturers_location from manufacturers order by manufacturers_name");
+  $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image, manufacturers_location from manufacturers order by manufacturers_name";
+  $manufacturers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_query_raw, $manufacturers_query_numrows);
+  $manufacturers_query = tep_db_query($manufacturers_query_raw);
   while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
     $rows++;
 
@@ -188,7 +190,12 @@ function checkForm() {
   }
 ?>
               <tr>
-                <td colspan="5"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_MANUFACTURERS;?> <?=$rows;?>&nbsp;</font></td>
+                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$manufacturers_split->display_count($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS);?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_RESULT_PAGE;?> <?=$manufacturers_split->display_links($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']);?>&nbsp;</font></td>
+                  </tr>
+                </table></td>
               </tr>
 <?
   if ($HTTP_GET_VARS['error']) {
