@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.92 2003/02/06 17:38:13 thomasamoulton Exp $
+  $Id: account_history_info.php,v 1.93 2003/02/13 01:58:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -17,6 +17,10 @@
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
+  if (!isset($HTTP_GET_VARS['order_id'])) {
+    tep_redirect(tep_href_link(FILENAME_HISTORY, '', 'SSL'));
+  }
+  
   $customer_number_query = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". tep_db_input(tep_db_prepare_input($HTTP_GET_VARS['order_id'])) . "'");
   $customer_number = tep_db_fetch_array($customer_number_query);
   if ($customer_number['customers_id'] != $customer_id) {
@@ -37,7 +41,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -126,15 +130,13 @@
 <?php
   }
 
-  $size = sizeof($order->products);
-  for ($i=0; $i<$size; $i++) {
+  for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
     echo '          <tr>' . "\n" .
          '            <td class="main" align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
          '            <td class="main" valign="top">' . $order->products[$i]['name'];
 
     if ( (isset($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0) ) {
-      $sizea = sizeof($order->products[$i]['attributes']);
-      for ($j=0; $j<$sizea; $j++) {
+      for ($j=0, $n2=sizeof($order->products[$i]['attributes']); $j<$n2; $j++) {
         echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
       }
     }
@@ -181,8 +183,7 @@
             </table></td>
             <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  $size = sizeof($order->totals);
-  for ($i=0; $i<$size; $i++) {
+  for ($i=0, $n=sizeof($order->totals); $i<$n; $i++) {
     echo '              <tr>' . "\n" .
          '                <td class="main" align="right" width="100%">' . $order->totals[$i]['title'] . '</td>' . "\n" .
          '                <td class="main" align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .
@@ -212,7 +213,7 @@
     echo '              <tr>' . "\n" .
          '                <td class="main" valign="top" width="70">' . tep_date_short($statuses['date_added']) . '</td>' . "\n" .
          '                <td class="main" valign="top" width="70">' . $statuses['orders_status_name'] . '</td>' . "\n" .
-         '                <td class="main" valign="top">' . ($statuses['comments'] == '' ? '&nbsp;' : nl2br(tep_db_output($statuses['comments']))) . '</td>' . "\n" .
+         '                <td class="main" valign="top">' . (empty($statuses['comments']) ? '&nbsp;' : nl2br(tep_db_output($statuses['comments']))) . '</td>' . "\n" .
          '              </tr>' . "\n";
   }
 ?>

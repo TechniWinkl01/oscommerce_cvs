@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.11 2003/02/10 22:30:33 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.12 2003/02/13 01:58:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -88,7 +88,7 @@
 // process the selected shipping method
   if ( isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process') ) {
     if (!tep_session_is_registered('comments')) tep_session_register('comments');
-    if ($HTTP_POST_VARS['comments_added'] != '') {
+    if (tep_not_null($HTTP_POST_VARS['comments_added'])) {
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
     }
 
@@ -147,7 +147,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 var selected;
@@ -253,9 +253,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-    $quotes_size = sizeof($quotes);
-
-    if ($quotes_size > 1) {
+    if (sizeof($quotes) > 1) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -295,7 +293,7 @@ function rowOutEffect(object) {
 <?php
     } else {
       $radio_buttons = 0;
-      for ($i=0; $i<$quotes_size; $i++) {
+      for ($i=0, $n=sizeof($quotes); $i<$n; $i++) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -315,8 +313,7 @@ function rowOutEffect(object) {
                   </tr>
 <?php
         } else {
-          $size = sizeof($quotes[$i]['methods']);
-          for ($j=0, $n2=$size; $j<$n2; $j++) {
+          for ($j=0, $n2=sizeof($quotes[$i]['methods']); $j<$n2; $j++) {
 // set the radio button to be checked if it is the method chosen
             $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
 
@@ -329,7 +326,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" width="75%"><?php echo $quotes[$i]['methods'][$j]['title']; ?></td>
 <?php
-            if ( ($quotes_size > 1) || ($n2 > 1) ) {
+            if ( ($n > 1) || ($n2 > 1) ) {
 ?>
                     <td class="main"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax'])); ?></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>

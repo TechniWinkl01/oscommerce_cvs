@@ -1,25 +1,24 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.44 2003/02/06 17:38:15 thomasamoulton Exp $
+  $Id: checkout_success.php,v 1.45 2003/02/13 01:58:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  if ($HTTP_GET_VARS['action'] == 'update') {
+  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'update')) {
     $notify_string = '';
     if (tep_session_is_registered('customer_id')) {
       $notify_string .= 'action=notify&';
       $notify = $HTTP_POST_VARS['notify'];
       if (!is_array($notify)) $notify = array($notify);
-      $n = sizeof($notify);
-      for ($i=0; $i<$n; $i++) {
+      for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
         $notify_string .= 'notify[]=' . $notify[$i] . '&';
       }
       if (strlen($notify_string) > 0) $notify_string = substr($notify_string, 0, -1);
@@ -55,7 +54,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -72,7 +71,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="order" <?php echo 'action="' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, 'action=update', 'SSL') . '"'; ?> method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('order', tep_href_link(FILENAME_CHECKOUT_SUCCESS, 'action=update', 'SSL')); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="4" cellpadding="2">
           <tr>
@@ -84,8 +83,7 @@
       echo TEXT_NOTIFY_PRODUCTS . '<br><p class="productsNotifications">';
 
       $products_displayed = array();
-      $n = sizeof($products_array);
-      for ($i=0; $i<$n; $i++) {
+      for ($i=0, $n=sizeof($products_array); $i<$n; $i++) {
         if (!in_array($products_array[$i]['id'], $products_displayed)) {
           echo tep_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
           $products_displayed[] = $products_array[$i]['id'];
@@ -105,7 +103,7 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
-      <tr class="infoBoxContents">
+      <tr>
         <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
       </tr>
       <tr>

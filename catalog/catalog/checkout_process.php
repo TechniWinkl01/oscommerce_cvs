@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.122 2003/02/09 20:58:53 harley_vb Exp $
+  $Id: checkout_process.php,v 1.123 2003/02/13 01:58:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,8 +95,7 @@
                           'currency_value' => $order->info['currency_value']);
   tep_db_perform(TABLE_ORDERS, $sql_data_array);
   $insert_id = tep_db_insert_id();
-  $size = sizeof($order_totals);
-  for ($i=0; $i<$size; $i++) {
+  for ($i=0, $n=sizeof($order_totals); $i<$n; $i++) {
     $sql_data_array = array('orders_id' => $insert_id,
                             'title' => $order_totals[$i]['title'],
                             'text' => $order_totals[$i]['text'],
@@ -119,8 +118,7 @@
   $subtotal = 0;
   $total_tax = 0;
 
-  $order_size = sizeof($order->products);
-  for ($i=0; $i<$order_size; $i++) {
+  for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
 // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
       if (DOWNLOAD_ENABLED == 'true') {
@@ -171,10 +169,9 @@
 //------insert customer choosen option to order--------
     $attributes_exist = '0';
     $products_ordered_attributes = '';
-    if ($order->products[$i]['attributes']) {
+    if (isset($order->products[$i]['attributes'])) {
       $attributes_exist = '1';
-      $size = sizeof($order->products[$i]['attributes']);
-      for ($j=0; $j<$size; $j++) {
+      for ($j=0, $n2=sizeof($order->products[$i]['attributes']); $j<$n2; $j++) {
         if (DOWNLOAD_ENABLED == 'true') {
           $attributes_query = "select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename 
                                from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa 
@@ -234,8 +231,7 @@
                   $products_ordered . 
                   EMAIL_SEPARATOR . "\n";
 
-  $size = sizeof($order_totals);
-  for ($i=0; $i<$size; $i++) {
+  for ($i=0, $n=sizeof($order_totals); $i<$n; $i++) {
     $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
   }
 
@@ -267,7 +263,7 @@
 // load the after_process function from the payment modules
   $payment_modules->after_process();
 
-  $cart->reset(TRUE);
+  $cart->reset(true);
 
 // unregister session variables used during checkout
   tep_session_unregister('sendto');

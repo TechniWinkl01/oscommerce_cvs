@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.132 2003/02/07 11:37:51 project3000 Exp $
+  $Id: checkout_confirmation.php,v 1.133 2003/02/13 01:58:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,8 +70,7 @@
 // Stock Check
   $any_out_of_stock = false;
   if (STOCK_CHECK == 'true') {
-    $size = sizeof($order->products);
-    for ($i=0; $i<$size; $i++) {
+    for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
       if (tep_check_stock($order->products[$i]['id'], $order->products[$i]['qty'])) {
         $any_out_of_stock = true;
       }
@@ -92,7 +91,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -170,8 +169,7 @@
 <?php
   }
 
-  $osize = sizeof($order->products);
-  for ($i=0; $i<$osize; $i++) {
+  for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
     echo '          <tr>' . "\n" .
          '            <td class="main" align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
          '            <td class="main" valign="top">' . $order->products[$i]['name'];
@@ -180,9 +178,8 @@
       echo tep_check_stock($order->products[$i]['id'], $order->products[$i]['qty']);
     }
 
-    $size = sizeof($order->products[$i]['attributes']);
-    if ( (isset($order->products[$i]['attributes'])) && ($size > 0) ) {
-      for ($j=0; $j<$size; $j++) {
+    if ( (isset($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0) ) {
+      for ($j=0, $n2=sizeof($order->products[$i]['attributes']); $j<$n2; $j++) {
         echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
       }
     }
@@ -259,8 +256,7 @@
                 <td class="main" colspan="4"><?php echo $confirmation['title']; ?></td>
               </tr>
 <?php
-      $size = sizeof($confirmation['fields']);
-      for ($i=0, $n=$size; $i<$n; $i++) {
+      for ($i=0, $n=sizeof($confirmation['fields']); $i<$n; $i++) {
 ?>
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>

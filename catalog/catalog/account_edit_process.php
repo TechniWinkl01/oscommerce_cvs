@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.74 2003/01/10 20:33:25 hpdl Exp $
+  $Id: account_edit_process.php,v 1.75 2003/02/13 01:58:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -17,7 +17,7 @@
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  if ($HTTP_POST_VARS['action'] != 'process') {
+  if (!isset($HTTP_POST_VARS['action']) || ($HTTP_POST_VARS['action'] != 'process')) {
     tep_redirect(tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
   }
 
@@ -43,7 +43,7 @@
   $error = false; // reset error flag
 
   if (ACCOUNT_GENDER == 'true') {
-    if (($gender == 'm') || ($gender == 'f')) {
+    if ( ($gender == 'm') || ($gender == 'f') ) {
       $entry_gender_error = false;
     } else {
       $error = true;
@@ -187,7 +187,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <?php require('includes/form_check.js.php'); ?>
 </head>

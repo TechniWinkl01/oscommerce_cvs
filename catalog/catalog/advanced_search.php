@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.47 2002/07/21 23:38:57 hpdl Exp $
+  $Id: advanced_search.php,v 1.48 2003/02/13 01:58:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,7 +20,7 @@
 <html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
@@ -127,7 +127,7 @@ function popupWindow(url) {
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php echo tep_draw_form('advanced_search', tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get', 'onSubmit="return check_form(this);"'); if (SID) echo tep_draw_hidden_field(tep_session_name(), tep_session_id()); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('advanced_search', tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get', 'onSubmit="return check_form(this);"') . tep_hide_session_id(); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -145,11 +145,12 @@ function popupWindow(url) {
             <td>
 <?php
   $info_box_contents = array();
-  $info_box_contents[] = array('text'  => HEADING_SEARCH_CRITERIA);
+  $info_box_contents[] = array('text' => HEADING_SEARCH_CRITERIA);
+
   new infoBoxHeading($info_box_contents, true, true);
 
   $info_box_contents = array();
-  $info_box_contents[] = array('text'  => tep_draw_input_field('keywords', '', 'style="width: 100%"'));
+  $info_box_contents[] = array('text' => tep_draw_input_field('keywords', '', 'style="width: 100%"'));
   $info_box_contents[] = array('align' => 'right', 'text' => tep_draw_checkbox_field('search_in_description', '1') . ' ' . TEXT_SEARCH_IN_DESCRIPTION);
 
   new infoBox($info_box_contents);
@@ -216,7 +217,7 @@ function popupWindow(url) {
                  '</table>';
 
   $info_box_contents = array();
-  $info_box_contents[] = array('text'  => $options_box);
+  $info_box_contents[] = array('text' => $options_box);
 
   new infoBox($info_box_contents);
 ?>
@@ -228,7 +229,7 @@ function popupWindow(url) {
       <tr>
         <td class="main">
 <?php
-  if ($HTTP_GET_VARS['errorno']) {
+  if (isset($HTTP_GET_VARS['errorno'])) {
     if (($HTTP_GET_VARS['errorno'] & 1) == 1) {
       echo str_replace('\n', '<br>', JS_AT_LEAST_ONE_INPUT);
     }

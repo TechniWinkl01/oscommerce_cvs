@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.5 2002/11/11 22:39:17 dgw_ Exp $
+  $Id: checkout_payment_address.php,v 1.6 2003/02/13 01:58:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -25,7 +25,7 @@
 
   $error = false;
   $process = false;
-  if ($HTTP_POST_VARS['action'] == 'submit') {
+  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'submit')) {
 // process a new billing address
     if (tep_not_null($HTTP_POST_VARS['firstname']) && tep_not_null($HTTP_POST_VARS['lastname']) && tep_not_null($HTTP_POST_VARS['street_address'])) {
       $process = true;
@@ -103,7 +103,7 @@
       }
 
       if (ACCOUNT_STATE == 'true') {
-        if ($entry_country_error) {
+        if ($entry_country_error == true) {
           $entry_state_error = true;
         } else {
           $zone_id = 0;
@@ -218,7 +218,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 var selected;

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.106 2003/02/07 14:03:08 thomasamoulton Exp $
+  $Id: checkout_payment.php,v 1.107 2003/02/13 01:58:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -39,8 +39,7 @@
   if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
     $products = $cart->get_products();
     $any_out_of_stock = 0;
-    $size = sizeof($products);
-    for ($i=0; $i<$size; $i++) {
+    for ($i=0, $n=sizeof($products); $i<$n; $i++) {
       if (tep_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
         $any_out_of_stock = 1;
       }
@@ -87,7 +86,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 var selected;
@@ -222,8 +221,7 @@ function rowOutEffect(object) {
 <?php
   $selection = $payment_modules->selection();
 
-  $sel_size = sizeof($selection);
-  if ($sel_size > 1) {
+  if (sizeof($selection) > 1) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -243,7 +241,7 @@ function rowOutEffect(object) {
   }
 
   $radio_buttons = 0;
-  for ($i=0, $n=$sel_size; $i<$n; $i++) {
+  for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -259,7 +257,7 @@ function rowOutEffect(object) {
                     <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
                     <td class="main" align="right">
 <?php
-    if ($sel_size > 1) {
+    if (sizeof($selection) > 1) {
       echo tep_draw_radio_field('payment', $selection[$i]['id']);
     } else {
       echo tep_draw_hidden_field('payment', $selection[$i]['id']);
@@ -283,8 +281,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-      $size = sizeof($selection[$i]['fields']);
-      for ($j=0, $n2=$size; $j<$n2; $j++) {
+      for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
 ?>
                       <tr>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
