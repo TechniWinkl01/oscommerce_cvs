@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.27 2001/10/30 19:05:56 dgw_ Exp $
+  $Id: usps.php,v 1.28 2001/10/30 19:49:17 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,7 +53,7 @@
         $rate->SetOrigZip(STORE_ORIGIN_ZIP);
         $rate->SetDestZip($address_values['postcode']);
         $shipping_pounds = floor ($shipping_weight);
-        $shipping_ounces = 16 * ($shipping_weight - floor($shipping_weight));
+        $shipping_ounces = round(16 * ($shipping_weight - floor($shipping_weight)));
         $rate->SetWeight($shipping_pounds, $shipping_ounces);
         $quote = $rate->getPrice();
         $shipping_usps_cost = SHIPPING_HANDLING + $quote;
