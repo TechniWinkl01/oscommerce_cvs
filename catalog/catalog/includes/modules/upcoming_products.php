@@ -6,11 +6,11 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_UPCOMING_PRODUCTS;?>&nbsp;</b></font></td>
-                <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_DATE_EXPECTED;?>&nbsp;</b></font></td>
+                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_UPCOMING_PRODUCTS;?>&nbsp;</b></font></td>
+                <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_DATE_EXPECTED;?>&nbsp;</b></font></td>
               </tr>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line();?></td>
               </tr>
               <tr>
 <?
@@ -28,7 +28,7 @@
     }
 ?>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line();?></td>
               </tr>
             </table></td>
           </tr>
