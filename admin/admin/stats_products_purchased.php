@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_products_purchased.php,v 1.17 2001/09/18 17:15:31 mbs Exp $
+  $Id: stats_products_purchased.php,v 1.18 2001/11/20 21:46:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,7 @@
           </tr>
 <?php
   if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
-  $products_query_raw = "select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op where p.products_id = op.products_id and pd.products_id = op.products_id and pd.language_id = '" . $languages_id. "' group by pd.products_name order by ordersum DESC, pd.products_name";
+  $products_query_raw = "select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op where p.products_id = op.products_id and pd.products_id = op.products_id and pd.language_id = '" . $languages_id. "' group by pd.products_id order by ordersum DESC, pd.products_name";
   $products_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_query_raw, $products_query_numrows);
   $products_query = tep_db_query($products_query_raw);
   while ($products = tep_db_fetch_array($products_query)) {
