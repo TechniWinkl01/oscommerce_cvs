@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.1 2001/06/12 20:54:14 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.2 2001/06/12 22:54:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,15 +12,17 @@
 
 define('NAVBAR_TITLE', 'Enviar a un Amigo');
 define('TOP_BAR_TITLE', 'Enviar a un Amigo');
-define('HEADING_TITLE', 'Enviar informacion sobre un producto a un amigo');
+define('HEADING_TITLE', 'Enviar informacion sobre \'%s\' un amigo');
 
-define('TEXT_EMAILPRODUCT_EMAIL', 'Tu Direccion eMail:');
-define('TEXT_EMAILPRODUCT_NAME', 'Tu Nombre:');
-define('TEXT_EMAILPRODUCT_FRIEND_EMAIL', 'La Direccion eMail de tu Amigo:');
-define('TEXT_EMAILPRODUCT_MESSAGE', 'Tu Mensaje:');
-define('TEXT_EMAILPRODUCT_TELLAFRIEND', 'Informacion sobre:');
-define('TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT', 'Tu email sobre ');
-define('TEXT_EMAILPRODUCT_HAS_BEEN_SENT', 'ha sido enviado a  -');
+define('FORM_TITLE_CUSTOMER_DETAILS', 'Your Details');
+define('FORM_TITLE_FRIEND_DETAILS', 'Your Friend\'s Details');
+define('FORM_TITLE_FRIEND_MESSAGE', 'Your Message');
+
+define('FORM_FIELD_CUSTOMER_EMAIL', 'Your Email Address:');
+define('FORM_FIELD_CUSTOMER_NAME', 'Your Name:');
+define('FORM_FIELD_FRIEND_EMAIL', 'Your Friend\'s Email Address:');
+
+define('TEXT_EMAIL_SUCCESSFUL_SENT', 'Your email about <b>%s</b> has been successfully sent to <b>%s</b>.');
 
 define('TEXT_EMAIL_SUBJECT', 'Su amigo %s le quiere recomendar este product de %s');
 define('TEXT_EMAIL_INTRO', 'Su amigo %s, pensó que estaria interesado en %s de %s.');
