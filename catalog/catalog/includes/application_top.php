@@ -1,31 +1,39 @@
 <?php
 /*
-  The Exchange Project - Community Made Shopping!
+  $Id: application_top.php,v 1.97 2001/04/01 00:26:25 hpdl Exp $
 
-  $Id: application_top.php,v 1.96 2001/03/24 00:29:28 hpdl Exp $
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
+// Set your local configuration parameters.
+// If this file exists, it must contain the following:
+// define('CONFIGURE_STATUS_COMPLETED', '1');
   if (file_exists('includes/local/configure.php')) {
     include('includes/local/configure.php');
-    if ((!defined(CONFIGURE_STATUS_COMPLETED)) && (CONFIGURE_STATUS_COMPLETED != '1')) { // File not read properly
-       die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted.<br>&nbsp;<br>Please add the following to that file:<br>&nbsp;<br>define(\'CONFIGURE_STATUS_COMPLETED\', \'1\');');
+    if ( (!defined(CONFIGURE_STATUS_COMPLETED)) && (CONFIGURE_STATUS_COMPLETED != '1') ) {
+       die('The configuration file "catalog/includes/local/configure.php" is not set up properly.<br>&nbsp;<br>Please add the following line in that file:<br>&nbsp;<br>define(\'CONFIGURE_STATUS_COMPLETED\', \'1\');');
     }
   }
 
-// for internal use until final v1.0 version is ready
+// Define the project version
+// * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.1');
 
-// define our webserver variables
-// FS = Filesystem (physical)
-// WS = Webserver (virtual)
-  define('HTTP_SERVER', 'http://exchange');
-  define('HTTPS_SERVER', 'https://exchange');
-  define('ENABLE_SSL', 1); // ssl server enable(1)/disable(0)
-  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT . '/');
-  define('DIR_FS_LOGS', '/usr/local/apache/logs/');
-  define('DIR_WS_CATALOG', '/catalog/');
+// Define the webserver and path parameters
+// * DIR_FS_* = Filesystem directories (local/physical)
+// * DIR_WS_* = Webserver directories (virtual/URL)
+  define('HTTP_SERVER', ''); // eg, http://localhost - should not be NULL for productive servers
+  define('HTTPS_SERVER', ''); // eg, https://localhost - should not be NULL for productive servers
+  define('ENABLE_SSL', false); // secure webserver for checkout procedure?
+  define('DIR_FS_LOGS', '/usr/local/apache/logs/tep'); // logging directory
+  define('DIR_WS_CATALOG', '/catalog/'); // absolute path required
   define('DIR_WS_IMAGES', 'images/');
-  define('DIR_WS_INCLUDES', 'includes/');
+  define('DIR_WS_INCLUDES', 'includes/'); // If "URL fopen wrappers" are enabled in PHP (which they are in the default configuration), this can be a URL instead of a local pathname
   define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');
   define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
   define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
@@ -34,29 +42,26 @@
   define('DIR_WS_SHIPPING_MODULES', DIR_WS_MODULES . 'shipping/');
   define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
 
-// default values
-  define('DEFAULT_LANGUAGE', 'en'); // use the code
-  define('DEFAULT_CURRENCY', 'USD'); // use the code
+// default localization values
+  define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
+  define('DEFAULT_CURRENCY', 'USD'); // codes are in the "currencies" database table (and catalog/includes/data/rates.php)
 
-// who to send order confirmation emails to.. there is always one being sent to the customer, so there
-// is no need to add their address to the following constant..
-// use comma's to separate email addresses (as in the example)
+// Send order confirmation emails ALSO to these email addresses (separated by a comma)
 //  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
 
-  define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-  define('STORE_PAGE_PARSE_TIME', 0); // store the time it takes to parse a page
-  define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'exchange/parse_time_log');
+  define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
 
-  define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
-  if (STORE_PAGE_PARSE_TIME == '1') {
-    $parse_start_time = microtime();
+  define('STORE_PAGE_PARSE_TIME', false); // store the time it takes to parse a page (in the logfile)
+  define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'parse_time_log'); // filename of the log
+  define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S'); // format of the time entries
+  define('DISPLAY_PAGE_PARSE_TIME', true); // display how long it takes to parse a page (STORE_PAGE_PARSE_TIME must be enabled)
+
+  if (STORE_PAGE_PARSE_TIME == true) {
+    define('PAGE_PARSE_START_TIME', microtime());
   }
-  define('STORE_DB_TRANSACTIONS', 0);
+  define('STORE_DB_TRANSACTIONS', false); // log database queries
 
 // define the filenames used in the project
-  define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
-  define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
-  define('FILENAME_ALSO_PURCHASED_PRODUCTS', 'also_purchased_products.php'); // This is the bottom of product_info.php (found in modules)
   define('FILENAME_ACCOUNT', 'account.php');
   define('FILENAME_ACCOUNT_EDIT', 'account_edit.php');
   define('FILENAME_ACCOUNT_EDIT_PROCESS', 'account_edit_process.php');
@@ -66,6 +71,7 @@
   define('FILENAME_ADDRESS_BOOK_PROCESS', 'address_book_process.php');
   define('FILENAME_ADVANCED_SEARCH', 'advanced_search.php');
   define('FILENAME_ADVANCED_SEARCH_RESULT', 'advanced_search_result.php');
+  define('FILENAME_ALSO_PURCHASED_PRODUCTS', 'also_purchased_products.php'); // This is the bottom of product_info.php (found in modules)
   define('FILENAME_CHECKOUT_ADDRESS', 'checkout_address.php');
   define('FILENAME_CHECKOUT_CONFIRMATION', 'checkout_confirmation.php');
   define('FILENAME_CHECKOUT_PAYMENT', 'checkout_payment.php');
@@ -80,6 +86,8 @@
   define('FILENAME_LOGIN', 'login.php');
   define('FILENAME_LOGIN_CREATE', 'login_create.php');
   define('FILENAME_LOGOFF', 'logoff.php');
+  define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
+  define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
@@ -88,17 +96,17 @@
   define('FILENAME_REVIEWS', 'reviews.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
-  define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
+  define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
 
 // define our database connection
   define('DB_SERVER', 'exchange');
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
-  define('USE_PCONNECT', 1);
+  define('USE_PCONNECT', true); // use persisstent connections?
 
 // customization for the design layout
-  define('CART_DISPLAY', 1); // Enable to view the shopping cart after adding a product
+  define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -164,37 +172,42 @@
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
+// define our general functions used application-wide
+  require(DIR_WS_FUNCTIONS . 'general.php');
+
 // include cache class - only for PHP4
   $CACHE_DEBUG = 0;     /* Default: 0 - Turn debugging on/off */
   define(CACHE_ON, 0); /* Default: 0 - Turn caching on/off */
   define(CACHE_DIR, '/tmp/'); /* Default: /tmp/ - Default cache directory */
   define(CACHE_GC, .10); /* Default: .10 - Probability of garbage collection */
 
-  $include_file = DIR_WS_CLASSES . 'cache.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'cache.php');
   $cache = new phpCache;
 
 // include the database functions
-  $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_FUNCTIONS . 'database.php');
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
 
 // include shopping cart class
-  $include_file = DIR_WS_CLASSES . 'shopping_cart.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'shopping_cart.php');
 
 // some code to solve compatibility issues
-  $include_file = DIR_WS_FUNCTIONS . 'compatibility.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
-    $include_file = DIR_WS_CLASSES . 'sessions.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+    include(DIR_WS_CLASSES . 'sessions.php');
   }
 
 // define how the session functions will be used
-  $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_FUNCTIONS . 'sessions.php');
 
 // lets start our session
-  if (!SID && $HTTP_GET_VARS[tep_session_name()]) tep_session_id($HTTP_GET_VARS[tep_session_name()]);
+  if ( (!SID) && ($HTTP_GET_VARS[tep_session_name()]) ) {
+    tep_session_id($HTTP_GET_VARS[tep_session_name()]);
+  }
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
     session_set_cookie_params(0, DIR_WS_CATALOG);
@@ -218,11 +231,8 @@
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
 
-// define our general functions used application-wide
-  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-
 // include the who's online functions
-  $include_file = DIR_WS_FUNCTIONS . 'whos_online.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_FUNCTIONS . 'whos_online.php');
   tep_update_whos_online();
 
 // language
@@ -242,29 +252,29 @@
   }
 
 // include the currency rates, and the language translations
-  $include_file = DIR_WS_INCLUDES . 'data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_INCLUDES . 'data/rates.php');
+  require(DIR_WS_LANGUAGES . $language . '.php');
 
 // Include the password crypto functions
- $include_file = DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_WS_INCLUDES . 'include_once.php'); 
+  require(DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT); 
 
 // Include validation functions (right now only email address)
- $include_file = DIR_WS_FUNCTIONS . 'validations.php'; include(DIR_WS_INCLUDES . 'include_once.php'); 
+  require(DIR_WS_FUNCTIONS . 'validations.php'); 
 
 // split-page-results
-  $include_file = DIR_WS_CLASSES . 'split_page_results.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // infobox
-  $include_file = DIR_WS_CLASSES . 'boxes.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'boxes.php');
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
-    $goto = (CART_DISPLAY) ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
-    $parameters = (CART_DISPLAY) ? array('action', 'cPath', 'products_id') : array('action');
+    $goto = (CART_DISPLAY == true) ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
+    $parameters = (CART_DISPLAY == true) ? array('action', 'cPath', 'products_id') : array('action');
     if ($HTTP_GET_VARS['action'] == 'remove_product') {
       // customer wants to remove a product from their shopping cart
       $cart->remove($HTTP_GET_VARS['products_id']);
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
       // customer wants to update the product quantity in their shopping cart

@@ -1,6 +1,6 @@
 <?
   function tep_exit() {
-    if (EXIT_AFTER_REDIRECT == 1) {
+    if (EXIT_AFTER_REDIRECT == true) {
      tep_session_close();
      return exit();
     }
@@ -30,7 +30,7 @@
     if ($connection == 'NONSSL') {
       $link = HTTP_SERVER . DIR_WS_CATALOG;
     } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 1) {
+      if (ENABLE_SSL == true) {
         $link = HTTPS_SERVER . DIR_WS_CATALOG;
       } else {
         $link = HTTP_SERVER . DIR_WS_CATALOG;
