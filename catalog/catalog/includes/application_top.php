@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.142 2001/06/08 23:13:47 hpdl Exp $
+  $Id: application_top.php,v 1.143 2001/06/09 18:26:03 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,13 +11,8 @@
 */
 
 // Set your local configuration parameters.
-// If this file exists, it must contain the following:
-// define('CONFIGURE_STATUS_COMPLETED', '1');
   if (file_exists('includes/local/configure.php')) {
     include('includes/local/configure.php');
-    if ( (!defined(CONFIGURE_STATUS_COMPLETED)) && (CONFIGURE_STATUS_COMPLETED != '1') ) {
-       die('The configuration file "catalog/includes/local/configure.php" is not set up properly.<br>&nbsp;<br>Please add the following line in that file:<br>&nbsp;<br>define(\'CONFIGURE_STATUS_COMPLETED\', \'1\');');
-    }
   }
 
 // Define the project version
