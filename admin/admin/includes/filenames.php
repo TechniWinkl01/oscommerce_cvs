@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: filenames.php,v 1.4 2004/05/12 19:31:26 mevans Exp $
+  $Id: filenames.php,v 1.5 2004/07/22 23:13:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -43,9 +43,7 @@
   define('FILENAME_SERVICES', 'services.php');
   define('FILENAME_SHIPPING_MODULES', 'shipping_modules.php');
   define('FILENAME_SPECIALS', 'specials.php');
-  define('FILENAME_STATS_CUSTOMERS', 'stats_customers.php');
-  define('FILENAME_STATS_PRODUCTS_PURCHASED', 'stats_products_purchased.php');
-  define('FILENAME_STATS_PRODUCTS_VIEWED', 'stats_products_viewed.php');
+  define('FILENAME_STATISTICS', 'statistics.php');
   define('FILENAME_TAX_CLASSES', 'tax_classes.php');
   define('FILENAME_TAX_RATES', 'tax_rates.php');
   define('FILENAME_WEIGHT_CLASSES', 'weight_classes.php');
