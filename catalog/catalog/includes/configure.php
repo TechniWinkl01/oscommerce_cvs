@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: configure.php,v 1.14 2003/07/09 01:15:48 hpdl Exp $
+  $Id: configure.php,v 1.15 2004/02/16 06:47:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -33,6 +33,7 @@
 
   define('DIR_WS_DOWNLOAD_PUBLIC', 'pub/');
   define('DIR_FS_CATALOG', dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']));
+  define('DIR_FS_WORK', '/tmp/'); // the work directory should be outside the public html directory
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
   define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG . 'pub/');
 
@@ -41,6 +42,7 @@
   define('DB_SERVER_USERNAME', '');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'osCommerce');
+  define('DB_TABLE_PREFIX', 'osc_');
   define('USE_PCONNECT', 'false'); // use persistent connections?
   define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 ?>
