@@ -46,6 +46,15 @@
   } else {
     $email_address_error = 0;
   }
+  
+  if (ENTRY_EMAIL_ADDRESS_CHECK == 1) {
+    if (!(tep_validate_email(trim($HTTP_POST_VARS['email_address'])))) {
+      $email_address_check_error = 1;
+      $error = 1;
+    } else {
+      $email_address_check_error = 0;
+    }
+  }
 
   if (strlen(trim($HTTP_POST_VARS['street_address'])) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
     $street_address_error = 1;
@@ -201,6 +210,8 @@
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($email_address_error == 1) {
       echo '<input type="text" name="email_address" maxlength="96" value="' . $HTTP_POST_VARS['email_address'] . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR;
+    }  elseif ($email_address_check_error == 1) {
+       echo '<input type="text" name="email_address" maxlength="96" value="' . $HTTP_POST_VARS['email_address'] . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_CHECK_ERROR;
     } elseif ($email_exists == 1) {
       echo '<input type="text" name="email_address" maxlength="96" value="' . $HTTP_POST_VARS['email_address'] . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR_EXISTS;
     } else {
