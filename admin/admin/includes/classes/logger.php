@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: logger.php,v 1.3 2003/06/20 16:23:08 hpdl Exp $
+  $Id: logger.php,v 1.4 2004/04/13 08:19:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@
     }
 
     function timer_start() {
-      if (defined("PAGE_PARSE_START_TIME")) {
+      if (defined("SERVICE_DEBUG_EXECUTION_TIME_LOG")) {
         $this->timer_start = PAGE_PARSE_START_TIME;
       } else {
         $this->timer_start = microtime();
@@ -46,7 +46,7 @@
     }
 
     function write($message, $type) {
-      error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . ' [' . $type . '] ' . $message . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      error_log(strftime('%c') . ' [' . $type . '] ' . $message . "\n", 3, SERVICE_DEBUG_EXECUTION_TIME_LOG);
     }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.17 2003/07/09 01:18:53 hpdl Exp $
+  $Id: configuration.php,v 1.18 2004/04/13 08:19:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,6 +26,8 @@
     while ($configuration_groups = tep_db_fetch_array($configuration_groups_query)) {
       $cfg_groups .= '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '" class="menuBoxContentLink">' . $configuration_groups['cgTitle'] . '</a><br>';
     }
+
+    $cfg_groups .= '<a href="' . tep_href_link(FILENAME_SERVICES) . '" class="menuBoxContentLink">' . BOX_CONFIGURATION_SERVICES . '</a><br>';
 
     $contents[] = array('text'  => $cfg_groups);
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.109 2004/04/03 10:28:44 mevans Exp $
+  $Id: english.php,v 1.110 2004/04/13 08:19:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -60,6 +60,7 @@ define('BOX_HEADING_CONFIGURATION', 'Configuration');
 define('BOX_CONFIGURATION_MYSTORE', 'My Store');
 define('BOX_CONFIGURATION_LOGGING', 'Logging');
 define('BOX_CONFIGURATION_CACHE', 'Cache');
+define('BOX_CONFIGURATION_SERVICES', 'Services');
 
 // modules box text in includes/boxes/modules.php
 define('BOX_HEADING_MODULES', 'Modules');
