@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.102 2003/05/19 20:17:50 hpdl Exp $
+  $Id: espanol.php,v 1.103 2003/06/05 15:46:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -160,43 +160,43 @@ define('ENTRY_COMPANY', 'Empresa:');
 define('ENTRY_COMPANY_ERROR', '');
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_GENDER', 'Sexo:');
-define('ENTRY_GENDER_ERROR', 'Please select your Gender.');
+define('ENTRY_GENDER_ERROR', 'Por favor seleccione una opcion.');
 define('ENTRY_GENDER_TEXT', '*');
 define('ENTRY_FIRST_NAME', 'Nombre:');
-define('ENTRY_FIRST_NAME_ERROR', 'Your First Name must contain a minimum of ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.');
+define('ENTRY_FIRST_NAME_ERROR', 'Su Nombre debe tener al menos ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' letras.');
 define('ENTRY_FIRST_NAME_TEXT', '*');
 define('ENTRY_LAST_NAME', 'Apellidos:');
-define('ENTRY_LAST_NAME_ERROR', 'Your Last Name must contain a minimum of ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.');
+define('ENTRY_LAST_NAME_ERROR', 'Sus apellidos deben tener al menos ' . ENTRY_LAST_NAME_MIN_LENGTH . ' letras.');
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH', 'Fecha de Nacimiento:');
-define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your Date of Birth must be in this format: DD/MM/YYYY (p.ej. 21/05/1970)');
+define('ENTRY_DATE_OF_BIRTH_ERROR', 'Su fecha de nacimiento debe tener este formato: DD/MM/YYYY (p.ej. 21/05/1970)');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '* (p.ej. 21/05/1970)');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
-define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your E-Mail Address must contain a minimum of ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
-define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Your E-Mail Address does not appear to be valid - please make any necessary corrections.');
-define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Your E-Mail Address already exists in our records - please log in with the e-mail address or create an account with a different address.');
+define('ENTRY_EMAIL_ADDRESS_ERROR', 'Su direccion de E-Mail debe tener al menos ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' letras.');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Su direccion de E-Mail no parece valida - por favor haga los cambios necesarios.');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Su direccion de E-Mail ya figura entre nuestros clientes - puede entrar a su cuenta con esta direccion o crear una cuenta nueva con una direccion diferente.');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
-define('ENTRY_STREET_ADDRESS_ERROR', 'Your Street Address must contain a minimum of ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.');
+define('ENTRY_STREET_ADDRESS_ERROR', 'Su direccion debe tener al menos ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' letras.');
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
 define('ENTRY_SUBURB', 'Suburbio');
 define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Codigo Postal:');
-define('ENTRY_POST_CODE_ERROR', 'Your Post Code must contain a minimum of ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.');
+define('ENTRY_POST_CODE_ERROR', 'Su codigo postal debe tener al menos ' . ENTRY_POSTCODE_MIN_LENGTH . ' letras.');
 define('ENTRY_POST_CODE_TEXT', '*');
 define('ENTRY_CITY', 'Poblacion:');
-define('ENTRY_CITY_ERROR', 'Your City must contain a minimum of ' . ENTRY_CITY_MIN_LENGTH . ' characters.');
+define('ENTRY_CITY_ERROR', 'Su poblacion debe tener al menos ' . ENTRY_CITY_MIN_LENGTH . ' letras.');
 define('ENTRY_CITY_TEXT', '*');
 define('ENTRY_STATE', 'Provincia/Estado:');
-define('ENTRY_STATE_ERROR', 'Your State must contain a minimum of ' . ENTRY_STATE_MIN_LENGTH . ' characters.');
-define('ENTRY_STATE_ERROR_SELECT', 'Please select a state from the States pull down menu.');
+define('ENTRY_STATE_ERROR', 'Su provincia/estado debe tener al menos ' . ENTRY_STATE_MIN_LENGTH . ' letras.');
+define('ENTRY_STATE_ERROR_SELECT', 'Por favor seleccione de la lista desplegable.');
 define('ENTRY_STATE_TEXT', '*');
 define('ENTRY_COUNTRY', 'Pais:');
-define('ENTRY_COUNTRY_ERROR', 'You must select a country from the Countries pull down menu.');
+define('ENTRY_COUNTRY_ERROR', 'Debe seleccionar un pais de la lista desplegable.');
 define('ENTRY_COUNTRY_TEXT', '*');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefono:');
-define('ENTRY_TELEPHONE_NUMBER_ERROR', 'Your Telephone Number must contain a minimum of ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.');
+define('ENTRY_TELEPHONE_NUMBER_ERROR', 'Su numero de telefono debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.');
 define('ENTRY_TELEPHONE_NUMBER_TEXT', '*');
 define('ENTRY_FAX_NUMBER', 'Fax:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
@@ -207,21 +207,21 @@ define('ENTRY_NEWSLETTER_YES', 'suscribirse');
 define('ENTRY_NEWSLETTER_NO', 'no suscribirse');
 define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Contraseña:');
-define('ENTRY_PASSWORD_ERROR', 'Your Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
-define('ENTRY_PASSWORD_ERROR_NOT_MATCHING', 'The Password Confirmation must match your Password.');
+define('ENTRY_PASSWORD_ERROR', 'Su contraseña debe tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.');
+define('ENTRY_PASSWORD_ERROR_NOT_MATCHING', 'La confirmacion de la contraseña debe ser igual a la contraseña.');
 define('ENTRY_PASSWORD_TEXT', '*');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Confirme Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '*');
-define('ENTRY_PASSWORD_CURRENT', 'Current Password:');
+define('ENTRY_PASSWORD_CURRENT', 'Contraseña Actual:');
 define('ENTRY_PASSWORD_CURRENT_TEXT', '*');
-define('ENTRY_PASSWORD_CURRENT_ERROR', 'Your Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
-define('ENTRY_PASSWORD_NEW', 'New Password:');
+define('ENTRY_PASSWORD_CURRENT_ERROR', 'Su contraseña debe tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.');
+define('ENTRY_PASSWORD_NEW', 'Nueva Contraseña:');
 define('ENTRY_PASSWORD_NEW_TEXT', '*');
-define('ENTRY_PASSWORD_NEW_ERROR', 'Your new Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
-define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'The Password Confirmation must match your new Password.');
+define('ENTRY_PASSWORD_NEW_ERROR', 'Su contraseña nueva debe tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.');
+define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'La confirmacion de su contraseña debe coincidir con su contraseña nueva.');
 define('PASSWORD_HIDDEN', '--OCULTO--');
 
-define('FORM_REQUIRED_INFORMATION', '* Required information');
+define('FORM_REQUIRED_INFORMATION', '* Dato Obligatorio');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Paginas de Resultados:');
@@ -260,20 +260,20 @@ define('IMAGE_BUTTON_NOTIFICATIONS', 'Notificaciones');
 define('IMAGE_BUTTON_QUICK_FIND', 'Busqueda Rápida');
 define('IMAGE_BUTTON_REMOVE_NOTIFICATIONS', 'Eliminar Notificaciones');
 define('IMAGE_BUTTON_REVIEWS', 'Comentarios');
-define('IMAGE_BUTTON_SEARCH', 'Search');
+define('IMAGE_BUTTON_SEARCH', 'Buscar');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Opciones de Envío');
 define('IMAGE_BUTTON_TELL_A_FRIEND', 'Díselo a un Amigo');
 define('IMAGE_BUTTON_UPDATE', 'Actualizar');
 define('IMAGE_BUTTON_UPDATE_CART', 'Actualizar Cesta');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Escribir Comentario');
 
-define('SMALL_IMAGE_BUTTON_DELETE', 'Delete');
-define('SMALL_IMAGE_BUTTON_EDIT', 'Edit');
-define('SMALL_IMAGE_BUTTON_VIEW', 'View');
+define('SMALL_IMAGE_BUTTON_DELETE', 'Eliminar');
+define('SMALL_IMAGE_BUTTON_EDIT', 'Modificar');
+define('SMALL_IMAGE_BUTTON_VIEW', 'Ver');
 
 define('ICON_ARROW_RIGHT', 'más');
 define('ICON_CART', 'En Cesta');
-define('ICON_SUCCESS', 'Success');
+define('ICON_SUCCESS', 'Correcto');
 define('ICON_WARNING', 'Advertencia');
 
 define('TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo <span class="greetUser">%s!</span> &iquest;Le gustaria ver que <a href="%s"><u>nuevos productos</u></a> hay disponibles?');

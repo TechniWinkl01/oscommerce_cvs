@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.7 2003/05/19 20:17:50 hpdl Exp $
+  $Id: account_edit.php,v 1.8 2003/06/05 15:46:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,5 +17,5 @@ define('HEADING_TITLE', 'Informacion de Mi Cuenta');
 
 define('MY_ACCOUNT_TITLE', 'Mi Cuenta');
 
-define('SUCCESS_ACCOUNT_UPDATED', 'Your account has been successfully updated.');
+define('SUCCESS_ACCOUNT_UPDATED', 'Se ha actualizado su cuenta correctamente.');
 ?>

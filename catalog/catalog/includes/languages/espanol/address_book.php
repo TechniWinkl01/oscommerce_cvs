@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.8 2003/05/19 20:17:50 hpdl Exp $
+  $Id: address_book.php,v 1.9 2003/06/05 15:46:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,16 +11,16 @@
 */
 
 define('NAVBAR_TITLE_1', 'Mi Cuenta');
-define('NAVBAR_TITLE_2', 'Otras Direcciones');
+define('NAVBAR_TITLE_2', 'Mis Direcciones');
 
-define('HEADING_TITLE', 'Otras Direcciones de Envio');
+define('HEADING_TITLE', 'Mis Direcciones Postales');
 
-define('PRIMARY_ADDRESS_TITLE', 'Primary Address');
-define('PRIMARY_ADDRESS_DESCRIPTION', 'This address is used as the pre-selected shipping and billing address for orders placed on this store.<br><br>This address is also used as the base for product and service tax calculations.');
+define('PRIMARY_ADDRESS_TITLE', 'Direccion Principal');
+define('PRIMARY_ADDRESS_DESCRIPTION', 'Esta direccion se seleccionara por defecto para el envio y para la facturacion de sus pedidos.<br><br>Esta direccion tambien se utiliza para calcular los impuestos que le corresponden.');
 
-define('ADDRESS_BOOK_TITLE', 'Address Book Entries');
+define('ADDRESS_BOOK_TITLE', 'Direcciones');
 
-define('PRIMARY_ADDRESS', '(primary address)');
+define('PRIMARY_ADDRESS', '(direccion principal)');
 
 define('TEXT_MAXIMUM_ENTRIES', '<font color="#ff0000"><b>NOTA:</b></font> Se permiten un maximo de %s direcciones.');
 ?>

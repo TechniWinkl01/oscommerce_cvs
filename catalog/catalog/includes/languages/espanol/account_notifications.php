@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_notifications.php,v 1.1 2003/05/19 19:55:46 hpdl Exp $
+  $Id: account_notifications.php,v 1.2 2003/06/05 15:46:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,20 +10,20 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'My Account');
-define('NAVBAR_TITLE_2', 'Product Notifications');
+define('NAVBAR_TITLE_1', 'Mi Cuenta');
+define('NAVBAR_TITLE_2', 'Avisos de Productos');
 
-define('HEADING_TITLE', 'Product Notifications');
+define('HEADING_TITLE', 'Avisos de Productos');
 
-define('MY_NOTIFICATIONS_TITLE', 'My Product Notifications');
-define('MY_NOTIFICATIONS_DESCRIPTION', 'The product notification list allows you to stay up to date on products you find of interest.<br><br>To be up to date on all product changes, select <b>Global Product Notifications</b>.');
+define('MY_NOTIFICATIONS_TITLE', 'Mis Avisos de Productos');
+define('MY_NOTIFICATIONS_DESCRIPTION', 'La lista de avisos de productos le permite estar al dia sobre los productos de su interes.<br><br>Para estar al dia sobre todos los productos seleccione <b>Aviso Global de Productos</b>.');
 
-define('GLOBAL_NOTIFICATIONS_TITLE', 'Global Product Notifications');
-define('GLOBAL_NOTIFICATIONS_DESCRIPTION', 'Recieve notifications on all available products.');
+define('GLOBAL_NOTIFICATIONS_TITLE', 'Aviso Global de Productos');
+define('GLOBAL_NOTIFICATIONS_DESCRIPTION', 'Recibir avisos de todos los productos disponibles.');
 
-define('NOTIFICATIONS_TITLE', 'Product Notifications');
-define('NOTIFICATIONS_DESCRIPTION', 'To remove a product notification, clear the products checkbox and click on Continue.');
-define('NOTIFICATIONS_NON_EXISTING', 'There are currently no products marked to be notified on.<br><br>To add products to your product notification list, click on the notification link available on the detailed product information page.');
+define('NOTIFICATIONS_TITLE', 'Avisos de Productos');
+define('NOTIFICATIONS_DESCRIPTION', 'Para quitar un aviso, desmarque la casilla correspondiente y pulse en Continuar.');
+define('NOTIFICATIONS_NON_EXISTING', 'No tiene configurados avisos para ningun producto.<br><br>Para añadir productos a su lista de avisos, vaya a la pagina de informacion del producto y use el enlace para activar el aviso.');
 
-define('SUCCESS_NOTIFICATIONS_UPDATED', 'Your product notifications have been successfully updated.');
+define('SUCCESS_NOTIFICATIONS_UPDATED', 'Se han actualizado sus avisos correctamente.');
 ?>

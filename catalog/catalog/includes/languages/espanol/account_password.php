@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_password.php,v 1.1 2003/05/19 19:55:46 hpdl Exp $
+  $Id: account_password.php,v 1.2 2003/06/05 15:46:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,13 +10,13 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'My Account');
-define('NAVBAR_TITLE_2', 'Change Password');
+define('NAVBAR_TITLE_1', 'Mi Cuenta');
+define('NAVBAR_TITLE_2', 'Modificar Contraseña');
 
-define('HEADING_TITLE', 'My Password');
+define('HEADING_TITLE', 'Mi Contraseña');
 
-define('MY_PASSWORD_TITLE', 'My Password');
+define('MY_PASSWORD_TITLE', 'Mi Contraseña');
 
-define('SUCCESS_PASSWORD_UPDATED', 'Your password has been successfully updated.');
-define('ERROR_CURRENT_PASSWORD_NOT_MATCHING', 'Your Current Password did not match the password in our records. Please try again.');
+define('SUCCESS_PASSWORD_UPDATED', 'Se ha actualizado su contraseña correctamente.');
+define('ERROR_CURRENT_PASSWORD_NOT_MATCHING', 'Su contraseña actual no coincide. Por favor intentelo de nuevo.');
 ?>

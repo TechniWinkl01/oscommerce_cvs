@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.8 2003/05/19 20:17:50 hpdl Exp $
+  $Id: create_account.php,v 1.9 2003/06/05 15:46:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,9 +10,11 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Crear una Cuenta');
-define('NAVBAR_TITLE_2', 'Proceso');
+define('NAVBAR_TITLE', 'Crear una Cuenta');
+
 define('HEADING_TITLE', 'Informacion de Mi Cuenta');
+
+define('TEXT_ORIGIN_LOGIN', '<font color="#FF0000"><small><b>NOTA:</b></font></small> Si ha comprado anteriormente con nosotros, use la pagina de <a href="%s"><u>entrada</u></a> para acceder a su cuenta.');
 
 define('EMAIL_SUBJECT', 'Bienvenido a ' . STORE_NAME);
 define('EMAIL_GREET_MR', 'Estimado ' . stripslashes($HTTP_POST_VARS['lastname']) . ',' . "\n\n");
