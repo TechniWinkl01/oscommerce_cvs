@@ -55,7 +55,14 @@
 <?
 // here its tricky for the sort becuase of manufacturers_name / products_name via manufacturers_location.. now there is a sort-order on the products name until a good solution is found..
   $row = 0;
-  $search = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from manufacturers, products_to_manufacturers, products where products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and (products.products_name like '%" . $HTTP_POST_VARS['query'] . "%' or manufacturers.manufacturers_name like '%" . $HTTP_POST_VARS['query'] . "%') order by products.products_name limit " . MAX_DISPLAY_SEARCH_RESULTS);
+
+  $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
+  $search_query = "select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from manufacturers, products_to_manufacturers, products where products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and ";
+  for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
+    $search_query .= "(products.products_name like '%" . $search_keywords[$i] . "%' or manufacturers.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
+  }
+  $search_query .= "(products.products_name like '%" . $search_keywords[$i] . "%' or manufacturers.manufacturers_name like '%" . $search_keywords[$i] . "%') order by products.products_name limit " . MAX_DISPLAY_SEARCH_RESULTS;
+  $search = tep_db_query($search_query);
   while ($search_values = tep_db_fetch_array($search)) {
     $row++;
     $products_name = tep_products_name($search_values['manufacturers_location'], $search_values['manufacturers_name'], $search_values['products_name']);
