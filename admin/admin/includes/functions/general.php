@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.172 2004/10/28 19:00:22 hpdl Exp $
+  $Id: general.php,v 1.173 2004/10/31 09:57:44 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -885,9 +885,16 @@
       $order_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$order_id . "'");
       while ($order = tep_db_fetch_array($order_query)) {
         tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = products_quantity + " . $order['products_quantity'] . ", products_ordered = products_ordered - " . $order['products_quantity'] . " where products_id = '" . (int)$order['products_id'] . "'");
-      }
-    }
 
+        $products_query = tep_db_query("select products_quantity, products_status from " . TABLE_PRODUCTS . " where products_id = '" . (int)$order['products_id'] . "'");
+        $products = tep_db_fetch_array($products_query);
+        
+        if ($products['products_quantity'] >= '1' && $products['products_status'] == '0') {
+          tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '1' where products_id = '" . (int)$order['products_id'] . "'");
+        }
+      }
+    } 
+    
     tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . (int)$order_id . "'");
     tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$order_id . "'");
     tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . (int)$order_id . "'");
