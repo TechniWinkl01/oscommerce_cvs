@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.121 2003/06/09 22:46:45 hpdl Exp $
+  $Id: german.php,v 1.122 2003/06/12 11:37:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -160,43 +160,43 @@ define('ENTRY_COMPANY', 'Firmenname:');
 define('ENTRY_COMPANY_ERROR', '');
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_GENDER', 'Anrede:');
-define('ENTRY_GENDER_ERROR', 'Please select your Gender.');
+define('ENTRY_GENDER_ERROR', 'Bitte das Geschlecht angeben.');
 define('ENTRY_GENDER_TEXT', '*');
 define('ENTRY_FIRST_NAME', 'Vorname:');
-define('ENTRY_FIRST_NAME_ERROR', 'Your First Name must contain a minimum of ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.');
+define('ENTRY_FIRST_NAME_ERROR', 'Der Vorname sollte mindestens ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_FIRST_NAME_TEXT', '*');
 define('ENTRY_LAST_NAME', 'Nachname:');
-define('ENTRY_LAST_NAME_ERROR', 'Your Last Name must contain a minimum of ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.');
+define('ENTRY_LAST_NAME_ERROR', 'Der Nachname sollte mindestens ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
-define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your Date of Birth must be in this format: TT/MM/JJJJ (zB. 21.05.1970)');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '* (zB. 21.05.1970)');
+define('ENTRY_DATE_OF_BIRTH_ERROR', 'Bitte geben Sie Ihr Geburtsdatum in folgendem Format ein: TT.MM.JJJJ (z.B. 21.05.1970)');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '* (z.B. 21.05.1970)');
 define('ENTRY_EMAIL_ADDRESS', 'eMail-Adresse:');
-define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your E-Mail Address must contain a minimum of ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
-define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Your E-Mail Address does not appear to be valid - please make any necessary corrections.');
-define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Your E-Mail Address already exists in our records - please log in with the e-mail address or create an account with a different address.');
+define('ENTRY_EMAIL_ADDRESS_ERROR', 'Die eMail Adresse sollte mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Zeichen enthalten.');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Die eMail Adresse scheint nicht gültig zu sein - bitte korrigieren.');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Die eMail Adresse ist bereits gespeichert - bitte melden Sie sich mit dieser Adresse an oder eröffnen Sie ein neues Konto mit einer anderen Adresse.');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
 define('ENTRY_STREET_ADDRESS', 'Strasse/Nr.:');
-define('ENTRY_STREET_ADDRESS_ERROR', 'Your Street Address must contain a minimum of ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.');
+define('ENTRY_STREET_ADDRESS_ERROR', 'Die Strassenadresse sollte mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
 define('ENTRY_SUBURB', 'Stadtteil:');
 define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Postleitzahl:');
-define('ENTRY_POST_CODE_ERROR', 'Your Post Code must contain a minimum of ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.');
+define('ENTRY_POST_CODE_ERROR', 'Die Postleitzahl sollte mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_POST_CODE_TEXT', '*');
 define('ENTRY_CITY', 'Ort:');
-define('ENTRY_CITY_ERROR', 'Your City must contain a minimum of ' . ENTRY_CITY_MIN_LENGTH . ' characters.');
+define('ENTRY_CITY_ERROR', 'Die Stadt sollte mindestens ' . ENTRY_CITY_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_CITY_TEXT', '*');
 define('ENTRY_STATE', 'Bundesland:');
-define('ENTRY_STATE_ERROR', 'Your State must contain a minimum of ' . ENTRY_STATE_MIN_LENGTH . ' characters.');
-define('ENTRY_STATE_ERROR_SELECT', 'Please select a state from the States pull down menu.');
+define('ENTRY_STATE_ERROR', 'Das Bundesland sollte mindestens ' . ENTRY_STATE_MIN_LENGTH . ' Zeichen enthalten.');
+define('ENTRY_STATE_ERROR_SELECT', 'Bitte wählen Sie ein Bundesland aus der Liste.');
 define('ENTRY_STATE_TEXT', '*');
 define('ENTRY_COUNTRY', 'Land:');
-define('ENTRY_COUNTRY_ERROR', 'You must select a country from the Countries pull down menu.');
+define('ENTRY_COUNTRY_ERROR', 'Bitte wählen Sie ein Land aus der Liste.');
 define('ENTRY_COUNTRY_TEXT', '*');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
-define('ENTRY_TELEPHONE_NUMBER_ERROR', 'Your Telephone Number must contain a minimum of ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.');
+define('ENTRY_TELEPHONE_NUMBER_ERROR', 'Die Telefonnummer sollte mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_TELEPHONE_NUMBER_TEXT', '*');
 define('ENTRY_FAX_NUMBER', 'Telefaxnummer:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
@@ -207,21 +207,21 @@ define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
 define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Passwort:');
-define('ENTRY_PASSWORD_ERROR', 'Your Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
-define('ENTRY_PASSWORD_ERROR_NOT_MATCHING', 'The Password Confirmation must match your Password.');
+define('ENTRY_PASSWORD_ERROR', 'Das Passwort sollte mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen enthalten.');
+define('ENTRY_PASSWORD_ERROR_NOT_MATCHING', 'Beide eingegebenen Passwörter müssen identisch sein.');
 define('ENTRY_PASSWORD_TEXT', '*');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Best&auml;tigung:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '*');
 define('ENTRY_PASSWORD_CURRENT', 'Current Password:');
 define('ENTRY_PASSWORD_CURRENT_TEXT', '*');
-define('ENTRY_PASSWORD_CURRENT_ERROR', 'Your Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
+define('ENTRY_PASSWORD_CURRENT_ERROR', 'Das Passwort sollte mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_PASSWORD_NEW', 'New Password:');
 define('ENTRY_PASSWORD_NEW_TEXT', '*');
-define('ENTRY_PASSWORD_NEW_ERROR', 'Your new Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
-define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'The Password Confirmation must match your new Password.');
+define('ENTRY_PASSWORD_NEW_ERROR', 'Das neue Passwort sollte mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen enthalten.');
+define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Die Passwort-Bestätigung muss mit Ihrem neuen Passwort übereinstimmen.');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
-define('FORM_REQUIRED_INFORMATION', '* Required information');
+define('FORM_REQUIRED_INFORMATION', '* Notwendige Eingabe');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seiten:');
