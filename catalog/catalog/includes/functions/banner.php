@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: banner.php,v 1.12 2003/06/20 00:12:59 hpdl Exp $
+  $Id: banner.php,v 1.13 2004/02/16 07:23:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,92 +13,132 @@
 ////
 // Sets the status of a banner
   function tep_set_banner_status($banners_id, $status) {
+    global $osC_Database;
+
     if ($status == '1') {
-      return tep_db_query("update " . TABLE_BANNERS . " set status = '1', date_status_change = now(), date_scheduled = NULL where banners_id = '" . (int)$banners_id . "'");
-    } elseif ($status == '0') {
-      return tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_status_change = now() where banners_id = '" . (int)$banners_id . "'");
+      $Qbanner = $osC_Database->query('update :table_banners set status = 1, date_status_change = now(), date_scheduled = NULL where banners_id = :banners_id');
+      $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+      $Qbanner->bindInt(':banners_id', $banners_id);
+      $Qbanner->execute();
     } else {
-      return -1;
+      $Qbanner = $osC_Database->query('update :table_banners set status = 0, date_status_change = now() where banners_id = :banners_id');
+      $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+      $Qbanner->bindInt(':banners_id', $banners_id);
+      $Qbanner->execute();
     }
+
+    $Qbanner->freeResult();
   }
 
 ////
 // Auto activate banners
   function tep_activate_banners() {
-    $banners_query = tep_db_query("select banners_id, date_scheduled from " . TABLE_BANNERS . " where date_scheduled != ''");
-    if (tep_db_num_rows($banners_query)) {
-      while ($banners = tep_db_fetch_array($banners_query)) {
-        if (date('Y-m-d H:i:s') >= $banners['date_scheduled']) {
-          tep_set_banner_status($banners['banners_id'], '1');
+    global $osC_Database;
+
+    $Qbanner = $osC_Database->query('select banners_id, date_scheduled from :table_banners where date_scheduled != ""');
+    $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+    $Qbanner->execute();
+
+    if ($Qbanner->numberOfRows()) {
+      while ($Qbanner->next()) {
+        if (date('Y-m-d H:i:s') >= $Qbanner->value('date_scheduled')) {
+          tep_set_banner_status($Qbanner->valueInt('banners_id'), '1');
         }
       }
     }
+
+    $Qbanner->freeResult();
   }
 
 ////
 // Auto expire banners
   function tep_expire_banners() {
-    $banners_query = tep_db_query("select b.banners_id, b.expires_date, b.expires_impressions, sum(bh.banners_shown) as banners_shown from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_HISTORY . " bh where b.status = '1' and b.banners_id = bh.banners_id group by b.banners_id");
-    if (tep_db_num_rows($banners_query)) {
-      while ($banners = tep_db_fetch_array($banners_query)) {
-        if (tep_not_null($banners['expires_date'])) {
-          if (date('Y-m-d H:i:s') >= $banners['expires_date']) {
-            tep_set_banner_status($banners['banners_id'], '0');
+    global $osC_Database;
+
+    $Qbanner = $osC_Database->query('select b.banners_id, b.expires_date, b.expires_impressions, sum(bh.banners_shown) as banners_shown from :table_banners b, :table_banners_history bh where b.status = 1 and b.banners_id = bh.banners_id group by b.banners_id');
+    $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+    $Qbanner->bindRaw(':table_banners_history', TABLE_BANNERS_HISTORY);
+    $Qbanner->execute();
+
+    if ($Qbanner->numberOfRows()) {
+      while ($Qbanner->next()) {
+        if (tep_not_null($Qbanner->value('expires_date'))) {
+          if (date('Y-m-d H:i:s') >= $Qbanner->value('expires_date')) {
+            tep_set_banner_status($Qbanner->valueInt('banners_id'), '0');
           }
-        } elseif (tep_not_null($banners['expires_impressions'])) {
-          if ( ($banners['expires_impressions'] > 0) && ($banners['banners_shown'] >= $banners['expires_impressions']) ) {
-            tep_set_banner_status($banners['banners_id'], '0');
+        } elseif (tep_not_null($Qbanner->valueInt('expires_impressions'))) {
+          if ( ($Qbanner->valueInt('expires_impressions') > 0) && ($Qbanner->valueInt('banners_shown') >= $Qbanner->valueInt('expires_impressions')) ) {
+            tep_set_banner_status($Qbanner->valueInt('banners_id'), '0');
           }
         }
       }
     }
+
+    $Qbanner->freeResult();
   }
 
 ////
 // Display a banner from the specified group or banner id ($identifier)
   function tep_display_banner($action, $identifier) {
+    global $osC_Database;
+
     if ($action == 'dynamic') {
-      $banners_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
-      $banners = tep_db_fetch_array($banners_query);
-      if ($banners['count'] > 0) {
-        $banner = tep_random_select("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
-      } else {
-        return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> No banners with group \'' . $identifier . '\' found!</b>';
+      $Qbannercheck = $osC_Database->query('select count(*) as count from :table_banners where status = 1 and banners_group = :banners_group');
+      $Qbannercheck->bindRaw(':table_banners', TABLE_BANNERS);
+      $Qbannercheck->bindValue(':banners_group', $identifier);
+      $Qbannercheck->execute();
+
+      if ($Qbannercheck->valueInt('count') > 0) {
+        $Qbanner = $osC_Database->query('select banners_id, banners_title, banners_image, banners_html_text from :table_banners where banners_group = :banners_group and status = 1');
+        $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+        $Qbanner->bindValue(':banners_group', $identifier);
+        $Qbanner->executeRandomSingle();
       }
+
+      $Qbannercheck->freeResult();
     } elseif ($action == 'static') {
-      if (is_array($identifier)) {
-        $banner = $identifier;
+      $Qbanner = $osC_Database->query('select banners_id, banners_title, banners_image, banners_html_text from :table_banners where banners_id = :banners_id and status = 1');
+      $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+      $Qbanner->bindInt(':banners_id', $identifier);
+      $Qbanner->execute();
+    }
+
+    if ($Qbanner->numberOfRows() === 1) {
+      if (tep_not_null($Qbanner->value('banners_html_text'))) {
+        $banner_string = $Qbanner->value('banners_html_text');
       } else {
-        $banner_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . (int)$identifier . "'");
-        if (tep_db_num_rows($banner_query)) {
-          $banner = tep_db_fetch_array($banner_query);
-        } else {
-          return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Banner with ID \'' . $identifier . '\' not found, or status inactive</b>';
-        }
+        $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $Qbanner->valueInt('banners_id')) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $Qbanner->value('banners_image'), $Qbanner->value('banners_title')) . '</a>';
       }
+
+      tep_update_banner_display_count($Qbanner->valueInt('banners_id'));
+
+      $Qbanner->freeResult();
+
+      return $banner_string;
     } else {
-      return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
+      return false;
     }
-
-    if (tep_not_null($banner['banners_html_text'])) {
-      $banner_string = $banner['banners_html_text'];
-    } else {
-      $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $banner['banners_image'], $banner['banners_title']) . '</a>';
-    }
-
-    tep_update_banner_display_count($banner['banners_id']);
-
-    return $banner_string;
   }
 
 ////
 // Check to see if a banner exists
   function tep_banner_exists($action, $identifier) {
+    global $osC_Database;
+
     if ($action == 'dynamic') {
-      return tep_random_select("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
-    } elseif ($action == 'static') {
-      $banner_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . (int)$identifier . "'");
-      return tep_db_fetch_array($banner_query);
+      $Qbanner = $osC_Database->query('select banners_id, banners_title, banners_image, banners_html_text from :table_banners where status = 1 and banners_group = :banners_group');
+      $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+      $Qbanner->bindValue(':banners_group', $identifier);
+      $Qbanner->executeRandom();
+    } else {
+      $Qbanner = $osC_Database->query('select banners_id, banners_title, banners_image, banners_html_text from :table_banners where status = 1 and banners_id = :banners_id');
+      $Qbanner->bindRaw(':table_banners', TABLE_BANNERS);
+      $Qbanner->bindInt(':banners_id', $identifier);
+      $Qbanner->execute();
+    }
+
+    if ($Qbanner->numberOfRows()) {
+      return true;
     } else {
       return false;
     }
@@ -107,19 +147,36 @@
 ////
 // Update the banner display statistics
   function tep_update_banner_display_count($banner_id) {
-    $banner_check_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . (int)$banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
-    $banner_check = tep_db_fetch_array($banner_check_query);
+    global $osC_Database;
 
-    if ($banner_check['count'] > 0) {
-      tep_db_query("update " . TABLE_BANNERS_HISTORY . " set banners_shown = banners_shown + 1 where banners_id = '" . (int)$banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+    $Qbannercheck = $osC_Database->query('select count(*) as count from :table_banners_history where banners_id = :banners_id and date_format(banners_history_date, "%Y%m%d") = date_format(now(), "%Y%m%d")');
+    $Qbannercheck->bindRaw(':table_banners_history', TABLE_BANNERS_HISTORY);
+    $Qbannercheck->bindInt(':banners_id', $banner_id);
+    $Qbannercheck->execute();
+
+    if ($Qbannercheck->valueInt('count') > 0) {
+      $Qbanner = $osC_Database->query('update :table_banners_history set banners_shown = banners_shown + 1 where banners_id = :banners_id and date_format(banners_history_date, "%Y%m%d") = date_format(now(), "%Y%m%d")');
     } else {
-      tep_db_query("insert into " . TABLE_BANNERS_HISTORY . " (banners_id, banners_shown, banners_history_date) values ('" . (int)$banner_id . "', 1, now())");
+      $Qbanner = $osC_Database->query('insert into :table_banners_history (banners_id, banners_shown, banners_history_date) values (:banners_id, 1, now())');
     }
+    $Qbanner->bindRaw(':table_banners_history', TABLE_BANNERS_HISTORY);
+    $Qbanner->bindInt(':banners_id', $banner_id);
+    $Qbanner->execute();
+
+    $Qbannercheck->freeResult();
+    $Qbanner->freeResult();
   }
 
 ////
 // Update the banner click statistics
   function tep_update_banner_click_count($banner_id) {
-    tep_db_query("update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1 where banners_id = '" . (int)$banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+    global $osC_Database;
+
+    $Qbanner = $osC_Database->query('update :table_banners_history set banners_clicked = banners_clicked + 1 where banners_id = :banners_id and date_format(banners_history_date, "%Y%m%d") = date_format(now(), "%Y%m%d")');
+    $Qbanner->bindRaw(':table_banners_history', TABLE_BANNERS_HISTORY);
+    $Qbanner->bindInt(':banners_id', $banner_id);
+    $Qbanner->execute();
+
+    $Qbanner->freeResult();
   }
 ?>

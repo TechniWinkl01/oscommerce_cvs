@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.22 2003/12/28 22:29:13 hpdl Exp $
+  $Id: database.php,v 1.23 2004/02/16 07:23:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,25 +30,14 @@
     return mysql_close($$link);
   }
 
-  function tep_db_error($query, $errno, $error) { 
+  function tep_db_error($query, $errno, $error) {
     die('<font color="#000000"><b>' . $errno . ' - ' . $error . '<br><br>' . $query . '<br><br><small><font color="#ff0000">[TEP STOP]</font></small><br><br></b></font>');
   }
 
-  function tep_db_query($query, $link = 'db_link') {
-    global $$link;
+  function tep_db_query($query) {
+    global $osC_Database;
 
-    if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
-      error_log('QUERY ' . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
-    }
-
-    $result = mysql_query($query, $$link) or tep_db_error($query, mysql_errno(), mysql_error());
-
-    if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
-       $result_error = mysql_error();
-       error_log('RESULT ' . $result . ' ' . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
-    }
-
-    return $result;
+    return $osC_Database->simpleQuery($query);
   }
 
   function tep_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db_link') {
@@ -126,11 +115,13 @@
   function tep_db_input($string, $link = 'db_link') {
     global $$link;
 
+/*
     if (function_exists('mysql_real_escape_string')) {
       return mysql_real_escape_string($string, $$link);
     } elseif (function_exists('mysql_escape_string')) {
       return mysql_escape_string($string);
     }
+*/
 
     return addslashes($string);
   }

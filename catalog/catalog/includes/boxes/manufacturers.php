@@ -1,17 +1,23 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.20 2003/11/17 20:00:36 hpdl Exp $
+  $Id: manufacturers.php,v 1.21 2004/02/16 07:26:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
-  if ($number_of_rows = tep_db_num_rows($manufacturers_query)) {
+  $Qmanufacturers = $osC_Database->query('select manufacturers_id, manufacturers_name from :table_manufacturers order by manufacturers_name');
+  $Qmanufacturers->bindRaw(':table_manufacturers', TABLE_MANUFACTURERS);
+
+  $Qmanufacturers->setCache('manufacturers');
+
+  $Qmanufacturers->execute();
+
+  if ($Qmanufacturers->numberOfRows() > 0) {
 ?>
 <!-- manufacturers //-->
           <tr>
@@ -22,13 +28,21 @@
 
     new infoBoxHeading($info_box_contents, false, false);
 
-    if ($number_of_rows <= MAX_DISPLAY_MANUFACTURERS_IN_A_LIST) {
+    if ($Qmanufacturers->numberOfRows() <= MAX_DISPLAY_MANUFACTURERS_IN_A_LIST) {
 // Display a list
       $manufacturers_list = '';
-      while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
-        $manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
-        if (isset($_GET['manufacturers_id']) && ($_GET['manufacturers_id'] == $manufacturers['manufacturers_id'])) $manufacturers_name = '<b>' . $manufacturers_name .'</b>';
-        $manufacturers_list .= '<a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturers['manufacturers_id']) . '">' . $manufacturers_name . '</a><br>';
+      while ($Qmanufacturers->next()) {
+        if (strlen($Qmanufacturers->value('manufacturers_name')) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) {
+          $manufacturers_name = substr($Qmanufacturers->value('manufacturers_name'), 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..';
+        } else {
+          $manufacturers_name = $Qmanufacturers->value('manufacturers_name');
+        }
+
+        if (isset($_GET['manufacturers_id']) && ($_GET['manufacturers_id'] == $Qmanufacturers->valueInt('manufacturers_id'))) {
+          $manufacturers_name = '<b>' . $manufacturers_name .'</b>';
+        }
+
+        $manufacturers_list .= '<a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $Qmanufacturers->valueInt('manufacturers_id')) . '">' . $manufacturers_name . '</a><br>';
       }
 
       $manufacturers_list = substr($manufacturers_list, 0, -4);
@@ -38,13 +52,19 @@
     } else {
 // Display a drop-down
       $manufacturers_array = array();
+
       if (MAX_MANUFACTURERS_LIST < 2) {
         $manufacturers_array[] = array('id' => '', 'text' => PULL_DOWN_DEFAULT);
       }
 
-      while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
-        $manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
-        $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
+      while ($Qmanufacturers->next()) {
+        if (strlen($Qmanufacturers->value('manufacturers_name')) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) {
+          $manufacturers_name = substr($Qmanufacturers->value('manufacturers_name'), 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..';
+        } else {
+          $manufacturers_name = $Qmanufacturers->value('manufacturers_name');
+        }
+
+        $manufacturers_array[] = array('id' => $Qmanufacturers->valueInt('manufacturers_id'),
                                        'text' => $manufacturers_name);
       }
 
@@ -60,4 +80,6 @@
 <!-- manufacturers_eof //-->
 <?php
   }
+
+  $Qmanufacturers->freeResult();
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.6 2003/06/09 21:25:32 hpdl Exp $
+  $Id: specials.php,v 1.7 2004/02/16 07:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,17 +13,28 @@
 ////
 // Sets the status of a special product
   function tep_set_specials_status($specials_id, $status) {
-    return tep_db_query("update " . TABLE_SPECIALS . " set status = '" . $status . "', date_status_change = now() where specials_id = '" . (int)$specials_id . "'");
+    global $osC_Database;
+
+    $Qspecials = $osC_Database->query('update :table_specials set status = :status, date_status_change = now() where specials_id = :specials_id');
+    $Qspecials->bindRaw(':table_specials', TABLE_SPECIALS);
+    $Qspecials->bindInt(':status', $status);
+    $Qspecials->bindInt(':specials_id', $specials_id);
+    $Qspecials->execute();
   }
 
 ////
 // Auto expire products on special
   function tep_expire_specials() {
-    $specials_query = tep_db_query("select specials_id from " . TABLE_SPECIALS . " where status = '1' and now() >= expires_date and expires_date > 0");
-    if (tep_db_num_rows($specials_query)) {
-      while ($specials = tep_db_fetch_array($specials_query)) {
-        tep_set_specials_status($specials['specials_id'], '0');
-      }
+    global $osC_Database;
+
+    $Qspecials = $osC_Database->query('select specials_id from :table_specials where status = 1 and now() >= expires_date and expires_date > 0');
+    $Qspecials->bindRaw(':table_specials', TABLE_SPECIALS);
+    $Qspecials->execute();
+
+    while ($Qspecials->next()) {
+      tep_set_specials_status($Qspecials->valueInt('specials_id'), '0');
     }
+
+    $Qspecials->freeResult();
   }
 ?>

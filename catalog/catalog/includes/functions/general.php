@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.235 2004/02/16 00:54:56 hpdl Exp $
+  $Id: general.php,v 1.236 2004/02/16 07:23:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,25 +80,46 @@
 ////
 // Return a product's name
 // TABLES: products
-  function tep_get_products_name($product_id, $language = '') {
-    global $osC_Session;
+  function tep_get_products_name($product_id, $language_id = '') {
+    global $osC_Session, $osC_Database;
 
-    if (empty($language)) $language = $osC_Session->value('languages_id');
+    if (empty($language_id) || !is_numeric($language_id)) {
+      $language_id = $osC_Session->value('languages_id');
+    }
 
-    $product_query = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . (int)$product_id . "' and language_id = '" . (int)$language . "'");
-    $product = tep_db_fetch_array($product_query);
+    $Qproduct = $osC_Database->query('select products_name from :table_products_description where products_id = :products_id and language_id = :language_id');
+    $Qproduct->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+    $Qproduct->bindInt(':products_id', $product_id);
+    $Qproduct->bindInt(':language_id', $language_id);
+    $Qproduct->execute();
 
-    return $product['products_name'];
+    $products_name = $Qproduct->value('products_name');
+
+    $Qproduct->freeResult();
+
+    return $products_name;
   }
 
 ////
 // Return a product's special price (returns nothing if there is no offer)
 // TABLES: products
   function tep_get_products_special_price($product_id) {
-    $product_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . (int)$product_id . "' and status");
-    $product = tep_db_fetch_array($product_query);
+    global $osC_Database;
 
-    return $product['specials_new_products_price'];
+    $Qspecial = $osC_Database->query('select specials_new_products_price from :table_specials where products_id = :products_id and status = 1');
+    $Qspecial->bindRaw(':table_specials', TABLE_SPECIALS);
+    $Qspecial->bindInt(':products_id', $product_id);
+    $Qspecial->execute();
+
+    if ($Qspecial->numberOfRows()) {
+      $special_price = $Qspecial->valueDecimal('specials_new_products_price');
+    } else {
+      $special_price = false;
+    }
+
+    $Qspecial->freeResult();
+
+    return $special_price;
   }
 
 ////
@@ -328,43 +349,6 @@
     global $osC_Currencies;
 
     return tep_round($price * $tax / 100, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
-  }
-
-////
-// Return the number of products in a category
-// TABLES: products, products_to_categories, categories
-  function tep_count_products_in_category($category_id, $include_inactive = false) {
-    $products_count = 0;
-    if ($include_inactive == true) {
-      $products_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . (int)$category_id . "'");
-    } else {
-      $products_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = p2c.products_id and p.products_status = '1' and p2c.categories_id = '" . (int)$category_id . "'");
-    }
-    $products = tep_db_fetch_array($products_query);
-    $products_count += $products['total'];
-
-    $child_categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . (int)$category_id . "'");
-    if (tep_db_num_rows($child_categories_query)) {
-      while ($child_categories = tep_db_fetch_array($child_categories_query)) {
-        $products_count += tep_count_products_in_category($child_categories['categories_id'], $include_inactive);
-      }
-    }
-
-    return $products_count;
-  }
-
-////
-// Return true if the category has subcategories
-// TABLES: categories
-  function tep_has_category_subcategories($category_id) {
-    $child_category_query = tep_db_query("select count(*) as count from " . TABLE_CATEGORIES . " where parent_id = '" . (int)$category_id . "'");
-    $child_category = tep_db_fetch_array($child_category_query);
-
-    if ($child_category['count'] > 0) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
 ////

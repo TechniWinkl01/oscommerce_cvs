@@ -1,17 +1,25 @@
 <?php
 /*
-  $Id: upcoming_products.php,v 1.26 2003/11/17 20:22:59 hpdl Exp $
+  $Id: upcoming_products.php,v 1.27 2004/02/16 07:29:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  $expected_query = tep_db_query("select p.products_id, pd.products_name, products_date_available as date_expected from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where to_days(products_date_available) >= to_days(now()) and p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
-  if (tep_db_num_rows($expected_query) > 0) {
+  $Qupcoming = $osC_Database->query('select p.products_id, pd.products_name, p.products_date_available as date_expected from :table_products p, :table_products_description pd where to_days(p.products_date_available) >= to_days(now()) and p.products_id = pd.products_id and pd.language_id = :language_id order by :expected_products_field :expected_products_sort limit :max_display_upcoming_products');
+  $Qupcoming->bindRaw(':table_products', TABLE_PRODUCTS);
+  $Qupcoming->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+  $Qupcoming->bindInt(':language_id', $osC_Session->value('languages_id'));
+  $Qupcoming->bindRaw(':expected_products_field', EXPECTED_PRODUCTS_FIELD);
+  $Qupcoming->bindRaw(':expected_products_sort', EXPECTED_PRODUCTS_SORT);
+  $Qupcoming->bindInt(':max_display_upcoming_products', MAX_DISPLAY_UPCOMING_PRODUCTS);
+  $Qupcoming->execute();
+
+  if ($Qupcoming->numberOfRows() > 0) {
 ?>
 <!-- upcoming_products //-->
           <tr>
@@ -25,7 +33,7 @@
               </tr>
 <?php
     $row = 0;
-    while ($expected = tep_db_fetch_array($expected_query)) {
+    while ($Qupcoming->next()) {
       $row++;
       if (($row / 2) == floor($row / 2)) {
         echo '              <tr class="upcomingProducts-even">' . "\n";
@@ -33,8 +41,8 @@
         echo '              <tr class="upcomingProducts-odd">' . "\n";
       }
 
-      echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id']) . '">' . $expected['products_name'] . '</a>&nbsp;</td>' . "\n" .
-           '                <td align="right" class="smallText">&nbsp;' . tep_date_short($expected['date_expected']) . '&nbsp;</td>' . "\n" .
+      echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $Qupcoming->valueInt('products_id')) . '">' . $Qupcoming->value('products_name') . '</a>&nbsp;</td>' . "\n" .
+           '                <td align="right" class="smallText">&nbsp;' . tep_date_short($Qupcoming->value('date_expected')) . '&nbsp;</td>' . "\n" .
            '              </tr>' . "\n";
     }
 ?>
@@ -45,5 +53,7 @@
           </tr>
 <!-- upcoming_products_eof //-->
 <?php
+
+    $Qupcoming->freeResult();
   }
 ?>

@@ -1,22 +1,35 @@
 <?php
 /*
-  $Id: best_sellers.php,v 1.22 2003/11/17 19:46:14 hpdl Exp $
+  $Id: best_sellers.php,v 1.23 2004/02/16 07:25:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   if (isset($current_category_id) && ($current_category_id > 0)) {
-    $best_sellers_query = tep_db_query("select distinct p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c where p.products_status = '1' and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and '" . (int)$current_category_id . "' in (c.categories_id, c.parent_id) order by p.products_ordered desc, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $Qbestsellers = $osC_Database->query('select distinct p.products_id, pd.products_name from :table_products p, :table_products_description pd, :table_products_to_categories p2c, :table_categories c where p.products_status = 1 and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = :language_id and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and :current_category_id in (c.categories_id, c.parent_id) order by p.products_ordered desc, pd.products_name limit :max_display_bestsellers');
+    $Qbestsellers->bindRaw(':table_products', TABLE_PRODUCTS);
+    $Qbestsellers->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+    $Qbestsellers->bindRaw(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
+    $Qbestsellers->bindRaw(':table_categories', TABLE_CATEGORIES);
+    $Qbestsellers->bindInt(':language_id', $osC_Session->value('languages_id'));
+    $Qbestsellers->bindInt(':current_category_id', $current_category_id);
+    $Qbestsellers->bindInt(':max_display_bestsellers', MAX_DISPLAY_BESTSELLERS);
+    $Qbestsellers->execute();
   } else {
-    $best_sellers_query = tep_db_query("select distinct p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' order by p.products_ordered desc, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $Qbestsellers = $osC_Database->query('select p.products_id, pd.products_name from :table_products p, :table_products_description pd where p.products_status = 1 and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = :language_id order by p.products_ordered desc, pd.products_name limit :max_display_bestsellers');
+    $Qbestsellers->bindRaw(':table_products', TABLE_PRODUCTS);
+    $Qbestsellers->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+    $Qbestsellers->bindInt(':language_id', $osC_Session->value('languages_id'));
+    $Qbestsellers->bindInt(':max_display_bestsellers', MAX_DISPLAY_BESTSELLERS);
+    $Qbestsellers->execute();
   }
 
-  if (tep_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
+  if ($Qbestsellers->numberOfRows() >= MIN_DISPLAY_BESTSELLERS) {
 ?>
 <!-- best_sellers //-->
           <tr>
@@ -29,9 +42,9 @@
 
     $rows = 0;
     $bestsellers_list = '<table border="0" width="100%" cellspacing="0" cellpadding="1">';
-    while ($best_sellers = tep_db_fetch_array($best_sellers_query)) {
+    while ($Qbestsellers->next()) {
       $rows++;
-      $bestsellers_list .= '<tr><td class="infoBoxContents" valign="top">' . tep_row_number_format($rows) . '.</td><td class="infoBoxContents"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id']) . '">' . $best_sellers['products_name'] . '</a></td></tr>';
+      $bestsellers_list .= '<tr><td class="infoBoxContents" valign="top">' . tep_row_number_format($rows) . '.</td><td class="infoBoxContents"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $Qbestsellers->valueInt('products_id')) . '">' . $Qbestsellers->value('products_name') . '</a></td></tr>';
     }
     $bestsellers_list .= '</table>';
 
@@ -39,6 +52,8 @@
     $info_box_contents[] = array('text' => $bestsellers_list);
 
     new infoBox($info_box_contents);
+
+    $Qbestsellers->freeResult();
 ?>
             </td>
           </tr>

@@ -1,16 +1,23 @@
 <?php
 /*
-  $Id: specials.php,v 1.33 2003/12/18 23:52:14 hpdl Exp $
+  $Id: specials.php,v 1.34 2004/02/16 07:26:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  if ($random_product = tep_random_select("select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, s.specials_new_products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_SPECIALS . " s where p.products_status = '1' and p.products_id = s.products_id and pd.products_id = s.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and s.status = '1' order by s.specials_date_added desc limit " . MAX_RANDOM_SELECT_SPECIALS)) {
+  $Qspecials = $osC_Database->query('select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, s.specials_new_products_price from :table_products p, :table_products_description pd, :table_specials s where s.status = 1 and s.products_id = p.products_id and p.products_status = 1 and p.products_id = pd.products_id and pd.language_id = :language_id order by s.specials_date_added desc limit :max_random_select_specials');
+  $Qspecials->bindRaw(':table_products', TABLE_PRODUCTS);
+  $Qspecials->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+  $Qspecials->bindRaw(':table_specials', TABLE_SPECIALS);
+  $Qspecials->bindInt(':language_id', $osC_Session->value('languages_id'));
+  $Qspecials->bindInt(':max_random_select_specials', MAX_RANDOM_SELECT_SPECIALS);
+
+  if ($Qspecials->executeRandomMulti()) {
 ?>
 <!-- specials //-->
           <tr>
@@ -23,7 +30,7 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center',
-                                 'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product["products_id"]) . '">' . tep_image(DIR_WS_IMAGES . $random_product['products_image'], $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id']) . '">' . $random_product['products_name'] . '</a><br><s>' . $osC_Currencies->displayPrice($random_product['products_price'], $random_product['products_tax_class_id']) . '</s><br><span class="productSpecialPrice">' . $osC_Currencies->displayPrice($random_product['specials_new_products_price'], $random_product['products_tax_class_id']) . '</span>');
+                                 'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $Qspecials->valueInt('products_id')) . '">' . tep_image(DIR_WS_IMAGES . $Qspecials->value('products_image'), $Qspecials->value('products_name'), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $Qspecials->valueInt('products_id')) . '">' . $Qspecials->value('products_name') . '</a><br><s>' . $osC_Currencies->displayPrice($Qspecials->valueDecimal('products_price'), $Qspecials->valueInt('products_tax_class_id')) . '</s>&nbsp;<span class="productSpecialPrice">' . $osC_Currencies->displayPrice($Qspecials->valueDecimal('specials_new_products_price'), $Qspecials->valueInt('products_tax_class_id')) . '</span>');
 
     new infoBox($info_box_contents);
 ?>
@@ -31,5 +38,6 @@
           </tr>
 <!-- specials_eof //-->
 <?php
+    $Qspecials->freeResult();
   }
 ?>
