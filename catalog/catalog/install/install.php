@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.4 2004/02/16 06:59:32 hpdl Exp $
+  $Id: install.php,v 1.5 2004/07/22 20:40:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,13 +38,21 @@
           if (isset($_POST['ENABLE_SSL']) && ($_POST['ENABLE_SSL'] == 'true')) {
             $page_contents = 'install_5.php';
           } else {
-            $page_contents = 'install_6.php';
+            if (in_array('database', $_POST['install'])) {
+              $page_contents = 'install_7.php';
+            } else {
+              $page_contents = 'install_6.php';
+            }
           }
         }
         break;
       case '6':
         if (in_array('configure', $_POST['install'])) {
-          $page_contents = 'install_6.php';
+            if (in_array('database', $_POST['install'])) {
+            $page_contents = 'install_7.php';
+          } else {
+            $page_contents = 'install_6.php';
+          }
         }
         break;
       case '7':
