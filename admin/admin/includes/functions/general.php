@@ -51,12 +51,21 @@
     return $black_line;
   }
 
-  function tep_currency_format($number, $calculate_currency_value = true) {
+  function tep_currency_format($number, $calculate_currency_value = true, $currency_value = CURRENCY_VALUE) {
+    global $currency_rates;
+
+    $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from currencies where code = '" . $currency_value . "'");
+    $currency = tep_db_fetch_array($currency_query);
 
     if ($calculate_currency_value == true) {
-      $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+      if (strlen($currency_value) == 3) {
+        $rate = $currency_rates[$currency_value]; // read from catalog/includes/data/rates.php - the value is in /catalog/includes/languages/<language>.php
+      } else {
+        $rate = 1;
+      }
+      $number2currency = $currency['symbol_left'] . number_format(($number * $rate), $currency['decimal_places'], $currency['decimal_point'], $currency['thousands_point']) . $currency['symbol_right'];
     } else {
-      $number2currency = CURRENCY_BEFORE . number_format(($number), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+      $number2currency = $currency['symbol_left'] . number_format($number, $currency['decimal_places'], $currency['decimal_point'], $currency['thousands_point']) . $currency['symbol_right'];
     }
 
     return $number2currency;
