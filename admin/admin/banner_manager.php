@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.35 2001/12/23 22:40:35 hpdl Exp $
+  $Id: banner_manager.php,v 1.36 2001/12/23 23:14:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -277,7 +277,7 @@ function popupImageWindow(url) {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNERS_MANAGER,  tep_get_all_get_params(array('bID')) . 'bID=' . $banners['banners_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="tableData"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?action=banner&id=' . $banners['banners_id'] . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?></td>
+                <td class="tableData"><?php echo $banners['banners_title']; ?></td>
                 <td class="tableData" align="right"><?php echo $banners['banners_group']; ?></td>
                 <td class="tableData" align="right"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
                 <td class="tableData" align="right">
@@ -288,17 +288,7 @@ function popupImageWindow(url) {
         echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'action=setflag&flag=1&id=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
       }
 ?></td>
-<?php
-      if ($banners['banners_id'] == @$bInfo->banners_id) {
-?>
-                    <td align="center" class="tableData"><?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?></td>
-<?php
-    } else {
-?>
-                    <td align="center" class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('bID', 'action')) . 'bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?></td>
-<?php
-    }
-?>
+                <td class="tableData" align="center"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?action=banner&id=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;'; if ($banners['banners_id'] == @$bInfo->banners_id) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('bID', 'action')) . 'bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?></td>
               </tr>
 <?php
     }
