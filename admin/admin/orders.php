@@ -225,7 +225,7 @@
 ?>
                   <tr>
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$shipping_method . " " . ENTRY_SHIPPING;?>&nbsp;</font></td>
-                    <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=$shipping;?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format($shipping, 2);?>&nbsp;</font></td>
                   </tr>
 <?
   }
