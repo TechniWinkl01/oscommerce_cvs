@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.20 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: table.php,v 1.21 2002/10/15 14:18:33 thomasamoulton Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -35,7 +35,7 @@
     }
 
     function quote() {
-      global $cart, $shipping_quoted, $shipping_table_cost, $shipping_table_method;
+      global $cart, $shipping_quoted, $shipping_table_cost, $shipping_table_method, $shipping_weight, $shipping_num_boxes;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
         $shipping_quoted = 'table';
@@ -43,7 +43,7 @@
         if (MODULE_SHIPPING_TABLE_MODE == 'price') {
           $order_total = $cart->show_total();
         } else {
-          $order_total = $cart->show_weight();
+          $order_total = $shipping_weight;
         }
 
         $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
@@ -53,6 +53,9 @@
             $shipping_table_method = MODULE_SHIPPING_TABLE_TEXT_WAY;
             break;
           }
+        }
+        if (MODULE_SHIPPING_TABLE_MODE == 'weight') {
+          $shipping = $shipping * $shipping_num_boxes;
         }
         $shipping_table_cost = ($shipping + MODULE_SHIPPING_TABLE_HANDLING);
       }

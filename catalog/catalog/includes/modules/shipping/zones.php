@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.12 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: zones.php,v 1.13 2002/10/15 14:18:34 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -123,7 +123,7 @@
 
 
     function quote() {
-      global $shipping_quote_zones, $shipping_quote_all, $address_values, $shipping_weight, $shipping_quoted, $shipping_zones_cost, $shipping_zones_method;
+      global $shipping_quote_zones, $shipping_quote_all, $address_values, $shipping_weight, $shipping_quoted, $shipping_zones_cost, $shipping_zones_method, $shipping_num_boxes;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_zones'] == '1') ) {
         $shipping_quoted = 'zones';
@@ -151,7 +151,7 @@
         for ($i = 0; $i < count($zones_table); $i+=2) {
           if ($shipping_weight <= $zones_table[$i]) {
             $shipping = $zones_table[$i+1];
-            $shipping_zones_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . " : " . $shipping_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
+            $shipping_zones_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . " : " . $total_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
             break;
           }
         }
@@ -160,7 +160,7 @@
           $shipping_zones_method = MODULE_SHIPPING_ZONES_UNDEFINED_RATE;
         }
         else {
-          $shipping_zones_cost = ($shipping + MODULE_SHIPPING_ZONES_HANDLING + SHIPPING_HANDLING);
+          $shipping_zones_cost = (($shipping*$shipping_num_boxes) + MODULE_SHIPPING_ZONES_HANDLING + SHIPPING_HANDLING);
         }
       }
     }
