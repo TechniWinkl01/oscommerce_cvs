@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: secpay.php,v 1.17 2002/03/07 20:35:04 project3000 Exp $
+  $Id: secpay.php,v 1.18 2002/03/08 15:26:27 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
