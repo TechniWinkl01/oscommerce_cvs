@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.18 2002/08/28 22:54:16 project3000 Exp $
+  $Id: account_details.php,v 1.19 2002/09/22 17:44:44 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -246,23 +246,6 @@
   }
 ?></td>
           </tr>
-          <tr>
-            <td class="main">&nbsp;<?php echo ENTRY_COUNTRY; ?></td>
-            <td class="main">&nbsp;
-<?php
-  if ($is_read_only) {
-    echo tep_get_country_name($account['entry_country_id']);
-  } elseif ($error) {
-    if ($entry_country_error) {
-      echo tep_get_country_list('country') . '&nbsp;' . ENTRY_COUNTRY_ERROR;
-    } else {
-      echo tep_get_country_name($country) . tep_draw_hidden_field('country');
-    }
-  } else {
-    echo tep_get_country_list('country', $account['entry_country_id']) . '&nbsp;' . ENTRY_COUNTRY_TEXT;
-  }
-?></td>
-          </tr>
 <?php
   if (ACCOUNT_STATE == 'true') {
 ?>
@@ -291,6 +274,23 @@
     } else {
       echo tep_draw_input_field('state', tep_get_zone_name($account['entry_country_id'], $account['entry_zone_id'], $account['entry_state'])) . '&nbsp;' . ENTRY_STATE_TEXT;
     }
+?></td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;<?php echo ENTRY_COUNTRY; ?></td>
+            <td class="main">&nbsp;
+<?php
+  if ($is_read_only) {
+    echo tep_get_country_name($account['entry_country_id']);
+  } elseif ($error) {
+    if ($entry_country_error) {
+      echo tep_get_country_list('country') . '&nbsp;' . ENTRY_COUNTRY_ERROR;
+    } else {
+      echo tep_get_country_name($country) . tep_draw_hidden_field('country');
+    }
+  } else {
+    echo tep_get_country_list('country', $account['entry_country_id']) . '&nbsp;' . ENTRY_COUNTRY_TEXT;
+  }
 ?></td>
           </tr>
 <?php
