@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.15 2001/06/02 19:28:03 dwatkins Exp $
+  $Id: default.php,v 1.16 2001/06/04 10:10:38 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,12 +30,13 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TEXT_NO_PRODUCTS2', 'Es gibt kein Produkt, das von diesem Hersteller stammt.');
   define('TEXT_NUMBER_OF_PRODUCTS', 'Artikel: ');
   define('TEXT_SHOW', '<b>Darstellen:</b>');
-  define('TEXT_BUY', 'Kaufen 1 \'');
-  define('TEXT_NOW', '\' jetzt');
+  define('TEXT_BUY', 'Jetzt 1 \'');
+  define('TEXT_NOW', '\' Kaufen!');
+  define('TEXT_ALL', 'Alle');
 } elseif ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Willkommen zu dem \'' . STORE_NAME . '\'!');
   define('HEADING_TITLE', 'Was ist neu?');
-  define('SUB_BAR_TITLE', strftime(DATE_FORMAT_LONG, mktime(0,0,0,2,6,2000)));
+  define('SUB_BAR_TITLE', strftime(DATE_FORMAT_LONG));
 } elseif ($category_depth == 'nested') {
   define('TOP_BAR_TITLE', 'Neue Produkte in dieser Kategorie');
   define('HEADING_TITLE', 'Was ist neu?');
