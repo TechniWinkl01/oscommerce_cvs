@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.191 2001/11/22 21:48:42 dgw_ Exp $
+  $Id: application_top.php,v 1.192 2001/11/23 16:07:36 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -127,19 +127,6 @@
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
-// Get variables from $PATH_INFO
-  if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
-    if (strlen($PATH_INFO) > 1) {
-      $PHP_SELF = str_replace($PATH_INFO,'',$PHP_SELF);
-      $vars = explode('/', substr($PATH_INFO, 1));
-      while (list(, $var) = each($vars)) { 
-        list(, $val) = each($vars); 
-        $HTTP_GET_VARS[$var] = $val; 
-        $GLOBALS[$var] = $val; 
-      }
-    }
-  }
-
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
     define('PHP_SESSION_NAME', 'sID');
@@ -161,6 +148,19 @@
   $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
+  }
+
+// Get variables from $PATH_INFO
+  if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
+    if (strlen($PATH_INFO) > 1) {
+      $PHP_SELF = str_replace($PATH_INFO,'',$PHP_SELF);
+      $vars = explode('/', substr($PATH_INFO, 1));
+      while (list(, $var) = each($vars)) { 
+        list(, $val) = each($vars); 
+        $HTTP_GET_VARS[$var] = $val; 
+        $GLOBALS[$var] = $val; 
+      }
+    }
   }
 
 // include cache functions if enabled
