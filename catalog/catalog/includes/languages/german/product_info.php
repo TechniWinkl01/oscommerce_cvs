@@ -1,7 +1,7 @@
 <?
 /*
 German Text for The Exchange Project Preview Release 2.2
-Last Update: 17/05/2001
+Last Update: 26/05/2001
 Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
@@ -15,10 +15,6 @@ define('TEXT_PRODUCT_OPTIONS', 'Optionen:');
 define('PLEASE_SELECT', 'Bitte w&auml;hlen');
 
 define('IMAGE_MAIN_MENU', 'Startseite');
-define('IMAGE_WRITE_A_REVIEW', 'Meinung Erstellen');
-define('IMAGE_REVIEWS', 'Meinungen');
-define('IMAGE_UPDATE_CART', 'Einkaufswagen aktuallisieren');
-define('IMAGE_ADD_TO_CART', 'In den Einkaufswagen');
-define('IMAGE_BACK', 'Zurück');
-define('IMAGE_TELLAFRIEND', 'Tell A Friend');
+define('IMAGE_REVIEWS', 'Bewertungen');
+define('IMAGE_IN_CART', 'In den Warenkorb');
 ?>
