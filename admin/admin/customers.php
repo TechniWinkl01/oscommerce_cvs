@@ -43,7 +43,7 @@
 function resetStateText(theForm) {
   theForm.state.value = '';
   if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = '<? echo JS_STATE_SELECT;?>';
+    theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
   }
 }
 
@@ -51,7 +51,7 @@ function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';
     if (theForm.zone_id.options.length > 1) {
-      theForm.state.value = '<? echo JS_STATE_SELECT;?>';
+      theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
     }
   }
 }
@@ -148,14 +148,14 @@ function check_form() {
   if (ACCOUNT_STATE) {
 ?>
   if (document.customers.zone_id.options.length == 0) {
-    if (document.customers.state.value == "" || document.customers.state.length < <? echo ENTRY_STATE_MIN_LENGTH;?> ) {
-       error_message = error_message + "<? echo JS_STATE;?>";
+    if (document.customers.state.value == "" || document.customers.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+       error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
     }
   } else {
     document.create_acount.state.value = '';
     if (document.customers.zone_id.selectedIndex == 0) {
-       error_message = error_message + "<? echo JS_ZONE;?>";
+       error_message = error_message + "<? echo JS_ZONE; ?>";
        error = 1;
     }
   }
@@ -164,7 +164,7 @@ function check_form() {
 ?>
 
   if (document.customers.country.value == 0) {
-    error_message = error_message + "<? echo JS_COUNTRY;?>";
+    error_message = error_message + "<? echo JS_COUNTRY; ?>";
     error = 1;
   }
 
@@ -354,7 +354,7 @@ function check_form() {
 ?>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_STATE; ?>&nbsp;&nbsp;</font></td>
-            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? echo tep_get_zone_list("zone_id", $country_id, $zone_id, "onChange=\"resetStateText(this.form)\";");?>&nbsp;<? echo ENTRY_STATE_TEXT;?></font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo tep_get_zone_list("zone_id", $country_id, $zone_id, "onChange=\"resetStateText(this.form)\";"); ?>&nbsp;<? echo ENTRY_STATE_TEXT; ?></font></td>
           </tr>
           <tr>
             <td></td>

@@ -8,13 +8,13 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><? echo tep_black_line();?></td>
+                <td><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TEXT_ALSO_PURCHASED_PRODUCTS;?></b>&nbsp;</font></td>
+                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?></b>&nbsp;</font></td>
               </tr>
               <tr>
-                <td><? echo tep_black_line();?></td>
+                <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
     // randomly select products from products ordered
@@ -41,7 +41,7 @@
             </table></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line();?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
 <!-- also_purchased_products_eof //-->
 <?

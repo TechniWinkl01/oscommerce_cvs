@@ -1,9 +1,9 @@
 <!-- new_products //-->
           <tr>
-            <td nowrap><br><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B'));?></b>&nbsp;</font></td>
+            <td nowrap><br><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?></b>&nbsp;</font></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line();?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -31,6 +31,6 @@
             </table></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line();?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
 <!-- new_products_eof //-->

@@ -26,7 +26,7 @@ function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';
     if (theForm.zone_id.options.length > 0) {
-      theForm.state.value = '<? echo JS_STATE_SELECT;?>';
+      theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
     }
   }
 }
