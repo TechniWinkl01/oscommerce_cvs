@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.64 2002/01/03 15:52:14 dgw_ Exp $
+  $Id: default.php,v 1.65 2002/01/03 16:35:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -98,7 +98,7 @@
     while ($categories = tep_db_fetch_array($categories_query)) {
       $rows++;
       $cPath_new = tep_get_path($categories['categories_id']);
-      echo '                <td align="center" class="main"><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $categories['categories_image'], $categories['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br>' . $categories['categories_name'] . '</a></td>' . "\n";
+      echo '                <td align="center" class="smallText" width="33%" valign="top"><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $categories['categories_image'], $categories['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br>' . $categories['categories_name'] . '</a></td>' . "\n";
       if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != tep_db_num_rows($categories_query))) {
         echo '              </tr>' . "\n";
         echo '              <tr>' . "\n";
