@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.53 2001/10/21 16:07:31 dgw_ Exp $
+  $Id: english.php,v 1.54 2001/11/04 19:21:29 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -26,9 +26,9 @@ define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 // raw date is in format YYYYMMDD, or DDMMYYYY
 function tep_date_raw($date, $reverse = false) {
   if ($reverse) {
-    return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+    return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
   } else {
-    return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+    return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
   }
 }
 
@@ -160,7 +160,7 @@ define('ENTRY_FIRST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">required</fo
 define('ENTRY_LAST_NAME', 'Last Name:');
 define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 21/05/1970) <font color="#AABBDD">required</font></small>');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 05/21/1970) <font color="#AABBDD">required</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
