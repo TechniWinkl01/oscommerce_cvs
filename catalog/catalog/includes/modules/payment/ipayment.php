@@ -54,13 +54,12 @@
     function confirmation() {
     global $checkout_form_action;
       if ($this->enabled) {
-//        $checkout_form_action = 'http://www.tb-computer.de/erotik1/catalog/ipayment.php';      
         $checkout_form_action = 'https://ipayment.de/merchant/' . MODULE_PAYMENT_IPAYMENT_ID . '/processor.php3';
       }
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $customer_id, $cc_val, $CardName, $CardNumber, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
+      global $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currency_rates;
 	$customer_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
 	$customer_email_values = tep_db_fetch_array($customer_email);
     if ($this-->enabled) {
