@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.212 2003/02/17 07:55:54 hpdl Exp $
+  $Id: general.php,v 1.213 2003/03/14 02:10:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1166,5 +1166,29 @@
     } else {
       return mt_rand();
     }
+  }
+
+  function tep_get_top_level_domain($url) {
+    if (strpos($url, '://')) {
+      $url = parse_url($url);
+      $url = $url['host'];
+    }
+
+    $domain_array = explode('.', $url);
+    $domain_size = sizeof($domain_array);
+
+    if ($domain_size > 1) {
+      if (is_numeric($domain_array[$domain_size-2]) && is_numeric($domain_array[$domain_size-1])) {
+        return false;
+      } else {
+        return $domain_array[$domain_size-2] . '.' . $domain_array[$domain_size-1];
+      }
+    } else {
+      return false;
+    }
+  }
+
+  function tep_setcookie($name, $value = '', $expire = 0, $path = '/', $domain = '', $secure = 0) {
+    setcookie($name, $value, $expire, $path, (tep_not_null($domain) ? $domain : ''), $secure);
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.50 2003/03/10 23:30:33 hpdl Exp $
+  $Id: html_output.php,v 1.51 2003/03/14 02:10:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,9 +19,7 @@
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true) {
-    global $request_type, $session_started;
-
-    static $http_host, $https_host;
+    global $request_type, $session_started, $http_domain, $https_domain;
 
     if (!tep_not_null($page)) {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
@@ -50,33 +48,11 @@
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
 // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
-    if ( ($add_session_id == true) && ($session_started == true) ) {
+    if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
       if (defined('SID') && tep_not_null(SID)) {
         $sid = SID;
       } elseif ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == true) ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') ) ) {
-        if (!isset($http_host) && !isset($https_host)) {
-          $url = parse_url(HTTP_SERVER);
-          $http_host = $url['host'];
-
-          $url = parse_url(HTTPS_SERVER);
-          $https_host = $url['host'];
-
-          if ($http_host != $https_host) {
-            $http_host_array = explode('.', $http_host);
-            $http_host_size = sizeof($http_host_array);
-            if ($http_host_size > 1) {
-              $http_host = $http_host_array[$http_host_size-2] . '.' . $http_host_array[$http_host_size-1];
-            }
-
-            $https_host_array = explode('.', $https_host);
-            $https_host_size = sizeof($https_host_array);
-            if ($https_host_size > 1) {
-              $https_host = $https_host_array[$https_host_size-2] . '.' . $https_host_array[$https_host_size-1];
-            }
-          }
-        }
-
-        if ($http_host != $https_host) {
+        if ($http_domain != $https_domain) {
           $sid = tep_session_name() . '=' . tep_session_id();
         }
       }        
