@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.138 2001/11/04 22:13:17 dgw_ Exp $
+  $Id: general.php,v 1.139 2001/11/10 19:12:36 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -938,7 +938,7 @@
     global $HTTP_COOKIE_VARS, $customer_id, $customer_first_name;
 
     if ($HTTP_COOKIE_VARS['first_name']) {
-      $first_name = $HTTP_COOKIE_VARS['first_name'];
+      $first_name = stripslashes($HTTP_COOKIE_VARS['first_name']);
     } elseif ($customer_first_name) {
       $first_name = $customer_first_name;
     }
