@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.12 2001/12/30 02:26:37 hpdl Exp $
+  $Id: cache.php,v 1.13 2001/12/30 02:33:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,6 @@
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'reset') {
       tep_reset_cache_block($HTTP_GET_VARS['block']);
-      tep_redirect(tep_href_link(FILENAME_CACHE));
     }
     tep_redirect(tep_href_link(FILENAME_CACHE));
   }
