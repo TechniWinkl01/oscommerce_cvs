@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.81 2003/06/30 11:02:12 hpdl Exp $
+  $Id: customers.php,v 1.82 2003/06/30 13:54:14 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -235,7 +235,7 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
 <?php
-  if ($action == 'edit') {
+  if ($action == 'edit' || $action == 'update') {
 ?>
 <script language="javascript"><!--
 
@@ -247,7 +247,7 @@ function check_form() {
   var customers_lastname = document.customers.customers_lastname.value;
 <?php if (ACCOUNT_COMPANY == 'true') echo 'var entry_company = document.customers.entry_company.value;' . "\n"; ?>
 <?php if (ACCOUNT_DOB == 'true') echo 'var customers_dob = document.customers.customers_dob.value;' . "\n"; ?>
-  var customers_email_address = document.customers.customers_email_address.value;  
+  var customers_email_address = document.customers.customers_email_address.value;
   var entry_street_address = document.customers.entry_street_address.value;
   var entry_postcode = document.customers.entry_postcode.value;
   var entry_city = document.customers.entry_city.value;
