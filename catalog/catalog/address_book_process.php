@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.55 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: address_book_process.php,v 1.56 2001/12/17 23:10:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -29,7 +29,7 @@
 
 // send to login when there is no Customer_id
   if (!@tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK_PROCESS, 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK_PROCESS, 'SSL'));
   }
 
 // are we asked to remove an entry?
@@ -42,7 +42,7 @@
 //    if ($HTTP_GET_VARS['entry_id'] < $customer_default_address_id) {
 //      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = customers_default_address_id - 1 where customers_id = '" . $customer_id . "'")};
 //    }
-    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
   }
 //post-entry error checking when updating or modifying an entry
   $process = 0;
@@ -133,7 +133,7 @@
     $update_query = $update_query . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id']. "' and customers_id ='" . $customer_id . "'";
     tep_db_query($update_query);
 // go back ot the address book page
-    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
   } elseif ((@$process == 1) && (@$error == 0)) {
     $company = "";
     $gender = "";
@@ -159,10 +159,9 @@
     tep_db_query($update_query);
 // Go back to where we came from
     if (@$HTTP_POST_VARS['origin']) {
-      $connection = ($HTTP_POST_VARS['origin_connection']) ? $HTTP_POST_VARS['origin_connection'] : 'NONSSL';
-      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection));
+      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', 'SSL'));
     } else {
-      tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
+      tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
     }
   } else {
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
@@ -209,11 +208,11 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK_PROCESS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
-    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_MODIFY_ENTRY . '</a>';
+    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $HTTP_GET_VARS['entry_id'], 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_MODIFY_ENTRY . '</a>';
   } else {
-    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_ADD_ENTRY . '</a>';
+    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_ADD_ENTRY . '</a>';
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -349,7 +348,7 @@ function check_form() {
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="add_entry" method="post" action="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="add_entry" method="post" action="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
@@ -577,8 +576,8 @@ function check_form() {
 ?>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td class="main" align="right"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL'); ?>"><?php echo tep_image_button('button_delete.gif', IMAGE_BUTTON_DELETE); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main" align="right"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'SSL'); ?>"><?php echo tep_image_button('button_delete.gif', IMAGE_BUTTON_DELETE); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
 <?php
@@ -586,7 +585,7 @@ function check_form() {
 ?>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_POST_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_POST_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
             <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
@@ -595,8 +594,8 @@ function check_form() {
 ?>
         <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;&nbsp;<a href="<?php echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', (($HTTP_GET_VARS['connection'] == 'SSL') ? 'SSL' : 'NONSSL')); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td align="right" class="main"><br><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="<?php echo @$HTTP_GET_VARS['connection']; ?>"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td class="main">&nbsp;&nbsp;<a href="<?php echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td align="right" class="main"><br><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
 <?php

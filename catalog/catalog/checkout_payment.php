@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.84 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: checkout_payment.php,v 1.85 2001/12/17 23:10:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
 // Check if user is logged in
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=SSL', 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT, 'SSL'));
   }
 
 // Check if there is something in the cart
@@ -31,7 +31,7 @@
       check_stock ($products[$i]['id'], $products[$i]['quantity']);
     }
     if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock) ) {
-      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
+      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
   }
 

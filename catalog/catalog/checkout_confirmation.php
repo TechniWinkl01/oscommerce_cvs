@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.99 2001/12/13 14:52:41 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.100 2001/12/17 23:10:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,7 @@
   require('includes/application_top.php');
 
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'SSL'));
   }
 
 // Check if there is something in the cart
@@ -29,12 +29,9 @@
       $products_id = $products[$i]['id'];
       check_stock($products[$i]['id'], $products[$i]['quantity']);
     }
-    if (STOCK_ALLOW_CHECKOUT == 'true') {
-    } else {
-      if ($any_out_of_stock) {
-        // Out of Stock
-        tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
-      }
+    // Out of Stock
+    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock)) {
+      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
   }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.42 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: account_history.php,v 1.43 2001/12/17 23:10:04 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,10 +14,10 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
 
   if (!@tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'SSL'));
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -108,7 +108,7 @@
         echo '          <tr class="accountHistory-odd">' . "\n";
       }
       echo '            <td align="center" class="smallText">&nbsp;' . $history['orders_id'] . '&nbsp;</td>' . "\n";
-      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'NONSSL') . '">' . tep_date_long($history['date_purchased']) . '</a>&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'SSL') . '">' . tep_date_long($history['date_purchased']) . '</a>&nbsp;</td>' . "\n";
       echo '            <td align="right" class="smallText">&nbsp;' . $currencies->format($total_cost, true, $history['currency'], $history['currency_value']) . '&nbsp;</td>' . "\n";
       echo '            <td align="right" class="smallText">&nbsp;' . tep_get_orders_status_name($history['orders_status'], $languages_id) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
@@ -122,7 +122,7 @@
             <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td valign="top" class="smallText">&nbsp;&nbsp;<?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?><br>&nbsp;&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
-                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?>&nbsp;&nbsp;<br><br><?php echo TABLE_TEXT; ?>&nbsp;&nbsp;</td>
+                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?>&nbsp;&nbsp;<br><br><?php echo TABLE_TEXT; ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>

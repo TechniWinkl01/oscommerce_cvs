@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.67 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: create_account_process.php,v 1.68 2001/12/17 23:10:07 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -264,10 +264,9 @@
     tep_mail($name, $email_address, EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
     if ($HTTP_POST_VARS['origin']) {
-      $connection = ($HTTP_POST_VARS['connection']) ? $HTTP_POST_VARS['connection'] : 'NONSSL';
-      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection));
+      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', 'SSL'));
     } else {
-      tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'NONSSL'));
+      tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'SSL'));
     }
   }
 
