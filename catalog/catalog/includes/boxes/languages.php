@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.8 2001/12/19 01:37:55 hpdl Exp $
+  $Id: languages.php,v 1.9 2002/01/10 12:54:34 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
 
   $languages_string = '';
   for ($i=0; $i<sizeof($languages); $i++) {
-    $languages_string .= ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language', 'currency')) . 'language=' . $languages[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $languages[$i]['image'], $languages[$i]['name']) . '</a> ';
+    $languages_string .= ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language', 'currency')) . 'language=' . $languages[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_LANGUAGES .  $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '</a> ';
   }
 
   $info_box_contents = array();
