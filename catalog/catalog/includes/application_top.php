@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.204 2001/12/28 15:42:09 dgw_ Exp $
+  $Id: application_top.php,v 1.205 2002/01/02 23:01:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -323,5 +323,22 @@
     }
   } else {
     $current_category_id = 0;
+  }
+
+// check if the 'install' directory exists, and warn of its existence
+  define('WARN_INSTALL_EXISTENCE', 'true');
+  define('WARN_CONFIG_WRITEABLE', 'true');
+
+  if (WARN_INSTALL_EXISTENCE == 'true') {
+    if (is_dir(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install')) {
+      new errorBox(array(array('text' => WARNING_INSTALL_DIRECTORY_EXISTS)));
+    }
+  }
+
+// check if the configure.php file is writeable
+  if (WARN_CONFIG_WRITEABLE == 'true') {
+    if ( (file_exists('includes/configure.php')) && (is_writeable('includes/configure.php')) ) {
+      new errorBox(array(array('text' => WARNING_CONFIG_FILE_WRITEABLE)));
+    }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.20 2002/01/02 16:25:33 dgw_ Exp $
+  $Id: boxes.php,v 1.21 2002/01/02 23:01:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -156,6 +156,13 @@
                                    array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading" width="100%"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
                                    array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif')));
       $this->tableBox($info_box_contents, true);
+    }
+  }
+
+  class errorBox extends tableBox {
+    function errorBox($contents) {
+      $this->table_data_parameters = 'class="errorBox"';
+      $this->tableBox($contents, true);
     }
   }
 ?>

@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.36 2002/01/02 16:28:17 dgw_ Exp $
+  $Id: stylesheet.css,v 1.37 2002/01/02 23:01:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,6 +10,7 @@
 */
 
 .boxText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
+.errorBox { font-family : Verdana, Arial, sans-serif; font-size : 10px; background-color: #ffb3b5; font-weight: bold; }
 
 BODY {
   background-color: #ffffff;
