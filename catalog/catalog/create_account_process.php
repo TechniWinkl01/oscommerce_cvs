@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.61 2001/09/13 20:54:02 dwatkins Exp $
+  $Id: create_account_process.php,v 1.62 2001/09/18 09:33:12 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -205,7 +205,7 @@
         <td><br><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
       </tr>
     </table><?php if ($HTTP_POST_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_POST_VARS['origin'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->
