@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.45 2003/02/06 00:46:00 hpdl Exp $
+  $Id: usps.php,v 1.46 2003/02/14 12:54:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,7 +108,7 @@
         }
       } else {
         $this->quotes = array('module' => $this->title,
-                              'error' => 'An error occured with the USPS shipping calculations.<br>If you prefer to use USPS as your shipping method, please contact the store owner.');
+                              'error' => MODULE_SHIPPING_USPS_TEXT_ERROR);
       }
 
       if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);

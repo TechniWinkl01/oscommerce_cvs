@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.7 2002/11/19 01:14:34 dgw_ Exp $
+  $Id: usps.php,v 1.8 2003/02/14 12:54:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,4 +15,5 @@ define('MODULE_SHIPPING_USPS_TEXT_DESCRIPTION', 'United States Postal Service<br
 define('MODULE_SHIPPING_USPS_TEXT_OPT_PP', 'Parcel Post');
 define('MODULE_SHIPPING_USPS_TEXT_OPT_PM', 'Priority Mail');
 define('MODULE_SHIPPING_USPS_TEXT_OPT_EX', 'Express Mail');
+define('MODULE_SHIPPING_USPS_TEXT_ERROR', 'Ha ocurrido un error calculando los gastos de envio.<br>Si aun desea usar USPS para su envio, contacte con el administrador.');
 ?>
