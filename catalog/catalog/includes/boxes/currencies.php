@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.11 2002/01/03 00:19:55 dgw_ Exp $
+  $Id: currencies.php,v 1.12 2002/05/11 13:18:01 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,10 +41,13 @@
     }
   }
 
+  if (getenv('HTTPS') == 'on') $connection = 'SSL';
+  else $connection = 'NONSSL';
+
   $select_box .= $hidden_get_variables;
 
   $info_box_contents = array();
-  $info_box_contents[] = array('form'  => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL', false) . '">',
+  $info_box_contents[] = array('form'  => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', $connection, false) . '">',
                                'align' => 'left',
                                'text'  => $select_box
                               );
