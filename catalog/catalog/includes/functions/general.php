@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: general.php,v 1.145 2001/12/14 16:00:59 dgw_ Exp $
+  $Id: general.php,v 1.146 2001/12/15 13:11:02 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,10 +13,8 @@
 ////
 // Stop from parsing any further PHP code
   function tep_exit() {
-    if (EXIT_AFTER_REDIRECT == true) {
-     tep_session_close();
-     return exit();
-    }
+   tep_session_close();
+   exit();
   }
 
 ////

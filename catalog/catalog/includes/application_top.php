@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.197 2001/12/15 13:06:34 hpdl Exp $
+  $Id: application_top.php,v 1.198 2001/12/15 13:11:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,8 +32,6 @@
 
 // Define the project version
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
-
-  define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
 
 // define the filenames used in the project
   define('FILENAME_ACCOUNT', 'account.php');
