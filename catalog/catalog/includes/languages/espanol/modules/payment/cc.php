@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cc.php,v 1.11 2003/07/08 16:45:36 dgw_ Exp $
+  $Id: cc.php,v 1.12 2003/12/04 23:03:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,5 +18,4 @@
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES', 'Fecha de Caducidad:');
   define('MODULE_PAYMENT_CC_TEXT_JS_CC_OWNER', '* El titular de la tarjeta de cr&eacute;dito debe de tener al menos ' . CC_OWNER_MIN_LENGTH . ' letras.\n');
   define('MODULE_PAYMENT_CC_TEXT_JS_CC_NUMBER', '* El n&uacute;mero de la tarjeta de cr&eacute;dito debe de tener al menos ' . CC_NUMBER_MIN_LENGTH . ' numeros.\n');
-  define('MODULE_PAYMENT_CC_TEXT_ERROR', 'Error en Tarjeta de Cr&eacute;dito!');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.12 2003/07/11 09:04:23 jan0815 Exp $
+  $Id: cc.php,v 1.13 2003/12/04 23:03:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,5 +18,4 @@
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES', 'G&uuml;ltig bis:');
   define('MODULE_PAYMENT_CC_TEXT_JS_CC_OWNER', '* Der \'Name des Inhabers\' muss mindestens aus ' . CC_OWNER_MIN_LENGTH . ' Buchstaben bestehen.\n');
   define('MODULE_PAYMENT_CC_TEXT_JS_CC_NUMBER', '* Die \'Kreditkarten-Nr.\' muss mindestens aus ' . CC_NUMBER_MIN_LENGTH . ' Zahlen bestehen.\n');
-  define('MODULE_PAYMENT_CC_TEXT_ERROR', 'Fehler bei der &Uuml;berp&uuml;fung der Kreditkarte!');
 ?>

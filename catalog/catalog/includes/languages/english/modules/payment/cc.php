@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cc.php,v 1.10 2002/11/01 05:14:11 hpdl Exp $
+  $Id: cc.php,v 1.11 2003/12/04 23:03:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,5 +18,4 @@
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES', 'Credit Card Expiry Date:');
   define('MODULE_PAYMENT_CC_TEXT_JS_CC_OWNER', '* The owner\'s name of the credit card must be at least ' . CC_OWNER_MIN_LENGTH . ' characters.\n');
   define('MODULE_PAYMENT_CC_TEXT_JS_CC_NUMBER', '* The credit card number must be at least ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
-  define('MODULE_PAYMENT_CC_TEXT_ERROR', 'Credit Card Error!');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.54 2003/11/17 20:34:31 hpdl Exp $
+  $Id: cc.php,v 1.55 2003/12/04 23:03:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,6 +95,8 @@
     }
 
     function pre_confirmation_check() {
+      global $messageStack;
+
       if (PHP_VERSION < 4.1) {
         global $_POST;
       }
@@ -120,9 +122,11 @@
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&cc_owner=' . urlencode($_POST['cc_owner']) . '&cc_expires_month=' . $_POST['cc_expires_month'] . '&cc_expires_year=' . $_POST['cc_expires_year'];
+        $messageStack->add_session('checkout_payment', $error, 'error');
 
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
+        $payment_error_return = 'cc_owner=' . urlencode($_POST['cc_owner']) . '&cc_expires_month=' . $_POST['cc_expires_month'] . '&cc_expires_year=' . $_POST['cc_expires_year'];
+
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
       }
 
       $this->cc_card_type = $cc_validation->cc_type;
@@ -184,14 +188,7 @@
     }
 
     function get_error() {
-      if (PHP_VERSION < 4.1) {
-        global $_GET;
-      }
-
-      $error = array('title' => MODULE_PAYMENT_CC_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($_GET['error'])));
-
-      return $error;
+      return false;
     }
 
     function check() {
