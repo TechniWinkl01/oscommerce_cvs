@@ -186,6 +186,8 @@
 // Validate payment data again
   $payment_action = 'PM_CONFIRMATION';
   include(DIR_MODULES . 'payment.php');
+
+  $comments = stripslashes($HTTP_POST_VARS['comments']);
 ?>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -197,7 +199,7 @@
           <td colspan="2"><? echo tep_black_line(); ?></td>
         </tr>
         <tr>
-          <td colspan="2"><? echo '&nbsp;' . $HTTP_POST_VARS['comments'] ?></td>
+          <td colspan="2"><? echo '&nbsp;' . nl2br($comments); ?></td>
         </tr>
         <tr>
           <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -211,7 +213,7 @@
                    '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
                    '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
                    '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
-                   '<input type="hidden" name="comments" value="' . $HTTP_POST_VARS['comments'] . '">' .
+                   '<input type="hidden" name="comments" value="' . addslashes($comments) . '">' .
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 // Draw the checkout process button

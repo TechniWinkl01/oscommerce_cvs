@@ -193,7 +193,7 @@
           <td><? echo tep_black_line(); ?></td>
         </tr>
         <tr>
-          <td><? echo '&nbsp;' . $order_values['comments'] ?></td>
+          <td><? echo '&nbsp;' . nl2br(stripslashes($order_values['comments'])); ?></td>
         </tr>
         <tr>
           <td><? echo tep_black_line(); ?></td>
