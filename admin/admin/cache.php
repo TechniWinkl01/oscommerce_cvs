@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.23 2003/06/29 22:50:51 hpdl Exp $
+  $Id: cache.php,v 1.24 2004/04/09 01:55:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,8 +23,8 @@
   }
 
 // check if the cache directory exists
-  if (is_dir(DIR_FS_CACHE)) {
-    if (!is_writeable(DIR_FS_CACHE)) $messageStack->add(ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
+  if (is_dir(DIR_FS_WORK)) {
+    if (!is_writeable(DIR_FS_WORK)) $messageStack->add(ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
     $messageStack->add(ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
@@ -71,33 +71,27 @@
               </tr>
 <?php
   if ($messageStack->size < 1) {
-    $languages = tep_get_languages();
-
-    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-      if ($languages[$i]['code'] == DEFAULT_LANGUAGE) {
-        $language = $languages[$i]['directory'];
-      }
-    }
-
     for ($i=0, $n=sizeof($cache_blocks); $i<$n; $i++) {
       $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
 
-      if (file_exists(DIR_FS_CACHE . $cached_file)) {
-        $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cached_file));
-      } else {
+      if (file_exists(DIR_FS_WORK . $cached_file)) {
+        $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_WORK . $cached_file));
+      } elseif ($cache_blocks[$i]['multiple'] === true) {
         $cache_mtime = TEXT_FILE_DOES_NOT_EXIST;
-        $dir = dir(DIR_FS_CACHE);
+        $dir = dir(DIR_FS_WORK);
 
         while ($cache_file = $dir->read()) {
           $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
 
           if (ereg('^' . $cached_file, $cache_file)) {
-            $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_file));
+            $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_WORK . $cache_file));
             break;
           }
         }
 
         $dir->close();
+      } else {
+        $cache_mtime = TEXT_FILE_DOES_NOT_EXIST;
       }
 ?>
               <tr class="dataTableRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)">
@@ -110,7 +104,7 @@
   }
 ?>
               <tr>
-                <td class="smallText" colspan="3"><?php echo TEXT_CACHE_DIRECTORY . ' ' . DIR_FS_CACHE; ?></td>
+                <td class="smallText" colspan="3"><?php echo TEXT_CACHE_DIRECTORY . ' ' . DIR_FS_WORK; ?></td>
               </tr>
             </table></td>
           </tr>

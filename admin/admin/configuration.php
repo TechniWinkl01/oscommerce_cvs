@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.43 2003/06/29 22:50:51 hpdl Exp $
+  $Id: configuration.php,v 1.44 2004/04/09 01:55:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,6 +21,8 @@
         $cID = tep_db_prepare_input($HTTP_GET_VARS['cID']);
 
         tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . tep_db_input($configuration_value) . "', last_modified = now() where configuration_id = '" . (int)$cID . "'");
+
+        osC_Cache::clear('configuration');
 
         tep_redirect(tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cID=' . $cID));
         break;
