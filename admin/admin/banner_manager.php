@@ -30,17 +30,17 @@
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $HTTP_POST_VARS['banners_image_local'];
       }
 
-      $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : 'images/' . $banners_image_target . $banners_image_name;
+      $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : $banners_image_target . $banners_image_name;
       tep_db_query("update " . TABLE_BANNERS . " set banners_title = '" . $banners_title . "', banners_url = '" . $banners_url . "', banners_image = '" . $db_image_location . "', banners_group = '" . $banners_group . "' where banners_id = '" . $banners_id . "'");
 
-      if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year'] && !$HTTP_POST_VARS['impressions']) {
+      if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year']) {
         $expires_date = $HTTP_POST_VARS['year'];
         $expires_date .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
         $expires_date .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
 
-        tep_db_query("update " . TABLE_BANNERS . " set expires_date = '" . $expires_date . "', expires_impressions = NULL where banners_id = '" . $banners_id . "'");
-      } elseif ($HTTP_POST_VARS['impressions'] && !$HTTP_POST_VARS['day'] && !$HTTP_POST_VARS['month'] && !$HTTP_POST_VARS['year']) {
-        tep_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . $HTTP_POST_VARS['impressions'] . "', expires_date = NULL where banners_id = '" . $banners_id . "'");
+        tep_db_query("update " . TABLE_BANNERS . " set expires_date = '" . $expires_date . "', expires_impressions = null where banners_id = '" . $banners_id . "'");
+      } elseif ($HTTP_POST_VARS['impressions']) {
+        tep_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . $HTTP_POST_VARS['impressions'] . "', expires_date = null where banners_id = '" . $banners_id . "'");
       }
 
       header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
@@ -61,17 +61,17 @@
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $HTTP_POST_VARS['banners_image_local'];
       }
 
-      $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? 'images/' . $HTTP_POST_VARS['banners_image_local'] : 'images/' . $banners_image_target . $banners_image_name;
+      $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : $banners_image_target . $banners_image_name;
       tep_db_query("insert into " . TABLE_BANNERS . " (banners_title, banners_url, banners_image, banners_group, date_added, status) values ('" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', now(), '1')");
       $banners_id = tep_db_insert_id();
 
-      if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year'] && !$HTTP_POST_VARS['impressions']) {
+      if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year']) {
         $expires_date = $HTTP_POST_VARS['year'];
         $expires_date .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
         $expires_date .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
 
         tep_db_query("update " . TABLE_BANNERS . " set expires_date = '" . $expires_date . "' where banners_id = '" . $banners_id . "'");
-      } elseif ($HTTP_POST_VARS['impressions'] && !$HTTP_POST_VARS['day'] && !$HTTP_POST_VARS['month'] && !$HTTP_POST_VARS['year']) {
+      } elseif ($HTTP_POST_VARS['impressions']) {
         tep_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . $HTTP_POST_VARS['impressions'] . "' where banners_id = '" . $banners_id . "'");
       }
 
@@ -247,7 +247,7 @@ function popupImageWindow(url) {
         echo '                  <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('info', 'action')) . 'info=' . $banners['banners_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td class="tableData">&nbsp;<? echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?image=' . DIR_WS_CATALOG . $banners['banners_image'] . '&alt=' . urlencode($banners['banners_title']) . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?>&nbsp;</td>
+                <td class="tableData">&nbsp;<? echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?image=' . DIR_WS_CATALOG_IMAGES . $banners['banners_image'] . '&alt=' . urlencode($banners['banners_title']) . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?>&nbsp;</td>
                 <td class="tableData" align="right">&nbsp;<? echo $banners['banners_group']; ?>&nbsp;</td>
                 <td class="tableData" align="right">&nbsp;<? echo $banners_shown . ' / ' . $banners_clicked; ?>&nbsp;</td>
                 <td class="tableData" align="right">
