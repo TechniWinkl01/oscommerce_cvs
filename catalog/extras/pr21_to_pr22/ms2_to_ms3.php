@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ms2_to_ms3.php,v 1.1 2003/07/23 23:11:33 project3000 Exp $
+  $Id: ms2_to_ms3.php,v 1.2 2004/02/16 07:32:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,13 +50,15 @@ TD, UL, P, BODY { font-family: Verdana, Arial, sans-serif; font-size: 11px; line
 //--></style>
 </head>
 <body>
-<p>
-<b>osCommerce Release 2.2 MS2 to MS3 Database Update Script</b>
-<p>This script can be copied to any web directory to upgrade a MS2 database
-to a MS3 database. By MS2 and MS3 I mean the state of the database the DAY
-that the MS release was made, not *any* MS2 like CVS tree.
 
-So if you upgraded to MS2 and stayed there you can use this script.
+<p><b>osCommerce Release 2.2 MS2 to MS3 Database Update Script</b></p>
+
+<p>This script can be copied to any web directory to upgrade a MS2 database to a MS3 database.</p>
+
+<p><i>This script should only be used on MS2 databases, not MS2-CVS daily snapshot databases.</i></p>
+
+<p>After the upgrade procedure has been preformed, please setup the store configuration again via the online installation routine (without importing the database otherwise your data may be overwritten!)</p>
+
 <?php
   if (!isset($HTTP_POST_VARS['DB_SERVER'])) {
 ?>
@@ -103,7 +105,7 @@ So if you upgraded to MS2 and stayed there you can use this script.
     return $db_link;
   }
 
-  function osc_db_error ($query, $errno, $error) { 
+  function osc_db_error ($query, $errno, $error) {
     die('<font color="#000000"><b>' . $errno . ' - ' . $error . '<br><br>' . $query . '<br><br><small><font color="#ff0000">[TEP STOP]</font></small><br><br></b></font>');
   }
 
@@ -145,13 +147,31 @@ So if you upgraded to MS2 and stayed there you can use this script.
   osc_set_time_limit(0);
 ?>
 
-<p><span id="whosOnline"><span id="whosOnlineMarker">-</span> Who's Online</span><br>
+<p><span id="configuration"><span id="configurationMarker">-</span> Configuration</span><br>
+<span id="whosOnline"><span id="whosOnlineMarker">-</span> Who's Online</span></p>
 
 <p>Status: <span id="statusText">Preparing</span></p>
 
 <?php flush(); ?>
 
 <script language="javascript"><!--
+changeStyle('configuration', 'bold');
+changeText('configurationMarker', '?');
+changeText('statusText', 'Updating Configuration');
+//--></script>
+
+<?php
+  flush();
+
+  osc_db_query("delete from configuration where configuration_key = 'DIR_FS_CACHE'");
+  osc_db_query("delete from configuration where configuration_key = 'SESSION_WRITE_DIRECTORY'");
+?>
+
+<script language="javascript"><!--
+changeStyle('configuration', 'normal');
+changeText('configurationMarker', '*');
+changeText('statusText', 'Updating Configuration ..done!');
+
 changeStyle('whosOnline', 'bold');
 changeText('whosOnlineMarker', '?');
 changeText('statusText', 'Updating Who\'s Online');
@@ -159,7 +179,7 @@ changeText('statusText', 'Updating Who\'s Online');
 
 <?php
   flush();
-  
+
   osc_db_query("ALTER TABLE whos_online CHANGE last_page_url last_page_url VARCHAR(255) NOT NULL");
 ?>
 <script language="javascript"><!--
