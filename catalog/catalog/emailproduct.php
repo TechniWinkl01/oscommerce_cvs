@@ -37,15 +37,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -74,7 +74,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><br><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a>&nbsp;&nbsp;</td>
       </tr>
 <?
   } else {
@@ -87,15 +87,15 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
+                <td class="main"><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
                 <td width="100%"><input type="text" name="from" value="<? echo $account_values['customers_email_address']; ?>"></td>
               </tr>
               <tr>
-                <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
+                <td class="main"><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
                 <td><input type="text" name="yourname" value="<? echo $account_values['customers_firstname']; ?> <? echo $account_values['customers_lastname']; ?>"></td>
               </tr>
               <tr>
-                <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
+                <td class="main"><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
                 <td><input type="text" name="friendemail" value="<?php echo $HTTP_GET_VARS['send_to']; ?>"></td>
               </tr>
               <tr>

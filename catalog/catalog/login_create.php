@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.15 2001/06/03 23:07:38 mbs Exp $
+  // $Id: login_create.php,v 1.16 2001/06/08 09:40:58 mbs Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer = tep_db_query("select customers_id, customers_password from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
@@ -263,15 +263,15 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -281,12 +281,12 @@ function check_form() {
       <tr>
         <td><form name="login" method="post" action="<? echo tep_href_link(FILENAME_LOGIN_CREATE, 'action=process', 'NONSSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="main" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
+            <td align="right" class="main">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="email_address" maxlength="96" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td class="main" nowrap>&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</td>
+            <td align="right" class="main">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td class="main">&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</td>
           </tr>
         </table>
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -294,11 +294,11 @@ function check_form() {
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td valign="top" class="smallText" nowrap>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
-            <td align="right" valign="top" nowrap><? echo tep_image_submit('button_log_in.gif', IMAGE_BUTTON_LOGIN); ?>&nbsp;</td>
+            <td valign="top" class="smallText">&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
+            <td align="right" valign="top"><? echo tep_image_submit('button_log_in.gif', IMAGE_BUTTON_LOGIN); ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" colspan="2" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
+            <td align="right" colspan="2" class="smallText">&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
           </tr>
 <?
    $origin = '';
@@ -331,7 +331,7 @@ function check_form() {
   if ($HTTP_GET_VARS['login'] == 'fail') {
 ?>
           <tr>
-            <td colspan="2" class="smallText" nowrap><? echo TEXT_LOGIN_ERROR; ?></td>
+            <td colspan="2" class="smallText"><? echo TEXT_LOGIN_ERROR; ?></td>
           </tr>
 <?
   }
@@ -347,8 +347,8 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING2_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING2_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING2_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING2_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -361,127 +361,127 @@ function check_form() {
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory" nowrap><? echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?
    if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="radio" name="gender" value="m">&nbsp;<? echo MALE; ?>&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;<? echo FEMALE; ?>&nbsp;<? echo ENTRY_GENDER_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="radio" name="gender" value="m">&nbsp;<? echo MALE; ?>&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;<? echo FEMALE; ?>&nbsp;<? echo ENTRY_GENDER_TEXT; ?></td>
           </tr>
 <?
    }
 ?>
           <tr>
-            <td colspan="2" class="fieldKey" nowrap>&nbsp;</td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="firstname" maxlength="32">&nbsp;<? echo ENTRY_FIRST_NAME_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="firstname" maxlength="32">&nbsp;<? echo ENTRY_FIRST_NAME_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="lastname" maxlength="32">&nbsp;<? echo ENTRY_LAST_NAME_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="lastname" maxlength="32">&nbsp;<? echo ENTRY_LAST_NAME_TEXT; ?></td>
           </tr>
 <?
    if (ACCOUNT_DOB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="dob" value="<? echo DOB_FORMAT_STRING; ?>" maxlength="10">&nbsp;<? echo ENTRY_DATE_OF_BIRTH_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="dob" value="<? echo DOB_FORMAT_STRING; ?>" maxlength="10">&nbsp;<? echo ENTRY_DATE_OF_BIRTH_TEXT; ?></td>
           </tr>
 <?
    }
    $rowspan = 5+ACCOUNT_SUBURB+ACCOUNT_STATE+ACCOUNT_STATE;
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="email_address" maxlength="96">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
           </tr>
           <tr>
-            <td colspan="2" class="fieldKey" nowrap>&nbsp;</td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory" nowrap><? echo CATEGORY_ADDRESS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="street_address" maxlength="64">&nbsp;<? echo ENTRY_STREET_ADDRESS_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="street_address" maxlength="64">&nbsp;<? echo ENTRY_STREET_ADDRESS_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="suburb" maxlength="32">&nbsp;<? echo ENTRY_SUBURB_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="suburb" maxlength="32">&nbsp;<? echo ENTRY_SUBURB_TEXT; ?></td>
           </tr>
 <?
    }
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="city" maxlength="32">&nbsp;<? echo ENTRY_CITY_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="city" maxlength="32">&nbsp;<? echo ENTRY_CITY_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?tep_get_country_list("country", STORE_COUNTRY, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?tep_get_country_list("country", STORE_COUNTRY, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_STATE) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?tep_get_zone_list("zone_id", STORE_COUNTRY, "", "onChange=\"resetStateText(this.form)\";"); ?></select>&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?tep_get_zone_list("zone_id", STORE_COUNTRY, "", "onChange=\"resetStateText(this.form)\";"); ?></select>&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
 <?
    }
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="postcode" maxlength="8">&nbsp;<? echo ENTRY_POST_CODE_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="postcode" maxlength="8">&nbsp;<? echo ENTRY_POST_CODE_TEXT; ?></td>
           </tr>
           <tr>
-            <td colspan="2" class="fieldKey" nowrap>&nbsp;</td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_CONTACT; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_CONTACT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="telephone" maxlength="32">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="telephone" maxlength="32">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="fax" maxlength="32">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="fax" maxlength="32">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></td>
           </tr>
           <tr>
-            <td colspan="2" class="fieldKey" nowrap>&nbsp;</td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory" nowrap><? echo CATEGORY_OPTIONS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory"><? echo CATEGORY_OPTIONS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<select name="newsletter"><option value="1"><?php echo ENTRY_NEWSLETTER_YES; ?></option><option selected value="0"><? echo ENTRY_NEWSLETTER_NO; ?></option></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<select name="newsletter"><option value="1"><?php echo ENTRY_NEWSLETTER_YES; ?></option><option selected value="0"><? echo ENTRY_NEWSLETTER_NO; ?></option></td>
           </tr>
           <tr>
-            <td colspan="2" class="fieldKey" nowrap>&nbsp;</td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_PASSWORD; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_PASSWORD; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="password" name="password" maxlength="12">&nbsp;<? echo ENTRY_PASSWORD_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="password" name="password" maxlength="12">&nbsp;<? echo ENTRY_PASSWORD_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="password" name="confirmation" maxlength="12">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="password" name="confirmation" maxlength="12">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION_TEXT; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -489,7 +489,7 @@ function check_form() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><br><? echo tep_image_submit('button_done.gif', IMAGE_BUTTON_DONE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><br><? echo tep_image_submit('button_done.gif', IMAGE_BUTTON_DONE); ?>&nbsp;&nbsp;</td>
       </tr>
     </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><? if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->

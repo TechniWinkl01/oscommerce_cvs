@@ -35,7 +35,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -45,7 +45,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
+            <td><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
             <td valign="top" class="main"><div align="center" class="pageHeading"><br><? echo ($HTTP_GET_VARS['action'] == 'success') ? SUB_BAR_TITLE_SENT : SUB_BAR_TITLE; ?>&nbsp;</div><br><? echo TEXT_SUCCESS; ?></td>
           </tr>
         </table></td>
@@ -65,8 +65,8 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -76,7 +76,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr class="subBar">
-            <td class="subBar" nowrap>&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
+            <td class="subBar">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -92,15 +92,15 @@
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main" nowrap><? echo ENTRY_NAME; ?></td>
+            <td align="right" class="main"><? echo ENTRY_NAME; ?></td>
             <td><input name="name" maxlength="32"></td>
           </tr>
           <tr>
-            <td align="right" class="main" nowrap><? echo ENTRY_EMAIL; ?></td>
+            <td align="right" class="main"><? echo ENTRY_EMAIL; ?></td>
             <td><input name="email" maxlength="96"></td>
           </tr>
           <tr>
-            <td valign="top" align="right" class="main" nowrap><? echo ENTRY_ENQUIRY; ?></td>
+            <td valign="top" align="right" class="main"><? echo ENTRY_ENQUIRY; ?></td>
             <td><textarea name="enquiry" wrap="soft" cols="40" rows="15"></textarea></td>
           </tr>
           <tr>

@@ -28,14 +28,14 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="5">
           <tr>
-            <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
+            <td><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
             <td class="main"><div align="center" class="pageHeading"><? echo HEADING_TITLE; ?>&nbsp;</div><br><? echo TEXT_ACCOUNT_CREATED; ?></td>
           </tr>
         </table></td>
@@ -44,7 +44,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTNUE) . '</a>'; ?>&nbsp;&nbsp;</td>
+        <td align="right"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTNUE) . '</a>'; ?>&nbsp;&nbsp;</td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
