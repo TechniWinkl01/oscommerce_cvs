@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.101 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.102 2001/12/28 15:54:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -32,6 +32,14 @@
     // Out of Stock
     if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock)) {
       tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
+    }
+  }
+
+// Register checkout variables
+  if ($HTTP_POST_VARS['comments']) {
+    $comments = stripslashes($HTTP_POST_VARS['comments']);
+    if (!tep_session_is_registered('comments')) {
+      tep_session_register('comments');
     }
   }
 
@@ -244,7 +252,7 @@
 
   echo '<form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '">';
 
-  if ($HTTP_POST_VARS['comments']) {
+  if ($comments) {
 ?>
           <tr>
             <td class="main">&nbsp;</td>
@@ -256,7 +264,7 @@
             <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo '&nbsp;' . nl2br(stripslashes($HTTP_POST_VARS['comments'])); ?></td>
+            <td class="main"><?php echo '&nbsp;' . nl2br($comments); ?></td>
           </tr>
 <?php
   }
@@ -308,7 +316,6 @@
 <?php
   echo tep_draw_hidden_field('prod', $HTTP_POST_VARS['prod']) .
        tep_draw_hidden_field('payment', $HTTP_POST_VARS['payment']) .
-       tep_draw_hidden_field('comments', $HTTP_POST_VARS['comments']) .
        tep_draw_hidden_field('shipping_cost', $shipping_cost) .
        tep_draw_hidden_field('shipping_method', $shipping_method) .
        $payment_modules->process_button();
