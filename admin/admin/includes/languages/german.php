@@ -70,6 +70,7 @@ define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
 
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
+define('BOX_TAXES_COUNTRIES', 'Land');
 define('BOX_TAXES_ZONES', 'Zonen');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
 define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
@@ -183,6 +184,7 @@ define('IMAGE_NEW_CATEGORY', 'Neue Kategorie');
 define('IMAGE_NEW_PRODUCT', 'Neuer Artikel');
 define('IMAGE_NEW_TAX_CLASS', 'Neue Steuer-Klasse');
 define('IMAGE_NEW_ZONE', 'Neue Zone');
+define('IMAGE_NEW_COUNTRY', 'Neue Land');
 define('IMAGE_PREVIEW', 'Vorschau');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
@@ -203,6 +205,7 @@ define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerklassen)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuers&auml;tzen)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Land)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');

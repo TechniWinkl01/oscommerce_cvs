@@ -43,6 +43,7 @@
   define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_PAYMENT_MODULES', 'payment_modules.php');
   define('FILENAME_SHIPPING_MODULES', 'shipping_modules.php');
+  define('FILENAME_COUNTRIES', 'countries.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
@@ -210,6 +211,7 @@
 // entry/item info classes
   $include_file = DIR_CLASSES . 'category_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'configuration_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'countries_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'customer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'manufacturer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'product_expected_info.php'; include(DIR_INCLUDES . 'include_once.php');
