@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.31 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: reviews.php,v 1.32 2002/01/09 11:46:44 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -288,7 +288,7 @@
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info')) . 'action=edit&rID=' . $rInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action')) . 'action=delete&rID=' . $rInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($rInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($rInfo->last_modified));
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($rInfo->products_image, $rInfo->products_name));
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_REVIEW_AUTHOR . ' ' . $rInfo->author);
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_REVIEW_RATING . ' ' . $rInfo->rating . ' / 5');
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_REVIEW_READ . ' ' . $rInfo->read);

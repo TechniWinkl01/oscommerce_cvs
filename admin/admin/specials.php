@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.27 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: specials.php,v 1.28 2002/01/09 11:46:44 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -256,7 +256,7 @@
       } else { // default info box
         $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action', 'info')) . 'action=edit&sID=' . $sInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($sInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($sInfo->last_modified));
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_PERCENTAGE . ' ' . number_format($sInfo->percentage) . '%');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.99 2002/01/09 06:19:56 hpdl Exp $
+  $Id: general.php,v 1.100 2002/01/09 11:46:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -233,10 +233,9 @@
     return $values_values['products_options_values_name'];
   }
 
-  function tep_info_image($image_source, $image_alt) {
-    $image_size = @getimagesize(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $image_source);
-    if ($image_size) {
-      $image = tep_image(DIR_WS_CATALOG_IMAGES . $image_source, $image_alt, $image_size[0], $image_size[1]);
+  function tep_info_image($image, $alt, $width = '', $height = '') {
+    if ( ($image) && (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $image)) ) {
+      $image = tep_image(DIR_WS_CATALOG_IMAGES . $image, $alt, $width, $height);
     } else {
       $image = TEXT_IMAGE_NONEXISTENT;
     }
