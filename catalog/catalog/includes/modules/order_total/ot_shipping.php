@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.11 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: ot_shipping.php,v 1.12 2002/12/09 19:07:16 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -85,15 +85,7 @@
     }
 
     function remove() {
-      $keys = '';
-      $keys_array = $this->keys();
-      $keys_size = sizeof($keys_array);
-      for ($i=0; $i<$keys_size; $i++) {
-        $keys .= "'" . $keys_array[$i] . "',";
-      }
-      $keys = substr($keys, 0, -1);
-
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
   }
 ?>

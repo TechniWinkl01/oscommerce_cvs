@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.39 2002/11/27 11:57:39 thomasamoulton Exp $
+  $Id: usps.php,v 1.40 2002/12/09 19:07:18 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,15 +95,7 @@
     }
 
     function remove() {
-      $keys = '';
-      $keys_array = $this->keys();
-      $keys_size = sizeof($keys_array);
-      for ($i=0; $i<$keys_size; $i++) {
-        $keys .= "'" . $keys_array[$i] . "',";
-      }
-      $keys = substr($keys, 0, -1);
-
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
     function keys() {
