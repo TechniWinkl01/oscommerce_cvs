@@ -7,9 +7,9 @@ Author(s): David Garcia Watkins (dgw@q-logic.org)
 
 define('NAVBAR_TITLE', 'Mi Cuenta');
 define('TOP_BAR_TITLE', 'Mi Cuenta');
-define('HEADING_TITLE', 'Informacion de Mi Cuenta');
+define('HEADING_TITLE', 'Informacion sobre Mi Cuenta');
 
-define('IMAGE_EDIT_ACCOUNT', 'Editar Cuenta');
+define('IMAGE_EDIT_ACCOUNT', 'Editar Mi Cuenta');
 define('IMAGE_ADDRESS_BOOK', 'Otras Direcciones');
 define('IMAGE_HISTORY', 'Historial');
 ?>

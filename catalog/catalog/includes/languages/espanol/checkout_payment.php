@@ -14,9 +14,9 @@ define('TABLE_HEADING_METHODS', 'Formas');
 define('TABLE_HEADING_SELECTION', 'Seleccion');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Direccion de Envio');
 define('TABLE_HEADING_SHIPPING_INFO', 'Portador Del Envío');
-define('TABLE_HEADING_SHIPPING_QUOTE', 'Seleccione Preferida La Tarifa');
+define('TABLE_HEADING_SHIPPING_QUOTE', 'Seleccione La Tarifa Preferida');
 define('CHANGE_DELIVERY_ADDRESS', 'Cambiar direccion de envio');
-define('CHANGE_SHIPPING_OPTIONS', 'Cambiar las opciones de la forma de envio');
+define('CHANGE_SHIPPING_OPTIONS', 'Cambiar las opciones de envio');
 
 define('IMAGE_NEXT', 'Siguiente');
 ?>
