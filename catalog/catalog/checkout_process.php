@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.121 2003/02/06 17:38:14 thomasamoulton Exp $
+  $Id: checkout_process.php,v 1.122 2003/02/09 20:58:53 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,6 +38,10 @@
 // load selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment($payment);
+
+// load the selected shipping module
+  require(DIR_WS_CLASSES . 'shipping.php');
+  $shipping_modules = new shipping($shipping);
 
   require(DIR_WS_CLASSES . 'order.php');
   $order = new order;
