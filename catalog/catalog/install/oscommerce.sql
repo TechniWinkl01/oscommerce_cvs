@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.22 2002/02/02 16:32:08 clescuyer Exp $
+# $Id: oscommerce.sql,v 1.23 2002/02/03 00:57:15 clescuyer Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -723,6 +723,11 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Verfiy E-Mail Addresses Through DNS', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false', 'Verfiy e-mail address through a DNS server', '12', '4', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Send E-Mails', 'SEND_EMAILS', 'true', 'Send out e-mails', '12', '5', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
 
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable download', 'DOWNLOAD_ENABLED', 'false', 'Enable the products download functions.', '13', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Download by redirect', 'DOWNLOAD_BY_REDIRECT', 'false', 'Use browser redirection for download. Disable on non-Unix systems.', '13', '2', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Expiry delay (days)' ,'DOWNLOAD_MAX_DAYS', '7', 'Set number of days before the download link expires. 0 means no limit.', '13', '3', '', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Maximum number of downloads' ,'DOWNLOAD_MAX_COUNT', '5', 'Set the maximum number of downloads. 0 means no download authorized.', '13', '4', '', now());
+
 INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1');
 INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1');
 INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1');
@@ -734,6 +739,7 @@ INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration optio
 INSERT INTO configuration_group VALUES ('10', 'Logging', 'Logging configuration options', '10', '1');
 INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', '11', '1');
 INSERT INTO configuration_group VALUES ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1');
+INSERT INTO configuration_group VALUES ('13', 'Download', 'Downloadable products options', '13', '1');
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1');
@@ -1157,18 +1163,9 @@ INSERT INTO products_attributes VALUES (8,2,3,6,0.00,'+');
 INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
 INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
 INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
-INSERT INTO products_attributes VALUES (20, 21, 5, 10, '0.00', '+');
-INSERT INTO products_attributes VALUES (21, 21, 5, 11, '0.00', '+');
-INSERT INTO products_attributes VALUES (22, 21, 5, 12, '0.00', '+');
-INSERT INTO products_attributes VALUES (23, 21, 5, 15, '0.00', '+');
-INSERT INTO products_attributes VALUES (24, 21, 5, 13, '0.00', '+');
-INSERT INTO products_attributes VALUES (25, 21, 5, 14, '0.00', '+');
 INSERT INTO products_attributes VALUES (26, 22, 5, 10, '0.00', '+');
 INSERT INTO products_attributes VALUES (27, 22, 5, 13, '0.00', '+');
 
-INSERT INTO products_attributes_download VALUES (20, 'swat-wen.exe', 14, 5);
-INSERT INTO products_attributes_download VALUES (21, 'swat-wfr.exe', 14, 5);
-INSERT INTO products_attributes_download VALUES (22, 'swat-men.bin', 14, 5);
 INSERT INTO products_attributes_download VALUES (26, 'unreal.zip', 7, 3);
 
 INSERT INTO products_options VALUES (1,1,'Color');
@@ -1218,22 +1215,9 @@ INSERT INTO products_options_values VALUES (9,3,'USB');
 INSERT INTO products_options_values VALUES (10, 1, 'Download: Windows - English');
 INSERT INTO products_options_values VALUES (10, 2, 'Download: Windows - Englisch');
 INSERT INTO products_options_values VALUES (10, 3, 'Download: Windows - Inglese');
-INSERT INTO products_options_values VALUES (11, 1, 'Download: Windows - French');
-INSERT INTO products_options_values VALUES (11, 2, 'Download: Windows - Französich');
-INSERT INTO products_options_values VALUES (11, 3, 'Download: Windows - Francese');
-INSERT INTO products_options_values VALUES (12, 1, 'Download: Mac - English');
-INSERT INTO products_options_values VALUES (12, 2, 'Download: Mac - Englisch');
-INSERT INTO products_options_values VALUES (12, 3, 'Download: Mac - Inglese');
 INSERT INTO products_options_values VALUES (13, 1, 'Box: Windows - English');
 INSERT INTO products_options_values VALUES (13, 2, 'Box: Windows - Englisch');
 INSERT INTO products_options_values VALUES (13, 3, 'Box: Windows - Inglese');
-INSERT INTO products_options_values VALUES (14, 1, 'Box: Windows - French');
-INSERT INTO products_options_values VALUES (14, 2, 'Box: Windows - Französich');
-INSERT INTO products_options_values VALUES (14, 3, 'Box: Windows - Francese');
-INSERT INTO products_options_values VALUES (15, 1, 'Box: Mac - English');
-INSERT INTO products_options_values VALUES (15, 2, 'Box: Mac - Englisch');
-INSERT INTO products_options_values VALUES (15, 3, 'Box: Mac - Inglese');
-
 
 INSERT INTO products_options_values_to_products_options VALUES (1,4,1);
 INSERT INTO products_options_values_to_products_options VALUES (2,4,2);
@@ -1245,12 +1229,7 @@ INSERT INTO products_options_values_to_products_options VALUES (7,3,7);
 INSERT INTO products_options_values_to_products_options VALUES (8,3,8);
 INSERT INTO products_options_values_to_products_options VALUES (9,3,9);
 INSERT INTO products_options_values_to_products_options VALUES (10, 5, 10);
-INSERT INTO products_options_values_to_products_options VALUES (11, 5, 11);
-INSERT INTO products_options_values_to_products_options VALUES (12, 5, 12);
 INSERT INTO products_options_values_to_products_options VALUES (13, 5, 13);
-INSERT INTO products_options_values_to_products_options VALUES (14, 5, 14);
-INSERT INTO products_options_values_to_products_options VALUES (15, 5, 15);
-
 
 INSERT INTO products_to_categories VALUES (1,4);
 INSERT INTO products_to_categories VALUES (2,4);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.89 2002/02/02 16:32:07 clescuyer Exp $
+  $Id: checkout_process.php,v 1.90 2002/02/03 00:57:14 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -76,7 +76,7 @@
 
     // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
-      if (DOWNLOAD_ENABLED) {
+      if (DOWNLOAD_ENABLED == 'true') {
         $stock_query_raw = "SELECT products_quantity, pad.products_attributes_filename 
                             FROM " . TABLE_PRODUCTS . " p
                             LEFT JOIN " . TABLE_PRODUCTS_ATTRIBUTES . " pa
@@ -92,7 +92,7 @@
       }
       $stock_values = tep_db_fetch_array($stock_query);
 // do not decrement quantities if products_attributes_filename exists
-      if (!DOWNLOAD_ENABLED || (!$stock_values['products_attributes_filename']!= '')) {
+      if ((DOWNLOAD_ENABLED == 'false') || (!$stock_values['products_attributes_filename']!= '')) {
         $stock_left = $stock_values['products_quantity'] - $products[$i]['quantity'];
   
         tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
@@ -112,14 +112,14 @@
       $attributes_exist = '1';
       reset($products[$i]['attributes']);
       while (list($option, $value) = each($products[$i]['attributes'])) {
-        if (DOWNLOAD_ENABLED) {
+        if (DOWNLOAD_ENABLED == 'true') {
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, "  . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "' and pa.products_attributes_id=pad.products_attributes_id");
         } else {
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
         }
         $attributes_values = tep_db_fetch_array($attributes);
         tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " (orders_id, orders_products_id, products_options, products_options_values, options_values_price, price_prefix) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix']  . "')");
-        if (DOWNLOAD_ENABLED) {
+        if (DOWNLOAD_ENABLED == 'true') {
           tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " (orders_id, orders_products_id, orders_products_filename, download_maxdays, download_count) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_attributes_filename'] . "', '" . $attributes_values['products_attributes_maxdays'] . "', '" . $attributes_values['products_attributes_maxcount']  . "')");
         }
         $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . $attributes_values['products_options_values_name'];

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.1 2002/02/02 16:32:07 clescuyer Exp $
+  $Id: download.php,v 1.2 2002/02/03 00:57:14 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -89,7 +89,7 @@ function tep_unlink_temp_dir($dir)
   header("Content-Type: Application/octet-stream");
   header("Content-disposition: attachment; filename=" . $downloads_values['orders_products_filename']);
 
-  if (DOWNLOAD_BY_REDIRECT) {
+  if (DOWNLOAD_BY_REDIRECT == 'true') {
 
 // This will work only on Unix/Linux hosts
     tep_unlink_temp_dir(DIR_FS_DOWNLOAD_PUBLIC);

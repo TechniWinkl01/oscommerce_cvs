@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.134 2002/02/02 16:28:45 clescuyer Exp $
+  $Id: application_top.php,v 1.135 2002/02/03 00:57:59 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -119,11 +119,6 @@
   define('ACCOUNT_COMPANY', 'false');
   define('ACCOUNT_SUBURB', 'true');
   define('ACCOUNT_STATE', 'true');
-
-// Downloadable products
-  define('DOWNLOAD_ENABLED', 1);      // 0=disable, 1=enable
-  define('DOWNLOAD_MAX_DAYS', 14);    // Download available for n days, 0=no limit
-  define('DOWNLOAD_MAX_COUNT', 5);    // Download possible n times, 0=no download possible
 
 // Define how do we update currency exchange rates
 // Possible values are 'oanda' 'xe' or ''

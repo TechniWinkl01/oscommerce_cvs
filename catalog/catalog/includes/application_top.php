@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.212 2002/02/02 16:32:07 clescuyer Exp $
+  $Id: application_top.php,v 1.213 2002/02/03 00:57:14 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,13 +133,6 @@
   define('ACCOUNT_COMPANY', 0);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
-
-// Downloadable products
-  define('DOWNLOAD_ENABLED', 1);      // 0=disable, 1=enable
-  define('DOWNLOAD_BY_REDIRECT', 0);  // 0=disable, 1=enable
-  define('DOWNLOAD_MAX_DAYS', 14);    // Download available for n days, 0=no limit
-  define('DOWNLOAD_MAX_COUNT', 5);    // Download possible n times, 0=no download possible
-  
 
 // Categories Box: recursive products count
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
