@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.20 2004/02/14 21:04:00 mevans Exp $
+  $Id: checkout_shipping.php,v 1.21 2004/03/16 20:14:22 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -86,7 +86,7 @@
     }
 
     $free_shipping = false;
-    if ( ($pass == true) && ($order->info['total'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+    if ( ($pass == true) && ( ($order->info['total'] - $order->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
       $free_shipping = true;
 
       include(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/modules/order_total/ot_shipping.php');
