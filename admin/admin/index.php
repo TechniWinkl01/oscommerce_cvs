@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.4 2002/01/13 16:45:06 hpdl Exp $
+  $Id: index.php,v 1.5 2002/01/13 17:26:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
                array('title' => BOX_HEADING_CATALOG,
                      'image' => 'catalog.gif',
                      'href' => tep_href_link(FILENAME_CATEGORIES, 'selected_box=catalog'),
-                     'children' => array(array('title' => 'Contents', 'link' => tep_href_link(FILENAME_CATEGORIES, 'selected_box=catalog')),
+                     'children' => array(array('title' => CATALOG_CONTENTS, 'link' => tep_href_link(FILENAME_CATEGORIES, 'selected_box=catalog')),
                                          array('title' => BOX_CATALOG_MANUFACTURERS, 'link' => tep_href_link(FILENAME_MANUFACTURERS, 'selected_box=catalog')))),
                array('title' => BOX_HEADING_LOCATION_AND_TAXES,
                      'image' => 'location.gif',
@@ -46,14 +46,14 @@
                array('title' => BOX_HEADING_REPORTS,
                      'image' => 'reports.gif',
                      'href' => tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports'),
-                     'children' => array(array('title' => 'Products', 'link' => tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports')),
-                                         array('title' => 'Orders', 'link' => tep_href_link(FILENAME_STATS_CUSTOMERS, 'selected_box=reports')))),
+                     'children' => array(array('title' => REPORTS_PRODUCTS, 'link' => tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports')),
+                                         array('title' => REPORTS_ORDERS, 'link' => tep_href_link(FILENAME_STATS_CUSTOMERS, 'selected_box=reports')))),
                array('title' => BOX_HEADING_TOOLS,
                      'image' => 'tools.gif',
                      'href' => tep_href_link(FILENAME_BACKUP, 'selected_box=tools'),
-                     'children' => array(array('title' => 'Backup', 'link' => tep_href_link(FILENAME_BACKUP, 'selected_box=tools')),
-                                         array('title' => 'Banners', 'link' => tep_href_link(FILENAME_BANNER_MANAGER, 'selected_box=tools')),
-                                         array('title' => 'Files', 'link' => tep_href_link(FILENAME_FILE_MANAGER, 'selected_box=tools')))));
+                     'children' => array(array('title' => TOOLS_BACKUP, 'link' => tep_href_link(FILENAME_BACKUP, 'selected_box=tools')),
+                                         array('title' => TOOLS_BANNERS, 'link' => tep_href_link(FILENAME_BANNER_MANAGER, 'selected_box=tools')),
+                                         array('title' => TOOLS_FILES, 'link' => tep_href_link(FILENAME_FILE_MANAGER, 'selected_box=tools')))));
 
   $languages = tep_get_languages();
   $languages_array = array();
@@ -108,14 +108,14 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $heading[] = array('params' => 'class="menuBoxHeading"',
                      'text'  => 'osCommerce');
 
-  $contents[] = array('text'  => '<a href="http://www.oscommerce.com" target="_blank">Support Site</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/forum" target="_blank">Support Forums</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/mlists" target="_blank">Mailing Lists</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/bugs" target="_blank">Bug Reports</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/faq" target="_blank">FAQ</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/irc" target="_blank">Live Discussions</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/cvs" target="_blank">CVS Repository</a><br>' .
-                                 '<a href="http://www.oscommerce.com/about.php/portal" target="_blank">Information Portal</a>');
+  $contents[] = array('text'  => '<a href="http://www.oscommerce.com" target="_blank">' . BOX_ENTRY_SUPPORT_SITE . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/forum" target="_blank">' . BOX_ENTRY_SUPPORT_FORUMS . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/mlists" target="_blank">' . BOX_ENTRY_MAILING_LISTS . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/bugs" target="_blank">' . BOX_ENTRY_BUG_REPORTS . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/faq" target="_blank">' . BOX_ENTRY_FAQ . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/irc" target="_blank">' . BOX_ENTRY_LIVE_DISCUSSIONS . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/cvs" target="_blank">' . BOX_ENTRY_CVS_REPOSITORY . '</a><br>' .
+                                 '<a href="http://www.oscommerce.com/about.php/portal" target="_blank">' . BOX_ENTRY_INFORMATION_PORTAL . '</a>');
 
   $box = new box;
   echo $box->menuBox($heading, $contents);
@@ -135,7 +135,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $contents = array();
 
   $heading[] = array('params' => 'class="menuBoxHeading"',
-                     'text'  => 'Orders');
+                     'text'  => BOX_TITLE_ORDERS);
 
   $contents[] = array('text'  => $orders_contents);
 
@@ -155,11 +155,11 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $contents = array();
 
   $heading[] = array('params' => 'class="menuBoxHeading"',
-                     'text'  => 'Statistics');
+                     'text'  => BOX_TITLE_STATISTICS);
 
-  $contents[] = array('text'  => 'Customers: ' . $customers['count'] . '<br>' .
-                                 'Products: ' . $products['count'] . '<br>' .
-                                 'Reviews: ' . $reviews['count']);
+  $contents[] = array('text'  => BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br>' .
+                                 BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br>' .
+                                 BOX_ENTRY_REVIEWS . ' ' . $reviews['count']);
 
   $box = new box;
   echo $box->menuBox($heading, $contents);
@@ -171,7 +171,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                   <tr>
                     <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                       <tr><?php echo tep_draw_form('languages', 'index.php', '', 'get'); ?>
-                        <td class="heading">Choose an action..</td>
+                        <td class="heading"><?php echo HEADING_TITLE; ?></td>
                         <td align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, $HTTP_GET_VARS['language'], 'onChange="this.form.submit();"'); ?></td>
                       </form></tr>
                     </table></td>

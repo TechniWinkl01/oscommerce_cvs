@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.116 2002/01/12 16:17:55 hpdl Exp $
+  $Id: application_top.php,v 1.117 2002/01/13 17:26:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@
   define('FILENAME_COUNTRIES', 'countries.php');
   define('FILENAME_CURRENCIES', 'currencies.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
-  define('FILENAME_DEFAULT', 'default.php');
+  define('FILENAME_DEFAULT', 'index.php');
   define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
   define('FILENAME_FILE_MANAGER', 'file_manager.php');
   define('FILENAME_GEO_ZONES', 'geo_zones.php');
