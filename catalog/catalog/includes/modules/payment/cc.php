@@ -155,10 +155,12 @@
 
     function install() {
       tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Credit Card', 'PAYMENT_SUPPORT_CC', '1', 'Do you want to accept credit card payments?', '6', '2', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Credit Card TP email address', 'PAYMENT_EMAIL_CC', 'NONE', 'If this email address is not NONE then the middle digits of any stored cc numbers will be X-ed out and emailed with the order id.', '6', '5', now())");
     }
 
     function remove() {
       tep_db_query("delete from configuration where configuration_key = 'PAYMENT_SUPPORT_CC'");
+      tep_db_query("delete from configuration where configuration_key = 'PAYMENT_EMAIL_CC'");
     }
   }
 ?>
