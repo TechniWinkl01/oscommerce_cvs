@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.39 2001/06/04 14:17:10 hpdl Exp $
+  $Id: espanol.php,v 1.40 2001/06/05 21:25:33 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,6 +19,9 @@ define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd/m/Y');  // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+
+// if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
+define('LANGUAGE_CURRENCY', 'ESP');
 
 // page title
 define('TITLE', 'The Exchange Project');

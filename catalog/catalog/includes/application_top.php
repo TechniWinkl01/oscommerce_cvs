@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.133 2001/06/05 15:11:08 hpdl Exp $
+  $Id: application_top.php,v 1.134 2001/06/05 21:25:28 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,6 +45,7 @@
 // default localization values
   define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
   define('DEFAULT_CURRENCY', 'USD'); // codes are in the "currencies" database table (and catalog/includes/data/rates.php)
+  define('USE_DEFAULT_LANGUAGE_CURRENCY', false); // when the language is changed, use its default currency instead of the applications default currency
 
 // Send order confirmation emails ALSO to these email addresses (separated by a comma)
 //  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
@@ -305,11 +306,15 @@
   require(DIR_WS_FUNCTIONS . 'html_output.php');
 
 // currency
-  if ( (!$currency) || ($HTTP_GET_VARS['currency']) ) {
+  if ( (!$currency) || ($HTTP_GET_VARS['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY) && (LANGUAGE_CURRENCY != $currency) ) ) {
     if (!$currency) tep_session_register('currency');
 
-    $currency = tep_currency_exists($HTTP_GET_VARS['currency']);
-    if (!$currency) $currency = DEFAULT_CURRENCY;
+    if ($HTTP_GET_VARS['currency']) {
+      $currency = tep_currency_exists($HTTP_GET_VARS['currency']);
+      if (!$currency) $currency = (USE_DEFAULT_LANGUAGE_CURRENCY) ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+    } else {
+      $currency = (USE_DEFAULT_LANGUAGE_CURRENCY) ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+    }
   }
 
 // include the who's online functions
