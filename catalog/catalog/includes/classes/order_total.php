@@ -1,0 +1,66 @@
+<?php
+/*
+  $Id: order_total.php,v 1.1 2002/04/03 23:00:37 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+
+  class order_total {
+    var $modules;
+
+// class constructor
+    function order_total() {
+      global $language;
+
+      if (MODULE_ORDER_TOTAL_INSTALLED) {
+        $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
+
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          include(DIR_WS_LANGUAGES . $language . '/modules/order_total/' . $value);
+          include(DIR_WS_MODULES . 'order_total/' . $value);
+
+          $class = substr($value, 0, strrpos($value, '.'));
+          $GLOBALS[$class] = new $class;
+        }
+      }
+    }
+
+    function process() {
+      if (MODULE_ORDER_TOTAL_INSTALLED) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, strrpos($value, '.'));
+          if ($GLOBALS[$class]->enabled) {
+            $GLOBALS[$class]->process();
+          }
+        }
+      }
+    }
+
+    function output() {
+      $output_string = '';
+      if (MODULE_ORDER_TOTAL_INSTALLED) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, strrpos($value, '.'));
+          if ($GLOBALS[$class]->enabled) {
+            for ($i=0; $i<sizeof($GLOBALS[$class]->output); $i++) {
+              $output_string .= '              <tr>' . "\n" .
+                                '                <td align="right" class="main">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
+                                '                <td align="right" class="main">' . $GLOBALS[$class]->output[$i]['text'] . '</td>' . "\n" .
+                                '              </tr>';
+            }
+          }
+        }
+      }
+
+      return $output_string;
+    }
+  }
+?>
