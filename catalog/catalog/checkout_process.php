@@ -92,7 +92,7 @@
     mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
   }
 
-  $cart->reset();
+  $cart->reset(TRUE);
 
 // why a redirect? if the user pushes 'Refresh' on their browser, it wont process the products a second time..
 	switch($payment) {
