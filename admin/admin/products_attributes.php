@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.18 2001/06/15 16:35:06 dwatkins Exp $
+  $Id: products_attributes.php,v 1.19 2001/06/19 22:02:49 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -189,7 +189,7 @@ function checkFormAtrib() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $options_values['products_options_name']; ?>&nbsp;</font></td>
+            <td class="pageHeading">&nbsp;<? echo $options_values['products_options_name']; ?>&nbsp;</td>
             <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -259,7 +259,7 @@ function checkFormAtrib() {
     }
 ?>
       <tr>
-        <td colspan="2"><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_OPT; ?>&nbsp;</font></td>
+        <td colspan="2" class="pageHeading">&nbsp;<? echo HEADING_TITLE_OPT; ?>&nbsp;</td>
         <td align="center"><br><form name="option_order_by" action="<? echo FILENAME_PRODUCTS_ATTRIBUTES; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<? if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>>Option ID</option><option value="products_options_name"<? if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>>Option Name</option></select></form></td>
       </tr>
       <tr>
@@ -404,7 +404,7 @@ function checkFormAtrib() {
     $values_values = tep_db_fetch_array($values);
 ?>
       <tr>
-        <td colspan="3"><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $values_values['products_options_values_name']; ?>&nbsp;</font></td>
+        <td colspan="3" class="pageHeading">&nbsp;<? echo $values_values['products_options_values_name']; ?>&nbsp;</td>
         <td>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
       </tr>
       <tr>
@@ -467,7 +467,7 @@ function checkFormAtrib() {
   } else {
 ?>
       <tr>
-        <td colspan="3"><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_VAL; ?>&nbsp;</font></td>
+        <td colspan="3" class="pageHeading">&nbsp;<? echo HEADING_TITLE_VAL; ?>&nbsp;</td>
         <td>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '56'); ?>&nbsp;</td>
       </tr>
       <tr>
@@ -628,7 +628,7 @@ function checkFormAtrib() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_ATRIB; ?>&nbsp;</font></td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE_ATRIB; ?>&nbsp;</td>
             <td>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
