@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.67 2001/11/17 05:53:04 hpdl Exp $
+  $Id: general.php,v 1.68 2001/11/17 20:26:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -955,5 +955,30 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     }
 
     return $string;
+  }
+
+////
+// Retreive server information
+  function tep_get_system_information() {
+    global $HTTP_SERVER_VARS;
+
+    $db_query = tep_db_query("select date_format(now(), '%b %d %H:%i:%s %Y') as datetime");
+    $db = tep_db_fetch_array($db_query);
+
+    list($system, $host, $kernel) = preg_split('/[\s,]+/', exec('uname -a'), 5);
+
+    return array('date' => date('M d H:i:s T Y'),
+                 'system' => $system,
+                 'kernel' => $kernel,
+                 'host' => $host,
+                 'ip' => gethostbyname($host),
+                 'uptime' => exec('uptime'),
+                 'http_server' => $HTTP_SERVER_VARS['SERVER_SOFTWARE'],
+                 'php' => phpversion(),
+                 'zend' => @zend_version(),
+                 'db_server' => DB_SERVER,
+                 'db_ip' => gethostbyname(DB_SERVER),
+                 'db_version' => 'MySQL ' . @mysql_get_server_info(),
+                 'db_date' => $db['datetime']);
   }
 ?>

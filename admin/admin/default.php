@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.27 2001/09/19 08:37:42 mbs Exp $
+  $Id: default.php,v 1.28 2001/11/17 20:26:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $system = tep_get_system_information();
 ?>
 <html>
 <head>
@@ -63,15 +65,55 @@
             <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo TEXT_MAIN; ?></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><table border="0" cellspacing="0" cellpadding="3">
+              <tr>
+                <td class="smallText"><b>Server Host:</b></td>
+                <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>Server OS:</b></td>
+                <td class="smallText"><?php echo $system['system'] . ' ' . $system['kernel']; ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>Server Date Time:</b></td>
+                <td class="smallText"><?php echo $system['date']; ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>Up Time:</b></td>
+                <td class="smallText"><?php echo $system['uptime']; ?></td>
+              </tr>
+              <tr>
+                <td colspan="2" height="5"></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>HTTP Server:</b></td>
+                <td class="smallText"><?php echo $system['http_server']; ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>PHP:</b></td>
+                <td class="smallText"><?php echo $system['php'] . ' (Zend: ' . $system['zend'] . ')'; ?></td>
+              </tr>
+              <tr>
+                <td colspan="2" height="5"></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>Database Host:</b></td>
+                <td class="smallText"><?php echo $system['db_server'] . ' (' . $system['db_ip'] . ')'; ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>Database Server:</b></td>
+                <td class="smallText"><?php echo $system['db_version']; ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b>Database Date Time:</b></td>
+                <td class="smallText"><?php echo $system['db_date']; ?></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
