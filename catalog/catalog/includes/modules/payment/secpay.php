@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.33 2003/12/18 23:52:15 hpdl Exp $
+  $Id: secpay.php,v 1.34 2004/02/15 12:53:18 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,16 +133,18 @@
       }
 
       if ($_POST['valid'] == 'true') {
-        if ($remote_host = getenv('REMOTE_HOST')) {
-          if ($remote_host != 'secpay.com') {
-            $remote_host = gethostbyaddr($remote_host);
+        if (MODULE_PAYMENT_SECPAY_ENHANCED_CHECK == 'true')) {
+          if ($remote_host = getenv('REMOTE_HOST')) {
+            if ($remote_host != 'secpay.com') {
+              $remote_host = gethostbyaddr($remote_host);
+            }
+            if ($remote_host != 'secpay.com') {
+              tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $osC_Session->name . '=' . $_POST[$osC_Session->name] . '&payment_error=' . $this->code, 'SSL', false, false));
+            }
           }
-          if ($remote_host != 'secpay.com') {
-            tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $osC_Session->name . '=' . $_POST[$osC_Session->name] . '&payment_error=' . $this->code, 'SSL', false, false));
-          }
-        } else {
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $osC_Session->name . '=' . $_POST[$osC_Session->name] . '&payment_error=' . $this->code, 'SSL', false, false));
         }
+      } else {
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $osC_Session->name . '=' . $_POST[$osC_Session->name] . '&payment_error=' . $this->code, 'SSL', false, false));
       }
     }
 
@@ -178,9 +180,10 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Merchant ID', 'MODULE_PAYMENT_SECPAY_MERCHANT_ID', 'secpay', 'Merchant ID to use for the SECPay service', '6', '2', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Currency', 'MODULE_PAYMENT_SECPAY_CURRENCY', 'Any Currency', 'The currency to use for credit card transactions', '6', '3', 'tep_cfg_select_option(array(\'Any Currency\', \'Default Currency\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Mode', 'MODULE_PAYMENT_SECPAY_TEST_STATUS', 'Always Successful', 'Transaction mode to use for the SECPay service', '6', '4', 'tep_cfg_select_option(array(\'Always Successful\', \'Always Fail\', \'Production\'), ', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort order of display.', 'MODULE_PAYMENT_SECPAY_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Payment Zone', 'MODULE_PAYMENT_SECPAY_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', '6', '2', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Set Order Status', 'MODULE_PAYMENT_SECPAY_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', '6', '0', 'tep_cfg_pull_down_order_statuses(', 'tep_get_order_status_name', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort order of display.', 'MODULE_PAYMENT_SECPAY_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', '6', '5', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Payment Zone', 'MODULE_PAYMENT_SECPAY_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', '6', '6', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Set Order Status', 'MODULE_PAYMENT_SECPAY_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', '6', '7', 'tep_cfg_pull_down_order_statuses(', 'tep_get_order_status_name', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Use enhanced checking', 'MODULE_PAYMENT_SECPAY_ENHANCED_CHECK', 'true', 'Use enhanced checking to ensure payment response is coming from secpay.com? Note: Some hosts disallow reverse lookups causing sucessful payments to fail. If this happens set this option to false.', '6', '8', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
     }
 
     function remove() {
@@ -188,7 +191,7 @@
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_SECPAY_STATUS', 'MODULE_PAYMENT_SECPAY_MERCHANT_ID', 'MODULE_PAYMENT_SECPAY_CURRENCY', 'MODULE_PAYMENT_SECPAY_TEST_STATUS', 'MODULE_PAYMENT_SECPAY_ZONE', 'MODULE_PAYMENT_SECPAY_ORDER_STATUS_ID', 'MODULE_PAYMENT_SECPAY_SORT_ORDER');
+      return array('MODULE_PAYMENT_SECPAY_STATUS', 'MODULE_PAYMENT_SECPAY_MERCHANT_ID', 'MODULE_PAYMENT_SECPAY_CURRENCY', 'MODULE_PAYMENT_SECPAY_TEST_STATUS', 'MODULE_PAYMENT_SECPAY_ZONE', 'MODULE_PAYMENT_SECPAY_ORDER_STATUS_ID', 'MODULE_PAYMENT_SECPAY_SORT_ORDER', 'MODULE_PAYMENT_SECPAY_ENHANCED_CHECK');
     }
   }
 ?>
