@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _install.php,v 1.2 2001/11/17 00:37:43 hpdl Exp $
+  $Id: _install.php,v 1.3 2001/12/05 23:17:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -88,7 +88,7 @@ For this installation script to successfully write to <i>includes/local/configur
     echo '<p class="boxMe">Checking file permissions: <b>File exists, and I can write to it.</b></p>' .  "\n";
   } else {
     echo '<div class="boxMe">Checking file permissions: <b>File does not exist, or I cannot write to it.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd ' . dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]) . '/includes/local</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div>' . "\n";
-    echo '<p>' . "\n" . 'Please <a href="' . basename($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '">reload</a> this page once the above actions have been executed.' . "\n" .
+    echo '<p>' . "\n" . 'Please <a href="' . basename($PHP_SELF) . '">reload</a> this page once the above actions have been executed.' . "\n" .
          '</body>' . "\n" .
          '</html>';
     exit;
@@ -100,7 +100,7 @@ After this file has been written to, reset the file permissions for security rea
 <p>
 <font color="#ff0000"><b>It is important that this installation script <small>(_install.php)</small> is deleted after the configuration has been written.</b></font>
 <p>
-<form name="install" action="<?php echo basename($HTTP_SERVER_VARS['SCRIPT_FILENAME']); ?>" method="post">
+<form name="install" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
   <tr>
     <td colspan="2"><b>Web Server Information</b></td>
