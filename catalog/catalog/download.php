@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.6 2002/06/04 15:46:05 clescuyer Exp $
+  $Id: download.php,v 1.7 2002/08/05 18:07:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,11 +10,11 @@
   Released under the GNU General Public License
 */
 
+  include('includes/application_top.php');
+
 // Check download.php was called with proper GET parameters
   if (!is_numeric($HTTP_GET_VARS['order']) ||
       !is_numeric($HTTP_GET_VARS['id'])) die;
-     
-  include('includes/application_top.php');
   
 // Check that order_id, customer_id and filename match
   $downloads_query_raw = "SELECT DATE_FORMAT(date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, opd.download_count, opd.download_maxdays, opd.orders_products_filename
