@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: best_sellers.php,v 1.13 2001/12/19 01:37:55 hpdl Exp $
+  $Id: best_sellers.php,v 1.14 2001/12/23 19:26:53 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
     $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op where p.products_status = '1' and p.products_id = op.products_id and pd.products_id = op.products_id and pd.language_id = '" . $languages_id . "' group by p.products_id order by ordersum DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   }
 
-  if (tep_db_num_rows($best_sellers_query) > MIN_DISPLAY_BESTSELLERS) {
+  if (tep_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
 ?>
           <tr>
             <td>
@@ -33,16 +33,8 @@
     $info_box_contents = array();
     while ($best_sellers = tep_db_fetch_array($best_sellers_query)) {
       $rows++;
-      $info_box_contents[] = array(
-                                   array('align' => 'center',
-                                         'params' => 'valign="top" class="infoBox"',
-                                         'text'  => tep_row_number_format($rows) . '.'
-                                        ),
-                                   array('align' => 'left',
-                                         'params' => 'valign="top" class="infoBox"',
-                                         'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . tep_get_product_path($best_sellers['products_id']) . '&products_id=' . $best_sellers['products_id'], 'NONSSL') . '">' . $best_sellers['products_name'] . '</a>'
-                                        )
-                                  );
+      $info_box_contents[] = array('align' => 'left',
+                                   'text'  => tep_row_number_format($rows) . '.&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . tep_get_product_path($best_sellers['products_id']) . '&products_id=' . $best_sellers['products_id'], 'NONSSL') . '">' . $best_sellers['products_name'] . '</a>');
     }
 
     new infoBox($info_box_contents);
