@@ -57,7 +57,7 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_main_menu.gif', IMAGE_MAIN_MENU); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td align="right"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_CONTINUE) . '</a>'; ?>&nbsp;&nbsp;</td>
       </tr>
 <?
   } else {
@@ -104,8 +104,13 @@
             <td><textarea name="enquiry" wrap="soft" cols="40" rows="15"></textarea></td>
           </tr>
           <tr>
-            <td class="main">&nbsp;</td>
-            <td class="main"><? echo tep_image_submit('button_process.gif', IMAGE_SUBMIT); ?>&nbsp;&nbsp;</td>
+            <td colspan="2" class="main">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="main"><?php echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+            <td align="right" colspan="2" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
           </tr>
         </table></form></td>
 <?

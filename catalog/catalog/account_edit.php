@@ -354,7 +354,12 @@ function check_form() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><? echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;&nbsp;</td>
+        <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?></td>
+          </tr>
+        </table></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->

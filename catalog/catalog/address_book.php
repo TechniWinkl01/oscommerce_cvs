@@ -91,15 +91,23 @@
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
           <tr>
-            <td colspan="2" class="smallText" nowrap>&nbsp;<? echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?>&nbsp;</td>
-            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>"><? echo tep_image_button('button_add_entry.gif', IMAGE_ADD_ENTRY); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td colspan="3" class="smallText"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td valign="top" class="smallText">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?><br><br><?php echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
+                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_ADD_ADDRESS) . '</a>'; ?>&nbsp;&nbsp;</td>
+              </tr>
+            </table></td>
           </tr>
 <?
   } else {
 ?>
           <tr>
-            <td colspan="2" class="smallText" nowrap>&nbsp;<? echo sprintf(TEXT_MAXIMUM_ENTRIES_REACHED, MAX_ADDRESS_BOOK_ENTRIES); ?>&nbsp;</td>
-            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td colspan="3" class="smallText"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="smallText">&nbsp;&nbsp;<? echo sprintf(TEXT_MAXIMUM_ENTRIES_REACHED, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
+                <td align="right" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?>&nbsp;&nbsp;</td>
+              </tr>
+            </table></td>
           </tr>
 <?
   }
