@@ -193,34 +193,12 @@
             <td><? echo tep_black_line();?></td>
           </tr>
           <tr>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo $address_values['firstname'] . ' ' . $address_values['lastname'];?>&nbsp;</font></td>
-          </tr>
-          <tr>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo $address_values['street_address'];?>&nbsp;</font></td>
-          </tr>
-<?
-  if ($address_values['suburb'] != '') {
-    echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['suburb'] . '&nbsp;</font></td>' . "\n";
-    echo '          </tr>' . "\n";
-  }
-?>
-          <tr>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<? echo $address_values['city'] . ', ' . $address_values['postcode'];?>&nbsp;</font></td>
-          </tr>
-          <tr>
-<?
-  $state_str = '';
-  if ($address_values['zone_id'] != 0 || $address_values['state'] != '') {
-    $state_str = tep_get_zone_name($address_values['country_id'], $address_values['zone_id'], $address_values['state']) . ', ';
-  }
-  echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $state_str . $country['countries_name'] . '&nbsp;</font></td>' . "\n";
-?>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>"><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>');?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><? echo TABLE_HEADING_PAYMENT_METHOD;?></b>&nbsp;</font></td>
           </tr>
