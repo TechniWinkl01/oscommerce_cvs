@@ -41,9 +41,10 @@
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
-  $subtotal = number_format($subtotal, 2);
-  $tax = number_format(($subtotal * TAX_VALUE/100), 2);
+  $tax = $subtotal * TAX_VALUE/100;
   $total = number_format(($subtotal + $tax + $shipping_cost), 2);
+  $tax = number_format($tax, 2);
+  $subtotal = number_format($subtotal, 2);
 
   $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;
