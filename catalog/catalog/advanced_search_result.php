@@ -216,14 +216,16 @@
     $where_str .= " and p.products_date_added <= '" . tep_reformat_date_to_yyyymmdd($HTTP_GET_VARS['dto'], DOB_FORMAT_STRING) . "'";
   }
 
-  if ($HTTP_GET_VARS['pfrom'] && $HTTP_GET_VARS['pto']) {
-    $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) >= " . $HTTP_GET_VARS['pfrom'] . " and IFNULL(s.specials_new_products_price,p.products_price) <= " . $HTTP_GET_VARS['pto'] . ")";
+  $pfrom = $HTTP_GET_VARS['pfrom'] / $currency_rates[$currency];
+  $pto = $HTTP_GET_VARS['pto'] / $currency_rates[$currency];
+  if ($pfrom && $pto) {
+    $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) >= " . $pfrom . " and IFNULL(s.specials_new_products_price,p.products_price) <= " . $pto . ")";
   }
-  elseif ($HTTP_GET_VARS['pfrom'] && !$HTTP_GET_VARS['pto']) {
-    $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) >= " . $HTTP_GET_VARS['pfrom'] . ")";
+  elseif ($pfrom && !$pto) {
+    $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) >= " . $pfrom . ")";
   }
-  elseif (!$HTTP_GET_VARS['pfrom'] && $HTTP_GET_VARS['pto']) {
-    $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) <= " . $HTTP_GET_VARS['pto'] . ")";
+  elseif (!$pfrom && $pto) {
+    $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) <= " . $pto . ")";
   }
 
   $order_str = " order by ";
