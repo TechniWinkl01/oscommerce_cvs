@@ -119,6 +119,7 @@
   if (is_object($GLOBALS[$payment])) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
     $email_order .= $GLOBALS[$payment]->description . "\n\n";
+    $email_order .= EMAIL_TEXT_PAYMENT_EXTRA_MESSAGE . "\n";
   }
   tep_mail($customers_values['customers_firstname'], $customers_values['customers_lastname'], $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, '', EMAIL_FROM, '');
 
