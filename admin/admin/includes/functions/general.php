@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.84 2001/12/28 23:59:58 hpdl Exp $
+  $Id: general.php,v 1.85 2001/12/29 06:14:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -155,42 +155,6 @@
     return false;
   }
 
-  function tep_categories_name_with_parent($categories_id) {
-    global $languages_id;
-
-    $categories_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $categories_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
-    $categories = tep_db_fetch_array($categories_query);
-
-    $categories_parent_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $categories['parent_id'] . "' and language_id = '" . $languages_id . "'");
-    $categories_parent = tep_db_fetch_array($categories_parent_query);
-
-    $categories_name = $categories['categories_name'];
-    if (tep_db_num_rows($categories_parent_query) > 0) $categories_name .= ' (' . $categories_parent['categories_name'] . ')';
-
-    return $categories_name;
-  }
-
-  function tep_products_categories_array($products_id, $return_id = false) {
-    $products_categories_query = tep_db_query("select categories_id from " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p2c.products_id = '" . $products_id . "'");
-    while ($products_categories = tep_db_fetch_array($products_categories_query)) {
-      if ($return_id) {
-        $products_categories_array[] = $products_categories['categories_id'];
-      } else {
-        $products_categories_array[] = tep_categories_name_with_parent($products_categories['categories_id']);
-      }
-    }
-
-    return $products_categories_array;
-  }
-
-  function tep_products_categories_info_box($products_id) {
-    $products_categories_array = tep_products_categories_array($products_id);
-
-    for ($i=0; $i<sizeof($products_categories_array); $i++) $products_categories .= '<b>' . $products_categories_array[$i] . '</b><br>&nbsp;';
-
-    return $products_categories;
-  }
-
   function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '') {
     global $languages_id;
 
@@ -320,15 +284,10 @@
   }
 
   function tep_not_null($value) {
-    switch ($value) {
-      case is_string($value):
-                              if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
-                                return true;
-                              } else {
-                                return false;
-                              }
-                              break;
-      default: return false;
+    if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -762,5 +721,60 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
       return $return;
     }
+  }
+
+  function tep_array_reverse($array) {
+    if (function_exists('array_reverse')) {
+      return array_reverse($array);
+    } else {
+      $reversed_array = array();
+      for ($i=sizeof($array)-1; $i>=0; $i--) {
+        $reversed_array[] = $array[$i];
+      }
+      return $reversed_array;
+    }
+  }
+
+  function tep_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
+    global $languages_id;
+
+    if (!is_array($categories_array)) $categories_array = array();
+
+    if ($from == 'product') {
+      $categories_query = tep_db_query("select categories_id from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $id . "'");
+      while ($categories = tep_db_fetch_array($categories_query)) {
+        if ($categories['categories_id'] == '0') {
+          $categories_array[$index][] = 'Top';
+        } else {
+          $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $categories['categories_id'] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
+          $category = tep_db_fetch_array($category_query);
+          $categories_array[$index][] = $category['categories_name'];
+          if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) tep_generate_category_path($category['parent_id'], 'category', &$categories_array, &$index);
+          $categories_array[$index] = tep_array_reverse($categories_array[$index]);
+        }
+        $index++;
+      }
+    } elseif ($from == 'category') {
+      $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
+      $category = tep_db_fetch_array($category_query);
+      $categories_array[$index][] = $category['categories_name'];
+      if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) tep_generate_category_path($category['parent_id'], 'category', &$categories_array, &$index);
+    }
+
+    return $categories_array;
+  }
+
+  function tep_output_generated_category_path($products_id) {
+    $calculated_category_path_string = '';
+    $calculated_category_path = tep_generate_category_path($products_id, 'product');
+    for ($i=0; $i<sizeof($calculated_category_path); $i++) {
+      for ($j=0; $j<sizeof($calculated_category_path[$i]); $j++) {
+        $calculated_category_path_string .= $calculated_category_path[$i][$j] . '&nbsp;&gt;&nbsp;';
+      }
+      $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
+    }
+    $calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
+
+    return $calculated_category_path_string;
   }
 ?>

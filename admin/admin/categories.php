@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.86 2001/12/28 23:59:57 hpdl Exp $
+  $Id: categories.php,v 1.87 2001/12/29 06:14:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,7 +106,10 @@
         if ( ($HTTP_POST_VARS['products_id']) && ($HTTP_POST_VARS['products_id'] != $HTTP_POST_VARS['move_to_category_id']) ) {
           $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
           $new_parent_id = tep_db_prepare_input($HTTP_POST_VARS['move_to_category_id']);
-          tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . tep_db_input($new_parent_id) . "' where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
+
+          $duplicate_check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . tep_db_input($new_parent_id) . "'");
+          $duplicate_check = tep_db_fetch_array($duplicate_check_query);
+          if ($duplicate_check['total'] < 1) tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . tep_db_input($new_parent_id) . "' where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
         }
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $new_parent_id . '&pID=' . $products_id));
@@ -164,7 +167,7 @@
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pinfo=' . $HTTP_GET_VARS['pID']));
         break;
       case 'copy_to_confirm':
-        if ( ($HTTP_POST_VARS['products_id']) && ($HTTP_POST_VARS['categories_id']) && ($HTTP_POST_VARS['categories_id'] != $current_category_id) ) {
+        if ( (tep_not_null($HTTP_POST_VARS['products_id'])) && (tep_not_null($HTTP_POST_VARS['categories_id'])) && ($HTTP_POST_VARS['categories_id'] != $current_category_id) ) {
           $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
           $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
           tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . tep_db_input($products_id) . "', '" . tep_db_input($categories_id) . "')");
@@ -695,15 +698,16 @@
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'move_product':
-        $info_box_contents = array('form' => tep_draw_form('products', FILENAME_CATEGORIES, 'action=move_product_confirm') . tep_draw_hidden_field('products_id', $pInfo->id));
+        $info_box_contents = array('form' => tep_draw_form('products', FILENAME_CATEGORIES, 'action=move_product_confirm&cPath=' . $cPath) . tep_draw_hidden_field('products_id', $pInfo->id));
         $info_box_contents[] = array('text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, $pInfo->name));
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . tep_output_generated_category_path($pInfo->id) . '</b>');
         $info_box_contents[] = array('text' => '<br>' . sprintf(TEXT_MOVE, $pInfo->name) . '<br>' . tep_draw_pull_down_menu('move_to_category_id', tep_get_category_tree(), $current_category_id));
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_move.gif', IMAGE_MOVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'copy_to':
         $info_box_contents = array('form' => tep_draw_form('copy_to', FILENAME_CATEGORIES, 'action=copy_to_confirm&cPath=' . $cPath) . tep_draw_hidden_field('products_id', $pInfo->id));
         $info_box_contents[] = array('text' => TEXT_INFO_COPY_TO_INTRO);
-        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br>' . tep_products_categories_info_box($pInfo->id));
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . tep_output_generated_category_path($pInfo->id) . '</b>');
         $info_box_contents[] = array('text' => TEXT_CATEGORIES . '<br>' . tep_draw_pull_down_menu('categories_id', tep_get_category_tree(), $current_category_id));
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_copy.gif', IMAGE_COPY) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
