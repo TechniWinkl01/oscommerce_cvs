@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.21 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: mail.php,v 1.22 2002/01/18 13:25:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,24 +12,34 @@
 
   require('includes/application_top.php');
 
-  if ( ($HTTP_POST_VARS['action'] == 'send_email_to_user') && ($HTTP_POST_VARS['customers_email_address']) ) {
-    if ($HTTP_POST_VARS['customers_email_address'] == '***') {
-      $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS);
-      $mail_sent_to = TEXT_ALLCUSTOMERS;
-    } elseif ($customers_email_address=="**D") {
-      $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter='1'");
-      $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
-    } else {
-      $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['customers_email_address'] . "'";
-      $mail_query = tep_db_query($mail_query_raw);
-      $mail_sent_to = $HTTP_POST_VARS['customers_email_address'];
+  if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($HTTP_POST_VARS['customers_email_address']) ) {
+    switch ($HTTP_POST_VARS['customers_email_address']) {
+      case '***':
+        $mail_query = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS);
+        $mail_sent_to = TEXT_ALLCUSTOMERS;
+        break;
+      case '**D':
+        $mail_query = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter = '1'");
+        $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
+        break;
+      default:
+        $customers_email_address = tep_db_prepare_input($HTTP_POST_VARS['customers_email_address']);
+
+        $mail_query = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($customers_email_address) . "'");
+        $mail_sent_to = $HTTP_POST_VARS['customers_email_address'];
+        break;
     }
-    $nb_emails = tep_db_num_rows($mail_query);
-    while (list ($customers_email_address, $customers_lastname, $customers_firstname) = tep_db_fetch_array($mail_query)) {
-      mail($customers_email_address, $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
+
+    $from = tep_db_prepare_input($HTTP_POST_VARS['from']);
+    $subject = tep_db_prepare_input($HTTP_POST_VARS['subject']);
+    $message = tep_db_prepare_input($HTTP_POST_VARS['message']);
+
+    while ($mail = tep_db_fetch_array($mail_query)) {
+      mail($mail['customers_firstname'] . ' ' . $mail['customers_lastname'] . ' <' . $mail['customers_email_address'] . '>', $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
     }
-    Header('Location: ' . tep_href_link(FILENAME_MAIL, 'mail_sent_to=' . urlencode($mail_sent_to)));
-  } else {
+
+    tep_redirect(tep_href_link(FILENAME_MAIL, 'mail_sent_to=' . urlencode($mail_sent_to)));
+  }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -38,55 +48,38 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
-          <tr class="subBar">
-            <td class="subBar">&nbsp;<?php echo SUB_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td><form action="<?php echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="post"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0"><table border="0" width="100%" cellpadding="0" cellspacing="0">
+          <tr><?php echo tep_draw_form('mail', FILENAME_MAIL, 'action=send_email_to_user'); ?>
+            <td><table border="0" cellpadding="0" cellspacing="2">
 <?php
-    if ( ($HTTP_POST_VARS['action'] == 'send_email_to_user') && (!$HTTP_POST_VARS['customers_email_address']) ) {
+    if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && (!$HTTP_POST_VARS['customers_email_address']) ) {
 ?>
               <tr>
                 <td colspan="2" class="main"><b><?php echo TEXT_NO_CUSTOMER_SELECTED; ?></b></td>
@@ -95,15 +88,16 @@
     } elseif ($HTTP_GET_VARS['mail_sent_to']) {
 ?>
               <tr>
-                <td colspan="2" class="main"><b><?php echo TEXT_EMAILSENT . ':' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
+                <td colspan="2" class="main"><b><?php echo TEXT_EMAILSENT . ': ' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
               </tr>
 <?php
     }
 ?>
               <tr>
-                <td colspan="2">&nbsp;</td>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
 <?php
+    $customers = array();
     $customers[] = array('id' => '', 'text' => TEXT_SELECTCUSTOMER);
     $customers[] = array('id' => '***', 'text' => TEXT_ALLCUSTOMERS);
     $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTERCUSTOMERS);
@@ -118,22 +112,34 @@
                 <td><?php echo tep_draw_pull_down_menu('customers_email_address', $customers, $HTTP_GET_VARS['customer']);?></td>
               </tr>
               <tr>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+              </tr>
+              <tr>
                 <td class="main"><?php echo TEXT_EMAIL_FROM; ?></td>
-                <td><input type="text" size="28" name="from" value="<?php echo TEXT_EMAILFROM; ?>"></td>
+                <td><?php echo tep_draw_input_field('from', TEXT_EMAILFROM); ?></td>
+              </tr>
+              <tr>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_SUBJECT; ?></td>
-                <td><input type="text" size="28" name="subject"></td>
+                <td><?php echo tep_draw_input_field('subject'); ?></td>
+              </tr>
+              <tr>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
               <tr>
                 <td valign="top" class="main"><?php echo TEXT_MESSAGE; ?></td>
-                <td><textarea wrap="virtual" cols="60" rows="15" name="message"></textarea></td>
+                <td><?php echo tep_draw_textarea_field('message', 'soft', '60', '15'); ?></td>
               </tr>
               <tr>
-                <td colspan="2" align="center"><?php echo tep_image_submit('button_send_mail.gif', TEXT_SEND_EMAIL); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
               </tr>
-            </table></form></td>
-          </tr>
+              <tr>
+                <td colspan="2" align="right"><?php echo tep_image_submit('button_send_mail.gif', TEXT_SEND_EMAIL); ?></td>
+              </tr>
+            </table></td>
+          </form></tr>
 <!-- body_text_eof //-->
         </table></td>
       </tr>
@@ -141,12 +147,11 @@
   </tr>
 </table>
 <!-- body_eof //-->
+
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<br>
 </body>
 </html>
-<?
-  }
-?>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
