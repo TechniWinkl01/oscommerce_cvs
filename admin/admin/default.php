@@ -61,7 +61,7 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
@@ -84,7 +84,7 @@
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
             </table></td>
-            <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td colspan="3"><?=tep_black_line();?></td>
               </tr>
@@ -116,7 +116,7 @@
             </table></td>
           </tr>
           <tr>
-            <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
@@ -139,7 +139,7 @@
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
             </table></td>
-            <td width="50%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
