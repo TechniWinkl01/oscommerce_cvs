@@ -1508,4 +1508,10 @@ function tep_address_summary($customers_id, $address_id) {
 
     return $greeting_string;
   }
+  
+  function tep_mail($to, $subject, $message, $additional_headers = '') {
+    $return = mail($to, $subject, $message, $additional_headers);
+    
+    return $return;
+  }
 ?>

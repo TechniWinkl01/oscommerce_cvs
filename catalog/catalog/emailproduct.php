@@ -61,7 +61,7 @@
     }
     $email_taf .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $products_id) . "\n\n";
     $email_taf .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
-    mail($HTTP_POST_VARS['friendemail'], $email_subject, $email_taf, 'From: ' . $from);
+    tep_mail($HTTP_POST_VARS['friendemail'], $email_subject, $email_taf, 'From: ' . $from);
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">

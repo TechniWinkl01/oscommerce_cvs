@@ -407,7 +407,7 @@
     }
 
     $message = sprintf(EMAIL_WELCOME, $gender, $HTTP_POST_VARS['lastname']);
-    mail($HTTP_POST_VARS['email_address'], EMAIL_WELCOME_SUBJECT, $message, "From: " . EMAIL_FROM);
+    tep_mail($HTTP_POST_VARS['email_address'], EMAIL_WELCOME_SUBJECT, $message, "From: " . EMAIL_FROM);
     
     if ($HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['connection'] == 'SSL') {
