@@ -1,11 +1,22 @@
-These additions willallow each country to have it's own address label format.
-This also expands the post oce to 10 (enought for USA ZIP+4)
+Update: If you  already used add_adr_format.sql then run del_adr_format.sql
 
-The format string is stored in the countries tabel.
+Once that is done run new_adr_format.sql
 
-To expand the table for a pre-pr2.0 TEP use add_adr_format.sql
+-----
+
+This new version stores an ID# in the countries table and that refers to
+an address_format table . This will save space since there are only 3-4
+popular formats and very likely less than 12 in the world.
+
+-----
+
+These additions will allow each country to have it's own address label format.
+This also expands the post code to 10 (enought for USA ZIP+4)
+
+To expand the table for a pre-pr2.0 TEP use new_adr_format.sql
 
 The default is the same format that TEP used, it is updated for USA and Spain.
+(and Singapore... others will be updated as requested)
 
 The format string can have any of the following:
 

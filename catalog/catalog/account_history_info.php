@@ -119,7 +119,7 @@
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=tep_currency_format($total_cost);?>&nbsp;</font></td>
               </tr>
 <?
-  $order = tep_db_query("select delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, payment_method, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_values = tep_db_fetch_array($order);
 ?>
               <tr>
@@ -153,31 +153,11 @@
           <tr>
             <td><?=tep_black_line();?></td>
           </tr>
-          <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$order_values['delivery_name'];?>&nbsp;</font></td>
-          </tr>
-          <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$order_values['delivery_street_address'];?>&nbsp;</font></td>
-          </tr>
 <?
-  if ($order_values['delivery_suburb'] != '') {
-    echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $order_values['delivery_suburb'] . '&nbsp;</font></td>' . "\n";
-    echo '          </tr>' . "\n";
-  }
+     $boln = "<tr>\n            <td nowrap><font face=\"" . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;';
+     $eoln = "&nbsp;</font></td>\n              </tr>\n";
+     echo tep_address_format($order_values['format_id'], $order_values, 1, $boln, $eoln);
 ?>
-          <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$order_values['delivery_city'] . ', ' . $order_values['delivery_postcode'];?>&nbsp;</font></td>
-          </tr>
-          <tr>
-<?
-  if ($order_values['delivery_state'] != '') {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $order_values['delivery_state'] . ', ' . $order_values['delivery_country'] . '&nbsp;</font></td>' . "\n";
-  } else {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $order_values['delivery_country'] . '&nbsp;</font></td>' . "\n";
-  }
-?>
-          </tr>
         </table></td>
       </tr>
       <tr>

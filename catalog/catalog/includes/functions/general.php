@@ -724,6 +724,26 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //
+// Function	: tep_get_address_format_id
+//
+// Arguments	: country_id
+//
+// Return	: address_format_id
+//
+// Description	: For a given Countries_id return the address_format_id for that country
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+function tep_get_address_format_id($country_id)
+{
+  $format = tep_db_query("select address_format_id as format_id from countries where countries_id = '" . $country_id . "'");
+  $format_values = tep_db_fetch_array($format);
+  $fmt_id = $format_values['format_id'];
+  if (!$fmt_id) $fmt_id = '1';
+  return $fmt_id;
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+//
 // Function	: tep_format_address
 //
 // Arguments	: customers_id, address_id, html
@@ -735,9 +755,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
-function tep_address_format($delivery_values, $html, $boln, $eoln) {
-  $country_id = $delivery_values['country_id'];
-  $format = tep_db_query("select countries_address_format as format from countries where countries_id = '" . $country_id . "'");
+function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
+  $format = tep_db_query("select address_format as format from address_format where address_format_id = '" . $format_id . "'");
   $format_values = tep_db_fetch_array($format);
   $firstname = addslashes($delivery_values['firstname']);
   $lastname = addslashes($delivery_values['lastname']);
@@ -745,6 +764,7 @@ function tep_address_format($delivery_values, $html, $boln, $eoln) {
   $suburb = addslashes($delivery_values['suburb']);
   $city = addslashes($delivery_values['city']);
   $state = addslashes($delivery_values['state']);
+  $country_id = $delivery_values['country_id'];
   $zone_id = $delivery_values['zone_id'];
   $postcode = addslashes($delivery_values['postcode']);
   $zip = $postcode;
@@ -753,6 +773,8 @@ function tep_address_format($delivery_values, $html, $boln, $eoln) {
 
   $streets = $street;
   if ($suburb != '') $streets = $street . $cr . $suburb;
+  if ($firstname == '') $firstname = addslashes($delivery_values['name']);
+  if ($country == '') $country = addslashes($delivery_values['country']);
   if ($html == 0) { // Text Mode
     $CR = $eoln;
     $cr = $CR;
@@ -786,7 +808,8 @@ function tep_address_label($customers_id, $address_id, $html=0, $boln='', $eoln=
     $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from address_book where address_book_id = '" . $address_id . "'");
   }
   $delivery_values = tep_db_fetch_array($delivery);
-  return tep_address_format($delivery_values, $html, $boln, $eoln);
+  $format_id = tep_get_address_format_id($delivery_values['country_id']);
+  return tep_address_format($format_id, $delivery_values, $html, $boln, $eoln);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -810,7 +833,8 @@ function tep_address_summary($customers_id, $address_id) {
   }
   $delivery_values = tep_db_fetch_array($delivery);
   $country_id = $delivery_values['country_id'];
-  $format = tep_db_query("select countries_address_summary as summary from countries where countries_id = '" . $country_id . "'");
+  $format_id = tep_get_address_format_id($country_id);
+  $format = tep_db_query("select address_summary as summary from address_format where address_format_id = '" . $format_id . "'");
   $format_values = tep_db_fetch_array($format);
   $suburb = addslashes($delivery_values['suburb']);
   $city = addslashes($delivery_values['city']);
