@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notifications.php,v 1.1 2002/03/10 01:32:09 hpdl Exp $
+  $Id: product_notifications.php,v 1.2 2002/04/11 01:04:57 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,9 @@
     }
     $remove = substr($remove, 0, -1);
 
-    tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . $customer_id . "' and products_id in (" . $remove . ")");
+    if ($remove!='') {
+      tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . $customer_id . "' and products_id in (" . $remove . ")");
+    }
     tep_redirect(tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'));
   } elseif ($HTTP_GET_VARS['action'] == 'global_notify') {
     if ($HTTP_POST_VARS['global'] == 'enable') {
