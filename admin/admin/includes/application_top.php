@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.98 2001/12/21 02:02:51 hpdl Exp $
+  $Id: application_top.php,v 1.99 2001/12/23 22:16:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,7 +199,6 @@
 
 // entry/item info classes
   require(DIR_WS_CLASSES . 'backup_info.php');
-  require(DIR_WS_CLASSES . 'banner_info.php');
   require(DIR_WS_CLASSES . 'category_info.php');
   require(DIR_WS_CLASSES . 'configuration_info.php');
   require(DIR_WS_CLASSES . 'countries_info.php');
@@ -209,6 +208,7 @@
   require(DIR_WS_CLASSES . 'languages_info.php');
   require(DIR_WS_CLASSES . 'manufacturer_info.php');
   require(DIR_WS_CLASSES . 'module_info.php');
+  require(DIR_WS_CLASSES . 'object_info.php');
   require(DIR_WS_CLASSES . 'ordersstatus_info.php');
   require(DIR_WS_CLASSES . 'product_expected_info.php');
   require(DIR_WS_CLASSES . 'product_info.php');
