@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.1 2004/07/22 23:28:09 hpdl Exp $
+  $Id: customers.php,v 1.2 2004/08/17 23:49:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,8 +96,7 @@
       echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, (isset($_GET['search']) ? 'search=' . $_GET['search'] . '&' : '') . 'page=' . $_GET['page'] . '&cID=' . $Qcustomers->valueInt('customers_id') . '&action=cDelete') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/trash.png', IMAGE_DELETE, '16', '16') . '</a>&nbsp;';
     }
 
-    echo '<a href="#" onClick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'cID=' . $Qcustomers->valueInt('customers_id')) . '\';">' . tep_image('templates/' . $template . '/images/icons/16x16/orders.png', IMAGE_ORDERS, '16', '16') . '</a>&nbsp;' .
-         '<a href="#" onClick="document.location.href=\'' . tep_href_link(FILENAME_MAIL, 'customers_email_address=' . $Qcustomers->value('customers_email_address')) . '\';">' . tep_image('templates/' . $template . '/images/icons/16x16/email_send.png', IMAGE_EMAIL, '16', '16') . '</a>';
+    echo '<a href="#" onClick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'cID=' . $Qcustomers->valueInt('customers_id')) . '\';">' . tep_image('templates/' . $template . '/images/icons/16x16/orders.png', IMAGE_ORDERS, '16', '16') . '</a>';
 ?>
         </td>
       </tr>

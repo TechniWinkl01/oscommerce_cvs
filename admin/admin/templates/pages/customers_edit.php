@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers_edit.php,v 1.1 2004/07/22 23:28:09 hpdl Exp $
+  $Id: customers_edit.php,v 1.2 2004/08/17 23:49:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,7 +79,7 @@
 ?>
     <tr>
       <td class="main" width="30%"><?php echo ENTRY_NEWSLETTER; ?></td>
-      <td class="main" width="70%"><?php echo osc_draw_checkbox_field('newsletter', '1', (isset($Qaccount) ? $Qaccount->value('customers_newsletter') : '')); ?></td>
+      <td class="main" width="70%"><?php echo osc_draw_checkbox_field('newsletter', '', (isset($Qaccount) && ($Qaccount->valueInt('customers_newsletter') === 1) ? true : false)); ?></td>
     </tr>
 <?php
   }

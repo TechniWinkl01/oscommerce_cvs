@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.87 2004/07/22 23:28:09 hpdl Exp $
+  $Id: customers.php,v 1.88 2004/08/17 23:49:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -206,10 +206,10 @@
           if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
             $customer_id = $_GET['cID'];
 
-            $Qcustomer = $osC_Database->query('update :table_customers set customers_gender = :customers_gender, customers_firstname = :customers_firstname, customers_lastname = :customers_lastname, customers_email_address = :customers_email_address, customers_dob = :customers_dob, customers_status = :customers_status where customers_id = :customers_id');
+            $Qcustomer = $osC_Database->query('update :table_customers set customers_gender = :customers_gender, customers_firstname = :customers_firstname, customers_lastname = :customers_lastname, customers_email_address = :customers_email_address, customers_dob = :customers_dob, customers_newsletter = :customers_newsletter, customers_status = :customers_status where customers_id = :customers_id');
             $Qcustomer->bindInt(':customers_id', $customer_id);
           } else {
-            $Qcustomer = $osC_Database->query('insert into :table_customers (customers_gender, customers_firstname, customers_lastname, customers_email_address, customers_dob, customers_status) values (:customers_gender, :customers_firstname, :customers_lastname, :customers_email_address, :customers_dob, :customers_status)');
+            $Qcustomer = $osC_Database->query('insert into :table_customers (customers_gender, customers_firstname, customers_lastname, customers_email_address, customers_dob, customers_newsletter, customers_status) values (:customers_gender, :customers_firstname, :customers_lastname, :customers_email_address, :customers_dob, :customers_newsletter, :customers_status)');
           }
           $Qcustomer->bindTable(':table_customers', TABLE_CUSTOMERS);
           $Qcustomer->bindValue(':customers_gender', (((ACCOUNT_GENDER > -1) && isset($_POST['gender']) && (($_POST['gender'] == 'm') || ($_POST['gender'] == 'f'))) ? $_POST['gender'] : ''));
@@ -217,6 +217,7 @@
           $Qcustomer->bindValue(':customers_lastname', $_POST['lastname']);
           $Qcustomer->bindValue(':customers_email_address', $_POST['email_address']);
           $Qcustomer->bindValue(':customers_dob', ((ACCOUNT_DATE_OF_BIRTH > -1) ? adodb_date('Ymd', $dob) : ''));
+          $Qcustomer->bindInt(':customers_newsletter', (isset($_POST['newsletter']) && ($_POST['newsletter'] == 'on') ? '1' : '0'));
           $Qcustomer->bindInt(':customers_status', (isset($_POST['status']) && ($_POST['status'] == 'on') ? '1' : '0'));
           $Qcustomer->execute();
 
