@@ -80,25 +80,6 @@
     $total_cost += $total_products_price;
   }
 
-  $shipping_cost = 0.0;
-  if (!SHIPPING_FREE) {
-    if (SHIPPING_MODEL == SHIPPING_UPS) {
-      include('includes/ups.php');
-      $rate = new Ups;
-      $rate->upsProduct($HTTP_POST_VARS['prod']);    // See upsProduct() function for codes
-      // $rate->upsProduct(UPS_SPEED);    // See upsProduct() function for codes
-      $rate->origin(UPS_ORIGIN_ZIP, "US"); // Use ISO country codes!
-      $rate->dest($address_values['postcode'], "US");      // Use ISO country codes!
-      // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
-      $rate->rate(UPS_PICKUP);        // See the rate() function for codes
-      $rate->container(UPS_PACKAGE);    // See the container() function for codes
-      $rate->weight($total_weight);
-      $rate->rescom(UPS_RES);    // See the rescom() function for codes
-      $shipping_cost = $rate->getQuote();
-      $shipping_method = "UPS " . $prod;
-    }
-  }
-
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
 
