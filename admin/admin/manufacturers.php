@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.30 2001/09/22 15:21:55 hpdl Exp $
+  $Id: manufacturers.php,v 1.31 2001/09/22 15:57:51 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -33,6 +33,7 @@
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      tep_db_query("update products set manufacturers_id = '' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
