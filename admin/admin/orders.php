@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.57 2001/12/07 18:28:11 dgw_ Exp $
+  $Id: orders.php,v 1.58 2001/12/09 18:29:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -171,12 +171,13 @@ function alertBox() {
             <td colspan="2"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS_MODEL; ?>&nbsp;</td>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_TAX; ?>&nbsp;</td>
                 <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
 <?
     $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
@@ -189,7 +190,7 @@ function alertBox() {
     } else {
       $date_updated = '';
     }
-    $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $products = tep_db_query("select orders_products_id, products_id, products_model, products_name, products_price, products_quantity, final_price, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $total_cost = 0;
     $total_tax = 0;
     while ($products_values = tep_db_fetch_array($products)) {
@@ -197,6 +198,7 @@ function alertBox() {
 
       echo '          <tr>' . "\n";
       echo '            <td align="center" class="main">&nbsp;' . $products_values['products_quantity'] . '&nbsp;</td>' . "\n";
+      echo '            <td class="main"><b>&nbsp;' . $products_values['products_model'] . '&nbsp;</b>' . "\n";
       echo '            <td class="main"><b>&nbsp;' . $products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
       $attributes_exist = '0';
@@ -236,10 +238,10 @@ function alertBox() {
     }
 ?>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td align="right" colspan="4"><table border="0" cellspacing="0" cellpadding="2">
+                <td align="right" colspan="5"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td align="right" class="main">&nbsp;<?php echo ENTRY_SUB_TOTAL; ?>&nbsp;</td>
                     <td align="right" class="main">&nbsp;<?php echo tep_currency_format($total_cost); ?>&nbsp;</td>

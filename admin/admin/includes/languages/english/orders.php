@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.10 2001/09/19 11:12:02 mbs Exp $
+  $Id: orders.php,v 1.11 2001/12/09 18:29:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,6 +24,7 @@ define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
 define('TABLE_HEADING_DATE_PURCHASED', 'Date Purchased');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_QUANTITY', 'Qty.');
+define('TABLE_HEADING_PRODUCTS_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_TAX', 'Tax');
 define('TABLE_HEADING_TOTAL', 'Total');
