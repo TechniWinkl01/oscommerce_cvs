@@ -1,19 +1,17 @@
 <?php
 /*
-  $Id: countries.php,v 1.2 2001/09/19 11:12:09 mbs Exp $
+  $Id: countries.php,v 1.3 2002/01/04 06:06:27 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Countries');
 define('HEADING_TITLE', 'Countries');
 
-define('TABLE_HEADING_COUNTRY_ID', 'Id');
 define('TABLE_HEADING_COUNTRY_NAME', 'Country');
 define('TABLE_HEADING_COUNTRY_CODES', 'Codes');
 define('TABLE_HEADING_ACTION', 'Action');
