@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.38 2002/04/03 23:25:40 hpdl Exp $
+  $Id: modules.php,v 1.39 2002/04/03 23:30:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,20 +15,20 @@
   switch ($HTTP_GET_VARS['set']) {
     case 'shipping':
       $module_type = 'shipping';
-      $module_directory = DIR_FS_SHIPPING_MODULES;
+      $module_directory = DIR_FS_CATALOG_MODULES . 'shipping/';
       $module_key = 'MODULE_SHIPPING_INSTALLED';
       define('HEADING_TITLE', HEADING_TITLE_MODULES_SHIPPING);
       break;
     case 'ordertotal':
       $module_type = 'order_total';
-      $module_directory = DIR_FS_ORDER_TOTAL_MODULES;
+      $module_directory = DIR_FS_CATALOG_MODULES . 'order_total/';
       $module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
       define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
       break;
     default:
     case 'payment':
       $module_type = 'payment';
-      $module_directory = DIR_FS_PAYMENT_MODULES;
+      $module_directory = DIR_FS_CATALOG_MODULES . 'payment/';
       $module_key = 'MODULE_PAYMENT_INSTALLED';
       define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
       break;

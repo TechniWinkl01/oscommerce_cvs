@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.11 2002/04/03 22:03:43 hpdl Exp $
+  $Id: install_5.php,v 1.12 2002/04/03 23:30:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -151,8 +151,7 @@
                      '  define(\'DIR_WS_CATALOG_LANGUAGES\', DIR_WS_CATALOG . \'includes/languages/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_LANGUAGES\', DIR_FS_CATALOG . \'includes/languages/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
-                     '  define(\'DIR_FS_PAYMENT_MODULES\', DIR_FS_CATALOG . \'includes/modules/payment/\');' . "\n" .
-                     '  define(\'DIR_FS_SHIPPING_MODULES\', DIR_FS_CATALOG . \'includes/modules/shipping/\');' . "\n" .
+                     '  define(\'DIR_FS_CATALOG_MODULES\', DIR_FS_CATALOG . \'includes/modules/\');' . "\n" .
                      '  define(\'DIR_FS_CACHE\', \'/tmp/\');' . "\n" .
                      '  define(\'DIR_FS_BACKUP\', DIR_FS_ADMIN . \'/backups/\');' . "\n" .
                      '' . "\n" .

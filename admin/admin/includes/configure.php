@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.8 2002/04/03 23:25:41 hpdl Exp $
+  $Id: configure.php,v 1.9 2002/04/03 23:30:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,9 +35,7 @@
   define('DIR_WS_CATALOG_LANGUAGES', DIR_WS_CATALOG . 'includes/languages/');
   define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_CATALOG . 'includes/languages/');
   define('DIR_FS_CATALOG_IMAGES', DIR_FS_CATALOG . 'images/');
-  define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
-  define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
-  define('DIR_FS_ORDER_TOTAL_MODULES', DIR_FS_CATALOG . 'includes/modules/order_total/');
+  define('DIR_FS_CATALOG_MODULES', DIR_FS_CATALOG . 'includes/modules/');
   define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
   define('DIR_FS_BACKUP', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . 'backups/');
 
