@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.15 2001/12/19 13:29:50 hpdl Exp $
+  $Id: boxes.php,v 1.16 2001/12/19 13:41:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,7 @@
   }
 
   class infoBox extends tableBox {
-    function infoBox($contents, $we = false) {
+    function infoBox($contents) {
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => $this->infoBoxContents($contents));
       $this->table_cellpadding = '1';
