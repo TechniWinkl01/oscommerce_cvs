@@ -187,17 +187,20 @@
         </table></font></td>
       </tr>
         <tr>
-          <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><br><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
-        </tr>
-        <tr>
-          <td><? echo tep_black_line(); ?></td>
-        </tr>
-        <tr>
-          <td><? echo '&nbsp;' . nl2br(stripslashes($order_values['comments'])); ?></td>
-        </tr>
-        <tr>
-          <td><? echo tep_black_line(); ?></td>
-        </tr>
+          <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <tr>
+              <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><br><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+            </tr>
+            <tr>
+              <td><? echo tep_black_line(); ?></td>
+            </tr>
+            <tr>
+              <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '&nbsp;' . nl2br($order_values['comments']); ?></font></td>
+            </tr>
+            <tr>
+              <td><? echo tep_black_line(); ?></td>
+            </tr>
+        </table></tr>
       <tr>
         <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, tep_get_all_get_params(array('order_id')), 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
       </tr>
