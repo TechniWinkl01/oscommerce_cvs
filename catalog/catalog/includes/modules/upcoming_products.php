@@ -1,4 +1,4 @@
-<?php /* $Id: upcoming_products.php,v 1.9 2001/01/26 22:22:00 dwatkins Exp $ */ ?>
+<?php /* $Id: upcoming_products.php,v 1.10 2001/03/04 15:43:01 hpdl Exp $ */ ?>
 <!-- upcoming_products //-->
 <?
     $expected = tep_db_query("select products_name, UNIX_TIMESTAMP(products_expected.date_expected) AS u_date from products_expected order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
@@ -7,8 +7,8 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_UPCOMING_PRODUCTS; ?>&nbsp;</b></font></td>
-                <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</b></font></td>
+                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_UPCOMING_PRODUCTS; ?>&nbsp;</b></font></td>
+                <td align="right" nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?><b>&nbsp;<? echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</b></font></td>
               </tr>
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -23,8 +23,8 @@
       } else {
         echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '                <td><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $expected_values['products_name'] . '&nbsp;</font></td>' . "\n";
-      echo '                <td align="right"><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected_values['u_date']) . '&nbsp;</font></td>' . "\n";
+      echo '                <td>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $expected_values['products_name'] . '&nbsp;</font></td>' . "\n";
+      echo '                <td align="right">' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected_values['u_date']) . '&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>

@@ -124,7 +124,7 @@ function checkForm() {
             <td nowrap><?php echo FONT_STYLE_MAIN; ?><textarea name="review" wrap="soft" cols="60" rows="15"></textarea></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="2" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_NO_HTML; ?>&nbsp;</font></td>
+            <td align="right" colspan="2" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_NO_HTML; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>

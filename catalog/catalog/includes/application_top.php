@@ -96,56 +96,25 @@
   define('HEADER_NAVIGATION_BAR_BACKGROUND_COLOR', '#000000');
   define('HEADER_NAVIGATION_BAR_BACKGROUND_ERROR_COLOR', '#FF0000');
   define('HEADER_NAVIGATION_BAR_BACKGROUND_INFO_COLOR', '#00FF00');
-  define('HEADER_NAVIGATION_BAR_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('HEADER_NAVIGATION_BAR_FONT_COLOR', '#FFFFFF');
   define('HEADER_NAVIGATION_BAR_FONT_ERROR_COLOR', '#FFFFFF');
   define('HEADER_NAVIGATION_BAR_FONT_INFO_COLOR', '#000000');
-  define('HEADER_NAVIGATION_BAR_FONT_SIZE', '2');
 
   define('FOOTER_BAR_BACKGROUND_COLOR', '#000000');
-  define('FOOTER_BAR_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('FOOTER_BAR_FONT_COLOR', '#FFFFFF');
-  define('FOOTER_BAR_FONT_SIZE', '2');
 
   define('BOX_HEADING_BACKGROUND_COLOR', '#AABBDD');
-  define('BOX_HEADING_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('BOX_HEADING_FONT_COLOR', '#000000');
-  define('BOX_HEADING_FONT_SIZE', '2');
+
   define('BOX_CONTENT_BACKGROUND_COLOR', '#FFFFFF');
   define('BOX_CONTENT_HIGHLIGHT_COLOR', '#FFFF33');     // use in best_sellers.php
-  define('BOX_CONTENT_FONT_FACE', 'Verdana, Arial');
-  define('BOX_CONTENT_FONT_COLOR', '#000000');
-  define('BOX_CONTENT_FONT_SIZE', '1');
 
   define('TOP_BAR_BACKGROUND_COLOR', '#AABBDD');
   define('SUB_BAR_BACKGROUND_COLOR', '#f4f7fd');
-
-  define('TABLE_HEADING_FONT_FACE', 'Verdana, Arial');
-  define('TABLE_HEADING_FONT_SIZE', '2');
-  define('TABLE_HEADING_FONT_COLOR', '#000000');
-
   define('TABLE_ROW_BACKGROUND_COLOR', '#ffffff');
   define('TABLE_ALT_BACKGROUND_COLOR', '#f4f7fd');
-
-  define('SMALL_TEXT_FONT_FACE', 'Verdana, Arial');
-  define('SMALL_TEXT_FONT_SIZE', '1');
-  define('SMALL_TEXT_FONT_COLOR', '#000000');
 
   define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
 
   define('CHECKOUT_BAR_TEXT_COLOR', '#AABBDD');
   define('CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED', '#000000');
-
-  define('CATEGORY_FONT_FACE', 'Verdana, Arial');
-  define('CATEGORY_FONT_SIZE', 2);
-  define('CATEGORY_FONT_COLOR', '#AABBDD');
-
-  define('ENTRY_FONT_FACE', 'Verdana, Arial');
-  define('ENTRY_FONT_SIZE', 2);
-  define('ENTRY_FONT_COLOR', '#000000');
-  define('VALUE_FONT_FACE', 'Verdana, Arial');
-  define('VALUE_FONT_SIZE', 2);
-  define('VALUE_FONT_COLOR', '#000000');
 
 // set to "1" if extended email check function should be used
 // If you're testing locally and your webserver has no possibility to query 

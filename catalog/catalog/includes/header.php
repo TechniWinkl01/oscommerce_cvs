@@ -11,7 +11,7 @@
 </table>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_COLOR; ?>" height="19">
-    <td align="left" nowrap><font face="<? echo HEADER_NAVIGATION_BAR_FONT_FACE; ?>" color="<? echo HEADER_NAVIGATION_BAR_FONT_COLOR; ?>" size="<? echo HEADER_NAVIGATION_BAR_FONT_SIZE; ?>"><b>&nbsp;&nbsp;<a href="<? echo HTTP_SERVER; ?>" class="whitelink"><? echo HEADER_TITLE_TOP; ?></a> : <a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>" class="whitelink"><? echo HEADER_TITLE_CATALOG; ?></a><?
+    <td align="left" nowrap><?php echo FONT_STYLE_HEADER_NAVIGATION_BAR; ?><b>&nbsp;&nbsp;<a href="<? echo HTTP_SERVER; ?>" class="whitelink"><? echo HEADER_TITLE_TOP; ?></a> : <a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>" class="whitelink"><? echo HEADER_TITLE_CATALOG; ?></a><?
   if ($cPath) {
     if (!ereg('_', $cPath)) $cPath_array = array($cPath);
     $cPath_new = '';
@@ -39,7 +39,7 @@
     echo $location;
   }
   echo '</b></font></td>' . "\n"; ?>
-    <td align="right" nowrap><font face="<? echo HEADER_NAVIGATION_BAR_FONT_FACE; ?>" color="<? echo HEADER_NAVIGATION_BAR_FONT_COLOR; ?>" size="<? echo HEADER_NAVIGATION_BAR_FONT_SIZE; ?>"><b><?
+    <td align="right" nowrap><?php echo FONT_STYLE_HEADER_NAVIGATION_BAR; ?><b><?
   if (tep_session_is_registered('customer_id')) {
     echo '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_LOGOFF . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '" class="whitelink">' . HEADER_TITLE_CHECKOUT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_CONTACT_US . '</a>&nbsp;&nbsp;';
   } else {

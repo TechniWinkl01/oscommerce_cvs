@@ -11,7 +11,7 @@
                 <td><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?></b>&nbsp;</font></td>
+                <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?></b>&nbsp;</font></td>
               </tr>
               <tr>
                 <td><? echo tep_black_line(); ?></td>
@@ -34,7 +34,7 @@
       } else {
         echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '                <td ><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $orders_values['products_id'], 'NONSSL') . '">' . $orders_values['products_name'] . '</a>&nbsp;</font></td>' . "\n";
+      echo '                <td>' . FONT_STYLE_SMALL_TEXT . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $orders_values['products_id'], 'NONSSL') . '">' . $orders_values['products_name'] . '</a>&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>

@@ -138,7 +138,7 @@
     }
 ?>
       <tr>
-        <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_DATE_ADDED, $date_added); ?></font></td>
+        <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo sprintf(TEXT_DATE_ADDED, $date_added); ?></font></td>
       </tr>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
