@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.7 2002/04/15 19:31:08 project3000 Exp $
+  $Id: split_page_results.php,v 1.8 2002/04/20 09:48:19 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -59,7 +59,7 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
 
       $class = 'class="pageResults"';
 
-      if ($parameters != '') $parameters . '&';
+      if ($parameters != '') $parameters .= '&';
 
 // calculate number of pages needing links 
       $num_pages = intval($query_numrows / $max_rows_per_page);
