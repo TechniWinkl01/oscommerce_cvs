@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.128 2003/01/20 19:46:46 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.129 2003/01/28 15:02:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,6 +38,9 @@
   if (!tep_session_is_registered('payment')) tep_session_register('payment');
   if (isset($HTTP_POST_VARS['payment'])) $payment = $HTTP_POST_VARS['payment'];
 
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
+
 // load the selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment($payment);
@@ -55,8 +58,6 @@
   $shipping_modules = new shipping($shipping);
 
   require(DIR_WS_CLASSES . 'order_total.php');
-  require(DIR_WS_CLASSES . 'order.php');
-  $order = new order;
   $order_total_modules = new order_total;
 
 // Stock Check
