@@ -117,7 +117,7 @@
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
 <head>
-<title><?=TITLE;?></title>
+<title><? echo TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -128,7 +128,7 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
@@ -138,33 +138,33 @@
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="create_account" method="post" action="<?=tep_href_link(FILENAME_CREATE_ACCOUNT_PROCESS, '', 'NONSSL');?>"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="create_account" method="post" action="<? echo tep_href_link(FILENAME_CREATE_ACCOUNT_PROCESS, '', 'NONSSL');?>"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<?=TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?=TOP_BAR_FONT_FACE;?>" size="<?=TOP_BAR_FONT_SIZE;?>" color="<?=TOP_BAR_FONT_COLOR;?>">&nbsp;<?=TOP_BAR_TITLE;?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE;?>" size="<? echo TOP_BAR_FONT_SIZE;?>" color="<? echo TOP_BAR_FONT_COLOR;?>">&nbsp;<? echo TOP_BAR_TITLE;?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo HEADING_TITLE;?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><? echo tep_black_line();?></td>
       </tr>
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<? echo CATEGORY_FONT_FACE;?>" size="<? echo CATEGORY_FONT_SIZE;?>" color="<? echo CATEGORY_FONT_COLOR;?>"><? echo CATEGORY_PERSONAL;?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_GENDER;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_GENDER;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;
 <?
    if (ACCOUNT_GENDER) {
     if ($gender_error == 1) {
@@ -182,11 +182,11 @@
 ?></font></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+            <td colspan="2"><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_FIRST_NAME;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_FIRST_NAME;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($firstname_error == 1) {            
       echo '<input type="text" name="firstname" maxlength="32" value="' . $HTTP_POST_VARS['firstname'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
     } else {
@@ -194,8 +194,8 @@
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_LAST_NAME;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_LAST_NAME;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($lastname_error == 1) {
       echo '<input type="text" name="lastname" maxlength="32" value="' . $HTTP_POST_VARS['lastname'] . '">&nbsp;' . ENTRY_LAST_NAME_ERROR;
     } else {
@@ -203,8 +203,8 @@
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_DATE_OF_BIRTH;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_DATE_OF_BIRTH;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
    if (ACCOUNT_DOB) {
     if ($dob_error == 1) {
       echo '<input type="text" name="dob" value="' . $HTTP_POST_VARS['dob'] . '"maxlength="10">&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
@@ -217,8 +217,8 @@
 ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($email_address_error == 1) {
       echo '<input type="text" name="email_address" maxlength="96" value="' . $HTTP_POST_VARS['email_address'] . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR;
     }  elseif ($email_address_check_error == 1) {
@@ -230,14 +230,14 @@
     } ?></font></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+            <td colspan="2"><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7"><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_ADDRESS;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="7"><font face="<? echo CATEGORY_FONT_FACE;?>" size="<? echo CATEGORY_FONT_SIZE;?>" color="<? echo CATEGORY_FONT_COLOR;?>"><? echo CATEGORY_ADDRESS;?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STREET_ADDRESS;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_STREET_ADDRESS;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($street_address_error == 1) {
       echo '<input type="text" name="street_address" maxlength="64" value="' . $HTTP_POST_VARS['street_address'] . '">&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
     } else {
@@ -248,8 +248,8 @@
    if (ACCOUNT_SUBURB) {
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_SUBURB;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_SUBURB;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     echo $HTTP_POST_VARS['suburb'] . '<input type="hidden" name="suburb" value="' . $HTTP_POST_VARS['suburb'] . '">&nbsp;' . ENTRY_SUBURB_ERROR; ?></font></td>
           </tr>
 <?
@@ -258,8 +258,8 @@
    }
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_POST_CODE;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($postcode_error == 1) {
       echo '<input type="text" name="postcode" maxlength="8" value="' . $HTTP_POST_VARS['postcode'] . '">&nbsp;' . ENTRY_POST_CODE_ERROR;
     } else {
@@ -267,8 +267,8 @@
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_CITY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_CITY;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($city_error == 1) {
       echo '<input type="text" name="city" maxlength="32" value="' . $HTTP_POST_VARS['city'] . '">&nbsp;' . ENTRY_CITY_ERROR;
     } else {
@@ -279,8 +279,8 @@
    if (ACCOUNT_STATE) {
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_STATE;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     echo $state . '<input type="hidden" name="state" value="' . $state . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
           </tr>
 <?
@@ -289,8 +289,8 @@
    }
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_COUNTRY;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($country_error == 1) {
       echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
       $countries = tep_get_countries();
@@ -306,14 +306,14 @@
     } ?></font></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+            <td colspan="2"><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3"><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_CONTACT;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3"><font face="<? echo CATEGORY_FONT_FACE;?>" size="<? echo CATEGORY_FONT_SIZE;?>" color="<? echo CATEGORY_FONT_COLOR;?>"><? echo CATEGORY_CONTACT;?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_TELEPHONE_NUMBER;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($telephone_error == 1) {
       echo '<input type="text" name="telephone" maxlength="32" value="' . $HTTP_POST_VARS['telephone'] . '">&nbsp;' . ENTRY_TELEPHONE_NUMBER_ERROR;
     } else {
@@ -321,19 +321,19 @@
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_FAX_NUMBER;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_FAX_NUMBER;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     echo $HTTP_POST_VARS['fax'] . '<input type="hidden" name="fax" value="' . $HTTP_POST_VARS['fax'] . '">&nbsp;' . ENTRY_FAX_NUMBER_ERROR; ?></font></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+            <td colspan="2"><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3"><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PASSWORD;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3"><font face="<? echo CATEGORY_FONT_FACE;?>" size="<? echo CATEGORY_FONT_SIZE;?>" color="<? echo CATEGORY_FONT_COLOR;?>"><? echo CATEGORY_PASSWORD;?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_PASSWORD;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_PASSWORD;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($password_error == 1) {
       echo '<input type="password" name="password" maxlength="12" value="' . $HTTP_POST_VARS['password'] . '">&nbsp;' . ENTRY_PASSWORD_ERROR;
     } else {
@@ -343,14 +343,14 @@
         </table></td>
       </tr>
       <tr>
-        <td><br><?=tep_black_line();?></td>
+        <td><br><? echo tep_black_line();?></td>
       </tr>
       <tr>
-        <td align="right"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', IMAGE_DONE);?>&nbsp;&nbsp;</font></td>
+        <td align="right"><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>"><? echo tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', IMAGE_DONE);?>&nbsp;&nbsp;</font></td>
       </tr>
     </table><? if ($HTTP_POST_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_POST_VARS['origin'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
