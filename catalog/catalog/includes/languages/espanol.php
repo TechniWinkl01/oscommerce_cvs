@@ -95,7 +95,7 @@ define('BOX_HEADING_CURRENCIES', 'Monedas');
 define('BOX_HEADING_INFORMATION', 'Información');
 define('BOX_INFORMATION_PRIVACY', 'Confidencialidad');
 define('BOX_INFORMATION_CONDITIONS', 'Condiciones de uso');
-define('BOX_INFORMATION_SHIPPING', 'Envios y Devoluciones');
+define('BOX_INFORMATION_SHIPPING', 'Envios/Devoluciones');
 define('BOX_INFORMATION_CONTACT', 'Contactenos');
 
 // checkout procedure text
