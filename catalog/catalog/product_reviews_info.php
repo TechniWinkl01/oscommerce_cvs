@@ -48,10 +48,8 @@
   $reviews_text = tep_break_string($reviews_text, 15);
 
 
-  $product = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_name, products.products_image from manufacturers, products_to_manufacturers, products where products.products_id = '" . $reviews_values['products_id'] . "' and products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
+  $product = tep_db_query("select products_name, products_image from products where products_id = '" . $reviews_values['products_id'] . "'");
   $product_values = tep_db_fetch_array($product);
-
-  $products_name = tep_products_name($product_values['manufacturers_location'], $product_values['manufacturers_name'], $product_values['products_name']);
 
   $customer = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $reviews_values['customers_id'] . "'");
   $customer_values = tep_db_fetch_array($customer);
@@ -63,8 +61,8 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo sprintf(HEADING_TITLE, $products_name);?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_reviews.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo sprintf(HEADING_TITLE, $product_values['products_name']);?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_reviews.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', sprintf(HEADING_TITLE, $product_values['products_name']));?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -76,7 +74,7 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_PRODUCT;?></b>&nbsp;<? echo $products_name;?>&nbsp;</font></td>
+                <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_PRODUCT;?></b>&nbsp;<? echo $product_values['products_name'];?>&nbsp;</font></td>
               </tr>
               <tr>
                 <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_FROM;?></b>&nbsp;<? echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];?>&nbsp;</font></td>
@@ -85,7 +83,7 @@
                 <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_DATE;?></b>&nbsp;<? echo date('l, jS F, Y', mktime(0,0,0,substr($reviews_values['date_added'], 4, 2),substr($reviews_values['date_added'], -2),substr($reviews_values['date_added'], 0, 4)));?>&nbsp;</font></td>
               </tr>
             </table></td>
-            <td align="right"><br><? echo tep_image($product_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0", hspace="5" vspace="5', $products_name);?></td>
+            <td align="right"><br><? echo tep_image($product_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0", hspace="5" vspace="5', $product_values['products_name']);?></td>
           </tr>
         </table>
       </tr>
