@@ -166,7 +166,7 @@
     } else {
       echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="new_cart_quantity[]" value="1" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="old_cart_quantity[]" value="0"><input type="hidden" name="products_id[]" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
       if ($get_params_back != '') {
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_LIST, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
       }
       echo '&nbsp;</font></td>' . "\n";
     }

@@ -10,29 +10,24 @@
   </tr>
   <tr bgcolor="<?=HEADER_NAVIGATION_BAR_BACKGROUND_COLOR;?>" height="19">
     <td align="left" nowrap><font face="<?=HEADER_NAVIGATION_BAR_FONT_FACE;?>" color="<?=HEADER_NAVIGATION_BAR_FONT_COLOR;?>" size="<?=HEADER_NAVIGATION_BAR_FONT_SIZE;?>"><b>&nbsp;&nbsp;<a href="http://theexchangeproject.org" class="whitelink"><?=HEADER_TITLE_TOP;?></a> : <a href="<?=tep_href_link(FILENAME_DEFAULT, '', 'NONSSL');?>" class="whitelink"><?=HEADER_TITLE_CATALOG;?></a><?
-  if ($HTTP_GET_VARS['category_id']) {
-    $category_top = tep_db_query("select category_top_name from category_top where category_top_id = '" . $HTTP_GET_VARS['category_id'] . "'");
-    $category_top_values = tep_db_fetch_array($category_top);
-    echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'category_id=' . $HTTP_GET_VARS["category_id"], 'NONSSL') . '" class="whitelink">' . $category_top_values["category_top_name"] . '</a>';
-  }
-  if (($HTTP_GET_VARS['category_id']) && ($HTTP_GET_VARS['index_id'])) {
-    $category_index = tep_db_query("select category_index_name from category_index where category_index_id = '" . $HTTP_GET_VARS['index_id'] . "'");
-    $category_index_values = tep_db_fetch_array($category_index);
-    echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'category_id=' . $HTTP_GET_VARS["category_id"] . '&index_id=' . $HTTP_GET_VARS["index_id"], 'NONSSL') . '" class="whitelink">' . $category_index_values["category_index_name"] . '</a>';
-  }
-  if (($HTTP_GET_VARS['category_id']) && ($HTTP_GET_VARS['index_id']) && ($HTTP_GET_VARS['subcategory_id'])) {
-    $listby_query = tep_db_query("select sql_select from category_index where category_index_id = '" . $HTTP_GET_VARS['index_id'] . "'");
-    $listby_values = tep_db_fetch_array($listby_query);
-    $listby = $listby_values['sql_select'];
-
-    $subcategory = tep_db_query("select " . $listby . "_name as name from " . $listby . " where " . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "'");
-    $subcategory_values = tep_db_fetch_array($subcategory);
-    echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_LIST, 'category_id=' . $HTTP_GET_VARS['category_id'] . '&index_id=' . $HTTP_GET_VARS['index_id'] . '&subcategory_id=' . $HTTP_GET_VARS['subcategory_id'], 'NONSSL') . '" class="whitelink">' . $subcategory_values['name'] . '</a>';
+  if ($cPath) {
+    if (!ereg('_', $cPath)) $cPath_array = array($cPath);
+    $cPath_new = '';
+    for($i=0;$i<sizeof($cPath_array);$i++) {
+      if ($cPath_new == '') {
+        $cPath_new .= $cPath_array[$i];
+      } else {
+        $cPath_new .= '_' . $cPath_array[$i];
+      }
+      $categories_query = tep_db_query("select categories_name from categories where categories_id = '" . $cPath_array[$i] . "'");
+      $categories = tep_db_fetch_array($categories_query);
+      echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="whitelink">' . $categories['categories_name'] . '</a>';
+    }
   }
   if ($HTTP_GET_VARS['products_id']) {
     $model = tep_db_query("select products_model from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $model_values = tep_db_fetch_array($model);
-    echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'category_id=' . $HTTP_GET_VARS['category_id'] . '&index_id=' . $HTTP_GET_VARS['index_id'] . '&subcategory_id=' . $HTTP_GET_VARS['subcategory_id'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="whitelink">' . $model_values['products_model'] . '</a>';
+    echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="whitelink">' . $model_values['products_model'] . '</a>';
   }
   if ($location) {
     echo $location;

@@ -59,7 +59,6 @@
   define('FILENAME_LOGOFF', 'logoff.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
-  define('FILENAME_PRODUCT_LIST', 'product_list.php');
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
   define('FILENAME_PRODUCT_REVIEWS_WRITE', 'product_reviews_write.php');
@@ -232,4 +231,16 @@
   tep_session_register('language');
   
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
+
+  $cPath = $HTTP_GET_VARS['cPath'];
+  if (strlen($cPath) > 0) {
+    $cPath_array = explode('_', $cPath);
+    if (sizeof($cPath_array) > 1) {
+      $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
+    } else {
+      $current_category_id = $cPath_array[0];
+    }
+  } else {
+    $current_category_id = 0;
+  }
 ?>
