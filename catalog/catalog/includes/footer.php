@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: footer.php,v 1.20 2001/09/20 19:27:19 mbs Exp $
+  $Id: footer.php,v 1.21 2001/09/20 19:47:07 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -29,7 +29,7 @@
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><? echo tep_display_banner('dynamic', '468x50'); ?></td>
+    <td align="center"><?php echo tep_display_banner('dynamic', '468x50'); ?></td>
   </tr>
 </table>
 <?php

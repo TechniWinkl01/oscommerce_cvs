@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.49 2001/09/20 15:06:40 mbs Exp $
+  $Id: address_book_process.php,v 1.50 2001/09/20 19:47:05 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -247,7 +247,7 @@ function update_zone(theForm) {
 
   SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
 
-<? tep_js_zone_list("SelectedCountry", "theForm"); ?>
+<?php tep_js_zone_list("SelectedCountry", "theForm"); ?>
   resetStateText(theForm);
 }
 

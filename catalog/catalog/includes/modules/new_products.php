@@ -1,14 +1,26 @@
+<?php
+/*
+  $Id: new_products.php,v 1.19 2001/09/20 19:47:01 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- new_products //-->
           <tr>
-            <td class="tableHeading"><br>&nbsp;<? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?>&nbsp;</td>
+            <td class="tableHeading"><br>&nbsp;<?php echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?>&nbsp;</td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-<?
+<?php
     if ($new_products_category_id == '0') {
       $new_products_query = tep_db_query("select p.products_id, pd.products_name, p.products_image, IFNULL(s.specials_new_products_price,p.products_price) as products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added DESC, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);
     } else {
@@ -31,6 +43,6 @@
             </table></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
 <!-- new_products_eof //-->

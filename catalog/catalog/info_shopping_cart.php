@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: info_shopping_cart.php,v 1.12 2001/09/20 13:31:57 mbs Exp $
+  $Id: info_shopping_cart.php,v 1.13 2001/09/20 19:47:05 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,10 +21,10 @@
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body>
-<p class="main"><b><? echo HEADING_TITLE; ?></b><br><?php echo tep_black_line(); ?></p>
-<p class="main"><b><i><? echo SUB_HEADING_TITLE_1; ?></i></b><br><?php echo SUB_HEADING_TEXT_1; ?></p>
-<p class="main"><b><i><? echo SUB_HEADING_TITLE_2; ?></i></b><br><?php echo SUB_HEADING_TEXT_2; ?></p>
-<p class="main"><b><i><? echo SUB_HEADING_TITLE_3; ?></i></b><br><?php echo SUB_HEADING_TEXT_3; ?></p>
+<p class="main"><b><?php echo HEADING_TITLE; ?></b><br><?php echo tep_black_line(); ?></p>
+<p class="main"><b><i><?php echo SUB_HEADING_TITLE_1; ?></i></b><br><?php echo SUB_HEADING_TEXT_1; ?></p>
+<p class="main"><b><i><?php echo SUB_HEADING_TITLE_2; ?></i></b><br><?php echo SUB_HEADING_TEXT_2; ?></p>
+<p class="main"><b><i><?php echo SUB_HEADING_TITLE_3; ?></i></b><br><?php echo SUB_HEADING_TEXT_3; ?></p>
 <p align="right" class="main"><a href="javascript:window.close();"><font color="<?php echo CHECKOUT_BAR_TEXT_COLOR; ?>"><?php echo TEXT_CLOSE_WINDOW; ?></font></a></p>
 </body>
 </html>

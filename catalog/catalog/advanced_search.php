@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.31 2001/09/20 15:06:40 mbs Exp $
+  $Id: advanced_search.php,v 1.32 2001/09/20 19:47:05 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -166,7 +166,7 @@ function check_form() {
             <td align="left" width="20%" class="fieldKey">&nbsp;<?php echo ENTRY_MANUFACTURER; ?>&nbsp;</td>
             <td align="left" colspan="3" class="fieldValue">
               <select name="manufacturers_id">
-                <option value="" selected><? echo TEXT_ALL_MANUFACTURERS; ?>
+                <option value="" selected><?php echo TEXT_ALL_MANUFACTURERS; ?>
 <?php
   $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
   while ($manufacturers_values = tep_db_fetch_array($manufacturers_query)) {
