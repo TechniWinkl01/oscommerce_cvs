@@ -1,5 +1,6 @@
 <?php
 /*
+  $Id: ccval.php,v 1.2 2002/01/17 19:43:52 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,11 +10,10 @@
   Released under the GNU General Public License
 */
 
-define('TEXT_CCVAL_ERROR_INVALID_DATE', 'The expiry date entered, %s/%s, is <font color="#FF0000"><b>invalid</b></font>. Please check the date and try again.');
-define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'The <b>%s</b> number entered, %s, is <font color="#FF0000"><b>invalid</b></font>. Please check the number and try again.');
-define('TEXT_CCVAL_ERROR_TOO_LONG', 'The <b>%s</b> number entered, %s, has %s too many digit(s).<br>&nbsp;Please check the number and try again.');
-define('TEXT_CCVAL_ERROR_TOO_SHORT', 'The <b>%s</b> number entered, %s, is <font color="#FF0000"><b>missing</b></font> %s digit(s).<br>&nbsp;Please check the number and try again.');
-define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'The first four digits of the number entered are %s.<br>&nbsp;If that\'s correct, we don\'t accept that type of credit card.<br>&nbsp;If it\'s wrong, please try again.');
-define('TEXT_CCVAL_ERROR_VISA_14CHAR', 'The <b>Visa</b> number entered, %s, in is 14 digits long. <b>Visa</b> cards usually have 16 digits, though some have 13.<br>Please check the number and try again.');
-
+define('TEXT_CCVAL_ERROR_INVALID_DATE', 'Das "G&uuml;ltig bis" Datum, %s/%s, ist <font color="#FF0000"><b>ung&uuml;ltig</b></font>. Bitte korrigieren Sie Ihre Angaben.');
+define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'Die <b>%s</b> nummer die Sie angegeben haben, %s, ist <font color="#FF0000"><b>ung&uuml;ltig</b></font>. Bitte korrigieren Sie Ihre Angaben.');
+define('TEXT_CCVAL_ERROR_TOO_LONG', 'Die <b>%s</b> nummer die Sie angegeben haben, %s, hat %s Ziffern zuviel.<br>&nbsp;Bitte korrigieren Sie Ihre Angaben.');
+define('TEXT_CCVAL_ERROR_TOO_SHORT', 'Die <b>%s</b> nummer die Sie angegeben haben, %s, ist um %s Ziffern <font color="#FF0000"><b>zu kurz</b></font> .<br>&nbsp;Bitte korrigieren Sie Ihre Angaben.');
+define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'Die ersten 4 Ziffern Ihrer Kreditkarte sind: %s.<br>&nbsp;Wenn diese Angaben stimmen, wird dieser Kartentyp leider nicht akzeptiert. Bitte korrigieren Sie Ihre Angaben gegebenfalls.');
+define('TEXT_CCVAL_ERROR_VISA_14CHAR', 'Die <b>Visa</b> Kartennummer die Sie angegeben haben, %s, ist 14 Ziffern lang. <b>Visa</b> Karten haben entweder 16 oder 13 Ziffern.<br>Bitte korrigieren Sie Ihre Angaben.');
 ?>
