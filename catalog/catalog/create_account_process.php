@@ -394,6 +394,9 @@
     $customer_id = $insert_id;
     tep_session_register('customer_id');
 
+// restore cart contents
+    $cart->restore_contents();
+
     if (ACCOUNT_GENDER) {
        if ($HTTP_POST_VARS['gender'] == 'm') {
          $gender = MALE_ADDRESS;
