@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.2 2003/11/17 19:15:52 hpdl Exp $
+  $Id: message_stack.php,v 1.3 2003/12/04 14:12:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  class messageStack extends tableBox {
+  class messageStack {
 
 // class constructor
     function messageStack() {
@@ -31,15 +31,7 @@
 
 // class methods
     function add($class, $message, $type = 'error') {
-      if ($type == 'error') {
-        $this->messages[] = array('params' => 'class="messageStackError"', 'class' => $class, 'text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . '&nbsp;' . $message);
-      } elseif ($type == 'warning') {
-        $this->messages[] = array('params' => 'class="messageStackWarning"', 'class' => $class, 'text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . '&nbsp;' . $message);
-      } elseif ($type == 'success') {
-        $this->messages[] = array('params' => 'class="messageStackSuccess"', 'class' => $class, 'text' => tep_image(DIR_WS_ICONS . 'success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
-      } else {
-        $this->messages[] = array('params' => 'class="messageStackError"', 'class' => $class, 'text' => $message);
-      }
+      $this->messages[] = array('class' => $class, 'type' => $type, 'message' => $message);
     }
 
     function add_session($class, $message, $type = 'error') {
@@ -61,28 +53,41 @@
     }
 
     function output($class) {
-      $this->table_data_parameters = 'class="messageBox"';
-
-      $output = array();
+      $messages = '<ul>';
       for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
         if ($this->messages[$i]['class'] == $class) {
-          $output[] = $this->messages[$i];
+          switch ($this->messages[$i]['type']) {
+            case 'error':
+              $bullet_image = DIR_WS_ICONS . 'error.gif';
+              break;
+            case 'warning':
+              $bullet_image = DIR_WS_ICONS . 'warning.gif';
+              break;
+            case 'success':
+              $bullet_image = DIR_WS_ICONS . 'success.gif';
+              break;
+            default:
+              $bullet_image = DIR_WS_ICONS . 'bullet_default.gif';
+          }
+
+          $messages .= '<li style="list-style-image: url(\'' . $bullet_image . '\')">' . tep_output_string($this->messages[$i]['message']) . '</li>';
         }
       }
+      $messages .= '</ul>';
 
-      return $this->tableBox($output);
+      return '<div class="messageStack">' . $messages . '</div>';
     }
 
     function size($class) {
-      $count = 0;
+      $class_size = 0;
 
       for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
         if ($this->messages[$i]['class'] == $class) {
-          $count++;
+          $class_size++;
         }
       }
 
-      return $count;
+      return $class_size;
     }
   }
 ?>

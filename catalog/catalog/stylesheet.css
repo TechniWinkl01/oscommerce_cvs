@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.57 2003/07/23 15:31:35 dgw_ Exp $
+  $Id: stylesheet.css,v 1.58 2003/12/04 14:12:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,6 +19,8 @@ BODY {
   background: #ffffff;
   color: #000000;
   margin: 0px;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
 }
 
 A {
@@ -289,3 +291,12 @@ SPAN.errorText {
 /* input requirement */
 
 .inputRequirement { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+
+.messageStack {
+  margin: 5px;
+  font-size: 10px;
+  color: #465584;
+  background-color: #FFFCF5;
+  border-width: 1px;
+  border-style: dotted;
+}

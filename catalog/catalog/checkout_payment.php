@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.115 2003/12/03 17:32:53 project3000 Exp $
+  $Id: checkout_payment.php,v 1.116 2003/12/04 14:12:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,6 +71,10 @@
 // load all enabled payment modules
   require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
+
+  if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
+    $messageStack->add('checkout_payment', $error['error'], 'error');
+  }
 
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_CHECKOUT_PAYMENT);
 
@@ -150,27 +154,10 @@ function changeSelection(selection) {
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-  if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
+  if ($messageStack->size('checkout_payment') > 0) {
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><b><?php echo tep_output_string_protected($error['title']); ?></b></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBoxNotice">
-          <tr class="infoBoxNoticeContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main" width="100%" valign="top"><?php echo tep_output_string_protected($error['error']); ?></td>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
+        <td><?php echo $messageStack->output('checkout_payment'); ?></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
@@ -179,16 +166,6 @@ function changeSelection(selection) {
   }
 
   if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
-    if ($messageStack->size('checkout_conditions') > 0) {
-?>
-      <tr>
-        <td><?php echo $messageStack->output('checkout_conditions'); ?></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-<?php
-    }
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
