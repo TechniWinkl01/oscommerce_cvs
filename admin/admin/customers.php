@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.72 2002/11/18 16:02:36 project3000 Exp $
+  $Id: customers.php,v 1.73 2002/11/22 22:06:14 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,7 +54,7 @@
 
         $sql_data_array = array('entry_firstname' => $customers_firstname,
                                 'entry_lastname' => $customers_lastname,
-                                'entry_street_address' => $entry_postcode,
+                                'entry_street_address' => $entry_street_address,
                                 'entry_postcode' => $entry_postcode,
                                 'entry_city' => $entry_city,
                                 'entry_country_id' => $entry_country_id);
