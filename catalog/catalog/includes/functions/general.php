@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.96 2001/06/04 17:13:14 hpdl Exp $
+  $Id: general.php,v 1.97 2001/06/04 20:41:11 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1104,7 +1104,7 @@ function tep_address_summary($customers_id, $address_id) {
       $banners_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
       $banners = tep_db_fetch_array($banners_query);
       if ($banners['count'] > 0) {
-        $banner = tep_random_select("select banners_id, banners_title, banners_image from banners where status = '1' and banners_group = '" . $identifier . "'");
+        $banner = tep_random_select("select banners_id, banners_title, banners_image from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
       } else {
         return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> No banners with group \'' . $identifier . '\' found!</b>';
       }
