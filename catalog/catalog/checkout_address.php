@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  if (getenv(HTTPS)) {
+  if (getenv('HTTPS')) {
     $connection = 'SSL';
   } else {
     $connection = 'NONSSL';
