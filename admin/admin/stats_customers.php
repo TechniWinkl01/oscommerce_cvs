@@ -66,7 +66,7 @@
           <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<? echo tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL'); ?>'">
             <td align="center" class="smallText">&nbsp;<? echo $rows; ?>.&nbsp;</td>
             <td class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL') . '" class="blacklink">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($customers['ordersum'], false); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($customers['ordersum']); ?>&nbsp;</td>
           </tr>
 <?
   }

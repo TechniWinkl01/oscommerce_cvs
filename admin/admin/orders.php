@@ -228,7 +228,7 @@ function alertBox() {
                 <td align="right" colspan="4"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td align="right" class="main">&nbsp;<? echo ENTRY_SUB_TOTAL; ?>&nbsp;</td>
-                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($total_cost, 2); ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</td>
                   </tr>
                   <tr>
                     <td align="right" class="main">&nbsp;<? echo ENTRY_TAX; ?>&nbsp;</td>
@@ -348,7 +348,7 @@ function alertBox() {
 ?>
           <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
             <td class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><? echo $orders_values['customers_name']; ?></a>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($total, 2); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($total); ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo tep_date_short($orders_values['date_purchased']); ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo tep_get_orders_status_name($orders_values['orders_status'], $languages_id); ?>&nbsp;</td>
