@@ -19,15 +19,25 @@
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS, $paypal_return, $checkout_form_action, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
-
+	  global $checkout_form_action;
       if ($this->enabled) {
-        $paypal_return = urlencode($HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . urlencode($shipping_method) . '|' . urlencode($comments) . '&' . SID);
-        $checkout_form_action = 'https://secure.paypal.com/cgi-bin/webscr?cmd=_xclick&business=' . rawurlencode(MODULE_PAYMENT_PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME) . '&amount=' . number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2) . '&shipping=' . number_format($shipping_cost * $currency_rates['USD'], 2) . '&return=' . urlencode(HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return);
+        $checkout_form_action = 'https://secure.paypal.com/cgi-bin/webscr';
       }
     }
 
     function process_button() {
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
+	  if ($this-->enabled) {
+        $paypal_return = $HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . $shipping_method . '|' . $comments . '&' . SID;
+?>
+      <input type="hidden" name="cmd" value="_xclick">
+	  <input type="hidden" name="business" value="<? echo MODULE_PAYMENT_PAYPAL_ID; ?>">
+	  <input type="hidden" name="item_name" value="<? echo STORE_NAME; ?>">
+	  <input type="hidden" name="amount" value="<? echo number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2); ?>">
+	  <input type="hidden" name="shipping" value="<? echo number_format($shipping_cost * $currency_rates['USD'], 2); ?>">
+	  <input type="hidden" name="return" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return; ?>">
+<?
+      }
       return false;
     }
 
@@ -35,7 +45,7 @@
       global $HTTP_GET_VARS, $payment, $sendto, $shipping_cost, $shipping_method, $comments;
 
       if ( ($HTTP_GET_VARS['paypal_return']) && ($this->enabled) ) {
-        $arg = urldecode($HTTP_GET_VARS['paypal_return']);
+        $arg = $HTTP_GET_VARS['paypal_return'];
         $args = explode('|', $arg);
         $payment = $args[0];
         $sendto = $args[1];
