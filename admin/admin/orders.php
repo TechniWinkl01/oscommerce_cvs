@@ -187,7 +187,7 @@
 <?
     $total = 0;
     $grandtotal = 0;
-    $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, products_tax, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], -2),substr($info_values['date_purchased'], 0, 4)));
     $products = tep_db_query("select products_name, products_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
@@ -291,7 +291,9 @@
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
 <?
-    $orders = tep_db_query("select orders_id, customers_name, payment_method, date_purchased, products_tax, shipping_cost, orders_status from orders order by orders_id DESC");
+    $orders_query_raw = "select orders_id, customers_name, payment_method, date_purchased, shipping_cost, orders_status from orders order by orders_id DESC";
+    $orders_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
+    $orders = tep_db_query($orders_query_raw);
     $rows = 0;
     while ($orders_values = tep_db_fetch_array($orders)) {
       $rows++;
@@ -327,9 +329,14 @@
           <tr>
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
-          <tr>
-            <td align="right" colspan="5"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_ORDER_INFORMATION;?>&nbsp;</font></td>
-          </tr>
+              <tr>
+                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS);?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_RESULT_PAGE;?> <?=$orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']);?>&nbsp;</font></td>
+                  </tr>
+                </table></td>
+              </tr>
         </table></td>
       </tr>
 <?
