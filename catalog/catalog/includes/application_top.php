@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.150 2001/06/15 23:48:56 hpdl Exp $
+  $Id: application_top.php,v 1.151 2001/06/28 09:30:56 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,7 +43,7 @@
   define('USE_DEFAULT_LANGUAGE_CURRENCY', false); // when the language is changed, use its default currency instead of the applications default currency
 
 // Send order confirmation emails ALSO to these email addresses (separated by a comma)
-//  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
+//  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root@localhost, root@localhost');
 
   define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
 
