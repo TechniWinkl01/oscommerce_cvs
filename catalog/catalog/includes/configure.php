@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.1 2001/07/27 11:19:54 hpdl Exp $
+  $Id: configure.php,v 1.2 2001/08/09 18:07:01 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -46,12 +46,15 @@
 
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off
-  define('CACHE_DIR', '/tmp'); // Default: /tmp - Default cache directory
+  define('CACHE_DIR', '/tmp/'); // Default: /tmp/ - Default cache directory
+
+/* phpCache defines ******
   define('CACHE_DEBUG', false); // Default: false - Turn debugging on/off
   define('CACHE_GC', .10); // Default: .10 - Probability of garbage collection
-  define('CACHE_USE_STORAGE_HASH', 0);	/* Default: 1 - Use storage hashing.  This will increase peformance if you are caching many pages. */ 
-  define('CACHE_STORAGE_CREATED', 0);	/* Default: 0 - This is a peformance tweak.  If you set this to 1, phpCache will not check if storage structures have been created.  Don't change this unles you are *SURE* the cache storage has been created. */
-  define('CACHE_MAX_STORAGE_HASH', 23);	/* Don't touch this unless you know what you're doing */
-  define('CACHE_STORAGE_PERM', 0700);	/* Default: 0700 - Default permissions for storage directories. */
-  define('CACHE_MAX_FILENAME_LEN', 200);	/* How long the cache storage filename can be before it will md5() the entire thing */
+  define('CACHE_USE_STORAGE_HASH', 0);	// Default: 1 - Use storage hashing.  This will increase peformance if you are caching many pages.
+  define('CACHE_STORAGE_CREATED', 0);	// Default: 0 - This is a peformance tweak.  If you set this to 1, phpCache will not check if storage structures have been created.  Don't change this unles you are *SURE* the cache storage has been created.
+  define('CACHE_MAX_STORAGE_HASH', 23);	// Don't touch this unless you know what you're doing
+  define('CACHE_STORAGE_PERM', 0700);	// Default: 0700 - Default permissions for storage directories.
+  define('CACHE_MAX_FILENAME_LEN', 200);	// How long the cache storage filename can be before it will md5() the entire thing
+*/
 ?>
