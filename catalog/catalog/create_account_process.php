@@ -162,11 +162,13 @@
           <tr>
             <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_PERSONAL; ?></font></td>
           </tr>
+<?
+  if (ACCOUNT_GENDER) { 
+?>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</font></td>
             <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;
 <?
-   if (ACCOUNT_GENDER) {
     if ($gender_error == 1) {
       echo '<input type="radio" name="gender" value="m">&nbsp;' . MALE . '&nbsp;<input type="radio" name="gender" value="m">&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
     } else {
@@ -176,11 +178,13 @@
         echo FEMALE . '<input type="hidden" name="gender" value="f">';
       }
     }
-   } else {
-     echo '<input type="hidden" name="gender" value="m">';
-   }
 ?></font></td>
           </tr>
+<? 
+  } else {
+    echo '<input type="hidden" name="gender" value="m">';
+  }
+?>
           <tr>
             <td colspan="2"><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
