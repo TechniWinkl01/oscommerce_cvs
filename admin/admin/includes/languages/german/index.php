@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.3 2002/01/17 11:41:26 jan0815 Exp $
+  $Id: index.php,v 1.4 2002/03/30 11:10:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,6 +27,10 @@ define('BOX_ENTRY_INFORMATION_PORTAL', 'Informations Portal');
 define('BOX_ENTRY_CUSTOMERS', 'Kunden:');
 define('BOX_ENTRY_PRODUCTS', 'Produkte:');
 define('BOX_ENTRY_REVIEWS', 'Bewertungen:');
+
+define('BOX_CONNECTION_PROTECTED', 'You are protected by a %s secure SSL connection.');
+define('BOX_CONNECTION_UNPROTECTED', 'You are <font color="#ff0000">not</font> protected by a secure SSL connection.');
+define('BOX_CONNECTION_UNKNOWN', 'unknown');
 
 define('CATALOG_CONTENTS', 'Inhalt');
 
