@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.126 2002/03/17 01:49:47 hpdl Exp $
+  $Id: categories.php,v 1.127 2002/03/18 14:48:11 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -552,7 +552,7 @@
       } else {
 ?>
       <tr>
-        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long(ereg_replace('-', '', $pInfo->products_date_available))); ?></td>
+        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long(ereg_replace('-', '', $pInfo->products_date_added))); ?></td>
       </tr>
 <?php
       }
