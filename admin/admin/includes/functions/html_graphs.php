@@ -1,19 +1,15 @@
 <?php
 /*
-  $Id: html_graphs.php,v 1.3 2001/09/30 16:20:10 mbs Exp $
+  $Id: html_graphs.php,v 1.4 2002/05/07 23:00:42 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 
-  HTML_Graphs (v1.5 1998/11/05 06:15:52) by Phil Davis (GPL)
-   - Email Address: pdavis@pobox.com
-   - Internet Aaddress: http://www.pobox.com/~pdavis/
-
-  Updated by Harald Ponce de Leon for TEP standards
+  HTML_Graphs (v1.5 1998/11/05 06:15:52) by Phil Davis, http://www.pobox.com/~pdavis/
 */
 
 ////
@@ -312,7 +308,7 @@
 
       $double_vertical_graph_string .= '>';
 
-      if (!$vals['noshowvals']) {
+      if (!$vals['noshowvals'] && $values[$i]) {
         $double_vertical_graph_string .= '<i><font size="-2" color="' . $vals['valuefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $values[$i] . ')</font></i><br>';
       }
 
@@ -332,7 +328,7 @@
 
       $double_vertical_graph_string .= '>';
 
-      if (!$vals['noshowvals']) {
+      if (!$vals['noshowvals'] && $dvalues[$i]) {
         $double_vertical_graph_string .= '<i><font size="-2" color="' . $vals['doublefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $dvalues[$i] . ')</font></i><br>';
       }
 
@@ -386,6 +382,163 @@
 
     $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
                         'hlabel'=>TEXT_BANNERS_LAST_3_DAYS,
+                        'type'=>'3',
+                        'cellpadding'=>'',
+                        'cellspacing'=>'1',
+                        'border'=>'',
+                        'width'=>'',
+                        'vfcolor'=>'#ffffff',
+                        'hfcolor'=>'#ffffff',
+                        'vbgcolor'=>'#81a2b6',
+                        'hbgcolor'=>'#81a2b6',
+                        'vfstyle'=>'Verdana, Arial, Helvetica',
+                        'hfstyle'=>'Verdana, Arial, Helvetica',
+                        'scale'=>100/$largest,
+                        'namebgcolor'=>'#f3f5fe',
+                        'valuebgcolor'=>'#f3f5fe',
+                        'namefcolor'=>'',
+                        'valuefcolor'=>'#0000d0',
+                        'namefstyle'=>'Verdana, Arial, Helvetica',
+                        'valuefstyle'=>'',
+                        'doublefcolor'=>'#ff7339');
+
+    return html_graph($names, $values, $bars, $graph_vals, $dvalues, $dbars);
+  }
+
+////
+// draws a double vertical bar graph for the banner views vs clicks statistics
+  function tep_banner_graph_yearly($banner_id) {
+    global $banner, $HTTP_GET_VARS;
+
+    $banner_stats_query = tep_db_query("select year(banners_history_date) as year, sum(banners_shown) as value, sum(banners_clicked) as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' group by year(banners_history_date)");
+    while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
+      $names[] = $banner_stats['year'];
+      $values[] = (($banner_stats['value']) ? $banner_stats['value'] : '0');
+      $dvalues[] = (($banner_stats['dvalue']) ? $banner_stats['dvalue'] : '0');
+    }
+
+    $largest = @max($values);
+
+    $bars = array();
+    $dbars = array();
+    for ($i=0; $i<sizeof($values); $i++) {
+      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+    }
+
+    $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
+                        'hlabel'=>sprintf(TEXT_BANNERS_YEARLY_STATISTICS, $banner['banners_title']),
+                        'type'=>'3',
+                        'cellpadding'=>'',
+                        'cellspacing'=>'1',
+                        'border'=>'',
+                        'width'=>'',
+                        'vfcolor'=>'#ffffff',
+                        'hfcolor'=>'#ffffff',
+                        'vbgcolor'=>'#81a2b6',
+                        'hbgcolor'=>'#81a2b6',
+                        'vfstyle'=>'Verdana, Arial, Helvetica',
+                        'hfstyle'=>'Verdana, Arial, Helvetica',
+                        'scale'=>100/$largest,
+                        'namebgcolor'=>'#f3f5fe',
+                        'valuebgcolor'=>'#f3f5fe',
+                        'namefcolor'=>'',
+                        'valuefcolor'=>'#0000d0',
+                        'namefstyle'=>'Verdana, Arial, Helvetica',
+                        'valuefstyle'=>'',
+                        'doublefcolor'=>'#ff7339');
+
+    return html_graph($names, $values, $bars, $graph_vals, $dvalues, $dbars);
+  }
+
+////
+// draws a double vertical bar graph for the banner views vs clicks statistics
+  function tep_banner_graph_monthly($banner_id) {
+    global $banner, $HTTP_GET_VARS;
+
+    $year = (($HTTP_GET_VARS['year']) ? $HTTP_GET_VARS['year'] : date('Y'));
+
+    for ($i=1; $i<13; $i++) {
+      $names[] = strftime('%b', mktime(0,0,0,$i));
+      $values[] = '0';
+      $dvalues[] = '0';
+    }
+
+    $banner_stats_query = tep_db_query("select month(banners_history_date) as banner_month, sum(banners_shown) as value, sum(banners_clicked) as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' and year(banners_history_date) = '" . $year . "' group by month(banners_history_date)");
+    while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
+      $names[($banner_stats['banner_month']-1)] = strftime('%b', mktime(0,0,0,$banner_stats['banner_month']));
+      $values[($banner_stats['banner_month']-1)] = (($banner_stats['value']) ? $banner_stats['value'] : '0');
+      $dvalues[($banner_stats['banner_month']-1)] = (($banner_stats['dvalue']) ? $banner_stats['dvalue'] : '0');
+    }
+
+    $largest = @max($values);
+
+    $bars = array();
+    $dbars = array();
+    for ($i=0; $i<sizeof($values); $i++) {
+      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+    }
+
+    $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
+                        'hlabel'=>sprintf(TEXT_BANNERS_MONTHLY_STATISTICS, $banner['banners_title'], date('Y')),
+                        'type'=>'3',
+                        'cellpadding'=>'',
+                        'cellspacing'=>'1',
+                        'border'=>'',
+                        'width'=>'',
+                        'vfcolor'=>'#ffffff',
+                        'hfcolor'=>'#ffffff',
+                        'vbgcolor'=>'#81a2b6',
+                        'hbgcolor'=>'#81a2b6',
+                        'vfstyle'=>'Verdana, Arial, Helvetica',
+                        'hfstyle'=>'Verdana, Arial, Helvetica',
+                        'scale'=>100/$largest,
+                        'namebgcolor'=>'#f3f5fe',
+                        'valuebgcolor'=>'#f3f5fe',
+                        'namefcolor'=>'',
+                        'valuefcolor'=>'#0000d0',
+                        'namefstyle'=>'Verdana, Arial, Helvetica',
+                        'valuefstyle'=>'',
+                        'doublefcolor'=>'#ff7339');
+
+    return html_graph($names, $values, $bars, $graph_vals, $dvalues, $dbars);
+  }
+
+////
+// draws a double vertical bar graph for the banner views vs clicks statistics
+  function tep_banner_graph_daily($banner_id) {
+    global $banner, $HTTP_GET_VARS;
+
+    $year = (($HTTP_GET_VARS['year']) ? $HTTP_GET_VARS['year'] : date('Y'));
+    $month = (($HTTP_GET_VARS['month']) ? $HTTP_GET_VARS['month'] : date('n'));
+
+    $days = (date('t', mktime(0,0,0,$month))+1);
+    $stats = array();
+    for ($i=1; $i<$days; $i++) {
+      $names[] = $i;
+      $values[] = '0';
+      $dvalues[] = '0';
+    }
+
+    $banner_stats_query = tep_db_query("select dayofmonth(banners_history_date) as banner_day, banners_shown as value, banners_clicked as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' and month(banners_history_date) = '" . $month . "' and year(banners_history_date) = '" . $year . "'");
+    while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
+      $names[($banner_stats['banner_day']-1)] = $banner_stats['banner_day'];
+      $values[($banner_stats['banner_day']-1)] = (($banner_stats['value']) ? $banner_stats['value'] : '0');
+      $dvalues[($banner_stats['banner_day']-1)] = (($banner_stats['dvalue']) ? $banner_stats['dvalue'] : '0');
+    }
+
+    $largest = @max($values);
+
+    $bars = array();
+    $dbars = array();
+    for ($i=0; $i<sizeof($values); $i++) {
+      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+    }
+
+    $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
+                        'hlabel'=>sprintf(TEXT_BANNERS_DAILY_STATISTICS, $banner['banners_title'], strftime('%B', mktime(0,0,0,$month)), $year),
                         'type'=>'3',
                         'cellpadding'=>'',
                         'cellspacing'=>'1',
