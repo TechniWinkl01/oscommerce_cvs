@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.23 2001/12/06 18:10:42 dgw_ Exp $
+  $Id: products_expected.php,v 1.24 2001/12/14 13:19:17 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,7 @@
   tep_db_query("update " . TABLE_PRODUCTS . " set products_date_available = '' where to_days(now()) > to_days(products_date_available)");
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.7 2001/12/12 22:57:05 dgw_ Exp $
+  $Id: file_manager.php,v 1.8 2001/12/14 13:19:17 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -63,7 +63,7 @@
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
