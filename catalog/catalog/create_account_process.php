@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.48 2001/06/21 08:55:37 kwiltner Exp $
+  $Id: create_account_process.php,v 1.49 2001/06/26 13:33:42 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -245,6 +245,7 @@
     // build the message content
     $firstname = $HTTP_POST_VARS['firstname'];
     $lastname = $HTTP_POST_VARS['lastname'];
+    $name = $firstname . " " . $lastname;
     $email_address = $HTTP_POST_VARS['email_address'];
 
     if (ACCOUNT_GENDER) {
@@ -258,7 +259,7 @@
     }
 
     $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
-    tep_mail($firstname, $lastname, $email_address, EMAIL_SUBJECT, $email_text, '', EMAIL_FROM, '');
+    tep_mail($name, $email_address, EMAIL_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
     
     if ($HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['connection'] == 'SSL') {
