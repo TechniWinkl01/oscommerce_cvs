@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.9 2002/01/05 10:06:08 hpdl Exp $
+  $Id: default.php,v 1.10 2002/01/13 11:00:09 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Last Actions Taken');
+define('HEADING_TITLE', 'Zuletzt erfolgte Transaktionen');
 
 define('TABLE_HEADING_NEW_CUSTOMERS', 'neue Kunden');
 define('TABLE_HEADING_LAST_ORDERS', 'letzte Bestellungen');

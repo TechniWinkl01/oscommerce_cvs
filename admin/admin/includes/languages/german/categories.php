@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.15 2002/01/09 10:22:07 hpdl Exp $
+  $Id: categories.php,v 1.16 2002/01/13 11:00:09 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -85,6 +85,6 @@ define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 
 define('EMPTY_CATEGORY', 'Leere Kategorie');
 
-define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . DIR_FS_CATALOG_IMAGES);
-define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . DIR_FS_CATALOG_IMAGES);
+define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das images Verzeichnis im Katalogverzeichnis ist schreibgesch&uuml;tzt: ' . DIR_FS_CATALOG_IMAGES);
+define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das images Verzeichnis im Katalogverzeichnis ist nicht vorhanden: ' . DIR_FS_CATALOG_IMAGES);
 ?>

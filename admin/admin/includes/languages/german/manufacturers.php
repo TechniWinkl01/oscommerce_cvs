@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.9 2001/09/30 16:22:19 mbs Exp $
+  $Id: manufacturers.php,v 1.10 2002/01/13 11:00:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,7 +22,7 @@ define('TEXT_MANUFACTURERS', 'Hersteller:');
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung am:');
 define('TEXT_PRODUCTS', 'Artikel:');
-define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
+define('TEXT_IMAGE_NONEXISTENT', 'BILD NICHT VORHANDEN');
 
 define('TEXT_NEW_INTRO', 'Bitte f&uuml;llen Sie die folgenden Felder f&uuml;r den neuen Hersteller aus');
 define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');

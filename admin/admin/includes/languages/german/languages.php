@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.7 2001/12/01 18:37:51 dgw_ Exp $
+  $Id: languages.php,v 1.8 2002/01/13 11:00:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,7 +21,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_INFO_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
 define('TEXT_INFO_LANGUAGE_NAME', 'Name:');
 define('TEXT_INFO_LANGUAGE_CODE', 'Codierung:');
-define('TEXT_INFO_LANGUAGE_IMAGE', 'Bild:');
+define('TEXT_INFO_LANGUAGE_IMAGE', 'Symbol:');
 define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Verzeichnis:');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Sortierreihenfolge:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte f&uuml;llen Sie die folgenden Felder f&uuml;r die neue Sprache aus:');

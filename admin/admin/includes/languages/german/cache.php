@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.9 2002/01/09 10:22:07 hpdl Exp $
+  $Id: cache.php,v 1.10 2002/01/13 11:00:09 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,9 +16,9 @@ define('TABLE_HEADING_CACHE', 'Cache Blöcke');
 define('TABLE_HEADING_DATE_CREATED', 'Erstellt am');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_FILE_DOES_NOT_EXIST', 'Datei existiert nicht');
-define('TEXT_CACHE_DIRECTORY', 'Cache Directory:');
+define('TEXT_FILE_DOES_NOT_EXIST', 'Datei nicht vorhanden');
+define('TEXT_CACHE_DIRECTORY', 'Cache Verzeichnis:');
 
-define('ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST', 'Error: Cache directory does not exist. Please set this in configure.php.');
-define('ERROR_CACHE_DIRECTORY_NOT_WRITEABLE', 'Error: Cache directory is not writeable.');
+define('ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Cache Verzeichnis nicht vorhanden.');
+define('ERROR_CACHE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Cache Verzeichnis ist schreibgesch&uuml;tzt.');
 ?>

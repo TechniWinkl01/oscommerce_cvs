@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_products_purchased.php,v 1.4 2001/09/19 11:13:17 mbs Exp $
+  $Id: stats_products_purchased.php,v 1.5 2002/01/13 11:00:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,7 @@
 */
 
 define('TOP_BAR_TITLE', 'Statistik');
-define('HEADING_TITLE', 'meist gekaufte Artikel');
+define('HEADING_TITLE', 'Am h&auml;figsten gekaufte Artikel');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Artikel');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.10 2002/01/12 18:46:27 hpdl Exp $
+  $Id: customers.php,v 1.11 2002/01/13 11:00:09 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,8 +25,8 @@ define('TEXT_INFO_NUMBER_OF_LOGONS', 'Anzahl der Anmeldungen:');
 define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Anzahl der Produktbewertungen:');
 define('TEXT_DELETE_INTRO', 'Wollen Sie diesen Kunden wirklich l&ouml;schen?');
-define('TEXT_DELETE_REVIEWS', 'Delete %s review(s)');
-define('TEXT_INFO_HEADING_DELETE_CUSTOMER', 'Delete Customer');
-define('TYPE_BELOW', 'Type below');
-define('PLEASE_SELECT', 'Select One');
+define('TEXT_DELETE_REVIEWS', '%s Bewertung(en) l&ouml;schen');
+define('TEXT_INFO_HEADING_DELETE_CUSTOMER', 'Kunde l&ouml;schen');
+define('TYPE_BELOW', 'Unten eingeben');
+define('PLEASE_SELECT', 'Ausw&auml;hlen');
 ?>

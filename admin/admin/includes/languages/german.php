@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.63 2002/01/11 05:03:25 hpdl Exp $
+  $Id: german.php,v 1.64 2002/01/13 11:00:08 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,7 +96,7 @@ define('BOX_HEADING_TOOLS', 'Werkzeuge');
 define('BOX_TOOLS_BACKUP', 'Datenbanksicherung');
 define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
 define('BOX_TOOLS_CACHE', 'Cache Steuerung');
-define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
+define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
 define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
 define('BOX_TOOLS_MAIL', 'Email senden');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
@@ -271,9 +271,9 @@ define('TEXT_DEFAULT', 'Standard');
 define('TEXT_SET_DEFAULT', 'als Standard setzen');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</span>');
 
-define('ERROR_BANNER_TITLE', 'Error: Banner title required');
-define('ERROR_BANNER_GROUP', 'Error: Banner group required');
-define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
+define('ERROR_BANNER_TITLE', 'Fehler: Banner Titel fehlt');
+define('ERROR_BANNER_GROUP', 'Fehler: Banner Gruppe fehlt');
+define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardw&auml;hrung definiert. Bitte unter Adminstration _> Sprachen/W&auml;hrungen -> W&auml;hrungen eine Standardw&auml;hrung definieren');
 
 define('TEXT_CACHE_CATEGORIES', 'Kategorien Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Hersteller Box');

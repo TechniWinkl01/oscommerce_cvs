@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.6 2001/10/01 07:56:01 mbs Exp $
+  $Id: stats_customers.php,v 1.7 2002/01/13 11:00:10 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,7 @@
 */
 
 define('TOP_BAR_TITLE', 'Bericht');
-define('HEADING_TITLE', 'Kunden mit den häufigsten Bestellungen');
+define('HEADING_TITLE', 'Kunden, die am häufigsten Bestellen');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
