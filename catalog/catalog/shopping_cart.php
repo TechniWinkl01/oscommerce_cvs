@@ -7,13 +7,15 @@
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
 // customer wants to update the product quantity in their shopping cart
-      if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
+      if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id'])) && (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id']))) {
         for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
           $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
           $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
         }
       } else {
-        $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
+        if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
+          $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
+        }
       }
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
