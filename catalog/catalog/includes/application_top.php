@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.167 2001/09/01 15:50:43 hpdl Exp $
+  $Id: application_top.php,v 1.168 2001/09/04 19:22:44 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -238,6 +238,10 @@
 
 // include the currency rates
   require(DIR_WS_INCLUDES . 'data/rates.php');
+
+// include currencies class and create an instance
+  require(DIR_WS_CLASSES . 'currencies.php');
+  $currencies = new currencies();
 
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
