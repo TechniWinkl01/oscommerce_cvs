@@ -5,7 +5,7 @@ Last Update: 01/12/2000
 Author(s): David Garcia Watkins (dgw@q-logic.org)
 */
 
-define('TEXT_MAIN', 'Bienvenido a \'' . STORE_NAME . '\'! Este es un catalogo de demostracion, <b>cualquier producto comprado aqui NO sera enviado ni cobrado</b>. Cualquier informacional de los productos del catalogo debe ser tratada como ficticia.<br><br>Si desea descargar este catalogo de demostracion, o desea contribuir al proyecto, por favor visite la <a href="http://www.theexchangeproject.org"><u>web de soporte</u></a>.');
+define('TEXT_MAIN', 'Bienvenido a \'' . STORE_NAME . '\'! Este es un catalogo de demostracion, <b>cualquier producto comprado aqui NO sera enviado ni cobrado</b>. Cualquier informacion de estos productos debe ser tratada como ficticia.<br><br>Si desea descargar este catalogo de demostracion, o desea contribuir al proyecto, por favor visite <a href="http://theexchangeproject.org"><u>la pagina de soporte</u></a>. Esta tienda esta basada en <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Nuevos Productos En %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Proximamente');
 define('TABLE_HEADING_DATE_EXPECTED', 'Lanzamiento');
