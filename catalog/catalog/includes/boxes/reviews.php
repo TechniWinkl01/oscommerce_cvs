@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.22 2001/11/09 19:53:30 dgw_ Exp $
+  $Id: reviews.php,v 1.23 2001/11/24 12:56:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,7 +28,7 @@
   if ($random_product) {
 // display random review box
     $review = htmlspecialchars($random_product['reviews_text']);
-    $review = tep_break_string($review, 15);
+    $review = tep_break_string($review, 15, '-<br>');
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
