@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.85 2002/01/08 21:40:24 project3000 Exp $
+  $Id: german.php,v 1.86 2002/01/18 15:43:15 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -60,8 +60,8 @@ define('FOOTER_TEXT_REQUESTS_SINCE', 'Besucher seit');
 define('FOOTER_TEXT_BODY', 'Copyright &copy; 2001 <a href="http://www.oscommerce.com">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a><br>Powered by <a href="http://www.oscommerce.com">osCommerce</a>');
 
 // text for gender
-define('MALE', 'männlich');
-define('FEMALE', 'weiblich');
+define('MALE', 'Herr');
+define('FEMALE', 'Frau');
 define('MALE_ADDRESS', 'Herr');
 define('FEMALE_ADDRESS', 'Frau');
 
@@ -167,7 +167,7 @@ define('CATEGORY_PASSWORD', 'Ihr Passwort');
 define('ENTRY_COMPANY', 'Firmenname:');
 define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
-define('ENTRY_GENDER', 'Geschlecht:');
+define('ENTRY_GENDER', 'Anrede:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_FIRST_NAME', 'Vorname:');
