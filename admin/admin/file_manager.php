@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.5 2001/12/11 22:44:01 dgw_ Exp $
+  $Id: file_manager.php,v 1.6 2001/12/11 22:54:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -271,7 +271,8 @@
       default:
         if ($fmInfo) { // category info box contents
           $info_box_contents = array();
-          if ($fmInfo->name <> '..') $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=edit&filename=' . $fmInfo->name ) . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=delete&info=' . $fmInfo->key ) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+          if (!$fmInfo->is_dir) $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=edit&filename=' . $fmInfo->name ) . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
+          if ($fmInfo->name <> '..') $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=delete&info=' . $fmInfo->key ) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_FILE_NAME . ' <b>' . $fmInfo->name . '</b>');
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . strftime(DATE_FORMAT_SHORT, $fmInfo->last_modified));
         }
