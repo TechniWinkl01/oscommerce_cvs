@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_new_address.php,v 1.3 2003/05/19 20:17:51 hpdl Exp $
+  $Id: checkout_new_address.php,v 1.4 2003/06/09 22:49:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,8 +15,13 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if (ACCOUNT_GENDER == 'true') {
-    $male = ($gender == 'm') ? true : false;
-    $female = ($gender == 'f') ? true : false;
+    if (isset($gender)) {
+      $male = ($gender == 'm') ? true : false;
+      $female = ($gender == 'f') ? true : false;
+    } else {
+      $male = false;
+      $female = false;
+    }
 ?>
   <tr>
     <td class="main"><?php echo ENTRY_GENDER; ?></td>
@@ -75,7 +80,7 @@
     if ($process == true) {
       if ($entry_state_has_zones == true) {
         $zones_array = array();
-        $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' order by zone_name");
+        $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' order by zone_name");
         while ($zones_values = tep_db_fetch_array($zones_query)) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.61 2003/06/05 23:23:51 hpdl Exp $
+  $Id: account_history.php,v 1.62 2003/06/09 22:52:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,7 +63,7 @@
 
   if ($orders_total > 0) {
     $history_query_raw = "select o.orders_id, o.date_purchased, o.delivery_name, o.billing_name, ot.text as order_total, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . " ot, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . (int)$customer_id . "' and o.orders_id = ot.orders_id and ot.class = 'ot_total' and o.orders_status = s.orders_status_id and s.language_id = '" . (int)$languages_id . "' order by orders_id DESC";
-    $history_split = new splitPageResults($history_query_raw, $HTTP_GET_VARS['page'], MAX_DISPLAY_ORDER_HISTORY);
+    $history_split = new splitPageResults($history_query_raw, MAX_DISPLAY_ORDER_HISTORY);
     $history_query = tep_db_query($history_split->sql_query);
 
     while ($history = tep_db_fetch_array($history_query)) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.9 2003/05/22 14:39:33 hpdl Exp $
+  $Id: address_book_details.php,v 1.10 2003/06/09 22:49:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,8 +27,12 @@
         <td><table border="0" cellspacing="2" cellpadding="2">
 <?php
   if (ACCOUNT_GENDER == 'true') {
-    $male = ($entry['entry_gender'] == 'm') ? true : false;
-    $female = ($entry['entry_gender'] == 'f') ? true : false;
+    if (isset($gender)) {
+      $male = ($gender == 'm') ? true : false;
+    } else {
+      $male = ($entry['entry_gender'] == 'm') ? true : false;
+    }
+    $female = !$male;
 ?>
           <tr>
             <td class="main"><?php echo ENTRY_GENDER; ?></td>
@@ -93,7 +97,7 @@
     if ($process == true) {
       if ($entry_state_has_zones == true) {
         $zones_array = array();
-        $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' order by zone_name");
+        $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' order by zone_name");
         while ($zones_values = tep_db_fetch_array($zones_query)) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }

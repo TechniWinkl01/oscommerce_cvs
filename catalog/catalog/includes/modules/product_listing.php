@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.43 2003/06/05 23:23:53 hpdl Exp $
+  $Id: product_listing.php,v 1.44 2003/06/09 22:49:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $listing_split = new splitPageResults($listing_sql, $HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
+  $listing_split = new splitPageResults($listing_sql, MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
 
   if ( ($listing_split->number_of_rows > 0) && ( (PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3') ) ) {
 ?>
