@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.155 2001/12/03 22:02:54 project3000 Exp $
+# $Id: mysql_catalog.sql,v 1.156 2001/12/04 14:32:25 dgw_ Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -150,7 +150,7 @@ CREATE TABLE currencies (
   decimal_point char(1),
   thousands_point char(1),
   decimal_places char(1),
-  value float,
+  value float(13,8),
   last_updated datetime NULL,
   PRIMARY KEY (currencies_id)
 );
