@@ -152,6 +152,8 @@ define('PASSWORD_HIDDEN', '--HIDDEN--');
 define('IMAGE_BACK', 'Back');
 define('IMAGE_CANCEL', 'Cancel');
 define('IMAGE_CONFIRM', 'Confirm');
+define('IMAGE_COPY', 'Copy');
+define('IMAGE_COPY_TO', 'Copy To');
 define('IMAGE_DELETE', 'Delete');
 define('IMAGE_EDIT', 'Edit');
 define('IMAGE_INSERT', 'Insert');
@@ -174,6 +176,7 @@ define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Displaying <b>%d</b> to <b>%d</b
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products on special)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products expected)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');
