@@ -1,16 +1,16 @@
 <?php
 /*
-  $Id: default.php,v 1.17 2002/01/01 17:26:00 dgw_ Exp $
+  $Id: default.php,v 1.18 2002/01/14 10:34:17 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TEXT_MAIN', 'This is a demonstration online-shop, <b>any products purchased will not be delivered nor billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download this sample shop, or to contribute to this project, please visit the <a href="http://theexchangeproject.org"><u>support site</u></a>. This shop is based on <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.');
+define('TEXT_MAIN', 'This is a demonstration online-shop, <b>any products purchased will not be delivered nor billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download this sample shop, or to contribute to this project, please visit the <a href="http://oscommerce.com"><u>support site</u></a>. This shop is based on <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'New Products For %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Upcoming Products');
 define('TABLE_HEADING_DATE_EXPECTED', 'Date Expected');

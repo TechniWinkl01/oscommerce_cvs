@@ -1,16 +1,16 @@
 <?php
 /*
-  $Id: default.php,v 1.18 2002/01/01 17:26:00 dgw_ Exp $
+  $Id: default.php,v 1.19 2002/01/14 10:34:18 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TEXT_MAIN', 'Dies ist eine Vorf&uuml;hr-Online-Shop, es werden hier weder Produkte verkauft noch verschickt. Die Informationen über in diese Online-Shop vorhande Produkte sind rein erfunden. M&ouml;chten Sie diesen Online-Shop runterladen, oder an diesem Projekt mitarbeiten, so besuchen Sie bitte die <a href="http://theexchangeproject.org"><u>Supportseite</u></a>. Kommentare und Anregungen nehmen wir gerne entgegen.<br><br>Dieser Online-Shop basiert auf <font color="#ff0000"><b>' . PROJECT_VERSION . '</b></font>, und kann auf der Supportseite heruntergeladen werden.');
+define('TEXT_MAIN', 'Dies ist eine Vorf&uuml;hr-Online-Shop, es werden hier weder Produkte verkauft noch verschickt. Die Informationen über die in diesem Online-Shop vorhandenen Produkte sind frei erfunden. M&ouml;chten Sie diesen Online-Shop runterladen, oder an diesem Projekt mitarbeiten, so besuchen Sie bitte die <a href="http://oscommerce.com"><u>Supportseite</u></a>. Kommentare und Anregungen nehmen wir gerne entgegen.<br><br>Dieser Online-Shop basiert auf <font color="#ff0000"><b>' . PROJECT_VERSION . '</b></font>, und kann auf der Supportseite heruntergeladen werden.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Neue Produkte im %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Wann ist was verfügbar');
 define('TABLE_HEADING_DATE_EXPECTED', 'Datum');
