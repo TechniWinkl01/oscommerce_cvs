@@ -161,7 +161,17 @@
 ?>
               <tr>
                 <td align="right" width="100%" class="main">&nbsp;<b><? echo TABLE_SUBHEADING_TOTAL; ?></b>&nbsp;</td>
-                <td align="right" width="100%" class="main">&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
+<?
+  if (TAX_INCLUDE == true) {
+?>
+              <td align="right" width="100%" class="main">&nbsp;<b><? echo tep_currency_format($total_cost + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
+<?
+  } else {
+?>
+              <td align="right" width="100%" class="main">&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
+<?
+  }
+?>
               </tr>
             </table></td>
           </tr>
