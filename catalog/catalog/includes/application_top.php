@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.273 2003/05/19 19:48:15 hpdl Exp $
+  $Id: application_top.php,v 1.274 2003/06/09 22:02:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -255,9 +255,13 @@
     }
 
     include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language($HTTP_GET_VARS['language']);
+    $lng = new language();
 
-    if (!isset($HTTP_GET_VARS['language'])) $lng->get_browser_language();
+    if (isset($HTTP_GET_VARS['language']) && tep_not_null($HTTP_GET_VARS['language'])) {
+      $lng->set_language($HTTP_GET_VARS['language']);
+    } else {
+      $lng->get_browser_language();
+    }
 
     $language = $lng->language['directory'];
     $languages_id = $lng->language['id'];
