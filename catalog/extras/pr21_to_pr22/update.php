@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.30 2002/01/23 16:23:57 hpdl Exp $
+  $Id: update.php,v 1.31 2002/01/25 19:24:13 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -298,6 +298,7 @@ changeText('statusText', 'Updating Configuration');
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Allow Guest To Tell A Friend', 'ALLOW_GUEST_TO_TELL_A_FRIEND', 'false', 'Allow guests to tell a friend about a product', '1', '14', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Verfiy Email Addresses Through DNS', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false', 'Verfiy Email address through a DNS server', '1', '15', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Display Empty Manufacturers', 'DISPLAY_EMPTY_MANUFACTURERS', 'true', 'Display manufacturers with no products', '1', '16', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Default Order Status for new Orders', 'DEFAULT_ORDERS_STATUS_ID', '1', 'When a new order is created, this order status will be assigned to it.', '1', '18', 'tep_cfg_pull_down_orders_status(', 'tep_get_orders_status_name', now())");
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Default Search Operator', 'ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and', 'Default search operators', '1', '17', 'tep_cfg_select_option(array(\'and\', \'or\'), ', now())");
 
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Company', 'ENTRY_COMPANY_LENGTH', '2', 'Minimum length of company name', '2', '6', now())");
