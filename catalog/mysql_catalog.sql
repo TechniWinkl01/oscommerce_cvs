@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.159 2001/12/05 21:32:01 project3000 Exp $
+# $Id: mysql_catalog.sql,v 1.160 2001/12/09 18:20:20 dgw_ Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -280,6 +280,7 @@ CREATE TABLE orders_products (
   orders_products_id int(5) NOT NULL auto_increment,
   orders_id int(5) NOT NULL,
   products_id int(5) NOT NULL,
+  products_model varchar(12),
   products_name varchar(64) NOT NULL,
   products_price decimal(8,2) NOT NULL,
   final_price decimal(8,2) NOT NULL,

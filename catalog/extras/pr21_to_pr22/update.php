@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.21 2001/12/05 09:51:35 jan0815 Exp $
+  $Id: update.php,v 1.22 2001/12/09 18:20:20 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -467,6 +467,7 @@ changeText('statusText', 'Updating Orders');
   tep_db_query("alter table orders change date_purchased date_purchased datetime");
   tep_db_query("alter table orders change last_modified last_modified datetime");
   tep_db_query("alter table orders change orders_date_finished orders_date_finished datetime");
+  tep_db_query("alter table orders_products add column products_model varchar(12)");
 
   tep_db_query("create table orders_status ( orders_status_id int(5) default '0' not null, language_id int(5) default '1' not null, orders_status_name varchar(32) not null, primary key (orders_status_id, language_id), key idx_orders_status_name (orders_status_name))");
 
