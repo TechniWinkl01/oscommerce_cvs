@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.2 2002/03/02 03:14:52 hpdl Exp $
+  $Id: psigate.php,v 1.3 2002/04/05 01:12:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -127,34 +127,36 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id, $sendto, $currencies;
+      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $order, $customer_id, $currencies;
 
-      $customer_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " ab on c.customers_default_address_id = ab.address_book_id and c.customers_id = ab.customers_id where c.customers_id = '" . $customer_id . "'");
-      $customer_values = tep_db_fetch_array($customer_query);
-      $delivery_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_ADDRESS_BOOK . " ab where ab.address_book_id = '" . $sendto . "' and ab.customers_id = '" . $customer_id . "'");
-      $delivery_values = tep_db_fetch_array($delivery_query);
-
-      $Bcountry = tep_get_countries($customer_values['entry_country_id'], true);
-      $Scountry = tep_get_countries($delivery_values['entry_country_id'], true);
+      $countries_query = tep_db_query("select countries_iso_code_2 from " . TABLE_COUNTRIES . " where countries_name in ('" . $order->customer['country'] . "', '" . $order->delivery['country'] . "')");
+      while ($countries = tep_db_fetch_array($countries_query)) {
+        if (isset($Bcountry)) {
+          $Scountry = $countries['countries_iso_code_2'];
+        } else {
+          $Bcountry = $countries['countries_iso_code_2'];
+        }
+      }
+      if (!isset($Scountry)) $Scountry = $Bcountry;
 
       $process_button_string = tep_draw_hidden_field('MerchantID', MODULE_PAYMENT_PSIGATE_MERCHANT_ID) .
-                               tep_draw_hidden_field('FullTotal', number_format(($total_cost + $total_tax + $shipping_cost) * $currencies->get_value(MODULE_PAYMENT_PSIGATE_CURRENCY), 2)) .
+                               tep_draw_hidden_field('FullTotal', number_format($order->info['total'] * $currencies->get_value(MODULE_PAYMENT_PSIGATE_CURRENCY), 2)) .
                                tep_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) . 
                                tep_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL', true)) . 
-                               tep_draw_hidden_field('Bname', $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']) .
-                               tep_draw_hidden_field('Baddr1', $customer_values['entry_street_address']) .
-                               tep_draw_hidden_field('Bcity', $customer_values['entry_city']) .
-                               tep_draw_hidden_field('Bstate', tep_get_zone_name($customer_values['entry_country_id'], $customer_values['entry_zone_id'], $customer_values['entry_state'])) .
-                               tep_draw_hidden_field('Bzip', $customer_values['entry_postcode']) .
-                               tep_draw_hidden_field('Bcountry', $Bcountry['countries_iso_code_2']) .
-                               tep_draw_hidden_field('Phone', $customer_values['customers_telephone']) .
-                               tep_draw_hidden_field('Email', $customer_values['customers_email_address']) .
-                               tep_draw_hidden_field('Sname', $delivery_values['entry_firstname'] . ' ' . $delivery_values['entry_lastname']) .
-                               tep_draw_hidden_field('Saddr1', $delivery_values['entry_street_address']) .
-                               tep_draw_hidden_field('Scity', $delivery_values['entry_city']) .
-                               tep_draw_hidden_field('Sstate', tep_get_zone_name($delivery_values['entry_country_id'], $delivery_values['entry_zone_id'], $delivery_values['entry_state'])) .
-                               tep_draw_hidden_field('Szip', $delivery_values['entry_postcode']) .
-                               tep_draw_hidden_field('Scountry', $Scountry['countries_iso_code_2']) .
+                               tep_draw_hidden_field('Bname', $order->customer['firstname'] . ' ' . $order->customer['lastname']) .
+                               tep_draw_hidden_field('Baddr1', $order->customer['street_address']) .
+                               tep_draw_hidden_field('Bcity', $order->customer['city']) .
+                               tep_draw_hidden_field('Bstate', $order->customer['state']) .
+                               tep_draw_hidden_field('Bzip', $order->customer['postcode']) .
+                               tep_draw_hidden_field('Bcountry', $Bcountry) .
+                               tep_draw_hidden_field('Phone', $order->customer['telephone']) .
+                               tep_draw_hidden_field('Email', $order->customer['email_address']) .
+                               tep_draw_hidden_field('Sname', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
+                               tep_draw_hidden_field('Saddr1', $order->delivery['street_address']) .
+                               tep_draw_hidden_field('Scity', $order->delivery['city']) .
+                               tep_draw_hidden_field('Sstate', $order->delivery['state']) .
+                               tep_draw_hidden_field('Szip', $order->delivery['postcode']) .
+                               tep_draw_hidden_field('Scountry', $Scountry) .
                                tep_draw_hidden_field('ChargeType', MODULE_PAYMENT_PSIGATE_TRANSACTION_TYPE) .
                                tep_draw_hidden_field('Result', MODULE_PAYMENT_PSIGATE_TRANSACTION_MODE) .
                                tep_draw_hidden_field('IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
