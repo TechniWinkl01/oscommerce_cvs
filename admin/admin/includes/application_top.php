@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.130 2002/01/30 01:14:20 hpdl Exp $
+  $Id: application_top.php,v 1.131 2002/01/30 16:27:04 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -204,7 +204,6 @@
 
 // entry/item info classes
   require(DIR_WS_CLASSES . 'object_info.php');
-  require(DIR_WS_CLASSES . 'review_info.php');
   require(DIR_WS_CLASSES . 'special_price_info.php');
 
 // calculate category path
