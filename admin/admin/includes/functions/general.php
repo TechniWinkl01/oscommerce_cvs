@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.159 2003/07/11 14:39:28 hpdl Exp $
+  $Id: general.php,v 1.160 2003/07/12 08:32:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -285,7 +285,7 @@
         return false;
       }
     } else {
-      if (is_string($value) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+      if ( (is_string($value) || is_int($value)) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
         return true;
       } else {
         return false;
