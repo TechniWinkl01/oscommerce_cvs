@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sample.php,v 1.17 2001/10/10 19:02:43 project3000 Exp $
+  $Id: sample.php,v 1.18 2002/01/20 16:07:40 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -86,10 +86,11 @@
 // !Check if module is installed (Administration Tool)_
 // TABLES: configuration
     function check() {
-      $check = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
-      $check = tep_db_num_rows($check);
-
-      return $check;
+      if (!isset($this->check)) {
+        $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
+        $this->check = tep_db_num_rows($check_query);
+      }
+      return $this->check;
     }
 
 ////

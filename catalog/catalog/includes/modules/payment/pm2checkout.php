@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.2 2002/01/20 15:11:44 hpdl Exp $
+  $Id: pm2checkout.php,v 1.3 2002/01/20 16:07:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -154,8 +154,11 @@
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_STATUS'");
-      return tep_db_num_rows($check);
+      if (!isset($this->check)) {
+        $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_STATUS'");
+        $this->check = tep_db_num_rows($check_query);
+      }
+      return $this->check;
     }
 
     function install() {
