@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.5 2002/08/06 11:34:39 hpdl Exp $
+  $Id: install_4.php,v 1.6 2002/08/12 12:09:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,10 +79,10 @@ Enable Secure Connections With SSL (HTTPS)</p>
 The directory where your web pages are being served from, usually <i>/home/myname/public_html</i>.</p>
 
 <p><b>Webserver Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_FS_CATALOG'); ?><br>
-The directory where your catalog pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog</b></i>.</p>
+The directory where your catalog pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog/</b></i>.</p>
 
 <p><b>Webserver Administration Tool Directory</b><br><?php echo osc_draw_input_field('DIR_FS_ADMIN'); ?><br>
-The directory where your administration tool pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog/admin</b></i>.</p>
+The directory where your administration tool pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog/admin/</b></i>.</p>
 
 <p><b>WWW Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_WS_CATALOG'); ?><br>
 The directory where the osCommerce Catalog module resides, usually <i>/catalog/</i>.</p>
