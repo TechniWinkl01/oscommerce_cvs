@@ -83,7 +83,7 @@
     }
 
     if ($currencies['currencies_id'] == @$cInfo->id) {
-      echo '                  <tr bgcolor="#b0c8df">' . "\n";
+      echo '                  <tr class="selectedRow">' . "\n";
     } else {
       echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $currencies['currencies_id'], 'NONSSL') . '\'">' . "\n";
     }
@@ -178,13 +178,11 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>&nbsp;' . tep_currency_format('30', false, CURRENCY_VALUE) . ' = ' . tep_currency_format('30', true, $cInfo->code));
   }
 ?>
-              <tr bgcolor="#b0c8df"><? echo $form; ?>
-                <td>
-                  <? new infoBox($info_box_contents); ?>
-                </td>
+              <tr><? echo $form; ?>
+                <td class="box"><? new infoBox($info_box_contents); ?></td>
               <? if ($form) echo '</form>'; ?></tr>
-              <tr bgcolor="#b0c8df">
-                <td><? echo tep_black_line(); ?></td>
+              <tr>
+                <td class="box"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>

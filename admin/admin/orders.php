@@ -39,7 +39,7 @@ function alertBox() {
 <?
   }
 ?>
-<body <? if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?> marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body <? if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?>>
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -342,7 +342,7 @@ function alertBox() {
       }
       $total = $total + $orders_values['shipping_cost'];
 ?>
-          <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999';this.style.cursor='hand'" onmouseout="this.style.background='#d8e1eb'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
+          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
             <td class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><? echo $orders_values['customers_name']; ?></a>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($total, 2); ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
@@ -377,7 +377,6 @@ function alertBox() {
 <!-- footer //-->
 <? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
-<br>
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

@@ -79,8 +79,7 @@ var myWindow = window.open(WinName, 'Win' + t, 'resizable=yes,location=no,scroll
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
-<!BODY BGCOLOR=#909090 onLoad="document . loginform . mid . focus ();">
+<body>
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -151,7 +150,6 @@ onClick='openPopWin("https://secure.itransact.com/support/login.html","300","250
 <!-- footer //-->
 <? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
-<br>
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

@@ -19,7 +19,7 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
 </head>
-<body onload="SetFocus();" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body onload="SetFocus();">
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -82,9 +82,9 @@
     }
 
     if ($zones['zone_id'] == @$zInfo->id) {
-      echo '                  <tr bgcolor="#b0c8df">' . "\n";
+      echo '                  <tr class="selectedRow">' . "\n";
     } else {
-      echo '                  <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $zones['zone_id'], 'NONSSL') . '\'">' . "\n";
+      echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ZONES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $zones['zone_id'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
                 <td class="smallText">&nbsp;<? echo $zones['countries_name']; ?>&nbsp;</td>
@@ -124,12 +124,10 @@
   if ((!$zInfo) && ($HTTP_GET_VARS['action'] == 'new')) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . TEXT_INFO_HEADING_NEW_ZONE . '</b>&nbsp;');
 
 ?>
-              <tr bgcolor="#81a2b6">
-                <td>
-                  <? new infoBoxHeading($info_box_contents); ?>
-                </td>
+              <tr class="boxHeading">
+                <td><? new infoBoxHeading($info_box_contents); ?></td>
               </tr>
-              <tr bgcolor="#81a2b6">
+              <tr class="boxHeading">
                 <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
@@ -165,13 +163,11 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_COUNTRY_NAME . '<br>&nbsp;' . $zInfo->country);
   }
 ?>
-              <tr bgcolor="#b0c8df"><? echo $form; ?>
-                <td>
-                  <? new infoBox($info_box_contents); ?>
-                </td>
+              <tr><? echo $form; ?>
+                <td class="box"><? new infoBox($info_box_contents); ?></td>
               <? if ($form) echo '</form>'; ?></tr>
-              <tr bgcolor="#b0c8df">
-                <td><? echo tep_black_line(); ?></td>
+              <tr>
+                <td class="box"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -186,7 +182,6 @@
 <!-- footer //-->
 <? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
-<br>
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
