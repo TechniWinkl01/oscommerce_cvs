@@ -1,4 +1,7 @@
 <!-- catalog //-->
+<? include('includes/boxes/configuration.php'); ?>
+<!-- catalog_eof //-->
+<!-- catalog //-->
 <? include('includes/boxes/catalog.php'); ?>
 <!-- catalog_eof //-->
 <!-- customers //-->
