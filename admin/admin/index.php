@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.16 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: index.php,v 1.17 2003/02/14 12:57:29 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,9 +57,13 @@
 
   $languages = tep_get_languages();
   $languages_array = array();
+  $languages_selected = DEFAULT_LANGUAGE;
   for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
     $languages_array[] = array('id' => $languages[$i]['code'],
                                'text' => $languages[$i]['name']);
+    if ($languages[$i]['directory'] == $language) {
+      $languages_selected = $languages[$i]['code'];
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -192,7 +196,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                     <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                       <tr><?php echo tep_draw_form('languages', 'index.php', '', 'get'); ?>
                         <td class="heading"><?php echo HEADING_TITLE; ?></td>
-                        <td align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, ($HTTP_GET_VARS['language'] ? $HTTP_GET_VARS['language'] : DEFAULT_LANGUAGE), 'onChange="this.form.submit();"'); ?></td>
+                        <td align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?></td>
                       </form></tr>
                     </table></td>
                   </tr>
