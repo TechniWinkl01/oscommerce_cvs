@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.4 2001/04/18 11:53:34 mbs Exp $
+  // $Id: login_create.php,v 1.5 2001/04/27 19:35:08 hpdl Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
@@ -270,7 +270,7 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -346,7 +346,7 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING2_TITLE; ?>&nbsp;</font></td>
+            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING2_TITLE; ?>&nbsp;</td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING2_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>

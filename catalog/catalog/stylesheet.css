@@ -101,3 +101,8 @@ TD.productListing-data {
 	font-family : Verdana, Arial, sans-serif;
 	font-size : 10px;
 }
+
+TD.pageHeading, DIV.pageHeading {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 18px;
+}

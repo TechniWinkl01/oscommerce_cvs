@@ -46,7 +46,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td valign="top"><div align="center"><br><?php echo FONT_STYLE_HEADING; ?><? echo SUB_BAR_TITLE; ?>&nbsp;</font></div><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_SUCCESS; ?></font></td>
+            <td valign="top"><div align="center" class="pageHeading"><br><? echo SUB_BAR_TITLE; ?>&nbsp;</div><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_SUCCESS; ?></font></td>
           </tr>
         </table></td>
       </tr>
@@ -65,7 +65,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>

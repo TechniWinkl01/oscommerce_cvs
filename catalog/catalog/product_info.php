@@ -80,12 +80,12 @@ function popupImageWindow(url) {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</font></td>
+            <td class="pageHeading" nowrap>&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</td>
             <td align="right" nowrap>&nbsp;<? if (isset($manufacturer)) echo tep_image($manufacturer['manufacturers_image'], $manufacturer['manufacturers_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
 <?
     if (PRODUCT_LIST_MODEL) {
-      echo '<tr><td nowrap>' . FONT_STYLE_HEADING . '&nbsp;' . $product_info_values['products_model'] . '&nbsp;</font></td>';
+      echo '<tr><td class="pageHeading" nowrap>&nbsp;' . $product_info_values['products_model'] . '&nbsp;</td>';
     }
 ?>
         </table></td>

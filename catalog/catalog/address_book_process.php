@@ -312,10 +312,10 @@ function check_form() {
           <tr>
 <?
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
-    echo '            <td nowrap>' . FONT_STYLE_HEADING . '&nbsp;' . HEADING_TITLE_MODIFY_ENTRY . '&nbsp;</font></td>' . "\n";
-    echo '            <td align="left" nowrap>' . FONT_STYLE_HEADING . '<br>' . tep_address_label($customer_id, $HTTP_GET_VARS['entry_id'], 1, '&nbsp;', '<br>') . '&nbsp;</font></td>' . "\n";
+    echo '            <td class="pageHeading" nowrap>&nbsp;' . HEADING_TITLE_MODIFY_ENTRY . '&nbsp;</td>' . "\n";
+    echo '            <td class="pageHeading" nowrap><br>' . tep_address_label($customer_id, $HTTP_GET_VARS['entry_id'], 1, '&nbsp;', '<br>') . '&nbsp;</td>' . "\n";
   } else {
-    echo '            <td nowrap>' . FONT_STYLE_HEADING . '&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</font></td>' . "\n";
+    echo '            <td class="pageHeading" nowrap>&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
   }
   echo '            <td align="right" nowrap>&nbsp;' . tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '&nbsp;</td>' . "\n";
   $rowspan = 5+ACCOUNT_GENDER;
