@@ -208,6 +208,9 @@
 // include shopping cart class
   $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
 
+// some code to solve compatibility issues
+  $include_file = DIR_FUNCTIONS . 'compatibility.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
     $include_file = DIR_CLASSES . 'sessions.php'; include(DIR_INCLUDES . 'include_once.php');
