@@ -161,7 +161,7 @@ function checkFormAtrib() {
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100% " cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="3"><? echo tep_black_line(); ?></td>
           </tr>
@@ -226,7 +226,7 @@ function checkFormAtrib() {
 ?>
       <tr>
         <td colspan="2"><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_OPT; ?>&nbsp;</font></td>
-        <td align="center"><br><form name="option_order_by"><select name="selected" onChange="go_option()"><option value="products_options_id"<? if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>>Option ID</option><option value="products_options_name"<? if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>>Option Name</option></select></form></td>
+        <td align="center"><br><form name="option_order_by" action="<?=FILENAME_PRODUCTS_ATTRIBUTES;?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<? if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>>Option ID</option><option value="products_options_name"<? if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>>Option Name</option></select></form></td>
       </tr>
       <tr>
         <td colspan=3><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">
@@ -349,9 +349,13 @@ function checkFormAtrib() {
   }
   }
 ?>	  
-</table>	  
+</table>
+</table> <!-- Change 1 //-->
+	
 <!-- options eof //-->
-</td><td valign="top" width="50%">
+</td></tr>
+<tr>
+<td valign="top" width="50%">
 <!-- value //-->
 <table width="100%" border="0" cellspacing="0" cellpadding="2">
 <?
@@ -571,7 +575,7 @@ function checkFormAtrib() {
   }
   }
 ?>	  
-</table></td></tr></table>
+</table></td></tr></table></table>
 <!-- option value eof //-->
 </td></tr> 
 <!-- products_attributes //-->  
@@ -772,7 +776,7 @@ function checkFormAtrib() {
 ?>
         </table></td>
       </tr>
-    </table></td>
+    </table></td></table>
 <!-- products_attributes_eof //-->	
 <!-- body_text_eof //-->
 
