@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.48 2003/11/17 20:36:50 hpdl Exp $
+  $Id: usps.php,v 1.49 2004/02/14 19:40:45 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,20 +43,20 @@
         }
       }
 
-      $this->types = array('Express' => 'Express Mail',
+      $this->types = array('Express' => 'EXPRESS',
                            'First Class' => 'First-Class Mail',
-                           'Priority' => 'Priority Mail',
-                           'Parcel' => 'Parcel Post');
+                           'Priority' => 'Priority',
+                           'Parcel' => 'Parcel');
 
       $this->intl_types = array('GXG Document' => 'Global Express Guaranteed Document Service',
                                 'GXG Non-Document' => 'Global Express Guaranteed Non-Document Service',
                                 'Express' => 'Global Express Mail (EMS)',
-                                'Priority Lg' => 'Global Priority Mail - Flat-rate Envelope (large)',
-                                'Priority Sm' => 'Global Priority Mail - Flat-rate Envelope (small)',
-                                'Priority Var' => 'Global Priority Mail - Variable Weight Envelope (single)',
-                                'Airmail Letter' => 'Airmail Letter Post',
+                                'Priority Lg' => 'Global Priority Mail - Flat-rate Envelope (Large)',
+                                'Priority Sm' => 'Global Priority Mail - Flat-rate Envelope (Small)',
+                                'Priority Var' => 'Global Priority Mail - Variable Weight Envelope (Single)',
+                                'Airmail Letter' => 'Airmail Letter-post',
                                 'Airmail Parcel' => 'Airmail Parcel Post',
-                                'Surface Letter' => 'Economy (Surface) Letter Post',
+                                'Surface Letter' => 'Economy (Surface) Letter-post',
                                 'Surface Post' => 'Economy (Surface) Parcel Post');
 
       $this->countries = $this->country_list();
