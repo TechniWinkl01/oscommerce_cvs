@@ -1,4 +1,8 @@
 <?
+  @include('configure.php');
+  if (CONFIGURE_STATUS != 'COMPLETED') { // File not read properly
+     die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.');
+  }
 // define our webserver variables
   define('HTTP_SERVER', 'http://exchange');
   define('HTTPS_SERVER', 'https://exchange');
