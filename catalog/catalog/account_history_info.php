@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.83 2002/05/27 13:06:28 hpdl Exp $
+  $Id: account_history_info.php,v 1.84 2002/06/01 18:41:23 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -127,6 +127,9 @@
           </tr>
         </table></td>
       </tr>
+<?php
+  if (tep_not_null($order->info['payment_method'])) {
+?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
@@ -144,6 +147,8 @@
         </table></td>
       </tr>
 <?php
+  }
+
   if (tep_not_null($order->info['comments'])) {
 ?>
       <tr>
