@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.53 2001/06/05 15:08:23 mbs Exp $
+  $Id: categories.php,v 1.54 2001/06/05 23:35:14 bhalsted Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -747,7 +747,7 @@
           if ($cInfo) { // category info box contents
             $info_box_contents = array();
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=edit_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
-            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' tep_date_short($cInfo->last_modified));
+            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . tep_date_short($cInfo->last_modified));
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . tep_info_image($cInfo->image, $cInfo->name) . '<br>&nbsp;' . $cInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif ($pInfo) { // product info box contents
