@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.5 2002/01/20 15:09:39 hpdl Exp $
+  $Id: modules.php,v 1.6 2002/01/28 16:53:27 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,5 +17,5 @@ define('TABLE_HEADING_MODULES', 'Module');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_MODULE_DIRECTORY', 'Module Directory:');
+define('TEXT_MODULE_DIRECTORY', 'Modul Verzeichnis:');
 ?>
