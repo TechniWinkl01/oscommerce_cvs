@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.33 2002/01/20 15:09:39 hpdl Exp $
+  $Id: modules.php,v 1.34 2002/01/20 16:06:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -135,7 +135,11 @@
       }
 
       if ( (is_object($mInfo)) && ($class == $mInfo->code) ) {
-        echo '              <tr class="selectedRow">' . "\n";
+        if ($module->check() == '1') {
+          echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+        } else {
+          echo '              <tr class="selectedRow">' . "\n";
+        }
       } else {
         echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class) . '\'">' . "\n";
       }
