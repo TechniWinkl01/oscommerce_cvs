@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_details.php,v 1.6 2003/02/12 23:55:58 hpdl Exp $
+  $Id: order_details.php,v 1.7 2003/02/13 01:46:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -77,7 +77,7 @@
     }
 
 // Product options names
-    $attributes_exist = ((isset($products[$i]['attributes'])) ? 1 : 0;
+    $attributes_exist = ((isset($products[$i]['attributes'])) ? 1 : 0);
 
     if ($attributes_exist == 1) {
       reset($products[$i]['attributes']);
