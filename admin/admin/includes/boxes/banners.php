@@ -12,7 +12,7 @@
   if ($selected_box == 'banners') {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL') . '">' . BOX_BANNERS_MANAGER . '</a><br>'
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL') . '">' . BOX_BANNERS_MANAGER . '</a><br>'
                                 );
     new infoBox($info_box_contents);
   }

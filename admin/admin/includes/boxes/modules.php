@@ -12,8 +12,8 @@
   if ($selected_box == 'modules') {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=payment', 'NONSSL') . '">' . BOX_MODULES_PAYMENT . '</a><br>' .
-                                            '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=shipping', 'NONSSL') . '">' . BOX_MODULES_SHIPPING . '</a>'
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_MODULES, 'set=payment', 'NONSSL') . '">' . BOX_MODULES_PAYMENT . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_MODULES, 'set=shipping', 'NONSSL') . '">' . BOX_MODULES_SHIPPING . '</a>'
                                 );
     new infoBox($info_box_contents);
   }

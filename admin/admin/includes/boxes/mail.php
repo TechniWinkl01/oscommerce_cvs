@@ -12,7 +12,7 @@
   if ($selected_box == 'mail') {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_MAIL, '', 'NONSSL') . '">' . BOX_MAIL_MAIL . '</a>'
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_MAIL, '', 'NONSSL') . '">' . BOX_MAIL_MAIL . '</a>'
                                 );
     new infoBox($info_box_contents);
   }
