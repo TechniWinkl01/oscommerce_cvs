@@ -5,36 +5,24 @@
     tep_exit();
   }
 
-// Stock Check !
-   if (STOCK_CHECK) {
-
+// Stock Check
+  if (STOCK_CHECK) {
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
-    $products_name = $products[$i]['name'];
-    $products_id = $products[$i]['id'];
-    check_stock ($products[$i]['id'], $products[$i]['quantity']);
-                     }
+      $products_name = $products[$i]['name'];
+      $products_id = $products[$i]['id'];
+      check_stock($products[$i]['id'], $products[$i]['quantity']);
+    }
+    if (STOCK_ALLOW_CHECKOUT) {
+    } else {
+      if ($any_out_of_stock) {
+        // Out of Stock
+        header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
+        tep_exit();
+      }
+    }
+  }
 
-       if (STOCK_ALLOW_CHECKOUT) {
-
-       } else {
-
-  if ($any_out_of_stock) {
-  // Out of Stock
-  header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
-  exit;
-          }
-      } // Stock Allow Checkout
-
-  } // Stock Check IF
-// Stock Check
-
-
-// Stock Check
-
-
-?>
-<?php
   $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php');
   $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
@@ -203,50 +191,6 @@
               </tr>
             </table></td>
           </tr>
-
-          <? // Stock Options prompts user for sendind when STOCK is available or send now !
-         if (($any_out_of_stock) and (STOCK_ALLOW_CHECKOUT)) {  ?>
-
-         <tr>
-         <td class="tableHeading" nowrap colspan="4">&nbsp;<? echo TEXT_STOCK_WARNING; ?></td>
-         </tr>
-         <tr>
-         <td class="tableHeading" nowrap colspan="4"><? echo tep_black_line(); ?></td>
-         </tr>
-         <tr class=payment-odd>
-         <td class="main" width=33% nowrap colspan="2">&nbsp;<? echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked></td>
-         <td class="main" width=33% nowrap colspan="2">&nbsp;<? echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
-         </tr>
-         <tr>
-         <td class="infoBox" width=100% colspan="4">
-         <br>
-         <? echo TEXT_STOCK_WARNING_DESC; ?>
-         </td>
-         </tr>
-         <tr>
-         <td class="infoBox" colspan="4">
-          <b><? echo TEXT_IMEDIATE_DELIVER; ?></b><br><br>
-         <?
-    for ($i=0; $i<sizeof($products); $i++) {
-    $products_name = $products[$i]['name'];
-    $products_price = $products[$i]['price'];
-    $products_id = $products[$i]['id'];
-    $products_quantity = $products[$i]['quantity'];
-    check_stock ($products[$i]['id'], $products[$i]['quantity']);
-
-                        if ($out_of_stock) {
-//    $qtd_to_ship = ($products_quantity  -= $qtd_stock);
-      if ($qtd_stock <= 0) { $qtd_stock = 0; }
-      echo "<b>".$qtd_stock."</b> "; echo TEXT_UNITS; echo " <b>".$products_name."</b><br>";
-            }
-        }
-        ?></td>
-         </tr>
-          <? }
-          // Stock
-          ?>
-
-
         </table></td>
       </tr>
       <tr>
@@ -277,31 +221,72 @@
 // load the confirmation function from the payment modules
     $payment_modules->confirmation();
   }
-  if ($comments) {
-?>
-        <tr>
-            <td class="main">&nbsp;</td>
-        </tr>
-        <tr>
-          <td colspan="2" class="main" nowrap><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
-        </tr>
-        <tr>
-          <td colspan="2"><? echo tep_black_line(); ?></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="main"><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></td>
-        </tr>
-<?
-  }
-?>
-        <tr>
-          <td colspan="2"><? echo tep_black_line(); ?></td>
-        </tr>
-<?
   if (!$checkout_form_action) {
     $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
   }
-  echo '          <form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '"><tr>' . "\n";
+  echo '<form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '">';
+
+  if ($comments) {
+?>
+          <tr>
+            <td class="main">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="main" nowrap><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+          </tr>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+            <td class="main"><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></td>
+          </tr>
+<?
+  }
+// Stock Options prompts user for sending when STOCK is available or send now !
+  if (($any_out_of_stock) && (STOCK_ALLOW_CHECKOUT) && (MODULE_SHIPPING_INSTALLED)) {
+?>
+          <tr>
+            <td class="main">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="tableHeading" nowrap>&nbsp;<? echo TEXT_STOCK_WARNING; ?></td>
+          </tr>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr class="payment-odd">
+            <td class="main" nowrap>&nbsp;<? echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked>&nbsp;&nbsp;<? echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
+          </tr>
+          <tr>
+            <td class="infoBox"><br><? echo TEXT_STOCK_WARNING_DESC; ?></td>
+          </tr>
+          <tr>
+            <td class="infoBox"><b><? echo TEXT_IMEDIATE_DELIVER; ?></b><br><br>
+<?
+    for ($i=0; $i<sizeof($products); $i++) {
+      $products_name = $products[$i]['name'];
+      $products_price = $products[$i]['price'];
+      $products_id = $products[$i]['id'];
+      $products_quantity = $products[$i]['quantity'];
+      check_stock($products[$i]['id'], $products[$i]['quantity']);
+
+      if ($out_of_stock) {
+//  $qtd_to_ship = ($products_quantity  -= $qtd_stock);
+        if ($qtd_stock < 0) $qtd_stock = 0;
+        echo '<b>' . $qtd_stock . '</b> ' . TEXT_UNITS . ' <b>' . $products_name . '</b><br>';
+      }
+    }
+?>
+            </td>
+          </tr>
+<?
+  }
+?>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
+          </tr>
+<?
+  echo '          <tr>' . "\n";
   echo '            <td align="right" nowrap>' .
                    '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
                    '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
