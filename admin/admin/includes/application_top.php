@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.82 2001/09/30 20:21:12 mbs Exp $
+  $Id: application_top.php,v 1.83 2001/10/12 15:43:28 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -68,7 +68,6 @@
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
-  define('FILENAME_GATEWAY_ITRANSACT', 'itransact.php');
   define('FILENAME_LANGUAGES', 'languages.php');
   define('FILENAME_MAIL', 'mail.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
