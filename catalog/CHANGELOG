@@ -1,7 +1,7 @@
 xx/xx/2001 The Exchange Project Preview Release 2.2
 ---------------------------------------------------
 
- * Manufacturer now saved when adding products (bug fix).
+ * Manufacturer now saved when adding products. (bug fix)
 
  * Added .htaccess file in the 'includes' directory for some
    security (blocks direct http requests to .php files).
@@ -20,15 +20,31 @@ xx/xx/2001 The Exchange Project Preview Release 2.2
  * Administration Tool sections now with opened/closed box
    approach (the list of functions was getting too long!).
 
- * New login and create account page merged to one file
-   - Note, by default this is not in use.
+ * New login and create account option page (ala Amazon style)
 
  * Click on the products image (in products details) and a
    new browser window will open and resize itself to the image
-   shown - will be used later to display larger pictures
-   of the product.
+   shown - used to display larger pictures of the product.
 
  * All font styles are now in stylesheets.
+
+ * Full locaization support (ie, categories title, products
+   descriptions, image buttons, etc)
+
+ * Table names now as constants (variables)
+
+ * Banner support functionality
+
+ * Products expected now as normal products (with descriptions)
+
+ * Stock control functionality
+
+ * Products with different attributes can now be added to the
+   shopping cart. (feature fix)
+
+ * Authorize.net support added
+
+ * Sessions can now be stored in the database
 
 
 06/03/2001 The Exchange Project Preview Release 2.1
