@@ -186,10 +186,11 @@
 // Validate payment data again
   $payment_action = 'PM_CONFIRMATION';
   include(DIR_MODULES . 'payment.php');
+  if ($comments) {
 ?>
-          <tr>
+        <tr>
             <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
-          </tr>
+        </tr>
         <tr>
           <td nowrap colspan="2"><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
         </tr>
@@ -199,6 +200,9 @@
         <tr>
           <td colspan="2"><?php echo FONT_STYLE_MAIN; ?><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></font></td>
         </tr>
+<?
+  }
+?>
         <tr>
           <td colspan="2"><? echo tep_black_line(); ?></td>
         </tr>
@@ -228,7 +232,7 @@
         </table></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_CART_CONTENTS . ' | ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></font></td>
+        <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></font></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

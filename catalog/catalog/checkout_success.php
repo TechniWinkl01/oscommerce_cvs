@@ -46,6 +46,9 @@
       <tr>
         <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       </tr>
+      <tr>
+        <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | ' . CHECKOUT_BAR_CONFIRMATION . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_FINISHED . '</font> ]</font>&nbsp;'; ?></font></td>
+      </tr>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">

@@ -1,10 +1,10 @@
 <? include('includes/application_top.php'); ?>
 <?
-    if (getenv(HTTPS)) {
-      $connection = 'SSL';
-    } else {
-      $connection = 'NONSSL';
-    } 
+  if (getenv(HTTPS)) {
+    $connection = 'SSL';
+  } else {
+    $connection = 'NONSSL';
+  } 
   if ($cart->count_contents() == 0) {
     header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
     tep_exit();
@@ -185,7 +185,7 @@ function check_form() {
             <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS; ?> | <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
+            <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>

@@ -1,10 +1,10 @@
 <? include('includes/application_top.php'); ?>
 <?
-    if (getenv(HTTPS)) {
-      $connection = 'secure';
-    } else {
-      $connection = 'normal';
-    }
+  if (getenv(HTTPS)) {
+    $connection = 'secure';
+  } else {
+    $connection = 'normal';
+  }
   if (!tep_session_is_registered('customer_id')) {
     header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
     tep_exit();
@@ -160,7 +160,7 @@
             </table></td>
           </tr>
           <tr>
-            <td align="right"><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></font> | <? echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
+            <td align="right"><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></font> | <? echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
