@@ -1,16 +1,16 @@
 <?php
 /*
-  $Id: secpay.php,v 1.5 2001/09/20 19:41:20 mbs Exp $
+  $Id: secpay.php,v 1.6 2002/04/17 20:31:18 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
   define('MODULE_PAYMENT_SECPAY_TEXT_TITLE', 'SECPay');
-  define('MODULE_PAYMENT_SECPAY_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4444333322221111<br>Expiry: Any');
-  define('MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE', 'There has been an error processing you credit card, please try again.');
+  define('MODULE_PAYMENT_SECPAY_TEXT_DESCRIPTION', 'Kreditkarten Test Info:<br><br>CC#: 4444333322221111<br>G&uuml;ltig bis: Any');
+  define('MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE', 'Bei der &Uuml;berp&uuml;fung Ihrer Kreditkarte ist ein Fehler aufgetreten! Bitte versuchen Sie es nochmal.');
 ?>
