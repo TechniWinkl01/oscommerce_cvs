@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.2 2002/01/04 09:15:45 hpdl Exp $
+# $Id: oscommerce.sql,v 1.3 2002/01/09 17:19:25 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -78,6 +78,7 @@ CREATE TABLE categories (
    sort_order int(3),
    date_added datetime,
    last_modified datetime,
+   status int(1) DEFAULT '1',
    PRIMARY KEY (categories_id),
    KEY idx_categories_parent_id (parent_id)
 );
@@ -501,26 +502,26 @@ INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postco
 
 INSERT INTO banners VALUES (1, 'osCommerce', 'http://www.oscommerce.com', 'banners/oscommerce.gif', '468x50', '', 0, null, null, now(), null, 1);
 
-INSERT INTO categories VALUES ( '1', 'category_hardware.gif', '0', '1', now(), null);
-INSERT INTO categories VALUES ( '2', 'category_software.gif', '0', '2', now(), null);
-INSERT INTO categories VALUES ( '3', 'category_dvd_movies.gif', '0', '3', now(), null);
-INSERT INTO categories VALUES ( '4', 'subcategory_graphic_cards.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '5', 'subcategory_printers.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '6', 'subcategory_monitors.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '7', 'subcategory_speakers.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '8', 'subcategory_keyboards.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '9', 'subcategory_mice.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '10', 'subcategory_action.gif', '3', '0', now(), null);
-INSERT INTO categories VALUES ( '11', 'subcategory_science_fiction.gif', '3', '0', now(), null);
-INSERT INTO categories VALUES ( '12', 'subcategory_comedy.gif', '3', '0', now(), null);
-INSERT INTO categories VALUES ( '13', 'subcategory_cartoons.gif', '3', '0', now(), null);
-INSERT INTO categories VALUES ( '14', 'subcategory_thriller.gif', '3', '0', now(), null);
-INSERT INTO categories VALUES ( '15', 'subcategory_drama.gif', '3', '0', now(), null);
-INSERT INTO categories VALUES ( '16', 'subcategory_memory.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '17', 'subcategory_cdrom_drives.gif', '1', '0', now(), null);
-INSERT INTO categories VALUES ( '18', 'subcategory_simulation.gif', '2', '0', now(), null);
-INSERT INTO categories VALUES ( '19', 'subcategory_action_games.gif', '2', '0', now(), null);
-INSERT INTO categories VALUES ( '20', 'subcategory_strategy.gif', '2', '0', now(), null);
+INSERT INTO categories VALUES ('1', 'category_hardware.gif', '0', '1', now(), null, 1);
+INSERT INTO categories VALUES ('2', 'category_software.gif', '0', '2', now(), null, 1);
+INSERT INTO categories VALUES ('3', 'category_dvd_movies.gif', '0', '3', now(), null, 1);
+INSERT INTO categories VALUES ('4', 'subcategory_graphic_cards.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('5', 'subcategory_printers.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('6', 'subcategory_monitors.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('7', 'subcategory_speakers.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('8', 'subcategory_keyboards.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('9', 'subcategory_mice.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('10', 'subcategory_action.gif', '3', '0', now(), null, 1);
+INSERT INTO categories VALUES ('11', 'subcategory_science_fiction.gif', '3', '0', now(), null, 1);
+INSERT INTO categories VALUES ('12', 'subcategory_comedy.gif', '3', '0', now(), null, 1);
+INSERT INTO categories VALUES ('13', 'subcategory_cartoons.gif', '3', '0', now(), null, 1);
+INSERT INTO categories VALUES ('14', 'subcategory_thriller.gif', '3', '0', now(), null, 1);
+INSERT INTO categories VALUES ('15', 'subcategory_drama.gif', '3', '0', now(), null, 1);
+INSERT INTO categories VALUES ('16', 'subcategory_memory.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('17', 'subcategory_cdrom_drives.gif', '1', '0', now(), null, 1);
+INSERT INTO categories VALUES ('18', 'subcategory_simulation.gif', '2', '0', now(), null, 1);
+INSERT INTO categories VALUES ('19', 'subcategory_action_games.gif', '2', '0', now(), null, 1);
+INSERT INTO categories VALUES ('20', 'subcategory_strategy.gif', '2', '0', now(), null, 1);
 
 INSERT INTO categories_description VALUES ( '1', '1', 'Hardware');
 INSERT INTO categories_description VALUES ( '2', '1', 'Software');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.27 2002/01/02 15:13:58 hpdl Exp $
+  $Id: update.php,v 1.28 2002/01/09 17:19:25 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -261,6 +261,7 @@ changeText('statusText', 'Updating Categories');
   tep_db_query("alter table categories change parent_id parent_id int(5) not null default '0'");
   tep_db_query("alter table categories add date_added datetime after sort_order");
   tep_db_query("alter table categories add last_modified datetime after date_added");
+  tep_db_query("alter table categories add status int(1) default '1' after date_added");
   tep_db_query("alter table categories add index idx_categories_parent_id (parent_id)");
 ?>
 <script language="javascript"><!--

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: new_products.php,v 1.26 2002/01/03 16:35:31 dgw_ Exp $
+  $Id: new_products.php,v 1.27 2002/01/09 17:19:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,9 +17,9 @@
   new contentBoxHeading($info_box_contents);
 
   if ( (!isset($new_products_category_id)) || ($new_products_category_id == '0') ) {
-    $new_products_query = tep_db_query("select p.products_id, pd.products_name, p.products_image, IF(s.status, s.specials_new_products_price,p.products_price) as products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added DESC, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);
+    $new_products_query = tep_db_query("select p.products_id, pd.products_name, p.products_image, IF(s.status, s.specials_new_products_price,p.products_price) as products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and c.status = '1' order by p.products_date_added DESC, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);
   } else {
-    $new_products_query = tep_db_query("select distinct p.products_id, pd.products_name, p.products_image, IF(s.status, s.specials_new_products_price,p.products_price) as products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_id = p2c.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = c.categories_id and c.parent_id = '" . $new_products_category_id . "' and p.products_status = '1' order by p.products_date_added DESC, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);
+    $new_products_query = tep_db_query("select distinct p.products_id, pd.products_name, p.products_image, IF(s.status, s.specials_new_products_price,p.products_price) as products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_id = p2c.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = c.categories_id and c.parent_id = '" . $new_products_category_id . "' and c.status = '1' and p.products_status = '1' order by p.products_date_added DESC, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);
   }
 
   $info_box_contents = array();
