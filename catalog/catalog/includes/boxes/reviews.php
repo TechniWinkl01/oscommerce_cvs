@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.32 2002/04/24 17:30:23 dgw_ Exp $
+  $Id: reviews.php,v 1.33 2002/05/26 15:39:33 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@
                                'text'  => BOX_HEADING_REVIEWS);
   new infoBoxHeading($info_box_contents, false, false, tep_href_link(FILENAME_REVIEWS, '', 'NONSSL'));
 
-  $random_select = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image from " . TABLE_REVIEWS . " r left join " . TABLE_PRODUCTS . " p on r.products_id = p.products_id where p.products_status = '1'";
+  $random_select = "select r.reviews_id, r.reviews_rating, substring(rd.reviews_text, 1, 60) as reviews_text, p.products_id, p.products_image from " . TABLE_REVIEWS . " r left join " . TABLE_PRODUCTS . " p on r.products_id = p.products_id, " . TABLE_REVIEWS_DESCRIPTION . " rd where p.products_status = '1' and rd.reviews_id = r.reviews_id and languages_id = '" . $languages_id . "'";
   if ($HTTP_GET_VARS['products_id']) {
     $random_select .= " and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "'";
   }
@@ -29,9 +29,7 @@
   if ($random_product) {
 // display random review box
     $random_product['products_name'] = tep_get_products_name($random_product['products_id']);
-    $review_query = tep_db_query("select substring(reviews_text, 1, 60) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . $random_product['reviews_id'] . "' and languages_id = '" . $languages_id . "'");
-    $review_value = tep_db_fetch_array($review_query);
-    $review = htmlspecialchars($review_value['reviews_text']);
+    $review = htmlspecialchars($random_product['reviews_text']);
     $review = tep_break_string($review, 15, '-<br>');
 
     $info_box_contents = array();
