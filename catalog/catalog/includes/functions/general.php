@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.214 2003/03/14 14:05:52 thomasamoulton Exp $
+  $Id: general.php,v 1.215 2003/03/17 22:15:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -266,13 +266,18 @@
 
 ////
 // Wrapper function for round() for php3 compatibility
-  function tep_round($value, $precision) {
-    if (PHP_VERSION < 4) {
-      $exp = pow(10, $precision);
-      return round($value * $exp) / $exp;
-    } else {
-      return round($value, $precision);
+  function tep_round($number, $precision) {
+    if (strpos($number, '.') && (strlen(substr($number, strpos($number, '.')+1)) > $precision)) {
+      $number = substr($number, 0, strpos($number, '.') + 1 + $precision + 1);
+
+      if (substr($number, -1) >= 5) {
+        $number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision-1) . '1');
+      } else {
+        $number = substr($number, 0, -1);
+      }
     }
+
+    return $number;
   }
 
 ////
