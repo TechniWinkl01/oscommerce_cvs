@@ -1,4 +1,27 @@
 <? include('includes/application_top.php'); ?>
+<?
+  if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($customers_email_address != "") ) {
+    if ($from=="") {
+      $from = TEXT_EMAILFROM;
+    }
+    if ($customers_email_address=="***") {
+      $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS);
+      $mail_sent_to = TEXT_ALLCUSTOMERS;
+    } elseif ($customers_email_address=="**D") {
+      $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter='1'");
+      $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
+    } else {
+      $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $customers_email_address . "'";
+      $mail_query = tep_db_query($mail_query_raw);
+      $mail_sent_to = $customers_email_address;
+    }
+    $nb_emails = tep_db_num_rows($mail_query);
+    while (list ($customers_email_address, $customers_lastname, $customers_firstname) = tep_db_fetch_array($mail_query)) {
+      mail($customers_email_address, $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
+    }
+    Header('Location: ' . tep_href_link(FILENAME_MAIL, 'mail_sent_to=' . urlencode($mail_sent_to)));
+  } else {
+?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -48,19 +71,26 @@
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
-<?
-  if ($HTTP_GET_VARS['action'] == '') {
-?>
           <tr>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_MAIL, 'action=email_user', 'NONSSL'); ?>">eMail an Kunde(n) senden</a> | <a href="<? echo tep_href_link(FILENAME_MAIL, 'action=sendNewsletter', 'NONSSL'); ?>">Newsletter an Kunde(n) senden</a></td>
-          </tr>
+            <td><form action="<? echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="get"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0"><table border="0" width="100%" cellpadding="0" cellspacing="0">
 <?
-  }
-
-  if ($HTTP_GET_VARS['action'] == 'email_user') {
+    if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($customers_email_address == "") ) {
 ?>
-          <tr>
-            <td><table><form action="<? echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="get"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0">
+              <tr>
+                <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b><? echo TEXT_NO_CUSTOMER_SELECTED; ?></b></td>
+              </tr>
+<?
+    } elseif ($HTTP_GET_VARS['mail_sent_to']) {
+?>
+              <tr>
+                <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b><? echo TEXT_EMAILSENT . ':' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
+              </tr>
+<?
+    }
+?>
+              <tr>
+                <td colspan="2">&nbsp;</td>
+              </tr>
               <tr>
                 <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_CUSTOMER_NAME; ?></td>
 <?
@@ -75,9 +105,6 @@
                 </select></td>
               </tr>
               <tr>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
                 <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_EMAIL_FROM; ?></td>
                 <td><input type="text" size="28" name="from" value="<? echo TEXT_EMAILFROM; ?>"></td>
               </tr>
@@ -90,62 +117,10 @@
                 <td><textarea wrap="virtual" cols="42" rows="12" name="message"></textarea></td>
               </tr>
               <tr>
-                <td colspan="2" align="center"><INPUT type="submit" value="<? echo TEXT_SEND_EMAIL; ?>"></form></td>
+                <td colspan="2" align="center"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_send_mail.gif', TEXT_SEND_EMAIL); ?></td>
               </tr>
-            </table></td>
+            </table></form></td>
           </tr>
-<?
-  }
-
-  if ($HTTP_GET_VARS['action'] == 'send_email_to_user') {
-?>
-          <tr>
-            <td><table cellpadding="0" border="0" cellspacing="0" width="100%">
-<?
-    if ($from=="") {
-      $from = TEXT_EMAILFROM;
-    }
-    if ($customers_email_address =="") {
-?>
-              <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b><? echo TEXT_NO_CUSTOMER_SELECTED; ?></b></td>
-              </tr>
-<?
-    } else {
-      if ($customers_email_address=="***") {
-        $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS);
-        $mail_sent_to = TEXT_ALLCUSTOMERS;
-      } elseif ($customers_email_address=="**D") {
-        $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter='1'");
-        $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
-      } else {
-        $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $customers_email_address . "'";
-        $mail_query = tep_db_query($mail_query_raw);
-        $mail_sent_to = $customers_email_address;
-      }
-      $nb_emails = tep_db_num_rows($mail_query);
-      while (list ($customers_email_address, $customers_lastname, $customers_firstname) = tep_db_fetch_array($mail_query)) {
-    
-        mail($customers_email_address, $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
-?>
-              <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">eMail: <? echo $customers_email_address; ?></td>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_SUBJECT; ?><? echo $subject; ?></td>
-              </tr>
-<?
-      }
-?>
-              <tr>
-                <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_MSGTO; ?> '<? echo $mail_sent_to; ?>', <? echo $nb_emails; ?> <? echo TEXT_EMAILSSENDED; ?></td>
-              </tr>
-<?
-    }
-?>
-            </table></td>
-          </tr>
-<?
-  }
-?>
 <!-- body_text_eof //-->
         </table></td>
       </tr>
@@ -159,4 +134,7 @@
 <br>
 </body>
 </html>
+<?
+  }
+?>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
