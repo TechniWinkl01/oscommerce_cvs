@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: zones.php,v 1.18 2002/01/28 01:15:38 harley_vb Exp $
+  $Id: zones.php,v 1.19 2002/03/16 02:09:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,16 +54,16 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="3" cellpadding="3">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
+    </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
+      <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
@@ -72,18 +72,14 @@
         </table></td>
       </tr>
       <tr>
-        <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
-                <td class="tableHeading"><?php echo TABLE_HEADING_ZONE_NAME; ?></td>
-                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_ZONE_CODE; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ZONE_NAME; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ZONE_CODE; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
   $zones_query_raw = "select z.zone_id, c.countries_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id from " . TABLE_ZONES . " z, " . TABLE_COUNTRIES . " c where z.zone_country_id = c.countries_id order by c.countries_name, z.zone_name";
@@ -95,40 +91,37 @@
     }
 
     if ( (is_object($cInfo)) && ($zones['zone_id'] == $cInfo->zone_id) ) {
-      echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->zone_id . '&action=edit') . '\'">' . "\n";
+      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->zone_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $zones['zone_id']) . '\'">' . "\n";
+      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $zones['zone_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="tableData"><?php echo $zones['countries_name']; ?></td>
-                <td class="tableData"><?php echo $zones['zone_name']; ?></td>
-                <td class="tableData" align="center"><?php echo $zones['zone_code']; ?></td>
-                <td class="tableData" align="right"><?php if ( (is_object($cInfo)) && ($zones['zone_id'] == $cInfo->zone_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $zones['zone_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo $zones['countries_name']; ?></td>
+                <td class="dataTableContent"><?php echo $zones['zone_name']; ?></td>
+                <td class="dataTableContent" align="center"><?php echo $zones['zone_code']; ?></td>
+                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($zones['zone_id'] == $cInfo->zone_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $zones['zone_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
 ?>
-              <tr>
-                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-              </tr>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td valign="top" class="smallText"><?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ZONES); ?></td>
                     <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE; ?> <?php echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
-              </tr>
+                  </tr>
 <?php
   if (!$HTTP_GET_VARS['action']) {
 ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ZONES, 'page=' . $HTTP_GET_VARS['page'] . '&action=new') . '">' . tep_image_button('button_new_zone.gif', IMAGE_NEW_ZONE) . '</a>'; ?></td>
-              </tr>
+                  </tr>
 <?php
   }
 ?>
+                </table></td>
+              </tr>
             </table></td>
-          </tr>
-        </table></td>
 <?php
   $heading = array();
   $contents = array();
@@ -171,6 +164,7 @@
       }
       break;
   }
+
   if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
     echo '            <td width="25%" valign="top">' . "\n";
 
@@ -180,6 +174,8 @@
     echo '            </td>' . "\n";
   }
 ?>
+          </tr>
+        </table></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
@@ -190,6 +186,7 @@
 <!-- footer //-->
 <?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
+<br>
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
