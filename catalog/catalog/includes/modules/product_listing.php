@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.27 2001/09/20 19:27:11 mbs Exp $
+  $Id: product_listing.php,v 1.28 2001/11/22 22:31:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -161,7 +161,7 @@
             break;
           case 'PRODUCT_LIST_BUY_NOW':
             $lc_align = 'center';
-            $lc_text = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=add_a_quickie&products_id=' . $listing_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_buy_now.gif', TEXT_BUY . $listing_values['products_name'] . TEXT_NOW) . '</a>&nbsp;';
+            $lc_text = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $listing_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_buy_now.gif', TEXT_BUY . $listing_values['products_name'] . TEXT_NOW) . '</a>&nbsp;';
             break;
         }
 
