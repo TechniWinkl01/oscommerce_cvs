@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.184 2002/08/02 17:36:50 hpdl Exp $
+  $Id: general.php,v 1.185 2002/08/08 22:01:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -250,6 +250,17 @@
   }
 
 ////
+// Wrapper function for round() for php3 compatibility
+  function tep_round($value, $precision) {
+    if (eregi('^3\.', phpversion())) {
+      $exp = pow(10, $precision);
+      return round($value * $exp) / $exp;
+    } else {
+      return round($value, $precision);
+    }
+  }
+
+////
 // Returns the tax rate for a zone / class
 // TABLES: tax_rates, zones_to_geo_zones
   function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
@@ -296,9 +307,9 @@
       global $currencies;
 
       if (DISPLAY_PRICE_WITH_TAX == true) {
-        return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
+        return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
       } else {
-        return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+        return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
       }
     }
 
@@ -306,7 +317,7 @@
     function tep_calculate_tax($price, $tax) {
       global $currencies;
 
-      return round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+      return tep_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
 
 ////
@@ -445,7 +456,9 @@
     $address_format_query = tep_db_query("select address_summary from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $address['address_format_id'] . "'");
     $address_format = tep_db_fetch_array($address_format_query);
 
-    eval("\$address = \"{$address_format['address_summary']}\";");
+//    eval("\$address = \"{$address_format['address_summary']}\";");
+    $address_summary = $address_format['address_summary'];
+    eval("\$address = \"$address_summary\";");
 
     return $address;
   }
