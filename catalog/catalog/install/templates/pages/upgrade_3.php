@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.39 2003/01/14 00:10:43 hpdl Exp $
+  $Id: upgrade_3.php,v 1.40 2003/01/17 14:00:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -289,6 +289,9 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('expiry delay (days)' ,'download_max_days', '7', 'set number of days before the download link expires. 0 means no limit.', '13', '3', '', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('maximum number of downloads' ,'download_max_count', '5', 'set the maximum number of downloads. 0 means no download authorized.', '13', '4', '', now())");
 
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable GZip Compression', 'GZIP_COMPRESSION', 'false', 'Enable HTTP GZip compression.', '14', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Compression Level', 'GZIP_LEVEL', '5', 'Use this compression level 0-9 (0 = minimum, 9 = maximum).', '14', '2', now())");
+
   osc_db_query("delete from configuration_group");
 
   osc_db_query("alter table configuration_group add visible int(1) default '1'");
@@ -305,6 +308,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration_group values ('11', 'Cache', 'Caching configuration options', '11', '1')");
   osc_db_query("insert into configuration_group values ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1')");
   osc_db_query("insert into configuration_group values ('13', 'Download', 'Downloadable products options', '13', '1')");
+  osc_db_query("insert into configuration_group values ('14', 'GZip Compression', 'GZip compression options', '14', '1')");
 
 ?>
 

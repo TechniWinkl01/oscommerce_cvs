@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.256 2002/11/23 02:29:39 thomasamoulton Exp $
+  $Id: application_top.php,v 1.257 2003/01/17 14:00:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -170,6 +170,20 @@
   $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
+  }
+
+  if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded = extension_loaded('zlib')) && (PHP_VERSION >= '4') ) {
+    if (($ini_zlib_output_compression = (int)ini_get('zlib.output_compression')) < 1) {
+      if (PHP_VERSION >= '4.0.4') {
+        ob_start('ob_gzhandler');
+      } else {
+        include(DIR_WS_FUNCTIONS . 'gzip_compression.php');
+        ob_start();
+        ob_implicit_flush();
+      }
+    } else {
+      ini_set('zlib.output_compression_level', GZIP_LEVEL);
+    }
   }
 
 // Get variables from $PATH_INFO

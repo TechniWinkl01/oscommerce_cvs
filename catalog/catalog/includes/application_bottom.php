@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_bottom.php,v 1.11 2002/05/03 10:34:16 hpdl Exp $
+  $Id: application_bottom.php,v 1.12 2003/01/17 14:00:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,6 +22,12 @@
 
     if (DISPLAY_PAGE_PARSE_TIME == 'true') {
       echo '<span class="smallText">Parse Time: ' . $parse_time . 's</span>';
+    }
+  }
+
+  if ( (GZIP_COMPRESSION == 'true') && ($ext_zlib_loaded == true) && ($ini_zlib_output_compression < 1) ) {
+    if ( (PHP_VERSION < '4.0.4') && (PHP_VERSION >= '4') ) {
+      tep_gzip_output(GZIP_LEVEL);
     }
   }
 ?>
