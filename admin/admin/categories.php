@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.134 2002/07/19 16:59:43 project3000 Exp $
+  $Id: categories.php,v 1.135 2002/07/20 14:26:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -550,13 +550,13 @@
       if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
       <tr>
-        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long(ereg_replace('-', '', $pInfo->products_date_available))); ?></td>
+        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->products_date_available)); ?></td>
       </tr>
 <?php
       } else {
 ?>
       <tr>
-        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long(ereg_replace('-', '', $pInfo->products_date_added))); ?></td>
+        <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->products_date_added)); ?></td>
       </tr>
 <?php
       }
