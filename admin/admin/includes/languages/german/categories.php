@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.11 2001/12/30 03:42:35 hpdl Exp $
+  $Id: categories.php,v 1.12 2001/12/30 03:44:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,6 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Kategorien in der ersten Ebene');
 define('HEADING_TITLE', 'Kategorien / Artikel');
 define('HEADING_TITLE_SEARCH', 'Keywords: ');
 
