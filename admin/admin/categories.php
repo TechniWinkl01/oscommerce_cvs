@@ -478,7 +478,9 @@ function checkForm() {
   if (!$pInfo && !$cInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . EMPTY_CATEGORY . '</b>');
 ?>
               <tr bgcolor="#81a2b6">
-                <td><? new infoBoxHeading($info_box_contents);?></td>
+                <td>
+                  <? new infoBoxHeading($info_box_contents); ?>
+                </td>
               </tr>
               <tr bgcolor="#81a2b6">
                 <td><?=tep_black_line();?></td>
@@ -577,8 +579,10 @@ function checkForm() {
 // display box contents by creating an instance of "infoBox" (down a couple of lines)
 ?>
               <tr bgcolor="#b0c8df"><?=$form;?>
-                <td><? new infoBox($info_box_contents); ?></td>
-              </tr><? if ($form) echo '</form>';?>
+                <td>
+                  <? new infoBox($info_box_contents); ?>
+                </td>
+              <? if ($form) echo '</form>';?></tr>
               <tr bgcolor="#b0c8df">
                 <td><?=tep_black_line();?></td>
               </tr>

@@ -234,6 +234,18 @@
     $rInfo->text = $rInfo_array['reviews_text'];
   }
 
+  function tep_set_special_price_info($sInfo_array) {
+    global $sInfo;
+
+    $sInfo->id = $sInfo_array['specials_id'];
+    $sInfo->products_id = $sInfo_array['products_id'];
+    $sInfo->products_price = $sInfo_array['products_price'];
+    $sInfo->products_image = $sInfo_array['products_image'];
+    $sInfo->specials_price = $sInfo_array['specials_new_products_price'];
+    $sInfo->percentage = (100 - (($sInfo->specials_price / $sInfo->products_price) * 100));
+    $sInfo->date_added = $sInfo_array['specials_date_added'];
+  }
+
   function tep_categories_pull_down($parameters, $exclude = '') {
     $select_string = '<select ' . $parameters . '>';
     $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
@@ -245,6 +257,17 @@
         if (tep_db_num_rows($categories_parent_query) > 0) $select_string .= ' (' . $categories_parent['categories_name'] . ')';
         $select_string .= '</option>';
       }
+    }
+    $select_string .= '</select>';
+
+    return $select_string;
+  }
+
+  function tep_products_pull_down($parameters) {
+    $select_string = '<select ' . $parameters . '>';
+    $products_query = tep_db_query("select products_id from products order by products_name");
+    while ($products = tep_db_fetch_array($products_query)) {
+      $select_string .= '<option value="' . $products['products_id'] . '">' . tep_products_name($products['products_id']) . '</option>';
     }
     $select_string .= '</select>';
 

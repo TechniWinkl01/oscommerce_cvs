@@ -526,7 +526,7 @@ function go() {
 		  <tr>
 		   <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
 <?
-$per_page = MAX_ROW_LISTS;
+$per_page = MAX_DISPLAY_SEARCH_RESULTS;
   $row = 0;
     $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
      $customers = "select customers.customers_id, customers.customers_lastname, customers.customers_firstname, customers.customers_city, countries.countries_name, customers.customers_email_address from countries, customers where customers.customers_country_id = countries.countries_id and ";
@@ -670,4 +670,4 @@ $per_page = MAX_ROW_LISTS;
 <br>
 </body>
 </html>
-<? include('includes/application_bottom.php'); ?>
+<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
