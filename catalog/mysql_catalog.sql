@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.97 2001/06/06 21:20:53 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.98 2001/06/06 23:12:52 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -64,8 +64,8 @@ CREATE TABLE categories (
    categories_image varchar(64),
    parent_id int(5),
    sort_order int(3),
-   date_added timestamp(14),
-   last_modified timestamp(14),
+   date_added datetime,
+   last_modified datetime,
    PRIMARY KEY (categories_id)
 );
 
@@ -268,7 +268,8 @@ CREATE TABLE products (
   products_model varchar(12),
   products_image varchar(64),
   products_price decimal(8,2) NOT NULL,
-  products_date_added varchar(8),
+  products_date_added datetime,
+  products_last_modified datetime,
   products_date_available varchar(8),
   products_weight decimal(5,2) NOT NULL,
   products_status tinyint(1) NOT NULL,
@@ -406,26 +407,26 @@ INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postco
 
 INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
 
-INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', '20010605000000', '');
-INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', '20010605000000', '');
-INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3', '20010605000000', '');
-INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0', '20010605000000', '');
-INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0', '20010605000000', '');
+INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0', '2001-06-07 00:02:20', '');
 
 INSERT INTO categories_description VALUES ( '1', '1', 'Hardware');
 INSERT INTO categories_description VALUES ( '2', '1', 'Software');
@@ -825,33 +826,33 @@ INSERT INTO manufacturers VALUES (7,'Sierra','images/manufacturer_sierra.gif');
 INSERT INTO manufacturers VALUES (8,'GT Interactive','images/manufacturer_gt_interactive.gif');
 INSERT INTO manufacturers VALUES (9,'Hewlett Packard','images/manufacturer_hewlett_packard.gif');
 
-INSERT INTO products VALUES (1,32,'MG200MMS','images/matrox/mg200mms.gif',299.99,'19991217','',23.00,1,1,1);
-INSERT INTO products VALUES (2,32,'MG400-32MB','images/matrox/mg400-32mb.gif',499.99,'19991217','',23.00,1,1,1);
-INSERT INTO products VALUES (3,32,'MSIMPRO','images/microsoft/msimpro.gif',49.99,'20000105','',7.00,1,1,3);
-INSERT INTO products VALUES (4,13,'DVD-RPMK','images/dvd/replacement_killers.gif',42.00,'20000109','',23.00,1,1,2);
-INSERT INTO products VALUES (5,17,'DVD-BLDRNDC','images/dvd/blade_runner.gif',35.99,'20000109','',7.00,1,1,3);
-INSERT INTO products VALUES (6,10,'DVD-MATR','images/dvd/the_matrix.gif',39.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (7,10,'DVD-YGEM','images/dvd/youve_got_mail.gif',34.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (8,10,'DVD-ABUG','images/dvd/a_bugs_life.gif',35.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (9,10,'DVD-UNSG','images/dvd/under_siege.gif',29.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (10,10,'DVD-UNSG2','images/dvd/under_siege2.gif',29.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (11,10,'DVD-FDBL','images/dvd/fire_down_below.gif',29.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (12,10,'DVD-DHWV','images/dvd/die_hard_3.gif',39.99,'20000115','',7.00,1,1,4);
-INSERT INTO products VALUES (13,10,'DVD-LTWP','images/dvd/lethal_weapon.gif',34.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (14,10,'DVD-REDC','images/dvd/red_corner.gif',32.00,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (15,10,'DVD-FRAN','images/dvd/frantic.gif',35.00,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (16,10,'DVD-CUFI','images/dvd/courage_under_fire.gif',38.99,'20000115','',7.00,1,1,4);
-INSERT INTO products VALUES (17,10,'DVD-SPEED','images/dvd/speed.gif',39.99,'20000115','',7.00,1,1,4);
-INSERT INTO products VALUES (18,10,'DVD-SPEED2','images/dvd/speed_2.gif',42.00,'20000115','',7.00,1,1,4);
-INSERT INTO products VALUES (19,10,'DVD-TSAB','images/dvd/theres_something_about_mary.gif',49.99,'20000115','',7.00,1,1,4);
-INSERT INTO products VALUES (20,10,'DVD-BELOVED','images/dvd/beloved.gif',54.99,'20000115','',7.00,1,1,3);
-INSERT INTO products VALUES (21,16,'PC-SWAT3','images/sierra/swat_3.gif',79.99,'20000302','',7.00,1,1,7);
-INSERT INTO products VALUES (22,13,'PC-UNTM','images/gt_interactive/unreal_tournament.gif',89.99,'20000302','',7.00,1,1,8);
-INSERT INTO products VALUES (23,16,'PC-TWOF','images/gt_interactive/wheel_of_time.gif',99.99,'20000302','',10.00,1,1,8);
-INSERT INTO products VALUES (24,17,'PC-DISC','images/gt_interactive/disciples.gif',90.00,'20000302','',8.00,1,1,8);
-INSERT INTO products VALUES (25,16,'MSINTKB','images/microsoft/intkeyboardps2.gif',69.99,'20000302','',8.00,1,1,2);
-INSERT INTO products VALUES (26,10,'MSIMEXP','images/microsoft/imexplorer.gif',64.95,'20000302','',8.00,1,1,2);
-INSERT INTO products VALUES (27,8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif',499.99,'20000302','',45.00,1,1,9);
+INSERT INTO products VALUES (1,32,'MG200MMS','images/matrox/mg200mms.gif',299.99,'2001-06-07 00:02:20','','',23.00,1,1,1);
+INSERT INTO products VALUES (2,32,'MG400-32MB','images/matrox/mg400-32mb.gif',499.99,'2001-06-07 00:02:20','','',23.00,1,1,1);
+INSERT INTO products VALUES (3,32,'MSIMPRO','images/microsoft/msimpro.gif',49.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (4,13,'DVD-RPMK','images/dvd/replacement_killers.gif',42.00,'2001-06-07 00:02:20','','',23.00,1,1,2);
+INSERT INTO products VALUES (5,17,'DVD-BLDRNDC','images/dvd/blade_runner.gif',35.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (6,10,'DVD-MATR','images/dvd/the_matrix.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (7,10,'DVD-YGEM','images/dvd/youve_got_mail.gif',34.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (8,10,'DVD-ABUG','images/dvd/a_bugs_life.gif',35.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (9,10,'DVD-UNSG','images/dvd/under_siege.gif',29.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (10,10,'DVD-UNSG2','images/dvd/under_siege2.gif',29.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (11,10,'DVD-FDBL','images/dvd/fire_down_below.gif',29.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (12,10,'DVD-DHWV','images/dvd/die_hard_3.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
+INSERT INTO products VALUES (13,10,'DVD-LTWP','images/dvd/lethal_weapon.gif',34.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (14,10,'DVD-REDC','images/dvd/red_corner.gif',32.00,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (15,10,'DVD-FRAN','images/dvd/frantic.gif',35.00,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (16,10,'DVD-CUFI','images/dvd/courage_under_fire.gif',38.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
+INSERT INTO products VALUES (17,10,'DVD-SPEED','images/dvd/speed.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
+INSERT INTO products VALUES (18,10,'DVD-SPEED2','images/dvd/speed_2.gif',42.00,'2001-06-07 00:02:20','','',7.00,1,1,4);
+INSERT INTO products VALUES (19,10,'DVD-TSAB','images/dvd/theres_something_about_mary.gif',49.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
+INSERT INTO products VALUES (20,10,'DVD-BELOVED','images/dvd/beloved.gif',54.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
+INSERT INTO products VALUES (21,16,'PC-SWAT3','images/sierra/swat_3.gif',79.99,'2001-06-07 00:02:20','','',7.00,1,1,7);
+INSERT INTO products VALUES (22,13,'PC-UNTM','images/gt_interactive/unreal_tournament.gif',89.99,'2001-06-07 00:02:20','','',7.00,1,1,8);
+INSERT INTO products VALUES (23,16,'PC-TWOF','images/gt_interactive/wheel_of_time.gif',99.99,'2001-06-07 00:02:20','','',10.00,1,1,8);
+INSERT INTO products VALUES (24,17,'PC-DISC','images/gt_interactive/disciples.gif',90.00,'2001-06-07 00:02:20','','',8.00,1,1,8);
+INSERT INTO products VALUES (25,16,'MSINTKB','images/microsoft/intkeyboardps2.gif',69.99,'2001-06-07 00:02:20','','',8.00,1,1,2);
+INSERT INTO products VALUES (26,10,'MSIMEXP','images/microsoft/imexplorer.gif',64.95,'2001-06-07 00:02:20','','',8.00,1,1,2);
+INSERT INTO products VALUES (27,8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif',499.99,'2001-06-07 00:02:20','','',45.00,1,1,9);
 
 INSERT INTO products_description VALUES (1,1,'Matrox G200 MMS','Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8&quot; PCI board.<br><br>With continuing demand for digital flat panels in the financial workplace, the Matrox G200 MMS is the ultimate in flexible solutions. The Matrox G200 MMS also supports the new digital video interface (DVI) created by the Digital Display Working Group (DDWG) designed to ease the adoption of digital flat panels. Other configurations include composite video capture ability and onboard TV tuner, making the Matrox G200 MMS the complete solution for business needs.<br><br>Based on the award-winning MGA-G200 graphics chip, the Matrox G200 Multi-Monitor Series provides superior 2D/3D graphics acceleration to meet the demanding needs of business applications such as real-time stock quotes (Versus), live video feeds (Reuters & Bloombergs), multiple windows applications, word processing, spreadsheets and CAD.','www.matrox.com/mga/feat_story/jun99/mms_g200.htm',0);
 INSERT INTO products_description VALUES (2,1,'Matrox G400 32MB','<b>Dramatically Different High Performance Graphics</b><br><br>Introducing the Millennium G400 Series - a dramatically different, high performance graphics experience. Armed with the industry\'s fastest graphics chip, the Millennium G400 Series takes explosive acceleration two steps further by adding unprecedented image quality, along with the most versatile display options for all your 3D, 2D and DVD applications. As the most powerful and innovative tools in your PC\'s arsenal, the Millennium G400 Series will not only change the way you see graphics, but will revolutionize the way you use your computer.<br><br><b>Key features:</b><ul><li>New Matrox G400 256-bit DualBus graphics chip</li><li>Explosive 3D, 2D and DVD performance</li><li>DualHead Display</li><li>Superior DVD and TV output</li><li>3D Environment-Mapped Bump Mapping</li><li>Vibrant Color Quality rendering </li><li>UltraSharp DAC of up to 360 MHz</li><li>3D Rendering Array Processor</li><li>Support for 16 or 32 MB of memory</li></ul>','www.matrox.com/mga/products/mill_g400/home.htm',0);

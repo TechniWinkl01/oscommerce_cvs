@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.55 2001/06/06 20:10:00 dwatkins Exp $
+  $Id: categories.php,v 1.56 2001/06/06 23:13:04 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,7 @@
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
 // update category
-      case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "', date_added = '" . $HTTP_POST_VARS['date_added'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
+      case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
 
                               $languages = tep_get_languages();
                               for ($i=0; $i<sizeof($languages); $i++) {
@@ -91,7 +91,7 @@
 
                               $products_date_available = (date('Ymd') < $products_date_available) ? $products_date_available : '';
 
-                              tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, products_model, products_image, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $products_date_available . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
+                              tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, products_model, products_image, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_price'] . "', now(), '" . $products_date_available . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
                               $new_products_id = tep_db_insert_id();
                               tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
 
@@ -110,7 +110,7 @@
 
                               $products_date_available = (date('Ymd') < $products_date_available) ? $products_date_available : '';
 
-                              tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_date_available = '" . $products_date_available . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+                              tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_last_modified = now(), products_date_available = '" . $products_date_available . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
 
                               $languages = tep_get_languages();
                               for ($i=0; $i<sizeof($languages); $i++) {
@@ -192,7 +192,7 @@
 <?
   if ($HTTP_GET_VARS['action'] == 'new_product') {
     if ($HTTP_GET_VARS['pID']) {
-      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
+      $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo = new productInfo($product);
@@ -325,7 +325,7 @@
       }
 
     } else {
-      $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_date_available, p.products_status, p.manufacturers_id, m.manufacturers_name, m.manufacturers_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_MANUFACTURERS . " m where p.manufacturers_id = m.manufacturers_id and p.products_id = pd.products_id and pd.products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+      $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.manufacturers_id, m.manufacturers_name, m.manufacturers_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_MANUFACTURERS . " m where p.manufacturers_id = m.manufacturers_id and p.products_id = pd.products_id and pd.products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo = new productInfo($product);
@@ -555,7 +555,7 @@
 
     $products_count = 0;
 //  $rows = 0; // this shouldnt be reset
-    $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_date_available, p.products_status from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by pd.products_name");
+    $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by pd.products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $products_count++;
       $rows++;
@@ -645,7 +645,7 @@
     switch ($HTTP_GET_VARS['action']) {
 /* edit category box contents */
       case 'edit_category':
-        $form = '<form name="categories" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="date_added" value="' . $cInfo->date_added . '"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>');
@@ -747,16 +747,16 @@
           if ($cInfo) { // category info box contents
             $info_box_contents = array();
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=edit_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', IMAGE_MOVE) . '</a>');
-            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . tep_date_short($cInfo->last_modified));
+            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->last_modified));
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . tep_info_image($cInfo->image, $cInfo->name) . '<br>&nbsp;' . $cInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif ($pInfo) { // product info box contents
             $info_box_contents = array();
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', IMAGE_MOVE) . '</a>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added));
+            $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($pInfo->last_modified));
             if (date('Ymd') < $pInfo->date_available) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->date_available) . '<br>');
-            $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_LAST_MODIFIED);
-	        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_STATUS . ' ' . $pInfo->status);
+            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_STATUS . ' ' . $pInfo->status);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, $pInfo->name) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) . '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
