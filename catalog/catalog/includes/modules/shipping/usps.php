@@ -30,9 +30,9 @@
         $prod = 'Priority';
         include(DIR_WS_CLASSES . '_usps.php');
         $rate = new _USPS;
-        $rate->SetServer(SHIPPING_USPS_SERVER);
-        $rate->setUserName(SHIPPING_USPS_USERID);
-        $rate->setPass(SHIPPING_USPS_PASSWORD);
+        $rate->SetServer(MODULE_SHIPPING_USPS_SERVER);
+        $rate->setUserName(MODULE_SHIPPING_USPS_USERID);
+        $rate->setPass(MODULE_SHIPPING_USPS_PASSWORD);
         $rate->SetService($prod);
         $rate->setMachinable("False");
         $rate->SetOrigZip(STORE_ORIGIN_ZIP);
@@ -109,14 +109,20 @@
 
     function install() {
       tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable USPS Shipping', 'MODULE_SHIPPING_USPS_STATUS', '1', 'Do you want to offer USPS shipping?', '6', '10', now())");
+	  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS USERID', 'MODULE_SHIPPING_USPS_USERID', 'NONE', 'Enter the USPS USERID assigned to you. Register at http://www.uspsprioritymail.com/et_regcert.html and also tell them you are an end user not developer.', '6', '11', now())");
+	  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS Password', 'MODULE_SHIPPING_USPS_PASSWORD', 'NONE', 'See USERID, above.', '6', '12', now())");
+	  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS URL of the production Server', 'MODULE_SHIPPING_USPS_SERVER', 'NONE', 'See above', '6', '13', now())");
     }
 
     function remove() {
       tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_USPS_STATUS'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_USPS_USERID'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_USPS_PASSWORD'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_USPS_SERVER'");
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_USPS_STATUS');
+      $keys = array('MODULE_SHIPPING_USPS_STATUS', 'MODULE_SHIPPING_USPS_USERID', 'MODULE_SHIPPING_USPS_PASSWORD', 'MODULE_SHIPPING_USPS_SERVER');
 
       return $keys;
     }
