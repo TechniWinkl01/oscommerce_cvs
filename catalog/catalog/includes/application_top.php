@@ -91,7 +91,7 @@
   define('USE_PCONNECT', 1);
 
 // customization for the design layout
-  define('CART_DISPLAY', 0); // Enable to view the shopping cart after adding a product
+  define('CART_DISPLAY', 1); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
