@@ -5,6 +5,10 @@
        die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted.');
     }
   }
+
+// for internal use until final v1.0 version is ready
+  define('PROJECT_VERSION', 'Preview Release 2.1');
+
 // expert mode?
   define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure
 
