@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.23 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: secpay.php,v 1.24 2002/10/10 09:18:38 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@
 
       $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
                                tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
-                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencies->get_value(MODULE_PAYMENT_SECPAY_CURRENCY), 2)) .
+                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencies->get_value(MODULE_PAYMENT_SECPAY_CURRENCY), 2, '.', '')) .
                                tep_draw_hidden_field('bill_name', $order->customer['firstname'] . ' ' . $order->customer['lastname']) .
                                tep_draw_hidden_field('bill_addr_1', $order->customer['street_address']) .
                                tep_draw_hidden_field('bill_addr_2', $order->customer['suburb']) .
