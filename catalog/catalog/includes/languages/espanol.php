@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.68 2001/12/19 13:29:52 hpdl Exp $
+  $Id: espanol.php,v 1.69 2001/12/20 14:16:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,10 +82,6 @@ define('BOX_HEADING_WHATS_NEW', 'Novedades');
 define('BOX_HEADING_SEARCH', 'Busqueda Rapida');
 define('BOX_SEARCH_TEXT', 'Use palabras clave para encontrar el producto que busca.');
 define('BOX_SEARCH_ADVANCED_SEARCH', 'Búsqueda Avanzada');
-
-// add_a_quickie box text in includes/boxes/add_a_quickie.php
-define('BOX_HEADING_ADD_PRODUCT_ID', 'Compra Rapida');
-define('BOX_ADD_PRODUCT_ID_TEXT', 'Introduzca el Modelo del producto que desea añadir a la cesta.');
 
 // specials box text in includes/boxes/specials.php
 define('BOX_HEADING_SPECIALS', 'Ofertas');
@@ -243,7 +239,6 @@ define('PREVNEXT_BUTTON_NEXT', '[Siguiente&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'FINAL&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Añadir Dirección');
-define('IMAGE_BUTTON_ADD_QUICK', 'Compra Rápida!');
 define('IMAGE_BUTTON_ADDRESS_BOOK', 'Direcciones');
 define('IMAGE_BUTTON_BACK', 'Atrás');
 define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Cambiar Dirección');
