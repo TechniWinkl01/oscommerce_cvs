@@ -15,7 +15,8 @@ define('TABLE_HEADING_SELECTION', 'Selection');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_SHIPPING_INFO', 'Shipping Carrier');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Select Preferred Rate');
-define('CHANGE_DELIVERY_ADDRESS', 'Change Address or Shipping Options');
+define('CHANGE_DELIVERY_ADDRESS', 'Change Address');
+define('CHANGE_SHIPPING_OPTIONS', 'Change Shipping Options');
 
 define('IMAGE_NEXT', 'Next');
 ?>

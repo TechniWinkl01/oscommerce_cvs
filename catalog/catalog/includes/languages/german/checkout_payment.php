@@ -15,7 +15,8 @@ define('TABLE_HEADING_SELECTION', 'Zahlungsweise');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferanschrift');
 define('TABLE_HEADING_SHIPPING_INFO', 'VerschiffenFördermaschine');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Wählen Sie Bevorzugte Kosten Aus');
-define('CHANGE_DELIVERY_ADDRESS', 'Ändern Sie Adresse oder Verschiffenoptionen');
+define('CHANGE_DELIVERY_ADDRESS', 'Ändern Sie Adresse');
+define('CHANGE_SHIPPING_OPTIONS', 'Verschiffenoptionen');
 
 define('IMAGE_NEXT', 'Weiter');
 ?>
