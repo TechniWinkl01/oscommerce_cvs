@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.3 2002/04/08 21:03:10 hpdl Exp $
+  $Id: ot_tax.php,v 1.4 2002/05/10 18:34:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
     function process() {
       global $order, $currencies;
 
-      if (MODULES_ORDER_TOTAL_TAX_SHOW_GROUPS == 'true') {
+      if (MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS == 'true') {
         reset($order->info['tax_groups']);
         while (list($key, $value) = each($order->info['tax_groups'])) {
           $this->output[] = array('title' => $this->title . ' (' . $key . '%):',
