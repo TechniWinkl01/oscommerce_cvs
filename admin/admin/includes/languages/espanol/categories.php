@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.10 2001/12/28 21:32:40 hpdl Exp $
+  $Id: categories.php,v 1.11 2001/12/30 03:42:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -77,5 +77,6 @@ define('TEXT_PRODUCTS_WEIGHT', 'Peso:');
 
 define('EMPTY_CATEGORY', 'Categoria Vacia');
 
-define('ERROR_ACTION', 'HA OCURRIDO UN ERROR! ULTIMA ACCION : ' . $HTTP_GET_VARS['error']);
+define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . DIR_FS_CATALOG_IMAGES);
+define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . DIR_FS_CATALOG_IMAGES);
 ?>

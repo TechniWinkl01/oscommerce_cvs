@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.93 2001/12/30 03:17:27 hpdl Exp $
+  $Id: categories.php,v 1.94 2001/12/30 03:42:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,7 @@
 
         if ( ($categories_image != 'none') && ($categories_image != '') ) {
           tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . tep_db_input($categories_id) . "'");
-          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
+          $image_location = DIR_FS_CATALOG_IMAGES . $categories_image_name;
           copy($categories_image, $image_location);
         }
 
@@ -237,6 +237,14 @@
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $categories_id . '&pID=' . $products_id));
     }
   }
+
+// check if the product image directory exists
+  $error = array();
+  if (is_dir(DIR_FS_CATALOG_IMAGES)) {
+    if (!is_writeable(DIR_FS_CATALOG_IMAGES)) $error[] = array('text' => ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE);
+  } else {
+    $error[] = array('text' => ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST);
+  }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -271,6 +279,14 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
+  if (isset($error)) {
+?>
+      <tr>
+        <td><?php new errorBox($error); ?></td>
+      </tr>
+<?php
+  }
+
   if ($HTTP_GET_VARS['action'] == 'new_product') {
     if ($HTTP_GET_VARS['pID']) {
       $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
@@ -400,7 +416,7 @@
 
       // Copy image only if modified
       if ($products_image && ($products_image != 'none')) {
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image_name;
+        $image_location = DIR_FS_CATALOG_IMAGES . $products_image_name;
         if (file_exists($image_location)) @unlink($image_location);
         copy($products_image, $image_location);
       } else {
