@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.158 2003/06/20 15:32:13 hpdl Exp $
+  $Id: general.php,v 1.159 2003/07/11 14:39:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -828,6 +828,22 @@
         $calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
       }
       $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
+    }
+    $calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
+
+    if (strlen($calculated_category_path_string) < 1) $calculated_category_path_string = TEXT_TOP;
+
+    return $calculated_category_path_string;
+  }
+
+  function tep_get_generated_category_path_ids($id, $from = 'category') {
+    $calculated_category_path_string = '';
+    $calculated_category_path = tep_generate_category_path($id, $from);
+    for ($i=0, $n=sizeof($calculated_category_path); $i<$n; $i++) {
+      for ($j=0, $k=sizeof($calculated_category_path[$i]); $j<$k; $j++) {
+        $calculated_category_path_string .= $calculated_category_path[$i][$j]['id'] . '_';
+      }
+      $calculated_category_path_string = substr($calculated_category_path_string, 0, -1) . '<br>';
     }
     $calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
 
