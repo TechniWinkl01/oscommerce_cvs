@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.40 2002/11/25 18:23:14 dgw_ Exp $
+  $Id: authorizenet.php,v 1.41 2002/12/30 15:43:17 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,6 +22,72 @@
 
       $this->form_action_url = 'https://secure.authorize.net/gateway/transact.dll';
     }
+
+// Authorize.net utility functions
+// DISCLAIMER:
+//     This code is distributed in the hope that it will be useful, but without any warranty; 
+//     without even the implied warranty of merchantability or fitness for a particular purpose.
+
+// Main Interfaces:
+//
+// function InsertFP ($loginid, $txnkey, $amount, $sequence) - Insert HTML form elements required for SIM
+// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint.
+
+// compute HMAC-MD5
+// Uses PHP mhash extension. Pl sure to enable the extension
+// function hmac ($key, $data) {
+//   return (bin2hex (mhash(MHASH_MD5, $data, $key)));
+//}
+
+// Thanks is lance from http://www.php.net/manual/en/function.mhash.php
+//lance_rushing at hot* spamfree *mail dot com
+//27-Nov-2002 09:36 
+// 
+//Want to Create a md5 HMAC, but don't have hmash installed?
+//
+//Use this:
+
+function hmac ($key, $data)
+{
+   // RFC 2104 HMAC implementation for php.
+   // Creates an md5 HMAC.
+   // Eliminates the need to install mhash to compute a HMAC
+   // Hacked by Lance Rushing
+
+   $b = 64; // byte length for md5
+   if (strlen($key) > $b) {
+       $key = pack("H*",md5($key));
+   }
+   $key  = str_pad($key, $b, chr(0x00));
+   $ipad = str_pad('', $b, chr(0x36));
+   $opad = str_pad('', $b, chr(0x5c));
+   $k_ipad = $key ^ $ipad ;
+   $k_opad = $key ^ $opad;
+
+   return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
+}
+// end code from lance (resume authorize.net code)
+
+// Calculate and return fingerprint
+// Use when you need control on the HTML output
+function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
+  return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
+}
+
+// Inserts the hidden variables in the HTML FORM required for SIM
+// Invokes hmac function to calculate fingerprint.
+
+function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
+  $tstamp = time ();
+  $fingerprint = $this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency);
+
+  $str = '<input type="hidden" name="x_fp_sequence" value="' . $sequence . '">';
+  $str .= '<input type="hidden" name="x_fp_timestamp" value="' . $tstamp . '">';
+  $str .= '<input type="hidden" name="x_fp_hash" value="' . $fingerprint . '">';
+
+  return $str;
+}
+// end authorize.net code
 
 // class methods
     function javascript_validation() {
@@ -52,7 +118,6 @@
       for ($i=$today['year']; $i < $today['year']+10; $i++) {
         $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
       }
-
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
@@ -72,7 +137,6 @@
 
       $cc_validation = new cc_validation();
       $result = $cc_validation->validate($HTTP_POST_VARS['authorizenet_cc_number'], $HTTP_POST_VARS['authorizenet_cc_expires_month'], $HTTP_POST_VARS['authorizenet_cc_expires_year']);
-
       $error = '';
       switch ($result) {
         case -1:
@@ -117,17 +181,16 @@
     function process_button() {
       global $HTTP_SERVER_VARS, $order, $customer_id;
 
+      $sequence = rand(1, 1000);
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
                                tep_draw_hidden_field('x_Card_Num', $this->cc_card_number) .
                                tep_draw_hidden_field('x_Exp_Date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
                                tep_draw_hidden_field('x_Amount', number_format($order->info['total'], 2)) .
-                               tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
-                               tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
+                               tep_draw_hidden_field('x_Relay_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
                                tep_draw_hidden_field('x_Method', ((MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') ? 'CC' : 'ECHECK')) .
                                tep_draw_hidden_field('x_Version', '3.0') .
                                tep_draw_hidden_field('x_Cust_ID', $customer_id) .
                                tep_draw_hidden_field('x_Email_Customer', ((MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER == 'True') ? 'TRUE': 'FALSE')) .
-                               tep_draw_hidden_field('x_Email_Merchant', ((MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT == 'True') ? 'TRUE': 'FALSE')) .
                                tep_draw_hidden_field('x_first_name', $order->customer['firstname']) .
                                tep_draw_hidden_field('x_last_name', $order->customer['lastname']) .
                                tep_draw_hidden_field('x_address', $order->customer['street_address']) .
@@ -144,7 +207,8 @@
                                tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
                                tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
                                tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
-                               tep_draw_hidden_field('x_Customer_IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
+                               tep_draw_hidden_field('x_Customer_IP', $HTTP_SERVER_VARS['REMOTE_ADDR']) .
+                               $this->InsertFP(MODULE_PAYMENT_AUTHORIZENET_LOGIN, MODULE_PAYMENT_AUTHORIZENET_TXNKEY, number_format($order->info['total'], 2), $sequence);
       if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == 'Test') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
 
       $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
@@ -184,10 +248,10 @@
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', '6', '0', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', '6', '0', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Merchant Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT', 'True', 'Should Authorize.Net e-mail a receipt to the store owner?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
     }
 
     function remove() {
@@ -195,7 +259,7 @@
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_AUTHORIZENET_STATUS', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT');
+      return array('MODULE_PAYMENT_AUTHORIZENET_STATUS', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER');
     }
   }
 ?>
