@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.176 2002/05/27 13:17:04 hpdl Exp $
+  $Id: general.php,v 1.177 2002/05/27 13:48:07 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -267,11 +267,11 @@
 
     $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id = za.geo_zone_id left join " . TABLE_GEO_ZONES . " tz ON tz.geo_zone_id = tr.tax_zone_id WHERE (za.zone_country_id IS NULL OR za.zone_country_id = '0' OR za.zone_country_id = '" . $country_id . "') AND (za.zone_id IS NULL OR za.zone_id = '0' OR za.zone_id = '" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "' GROUP BY tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
-      $tax_multiplier = 1.0;
+      $tax_multiplier = 0;
       while ($tax = tep_db_fetch_array($tax_query)) {
-        $tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);
+        $tax_multiplier += ($tax['tax_rate'] / 100);
       }
-      return ($tax_multiplier - 1.0) * 100;
+      return $tax_multiplier;
     } else {
       return 0;
     }
