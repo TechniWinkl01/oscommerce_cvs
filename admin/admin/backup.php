@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: backup.php,v 1.34 2002/01/01 15:22:00 dgw_ Exp $
+  $Id: backup.php,v 1.35 2002/01/02 14:45:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -370,7 +370,7 @@
         switch (substr($entry, -3)) {
           case 'zip': $file_array['compression'] = 'ZIP'; break;
           case '.gz': $file_array['compression'] = 'GZIP'; break;
-          default: $file_array['compression'] = 'None';
+          default: $file_array['compression'] = TEXT_NO_EXTENSION;
         }
 
         $buInfo = new objectInfo($file_array);
@@ -439,7 +439,7 @@
       break;
     case 'restore':
       $info_box_contents = array();
-      $info_box_contents[] = array('text' => tep_break_string(sprintf(TEXT_INFO_RESTORE, DIR_FS_BACKUP . (($buInfo->compression != 'None') ? substr($buInfo->file, 0, strrpos($buInfo->file, '.')) : $buInfo->file), ($buInfo->compression != 'None') ? TEXT_INFO_UNPACK : ''), 35, ' '));
+      $info_box_contents[] = array('text' => tep_break_string(sprintf(TEXT_INFO_RESTORE, DIR_FS_BACKUP . (($buInfo->compression != TEXT_NO_EXTENSION) ? substr($buInfo->file, 0, strrpos($buInfo->file, '.')) : $buInfo->file), ($buInfo->compression != TEXT_NO_EXTENSION) ? TEXT_INFO_UNPACK : ''), 35, ' '));
       $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'action=restorenow&file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'file')) . 'file=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     case 'restorelocal':

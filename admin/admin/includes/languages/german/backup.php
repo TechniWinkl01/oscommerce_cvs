@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: backup.php,v 1.11 2001/12/24 01:59:45 hpdl Exp $
+  $Id: backup.php,v 1.12 2002/01/02 14:45:59 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -31,6 +31,7 @@ define('TEXT_INFO_USE_ZIP', 'Use ZIP');
 define('TEXT_INFO_USE_NO_COMPRESSION', 'No Compression (Pure SQL)');
 define('TEXT_INFO_DOWNLOAD_ONLY', 'Download only (do not store server side)');
 define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Best through a HTTPS connection');
+define('TEXT_NO_EXTENSION', 'None');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: Backup directory does not exist.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not writeable.');
