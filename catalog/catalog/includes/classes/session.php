@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.2 2003/12/17 15:33:21 hpdl Exp $
+  $Id: session.php,v 1.3 2003/12/18 23:42:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,10 +39,6 @@
 
 // class methods
     function start() {
-      if (PHP_VERSION < 4.1) {
-        global $_GET, $_POST, $_COOKIE;
-      }
-
       $sane_session_id = true;
 
       if (isset($_GET[$this->name])) {
