@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.113 2002/11/01 04:22:05 hpdl Exp $
+  $Id: checkout_process.php,v 1.114 2002/11/03 23:46:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,6 +51,7 @@
 
   $sql_data_array = array('customers_id' => $customer_id,
                           'customers_name' => $order->customer['firstname'] . ' ' . $order->customer['lastname'],
+                          'customers_company' => $order->customer['company'],
                           'customers_street_address' => $order->customer['street_address'],
                           'customers_suburb' => $order->customer['suburb'],
                           'customers_city' => $order->customer['city'],
@@ -61,6 +62,7 @@
                           'customers_email_address' => $order->customer['email_address'],
                           'customers_address_format_id' => $order->customer['format_id'], 
                           'delivery_name' => $order->delivery['firstname'] . ' ' . $order->delivery['lastname'], 
+                          'delivery_company' => $order->delivery['company'],
                           'delivery_street_address' => $order->delivery['street_address'], 
                           'delivery_suburb' => $order->delivery['suburb'], 
                           'delivery_city' => $order->delivery['city'], 
@@ -69,6 +71,7 @@
                           'delivery_country' => $order->delivery['country']['title'], 
                           'delivery_address_format_id' => $order->delivery['format_id'], 
                           'billing_name' => $order->billing['firstname'] . ' ' . $order->billing['lastname'], 
+                          'billing_company' => $order->billing['company'],
                           'billing_street_address' => $order->billing['street_address'], 
                           'billing_suburb' => $order->billing['suburb'], 
                           'billing_city' => $order->billing['city'], 
