@@ -26,8 +26,10 @@
                                 );
   } else {
 // Display a drop-down
-    $select_box = '<select name="manufacturers_id" onChange="this.form.submit();">';
-    $select_box .= '<option value="">' . PULL_DOWN_DEFAULT . '</option>';
+    $select_box = '<select name="manufacturers_id" onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '">';
+    if (MAX_MANUFACTURERS_LIST < 2) {
+      $select_box .= '<option value="">' . PULL_DOWN_DEFAULT . '</option>';
+    }
     while ($manufacturers_values = tep_db_fetch_array($manufacturers_query)) {
       $select_box .= '<option value="' . $manufacturers_values['manufacturers_id'] . '"';
       if ($HTTP_GET_VARS['manufacturers_id'] == $manufacturers_values['manufacturers_id']) $select_box .= ' SELECTED';
