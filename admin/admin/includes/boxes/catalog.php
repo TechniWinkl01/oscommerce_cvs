@@ -4,21 +4,23 @@
 <?
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
-                               'text'  => BOX_HEADING_CATALOG
+                               'text'  => '<a class="blacklink" href="' . tep_href_link(basename($PHP_SELF), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'
                               );
   new navigationBoxHeading($info_box_contents);
 
-  $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left',
-                               'params' => 'nowrap',
-                               'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '">' . BOX_CATALOG_CATEGORIES_PRODUCTS . '</a><br>' .
-                                          '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">' . BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES . '</a><br>' .
-                                          '&nbsp;<a href="' . tep_href_link(FILENAME_MANUFACTURERS, '', 'NONSSL') . '">' . BOX_CATALOG_MANUFACTURERS . '</a><br>' .
-                                          '&nbsp;<a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '">' . BOX_CATALOG_REVIEWS . '</a><br>' .
-                                          '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '">' . BOX_CATALOG_SPECIALS . '</a><br>' .
-                                          '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, '', 'NONSSL') . '">' . BOX_CATALOG_PRODUCTS_EXPECTED . '</a>'
-                              );
-  new navigationBox($info_box_contents);
+  if ($selected_box == 'catalog') {
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' => 'left',
+                                 'params' => 'nowrap',
+                                 'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '">' . BOX_CATALOG_CATEGORIES_PRODUCTS . '</a><br>' .
+                                            '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">' . BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES . '</a><br>' .
+                                            '&nbsp;<a href="' . tep_href_link(FILENAME_MANUFACTURERS, '', 'NONSSL') . '">' . BOX_CATALOG_MANUFACTURERS . '</a><br>' .
+                                            '&nbsp;<a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '">' . BOX_CATALOG_REVIEWS . '</a><br>' .
+                                            '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '">' . BOX_CATALOG_SPECIALS . '</a><br>' .
+                                            '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, '', 'NONSSL') . '">' . BOX_CATALOG_PRODUCTS_EXPECTED . '</a>'
+                                );
+    new navigationBox($info_box_contents);
+  }
 ?>
             </td>
           </tr>
