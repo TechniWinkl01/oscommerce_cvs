@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.123 2002/04/12 22:37:42 hpdl Exp $
+  $Id: general.php,v 1.124 2002/04/25 12:42:29 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -653,6 +653,12 @@
     }
 
     return tep_draw_pull_down_menu($name, $tax_class_array, $tax_class_id);
+  }
+
+////
+// Function to read in text area in admin
+ function tep_cfg_textarea($text) {
+    return tep_draw_textarea_field('configuration_value', false, 35, 5, $text);
   }
 
 ////
