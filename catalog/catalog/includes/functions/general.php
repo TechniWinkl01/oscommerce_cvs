@@ -125,7 +125,7 @@
     return $black_line;
   }
 
-  function tep_get_countries($countries_id = '') {
+  function tep_get_countries($countries_id = '', $iso = '') {
 
     $list = array();
     if ($countries_id == '') {
@@ -134,11 +134,21 @@
         $list[] = array('countries_id' => $countries_values['countries_id'], 'countries_name' => $countries_values['countries_name']);
       }
     } else {
-      $countries = tep_db_query("select countries_name from countries where countries_id = '" . $countries_id . "'");
-      $countries_values = tep_db_fetch_array($countries);
-      $list = array('countries_name' => $countries_values['countries_name']);
+      if ($iso = '1') {
+        $countries = tep_db_query("select countries_name, countries_iso_code_2, countries_iso_code3 from countries where countries_id = '" . $countries_id . "'");
+        $countries_values = tep_db_fetch_array($countries);
+        $list = array('countries_name' => $countries_values['countries_name'], 'countries_iso_code_2' => $countries_values['countries_iso_code_2'], 'countries_iso_code_3' => $countries_values['countries_iso_code_3']);
+      } else {
+        $countries = tep_db_query("select countries_name from countries where countries_id = '" . $countries_id . "'");
+        $countries_values = tep_db_fetch_array($countries);
+        $list = array('countries_name' => $countries_values['countries_name']);
+      }
     }
 
     return $list;
+  }
+
+  function tep_get_countries_iso($countries_id) {
+    return tep_get_countries($countries_id, '1');
   }
 ?>
