@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.18 2001/08/25 14:47:29 hpdl Exp $
+  $Id: payment.php,v 1.19 2001/08/25 19:56:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -61,7 +61,7 @@
 // display radio button option if more than 1 payment module is installed
             if (tep_count_payment_modules() > 1) {
               $selection_string .= '<input type="radio" name="payment" value="' . $GLOBALS[$class]->code . '"';
-              if ( (!$payment) || ($payment == $GLOBALS[$class]->code)) {
+              if ($payment == $GLOBALS[$class]->code) {
                 $selection_string .= ' CHECKED';
               }
               $selection_string .= '>';
