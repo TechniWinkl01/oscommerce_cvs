@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.38 2001/07/20 07:00:32 jwildeboer Exp $
+  $Id: account_edit_process.php,v 1.39 2001/07/25 06:25:58 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -271,7 +271,7 @@
 
     tep_db_query($update_query_customers);
     tep_db_query($update_query_address);
-    tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
+    tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . $customer_id . "'");
 
     header('Location: ' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));
     tep_exit();
