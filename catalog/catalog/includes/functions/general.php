@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.199 2002/11/19 19:04:41 dgw_ Exp $
+  $Id: general.php,v 1.200 2002/11/19 19:32:32 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1131,12 +1131,15 @@
       mt_srand((double)microtime()*1000000);
       $seeded = true;
     }
-    if (!isset($min) && !isset($max)) {
-      return mt_rand();
-    } elseif ($min == $max) {
-      return $min;
+
+    if (isset($min) && isset($max)) {
+      if ($min >= $max) {
+        return $min;
+      } else {
+        return mt_rand($min, $max);
+      }
     } else {
-      return mt_rand($min, $max);
+      return mt_rand();
     }
   }
 ?>
