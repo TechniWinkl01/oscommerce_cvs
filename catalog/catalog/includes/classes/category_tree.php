@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: category_tree.php,v 1.1 2004/02/16 06:39:57 hpdl Exp $
+  $Id: category_tree.php,v 1.2 2004/10/26 20:07:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -142,6 +142,37 @@
       return $result;
     }
 
+    function buildBranchArray($parent_id, $level = 0, $result = '') {
+      if (empty($result)) {
+        $result = array();
+      }
+
+      if (isset($this->data[$parent_id])) {
+        foreach ($this->data[$parent_id] as $category_id => $category) {
+          if ($this->breadcrumb_usage == true) {
+            $category_link = $this->buildBreadcrumb($category_id);
+          } else {
+            $category_link = $category_id;
+          }
+
+          $result[] = array('id' => $category_link,
+                            'title' => str_repeat($this->spacer_string, $this->spacer_multiplier * $level) . $category['name']);
+
+          if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
+            if ($this->follow_cpath === true) {
+              if (in_array($category_id, $this->cpath_array)) {
+                $result = $this->buildBranchArray($category_id, $level+1, $result);
+              }
+            } else {
+              $result = $this->buildBranchArray($category_id, $level+1, $result);
+            }
+          }
+        }
+      }
+
+      return $result;
+    }
+
     function buildBreadcrumb($category_id, $level = 0) {
       $breadcrumb = '';
 
@@ -166,6 +197,10 @@
 
     function buildTree() {
       return $this->buildBranch($this->root_category_id);
+    }
+
+    function getTree($parent_id = '') {
+      return $this->buildBranchArray((empty($parent_id) ? $this->root_category_id : $parent_id));
     }
 
     function calculateCategoryProductCount() {
