@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.11 2003/05/03 20:52:25 project3000 Exp $
+  $Id: cache.php,v 1.12 2003/05/05 20:41:40 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,6 +19,6 @@ define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 define('TEXT_FILE_DOES_NOT_EXIST', 'No existe fichero');
 define('TEXT_CACHE_DIRECTORY', 'Directorio para la Caché: ');
 
-define('ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio para la caché. Please set this in Configuracion / Cache.');
-define('ERROR_CACHE_DIRECTORY_NOT_WRITEABLE', 'Error: No se ha podido escribir en el directorio para la caché.');
+define('ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio para la caché. Especifique un directorio valido en Configuracion / Cache.');
+define('ERROR_CACHE_DIRECTORY_NOT_WRITEABLE', 'Error: No hay permiso de escritura en el directorio para la caché.');
 ?>
