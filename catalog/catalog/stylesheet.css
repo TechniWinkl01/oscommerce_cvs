@@ -126,3 +126,9 @@ TD.smallText, SPAN.smallText {
     font-family : Verdana, Arial, sans-serif;
     font-size : 10px;
 }
+
+TD.accountCategory {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 13px;
+    color : #aabbdd;
+}
