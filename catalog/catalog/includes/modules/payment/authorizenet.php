@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.30 2002/01/22 21:14:46 dgw_ Exp $
+  $Id: authorizenet.php,v 1.31 2002/01/25 18:40:23 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,7 +24,7 @@
 // class methods
     function javascript_validation() {
       $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
-                           '  var cc_number = document.payment.cc_number.value;' . "\n" .
+                           '  var cc_number = document.payment.authorizenet_cc_number.value;' . "\n" .
                            '  if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
                            '    error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER . '";' . "\n" .
                            '    error = 1;' . "\n" .
@@ -46,11 +46,11 @@
       $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_input_field('cc_number') . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_input_field('authorizenet_cc_number') . '&nbsp;</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('cc_expires_year', $expires_year) . '</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year) . '</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '</table>' . "\n";
 
@@ -58,16 +58,16 @@
     }
 
     function pre_confirmation_check() {
-      global $payment;
+      global $payment, $HTTP_POST_VARS;
 
       include(DIR_WS_FUNCTIONS . 'ccval.php');
 
-      $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
+      $cc_val = OnlyNumericSolution($HTTP_POST_VARS['authorizenet_cc_number']);
       $cc_val = CCValidationSolution($cc_val);
-      if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
+      if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['authorizenet_cc_expires_month'], $HTTP_POST_VARS['authorizenet_cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $payment . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $payment . '&cc_expires_month=' . $HTTP_POST_VARS['authorizenet_cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['authorizenet_cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
