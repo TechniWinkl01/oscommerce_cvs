@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: output.php,v 1.1 2002/01/02 13:02:38 hpdl Exp $
+  $Id: output.php,v 1.2 2002/01/03 15:31:16 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   function osc_draw_box_heading($heading_title, $left_corner = false, $right_corner = false) {
     $heading = '<table cellspacing="0" cellpadding="0" width="100%" border="0">' . CR .
-               '  <tr valign="center" bgcolor="' . BOX_BGCOLOR_HEADING . '">' . CR .
+               '  <tr valign="middle" bgcolor="' . BOX_BGCOLOR_HEADING . '">' . CR .
                '    <td>';
     if ($left_corner) {
       $heading .= '<img src="images/main_page/box_corner_left.gif" border="0">';
