@@ -177,6 +177,7 @@ define('ENTRY_FAX_NUMBER', 'Fax:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
 define('ENTRY_NEWSLETTER', 'Boletín de noticias:');
+define('ENTRY_NEWSLETTER_TEXT', '');
 define('ENTRY_NEWSLETTER_YES', 'suscribirse');
 define('ENTRY_NEWSLETTER_NO', 'no suscribirse');
 define('ENTRY_PASSWORD', 'Contraseña:');
