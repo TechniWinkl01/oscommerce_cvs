@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.58 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: checkout_address.php,v 1.59 2001/11/22 19:57:37 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -107,7 +107,7 @@
                     <td class="main"><?php echo tep_address_label($customer_id, 1, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
                   </tr>
                 </table></td>
-                <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="1" CHECKED>&nbsp;</td>
+                <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="1"<?php if ($sendto == '1') echo ' checked'; ?>>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -141,7 +141,7 @@
       echo '              <tr class="shippingOptions-' . ($row / 2 == floor($row / 2) ? 'odd' : 'even') . '">' . "\n";
       echo '                <td align="right" valign="top" class="smallText">' . number_format($row - 1) . '.&nbsp;</td>' . "\n";
       echo '                <td class="smallText">' . tep_address_label($customer_id, $address_book_values['address_book_id'], true) . '</td>' . "\n";
-      echo '                <td align="right" class="smallText">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</td>' . "\n";
+      echo '                <td align="right" class="smallText">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '"' . ($address_book_values['address_book_id'] == $sendto ? ' checked' : '') . '>&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>
