@@ -76,13 +76,13 @@
       echo '              <tr bgcolor="#e9e9e9" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#e9e9e9\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_WHOS_ONLINE, tep_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
-                <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo gmdate('H:i:s', $time_online); ?>&nbsp;</font></td>
-                <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $whos_online['customer_id']; ?>&nbsp;</font></td>
-                <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $whos_online['full_name']; ?>&nbsp;</font></td>
-                <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $whos_online['ip_address']; ?>&nbsp;</font></td>
-                <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo date('H:i:s', $whos_online['time_entry']); ?>&nbsp;</font></td>
-                <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo date('H:i:s', $whos_online['time_last_click']); ?>&nbsp;</font></td>
-                <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? eregi('^(.*)' . tep_session_name() . '=[a-f,0-9]+[&]*(.*)', $whos_online['last_page_url'], $array); echo $array[1] . $array[2]; ?>&nbsp;</font></td>
+                <td align="center" class="smallText">&nbsp;<? echo gmdate('H:i:s', $time_online); ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<? echo $whos_online['customer_id']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<? echo $whos_online['full_name']; ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<? echo $whos_online['ip_address']; ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<? echo date('H:i:s', $whos_online['time_entry']); ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<? echo date('H:i:s', $whos_online['time_last_click']); ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<? eregi('^(.*)' . tep_session_name() . '=[a-f,0-9]+[&]*(.*)', $whos_online['last_page_url'], $array); echo $array[1] . $array[2]; ?>&nbsp</td>
               </tr>
 <?
   }

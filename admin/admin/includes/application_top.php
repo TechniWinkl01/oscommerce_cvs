@@ -143,10 +143,6 @@
   define('TABLE_HEADING_FONT_SIZE', '1');
   define('TABLE_HEADING_FONT_COLOR', '#000000');
 
-  define('SMALL_TEXT_FONT_FACE', 'Verdana, Arial');
-  define('SMALL_TEXT_FONT_SIZE', '1');
-  define('SMALL_TEXT_FONT_COLOR', '#000000');
-
   define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
 
 // font styles

@@ -62,7 +62,7 @@ TR.selectedRow, TD.Box {
   background-color: #b0c8df;
 }
 
-TABLE.BoxHeading, TR.BoxHeading {
+TR.BoxHeading {
   background-color: #81a2b6;
 }
 

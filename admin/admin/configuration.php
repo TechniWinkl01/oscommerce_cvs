@@ -88,16 +88,16 @@
       echo '                  <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('info', 'action')) . 'info=' . $configuration['cfgID'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
-                <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $configuration['cfgTitle']; ?>&nbsp;</font></td>
-                <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo htmlspecialchars($cfgValue); ?>&nbsp;</font></td>
+                <td class="smallText">&nbsp;<? echo $configuration['cfgTitle']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<? echo htmlspecialchars($cfgValue); ?>&nbsp;</td>
 <?
     if ($configuration['cfgID'] == @$cfgInfo->id) {
 ?>
-                    <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</font></td>
+                    <td align="center" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
 <?
     } else {
 ?>
-                    <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('info', 'action')) . 'info=' . $configuration['cfgID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
+                    <td align="center" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('info', 'action')) . 'info=' . $configuration['cfgID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
 <?
     }
 ?>
