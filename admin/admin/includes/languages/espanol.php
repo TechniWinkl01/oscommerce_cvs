@@ -95,7 +95,6 @@ define('JS_OPTIONS_VALUE_PRICE', '* El atributo necesita un precio\n');
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* El atributo necesita un prefijo para el precio\n');
 
 define('JS_MANUFACTURERS_NAME', '* El fabricante necesita un nombre\n');
-define('JS_MANUFACTURERS_LOCATION', '* Necesita especificar la posicion del fabricante (0=izquierda, 1=derecha)\n');
 define('JS_MANUFACTURERS_IMAGE', '* El fabricante necesita una imagen\n');
 define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** ADVERTENCIA ***\n\n¿Realmente quiere eliminar este fabricante Y todos los productos relacionados con el?');
 

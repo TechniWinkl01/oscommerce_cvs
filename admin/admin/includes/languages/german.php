@@ -95,7 +95,6 @@ define('JS_OPTIONS_VALUE_PRICE', '* Sie müssen diesem Wert einen Preis zuordnen\
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* Sie müssen einen Prefix angeben (+/-)\n');
 
 define('JS_MANUFACTURERS_NAME', '* Der neue Hersteller muss einen Namen haben\n');
-define('JS_MANUFACTURERS_LOCATION', '* Der neue Hersteller muss eine Position haben (0=links, 1=rechts)\n');
 define('JS_MANUFACTURERS_IMAGE', '* Der neue Hersteller muss ein Bild haben\n');
 define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** WARNUNG ***\n\nMöchten Sie diesen Hersteller und alle mit ihm verknüpften Artikel entfernen?');
 

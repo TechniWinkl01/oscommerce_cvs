@@ -95,7 +95,6 @@ define('JS_OPTIONS_VALUE_PRICE', '* The new product atribute needs a price value
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* The new product atribute needs a price prefix\n');
 
 define('JS_MANUFACTURERS_NAME', '* The new manufacturer needs a name\n');
-define('JS_MANUFACTURERS_LOCATION', '* The new manufacturer needs a location value (0=left, 1=right)\n');
 define('JS_MANUFACTURERS_IMAGE', '* The new manufacturer needs an image\n');
 define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** WARNING ***\n\nDo you really want to remove this manufacturer AND all products linked to it?');
 

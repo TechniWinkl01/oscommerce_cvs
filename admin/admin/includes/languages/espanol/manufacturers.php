@@ -10,7 +10,6 @@ define('HEADING_TITLE', 'Fabricantes');
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_MANUFACTURERS', 'Fabricantes');
-define('TABLE_HEADING_LOCATION', 'Posicion');
 define('TABLE_HEADING_IMAGE', 'Imagen');
 define('TABLE_HEADING_ACTION', 'Accion');
 
@@ -25,7 +24,6 @@ define('TEXT_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_EDIT_MANUFACTURERS_ID', 'ID del Fabricante:');
 define('TEXT_EDIT_MANUFACTURERS_NAME', 'Nombre del Fabricante:');
 define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Imagen Fabricante:');
-define('TEXT_EDIT_MANUFACTURERS_LOCATION', 'Posicion Fabricante:');
 
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fabricante?');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Todavia hay productos que pertenecen a este fabricante!');
