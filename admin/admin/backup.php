@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.11 2001/11/19 13:55:37 hpdl Exp $
+  $Id: backup.php,v 1.12 2001/11/19 13:56:55 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -87,7 +87,8 @@
       }
       echo "\n";
     }
-  } else {
+    exit;
+  }
 ?>
 <html>
 <head>
@@ -165,6 +166,3 @@
 </body>
 </html>
 <?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
-<?php
-  }
-?>
