@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: email.php,v 1.7 2002/05/23 16:51:47 dgw_ Exp $
+  $Id: email.php,v 1.8 2002/08/06 14:38:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,8 +74,8 @@ class email {
 
     $this->build_params['html_encoding']  = 'quoted-printable';
     $this->build_params['text_encoding']  = '7bit';
-    $this->build_params['html_charset']    = 'iso-8859-1';
-    $this->build_params['text_charset']    = 'iso-8859-1';
+    $this->build_params['html_charset']    = CHARSET;
+    $this->build_params['text_charset']    = CHARSET;
     $this->build_params['text_wrap']    = 998;
 
     /***************************************
