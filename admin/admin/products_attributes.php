@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.29 2001/12/08 22:41:50 dgw_ Exp $
+  $Id: products_attributes.php,v 1.30 2001/12/09 22:56:47 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -292,7 +292,7 @@ function go_option() {
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-    if (!$HTTP_GET_VARS['action'] == 'update_option') {
+    if ($HTTP_GET_VARS['action'] != 'update_option') {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
@@ -504,7 +504,7 @@ function go_option() {
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-    if (!$HTTP_GET_VARS['action'] == 'update_value') {
+    if ($HTTP_GET_VARS['action'] != 'update_value') {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
@@ -707,7 +707,7 @@ function go_option() {
             <td colspan="7"><?php echo tep_black_line(); ?></td>
           </tr>
 <?php
-  if (!$HTTP_GET_VARS['action'] == 'update_attribute') {
+  if ($HTTP_GET_VARS['action'] != 'update_attribute') {
 ?>
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
