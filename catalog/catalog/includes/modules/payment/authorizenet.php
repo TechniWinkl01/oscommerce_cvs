@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.16 2001/08/25 12:00:14 hpdl Exp $
+  $Id: authorizenet.php,v 1.17 2001/08/25 14:47:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -95,13 +95,13 @@
                                '</table>' . "\n";
 
         $checkout_form_action = 'https://www.authorize.net/gateway/transact.dll';
-
-        return $confirmation_string;
       }
+
+      return $confirmation_string;
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost;
+      global $HTTP_POST_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id;
 
       if ($this->enabled) {
         $process_button_string = tep_draw_hidden_field('x_Login', 'testing') .
@@ -109,12 +109,16 @@
                                  tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
                                  tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
                                  tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
-                                 tep_draw_hidden_field('x_ADC_URL', HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS) .
+                                 tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
                                  tep_draw_hidden_field('x_Version', '3.0') .
-                                 tep_draw_hidden_field(tep_session_name(), tep_session_id());
+                                 tep_draw_hidden_field('x_Cust_ID', $customer_id);
 
-        return $process_button_string;
+        if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == '1') {
+          $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
+        }
       }
+
+      return $process_button_string;
     }
 
     function before_process() {
