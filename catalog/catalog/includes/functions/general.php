@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.190 2002/11/04 02:08:26 hpdl Exp $
+  $Id: general.php,v 1.191 2002/11/11 20:52:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -547,7 +547,7 @@
     $minute = (int)substr($raw_date, 14, 2);
     $second = (int)substr($raw_date, 17, 2);
 
-    if (ereg('WIN', PHP_OS) && $year <= 1970) {
+    if (date('Y', mktime($hour, $minute, $second, $month, $day, $year)) > $year) {
       return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
     } else {
       return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
