@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: shopping_cart.php,v 1.22 2001/09/20 19:27:14 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class shoppingCart {
     var $contents, $total, $weight;
 

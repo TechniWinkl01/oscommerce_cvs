@@ -1,8 +1,13 @@
 <?php
 /*
-  The Exchange Project - Community Made Shopping!
+  $Id: whos_online.php,v 1.3 2001/09/20 19:27:06 mbs Exp $
 
-  $Id: whos_online.php,v 1.2 2001/06/03 21:08:28 kwiltner Exp $
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
   function tep_update_whos_online() {

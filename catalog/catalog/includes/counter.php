@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: counter.php,v 1.3 2001/09/20 19:27:19 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   $counter = tep_db_query("select startdate, counter from " . TABLE_COUNTER . "");
 
   if (!@tep_db_num_rows($counter)) {

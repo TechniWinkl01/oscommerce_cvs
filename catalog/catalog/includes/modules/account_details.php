@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.8 2001/08/10 18:01:25 jwildeboer Exp $
+  $Id: account_details.php,v 1.9 2001/09/20 19:27:12 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -40,11 +40,11 @@
     echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
   }
 ?></td>
-</tr>
+          </tr>
 <?php
   }
 ?>
-<tr>
+          <tr>
             <td class="main">&nbsp;<?php echo ENTRY_FIRST_NAME; ?></td>
             <td class="main">&nbsp;
 <?php
@@ -261,7 +261,7 @@
   }
 ?></td>
           </tr>
-<?
+<?php
   if (ACCOUNT_STATE) {
     $customers_state = ($account['entry_state']) ? $account['entry_state'] : JS_STATE_SELECT;
 ?>
@@ -289,7 +289,7 @@
   echo tep_draw_input_field('state', $customers_state, 'onChange="resetZoneSelected(this.form);"') . '&nbsp;' . ENTRY_STATE_TEXT;
 ?></td>
           </tr>
-<?
+<?php
     }
   }
 ?>

@@ -1,5 +1,17 @@
+<?php
+/*
+  $Id: product_listing.php,v 1.27 2001/09/20 19:27:11 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?
+<?php
   // create column list
   $define_list = array(
     'PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -26,22 +38,22 @@
   if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '1' || PREV_NEXT_BAR_LOCATION == '3')) {
 ?>
   <tr>
-    <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td colspan="<?php echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="smallText">&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
-        <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+        <td class="smallText">&nbsp;<?php echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
+        <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
       </tr>
     </table></td>
   </tr>
   <tr>
-    <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
+    <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?></td>
   </tr>
-<?
+<?php
   }
 ?>
   <tr>
     <td>
-<?
+<?php
   $list_box_contents = array();
   $list_box_contents[] = array('params' => 'class="productListing-heading"');
   $cur_row = sizeof($list_box_contents) - 1;
@@ -86,9 +98,9 @@
         $column_list[$col] != 'PRODUCT_LIST_IMAGE')
       $lc_text = tep_create_sort_heading($HTTP_GET_VARS['sort'], $col+1, $lc_text);
 
-    $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                           'params' => 'class="productListing-heading"',
-                                           'text'  => "&nbsp;" . $lc_text . "&nbsp;");
+      $list_box_contents[$cur_row][] = array('align' => $lc_align,
+                                             'params' => 'class="productListing-heading"',
+                                             'text'  => "&nbsp;" . $lc_text . "&nbsp;");
   }
 
   if ($listing_numrows > 0) {
@@ -167,26 +179,26 @@
   } else {
 ?>
   <tr class="productListing-odd">
-    <td colspan="<? echo $colspan; ?>" class="smallText">&nbsp;<? echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
+    <td colspan="<?php echo $colspan; ?>" class="smallText">&nbsp;<?php echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
   </tr>
-<?
+<?php
   }
 ?>
   <tr>
-    <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
+    <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?></td>
   </tr>
-<?
+<?php
   if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '2' || PREV_NEXT_BAR_LOCATION == '3')) {
 ?>
   <tr>
-    <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td colspan="<?php echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="smallText">&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
-        <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+        <td class="smallText">&nbsp;<?php echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
+        <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
       </tr>
     </table></td>
   </tr>
-<?
+<?php
   }
 ?>
 </table>

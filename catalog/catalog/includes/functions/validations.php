@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: validations.php,v 1.5 2001/09/20 19:27:07 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //
   // Function    : tep_validate_email

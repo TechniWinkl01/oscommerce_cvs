@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: also_purchased_products.php,v 1.13 2001/09/20 19:27:11 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   if ($HTTP_GET_VARS['products_id']) {
     $orders_query = tep_db_query("select distinct p.products_id, pd.products_name from " . TABLE_ORDERS_PRODUCTS . " op1, " . TABLE_ORDERS_PRODUCTS . " op2, " . TABLE_ORDERS . " o, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where op1.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and op1.orders_id = op2.orders_id and op2.products_id <> '" . $HTTP_GET_VARS['products_id'] . "' and op2.products_id = p.products_id and op2.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and op2.orders_id = o.orders_id order by pd.products_name");
     $num_products_ordered = tep_db_num_rows($orders_query);
@@ -8,15 +19,15 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TEXT_ALSO_PURCHASED_PRODUCTS; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
     // randomly select products from products ordered
     $rows_to_display = array();
 
@@ -41,10 +52,10 @@
             </table></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
 <!-- also_purchased_products_eof //-->
-<?
+<?php
     }
   }
 ?>

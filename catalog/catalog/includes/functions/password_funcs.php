@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: password_funcs.php,v 1.6 2001/09/20 19:27:07 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
 /********************************************************************
 *	password_funcs.php: Functions to handle encryption 
 *   	and validation of user passwords.
@@ -23,6 +34,9 @@
 *    USA
 *   
 *   $Log: password_funcs.php,v $
+*   Revision 1.6  2001/09/20 19:27:07  mbs
+*   updates to tep standard.
+*
 *   Revision 1.5  2000/10/19 12:12:14  tmoulton
 *   Change 1 to true and 0 to false (note lower case)
 *
@@ -40,7 +54,7 @@
 *
 *    
 *
-*   $Id: password_funcs.php,v 1.5 2000/10/19 12:12:14 tmoulton Exp $ 
+*   $Id: password_funcs.php,v 1.6 2001/09/20 19:27:07 mbs Exp $ 
 *********************************************************************/
 
 /*  This funstion validates a candidate password.

@@ -26,7 +26,7 @@ function check_form() {
       error = 1;
     }
   }
-<?
+<?php
   }
 ?>
  
@@ -44,7 +44,7 @@ function check_form() {
     }
   }
 
-<?
+<?php
    if (ACCOUNT_DOB) {
 ?>
   if (document.account_edit.elements['dob'].type != "hidden") {
@@ -53,10 +53,9 @@ function check_form() {
       error = 1;
     }
   }
-<?
+<?php
   }
 ?>
- 
   if (document.account_edit.elements['email_address'].type != "hidden") {
     if (email_address == '' || email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
       error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
@@ -102,7 +101,7 @@ function check_form() {
       }
     }
   }
-<?
+<?php
   }
 ?>
 

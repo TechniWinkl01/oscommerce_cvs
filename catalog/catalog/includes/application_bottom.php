@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: application_bottom.php,v 1.9 2001/09/20 19:27:20 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
 // close session (store variables)
   tep_session_close();
 

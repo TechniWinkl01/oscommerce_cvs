@@ -1,19 +1,30 @@
-<!-- upcoming_products //-->
-<?
+<?php
+/*
+  $Id: upcoming_products.php,v 1.19 2001/09/20 19:27:10 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   $expected_query = tep_db_query("select p.products_id, pd.products_name, unix_timestamp(products_date_available) as date_expected from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where products_date_available != '' and products_date_available > now() and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
   if (tep_db_num_rows($expected_query) > 0) {
 ?>
+<!-- upcoming_products //-->
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_UPCOMING_PRODUCTS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_UPCOMING_PRODUCTS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DATE_EXPECTED; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="2"><? echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-<?
+<?php
     $row = 0;
     while ($expected = tep_db_fetch_array($expected_query)) {
       $row++;
@@ -28,12 +39,11 @@
     }
 ?>
               <tr>
-                <td colspan="2"><? echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
-<?
+<?php
     }
 ?>
 <!-- upcoming_products_eof //-->
-
