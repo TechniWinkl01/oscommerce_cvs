@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.35 2002/08/12 12:24:05 hpdl Exp $
+  $Id: header.php,v 1.36 2002/08/15 17:29:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
 // check if the 'install' directory exists, and warn of its existence
   if (WARN_INSTALL_EXISTENCE == 'true') {
-    if (is_dir(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install')) {
+    if (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install')) {
       tep_output_warning(WARNING_INSTALL_DIRECTORY_EXISTS);
     }
   }
