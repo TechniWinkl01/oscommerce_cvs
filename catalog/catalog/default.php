@@ -102,7 +102,7 @@
           </tr>
 <?
     }
-    $np_category_id = $HTTP_GET_VARS['category_id']; $include_file = DIR_MODULES . 'new_products.php'; include(DIR_INCLUDES . 'include_once.php');
+    $np_category_id = $HTTP_GET_VARS['category_id']; $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
 ?>
         </table></td>
       </tr>
@@ -141,8 +141,8 @@
             <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=TEXT_MAIN;?></font></td>
           </tr>
 <?
-  $np_category_id = '0'; $include_file = DIR_MODULES . 'new_products.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_MODULES . 'upcoming_products.php'; include(DIR_INCLUDES . 'include_once.php');
+  $np_category_id = '0'; $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_MODULES . FILENAME_UPCOMING_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
 ?>
         </table></td>
       </tr>

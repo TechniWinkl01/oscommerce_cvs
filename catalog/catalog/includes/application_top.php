@@ -33,6 +33,8 @@
   tep_session_start();
 
 // define the filenames used in the project
+  define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
+  define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
   define('FILENAME_ACCOUNT', 'account.php');
   define('FILENAME_ACCOUNT_EDIT', 'account_edit.php');
   define('FILENAME_ACCOUNT_EDIT_PROCESS', 'account_edit_process.php');
