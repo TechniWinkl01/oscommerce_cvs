@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.67 2002/06/03 21:34:48 hpdl Exp $
+  $Id: account_edit_process.php,v 1.68 2002/06/04 10:30:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -160,7 +160,8 @@
   }
 
   $check_email_query = tep_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id != '" . tep_db_input($customer_id) . "'");
-  if (tep_db_num_rows($check_email_query)) {
+  $check_email = tep_db_fetch_array($check_email_query);
+  if ($check_email['total'] > 0) {
     $error = true;
     $entry_email_address_exists = true;
   } else {
