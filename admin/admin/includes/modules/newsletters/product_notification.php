@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.6 2002/11/22 18:56:08 dgw_ Exp $
+  $Id: product_notification.php,v 1.7 2003/06/30 11:02:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,10 +73,18 @@ function selectAll(FormName, SelectBox) {
 }
 //--></script>';
 
+      $global_button = '<script language="javascript"><!--' . "\n" .
+                       'document.write(\'<input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;" onclick="document.location=\\\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm&global=true') . '\\\'">\');' . "\n" .
+                       '//--></script><noscript><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm&global=true') . '">[ ' . BUTTON_GLOBAL . ' ]</a></noscript>';
+
+      $cancel_button = '<script language="javascript"><!--' . "\n" .
+                       'document.write(\'<input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;" onclick="document.location=\\\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '\\\'">\');' . "\n" .
+                       '//--></script><noscript><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">[ ' . BUTTON_CANCEL . ' ]</a></noscript>';
+
       $choose_audience_string .= '<form name="notifications" action="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm') . '" method="post" onSubmit="return selectAll(\'notifications\', \'chosen[]\')"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
                                  '  <tr>' . "\n" .
                                  '    <td align="center" class="main"><b>' . TEXT_PRODUCTS . '</b><br>' . tep_draw_pull_down_menu('products', $products_array, '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
-                                 '    <td align="center" class="main">&nbsp;<br><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm&global=true') . '"><input type="button" value="' . BUTTON_GLOBAL . '" style="width: 8em;"></a><br><br><br><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br><br><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br><br><br><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br><br><a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '"><input type="button" value="' . BUTTON_CANCEL . '" style="width: 8em;"></a></td>' . "\n" .
+                                 '    <td align="center" class="main">&nbsp;<br>' . $global_button . '<br><br><br><input type="button" value="' . BUTTON_SELECT . '" style="width: 8em;" onClick="mover(\'remove\');"><br><br><input type="button" value="' . BUTTON_UNSELECT . '" style="width: 8em;" onClick="mover(\'add\');"><br><br><br><input type="submit" value="' . BUTTON_SUBMIT . '" style="width: 8em;"><br><br>' . $cancel_button . '</td>' . "\n" .
                                  '    <td align="center" class="main"><b>' . TEXT_SELECTED_PRODUCTS . '</b><br>' . tep_draw_pull_down_menu('chosen[]', array(), '', 'size="20" style="width: 20em;" multiple') . '</td>' . "\n" .
                                  '  </tr>' . "\n" .
                                  '</table></form>';
@@ -89,7 +97,7 @@ function selectAll(FormName, SelectBox) {
 
       $audience = array();
 
-      if ($HTTP_GET_VARS['global'] == 'true') {
+      if (isset($HTTP_GET_VARS['global']) && ($HTTP_GET_VARS['global'] == 'true')) {
         $products_query = tep_db_query("select distinct customers_id from " . TABLE_PRODUCTS_NOTIFICATIONS);
         while ($products = tep_db_fetch_array($products_query)) {
           $audience[$products['customers_id']] = '1';
@@ -137,7 +145,7 @@ function selectAll(FormName, SelectBox) {
                         '  <tr>' . tep_draw_form('confirm', FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID'] . '&action=confirm_send') . "\n" .
                         '    <td align="right">';
       if (sizeof($audience) > 0) {
-        if ($HTTP_GET_VARS['global'] == 'true') {
+        if (isset($HTTP_GET_VARS['global']) && ($HTTP_GET_VARS['global'] == 'true')) {
           $confirm_string .= tep_draw_hidden_field('global', 'true');
         } else {
           for ($i = 0, $n = sizeof($chosen); $i < $n; $i++) {
@@ -158,7 +166,7 @@ function selectAll(FormName, SelectBox) {
 
       $audience = array();
 
-      if ($HTTP_POST_VARS['global'] == 'true') {
+      if (isset($HTTP_POST_VARS['global']) && ($HTTP_POST_VARS['global'] == 'true')) {
         $products_query = tep_db_query("select distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where c.customers_id = pn.customers_id");
         while ($products = tep_db_fetch_array($products_query)) {
           $audience[$products['customers_id']] = array('firstname' => $products['customers_firstname'],
