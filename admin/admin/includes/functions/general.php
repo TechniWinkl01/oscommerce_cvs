@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.121 2002/04/06 19:35:46 hpdl Exp $
+  $Id: general.php,v 1.122 2002/04/08 21:44:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -642,6 +642,19 @@
     return tep_draw_pull_down_menu('configuration_value', tep_get_country_zones(STORE_COUNTRY), $zone_id);
   }
 
+  function tep_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
+    $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+
+    $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
+    $tax_class_query = tep_db_query("select tax_class_id, tax_class_title from " . TABLE_TAX_CLASS . " order by tax_class_title");
+    while ($tax_class = tep_db_fetch_array($tax_class_query)) {
+      $tax_class_array[] = array('id' => $tax_class['tax_class_id'],
+                                 'text' => $tax_class['tax_class_title']);
+    }
+
+    return tep_draw_pull_down_menu($name, $tax_class_array, $tax_class_id);
+  }
+
 ////
 // Sets the status of a banner
   function tep_set_banner_status($banners_id, $status) {
@@ -1110,5 +1123,16 @@
     //send message
     mail($to_email_address, $email_subject, $body, $headers);
 
+  }
+
+  function tep_get_tax_class_title($tax_class_id) {
+    if ($tax_class_id == '0') {
+      return TEXT_NONE;
+    } else {
+      $classes_query = tep_db_query("select tax_class_title from " . TABLE_TAX_CLASS . " where tax_class_id = '" . $tax_class_id . "'");
+      $classes = tep_db_fetch_array($classes_query);
+
+      return $classes['tax_class_title'];
+    }
   }
 ?>
