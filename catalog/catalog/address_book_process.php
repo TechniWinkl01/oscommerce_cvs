@@ -336,7 +336,7 @@ function check_form() {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$gender_error == '1') {
         echo '<input type="radio" name="gender" value="m">&nbsp;' . MALE . '&nbsp;<input type="radio" name="gender" value="f">&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
@@ -357,17 +357,17 @@ function check_form() {
         echo ' CHECKED';
       }
       echo '>&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
 <?
   }
 ?>
           <tr>
-            <td colspan="2"><font face="Verdana, Arial" size="2">&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">>&nbsp;</td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$firstname_error == '1') {
         echo '<input type="text" name="firstname" maxlength="32" value="' . $HTTP_POST_VARS['firstname'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
@@ -376,11 +376,11 @@ function check_form() {
       }
     } else {
       echo '<input type="text" name="firstname" value="' . @$firstname . '" maxlength="32">&nbsp;' . ENTRY_FIRST_NAME_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$lastname_error == '1') {
         echo '<input type="text" name="lastname" maxlength="32" value="' . $HTTP_POST_VARS['lastname'] . '">&nbsp;' . ENTRY_LAST_NAME_ERROR;
@@ -391,17 +391,17 @@ function check_form() {
       echo '<input type="text" name="lastname" value="' . @$lastname . '" maxlength="32">&nbsp;' . ENTRY_LAST_NAME_TEXT;
     }
     $rowspan = 6+ACCOUNT_STATE+ACCOUNT_SUBURB; 
-    ?></font></td>
+    ?></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="Verdana, Arial" size="2">&nbsp;</font></td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory" nowrap><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$street_address_error == '1') {
         echo '<input type="text" name="street_address" maxlength="64" value="' . $HTTP_POST_VARS['street_address'] . '">&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
@@ -410,26 +410,26 @@ function check_form() {
       }
     } else {
       echo '<input type="text" name="street_address" value="' . @$street_address . '" maxlength="64">&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
 <?
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       $HTTP_POST_VARS['suburb'] . '<input type="hidden" name="suburb" value="' . $HTTP_POST_VARS['suburb'] . '">';
     } else {
       echo '<input type="text" name="suburb" value="' . @$suburb . '" maxlength="32">&nbsp;' . ENTRY_SUBURB_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
 <?
   }
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$postcode_error == '1') {
         echo '<input type="text" name="postcode" maxlength="8" value="' . $HTTP_POST_VARS['postcode'] . '">&nbsp;' . ENTRY_POST_CODE_ERROR;
@@ -438,11 +438,11 @@ function check_form() {
       }
     } else {
       echo '<input type="text" name="postcode" value="' . @$postcode . '" maxlength="8">&nbsp;' . ENTRY_POST_CODE_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$city_error == '1') {
         echo '<input type="text" name="city" maxlength="32" value="' . $HTTP_POST_VARS['city'] . '">&nbsp;' . ENTRY_CITY_ERROR;
@@ -451,11 +451,11 @@ function check_form() {
       }
     } else {
       echo '<input type="text" name="city" value="' . @$city . '" maxlength="32">&nbsp;' . ENTRY_CITY_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       if (@$country_error == '1') {
         tep_get_country_list("country", STORE_COUNTRY, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":"");
@@ -468,25 +468,24 @@ function check_form() {
       if ($country == "") $country = STORE_COUNTRY;
       tep_get_country_list("country", $country, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":"");
       echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
 <?
    if (ACCOUNT_STATE) {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?
+            <td class="fieldValue" nowrap>&nbsp;<?
     if (@$process == 1) {
       echo tep_get_zone_name($country, $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
     } else {
       tep_get_zone_list("zone_id", $country, $zone_id, "onChange=\"resetStateText(this.form)\";");
       echo '&nbsp;' . ENTRY_STATE_TEXT;
-    } ?></font></td>
+    } ?></td>
           </tr>
           <tr>
-            <td></td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>
-            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $state; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;</td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $state; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
 <?
    }

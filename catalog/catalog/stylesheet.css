@@ -136,4 +136,10 @@ TD.accountCategory {
 TD.fieldKey {
     font-family : Verdana, Arial, sans-serif;
     font-size : 12px;
+    font-weight : bold;
+}
+
+TD.fieldValue {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 12px;
 }

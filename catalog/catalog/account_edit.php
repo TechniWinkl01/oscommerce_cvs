@@ -227,13 +227,13 @@ function check_form() {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;&nbsp;<input type="radio" name="gender" value="m"<?
+            <td class="fieldValue" nowrap>&nbsp;&nbsp;<input type="radio" name="gender" value="m"<?
   if ($account_values['customers_gender'] == 'm') {
     echo ' CHECKED';
   } ?>>&nbsp;&nbsp;<? echo MALE; ?>&nbsp;&nbsp;<input type="radio" name="gender" value="f"<?
   if ($account_values['customers_gender'] == 'f') {
     echo ' CHECKED';
-  } ?>>&nbsp;&nbsp;<? echo FEMALE; ?>&nbsp;<? echo ENTRY_GENDER_TEXT; ?></font></td>
+  } ?>>&nbsp;&nbsp;<? echo FEMALE; ?>&nbsp;<? echo ENTRY_GENDER_TEXT; ?></td>
           </tr>
 <?
    }
@@ -243,18 +243,18 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="firstname" maxlength="32" value="<? echo $account_values['customers_firstname']; ?>">&nbsp;<? echo ENTRY_FIRST_NAME_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="firstname" maxlength="32" value="<? echo $account_values['customers_firstname']; ?>">&nbsp;<? echo ENTRY_FIRST_NAME_TEXT; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="lastname" maxlength="32" value="<? echo $account_values['customers_lastname']; ?>">&nbsp;<? echo ENTRY_LAST_NAME_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="lastname" maxlength="32" value="<? echo $account_values['customers_lastname']; ?>">&nbsp;<? echo ENTRY_LAST_NAME_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_DOB) {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="dob" value="<? echo substr($account_values['customers_dob'], -2) . '/' . substr($account_values['customers_dob'], 4, 2) . '/' . substr($account_values['customers_dob'], 0, 4); ?>" maxlength="10">&nbsp;<? echo ENTRY_DATE_OF_BIRTH_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="dob" value="<? echo substr($account_values['customers_dob'], -2) . '/' . substr($account_values['customers_dob'], 4, 2) . '/' . substr($account_values['customers_dob'], 0, 4); ?>" maxlength="10">&nbsp;<? echo ENTRY_DATE_OF_BIRTH_TEXT; ?></td>
           </tr>
 <?
    }
@@ -262,7 +262,7 @@ function check_form() {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? echo $account_values['customers_email_address']; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? echo $account_values['customers_email_address']; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
@@ -272,41 +272,40 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="street_address" maxlength="64" value="<? echo $account_values['customers_street_address']; ?>">&nbsp;<? echo ENTRY_STREET_ADDRESS_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="street_address" maxlength="64" value="<? echo $account_values['customers_street_address']; ?>">&nbsp;<? echo ENTRY_STREET_ADDRESS_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="suburb" maxlength="32" value="<? echo $account_values['customers_suburb']; ?>">&nbsp;<? echo ENTRY_SUBURB_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="suburb" maxlength="32" value="<? echo $account_values['customers_suburb']; ?>">&nbsp;<? echo ENTRY_SUBURB_TEXT; ?></td>
           </tr>
 <?
    }
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="postcode" maxlength="8" value="<? echo $account_values['customers_postcode']; ?>">&nbsp;<? echo ENTRY_POST_CODE_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="postcode" maxlength="8" value="<? echo $account_values['customers_postcode']; ?>">&nbsp;<? echo ENTRY_POST_CODE_TEXT; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="city" maxlength="32" value="<? echo $account_values['customers_city']; ?>">&nbsp;<? echo ENTRY_CITY_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="city" maxlength="32" value="<? echo $account_values['customers_city']; ?>">&nbsp;<? echo ENTRY_CITY_TEXT; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?tep_get_country_list("country", $account_values['customers_country_id'], (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<?tep_get_country_list("country", $account_values['customers_country_id'], (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_STATE) {
 ?>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<?tep_get_zone_list("zone_id", $account_values['customers_country_id'], $account_values['customers_zone_id'], "onChange=\"resetStateText(this.form)\";"); ?>&nbsp;<? echo ENTRY_STATE_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<?tep_get_zone_list("zone_id", $account_values['customers_country_id'], $account_values['customers_zone_id'], "onChange=\"resetStateText(this.form)\";"); ?>&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
           <tr>
-            <td></td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>
-            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $account_values['customers_state']; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></font></td>
+            <td align="right" class="fieldKey" nowrap>&nbsp;</td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $account_values['customers_state']; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
 <?
   }
@@ -319,11 +318,11 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="telephone" maxlength="32" value="<? echo $account_values['customers_telephone']; ?>">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="telephone" maxlength="32" value="<? echo $account_values['customers_telephone']; ?>">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER_TEXT; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="text" name="fax" maxlength="32" value="<? echo $account_values['customers_fax']; ?>">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="fax" maxlength="32" value="<? echo $account_values['customers_fax']; ?>">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
@@ -333,7 +332,7 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<select name="newsletter"><?php if ($account_values['customers_newsletter']=="1") { echo '<option selected value="1">'; } else { echo '<option value="1">'; } ?><?php echo ENTRY_NEWSLETTER_YES; ?></option><?php if ($account_values['customers_newsletter']=="0") { echo '<option selected value="0">'; } else { echo '<option value="0">'; } ?><? echo ENTRY_NEWSLETTER_NO; ?></option></select>&nbsp;<? echo ENTRY_NEWSLETTER_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<select name="newsletter"><?php if ($account_values['customers_newsletter']=="1") { echo '<option selected value="1">'; } else { echo '<option value="1">'; } ?><?php echo ENTRY_NEWSLETTER_YES; ?></option><?php if ($account_values['customers_newsletter']=="0") { echo '<option selected value="0">'; } else { echo '<option value="0">'; } ?><? echo ENTRY_NEWSLETTER_NO; ?></option></select>&nbsp;<? echo ENTRY_NEWSLETTER_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
@@ -343,11 +342,11 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="password" name="password" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="password" name="password" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_TEXT; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION; ?>&nbsp;</td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<input type="password" name="confirmation" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION_TEXT; ?></font></td>
+            <td class="fieldValue" nowrap>&nbsp;<input type="password" name="confirmation" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION_TEXT; ?></td>
           </tr>
         </table></td>
       </tr>
