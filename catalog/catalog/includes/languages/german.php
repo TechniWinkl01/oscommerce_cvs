@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.111 2002/11/11 23:08:46 dgw_ Exp $
+  $Id: german.php,v 1.112 2002/11/13 20:56:36 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -168,8 +168,8 @@ define('CATEGORY_CONTACT', 'Ihre Kontaktinformation');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('CATEGORY_PASSWORD', 'Ihr Passwort');
 define('ENTRY_COMPANY', 'Firmenname:');
-define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#FF0000">notwendige Eingabe</font></small>');
-define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
+define('ENTRY_COMPANY_ERROR', '');
+define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_GENDER', 'Anrede:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#FF0000">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
