@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.15 2001/11/20 19:29:54 hpdl Exp $
+  $Id: backup.php,v 1.16 2001/11/20 21:41:26 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,7 +18,7 @@
     while ($tables = tep_db_fetch_array($tables_query)) {
       $table = $tables[0];
       $schema .= 'drop table if exists ' . $table . ';' . "\n" .
-                 'create table ' . $table . '(' . "\n";
+                 'create table ' . $table . ' (' . "\n";
       $table_list = array();
       $fields_query = tep_db_query("show fields from " . $table);
       while ($fields = tep_db_fetch_array($fields_query)) {
@@ -50,7 +50,7 @@
         }
         $index[$kname][] = $keys['Column_name'];
       }
-      while (list($x, $columns) = @each($index)) {
+      while (list($x, $columns) = each($index)) {
         $schema .= ',' . "\n";
         if ($x == 'PRIMARY') {
           $schema .= '  PRIMARY KEY (' . implode($columns, ', ') . ')';
@@ -183,11 +183,11 @@
 
       $check = 0;
 
-      if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && (!$HTTP_GET_VARS['action'])) {
+      if (((!$HTTP_GET_VARS['info']) || ($HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && (!$HTTP_GET_VARS['action'])) {
         $buInfo = new backupInfo(array('entry' => $entry));
       }
 
-      if ($entry == @$buInfo->file) {
+      if (is_object($buInfo) && ($entry == $buInfo->file)) {
         echo '              <tr class="selectedRow">' . "\n";
       } else {
         echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('info', 'action')) . 'info=' . $entry, 'NONSSL') . '\'">' . "\n";
@@ -197,7 +197,7 @@
                 <td align="center" class="smallText">&nbsp;<?php echo date(PHP_DATE_TIME_FORMAT, filemtime(DIR_FS_BACKUP . $entry)); ?>&nbsp;</td>
                 <td align="right" class="smallText">&nbsp;<?php echo number_format(filesize(DIR_FS_BACKUP . $entry)); ?> bytes&nbsp;</td>
 <?php
-      if ($entry == @$buInfo->file) {
+      if (is_object(buInfo) && ($entry == $buInfo->file)) {
 ?>
                 <td align="right" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
 <?php
