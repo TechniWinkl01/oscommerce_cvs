@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.14 2001/12/19 13:40:39 hpdl Exp $
+  $Id: shopping_cart.php,v 1.15 2002/01/15 20:12:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -60,7 +60,7 @@
 
   if (!$cart_empty) {
     $info_box_contents[] = array('align' => 'left',
-                                 'text' => tep_black_line()
+                                 'text' => tep_draw_separator()
                            );
     $info_box_contents[] = array('align' => 'right',
                                  'text'  => $currencies->format($cart->show_total())
