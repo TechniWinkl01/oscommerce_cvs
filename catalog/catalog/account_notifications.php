@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_notifications.php,v 1.5 2005/02/23 15:24:25 hpdl Exp $
+  $Id: account_notifications.php,v 1.6 2005/03/07 10:04:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,7 @@
     $updated = false;
 
     if (isset($_POST['product_global']) && is_numeric($_POST['product_global'])) {
-      $product_global = tep_db_prepare_input($_POST['product_global']);
+      $product_global = $_POST['product_global'];
     } else {
       $product_global = '0';
     }

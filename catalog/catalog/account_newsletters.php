@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_newsletters.php,v 1.7 2005/02/23 15:25:10 hpdl Exp $
+  $Id: account_newsletters.php,v 1.8 2005/03/07 10:04:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,12 +28,12 @@
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
     if (isset($_POST['newsletter_general']) && is_numeric($_POST['newsletter_general'])) {
-      $newsletter_general = tep_db_prepare_input($_POST['newsletter_general']);
+      $newsletter_general = $_POST['newsletter_general'];
     } else {
       $newsletter_general = '0';
     }
 
-    if ($newsletter_general != $Qnewsletter->value('customers_newsletter')) {
+    if ($newsletter_general != $Qnewsletter->valueInt('customers_newsletter')) {
       $newsletter_general = (($Qnewsletter->value('customers_newsletter') == '1') ? '0' : '1');
 
       $Qupdate = $osC_Database->query('update :table_customers set customers_newsletter = :customers_newsletter where customers_id = :customers_id');

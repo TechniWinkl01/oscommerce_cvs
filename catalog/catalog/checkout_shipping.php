@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.24 2005/02/23 15:28:27 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.25 2005/03/07 10:04:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,7 +106,7 @@
 // process the selected shipping method
   if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
     if (tep_not_null($_POST['comments'])) {
-      $osC_Session->set('comments', tep_db_prepare_input($_POST['comments']));
+      $osC_Session->set('comments', tep_sanitize_string($_POST['comments']));
     }
 
     if ( (tep_count_shipping_modules() > 0) || ($free_shipping == true) ) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.289 2005/02/23 16:08:29 hpdl Exp $
+  $Id: application_top.php,v 1.290 2005/03/07 10:04:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -60,9 +60,6 @@
 // initialize the cache class
   require('includes/classes/cache.php');
   $osC_Cache = new osC_Cache;
-
-// include the database functions
-  require('includes/functions/database.php');
 
 // include the database class
   require('includes/classes/database.php');
@@ -237,9 +234,6 @@
 // include the mail classes
   require('includes/classes/mime.php');
   require('includes/classes/email.php');
-
-// split-page-results
-  require('includes/classes/split_page_results.php');
 
 // infobox
   require('includes/classes/boxes.php');

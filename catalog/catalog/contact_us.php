@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.45 2004/07/22 17:23:53 hpdl Exp $
+  $Id: contact_us.php,v 1.46 2005/03/07 10:04:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -16,9 +16,9 @@
 
   $error = false;
   if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
-    $name = tep_db_prepare_input($_POST['name']);
-    $email_address = tep_db_prepare_input($_POST['email']);
-    $enquiry = tep_db_prepare_input($_POST['enquiry']);
+    $name = tep_sanitize_string($_POST['name']);
+    $email_address = tep_sanitize_string($_POST['email']);
+    $enquiry = tep_sanitize_string($_POST['enquiry']);
 
     if (tep_validate_email($email_address)) {
       tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $enquiry, $name, $email_address);

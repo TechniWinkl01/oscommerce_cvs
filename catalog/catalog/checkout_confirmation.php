@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.145 2004/07/22 17:23:53 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.146 2005/03/07 10:04:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -44,7 +44,7 @@
   if ( (isset($_POST['comments'])) && ($osC_Session->exists('comments')) && (empty($_POST['comments'])) ) {
     $osC_Session->remove('comments');
   } else if (tep_not_null($_POST['comments'])) {
-    $osC_Session->set('comments', tep_db_prepare_input($_POST['comments']));
+    $osC_Session->set('comments', tep_sanitize_string($_POST['comments']));
   }
 
   if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
