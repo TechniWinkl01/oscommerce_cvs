@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.69 2003/02/13 04:01:41 hpdl Exp $
+  $Id: shopping_cart.php,v 1.70 2003/02/13 04:23:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_SHOPPING_CART);
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SHOPPING_CART));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -54,7 +54,7 @@
   if ($cart->count_contents() > 0) {
 ?>
       <tr>
-        <td><form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_SHOPPING_CART, 'action=update_product', 'NONSSL'); ?>">
+        <td><form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_SHOPPING_CART, 'action=update_product'); ?>">
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
     $any_out_of_stock = 0;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: redirect.php,v 1.8 2003/02/13 04:01:40 hpdl Exp $
+  $Id: redirect.php,v 1.9 2003/02/13 04:23:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,7 +51,7 @@
 
                             tep_redirect($manufacturer['manufacturers_url']);
                           } else {
-                            tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
+                            tep_redirect(tep_href_link(FILENAME_DEFAULT));
                           }
                           break;
     default:       tep_redirect(tep_href_link(FILENAME_DEFAULT));

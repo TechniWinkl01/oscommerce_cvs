@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.20 2003/02/13 04:01:40 hpdl Exp $
+  $Id: shipping.php,v 1.21 2003/02/13 04:23:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_SHIPPING);
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SHIPPING, '', 'NONSSL'));
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SHIPPING));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

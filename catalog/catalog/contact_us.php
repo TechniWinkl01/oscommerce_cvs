@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.37 2003/02/13 02:27:56 hpdl Exp $
+  $Id: contact_us.php,v 1.38 2003/02/13 04:23:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@
   if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'send')) {
     if (tep_validate_email(trim($HTTP_POST_VARS['email']))) {
       tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], $HTTP_POST_VARS['name'], $HTTP_POST_VARS['email']);
-      tep_redirect(tep_href_link(FILENAME_CONTACT_US, 'action=success', 'NONSSL'));
+      tep_redirect(tep_href_link(FILENAME_CONTACT_US, 'action=success'));
     } else {
       $error = true;
     }
@@ -69,7 +69,7 @@
             <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE, '0', '0', 'align="left"') . TEXT_SUCCESS; ?></td>
           </tr>
           <tr>
-            <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
+            <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
           </tr>
         </table></td>
       </tr>
@@ -77,7 +77,7 @@
   } else {
 ?>
       <tr>
-        <td><form action="<?php echo tep_href_link(FILENAME_CONTACT_US, 'action=send', 'NONSSL'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form action="<?php echo tep_href_link(FILENAME_CONTACT_US, 'action=send'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo ENTRY_NAME; ?><br><?php echo tep_draw_input_field('name', ($error ? $HTTP_POST_VARS['name'] : $first_name)); ?></td>
           </tr>

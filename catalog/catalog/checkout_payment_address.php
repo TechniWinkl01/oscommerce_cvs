@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.6 2003/02/13 01:58:24 hpdl Exp $
+  $Id: checkout_payment_address.php,v 1.7 2003/02/13 04:23:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,7 +20,7 @@
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
   if ($cart->count_contents() < 1) {
-    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
   }
 
   $error = false;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.84 2003/02/13 02:27:56 hpdl Exp $
+  $Id: create_account_process.php,v 1.85 2003/02/13 04:23:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -177,7 +177,7 @@
   if ($error == true) {
     $processed = true;
 
-    $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
+    $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CREATE_ACCOUNT));
     $breadcrumb->add(NAVBAR_TITLE_2);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
