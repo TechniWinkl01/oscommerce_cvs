@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.5 2001/09/19 11:13:02 mbs Exp $
+  $Id: default.php,v 1.6 2001/11/19 10:27:55 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,17 @@
 define('TOP_BAR_TITLE', 'Informacion para el Administrador');
 define('HEADING_TITLE', '¿Para que sirve este boton?');
 define('SUB_BAR_TITLE', 'The Exchange Project: Herramienta de Administracion');
-define('TEXT_MAIN', 'Cualquier cambio efectuado con esta herramienta de administracion surtira efecto inmediatamente en la base de datos. Si no esta seguro de lo que esta herramienta de administracion puede hacer, le sugerimos que lea la <a href="http://theexchangeproject.org/documentation.php" target="_blank"><u>documentación del proyecto</u></a>.');
+
+define('TITLE_SERVER_HOST', 'Server Host:');
+define('TITLE_SERVER_OS', 'Server OS:');
+define('TITLE_SERVER_DATE', 'Server Date:');
+define('TITLE_SERVER_UP_TIME', 'Server Up Time:');
+define('TITLE_HTTP_SERVER', 'HTTP Server:');
+define('TITLE_PHP_VERSION', 'PHP Version:');
+define('TITLE_ZEND_VERSION', 'Zend:');
+define('TITLE_DATABASE_HOST', 'Database Host:');
+define('TITLE_DATABASE', 'Database:');
+define('TITLE_DATABASE_DATE', 'Datebase Date:');
 
 define('TABLE_HEADING_NEW_CUSTOMERS', 'Nuevos Clientes');
 define('TABLE_HEADING_LAST_ORDERS', 'Ultimos Pedidos');

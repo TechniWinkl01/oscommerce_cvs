@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.28 2001/11/17 20:26:19 hpdl Exp $
+  $Id: default.php,v 1.29 2001/11/19 10:27:55 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -67,45 +67,45 @@
           <tr>
             <td><table border="0" cellspacing="0" cellpadding="3">
               <tr>
-                <td class="smallText"><b>Server Host:</b></td>
+                <td class="smallText"><b><?php echo TITLE_SERVER_HOST; ?></b></td>
                 <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b>Server OS:</b></td>
+                <td class="smallText"><b><?php echo TITLE_SERVER_OS; ?></b></td>
                 <td class="smallText"><?php echo $system['system'] . ' ' . $system['kernel']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b>Server Date Time:</b></td>
+                <td class="smallText"><b><?php echo TITLE_SERVER_DATE; ?></b></td>
                 <td class="smallText"><?php echo $system['date']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b>Up Time:</b></td>
+                <td class="smallText"><b><?php echo TITLE_SERVER_UP_TIME; ?></b></td>
                 <td class="smallText"><?php echo $system['uptime']; ?></td>
               </tr>
               <tr>
                 <td colspan="2" height="5"></td>
               </tr>
               <tr>
-                <td class="smallText"><b>HTTP Server:</b></td>
+                <td class="smallText"><b><?php echo TITLE_HTTP_SERVER; ?></b></td>
                 <td class="smallText"><?php echo $system['http_server']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b>PHP:</b></td>
-                <td class="smallText"><?php echo $system['php'] . ' (Zend: ' . $system['zend'] . ')'; ?></td>
+                <td class="smallText"><b><?php echo TITLE_PHP_VERSION; ?></b></td>
+                <td class="smallText"><?php echo $system['php'] . ' (' . TITLE_ZEND_VERSION . ' ' . $system['zend'] . ')'; ?></td>
               </tr>
               <tr>
                 <td colspan="2" height="5"></td>
               </tr>
               <tr>
-                <td class="smallText"><b>Database Host:</b></td>
+                <td class="smallText"><b><?php echo TITLE_DATABASE_HOST; ?></b></td>
                 <td class="smallText"><?php echo $system['db_server'] . ' (' . $system['db_ip'] . ')'; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b>Database Server:</b></td>
+                <td class="smallText"><b><?php echo TITLE_DATABASE; ?></b></td>
                 <td class="smallText"><?php echo $system['db_version']; ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b>Database Date Time:</b></td>
+                <td class="smallText"><b><?php echo TITLE_DATABASE_DATE; ?></b></td>
                 <td class="smallText"><?php echo $system['db_date']; ?></td>
               </tr>
             </table></td>
