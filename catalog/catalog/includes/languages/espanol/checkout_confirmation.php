@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.15 2002/11/01 04:17:48 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.16 2002/11/11 20:13:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,6 +18,8 @@ define('HEADING_TITLE', 'Estoy preparado para Comprar!');
 define('HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('HEADING_SHIPPING_METHOD', 'Shipping Method');
 define('HEADING_PRODUCTS', 'Products');
+define('HEADING_TAX', 'Tax');
+define('HEADING_TOTAL', 'Total');
 define('HEADING_BILLING_INFORMATION', 'Billing Information');
 define('HEADING_BILLING_ADDRESS', 'Billing Address');
 define('HEADING_PAYMENT_METHOD', 'Payment Method');
