@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.39 2001/07/25 06:25:58 mbs Exp $
+  $Id: account_edit_process.php,v 1.40 2001/07/31 21:22:13 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -247,7 +247,7 @@
     }
     $update_query_customers = $update_query_customers . " customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
 // Update the address_book table
-    $update_query_address = 'update ' . TABLE_ADDRESS_BOOK . ' set ';
+    $update_query_address = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
     if (ACCOUNT_GENDER) {
        $update_query_address = $update_query_address . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
@@ -267,7 +267,7 @@
            $update_query_address = $update_query_address . "entry_zone_id = '0', entry_state = '" . $state . "', ";
        }
     }
-    $update_query_address = $update_query_address . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $customer_id . "' and address_book_id = '". $customers_default_address_id . "'";
+    $update_query_address = $update_query_address . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $customer_id . "' and address_book_id = '". $customer_default_address_id . "'";
 
     tep_db_query($update_query_customers);
     tep_db_query($update_query_address);
