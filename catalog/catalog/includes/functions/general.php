@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.130 2001/09/01 15:50:47 hpdl Exp $
+  $Id: general.php,v 1.131 2001/09/10 11:00:03 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -959,36 +959,44 @@
 // Send email (text/html)
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
     if (!SEND_EMAILS) return true;
+      // Build all required headers
+      // add From: header
+      $headers = "From: $from_email_name <$from_email_address>\r\n";
 
-    // add From: header
-    $headers = "From: $from_email_name <$from_email_address>\r\n";
+    // should we use HTML or not?
+		if EMAIL_USE_HTML {
 
-    // specify MIME version 1.0
-    $headers .= "MIME-Version: 1.0\r\n";
+      // specify MIME version 1.0
+      $headers .= "MIME-Version: 1.0\r\n";
 
-    // unique boundary
-    $boundary = uniqid("TheExchangeProject");
+      // tell e-mail client this e-mail contains alternate versions
+      $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
 
-    // tell e-mail client this e-mail contains//alternate versions
-    $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
+  		// Build the body text of the message
+      // message to people with clients who don't understand MIME
+      $body = "This is a MIME encoded message.\r\n\r\n";
 
-    // message to people with clients who don't understand MIME
-    $body .= "This is a MIME encoded message.\r\n\r\n";
+      // Build the unique boundary
+      $boundary = uniqid("TheExchangeProject");
 
-    //plain text version of message
-    $body .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $body .= strip_tags($email_text);
+      //plain text version of message
+      $body .= "--$boundary\r\nContent-Type: text/plain; charset=ISO-8859-1\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
+      $body .= strip_tags($email_text);
 
-    //HTML version of message
-    $body .= "\r\n--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
-    $body .= chunk_split(base64_encode($email_text));
+      //HTML version of message
+      $body .= "\r\n--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+      $body .= chunk_split(base64_encode($email_text));
 
-    //Close the MultiPart
-    $body .= "\r\n--$boundary--\r\n";
+      //Close the MultiPart
+      $body .= "\r\n--$boundary--\r\n";
 
-    //send message
-    $to_email_address = $to_name . " <" . $to_email_address . ">";
-    mail($to_email_address, $email_subject, $body, $headers);
+    } else {
+	    // send the text-only version
+      $body = strip_tags($email_text);  	
+    }
+      //send message
+      $to_email_address = $to_name . " <" . $to_email_address . ">";
+      mail($to_email_address, $email_subject, $body, $headers);
   }
 
 ////
