@@ -48,7 +48,6 @@ define('BOX_HEADING_SEARCH', 'Buscar');
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Configuracion');
 
-
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalogo');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categorias / Productos');
@@ -62,6 +61,10 @@ define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Proximamente');
 define('BOX_HEADING_CUSTOMERS', 'Clientes');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Clientes');
 define('BOX_CUSTOMERS_ORDERS', 'Pedidos');
+
+// taxes box text in includes/boxes/taxes.php
+define('BOX_HEADING_LOCATION_AND_TAXES', 'Zonas / Impuestos');
+define('BOX_TAXES_ZONES', 'Zonas');
 
 // whats_new box text in includes/boxes/statistics.php
 define('BOX_HEADING_STATISTICS', 'Estadisticas');
@@ -165,6 +168,7 @@ define('IMAGE_MODIFY', 'Modificar');
 define('IMAGE_MOVE', 'Mover');
 define('IMAGE_NEW_CATEGORY', 'Nueva Categoria');
 define('IMAGE_NEW_PRODUCT', 'Nuevo Producto');
+define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_PREVIEW', 'Ver');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
@@ -182,6 +186,7 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos esperados)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
