@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.20 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: order.php,v 1.21 2003/01/09 15:43:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   class order {
-    var $info, $totals, $products, $customer, $delivery;
+    var $info, $totals, $products, $customer, $delivery, $content_type;
 
     function order($order_id = '') {
       $this->info = array();
@@ -86,6 +86,10 @@
                               'country' => $order['delivery_country'],
                               'format_id' => $order['delivery_address_format_id']);
 
+      if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
+        $this->delivery = false;
+      }
+
       $this->billing = array('name' => $order['billing_name'],
                              'company' => $order['billing_company'],
                              'street_address' => $order['billing_street_address'],
@@ -127,6 +131,8 @@
 
     function cart() {
       global $customer_id, $sendto, $billto, $cart, $languages_id, $currency, $currencies, $shipping, $payment;
+
+      $this->content_type = $cart->get_content_type();
 
       $customer_address_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, co.countries_id, co.countries_name, co.countries_iso_code_2, co.countries_iso_code_3, co.address_format_id, ab.entry_state from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " co on (ab.entry_country_id = co.countries_id) where c.customers_id = '" . $customer_id . "' and ab.customers_id = '" . $customer_id . "' and c.customers_default_address_id = ab.address_book_id");
       $customer_address = tep_db_fetch_array($customer_address_query);
