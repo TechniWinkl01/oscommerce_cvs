@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.36 2003/11/17 19:36:56 hpdl Exp $
+  $Id: shopping_cart.php,v 1.37 2004/02/16 00:54:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -78,48 +78,61 @@
     function add_cart($products_id, $qty = '1', $attributes = '', $notify = true) {
       global $osC_Session, $osC_Customer;
 
-      $products_id = tep_get_uprid($products_id, $attributes);
-      if ($notify == true) {
-        $osC_Session->set('new_products_id_in_cart', $products_id);
-      }
+      $products_id_string = tep_get_uprid($products_id, $attributes);
+      $products_id = tep_get_prid($products_id_string);
 
-      if ($this->in_cart($products_id)) {
-        $this->update_quantity($products_id, $qty, $attributes);
-      } else {
-        $this->contents[$products_id] = array('qty' => $qty);
-// insert into database
-        if ($osC_Customer->isLoggedOn()) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . (int)$osC_Customer->id . "', '" . tep_db_input($products_id) . "', '" . $qty . "', '" . date('Ymd') . "')");
+      if (is_numeric($products_id) && is_numeric($qty)) {
+        $check_product_query = tep_db_query("select products_status from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
+        $check_product = tep_db_fetch_array($check_product_query);
 
-        if (is_array($attributes)) {
-          reset($attributes);
-          while (list($option, $value) = each($attributes)) {
-            $this->contents[$products_id]['attributes'][$option] = $value;
-// insert into database
-            if ($osC_Customer->isLoggedOn()) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . (int)$osC_Customer->id . "', '" . tep_db_input($products_id) . "', '" . (int)$option . "', '" . (int)$value . "')");
+        if (($check_product !== false) && ($check_product['products_status'] == '1')) {
+          if ($notify == true) {
+            $osC_Session->set('new_products_id_in_cart', $products_id_string);
           }
-        }
-      }
-      $this->cleanup();
+
+          if ($this->in_cart($products_id_string)) {
+            $this->update_quantity($products_id_string, $qty, $attributes);
+          } else {
+            $this->contents[$products_id_string] = array('qty' => $qty);
+// insert into database
+            if ($osC_Customer->isLoggedOn()) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . (int)$osC_Customer->id . "', '" . tep_db_input($products_id_string) . "', '" . (int)$qty . "', '" . date('Ymd') . "')");
+
+            if (is_array($attributes)) {
+              reset($attributes);
+              while (list($option, $value) = each($attributes)) {
+                $this->contents[$products_id_string]['attributes'][$option] = $value;
+// insert into database
+                if ($osC_Customer->isLoggedOn()) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " (customers_id, products_id, products_options_id, products_options_value_id) values ('" . (int)$osC_Customer->id . "', '" . tep_db_input($products_id_string) . "', '" . (int)$option . "', '" . (int)$value . "')");
+              }
+            }
+          }
+
+          $this->cleanup();
 
 // assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
-      $this->cartID = $this->generate_cart_id();
+          $this->cartID = $this->generate_cart_id();
+        }
+      }
     }
 
     function update_quantity($products_id, $quantity = '', $attributes = '') {
       global $osC_Customer;
 
-      if (empty($quantity)) return true; // nothing needs to be updated if theres no quantity, so we return true..
+      $products_id_string = tep_get_uprid($products_id, $attributes);
+      $products_id = tep_get_prid($products_id_string);
 
-      $this->contents[$products_id] = array('qty' => $quantity);
+      if (is_numeric($products_id) && isset($this->contents[$products_id_string]) && is_numeric($quantity)) {
+        $this->contents[$products_id_string] = array('qty' => $quantity);
 // update database
-      if ($osC_Customer->isLoggedOn()) tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . (int)$osC_Customer->id . "' and products_id = '" . tep_db_input($products_id) . "'");
+        if ($osC_Customer->isLoggedOn()) tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . (int)$quantity . "' where customers_id = '" . (int)$osC_Customer->id . "' and products_id = '" . tep_db_input($products_id_string) . "'");
 
-      if (is_array($attributes)) {
-        reset($attributes);
-        while (list($option, $value) = each($attributes)) {
-          $this->contents[$products_id]['attributes'][$option] = $value;
+        if (is_array($attributes)) {
+          reset($attributes);
+          while (list($option, $value) = each($attributes)) {
+            $this->contents[$products_id_string]['attributes'][$option] = $value;
 // update database
-          if ($osC_Customer->isLoggedOn()) tep_db_query("update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . (int)$value . "' where customers_id = '" . (int)$osC_Customer->id . "' and products_id = '" . tep_db_input($products_id) . "' and products_options_id = '" . (int)$option . "'");
+            if ($osC_Customer->isLoggedOn()) tep_db_query("update " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " set products_options_value_id = '" . (int)$value . "' where customers_id = '" . (int)$osC_Customer->id . "' and products_id = '" . tep_db_input($products_id_string) . "' and products_options_id = '" . (int)$option . "'");
+          }
         }
       }
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.234 2003/12/28 22:29:55 hpdl Exp $
+  $Id: general.php,v 1.235 2004/02/16 00:54:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -876,24 +876,52 @@
     if (is_numeric($prid)) {
       $uprid = $prid;
 
-      if (is_array($params)) {
+      if (is_array($params) && (sizeof($params) > 0)) {
+        $attributes_check = true;
+        $attributes_ids = '';
+
         reset($params);
         while (list($option, $value) = each($params)) {
-          $uprid .= '{' . (int)$option . '}' . (int)$value;
+          if (is_numeric($option) && is_numeric($value)) {
+            $attributes_ids .= '{' . (int)$option . '}' . (int)$value;
+          } else {
+            $attributes_check = false;
+            break;
+          }
+        }
+
+        if ($attributes_check == true) {
+          $uprid .= $attributes_ids;
         }
       }
     } else {
       $uprid = tep_get_prid($prid);
 
-      if (strpos($prid, '{') !== false) {
+      if (is_numeric($uprid)) {
+        if (strpos($prid, '{') !== false) {
+          $attributes_check = true;
+          $attributes_ids = '';
+
 // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-        $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
+          $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
 
-        for ($i=0, $n=sizeof($attributes); $i<$n; $i++) {
-          $pair = explode('}', $attributes[$i]);
+          for ($i=0, $n=sizeof($attributes); $i<$n; $i++) {
+            $pair = explode('}', $attributes[$i]);
 
-          $uprid .= '{' . (int)$pair[0] . '}' . (int)$pair[1];
+            if (is_numeric($pair[0]) && is_numeric($pair[1])) {
+              $attributes_ids .= '{' . (int)$pair[0] . '}' . (int)$pair[1];
+            } else {
+              $attributes_check = false;
+              break;
+            }
+          }
+
+          if ($attributes_check == true) {
+            $uprid .= $attributes_ids;
+          }
         }
+      } else {
+        return false;
       }
     }
 
@@ -905,7 +933,11 @@
   function tep_get_prid($uprid) {
     $pieces = explode('{', $uprid);
 
-    return (int)$pieces[0];
+    if (is_numeric($pieces[0])) {
+      return $pieces[0];
+    } else {
+      return false;
+    }
   }
 
 ////
