@@ -37,7 +37,7 @@
 //  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-  define('STORE_PAGE_PARSE_TIME', 0); // store the time it takes to parse a page
+  define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse a page
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
@@ -156,6 +156,15 @@
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
+// include cache class - only for PHP4
+  $CACHE_DEBUG = 0;     /* Default: 0 - Turn debugging on/off */
+  define(CACHE_ON, 0); /* Default: 0 - Turn caching on/off */
+  define(CACHE_DIR, '/tmp/'); /* Default: /tmp/ - Default cache directory */
+  define(CACHE_GC, .10); /* Default: .10 - Probability of garbage collection */
+
+  $include_file = DIR_WS_CLASSES . 'cache.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $cache = new phpCache;
+
 // include the database functions
   $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
@@ -177,8 +186,7 @@
   $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
 // lets start our session
-  if (!SID && $HTTP_GET_VARS[tep_session_name()]) 
-    tep_session_id( $HTTP_GET_VARS[tep_session_name()] );
+  if (!SID && $HTTP_GET_VARS[tep_session_name()]) tep_session_id($HTTP_GET_VARS[tep_session_name()]);
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
     session_set_cookie_params(0, DIR_WS_CATALOG);
