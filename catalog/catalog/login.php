@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.52 2001/11/13 22:13:00 dgw_ Exp $
+  $Id: login.php,v 1.53 2001/11/24 12:53:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,33 +16,34 @@
     // Build a string to append to every URL
     $origin_info = '';
     if ($HTTP_POST_VARS['origin']) {
-      $origin_info .= '&origin=' . $HTTP_POST_VARS['origin'];
+      $origin_info .= 'origin=' . $HTTP_POST_VARS['origin'] . '&';
     }
     if ($HTTP_POST_VARS['connection']) {
-      $origin_info .= '&connection=' . $HTTP_POST_VARS['connection'];
+      $origin_info .= 'connection=' . $HTTP_POST_VARS['connection'] . '&';
     }
     if ($HTTP_POST_VARS['products_id']) {
-      $origin_info .= '&products_id=' . $HTTP_POST_VARS['products_id'];
+      $origin_info .= 'products_id=' . $HTTP_POST_VARS['products_id'] . '&';
     }
     if ($HTTP_POST_VARS['order_id']) {
-      $origin_info .= '&order_id=' . $HTTP_POST_VARS['order_id'];
+      $origin_info .= 'order_id=' . $HTTP_POST_VARS['order_id'] . '&';
     }
     if ($HTTP_POST_VARS['emailproduct']) {
-      $origin_info .= '&emailproduct=' . $HTTP_POST_VARS['emailproduct'];
+      $origin_info .= 'emailproduct=' . $HTTP_POST_VARS['emailproduct'] . '&';
     }
     if ($HTTP_POST_VARS['send_to']) {
-      $origin_info .= '&send_to=' . $HTTP_POST_VARS['send_to'];
+      $origin_info .= 'send_to=' . $HTTP_POST_VARS['send_to'] . '&';
     }
     if ($HTTP_POST_VARS['email_address']) {
-      $origin_info .= '&email_address=' . $HTTP_POST_VARS['email_address'];
+      $origin_info .= 'email_address=' . $HTTP_POST_VARS['email_address'] . '&';
     }
+    $origin_info = ereg_replace("&$", '', $origin_info);
     // Check if email exists
     $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if ($HTTP_POST_VARS['user'] == 'new') {
       if (!tep_db_num_rows($check_customer_query)) {
         tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, $origin_info));
       } else {
-        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail_email' . $origin_info));
+        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail_email&' . $origin_info));
       }
     } else {
       if (tep_db_num_rows($check_customer_query)) {
@@ -50,7 +51,7 @@
         // Check that password is good
         $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer['customers_password']);
         if ($pass_ok != true) {
-          tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail' . $origin_info));
+          tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&' . $origin_info));
         } else {
           $customer_id = $check_customer['customers_id'];
           $customer_default_address_id = $check_customer['customers_default_address_id'];
@@ -91,7 +92,7 @@
           }
         }
       } else {
-        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail' . $origin_info, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&' . $origin_info, 'NONSSL'));
       }
     }
   } else {
