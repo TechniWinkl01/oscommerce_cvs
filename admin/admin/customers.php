@@ -355,7 +355,7 @@ function check_form() {
     while ($customers = tep_db_fetch_array($customers_query)) {
       $rows++;
 
-      $info_query = tep_db_query("select customers_info_date_account_created date_account_created, customers_info_date_account_last_modified date_account_last_modified, customers_info_date_of_last_logon date_last_logon, customers_info_number_of_logons number_of_logons from customers_info where customers_info_id = '" . $customers['customers_id'] . "'");
+      $info_query = tep_db_query("select customers_info_date_account_created as date_account_created, customers_info_date_account_last_modified as date_account_last_modified, customers_info_date_of_last_logon as date_last_logon, customers_info_number_of_logons as number_of_logons from customers_info where customers_info_id = '" . $customers['customers_id'] . "'");
       $info = tep_db_fetch_array($info_query);
 
       if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $customers['customers_id'])) && (!$cuInfo)) {
