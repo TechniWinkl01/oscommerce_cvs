@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.154 2003/05/14 17:40:26 dgw_ Exp $
+  $Id: general.php,v 1.155 2003/05/17 16:04:51 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -613,6 +613,18 @@
     }
 
     return $zones;
+  }
+
+////
+// Get list of address_format_id's
+  function tep_get_address_formats() {
+    $address_format_query = tep_db_query("select address_format_id from " . TABLE_ADDRESS_FORMAT . " order by address_format_id");
+    $address_format_array = array();
+    while ($address_format_values = tep_db_fetch_array($address_format_query)) {
+      $address_format_array[] = array('id' => $address_format_values['address_format_id'],
+                                      'text' => $address_format_values['address_format_id']);
+    }
+    return $address_format_array;
   }
 
 ////
