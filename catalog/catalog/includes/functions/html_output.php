@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.34 2002/05/27 13:17:43 hpdl Exp $
+  $Id: html_output.php,v 1.35 2002/05/30 22:03:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -217,40 +217,6 @@
     $result .= '</select>';
 
     return $result;
-  }
-
-////
-// javascript to dynamically update the states/provinces list when the country is changed
-// Parameters:
-// selectedcountryvar: string that contains the selected country variable
-// formname:           the form name
-// TABLES: zones
-  function tep_js_zone_list($selected_country_var, $form_name) {
-    $country_query = tep_db_query("select distinct zone_country_id from " . TABLE_ZONES . " order by zone_country_id");
-    $num_country = 1;
-    while ($country_values = tep_db_fetch_array($country_query)) {
-      if ($num_country == 1) {
-        echo '  if (' . $selected_country_var . ' == "' . $country_values['zone_country_id'] . '") {' . "\n";
-      } else {
-        echo '  else if (' . $selected_country_var . ' == "' . $country_values['zone_country_id'] . '") {' . "\n";
-      }
-
-      $state_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $country_values['zone_country_id'] . "' order by zone_name");
-
-      $num_state = 1;
-      while ($state_values = tep_db_fetch_array($state_query)) {
-        if ($num_state == 1) {
-          echo '    ' . $form_name . '.zone_id.options[0] = new Option("' . PULL_DOWN_DEFAULT . '", "");' . "\n";
-        }
-        echo '    ' . $form_name . '.zone_id.options[' . $num_state . '] = new Option("' . $state_values['zone_name'] . '", "' . $state_values['zone_id'] . '");' . "\n";
-        $num_state++;
-      }
-      $num_country++;
-      echo '  }' . "\n";
-    }
-    echo '  else {' . "\n" .
-         '    ' . $form_name . '.zone_id.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
-         '  }' . "\n";
   }
 
 ////

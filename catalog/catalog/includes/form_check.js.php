@@ -87,18 +87,10 @@ function check_form() {
 <?php
   if (ACCOUNT_STATE == 'true') {
 ?>
-  if (document.account_edit.elements['zone_id'].type != "hidden") {
-    if (document.account_edit.zone_id.options.length <= 1) {
-      if (document.account_edit.state.value == '' || document.account_edit.state.value.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-         error_message = error_message + "<?php echo JS_STATE; ?>";
-         error = 1;
-      }
-    } else {
-      document.account_edit.state.value = '';
-      if (document.account_edit.zone_id.selectedIndex == 0) {
-         error_message = error_message + "<?php echo JS_ZONE; ?>";
-         error = 1;
-      }
+  if (document.account_edit.elements['state'].type != "hidden") {
+    if (document.account_edit.state.value == '' || document.account_edit.state.value.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+       error_message = error_message + "<?php echo JS_STATE; ?>";
+       error = 1;
     }
   }
 <?php

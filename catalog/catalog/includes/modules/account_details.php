@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.15 2002/05/21 12:35:06 hpdl Exp $
+  $Id: account_details.php,v 1.16 2002/05/30 22:03:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,7 +38,7 @@
       if ($entry_gender_error) {
         echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
       } else {
-        echo ($HTTP_POST_VARS['gender'] == 'm') ? MALE : FEMALE;
+        echo ($gender == 'm') ? MALE : FEMALE;
         echo tep_draw_hidden_field('gender');
       }
     } else {
@@ -59,7 +59,7 @@
     if ($entry_firstname_error) {
       echo tep_draw_input_field('firstname') . '&nbsp;' . ENTRY_FIRST_NAME_ERROR;
     } else {
-      echo $HTTP_POST_VARS['firstname'] . tep_draw_hidden_field('firstname');
+      echo $firstname . tep_draw_hidden_field('firstname');
     }
   } else {
     echo tep_draw_input_field('firstname', $account['customers_firstname']) . '&nbsp;' . ENTRY_FIRST_NAME_TEXT;
@@ -76,7 +76,7 @@
     if ($entry_lastname_error) {
       echo tep_draw_input_field('lastname') . '&nbsp;' . ENTRY_LAST_NAME_ERROR;
     } else {
-      echo $HTTP_POST_VARS['lastname'] . tep_draw_hidden_field('lastname');
+      echo $lastname . tep_draw_hidden_field('lastname');
     }
   } else {
     echo tep_draw_input_field('lastname', $account['customers_lastname']) . '&nbsp;' . ENTRY_LAST_NAME_TEXT;
@@ -96,7 +96,7 @@
       if ($entry_date_of_birth_error) {
         echo tep_draw_input_field('dob') . '&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
       } else {
-        echo $HTTP_POST_VARS['dob'] . tep_draw_hidden_field('dob');
+        echo $dob . tep_draw_hidden_field('dob');
       }
     } else {
       echo tep_draw_input_field('dob', tep_date_short($account['customers_dob'])) . '&nbsp;' . ENTRY_DATE_OF_BIRTH_TEXT;
@@ -120,7 +120,7 @@
     } elseif ($entry_email_address_exists) {
       echo tep_draw_input_field('email_address') . '&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR_EXISTS;
     } else {
-      echo $HTTP_POST_VARS['email_address'] . tep_draw_hidden_field('email_address');
+      echo $email_address . tep_draw_hidden_field('email_address');
     }
   } else {
     echo tep_draw_input_field('email_address', $account['customers_email_address']) . '&nbsp;' . ENTRY_EMAIL_ADDRESS_TEXT;
@@ -150,7 +150,7 @@
       if ($entry_company_error) {
         echo tep_draw_input_field('company') . '&nbsp;' . ENTRY_COMPANY_ERROR;
       } else {
-        echo $HTTP_POST_VARS['company'] . tep_draw_hidden_field('company');
+        echo $company . tep_draw_hidden_field('company');
       }
     } else {
       echo tep_draw_input_field('company', $account['entry_company']) . '&nbsp;' . ENTRY_COMPANY_TEXT;
@@ -183,7 +183,7 @@
     if ($entry_street_address_error) {
       echo tep_draw_input_field('street_address') . '&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
     } else {
-      echo $HTTP_POST_VARS['street_address'] . tep_draw_hidden_field('street_address');
+      echo $street_address . tep_draw_hidden_field('street_address');
     }
   } else {
     echo tep_draw_input_field('street_address', $account['entry_street_address']) . '&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
@@ -203,7 +203,7 @@
       if ($entry_suburb_error) {
         echo tep_draw_input_field('suburb') . '&nbsp;' . ENTRY_SUBURB_ERROR;
       } else {
-        echo $HTTP_POST_VARS['suburb'] . tep_draw_hidden_field('suburb');
+        echo $suburb . tep_draw_hidden_field('suburb');
       }
     } else {
       echo tep_draw_input_field('suburb', $account['entry_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
@@ -223,7 +223,7 @@
     if ($entry_post_code_error) {
       echo tep_draw_input_field('postcode') . '&nbsp;' . ENTRY_POST_CODE_ERROR;
     } else {
-      echo $HTTP_POST_VARS['postcode'] . tep_draw_hidden_field('postcode');
+      echo $postcode . tep_draw_hidden_field('postcode');
     }
   } else {
     echo tep_draw_input_field('postcode', $account['entry_postcode']) . '&nbsp;' . ENTRY_POST_CODE_TEXT;
@@ -240,7 +240,7 @@
     if ($entry_city_error) {
       echo tep_draw_input_field('city') . '&nbsp;' . ENTRY_CITY_ERROR;
     } else {
-      echo $HTTP_POST_VARS['city'] . tep_draw_hidden_field('city');
+      echo $city . tep_draw_hidden_field('city');
     }
   } else {
     echo tep_draw_input_field('city', $account['entry_city']) . '&nbsp;' . ENTRY_CITY_TEXT;
@@ -255,47 +255,48 @@
     echo tep_get_country_name($account['entry_country_id']);
   } elseif ($error) {
     if ($entry_country_error) {
-      tep_get_country_list('country', $HTTP_POST_VARS['country'], (ACCOUNT_STATE == 'true') ? 'onChange="update_zone(this.form);"' : '');
+      tep_get_country_list('country', $country);
       echo '&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {
-      echo tep_get_country_name($HTTP_POST_VARS['country']) . tep_draw_hidden_field('country');
+      echo tep_get_country_name($country) . tep_draw_hidden_field('country');
     }
   } else {
-    tep_get_country_list('country', $account['entry_country_id'], (ACCOUNT_STATE == 'true') ? 'onChange="update_zone(this.form);"' : '');
+    tep_get_country_list('country', $account['entry_country_id']);
     echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
   }
 ?></td>
           </tr>
 <?php
   if (ACCOUNT_STATE == 'true') {
-    $customers_state = ($account['entry_state']) ? $account['entry_state'] : JS_STATE_SELECT;
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo ENTRY_STATE; ?></td>
             <td class="main">&nbsp;
 <?php
+    $state = tep_get_zone_name($country, $zone_id, $state);
     if ($is_read_only) {
       echo tep_get_zone_name($account['entry_country_id'], $account['entry_zone_id'], $account['entry_state']);
-    } elseif ($processed) {
-      echo tep_get_zone_name($HTTP_POST_VARS['country'], $HTTP_POST_VARS['zone_id'], $HTTP_POST_VARS['state']) . tep_draw_hidden_field('zone_id') . tep_draw_hidden_field('state');
+    } elseif ($error) {
+      if ($entry_state_error) {
+        if ($entry_state_has_zones) {
+          $zones_array = array();
+          $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' order by zone_name");
+          while ($zones_values = tep_db_fetch_array($zones_query)) {
+            $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
+          }
+          echo tep_draw_pull_down_menu('state', $zones_array) . '&nbsp;' . ENTRY_STATE_ERROR;
+        } else {
+          echo tep_draw_input_field('state') . '&nbsp;' . ENTRY_STATE_ERROR;
+        }
+      } else {
+        echo $state . tep_draw_hidden_field('zone_id') . tep_draw_hidden_field('state');
+      }
     } else {
-      echo tep_get_zone_list('zone_id', $account['entry_country_id'], $account['entry_zone_id'], 'onChange="resetStateText(this.form);"');
-      echo '&nbsp;' . ENTRY_STATE_TEXT;
+      echo tep_draw_input_field('state', tep_get_zone_name($account['entry_country_id'], $account['entry_zone_id'], $account['entry_state'])) . '&nbsp;' . ENTRY_STATE_TEXT;
     }
 ?></td>
           </tr>
 <?php
-    if ( (!$is_read_only) && (!$error) && (!$processed) ) {
-?>
-          <tr>
-            <td class="main">&nbsp;</td>
-            <td class="main">&nbsp;
-<?php
-      echo tep_draw_input_field('state', $customers_state, 'onChange="resetZoneSelected(this.form);"') . '&nbsp;' . ENTRY_STATE_TEXT;
-?></td>
-          </tr>
-<?php
-    }
   }
 ?>
         </table></td>
@@ -319,7 +320,7 @@
     if ($entry_telephone_error) {
       echo tep_draw_input_field('telephone') . '&nbsp;' . ENTRY_TELEPHONE_NUMBER_ERROR;
     } else {
-      echo $HTTP_POST_VARS['telephone'] . tep_draw_hidden_field('telephone');
+      echo $telephone . tep_draw_hidden_field('telephone');
     }
   } else {
     echo tep_draw_input_field('telephone', $account['customers_telephone']) . '&nbsp;' . ENTRY_TELEPHONE_NUMBER_TEXT;
@@ -333,7 +334,7 @@
   if ($is_read_only) {
     echo $account['customers_fax'];
   } elseif ($processed) {
-    echo $HTTP_POST_VARS['fax'] . tep_draw_hidden_field('fax');
+    echo $fax . tep_draw_hidden_field('fax');
   } else {
     echo tep_draw_input_field('fax', $account['customers_fax']) . '&nbsp;' . ENTRY_FAX_NUMBER_TEXT;
   }
@@ -361,7 +362,7 @@
       echo ENTRY_NEWSLETTER_NO;
     }
   } elseif ($processed) {
-    if ($HTTP_POST_VARS['newsletter'] == '1') {
+    if ($newsletter == '1') {
       echo ENTRY_NEWSLETTER_YES;
     } else {
       echo ENTRY_NEWSLETTER_NO;

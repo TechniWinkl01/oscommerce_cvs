@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.53 2002/05/30 18:35:50 dgw_ Exp $
+  $Id: create_account.php,v 1.54 2002/05/30 22:03:48 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -23,36 +23,6 @@
 <title><?php echo TITLE; ?></title>
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
-<script language="javascript"><!--
-function resetStateText(theForm) {
-  theForm.state.value = '';
-  if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = "<?php echo JS_STATE_SELECT; ?>";
-  }
-}
-
-function resetZoneSelected(theForm) {
-  if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = "<?php echo JS_STATE_SELECT; ?>";
-  }
-}
-
-function update_zone(theForm) {
-  var NumState = theForm.zone_id.options.length;
-  var SelectedCountry = '';
-
-  while(NumState > 0) {
-    NumState--;
-    theForm.zone_id.options[NumState] = null;
-  }         
-
-  SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
-            
-<?php tep_js_zone_list('SelectedCountry', 'theForm'); ?>
-
-  resetStateText(theForm);
-}
-//--></script>
 <?php require('includes/form_check.js.php'); ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -95,6 +65,7 @@ function update_zone(theForm) {
 <?php
   $email_address = tep_db_prepare_input($HTTP_GET_VARS['email_address']);
   $account['entry_country_id'] = STORE_COUNTRY;
+
   require(DIR_WS_MODULES . 'account_details.php');
 ?>
         </td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.59 2002/05/27 13:04:55 hpdl Exp $
+  $Id: account_edit.php,v 1.60 2002/05/30 22:03:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,36 +28,6 @@
 <title><?php echo TITLE; ?></title>
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
-<script language="javascript"><!--
-function resetStateText(theForm) {
-  theForm.state.value = '';
-  if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = "<?php echo JS_STATE_SELECT; ?>";
-  }
-}
-
-function resetZoneSelected(theForm) {
-  if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = "<?php echo JS_STATE_SELECT; ?>";
-  }
-}
-
-function update_zone(theForm) {
-  var NumState = theForm.zone_id.options.length;
-  var SelectedCountry = '';
-
-  while(NumState > 0) {
-    NumState--;
-    theForm.zone_id.options[NumState] = null;
-  }
-
-  SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
-
-<?php tep_js_zone_list('SelectedCountry', 'theForm'); ?>
-
-  resetStateText(theForm);
-}
-//--></script>
 <?php require('includes/form_check.js.php'); ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -91,6 +61,7 @@ function update_zone(theForm) {
 <?php
   $account_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_zone_id, a.entry_state, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " a where c.customers_id = '" . $customer_id . "' and a.customers_id = c.customers_id and a.address_book_id = '" . $customer_default_address_id . "'");
   $account = tep_db_fetch_array($account_query);
+  $email_address = $account['customers_email_address'];
 
   require(DIR_WS_MODULES . 'account_details.php');
 ?>
