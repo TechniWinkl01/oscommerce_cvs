@@ -23,6 +23,9 @@
 *    USA
 *   
 *   $Log: password_funcs.php,v $
+*   Revision 1.4  2000/10/19 11:38:38  tmoulton
+*   My PHP did not like TRUE/FALSE, changed to 1 or 0
+*
 *   Revision 1.3  2000/10/18 14:28:25  dmcclelland
 *   Made a change in validate_password() to allow
 *   allow it to work on an unencrypted password
@@ -34,7 +37,7 @@
 *
 *    
 *
-*   $Id: password_funcs.php,v 1.3 2000/10/18 14:28:25 dmcclelland Exp $ 
+*   $Id: password_funcs.php,v 1.4 2000/10/19 11:38:38 tmoulton Exp $ 
 *********************************************************************/
 
 /*  This funstion validates a candidate password.
@@ -50,12 +53,12 @@ function validate_password($plain_pass, $db_pass){
      /*Quick test to let this work on unencrypted passwords and NULL
      Passwords*/
      if($plain_pass == $db_pass){
-     	return(TRUE);
+     	return(1);
      }
      
      /* split apart the hash / salt*/
      if(!($subbits = split(":", $db_pass, 2))){
-     	return(FALSE);
+     	return(0);
     }
     
     $dbpassword = $subbits[0];
@@ -66,9 +69,9 @@ function validate_password($plain_pass, $db_pass){
     $encrypted = md5($passtring);
     if(strcmp($dbpassword, $encrypted) == 0)
     {
-	return(TRUE);
+	return(1);
     }else{
-	return(FALSE);
+	return(0);
     }
 } // function validate_password($plain_pass, $db_pass)
 
