@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.43 2002/08/13 18:53:04 dgw_ Exp $
+  $Id: modules.php,v 1.44 2002/11/22 18:58:29 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,7 +114,7 @@
   }
 
   $installed_modules = array();
-  for ($i=0; $i<sizeof($directory_array); $i++) {
+  for ($i = 0, $n = sizeof($directory_array); $i < $n; $i++) {
     $file = $directory_array[$i];
 
     include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/' . $module_type . '/' . $file);
@@ -140,7 +140,7 @@
         $module_keys = $module->keys();
 
         $keys_extra = array();
-        for ($j=0; $j<sizeof($module_keys); $j++) {
+        for ($j = 0, $k = sizeof($module_keys); $j < $k; $j++) {
           $key_value_query = tep_db_query("select configuration_title, configuration_value, configuration_description, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_keys[$j] . "'");
           $key_value = tep_db_fetch_array($key_value_query);
 

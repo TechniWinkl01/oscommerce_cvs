@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.5 2002/06/04 10:15:24 hpdl Exp $
+  $Id: product_notification.php,v 1.6 2002/11/22 18:56:08 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -140,7 +140,7 @@ function selectAll(FormName, SelectBox) {
         if ($HTTP_GET_VARS['global'] == 'true') {
           $confirm_string .= tep_draw_hidden_field('global', 'true');
         } else {
-          for ($i=0; $i<sizeof($chosen); $i++) {
+          for ($i = 0, $n = sizeof($chosen); $i < $n; $i++) {
             $confirm_string .= tep_draw_hidden_field('chosen[]', $chosen[$i]);
           }
         }
