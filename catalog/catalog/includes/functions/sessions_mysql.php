@@ -46,7 +46,9 @@
  * Include this file in your scripts before you call session_start(), you
  * don't have to do anything special after that.
  */
-$SESS_LIFE = 1440; // get_cfg_var("session.gc_maxlifetime");
+if (!$SESS_LIFE = get_cfg_var("session.gc_maxlifetime")) {
+  $SESS_LIFE = 1440;
+}  
 
 function sess_open($save_path, $session_name) {
 	return true;
@@ -73,13 +75,16 @@ function sess_write($key, $val) {
 	$expiry = time() + $SESS_LIFE;
 	$value = addslashes($val);
 
-	$qry = "INSERT INTO sessions VALUES ('$key', $expiry, '$value')";
-	$qid = tep_db_query($qry);
+        $qry = "SELECT count(*) as total FROM sessions  WHERE sesskey = '$key' AND expiry > " . time();
+        $qid = tep_db_query($qry);
+        list($total) = tep_db_fetch_array($qid);
 
-	if (! $qid) {
-		$qry = "UPDATE sessions SET expiry = $expiry, value = '$value' WHERE sesskey = '$key' AND expiry > " . time();
-		$qid = tep_db_query($qry);
+	if ($total > 0) {
+          $qry = "UPDATE sessions SET expiry = $expiry, value = '$value' WHERE sesskey = '$key' AND expiry > " . time();
+        } else {
+          $qry = "INSERT INTO sessions VALUES ('$key', $expiry, '$value')";
 	}
+        $qid = tep_db_query($qry);
 
 	return $qid;
 }
