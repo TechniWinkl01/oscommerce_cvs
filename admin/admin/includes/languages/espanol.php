@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.70 2002/01/18 00:50:25 hpdl Exp $
+  $Id: espanol.php,v 1.71 2002/01/26 00:53:57 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -152,40 +152,24 @@ define('CATEGORY_COMPANY', 'Company');
 define('CATEGORY_OPTIONS', 'Options');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
-define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_FIRST_NAME', 'Nombre:');
-define('ENTRY_FIRST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_LAST_NAME', 'Apellidos:');
-define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_DATE_OF_BIRTH', 'Fecha de Nacimiento:');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(ej. 21/05/1970) <font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
-define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_COMPANY', 'Company name:');
-define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
-define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_SUBURB', '');
-define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Codigo Postal:');
-define('ENTRY_POST_CODE_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_CITY', 'Poblacion:');
-define('ENTRY_CITY_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_STATE', 'Provincia:');
-define('ENTRY_STATE_TEXT', '');
 define('ENTRY_COUNTRY', 'Pais:');
-define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefono:');
-define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_FAX_NUMBER', 'Fax:');
-define('ENTRY_FAX_NUMBER_TEXT', '');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
 define('ENTRY_NEWSLETTER_YES', 'subscribes');
 define('ENTRY_NEWSLETTER_NO', 'unsubscribes');
 define('ENTRY_PASSWORD', 'Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Confirmacion:');
-define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
-define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('PASSWORD_HIDDEN', '--OCULTO--');
 
 // images
@@ -217,6 +201,8 @@ define('IMAGE_NEW_FOLDER', 'Nueva Carpeta');
 define('IMAGE_NEW_LANGUAGE', 'Nueva Idioma');
 define('IMAGE_NEW_PRODUCT', 'Nuevo Producto');
 define('IMAGE_NEW_TAX_CLASS', 'Nuevo Tipo de Impuesto');
+define('IMAGE_NEW_TAX_RATE', 'Nuevo Tax Rate');
+define('IMAGE_NEW_TAX_ZONE', 'Nuevo Tax Zona');
 define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_ORDERS', 'Pedidos');
 define('IMAGE_PREVIEW', 'Ver');
@@ -235,6 +221,7 @@ define('ICON_FILE', 'File');
 define('ICON_FILE_DOWNLOAD', 'Download');
 define('ICON_FOLDER', 'Folder');
 define('ICON_PREVIOUS_LEVEL', 'Previous Level');
+define('ICON_PREVIEW', 'Ver');
 define('ICON_WARNING', 'Warning');
 
 // constants for use in tep_prev_next_display function
