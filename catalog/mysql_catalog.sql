@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.118 2001/07/23 13:01:29 jwildeboer Exp $
+# $Id: mysql_catalog.sql,v 1.119 2001/07/25 06:13:49 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -168,10 +168,10 @@ CREATE TABLE customers_basket_attributes (
 
 CREATE TABLE customers_info (
   customers_info_id int(5) NOT NULL,
-  customers_info_date_of_last_logon char(8),
+  customers_info_date_of_last_logon datetime,
   customers_info_number_of_logons int(5),
-  customers_info_date_account_created char(8),
-  customers_info_date_account_last_modified char(8),
+  customers_info_date_account_created datetime,
+  customers_info_date_account_last_modified datetime,
   PRIMARY KEY (customers_info_id)
 );
 
