@@ -90,19 +90,10 @@ define('BOX_BANNERS_MANAGER', 'Banner Manager');
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
 
-define('JS_CATEGORIES_NAME', '* Die neue Kategorie muss einen Namen haben\n');
-define('JS_SORT_ORDER', '* Eine numerische Sortierreihenfolge wird für diese Kategorie benötigt\n');
-define('JS_CATEGORIES_IMAGE', '* Ein Bild wird für diese Kategorie benötigt\n');
-define('JS_CATEGORY_DELETE_CONFIRM', '*** WARNUNG ***\n\nMöchten Sie diese Kategorie und alle mit ihr verknüpften Artikel entfernen?');
-
 define('JS_OPTIONS_OPTION_NAME', '* Die neue Option muss einen Namen haben\n');
 define('JS_OPTIONS_VALUE_NAME', '* Die neue Option muss einen Wert haben\n');
 define('JS_OPTIONS_VALUE_PRICE', '* Sie müssen diesem Wert einen Preis zuordnen\n');
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* Sie müssen einen Prefix angeben (+/-)\n');
-
-define('JS_MANUFACTURERS_NAME', '* Der neue Hersteller muss einen Namen haben\n');
-define('JS_MANUFACTURERS_IMAGE', '* Der neue Hersteller muss ein Bild haben\n');
-define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** WARNUNG ***\n\nMöchten Sie diesen Hersteller und alle mit ihm verknüpften Artikel entfernen?');
 
 define('JS_PRODUCTS_NAME', '* Der neue Artikel muss einen Namen haben\n');
 define('JS_PRODUCTS_DESCRIPTION', '* Der neue Artikel muss eine Beschreibung haben\n');
@@ -132,7 +123,7 @@ define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss aus mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' sowie die \'Passwortbestätigung\' müssen übereinstimmen und aus mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen bestehen.\n');
 
-define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer ' . $HTTP_GET_VARS['error'] . ' existiert nicht!');
+define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer %s existiert nicht!');
 
 define('CATEGORY_PERSONAL', '<b>[ Pers&ouml;nliche Daten ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Adresse ]</b>');

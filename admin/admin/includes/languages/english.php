@@ -90,19 +90,10 @@ define('BOX_BANNERS_MANAGER', 'Banner Manager');
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 
-define('JS_CATEGORIES_NAME', '* The new category needs a name\n');
-define('JS_SORT_ORDER', '* A numeric sort order is needed for the new category\n');
-define('JS_CATEGORIES_IMAGE', '* An image is required for the new category\n');
-define('JS_CATEGORY_DELETE_CONFIRM', '*** WARNING ***\n\nDo you really want to remove this category AND all products linked to it?');
-
 define('JS_OPTIONS_OPTION_NAME', '* The new option needs a name\n');
 define('JS_OPTIONS_VALUE_NAME', '* The new option value needs a name\n');
 define('JS_OPTIONS_VALUE_PRICE', '* The new product atribute needs a price value\n');
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* The new product atribute needs a price prefix\n');
-
-define('JS_MANUFACTURERS_NAME', '* The new manufacturer needs a name\n');
-define('JS_MANUFACTURERS_IMAGE', '* The new manufacturer needs an image\n');
-define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** WARNING ***\n\nDo you really want to remove this manufacturer AND all products linked to it?');
 
 define('JS_PRODUCTS_NAME', '* The new product needs a name\n');
 define('JS_PRODUCTS_DESCRIPTION', '* The new product needs a description\n');
@@ -132,7 +123,7 @@ define('JS_COUNTRY', '* The \'Country\' value must be chosen.\n');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' amd \'Confirmation\' entries must match amd have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
-define('JS_ORDER_DOES_NOT_EXIST', 'Order Number ' . $HTTP_GET_VARS['error'] . ' does not exist!');
+define('JS_ORDER_DOES_NOT_EXIST', 'Order Number %s does not exist!');
 
 define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Address ]</b>');

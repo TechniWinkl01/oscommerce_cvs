@@ -90,19 +90,10 @@ define('BOX_BANNERS_MANAGER', 'Banner Manager');
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
 
-define('JS_CATEGORIES_NAME', '* La categoria necesita un nombre\n');
-define('JS_SORT_ORDER', '* Se necesita un orden numerico para la categoria\n');
-define('JS_CATEGORIES_IMAGE', '* Se necesita una imagen para la categoria\n');
-define('JS_CATEGORY_DELETE_CONFIRM', '*** ADVERTENCIA ***\n\n¿Realmente quiere eliminar esta categoria Y los productos que contenga?');
-
 define('JS_OPTIONS_OPTION_NAME', '* La opcion necesita un nombre\n');
 define('JS_OPTIONS_VALUE_NAME', '* El valor de la opcion necesita un nombre\n');
 define('JS_OPTIONS_VALUE_PRICE', '* El atributo necesita un precio\n');
 define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* El atributo necesita un prefijo para el precio\n');
-
-define('JS_MANUFACTURERS_NAME', '* El fabricante necesita un nombre\n');
-define('JS_MANUFACTURERS_IMAGE', '* El fabricante necesita una imagen\n');
-define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** ADVERTENCIA ***\n\n¿Realmente quiere eliminar este fabricante Y todos los productos relacionados con el?');
 
 define('JS_PRODUCTS_NAME', '* El producto necesita un nombre\n');
 define('JS_PRODUCTS_DESCRIPTION', '* El producto necesita una descripcion\n');
@@ -132,7 +123,7 @@ define('JS_COUNTRY', '* Debe seleccionar un \'Pais\'.\n');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
 define('JS_PASSWORD', '* La \'Contraseña\' y \'Confirmacion\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
-define('JS_ORDER_DOES_NOT_EXIST', 'El pedido número ' . $HTTP_GET_VARS['error'] . ' no existe!');
+define('JS_ORDER_DOES_NOT_EXIST', 'El pedido número %s no existe!');
 
 define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Domicilio ]</b>');
