@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: zones.php,v 1.4 2002/11/19 01:14:34 dgw_ Exp $
+  $Id: zones.php,v 1.5 2004/04/15 16:32:29 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,6 @@
 define('MODULE_SHIPPING_ZONES_TEXT_TITLE', 'Tarifa por Zona');
 define('MODULE_SHIPPING_ZONES_TEXT_DESCRIPTION', 'Tarifa basada en Zonas');
 define('MODULE_SHIPPING_ZONES_TEXT_WAY', 'Enviar A');
-define('MODULE_SHIPPING_ZONES_TEXT_UNITS', 'kg(s)');
 define('MODULE_SHIPPING_ZONES_INVALID_ZONE', 'No hay envio disponible para ese pais.');
 define('MODULE_SHIPPING_ZONES_UNDEFINED_RATE', 'No se han podido calcular los gastos de envio');
 ?>
