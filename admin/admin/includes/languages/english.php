@@ -45,6 +45,9 @@ define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
 // categories box text in all boxes
 define('BOX_HEADING_SEARCH', 'Quick Find');
 
+// configuration box text in includes/boxes/configuration.php
+define('BOX_HEADING_CONFIGURATION', 'Configuration');
+
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categories / Products');
