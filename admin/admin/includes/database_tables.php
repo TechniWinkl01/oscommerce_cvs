@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database_tables.php,v 1.5 2004/05/12 19:31:26 mevans Exp $
+  $Id: database_tables.php,v 1.6 2004/08/17 23:51:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,7 @@
   define('TABLE_MANUFACTURERS', DB_TABLE_PREFIX . 'manufacturers');
   define('TABLE_MANUFACTURERS_INFO', DB_TABLE_PREFIX . 'manufacturers_info');
   define('TABLE_NEWSLETTERS', DB_TABLE_PREFIX . 'newsletters');
+  define('TABLE_NEWSLETTERS_LOG', DB_TABLE_PREFIX . 'newsletters_log');
   define('TABLE_ORDERS', DB_TABLE_PREFIX . 'orders');
   define('TABLE_ORDERS_PRODUCTS', DB_TABLE_PREFIX . 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', DB_TABLE_PREFIX . 'orders_products_attributes');
