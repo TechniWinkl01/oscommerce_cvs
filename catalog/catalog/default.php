@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.72 2002/04/04 20:27:09 dgw_ Exp $
+  $Id: default.php,v 1.73 2002/06/05 21:02:03 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,7 +79,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
 <?php
-    if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
+    if ($cPath && ereg('_', $cPath)) {
 // check to see if there are deeper categories within the current category
       $category_links = array_reverse($cPath_array);
       for($i=0; $i<sizeof($category_links); $i++) {
