@@ -91,7 +91,7 @@
   define('USE_PCONNECT', 1);
 
 // customization for the design layout
-  define('CART_DISPLAY', 1); // Enable to view the shopping cart after adding a product
+  define('CART_DISPLAY', 0); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -241,10 +241,11 @@
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
     $goto = (CART_DISPLAY) ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
+    $parameters = (CART_DISPLAY) ? array('action', 'cPath', 'products_id') : array('action');
     if ($HTTP_GET_VARS['action'] == 'remove_product') {
       // customer wants to remove a product from their shopping cart
       $cart->remove($HTTP_GET_VARS['products_id']);
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action', 'cPath', 'products_id')), 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL')); 
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
       // customer wants to update the product quantity in their shopping cart
@@ -258,7 +259,7 @@
           $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
         }
       }
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action', 'cPath', 'products_id')), 'NONSSL'));
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
       // customer wants to remove all products from their shopping cart
