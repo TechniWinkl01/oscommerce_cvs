@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.117 2001/07/26 07:59:35 jwildeboer Exp $
+  $Id: general.php,v 1.118 2001/07/29 15:54:29 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -995,5 +995,14 @@
   function tep_word_count($string, $needle) {
     $temp_array = split($needle, $string);
     return sizeof($temp_array);
+  }
+
+////
+// Get the name of the orders status
+  function tep_get_orders_status_name($orders_status_id, $language_id) {
+    $orders_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $orders_status_id . "' and language_id = '" . $language_id . "'");
+    $orders_status = tep_db_fetch_array($orders_status_query);
+
+    return $orders_status['orders_status_name'];
   }
 ?>

@@ -94,7 +94,7 @@
       echo '            <td align="center" class="smallText">&nbsp;' . $history_values['orders_id'] . '&nbsp;</td>' . "\n";
       echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</td>' . "\n";
       echo '            <td align="right" class="smallText">&nbsp;' . tep_currency_format($total_cost, true, $history_values['currency'], $history_values['currency_value']) . '&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText">&nbsp;' . $history_values['orders_status'] . '&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText">&nbsp;' . tep_get_orders_status_name($history_values['orders_status'], $languages_id) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }

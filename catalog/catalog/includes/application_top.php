@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.154 2001/07/27 11:19:52 hpdl Exp $
+  $Id: application_top.php,v 1.155 2001/07/29 15:54:39 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -101,6 +101,7 @@
   define('TABLE_ORDERS', 'orders');
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
+  define('TABLE_ORDERS_STATUS', 'orders_status');
   define('TABLE_PRODUCTS', 'products');
   define('TABLE_PRODUCTS_ATTRIBUTES', 'products_attributes');
   define('TABLE_PRODUCTS_DESCRIPTION', 'products_description');
