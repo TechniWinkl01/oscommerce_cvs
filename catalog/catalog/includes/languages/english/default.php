@@ -12,7 +12,7 @@ define('TABLE_HEADING_DATE_EXPECTED', 'Date Expected');
 
 if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TOP_BAR_TITLE', 'Online Products');
-  define('HEADING_TITLE', 'Lets See What We\'ve Got Here');
+  define('HEADING_TITLE', 'Let\'s See What We\'ve Got Here');
   define('TABLE_HEADING_IMAGE', '');
   define('TABLE_HEADING_MODEL', 'Model');
   define('TABLE_HEADING_PRODUCTS', 'Product Name');
@@ -33,11 +33,11 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TEXT_NOW', '\' now');
 } elseif ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Welcome To \'' . STORE_NAME . '\'!');
-  define('HEADING_TITLE', 'Whats New Here?');
+  define('HEADING_TITLE', 'What\'s New Here?');
   define('SUB_BAR_TITLE', strftime(DATE_FORMAT_LONG, mktime(0,0,0,2,6,2000)));
 } elseif ($category_depth == 'nested') {
   define('TOP_BAR_TITLE', 'New Products In This Category');
-  define('HEADING_TITLE', 'Whats New Here?');
+  define('HEADING_TITLE', 'What\'s New Here?');
   define('SUB_BAR_TITLE', 'Categories');
 }
 ?>

@@ -7,7 +7,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('NAVBAR_TITLE', 'Cart Contents');
 define('TOP_BAR_TITLE', 'Shopping Cart Contents');
-define('HEADING_TITLE', 'Whats In My Cart?');
+define('HEADING_TITLE', 'What\'s In My Cart?');
 define('TABLE_HEADING_QUANTITY', 'Qty.');
 define('TABLE_HEADING_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCTS', 'Product(s)');
