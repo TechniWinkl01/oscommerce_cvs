@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.155 2003/05/17 16:04:51 dgw_ Exp $
+  $Id: general.php,v 1.156 2003/05/29 12:15:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1275,6 +1275,15 @@
       }
     } else {
       return mt_rand();
+    }
+  }
+
+// nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
+  function tep_convert_linefeeds($from, $to, $string) {
+    if ((PHP_VERSION < "4.0.5") && is_array($from)) {
+      return ereg_replace('(' . implode('|', $from) . ')', $to, $string);
+    } else {
+      return str_replace($from, $to, $string);
     }
   }
 ?>

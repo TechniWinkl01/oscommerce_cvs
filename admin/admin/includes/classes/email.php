@@ -1,7 +1,7 @@
 <?php
 
 /*
-  $Id: email.php,v 1.6 2003/05/28 18:01:15 hpdl Exp $
+  $Id: email.php,v 1.7 2003/05/29 12:15:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -162,7 +162,7 @@ class email{
 ***************************************/
 
   function add_text($text = ''){
-    $this->text = $text;
+    $this->text = tep_convert_linefeeds(array("\r\n", "\n", "\r"), $this->lf, $text);
   }
 
 /***************************************
@@ -172,9 +172,8 @@ class email{
 ***************************************/
 
   function add_html($html, $text = NULL, $images_dir = NULL){
-
-    $this->html      = nl2br($html);
-    $this->html_text  = $text;
+    $this->html = tep_convert_linefeeds(array("\r\n", "\n", "\r"), '<br>', $html);
+    $this->html_text = tep_convert_linefeeds(array("\r\n", "\n", "\r"), $this->lf, $text);
 
     if(isset($images_dir))
       $this->find_html_images($images_dir);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.224 2003/05/27 17:09:02 hpdl Exp $
+  $Id: general.php,v 1.225 2003/05/29 12:14:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1263,5 +1263,14 @@
     $addresses = tep_db_fetch_array($addresses_query);
 
     return $addresses['total'];
+  }
+
+// nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
+  function tep_convert_linefeeds($from, $to, $string) {
+    if ((PHP_VERSION < "4.0.5") && is_array($from)) {
+      return ereg_replace('(' . implode('|', $from) . ')', $to, $string);
+    } else {
+      return str_replace($from, $to, $string);
+    }
   }
 ?>
