@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upcoming_products.php,v 1.24 2003/06/09 22:49:59 hpdl Exp $
+  $Id: upcoming_products.php,v 1.25 2003/09/02 18:38:52 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,6 @@
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
-              <tr>
 <?php
     $row = 0;
     while ($expected = tep_db_fetch_array($expected_query)) {
