@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.33 2001/12/26 23:59:00 hpdl Exp $
+  $Id: backup.php,v 1.34 2002/01/01 15:22:00 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,7 +32,7 @@
                   '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
         $tables_query = tep_db_query('show tables');
         while ($tables = tep_db_fetch_array($tables_query)) {
-          $table = $tables['Tables_in_' . DB_DATABASE];
+          list(,$table) = each($tables);
           $schema .= 'drop table if exists ' . $table . ';' . "\n" .
                      'create table ' . $table . ' (' . "\n";
           $table_list = array();
@@ -75,8 +75,8 @@
           $rows_query = tep_db_query("select " . implode(',', $table_list) . " from " . $table);
           while ($rows = tep_db_fetch_array($rows_query)) {
             $schema_insert = 'insert into ' . $table . ' (' . implode(', ', $table_list) . ') values (';
-            $num_fields = sizeof($table_list);
-            for ($i=0; $i<$num_fields; $i++) {
+            reset($table_list);
+            while (list(,$i) = each($table_list)) {
               if (!isset($rows[$i])) {
                 $schema_insert .= 'NULL, ';
               } elseif ($rows[$i] != '') {
@@ -251,7 +251,7 @@
 
           $tables_query = tep_db_query('show tables');
           while ($tables = tep_db_fetch_array($tables_query)) {
-            $table = $tables['Tables_in_' . DB_DATABASE];
+            list(,$table) = each($tables);
             tep_db_query("drop table " . $table);
           }
 
