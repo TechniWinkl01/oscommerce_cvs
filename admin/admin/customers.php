@@ -148,12 +148,12 @@ function check_form() {
   if (ACCOUNT_STATE) {
 ?>
   if (document.customers.zone_id.options.length == 0) {
-    if (document.customers.state.value == "" || document.customers.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+    if (document.customers.state.value == "" || document.customers.state.length < 4 ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
     }
   } else {
-    document.create_acount.state.value = '';
+    document.customers.state.value = '';
     if (document.customers.zone_id.selectedIndex == 0) {
        error_message = error_message + "<? echo JS_ZONE; ?>";
        error = 1;
@@ -163,7 +163,7 @@ function check_form() {
   }
 ?>
 
-  if (document.customers.country.value == 0) {
+  if (document.customers.countries_id.value == 0) {
     error_message = error_message + "<? echo JS_COUNTRY; ?>";
     error = 1;
   }
