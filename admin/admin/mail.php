@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.27 2002/01/31 12:37:17 jan0815 Exp $
+  $Id: mail.php,v 1.28 2002/01/31 16:20:46 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,8 +34,14 @@
     $subject = tep_db_prepare_input($HTTP_POST_VARS['subject']);
     $message = tep_db_prepare_input($HTTP_POST_VARS['message']);
 
+    //Let's build a message object using the email class
+    $mimemessage = new email(array('X-Mailer: osCommerce bulk mailer'));
+    // add the message to the object
+//   $mimemessage->add_text($message);
+    $mimemessage->add_html('<i> HTML </i>' . $message, $message);
+    $mimemessage->build_message();
     while ($mail = tep_db_fetch_array($mail_query)) {
-      mail($mail['customers_email_address'], $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\r\n" . 'Content-Transfer-Encoding: 8bit' . "\r\n" . 'From: ' . $from . "\r\n" . 'To: ' . $mail['customers_firstname'] . ' ' . $mail['customers_lastname']  . ' <' . $mail['customers_email_address'] . ">\r\n");
+      $mimemessage->send($mail['customers_firstname'] . ' ' . $mail['customers_lastname'], $mail['customers_email_address'], '', $from, $subject);
     }
 
     tep_redirect(tep_href_link(FILENAME_MAIL, 'mail_sent_to=' . urlencode($mail_sent_to)));

@@ -1,7 +1,7 @@
 <?php
 
 /*
-  $Id: email.php,v 1.2 2002/01/31 12:37:17 jan0815 Exp $
+  $Id: email.php,v 1.3 2002/01/31 16:20:46 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,8 +18,6 @@
   Renamed and Modified by Jan Wildeboer for osCommerce
   
 */
-
-require('mime.php');
 
 class email{
 
@@ -39,17 +37,6 @@ class email{
 ***************************************/
 
   function email($headers = array()){
-
-  /***************************************
-  ** Make sure this is defined. This should
-  ** be \r\n, but due to many people having
-  ** trouble with that, it is by default \n
-  ** If you leave it as is, you will be breaking
-  ** quite a few standards.
-  ****************************************/
-
-    if(!defined('CRLF'))
-      define('CRLF', "\n", TRUE);
 
     /***************************************
         ** Initialise some variables.
@@ -444,11 +431,10 @@ class email{
   function send($to_name, $to_addr, $from_name, $from_addr, $subject = '', $headers = ''){
 
     $to    = ($to_name != '')   ? '"'.$to_name.'" <'.$to_addr.'>' : $to_addr;
-//    $to    = $to_addr;
     $from  = ($from_name != '') ? '"'.$from_name.'" <'.$from_addr.'>' : $from_addr;
 
     if(is_string($headers))
-      $headers = explode(CRLF, trim($headers));
+      $headers = explode(EMAIL_LINEFEED, trim($headers));
 
     for($i=0; $i<count($headers); $i++){
       if(is_array($headers[$i]))
@@ -462,7 +448,11 @@ class email{
     if(!isset($xtra_headers))
       $xtra_headers = array();
 
-    return mail($to, $subject, $this->output, 'From: '.$from.CRLF.implode(CRLF, $this->headers).CRLF.implode(CRLF, $xtra_headers));
+    if (EMAIL_TRANSPORT=='smtp') {
+      return mail($to_addr, $subject, $this->output, 'From: '.$from.EMAIL_LINEFEED.'To: '.$to.EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $this->headers).EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $xtra_headers));
+    } else {
+      return mail($to, $subject, $this->output, 'From: '.$from.EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $this->headers).EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $xtra_headers));
+    }
   }
 
 
@@ -493,7 +483,7 @@ class email{
       $subject = 'Subject: '.$subject;
 
     if(is_string($headers))
-      $headers = explode(CRLF, trim($headers));
+      $headers = explode(EMAIL_LINEFEED, trim($headers));
 
     for($i=0; $i<count($headers); $i++){
       if(is_array($headers[$i]))
@@ -510,7 +500,7 @@ class email{
 
     $headers = array_merge($this->headers, $xtra_headers);
 
-    return $date.CRLF.$from.CRLF.$to.CRLF.$subject.CRLF.implode(CRLF, $headers).CRLF.CRLF.$this->output;
+    return $date.EMAIL_LINEFEED.$from.EMAIL_LINEFEED.$to.EMAIL_LINEFEED.$subject.EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $headers).EMAIL_LINEFEED.EMAIL_LINEFEED.$this->output;
   }
 
 

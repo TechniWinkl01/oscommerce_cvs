@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.132 2002/01/31 01:21:25 harley_vb Exp $
+  $Id: application_top.php,v 1.133 2002/01/31 16:20:46 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -204,6 +204,10 @@
 
 // entry/item info classes
   require(DIR_WS_CLASSES . 'object_info.php');
+
+// email classes
+  require(DIR_WS_CLASSES . 'mime.php');
+  require(DIR_WS_CLASSES . 'email.php');
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
