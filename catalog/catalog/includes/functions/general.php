@@ -659,4 +659,38 @@
     }
     return $tax_des;
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_count_products_in_category
+  //
+  // Arguments   : catetories_id          catetories_id to count products for
+  //               include_deactivated    1=includes deactivated products, 0=excludes (default)
+  //
+  // Return      : products count
+  //
+  // Description : Function to count products in a category including all child categories
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_count_products_in_category($categories_id, $include_deactivated=0) {
+    $products_count = 0;
+
+    if ($include_deactivated)
+      $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $categories_id . "'");
+    else
+      $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = '" . $categories_id . "'");
+
+    $total_products_values = tep_db_fetch_array($total_products);
+
+    $products_count += $total_products_values['total'];
+    
+    $child_categories = tep_db_query("select categories_id from categories where parent_id = '" . $categories_id . "'");
+    if (tep_db_num_rows($child_categories)) {
+      while ($child_categories_values = tep_db_fetch_array($child_categories)) {
+        $products_count += tep_count_products_in_category($child_categories_values['categories_id'], $include_deactivated);
+      }
+    }
+
+    return $products_count;
+  }
 ?>

@@ -20,14 +20,19 @@
   }
   echo '            <td bgcolor="' . BOX_CONTENT_BACKGROUND_COLOR . '" nowrap><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">';
   while ($categories_values = tep_db_fetch_array($categories)) {
-    if (@$HTTP_GET_VARS['cPath']) {
-      $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.categories_id = '" . $categories_values['categories_id'] . "'");
+    if (USE_RECURSIVE_COUNT) {  
+      $total_count = tep_count_products_in_category($categories_values['categories_id']);
     } else {
-      $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.parent_id = '" . $categories_values['categories_id'] . "'");
+      if (@$HTTP_GET_VARS['cPath']) {
+        $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.categories_id = '" . $categories_values['categories_id'] . "'");
+      } else {
+        $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.parent_id = '" . $categories_values['categories_id'] . "'");
+      }
+      $total_products_values = tep_db_fetch_array($total_products);
+      $total_count = $total_products_values['total'];
     }
-    $total_products_values = tep_db_fetch_array($total_products);
     $cPath_new = tep_get_path($categories_values['categories_id']);
-    echo '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a> (' . $total_products_values['total'] . ')<br>';
+    echo '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a> (' . $total_count . ')<br>';
   }
   echo '</font></td>' . "\n";
 ?>

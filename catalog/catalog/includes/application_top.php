@@ -238,6 +238,9 @@
 // Rollover Effect
   define('USE_ROLLOVER_EFFECT', 1); // Rollover Effect: 0=disable; 1=enable
 
+// Categories Box: recursive products count
+  define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
+
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
     $language = 'english';
