@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: item.php,v 1.5 2002/04/17 16:52:31 harley_vb Exp $
+  $Id: item.php,v 1.6 2003/02/16 00:52:41 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,5 +12,5 @@
 
 define('MODULE_SHIPPING_ITEM_TEXT_TITLE', 'Versandkosten pro St&uuml;ck');
 define('MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION', 'Versandkosten pro St&uuml;ck');
-define('MODULE_SHIPPING_ITEM_TEXT_WAY', 'Beste Weise');
+define('MODULE_SHIPPING_ITEM_TEXT_WAY', '');
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: usps.php,v 1.9 2003/02/14 13:36:29 dgw_ Exp $
+  $Id: usps.php,v 1.10 2003/02/16 00:52:41 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,7 +15,5 @@ define('MODULE_SHIPPING_USPS_TEXT_DESCRIPTION', 'United States Postal Service<br
 define('MODULE_SHIPPING_USPS_TEXT_OPT_PP', 'Parcel Post');
 define('MODULE_SHIPPING_USPS_TEXT_OPT_PM', 'Priority Mail');
 define('MODULE_SHIPPING_USPS_TEXT_OPT_EX', 'Express Mail');
-define('MODULE_SHIPPING_USPS_TEXT_ERROR', 'Es ist ein Fehler bei der Berechnung der USPS Versandkosten 
-aufgetreten.<br>Wenn Sie USPS als Ihre gewünschte Versandart verwenden 
-wollen, nehmen Sie bitte Kontakt mit uns auf.');
+define('MODULE_SHIPPING_USPS_TEXT_ERROR', 'Es ist ein Fehler bei der Berechnung der USPS Versandkosten aufgetreten.<br>Wenn Sie USPS als Ihre gew&uuml;nschte Versandart verwenden wollen, nehmen Sie bitte Kontakt mit uns auf.');
 ?>
