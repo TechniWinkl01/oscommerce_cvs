@@ -8,16 +8,15 @@
                               );
   new infoBoxHeading($info_box_contents);
 
-  $currencies_query = tep_db_query("select title, code from " . TABLE_CURRENCIES . " order by title");
-
   $select_box = '<select name="currency" onChange="this.form.submit();">';
-  while ($currencies_values = tep_db_fetch_array($currencies_query)) {
-    $select_box .= '<option value="' . $currencies_values['code'] . '"';
+  reset($currencies->currencies);
+  while (list($key, $value) = each($currencies->currencies)) {
+    $select_box .= '<option value="' . $key . '"';
 // $currency is a session variable
-    if ($currency == $currencies_values['code']) {
+    if ($currency == $key) {
       $select_box .= ' SELECTED';
     }
-    $select_box .= '>' . $currencies_values['title'] . '</option>';
+    $select_box .= '>' . $value['title'] . '</option>';
   }
   $select_box .= "</select>";
   $select_box .= tep_hide_session_id();
