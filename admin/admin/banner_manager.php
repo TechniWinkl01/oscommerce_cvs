@@ -43,6 +43,14 @@
         tep_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . $HTTP_POST_VARS['impressions'] . "', expires_date = null where banners_id = '" . $banners_id . "'");
       }
 
+      if ($HTTP_POST_VARS['sday'] && $HTTP_POST_VARS['smonth'] && $HTTP_POST_VARS['syear']) {
+        $date_scheduled = $HTTP_POST_VARS['syear'];
+        $date_scheduled .= (strlen($HTTP_POST_VARS['smonth']) == 1) ? '0' . $HTTP_POST_VARS['smonth'] : $HTTP_POST_VARS['smonth'];
+        $date_scheduled .= (strlen($HTTP_POST_VARS['sday']) == 1) ? '0' . $HTTP_POST_VARS['sday'] : $HTTP_POST_VARS['sday'];
+
+        tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . $date_scheduled . "' where banners_id = '" . $banners_id . "'");
+      }
+
       header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
       $banners_title = $HTTP_POST_VARS['banners_title'];
@@ -73,6 +81,14 @@
         tep_db_query("update " . TABLE_BANNERS . " set expires_date = '" . $expires_date . "' where banners_id = '" . $banners_id . "'");
       } elseif ($HTTP_POST_VARS['impressions']) {
         tep_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . $HTTP_POST_VARS['impressions'] . "' where banners_id = '" . $banners_id . "'");
+      }
+
+      if ($HTTP_POST_VARS['sday'] && $HTTP_POST_VARS['smonth'] && $HTTP_POST_VARS['syear']) {
+        $date_scheduled = $HTTP_POST_VARS['syear'];
+        $date_scheduled .= (strlen($HTTP_POST_VARS['smonth']) == 1) ? '0' . $HTTP_POST_VARS['smonth'] : $HTTP_POST_VARS['smonth'];
+        $date_scheduled .= (strlen($HTTP_POST_VARS['sday']) == 1) ? '0' . $HTTP_POST_VARS['sday'] : $HTTP_POST_VARS['sday'];
+
+        tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . $date_scheduled . "' where banners_id = '" . $banners_id . "'");
       }
 
       header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
@@ -143,7 +159,7 @@ function popupImageWindow(url) {
     if ($HTTP_GET_VARS['bID']) {
 	  $form_action = 'update';
 
-      $banner_query = tep_db_query("select banners_title, banners_url, banners_image, banners_group, status, expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['bID'] . "'");
+      $banner_query = tep_db_query("select banners_title, banners_url, banners_image, banners_group, status, date_scheduled, expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['bID'] . "'");
       $banner = tep_db_fetch_array($banner_query);
 
       $bInfo = new bannerInfo($banner);
@@ -192,6 +208,10 @@ function popupImageWindow(url) {
             <td class="main">&nbsp;<? echo TEXT_BANNERS_EXPIRES_ON; ?><br>&nbsp;<span class="smallText">(dd/mm/yyyy)</span>&nbsp;</td>
             <td class="main">&nbsp;<input class="cal-TextBox" size="2" maxlength="2" type="text" name="day" value="<? echo $bInfo->expires_date_caljs_day; ?>"><input class="cal-TextBox" size="2" maxlength="2" type="text" name="month" value="<? echo $bInfo->expires_date_caljs_month; ?>"><input class="cal-TextBox" size="4" maxlength="4" type="text" name="year" value="<? echo $bInfo->expires_date_caljs_year; ?>"><a class="so-BtnLink" href="javascript:calClick();return false;" onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);" onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_banner','dteWhen','BTN_date');return false;"><img align="absmiddle" border="0" name="BTN_date" src="<?php echo DIR_WS_IMAGES; ?>cal_date_up.gif" width="22" height="17"></a><? echo TEXT_BANNERS_OR_AT; ?>&nbsp;<br>&nbsp;<input type="text" name="impressions" maxlength="7" size="7" value="<? echo $bInfo->expires_impressions; ?>"> <? echo TEXT_BANNERS_IMPRESSIONS; ?></td>
           </tr>
+          <tr>
+            <td class="main">&nbsp;<? echo TEXT_BANNERS_SCHEDULED_AT; ?><br>&nbsp;<span class="smallText">(dd/mm/yyyy)</span>&nbsp;</td>
+            <td class="main">&nbsp;<input class="cal-TextBox" size="2" maxlength="2" type="text" name="sday" value="<? echo $bInfo->scheduled_date_caljs_day; ?>"><input class="cal-TextBox" size="2" maxlength="2" type="text" name="smonth" value="<? echo $bInfo->scheduled_date_caljs_month; ?>"><input class="cal-TextBox" size="4" maxlength="4" type="text" name="syear" value="<? echo $bInfo->scheduled_date_caljs_year; ?>"></td>
+          </tr>
         </table></td>
       </tr>
       <tr>
@@ -226,7 +246,7 @@ function popupImageWindow(url) {
                 <td colspan="5"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $banners_query_raw = "select banners_id, banners_title, banners_image, banners_group, status, expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " order by banners_title, banners_group";
+    $banners_query_raw = "select banners_id, banners_title, banners_image, banners_group, status, expires_date, expires_impressions, date_status_change, date_scheduled, date_added from " . TABLE_BANNERS . " order by banners_title, banners_group";
     $banners_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $banners_query_raw, $banners_query_numrows);
     $banners_query = tep_db_query($banners_query_raw);
     while ($banners = tep_db_fetch_array($banners_query)) {
@@ -308,8 +328,13 @@ function popupImageWindow(url) {
   } else {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'action=new&bID=' . $bInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'action=delete&bID=' . $bInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-    $info_box_contents[] = array('align' => 'center', 'text' => tep_banner_graph_infoBox($bInfo->id, '3'));
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_BANNERS_DATE_ADDED . ' ' . tep_date_short($bInfo->date_added));
+    $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_banner_graph_infoBox($bInfo->id, '3'));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . tep_image(DIR_WS_IMAGES . 'graph_hbar_blue.gif', 'Blue', '5', '5') . ' Banner Views<br>&nbsp;' . tep_image(DIR_WS_IMAGES . 'graph_hbar_red.gif', 'Red', '5', '5') . ' Banner Clicks');
+
+    if ($bInfo->date_scheduled) {
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_BANNERS_SCHEDULED_AT_DATE, tep_date_short($bInfo->date_scheduled)));
+    }
 
     if ($bInfo->expires_date) {
       $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_BANNERS_EXPIRES_AT_DATE, tep_date_short($bInfo->expires_date)));
