@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: english.php,v 1.70 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: english.php,v 1.71 2001/12/17 17:36:30 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -57,7 +57,7 @@ define('HEADER_TITLE_LOGIN', 'Log In');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'requests since');
-define('FOOTER_TEXT_BODY', 'Copyright © 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br>Running on <a href="http://theexchangeproject.org">The Exchange Project</a> ' . PROJECT_VERSION . '<br><br><a href="debug_phpinfo.php">Display my PHP parameters</a>');
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2001 <a href="http://www.oscommerce.com">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a><br>Powered by <a href="http://www.oscommerce.com">osCommerce</a>');
 
 // text for gender
 define('MALE', 'Male');

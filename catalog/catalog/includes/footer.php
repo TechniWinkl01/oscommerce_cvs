@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: footer.php,v 1.22 2001/12/14 12:55:49 hpdl Exp $
+  $Id: footer.php,v 1.23 2001/12/17 17:36:30 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,7 +21,8 @@
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center" class="smallText"><?php echo FOOTER_TEXT_BODY ?></td>  </tr>
+    <td align="center" class="smallText"><?php echo FOOTER_TEXT_BODY ?></td>
+  </tr>
 </table>
 <?php
   if ($banner = tep_banner_exists('dynamic', '468x50')) {
