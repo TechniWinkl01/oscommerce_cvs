@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.76 2003/03/11 00:01:28 hpdl Exp $
+  $Id: login.php,v 1.77 2003/03/22 03:11:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,6 +31,10 @@
       if (!tep_validate_password($password, $check_customer['customers_password'])) {
         $HTTP_GET_VARS['login'] = 'fail';
       } else {
+        if (SESSION_RECREATE == 'True') {
+          tep_session_recreate();
+        }
+        
         $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $check_customer['customers_id'] . "' and address_book_id = '1'");
         $check_country = tep_db_fetch_array($check_country_query);
 

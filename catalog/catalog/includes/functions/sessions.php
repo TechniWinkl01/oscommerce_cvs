@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.14 2003/03/19 21:40:01 hpdl Exp $
+  $Id: sessions.php,v 1.15 2003/03/22 03:11:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,6 +114,20 @@
       return session_save_path($path);
     } else {
       return session_save_path();
+    }
+  }
+
+  function tep_session_recreate() {
+    if (PHP_VERSION >= 4.1) {
+      $session_backup = $_SESSION;
+
+      unset($_COOKIE[tep_session_name()]);
+ 
+      tep_session_destroy();
+      tep_session_start();
+
+      $_SESSION = $session_backup;
+      unset($session_backup);
     }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.85 2003/02/13 04:23:23 hpdl Exp $
+  $Id: create_account_process.php,v 1.86 2003/03/22 03:11:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -288,6 +288,10 @@
     tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array);
 
     tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . tep_db_input($customer_id) . "', '0', now())");
+
+    if (SESSION_RECREATE == 'True') {
+      tep_session_recreate();
+    }
 
     $customer_first_name = $firstname;
     $customer_default_address_id = 1;
