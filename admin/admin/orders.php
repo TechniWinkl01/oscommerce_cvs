@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.99 2002/05/16 15:32:21 hpdl Exp $
+  $Id: orders.php,v 1.100 2002/06/01 13:14:54 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -231,7 +231,8 @@
             <td class="main"><?php echo $order->info['payment_method']; ?></td>
           </tr>
 <?php
-    if ( ($order->info['cc_type']) || ($order->info['cc_owner']) || ($order->info['cc_number']) ) {
+    if ($order_invoice == false &&
+          (($order->info['cc_type']) || ($order->info['cc_owner']) || ($order->info['cc_number'])) ) {
 ?>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
