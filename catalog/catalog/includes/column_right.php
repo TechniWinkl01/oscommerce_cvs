@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_right.php,v 1.12 2001/06/11 22:40:32 hpdl Exp $
+  $Id: column_right.php,v 1.13 2001/06/12 21:02:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,9 @@
   require(DIR_WS_BOXES . 'best_sellers.php');
 
   if ($HTTP_GET_VARS['products_id']) {
-    include(DIR_WS_BOXES . 'tell_a_friend.php');
+    if (basename($PHP_SELF) != FILENAME_TELL_A_FRIEND) {
+      include(DIR_WS_BOXES . 'tell_a_friend.php');
+    }
   } else {
     include(DIR_WS_BOXES . 'specials.php');
   }
