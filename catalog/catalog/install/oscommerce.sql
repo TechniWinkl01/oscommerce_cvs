@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.6 2002/01/15 09:54:18 hpdl Exp $
+# $Id: oscommerce.sql,v 1.7 2002/01/19 16:15:07 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -951,43 +951,43 @@ INSERT INTO languages VALUES (1,'English','en','icon.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','icon.gif','german',2);
 INSERT INTO languages VALUES (3,'Español','es','icon.gif','espanol',3);
 
-INSERT INTO manufacturers VALUES (1,'Matrox','manufacturer_matrox.gif', now(), '');
-INSERT INTO manufacturers VALUES (2,'Microsoft','manufacturer_microsoft.gif', now(), '');
-INSERT INTO manufacturers VALUES (3,'Warner','manufacturer_warner.gif', now(), '');
-INSERT INTO manufacturers VALUES (4,'Fox','manufacturer_fox.gif', now(), '');
-INSERT INTO manufacturers VALUES (5,'Logitech','manufacturer_logitech.gif', now(), '');
-INSERT INTO manufacturers VALUES (6,'Canon','manufacturer_canon.gif', now(), '');
-INSERT INTO manufacturers VALUES (7,'Sierra','manufacturer_sierra.gif', now(), '');
-INSERT INTO manufacturers VALUES (8,'GT Interactive','manufacturer_gt_interactive.gif', now(), '');
-INSERT INTO manufacturers VALUES (9,'Hewlett Packard','manufacturer_hewlett_packard.gif', now(), '');
+INSERT INTO manufacturers VALUES (1,'Matrox','manufacturer_matrox.gif', now(), null);
+INSERT INTO manufacturers VALUES (2,'Microsoft','manufacturer_microsoft.gif', now(), null);
+INSERT INTO manufacturers VALUES (3,'Warner','manufacturer_warner.gif', now(), null);
+INSERT INTO manufacturers VALUES (4,'Fox','manufacturer_fox.gif', now(), null);
+INSERT INTO manufacturers VALUES (5,'Logitech','manufacturer_logitech.gif', now(), null);
+INSERT INTO manufacturers VALUES (6,'Canon','manufacturer_canon.gif', now(), null);
+INSERT INTO manufacturers VALUES (7,'Sierra','manufacturer_sierra.gif', now(), null);
+INSERT INTO manufacturers VALUES (8,'GT Interactive','manufacturer_gt_interactive.gif', now(), null);
+INSERT INTO manufacturers VALUES (9,'Hewlett Packard','manufacturer_hewlett_packard.gif', now(), null);
 
-INSERT INTO manufacturers_info VALUES (1, 1, 'http://www.matrox.com', 0, '');
-INSERT INTO manufacturers_info VALUES (1, 2, 'http://www.matrox.de', 0, '');
-INSERT INTO manufacturers_info VALUES (1, 3, 'http://www.matrox.com', 0, '');
-INSERT INTO manufacturers_info VALUES (2, 1, 'http://www.microsoft.com', 0, '');
-INSERT INTO manufacturers_info VALUES (2, 2, 'http://www.microsoft.de', 0, '');
-INSERT INTO manufacturers_info VALUES (2, 3, 'http://www.microsoft.es', 0, '');
-INSERT INTO manufacturers_info VALUES (3, 1, 'http://www.warner.com', 0, '');
-INSERT INTO manufacturers_info VALUES (3, 2, 'http://www.warner.de', 0, '');
-INSERT INTO manufacturers_info VALUES (3, 3, 'http://www.warner.com', 0, '');
-INSERT INTO manufacturers_info VALUES (4, 1, 'http://www.fox.com', 0, '');
-INSERT INTO manufacturers_info VALUES (4, 2, 'http://www.fox.de', 0, '');
-INSERT INTO manufacturers_info VALUES (4, 3, 'http://www.fox.com', 0, '');
-INSERT INTO manufacturers_info VALUES (5, 1, 'http://www.logitech.com', 0, '');
-INSERT INTO manufacturers_info VALUES (5, 2, 'http://www.logitech.com', 0, '');
-INSERT INTO manufacturers_info VALUES (5, 3, 'http://www.logitech.com', 0, '');
-INSERT INTO manufacturers_info VALUES (6, 1, 'http://www.canon.com', 0, '');
-INSERT INTO manufacturers_info VALUES (6, 2, 'http://www.canon.de', 0, '');
-INSERT INTO manufacturers_info VALUES (6, 3, 'http://www.canon.es', 0, '');
-INSERT INTO manufacturers_info VALUES (7, 1, 'http://www.sierra.com', 0, '');
-INSERT INTO manufacturers_info VALUES (7, 2, 'http://www.sierra.de', 0, '');
-INSERT INTO manufacturers_info VALUES (7, 3, 'http://www.sierra.com', 0, '');
-INSERT INTO manufacturers_info VALUES (8, 1, 'http://www.infogrames.com', 0, '');
-INSERT INTO manufacturers_info VALUES (8, 2, 'http://www.infogrames.de', 0, '');
-INSERT INTO manufacturers_info VALUES (8, 3, 'http://www.infogrames.com', 0, '');
-INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0, '');
-INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, '');
-INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, '');
+INSERT INTO manufacturers_info VALUES (1, 1, 'http://www.matrox.com', 0, null);
+INSERT INTO manufacturers_info VALUES (1, 2, 'http://www.matrox.de', 0, null);
+INSERT INTO manufacturers_info VALUES (1, 3, 'http://www.matrox.com', 0, null);
+INSERT INTO manufacturers_info VALUES (2, 1, 'http://www.microsoft.com', 0, null);
+INSERT INTO manufacturers_info VALUES (2, 2, 'http://www.microsoft.de', 0, null);
+INSERT INTO manufacturers_info VALUES (2, 3, 'http://www.microsoft.es', 0, null);
+INSERT INTO manufacturers_info VALUES (3, 1, 'http://www.warner.com', 0, null);
+INSERT INTO manufacturers_info VALUES (3, 2, 'http://www.warner.de', 0, null);
+INSERT INTO manufacturers_info VALUES (3, 3, 'http://www.warner.com', 0, null);
+INSERT INTO manufacturers_info VALUES (4, 1, 'http://www.fox.com', 0, null);
+INSERT INTO manufacturers_info VALUES (4, 2, 'http://www.fox.de', 0, null);
+INSERT INTO manufacturers_info VALUES (4, 3, 'http://www.fox.com', 0, null);
+INSERT INTO manufacturers_info VALUES (5, 1, 'http://www.logitech.com', 0, null);
+INSERT INTO manufacturers_info VALUES (5, 2, 'http://www.logitech.com', 0, null);
+INSERT INTO manufacturers_info VALUES (5, 3, 'http://www.logitech.com', 0, null);
+INSERT INTO manufacturers_info VALUES (6, 1, 'http://www.canon.com', 0, null);
+INSERT INTO manufacturers_info VALUES (6, 2, 'http://www.canon.de', 0, null);
+INSERT INTO manufacturers_info VALUES (6, 3, 'http://www.canon.es', 0, null);
+INSERT INTO manufacturers_info VALUES (7, 1, 'http://www.sierra.com', 0, null);
+INSERT INTO manufacturers_info VALUES (7, 2, 'http://www.sierra.de', 0, null);
+INSERT INTO manufacturers_info VALUES (7, 3, 'http://www.sierra.com', 0, null);
+INSERT INTO manufacturers_info VALUES (8, 1, 'http://www.infogrames.com', 0, null);
+INSERT INTO manufacturers_info VALUES (8, 2, 'http://www.infogrames.de', 0, null);
+INSERT INTO manufacturers_info VALUES (8, 3, 'http://www.infogrames.com', 0, null);
+INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0, null);
+INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, null);
+INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, null);
 
 INSERT INTO orders_status VALUES ( '1', '1', 'Pending');
 INSERT INTO orders_status VALUES ( '1', '2', 'Offen');
