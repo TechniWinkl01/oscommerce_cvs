@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.279 2003/07/09 19:22:28 dgw_ Exp $
+  $Id: application_top.php,v 1.280 2003/07/12 09:38:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
   }
 
 // define the project version
-  define('PROJECT_VERSION', 'osCommerce 2.2-MS2-CVS');
+  define('PROJECT_VERSION', 'osCommerce 2.2-MS2');
 
 // set the type of request (secure or not)
   $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';

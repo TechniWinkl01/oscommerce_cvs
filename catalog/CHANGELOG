@@ -1,10 +1,10 @@
-$Id: CHANGELOG,v 1.22 2003/07/11 08:00:04 hpdl Exp $
+$Id: CHANGELOG,v 1.23 2003/07/12 09:38:07 hpdl Exp $
 
 osCommerce Changelog
 Copyright (c) 2003 osCommerce
 
 ------------------------------------------------------------------------------
-xx/xx/2003 osCommerce 2.2 Milestone 2
+12/07/2003 osCommerce 2.2 Milestone 2
 ------------------------------------------------------------------------------
 
  * Shared SSL servers are now properly supported with cookie parameters

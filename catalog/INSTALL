@@ -1,6 +1,6 @@
-$Id: INSTALL,v 1.12 2003/02/17 17:05:00 hpdl Exp $
+$Id: INSTALL,v 1.13 2003/07/12 09:38:07 hpdl Exp $
 
-osCommerce 2.2 Milestone 1 Installation Guide
+osCommerce 2.2 Milestone 2 Installation Guide
 Copyright (c) osCommerce 2003
 
 *** The information presented here is old. It will be updated throughout   ***
@@ -15,21 +15,21 @@ to get the online shop running:
 
 1. Extract the files from within the package
 
-   unzip oscommerce-2.2ms1.zip
+   unzip oscommerce-2.2ms2.zip
 
    -- or --
 
-   tar -xzf oscommerce-2.2ms1.tar.gz
+   tar -xzf oscommerce-2.2ms2.tar.gz
 
    -- or --
 
    use your favourite graphical application to extract the files, such as
    WinZip (http://www.winzip.com)
  
-2. This creates a directory called 'oscommerce-2.2ms1'. Enter this directory
+2. This creates a directory called 'oscommerce-2.2ms2'. Enter this directory
    and copy the 'catalog' directory to the webroot path of your webserver:
 
-   cd oscommerce-2.2ms1
+   cd oscommerce-2.2ms2
    cp -R catalog /usr/local/apache/htdocs/
 
    For this example, '/usr/local/apache/htdocs/' is used as the webroot path
@@ -63,7 +63,7 @@ Now you can use your browser to view the pages which should be located at
 'http://localhost/catalog/'. You can also use your browser, or a graphics
 viewer/editor, to view the database model which is located in the directory
 where you extracted the files
-'tep_catalog-pr2.1/tep_database_model-pr2.1.gif'.
+'oscommerce-2.2ms2/tep_database_model-pr2.1.gif'.
 
 ------------------------------------------------------------------------------
 Apache/SSL/PHP Installation
