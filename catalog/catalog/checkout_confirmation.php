@@ -147,7 +147,11 @@
     echo '</tr>' . "\n";
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
-    $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
+    if (TAX_INCLUDE == true) {
+      $total_tax += (($total_products_price * $products[$i]['quantity']) - (($total_products_price * $products[$i]['quantity']) / (($products_tax/100)+1)));
+    } else {
+      $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
+    }
     $total_cost += ($total_products_price * $products[$i]['quantity']);
   }
 
@@ -187,7 +191,12 @@
 ?>
               <tr>
                 <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_cost + $total_tax + $shipping_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<?
+    if (TAX_INCLUDE == true) {
+      echo tep_currency_format($total_cost + $shipping_cost);
+    } else {
+      echo tep_currency_format($total_cost + $total_tax + $shipping_cost);
+    } ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

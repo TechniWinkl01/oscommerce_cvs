@@ -120,7 +120,11 @@
     echo '          </tr>' . "\n";
 
     $cost = ($orders_products_values['products_quantity'] * $final_price);
-    $total_tax += ($cost * $orders_products_values['products_tax']/100);
+    if (TAX_INCLUDE == true) {
+      $total_tax += (($orders_products_values['products_quantity'] * $final_price) - (($orders_products_values['products_quantity'] * $final_price) / (($orders_products_values['products_tax']/100)+1)));
+    } else {
+      $total_tax += ($cost * $orders_products_values['products_tax']/100);
+    }
     $total_cost += $cost;
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.119 2001/05/20 16:14:41 dwatkins Exp $
+  $Id: application_top.php,v 1.120 2001/05/21 07:20:32 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -117,6 +117,7 @@
   define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
+  define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('EMAILPRODUCT_GUEST', false); // Can guests use the tell a friend email form?
 

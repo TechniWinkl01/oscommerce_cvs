@@ -87,7 +87,11 @@
     }
 //------insert customer choosen option eof ----
     $total_weight += ($products[$i]['quantity'] * $products_weight);
-    $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
+    if (TAX_INCLUDE == true) {
+      $total_tax += (($total_products_price * $products[$i]['quantity']) - (($total_products_price * $products[$i]['quantity']) / (($products_tax/100)+1)));
+    } else {
+      $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
+    }
     $total_cost += $total_products_price;
 
     $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . tep_currency_format(($total_products_price * $products[$i]['quantity'])) . $products_ordered_attributes . "\n";

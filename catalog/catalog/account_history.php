@@ -78,7 +78,11 @@
       $history_total = tep_db_query("select final_price, products_tax, products_quantity from orders_products where orders_id = '" . $history_values['orders_id'] . "'");
       while ($history_total_values = tep_db_fetch_array($history_total)) {
         $cost = ($history_total_values['final_price'] * $history_total_values['products_quantity']);
-        $total_cost += $cost + ($cost * ($history_total_values['products_tax']/100));
+        if (TAX_INCLUDE == true) {
+          $total_cost += $cost;
+        } else {
+          $total_cost += $cost + ($cost * ($history_total_values['products_tax']/100));
+        }
       }
       $total_cost += $history_values['shipping_cost'];
 
