@@ -20,6 +20,7 @@ define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
 define('TEXT_PRODUCTS', 'Products:');
 define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
 
+define('TEXT_NEW_INTRO', 'Introduzca los datos del nuevo fabricante');
 define('TEXT_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_EDIT_MANUFACTURERS_ID', 'ID del Fabricante:');
 define('TEXT_EDIT_MANUFACTURERS_NAME', 'Nombre del Fabricante:');
