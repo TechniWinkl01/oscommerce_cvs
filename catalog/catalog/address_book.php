@@ -60,13 +60,17 @@
             <td colspan="3"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $address_book = tep_db_query("select ab.address_book_id, ab.entry_firstname, ab.entry_lastname, ab.entry_city, ab.entry_country_id from " . TABLE_ADDRESS_BOOK . " ab, " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " abtc where abtc.customers_id = '" . $customer_id . "' and abtc.address_book_id = ab.address_book_id order by ab.address_book_id");
-  if (!tep_db_num_rows($address_book)) {
+// get all address_book entries of this customer
+  $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' order by address_book_id");
+  $entries = tep_db_num_rows($addressbook);
+// if we find only one address then that will be the default address and we're done
+  if ($entries = 1) {
 ?>
           <tr class="addressBook-odd">
             <td colspan="3" class="smallText">&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
           </tr>
 <?
+// We have more addresses! Let's build a list
   } else {
     $row = 0;
     while ($address_book_values = tep_db_fetch_array($address_book)) {
