@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.63 2003/07/23 23:11:33 project3000 Exp $
+  $Id: upgrade_3.php,v 1.64 2003/12/17 16:50:08 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -307,6 +307,9 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Prevent Spider Sessions', 'SESSION_BLOCK_SPIDERS', 'False', 'Prevent known spiders from starting a session.', '15', '6', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Recreate Session', 'SESSION_RECREATE', 'False', 'Recreate the session to generate a new session ID when the customer logs on or creates an account (PHP >=4.1 needed).', '15', '7', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
 
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Confirm Terms and Conditions During Checkout Procedure', 'DISPLAY_CONDITIONS_ON_CHECKOUT', 'false', 'Show the Terms and Conditions during the checkout procedure which the customer must agree to.', '16', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Confirm Pricacy Notice During Account Creation Procedure', 'DISPLAY_PRIVACY_CONDITIONS', 'false', 'Show the Privacy Notice during the account creation procedure which the customer must agree to.', '16', '2', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+
   osc_db_query("delete from configuration_group");
 
   osc_db_query("alter table configuration_group add visible int(1) default '1'");
@@ -326,6 +329,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration_group values ('13', 'Download', 'Downloadable products options', '13', '1')");
   osc_db_query("insert into configuration_group values ('14', 'GZip Compression', 'GZip compression options', '14', '1')");
   osc_db_query("insert into configuration_group values ('15', 'Sessions', 'Session options', '15', '1')");
+  osc_db_query("insert into configuration_group values ('16', 'Regulations', 'Regulation options', '16', '1')");
 
 ?>
 
