@@ -62,6 +62,7 @@
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
   $total = $subtotal + $tax + $shipping_cost;
 
+  $paypal_total = round(($subtotal + $tax)*100)/100;
   $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;
   mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
@@ -73,7 +74,7 @@
 			header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); tep_exit();
 			break;
 		case 'paypal' : // PayPal
-			header("Location: https://secure.paypal.com/xclick/business=" . rawurlencode(PAYPAL_ID) . "&item_name=" . rawurlencode(STORE_NAME . " " . TEXT_PAYMENT) . "&item_number=" . rawurlencode($insert_id) . "&amount=" . round($subtotal + $tax, 2) . "&shipping=" . $shipping_cost . "&return=" . urlencode(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')));
+			header("Location: https://secure.paypal.com/xclick/business=" . rawurlencode(PAYPAL_ID) . "&item_name=" . rawurlencode(STORE_NAME . " " . TEXT_PAYMENT) . "&item_number=" . rawurlencode($insert_id) . "&amount=" . $paypal_total . "&shipping=" . $shipping_cost . "&return=" . urlencode(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')));
 			break;
 	}
 ?>
