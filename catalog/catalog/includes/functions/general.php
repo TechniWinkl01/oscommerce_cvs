@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.144 2001/12/01 19:49:46 dgw_ Exp $
+  $Id: general.php,v 1.145 2001/12/14 16:00:59 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1063,7 +1063,7 @@
   }
 
   function tep_create_random_value($length, $type = 'mixed') {
-    if ( ($type != 'mixed') || ($type != 'chars') || ($type != 'digits')) return false;
+    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
 
     $rand_value = '';
     mt_srand((double) microtime() * 1000000);
