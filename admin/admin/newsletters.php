@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.9 2002/03/08 22:20:08 hpdl Exp $
+  $Id: newsletters.php,v 1.10 2002/03/10 00:12:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -225,6 +225,22 @@
 ?>
       <tr>
         <td><?php if ($module->show_choose_audience) { echo $module->choose_audience(); } else { echo $module->confirm(); } ?></td>
+      </tr>
+<?php
+  } elseif ($HTTP_GET_VARS['action'] == 'confirm') {
+    $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
+
+    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($nID) . "'");
+    $newsletter = tep_db_fetch_array($newsletter_query);
+
+    $nInfo = new objectInfo($newsletter);
+
+    include(DIR_WS_LANGUAGES . $language . '/modules/newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
+    include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
+    $module = new $nInfo->module($nInfo->title, $nInfo->content);
+?>
+      <tr>
+        <td><?php echo $module->confirm(); ?></td>
       </tr>
 <?php
   } elseif ($HTTP_GET_VARS['action'] == 'confirm_send') {
