@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.102 2001/12/28 05:24:26 hpdl Exp $
+  $Id: application_top.php,v 1.103 2001/12/29 19:11:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -231,10 +231,11 @@
   }
 
 // default open navigation box
-  if (@!$selected_box) {
+  if (!tep_session_is_registered('selected_box')) {
     tep_session_register('selected_box');
     $selected_box = 'configuration';
-  } elseif ($HTTP_GET_VARS['selected_box']) {
+  }
+  if ($HTTP_GET_VARS['selected_box']) {
     $selected_box = $HTTP_GET_VARS['selected_box'];
   }
 
