@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.5 2004/02/16 07:08:16 hpdl Exp $
+  $Id: message_stack.php,v 1.6 2004/04/13 07:56:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,6 +67,19 @@
       $messages .= '</ul>';
 
       return '<div class="messageStack">' . $messages . '</div>';
+    }
+
+    function outputPlain($class) {
+      $message = false;
+
+      for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
+        if ($this->messages[$i]['class'] == $class) {
+          $message = tep_output_string($this->messages[$i]['message']);
+          break;
+        }
+      }
+
+      return $message;
     }
 
     function size($class) {
