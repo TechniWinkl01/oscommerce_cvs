@@ -1,22 +1,27 @@
 <?php
 /*
-  $Id: account_history.php,v 1.5 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: account_history.php,v 1.6 2002/06/02 19:08:26 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Mi Cuenta');
 define('NAVBAR_TITLE_2', 'Historial');
+
 define('HEADING_TITLE', 'Historial de Pedidos');
-define('TABLE_HEADING_ORDER_NUMBER', 'Pedido Numero');
-define('TABLE_HEADING_ORDER_DATE', 'Fecha');
-define('TABLE_HEADING_ORDER_COST', 'Precio');
-define('TABLE_HEADING_ORDER_STATUS', 'Estado');
+
+define('TEXT_ORDER_NUMBER', 'Pedido Numero:');
+define('TEXT_ORDER_STATUS', 'Estado:');
+define('TEXT_ORDER_DATE', 'Fecha:');
+define('TEXT_ORDER_SHIPPED_TO', 'Shipped To:');
+define('TEXT_ORDER_PRODUCTS', 'Products:');
+define('TEXT_ORDER_COST', 'Precio:');
+define('TEXT_VIEW_ORDER', 'View Order');
+
 define('TEXT_NO_PURCHASES', 'No ha realizado ningun pedido aun..');
-define('TABLE_TEXT', 'Haga click en la \'Fecha\' para ver el detalle del pedido');
 ?>

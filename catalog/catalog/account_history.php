@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.55 2002/05/27 13:05:57 hpdl Exp $
+  $Id: account_history.php,v 1.56 2002/06/02 19:08:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,60 +56,62 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="tableHeading" align="center"><?php echo TABLE_HEADING_ORDER_NUMBER; ?></td>
-            <td class="tableHeading"><?php echo TABLE_HEADING_ORDER_DATE; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_COST; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_STATUS; ?></td>
-          </tr>
-          <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-          </tr>
+        <td>
 <?php
-  $history_query_raw = "select o.orders_id, o.date_purchased, ot.text as order_total, s.orders_status_name from " . TABLE_ORDERS . " o left join " . TABLE_ORDERS_TOTAL . " ot on (o.orders_id = ot.orders_id) left join " . TABLE_ORDERS_STATUS . " s on (o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "') where o.customers_id = '" . $customer_id . "' and ot.class = 'ot_total' order by orders_id DESC";
-  $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $history_query_raw, $history_numrows);
+  $history_query_raw = "select o.orders_id, o.date_purchased, o.delivery_name, ot.text as order_total, s.orders_status_name from " . TABLE_ORDERS . " o left join " . TABLE_ORDERS_TOTAL . " ot on (o.orders_id = ot.orders_id) left join " . TABLE_ORDERS_STATUS . " s on (o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "') where o.customers_id = '" . $customer_id . "' and ot.class = 'ot_total' order by orders_id DESC";
+  $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_ORDER_HISTORY, $history_query_raw, $history_numrows);
   $history_query = tep_db_query($history_query_raw);
-  if (!tep_db_num_rows($history_query)) {
+
+  $info_box_contents = array();
+
+  if (tep_db_num_rows($history_query)) {
+    while ($history = tep_db_fetch_array($history_query)) {
+      $products_query = tep_db_query("select count(*) as count from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $history['orders_id'] . "'");
+      $products = tep_db_fetch_array($products_query);
+
+      $order_heading = '<table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
+                       '  <tr>' . "\n" .
+                       '    <td class="main"><b>' . TEXT_ORDER_NUMBER . '</b> ' . $history['orders_id'] . '</td>' . "\n" .
+                       '    <td class="main" align="right"><b>' . TEXT_ORDER_STATUS . '</b> ' . $history['orders_status_name'] . '</td>' . "\n" .
+                       '  </tr>' . "\n" .
+                       '</table>';
+
+      $order = '<table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
+               '  <tr>' . "\n" .
+               '    <td class="main" width="50%" valign="top"><b>' . TEXT_ORDER_DATE . '</b> ' . tep_date_long($history['date_purchased']) . '<br><b>' . TEXT_ORDER_SHIPPED_TO . '</b> ' . $history['delivery_name'] . '</td>' . "\n" .
+               '    <td class="main" width="30%" valign="top"><b>' . TEXT_ORDER_PRODUCTS . '</b> ' . $products['count'] . '<br><b>' . TEXT_ORDER_COST . '</b> ' . strip_tags($history['order_total']) . '</td>' . "\n" .
+               '    <td class="main" width="20%"><a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'page=' . $HTTP_GET_VARS['page'] . '&order_id=' . $history['orders_id'], 'SSL') . '">' . TEXT_VIEW_ORDER . '</a></td>' . "\n" .
+               '  </tr>' . "\n" .
+               '</table>';
+
+      new tableBox(array(array('text' => $order_heading)), true);
+      new infoBox(array(array('text' => $order)));
+
+      echo '<br>';
+    }
+  } else {
+    new infoBox(array(array('text' => TEXT_NO_PURCHASES)));
+  }
 ?>
-          <tr class="accountHistory-odd">
-            <td colspan="4" class="smallText"><?php echo TEXT_NO_PURCHASES; ?></td>
+        </td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  if (tep_db_num_rows($history_query)) {
+?>
+          <tr>
+            <td class="smallText" valign="top"><?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+            <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE; echo $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
           </tr>
 <?php
-  } else {
-    $row = 0;
-    while ($history = tep_db_fetch_array($history_query)) {
-      $row++;
-
-      if (($row / 2) == floor($row / 2)) {
-        echo '          <tr class="accountHistory-even">' . "\n";
-      } else {
-        echo '          <tr class="accountHistory-odd">' . "\n";
-      }
-      echo '            <td class="smallText" align="center">' . $history['orders_id'] . '</td>' . "\n" .
-           '            <td class="smallText"><a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'SSL') . '">' . tep_date_long($history['date_purchased']) . '</a></td>' . "\n" .
-           '            <td class="smallText" align="right">' . strip_tags($history['order_total']) . '</td>' . "\n" .
-           '            <td class="smallText" align="right">' . $history['orders_status_name'] . '</td>' . "\n" .
-           '          </tr>' . "\n";
-    }
   }
 ?>
           <tr>
-            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
           </tr>
           <tr>
-            <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="smallText" valign="top"><?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE; echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
-              </tr>
-              <tr>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-              </tr>
-              <tr>
-                <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a><br><br>' . TABLE_TEXT; ?></td>
-              </tr>
-            </table></td>
+            <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>

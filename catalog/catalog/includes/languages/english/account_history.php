@@ -1,22 +1,27 @@
 <?php
 /*
-  $Id: account_history.php,v 1.5 2001/12/20 14:14:14 dgw_ Exp $
+  $Id: account_history.php,v 1.6 2002/06/02 19:08:26 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'My Account');
 define('NAVBAR_TITLE_2', 'History');
-define('HEADING_TITLE', 'My Purchase History');
-define('TABLE_HEADING_ORDER_NUMBER', 'Order No.');
-define('TABLE_HEADING_ORDER_DATE', 'Order Date');
-define('TABLE_HEADING_ORDER_COST', 'Order Cost');
-define('TABLE_HEADING_ORDER_STATUS', 'Order Status');
-define('TEXT_NO_PURCHASES', 'You have not yet made any purchases with us..');
-define('TABLE_TEXT', 'Click on the \'Order Date\' to view the order information');
+
+define('HEADING_TITLE', 'My Order History');
+
+define('TEXT_ORDER_NUMBER', 'Order Number:');
+define('TEXT_ORDER_STATUS', 'Order Status:');
+define('TEXT_ORDER_DATE', 'Order Date:');
+define('TEXT_ORDER_SHIPPED_TO', 'Shipped To:');
+define('TEXT_ORDER_PRODUCTS', 'Products:');
+define('TEXT_ORDER_COST', 'Order Cost:');
+define('TEXT_VIEW_ORDER', 'View Order');
+
+define('TEXT_NO_PURCHASES', 'You have not yet made any purchases.');
 ?>
