@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.49 2003/01/07 12:44:40 thomasamoulton Exp $
+  $Id: ups.php,v 1.50 2003/01/10 12:24:06 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -226,7 +226,6 @@
       } else {
         return 'error';
       }
-
       $body_array = explode("\n", $body);
 
       $returnval = array();
@@ -247,7 +246,7 @@
             $errorret = $result[1];
             break;
           case 6:
-            $errorret = $result[1];
+            if (is_array($returnval)) $returnval[] = array($result[3] => $result[10]);
             break;
         }
       }
