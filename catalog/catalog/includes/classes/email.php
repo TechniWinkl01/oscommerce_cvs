@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: email.php,v 1.9 2002/08/12 22:54:48 hpdl Exp $
+  $Id: email.php,v 1.10 2003/05/28 18:00:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -156,7 +156,7 @@
  */
 
     function add_html($html, $text = NULL, $images_dir = NULL) {
-      $this->html = $html;
+      $this->html = nl2br($html);
       $this->html_text = $text;
 
       if (isset($images_dir)) $this->find_html_images($images_dir);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.48 2003/02/13 03:10:55 hpdl Exp $
+  $Id: password_forgotten.php,v 1.49 2003/05/28 18:00:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,7 @@
       $crypted_password = tep_encrypt_password($newpass);
       tep_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . $crypted_password . "' where customers_id = '" . $check_customer['customers_id'] . "'");
       
-      tep_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, nl2br(sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+      tep_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
       tep_redirect(tep_href_link(FILENAME_LOGIN, 'info_message=' . urlencode(TEXT_PASSWORD_SENT), 'SSL', true, false));
     } else {
       tep_redirect(tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'email=nonexistent', 'SSL'));

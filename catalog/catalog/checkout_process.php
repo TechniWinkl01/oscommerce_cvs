@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.127 2003/04/08 22:37:20 dgw_ Exp $
+  $Id: checkout_process.php,v 1.128 2003/05/28 18:00:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -255,11 +255,11 @@
       $email_order .= $payment_class->email_footer . "\n\n";
     }
   }
-  tep_mail($order->customer['firstname'] . ' ' . $order->customer['lastname'], $order->customer['email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+  tep_mail($order->customer['firstname'] . ' ' . $order->customer['lastname'], $order->customer['email_address'], EMAIL_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
 // send emails to other people
   if (SEND_EXTRA_ORDER_EMAILS_TO != '') {
-    tep_mail('', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+    tep_mail('', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
   }
 
 // load the after_process function from the payment modules
