@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.32 2002/02/06 23:41:15 harley_vb Exp $
+  $Id: specials.php,v 1.33 2002/03/15 12:24:54 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,12 @@
       break;
     case 'insert':
 // insert a product on special
-      if (substr($HTTP_POST_VARS['specials_price'], -1) == '%') $HTTP_POST_VARS['specials_price'] = ($HTTP_POST_VARS['products_price'] - (($HTTP_POST_VARS['specials_price'] / 100) * $HTTP_POST_VARS['products_price']));
+      if (substr($HTTP_POST_VARS['specials_price'], -1) == '%') {
+        $new_special_insert_query = tep_db_query("select products_id, products_price from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+        $new_special_insert = tep_db_fetch_array($new_special_insert_query);
+        $HTTP_POST_VARS['products_price'] = $new_special_insert['products_price'];
+        $HTTP_POST_VARS['specials_price'] = ($HTTP_POST_VARS['products_price'] - (($HTTP_POST_VARS['specials_price'] / 100) * $HTTP_POST_VARS['products_price']));
+      }	
 
       $expires_date = '';
       if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year']) {
