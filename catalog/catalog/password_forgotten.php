@@ -56,7 +56,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_password_forgotten.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_password_forgotten.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -73,7 +73,7 @@
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" valign="top" colspan="2" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_email_me.gif', '0', '0', '0', IMAGE_EMAIL_ME); ?>&nbsp;&nbsp;</td>
+            <td align="right" valign="top" colspan="2" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_email_me.gif', IMAGE_EMAIL_ME); ?>&nbsp;&nbsp;</td>
           </tr>
 <?
   if ($HTTP_GET_VARS['email'] == 'nonexistent') {

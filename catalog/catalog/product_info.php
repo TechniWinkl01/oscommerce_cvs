@@ -43,7 +43,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', '112', '24', '0', IMAGE_MAIN_MENU); ?></a></td>
+        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a></td>
       </tr>
 <?
   } else {
@@ -73,7 +73,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image($product_info_values['manufacturers_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $product_info_values['manufacturers_name']); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image($product_info_values['manufacturers_image'], $product_info_values['manufacturers_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
 <?
     if (PRODUCT_LIST_MODEL) {
@@ -96,7 +96,7 @@
     <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td><table border="0" width="100%"><tr><td><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $product_info_values['products_name']); ?><p><? echo stripslashes($product_info_values['products_description']); ?></p>
+        <td><table border="0" width="100%"><tr><td><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?><p><? echo stripslashes($product_info_values['products_description']); ?></p>
 <?
     if ($products_attributes == '1') {
       $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
@@ -149,20 +149,20 @@
 <?
     $get_params = substr(tep_get_all_get_params(), 0, -1);
     if ($reviews_values['count'] == '0') {
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_write_a_review.gif', '140', '24', '0', IMAGE_WRITE_A_REVIEW) . '</a>&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_write_a_review.gif', IMAGE_WRITE_A_REVIEW) . '</a>&nbsp;</font></td>' . "\n";
     } else {
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_reviews.gif', '78', '24', '0', IMAGE_REVIEWS) . '</a>&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_reviews.gif', IMAGE_REVIEWS) . '</a>&nbsp;</font></td>' . "\n";
     }
 
     echo '<td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">';
     if ($product_exists_in_cart == '1') {
-      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '0', '0', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>';
+      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL) . '</a>';
     } else {
-      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '0', '0', '0', IMAGE_ADD_TO_CART);
+      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', IMAGE_ADD_TO_CART);
     }
     $get_params_back = substr(tep_get_all_get_params(array('products_id','language','currency')), 0, -1);
     if ($get_params_back != '') {
-      echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
+      echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';
     }
     echo '&nbsp;&nbsp;</font></td>' . "\n";
 ?>

@@ -103,39 +103,47 @@
     return $output;
   }
 
-  function tep_image($src, $width, $height, $border, $alt) {
-    global $image;
+  function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
+    $image = '<img src="' . $src . '" border="0"';
 
-    $image = '<!-- NO IMAGE DEFINED -->';
-    if ($src) {
-      if (!$size = @GetImageSize( (substr($src,0,1)=='/') ? DIR_IMAGES_PHYSICAL . $src : $src )) {
-        $src = '';
-      }
-    }
-    if ($src) {
-      if (!$width && $height) { // width is not set, height is set
-        $ratio = $height / $size[1];
-        $width = $size[0] * $ratio;
-      } elseif ($width && !$height) { // width is set, height is not set
-        $ratio = $width / $size[0];
-        $height= $size[1] * $ratio;
-      } elseif (!$width && !$height) { // Neither specified
-        $width = $size[0];
-        $height = $size[1];
-      }
-      $image = '<img src="' . $src . '" border="' . $border . '"';
-      $image .= ' width="' . $width . '"';
-      $image .= ' height="' . $height . '"';
+    if ($alt) {
       $image .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
-      $image .= '>';
     }
+
+    if ( (CONFIG_CALCULATE_IMAGE_SIZE) && ((!$width) || (!$height)) ) {
+      if ($image_size = @getimagesize($src)) {
+        if ( (!$width) && ($height) ) {
+          $ratio = $height / $image_size[1];
+          $width = $image_size[0] * $ratio;
+        } elseif ( ($width) && (!$height) ) {
+          $ratio = $width / $image_size[0];
+          $height = $image_size[1] * $ratio;
+        } elseif ( (!$width) && (!$height) ) {
+          $width = $image_size[0];
+          $height = $image_size[1];
+        }
+      } elseif (IMAGE_REQUIRED == false) {
+        return '';
+      }
+    }
+
+    if ( ($width) && ($height) ) {
+      $image .= ' width="' . $width . '" height="' . $height . '"';
+    }
+
+    if ($params != '') {
+      $image .= ' ' . $params;
+    }
+
+    $image .= '>';
+
     return $image;
   }
 
   function tep_image_submit($src, $alt) {
     global $image_submit;
     
-    if ($size = @GetImageSize( (substr($src,0,1)=='/') ? DIR_IMAGES_PHYSICAL . $src : $src )) {
+    if ((CONFIG_CALCULATE_IMAGE_SIZE) && ($size = @GetImageSize($src))) {
       $width = $size[0];
       $height = $size[1];
     }
@@ -146,7 +154,8 @@
       $image_submit .= ' width="' . $width . '"';
     if ($height)
       $image_submit .= ' height="' . $height . '"';
-    $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
+    if ($alt)
+      $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
     $image_submit .= '>';
     
     return $image_submit;
@@ -155,7 +164,7 @@
   function tep_black_line() {
     global $black_line;
     
-    $black_line = tep_image(DIR_IMAGES . 'pixel_black.gif', '100%', '1', '0', '');
+    $black_line = tep_image(DIR_IMAGES . 'pixel_black.gif', '', '100%', '1');
     
     return $black_line;
   }

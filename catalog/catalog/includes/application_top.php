@@ -17,7 +17,6 @@
   define('DIR_LOGS', DIR_SERVER_ROOT . 'logs/');
   define('DIR_CATALOG', '/catalog/');
   define('DIR_IMAGES', 'images/'); // from webserver
-  define('DIR_IMAGES_PHYSICAL', DIR_SERVER_ROOT); // 'images/' is hardcoded in the database .. all these paths will later fixed for a better structure..!!
   define('DIR_INCLUDES', 'includes/');
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
@@ -57,7 +56,6 @@
   define('FILENAME_ADDRESS_BOOK_PROCESS', 'address_book_process.php');
   define('FILENAME_ADVANCED_SEARCH', 'advanced_search.php');
   define('FILENAME_ADVANCED_SEARCH_RESULT', 'advanced_search_result.php');
-  define('FILENAME_CHECKOUT', 'checkout.php');
   define('FILENAME_CHECKOUT_ADDRESS', 'checkout_address.php');
   define('FILENAME_CHECKOUT_CONFIRMATION', 'checkout_confirmation.php');
   define('FILENAME_CHECKOUT_PAYMENT', 'checkout_payment.php');

@@ -35,7 +35,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="5">
           <tr>
-            <td nowrap><? echo tep_image(DIR_IMAGES . 'table_background_man_on_board.gif', '175', '198', '0', HEADING_TITLE); ?></td>
+            <td nowrap><? echo tep_image(DIR_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
             <td><div align="center"><br><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>"><? echo HEADING_TITLE; ?>&nbsp;</font></div><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_SUCCESS; ?></font></td>
           </tr>
         </table></td>
@@ -44,7 +44,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', '112', '24', '0', IMAGE_MAIN_MENU); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

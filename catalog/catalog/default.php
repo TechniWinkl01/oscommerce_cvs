@@ -62,7 +62,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image($category['categories_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $category['categories_name']); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image($category['categories_image'], $category['categories_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -100,7 +100,7 @@
     while ($categories_values = tep_db_fetch_array($categories)) {
       $rows++;
       $cPath_new = tep_get_path($categories_values['categories_id']);
-      echo '                <td align="center">' . FONT_STYLE_GENERAL . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image($categories_values['categories_image'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT, '0', $categories_values['categories_name']) . '<br>' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
+      echo '                <td align="center">' . FONT_STYLE_GENERAL . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . tep_image($categories_values['categories_image'], $categories_values['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT) . '<br>' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
       if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != tep_db_num_rows($categories))) {
         echo '              </tr>' . "\n";
         echo '              <tr>' . "\n";
@@ -284,7 +284,7 @@
       $image = $image['categories_image'];
     }
 ?>
-            <td align="right" nowrap>&nbsp;<? echo tep_image($image, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image($image, HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
           </form>
         </table></td>
@@ -313,7 +313,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_default.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_default.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

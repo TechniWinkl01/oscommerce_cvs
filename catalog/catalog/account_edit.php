@@ -210,7 +210,7 @@ function check_form() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -345,7 +345,7 @@ function check_form() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '72', '24', '0', IMAGE_CANCEL); ?></a>&nbsp;&nbsp;</font></td>
+        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;&nbsp;</font></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->

@@ -36,7 +36,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_cart.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -86,7 +86,7 @@
       $col_idx=0;
       $products_name = $products[$i]['name'];
       echo '          <tr>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top"><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $products[$i]['id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_small_delete.gif', '50', '14', '0', 'Remove ' . $products_name . ' from Shopping Cart.') . '</a></td>' . "\n";
+      echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top"><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $products[$i]['id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_small_delete.gif', 'Remove ' . $products_name . ' from Shopping Cart.') . '</a></td>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top" nowrap><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
       if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</font></td>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
@@ -139,7 +139,7 @@
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>" align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '0', '0', '0', IMAGE_UPDATE_CART); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_checkout.gif', '91', '24', '0', IMAGE_CHECKOUT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_all', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL); ?></a>&nbsp;&nbsp;</font></td>
+            <td colspan="<? echo $colspan; ?>" align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_checkout.gif', IMAGE_CHECKOUT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_all', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
 </form>
 <?
@@ -151,7 +151,7 @@
     echo '            <td colspan="' . $colspan . '">' . tep_black_line() . '</td>' . "\n";
     echo '          </tr>' . "\n";
     echo '          <tr>' . "\n";
-    echo '            <td colspan="' . $colspan . '" align="right" nowrap><br><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE . '" color="' . TABLE_HEADING_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_main_menu.gif', '112', '24', '0', IMAGE_MAIN_MENU) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+    echo '            <td colspan="' . $colspan . '" align="right" nowrap><br><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE . '" color="' . TABLE_HEADING_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
   }
 ?>

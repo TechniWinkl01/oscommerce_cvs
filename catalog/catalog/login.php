@@ -123,7 +123,7 @@ function session_win() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_login.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -147,7 +147,7 @@ function session_win() {
           </tr>
           <tr>
             <td valign="top" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</font></td>
-            <td align="right" valign="top" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_log_in.gif', '0', '0', '0', IMAGE_LOGIN); ?>&nbsp;</td>
+            <td align="right" valign="top" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_log_in.gif', IMAGE_LOGIN); ?>&nbsp;</td>
           </tr>
           <tr>
             <td align="right" colspan="2" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</font></td>

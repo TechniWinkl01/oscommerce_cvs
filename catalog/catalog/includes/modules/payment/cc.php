@@ -84,7 +84,7 @@
     if ($cc_val != '1') 
     {
       $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');
-      $checkout_form_submit = tep_image_submit(DIR_IMAGES . 'button_back.gif', '0', '0', '0', IMAGE_BACK) . '&nbsp;</font>' . "\n";
+      $checkout_form_submit = tep_image_submit(DIR_IMAGES . 'button_back.gif', IMAGE_BACK) . '&nbsp;</font>' . "\n";
     }
   } 
   elseif ($payment_action == 'PM_PROCESS_BUTTON' && $payment_enabled) 

@@ -66,7 +66,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -158,7 +158,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_edit_account.gif', '124', '24', '0', IMAGE_EDIT_ACCOUNT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_address_book.gif', '130', '24', '0', IMAGE_ADDRESS_BOOK); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_history.gif', '80', '24', '0', IMAGE_HISTORY); ?></a>&nbsp;&nbsp;</font></td>
+        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_edit_account.gif', IMAGE_EDIT_ACCOUNT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_address_book.gif', IMAGE_ADDRESS_BOOK); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_history.gif', IMAGE_HISTORY); ?></a>&nbsp;&nbsp;</font></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
