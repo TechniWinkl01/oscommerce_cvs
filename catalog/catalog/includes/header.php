@@ -9,7 +9,7 @@
   } ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'header_cart.gif', '50', '50', '0', HEADER_TITLE_CART_CONTENTS); ?></a>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'header_checkout.gif', '53', '50', '0', HEADER_TITLE_CHECKOUT); ?></a>&nbsp;&nbsp;</td>
   </tr>
   <tr bgcolor="<? echo HEADER_NAVIGATION_BAR_BACKGROUND_COLOR; ?>" height="19">
-    <td align="left" nowrap><font face="<? echo HEADER_NAVIGATION_BAR_FONT_FACE; ?>" color="<? echo HEADER_NAVIGATION_BAR_FONT_COLOR; ?>" size="<? echo HEADER_NAVIGATION_BAR_FONT_SIZE; ?>"><b>&nbsp;&nbsp;<a href="http://theexchangeproject.org" class="whitelink"><? echo HEADER_TITLE_TOP; ?></a> : <a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>" class="whitelink"><? echo HEADER_TITLE_CATALOG; ?></a><?
+    <td align="left" nowrap><font face="<? echo HEADER_NAVIGATION_BAR_FONT_FACE; ?>" color="<? echo HEADER_NAVIGATION_BAR_FONT_COLOR; ?>" size="<? echo HEADER_NAVIGATION_BAR_FONT_SIZE; ?>"><b>&nbsp;&nbsp;<a href="<? echo HTTP_SERVER; ?>" class="whitelink"><? echo HEADER_TITLE_TOP; ?></a> : <a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>" class="whitelink"><? echo HEADER_TITLE_CATALOG; ?></a><?
   if ($cPath) {
     if (!ereg('_', $cPath)) $cPath_array = array($cPath);
     $cPath_new = '';
