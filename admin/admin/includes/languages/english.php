@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.96 2002/04/29 15:58:07 dgw_ Exp $
+  $Id: english.php,v 1.97 2002/05/07 23:07:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -229,6 +229,7 @@ define('ICON_FOLDER', 'Folder');
 define('ICON_LOCKED', 'Locked');
 define('ICON_PREVIOUS_LEVEL', 'Previous Level');
 define('ICON_PREVIEW', 'Preview');
+define('ICON_STATISTICS', 'Statistics');
 define('ICON_SUCCESS', 'Success');
 define('ICON_TICK', 'True');
 define('ICON_UNLOCKED', 'Unlocked');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.62 2002/03/17 17:32:10 harley_vb Exp $
+  $Id: banner_manager.php,v 1.63 2002/05/07 23:07:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -135,10 +135,50 @@
         tep_db_query("delete from " . TABLE_BANNERS . " where banners_id = '" . tep_db_input($banners_id) . "'");
         tep_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . tep_db_input($banners_id) . "'");
 
+        if (function_exists('imagecreate')) {
+          if (is_file(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.png')) {
+            if (is_writeable(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.png')) {
+              unlink(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banners_id . '.png');
+            }
+          }
+
+          if (is_file(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banners_id . '.png')) {
+            if (is_writeable(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banners_id . '.png')) {
+              unlink(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banners_id . '.png');
+            }
+          }
+
+          if (is_file(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banners_id . '.png')) {
+            if (is_writeable(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banners_id . '.png')) {
+              unlink(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banners_id . '.png');
+            }
+          }
+
+          if (is_file(DIR_WS_IMAGES . 'graphs/banner_daily-' . $banners_id . '.png')) {
+            if (is_writeable(DIR_WS_IMAGES . 'graphs/banner_daily-' . $banners_id . '.png')) {
+              unlink(DIR_WS_IMAGES . 'graphs/banner_daily-' . $banners_id . '.png');
+            }
+          }
+        }
+
         $messageStack->add_session(SUCCESS_BANNER_REMOVED, 'success');
 
         tep_redirect(tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page']));
         break;
+    }
+  }
+
+// check if the graphs directory exists
+  $dir_ok = false;
+  if (function_exists('imagecreate')) {
+    if (is_dir(DIR_WS_IMAGES . 'graphs')) {
+      if (is_writeable(DIR_WS_IMAGES . 'graphs')) {
+        $dir_ok = true;
+      } else {
+        $messageStack->add(ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE, 'error');
+      }
+    } else {
+      $messageStack->add(ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST, 'error');
     }
   }
 ?>
@@ -304,15 +344,15 @@ function popupImageWindow(url) {
 
       if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) {
         echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'">' . "\n";
-        $onclick_link = 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id . '&action=new';
+        $onclick_link = 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id;
       } else {
         echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'">' . "\n";
         $onclick_link = 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'];
       }
 ?>
-                <td class="dataTableContent" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_MANAGER, $onclick_link); ?>'"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
-                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_MANAGER, $onclick_link); ?>'"><?php echo $banners['banners_group']; ?></td>
-                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_MANAGER, $onclick_link); ?>'"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
+                <td class="dataTableContent" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_STATISTICS, $onclick_link); ?>'"><?php echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?banner=' . $banners['banners_id'] . '\')">' . tep_image(DIR_WS_IMAGES . 'icon_popup.gif', 'View Banner') . '</a>&nbsp;' . $banners['banners_title']; ?></td>
+                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_STATISTICS, $onclick_link); ?>'"><?php echo $banners['banners_group']; ?></td>
+                <td class="dataTableContent" align="right" onclick="document.location.href='<?php echo tep_href_link(FILENAME_BANNER_STATISTICS, $onclick_link); ?>'"><?php echo $banners_shown . ' / ' . $banners_clicked; ?></td>
                 <td class="dataTableContent" align="right">
 <?php
       if ($banners['status'] == '1') {
@@ -321,7 +361,7 @@ function popupImageWindow(url) {
         echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=1') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
       }
 ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_BANNER_STATISTICS, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_ICONS . 'statistics.gif', ICON_STATISTICS) . '</a>&nbsp;'; if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $banners['banners_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -357,7 +397,17 @@ function popupImageWindow(url) {
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id . '&action=new') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['page'] . '&bID=' . $bInfo->banners_id . '&action=delete') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
         $contents[] = array('text' => '<br>' . TEXT_BANNERS_DATE_ADDED . ' ' . tep_date_short($bInfo->date_added));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . tep_banner_graph_infoBox($bInfo->banners_id, '3'));
+
+        if ( (function_exists('imagecreate')) && ($dir_ok) ) {
+          $banner_id = $bInfo->banners_id;
+          $days = '3';
+          include(DIR_WS_INCLUDES . 'graphs/banner_infobox.php');
+          $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.png'));
+        } else {
+          include(DIR_WS_FUNCTIONS . 'html_graphs.php');
+          $contents[] = array('align' => 'center', 'text' => '<br>' . tep_banner_graph_infoBox($bInfo->banners_id, '3'));
+        }
+
         $contents[] = array('text' => tep_image(DIR_WS_IMAGES . 'graph_hbar_blue.gif', 'Blue', '5', '5') . ' ' . TEXT_BANNERS_BANNER_VIEWS . '<br>' . tep_image(DIR_WS_IMAGES . 'graph_hbar_red.gif', 'Red', '5', '5') . ' ' . TEXT_BANNERS_BANNER_CLICKS);
 
         if ($bInfo->date_scheduled) $contents[] = array('text' => '<br>' . sprintf(TEXT_BANNERS_SCHEDULED_AT_DATE, tep_date_short($bInfo->date_scheduled)));

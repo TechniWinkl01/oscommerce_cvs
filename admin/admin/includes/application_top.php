@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.146 2002/05/03 10:28:37 hpdl Exp $
+  $Id: application_top.php,v 1.147 2002/05/07 23:07:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,6 +39,7 @@
 // define the filenames used in the project
   define('FILENAME_BACKUP', 'backup.php');
   define('FILENAME_BANNER_MANAGER', 'banner_manager.php');
+  define('FILENAME_BANNER_STATISTICS', 'banner_statistics.php');
   define('FILENAME_CACHE', 'cache.php');
   define('FILENAME_CATALOG_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
   define('FILENAME_CATEGORIES', 'categories.php');
@@ -197,9 +198,6 @@
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
-
-// include the html graph class
-  require(DIR_WS_FUNCTIONS . 'html_graphs.php');
 
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');

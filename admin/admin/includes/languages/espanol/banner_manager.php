@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.17 2002/03/16 21:00:35 hpdl Exp $
+  $Id: banner_manager.php,v 1.18 2002/05/07 23:07:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,4 +61,7 @@ define('ERROR_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Target directory is not wr
 define('ERROR_IMAGE_DOES_NOT_EXIST', 'Error: Image does not exist.');
 define('ERROR_IMAGE_IS_NOT_WRITEABLE', 'Error: Image can not be removed.');
 define('ERROR_UNKNOWN_STATUS_FLAG', 'Error: Unknown status flag.');
+
+define('ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST', 'Error: Graphs directory does not exist. Please create a \'graphs\' directory inside \'images\'.');
+define('ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE', 'Error: Graphs directory is not writeable.');
 ?>
