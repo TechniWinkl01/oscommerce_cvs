@@ -2,7 +2,7 @@
 /*
   The Exchange Project - Community Made Shopping!
 
-  $Id: application_top.php,v 1.95 2001/03/21 17:30:55 tmoulton Exp $
+  $Id: application_top.php,v 1.96 2001/03/24 00:29:28 hpdl Exp $
 */
 
   if (file_exists('includes/local/configure.php')) {
@@ -31,6 +31,7 @@
   define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
   define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
   define('DIR_WS_PAYMENT_MODULES', DIR_WS_MODULES . 'payment/');
+  define('DIR_WS_SHIPPING_MODULES', DIR_WS_MODULES . 'shipping/');
   define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
 
 // default values
