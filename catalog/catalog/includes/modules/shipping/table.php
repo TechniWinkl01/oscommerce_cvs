@@ -70,7 +70,7 @@
                           '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_table_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="table"';
         if ($shipping_cheapest == 'table') $display_string .= ' CHECKED';
-        $display_string .= '> </td>' . "\n" .
+        $display_string .= '>&nbsp;</td>' . "\n" .
                            '</tr>' . "\n" .
                            '<input type="hidden" name="shipping_table_cost" value="' . $shipping_table_cost . '">' .
                            '<input type="hidden" name="shipping_table_method" value="' . $shipping_table_method . '">' . "\n";
