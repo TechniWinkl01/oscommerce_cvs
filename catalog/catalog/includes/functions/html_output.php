@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.56 2003/07/09 01:15:48 hpdl Exp $
+  $Id: html_output.php,v 1.57 2003/09/19 07:13:41 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -88,13 +88,13 @@
       if ($image_size = @getimagesize($src)) {
         if (empty($width) && tep_not_null($height)) {
           $ratio = $height / $image_size[1];
-          $width = $image_size[0] * $ratio;
+          $width = (int)$image_size[0] * $ratio;
         } elseif (tep_not_null($width) && empty($height)) {
           $ratio = $width / $image_size[0];
-          $height = $image_size[1] * $ratio;
+          $height = (int)$image_size[1] * $ratio;
         } elseif (empty($width) && empty($height)) {
-          $width = $image_size[0];
-          $height = $image_size[1];
+          $width = (int)$image_size[0];
+          $height = (int)$image_size[1];
         }
       } elseif (IMAGE_REQUIRED == 'false') {
         return false;
