@@ -65,8 +65,7 @@
     $row = 0;
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
-      $country = tep_db_query("select countries_name from countries where countries_id = '" . $address_book_values['entry_country_id'] . "'");
-      $country_values = tep_db_fetch_array($country);
+      $entry_country = tep_get_countries($address_book_values['entry_country_id']);
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
       } else {
@@ -74,7 +73,7 @@
       }
       echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;0' . $row . '.&nbsp;</font></td>' . "\n";
       echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_city'] . ' / ' . $country_values['countries_name'] . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_city'] . ' / ' . $entry_country['countries_name'] . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }

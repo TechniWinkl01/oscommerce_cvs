@@ -186,12 +186,12 @@ function check_form() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<select name="country"><option value="0"><?=PLEASE_SELECT;?></option>
 <?
-    $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
-    while ($countries_values = tep_db_fetch_array($countries)) {
-      echo '<option value="' . $countries_values['countries_id'] . '"';
-      if ($countries_values['countries_id'] == $account_values['customers_country_id']) echo ' SELECTED';
-      echo '>' . $countries_values['countries_name'] . '</option>';
-    }
+    $countries = tep_get_countries();
+    for ($i=0; $i < sizeof($countries); $i++) {
+      echo '<option value="' . $countries[$i]['countries_id'] . '"';
+      if ($countries[$i]['countries_id'] == $account_values['customers_country_id']) echo ' SELECTED';
+      echo '>' . $countries[$i]['countries_name'] . '</option>';
+  }
 ?></select>&nbsp;<?=ENTRY_COUNTRY_TEXT;?></font></td>
           </tr>
           <tr>

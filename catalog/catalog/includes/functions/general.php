@@ -124,4 +124,21 @@
     
     return $black_line;
   }
+
+  function tep_get_countries($countries_id = '') {
+
+    $list = array();
+    if ($countries_id == '') {
+      $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+      while ($countries_values = tep_db_fetch_array($countries)) {
+        $list[] = array('countries_id' => $countries_values['countries_id'], 'countries_name' => $countries_values['countries_name']);
+      }
+    } else {
+      $countries = tep_db_query("select countries_name from countries where countries_id = '" . $countries_id . "'");
+      $countries_values = tep_db_fetch_array($countries);
+      $list = array('countries_name' => $countries_values['countries_name']);
+    }
+
+    return $list;
+  }
 ?>

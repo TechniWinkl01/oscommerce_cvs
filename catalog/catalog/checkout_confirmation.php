@@ -81,9 +81,7 @@
     $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_state as state, entry_country_id as country from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   }
   $address_values = tep_db_fetch_array($address);
-  $country = tep_db_query("select countries_name from countries where countries_id = '" . $address_values['country'] . "'");
-  $country_values = tep_db_fetch_array($country);
-  $country = $country_values['countries_name'];
+  $country = tep_get_countries($address_values['country']);
   $shipping_cost = 0.0;
   if (!SHIPPING_FREE) {
     if (SHIPPING_MODEL == SHIPPING_UPS) {
@@ -162,9 +160,9 @@
           <tr>
 <?
   if ($address_values['state'] != '') {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['state'] . ', ' . $country . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $address_values['state'] . ', ' . $country['countries_name'] . '&nbsp;</font></td>' . "\n";
   } else {
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $country . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $country['countries_name'] . '&nbsp;</font></td>' . "\n";
   }
 ?>
           </tr>

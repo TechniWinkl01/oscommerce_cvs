@@ -28,9 +28,9 @@ if ($delivery_values['suburb'] != '') {
 }
 $email_order.="\n" . $delivery_values['city'] . ', ' . $delivery_values['postcode'];
 if ($delivery_values['state'] != '') {
-  $email_order.="\n" . $delivery_values['state'] . ', ' . $delivery_country;
+  $email_order.="\n" . $delivery_values['state'] . ', ' . $delivery_country['countries_name'];
 } else {
-  $email_order.="\n" . $delivery_country;
+  $email_order.="\n" . $delivery_country['countries_name'];
 }
 $email_order.="\n\n" . EMAIL_TEXT_PAYMENT_METHOD . "\n" . '------------------------------------------------------' . "\n";
 if ($HTTP_POST_VARS['payment'] == 'cod') {

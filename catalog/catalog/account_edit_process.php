@@ -237,15 +237,14 @@
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if ($country_error == 1) {
       echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
-      $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
-      while ($countries_values = tep_db_fetch_array($countries)) {
-        echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
+      $countries = tep_get_countries();
+      for ($i=0; $i < sizeof($countries); $i++) {
+        echo '<option value="' . $countries[$i]['countries_id'] . '">' . $countries[$i]['countries_name'] . '</option>';
       }
       echo '</select>&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {
-      $country = tep_db_query("select countries_name from countries where countries_id = '" . $HTTP_POST_VARS['country'] . "'");
-      $country_value = tep_db_fetch_array($country);
-      echo $country_value['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
+    $customers_country = tep_get_countries($HTTP_POST_VARS['country']);
+    echo $customers_country['countries_name'] . '<input type="hidden" name="country" value="' . $HTTP_POST_VARS['country'] . '">';
     } ?></font></td>
           </tr>
           <tr>

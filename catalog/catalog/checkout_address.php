@@ -100,9 +100,8 @@
 <?
   $address = tep_db_query("select customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id from customers where customers_id = '" . $customer_id . "'");
   $address_values = tep_db_fetch_array($address);
-  $country = tep_db_query("select countries_name from countries where countries_id = '" . $address_values['customers_country_id'] . "'");
-  $country_values = tep_db_fetch_array($country);
-  $customers_country = $country_values['countries_name'];
+
+  $customers_country = tep_get_countries($address_values['customers_country_id']);
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -130,13 +129,13 @@
   if ($address_values['customers_state'] != '') {
 ?>
                   <tr>
-                    <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$address_values['customers_state'] . ', ' . $customers_country;?>&nbsp;</font></td>
+                    <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$address_values['customers_state'] . ', ' . $customers_country['countries_name'];?>&nbsp;</font></td>
                   </tr>
 <?
   } else {
 ?>
                   <tr>
-                    <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_country;?>&nbsp;</font></td>
+                    <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_country['countries_name'];?>&nbsp;</font></td>
                   </tr>
 <?
   }
@@ -173,9 +172,7 @@
     $row = 0;
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
-      $country = tep_db_query("select countries_name from countries where countries_id = '" . $address_book_values['entry_country_id'] . "'");
-      $country_values = tep_db_fetch_array($country);
-      $entry_country = $country_values['countries_name'];
+      $entry_country = tep_get_countries($address_book_values['entry_country_id']);
       echo '              <tr>' . "\n";
       echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;0' . $row . '.&nbsp;</font></td>' . "\n";
       echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '&nbsp;</font></td>' . "\n";
@@ -183,9 +180,9 @@
       echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_suburb'] . '&nbsp;</font></td>' . "\n";
       echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_city'] . ', ' . $address_book_values['entry_postcode'] . '&nbsp;</font></td>' . "\n";
       if ($address_book_values['entry_state'] != '') {
-        echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_state'] . ', ' . $entry_country . '&nbsp;</font></td>' . "\n";
+        echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $address_book_values['entry_state'] . ', ' . $entry_country['countries_name'] . '&nbsp;</font></td>' . "\n";
       } else {
-        echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $entry_country . '&nbsp;</font></td>' . "\n";
+        echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $entry_country['countries_name'] . '&nbsp;</font></td>' . "\n";
       }
       echo '                <td nowrap align="right"><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
