@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.64 2001/09/07 11:45:32 dwatkins Exp $
+  $Id: english.php,v 1.65 2001/11/18 18:45:54 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -157,6 +157,7 @@ define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . E
 define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match and have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please select a payment method for your order.');
+define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Please select a payment method for your order.');
 
 define('CATEGORY_COMPANY', 'Company Details');
 define('CATEGORY_PERSONAL', 'Your Personal Details');

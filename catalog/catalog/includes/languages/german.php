@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.68 2001/09/08 08:40:54 mbs Exp $
+  $Id: german.php,v 1.69 2001/11/18 18:45:54 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -157,6 +157,7 @@ define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TE
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
+define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
 
 define('CATEGORY_COMPANY', 'Firmendaten');
 define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');

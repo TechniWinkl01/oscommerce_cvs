@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.24 2001/09/01 15:50:44 hpdl Exp $
+  $Id: payment.php,v 1.25 2001/11/18 18:45:54 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -94,7 +94,7 @@
         }
 
         if (!$payment_module_selected) {
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=Please+select+a+payment+method', 'SSL'));
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
         }
       }
     }
