@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.155 2002/01/27 18:11:27 dgw_ Exp $
+  $Id: general.php,v 1.156 2002/01/31 22:11:49 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -911,49 +911,21 @@
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
     if (SEND_EMAILS != 'true') return false;
 
-    // Build all required headers
-    // add From: header
-    $headers = "From: $from_email_name <$from_email_address>\r\n";
-//    $headers .= "To: $to_name <$to_email_address>\r\n";
+    // Instantiate a new mail object
+    $message = new email(array('X-Mailer: osC mailer'));
 
+    // Build the text version
+    $text= strip_tags($email_text);
     // Global check:
     // should we use HTML or not?
     if (EMAIL_USE_HTML == 'true') {
-
-      // specify MIME version 1.0
-      $headers .= "MIME-Version: 1.0\r\n";
-
-      // generate the unique boundary
-      $boundary = uniqid("TheExchangeProject");
-
-      // tell e-mail client this e-mail contains alternate versions
-      $headers .= "Content-Type: multipart/related;\r\n        type=\"multipart/alternative\";\r\n        boundary = $boundary\r\n\r\n";
-
-      // message to people with clients who don't understand MIME
-      $body .= "This is a multi-part message in MIME-format.\r\n\r\n";
-      $innerboundary = uniqid("innerpart");
-      $body .= "--$boundary\r\nContent-Type: multipart/alternative;\r\n        boundary=\"$innerboundary\"\r\n\r\n";
-      // plain text version of message
-      // strip all tags from the text
-      $body .= "--$innerboundary\r\nContent-Type: text/plain; charset=" . CHARSET . "\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
-      $body .= strip_tags($email_text);
-      $body .= "\r\n\r\n";
-
-      //HTML version of message
-      $body .= "--$innerboundary\r\nContent-Type: text/html; charset=" . CHARSET . "\r\nContent-Transfer-Encoding: base64\r\n\r\n";
-      $body .= chunk_split(base64_encode($email_text));
-
-      //Close the MultiPart
-      $body .= "\r\n--$innerboundary--\r\n";
-      $body .= "\r\n--$boundary--\r\n";
-
+      $message->add_html($email_text, $text);
     } else {
-      // send the text-only version
-      $body = strip_tags($email_text);
+      $message->add_text($text);
     }
     //send message
-    mail($to_email_address, $email_subject, $body, $headers);
-
+    $message->build_message();
+    $message->send($to_name, $to_email_address, $from_email_name, $from_email, $email_subject);
   }
 
 ////

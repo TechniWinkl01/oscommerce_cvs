@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.210 2002/01/27 04:28:25 hpdl Exp $
+  $Id: application_top.php,v 1.211 2002/01/31 22:11:49 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -206,6 +206,10 @@
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
 
+// include the mail classes
+  require(DIR_WS_CLASSES . 'mime.php');
+  require(DIR_WS_CLASSES . 'email.php');
+  
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
     if (!$language) {
