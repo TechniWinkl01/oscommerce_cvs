@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.18 2002/01/05 09:17:04 hpdl Exp $
+  $Id: banner_manager.php,v 1.19 2002/01/28 17:08:55 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,26 +26,26 @@ define('TEXT_BANNERS_IMAGE', 'Bild (Datei):');
 define('TEXT_BANNERS_IMAGE_LOCAL', ', oder geben Sie unten die lokale Datei auf Ihrem Server an'); 
 define('TEXT_BANNERS_IMAGE_TARGET', 'Bildziel (Speichern nach):'); 
 define('TEXT_BANNERS_HTML_TEXT', 'HTML Text:');
-define('TEXT_BANNERS_EXPIRES_ON', 'Gültigkeit bis:');
+define('TEXT_BANNERS_EXPIRES_ON', 'G&uuml;ltigkeit bis:');
 define('TEXT_BANNERS_OR_AT', ', oder bei');
-define('TEXT_BANNERS_IMPRESSIONS', 'impressionen/anzeigen.');
-define('TEXT_BANNERS_SCHEDULED_AT', 'Gültigkeit ab:');
-define('TEXT_BANNERS_BANNER_NOTE', '<b>Banner Bemerkung:</b><ul><li>Sie können Bild- oder HTML-Text-Banner verwenden, beides gleichzeitig ist nicht möglich.</li><li>Wenn Sie beide Bannerarten gleichzeitig verwenden, wird nur der HTML-Text Banner angezeigt.</li></ul>');
-define('TEXT_BANNERS_INSERT_NOTE', '<b>Bemerkung:</b><ul><li>Das Bildverzeichnis muss Schreibrecht besitzen!</li><li>F&uuml;llen Sie das Feld \'Bildziel (Speichern nach)\' nicht aus, wenn Sie kein Bild auf Ihren Server kopieren m&ouml;chten (z.B. wenn sich bereits das Bild auf dem Server befindet).</li><li>Das \'Bildziel (Speichern nach)\' Feld muss ein bereits existierendes Verzeichnis mit \'/\' am Ende sein (z.B. banners/).</li></ul>'); 
-define('TEXT_BANNERS_EXPIRCY_NOTE', '<b>Gültigkeit Bemerkung:</b><ul><li>Nur ein Feld ausfüllen</li><li>Wenn der Banner unbegrenzt angezeigt werden soll, tragen Sie in diesen Feldern nichts ein</li></ul>');
-define('TEXT_BANNERS_SCHEDULE_NOTE', '<b>Gültigkeit ab Bemerkung:</b><ul><li>Bei Verwendung von dieser Funktion, wird der Banner erst ab dem angegeben Datum angezeigt.</li><li>Alle Banner mit dieser Funktion werden bis ihrer Aktivierung, als Deaktiviert angezeigt.</li></ul>');
+define('TEXT_BANNERS_IMPRESSIONS', 'Impressionen/Anzeigen.');
+define('TEXT_BANNERS_SCHEDULED_AT', 'G&uuml;ltigkeit ab:');
+define('TEXT_BANNERS_BANNER_NOTE', '<b>Banner Bemerkung:</b><ul><li>Sie k&ouml;nnen Bild- oder HTML-Text-Banner verwenden, beides gleichzeitig ist nicht m&ouml;glich.</li><li>Wenn Sie beide Bannerarten gleichzeitig verwenden, wird nur der HTML-Text Banner angezeigt.</li></ul>');
+define('TEXT_BANNERS_INSERT_NOTE', '<b>Bemerkung:</b><ul><li>Auf das Bildverzeichnis muss ein Schreibrecht bestehen!</li><li>F&uuml;llen Sie das Feld \'Bildziel (Speichern nach)\' nicht aus, wenn Sie kein Bild auf Ihren Server kopieren m&ouml;chten (z.B. wenn sich das Bild bereits auf dem Server befindet).</li><li>Das \'Bildziel (Speichern nach)\' Feld muss ein bereits existierendes Verzeichnis mit \'/\' am Ende sein (z.B. banners/).</li></ul>'); 
+define('TEXT_BANNERS_EXPIRCY_NOTE', '<b>G&uuml;ltigkeit Bemerkung:</b><ul><li>Nur ein Feld ausf&uuml;llen!</li><li>Wenn der Banner unbegrenzt angezeigt werden soll, tragen Sie in diesen Feldern nichts ein.</li></ul>');
+define('TEXT_BANNERS_SCHEDULE_NOTE', '<b>G&uuml;ltigkeit ab Bemerkung:</b><ul><li>Bei Verwendung dieser Funktion, wird der Banner erst ab dem angegeben Datum angezeigt.</li><li>Alle Banner mit dieser Funktion werden bis ihrer Aktivierung, als Deaktiviert angezeigt.</li></ul>');
 
 define('TEXT_BANNERS_DATE_ADDED', 'hinzugef&uuml;gt am:');
-define('TEXT_BANNERS_SCHEDULED_AT_DATE', 'Gültigkeit ab: <b>%s</b>');
-define('TEXT_BANNERS_EXPIRES_AT_DATE', 'Gültigkeit bis zum: <b>%s</b>');
-define('TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS', 'Gültigkeit bis: <b>%s</b> impressionen/anzeigen');
-define('TEXT_BANNERS_STATUS_CHANGE', 'Status geändert: %s');
+define('TEXT_BANNERS_SCHEDULED_AT_DATE', 'G&uuml;ltigkeit ab: <b>%s</b>');
+define('TEXT_BANNERS_EXPIRES_AT_DATE', 'G&uuml;ltigkeit bis zum: <b>%s</b>');
+define('TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS', 'G&uuml;ltigkeit bis: <b>%s</b> impressionen/anzeigen');
+define('TEXT_BANNERS_STATUS_CHANGE', 'Status ge&auml;ndert: %s');
 
 define('TEXT_BANNERS_DATA', 'D<br>A<br>T<br>E<br>N');
 define('TEXT_BANNERS_LAST_3_DAYS', 'letzten 3 Tage');
 define('TEXT_BANNERS_BANNER_VIEWS', 'Banneranzeigen');
 define('TEXT_BANNERS_BANNER_CLICKS', 'Bannerklicks');
 
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Banner löschen wollen?');
-define('TEXT_INFO_DELETE_IMAGE', 'Delete banner image');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Banner l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_IMAGE', 'Banner Image l&ouml;schen');
 ?>
