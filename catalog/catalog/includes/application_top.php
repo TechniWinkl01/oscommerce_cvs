@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.278 2003/07/09 01:15:48 hpdl Exp $
+  $Id: application_top.php,v 1.279 2003/07/09 19:22:28 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -195,6 +195,9 @@
     tep_session_start();
     $session_started = true;
   }
+
+// set SID once, even if empty
+  $SID = (defined('SID') ? SID : '');
 
 // verify the ssl_session_id if the feature is enabled
   if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($session_started == true) ) {
@@ -494,9 +497,6 @@
 // initialize the message stack for output messages
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
-
-// set SID once, even if empty
-  $SID = (defined('SID') ? SID : '');
 
 // set which precautions should be checked
   define('WARN_INSTALL_EXISTENCE', 'true');
