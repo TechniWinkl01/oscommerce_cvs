@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.92 2002/01/27 17:45:05 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.93 2002/01/27 18:11:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,12 +23,15 @@
   }
 
 // Stock Check
-  if (STOCK_CHECK == 'true') {
+  if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
     $products = $cart->get_products();
+    $any_out_of_stock = 0;
     for ($i=0; $i<sizeof($products); $i++) {
-      tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
+      if (tep_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
+        $any_out_of_stock = 1;
+      }
     }
-    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock) ) {
+    if ($any_out_of_stock) {
       tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
   }

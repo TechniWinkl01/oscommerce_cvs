@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.154 2002/01/14 16:27:00 dgw_ Exp $
+  $Id: general.php,v 1.155 2002/01/27 18:11:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,28 +52,24 @@
   }
 
 ////
+// Return a product's stock
+// TABLES: products
+  function tep_get_products_stock($products_id) {
+    $products_id = tep_get_prid($products_id);
+    $stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . $products_id . "'");
+    $stock_values = tep_db_fetch_array($stock_query);
+    return $stock_values['products_quantity'];
+  }
+
+////
 // Check if the required stock is available
 // If insufficent stock is available return an out of stock message
   function tep_check_stock($products_id, $products_quantity) {
-    global $qtd_stock, $any_out_of_stock;
-
-    $products_id = tep_get_prid($products_id);
-    $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . $products_id . "'");
-    $stock = tep_db_fetch_array($qtd_stock_query);
-    $qtd_stock = $stock['products_quantity'];
-    $qtd_buy = $products_quantity;
-    $qtd_left = ($qtd_stock -= $qtd_buy);
-
+    $stock_left = tep_get_products_stock($products_id) - $products_quantity;
     $out_of_stock = '';
-    if ($qtd_left <= '-1') {
-      $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . $products_id . "'");
-      $stock = tep_db_fetch_array($qtd_stock_query);
-      $qtd_stock = $stock['products_quantity'];
-
+    if ($stock_left < 1) {
       $out_of_stock = '<span class="markProductOutOfStock">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</span>';
-      $any_out_of_stock = 'YES';
     }
-
     return $out_of_stock;
   }
 

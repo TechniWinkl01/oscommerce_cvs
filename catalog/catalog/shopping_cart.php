@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.58 2002/01/13 22:10:22 project3000 Exp $
+  $Id: shopping_cart.php,v 1.59 2002/01/27 18:11:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -72,6 +72,7 @@
             <td colspan="<?php echo (PRODUCT_LIST_MODEL ? 5 : 4); ?>"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
+    $any_out_of_stock = 0;
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
       $products_name = $products[$i]['name'];
@@ -82,7 +83,8 @@
       echo '            <td valign="top" class="main"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
       if (STOCK_CHECK == 'true') {
-        echo tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
+        echo $stock_check = tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
+        if ($stock_check) $any_out_of_stock = 1;
       }
 
 //------display customer choosen option --------

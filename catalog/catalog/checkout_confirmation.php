@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.107 2002/01/15 21:15:12 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.108 2002/01/27 18:11:26 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,15 +22,15 @@
   }
 
 // Stock Check
+  $any_out_of_stock = 0;
   if (STOCK_CHECK == 'true') {
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
-      $products_name = $products[$i]['name'];
-      $products_id = $products[$i]['id'];
-      tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
+      if (tep_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
+        $any_out_of_stock = 1;
+      }
     }
-    // Out of Stock
-    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock)) {
+    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock) ) {
       tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
   }
@@ -129,9 +129,9 @@
     echo '            <td align="center" valign="top" class="main">' . $products[$i]['quantity'] . '</td>' . "\n";
     echo '            <td valign="top" class="main"><b>' . $products_name . '</b>';
 
-      if (STOCK_CHECK == 'true') {
-        echo tep_check_stock ($products[$i]['id'], $products[$i]['quantity']);
-      }
+    if (STOCK_CHECK == 'true') {
+      echo tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
+    }
 
     //------display customer choosen option --------
     $attributes_exist = '0';
@@ -266,7 +266,7 @@
 <?php
   }
 // Stock Options prompts user for sending when STOCK is available or send now !
-  if (($any_out_of_stock) && (STOCK_ALLOW_CHECKOUT == 'true') && (MODULE_SHIPPING_INSTALLED)) {
+  if ( ($any_out_of_stock) && (STOCK_ALLOW_CHECKOUT == 'true') ) {
 ?>
           <tr>
             <td class="tableHeading"><br><?php echo TEXT_STOCK_WARNING; ?></td>
@@ -284,16 +284,8 @@
             <td class="infoBox"><b><?php echo TEXT_IMEDIATE_DELIVER; ?></b><br><br>
 <?php
     for ($i=0; $i<sizeof($products); $i++) {
-      $products_name = $products[$i]['name'];
-      $products_price = $products[$i]['price'];
-      $products_id = $products[$i]['id'];
-      $products_quantity = $products[$i]['quantity'];
-      $out_of_stock = tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
-
-      if ($out_of_stock) {
-//  $qtd_to_ship = ($products_quantity  -= $qtd_stock);
-        if ($qtd_stock < 0) $qtd_stock = 0;
-        echo '<b>' . $qtd_stock . '</b> ' . TEXT_UNITS . ' <b>' . $products_name . '</b><br>';
+      if (tep_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
+        echo '<b>' . tep_get_products_stock($products[$i]['id']) . '</b> ' . TEXT_UNITS . ' <b>' . $products[$i]['name'] . '</b><br>';
       }
     }
 ?>
