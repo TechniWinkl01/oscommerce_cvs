@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.41 2002/08/01 19:38:35 hpdl Exp $
+  $Id: html_output.php,v 1.42 2002/08/02 11:13:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -209,8 +209,18 @@
     return $field;
   }
 
+////
+// Output a form hidden field
   function tep_draw_hidden_field($name, $value = '') {
-    return tep_draw_input_field($name, $value, '', 'hidden', false);
+    $field = '<input type="hidden" name="' . $name . '" value="';
+    if (tep_not_null($value)) {
+      $field .= htmlspecialchars(trim($value));
+    } else {
+      $field .= htmlspecialchars(trim($GLOBALS[$name]));
+    }
+    $field .= '">';
+
+    return $field;
   }
 
 ////
