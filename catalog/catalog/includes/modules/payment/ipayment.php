@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.19 2002/01/22 21:14:46 dgw_ Exp $
+  $Id: ipayment.php,v 1.20 2002/04/05 00:41:59 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -80,21 +80,18 @@
     }
 
     function process_button() {
-      global $payment, $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currencies;
-
-      $customer_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
-      $customer_email_values = tep_db_fetch_array($customer_email);
+      global $payment, $HTTP_POST_VARS, $order, $currencies;
 
       $process_button_string = tep_draw_hidden_field('silent', 'true') .
                                tep_draw_hidden_field('cc_userid', MODULE_PAYMENT_IPAYMENT_USER_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('cc_amount', number_format(($total_cost + $shipping_cost) * 100 * $currencies->get_value(MODULE_PAYMENT_IPAYMENT_CURRENCY), 0, '','')) .
+                               tep_draw_hidden_field('cc_amount', number_format($order->info['total'] * 100 * $currencies->get_value(MODULE_PAYMENT_IPAYMENT_CURRENCY), 0, '','')) .
                                tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['cc_expires_month']) .
                                tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['cc_expires_year']) .
                                tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['cc_number']) .
                                tep_draw_hidden_field('cc_checknumber', $HTTP_POST_VARS['cc_checknumber']) .
                                tep_draw_hidden_field('cc_name', $HTTP_POST_VARS['cc_owner']) .
-                               tep_draw_hidden_field('cc_email', $customer_email_values['customers_email_address']) .
+                               tep_draw_hidden_field('cc_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('redirect_action', 'GET') .
                                tep_draw_hidden_field('cc_currency', MODULE_PAYMENT_IPAYMENT_CURRENCY) .
                                tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
