@@ -27,11 +27,11 @@
 <?
   } elseif ($action == 'quote') {
       if ($shipping_quote_ups == "1") {
-        include('includes/ups.php');
+        include(DIR_INCLUDES . 'ups.php');
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
-        $rate->origin(STORE_ORIGIN_ZIP, "US"); // Use ISO country codes!
-        $rate->dest($address_values['postcode'], "US");      // Use ISO country codes!
+        $rate->origin(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY); // Use ISO country codes!
+        $rate->dest($address_values['postcode'], STORE_ORIGIN_COUNTRY);      // Use ISO country codes!
         // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
         $rate->rate(SHIPPING_UPS_PICKUP);        // See the rate() function for codes
         $rate->container(SHIPPING_UPS_PACKAGE);    // See the container() function for codes
