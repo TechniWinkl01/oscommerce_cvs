@@ -110,9 +110,17 @@ in the coding practice.
 
   $string = ($condition) ? 'true' : 'false';
 
-* IF statements with more than 3 conditions should use SWITCH/CASE:
+* IF statements should be written as:
 
-  switch ($string) {
+  if (condition) {
+    tep_do_something('true');
+  } else {
+    tep_do_something('false');
+  }
+
+* Switch-Case statements should be written as:
+
+  switch (condition) {
     case '1':
       tep_do_something('1');
       break;
