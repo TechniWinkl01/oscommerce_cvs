@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: sessions.php,v 1.11 2002/01/03 19:27:47 hpdl Exp $
+  $Id: sessions.php,v 1.12 2002/04/09 11:29:24 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -26,8 +26,9 @@
     function _sess_read($key) {
       $qid = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . $key . "' and expiry > '" . time() . "'");
 
-      if (list($value) = tep_db_fetch_array($qid)) {
-        return $value;
+      $value = tep_db_fetch_array($qid);
+      if ($value['value']) {
+        return $value['value'];
       }
 
       return false;
@@ -40,9 +41,9 @@
       $value = addslashes($val);
 
       $qid = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
-      list($total) = tep_db_fetch_array($qid);
+      $total = tep_db_fetch_array($qid);
 
-      if ($total > 0) {
+      if ($total['total'] > 0) {
         return tep_db_query("update " . TABLE_SESSIONS . " set expiry = '" . $expiry . "', value = '" . $value . "' where sesskey = '" . $key . "'");
       } else {
         return tep_db_query("insert into " . TABLE_SESSIONS . " values ('" . $key . "', '" . $expiry . "', '" . $value . "')");
