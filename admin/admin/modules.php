@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.34 2002/01/20 16:06:22 hpdl Exp $
+  $Id: modules.php,v 1.35 2002/01/30 01:14:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,13 +125,29 @@
         $installed_modules .= (tep_not_null($installed_modules)) ? ';' . $file : $file;
       }
 
-      if (((!$HTTP_GET_VARS['module']) || (@$HTTP_GET_VARS['module'] == $class)) && (!$mInfo)) {
+      if (((!$HTTP_GET_VARS['module']) || ($HTTP_GET_VARS['module'] == $class)) && (!$mInfo)) {
         $module_info = array('code' => $module->code,
                              'title' => $module->title,
                              'description' => $module->description,
                              'status' => $module->check());
-        $mInfo_array = tep_array_merge($module_info, $module->keys());
-        $mInfo = new moduleInfo($mInfo_array);
+
+        $module_keys = $module->keys();
+
+        $keys_extra = array();
+        for ($j=0; $j<sizeof($module_keys); $j++) {
+          $key_value_query = tep_db_query("select configuration_title, configuration_value, configuration_description, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_keys[$j] . "'");
+          $key_value = tep_db_fetch_array($key_value_query);
+
+          $keys_extra[$module_keys[$j]]['title'] = $key_value['configuration_title'];
+          $keys_extra[$module_keys[$j]]['value'] = $key_value['configuration_value'];
+          $keys_extra[$module_keys[$j]]['description'] = $key_value['configuration_description'];
+          $keys_extra[$module_keys[$j]]['use_function'] = $key_value['use_function'];
+          $keys_extra[$module_keys[$j]]['set_function'] = $key_value['set_function'];
+        }
+
+        $module_info['keys'] = $keys_extra;
+
+        $mInfo = new objectInfo($module_info);
       }
 
       if ( (is_object($mInfo)) && ($class == $mInfo->code) ) {
