@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: sample.php,v 1.20 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: sample.php,v 1.21 2002/11/01 05:04:17 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -78,7 +78,7 @@
 
 ////
 // !If an error occurs with the process, output error messages here
-    function output_error() {
+    function get_error() {
       return false;
     }
 

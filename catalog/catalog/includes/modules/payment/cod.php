@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cod.php,v 1.16 2002/08/13 16:00:41 dgw_ Exp $
+  $Id: cod.php,v 1.17 2002/11/01 05:02:43 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,7 +18,7 @@
       $this->code = 'cod';
       $this->title = MODULE_PAYMENT_COD_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_COD_TEXT_DESCRIPTION;
-      $this->enabled = MODULE_PAYMENT_COD_STATUS;
+      $this->enabled = ((MODULE_PAYMENT_COD_STATUS == 'True') ? true : false);
     }
 
 // class methods
@@ -27,7 +27,8 @@
     }
 
     function selection() {
-      return false;
+      return array('id' => $this->code,
+                   'module' => $this->title);
     }
 
     function pre_confirmation_check() {
@@ -50,7 +51,7 @@
       return false;
     }
 
-    function output_error() {
+    function get_error() {
       return false;
     }
 
@@ -63,17 +64,22 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Cash On Delivery (COD)', 'MODULE_PAYMENT_COD_STATUS', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '1', now());");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Cash On Delivery Module', 'MODULE_PAYMENT_COD_STATUS', 'True', 'Do you want to accept Cash On Delevery payments?', '6', '1', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now());");
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_COD_STATUS'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
-      $keys = array('MODULE_PAYMENT_COD_STATUS');
-
-      return $keys;
+      return array('MODULE_PAYMENT_COD_STATUS');
     }
   }
 ?>

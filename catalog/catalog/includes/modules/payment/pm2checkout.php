@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.12 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: pm2checkout.php,v 1.13 2002/11/01 05:03:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,6 @@
 
   class pm2checkout {
     var $code, $title, $description, $enabled;
-    var $cc_number, $cc_expires_month, $cc_expires_year;
 
 // class constructor
     function pm2checkout() {
@@ -21,25 +20,27 @@
       $this->code = 'pm2checkout';
       $this->title = MODULE_PAYMENT_2CHECKOUT_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_2CHECKOUT_TEXT_DESCRIPTION;
-      $this->enabled = MODULE_PAYMENT_2CHECKOUT_STATUS;
-      $this->cc_number = tep_db_prepare_input($HTTP_POST_VARS['pm_2checkout_cc_number']);
-      $this->cc_expires_month = tep_db_prepare_input($HTTP_POST_VARS['pm_2checkout_cc_expires_month']);
-      $this->cc_expires_year = tep_db_prepare_input($HTTP_POST_VARS['pm_2checkout_cc_expires_year']);
+      $this->enabled = ((MODULE_PAYMENT_2CHECKOUT_STATUS == 'True') ? true : false);
+
+      $this->form_action_url = 'https://www.2checkout.com/cgi-bin/Abuyers/purchase.2c';
     }
 
 // class methods
     function javascript_validation() {
-      $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
-                           '  var pm_2checkout_cc_number = document.payment.pm_2checkout_cc_number.value;' . "\n" .
-                           '  if (pm_2checkout_cc_number == "" || pm_2checkout_cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
-                           '    error_message = error_message + "' . MODULE_PAYMENT_2CHECKOUT_TEXT_JS_CC_NUMBER . '";' . "\n" .
-                           '    error = 1;' . "\n" .
-                           '  }' . "\n" .
-                           '}' . "\n";
-      return $validation_string;
+      $js = '  if (payment_value == "' . $this->code . '") {' . "\n" .
+            '    var cc_number = document.checkout_payment.pm_2checkout_cc_number.value;' . "\n" .
+            '    if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
+            '      error_message = error_message + "' . MODULE_PAYMENT_2CHECKOUT_TEXT_JS_CC_NUMBER . '";' . "\n" .
+            '      error = 1;' . "\n" .
+            '    }' . "\n" .
+            '  }' . "\n";
+
+      return $js;
     }
 
     function selection() {
+      global $order;
+
       for ($i=1; $i < 13; $i++) {
         $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
       }
@@ -49,65 +50,83 @@
         $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
       }
 
-      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_input_field('pm_2checkout_cc_number') . '&nbsp;</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('pm_2checkout_cc_expires_month', $expires_month, date('m')) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('pm_2checkout_cc_expires_year', $expires_year) . '</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '</table>' . "\n";
+      $selection = array('id' => $this->code,
+                         'module' => $this->title,
+                         'fields' => array(array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER_FIRST_NAME,
+                                                 'field' => tep_draw_input_field('pm_2checkout_cc_owner_firstname', $order->billing['firstname'])),
+                                           array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER_LAST_NAME,
+                                                 'field' => tep_draw_input_field('pm_2checkout_cc_owner_lastname', $order->billing['lastname'])),
+                                           array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER,
+                                                 'field' => tep_draw_input_field('pm_2checkout_cc_number')),
+                                           array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
+                                                 'field' => tep_draw_pull_down_menu('pm_2checkout_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('pm_2checkout_cc_expires_year', $expires_year)),
+                                           array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER,
+                                                 'field' => tep_draw_input_field('pm_2checkout_cc_cvv', '', 'size="4" maxlength="3"') . '&nbsp;<small>' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
 
-      return $selection_string;
+      return $selection;
     }
 
     function pre_confirmation_check() {
+      global $HTTP_POST_VARS;
 
-      include(DIR_WS_FUNCTIONS . 'ccval.php');
+      include(DIR_WS_CLASSES . 'cc_validation.php');
 
-      $cc_val = CCValidationSolution($this->cc_number);
-      if ($cc_val == '1') {
-        $cc_val = ValidateExpiry($this->cc_expires_month, $this->cc_expires_year);
+      $cc_validation = new cc_validation();
+      $result = $cc_validation->validate($HTTP_POST_VARS['pm_2checkout_cc_number'], $HTTP_POST_VARS['pm_2checkout_cc_expires_month'], $HTTP_POST_VARS['pm_2checkout_cc_expires_year']);
+
+      $error = '';
+      switch ($result) {
+        case -1:
+          $error = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, substr($cc_validation->cc_number, 0, 4));
+          break;
+        case -2:
+        case -3:
+        case -4:
+          $error = TEXT_CCVAL_ERROR_INVALID_DATE;
+          break;
+        case false:
+          $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
+          break;
       }
-      if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $this->code . '&pm_2checkout_cc_expires_month=' . $this->cc_expires_month . '&pm_2checkout_cc_expires_year=' . $this->cc_expires_year . '&cc_val=' . urlencode($cc_val);
+
+      if ( ($result == false) || ($result < 1) ) {
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&pm_2checkout_cc_owner_firstname=' . urlencode($HTTP_POST_VARS['pm_2checkout_cc_owner_firstname']) . '&pm_2checkout_cc_owner_lastname=' . urlencode($HTTP_POST_VARS['pm_2checkout_cc_owner_lastname']) . '&pm_2checkout_cc_expires_month=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . '&pm_2checkout_cc_expires_year=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_year'];
+
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
+
+      $this->cc_card_type = $cc_validation->cc_type;
+      $this->cc_card_number = $cc_validation->cc_number;
+      $this->cc_expiry_month = $cc_validation->cc_expiry_month;
+      $this->cc_expiry_year = $cc_validation->cc_expiry_year;
     }
 
     function confirmation() {
-      global $CardName, $CardNumber, $checkout_form_action;
+      global $HTTP_POST_VARS;
 
-      $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_2CHECKOUT_TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$this->cc_expires_month, 1, '20' . $this->cc_expires_year)) . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '</table>' . "\n";
+      $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
+                            'fields' => array(array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER,
+                                                    'field' => $HTTP_POST_VARS['pm_2checkout_cc_owner_firstname'] . ' ' . $HTTP_POST_VARS['pm_2checkout_cc_owner_lastname']),
+                                              array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER,
+                                                    'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
+                                              array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['pm_2checkout_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['pm_2checkout_cc_expires_year'])))));
 
-      $checkout_form_action = 'https://www.2checkout.com/cgi-bin/Abuyers/purchase.2c';
-
-      return $confirmation_string;
+      return $confirmation;
     }
 
     function process_button() {
-      global $CardNumber, $order;
+      global $HTTP_POST_VARS, $order;
 
       $process_button_string = tep_draw_hidden_field('x_login', MODULE_PAYMENT_2CHECKOUT_LOGIN) .
                                tep_draw_hidden_field('x_amount', number_format($order->info['total'], 2)) .
                                tep_draw_hidden_field('x_invoice_num', date('YmdHis')) .
-                               tep_draw_hidden_field('x_test_request', MODULE_PAYMENT_2CHECKOUT_TESTMODE) .
-                               tep_draw_hidden_field('x_card_num', $CardNumber) .
-                               tep_draw_hidden_field('x_exp_date', $this->cc_expires_month . $this->cc_expires_year) .
-                               tep_draw_hidden_field('x_first_name', $order->customer['firstname']) .
-                               tep_draw_hidden_field('x_last_name', $order->customer['lastname']) .
+                               tep_draw_hidden_field('x_test_request', ((MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') ? 'Y' : 'N')) .
+                               tep_draw_hidden_field('x_card_num', $this->cc_card_number) .
+                               tep_draw_hidden_field('cvv', $HTTP_POST_VARS['pm_2checkout_cc_cvv']) .
+                               tep_draw_hidden_field('x_exp_date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
+                               tep_draw_hidden_field('x_first_name', $HTTP_POST_VARS['pm_2checkout_cc_owner_firstname']) .
+                               tep_draw_hidden_field('x_last_name', $HTTP_POST_VARS['pm_2checkout_cc_owner_lastname']) .
                                tep_draw_hidden_field('x_address', $order->customer['street_address']) .
                                tep_draw_hidden_field('x_city', $order->customer['city']) .
                                tep_draw_hidden_field('x_state', $order->customer['state']) .
@@ -123,7 +142,7 @@
                                tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
                                tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
                                tep_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
-                               tep_draw_hidden_field('x_email_merchant', MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT);
+                               tep_draw_hidden_field('x_email_merchant', ((MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT == 'True') ? 'TRUE' : 'FALSE'));
 
       return $process_button_string;
     }
@@ -137,19 +156,16 @@
     }
 
     function after_process() {
-  	  return false;
+      return false;
     }
 
-    function output_error() {
+    function get_error() {
       global $HTTP_GET_VARS;
 
-      $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '</table>' . "\n";
+      $error = array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR,
+                     'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
 
-      return $output_error_string;
+      return $error;
     }
 
     function check() {
@@ -161,17 +177,21 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Allow 2CheckOut', 'MODULE_PAYMENT_2CHECKOUT_STATUS', '1', 'Do you want to accept 2CheckOut payments?', '6', '0', 'tep_cfg_select_option(array(\'1\', \'0\'), ', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('2CheckOut Login/Store Number', 'MODULE_PAYMENT_2CHECKOUT_LOGIN', '18157', 'Login/Store Number used for 2CheckOut payments', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('2CheckOut Test Mode', 'MODULE_PAYMENT_2CHECKOUT_TESTMODE', 'Y', 'Test mode for 2CheckOut payments (Y/N)', '6', '0', 'tep_cfg_select_option(array(\'Y\', \'N\'), ', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Email Merchant Every Order', 'MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT', 'FALSE', 'Email the merchant on every order made', '6', '0', 'tep_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable 2CheckOut Module', 'MODULE_PAYMENT_2CHECKOUT_STATUS', 'True', 'Do you want to accept 2CheckOut payments?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Login/Store Number', 'MODULE_PAYMENT_2CHECKOUT_LOGIN', '18157', 'Login/Store Number used for the 2CheckOut service', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Mode', 'MODULE_PAYMENT_2CHECKOUT_TESTMODE', 'Test', 'Transaction mode used for the 2Checkout service', '6', '0', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Merchant Notifications', 'MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT', 'True', 'Should 2CheckOut e-mail a receipt to the store owner?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_STATUS'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_LOGIN'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_TESTMODE'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.37 2002/08/13 16:00:41 dgw_ Exp $
+  $Id: authorizenet.php,v 1.38 2002/11/01 05:01:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,35 +12,39 @@
 
   class authorizenet {
     var $code, $title, $description, $enabled;
-    var $cc_number, $cc_expires_month, $cc_expires_year;
 
 // class constructor
     function authorizenet() {
-      global $HTTP_POST_VARS;
-
       $this->code = 'authorizenet';
       $this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
-      $this->enabled = MODULE_PAYMENT_AUTHORIZENET_STATUS;
-      $this->cc_number = tep_db_prepare_input($HTTP_POST_VARS['authorizenet_cc_number']);
-      $this->cc_expires_month = tep_db_prepare_input($HTTP_POST_VARS['authorizenet_cc_expires_month']);
-      $this->cc_expires_year = tep_db_prepare_input($HTTP_POST_VARS['authorizenet_cc_expires_year']);
+      $this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
+
+      $this->form_action_url = 'https://secure.authorize.net/gateway/transact.dll';
     }
 
 // class methods
     function javascript_validation() {
-      $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
-                           '  var cc_number = document.payment.authorizenet_cc_number.value;' . "\n" .
-                           '  if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
-                           '    error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER . '";' . "\n" .
-                           '    error = 1;' . "\n" .
-                           '  }' . "\n" .
-                           '}' . "\n";
-      return $validation_string;
+      $js = '  if (payment_value == "' . $this->code . '") {' . "\n" .
+            '    var cc_owner = document.checkout_payment.authorizenet_cc_owner.value;' . "\n" .
+            '    var cc_number = document.checkout_payment.authorizenet_cc_number.value;' . "\n" .
+            '    if (cc_owner == "" || cc_owner.length < ' . CC_OWNER_MIN_LENGTH . ') {' . "\n" .
+            '      error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_OWNER . '";' . "\n" .
+            '      error = 1;' . "\n" .
+            '    }' . "\n" .
+            '    if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
+            '      error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER . '";' . "\n" .
+            '      error = 1;' . "\n" .
+            '    }' . "\n" .
+            '  }' . "\n";
+
+      return $js;
     }
 
     function selection() {
-      for ($i=1; $i < 13; $i++) {
+      global $order;
+
+      for ($i=1; $i<13; $i++) {
         $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
       }
 
@@ -49,68 +53,81 @@
         $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
       }
 
-      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_input_field('authorizenet_cc_number') . '&nbsp;</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month, date('m')) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year) . '</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '</table>' . "\n";
+      $selection = array('id' => $this->code,
+                         'module' => $this->title,
+                         'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
+                                                 'field' => tep_draw_input_field('authorizenet_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                           array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER,
+                                                 'field' => tep_draw_input_field('authorizenet_cc_number')),
+                                           array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
+                                                 'field' => tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year))));
 
-      return $selection_string;
+      return $selection;
     }
 
     function pre_confirmation_check() {
+      global $HTTP_POST_VARS;
 
-      include(DIR_WS_FUNCTIONS . 'ccval.php');
+      include(DIR_WS_CLASSES . 'cc_validation.php');
 
-      $cc_val = CCValidationSolution($this->cc_number);
-      if ($cc_val == '1') {
-        $cc_val = ValidateExpiry($this->cc_expires_month, $this->cc_expires_year);
+      $cc_validation = new cc_validation();
+      $result = $cc_validation->validate($HTTP_POST_VARS['authorizenet_cc_number'], $HTTP_POST_VARS['authorizenet_cc_expires_month'], $HTTP_POST_VARS['authorizenet_cc_expires_year']);
+
+      $error = '';
+      switch ($result) {
+        case -1:
+          $error = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, substr($cc_validation->cc_number, 0, 4));
+          break;
+        case -2:
+        case -3:
+        case -4:
+          $error = TEXT_CCVAL_ERROR_INVALID_DATE;
+          break;
+        case false:
+          $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
+          break;
       }
-      if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $this->code . '&cc_val=' . urlencode($cc_val);
+
+      if ( ($result == false) || ($result < 1) ) {
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($HTTP_POST_VARS['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $HTTP_POST_VARS['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $HTTP_POST_VARS['authorizenet_cc_expires_year'];
+
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
+
+      $this->cc_card_type = $cc_validation->cc_type;
+      $this->cc_card_number = $cc_validation->cc_number;
+      $this->cc_expiry_month = $cc_validation->cc_expiry_month;
+      $this->cc_expiry_year = $cc_validation->cc_expiry_year;
     }
 
     function confirmation() {
-      global $CardName, $CardNumber, $checkout_form_action;
+      global $HTTP_POST_VARS;
 
-      $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$this->cc_expires_month, 1, '20' . $this->cc_expires_year)) . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '</table>' . "\n";
+      $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
+                            'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
+                                                    'field' => $HTTP_POST_VARS['authorizenet_cc_owner']),
+                                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER,
+                                                    'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
+                                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['authorizenet_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['authorizenet_cc_expires_year'])))));
 
-      $checkout_form_action = 'https://secure.authorize.net/gateway/transact.dll';
-
-      return $confirmation_string;
+      return $confirmation;
     }
 
     function process_button() {
-      global $HTTP_SERVER_VARS, $CardNumber, $order, $customer_id;
+      global $HTTP_SERVER_VARS, $order, $customer_id;
 
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
-                               tep_draw_hidden_field('x_Card_Num', $CardNumber) .
-                               tep_draw_hidden_field('x_Exp_Date', $this->cc_expires_month . $this->cc_expires_year) .
+                               tep_draw_hidden_field('x_Card_Num', $this->cc_card_number) .
+                               tep_draw_hidden_field('x_Exp_Date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
                                tep_draw_hidden_field('x_Amount', number_format($order->info['total'], 2)) .
                                tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
                                tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
-                               tep_draw_hidden_field('x_Method', MODULE_PAYMENT_AUTHORIZENET_METHOD) .
+                               tep_draw_hidden_field('x_Method', ((MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') ? 'CC' : 'ECHECK')) .
                                tep_draw_hidden_field('x_Version', '3.0') .
                                tep_draw_hidden_field('x_Cust_ID', $customer_id) .
-                               tep_draw_hidden_field('x_Email_Customer', (MODULE_PAYMENT_AUTHORIZENET_EMAIL == '1'? 'TRUE': 'FALSE')) .
-                               tep_draw_hidden_field('x_Email_Merchant', (MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT == '1'? 'TRUE': 'FALSE')) .
+                               tep_draw_hidden_field('x_Email_Customer', ((MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER == 'True') ? 'TRUE': 'FALSE')) .
+                               tep_draw_hidden_field('x_Email_Merchant', ((MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT == 'True') ? 'TRUE': 'FALSE')) .
                                tep_draw_hidden_field('x_first_name', $order->customer['firstname']) .
                                tep_draw_hidden_field('x_last_name', $order->customer['lastname']) .
                                tep_draw_hidden_field('x_address', $order->customer['street_address']) .
@@ -128,7 +145,7 @@
                                tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
                                tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
                                tep_draw_hidden_field('x_Customer_IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
-      if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == '1') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
+      if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == 'Test') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
 
       $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
@@ -144,19 +161,16 @@
     }
 
     function after_process() {
-	  return false;
+      return false;
     }
 
-    function output_error() {
+    function get_error() {
       global $HTTP_GET_VARS;
 
-      $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '</table>' . "\n";
+      $error = array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR,
+                     'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
 
-      return $output_error_string;
+      return $error;
     }
 
     function check() {
@@ -168,27 +182,27 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Authorize.net', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', '1', 'Do you want to accept Authorize.net payments?', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Login', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'Login used for Authorize.net payments', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Test Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', '1', 'Test mode for Authorize.net payments', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net E-Mail Client', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL', '0', 'Should Authorize.Net e-mail the customer too? 0=NO, 1=YES', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net E-Mail Merchant', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT', '1', 'Should Authorize.Net e-mail you? 0=NO, 1=YES', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'CC', 'This should be either CC or ECHECK', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', '6', '0', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', '6', '0', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Merchant Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT', 'True', 'Should Authorize.Net e-mail a receipt to the store owner?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_LOGIN'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_EMAIL'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_METHOD'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
-      $keys = array('MODULE_PAYMENT_AUTHORIZENET_STATUS', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT', 'MODULE_PAYMENT_AUTHORIZENET_METHOD');
-
-      return $keys;
+      return array('MODULE_PAYMENT_AUTHORIZENET_STATUS', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT');
     }
   }
 ?>
