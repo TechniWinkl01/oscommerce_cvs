@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.24 2003/02/12 23:55:58 hpdl Exp $
+  $Id: account_details.php,v 1.25 2003/05/03 20:37:05 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,10 +10,10 @@
   Released under the GNU General Public License
 */
 
-  $newsletter_array = array(array('id' => '1',
-                                  'text' => ENTRY_NEWSLETTER_YES),
-                            array('id' => '0',
-                                  'text' => ENTRY_NEWSLETTER_NO));
+  $newsletter_array = array(array('id' => '0',
+                                  'text' => ENTRY_NEWSLETTER_NO),
+                            array('id' => '1',
+                                  'text' => ENTRY_NEWSLETTER_YES));
 
   if (!isset($is_read_only)) $is_read_only = false;
   if (!isset($processed)) $processed = false;
