@@ -74,8 +74,8 @@ define('BOX_HEADING_LOCALIZATION', 'Lokalisation');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 
 // tools text in includes/boxes/tools.php
-define('BOX_HEADING_TOOLS', 'Tools');
-define('BOX_TOOLS_BACKUP', 'Backup');
+define('BOX_HEADING_TOOLS', 'Werkzeuge');
+define('BOX_TOOLS_BACKUP', 'Datensicherung');
 
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
