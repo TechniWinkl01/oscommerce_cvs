@@ -32,8 +32,15 @@
   $shipping_count = 0;
   if ($action == 'quote') {
     $shipping_quoted = '';
-    if ($total_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) $total_weight = $total_weight+SHIPPING_BOX_PADDING;
-    else $total_weight = $total_weight + ($total_weight*100/SHIPPING_BOX_PADDING);
+    $shipping_num_boxes = 1;
+    $shipping_weight = $total_weight;
+    if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
+      $shipping_num_boxes = round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
+      $shipping_weight = $total_weight/$shipping_num_boxes;
+    }
+    if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) $shipping_weight = $shipping_weight+SHIPPING_BOX_PADDING;
+    else $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
+    $shipping_weight = round($shipping_weight+0.5);
   }
 
   if (SHIPPING_MODULES) {

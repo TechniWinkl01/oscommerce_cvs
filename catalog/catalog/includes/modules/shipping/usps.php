@@ -27,7 +27,6 @@
 // $usps->setWeight($pounds, $ounces);
 // $price = $usps->getPrice();
       if ($shipping_quote_usps == "1") {
-      $shipping_quoted = 'usps';
         include('includes/usps.php');
         $rate = new USPS;
         $rate->SetServer(SHIPPING_USPS_SERVER);
@@ -37,12 +36,18 @@
         $rate->setMachinable("False");
         $rate->SetOrigZip(STORE_ORIGIN_ZIP);
         $rate->SetDestZip($address_values['postcode']);
-        $rate->setWeight(round($total_weight+0.5));
-        $result = $rate->getPrice();
-        $shipping_usps_cost = SHIPPING_HANDLING + $result;
+        $rate->setWeight($shipping_weight);
+        $shipping_usps_quote = $rate->getPrice();
+        $shipping_usps_cost = SHIPPING_HANDLING + $shipping_usps_quote;
         if ($HTTP_POST_VARS['shipping_usps_prod'] != 'Parcel') {
           $shipping_usps_method = 'USPS ' . $HTTP_POST_VARS['shipping_usps_prod'] . ' Mail';
         } else $shipping_usps_method = 'USPS ' . $HTTP_POST_VARS['shipping_usps_prod'] . ' Post';
+        $shipping_usps_method = $shipping_usps_method . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
+        if ($shipping_usps_cost == SHIPPING_HANDLING) $shipping_usps_method = "USPS " . $shipping_usps_quote;
+        else {
+          $shipping_quoted = 'usps';
+          $shipping_usps_cost = $shipping_usps_cost*$shipping_num_boxes;
+        }
       }
   } elseif ($action == 'cheapest') {
     if ($shipping_quote_usps == "1") {

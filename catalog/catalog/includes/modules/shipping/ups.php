@@ -27,7 +27,6 @@
 <?
   } elseif ($action == 'quote') {
       if ($shipping_quote_ups == "1") {
-      $shipping_quoted = 'ups';
         include('includes/ups.php');
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
@@ -36,10 +35,16 @@
         // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
         $rate->rate(SHIPPING_UPS_PICKUP);        // See the rate() function for codes
         $rate->container(SHIPPING_UPS_PACKAGE);    // See the container() function for codes
-        $rate->weight($total_weight);
+        $rate->weight($shipping_weight);
         $rate->rescom(SHIPPING_UPS_RES);    // See the rescom() function for codes
-        $shipping_ups_cost = SHIPPING_HANDLING + $rate->getQuote();
-        $shipping_ups_method = "UPS " . $HTTP_POST_VARS['shipping_ups_prod'];
+        $shipping_ups_quote = $rate->getQuote();
+        $shipping_ups_cost = SHIPPING_HANDLING + $shipping_ups_quote;
+        $shipping_ups_method = "UPS " . $HTTP_POST_VARS['shipping_ups_prod'] . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
+        if ($shipping_ups_cost == SHIPPING_HANDLING) $shipping_ups_method = "UPS " . $shipping_ups_quote;
+        else {
+          $shipping_quoted = 'ups';
+          $shipping_ups_cost = $shipping_ups_cost*$shipping_num_boxes;
+        }
       }
   } elseif ($action == 'cheapest') {
     if ($shipping_quote_ups == "1") {
