@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.8 2002/02/11 06:52:28 hpdl Exp $
+  $Id: upgrade_3.php,v 1.9 2002/02/23 23:24:05 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -616,6 +616,10 @@ changeText('statusText', 'Updating Taxes');
   osc_db_query("create table zones_to_geo_zones (association_id int(5) not null auto_increment, zone_country_id int(5) not null, zone_id int(5), geo_zone_id int(5), last_modified datetime, date_added datetime not null, primary key (association_id))");
 
   osc_db_query("alter table zones change zone_code zone_code varchar(32) not null");
+
+  osc_db_query("INSERT INTO geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,last_modified,date_added) SELECT tr.tax_zone_id,zone_name,zone_name,NULL,now() from tax_rates tr,zones z,countries c WHERE tr.tax_zone_id=z.zone_id AND c.countries_id=z.zone_country_id GROUP BY tr.tax_zone_id");
+
+  osc_db_query("INSERT INTO zones_to_geo_zones (zone_country_id,zone_id,geo_zone_id,date_added) SELECT z.zone_country_id, z.zone_id,tr.tax_zone_id,now() FROM tax_rates tr, zones z WHERE z.zone_id=tr.tax_zone_id GROUP BY tr.tax_zone_id");
 ?>
 
 <script language="javascript"><!--
