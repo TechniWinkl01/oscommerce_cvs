@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.143 2001/11/23 14:57:32 dgw_ Exp $
+  $Id: general.php,v 1.144 2001/12/01 19:49:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -996,12 +996,12 @@
       $body .= "--$boundary\r\nContent-Type: multipart/alternative;\r\n        boundary=\"$innerboundary\"\r\n\r\n";
       // plain text version of message
       // strip all tags from the text
-      $body .= "--$innerboundary\r\nContent-Type: text/plain;\r\n         charset=\"ISO-8859-1\"\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
+      $body .= "--$innerboundary\r\nContent-Type: text/plain; charset=" . CHARSET . "\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
       $body .= strip_tags($email_text);
       $body .= "\r\n\r\n";
 
       //HTML version of message
-      $body .= "--$innerboundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+      $body .= "--$innerboundary\r\nContent-Type: text/html; charset=" . CHARSET . "\r\nContent-Transfer-Encoding: base64\r\n\r\n";
       $body .= chunk_split(base64_encode($email_text));
 
       //Close the MultiPart
