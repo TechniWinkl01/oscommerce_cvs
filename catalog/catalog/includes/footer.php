@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: footer.php,v 1.27 2004/02/16 07:16:57 hpdl Exp $
+  $Id: footer.php,v 1.28 2004/04/08 02:20:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,11 +30,10 @@
   itself from the default osCommerce-copyrighted
   theme.
 
-  For more information please read the following
-  Frequently Asked Questions entry on the osCommerce
-  support site:
+  For more information please read the osCommerce
+  copyright policy found here:
 
-  http://www.oscommerce.com/community.php/faq,26/q,50
+  http://www.oscommerce.com/about/copyright
 
   Please leave this comment intact together with the
   following copyright announcement.
