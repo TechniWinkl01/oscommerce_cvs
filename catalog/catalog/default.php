@@ -101,7 +101,7 @@
       $rows++;
       $cPath_new = tep_get_path($categories_values['categories_id']);
       echo '                <td>' . FONT_STYLE_GENERAL . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
-      if ((($rows / 3) == floor($rows / 3)) && ($rows != MAX_DISPLAY_NEW_PRODUCTS) && ($rows != tep_db_num_rows($categories))) {
+      if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != tep_db_num_rows($categories))) {
         echo '              </tr>' . "\n";
         echo '              <tr>' . "\n";
       }
