@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.24 2004/07/22 17:04:45 hpdl Exp $
+  $Id: pm2checkout.php,v 1.25 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class pm2checkout {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function pm2checkout() {
-      global $order;
-
       $this->code = 'pm2checkout';
       $this->title = MODULE_PAYMENT_2CHECKOUT_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_2CHECKOUT_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_2CHECKOUT_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_2CHECKOUT_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_2CHECKOUT_STATUS == 'True') ? true : false);
 
@@ -32,7 +38,6 @@
       $this->form_action_url = 'https://www.2checkout.com/cgi-bin/Abuyers/purchase.2c';
     }
 
-// class methods
     function update_status() {
       global $order;
 

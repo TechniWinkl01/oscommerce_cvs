@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.38 2004/07/22 17:04:45 hpdl Exp $
+  $Id: secpay.php,v 1.39 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class secpay {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function secpay() {
-      global $order;
-
       $this->code = 'secpay';
       $this->title = MODULE_PAYMENT_SECPAY_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_SECPAY_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_SECPAY_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_SECPAY_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_SECPAY_STATUS == 'True') ? true : false);
 
@@ -32,7 +38,6 @@
       $this->form_action_url = 'https://www.secpay.com/java-bin/ValCard';
     }
 
-// class methods
     function update_status() {
       global $order;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.43 2004/07/22 17:04:45 hpdl Exp $
+  $Id: paypal.php,v 1.44 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class paypal {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function paypal() {
-      global $order;
-
       $this->code = 'paypal';
       $this->title = MODULE_PAYMENT_PAYPAL_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_PAYPAL_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_PAYPAL_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_PAYPAL_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? true : false);
 
@@ -32,7 +38,6 @@
       $this->form_action_url = 'https://secure.paypal.com/cgi-bin/webscr';
     }
 
-// class methods
     function update_status() {
       global $order;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: moneyorder.php,v 1.10 2003/01/29 19:57:14 hpdl Exp $
+  $Id: moneyorder.php,v 1.11 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class moneyorder {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function moneyorder() {
-      global $order;
-
       $this->code = 'moneyorder';
       $this->title = MODULE_PAYMENT_MONEYORDER_TEXT_TITLE;
-      $this->description = MODULE_PAYMENT_MONEYORDER_TEXT_DESCRIPTION;
+      $this->description = sprintf(MODULE_PAYMENT_MONEYORDER_TEXT_DESCRIPTION, (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? MODULE_PAYMENT_MONEYORDER_PAYTO : '(not set)'));
+
+      if (defined('MODULE_PAYMENT_MONEYORDER_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_MONEYORDER_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_MONEYORDER_STATUS == 'True') ? true : false);
 
@@ -28,11 +34,10 @@
       }
 
       if (is_object($order)) $this->update_status();
-    
-      $this->email_footer = MODULE_PAYMENT_MONEYORDER_TEXT_EMAIL_FOOTER;
+
+      $this->email_footer = sprintf(MODULE_PAYMENT_MONEYORDER_TEXT_EMAIL_FOOTER, MODULE_PAYMENT_MONEYORDER_PAYTO);
     }
 
-// class methods
     function update_status() {
       global $order;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.39 2004/07/22 17:04:45 hpdl Exp $
+  $Id: ipayment.php,v 1.40 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class ipayment {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function ipayment() {
-      global $order;
-
       $this->code = 'ipayment';
       $this->title = MODULE_PAYMENT_IPAYMENT_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_IPAYMENT_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_IPAYMENT_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_IPAYMENT_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_IPAYMENT_STATUS == 'True') ? true : false);
 
@@ -32,7 +38,6 @@
       $this->form_action_url = 'https://ipayment.de/merchant/' . MODULE_PAYMENT_IPAYMENT_ID . '/processor.php';
     }
 
-// class methods
     function update_status() {
       global $order;
 

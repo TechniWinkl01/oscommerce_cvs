@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.53 2004/07/22 17:04:45 hpdl Exp $
+  $Id: authorizenet.php,v 1.54 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,22 +9,29 @@
 
   Released under the GNU General Public License
 */
-// need if (exists()) and error message maybe have admin message too
-   if (file_exists(MODULE_PAYMENT_AUTHORIZENET_LOGIN_FILE)) {
-     include(MODULE_PAYMENT_AUTHORIZENET_LOGIN_FILE); // Get our private defines
-   }
 
   class authorizenet {
-    var $code, $title, $description, $enabled, $sort_order, $order_status, $form_action_url;
+    var $code, $title, $description, $sort_order, $enabled = false, $order_status, $form_action_url;
     var $cc_card_type, $cc_card_number, $cc_expiry_month, $cc_expiry_year;
 
-// class constructor
     function authorizenet() {
-      global $order;
-
       $this->code = 'authorizenet';
       $this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_AUTHORIZENET_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
+// need if (exists()) and error message maybe have admin message too
+      if (file_exists(MODULE_PAYMENT_AUTHORIZENET_LOGIN_FILE)) {
+        include(MODULE_PAYMENT_AUTHORIZENET_LOGIN_FILE); // Get our private defines
+      }
+
       $this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
       if (MODULE_PAYMENT_AUTHORIZENET_LOGIN == 'MODULE_PAYMENT_AUTHORIZENET_LOGIN') {
         $this->enabled = false; // Login Name not defined, disable
@@ -108,7 +115,6 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
 }
 // end authorize.net code
 
-// class methods
     function update_status() {
       global $order;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cod.php,v 1.28 2003/02/14 05:51:31 hpdl Exp $
+  $Id: cod.php,v 1.29 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class cod {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function cod() {
-      global $order;
-
       $this->code = 'cod';
       $this->title = MODULE_PAYMENT_COD_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_COD_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_COD_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_COD_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_COD_STATUS == 'True') ? true : false);
 
@@ -30,7 +36,6 @@
       if (is_object($order)) $this->update_status();
     }
 
-// class methods
     function update_status() {
       global $order;
 

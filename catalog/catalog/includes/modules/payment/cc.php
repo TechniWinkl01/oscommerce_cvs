@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.58 2004/07/22 17:04:45 hpdl Exp $
+  $Id: cc.php,v 1.59 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class cc {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function cc() {
-      global $order;
-
       $this->code = 'cc';
       $this->title = MODULE_PAYMENT_CC_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_CC_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_CC_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_CC_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_CC_STATUS == 'True') ? true : false);
 
@@ -30,7 +36,6 @@
       if (is_object($order)) $this->update_status();
     }
 
-// class methods
     function update_status() {
       global $order;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.22 2004/07/22 17:04:45 hpdl Exp $
+  $Id: psigate.php,v 1.23 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class psigate {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function psigate() {
-      global $order;
-
       $this->code = 'psigate';
       $this->title = MODULE_PAYMENT_PSIGATE_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_PSIGATE_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_PSIGATE_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_PSIGATE_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_PSIGATE_STATUS == 'True') ? true : false);
 
@@ -32,7 +38,6 @@
       $this->form_action_url = 'https://order.psigate.com/psigate.asp';
     }
 
-// class methods
     function update_status() {
       global $order;
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: nochex.php,v 1.15 2004/07/22 17:04:45 hpdl Exp $
+  $Id: nochex.php,v 1.16 2004/07/22 22:00:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,15 +11,21 @@
 */
 
   class nochex {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $sort_order, $enabled = false;
 
-// class constructor
     function nochex() {
-      global $order;
-
       $this->code = 'nochex';
       $this->title = MODULE_PAYMENT_NOCHEX_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_NOCHEX_TEXT_DESCRIPTION;
+
+      if (defined('MODULE_PAYMENT_NOCHEX_STATUS')) {
+        $this->initialize();
+      }
+    }
+
+    function initialize() {
+      global $order;
+
       $this->sort_order = MODULE_PAYMENT_NOCHEX_SORT_ORDER;
       $this->enabled = ((MODULE_PAYMENT_NOCHEX_STATUS == 'True') ? true : false);
 
@@ -32,7 +38,6 @@
       $this->form_action_url = 'https://www.nochex.com/nochex.dll/checkout';
     }
 
-// class methods
     function update_status() {
       global $order;
 
