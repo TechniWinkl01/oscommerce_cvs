@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.31 2002/01/25 18:40:23 project3000 Exp $
+  $Id: authorizenet.php,v 1.32 2002/01/30 19:37:55 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -83,7 +83,7 @@
                              '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['authorizenet_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['authorizenet_cc_expires_year'])) . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
 
@@ -102,7 +102,7 @@
 
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
                                tep_draw_hidden_field('x_Card_Num', $CardNumber) .
-                               tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
+                               tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['authorizenet_cc_expires_month'] . $HTTP_POST_VARS['authorizenet_cc_expires_year']) .
                                tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
                                tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
                                tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
