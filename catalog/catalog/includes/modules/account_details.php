@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.7 2001/07/26 08:19:55 jwildeboer Exp $
+  $Id: account_details.php,v 1.8 2001/08/10 18:01:25 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -126,7 +126,9 @@
       </tr>
     </table></td>
   </tr>
-  <tr>
+<?php
+ if (ACCOUNT_COMPANY) {
+?>  <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
   </tr>
   <tr>
@@ -155,6 +157,9 @@
       </tr>
     </table></td>
   </tr>
+<?php
+}
+?>
   <tr>
   <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_ADDRESS; ?></td>
