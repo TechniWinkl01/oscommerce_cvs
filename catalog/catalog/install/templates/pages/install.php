@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.6 2002/08/12 12:08:05 hpdl Exp $
+  $Id: install.php,v 1.7 2002/08/14 13:30:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,23 +10,17 @@
   Released under the GNU General Public License
 */
 
-  if (isset($HTTP_SERVER_VARS['PATH_TRANSLATED'])) {
-    $script_filename = str_replace('\\', '/', $HTTP_SERVER_VARS['PATH_TRANSLATED']);
-  } else {
-    $script_filename = $HTTP_SERVER_VARS['SCRIPT_FILENAME'];
+  if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
+    $script_filename = getenv('SCRIPT_FILENAME');
   }
   $script_filename = str_replace('//', '/', $script_filename);
 
-  if (isset($HTTP_SERVER_VARS['REQUEST_URI'])) {
-    $request_uri = $HTTP_SERVER_VARS['REQUEST_URI'];
-  } else {
-    if (isset($HTTP_SERVER_VARS['PATH_INFO'])) {
-      $request_uri = $HTTP_SERVER_VARS['PATH_INFO'];
-    } else {
-      $request_uri = $HTTP_SERVER_VARS['SCRIPT_NAME'];
+  if (!$request_uri = getenv('REQUEST_URI')) {
+    if (!$request_uri = getenv('PATH_INFO')) {
+      $request_uri = getenv('SCRIPT_NAME');
     }
 
-    if (isset($HTTP_SERVER_VARS['QUERY_STRING'])) $request_uri .=  '?' . $HTTP_SERVER_VARS['QUERY_STRING'];
+    if (getenv('QUERY_STRING')) $request_uri .=  '?' . getenv('QUERY_STRING');
   }
 
   $dir_fs_www_root_array = explode('/', dirname($script_filename));
