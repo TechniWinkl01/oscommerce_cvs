@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.19 2002/01/28 02:06:19 hpdl Exp $
+  $Id: html_output.php,v 1.20 2002/02/13 13:16:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@
     if ($connection == 'NONSSL') {
       $link = HTTP_SERVER . DIR_WS_ADMIN;
     } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 1) {
+      if (ENABLE_SSL == 'true') {
         $link = HTTPS_SERVER . DIR_WS_ADMIN;
       } else {
         $link = HTTP_SERVER . DIR_WS_ADMIN;
@@ -45,7 +45,11 @@
     if ($connection == 'NONSSL') {
       $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG;
     } elseif ($connection == 'SSL') {
-      $link = HTTPS_CATALOG_SERVER . DIR_WS_CATALOG;
+      if (ENABLE_SSL_CATALOG == 'true') {
+        $link = HTTPS_CATALOG_SERVER . DIR_WS_CATALOG;
+      } else {
+        $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG;
+      }
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
     }
