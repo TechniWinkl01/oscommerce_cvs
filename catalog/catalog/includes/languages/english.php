@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.93 2002/05/27 13:30:44 hpdl Exp $
+  $Id: english.php,v 1.94 2002/06/01 18:52:58 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -202,9 +202,9 @@ define('ENTRY_POST_CODE_TEXT', '&nbsp;<small><font color="#AABBDD">required</fon
 define('ENTRY_CITY', 'City:');
 define('ENTRY_CITY_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_CITY_MIN_LENGTH . ' chars</font></small>');
 define('ENTRY_CITY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
-define('ENTRY_STATE', 'State:');
-define('ENTRY_STATE_ERROR', '');
-define('ENTRY_STATE_TEXT', '');
+define('ENTRY_STATE', 'State/Province:');
+define('ENTRY_STATE_ERROR', '&nbsp;<small><font color="#FF0000">required</font></small>');
+define('ENTRY_STATE_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_COUNTRY', 'Country:');
 define('ENTRY_COUNTRY_ERROR', '');
 define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.99 2002/05/27 13:30:45 hpdl Exp $
+  $Id: german.php,v 1.100 2002/06/01 18:52:58 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -203,8 +203,8 @@ define('ENTRY_CITY', 'Ort:');
 define('ENTRY_CITY_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_CITY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_STATE', 'Bundesland:');
-define('ENTRY_STATE_ERROR', '');
-define('ENTRY_STATE_TEXT', '');
+define('ENTRY_STATE_ERROR', '&nbsp;<small><font color="#FF0000">notwendige Eingabe</font></small>');
+define('ENTRY_STATE_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_COUNTRY_ERROR', '');
 define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
