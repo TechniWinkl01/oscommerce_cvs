@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.57 2002/11/03 23:41:42 hpdl Exp $
+# $Id: oscommerce.sql,v 1.58 2002/11/11 20:07:01 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -12,7 +12,7 @@
 #       * Please take note of the table structure, and use this
 #         structure as a standard for future modifications!
 #       * Any tables you add here should be added in admin/backup.php
-#         and in catalog/install/includes/database.php
+#         and in catalog/install/includes/functions/database.php
 #       * To see the 'diff'erence between MySQL databases, use
 #         the mysqldiff perl script located in the extras
 #         directory of the 'catalog' module.
