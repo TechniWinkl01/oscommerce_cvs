@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.1 2002/04/03 23:09:49 hpdl Exp $
+  $Id: ot_shipping.php,v 1.2 2002/04/17 12:01:46 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,6 +10,6 @@
   Released under the GNU General Public License
 */
 
-  define('MODULE_ORDER_TOTAL_SHIPPING_TITLE', 'Shipping');
-  define('MODULE_ORDER_TOTAL_SHIPPING_DESCRIPTION', 'Order Shipping Cost');
+  define('MODULE_ORDER_TOTAL_SHIPPING_TITLE', 'Versandkosten');
+  define('MODULE_ORDER_TOTAL_SHIPPING_DESCRIPTION', 'Versandkosten einer Bestellung');
 ?>

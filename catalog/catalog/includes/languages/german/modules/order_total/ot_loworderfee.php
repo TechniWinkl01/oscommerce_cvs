@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_loworderfee.php,v 1.1 2002/04/08 22:12:08 hpdl Exp $
+  $Id: ot_loworderfee.php,v 1.2 2002/04/17 12:01:46 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,6 +10,6 @@
   Released under the GNU General Public License
 */
 
-  define('MODULE_ORDER_TOTAL_LOWORDERFEE_TITLE', 'Low Order Fee');
-  define('MODULE_ORDER_TOTAL_LOWORDERFEE_DESCRIPTION', 'Low Order Fee');
+  define('MODULE_ORDER_TOTAL_LOWORDERFEE_TITLE', 'Mindermengenzuschlag');
+  define('MODULE_ORDER_TOTAL_LOWORDERFEE_DESCRIPTION', 'Zuschlag bei Unterschreitung des Mindestbestellwertes');
 ?>
