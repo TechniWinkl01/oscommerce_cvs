@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.21 2002/03/07 21:56:41 hpdl Exp $
+  $Id: html_output.php,v 1.22 2002/04/13 16:11:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,9 +39,6 @@
   }
 
   function tep_catalog_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    if ($page == '') {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
-    }
     if ($connection == 'NONSSL') {
       $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG;
     } elseif ($connection == 'SSL') {
