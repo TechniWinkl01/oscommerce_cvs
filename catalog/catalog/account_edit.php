@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.37 2001/06/13 20:12:15 hpdl Exp $
+  $Id: account_edit.php,v 1.38 2001/06/14 00:39:03 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,119 +53,10 @@ function update_zone(theForm) {
 
   resetStateText(theForm);
 }
-
-function check_form() {
-  var error = 0;
-  var error_message = "<?php echo JS_ERROR; ?>";
-
-  var first_name = document.account_edit.firstname.value;
-  var last_name = document.account_edit.lastname.value;
-<?php
-   if (ACCOUNT_DOB) echo '  var dob = document.account_edit.dob.value;' . "\n";
-?>
-  var email_address = document.account_edit.email_address.value;  
-  var street_address = document.account_edit.street_address.value;
-  var postcode = document.account_edit.postcode.value;
-  var city = document.account_edit.city.value;
-  var telephone = document.account_edit.telephone.value;
-  var password = document.account_edit.password.value;
-  var confirmation = document.account_edit.confirmation.value;
-
-<?php
-   if (ACCOUNT_GENDER) {
-?>
-  if (document.account_edit.gender[0].checked || document.account_edit.gender[1].checked) {
-  } else {
-    error_message = error_message + "<?php echo JS_GENDER; ?>";
-    error = 1;
-  }
-<?
-  }
-?>
- 
-  if (first_name == '' || first_name.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
-    error = 1;
-  }
-
-  if (last_name == '' || last_name.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_LAST_NAME; ?>";
-    error = 1;
-  }
-
-<?
-   if (ACCOUNT_DOB) {
-?>
-  if (dob == '' || dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_DOB; ?>";
-    error = 1;
-  }
-<?
-  }
-?>
- 
-  if (email_address == '' || email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
-    error = 1;
-  }
-
-  if (street_address == '' || street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_ADDRESS; ?>";
-    error = 1;
-  }
-
-  if (postcode == '' || postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_POST_CODE; ?>";
-    error = 1;
-  }
-
-  if (city == '' || city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_CITY; ?>";
-    error = 1;
-  }
-
-<?php
-  if (ACCOUNT_STATE) {
-?>
-  if (document.account_edit.zone_id.options.length <= 1) {
-    if (document.account_edit.state.value == '' || document.account_edit.state.value.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-       error_message = error_message + "<?php echo JS_STATE; ?>";
-       error = 1;
-    }
-  } else {
-    document.account_edit.state.value = '';
-    if (document.account_edit.zone_id.selectedIndex == 0) {
-       error_message = error_message + "<?php echo JS_ZONE; ?>";
-       error = 1;
-    }
-  }
-<?
-  }
-?>
-
-  if (document.account_edit.country.value == 0) {
-    error_message = error_message + "<?php echo JS_COUNTRY; ?>";
-    error = 1;
-  }
-
-  if (telephone == '' || telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_TELEPHONE; ?>";
-    error = 1;
-  }
-
-  if ((password != confirmation) || (password == '' || password.length < <?php echo ENTRY_PASSWORD_MIN_LENGTH; ?>)) {
-    error_message = error_message + "<?php echo JS_PASSWORD; ?>";
-    error = 1;
-  }
-
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
-}
 //--></script>
+<?php
+  require('includes/form_check.js.php');
+?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
