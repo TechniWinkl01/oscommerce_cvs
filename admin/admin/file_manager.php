@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.34 2002/04/30 17:25:18 dgw_ Exp $
+  $Id: file_manager.php,v 1.35 2002/06/01 20:54:51 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -190,8 +190,8 @@
 
         $permissions = tep_get_file_permissions(fileperms($current_path . '/' . $file));
         if ($showuser) {
-          $user = posix_getpwuid(fileowner($current_path . '/' . $file));
-          $group = posix_getgrgid(filegroup($current_path . '/' . $file));
+          $user = @posix_getpwuid(fileowner($current_path . '/' . $file));
+          $group = @posix_getgrgid(filegroup($current_path . '/' . $file));
         } else {
           $user = $group = array();
         }
