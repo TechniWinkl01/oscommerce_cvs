@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.48 2003/06/05 23:30:30 hpdl Exp $
+  $Id: product_reviews_info.php,v 1.49 2003/06/09 23:03:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,7 +90,7 @@ function popupWindow(url) {
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="main"><?php echo '<b>' . sprintf(TEXT_REVIEW_BY, $review['customers_name']) . '</b>'; ?></td>
+                    <td class="main"><?php echo '<b>' . sprintf(TEXT_REVIEW_BY, tep_output_string_protected($review['customers_name'])) . '</b>'; ?></td>
                     <td class="smallText" align="right"><?php echo sprintf(TEXT_REVIEW_DATE_ADDED, tep_date_long($review['date_added'])); ?></td>
                   </tr>
                 </table></td>
@@ -101,7 +101,7 @@ function popupWindow(url) {
                     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                       <tr>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                        <td valign="top" class="main"><?php echo tep_break_string(nl2br(htmlspecialchars($review['reviews_text'])), 60, '-<br>') . '<br><br><i>' . sprintf(TEXT_REVIEW_RATING, tep_image(DIR_WS_IMAGES . 'stars_' . $review['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $review['reviews_rating'])), sprintf(TEXT_OF_5_STARS, $review['reviews_rating'])) . '</i>'; ?></td>
+                        <td valign="top" class="main"><?php echo tep_break_string(nl2br(tep_output_string_protected($review['reviews_text'])), 60, '-<br>') . '<br><br><i>' . sprintf(TEXT_REVIEW_RATING, tep_image(DIR_WS_IMAGES . 'stars_' . $review['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $review['reviews_rating'])), sprintf(TEXT_OF_5_STARS, $review['reviews_rating'])) . '</i>'; ?></td>
                         <td width="10" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                       </tr>
                     </table></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.60 2003/06/05 23:23:51 hpdl Exp $
+  $Id: account.php,v 1.61 2003/06/09 23:03:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -107,7 +107,7 @@ function rowOutEffect(object) {
                   <tr class="moduleRow" onMouseOver="rowOverEffect(this)" onMouseOut="rowOutEffect(this)" onClick="document.location.href='<?php echo tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $orders['orders_id'], 'SSL'); ?>'">
                     <td class="main" width="80"><?php echo tep_date_short($orders['date_purchased']); ?></td>
                     <td class="main"><?php echo '#' . $orders['orders_id']; ?></td>
-                    <td class="main"><?php echo $order_name . ', ' . $order_country; ?></td>
+                    <td class="main"><?php echo tep_output_string_protected($order_name) . ', ' . $order_country; ?></td>
                     <td class="main"><?php echo $orders['orders_status_name']; ?></td>
                     <td class="main" align="right"><?php echo $orders['order_total']; ?></td>
                     <td class="main" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $orders['orders_id'], 'SSL') . '">' . tep_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW) . '</a>'; ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.78 2003/06/05 23:24:22 hpdl Exp $
+  $Id: address_book_process.php,v 1.79 2003/06/09 23:03:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,11 @@
     $city = tep_db_prepare_input($HTTP_POST_VARS['city']);
     $country = tep_db_prepare_input($HTTP_POST_VARS['country']);
     if (ACCOUNT_STATE == 'true') {
-      $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+      if (isset($HTTP_POST_VARS['zone_id'])) {
+        $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+      } else {
+        $zone_id = false;
+      }
       $state = tep_db_prepare_input($HTTP_POST_VARS['state']);
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.48 2003/02/17 11:51:16 hpdl Exp $
+  $Id: checkout_success.php,v 1.49 2003/06/09 23:03:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,15 +34,15 @@
   $breadcrumb->add(NAVBAR_TITLE_1);
   $breadcrumb->add(NAVBAR_TITLE_2);
 
-  $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customer_id . "'");
+  $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$customer_id . "'");
   $global = tep_db_fetch_array($global_query);
 
   if ($global['global_product_notifications'] != '1') {
-    $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . $customer_id . "' order by date_purchased desc limit 1");
+    $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$customer_id . "' order by date_purchased desc limit 1");
     $orders = tep_db_fetch_array($orders_query);
 
     $products_array = array();
-    $products_query = tep_db_query("select products_id, products_name from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders['orders_id'] . "' order by products_name");
+    $products_query = tep_db_query("select products_id, products_name from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$orders['orders_id'] . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $products_array[] = array('id' => $products['products_id'],
                                 'text' => $products['products_name']);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.72 2003/06/05 23:33:15 hpdl Exp $
+  $Id: shopping_cart.php,v 1.73 2003/06/09 23:03:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -76,7 +76,7 @@
     $products = $cart->get_products();
     for ($i=0, $n=sizeof($products); $i<$n; $i++) {
 // Push all attributes information in an array
-      if (isset($products[$i]['attributes'])) {
+      if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
         while (list($option, $value) = each($products[$i]['attributes'])) {
           echo tep_draw_hidden_field('id[' . $products[$i]['id'] . '][' . $option . ']', $value);
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix
@@ -126,7 +126,7 @@
         }
       }
 
-      if (isset($products[$i]['attributes'])) {
+      if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
         reset($products[$i]['attributes']);
         while (list($option, $value) = each($products[$i]['attributes'])) {
           $products_name .= '<br><small><i> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</i></small>';

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.110 2003/03/14 03:34:26 hpdl Exp $
+  $Id: checkout_payment.php,v 1.111 2003/06/09 23:03:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,14 +38,11 @@
 // Stock Check
   if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
     $products = $cart->get_products();
-    $any_out_of_stock = 0;
     for ($i=0, $n=sizeof($products); $i<$n; $i++) {
       if (tep_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
-        $any_out_of_stock = 1;
+        tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
+        break;
       }
-    }
-    if ($any_out_of_stock == 1) {
-      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
   }
 
@@ -55,7 +52,7 @@
     $billto = $customer_default_address_id;
   } else {
 // verify the selected billing address
-    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $billto . "'");
+    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$billto . "'");
     $check_address = tep_db_fetch_array($check_address_query);
 
     if ($check_address['total'] != '1') {
@@ -154,7 +151,7 @@ function rowOutEffect(object) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b><?php echo htmlspecialchars($error['title']); ?></b></td>
+            <td class="main"><b><?php echo tep_output_string_protected($error['title']); ?></b></td>
           </tr>
         </table></td>
       </tr>
@@ -164,7 +161,7 @@ function rowOutEffect(object) {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main" width="100%" valign="top"><?php echo htmlspecialchars($error['error']); ?></td>
+                <td class="main" width="100%" valign="top"><?php echo tep_output_string_protected($error['error']); ?></td>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>
@@ -275,7 +272,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-    } else {
+    } elseif (isset($selection[$i]['fields']) && is_array($selection[$i]['fields'])) {
 ?>
                   <tr>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -325,7 +322,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5') . tep_draw_hidden_field('comments_added', 'YES'); ?></td>
+                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -383,8 +380,7 @@ function rowOutEffect(object) {
           </tr>
         </table></td>
       </tr>
-    </table>
-    </form></td>
+    </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

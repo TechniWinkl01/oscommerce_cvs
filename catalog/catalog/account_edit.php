@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.64 2003/06/05 23:23:51 hpdl Exp $
+  $Id: account_edit.php,v 1.65 2003/06/09 23:03:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,6 +99,11 @@
 
       tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$customer_id . "'");
 
+      $sql_data_array = array('entry_firstname' => $firstname,
+                              'entry_lastname' => $lastname);
+
+      tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$customer_default_address_id . "'");
+
 // reset the session variables
       $customer_first_name = $firstname;
 
@@ -106,10 +111,10 @@
 
       tep_redirect(tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
     }
-  } else {
-    $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
-    $account = tep_db_fetch_array($account_query);
   }
+
+  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+  $account = tep_db_fetch_array($account_query);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
@@ -177,7 +182,11 @@
                 <td><table border="0" cellspacing="2" cellpadding="2">
 <?php
   if (ACCOUNT_GENDER == 'true') {
-    $male = ($account['customers_gender'] == 'm') ? true : false;
+    if (isset($gender)) {
+      $male = ($gender == 'm') ? true : false;
+    } else {
+      $male = ($account['customers_gender'] == 'm') ? true : false;
+    }
     $female = !$male;
 ?>
                   <tr>

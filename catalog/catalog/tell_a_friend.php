@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.39 2003/05/28 18:33:43 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.40 2003/06/09 23:03:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
   require('includes/application_top.php');
 
   if (tep_session_is_registered('customer_id')) {
-    $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+    $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
     $account_values = tep_db_fetch_array($account);
   } elseif (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false') {
     $navigation->set_snapshot();
@@ -22,7 +22,7 @@
 
   $valid_product = false;
   if (isset($HTTP_GET_VARS['products_id'])) {
-    $product_info_query = tep_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
+    $product_info_query = tep_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "'");
     $valid_product = (tep_db_num_rows($product_info_query) > 0);
   }
 
@@ -141,7 +141,7 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><?php echo sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, stripslashes($HTTP_POST_VARS['products_name']), $HTTP_POST_VARS['friendemail']); ?></td>
+            <td class="main"><?php echo sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, stripslashes($HTTP_POST_VARS['products_name']), tep_output_string_protected($HTTP_POST_VARS['friendemail'])); ?></td>
           </tr>
         </table></td>
       </tr>

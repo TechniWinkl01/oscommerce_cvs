@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.137 2003/05/07 15:08:11 project3000 Exp $
+  $Id: checkout_confirmation.php,v 1.138 2003/06/09 23:03:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,7 +39,7 @@
   if (isset($HTTP_POST_VARS['payment'])) $payment = $HTTP_POST_VARS['payment'];
 
   if (!tep_session_is_registered('comments')) tep_session_register('comments');
-  if ($HTTP_POST_VARS['comments_added'] != '') {
+  if (tep_not_null($HTTP_POST_VARS['comments'])) {
     $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
   }
 

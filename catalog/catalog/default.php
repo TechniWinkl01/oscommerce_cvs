@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.85 2003/06/05 23:27:34 hpdl Exp $
+  $Id: default.php,v 1.86 2003/06/09 23:03:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -124,7 +124,7 @@
       </tr>
     </table></td>
 <?php
-  } elseif ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
+  } elseif ($category_depth == 'products' || isset($HTTP_GET_VARS['manufacturers_id'])) {
 // create column list
     $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
                          'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
@@ -243,16 +243,16 @@
         echo '            <td align="center" class="main">' . tep_draw_form('filter', FILENAME_DEFAULT, 'get') . TEXT_SHOW . '&nbsp;';
         if (isset($HTTP_GET_VARS['manufacturers_id'])) {
           echo tep_draw_hidden_field('manufacturers_id', $HTTP_GET_VARS['manufacturers_id']);
-          $options = array(array('text' => TEXT_ALL_CATEGORIES));
+          $options = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
         } else {
           echo tep_draw_hidden_field('cPath', $cPath);
-          $options = array(array('text' => TEXT_ALL_MANUFACTURERS));
+          $options = array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS));
         }
         echo tep_draw_hidden_field('sort', $HTTP_GET_VARS['sort']);
         while ($filterlist = tep_db_fetch_array($filterlist_query)) {
           $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
         }
-        echo tep_draw_pull_down_menu('filter_id', $options, $HTTP_GET_VARS['filter_id'], 'onchange="this.form.submit()"');
+        echo tep_draw_pull_down_menu('filter_id', $options, (isset($HTTP_GET_VARS['filter_id']) ? $HTTP_GET_VARS['filter_id'] : ''), 'onchange="this.form.submit()"');
         echo '</form></td>' . "\n";
       }
     }

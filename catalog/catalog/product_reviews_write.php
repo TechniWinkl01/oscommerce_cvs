@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.52 2003/06/05 23:30:30 hpdl Exp $
+  $Id: product_reviews_write.php,v 1.53 2003/06/09 23:03:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -151,7 +151,7 @@ function popupWindow(url) {
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><?php echo '<b>' . SUB_TITLE_FROM . '</b> ' . $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
+                <td class="main"><?php echo '<b>' . SUB_TITLE_FROM . '</b> ' . tep_output_string_protected($customer['customers_firstname'] . ' ' . $customer['customers_lastname']); ?></td>
               </tr>
               <tr>
                 <td class="main"><b><?php echo SUB_TITLE_REVIEW; ?></b></td>

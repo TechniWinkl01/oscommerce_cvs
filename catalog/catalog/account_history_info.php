@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.99 2003/06/09 22:35:32 hpdl Exp $
+  $Id: account_history_info.php,v 1.100 2003/06/09 23:03:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -215,7 +215,7 @@
     echo '              <tr>' . "\n" .
          '                <td class="main" valign="top" width="70">' . tep_date_short($statuses['date_added']) . '</td>' . "\n" .
          '                <td class="main" valign="top" width="70">' . $statuses['orders_status_name'] . '</td>' . "\n" .
-         '                <td class="main" valign="top">' . (empty($statuses['comments']) ? '&nbsp;' : nl2br(htmlspecialchars($statuses['comments']))) . '</td>' . "\n" .
+         '                <td class="main" valign="top">' . (empty($statuses['comments']) ? '&nbsp;' : nl2br(tep_output_string_protected($statuses['comments']))) . '</td>' . "\n" .
          '              </tr>' . "\n";
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.40 2003/06/05 23:26:22 hpdl Exp $
+  $Id: contact_us.php,v 1.41 2003/06/09 23:03:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,13 +108,13 @@
                 <td class="main"><?php echo ENTRY_NAME; ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_draw_input_field('name', $first_name); ?></td>
+                <td class="main"><?php echo tep_draw_input_field('name'); ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo ENTRY_EMAIL; ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_draw_input_field('email', $email_address); ?></td>
+                <td class="main"><?php echo tep_draw_input_field('email'); ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo ENTRY_ENQUIRY; ?></td>

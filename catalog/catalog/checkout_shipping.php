@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.15 2003/04/08 22:44:00 dgw_ Exp $
+  $Id: checkout_shipping.php,v 1.16 2003/06/09 23:03:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,7 @@
     $sendto = $customer_default_address_id;
   } else {
 // verify the selected shipping address
-    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
+    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$sendto . "'");
     $check_address = tep_db_fetch_array($check_address_query);
 
     if ($check_address['total'] != '1') {
@@ -64,15 +64,22 @@
   $shipping_modules = new shipping;
 
   if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+    $pass = false;
+
     switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
       case 'national':
-        if ($order->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+        if ($order->delivery['country_id'] == STORE_COUNTRY) {
+          $pass = true;
+        }
+        break;
       case 'international':
-        if ($order->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+        if ($order->delivery['country_id'] != STORE_COUNTRY) {
+          $pass = true;
+        }
+        break;
       case 'both':
-        $pass = true; break;
-      default:
-        $pass = false; break;
+        $pass = true;
+        break;
     }
 
     $free_shipping = false;
@@ -88,7 +95,7 @@
 // process the selected shipping method
   if ( isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process') ) {
     if (!tep_session_is_registered('comments')) tep_session_register('comments');
-    if (tep_not_null($HTTP_POST_VARS['comments_added'])) {
+    if (tep_not_null($HTTP_POST_VARS['comments'])) {
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
     }
 
@@ -300,7 +307,7 @@ function rowOutEffect(object) {
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                    <td class="main" colspan="3"><b><?php echo $quotes[$i]['module']; ?></b>&nbsp;<?php echo $quotes[$i]['icon']; ?></td>
+                    <td class="main" colspan="3"><b><?php echo $quotes[$i]['module']; ?></b>&nbsp;<?php if (isset($quotes[$i]['icon']) && tep_not_null($quotes[$i]['icon'])) { echo $quotes[$i]['icon']; } ?></td>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
@@ -328,7 +335,7 @@ function rowOutEffect(object) {
 <?php
             if ( ($n > 1) || ($n2 > 1) ) {
 ?>
-                    <td class="main"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax'])); ?></td>
+                    <td class="main"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], (isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0))); ?></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
 <?php
             } else {
@@ -373,7 +380,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5') . tep_draw_hidden_field('comments_added', 'YES'); ?></td>
+                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
               </tr>
             </table></td>
           </tr>

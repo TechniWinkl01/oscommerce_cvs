@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.14 2003/05/27 17:49:53 hpdl Exp $
+  $Id: checkout_shipping_address.php,v 1.15 2003/06/09 23:03:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,6 +25,9 @@
 
   // needs to be included earlier to set the success message in the messageStack
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SHIPPING_ADDRESS);
+
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
 
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
@@ -53,7 +56,11 @@
       $city = tep_db_prepare_input($HTTP_POST_VARS['city']);
       $country = tep_db_prepare_input($HTTP_POST_VARS['country']);
       if (ACCOUNT_STATE == 'true') {
-        $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+        if (isset($HTTP_POST_VARS['zone_id'])) {
+          $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+        } else {
+          $zone_id = false;
+        }
         $state = tep_db_prepare_input($HTTP_POST_VARS['state']);
       }
 
@@ -172,7 +179,7 @@
 
       $sendto = $HTTP_POST_VARS['address'];
 
-      $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
+      $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$sendto . "'");
       $check_address = tep_db_fetch_array($check_address_query);
 
       if ($check_address['total'] == '1') {
@@ -347,9 +354,9 @@ function check_form_optional(form_name) {
 <?php
       $radio_buttons = 0;
 
-      $addresses_query = tep_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "'");
+      $addresses_query = tep_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "'");
       while ($addresses = tep_db_fetch_array($addresses_query)) {
-        $format_id = tep_get_address_format_id($address['country_id']);
+        $format_id = tep_get_address_format_id($addresses['country_id']);
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -362,7 +369,7 @@ function check_form_optional(form_name) {
         }
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                    <td class="main" colspan="2"><b><?php echo $addresses['firstname'] . ' ' . $addresses['lastname']; ?></b></td>
+                    <td class="main" colspan="2"><b><?php echo tep_output_string_protected($addresses['firstname'] . ' ' . $addresses['lastname']); ?></b></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('address', $addresses['address_book_id'], ($addresses['address_book_id'] == $sendto)); ?></td>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.95 2003/06/05 23:29:00 hpdl Exp $
+  $Id: product_info.php,v 1.96 2003/06/09 23:03:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -138,10 +138,16 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
             $products_options_array[sizeof($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) .') ';
           }
         }
+
+        if (isset($cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name['products_options_id']])) {
+          $selected_attribute = $cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name['products_options_id']];
+        } else {
+          $selected_attribute = false;
+        }
 ?>
             <tr>
               <td class="main"><?php echo $products_options_name['products_options_name'] . ':'; ?></td>
-              <td class="main"><?php echo tep_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name['products_options_id']]); ?></td>
+              <td class="main"><?php echo tep_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $selected_attribute); ?></td>
             </tr>
 <?php
       }

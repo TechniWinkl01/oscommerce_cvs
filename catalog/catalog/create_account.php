@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.64 2003/06/05 23:27:00 hpdl Exp $
+  $Id: create_account.php,v 1.65 2003/06/09 23:03:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,13 @@
   if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
     $process = true;
 
-    if (ACCOUNT_GENDER == 'true') $gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
+    if (ACCOUNT_GENDER == 'true') {
+      if (isset($HTTP_POST_VARS['gender'])) {
+        $gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
+      } else {
+        $gender = false;
+      }
+    }
     $firstname = tep_db_prepare_input($HTTP_POST_VARS['firstname']);
     $lastname = tep_db_prepare_input($HTTP_POST_VARS['lastname']);
     if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($HTTP_POST_VARS['dob']);
@@ -29,12 +35,22 @@
     if (ACCOUNT_SUBURB == 'true') $suburb = tep_db_prepare_input($HTTP_POST_VARS['suburb']);
     $postcode = tep_db_prepare_input($HTTP_POST_VARS['postcode']);
     $city = tep_db_prepare_input($HTTP_POST_VARS['city']);
-    $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
-    if (ACCOUNT_STATE == 'true') $state = tep_db_prepare_input($HTTP_POST_VARS['state']);
+    if (ACCOUNT_STATE == 'true') {
+      $state = tep_db_prepare_input($HTTP_POST_VARS['state']);
+      if (isset($HTTP_POST_VARS['zone_id'])) {
+        $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+      } else {
+        $zone_id = false;
+      }
+    }
     $country = tep_db_prepare_input($HTTP_POST_VARS['country']);
     $telephone = tep_db_prepare_input($HTTP_POST_VARS['telephone']);
     $fax = tep_db_prepare_input($HTTP_POST_VARS['fax']);
-    $newsletter = tep_db_prepare_input($HTTP_POST_VARS['newsletter']);
+    if (isset($HTTP_POST_VARS['newsletter'])) {
+      $newsletter = tep_db_prepare_input($HTTP_POST_VARS['newsletter']);
+    } else {
+      $newsletter = false;
+    }
     $password = tep_db_prepare_input($HTTP_POST_VARS['password']);
     $confirmation = tep_db_prepare_input($HTTP_POST_VARS['confirmation']);
 
@@ -218,12 +234,12 @@
 
       if (ACCOUNT_GENDER == 'true') {
          if ($gender == 'm') {
-           $email_text = EMAIL_GREET_MR;
+           $email_text = sprintf(EMAIL_GREET_MR, $lastname);
          } else {
-           $email_text = EMAIL_GREET_MS;
+           $email_text = sprintf(EMAIL_GREET_MS, $lastname);
          }
       } else {
-        $email_text = EMAIL_GREET_NONE;
+        $email_text = sprintf(EMAIL_GREET_NONE, $firstname);
       }
 
       $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
