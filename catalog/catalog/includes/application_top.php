@@ -79,7 +79,7 @@
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
-   
+
 // define our database connection
   define('DB_SERVER', 'exchange');
   define('DB_SERVER_USERNAME', 'mysql');
@@ -127,7 +127,7 @@
   define('SUB_BAR_FONT_FACE', 'Verdana, Arial');
   define('SUB_BAR_FONT_SIZE', '1');
   define('SUB_BAR_FONT_COLOR', '#000000');
-  
+
   define('TEXT_FONT_FACE', 'Verdana, Arial');
   define('TEXT_FONT_SIZE', '2');
   define('TEXT_FONT_COLOR', '#000000');
@@ -256,6 +256,8 @@
   }
   tep_session_register('language');
 
+// include the currency rates, and the language translations
+  $include_file = DIR_INCLUDES . 'data/rates.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // define our general functions used application-wide

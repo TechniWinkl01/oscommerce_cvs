@@ -16,17 +16,17 @@ define('DATE_FORMAT', 'd/m/Y');  // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 // the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
-// tep_currency_format() function.. although the function is here, it is not in use yet..
+// tep_currency_format() function..
 define('CURRENCY_BEFORE', ''); // currency character(s) before value
 define('CURRENCY_AFTER', 'Pts'); // currency character(s) after value
 define('CURRENCY_DECIMAL', '.'); // currency decimal point character
 define('CURRENCY_DECIMAL_PLACES', 0);
 define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
-define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
+define('CURRENCY_VALUE', 'ESP'); // currency value for exchange rate
 // for example:
-// products_price = 30.00 (in Euro)
-// currency_value = 0.9551 (US to Euro)
-// products price with locale currency = currency_value * products_price
+// products_price = 30.00
+// currency_value = 1.1036 (Euro)
+// products price with locale currency = CURRENCY_BEFORE . (currency_value * products_price) . CURRENCY_AFTER
 
 // page title
 define('TITLE', 'The Exchange Project');

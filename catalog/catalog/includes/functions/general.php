@@ -54,9 +54,15 @@
   }
 
   function tep_currency_format($number, $calculate_currency_value = true) {
+    global $currency_rates;
 
     if ($calculate_currency_value == true) {
-      $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+      if (strlen(CURRENCY_VALUE) == 3) {
+        $rate = $currency_rates[CURRENCY_VALUE]; // read from catalog/includes/data/rates.php - the value is in /catalog/includes/languages/<language>.php
+      } else {
+        $rate = 1;
+      }
+      $number2currency = CURRENCY_BEFORE . number_format(($number * $rate), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
     } else {
       $number2currency = CURRENCY_BEFORE . number_format(($number), CURRENCY_DECIMAL_PLACES, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
     }
