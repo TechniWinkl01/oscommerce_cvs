@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.9 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: login.php,v 1.10 2001/12/29 20:20:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,9 +20,9 @@ if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
   define('TEXT_STEP_BY_STEP', ''); // should be empty
 }
 
-define('ENTRY_EMAIL_ADDRESS2', 'Escriba su direccion eMail');
+define('ENTRY_EMAIL_ADDRESS2', 'Escriba su direccion Email:');
 define('TEXT_NEW_CUSTOMER', 'Soy un nuevo cliente.');
-define('TEXT_RETURNING_CUSTOMER', 'Ya he comprado otras veces,<br>&nbsp; y my contraseña es:');
+define('TEXT_RETURNING_CUSTOMER', 'He comprado otras veces,<br>y mi contraseña es:');
 define('TEXT_COOKIE', '¿Guardar informacion en un \'cookie\'?');
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> El \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
