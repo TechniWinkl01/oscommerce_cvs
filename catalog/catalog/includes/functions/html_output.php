@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.14 2001/08/29 23:34:21 hpdl Exp $
+  $Id: html_output.php,v 1.15 2001/09/08 02:15:32 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -44,7 +44,7 @@
     //   2) changing servers (ie from nonSSL to SSL)
     // We then put session id manually in the URL to keep propagating it across servers
     $sess = '';
-    if ( (!SID) && (getenv('HTTPS') == 'off') && ($connection == 'SSL') && ($add_session_id) ) {
+    if ( (ENABLE_SSL) && ($connection == 'SSL') && ($add_session_id) ) {
       $sess = tep_session_name() . '=' . tep_session_id();
     } elseif ($add_session_id) {
       $sess = SID;
