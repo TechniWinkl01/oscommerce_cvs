@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.15 2002/11/01 04:27:01 hpdl Exp $
+  $Id: checkout_success.php,v 1.16 2002/11/01 19:39:28 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,7 @@ define('TEXT_SEE_ORDERS', 'Sie k&ouml;nnen Ihre Bestellung(en) auf der Seite <a 
 define('TEXT_CONTACT_STORE_OWNER', 'Falls Sie Fragen bez&uuml;glich Ihrer Bestellung haben, wenden Sie sich an unseren <a href="' . tep_href_link(FILENAME_CONTACT_US) . '"><u>Vertrieb</u></a>.');
 define('TEXT_THANKS_FOR_SHOPPING', 'Wir danken Ihnen f&uuml;r Ihren Online-Einkauf!');
 
-define('TABLE_HEADING_COMMENTS', 'Enter a comment for the order processed');
+define('TABLE_HEADING_COMMENTS', 'Kommentare und Hinweise zu Ihrer Bestellung an uns');
 
 define('TABLE_HEADING_DOWNLOAD_DATE', 'herunterladen m&ouml;glich bis:');
 define('TABLE_HEADING_DOWNLOAD_COUNT', 'max. Anz. Downloads');
