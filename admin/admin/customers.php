@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.51 2002/01/06 12:44:50 hpdl Exp $
+  $Id: customers.php,v 1.52 2002/01/06 13:38:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -261,7 +261,7 @@ function check_form() {
       </tr>
       <tr><?php echo tep_draw_form('customers', FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $HTTP_GET_VARS['cID'] . '&action=update', 'post', 'onSubmit="return check_form();"') . tep_draw_hidden_field('default_address_id', $cInfo->default_address_id); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
-      <tr>
+      </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
 <?php
