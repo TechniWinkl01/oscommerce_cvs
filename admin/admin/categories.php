@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.146 2003/07/11 14:40:27 hpdl Exp $
+  $Id: categories.php,v 1.147 2004/02/14 19:29:44 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -310,15 +310,18 @@
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $categories_id . '&pID=' . $products_id));
         break;
       case 'new_product_preview':
+       if (!isset($HTTP_GET_VARS['read'])) {
+
 // copy image only if modified
-        $products_image = new upload('products_image');
-        $products_image->set_destination(DIR_FS_CATALOG_IMAGES);
-        if ($products_image->parse() && $products_image->save()) {
-          $products_image_name = $products_image->filename;
-        } else {
-          $products_image_name = (isset($HTTP_POST_VARS['products_previous_image']) ? $HTTP_POST_VARS['products_previous_image'] : '');
-        }
-        break;
+          $products_image = new upload('products_image');
+          $products_image->set_destination(DIR_FS_CATALOG_IMAGES);
+          if ($products_image->parse() && $products_image->save()) {
+            $products_image_name = $products_image->filename;
+          } else {
+            $products_image_name = (isset($HTTP_POST_VARS['products_previous_image']) ? $HTTP_POST_VARS['products_previous_image'] : '');
+          }
+          break;
+      }
     }
   }
 
