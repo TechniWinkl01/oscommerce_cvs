@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.194 2001/12/07 21:14:04 wookielnx Exp $
+  $Id: application_top.php,v 1.195 2001/12/15 12:25:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,6 +12,11 @@
 
 // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
+
+// Disable use_trans_sid as tep_href_link() does this manually
+  if (function_exists('ini_set')) {
+    ini_set('session.use_trans_sid', 0);
+  }
 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
