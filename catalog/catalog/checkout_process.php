@@ -1,25 +1,9 @@
 <? include('includes/application_top.php'); ?>
 <?
-  if ($HTTP_GET_VARS['paypal_return'] != '') {
-    $arg = urldecode($HTTP_GET_VARS['paypal_return']);
-    $args = explode('|', $arg);
-    $payment = $args[0];
-    $sendto = $args[1];
-    $shipping_cost = $args[2];
-    $shipping_method = $args[3];
-    $cc_type = '';
-    $cc_owner = '';
-    $cc_number = '';
-    $cc_expires = '';
-  } else {
-    $payment = $HTTP_POST_VARS['payment'];
-    $sendto = $HTTP_POST_VARS['sendto'];
-    $shipping_method = $HTTP_POST_VARS['shipping_method'];
-    $shipping_cost = $HTTP_POST_VARS['shipping'];
-    $cc_type = $HTTP_POST_VARS['cc_type'];
-    $cc_owner = $HTTP_POST_VARS['cc_owner'];
-    $cc_number = $HTTP_POST_VARS['cc_number'];
-    $cc_expires = $HTTP_POST_VARS['cc_expires'];
+  $modules = explode(';', PAYMENT_MODULES);
+  while (list(,$payment_file) = each($modules)) {
+    $payment_action = 'PM_BEFORE_PROCESS';
+    include(DIR_PAYMENT_MODULES . $payment_file);
   }
 
   if ($sendto == '0') {
@@ -94,13 +78,15 @@
 
   $cart->reset(TRUE);
 
-// why a redirect? if the user pushes 'Refresh' on their browser, it wont process the products a second time..
-	switch($payment) {
-		case 'cc' : // Credit Card
-		case 'cod' : // Cash On Delivery
-		case 'paypal' : // PayPal
-			header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); tep_exit();
-			break;
-	}
+  $modules = explode(';', PAYMENT_MODULES);
+  while (list(,$payment_file) = each($modules)) {
+    $payment_action = '';
+    include(DIR_PAYMENT_MODULES . $payment_file);
+    if ($payment_code == $payment) {
+      $payment_action = 'PM_AFTER_PROCESS';
+      include(DIR_PAYMENT_MODULES . $payment_file);
+      break;
+    }
+  }
 ?>
 <? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>

@@ -9,22 +9,23 @@
 function check_form() {
   var error = 0;
   var error_message = "<? echo JS_ERROR; ?>";
-<?php if(PAYMENT_SUPPORT_CC) { ?>
-  var cc_owner = document.payment.cc_owner.value;
-  var cc_number = document.payment.cc_number.value;
+  var payment_value = null;
 
-  if (document.payment.payment[<?php print (PAYMENT_SUPPORT_COD + PAYMENT_SUPPORT_PAYPAL) ?>].checked) {
-    if (cc_owner == "" || cc_owner.length < <? echo CC_OWNER_MIN_LENGTH; ?>) {
-      error_message = error_message + "<? echo JS_CC_OWNER; ?>";
-      error = 1;
-    }
-
-    if (cc_number == "" || cc_number.length < <? echo CC_NUMBER_MIN_LENGTH; ?>) {
-      error_message = error_message + "<? echo JS_CC_NUMBER; ?>";
-      error = 1;
-    }
+  if (document.payment.payment.length) {
+    for (var i = 0; i < document.payment.payment.length; i++)
+      if (document.payment.payment[i].checked)
+        payment_value = document.payment.payment[i].value;
+  } else if (document.payment.payment.checked) {
+    payment_value = document.payment.payment.value;
   }
-<?php } /* cc */ ?>
+<?
+// Call payment validation
+  $modules = explode(';', PAYMENT_MODULES);
+  while (list(,$value) = each($modules)) {
+    $payment_action = 'PM_VALIDATION';
+    include(DIR_PAYMENT_MODULES . $value);
+  }
+?>
   if (error == 1) {
     alert(error_message);
     return false;
@@ -85,58 +86,35 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?php if(PAYMENT_SUPPORT_COD) { ?>
-              <tr>
-                <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CASH_ON_DELIVERY; ?>&nbsp;</font></td>
-                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="cod"
-<? if (@$HTTP_POST_VARS['cc_owner'] == '' || @$HTTP_POST_VARS['cc_expires'] == '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<?
+  $rows = 0;
+  $modules = explode(';', PAYMENT_MODULES);
+  while (list(,$value) = each($modules)) {
+    $rows ++;
+    // Get id and description from payment modules
+    $payment_action = ''; 
+    include(DIR_PAYMENT_MODULES . $value); 
+    if ($payment_enabled) {
+?>
+              <tr bgcolor="#f4f7fd">
+                <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_description; ?>&nbsp;</font></td>
+                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="<? echo $payment_code; ?>"
+                <? if ((!$payment && $rows == 1) || ($payment == $payment_code)) echo " checked"; ?>>&nbsp;</font></td>
               </tr>
-<?php } /* cod */ ?>
-<?php if(PAYMENT_SUPPORT_PAYPAL) { ?>
-              <tr>
-                <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_PAYPAL; ?>&nbsp;</font></td>
-                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="paypal">&nbsp;</font></td>
+              <tr bgcolor="#ffffff">
+                <td colspan="2">
+<? 
+      // Display extra fields for each payment
+      $payment_action = 'PM_SELECTION'; 
+      include(DIR_PAYMENT_MODULES . $value); 
+    }
+?>
+                </td>
               </tr>
-<?php } /* paypal */ ?>
-<?php if(PAYMENT_SUPPORT_CC) { ?>
-              <tr>
-                <td nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD; ?>&nbsp;</font></td>
-                <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="cc"
-<? if (@$HTTP_POST_VARS['cc_owner'] != '' || @$HTTP_POST_VARS['cc_expires_month'] != '' || @$HTTP_POST_VARS['cc_expires_year'] != '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
-              </tr>
-              <tr>
-                <td colspan="2"><br><table border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD_OWNER; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="cc_owner" value="<? echo $HTTP_POST_VARS['cc_owner']; ?>">&nbsp;</font></td>
-                  </tr>
-                  <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD_NUMBER; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="cc_number">&nbsp;</font></td>
-                  </tr>
-                  <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD_EXPIRES; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<select name="cc_expires_month">
-                      <? 
-                      for ($i=1; $i <= 12; $i++) {
-                        $selected = ($HTTP_POST_VARS['cc_expires_month']==$i) ? ' selected' : '';
-                        echo '<option' . $selected . ' value="' . sprintf('%02d', $i) . '">' . strftime("%B",mktime(0,0,0,$i,1,2000)) . '</option>'; 
-                      }
-                      ?>
-                    </select>&nbsp;/&nbsp;<select name="cc_expires_year">
-                      <? 
-                      $today=getdate(); 
-                      for ($i=$today['year']; $i < $today['year']+10; $i++) {
-                        $selected = ($HTTP_POST_VARS['cc_expires_year']==strftime("%y",mktime(0,0,0,1,1,$i))) ? ' selected' : '';
-                        echo '<option' . $selected . ' value="' . strftime("%y",mktime(0,0,0,1,1,$i)) . '">' . strftime("%Y",mktime(0,0,0,1,1,$i)) . '</option>';
-                      }
-                      ?>
-                    </select></font></td>
-                  </tr>
-                </table></td>
-              </tr>
-<?php } /* cc */ ?>
+<?
+  }
+?>
               <tr>
                 <td colspan="2"><br><? echo tep_black_line(); ?></td>
               </tr>

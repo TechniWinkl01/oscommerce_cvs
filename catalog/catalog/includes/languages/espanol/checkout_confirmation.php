@@ -26,9 +26,6 @@ define('TEXT_OWNER', 'Titular:');
 define('TEXT_NUMBER', 'Numero:');
 define('TEXT_EXPIRES', 'Caducidad:');
 define('TEXT_VAL', 'Error en Tarjeta de Credito!');
-define('TEXT_PAYPAL', 'PayPal');
-
-define('TEXT_PAYMENT', 'Pago');
 
 define('IMAGE_PROCESS', 'Procesar');
 define('IMAGE_BACK', 'Volver');

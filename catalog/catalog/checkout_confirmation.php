@@ -12,14 +12,6 @@
 ?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
-<? 
-   $cc_val = '1';  // Assume that the payment is Ok (for Non-cc payment types)
-   if ($HTTP_POST_VARS['payment'] == 'cc') {
-     $include_file = DIR_FUNCTIONS . 'ccval.php'; include(DIR_INCLUDES . 'include_once.php');
-     $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
-     $cc_val = CCValidationSolution($cc_val);
-   }
-?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -84,7 +76,6 @@
   $total_cost = 0;
   $total_tax = 0;
   $total_weight = 0;
-
   $products = $cart->get_products();
   for ($i=0; $i<sizeof($products); $i++) {
     $products_name = $products[$i]['name'];
@@ -206,102 +197,48 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  switch($HTTP_POST_VARS['payment']) {
-    case 'cod' : // Cash On Delivery
+// Validate payment data again
+  $modules = explode(';', PAYMENT_MODULES);
+  while (list(,$payment_file) = each($modules)) {
+    $payment_action = '';
+    include(DIR_PAYMENT_MODULES . $payment_file);
+    if ($payment_code == $HTTP_POST_VARS['payment']) {
       echo '          <tr>' . "\n";
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_CASH_ON_DELIVERY . '&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $payment_description . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
+      $payment_action = 'PM_CONFIRMATION';
+      include(DIR_PAYMENT_MODULES . $payment_file);
       break;
-    case 'cc' : // Credit Card
-      if ($cc_val == '1') {
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_CREDIT_CARD . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'],1,2000)) . ' / ' . strftime('%Y',mktime(0,0,0,1,1,$HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-      } else {
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_CREDIT_CARD . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'],1,2000)) . ' / ' . strftime('%Y',mktime(0,0,0,1,1,$HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-        echo '          <tr>' . "\n";
-        echo '            <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</font></td>' . "\n";
-        echo '          </tr>' . "\n";
-      }
-      break;
-    case 'paypal' : // PayPal
-      echo '          <tr>' . "\n";
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_PAYPAL . '&nbsp;</font></td>' . "\n";
-      echo '          </tr>' . "\n";
-      break;
+    }
   }
+?>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
+          </tr>
+<?
+  if (!$checkout_form_action) {
+    $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
+  }
+  echo '          <form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '"><tr>' . "\n";
+  echo '            <td align="right" nowrap>' .
+                   '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
+                   '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
+                   '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
+                   '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
+                   '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
+// Draw the checkout process button
+  $payment_action = 'PM_PROCESS_BUTTON';
+  include(DIR_PAYMENT_MODULES . $payment_file); 
+  if (!$checkout_form_submit) {
+    echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;' . "\n";
+  } else {
+    echo $checkout_form_submit;
+  }
+  echo '            </td>' . "\n";
+  echo '          </tr></form>' . "\n";
 ?>
         </table></td>
       </tr>
-      <tr>
-        <td><? echo tep_black_line(); ?></td>
-      </tr>
-<?
-  switch($HTTP_POST_VARS['payment']) {
-    case 'cc' : // Credit Card
-      if ($cc_val == '1') {
-        echo '      <form name="checkout_confirmation" method="post" action="' . tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL') . '"><tr>' . "\n";
-        echo '        <td align="right" nowrap>' .
-                        '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
-                        '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
-                        '<input type="hidden" name="shipping" value="' . $shipping_cost . '">' .
-                        '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">' .
-                        '<input type="hidden" name="cc_type" value="' . $CardName . '">' .
-                        '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                        '<input type="hidden" name="cc_number" value="' . $CardNumber . '">' .
-                        '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                        '<br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;</font></td>' . "\n";
-        echo '      </tr></form>' . "\n";
-      } else {
-        echo '      <form name="checkout_confirmation" method="post" action="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '"><tr>' . "\n";
-        echo '        <td align="right" nowrap>' .
-                        '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
-                        '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
-                        '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                        '<input type="hidden" name="cc_expires_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
-                        '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                        '<br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '&nbsp;&nbsp;</font></td>' . "\n";
-        echo '      </tr></form>' . "\n";
-      }
-      break;
-    case 'cod' : // Cash On Delivery
-      echo '      <form name="checkout_confirmation" method="post" action="' . tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL') . '"><tr>' . "\n";
-      echo '        <td align="right" nowrap>' .
-                      '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
-                      '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
-                      '<input type="hidden" name="shipping" value="' . $shipping_cost . '">' .
-                      '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">' .
-                      '<br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;</font></td>' . "\n";
-      echo '      </tr></form>' . "\n";
-      break;
-    case 'paypal' : // PayPal
-      $paypal_return = urlencode($HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . $shipping_method);
-      echo '      <form name="checkout_confirmation" method="post" action="https://secure.paypal.com/xclick/business=' . rawurlencode(PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME . ' ' . TEXT_PAYMENT) . '&amount=' . number_format(($total_cost + $total_tax),2) . '&shipping=' . number_format($shipping_cost, 2) . '&return=' . urlencode(tep_href_link(FILENAME_CHECKOUT_PROCESS, 'paypal_return=' . $paypal_return, 'SSL')) . '"><tr>' . "\n";
-      echo '        <td align="right" nowrap><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;</font></td>' . "\n";
-      echo '      </tr></form>' . "\n";
-      break;
-    }
- ?>
       <tr>
         <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_CART_CONTENTS . ' | ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></font></td>
       </tr>

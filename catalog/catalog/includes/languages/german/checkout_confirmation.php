@@ -26,9 +26,6 @@ define('TEXT_OWNER', 'Eigent&uuml;mer:');
 define('TEXT_NUMBER', 'Nummer:');
 define('TEXT_EXPIRES', 'G&uuml;ltig bis:');
 define('TEXT_VAL', 'Kredit Karte Fehler!');
-define('TEXT_PAYPAL', 'PayPal');
-
-define('TEXT_PAYMENT', 'Payment');
 
 define('IMAGE_PROCESS', 'Best&auml;tigung');
 define('IMAGE_BACK', 'Zur&uuml;ck');

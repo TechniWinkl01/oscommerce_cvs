@@ -175,20 +175,20 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  if ($order_values['payment_method'] == 'cod') {
-    echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_COD . '&nbsp;</font></td>' . "\n";
-    echo '          </tr>' . "\n";
-  } elseif ($order_values['payment_method'] == 'cc') {
-    echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_CC . '&nbsp;</font></td>' . "\n";
-    echo '          </tr>' . "\n";
-  } elseif ($order_values['payment_method'] == 'paypal') {
-    echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_PAYPAL . '&nbsp;</font></td>' . "\n";
-    echo '          </tr>' . "\n";
+  $modules = explode(';', PAYMENT_MODULES);
+  $payment_text = 'Unkown';
+  while (list(,$payment_file) = each($modules)) {
+    $payment_action = '';
+    include(DIR_PAYMENT_MODULES . $payment_file);
+    if ($payment_code == $order_values['payment_method']) {
+      $payment_text = $payment_description;
+      break;
+    }
   }
 ?>
+          <tr>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_text; ?>&nbsp;</font></td>
+          </tr>
         </table></font></td>
       </tr>
       <tr>

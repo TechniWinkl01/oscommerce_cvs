@@ -49,6 +49,10 @@ define('BOX_HEADING_SEARCH', 'Schnellsuche');
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Konfiguration');
 
+// modules box text in includes/boxes/modules.php
+define('BOX_HEADING_MODULES', 'Modules');
+define('BOX_MODULES_PAYMENT', 'Payment');
+
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Katalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');

@@ -15,6 +15,7 @@
   define('DIR_ADMIN', '/admin/');
   define('DIR_CATALOG', '/catalog/');
   define('DIR_CATALOG_IMAGES', DIR_CATALOG . 'images/');
+  define('DIR_PAYMENT_MODULES', DIR_SERVER_ROOT . DIR_CATALOG . 'includes/modules/payment/');
   define('DIR_IMAGES', DIR_ADMIN . 'images/');
   define('DIR_INCLUDES', 'includes/'); // NOTE! this is not interpreted with www/url path, instead it is a system path (eg, /usr/local/apache/htdocs/admin/includes/)
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
@@ -39,6 +40,7 @@
 // define the filenames used in the project
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');
+  define('FILENAME_PAYMENT_MODULES', 'payment_modules.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');

@@ -19,6 +19,7 @@
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
   define('DIR_CLASSES', DIR_INCLUDES . 'classes/');
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
+  define('DIR_PAYMENT_MODULES', DIR_MODULES . 'payment/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
 // who to send order confirmation emails to.. there is always one being sent to the customer, so there
@@ -75,7 +76,7 @@
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
-
+   
 // define our database connection
   define('DB_SERVER', 'exchange');
   define('DB_SERVER_USERNAME', 'mysql');
