@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.2 2004/04/08 02:32:14 hpdl Exp $
+  $Id: database.php,v 1.3 2004/07/22 16:17:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -272,7 +272,13 @@
         $cache_expire,
         $cache_data,
         $cache_read = false,
-        $debug = false;
+        $debug = false,
+        $batch_query = false,
+        $batch_number,
+        $batch_rows,
+        $batch_size,
+        $batch_to,
+        $batch_from;
 
     function osC_Database_Result(&$db_class) {
       $this->db_class =& $db_class;
@@ -280,6 +286,14 @@
 
     function setQuery($query) {
       $this->sql_query = $query;
+    }
+
+    function appendQuery($query) {
+      $this->sql_query .= ' ' . $query;
+    }
+
+    function getQuery() {
+      return $this->sql_query;
     }
 
     function setDebug($boolean) {
@@ -295,23 +309,19 @@
         $this->next();
       }
 
-      if (isset($this->result[$column])) {
-        switch ($type) {
-          case 'protected':
-            return tep_output_string_protected($this->result[$column]);
-            break;
-          case 'int':
-            return (int)$this->result[$column];
-            break;
-          case 'decimal':
-            return (float)$this->result[$column];
-            break;
-          case 'string':
-          default:
-            return $this->result[$column];
-        }
-      } else {
-        return '{' . $column . '}';
+      switch ($type) {
+        case 'protected':
+          return tep_output_string_protected($this->result[$column]);
+          break;
+        case 'int':
+          return (int)$this->result[$column];
+          break;
+        case 'decimal':
+          return (float)$this->result[$column];
+          break;
+        case 'string':
+        default:
+          return $this->result[$column];
       }
     }
 
@@ -344,6 +354,8 @@
         default:
           $sql_parse_string = $this->db_class->sql_parse_string;
 
+          $value = trim($value);
+
           if ($this->db_class->sql_parse_string_with_connection_handler === true) {
             $value = "'" . $sql_parse_string($value, $this->db_class->link) . "'";
           } else {
@@ -359,8 +371,9 @@
 
       if ($pos !== false) {
         $length = strlen($place_holder);
+        $character_after_place_holder = substr($this->sql_query, $pos+$length, 1);
 
-        if (!isset($this->sql_query[$pos+$length]) || ereg('[ ,)]', $this->sql_query[$pos+$length])) {
+        if (($character_after_place_holder === false) || ereg('[ ,)]', $character_after_place_holder)) {
           $this->sql_query = substr_replace($this->sql_query, $value, $pos, $length);
         }
       }
@@ -375,6 +388,10 @@
     }
 
     function bindRaw($place_holder, $value) {
+      $this->bindValueMixed($place_holder, $value, 'raw');
+    }
+
+    function bindTable($place_holder, $value) {
       $this->bindValueMixed($place_holder, $value, 'raw');
     }
 
@@ -409,7 +426,7 @@
         }
       }
 
-      $this = null;
+      unset($this);
     }
 
     function numberOfRows() {
@@ -452,7 +469,25 @@
       }
 
       if ($this->cache_read === false) {
-        return $this->query_handler = $this->db_class->simpleQuery($this->sql_query, $this->debug);
+        $this->query_handler = $this->db_class->simpleQuery($this->sql_query, $this->debug);
+
+        if ($this->batch_query === true) {
+          $this->batchSize();
+
+          $this->batch_to = ($this->batch_rows * $this->batch_number);
+          if ($this->batch_to > $this->batch_size) {
+            $this->batch_to = $this->batch_size;
+          }
+
+          $this->batch_from = ($this->batch_rows * ($this->batch_number - 1));
+          if ($this->batch_to == 0) {
+            $this->batch_from = 0;
+          } else {
+            $this->batch_from++;
+          }
+        }
+
+        return $this->query_handler;
       }
     }
 
@@ -467,6 +502,104 @@
     function setCache($key, $expire = 0) {
       $this->cache_key = $key;
       $this->cache_expire = $expire;
+    }
+
+    function toArray() {
+      if (!isset($this->result)) {
+        $this->next();
+      }
+
+      return $this->result;
+    }
+
+    function setBatchLimit($batch_number, $maximum_rows) {
+      $this->batch_query = true;
+      $this->batch_number = $batch_number;
+      $this->batch_rows = $maximum_rows;
+
+      $from = ($batch_number * $maximum_rows) - $maximum_rows;
+
+      $this->sql_query = $this->db_class->setBatchLimit($this->sql_query, $from, $maximum_rows);
+
+    }
+
+    function batchSize() {
+      global $osC_Database;
+
+      if (!isset($this->batch_size)) {
+
+
+        $this->batch_size = $this->db_class->batchSize($this->sql_query);
+      }
+
+      return $this->batch_size;
+    }
+
+    function displayBatchLinksTotal($text) {
+      return sprintf($text, $this->batch_from, $this->batch_to, $this->batch_size);
+    }
+
+    function displayBatchLinksPullDown($batch_keyword = 'page', $parameters = '') {
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
+
+      global $PHP_SELF;
+
+      $number_of_pages = ceil($this->batch_size / $this->batch_rows);
+
+      if ($number_of_pages > 1) {
+        $pages_array = array();
+        for ($i=1; $i<=$number_of_pages; $i++) {
+          $pages_array[] = array('id' => $i, 'text' => $i);
+        }
+
+        $get_parameter = '';
+        $hidden_parameter = '';
+        if (!empty($parameters)) {
+          $parameters = explode('&', $parameters);
+          foreach ($parameters as $parameter) {
+            list($key, $value) = explode('=', $parameter);
+
+            if ($key != $batch_keyword) {
+              $get_parameter .= $key . '=' . $value . '&';
+              $hidden_parameter .= osc_draw_hidden_field($key, $value);
+            }
+          }
+        }
+
+        $display_links = tep_draw_form($batch_keyword, basename($PHP_SELF), '', 'get');
+
+        if ($this->batch_number > 1) {
+          $display_links .= '<a href="' . tep_href_link(basename($PHP_SELF), $get_parameter . $batch_keyword . '=' . ($this->batch_number - 1)) . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>';
+        } else {
+          $display_links .= PREVNEXT_BUTTON_PREV;
+        }
+
+        $display_links .= '&nbsp;&nbsp;' . sprintf(TEXT_RESULT_PAGE, osc_draw_pull_down_menu($batch_keyword, $pages_array, $this->batch_number, 'onChange="this.form.submit();"'), $number_of_pages) . '&nbsp;&nbsp;';
+
+        if (($this->batch_number < $number_of_pages) && ($number_of_pages != 1)) {
+          $display_links .= '<a href="' . tep_href_link(basename($PHP_SELF), $get_parameter . $batch_keyword . '=' . ($this->batch_number + 1)) . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';
+        } else {
+          $display_links .= PREVNEXT_BUTTON_NEXT;
+        }
+
+//        if (SID) $display_links .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
+
+        $display_links .= $hidden_parameter . '</form>';
+      } else {
+        $display_links = sprintf(TEXT_RESULT_PAGE, 1, 1);
+      }
+
+      return $display_links;
+    }
+
+    function isBatchQuery() {
+      if ($this->batch_query === true) {
+        return true;
+      }
+
+      return false;
     }
   }
 ?>
