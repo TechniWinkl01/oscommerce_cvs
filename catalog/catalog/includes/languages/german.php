@@ -1,7 +1,7 @@
 <?
 /*
 German Text for The Exchange Project Preview Release 2.2
-Last Update: 04/18/2001
+Last Update: 26/05/2001
 Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
@@ -97,6 +97,10 @@ define('BOX_INFORMATION_PRIVACY', 'Privatsph&auml;re<br>&nbsp;und Datenschutz');
 define('BOX_INFORMATION_CONDITIONS', 'Unsere AGBs');
 define('BOX_INFORMATION_SHIPPING', 'Liefer- und<br>&nbsp;Versandkosten');
 define('BOX_INFORMATION_CONTACT', 'Kontakt');
+
+// tell a friend box text in includes/boxes/tell_a_friend.php
+define('BOX_HEADING_TELL_A_FRIEND', 'Weiterempfehlen');
+define('BOX_TELL_A_FRIEND_TEXT', 'Empfehlen Sie diesen Artikel einfach per EMail weiter.');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'Warenkorbinhalt');
