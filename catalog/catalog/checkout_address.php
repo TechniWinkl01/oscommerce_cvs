@@ -135,7 +135,7 @@
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
       echo '              <tr>' . "\n";
-      echo '                <td class="smallText">&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
+      echo '                <td class="smallText">&nbsp;0' . ($row - 1) . '.&nbsp;</td>' . "\n";
       echo tep_address_label($customer_id, $address_book_values['address_book_id'], 1, $boln, $eoln);
       echo '                <td align="right" class="smallText">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";
