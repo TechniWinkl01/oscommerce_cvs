@@ -495,7 +495,7 @@
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CATEGORIES; ?> <? echo $categories_count; ?>&nbsp;<br>&nbsp;Products: <? echo $products_count; ?>&nbsp;</font></td>
+                    <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CATEGORIES; ?> <? echo $categories_count; ?>&nbsp;<br>&nbsp;<? echo TEXT_PRODUCTS; ?>&nbsp;<? echo $products_count; ?>&nbsp;</font></td>
                     <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? if ($cPath) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, $cPath_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>&nbsp;'; ?><? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_category', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_category.gif', '103', '20', '0', IMAGE_NEW_CATEGORY) . '</a>'; ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_product.gif', '103', '20', '0', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</font></td>
                   </tr>
                 </table></td>
