@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.20 2002/02/01 02:23:47 hpdl Exp $
+# $Id: oscommerce.sql,v 1.21 2002/02/02 13:19:40 harley_vb Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -595,10 +595,10 @@ INSERT INTO categories_description VALUES ( '18', '3', 'Simulacion');
 INSERT INTO categories_description VALUES ( '19', '3', 'Accion');
 INSERT INTO categories_description VALUES ( '20', '3', 'Estrategia');
 
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'The Exchange Project', 'The name of my store', '1', '1', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'osCommerce', 'The name of my store', '1', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Owner', 'STORE_OWNER', 'Harald Ponce de Leon', 'The name of my store owner', '1', '2', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail Address', 'STORE_OWNER_EMAIL_ADDRESS', 'root@localhost', 'The e-mail address of my store owner', '1', '3', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail From', 'EMAIL_FROM', 'The Exchange Project <root@localhost>', 'The e-mail address used in (sent) e-mails', '1', '4', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail From', 'EMAIL_FROM', 'osCommerce <root@localhost>', 'The e-mail address used in (sent) e-mails', '1', '4', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Country', 'STORE_COUNTRY', '81', 'The country my store is located in', '1', '6', 'tep_get_country_name', 'tep_cfg_pull_down_country_list(', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Zone', 'STORE_ZONE', '88', 'The zone my store is located in', '1', '7', 'tep_get_zone_name', 'tep_cfg_pull_down_zone_list(', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Expected Sort Order', 'EXPECTED_PRODUCTS_SORT', 'desc', 'This is the sort order used in the expected products box.', '1', '8', 'tep_cfg_select_option(array(\'asc\', \'desc\'), ', now());
@@ -788,7 +788,7 @@ INSERT INTO countries VALUES (70,'Faroe Islands','FO','FRO','1');
 INSERT INTO countries VALUES (71,'Fiji','FJ','FJI','1');
 INSERT INTO countries VALUES (72,'Finland','FI','FIN','1');
 INSERT INTO countries VALUES (73,'France','FR','FRA','1');
-INSERT INTO countries VALUES (74,'France, MEtropolitan','FX','FXX','1');
+INSERT INTO countries VALUES (74,'France, Metropolitan','FX','FXX','1');
 INSERT INTO countries VALUES (75,'French Guiana','GF','GUF','1');
 INSERT INTO countries VALUES (76,'French Polynesia','PF','PYF','1');
 INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF','1');
@@ -1425,4 +1425,3 @@ INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Vizcaya',
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zamora','Zamora');
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zaragoza','Zaragoza');
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Melilla','Melilla');
-
