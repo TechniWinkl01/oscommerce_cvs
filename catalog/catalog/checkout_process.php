@@ -103,5 +103,6 @@
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
+  header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));  
 ?>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

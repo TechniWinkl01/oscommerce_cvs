@@ -178,6 +178,9 @@
 ?>
         </table></td>
       </tr>
+<?
+   if (MODULE_PAYMENT_INSTALLED) {
+?>
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
@@ -192,6 +195,9 @@
 ?>
         </table></td>
       </tr>
+<?
+  }
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?

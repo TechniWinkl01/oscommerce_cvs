@@ -115,6 +115,9 @@ function check_form() {
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+   if (MODULE_PAYMENT_INSTALLED) {
+?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
@@ -134,24 +137,27 @@ function check_form() {
 ?>
             </table></td>
           </tr>
-      <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+  }
+?>
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><? echo tep_black_line(); ?></td>
+              </tr>
+              <tr>
+                <td class="main" nowrap><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+              </tr>
+            </table></td>
           </tr>
-          <tr>
-            <td><? echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td class="main" nowrap><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
 <?
    if (MODULE_SHIPPING_INSTALLED) {
 ?>
           <tr>          
-            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td colspan="2" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
                 <td colspan=2 align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>

@@ -185,6 +185,9 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+   if (MODULE_PAYMENT_INSTALLED) {
+?>
           <tr>
             <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
           </tr>
@@ -193,8 +196,8 @@
           </tr>
 <?
 // load the confirmation function from the payment modules
-  $payment_modules->confirmation();
-
+    $payment_modules->confirmation();
+  }
   if ($comments) {
 ?>
         <tr>

@@ -76,10 +76,9 @@
   Description: Things to do after processing the order
   Called from: checkout_process.php
   Examples: 
-   - Redirect the user to the success page
+   - Email part of the credit number
 */
       }
-      header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); 
     }
 
     function check() {

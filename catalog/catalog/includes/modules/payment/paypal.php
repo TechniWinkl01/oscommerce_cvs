@@ -56,9 +56,7 @@
     }
 
     function after_process() {
-      if ($this->enabled) {
-        header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
-      }
+	  return false;
     }
 
     function check() {
