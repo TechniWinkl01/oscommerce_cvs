@@ -16,7 +16,7 @@
     define('SHIPPING_FLAT_WAY', 'Beste Weise');
     define('SHIPPING_ITEM_NAME', 'Pro Stück');
     define('SHIPPING_ITEM_WAY', 'Beste Weise');
-  } elseif ($language == 'spanish') {
+  } elseif ($language == 'espanol') {
     define('SHIPPING_FLAT_NAME', 'Solo Coste');
     define('SHIPPING_FLAT_WAY', 'La Mejor Manera');
     define('SHIPPING_ITEM_NAME', 'Por artículo');
