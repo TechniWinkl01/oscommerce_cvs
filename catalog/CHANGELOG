@@ -1,7 +1,80 @@
-$Id: CHANGELOG,v 1.20 2003/02/17 16:37:16 hpdl Exp $
+$Id: CHANGELOG,v 1.21 2003/06/11 17:56:52 hpdl Exp $
 
 osCommerce Changelog
 Copyright (c) 2003 osCommerce
+
+------------------------------------------------------------------------------
+xx/xx/2003 osCommerce 2.2 Milestone 2
+------------------------------------------------------------------------------
+
+ * Internally set PHPs error reporting to E_ALL to remove all notice messages
+   on the Catalog module.
+
+ * Renamed default.php to index.php.
+
+ * Sanitize all user input on the Catalog module before inserting it into the
+   database.
+
+ * Updated the layout of the shopping cart page.
+
+ * Fixed linefeed issues with emails.
+
+ * Modules are now installed at the Administration Tool via Install/Remove
+   buttons located in the infobox; no longer through clicking on the status
+   icons. This is to be consistent with other areas of the Administration
+   Tool.
+
+ * Updated the layout of the product listing page.
+
+ * Updated the splitPageResults class to use the benefits a class provides.
+
+ * Realized the My Account Proposal as discussed on the developers forum
+   channel.
+
+ * Introduced the message stack class used on the Administration Tool to the
+   Catalog module. It has been extended to store messages in groups allowing
+   to display the messages in groups at separate sections of the page.
+
+ * Removed old European currencies (Deutsche Mark and Spanish Peseta)
+
+ * Update the default configuration parameters to meet the needs of USA (it
+   was previously meeting a mix of USA and European regulations)
+
+ * IP Address and Client Browser User Agent validations implemented for the
+   Security And Privacy Proposal.
+
+ * Session ID Regeneration feature implemented as part of the Security And
+   Privacy Proposal.
+
+ * New file upload class implemented.
+
+ * Search Engine Spider Session Prevention feature implemented as part of the
+   Security And Privacy Proposal.
+
+ * Manually round numbers in the tep_round() function, bypassing PHPs round()
+   and number_format() functions.
+
+   The PHP round() and number_format() functions return different results when
+   strings or floats are being processed.
+
+ * Added data validation to the Customers section on the Administration Tool.
+
+ * Tax Compounding logic corrected.
+
+ * Cross site scripting vulnerabilities fixed.
+
+ * Moved filename and database table definitions from application_top.php to
+   their own files.
+
+ * The Tax Priority can now be inserted when creating new tax rates in the
+   Administration Tool.
+
+ * Implement the force cookie usage and ssl_session_id validations features
+   from the Security and Privacy Proposal.
+
+ * Virtual products tax update (virtual products were not being updated as no
+   shipping address is in use. Instead, the billing address is used to base
+   the taxes on.
 
 ------------------------------------------------------------------------------
 02/17/2003 osCommerce 2.2 Milestone 1
