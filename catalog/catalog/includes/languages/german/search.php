@@ -12,4 +12,6 @@ define('TABLE_HEADING_PRODUCTS_NAME', 'Produkt Name');
 define('TABLE_HEADING_PRODUCTS_PRICE', 'Produkt Preis');
 define('TEXT_FOUND_MATCHES', '%s Produkte gefunden..');
 define('TEXT_MAXIMUM_SEARCH_RESULTS_REACHED', ' maximum Suchergebnis erreicht');
+define('TEXT_RESULT_PAGE', '<b>Resultat Seite:</b>');
+define('TEXT_PRODUCTS', 'Produkte Fanden: <B>%d</B> to <B>%d</B> of <B>%d</B>');
 ?>

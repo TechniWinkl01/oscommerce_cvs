@@ -154,4 +154,18 @@ define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">b
 define('ENTRY_PASSWORD_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">ben&ouml;tigt</font></small>');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
+
+// constants for use in tep_prev_next_display function
+// 
+define('PREVNEXT_TITLE_FIRST_PAGE', 'Erste Seite');
+define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Vorige Seite');
+define('PREVNEXT_TITLE_NEXT_PAGE', 'Folgende Seite');
+define('PREVNEXT_TITLE_LAST_PAGE', 'Letzte Seite');
+define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');
+define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehendes Set von %d Seiten');
+define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Folgendes Set von %d Seiten');
+define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ZUERST');
+define('PREVNEXT_BUTTON_PREV', '&lt;VORHERGEHEND');
+define('PREVNEXT_BUTTON_NEXT', 'ZUNÄCHST&gt;');
+define('PREVNEXT_BUTTON_LAST', 'LETZTES&gt;&gt;');
 ?>
