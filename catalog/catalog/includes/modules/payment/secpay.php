@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.14 2001/11/22 20:02:32 dgw_ Exp $
+  $Id: secpay.php,v 1.15 2001/12/28 15:17:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,7 +41,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currencies;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $total_cost, $total_tax, $currencies;
 
       $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
                                tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .

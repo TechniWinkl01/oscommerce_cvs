@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.12 2001/12/03 23:30:44 project3000 Exp $
+  $Id: itransact_split.php,v 1.13 2001/12/28 15:17:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,7 +45,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $total_tax, $shipping_cost, $comments, $total_cost, $customer_id, $products, $languages_id;
+      global $HTTP_POST_VARS, $total_tax, $shipping_cost, $total_cost, $customer_id, $products, $languages_id;
 
       $customer_query = tep_db_query("select customers_firstname, customers_lastname, customers_telephone, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
       $customer = tep_db_fetch_array($customer_query);
@@ -73,7 +73,6 @@
       $process_button_string = tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
                                tep_draw_hidden_field('passback[]', 'prod') .
                                tep_draw_hidden_field('passback[]', 'payment') .
-                               tep_draw_hidden_field('passback[]', 'comments') .
                                tep_draw_hidden_field('passback[]', 'shipping_cost') .
                                tep_draw_hidden_field('passback[]', 'shipping_method') .
                                tep_draw_hidden_field('passback[]', 'vendor_id') .
