@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.97 2003/07/01 14:34:54 hpdl Exp $
+  $Id: product_info.php,v 1.98 2003/09/02 18:52:33 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -162,7 +162,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-    $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "'");
+    $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$languages_id . "'");
     $reviews = tep_db_fetch_array($reviews_query);
     if ($reviews['count'] > 0) {
 ?>
