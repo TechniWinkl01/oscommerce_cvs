@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.4 2002/03/31 16:47:46 hpdl Exp $
+  $Id: install_4.php,v 1.5 2002/08/06 11:34:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
 <p><b>Step 2: osCommerce Configuration</b></p>
 
 <?php
-  if ( (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '/includes/configure.php')) || (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/includes/configure.php')) ) {
+  if ( ( (file_exists($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '/includes/configure.php')) && (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '/includes/configure.php')) ) || ( (file_exists($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/includes/configure.php')) && (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/includes/configure.php')) ) ) {
 ?>
 
 <p>The following error has occurred:</p>
@@ -26,7 +26,9 @@
 <ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG']; ?>/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul>
 <ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN']; ?>/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p>
 
-<p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i></p>
+<p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i>.</p>
+
+<p class="noteBox">If you are running this installation procedure under a Microsoft Windows environment, try renaming the existing configuration file so a new file can be created.</p>
 
 <form name="install" action="install.php?step=4" method="post">
 
@@ -56,7 +58,6 @@
 
 <?php
   } else {
-    $http_host = (($HTTP_HOST) ? $HTTP_HOST : $HTTP_SERVER_VARS['HTTP_HOST']);
 ?>
 
 <form name="install" action="install.php?step=5" method="post">
