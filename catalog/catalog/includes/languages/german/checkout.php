@@ -20,6 +20,7 @@ define('TEXT_CURRENT_CONNECT_STATUS_NONSSL', 'Aktueller Status (klick zu &auml;n
 define('TEXT_CURRENT_CONNECT_STATUS_SSL', 'Aktueller Status (klick zu &auml;ndern)');
 define('NO_SHIPPING_OR_TAX_TEXT', 'Anmerkung: Versand und Steuer sind separate Summen und werden am Ende angezeigt.');
 
+define('IMAGE_MAIN_MENU', 'Startseite');
 define('IMAGE_SECURE_SERVER', 'Sicherheits-Server');
 define('IMAGE_UNSECURE_SERVER', 'Standard-Server');
 define('IMAGE_NEXT', 'Weiter');

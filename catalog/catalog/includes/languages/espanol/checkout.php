@@ -20,6 +20,7 @@ define('TEXT_CURRENT_CONNECT_STATUS_NONSSL', 'Estado Actual (haga click para mod
 define('TEXT_CURRENT_CONNECT_STATUS_SSL', 'Estado Actual (haga click para modificar)');
 define('NO_SHIPPING_OR_TAX_TEXT', '<font color="#ff0000"><small><b>NOTA:</b></small></font> Puede haber gastos de envio e impuestos adicionales de los que será informado antes de terminar el proceso.');
 
+define('IMAGE_MAIN_MENU', 'Menu Principal');
 define('IMAGE_SECURE_SERVER', 'Servidor Seguro');
 define('IMAGE_UNSECURE_SERVER', 'Servidor no Seguro');
 define('IMAGE_NEXT', 'Siguiente');
