@@ -6,6 +6,8 @@ A:hover { color:#AABBDD; text-decoration:underline; }
 A:hover.blacklink { color:#000000; text-decoration:underline; }
 A:hover.bluelink { color:#0000FF; background-color: #FFFF33; text-decoration:underline; }
 .boxborder { border-color:#000000; border-style:solid; border-width:1; }
+.specialPrice { color: #ff0000; }
+.oldPrice { text-decoration: line-through; }
 
 TR.header {
 	background-color: #aabbdd;
