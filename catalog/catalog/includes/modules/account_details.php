@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.11 2001/11/24 16:34:24 dgw_ Exp $
+  $Id: account_details.php,v 1.12 2002/01/11 18:45:43 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -69,12 +69,12 @@
     echo $account['customers_lastname'];
   } elseif ($error) {
     if ($entry_lastname_error) {
-      echo tep_draw_input_field('lastname') . '&nbsp;' . ENTRY_FIRST_NAME_ERROR;
+      echo tep_draw_input_field('lastname') . '&nbsp;' . ENTRY_LAST_NAME_ERROR;
     } else {
       echo $HTTP_POST_VARS['lastname'] . tep_draw_hidden_field('lastname');
     }
   } else {
-    echo tep_draw_input_field('lastname', $account['customers_lastname']) . '&nbsp;' . ENTRY_FIRST_NAME_TEXT;
+    echo tep_draw_input_field('lastname', $account['customers_lastname']) . '&nbsp;' . ENTRY_LAST_NAME_TEXT;
   }
 ?></td>
           </tr>
