@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.26 2001/11/22 20:02:32 dgw_ Exp $
+  $Id: authorizenet.php,v 1.27 2001/12/18 11:58:52 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -87,7 +87,7 @@
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
 
-      $checkout_form_action = 'https://www.authorize.net/gateway/transact.dll';
+      $checkout_form_action = 'https://secure.authorize.net/gateway/transact.dll';
 
       return $confirmation_string;
     }
