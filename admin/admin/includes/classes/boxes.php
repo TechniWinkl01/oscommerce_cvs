@@ -38,7 +38,6 @@
 
 // class constructor
     function infoBox($contents) {
-      $this->table_data_parameters = 'bgcolor="' . BOX_CONTENT_BACKGROUND_COLOR . '"';
       $this->font_style = FONT_STYLE_INFO_BOX_BODY;
 
       $this->tableBox($contents);
@@ -72,4 +71,17 @@
     }
 
   }
+
+  class navigationBox extends tableBox {
+
+// class constructor
+    function navigationBox($contents) {
+      $this->table_data_parameters = 'bgcolor="' . BOX_CONTENT_BACKGROUND_COLOR . '"';
+      $this->font_style = FONT_STYLE_INFO_BOX_BODY;
+
+      $this->tableBox($contents);
+    }
+
+  }
+
 ?>

@@ -16,7 +16,7 @@
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_TAX_CLASSES, '', 'NONSSL') . '">' . BOX_TAXES_TAX_CLASSES . '</a><br>' .
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_TAX_RATES, '', 'NONSSL') . '">' . BOX_TAXES_TAX_RATES . '</a>'
                               );
-  new infoBox($info_box_contents);
+  new navigationBox($info_box_contents);
 ?>
             </td>
           </tr>

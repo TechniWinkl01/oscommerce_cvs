@@ -14,7 +14,7 @@
                                'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, '', 'NONSSL') . '">' . BOX_LOCALIZATION_CURRENCIES . '</a><br>' .
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, '', 'NONSSL') . '">' . BOX_LOCALIZATION_LANGUAGES . '</a>'
                               );
-  new infoBox($info_box_contents);
+  new navigationBox($info_box_contents);
 ?>
             </td>
           </tr>

@@ -19,7 +19,7 @@
                                'params' => 'nowrap',
                                'text'  => $cfg_groups
                               );
-  new infoBox($info_box_contents);
+  new navigationBox($info_box_contents);
 ?>
             </td>
           </tr>

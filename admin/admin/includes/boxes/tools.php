@@ -14,7 +14,7 @@
                                'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, '', 'NONSSL') . '">' . BOX_TOOLS_BACKUP . '</a><br>' .
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_WHOS_ONLINE, '', 'NONSSL') . '">' . BOX_TOOLS_WHOS_ONLINE . '</a>'
                               );
-  new infoBox($info_box_contents);
+  new navigationBox($info_box_contents);
 ?>
             </td>
           </tr>

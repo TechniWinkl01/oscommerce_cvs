@@ -18,7 +18,7 @@
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '">' . BOX_CATALOG_SPECIALS . '</a><br>' .
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, '', 'NONSSL') . '">' . BOX_CATALOG_PRODUCTS_EXPECTED . '</a>'
                               );
-  new infoBox($info_box_contents);
+  new navigationBox($info_box_contents);
 ?>
             </td>
           </tr>
