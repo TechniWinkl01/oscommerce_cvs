@@ -1,22 +1,19 @@
 <?php
 /*
-  $Id: object_info.php,v 1.6 2003/06/20 16:23:08 hpdl Exp $
+  $Id: object_info.php,v 1.7 2004/07/22 23:07:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   class objectInfo {
-
-// class constructor
     function objectInfo($object_array) {
-      reset($object_array);
-      while (list($key, $value) = each($object_array)) {
-        $this->$key = tep_db_prepare_input($value);
+      foreach ($object_array as $key => $value) {
+        $this->$key = $value;
       }
     }
   }
