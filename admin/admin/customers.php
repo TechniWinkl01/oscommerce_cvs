@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.70 2002/03/28 15:42:04 hpdl Exp $
+  $Id: customers.php,v 1.71 2002/04/29 15:12:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -365,7 +365,7 @@ function check_form() {
 ?>
           <tr>
             <td class="main"><?php echo ENTRY_STATE; ?></td>
-            <td class="main"><?php echo tep_draw_pull_down_menu('entry_zone_id', tep_prepare_country_zones_pull_down($cInfo->entry_country_id), $cInfo->entry_zone_id, 'onChange="resetStateText(this.form)";'); ?></td>
+            <td class="main"><?php echo tep_draw_pull_down_menu('entry_zone_id', tep_prepare_country_zones_pull_down($cInfo->entry_country_id), $cInfo->entry_zone_id, 'onChange="resetStateText(this.form);"'); ?></td>
           </tr>
           <tr>
             <td class="main">&nbsp;</td>
