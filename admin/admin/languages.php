@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.26 2002/01/26 17:15:43 hpdl Exp $
+  $Id: languages.php,v 1.27 2002/03/05 18:32:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,7 +84,7 @@
     case 'deleteconfirm':
       $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
 
-      $lng_query = tep_db_query("select l.languages_id from languages l, configuration cfg where cfg.configuration_key = 'DEFAULT_CURRENCY' and cfg.configuration_value = l.code");
+      $lng_query = tep_db_query("select l.languages_id from " . TABLE_LANGUAGES . " l, configuration cfg where cfg.configuration_key = 'DEFAULT_CURRENCY' and cfg.configuration_value = l.code");
       $lng = tep_db_fetch_array($lng_query);
       if ($lng['languages_id'] == $lID) {
         tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
@@ -103,7 +103,7 @@
     case 'delete':
       $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
 
-      $lng_query = tep_db_query("select code from languages where languages_id = '" . tep_db_input($lID) . "'");
+      $lng_query = tep_db_query("select code from " . TABLE_LANGUAGES . " where languages_id = '" . tep_db_input($lID) . "'");
       $lng = tep_db_fetch_array($lng_query);
 
       $remove_language = true;
