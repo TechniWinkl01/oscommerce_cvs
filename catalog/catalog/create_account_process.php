@@ -280,11 +280,11 @@
 ?>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<?
-    echo $state . '<input type="hidden" name="state" value="' . $state . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<? echo ($country_error == 1) ? '' : tep_get_zone_name($HTTP_POST_VARS['country'], $zone_id, $state) . '<input type="hidden" name="state" value="' . $state . '"><input type="hidden" name="zone_id" value="' . $zone_id . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
           </tr>
 <?
    } else {
+     echo '<input type="hidden" name="zone_id" value="">';
      echo '<input type="hidden" name="state" value="">';
    }
 ?>
