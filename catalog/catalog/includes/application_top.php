@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.146 2001/06/11 22:40:31 hpdl Exp $
+  $Id: application_top.php,v 1.147 2001/06/12 20:54:08 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -79,7 +79,6 @@
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
   define('FILENAME_DEFAULT', 'default.php');
-  define('FILENAME_EMAILPRODUCT', 'emailproduct.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');
   define('FILENAME_LOGIN_CREATE', 'login_create.php');
@@ -90,16 +89,17 @@
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
   define('FILENAME_PRIVACY', 'privacy.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
+  define('FILENAME_PRODUCT_LISTING', 'product_listing.php');
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
   define('FILENAME_PRODUCT_REVIEWS_WRITE', 'product_reviews_write.php');
   define('FILENAME_REDIRECT', 'redirect.php');
   define('FILENAME_REVIEWS', 'reviews.php');
+  define('FILENAME_SHIPPING', 'shipping.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
-  define('FILENAME_SHIPPING', 'shipping.php');
+  define('FILENAME_TELL_A_FRIEND', 'tell_a_friend.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
-  define('FILENAME_PRODUCT_LISTING', 'product_listing.php');
 
 // define the database table names used in the project
   define('TABLE_ADDRESS_BOOK', 'address_book');

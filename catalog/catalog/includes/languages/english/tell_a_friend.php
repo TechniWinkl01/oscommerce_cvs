@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: emailproduct.php,v 1.3 2001/05/26 16:45:22 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.1 2001/06/12 20:54:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org

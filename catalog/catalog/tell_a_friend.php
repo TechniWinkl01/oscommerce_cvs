@@ -1,15 +1,15 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_EMAILPRODUCT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_TELL_A_FRIEND; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <?
   if (tep_session_is_registered('customer_id')) {
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
   } elseif (EMAILPRODUCT_GUEST == false) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_EMAILPRODUCT . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_TELL_A_FRIEND . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'NONSSL'));
     tep_exit();
   }
 ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_EMAILPRODUCT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
+<? $location = ' : <a href="' . tep_href_link(FILENAME_TELL_A_FRIEND, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -81,7 +81,7 @@
     $product_info = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
     $product_info_values = tep_db_fetch_array($product_info);
 ?>
-      <form action="<? echo tep_href_link(FILENAME_EMAILPRODUCT, 'action=process', 'NONSSL'); ?>" method="post"><input type="hidden" name="products_id" value="<? echo $product_info_values['products_id']; ?>"><input type="hidden" name="products_name" value="<? echo $product_info_values['products_name']; ?>">
+      <form action="<? echo tep_href_link(FILENAME_TELL_A_FRIEND, 'action=process', 'NONSSL'); ?>" method="post"><input type="hidden" name="products_id" value="<? echo $product_info_values['products_id']; ?>"><input type="hidden" name="products_name" value="<? echo $product_info_values['products_name']; ?>">
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
