@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.45 2002/07/21 23:38:57 hpdl Exp $
+  $Id: product_reviews.php,v 1.46 2003/02/06 14:11:51 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,8 @@
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL'));
 
-  $product = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  $product = tep_db_query("select pd.products_name from " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_PRODUCTS . " p on pd.products_id = p.products_id where pd.language_id = '" . $languages_id . "' and p.products_status = '1' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  if (tep_db_num_rows($product) == 0) tep_redirect(tep_href_link(FILENAME_REVIEWS, '', 'NONSSL'));
   $product_info_values = tep_db_fetch_array($product);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">

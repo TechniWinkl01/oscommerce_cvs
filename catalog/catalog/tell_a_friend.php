@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.28 2002/10/08 10:42:32 project3000 Exp $
+  $Id: tell_a_friend.php,v 1.29 2003/02/06 14:11:51 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,12 +24,11 @@
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  if (!$HTTP_GET_VARS['products_id']) {
-    tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
+  $valid_product = false;
+  if (tep_not_null($HTTP_GET_VARS['products_id'])) {
+    $product_info = tep_db_query("select pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
+    $valid_product = (tep_db_num_rows($product_info) > 0);
   }
-
-  $product_info = tep_db_query("select pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
-  $product_info_values = tep_db_fetch_array($product_info);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -56,6 +55,22 @@
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<?php
+  if ($valid_product == false) {
+?>
+          <tr>
+            <td class="pageHeading"><?php echo HEADING_TITLE_ERROR; ?></td>
+          </tr>
+          <tr>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+          </tr>
+          <tr>
+            <td class="main"><?php echo ERROR_INVALID_PRODUCT; ?></td>
+          </tr>
+<?php
+  } else {
+    $product_info_values = tep_db_fetch_array($product_info);
+?>
           <tr>
             <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_info_values['products_name']); ?></td>
             <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', sprintf(HEADING_TITLE, $product_info_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
@@ -66,23 +81,23 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-  if ($HTTP_GET_VARS['action'] == 'process') {
-    if (tep_session_is_registered('customer_id')) {
-      $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
-      $from_email_address = $account_values['customers_email_address'];
-    } else {
-      $from_name = $HTTP_POST_VARS['yourname'];
-      $from_email_address = $HTTP_POST_VARS['from'];
-    }
+    if ($HTTP_GET_VARS['action'] == 'process') {
+      if (tep_session_is_registered('customer_id')) {
+        $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
+        $from_email_address = $account_values['customers_email_address'];
+      } else {
+        $from_name = $HTTP_POST_VARS['yourname'];
+        $from_email_address = $HTTP_POST_VARS['from'];
+      }
 
-    $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $from_name, STORE_NAME);
-    $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['friendname'], $from_name, $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
-    if ($HTTP_POST_VARS['yourmessage'] != '') {
-      $email_body .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
-    }
-    $email_body .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $HTTP_GET_VARS['products_id']) . "\n\n";
-    $email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
-    tep_mail($HTTP_POST_VARS['friendname'], $HTTP_POST_VARS['friendemail'], $email_subject, stripslashes($email_body), '', $from_email_address);
+      $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $from_name, STORE_NAME);
+      $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['friendname'], $from_name, $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
+      if ($HTTP_POST_VARS['yourmessage'] != '') {
+        $email_body .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
+      }
+      $email_body .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $HTTP_GET_VARS['products_id']) . "\n\n";
+      $email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
+      tep_mail($HTTP_POST_VARS['friendname'], $HTTP_POST_VARS['friendemail'], $email_subject, stripslashes($email_body), '', $from_email_address);
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -95,14 +110,14 @@
         <td align="right" class="main"><br><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
       </tr>
 <?php
-  } else {
-    if (tep_session_is_registered('customer_id')) {
-      $your_name_prompt = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
-      $your_email_address_prompt = $account_values['customers_email_address'];
     } else {
-      $your_name_prompt = tep_draw_input_field('yourname', $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname']);
-      $your_email_address_prompt = tep_draw_input_field('from', $account_values['customers_email_address']);
-    }
+      if (tep_session_is_registered('customer_id')) {
+        $your_name_prompt = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
+        $your_email_address_prompt = $account_values['customers_email_address'];
+      } else {
+        $your_name_prompt = tep_draw_input_field('yourname', $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname']);
+        $your_email_address_prompt = tep_draw_input_field('from', $account_values['customers_email_address']);
+      }
 ?>
       <tr>
         <td><form <?php echo 'action="' . tep_href_link(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '"'; ?> method="post"><input type="hidden" name="products_name" value="<?php echo $product_info_values['products_name']; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -162,11 +177,13 @@
             <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
             <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
-        </table></form></td>
-      </tr>
+        </form>
 <?php
+    }
   }
 ?>
+        </table></td>
+      </tr>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">

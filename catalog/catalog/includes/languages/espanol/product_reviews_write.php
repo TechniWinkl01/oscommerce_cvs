@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.6 2002/11/12 00:45:21 dgw_ Exp $
+  $Id: product_reviews_write.php,v 1.7 2003/02/06 14:11:52 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,4 +19,5 @@ define('SUB_TITLE_RATING', 'Evaluacion:');
 define('TEXT_NO_HTML', '<small><font color="#ff0000"><b>NOTA:</b></font></small>&nbsp;No se traduce el codigo HTML!');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>MALO</b></font></small>');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>BUENO</b></font></small>');
+define('ERROR_INVALID_PRODUCT', 'That product is no longer available. Please try again.');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.6 2002/11/12 00:45:21 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.7 2003/02/06 14:11:52 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,8 @@
 
 define('NAVBAR_TITLE', 'Enviar a un Amigo');
 define('HEADING_TITLE', 'Enviar informacion sobre \'%s\' un amigo');
+define('HEADING_TITLE_ERROR', 'Enviar a un amigo');
+define('ERROR_INVALID_PRODUCT', 'That product is no longer available. Please try again.');
 
 define('FORM_TITLE_CUSTOMER_DETAILS', 'Tus Datos');
 define('FORM_TITLE_FRIEND_DETAILS', 'Los Datos De Tu Amigo');
