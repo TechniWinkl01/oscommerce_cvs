@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.69 2001/09/12 21:32:41 dwatkins Exp $
+  $Id: checkout_process.php,v 1.70 2001/09/13 13:00:08 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -103,7 +103,7 @@
     }
     $total_cost += $total_products_price;
 
-    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . $currencies->format($total_products_price * $products[$i]['quantity'])) . $products_ordered_attributes . "\n";
+    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . $currencies->format($total_products_price * $products[$i]['quantity']) . $products_ordered_attributes . "\n";
   }
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
