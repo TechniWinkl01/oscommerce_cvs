@@ -900,4 +900,25 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     return $field;
   }
+
+////
+// Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
+  function tep_draw_selection_field($name, $type, $value = '', $checked = false) {
+    $selection = '<input type="' . $type . '" name="' . $name . '"';
+    if ($value != '') {
+      $selection .= ' value="' . $value . '"';
+    }
+    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) ) {
+      $selection .= ' CHECKED';
+    }
+    $selection .= '>';
+
+    return $selection;
+  }
+
+////
+// Output a form checkbox field
+  function tep_draw_checkbox_field($name, $value = '', $checked = false) {
+    return tep_draw_selection_field($name, 'checkbox', $value, $checked);
+  }
 ?>

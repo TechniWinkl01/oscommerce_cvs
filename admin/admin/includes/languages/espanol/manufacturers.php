@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.6 2001/09/19 11:12:58 mbs Exp $
+  $Id: manufacturers.php,v 1.7 2001/09/23 15:32:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -32,6 +32,7 @@ define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Imagen Fabricante:');
 define('TEXT_EDIT_MANUFACTURERS_URL', 'Fabricante URL:');
 
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fabricante?');
+define('TEXT_DELETE_PRODUCTS', 'Delete products from this manufacturer? (including product reviews, products on special, upcoming products)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Todavia hay productos que pertenecen a este fabricante!');
 
 define('ERROR_ACTION', 'HA OCURRIDO UN ERROR! ULTIMA ACCION : ' . $HTTP_GET_VARS['error']);

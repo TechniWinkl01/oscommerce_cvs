@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.7 2001/09/19 11:12:03 mbs Exp $
+  $Id: manufacturers.php,v 1.8 2001/09/23 15:32:45 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -32,6 +32,7 @@ define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Manufacturers Image:');
 define('TEXT_EDIT_MANUFACTURERS_URL', 'Manufacturers URL:');
 
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this manufacturer?');
+define('TEXT_DELETE_PRODUCTS', 'Delete products from this manufacturer? (including product reviews, products on special, upcoming products)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNING:</b> There are %s products still linked to this manufacturer!');
 
 define('ERROR_ACTION', 'AN ERROR HAS OCCURED! LAST ACTION : ' . $HTTP_GET_VARS['error']);

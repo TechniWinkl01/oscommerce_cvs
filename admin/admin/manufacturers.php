@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.31 2001/09/22 15:57:51 hpdl Exp $
+  $Id: manufacturers.php,v 1.32 2001/09/23 15:32:38 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -33,7 +33,32 @@
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
-      tep_db_query("update products set manufacturers_id = '' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+
+      if ($HTTP_POST_VARS['delete_products'] == 'on') {
+// retreive all products from the manufacturer
+        $products_query = tep_db_query("select products_id, products_image from " . TABLE_PRODUCTS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+        while ($products = tep_db_fetch_array($products_query)) {
+          tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $products['products_id'] . "'");
+          tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . $products['products_id'] . "'");
+          tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . $products['products_id'] . "'");
+
+// delete product reviews
+          $reviews_query = tep_db_query("select reviews_id from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
+          while ($reviews = tep_db_fetch_array($reviews_query)) {
+            tep_db_query("delete from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . $reviews['reviews_id'] . "'");
+          }
+          tep_db_query("delete from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
+
+// delete product image
+          if (file_exists(DIR_FS_CATALOG . $products['products_image'])) {
+            @unlink(DIR_FS_CATALOG . $products['products_image']);
+          }
+        }
+        tep_db_query("delete from " . TABLE_PRODUCTS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      } else {
+        tep_db_query("update products set manufacturers_id = '' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      }
+
       header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
@@ -231,7 +256,10 @@
 
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->name . '</b>');
-      if ($mInfo->products_count > 0) $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $mInfo->products_count));
+      if ($mInfo->products_count > 0) {
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_draw_checkbox_field('delete_products') . ' ' . TEXT_DELETE_PRODUCTS);
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $mInfo->products_count));
+      }
       $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } else {
       $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
