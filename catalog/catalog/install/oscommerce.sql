@@ -1,9 +1,9 @@
-# $Id: oscommerce.sql,v 1.19 2002/02/01 02:23:10 hpdl Exp $
+# $Id: oscommerce.sql,v 1.20 2002/02/01 02:23:47 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
 #
-# Copyright (c) 2001 osCommerce
+# Copyright (c) 2002 osCommerce
 #
 # Released under the GNU General Public License
 #
