@@ -1,18 +1,34 @@
-<? include("includes/application_top.php"); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_INFO_SHOPPING_CART; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+/*
+  $Id: info_shopping_cart.php,v 1.12 2001/09/20 13:31:57 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require("includes/application_top.php");
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_INFO_SHOPPING_CART);
+?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body>
-<p class="main"><b><? echo HEADING_TITLE; ?></b><br><? echo tep_black_line(); ?></p>
-<p class="main"><b><i><? echo SUB_HEADING_TITLE_1; ?></i></b><br><? echo SUB_HEADING_TEXT_1; ?></p>
-<p class="main"><b><i><? echo SUB_HEADING_TITLE_2; ?></i></b><br><? echo SUB_HEADING_TEXT_2; ?></p>
-<p class="main"><b><i><? echo SUB_HEADING_TITLE_3; ?></i></b><br><? echo SUB_HEADING_TEXT_3; ?></p>
-<p align="right" class="main"><a href="javascript:window.close();"><font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>"><? echo TEXT_CLOSE_WINDOW; ?></font></a></p>
+<p class="main"><b><? echo HEADING_TITLE; ?></b><br><?php echo tep_black_line(); ?></p>
+<p class="main"><b><i><? echo SUB_HEADING_TITLE_1; ?></i></b><br><?php echo SUB_HEADING_TEXT_1; ?></p>
+<p class="main"><b><i><? echo SUB_HEADING_TITLE_2; ?></i></b><br><?php echo SUB_HEADING_TEXT_2; ?></p>
+<p class="main"><b><i><? echo SUB_HEADING_TITLE_3; ?></i></b><br><?php echo SUB_HEADING_TEXT_3; ?></p>
+<p align="right" class="main"><a href="javascript:window.close();"><font color="<?php echo CHECKOUT_BAR_TEXT_COLOR; ?>"><?php echo TEXT_CLOSE_WINDOW; ?></font></a></p>
 </body>
 </html>
-<?  include("includes/counter.php"); ?>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php
+  require("includes/counter.php");
+  require(DIR_WS_INCLUDES . 'application_bottom.php');
+?>
