@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.91 2002/04/03 01:36:29 hpdl Exp $
+  $Id: orders.php,v 1.92 2002/04/06 19:35:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -212,10 +212,10 @@
       echo '</td>' . "\n" .
            '            <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
            '            <td class="dataTableContent" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top">' . tep_currency_format($order->products[$i]['final_price']) . '</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top">' . tep_currency_format(($order->products[$i]['final_price'] * $order->products[$i]['tax']/100) + $order->products[$i]['final_price']) . '</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . tep_currency_format($order->products[$i]['final_price'] * $order->products[$i]['qty']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . tep_currency_format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty'])) . '</b></td>' . "\n" .
+           '            <td class="dataTableContent" align="right" valign="top">' . tep_currency_format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
+           '            <td class="dataTableContent" align="right" valign="top">' . tep_currency_format(($order->products[$i]['final_price'] * $order->products[$i]['tax']/100) + $order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
+           '            <td class="dataTableContent" align="right" valign="top"><b>' . tep_currency_format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td class="dataTableContent" align="right" valign="top"><b>' . tep_currency_format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
            '          </tr>' . "\n";
     }
 ?>
@@ -223,19 +223,19 @@
             <td align="right" colspan="8"><table border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td align="right" class="smallText"><?php echo ENTRY_SUB_TOTAL; ?></td>
-                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['subtotal']); ?></td>
+                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['subtotal'], true, $order->info['currency'], $order->info['currency_value']); ?></td>
               </tr>
               <tr>
                 <td align="right" class="smallText"><?php echo ENTRY_TAX; ?></td>
-                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['tax']); ?></td>
+                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['tax'], true, $order->info['currency'], $order->info['currency_value']); ?></td>
               </tr>
               <tr>
                 <td align="right" class="smallText"><?php echo $order->info['shipping_method'] . ' ' . ENTRY_SHIPPING; ?></td>
-                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['shipping_cost']); ?></td>
+                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']); ?></td>
               </tr>
               <tr>
                 <td align="right" class="smallText"><b><?php echo ENTRY_TOTAL; ?></b></td>
-                <td align="right" class="smallText"><b><?php echo tep_currency_format($order->info['total']); ?></b></td>
+                <td align="right" class="smallText"><b><?php echo tep_currency_format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']); ?></b></td>
               </tr>
             </table></td>
           </tr>
@@ -339,12 +339,12 @@
 <?php
     if ($HTTP_GET_VARS['cID']) {
       $cID = tep_db_prepare_input($HTTP_GET_VARS['cID']);
-      $orders_query_raw = "select o.orders_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . tep_db_input($cID) . "' and o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, o.currency, o.currency_value, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . tep_db_input($cID) . "' and o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by orders_id DESC";
     } elseif ($HTTP_GET_VARS['status']) {
       $status = tep_db_prepare_input($HTTP_GET_VARS['status']);
-      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' and s.orders_status_id = '" . tep_db_input($status) . "' order by o.orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, o.currency, o.currency_value, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' and s.orders_status_id = '" . tep_db_input($status) . "' order by o.orders_id DESC";
     } else {
-      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by o.orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, o.currency, o.currency_value, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by o.orders_id DESC";
     }
     $orders_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
     $orders_query = tep_db_query($orders_query_raw);
@@ -369,7 +369,7 @@
       }
 ?>
                 <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo tep_currency_format($total); ?></td>
+                <td class="dataTableContent" align="right"><?php echo tep_currency_format($total, true, $orders['currency'], $orders['currency_value']); ?></td>
                 <td class="dataTableContent" align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
                 <td class="dataTableContent" align="right"><?php echo $orders['orders_status_name']; ?></td>
                 <td class="dataTableContent" align="right"><?php if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>

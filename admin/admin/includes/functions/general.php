@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.120 2002/04/04 20:29:10 dgw_ Exp $
+  $Id: general.php,v 1.121 2002/04/06 19:35:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,13 +25,17 @@
     exit;
   }
 
-  function tep_currency_format($number, $calculate_currency_value = true, $currency_value = DEFAULT_CURRENCY) {
-    $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " where code = '" . $currency_value . "'");
+  function tep_currency_format($number, $calculate_currency_value = true, $currency_code = DEFAULT_CURRENCY, $value = '') {
+    $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " where code = '" . $currency_code . "'");
     $currency = tep_db_fetch_array($currency_query);
 
     if ($calculate_currency_value == true) {
-      if (strlen($currency_value) == 3) {
-        $rate = $currency['value'];
+      if (strlen($currency_code) == 3) {
+        if ($value) {
+          $rate = $value;
+        } else {
+          $rate = $currency['value'];
+        }
       } else {
         $rate = 1;
       }
