@@ -83,6 +83,10 @@ define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 define('BOX_HEADING_MAIL', 'Mail');
 define('BOX_MAIL_MAIL', 'Send eMail(s)');
 
+// banners box text in includes/boxes/banners.php
+define('BOX_HEADING_BANNERS', 'Banners');
+define('BOX_BANNERS_MANAGER', 'Banner Manager');
+
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
 
@@ -200,6 +204,7 @@ define('IMAGE_ICON_INFO', 'Info');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Paginas:');
+define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> fabricantes)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> ofertas)');

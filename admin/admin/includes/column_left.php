@@ -1,11 +1,12 @@
 <?
-  include('includes/boxes/configuration.php');
-  include('includes/boxes/modules.php');
-  include('includes/boxes/catalog.php');
-  include('includes/boxes/customers.php');
-  include('includes/boxes/taxes.php');
-  include('includes/boxes/localization.php');
-  include('includes/boxes/statistics.php');
-  include('includes/boxes/tools.php');
-  include('includes/boxes/mail.php');
+  require('includes/boxes/configuration.php');
+  require('includes/boxes/modules.php');
+  require('includes/boxes/catalog.php');
+  require('includes/boxes/customers.php');
+  require('includes/boxes/taxes.php');
+  require('includes/boxes/banners.php');
+  require('includes/boxes/localization.php');
+  require('includes/boxes/statistics.php');
+  require('includes/boxes/tools.php');
+  require('includes/boxes/mail.php');
 ?>

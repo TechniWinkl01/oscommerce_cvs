@@ -83,6 +83,10 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 define('BOX_HEADING_MAIL', 'Mail');
 define('BOX_MAIL_MAIL', 'Send eMail(s)');
 
+// banners box text in includes/boxes/banners.php
+define('BOX_HEADING_BANNERS', 'Banners');
+define('BOX_BANNERS_MANAGER', 'Banner Manager');
+
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 
@@ -201,6 +205,7 @@ define('IMAGE_ICON_INFO', 'Info');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Result Pages:');
+define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> countries)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> currencies)');

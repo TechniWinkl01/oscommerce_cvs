@@ -48,6 +48,7 @@
 
 // define the filenames used in the project
   define('FILENAME_BACKUP', 'backup.php');
+  define('FILENAME_BANNERS_MANAGER', 'banner_manager.php');
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_COUNTRIES', 'countries.php');
@@ -60,6 +61,7 @@
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_ORDERS', 'orders.php');
   define('FILENAME_PAYMENT_MODULES', 'payment_modules.php');
+  define('FILENAME_POPUP_IMAGE', 'popup_image.php');
   define('FILENAME_PRODUCTS_ATTRIBUTES', 'products_attributes.php');
   define('FILENAME_PRODUCTS_EXPECTED', 'products_expected.php');
   define('FILENAME_REVIEWS', 'reviews.php');

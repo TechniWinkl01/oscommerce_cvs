@@ -83,6 +83,10 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_HEADING_MAIL', 'Mail');
 define('BOX_MAIL_MAIL', 'eMail(s) senden');
 
+// banners box text in includes/boxes/banners.php
+define('BOX_HEADING_BANNERS', 'Banners');
+define('BOX_BANNERS_MANAGER', 'Banner Manager');
+
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
 
@@ -199,6 +203,7 @@ define('IMAGE_ICON_INFO', 'Information');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');
+define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Berichten)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sonderartikeln)');
