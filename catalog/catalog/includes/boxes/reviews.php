@@ -1,6 +1,6 @@
 <!-- reviews //-->
 <?
-  $products_name = @tep_db_query('select reviews_id from reviews order by reviews_id DESC limit 1,1');
+  $products_name = @tep_db_query('select reviews_id from reviews order by reviews_id DESC limit 0,1');
   if (@tep_db_num_rows($products_name) > 0) {
     tep_random_select("select reviews.reviews_id, reviews.reviews_text, reviews.reviews_rating, reviews_extra.date_added, products.products_id, products.products_name, products.products_image, manufacturers.manufacturers_name, manufacturers.manufacturers_location, customers.customers_firstname, customers.customers_lastname from reviews, reviews_extra, products, manufacturers, products_to_manufacturers, customers where products.products_status='1' and reviews.reviews_id = reviews_extra.reviews_id and reviews_extra.products_id = products.products_id and reviews_extra.customers_id = customers.customers_id and reviews_extra.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by reviews.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
 
