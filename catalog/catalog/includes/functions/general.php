@@ -109,11 +109,7 @@
     if ( (($src == '') || ($src == 'images/')) && (!IMAGE_REQUIRED) ) {
       return;
     }
-    $image = '<img src="' . $src . '" border="0"';
-
-    if ($alt) {
-      $image .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
-    }
+    $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE) && ((!$width) || (!$height)) ) {
       if ($image_size = @getimagesize($src)) {
@@ -159,9 +155,7 @@
       $image_submit .= ' width="' . $width . '"';
     if ($height)
       $image_submit .= ' height="' . $height . '"';
-    if ($alt)
-      $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
-    $image_submit .= '>';
+    $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' ">';
     
     return $image_submit;
   }
