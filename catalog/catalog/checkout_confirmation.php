@@ -89,14 +89,11 @@
             <td colspan="4"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+  $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   $address_values = tep_db_fetch_array($address);
   $total_cost = 0;
   $total_tax = 0;
   $total_weight = 0;
- // $products made global for use in itransact module...maybe others.
- // $attributes_for_itransact added to allow attributes to be passed to itransact for processing.
-  GLOBAL $products, $attributes_for_itransact;
   $products = $cart->get_products();
   for ($i=0; $i<sizeof($products); $i++) {
     $products_name = $products[$i]['name'];
