@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_left.php,v 1.10 2001/08/09 18:07:00 hpdl Exp $
+  $Id: column_left.php,v 1.11 2001/11/17 03:34:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,13 +10,13 @@
   Released under the GNU General Public License
 */
 
-  if (CACHE_ON && !SID) {
+  if ( (USE_CACHE == 'true') && !SID) {
     echo tep_cache_categories_box();
   } else {
     include(DIR_WS_BOXES . 'categories.php');
   }
 
-  if (CACHE_ON && !SID) {
+  if ( (USE_CACHE == 'true') && !SID) {
     echo tep_cache_manufacturers_box();
   } else {
     include(DIR_WS_BOXES . 'manufacturers.php');

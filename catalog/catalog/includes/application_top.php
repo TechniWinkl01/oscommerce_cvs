@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.181 2001/11/17 03:00:01 hpdl Exp $
+  $Id: application_top.php,v 1.182 2001/11/17 03:34:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,10 +21,6 @@
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
-
-// set up cache functionality - only for PHP4
-  define('CACHE_ON', false); // Default: false - Turn caching on/off
-  define('DIR_FS_CACHE', '/tmp/'); // Default: /tmp/ - Default cache directory
 
   define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
 
@@ -172,7 +168,7 @@
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
-  if (CACHE_ON) {
+  if (USE_CACHE == 'true') {
     include(DIR_WS_FUNCTIONS . 'cache.php');
   }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.69 2001/11/09 19:16:45 dgw_ Exp $
+  $Id: product_info.php,v 1.70 2001/11/17 03:34:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -196,7 +196,7 @@ function popupImageWindow(url) {
         </table></td>
       </tr>
 <?php
-    if (CACHE_ON && !SID) {
+    if ( (USE_CACHE == 'true') && !SID) {
       echo tep_cache_also_purchased(3600);
     } else {
       include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
