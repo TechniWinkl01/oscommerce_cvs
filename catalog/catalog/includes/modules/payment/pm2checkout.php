@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.1 2002/01/17 15:57:58 hpdl Exp $
+  $Id: pm2checkout.php,v 1.2 2002/01/20 15:11:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -104,25 +104,26 @@
                                tep_draw_hidden_field('x_amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
                                tep_draw_hidden_field('x_invoice_num', date('YmdHis')) .
                                tep_draw_hidden_field('x_test_request', MODULE_PAYMENT_2CHECKOUT_TESTMODE) .
-                               tep_draw_hidden_field('x_Card_Num', $CardNumber) .
-                               tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . $HTTP_POST_VARS['pm_2checkout_cc_expires_year']) .
-                               tep_draw_hidden_field('x_First_Name', $customer_values['customers_firstname']) .
-                               tep_draw_hidden_field('x_Last_Name', $customer_values['customers_lastname']) .
-                               tep_draw_hidden_field('x_Address', $customer_values['entry_street_address']) .
-                               tep_draw_hidden_field('x_City', $customer_values['entry_city']) .
-                               tep_draw_hidden_field('x_State', tep_get_zone_name($customer_values['entry_country_id'], $customer_values['entry_zone_id'], $customer_values['entry_state'])) .
-                               tep_draw_hidden_field('x_Zip', $customer_values['entry_postcode']) .
-                               tep_draw_hidden_field('x_Country', tep_get_country_name($customer_values['entry_country_id'])) .
-                               tep_draw_hidden_field('x_Email', $customer_values['customers_email_address']) .
-                               tep_draw_hidden_field('x_Phone', $customer_values['customers_telephone']) .
-                               tep_draw_hidden_field('x_Ship_To_First_Name', $delivery_values['entry_firstname']) .
-                               tep_draw_hidden_field('x_Ship_To_Last_Name', $delivery_values['entry_lastname']) .
-                               tep_draw_hidden_field('x_Ship_To_Address', $delivery_values['entry_street_address']) .
-                               tep_draw_hidden_field('x_Ship_To_City', $delivery_values['entry_city']) .
-                               tep_draw_hidden_field('x_Ship_To_State', tep_get_zone_name($delivery_values['entry_country_id'], $delivery_values['entry_zone_id'], $delivery_values['entry_state'])) .
-                               tep_draw_hidden_field('x_Ship_To_Zip', $delivery_values['entry_postcode']) .
-                               tep_draw_hidden_field('x_Ship_To_Country', tep_get_country_name($delivery_values['entry_country_id'])) .
+                               tep_draw_hidden_field('x_card_num', $CardNumber) .
+                               tep_draw_hidden_field('x_exp_date', $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . $HTTP_POST_VARS['pm_2checkout_cc_expires_year']) .
+                               tep_draw_hidden_field('x_first_name', $customer_values['customers_firstname']) .
+                               tep_draw_hidden_field('x_last_name', $customer_values['customers_lastname']) .
+                               tep_draw_hidden_field('x_address', $customer_values['entry_street_address']) .
+                               tep_draw_hidden_field('x_city', $customer_values['entry_city']) .
+                               tep_draw_hidden_field('x_state', tep_get_zone_name($customer_values['entry_country_id'], $customer_values['entry_zone_id'], $customer_values['entry_state'])) .
+                               tep_draw_hidden_field('x_zip', $customer_values['entry_postcode']) .
+                               tep_draw_hidden_field('x_country', tep_get_country_name($customer_values['entry_country_id'])) .
+                               tep_draw_hidden_field('x_email', $customer_values['customers_email_address']) .
+                               tep_draw_hidden_field('x_phone', $customer_values['customers_telephone']) .
+                               tep_draw_hidden_field('x_ship_to_first_name', $delivery_values['entry_firstname']) .
+                               tep_draw_hidden_field('x_ship_to_fast_name', $delivery_values['entry_lastname']) .
+                               tep_draw_hidden_field('x_ship_to_address', $delivery_values['entry_street_address']) .
+                               tep_draw_hidden_field('x_ship_to_city', $delivery_values['entry_city']) .
+                               tep_draw_hidden_field('x_ship_to_state', tep_get_zone_name($delivery_values['entry_country_id'], $delivery_values['entry_zone_id'], $delivery_values['entry_state'])) .
+                               tep_draw_hidden_field('x_ship_to_zip', $delivery_values['entry_postcode']) .
+                               tep_draw_hidden_field('x_ship_to_country', tep_get_country_name($delivery_values['entry_country_id'])) .
                                tep_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
+                               tep_draw_hidden_field('x_email_merchant', MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT) .
                                tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
       return $process_button_string;
@@ -154,27 +155,25 @@
 
     function check() {
       $check = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_STATUS'");
-      $check = tep_db_num_rows($check);
-
-      return $check;
+      return tep_db_num_rows($check);
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow 2CheckOut', 'MODULE_PAYMENT_2CHECKOUT_STATUS', '1', 'Do you want to accept 2CheckOut payments?', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('2CheckOut Login/Store Number', 'MODULE_PAYMENT_2CHECKOUT_LOGIN', '', 'Login/Store Number used for 2CheckOut payments', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('2CheckOut Test Mode', 'MODULE_PAYMENT_2CHECKOUT_TESTMODE', 'Y', 'Test mode for 2CheckOut payments (Y/N)', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Allow 2CheckOut', 'MODULE_PAYMENT_2CHECKOUT_STATUS', '1', 'Do you want to accept 2CheckOut payments?', '6', '0', 'tep_cfg_select_option(array(\'1\', \'0\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('2CheckOut Login/Store Number', 'MODULE_PAYMENT_2CHECKOUT_LOGIN', '18157', 'Login/Store Number used for 2CheckOut payments', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('2CheckOut Test Mode', 'MODULE_PAYMENT_2CHECKOUT_TESTMODE', 'Y', 'Test mode for 2CheckOut payments (Y/N)', '6', '0', 'tep_cfg_select_option(array(\'Y\', \'N\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Email Merchant Every Order', 'MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT', 'FALSE', 'Email the merchant on every order made', '6', '0', 'tep_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
     }
 
     function remove() {
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_STATUS'");
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_LOGIN'");
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_TESTMODE'");
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT'");
     }
 
     function keys() {
-      $keys = array('MODULE_PAYMENT_2CHECKOUT_STATUS', 'MODULE_PAYMENT_2CHECKOUT_LOGIN', 'MODULE_PAYMENT_2CHECKOUT_TESTMODE');
-
-      return $keys;
+      return array('MODULE_PAYMENT_2CHECKOUT_STATUS', 'MODULE_PAYMENT_2CHECKOUT_LOGIN', 'MODULE_PAYMENT_2CHECKOUT_TESTMODE', 'MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT');
     }
   }
 ?>
