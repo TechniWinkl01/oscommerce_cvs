@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.26 2002/03/08 21:17:02 hpdl Exp $
+# $Id: oscommerce.sql,v 1.27 2002/03/10 01:24:45 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -200,6 +200,7 @@ CREATE TABLE customers_info (
   customers_info_number_of_logons int(5),
   customers_info_date_account_created datetime,
   customers_info_date_account_last_modified datetime,
+  global_product_notifications int(1) DEFAULT '0',
   PRIMARY KEY (customers_info_id)
 );
 
@@ -393,6 +394,14 @@ CREATE TABLE products_description (
   products_viewed int(5) default '0',
   PRIMARY KEY  (products_id,language_id),
   KEY products_name (products_name)
+);
+
+DROP TABLE IF EXISTS products_notifications;
+CREATE TABLE products_notifications (
+  products_id int(5) NOT NULL,
+  customers_id int(5) NOT NULL,
+  date_added datetime NOT NULL,
+  PRIMARY KEY (products_id, customers_id)
 );
 
 DROP TABLE IF EXISTS products_options;
@@ -1001,7 +1010,7 @@ INSERT INTO currencies VALUES (4,'Euro','EUR','','EUR','.',',','2','1.1036', now
 
 INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '1', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
 
-INSERT INTO customers_info VALUES('1', '', '0', now(), '');
+INSERT INTO customers_info VALUES('1', '', '0', now(), '', '0');
 
 INSERT INTO languages VALUES (1,'English','en','icon.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','icon.gif','german',2);

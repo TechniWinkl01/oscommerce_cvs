@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.12 2002/03/08 21:17:02 hpdl Exp $
+  $Id: upgrade_3.php,v 1.13 2002/03/10 01:24:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -326,6 +326,7 @@ changeText('statusText', 'Updating Customers');
   osc_db_query("alter table customers_info change customers_info_date_account_created customers_info_date_account_created datetime");
   osc_db_query("alter table customers_info change customers_info_date_of_last_logon customers_info_date_of_last_logon datetime");
   osc_db_query("alter table customers_info change customers_info_date_account_last_modified customers_info_date_account_last_modified datetime");
+  osc_db_query("alter table customers_info add global_product_notifications int(1) default '0'");
 
   osc_db_query("create table newsletters ( newsletters_id int(5) not null auto_increment, title varchar(255) not null, content text not null, module varchar(255) not null, date_added datetime not null, date_sent datetime, status int(1), locked int(1) default '0', primary key (newsletters_id))");
 ?>
@@ -515,6 +516,8 @@ changeText('statusText', 'Updating Products');
   osc_db_query("alter table products_to_categories change products_id products_id int(5) not null");
 
   osc_db_query("create table products_attributes_download ( products_attributes_id int(5) not null, products_attributes_filename varchar(255) not null, products_attributes_maxdays int(2) default '0', products_attributes_maxcount int(2) default '0', primary key (products_attributes_id))");
+
+  osc_db_query("create table products_notifications ( products_id int(5) not null, customers_id int(5) not null, date_added datetime not null, primary key (products_id, customers_id))");
 ?>
 
 <script language="javascript"><!--
