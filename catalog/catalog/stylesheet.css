@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.56 2003/06/30 20:04:02 hpdl Exp $
+  $Id: stylesheet.css,v 1.57 2003/07/23 15:31:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -123,6 +123,7 @@ TD.infoBoxHeading {
   font-weight: bold;
   background: #bbc3d3;
   color: #ffffff;
+  vertical-align: top;
 }
 
 TD.infoBox, SPAN.infoBox {
