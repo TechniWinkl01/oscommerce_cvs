@@ -2,42 +2,27 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
-      if (EXPERT_MODE) {
-        $update_query .= "manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "', manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "'";
-        $new_manufacturers_id = $HTTP_POST_VARS['manufacturers_id'];
-      } else {
-        $update_query .= "manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "'";
-        $new_manufacturers_id = $HTTP_POST_VARS['original_manufacturers_id'];
+      tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      if ($manufacturers_image != 'none') {
+        tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
+        if (file_exists($image_location)) @unlink($image_location);
+        copy($manufacturers_image, $image_location);
       }
-      $error = 0;
-      if (tep_db_query("update " . TABLE_MANUFACTURERS . " set " . $update_query . " where manufacturers_id = '" . $HTTP_POST_VARS['original_manufacturers_id'] . "'")) {
-        if ($manufacturers_image != 'none') {
-          if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['original_manufacturers_id'] . "'")) {
-            $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
-            if (file_exists($image_location)) @unlink($image_location);
-            copy($manufacturers_image, $image_location);
-          } else {
-            $error = 1;
-          }
-        }
-      } else {
-        $error = 1;
+      $languages = tep_get_languages();
+      for ($i=0; $i<sizeof($languages); $i++) {
+        $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
+        $language_id = $languages[$i]['id'];
+        $manufacturers_url = $manufacturers_url_array[$language_id];
+        tep_db_query("update " . TABLE_MANUFACTURERS_INFO . " set manufacturers_url = '" . $manufacturers_url . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' and languages_id = '" . $languages[$i]['id'] . "'");
       }
-      if ($error == 0) {
-        header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')) . 'info=' . $new_manufacturers_id, 'NONSSL'));
-        tep_exit();
-      } else {
-        header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')) . 'error=SAVE', 'NONSSL'));
-        tep_exit();
-      }
+      header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')) . 'info=' . $HTTP_POST_VARS['manufacturers_id'], 'NONSSL'));
+      tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      if (tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'")) {
-        header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
-        tep_exit();
-      } else {
-        header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')) . 'error=DELETE', 'NONSSL'));
-        tep_exit();
-      }
+      tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
+      tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
       $error = 0;
       if (tep_db_query("insert into " . TABLE_MANUFACTURERS . " (manufacturers_name) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "')")) {
@@ -50,6 +35,14 @@
           } else {
             $error = 1;
           }
+        }
+   
+        $languages = tep_get_languages();
+        for ($i=0; $i<sizeof($languages); $i++) {
+          $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
+          $language_id = $languages[$i]['id'];
+          $manufacturers_url = $manufacturers_url_array[$language_id];
+          tep_db_query("insert into " . TABLE_MANUFACTURERS_INFO . " (manufacturers_id, languages_id, manufacturers_url, url_clicked, date_last_click, date_added) values ('" . $manufacturers_id . "', '" . $languages[$i]['id'] . "', '" . $manufacturers_url . "', '0', '', now())");
         }
       } else {
         $error = 1;
@@ -204,15 +197,26 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_NEW_INTRO . '<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="file" name="manufacturers_image" size="20" style="font-size:10px"><br>&nbsp;<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="file" name="manufacturers_image" size="20" style="font-size:10px">');
+
+    $languages = tep_get_languages();
+    for ($i=0; $i<sizeof($languages); $i++) {
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_EDIT_MANUFACTURERS_URL . ' (' . $languages[$i]['name'] . ')<br><input type="text" name="manufacturers_url[' . $languages[$i]['id'] . ']"><br>');
+    }
+
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
-    $form = '<form name="manufacturers" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="original_manufacturers_id" value="' . $mInfo->id . '">'  ."\n";
+    $form = '<form name="manufacturers" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="manufacturers_id" value="' . $mInfo->id . '">'  ."\n";
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>&nbsp;');
-    if (EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_ID . '<br>&nbsp;<input type="text" name="manufacturers_id" value="' . $mInfo->id . '" size="2"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name" value="' . $mInfo->name . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="file" name="manufacturers_image" size="20" style="font-size:10px"><br>' . $mInfo->image . '<br>&nbsp;<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name" value="' . $mInfo->name . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="file" name="manufacturers_image" size="20" style="font-size:10px"><br>' . $mInfo->image);
+
+    $languages = tep_get_languages();
+    for ($i=0; $i<sizeof($languages); $i++) {
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_EDIT_MANUFACTURERS_URL . ' (' . $languages[$i]['name'] . ')<br><input type="text" name="manufacturers_url[' . $languages[$i]['id'] . ']" value="' . tep_get_manufacturer_url($mInfo->id, $languages[$i]['id']) . '"><br>');
+    }
+
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="manufacturers" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="manufacturers_id" value="' . $mInfo->id . '">' . "\n";

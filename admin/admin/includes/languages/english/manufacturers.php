@@ -24,6 +24,7 @@ define('TEXT_EDIT_INTRO', 'Please make any necessary changes');
 define('TEXT_EDIT_MANUFACTURERS_ID', 'Manufacturers ID:');
 define('TEXT_EDIT_MANUFACTURERS_NAME', 'Manufacturers Name:');
 define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Manufacturers Image:');
+define('TEXT_EDIT_MANUFACTURERS_URL', 'Manufacturers URL:');
 
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this manufacturer?');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNING:</b> There are %s products still linked to this manufacturer!');

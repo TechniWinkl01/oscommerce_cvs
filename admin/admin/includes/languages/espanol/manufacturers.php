@@ -24,6 +24,7 @@ define('TEXT_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_EDIT_MANUFACTURERS_ID', 'ID del Fabricante:');
 define('TEXT_EDIT_MANUFACTURERS_NAME', 'Nombre del Fabricante:');
 define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Imagen Fabricante:');
+define('TEXT_EDIT_MANUFACTURERS_URL', 'Fabricante URL:');
 
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fabricante?');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Todavia hay productos que pertenecen a este fabricante!');

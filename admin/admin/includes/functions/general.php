@@ -642,6 +642,16 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   }
 
 ////
+// Return the manufacturers URL in the needed language
+// TABLES: manufacturers_info
+  function tep_get_manufacturer_url($manufacturer_id, $language_id) {
+    $manufacturer_query = tep_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . $manufacturer_id . "' and languages_id = '" . $language_id . "'");
+    $manufacturer = tep_db_fetch_array($manufacturer_query);
+
+    return $manufacturer['manufacturers_url'];
+  }
+
+////
 // Wrapper for class_exists() function
 // This function is not available in all PHP versions so we test it before using it.
   function tep_class_exists($class_name) {

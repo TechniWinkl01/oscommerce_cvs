@@ -94,6 +94,7 @@
   define('TABLE_CUSTOMERS_INFO', 'customers_info');
   define('TABLE_LANGUAGES', 'languages');
   define('TABLE_MANUFACTURERS', 'manufacturers');
+  define('TABLE_MANUFACTURERS_INFO', 'manufacturers_info');
   define('TABLE_ORDERS', 'orders');
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');

@@ -24,6 +24,7 @@ define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderunge
 define('TEXT_EDIT_MANUFACTURERS_ID', 'Hersteller ID:');
 define('TEXT_EDIT_MANUFACTURERS_NAME', 'Herstellername:');
 define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Herstellerbild:');
+define('TEXT_EDIT_MANUFACTURERS_URL', 'Hersteller URL:');
 
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Hersteller l&ouml;schen m&ouml;chten?');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNUNG:</b> Es existieren noch %s Artikel, die immer noch mit diesem Hersteller verbunden sind!');
