@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.38 2002/03/11 16:58:07 harley_vb Exp $
+  $Id: currencies.php,v 1.39 2002/03/16 00:47:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -104,9 +104,9 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="3" cellpadding="3">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
@@ -124,18 +124,12 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_CURRENCY_NAME; ?></td>
-                <td class="tableHeading"><?php echo TABLE_HEADING_CURRENCY_CODES; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_NAME; ?></td>
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_CODES; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
   $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, last_updated, value from " . TABLE_CURRENCIES . " order by title";
@@ -148,27 +142,24 @@
     }
 
     if ( (is_object($cInfo)) && ($currencies['currencies_id'] == $cInfo->currencies_id) ) {
-      echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $currencies['currencies_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $currencies['currencies_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_CURRENCY == $currencies['code']) {
-      echo '                <td class="tableData"><b>' . $currencies['title'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+      echo '                <td class="dataTableContent"><b>' . $currencies['title'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
     } else {
-      echo '                <td class="tableData">' . $currencies['title'] . '</td>' . "\n";
+      echo '                <td class="dataTableContent">' . $currencies['title'] . '</td>' . "\n";
     }
 ?>
-                <td class="tableData"><?php echo $currencies['code']; ?></td>
-                <td class="tableData" align="right"><?php echo number_format($currencies['value'], 8); ?></td>
-                <td class="tableData" align="right"><?php if ( (is_object($cInfo)) && ($currencies['currencies_id'] == $cInfo->currencies_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $currencies['currencies_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo $currencies['code']; ?></td>
+                <td class="dataTableContent" align="right"><?php echo number_format($currencies['value'], 8); ?></td>
+                <td class="dataTableContent" align="right"><?php if ( (is_object($cInfo)) && ($currencies['currencies_id'] == $cInfo->currencies_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $currencies['currencies_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
 ?>
-              <tr>
-                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-              </tr>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -188,7 +179,6 @@
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top">
 <?php
   $heading = array();
   $contents = array();
@@ -251,10 +241,15 @@
       break;
   }
 
-  $box = new box;
-  echo $box->infoBox($heading, $contents);
+  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+    echo '            <td width="25%" valign="top">' . "\n";
+
+    $box = new box;
+    echo $box->infoBox($heading, $contents);
+
+    echo '            </td>' . "\n";
+  }
 ?>
-            </td>
           </tr>
         </table></td>
       </tr>
