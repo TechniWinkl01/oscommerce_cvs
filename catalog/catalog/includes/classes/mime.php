@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: mime.php,v 1.7 2002/11/19 00:48:26 dgw_ Exp $
+  $Id: mime.php,v 1.8 2003/06/17 17:29:44 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   mime.php - a class to assist in building mime-HTML eMails
 
