@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.30 2003/12/18 23:52:14 hpdl Exp $
+  $Id: products_new.php,v 1.31 2004/10/31 09:46:09 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -78,7 +78,7 @@
   if ($products_new_split->number_of_rows > 0) {
     $products_new_query = tep_db_query($products_new_split->sql_query);
     while ($products_new = tep_db_fetch_array($products_new_query)) {
-      if ($new_price = tep_get_products_special_price($products_new['products_id'])) {
+      if ( ($osC_Services->isStarted('specials')) && ($new_price = $osC_Specials->getPrice($products_new['products_id'])) ) {
         $products_price = '<s>' . $osC_Currencies->displayPrice($products_new['products_price'], $products_new['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_price, $products_new['products_tax_class_id']) . '</span>';
       } else {
         $products_price = $osC_Currencies->displayPrice($products_new['products_price'], $products_new['products_tax_class_id']);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.241 2004/07/22 16:53:53 hpdl Exp $
+  $Id: general.php,v 1.242 2004/10/31 09:46:16 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,28 +92,6 @@
     $Qproduct->freeResult();
 
     return $products_name;
-  }
-
-////
-// Return a product's special price (returns nothing if there is no offer)
-// TABLES: products
-  function tep_get_products_special_price($product_id) {
-    global $osC_Database;
-
-    $Qspecial = $osC_Database->query('select specials_new_products_price from :table_specials where products_id = :products_id and status = 1');
-    $Qspecial->bindRaw(':table_specials', TABLE_SPECIALS);
-    $Qspecial->bindInt(':products_id', $product_id);
-    $Qspecial->execute();
-
-    if ($Qspecial->numberOfRows()) {
-      $special_price = $Qspecial->valueDecimal('specials_new_products_price');
-    } else {
-      $special_price = false;
-    }
-
-    $Qspecial->freeResult();
-
-    return $special_price;
   }
 
 ////

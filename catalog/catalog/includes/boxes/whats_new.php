@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whats_new.php,v 1.35 2004/05/03 19:43:24 mevans Exp $
+  $Id: whats_new.php,v 1.36 2004/10/31 09:46:14 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,8 +21,11 @@
             <td>
 <?php
     $new_products_name = tep_get_products_name($Qwhatsnew->valueInt('products_id'));
-    $new_products_specials_price = tep_get_products_special_price($Qwhatsnew->valueInt('products_id'));
 
+    if ($osC_Services->isStarted('specials')) {
+      $new_products_specials_price = $osC_Specials->getPrice($Qwhatsnew->valueInt('products_id'));
+    }
+    
     $info_box_contents = array();
     $info_box_contents[] = array('text' => BOX_HEADING_WHATS_NEW);
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.1 2004/04/13 08:02:18 hpdl Exp $
+  $Id: specials.php,v 1.2 2004/10/31 09:46:19 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,16 +12,16 @@
 
   class osC_Services_specials {
     var $title = 'Specials',
-        $description = 'Prepare the products that are on special.',
+        $description = 'Enable Product Specials.',
         $uninstallable = true,
         $depends,
         $preceeds;
 
     function start() {
-      include('includes/functions/specials.php');
+    	global $osC_Specials;
+      include('includes/classes/specials.php');
 
-      tep_expire_specials();
-
+      $osC_Specials = new osC_Specials();
       return true;
     }
 
@@ -30,15 +30,16 @@
     }
 
     function install() {
-      return false;
+    	tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Special Products', 'MAX_DISPLAY_SPECIAL_PRODUCTS', '9', 'Maximum number of products on special to display', '6', '0', now())");
+    	tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Selection of Products on Special', 'MAX_RANDOM_SELECT_SPECIALS', '10', 'How many records to select from to choose one random product special to display', '6', '0', now())");
     }
 
     function remove() {
-      return false;
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
     function keys() {
-      return false;
+      return array('MAX_DISPLAY_SPECIAL_PRODUCTS', 'MAX_RANDOM_SELECT_SPECIALS');
     }
   }
 ?>

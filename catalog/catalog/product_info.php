@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.104 2004/07/22 17:23:53 hpdl Exp $
+  $Id: product_info.php,v 1.105 2004/10/31 09:46:08 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,7 +74,7 @@ function popupWindow(url) {
 
     tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$_GET['products_id'] . "' and language_id = '" . (int)$osC_Session->value('languages_id') . "'");
 
-    if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
+    if ( ($osC_Services->isStarted('specials')) && ($new_price = $osC_Specials->getPrice($product_info['products_id'])) ) {
       $products_price = '<s>' . $osC_Currencies->displayPrice($product_info['products_price'], $product_info['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_price, $product_info['products_tax_class_id']) . '</span>';
     } else {
       $products_price = $osC_Currencies->displayPrice($product_info['products_price'], $product_info['products_tax_class_id']);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.11 2004/07/22 23:19:57 hpdl Exp $
+  $Id: specials.php,v 1.12 2004/10/31 09:43:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,6 +20,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_SPECIALS_PRODUCT', 'Produkt:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Angebotspreis:');
 define('TEXT_SPECIALS_STATUS', 'Status:');
+define('TEXT_SPECIALS_START_DATE', 'Start Date:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'G&uuml;ltig bis:<br><small>(dd.mm.yyyy)</small>');
 define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie k&ouml;nnen im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, m&uuml;ssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li><li>Lassen Sie das Feld <b>\'Gltig bis\'</b> leer, wenn der Angebotspreis zeitlich unbegrenzt gelten soll.</li></ul>');
 
@@ -33,4 +34,7 @@ define('TEXT_INFO_STATUS_CHANGE', 'Status ge&auml;ndert:');
 
 define('TEXT_INFO_HEADING_DELETE_SPECIALS', 'Sonderangebot l&ouml;schen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot l&ouml;schen m&ouml;chten?');
+
+define('ERROR_SPECIALS_PRICE', 'Specials price cannot be negative or greater than original price');
+define('ERROR_SPECIALS_DATE', 'The expiry date is before the start date');
 ?>

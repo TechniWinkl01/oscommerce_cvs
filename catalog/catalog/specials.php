@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.51 2003/12/18 23:52:14 hpdl Exp $
+  $Id: specials.php,v 1.52 2004/10/31 09:46:09 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,10 @@
 
   require('includes/application_top.php');
 
+  if (!$osC_Services->isStarted('specials')) {
+    tep_redirect(tep_href_link(FILENAME_DEFAULT));
+  }
+  
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_SPECIALS);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SPECIALS));

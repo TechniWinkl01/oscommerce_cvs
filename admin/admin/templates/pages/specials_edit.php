@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials_edit.php,v 1.2 2004/08/02 12:35:56 hpdl Exp $
+  $Id: specials_edit.php,v 1.3 2004/10/31 09:43:35 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   if (($action == 'sEdit') && isset($_GET['sID'])) {
-    $Qspecial = $osC_Database->query('select p.products_id, pd.products_name, p.products_price, s.specials_new_products_price, s.expires_date, s.status from :table_specials s, :table_products p, :table_products_description pd where s.specials_id = :specials_id and s.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = :language_id');
+    $Qspecial = $osC_Database->query('select p.products_id, pd.products_name, p.products_price, s.specials_new_products_price, s.expires_date, s.start_date, s.status from :table_specials s, :table_products p, :table_products_description pd where s.specials_id = :specials_id and s.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = :language_id');
     $Qspecial->bindTable(':table_specials', TABLE_SPECIALS);
     $Qspecial->bindTable(':table_products', TABLE_PRODUCTS);
     $Qspecial->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
@@ -61,8 +61,12 @@
     <td class="main"><?php echo osc_draw_checkbox_field('specials_status', '1', (isset($sInfo) ? $sInfo->status : '')); ?></td>
   </tr>
   <tr>
+    <td class="main"><?php echo TEXT_SPECIALS_START_DATE; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('specials_start_date', (isset($sInfo) ? $sInfo->start_date : ''), 'id="calendarValueStartDate"'); ?><input type="button" value="..." id="calendarTriggerStartDate" class="operationButton"><script type="text/javascript">Calendar.setup( { inputField: "calendarValueStartDate", ifFormat: "%Y-%m-%d", button: "calendarTriggerStartDate" } );</script></td>
+  </tr>
+  <tr>
     <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></td>
-    <td class="main"><?php echo osc_draw_input_field('specials_expires_date', (isset($sInfo) ? $sInfo->expires_date : ''), 'id="calendarValue"'); ?><input type="button" value="..." id="calendarTrigger" class="operationButton"><script type="text/javascript">Calendar.setup( { inputField: "calendarValue", ifFormat: "%Y-%m-%d", button: "calendarTrigger" } );</script></td>
+    <td class="main"><?php echo osc_draw_input_field('specials_expires_date', (isset($sInfo) ? $sInfo->expires_date : ''), 'id="calendarValueEndDate"'); ?><input type="button" value="..." id="calendarTriggerEndDate" class="operationButton"><script type="text/javascript">Calendar.setup( { inputField: "calendarValueEndDate", ifFormat: "%Y-%m-%d", button: "calendarTriggerEndDate" } );</script></td>
   </tr>
 </table>
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.54 2004/04/13 07:52:41 hpdl Exp $
+  $Id: product_reviews_info.php,v 1.55 2004/10/31 09:46:09 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
   $review_query = tep_db_query("select rd.reviews_text, r.reviews_rating, r.reviews_id, r.customers_name, r.date_added, r.reviews_read, p.products_id, p.products_price, p.products_tax_class_id, p.products_image, p.products_model, pd.products_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.reviews_id = '" . (int)$_GET['reviews_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$osC_Session->value('languages_id') . "' and r.products_id = p.products_id and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '". (int)$osC_Session->value('languages_id') . "'");
   $review = tep_db_fetch_array($review_query);
 
-  if ($new_price = tep_get_products_special_price($review['products_id'])) {
+  if ( ($osC_Services->isStarted('specials')) && ($new_price = $osC_Specials->getPrice($review['products_id'])) ) {
     $products_price = '<s>' . $osC_Currencies->displayPrice($review['products_price'], $review['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_price, $review['products_tax_class_id']) . '</span>';
   } else {
     $products_price = $osC_Currencies->displayPrice($review['products_price'], $review['products_tax_class_id']);

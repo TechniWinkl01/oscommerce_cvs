@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.43 2004/10/28 18:59:51 hpdl Exp $
+  $Id: specials.php,v 1.44 2004/10/31 09:43:32 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,7 @@
   if (!empty($action)) {
     switch ($action) {
       case 'save':
+        $error = false;
         $Qproduct = $osC_Database->query('select products_price from :table_products where products_id = :products_id');
         $Qproduct->bindTable(':table_products', TABLE_PRODUCTS);
         $Qproduct->bindInt(':products_id', $_POST['products_id']);
@@ -35,26 +36,38 @@
             $specials_price = $Qproduct->valueDecimal('products_price') - (((double)$specials_price / 100) * $Qproduct->valueDecimal('products_price'));
           }
 
-          if (isset($_GET['sID']) && is_numeric($_GET['sID'])) {
-            $Qspecial = $osC_Database->query('update :table_specials set specials_new_products_price = :specials_new_products_price, specials_last_modified = now(), expires_date = :expires_date, status = :status where specials_id = :specials_id');
-            $Qspecial->bindInt(':specials_id', $_GET['sID']);
-          } else {
-            $Qspecial = $osC_Database->query('insert into :table_specials (products_id, specials_new_products_price, specials_date_added, expires_date, status) values (:products_id, :specials_new_products_price, now(), :expires_date, :status)');
-            $Qspecial->bindInt(':products_id', $_POST['products_id']);
+          if ( ($specials_price < '0.00') || ($specials_price >= $Qproduct->valueDecimal('products_price')) ) {
+            $error = true;
+            $osC_MessageStack->add_session('header', ERROR_SPECIALS_PRICE, 'error');
           }
-          $Qspecial->bindTable(':table_specials', TABLE_SPECIALS);
-          $Qspecial->bindValue(':specials_new_products_price', $specials_price);
-          $Qspecial->bindValue(':expires_date', $_POST['specials_expires_date']);
-          $Qspecial->bindInt(':status', (isset($_POST['specials_status']) && ($_POST['specials_status'] == '1') ? '1' : '0'));
-          $Qspecial->execute();
 
-          if ($osC_Database->isError() === false) {
+          if ($_POST['specials_expires_date'] < $_POST['specials_start_date']) {
+            $error = true;
+            $osC_MessageStack->add_session('header', ERROR_SPECIALS_DATE, 'error');
+          }
+          
+          if ($error == false) {
+          	if (isset($_GET['sID']) && is_numeric($_GET['sID'])) {
+              $Qspecial = $osC_Database->query('update :table_specials set specials_new_products_price = :specials_new_products_price, specials_last_modified = now(), expires_date = :expires_date, start_date = :start_date, status = :status where specials_id = :specials_id');
+              $Qspecial->bindInt(':specials_id', $_GET['sID']);
+            } else {
+              $Qspecial = $osC_Database->query('insert into :table_specials (products_id, specials_new_products_price, specials_date_added, expires_date, start_date, status) values (:products_id, :specials_new_products_price, now(), :expires_date, :start_date, :status)');
+              $Qspecial->bindInt(':products_id', $_POST['products_id']);
+            }
+            $Qspecial->bindTable(':table_specials', TABLE_SPECIALS);
+            $Qspecial->bindValue(':specials_new_products_price', $specials_price);
+            $Qspecial->bindValue(':expires_date', $_POST['specials_expires_date']);
+            $Qspecial->bindValue(':start_date', $_POST['specials_start_date']);
+            $Qspecial->bindInt(':status', (isset($_POST['specials_status']) && ($_POST['specials_status'] == '1') ? '1' : '0'));
+            $Qspecial->execute();
+
+            if ($osC_Database->isError() === false) {
             $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
-          } else {
+            } else {
             $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
-          }
+            }
+          }          	
         }
-
         tep_redirect(tep_href_link(FILENAME_SPECIALS, 'page=' . $_GET['page'] . (isset($_GET['sID']) ? '&sID=' . $_GET['sID'] : '')));
         break;
       case 'deleteconfirm':
