@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.133 2001/09/10 11:33:37 jwildeboer Exp $
+  $Id: general.php,v 1.134 2001/09/11 05:16:16 tlambert Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -265,11 +265,11 @@
   function tep_get_tax_rate($country_id, $zone_id, $class_id) {
     $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_ZONES_TO_GEO_ZONES . " za LEFT JOIN " . TABLE_TAX_RATES . " tr ON tr.tax_zone_id=za.geo_zone_id, ". TABLE_GEO_ZONES . " tz WHERE za.zone_country_id='" . $country_id . "' AND (za.zone_id IS NULL OR za.zone_id='0' OR za.zone_id='" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "'  AND (tz.geo_zone_id=tr.tax_zone_id) GROUP BY tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
-	  $tax_multiplier=1.000;
+      $tax_multiplier=1.000;
       while($tax = tep_db_fetch_array($tax_query))
-	  {
-		$tax_multiplier *= 1.000+($tax['tax_rate']/100);
-	  }
+      {
+        $tax_multiplier *= 1.000+($tax['tax_rate']/100);
+      }
       return ($tax_multiplier-1.000)*100;
     } else {
       return TAX_VALUE;
@@ -965,7 +965,7 @@
       $headers = "From: $from_email_name <$from_email_address>\r\n";
 
     // should we use HTML or not?
-    if EMAIL_USE_HTML {
+    if (EMAIL_USE_HTML) {
       // specify MIME version 1.0
       $headers .= "MIME-Version: 1.0\r\n";
 
@@ -991,7 +991,7 @@
 
     } else {
       // send the text-only version
-      $body = strip_tags($email_text);  	
+      $body = strip_tags($email_text);
     }
       //send message
       $to_email_address = $to_name . " <" . $to_email_address . ">";
