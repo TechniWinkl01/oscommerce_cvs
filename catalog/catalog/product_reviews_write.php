@@ -90,15 +90,13 @@ function checkForm() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
 <?
-  $product = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_name, products.products_image from manufacturers, products_to_manufacturers, products where products.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
+  $product = tep_db_query("select products_name, products_image from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   $product_values = tep_db_fetch_array($product);
-
-  $products_name = tep_products_name($product_values['manufacturers_location'], $product_values['manufacturers_name'], $product_values['products_name']);
 
   $customer = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $customer_id . "'");
   $customer_values = tep_db_fetch_array($customer);
 ?>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE;?>" size="<? echo TOP_BAR_FONT_SIZE;?>" color="<? echo TOP_BAR_FONT_COLOR;?>">&nbsp;<? echo sprintf(TOP_BAR_TITLE, $products_name);?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE;?>" size="<? echo TOP_BAR_FONT_SIZE;?>" color="<? echo TOP_BAR_FONT_COLOR;?>">&nbsp;<? echo sprintf(TOP_BAR_TITLE, $product_values['products_name']);?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
@@ -118,13 +116,13 @@ function checkForm() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_PRODUCT;?></b>&nbsp;<? echo $products_name;?>&nbsp;</font></td>
+                <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_PRODUCT;?></b>&nbsp;<? echo $product_values['products_name'];?>&nbsp;</font></td>
               </tr>
               <tr>
                 <td nowrap><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>">&nbsp;<b><? echo SUB_TITLE_FROM;?></b>&nbsp;<? echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];?>&nbsp;</font></td>
               </tr>
             </table></td>
-            <td align="right" nowrap><br><? echo tep_image($product_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0", hspace="5" vspace="5', $products_name);?></td>
+            <td align="right" nowrap><br><? echo tep_image($product_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0", hspace="5" vspace="5', $product_values['products_name']);?></td>
           </tr>
         </table>
       </tr>

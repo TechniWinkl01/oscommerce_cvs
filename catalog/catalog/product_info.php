@@ -33,7 +33,7 @@
         </table></td>
       </tr>
 <?
-  $product_info = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, manufacturers.manufacturers_image, products.products_id, products.products_name, products.products_description, products.products_model, products.products_quantity, products.products_image, products.products_url, products.products_price, products.products_date_added from manufacturers, products_to_manufacturers, products where products.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_to_manufacturers.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
+  $product_info = tep_db_query("select m.manufacturers_name, m.manufacturers_image, p.products_id, p.products_name, p.products_description, p.products_model, p.products_quantity, p.products_image, p.products_url, p.products_price, p.products_date_added from manufacturers m, products_to_manufacturers p2m, products p where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and p2m.products_id = p.products_id and p2m.manufacturers_id = m.manufacturers_id");
   if (!tep_db_num_rows($product_info)) { // product not found in database
 ?>
       <tr>
@@ -57,7 +57,6 @@
       $check_special_values = tep_db_fetch_array($check_special);
       $new_price = $check_special_values['specials_new_products_price'];
     }
-    $products_name = tep_products_name($product_info_values['manufacturers_location'], $product_info_values['manufacturers_name'], $product_info_values['products_name']);
     if ($new_price) {
       $products_price = '<s>' . tep_currency_format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>';
     } else {
@@ -73,7 +72,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo $products_name . ' @ ' . $products_price; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo $product_info_values['products_name'] . ' @ ' . $products_price; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image($product_info_values['manufacturers_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $product_info_values['manufacturers_name']);?>&nbsp;</td>
           </tr>
 <?
@@ -109,7 +108,7 @@
     <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL');?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td><table border="0" width="100%"><tr><td><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>"><? echo tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $products_name);?><p><? echo $product_info_values['products_description'];?></p>
+        <td><table border="0" width="100%"><tr><td><br><font face="<? echo TEXT_FONT_FACE;?>" size="<? echo TEXT_FONT_SIZE;?>" color="<? echo TEXT_FONT_COLOR;?>"><? echo tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $product_info_values['products_name']);?><p><? echo $product_info_values['products_description'];?></p>
 <?
     if ($products_attributes == '1') {
       $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");

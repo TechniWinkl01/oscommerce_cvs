@@ -46,9 +46,8 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
 <?
-  $product = tep_db_query("select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_name from manufacturers, products_to_manufacturers, products where  products.products_status='1' and products.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id");
+  $product = tep_db_query("select products_name from products where products_status = '1' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   $product_values = tep_db_fetch_array($product);
-  $products_name = tep_products_name($product_values['manufacturers_location'], $product_values['manufacturers_name'], $product_values['products_name']);
 ?>
             <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE;?>" size="<? echo TOP_BAR_FONT_SIZE;?>" color="<? echo TOP_BAR_FONT_COLOR;?>">&nbsp;<? echo TOP_BAR_TITLE;?>&nbsp;</font></td>
           </tr>
@@ -57,7 +56,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo sprintf(HEADING_TITLE, $products_name);?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE;?>" size="<? echo HEADING_FONT_SIZE;?>" color="<? echo HEADING_FONT_COLOR;?>">&nbsp;<? echo sprintf(HEADING_TITLE, $product_values['products_name']);?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_reviews.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
           </tr>
         </table></td>
