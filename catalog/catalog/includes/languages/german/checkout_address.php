@@ -1,20 +1,20 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.14 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: checkout_address.php,v 1.15 2002/04/17 15:57:07 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Kasse');
 define('NAVBAR_TITLE_2', 'Lieferanschrift');
-define('HEADING_TITLE', 'M&ouml;gliche Lieferadressen :');
+define('HEADING_TITLE', 'M&ouml;gliche Lieferadressen:');
 define('TABLE_HEADING_MY_ADDRESS', 'Meine Adresse');
-define('TABLE_HEADING_SHIPPING_INFO', 'Lieferung via');
+define('TABLE_HEADING_SHIPPING_INFO', 'Lieferung durch');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Versandkosten zeigen');
 define('TABLE_HEADING_DELIVER_TO', 'ausgew&auml;hlte Adresse');
 define('TABLE_HEADING_ADDRESS_BOOK', 'Adressbucheintr&auml;ge');

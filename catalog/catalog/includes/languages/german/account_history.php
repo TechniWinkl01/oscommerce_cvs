@@ -1,22 +1,22 @@
 <?php
 /*
-  $Id: account_history.php,v 1.9 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: account_history.php,v 1.10 2002/04/17 15:57:07 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
 define('NAVBAR_TITLE_2', 'get&auml;tigte Bestellungen');
-define('HEADING_TITLE', 'get&auml;tigten Bestellungen :');
-define('TABLE_HEADING_ORDER_NUMBER', 'Auftragsnummer');
+define('HEADING_TITLE', 'get&auml;tigte Bestellungen:');
+define('TABLE_HEADING_ORDER_NUMBER', 'Auftrags-Nr.');
 define('TABLE_HEADING_ORDER_DATE', 'Bestelldatum');
-define('TABLE_HEADING_ORDER_COST', 'Preis');
+define('TABLE_HEADING_ORDER_COST', 'Summe');
 define('TABLE_HEADING_ORDER_STATUS', 'Bestellstatus');
 define('TEXT_NO_PURCHASES', 'Sie haben noch keine Bestellungen get&auml;tigt.');
-define('TABLE_TEXT', 'Um Ihre Bestellinformation abzufragen, klicken Sie auf das \'Bestelldatum\'');
+define('TABLE_TEXT', 'Um Ihre Bestellinformationen abzufragen, klicken Sie bitte auf das <b>\'Bestelldatum\'</b>');
 ?>

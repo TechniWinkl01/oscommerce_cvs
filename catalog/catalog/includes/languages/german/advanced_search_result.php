@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.10 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.11 2002/04/17 15:57:07 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -23,6 +23,6 @@ define('TABLE_HEADING_WEIGHT', 'Gewicht');
 define('TABLE_HEADING_BUY_NOW', 'jetzt bestellen');
 define('TEXT_NO_PRODUCTS', 'Es wurden keine Artikel gefunden, die den Suchkriterien entsprechen.');
 define('TEXT_NO_PRODUCTS2', 'Es wurden keine Artikel gefunden, die den Suchkriterien entsprechen.');
-define('TEXT_BUY', 'Kaufen 1 \'');
-define('TEXT_NOW', '\' jetzt');
+define('TEXT_BUY', '1 x \'');
+define('TEXT_NOW', '\' bestellen');
 ?>

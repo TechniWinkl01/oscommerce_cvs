@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.6 2002/01/01 18:41:54 dgw_ Exp $
+  $Id: contact_us.php,v 1.7 2002/04/17 15:57:07 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -16,6 +16,6 @@ define('TEXT_SUCCESS', 'Ihre Anfrage wurde erfolgreich an den Vertrieb gesendet.
 define('EMAIL_SUBJECT', 'Anfrage von ' . STORE_NAME);
 
 define('ENTRY_NAME', 'Vollst&auml;ndiger Name:');
-define('ENTRY_EMAIL', 'EMail-Adresse:');
+define('ENTRY_EMAIL', 'eMail-Adresse:');
 define('ENTRY_ENQUIRY', 'Anfrage:');
 ?>

@@ -1,22 +1,20 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.6 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: product_reviews.php,v 1.7 2002/04/17 15:57:07 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Meinungen');
-define('HEADING_TITLE', '%s Meinungen');
+define('HEADING_TITLE', 'Meinungen zu \'%s\'');
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_AUTHOR', 'Autor');
 define('TABLE_HEADING_RATING', 'Bewertung');
-define('TABLE_HEADING_READ', 'Wurde gelesen');
+define('TABLE_HEADING_READ', 'Gelesen');
 define('TABLE_HEADING_DATE_ADDED', 'Datum');
-define('TEXT_OF_5_STARS', '%s von 5 Sternen!');
-define('TEXT_NO_REVIEWS', 'Es gibt (noch) keine Meinungen &uuml;ber dieses Produkt!');
 ?>

@@ -1,16 +1,16 @@
 <?php
 /*
-  $Id: create_account.php,v 1.10 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: create_account.php,v 1.11 2002/04/17 15:57:07 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Zugang erstellen');
+define('NAVBAR_TITLE', 'Konto erstellen');
 define('HEADING_TITLE', 'Meine pers&ouml;nlichen Daten');
-define('TEXT_ORIGIN_LOGIN', '<font color="#FF0000"><small><b>ACHTUNG:</b></font></small> Wenn Sie bereits einen Zugang besitzen, so melden Sie sich bitte <a href="%s"><u>hier</u></a> an.');
+define('TEXT_ORIGIN_LOGIN', '<font color="#FF0000"><small><b>ACHTUNG:</b></font></small> Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte <a href="%s"><u><b>hier</b></u></a> an.');
 ?>
