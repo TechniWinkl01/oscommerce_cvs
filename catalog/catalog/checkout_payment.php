@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.76 2001/09/21 14:39:38 dwatkins Exp $
+  $Id: checkout_payment.php,v 1.77 2001/11/08 22:44:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -249,7 +249,7 @@ function check_form() {
             </table></td>
           </tr>
           <tr>
-            <td align="right" class="smallText"><br>&nbsp;<font color="<?php echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<?php echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
+            <td align="right" class="checkoutBar"><br>&nbsp;[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></span> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]&nbsp;</td>
           </tr>
         </table></td>
       </tr>

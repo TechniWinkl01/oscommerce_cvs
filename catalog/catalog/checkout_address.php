@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.55 2001/11/04 22:19:51 dgw_ Exp $
+  $Id: checkout_address.php,v 1.56 2001/11/08 22:44:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -168,7 +168,7 @@
             </table></td>
           </tr>
           <tr>
-            <td align="right" class="smallText"><br>&nbsp;<font color="<?php echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <font color="<?php echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></font> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
+            <td align="right" class="checkoutBar"><br>&nbsp;[ <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></span> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]&nbsp;</td>
           </tr>
         </table></td>
       </tr>

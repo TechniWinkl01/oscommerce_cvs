@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.22 2001/09/20 19:06:31 mbs Exp $
+  $Id: checkout_success.php,v 1.23 2001/11/08 22:44:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -63,7 +63,7 @@
         <td align="right" class="main"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a>&nbsp;&nbsp;</td>
       </tr>
       <tr>
-        <td align="right" class="smallText"><br><?php echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | ' . CHECKOUT_BAR_CONFIRMATION . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_FINISHED . '</font> ]</font>&nbsp;'; ?></td>
+        <td align="right" class="checkoutBar"><br>&nbsp;[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_FINISHED; ?></span> ]&nbsp;</td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

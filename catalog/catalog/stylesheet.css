@@ -204,3 +204,15 @@ SPAN.productSpecialPrice {
   font-family: Verdana, Arial, sans-serif;
   color: #ff0000;
 }
+
+TD.checkoutBar {
+  font-family : Verdana, Arial, sans-serif;
+  font-size : 10px;
+  color: #aabbdd;
+}
+
+SPAN.checkoutBarHighlighted {
+  font-family : Verdana, Arial, sans-serif;
+  font-size : 10px;
+  color: #000000;
+}
