@@ -111,7 +111,7 @@ function check_form() {
        error = 1;
     }
   } else {
-    document.create_acount.state.value = '';
+    document.create_account.state.value = '';
     if (document.create_account.zone_id.selectedIndex == 0) {
        error_message = error_message + "<? echo JS_ZONE;?>";
        error = 1;
