@@ -362,7 +362,7 @@
 
     if (tep_db_num_rows($state_prov_result)>0)
       $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
-    else
+    else
       $result .= "<option value=\"\">" . TYPE_BELOW . "</option>\n";
  
     $populated = 0;
@@ -643,12 +643,6 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   $country = tep_get_country_name($country_id);
   $state = tep_get_zone_code($country_id, $zone_id, $state);
 
-  $statecomma = '';
-  $streets = $street;
-  if ($suburb != '') $streets = $street . $cr . $suburb;
-  if ($firstname == '') $firstname = addslashes($delivery_values['name']);
-  if ($country == '') $country = addslashes($delivery_values['country']);
-  if ($state != '') $statecomma = $state . ', ';
   if ($html == 0) { // Text Mode
     $CR = $eoln;
     $cr = $CR;
@@ -668,6 +662,13 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       }
     }
   }
+
+  $statecomma = '';
+  $streets = $street;
+  if ($suburb != '') $streets = $street . $cr . $suburb;
+  if ($firstname == '') $firstname = addslashes($delivery_values['name']);
+  if ($country == '') $country = addslashes($delivery_values['country']);
+  if ($state != '') $statecomma = $state . ', ';
 
   $fmt = $format_values['format'];
   eval("\$address = \"$fmt\";");
