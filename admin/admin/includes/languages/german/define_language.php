@@ -1,16 +1,18 @@
 <?php
 /*
-  $Id: define_language.php,v 1.3 2001/09/19 11:13:29 mbs Exp $
+  $Id: define_language.php,v 1.4 2002/01/05 12:19:50 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Sprache definieren');
 define('HEADING_TITLE', 'Sprache definieren');
-define('SUB_BAR_TITLE', 'Online Sprachen Texteditor');
+
+define('TEXT_FILE_DOES_NOT_EXIST', 'File does not exist.');
+
+define('ERROR_FILE_NOT_WRITEABLE', 'Error: I can not write to this file. Please set the right user permissions on: %s');
 ?>

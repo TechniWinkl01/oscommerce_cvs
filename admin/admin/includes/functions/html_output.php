@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.12 2002/01/05 05:29:22 hpdl Exp $
+  $Id: html_output.php,v 1.13 2002/01/05 12:19:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -187,8 +187,10 @@
 
 ////
 // Output a form textarea field
-  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $reinsert_value = true) {
-    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '">';
+  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
+    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
+    if ($params) $field .= ' ' . $params;
+    $field .= '>';
     if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
       $field .= $GLOBALS[$name];
     } elseif ($text != '') {

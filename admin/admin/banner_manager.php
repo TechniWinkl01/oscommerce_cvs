@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.45 2002/01/05 09:22:03 hpdl Exp $
+  $Id: banner_manager.php,v 1.46 2002/01/05 12:19:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

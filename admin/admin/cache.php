@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cache.php,v 1.13 2001/12/30 02:33:39 hpdl Exp $
+  $Id: cache.php,v 1.14 2002/01/05 12:19:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

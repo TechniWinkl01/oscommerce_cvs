@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: configure.php,v 1.3 2001/12/30 03:42:35 hpdl Exp $
+  $Id: configure.php,v 1.4 2002/01/05 12:19:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,6 +19,7 @@
   define('DIR_WS_CATALOG', '/catalog/');
   define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);
   define('DIR_WS_IMAGES', DIR_WS_ADMIN . 'images/');
+  define('DIR_WS_ICONS', DIR_WS_ADMIN . 'images/icons/');
   define('DIR_WS_CATALOG_IMAGES', DIR_WS_CATALOG . 'images/');
   define('DIR_WS_INCLUDES', 'includes/');
   define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.95 2002/01/05 10:12:24 hpdl Exp $
+  $Id: general.php,v 1.96 2002/01/05 12:19:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -930,5 +930,13 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
            $owner['read'] . $owner['write'] . $owner['execute'] .
            $group['read'] . $group['write'] . $group['execute'] .
            $world['read'] . $world['write'] . $world['execute'];
+  }
+
+  function tep_output_warning($warning) {
+    new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
+  }
+
+  function tep_output_error($error) {
+    new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error)));
   }
 ?>

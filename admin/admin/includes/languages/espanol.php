@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: espanol.php,v 1.62 2002/01/05 10:06:08 hpdl Exp $
+  $Id: espanol.php,v 1.63 2002/01/05 12:19:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -99,6 +99,7 @@ define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 define('BOX_TOOLS_CACHE', 'Cache Control');
 define('BOX_TOOLS_MAIL', 'Send Email');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
+define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
@@ -228,6 +229,8 @@ define('IMAGE_SELECT', 'Seleccionar');
 define('IMAGE_UPDATE', 'Actualizar');
 define('IMAGE_UPDATE_CURRENCIES', 'Actualizar Cambio de Moneda');
 define('IMAGE_UPLOAD', 'Subir');
+
+define('ICON_WARNING', 'Warning');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Paginas:');
