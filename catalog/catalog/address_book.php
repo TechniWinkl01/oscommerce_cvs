@@ -62,7 +62,7 @@
 <?
 // get all address_book entries of this customer
   $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' order by address_book_id");
-  $entries = tep_db_num_rows($addressbook);
+  $entries = tep_db_num_rows($address_book);
 // if we find only one address then that will be the default address and we're done
   if ($entries = 1) {
 ?>
