@@ -200,3 +200,7 @@ SPAN.markProductOutOfStock {
   font-weight : bold;
 }
 
+SPAN.productSpecialPrice {
+  font-family: Verdana, Arial, sans-serif;
+  color: #ff0000;
+}

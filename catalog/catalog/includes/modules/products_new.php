@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.2 2001/08/22 11:23:47 hpdl Exp $
+  $Id: products_new.php,v 1.3 2001/08/22 21:24:32 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,7 +21,7 @@
   } else {
     for($i=0; $i<sizeof($products_new_array); $i++) {
       if ($products_new_array[$i]['specials_price']) {
-        $products_price = '<s>' .  tep_currency_format($products_new_array[$i]['price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($products_new_array[$i]['specials_price']);
+        $products_price = '<s>' .  tep_currency_format($products_new_array[$i]['price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . tep_currency_format($products_new_array[$i]['specials_price']) . '</span>';
       } else {
         $products_price = tep_currency_format($products_new_array[$i]['price']);
       }

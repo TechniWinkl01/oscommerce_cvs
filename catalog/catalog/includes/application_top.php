@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.163 2001/08/22 20:17:24 hpdl Exp $
+  $Id: application_top.php,v 1.164 2001/08/22 21:24:27 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -131,8 +131,6 @@
   define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('EMAILPRODUCT_GUEST', false); // Can guests use the tell a friend email form?
-
-  define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
 
   define('CHECKOUT_BAR_TEXT_COLOR', '#AABBDD');
   define('CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED', '#000000');

@@ -62,7 +62,7 @@ function popupImageWindow(url) {
       $new_price = $check_special_values['specials_new_products_price'];
     }
     if ($new_price) {
-      $products_price = '<s>' . tep_currency_format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>';
+      $products_price = '<s>' . tep_currency_format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . tep_currency_format($new_price) . '</span>';
     } else {
       $products_price = tep_currency_format($product_info_values['products_price']);
     }
