@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.102 2002/01/14 16:27:00 dgw_ Exp $
+  $Id: general.php,v 1.103 2002/01/16 15:37:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -610,14 +610,15 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     $zones = tep_get_country_zones($country_id);
 
-    if (sizeof($zones) < 1) {
-      $zones[] = array('id' => '',
-                       'text' => TYPE_BELOW);
+    if (sizeof($zones) > 0) {
+      $zones_select = array(array('id' => '', 'text' => PLEASE_SELECT));
+      $zones = tep_array_merge($zones_select, $zones);
+    } else {
+      $zones = array('id' => '', 'text' => TYPE_BELOW);
 // create dummy options for Netscape to preset the height of the drop-down
       if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
         for ($i=0; $i<9; $i++) {
-          $zones[] = array('id' => '',
-                           'text' => '');
+          $zones[] = array('id' => '', 'text' => $pre);
         }
       }
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.12 2002/01/16 15:28:08 hpdl Exp $
+  $Id: geo_zones.php,v 1.13 2002/01/16 15:37:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,38 +12,38 @@
 
   require('includes/application_top.php');
 
-    switch ($HTTP_GET_VARS['saction']) {
-      case 'insert_sub':
-        tep_db_query("insert into " . TABLE_ZONES_TO_GEO_ZONES . " (zone_country_id, zone_id, geo_zone_id, date_added) values ('" . $HTTP_POST_VARS['zone_country_id'] . "', '" . $HTTP_POST_VARS['zone_id'] . "', '" . $HTTP_GET_VARS['zID'] . "', now())");
-        $new_subzone_id = tep_db_insert_id();
-        tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $new_subzone_id));
-        break;
-      case 'save_sub':
-        tep_db_query("update " . TABLE_ZONES_TO_GEO_ZONES . " set geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "', zone_country_id = '" . $HTTP_POST_VARS['zone_country_id'] . "', zone_id = " . (($HTTP_POST_VARS['zone_id']) ? "'" . $HTTP_POST_VARS['zone_id'] . "'" : 'null') . ", last_modified = now() where association_id = '" . $HTTP_GET_VARS['sID'] . "'");
-        tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $HTTP_GET_VARS['sID']));
-        break;
-      case 'deleteconfirm_sub':
-        tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where association_id = '" . $HTTP_GET_VARS['sID'] . "'");
-        tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage']));
-        break;
-    }
+  switch ($HTTP_GET_VARS['saction']) {
+    case 'insert_sub':
+      tep_db_query("insert into " . TABLE_ZONES_TO_GEO_ZONES . " (zone_country_id, zone_id, geo_zone_id, date_added) values ('" . $HTTP_POST_VARS['zone_country_id'] . "', '" . $HTTP_POST_VARS['zone_id'] . "', '" . $HTTP_GET_VARS['zID'] . "', now())");
+      $new_subzone_id = tep_db_insert_id();
+      tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $new_subzone_id));
+      break;
+    case 'save_sub':
+      tep_db_query("update " . TABLE_ZONES_TO_GEO_ZONES . " set geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "', zone_country_id = '" . $HTTP_POST_VARS['zone_country_id'] . "', zone_id = " . (($HTTP_POST_VARS['zone_id']) ? "'" . $HTTP_POST_VARS['zone_id'] . "'" : 'null') . ", last_modified = now() where association_id = '" . $HTTP_GET_VARS['sID'] . "'");
+      tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $HTTP_GET_VARS['sID']));
+      break;
+    case 'deleteconfirm_sub':
+      tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where association_id = '" . $HTTP_GET_VARS['sID'] . "'");
+      tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage']));
+      break;
+  }
 
-    switch ($HTTP_GET_VARS['action']) {
-      case 'insert_zone':
-        tep_db_query("insert into " . TABLE_GEO_ZONES . " (geo_zone_name, geo_zone_description, date_added) values ('" . $HTTP_POST_VARS['geo_zone_name'] . "', '" . $HTTP_POST_VARS['geo_zone_description'] . "', now())");
-        $new_zone_id = tep_db_insert_id();
-        tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $new_zone_id));
-        break;
-      case 'save_zone':
-        tep_db_query("update " . TABLE_GEO_ZONES . " set geo_zone_name = '" . $HTTP_POST_VARS['geo_zone_name'] . "', geo_zone_description = '" . $HTTP_POST_VARS['geo_zone_description'] . "', last_modified = now() where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
-        tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID']));
-        break;
-      case 'deleteconfirm_zone':
-        tep_db_query("delete from " . TABLE_GEO_ZONES . " where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
-        tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
-        tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage']));
-        break;
-    }
+  switch ($HTTP_GET_VARS['action']) {
+    case 'insert_zone':
+      tep_db_query("insert into " . TABLE_GEO_ZONES . " (geo_zone_name, geo_zone_description, date_added) values ('" . $HTTP_POST_VARS['geo_zone_name'] . "', '" . $HTTP_POST_VARS['geo_zone_description'] . "', now())");
+      $new_zone_id = tep_db_insert_id();
+      tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $new_zone_id));
+      break;
+    case 'save_zone':
+      tep_db_query("update " . TABLE_GEO_ZONES . " set geo_zone_name = '" . $HTTP_POST_VARS['geo_zone_name'] . "', geo_zone_description = '" . $HTTP_POST_VARS['geo_zone_description'] . "', last_modified = now() where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
+      tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID']));
+      break;
+    case 'deleteconfirm_zone':
+      tep_db_query("delete from " . TABLE_GEO_ZONES . " where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
+      tep_db_query("delete from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . $HTTP_GET_VARS['zID'] . "'");
+      tep_redirect(tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage']));
+      break;
+  }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -84,7 +84,7 @@ function update_zone(theForm) {
   }
 ?>
 </head>
-<body onload="SetFocus();">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onload="SetFocus();">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
