@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _fedex.php,v 1.4 2002/08/28 23:13:57 hpdl Exp $
+  $Id: _fedex.php,v 1.5 2002/08/29 01:57:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,13 +41,14 @@
       $zip = str_replace(' ', '', $zip);
       $zip = str_replace('-', '', $zip);
 
-      if ($country == 'US') {
+      if ($country == 'U.S.A.') {
         $this->DestZip = substr($zip, 0, 5);
       } else {
         $this->DestZip = $zip;
+        $this->Screen = 'Express';
       }
 
-      if($country) {
+      if (tep_not_null($country)) {
         $this->DestCountryCode = $country;
       }
     }
