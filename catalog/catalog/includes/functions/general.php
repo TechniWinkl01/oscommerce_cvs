@@ -184,4 +184,14 @@
 
     return 'cPath=' . $cPath_new;
   }
+
+  function tep_array_reverse($array) {
+    if (phpversion() >= '4.0.1') {
+      $array_reversed = array_reverse($array);
+    } else {
+      for($i=0; $i<sizeof($array); $i++) $array_reversed[$i] = $array[(sizeof($array)-$i-1)];
+    }
+
+    return $array_reversed;
+  }
 ?>
