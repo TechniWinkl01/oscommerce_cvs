@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.62 2002/11/19 18:03:50 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.63 2002/11/19 18:38:43 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -245,8 +245,8 @@
     $pto = $HTTP_GET_VARS['pto'] / $rate;
   }
   if (DISPLAY_PRICE_WITH_TAX == true) {
-    if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tr.tax_rate / 100) ) >= " . $pfrom . ")";
-    if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tr.tax_rate / 100) ) <= " . $pto . ")";
+    if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) >= " . $pfrom . ")";
+    if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) <= " . $pto . ")";
   } else {
     if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) >= " . $pfrom . ")";
     if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) <= " . $pto . ")";
