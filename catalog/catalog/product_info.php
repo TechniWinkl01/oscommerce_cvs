@@ -5,6 +5,11 @@
 <head>
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<script language="javascript"><!--
+function popupImageWindow(url) {
+  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
+}
+//--></script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -102,7 +107,7 @@
     <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td><table border="0" width="100%"><tr><td><br><?php echo FONT_STYLE_MAIN; ?><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?><p><? echo stripslashes($product_info_values['products_description']); ?></p>
+        <td><table border="0" width="100%"><tr><td><br><?php echo FONT_STYLE_MAIN; ?><a href="javascript:popupImageWindow('popup_image.php?image=<? echo $product_info_values['products_image']; ?>&alt=<? echo $product_info_values['products_name']; ?>')"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a><p><? echo stripslashes($product_info_values['products_description']); ?></p>
 <?
     if ($products_attributes == '1') {
       $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
