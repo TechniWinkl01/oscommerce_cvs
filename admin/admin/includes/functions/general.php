@@ -467,4 +467,93 @@
 
     return $select_string;
   }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+// Function	: tep_format_address
+//
+// Arguments	: customers_id, address_id, html
+//
+// Return	: properly formatted address
+//
+// Description	: This function will lookup the Addres format from the countries database
+//		  and properly format the address label.
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
+  $format = tep_db_query("select address_format as format from address_format where address_format_id = '" . $format_id . "'");
+  $format_values = tep_db_fetch_array($format);
+  $firstname = addslashes($delivery_values['firstname']);
+  $lastname = addslashes($delivery_values['lastname']);
+  $street = addslashes($delivery_values['street_address']);
+  $suburb = addslashes($delivery_values['suburb']);
+  $city = addslashes($delivery_values['city']);
+  $state = addslashes($delivery_values['state']);
+  $country_id = $delivery_values['country_id'];
+  $zone_id = $delivery_values['zone_id'];
+  $postcode = addslashes($delivery_values['postcode']);
+  $zip = $postcode;
+  $country = tep_get_country_name($country_id);
+  $state = tep_get_zone_code($country_id, $zone_id, $state);
+
+  $statecomma = '';
+  $streets = $street;
+  if ($suburb != '') $streets = $street . $cr . $suburb;
+  if ($firstname == '') $firstname = addslashes($delivery_values['name']);
+  if ($country == '') $country = addslashes($delivery_values['country']);
+  if ($state != '') $statecomma = $state . ', ';
+  if ($html == 0) { // Text Mode
+    $CR = $eoln;
+    $cr = $CR;
+    $HR = '----------------------------------------';
+    $hr = '----------------------------------------';
+  } else {
+    if ($html == 1) { // HTML Mode
+      $HR = '<HR>';
+      $hr = '<hr>';
+      if ($boln == '' && $eoln == "\n") { // Valu not specified, use rational defaults
+        $CR = '<BR>';
+        $cr = '<br>';
+        $eoln = $cr;
+      } else { // Use values supplied
+        $CR = $eoln . $boln;
+        $cr = $CR;
+      }
+    }
+  }
+
+  $fmt = $format_values['format'];
+  eval("\$address = \"$fmt\";");
+  $address = stripslashes($address);
+  return $boln . $address . $eoln;
+}
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_zone_code
+  //
+  // Arguments   : country           country code string
+  //               zone              state/province zone_id
+  //               def_state         default string if zone==0
+  //
+  // Return      : state_prov_code   state/province code
+  //
+  // Description : Function to retrieve the state/province code (as in FL for Florida etc)
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_zone_code($country, $zone, $def_state) {
+
+    $state_prov_query = tep_db_query("select zone_code from zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
+
+    if (!tep_db_num_rows($state_prov_query)) {
+      $state_prov_code = $def_state;
+    }
+    else {
+      $state_prov_values = tep_db_fetch_array($state_prov_query);
+      $state_prov_code = $state_prov_values['zone_code'];
+    }
+    
+    return $state_prov_code;
+  }
 ?>
