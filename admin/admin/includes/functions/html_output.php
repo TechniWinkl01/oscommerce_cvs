@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.6 2001/12/22 21:38:56 hpdl Exp $
+  $Id: html_output.php,v 1.7 2001/12/23 22:13:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -71,6 +71,12 @@
 // Draw a 1 pixel black line
   function tep_black_line() {
     return tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
+  }
+
+////
+// Output a separator either through whitespace, or with an image
+  function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
+    return tep_image(DIR_WS_IMAGES . $image, '', $width, $height);
   }
 
 ////
