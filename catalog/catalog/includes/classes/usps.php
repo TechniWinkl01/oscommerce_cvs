@@ -106,12 +106,16 @@ class USPS {
         $str .= "<Machinable>" . $this->machinable . "</Machinable></Package></RateRequest>"; 
         // echo $str;
 
-        $fp = fopen($str, "r");  
-        while(!feof($fp)){  
+        $fp = fopen($str, "r");
+        if (!$fp) {
+          $body = 'Error';
+        } else {
+          while(!feof($fp)){  
             $result = fgets($fp, 500);  
             $body.=$result; 
-        }  
-        fclose($fp); 
+          }  
+          fclose($fp); 
+        }
 
         # note: using split for systems with non-perl regex (don't know how to do it in sys v regex) 
         if (!ereg("Error", $body)) { 

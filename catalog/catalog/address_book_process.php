@@ -106,7 +106,7 @@
     tep_db_query("insert into address_book_to_customers values ('', '" . $insert_id . "', '" . $customer_id . "')");
 
     if (@$HTTP_POST_VARS['origin']) {
-      if (@$HTTP_POST_VARS['origin_connection'] == 'secure') {
+      if (@$HTTP_POST_VARS['origin_connection'] == 'SSL') {
         $connection_type = 'SSL';
       } else {
         $connection_type = 'NONSSL';
@@ -505,7 +505,7 @@ function check_form() {
     } else {
       echo '        <td align="right" nowrap><br>' . FONT_STYLE_MAIN . '<input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="' . @$HTTP_GET_VARS['connection'] . '">' . tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;&nbsp;&nbsp;&nbsp;';
       if (@$HTTP_GET_VARS['origin']) {
-        if (@$HTTP_GET_VARS['connection'] == 'secure') {
+        if (@$HTTP_GET_VARS['connection'] == 'SSL') {
           $connection_type = 'SSL';
         } else {
           $connection_type = 'NONSSL';

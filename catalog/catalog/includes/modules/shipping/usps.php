@@ -1,5 +1,5 @@
 <?
-  /* $Id: usps.php,v 1.11 2001/03/09 03:57:58 tmoulton Exp $ */
+  /* $Id: usps.php,v 1.12 2001/03/21 22:47:57 dwatkins Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
@@ -66,7 +66,7 @@
       $shipping_count++;
     }
   } elseif ($action == 'display') {
-      if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
+      if (($shipping_quote_usps == "1" || $shipping_quote_all == "1") && ($shipping_usps_quote)) {
         echo "              <tr>\n";
         echo '                <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_USPS_NAME . "</font></td>\n";
         echo '                <td>' . FONT_STYLE_MAIN . $shipping_usps_method . "</font></td>\n";

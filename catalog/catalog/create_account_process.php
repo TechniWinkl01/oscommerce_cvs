@@ -418,7 +418,7 @@
     mail($HTTP_POST_VARS['email_address'], EMAIL_WELCOME_SUBJECT, $message, "From: " . EMAIL_FROM);
     
     if ($HTTP_POST_VARS['origin']) {
-      if (@$HTTP_POST_VARS['connection'] == 'secure') {
+      if (@$HTTP_POST_VARS['connection'] == 'SSL') {
         $connection_type = 'SSL';
       } else {
         $connection_type = 'NONSSL';

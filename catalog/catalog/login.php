@@ -50,7 +50,7 @@
           header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
           tep_exit();
         } else {
-          if (@$HTTP_POST_VARS['connection'] == 'secure') {
+          if (@$HTTP_POST_VARS['connection'] == 'SSL') {
             $connection_type = 'SSL';
           } else {
             $connection_type = 'NONSSL';
