@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.127 2001/08/28 09:10:06 jwildeboer Exp $
+  $Id: general.php,v 1.128 2001/08/28 09:18:46 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -952,7 +952,7 @@
     if (!SEND_EMAILS) return true;
 
     // add From: header
-    $headers = "From: $from_email_name <$from_email_address>\n";
+    $headers = "From: $from_email_name <$from_email_address>\r\n";
 
     // specify MIME version 1.0
     $headers .= "MIME-Version: 1.0\r\n";
