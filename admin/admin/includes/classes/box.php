@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: box.php,v 1.4 2002/01/12 16:13:52 hpdl Exp $
+  $Id: box.php,v 1.5 2002/03/16 00:20:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,27 +30,28 @@
     }
 
     function infoBox($heading, $contents) {
-      $this->table_row_parameters = 'class="boxHeading"';
+      $this->table_row_parameters = 'class="infoBoxHeading"';
       $this->table_data_parameters = 'class="infoBoxHeading"';
       $this->heading = $this->tableBlock($heading);
 
       $this->table_row_parameters = '';
-      $this->table_data_parameters = 'class="boxContents"';
+      $this->table_data_parameters = 'class="infoBoxContent"';
       $this->contents = $this->tableBlock($contents);
 
       return $this->heading . $this->contents;
     }
 
     function menuBox($heading, $contents) {
-      $this->table_data_parameters = 'class="infoBoxHeading"';
+      $this->table_data_parameters = 'class="menuBoxHeading"';
       if ($heading[0]['link']) {
-        $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="blacklink">' . $heading[0]['text'] . '</a>&nbsp;';
+        $this->table_data_parameters .= ' onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . $heading[0]['link'] . '\'"';
+        $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="menuBoxHeadingLink">' . $heading[0]['text'] . '</a>&nbsp;';
       } else {
         $heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
       }
       $this->heading = $this->tableBlock($heading);
 
-      $this->table_data_parameters = 'class="infoBox"';
+      $this->table_data_parameters = 'class="menuBoxContent"';
       $this->contents = $this->tableBlock($contents);
 
       return $this->heading . $this->contents;

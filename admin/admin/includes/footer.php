@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: footer.php,v 1.9 2002/01/05 10:06:08 hpdl Exp $
+  $Id: footer.php,v 1.10 2002/03/16 00:20:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,11 +10,6 @@
   Released under the GNU General Public License
 */
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr class="footer">
-    <td class="footer">&nbsp;&nbsp;<?php echo strftime(DATE_FORMAT_LONG); ?></td>
-  </tr>
-</table>
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>

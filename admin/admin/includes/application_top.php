@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.140 2002/03/15 02:59:33 hpdl Exp $
+  $Id: application_top.php,v 1.141 2002/03/16 00:20:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -198,7 +198,6 @@
   require(DIR_WS_FUNCTIONS . 'localization.php');
 
 // setup our boxes
-  require(DIR_WS_CLASSES . 'boxes.php');
   require(DIR_WS_CLASSES . 'table_block.php');
   require(DIR_WS_CLASSES . 'box.php');
 

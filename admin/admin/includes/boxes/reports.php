@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reports.php,v 1.3 2002/01/08 18:58:25 hpdl Exp $
+  $Id: reports.php,v 1.4 2002/03/16 00:20:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,14 +17,13 @@
   $heading = array();
   $contents = array();
 
-  $heading[] = array('params' => 'class="menuBoxHeading"',
-                     'text'  => BOX_HEADING_REPORTS,
+  $heading[] = array('text'  => BOX_HEADING_REPORTS,
                      'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=reports'));
 
   if ($selected_box == 'reports') {
-    $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_STATS_PRODUCTS_VIEWED, '', 'NONSSL') . '">' . BOX_REPORTS_PRODUCTS_VIEWED . '</a><br>' .
-                                   '<a href="' . tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, '', 'NONSSL') . '">' . BOX_REPORTS_PRODUCTS_PURCHASED . '</a><br>' .
-                                   '<a href="' . tep_href_link(FILENAME_STATS_CUSTOMERS, '', 'NONSSL') . '">' . BOX_REPORTS_ORDERS_TOTAL . '</a>');
+    $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_STATS_PRODUCTS_VIEWED, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_REPORTS_PRODUCTS_VIEWED . '</a><br>' .
+                                   '<a href="' . tep_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_REPORTS_PRODUCTS_PURCHASED . '</a><br>' .
+                                   '<a href="' . tep_href_link(FILENAME_STATS_CUSTOMERS, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_REPORTS_ORDERS_TOTAL . '</a>');
   }
 
   $box = new box;
