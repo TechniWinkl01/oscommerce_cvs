@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.15 2002/01/29 20:08:49 hpdl Exp $
+  $Id: database.php,v 1.16 2002/01/29 20:16:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -131,15 +131,13 @@
   }
 
   function tep_db_prepare_input($string) {
-    if (is_int($string)) {
-      return $string;
+    if (is_string($string)) {
+      return trim(stripslashes($string));
     } elseif (is_array($string)) {
       while (list($key, $value) = each($string)) {
         $string[$key] = tep_db_prepare_input($value);
       }
       return $string;
-    } elseif (is_string($string)) {
-      return trim(stripslashes($string));
     } else {
       return $string;
     }
