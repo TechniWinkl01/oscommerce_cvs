@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.6 2002/03/09 17:53:45 harley_vb Exp $
+  $Id: newsletters.php,v 1.7 2002/03/11 14:13:05 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Rundschreiben Manager');
+define('HEADING_TITLE', 'Rundschreiben Verwaltung');
 
 define('TABLE_HEADING_NEWSLETTERS', 'Rundschreiben');
 define('TABLE_HEADING_SIZE', 'Gr&ouml;sse');
