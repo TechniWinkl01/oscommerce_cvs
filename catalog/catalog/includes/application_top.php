@@ -18,12 +18,6 @@
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
-  define('STORE_NAME', 'The Exchange Project');
-  define('STORE_OWNER', 'Harald Ponce de Leon');
-  define('STORE_OWNER_EMAIL_ADDRESS', 'hpdl@theexchangeproject.org');
-  define('EMAIL_FROM', 'Harald Ponce de Leon <hpdl@theexchangeproject.org>');
-  define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
-
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
   define('STORE_PAGE_PARSE_TIME', 0);
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_SERVER_ROOT . 'logs/exchange/parse_time_log');
@@ -84,24 +78,6 @@
   define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
-  define('MAX_ADDRESS_BOOK_ENTRIES', 5);
-  define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
-  define('MAX_DISPLAY_PAGE_LINKS', 5); // how many page numbers to link for page-sets
-  define('MAX_DISPLAY_SPECIAL_PRODUCTS', 9);
-  define('MAX_DISPLAY_NEW_PRODUCTS', 9); // used when user has chosen a category, how many new products are shown
-  define('MAX_DISPLAY_UPCOMING_PRODUCTS', 10); // how many upcoming products should be displayed on the main page
-  define('MAX_DISPLAY_MANUFACTURERS_IN_A_LIST', 0);  // used in manufacturers box; when the no. of manufacturers exceeds this number, a drop-down would be displayed instead of the default list.
-  define('MAX_DISPLAY_MANUFACTURER_NAME_LEN', 15);    // used in manufacturers box; max len of manufacturer name to display
-  define('MAX_DISPLAY_NEW_REVIEWS', 6);
-  define('MAX_RANDOM_SELECT_REVIEWS', 10); // how many records to select from to choose one random product review (default: 10)
-  define('MAX_RANDOM_SELECT_NEW', 10); // how many records to select from to choose one random new product to display (default: 10)
-  define('MAX_RANDOM_SELECT_SPECIALS', 10); // how many records to select from to choose one random product special to display (default: 10)
-  define('SMALL_IMAGE_WIDTH', 100); // the width in pixels of small images (default: 100);
-  define('SMALL_IMAGE_HEIGHT', 80); // the height in pixels of small images (default: 80);
-  define('HEADING_IMAGE_WIDTH', 85);
-  define('HEADING_IMAGE_HEIGHT', 60);
-  define('SUBCATEGORY_IMAGE_WIDTH', 100);
-  define('SUBCATEGORY_IMAGE_HEIGHT', 57);
 
   define('HEADER_BACKGROUND_COLOR', '#AABBDD');
   define('HEADER_NAVIGATION_BAR_BACKGROUND_COLOR', '#000000');
@@ -166,45 +142,16 @@
   define('VALUE_FONT_SIZE', 2);
   define('VALUE_FONT_COLOR', '#000000');
 
-// font styles
-  define('FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">');
-  define('FONT_STYLE_INFO_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">');
-  define('FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">');
-
-// minimum length of text field values accepted
-  define('ENTRY_FIRST_NAME_MIN_LENGTH', 3);
-  define('ENTRY_LAST_NAME_MIN_LENGTH', 3);
-  define('ENTRY_DOB_MIN_LENGTH', 10);
-  define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH', 6);
-  define('ENTRY_STREET_ADDRESS_MIN_LENGTH', 5);
-  define('ENTRY_POSTCODE_MIN_LENGTH', 4);
-  define('ENTRY_CITY_MIN_LENGTH', 4);
-  define('ENTRY_TELEPHONE_MIN_LENGTH', 3);
-  define('ENTRY_PASSWORD_MIN_LENGTH', 5);
-
 // set to "1" if extended email check function should be used
 // If you're testing locally and your webserver has no possibility to query 
 // a dns server you should set this to "0" !
   define('ENTRY_EMAIL_ADDRESS_CHECK', 1); 
-
-  define('ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH', 3);
-  define('ADDRESS_BOOK_LAST_NAME_MIN_LENGTH', 3);
-  define('ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH', 5);
-  define('ADDRESS_BOOK_POST_CODE_MIN_LENGTH', 4);
-  define('ADDRESS_BOOK_CITY_MIN_LENGTH', 4);
-  define('ADDRESS_BOOK_COUNTRY_MIN_LENGTH', 3);
 
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
   define('ACCOUNT_DOB', 1);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
-
-  define('CC_OWNER_MIN_LENGTH', 3);
-  define('CC_NUMBER_MIN_LENGTH', 10);
-  define('CC_EXPIRY_MIN_LENGTH', 4);
-
-  define('REVIEW_TEXT_MIN_LENGTH', 50);
 
 // Shipping Options
   define('SHIPPING_FREE', 1);
@@ -282,7 +229,7 @@
     }
   }
   tep_session_register('language');
-  
+
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // include the database functions
@@ -290,6 +237,12 @@
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
+
+// set the application parameters (can be modified through the administration tool)
+  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration');
+  while ($configuration = tep_db_fetch_array($configuration_query)) {
+    define($configuration['cfgKey'], $configuration['cfgValue']);
+  }
 
 // define our general functions used application-wide
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');

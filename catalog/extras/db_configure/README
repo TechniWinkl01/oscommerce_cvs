@@ -1,0 +1,3 @@
+Most configuration parameters for the catalog will now be
+set in the database. This allows for easier development
+for future project releases.
