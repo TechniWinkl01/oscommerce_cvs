@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table_block.php,v 1.1 2002/01/12 16:13:53 hpdl Exp $
+  $Id: table_block.php,v 1.2 2002/11/22 18:45:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,14 +31,14 @@
         tep_array_shift($contents);
       }
 
-      for ($i=0; $i<sizeof($contents); $i++) {
+      for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
         $tableBox_string .= '  <tr';
         if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
         if ($contents[$i]['params']) $tableBox_string .= ' ' . $contents[$i]['params'];
         $tableBox_string .= '>' . "\n";
 
         if (is_array($contents[$i][0])) {
-          for ($x=0; $x<sizeof($contents[$i]); $x++) {
+          for ($x = 0, $y = sizeof($contents[$i]); $x < $y; $x++) {
             if ($contents[$i][$x]['text']) {
               $tableBox_string .= '    <td';
               if ($contents[$i][$x]['align'] != '') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';

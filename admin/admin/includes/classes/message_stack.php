@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.4 2002/03/08 21:59:40 hpdl Exp $
+  $Id: message_stack.php,v 1.5 2002/11/22 18:45:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
       $this->errors = array();
 
       if (tep_session_is_registered('messageToStack')) {
-        for ($i=0; $i<sizeof($messageToStack); $i++) {
+        for ($i = 0, $n = sizeof($messageToStack); $i < $n; $i++) {
           $this->add($messageToStack[$i]['text'], $messageToStack[$i]['type']);
         }
         tep_session_unregister('messageToStack');
