@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.162 2001/08/22 12:02:27 dwatkins Exp $
+  $Id: application_top.php,v 1.163 2001/08/22 20:17:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,6 +21,9 @@
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
+
+// Application wide parameter to send out emails or not
+  define('SEND_EMAILS', true);
 
   define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
 
