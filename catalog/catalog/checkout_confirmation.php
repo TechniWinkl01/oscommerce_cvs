@@ -119,7 +119,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=$shipping_method . " " . SUB_TITLE_SHIPPING;?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;$<?=$shipping_cost;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;$<?=number_format($shipping_cost, 2);?>&nbsp;</font></td>
               </tr>
 <?
   }
