@@ -231,9 +231,10 @@
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
+          <tr>
+            <td><?php echo $payment_modules->confirmation(); ?></td>
+          </tr>
 <?
-// load the confirmation function from the payment modules
-    echo $payment_modules->confirmation();
   }
 
   if (!$checkout_form_action) {
@@ -301,27 +302,24 @@
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
-<?
-  echo '          <tr>' . "\n";
-  echo '            <td align="right" class="main"><br>' .
-                   '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
-                   '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
-                   '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
-                   '<input type="hidden" name="comments" value="' . urlencode(stripslashes($comments)) . '">' .
-                   '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
-                   '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
-
-// load the process_button function from the payment modules
-  echo $payment_modules->process_button();
+          <tr>
+            <td align="right" class="main"><br>
+<?php
+  echo tep_draw_hidden_field('prod', $HTTP_POST_VARS['prod']) .
+       tep_draw_hidden_field('sendto', $HTTP_POST_VARS['sendto']) .
+       tep_draw_hidden_field('payment', $HTTP_POST_VARS['payment']) .
+       tep_draw_hidden_field('comments', urlencode(stripslashes($comments))) .
+       tep_draw_hidden_field('shipping_cost', $shipping_cost) .
+       tep_draw_hidden_field('shipping_method', $shipping_method) .
+       $payment_modules->process_button();
 
   if (!$checkout_form_submit) {
-    echo tep_image_submit('button_confirm_order.gif', IMAGE_BUTTON_CONFIRM_ORDER) . '&nbsp;' . "\n";
+    echo tep_image_submit('button_confirm_order.gif', IMAGE_BUTTON_CONFIRM_ORDER) . '&nbsp;';
   } else {
     echo $checkout_form_submit;
   }
-  echo '            </td>' . "\n";
-  echo '          </tr></form>' . "\n";
-?>
+?></td>
+          </tr></form>
         </table></td>
       </tr>
       <tr>

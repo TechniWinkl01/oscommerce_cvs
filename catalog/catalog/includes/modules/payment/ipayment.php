@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.7 2001/08/23 21:35:24 hpdl Exp $
+  $Id: ipayment.php,v 1.8 2001/08/25 12:00:15 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -65,7 +65,7 @@
       global $HTTP_POST_VARS;
 
       if ($this->enabled) {
-        $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+        include(DIR_WS_FUNCTIONS . 'ccval.php');
 
         $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
         $cc_val = CCValidationSolution($cc_val);
@@ -94,21 +94,21 @@
       if ($this->enabled) {
         $ipayment_return = $HTTP_POST_VARS['payment'] . '&' . SID . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']);
 
-        $process_button_string = '<input type="hidden" name="silent" value="true">' .
-                                 '<input type="hidden" name="cc_userid" value="' . MODULE_PAYMENT_IPAYMENT_USER_ID . '">' .
-                                 '<input type="hidden" name="item_name" value="' . STORE_NAME . '">' .
-                                 '<input type="hidden" name="cc_amount" value="' . number_format(($total_cost + $shipping_cost) * 100 * $currency_rates['EUR'], 0, '','') . '">' .
-                                 '<input type="hidden" name="cc_expdate_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
-                                 '<input type="hidden" name="cc_expdate_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                                 '<input type="hidden" name="cc_number" value="' . $HTTP_POST_VARS['cc_number'] . '">' .
-                                 '<input type="hidden" name="cc_checknumber" value="' . $HTTP_POST_VARS['cc_checknumber'] . '">' .
-                                 '<input type="hidden" name="cc_name" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                                 '<input type="hidden" name="cc_email" value="' . $customer_email_values['customers_email_address'] . '">' .
-                                 '<input type="hidden" name="redirect_action" value="GET">' .
-                                 '<input type="hidden" name="cc_currency" value="EUR">' .
-                                 '<input type="hidden" name="redirect_url" value="' . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '">' .
-                                 '<input type="hidden" name="silent_error_url" value="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $ipayment_return, 'SSL') . '">' .
-                                 '<input type="hidden" name="' . tep_session_name() . '"" value="' . tep_session_id() . '">';
+        $process_button_string = tep_draw_hidden_field('silent', 'true') .
+                                 tep_draw_hidden_field('cc_userid', MODULE_PAYMENT_IPAYMENT_USER_ID) .
+                                 tep_draw_hidden_field('item_name', STORE_NAME) . '">' .
+                                 tep_draw_hidden_field('cc_amount', number_format(($total_cost + $shipping_cost) * 100 * $currency_rates['EUR'], 0, '','')) .
+                                 tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['cc_expires_month']) .
+                                 tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['cc_expires_year']) .
+                                 tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['cc_number']) .
+                                 tep_draw_hidden_field('cc_checknumber', $HTTP_POST_VARS['cc_checknumber']) .
+                                 tep_draw_hidden_field('cc_name', $HTTP_POST_VARS['cc_owner']) .
+                                 tep_draw_hidden_field('cc_email', $customer_email_values['customers_email_address']) .
+                                 tep_draw_hidden_field('redirect_action', 'GET') .
+                                 tep_draw_hidden_field('cc_currency', 'EUR') .
+                                 tep_draw_hidden_field('redirect_url', HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS) .
+                                 tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $ipayment_return, 'SSL')) .
+                                 tep_draw_hidden_field(tep_session_name(), tep_session_id());
       }
 
       return $process_button_string;
@@ -131,13 +131,15 @@
         $cc_errormsg = stripslashes($HTTP_GET_VARS['cc_val']);
       }
 
-      $output_error_string = '<tr>' . "\n" .
-                             '  <td class="main">' . IPAYMENT_ERROR_MESSAGE . '<br><font color="#ff0000"><b>' . $cc_errormsg . '<br>';
+      $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">' . IPAYMENT_ERROR_MESSAGE . '<br><font color="#ff0000"><b>' . $cc_errormsg . '<br>';
       if ($HTTP_GET_VARS['cc_additional']) {
         $output_error_string .= '(' . urldecode($HTTP_GET_VARS['cc_additional']) . ')<br>';
       }
       $output_error_string .= IPAYMENT_ERROR_MESSAGE2 . '</b></font></td>' . "\n" .
-                              '</tr>' . "\n";
+                              '  </tr>' . "\n" .
+                              '</table>' . "\n";
 
       return $output_error_string;
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.15 2001/08/23 21:35:23 hpdl Exp $
+  $Id: authorizenet.php,v 1.16 2001/08/25 12:00:14 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,7 @@
       global $HTTP_POST_VARS;
 
       if ($this->enabled) {
-        $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+        include(DIR_WS_FUNCTIONS . 'ccval.php');
 
         $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
         $cc_val = CCValidationSolution($cc_val);
@@ -82,15 +82,17 @@
       global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
 
       if ($this->enabled) {
-        $confirmation_string = '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n" .
-                               '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n" .
-                               '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n";
+        $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '</table>' . "\n";
 
         $checkout_form_action = 'https://www.authorize.net/gateway/transact.dll';
 
@@ -102,14 +104,14 @@
       global $HTTP_POST_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost;
 
       if ($this->enabled) {
-        $process_button_string = '<input type="hidden" name="x_Login" value="testing">' .
-                                 '<input type="hidden" name="x_Card_Num" value="' . $CardNumber . '">' .
-                                 '<input type="hidden" name="x_Exp_Date" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                                 '<input type="hidden" name="x_Amount" value="' . number_format($total_cost + $total_tax + $shipping_cost, 2) . '">' .
-                                 '<input type="hidden" name="x_ADC_Relay_Response" value="TRUE">' .
-                                 '<input type="hidden" name="x_ADC_URL" value="' . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '">' .
-                                 '<input type="hidden" name="x_Version" value="3.0">' .
-                                 '<input type="hidden" name="' . tep_session_name() . '" value="' . tep_session_id() . '">';
+        $process_button_string = tep_draw_hidden_field('x_Login', 'testing') .
+                                 tep_draw_hidden_field('x_Card_Num', $CardNumber) .
+                                 tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
+                                 tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
+                                 tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
+                                 tep_draw_hidden_field('x_ADC_URL', HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS) .
+                                 tep_draw_hidden_field('x_Version', '3.0') .
+                                 tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
         return $process_button_string;
       }
@@ -118,7 +120,7 @@
     function before_process() {
       global $payment, $x_response_code;
 
-      if ( ($payment == $this->code) && ($x_response_code != "1") ) {
+      if ( ($payment == $this->code) && ($x_response_code != '1') ) {
         Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
         tep_exit();
       }
@@ -132,9 +134,11 @@
     function output_error() {
       global $HTTP_GET_VARS;
 
-      $output_error_string = '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
-                             '</tr>' . "\n";
+      $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '</table>' . "\n";
 
       return $output_error_string;
     }

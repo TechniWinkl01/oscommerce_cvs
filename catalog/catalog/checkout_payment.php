@@ -171,12 +171,7 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?
-// load the selection function from the payment modules
-  echo $payment_modules->selection();
-?>
-            </table></td>
+            <td><?php echo $payment_modules->selection(); ?></td>
           </tr>
 <?
   }

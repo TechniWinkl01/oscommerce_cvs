@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.16 2001/08/25 11:07:14 hpdl Exp $
+  $Id: payment.php,v 1.17 2001/08/25 12:00:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -54,9 +54,10 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
-            $selection_string .= '              <tr class="payment-odd">' . "\n" .
-                                 '                <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
-                                 '                <td align="right" class="main">&nbsp;';
+            $selection_string .= '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                                 '  <tr class="payment-odd">' . "\n" .
+                                 '    <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
+                                 '    <td align="right" class="main">&nbsp;';
 // display radio button option if more than 1 payment module is installed
             if (tep_count_payment_modules() > 1) {
               $selection_string .= '<input type="radio" name="payment" value="' . $GLOBALS[$class]->code . '"';
@@ -68,12 +69,13 @@
               $selection_string .= tep_draw_hidden_field('payment', $GLOBALS[$class]->code);
             }
             $selection_string .= '&nbsp;</td>' . "\n" .
-                                 '              </tr>' . "\n" .
-                                 '              <tr class="payment-even">' . "\n" .
-                                 '                <td colspan="2">';
+                                 '  </tr>' . "\n" .
+                                 '  <tr class="payment-even">' . "\n" .
+                                 '    <td colspan="2">';
             $selection_string .= $GLOBALS[$class]->selection();
             $selection_string .= '&nbsp;</td>' . "\n" .
-                                 '              </tr>' . "\n";
+                                 '  </tr>' . "\n" .
+                                 '</table>' . "\n";
           }
         }
       }

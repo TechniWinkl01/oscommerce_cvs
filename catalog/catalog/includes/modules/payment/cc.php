@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.27 2001/08/23 21:35:24 hpdl Exp $
+  $Id: cc.php,v 1.28 2001/08/25 12:00:14 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -76,7 +76,7 @@
       global $HTTP_POST_VARS;
 
       if ($this->enabled) {
-        $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+        include(DIR_WS_FUNCTIONS . 'ccval.php');
 
         $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
         $cc_val = CCValidationSolution($cc_val);
@@ -92,20 +92,20 @@
       global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
 
       if ($this->enabled) {
-        $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-
-        $confirmation_string = '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n" .
-                               '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n" .
-                               '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n" .
-                               '          <tr>' . "\n" .
-                               '            <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
-                               '          </tr>' . "\n";
+        $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '  <tr>' . "\n" .
+                               '    <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                               '  </tr>' . "\n" .
+                               '</table>' . "\n";
 
         return $confirmation_string;
       }
@@ -115,10 +115,10 @@
       global $HTTP_POST_VARS, $CardName, $CardNumber;
 
       if ($this->enabled) {
-        $process_button_string = '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                                 '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                                 '<input type="hidden" name="cc_type" value="' . $CardName . '">' .
-                                 '<input type="hidden" name="cc_number" value="' . $CardNumber . '">';
+        $process_button_string = tep_draw_hidden_field('cc_owner', $HTTP_POST_VARS['cc_owner']) .
+                                 tep_draw_hidden_field('cc_expires', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
+                                 tep_draw_hidden_field('cc_type', $CardName) .
+                                 tep_draw_hidden_field('cc_number', $CardNumber);
 
         return $process_button_string;
       }
@@ -151,9 +151,11 @@
     function output_error() {
       global $HTTP_GET_VARS;
 
-      $output_error_string = '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_CC_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
-                             '</tr>' . "\n";
+      $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_CC_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '</table>' . "\n";
 
       return $output_error_string;
     }
