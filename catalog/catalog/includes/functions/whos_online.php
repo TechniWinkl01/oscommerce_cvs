@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.6 2002/11/23 16:33:58 dgw_ Exp $
+  $Id: whos_online.php,v 1.7 2003/02/11 01:31:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,7 +13,7 @@
   function tep_update_whos_online() {
     global $customer_id;
 
-    if (isset($customer_id)) {
+    if (tep_session_is_registered($customer_id)) {
       $wo_customer_id = $customer_id;
 
       $customer_query = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.4 2002/11/23 16:33:58 dgw_ Exp $
+  $Id: specials.php,v 1.5 2003/02/11 01:31:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: banner.php,v 1.9 2001/12/14 12:55:49 hpdl Exp $
+  $Id: banner.php,v 1.10 2003/02/11 01:31:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -41,11 +41,11 @@
     $banners_query = tep_db_query("select b.banners_id, b.expires_date, b.expires_impressions, sum(bh.banners_shown) as banners_shown from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_HISTORY . " bh where b.status = '1' and b.banners_id = bh.banners_id group by b.banners_id");
     if (tep_db_num_rows($banners_query)) {
       while ($banners = tep_db_fetch_array($banners_query)) {
-        if ($banners['expires_date']) {
+        if (tep_not_null($banners['expires_date'])) {
           if (date('Y-m-d H:i:s') >= $banners['expires_date']) {
             tep_set_banner_status($banners['banners_id'], '0');
           }
-        } elseif ($banners['expires_impressions']) {
+        } elseif (tep_not_null($banners['expires_impressions'])) {
           if ($banners['banners_shown'] >= $banners['expires_impressions']) {
             tep_set_banner_status($banners['banners_id'], '0');
           }
@@ -80,7 +80,7 @@
       return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
     }
 
-    if ($banner['banners_html_text']) {
+    if (tep_not_null($banner['banners_html_text'])) {
       $banner_string = $banner['banners_html_text'];
     } else {
       $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $banner['banners_image'], $banner['banners_title']) . '</a>';

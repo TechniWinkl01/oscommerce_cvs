@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: sessions.php,v 1.12 2002/04/09 11:29:24 dgw_ Exp $
+  $Id: sessions.php,v 1.13 2003/02/11 01:31:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -80,7 +80,7 @@
   }
 
   function tep_session_id($sessid = '') {
-    if ($sessid != '') {
+    if (!empty($sessid)) {
       return session_id($sessid);
     } else {
       return session_id();
@@ -88,7 +88,7 @@
   }
 
   function tep_session_name($name = '') {
-    if ($name != '') {
+    if (!empty($name)) {
       return session_name($name);
     } else {
       return session_name();
@@ -106,7 +106,7 @@
   }
 
   function tep_session_save_path($path = '') {
-    if ($path != '') {
+    if (!empty($path)) {
       return session_save_path($path);
     } else {
       return session_save_path();

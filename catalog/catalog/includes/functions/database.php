@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: database.php,v 1.17 2002/06/05 11:16:03 hpdl Exp $
+  $Id: database.php,v 1.18 2003/02/11 01:31:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -38,14 +38,14 @@
     global $$link;
 
     if (STORE_DB_TRANSACTIONS == 'true') {
-       error_log("QUERY " . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      error_log('QUERY ' . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
     $result = mysql_query($query, $$link) or tep_db_error($query, mysql_errno(), mysql_error());
 
     if (STORE_DB_TRANSACTIONS == 'true') {
        $result_error = mysql_error();
-       error_log("RESULT " . $result . " " . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+       error_log('RESULT ' . $result . ' ' . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
     return $result;

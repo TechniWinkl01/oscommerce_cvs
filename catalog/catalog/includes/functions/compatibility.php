@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.17 2002/11/23 16:33:58 dgw_ Exp $
+  $Id: compatibility.php,v 1.18 2003/02/11 01:31:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 
@@ -19,7 +19,7 @@
 // $HTTP_xxx_VARS
 // Ie, products attributes
   function do_magic_quotes_gpc(&$ar) {
-    if (!is_array($ar)) return;
+    if (!is_array($ar)) return false;
 
     while (list($key, $value) = each($ar)) {
       if (is_array($value)) {
@@ -66,8 +66,7 @@
 
   if (!function_exists('array_reverse')) {
     function array_reverse($array) {
-      $size = sizeof($array);
-      for ($i=0; $i<$size; $i++) $array_reversed[$i] = $array[($size-$i-1)];
+      for ($i=0, $n=sizeof($array); $i<$n; $i++) $array_reversed[$i] = $array[($n-$i-1)];
 
       return $array_reversed;
     }
@@ -101,7 +100,7 @@
 
   if (!function_exists('array_merge')) {
     function array_merge($array1, $array2, $array3 = '') {
-      if ($array3 == '') $array3 = array();
+      if (empty($array3) && !is_array($array3)) $array3 = array();
       while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
       while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
       if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
@@ -112,7 +111,7 @@
 
   if (!function_exists('is_numeric')) {
     function is_numeric($param) {
-      return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+      return ereg('^[0-9]{1,50}.?[0-9]{0,50}$', $param);
     }
   }
 

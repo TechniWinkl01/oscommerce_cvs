@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cache.php,v 1.9 2002/11/23 16:33:58 dgw_ Exp $
+  $Id: cache.php,v 1.10 2003/02/11 01:31:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,8 +18,9 @@
   function write_cache(&$var, $filename) {
     $filename = DIR_FS_CACHE . $filename;
     $success = false;
+
 // try to open the file
-    if ($fp = fopen($filename, 'w')) {
+    if ($fp = @fopen($filename, 'w')) {
 // obtain a file lock to stop corruptions occuring
       flock($fp, 2); // LOCK_EX
 // write serialized data
@@ -43,7 +44,7 @@
     $filename = DIR_FS_CACHE . $filename;
     $success = false;
 
-    if ($auto_expire && file_exists($filename)) {
+    if (($auto_expire == true) && file_exists($filename)) {
       $now = time();
       $filetime = filemtime($filename);
       $difference = $now - $filetime;
@@ -75,14 +76,14 @@
 //  $filename -  The name of the cache file.
 //  $var      -  The variable to be filled.
 //  $refresh  -  Optional.  If true, do not read from the cache.
-  function get_db_cache($SQL, &$var, $filename, $refresh = false){
+  function get_db_cache($sql, &$var, $filename, $refresh = false){
     $var = array();
 
 // check for the refresh flag and try to the data
-    if ($refresh || !read_cache($var, $filename)) {
+    if (($refresh == true)|| !read_cache($var, $filename)) {
 // Didn' get cache so go to the database.
 //      $conn = mysql_connect("localhost", "apachecon", "apachecon");
-      $res = tep_db_query($SQL);
+      $res = tep_db_query($sql);
 //      if ($err = mysql_error()) trigger_error($err, E_USER_ERROR);
 // loop through the results and add them to an array
       while ($rec = tep_db_fetch_array($res)) {
@@ -99,7 +100,7 @@
   function tep_cache_categories_box($auto_expire = false, $refresh = false) {
     global $cPath, $foo, $language, $languages_id, $id, $categories_string;
 
-    if ($refresh || !read_cache($cache_output, 'categories_box-' . $language . '.cache' . $cPath, $auto_expire)) {
+    if (($refresh == true) || !read_cache($cache_output, 'categories_box-' . $language . '.cache' . $cPath, $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'categories.php');
       $cache_output = ob_get_contents();
@@ -116,7 +117,7 @@
   function tep_cache_manufacturers_box($auto_expire = false, $refresh = false) {
     global $HTTP_GET_VARS, $language;
 
-    if ($refresh || !read_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $HTTP_GET_VARS['manufacturers_id'], $auto_expire)) {
+    if (($refresh == true) || !read_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $HTTP_GET_VARS['manufacturers_id'], $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'manufacturers.php');
       $cache_output = ob_get_contents();
@@ -133,7 +134,7 @@
   function tep_cache_also_purchased($auto_expire = false, $refresh = false) {
     global $HTTP_GET_VARS, $language, $languages_id;
 
-    if ($refresh || !read_cache($cache_output, 'also_purchased-' . $language . '.cache' . $HTTP_GET_VARS['products_id'], $auto_expire)) {
+    if (($refresh == true) || !read_cache($cache_output, 'also_purchased-' . $language . '.cache' . $HTTP_GET_VARS['products_id'], $auto_expire)) {
       ob_start();
       include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
       $cache_output = ob_get_contents();

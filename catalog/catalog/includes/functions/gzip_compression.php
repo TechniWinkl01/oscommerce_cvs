@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: gzip_compression.php,v 1.2 2003/01/17 14:08:10 hpdl Exp $
+  $Id: gzip_compression.php,v 1.3 2003/02/11 01:31:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
   function tep_check_gzip() {
     global $HTTP_ACCEPT_ENCODING;
 
-    if (headers_sent() || connection_aborted() ) {
+    if (headers_sent() || connection_aborted()) {
       return false;
     }
 

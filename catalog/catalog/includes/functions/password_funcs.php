@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: password_funcs.php,v 1.9 2003/01/10 20:33:26 hpdl Exp $
+  $Id: password_funcs.php,v 1.10 2003/02/11 01:31:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

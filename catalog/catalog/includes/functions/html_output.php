@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.48 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: html_output.php,v 1.49 2003/02/11 01:31:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -72,7 +72,7 @@
 ////
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '') {
-    if ( (($src == '') || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
+    if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
       return false;
     }
 
@@ -84,15 +84,15 @@
       $image .= ' title=" ' . tep_parse_input_field_data($alt, array('"' => '&quot;')) . ' "';
     }
 
-    if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
+    if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && (empty($width) || empty($height)) ) {
       if ($image_size = @getimagesize($src)) {
-        if ( (!$width) && ($height) ) {
+        if (empty($width) && tep_not_null($height)) {
           $ratio = $height / $image_size[1];
           $width = $image_size[0] * $ratio;
-        } elseif ( ($width) && (!$height) ) {
+        } elseif (tep_not_null($width) && empty($height)) {
           $ratio = $width / $image_size[0];
           $height = $image_size[1] * $ratio;
-        } elseif ( (!$width) && (!$height) ) {
+        } elseif (empty($width) && empty($height)) {
           $width = $image_size[0];
           $height = $image_size[1];
         }
@@ -101,7 +101,7 @@
       }
     }
 
-    if ( ($width) && ($height) ) {
+    if (tep_not_null($width) && tep_not_null($height)) {
       $image .= ' width="' . tep_parse_input_field_data($width, array('"' => '&quot;')) . '" height="' . tep_parse_input_field_data($height, array('"' => '&quot;')) . '"';
     }
 
@@ -250,7 +250,7 @@
 ////
 // Hide form elements
   function tep_hide_session_id() {
-    if (tep_not_null(SID)) return tep_draw_hidden_field(tep_session_name(), tep_session_id());
+    if (defined('SID') && tep_not_null(SID)) return tep_draw_hidden_field(tep_session_name(), tep_session_id());
   }
 
 ////
@@ -262,10 +262,9 @@
 
     $field .= '>';
 
-    if ($default == '') $default = $GLOBALS[$name];
+    if (empty($default) && isset($GLOBALS[$name])) $default = $GLOBALS[$name];
 
-    $size = sizeof($values);
-    for ($i=0; $i<$size; $i++) {
+    for ($i=0, $n=sizeof($values); $i<$n; $i++) {
       $field .= '<option value="' . tep_parse_input_field_data($values[$i]['id'], array('"' => '&quot;')) . '"';
       if ($default == $values[$i]['id']) {
         $field .= ' SELECTED';
@@ -285,8 +284,8 @@
   function tep_get_country_list($name, $selected = '', $parameters = '') {
     $countries_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT));
     $countries = tep_get_countries();
-    $size = sizeof($countries);
-    for ($i=0; $i<$size; $i++) {
+
+    for ($i=0, $n=sizeof($countries); $i<$n; $i++) {
       $countries_array[] = array('id' => $countries[$i]['countries_id'], 'text' => $countries[$i]['countries_name']);
     }
 
