@@ -1,4 +1,4 @@
-$Id: STANDARD,v 1.12 2003/04/08 22:33:24 dgw_ Exp $
+$Id: STANDARD,v 1.13 2003/06/09 21:13:13 hpdl Exp $
 
 osCommerce Coding Standards
 
@@ -157,10 +157,10 @@ For example:
 ?>
 
 
-Customer Functions
-------------------
+Custom Functions
+----------------
 
-All customer functions should start with tep_ so that the developer knows
+All custom functions should start with tep_ so that the developer knows
 a native PHP function is not being called.*
 
 An example custom function style:
@@ -168,14 +168,14 @@ An example custom function style:
 <?php
   function tep_my_function($parameter, $optional = '') {
     global $HTTP_GET_VARS, $another_variable;
-    
+
     ....
-    
+
     return true;
   }
 ?>
 
-* When 2.2 is finalized the customer functions should be renamed to osc_*
+* When 2.2 is finalized the custom functions should be renamed to osc_*
 as "tep" refers to the previous name of the project.
 
 Class Names
@@ -210,20 +210,20 @@ The class should be written in the following structure:
 <?php
   class myclass {
     var $variable;
-    
+
 // class constuctor
     function myclass() {
-    
+
       ....
-    
+
       return true;
     }
 
 // class methods
     function do_something() {
-    
+
       $this->variable = 'set';
-      
+
       return true;
     }
   }
@@ -276,8 +276,11 @@ when inserting it into the table. The following structure is used:
 <?php
   $value1 = tep_db_prepare_input($HTTP_POST_VARS['value1']);
 
-  tep_db_query("insert into table (column1) values ('" . tep_db_input($value1) . "'");
+  tep_db_query("update table set column = '" . tep_db_input($value1) . "' where id = '" . (int)$id . "'");
 ?>
+
+Variable type casting should be performed directly for integer based values, such
+as column IDs: (int)$variable
 
 Multiple values can be parsed, protected and inserted into the table in an easier
 fashion:
@@ -305,12 +308,12 @@ A similar structure can be used for updating values in a table:
                           'column2' => $value2,
                           'column3' => $value3);
 
-  tep_db_perform('table', $sql_data_array, 'update', 'some_id = \'' . $some_id . '\'');
+  tep_db_perform('table', $sql_data_array, 'update', "id = '" . (int)$id . "'");
 ?>
 
 Table names should not directly be entered in the query, but the constant
 parameter assigned to that table. A list of defined constant table names
-can currently be found in includes/application_top.php.
+can currently be found in includes/database_tables.php.
 
 Function Output
 ---------------
@@ -469,24 +472,30 @@ for loops should be written as:
 
 Mixing HTML and PHP
 -------------------
-If you start an html tag in php it must be finished in php,
-and if you start it in html it must be finished in html.
+
+Common HTML tags started in HTML must end in HTML, and
+tags started in PHP must end in PHP.
 
 Wrong:
+
 <td><?php echo "Hello</td>"; ?>
 
-Right
+Correct:
+
 <td><?php echo "Hello"; ?></td>
 
-Right:
-<?php 
-  echo '<td>Hello</td>'; 
+Correct:
+
+<?php
+  echo '<td>Hello</td>';
 ?>
 
-Same goes for all tags, <a> <p> <table> ... whatever.
-...
+Exceptions to this standard include the tep_draw_form()
+function:
 
-The exception to this rule --as usual there is an exception :-)
-<?php echo tep_draw_form(); ?></form>
-
+<?php
+  echo tep_draw_form();
+?>
+[form input fields are placed here]
+</form>
 ?>
