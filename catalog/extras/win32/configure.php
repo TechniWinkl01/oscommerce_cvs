@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.1 2001/05/23 11:24:39 hpdl Exp $
+  $Id: configure.php,v 1.2 2001/12/03 15:31:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,6 @@
   define('ENABLE_SSL', 0); // ssl server enable(1)/disable(0)
 
   define('DIR_FS_DOCUMENT_ROOT', 'C:/Program Files/Apache Group/Apache/htdocs/');
-  define('DIR_FS_LOGS', 'C:/Program Files/Apache Group/Apache/logs/');
 
   define('DB_SERVER', 'localhost');
   define('DB_SERVER_USERNAME', 'root');
