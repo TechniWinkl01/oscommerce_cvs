@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.126 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: checkout_confirmation.php,v 1.127 2003/01/09 15:53:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
   }
 
   if (!tep_session_is_registered('payment')) tep_session_register('payment');
-  $payment = $HTTP_POST_VARS['payment'];
+  if (isset($HTTP_POST_VARS['payment'])) $payment = $HTTP_POST_VARS['payment'];
 
 // load the selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
@@ -116,6 +116,9 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
+<?php
+  if ($sendto != false) {
+?>
             <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main"><b><?php echo HEADING_DELIVERY_ADDRESS; ?></b></td>
@@ -124,7 +127,7 @@
                 <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>'); ?></td>
               </tr>
 <?php
-  if ($order->info['shipping_method']) {
+    if ($order->info['shipping_method']) {
 ?>
               <tr>
                 <td class="main"><b><?php echo HEADING_SHIPPING_METHOD; ?></b></td>
@@ -133,10 +136,13 @@
                 <td class="main"><?php echo $order->info['shipping_method']; ?></td>
               </tr>
 <?php
-  }
+    }
 ?>
             </table></td>
-            <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<?php
+  }
+?>
+            <td width="<?php echo (($sendto != false) ? '70%' : '100%'); ?>" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php

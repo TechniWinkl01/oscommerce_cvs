@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.116 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: checkout_process.php,v 1.117 2003/01/09 15:53:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -235,10 +235,13 @@
     $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
   }
 
-  $email_order .= "\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
-                  EMAIL_SEPARATOR . "\n" .
-                  tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n" .
-                  EMAIL_TEXT_BILLING_ADDRESS . "\n" .
+  if ($order->content_type != 'virtual') {
+    $email_order .= "\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
+                    EMAIL_SEPARATOR . "\n" .
+                    tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n";
+  }
+
+  $email_order .= "\n" . EMAIL_TEXT_BILLING_ADDRESS . "\n" .
                   EMAIL_SEPARATOR . "\n" .
                   tep_address_label($customer_id, $billto, 0, '', "\n") . "\n\n";
   if (is_object($$payment)) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.5 2003/01/03 16:32:55 thomasamoulton Exp $
+  $Id: checkout_shipping_address.php,v 1.6 2003/01/09 15:53:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,6 +21,16 @@
 // if there is nothing in the customers cart, redirect them to the shopping cart page
   if ($cart->count_contents() < 1) {
     tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
+  }
+
+// if the order contains only virtual products, forward the customer to the billing page as
+// a shipping address is not needed
+  if ($order->content_type == 'virtual') {
+    if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
+    $shipping = false;
+    if (!tep_session_is_registered('sendto')) tep_session_register('sendto');
+    $sendto = false;
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
   }
 
   $error = false;

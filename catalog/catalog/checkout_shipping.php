@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.7 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: checkout_shipping.php,v 1.8 2003/01/09 15:53:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -42,6 +42,20 @@
   require(DIR_WS_CLASSES . 'order.php');
   $order = new order;
 
+// register a random ID in the session to check throughout the checkout procedure
+// against alterations in the shopping cart contents
+  if (!tep_session_is_registered('cartID')) tep_session_register('cartID');
+  $cartID = $cart->cartID;
+
+// if the order contains only virtual products, forward the customer to the billing page as
+// a shipping address is not needed
+  if ($order->content_type == 'virtual') {
+    if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
+    $shipping = false;
+    $sendto = false;
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+  }
+
   $total_weight = $cart->show_weight();
   $total_count = $cart->count_contents();
 
@@ -50,37 +64,46 @@
   $shipping_modules = new shipping;
 
 // process the selected shipping method
-  if ( (isset($HTTP_POST_VARS['shipping'])) && (strpos($HTTP_POST_VARS['shipping'], '_')) ) {
+  if ( isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process') ) {
     if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
-    $shipping = $HTTP_POST_VARS['shipping'];
 
-    list($module, $method) = explode('_', $shipping);
-    if (is_object($$module)) {
-      $quote = $shipping_modules->quote($method, $module);
-      if (isset($quote['error'])) {
-        tep_session_unregister('shipping');
-      } else {
-        if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
-          $shipping = array('id' => $shipping,
-                            'title' => $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')',
-                            'cost' => $quote[0]['methods'][0]['cost']);
+    if (tep_count_shipping_modules() > 0) {
+      if ( (isset($HTTP_POST_VARS['shipping'])) && (strpos($HTTP_POST_VARS['shipping'], '_')) ) {
+        $shipping = $HTTP_POST_VARS['shipping'];
 
-          if (!tep_session_is_registered('cartID')) tep_session_register('cartID');
-          $cartID = $cart->cartID;
+        list($module, $method) = explode('_', $shipping);
+        if (is_object($$module)) {
+          $quote = $shipping_modules->quote($method, $module);
+          if (isset($quote['error'])) {
+            tep_session_unregister('shipping');
+          } else {
+            if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
+              $shipping = array('id' => $shipping,
+                                'title' => $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')',
+                                'cost' => $quote[0]['methods'][0]['cost']);
 
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+              tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+            }
+          }
+        } else {
+          tep_session_unregister('shipping');
         }
       }
     } else {
-      tep_session_unregister('shipping');
-    }
+      $shipping = false;
+                
+      tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+    }    
   }
 
 // get all available shipping quotes
   $quotes = $shipping_modules->quote();
 
-// if no shipping method has been selected, automatically select the cheapest method
-  if (!tep_session_is_registered('shipping')) $shipping = $shipping_modules->cheapest();
+// if no shipping method has been selected, automatically select the cheapest method.
+// if the modules status was changed when none were available, to save on implementing
+// a javascript force-selection method, also automatically select the cheapest shipping
+// method if more than one module is now enabled
+  if ( !tep_session_is_registered('shipping') || ( tep_session_is_registered('shipping') && ($shipping == false) && (tep_count_shipping_modules() > 1) ) ) $shipping = $shipping_modules->cheapest();
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SHIPPING);
 
@@ -141,7 +164,7 @@ function rowOutEffect(object) {
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php echo tep_draw_form('checkout_address', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL')); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('checkout_address', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL')) . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -183,6 +206,9 @@ function rowOutEffect(object) {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
+<?php
+  if (tep_count_shipping_modules() > 0) {
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
@@ -195,9 +221,9 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  $quotes_size = sizeof($quotes);
+    $quotes_size = sizeof($quotes);
 
-  if ($quotes_size > 1) {
+    if ($quotes_size > 1) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -206,7 +232,7 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
-  } else {
+    } else {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -214,10 +240,10 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
-  }
+    }
 
-  $radio_buttons = 0;
-  for ($i=0; $i<$quotes_size; $i++) {
+    $radio_buttons = 0;
+    for ($i=0; $i<$quotes_size; $i++) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -228,7 +254,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-    if (isset($quotes[$i]['error'])) {
+      if (isset($quotes[$i]['error'])) {
 ?>
                   <tr>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -236,44 +262,44 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-    } else {
-      $size = sizeof($quotes[$i]['methods']);
-      for ($j=0, $n2=$size; $j<$n2; $j++) {
+      } else {
+        $size = sizeof($quotes[$i]['methods']);
+        for ($j=0, $n2=$size; $j<$n2; $j++) {
 // set the radio button to be checked if it is the method chosen
-        $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
+          $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
 
-        if ($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) {
-          echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
-        } else {
-          echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
-        }
+          if ( ($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) || (tep_count_shipping_modules() == (int)1) ) {
+            echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+          } else {
+            echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+          }
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" width="75%"><?php echo $quotes[$i]['methods'][$j]['title']; ?></td>
 <?php
-        if ( ($quotes_size > 1) || ($n2 > 1) ) {
+          if ( ($quotes_size > 1) || ($n2 > 1) ) {
 ?>
                     <td class="main"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']); ?></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
 <?php
-        } else {
+          } else {
 ?>
                     <td class="main" align="right" colspan="2"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
 <?php
-        }
+          }
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-        $radio_buttons++;
+          $radio_buttons++;
+        }
       }
-    }
 ?>
                 </table></td>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
               </tr>
 <?php
-  }
+    }
 ?>
             </table></td>
           </tr>
@@ -282,6 +308,9 @@ function rowOutEffect(object) {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
+<?php
+  }
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
