@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.6 2001/10/24 11:48:11 dgw_ Exp $
+  $Id: currencies.php,v 1.7 2001/11/21 12:48:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,15 +19,16 @@
 // class constructor
     function currencies() {
       $this->currencies = array();
-      $currencies_query = tep_db_query("select code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
+      $currencies_query = tep_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
       while ($currencies = tep_db_fetch_array($currencies_query)) {
-	    $this->currencies[$currencies['code']] = array('symbol_left' => $currencies['symbol_left'],
-                                                       'symbol_right' => $currencies['symbol_right'],
-                                                       'decimal_point' => $currencies['decimal_point'],
-                                                       'thousands_point' => $currencies['thousands_point'],
-                                                       'decimal_places' => $currencies['decimal_places'],
-                                                       'value' => $currencies['value']
-                                                      );
+	    $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
+                                                     'symbol_left' => $currencies['symbol_left'],
+                                                     'symbol_right' => $currencies['symbol_right'],
+                                                     'decimal_point' => $currencies['decimal_point'],
+                                                     'thousands_point' => $currencies['thousands_point'],
+                                                     'decimal_places' => $currencies['decimal_places'],
+                                                     'value' => $currencies['value']
+                                                    );
       }
     }
 
