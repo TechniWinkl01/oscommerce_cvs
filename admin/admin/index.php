@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.18 2003/06/20 00:37:20 hpdl Exp $
+  $Id: index.php,v 1.19 2003/06/27 09:38:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,7 +102,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
           </tr>
           <tr bgcolor="#080381">
             <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
-              <tr>
+              <tr valign="top">
                 <td width="140" valign="top"><table border="0" width="140" height="390" cellspacing="0" cellpadding="2">
                   <tr>
                     <td valign="top"><br>
