@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.222 2003/05/19 19:46:55 hpdl Exp $
+  $Id: general.php,v 1.223 2003/05/27 16:58:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -890,23 +890,19 @@
   function tep_get_product_path($products_id) {
     $cPath = '';
 
-    $cat_count_sql = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $products_id . "'");
-    $cat_count_data = tep_db_fetch_array($cat_count_sql);
+    $category_query = tep_db_query("select p2c.categories_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = '" . (int)$products_id . "' and p.products_status = '1' and p.products_id = p2c.products_id limit 1");
+    if (tep_db_num_rows($category_query)) {
+      $category = tep_db_fetch_array($category_query);
 
-    if ($cat_count_data['count'] == 1) {
       $categories = array();
+      tep_get_parent_categories($categories, $category['categories_id']);
 
-      $cat_id_sql = tep_db_query("select categories_id from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $products_id . "'");
-      $cat_id_data = tep_db_fetch_array($cat_id_sql);
-      tep_get_parent_categories($categories, $cat_id_data['categories_id']);
+      $categories = array_reverse($categories);
 
-      $size = sizeof($categories)-1;
-      for ($i = $size; $i >= 0; $i--) {
-        if ($cPath != '') $cPath .= '_';
-        $cPath .= $categories[$i];
-      }
-      if ($cPath != '') $cPath .= '_';
-      $cPath .= $cat_id_data['categories_id'];
+      $cPath = implode('_', $categories);
+
+      if (tep_not_null($cPath)) $cPath .= '_';
+      $cPath .= $category['categories_id'];
     }
 
     return $cPath;
