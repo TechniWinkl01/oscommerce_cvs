@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.125 2002/03/16 00:41:29 hpdl Exp $
+  $Id: categories.php,v 1.126 2002/03/17 01:49:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -239,14 +239,34 @@
         }
         break;
       case 'copy_to_confirm':
-        if ( (tep_not_null($HTTP_POST_VARS['products_id'])) && (tep_not_null($HTTP_POST_VARS['categories_id'])) && ($HTTP_POST_VARS['categories_id'] != $current_category_id) ) {
+        if ( (tep_not_null($HTTP_POST_VARS['products_id'])) && (tep_not_null($HTTP_POST_VARS['categories_id'])) ) {
           $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
           $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
 
-          $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . tep_db_input($categories_id) . "'");
-          $check = tep_db_fetch_array($check_query);
-          if ($check['total'] < '1') {
-            tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . tep_db_input($products_id) . "', '" . tep_db_input($categories_id) . "')");
+          if ($HTTP_POST_VARS['copy_as'] == 'link') {
+            if ($HTTP_POST_VARS['categories_id'] != $current_category_id) {
+              $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . tep_db_input($categories_id) . "'");
+              $check = tep_db_fetch_array($check_query);
+              if ($check['total'] < '1') {
+                tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . tep_db_input($products_id) . "', '" . tep_db_input($categories_id) . "')");
+              }
+            } else {
+              $messageStack->add_session(ERROR_CANNOT_LINK_TO_SAME_CATEGORY, 'error');
+            }
+          } elseif ($HTTP_POST_VARS['copy_as'] == 'duplicate') {
+            $product_query = tep_db_query("select products_quantity, products_model, products_image, products_price, products_date_available, products_weight, products_tax_class_id, manufacturers_id from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($products_id) . "'");
+            $product = tep_db_fetch_array($product_query);
+
+            tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, products_model,products_image, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $product['products_quantity'] . "', '" . $product['products_model'] . "', '" . $product['products_image'] . "', '" . $product['products_price'] . "',  now(), '" . $product['products_date_available'] . "', '" . $product['products_weight'] . "', '0', '" . $product['products_tax_class_id'] . "', '" . $product['manufacturers_id'] . "')");
+            $dup_products_id = tep_db_insert_id();
+
+            $description_query = tep_db_query("select language_id, products_name, products_description, products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . tep_db_input($products_id) . "'");
+            while ($description = tep_db_fetch_array($description_query)) {
+              tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url, products_viewed) values ('" . $dup_products_id . "', '" . $description['language_id'] . "', '" . $description['products_name'] . "', '" . $description['products_description'] . "', '" . $description['products_url'] . "', '0')");
+            }
+
+            tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $dup_products_id . "', '" . tep_db_input($categories_id) . "')");
+            $products_id = $dup_products_id;
           }
 
           if (USE_CACHE == 'true') {
@@ -816,7 +836,8 @@
         $contents = array('form' => tep_draw_form('copy_to', FILENAME_CATEGORIES, 'action=copy_to_confirm&cPath=' . $cPath) . tep_draw_hidden_field('products_id', $pInfo->products_id));
         $contents[] = array('text' => TEXT_INFO_COPY_TO_INTRO);
         $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . tep_output_generated_category_path($pInfo->products_id, 'product') . '</b>');
-        $contents[] = array('text' => TEXT_CATEGORIES . '<br>' . tep_draw_pull_down_menu('categories_id', tep_get_category_tree(), $current_category_id));
+        $contents[] = array('text' => '<br>' . TEXT_CATEGORIES . '<br>' . tep_draw_pull_down_menu('categories_id', tep_get_category_tree(), $current_category_id));
+        $contents[] = array('text' => '<br>' . TEXT_HOW_TO_COPY . '<br>' . tep_draw_radio_field('copy_as', 'link', true) . ' ' . TEXT_COPY_AS_LINK . '<br>' . tep_draw_radio_field('copy_as', 'duplicate') . ' ' . TEXT_COPY_AS_DUPLICATE);
         $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_copy.gif', IMAGE_COPY) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       default:

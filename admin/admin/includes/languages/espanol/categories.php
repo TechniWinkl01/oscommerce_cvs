@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.17 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: categories.php,v 1.18 2002/03/17 01:49:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -86,6 +86,11 @@ define('TEXT_NONE', '--ninguno--');
 
 define('EMPTY_CATEGORY', 'Categoria Vacia');
 
+define('TEXT_HOW_TO_COPY', 'Copy Method:');
+define('TEXT_COPY_AS_LINK', 'Link product');
+define('TEXT_COPY_AS_DUPLICATE', 'Duplicate product');
+
+define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in the same category.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: No se puede escribir en el directorio de imagenes del catalogo: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de imagenes del Catalogo: ' . DIR_FS_CATALOG_IMAGES);
 ?>
