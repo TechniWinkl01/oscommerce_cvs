@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_graphs.php,v 1.4 2002/05/07 23:00:42 hpdl Exp $
+  $Id: html_graphs.php,v 1.5 2002/11/22 18:54:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -145,7 +145,7 @@
 // prints out the actual data for the horizontal chart
   function horizontal_graph($names, $values, $bars, $vals) {
     $horizontal_graph_string = '';
-    for($i=0; $i<sizeof($values); $i++) { 
+    for($i = 0, $n = sizeof($values); $i < $n; $i++) { 
       $horizontal_graph_string .= '  <tr>' . "\n" .
                                   '    <td align="right"';
 // if a background was choosen don't print cell BGCOLOR
@@ -186,7 +186,7 @@
   function vertical_graph($names, $values, $bars, $vals) {
     $vertical_graph_string = '  <tr>' . "\n";
 
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $vertical_graph_string .= '    <td align="center" valign="bottom"';
 
 // if a background was choosen don't print cell BGCOLOR
@@ -215,7 +215,7 @@
     $vertical_graph_string .= '  </tr>' . "\n" .
                               '  <tr>' . "\n";
 
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $vertical_graph_string .= '    <td align="center" valign="top"';
 
 // if a background was choosen don't print cell BGCOLOR
@@ -233,7 +233,7 @@
 // prints out the actual data for the double horizontal chart
   function double_horizontal_graph($names, $values, $bars, $vals, $dvalues, $dbars) {
     $double_horizontal_graph_string = '';
-    for($i=0; $i<sizeof($values); $i++) {
+    for($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $double_horizontal_graph_string .= '  <tr>' . "\n" .
                                         '    <td align="right"';
 
@@ -293,7 +293,7 @@
 // prints out the actual data for the double vertical chart
   function double_vertical_graph($names, $values, $bars, $vals, $dvalues, $dbars) {
     $double_vertical_graph_string = '  <tr>' . "\n";
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $double_vertical_graph_string .= '    <td align="center" valign="bottom"';
 
 // if a background was choosen don't print cell BGCOLOR
@@ -348,7 +348,7 @@
     $double_vertical_graph_string .= '  </tr>' . "\n" .
                                      '  <tr>' . "\n";
 
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $double_vertical_graph_string .= '    <td align="center" valign="top"';
 
 // if a background was choosen don't print cell BGCOLOR
@@ -375,7 +375,7 @@
 
     $bars = array();
     $dbars = array();
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
       $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
     }
@@ -421,7 +421,7 @@
 
     $bars = array();
     $dbars = array();
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
       $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
     }
@@ -475,7 +475,7 @@
 
     $bars = array();
     $dbars = array();
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
       $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
     }
@@ -532,7 +532,7 @@
 
     $bars = array();
     $dbars = array();
-    for ($i=0; $i<sizeof($values); $i++) {
+    for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
       $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
     }
