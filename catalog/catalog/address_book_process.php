@@ -165,20 +165,20 @@
 ?>
 <html>
 <head>
-<title><?=TITLE;?></title>
+<title><? echo TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
   if (theForm.zone_id.options.length > 0) {
-    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+    theForm.state.value = '<? echo JS_STATE_SELECT;?>';
   }
 }
 
 function resetZoneSelected(theForm) {
   theForm.zone_id.selectedIndex = '0';
   if (theForm.zone_id.options.length > 0) {
-    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+    theForm.state.value = '<? echo JS_STATE_SELECT;?>';
   }
 }
 function update_zone(theForm) {
@@ -200,7 +200,7 @@ function update_zone(theForm) {
 
 function check_form() {
   var error = 0;
-  var error_message = "<?=JS_ERROR;?>";
+  var error_message = "<? echo JS_ERROR;?>";
 
   var firstname = document.add_entry.firstname.value;
   var lastname = document.add_entry.lastname.value;
@@ -213,48 +213,48 @@ function check_form() {
 ?>
   if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
   } else {
-    error_message = error_message + "<?=JS_GENDER;?>";
+    error_message = error_message + "<? echo JS_GENDER;?>";
     error = 1;
   }
 <?
  }
 ?>
-  if (firstname == "" || firstname.length < <?=ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_FIRST_NAME;?>";
+  if (firstname == "" || firstname.length < <? echo ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH;?>) {
+    error_message = error_message + "<? echo JS_FIRST_NAME;?>";
     error = 1;
   }
 
-  if (lastname == "" || lastname.length < <?=ADDRESS_BOOK_LAST_NAME_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_LAST_NAME;?>";
+  if (lastname == "" || lastname.length < <? echo ADDRESS_BOOK_LAST_NAME_MIN_LENGTH;?>) {
+    error_message = error_message + "<? echo JS_LAST_NAME;?>";
     error = 1;
   }
 
-  if (street_address == "" || street_address.length < <?=ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_ADDRESS;?>";
+  if (street_address == "" || street_address.length < <? echo ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH;?>) {
+    error_message = error_message + "<? echo JS_ADDRESS;?>";
     error = 1;
   }
 
-  if (postcode == "" || postcode.length < <?=ADDRESS_BOOK_POST_CODE_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_POST_CODE;?>";
+  if (postcode == "" || postcode.length < <? echo ADDRESS_BOOK_POST_CODE_MIN_LENGTH;?>) {
+    error_message = error_message + "<? echo JS_POST_CODE;?>";
     error = 1;
   }
 
-  if (city == "" || city.length < <?=ADDRESS_BOOK_CITY_MIN_LENGTH;?>) {
-    error_message = error_message + "<?=JS_CITY;?>";
+  if (city == "" || city.length < <? echo ADDRESS_BOOK_CITY_MIN_LENGTH;?>) {
+    error_message = error_message + "<? echo JS_CITY;?>";
     error = 1;
   }
 <?
   if (ACCOUNT_STATE) {
 ?>
   if (document.address_book_process.zone_id.options.length == 0) {
-    if (document.address_book_process.state.value == "" || document.address_book_process.state.length < <?=ENTRY_STATE_MIN_LENGTH;?> ) {
-       error_message = error_message + "<?=JS_STATE;?>";
+    if (document.address_book_process.state.value == "" || document.address_book_process.state.length < <? echo ENTRY_STATE_MIN_LENGTH;?> ) {
+       error_message = error_message + "<? echo JS_STATE;?>";
        error = 1;
     }
   } else {
     document.create_acount.state.value = '';
     if (document.address_book_process.zone_id.selectedIndex == 0) {
-       error_message = error_message + "<?=JS_ZONE;?>";
+       error_message = error_message + "<? echo JS_ZONE;?>";
        error = 1;
     }
   }
@@ -263,7 +263,7 @@ function check_form() {
 ?>
   
   if (document.address_book_process.country.value == 0) {
-    error_message = error_message + "<?=JS_COUNTRY;?>";
+    error_message = error_message + "<? echo JS_COUNTRY;?>";
     error = 1;
   }
 
@@ -284,7 +284,7 @@ function check_form() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
@@ -294,7 +294,7 @@ function check_form() {
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="add_entry" method="post" action="<?=tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL');?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="add_entry" method="post" action="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL');?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
@@ -325,19 +325,19 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><? echo tep_black_line();?></td>
       </tr>
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<?=$rowspan;?>" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan;?>" nowrap><font face="<? echo CATEGORY_FONT_FACE;?>" size="<? echo CATEGORY_FONT_SIZE;?>" color="<? echo CATEGORY_FONT_COLOR;?>"><? echo CATEGORY_PERSONAL;?></font></td>
           </tr>
 <?
    if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_GENDER;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_GENDER;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$gender_error == '1') {
         echo '<input type="radio" name="gender" value="m">&nbsp;' . MALE . '&nbsp;<input type="radio" name="gender" value="f">&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
@@ -367,8 +367,8 @@ function check_form() {
             <td colspan="2"><font face="Verdana, Arial" size="2">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_FIRST_NAME;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_FIRST_NAME;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$firstname_error == '1') {
         echo '<input type="text" name="firstname" maxlength="32" value="' . $HTTP_POST_VARS['firstname'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
@@ -380,8 +380,8 @@ function check_form() {
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_LAST_NAME;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_LAST_NAME;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$lastname_error == '1') {
         echo '<input type="text" name="lastname" maxlength="32" value="' . $HTTP_POST_VARS['lastname'] . '">&nbsp;' . ENTRY_LAST_NAME_ERROR;
@@ -396,11 +396,11 @@ function check_form() {
             <td colspan="2"><font face="Verdana, Arial" size="2">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_ADDRESS;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<? echo CATEGORY_FONT_FACE;?>" size="<? echo CATEGORY_FONT_SIZE;?>" color="<? echo CATEGORY_FONT_COLOR;?>"><? echo CATEGORY_ADDRESS;?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STREET_ADDRESS;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_STREET_ADDRESS;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$street_address_error == '1') {
         echo '<input type="text" name="street_address" maxlength="64" value="' . $HTTP_POST_VARS['street_address'] . '">&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
@@ -415,8 +415,8 @@ function check_form() {
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_SUBURB;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_SUBURB;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       $HTTP_POST_VARS['suburb'] . '<input type="hidden" name="suburb" value="' . $HTTP_POST_VARS['suburb'] . '">';
     } else {
@@ -427,8 +427,8 @@ function check_form() {
   }
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_POST_CODE;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$postcode_error == '1') {
         echo '<input type="text" name="postcode" maxlength="8" value="' . $HTTP_POST_VARS['postcode'] . '">&nbsp;' . ENTRY_POST_CODE_ERROR;
@@ -440,8 +440,8 @@ function check_form() {
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_CITY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_CITY;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$city_error == '1') {
         echo '<input type="text" name="city" maxlength="32" value="' . $HTTP_POST_VARS['city'] . '">&nbsp;' . ENTRY_CITY_ERROR;
@@ -453,8 +453,8 @@ function check_form() {
     } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_COUNTRY;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       if (@$country_error == '1') {
         tep_get_country_list("country", STORE_COUNTRY, "onChange=\"update_zone(this.form);\"");
@@ -473,8 +473,8 @@ function check_form() {
    if (ACCOUNT_STATE) {
 ?>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE;?>" size="<? echo ENTRY_FONT_SIZE;?>" color="<? echo ENTRY_FONT_COLOR;?>">&nbsp;<? echo ENTRY_STATE;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
       echo tep_get_zone_name($country, $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
     } else {
@@ -484,8 +484,8 @@ function check_form() {
           </tr>
           <tr>
             <td></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
-            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_SIZE;?>">
+            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<? echo ENTRY_STATE_TEXT;?></font></td>
           </tr>
 <?
    }
@@ -493,7 +493,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><br><?=tep_black_line();?></td>
+        <td><br><? echo tep_black_line();?></td>
       </tr>
       <tr>
 <?
@@ -519,7 +519,7 @@ function check_form() {
       </tr>
     </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
