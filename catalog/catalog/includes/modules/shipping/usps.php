@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.44 2003/02/05 22:41:53 hpdl Exp $
+  $Id: usps.php,v 1.45 2003/02/06 00:46:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,6 +48,17 @@
                            'Priority' => 'Priority Mail',
                            'Parcel' => 'Parcel Post');
 
+      $this->intl_types = array('GXG Document' => 'Global Express Guaranteed Document Service',
+                                'GXG Non-Document' => 'Global Express Guaranteed Non-Document Service',
+                                'Express' => 'Global Express Mail (EMS)',
+                                'Priority Lg' => 'Global Priority Mail - Flat-rate Envelope (large)',
+                                'Priority Sm' => 'Global Priority Mail - Flat-rate Envelope (small)',
+                                'Priority Var' => 'Global Priority Mail - Variable Weight Envelope (single)',
+                                'Airmail Letter' => 'Airmail Letter Post',
+                                'Airmail Parcel' => 'Airmail Parcel Post',
+                                'Surface Letter' => 'Economy (Surface) Letter Post',
+                                'Surface Post' => 'Economy (Surface) Parcel Post');
+
       $this->countries = $this->country_list();
     }
 
@@ -55,7 +66,7 @@
     function quote($method = '') {
       global $order, $shipping_weight, $shipping_num_boxes;
 
-      if ( (tep_not_null($method)) && (isset($this->types[$method])) ) {
+      if ( tep_not_null($method) && (isset($this->types[$method]) || in_array($method, $this->intl_types)) ) {
         $this->_setService($method);
       }
 
@@ -287,6 +298,10 @@
               $service = $regs[1];
               $postage = ereg('<Postage>(.*)</Postage>', $services[$i], $regs);
               $postage = $regs[1];
+
+              if (isset($this->service) && ($service != $this->service) ) {
+                continue;
+              }
 
               $rates[] = array($service => $postage);
             }
