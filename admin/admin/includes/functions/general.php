@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.163 2004/05/12 19:31:32 mevans Exp $
+  $Id: general.php,v 1.164 2004/07/22 23:12:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -182,7 +182,7 @@
   }
 
   function tep_draw_products_pull_down($name, $parameters = '', $exclude = '') {
-    global $currencies, $languages_id;
+    global $osC_Currencies, $languages_id;
 
     if ($exclude == '') {
       $exclude = array();
@@ -199,7 +199,7 @@
     $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       if (!in_array($products['products_id'], $exclude)) {
-        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
+        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $osC_Currencies->format($products['products_price']) . ')</option>';
       }
     }
 
@@ -737,18 +737,6 @@
   }
 
 ////
-// Sets the status of a credit card
-  function tep_set_credit_card_status($credit_card_id, $status) {
-    if ($status == '1') {
-      return tep_db_query("update " . TABLE_CREDIT_CARDS . " set credit_card_status = '1' where credit_card_id = '" . $credit_card_id . "'");
-    } elseif ($status == '0') {
-      return tep_db_query("update " . TABLE_CREDIT_CARDS . " set credit_card_status = '0' where credit_card_id = '" . $credit_card_id . "'");
-    } else {
-      return -1;
-    }
-  }
-  
-////
 // Sets the status of a product
   function tep_set_product_status($products_id, $status) {
     if ($status == '1') {
@@ -767,6 +755,18 @@
       return tep_db_query("update " . TABLE_SPECIALS . " set status = '1', expires_date = NULL, date_status_change = NULL where specials_id = '" . (int)$specials_id . "'");
     } elseif ($status == '0') {
       return tep_db_query("update " . TABLE_SPECIALS . " set status = '0', date_status_change = now() where specials_id = '" . (int)$specials_id . "'");
+    } else {
+      return -1;
+    }
+  }
+
+////
+// Sets the status of a customer
+  function tep_set_customers_status($customers_id, $status) {
+    if ($status == '1') {
+      return tep_db_query("update " . TABLE_CUSTOMERS . " set customers_status = '1' where customers_id = '" . (int)$customers_id . "'");
+    } elseif ($status == '0') {
+      return tep_db_query("update " . TABLE_CUSTOMERS . " set customers_status = '0' where customers_id = '" . (int)$customers_id . "'");
     } else {
       return -1;
     }
@@ -916,10 +916,8 @@
     tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$category_id . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . (int)$category_id . "'");
 
-    if (USE_CACHE == 'true') {
-      tep_reset_cache_block('categories');
-      tep_reset_cache_block('also_purchased');
-    }
+    tep_reset_cache_block('categories');
+    tep_reset_cache_block('also_purchased');
   }
 
   function tep_remove_product($product_id) {
@@ -949,10 +947,8 @@
     }
     tep_db_query("delete from " . TABLE_REVIEWS . " where products_id = '" . (int)$product_id . "'");
 
-    if (USE_CACHE == 'true') {
-      tep_reset_cache_block('categories');
-      tep_reset_cache_block('also_purchased');
-    }
+    tep_reset_cache_block('categories');
+    tep_reset_cache_block('also_purchased');
   }
 
   function tep_remove_order($order_id, $restock = false) {
@@ -1179,20 +1175,20 @@
 ////
 // Add tax to a products price
   function tep_add_tax($price, $tax) {
-    global $currencies;
+    global $osC_Currencies;
 
     if (DISPLAY_PRICE_WITH_TAX == 'true') {
-      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
+      return tep_round($price, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
     } else {
-      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+      return tep_round($price, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
   }
 
 // Calculates Tax rounding the result
   function tep_calculate_tax($price, $tax) {
-    global $currencies;
+    global $osC_Currencies;
 
-    return tep_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+    return tep_round($price * $tax / 100, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
   }
 
 ////
@@ -1351,5 +1347,35 @@
     }
 
     return $tmp_array;
+  }
+
+  function tep_create_random_value($length, $type = 'mixed') {
+    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
+
+    $rand_value = '';
+    while (strlen($rand_value) < $length) {
+      if ($type == 'digits') {
+        $char = tep_rand(0,9);
+      } else {
+        $char = chr(tep_rand(0,255));
+      }
+      if ($type == 'mixed') {
+        if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
+      } elseif ($type == 'chars') {
+        if (eregi('^[a-z]$', $char)) $rand_value .= $char;
+      } elseif ($type == 'digits') {
+        if (ereg('^[0-9]$', $char)) $rand_value .= $char;
+      }
+    }
+
+    return $rand_value;
+  }
+
+  function tep_cfg_display_boolean($boolean) {
+    if ($boolean > -1) {
+      return 'True';
+    } else {
+      return 'False';
+    }
   }
 ?>
