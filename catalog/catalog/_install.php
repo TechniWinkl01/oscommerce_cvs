@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _install.php,v 1.6 2001/12/13 11:49:07 dgw_ Exp $
+  $Id: _install.php,v 1.7 2001/12/13 12:13:25 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -77,12 +77,9 @@
 //--></style>
 </head>
 <body>
-<p>
-<b>The Exchange Project Preview Release 2.2 Automatic Installation Script</b>
-<p>
-This installation script will write the following information to <b>includes/configure.php</b>. The values in this file overwrite those in <i>includes/configure.php</i>.
-<p>
-For this installation script to successfully write to <i>includes/configure.php</i>, the right user permissions on this file has to be set.
+<p><b>The Exchange Project Preview Release 2.2 Automatic Installation Script</b></p>
+<p>This installation script will overwrite <b>includes/configure.php</b> with the following information.</p>
+<p>For this installation script to successfully write to <i>includes/configure.php</i>, the right user permissions on this file has to be set.</p>
 <?php
   if ($fp = @fopen('includes/configure.php', 'w')) {
     echo '<p class="boxMe">Checking file permissions: <b>File exists, and I can write to it.</b></p>' .  "\n";
@@ -94,12 +91,9 @@ For this installation script to successfully write to <i>includes/configure.php<
     exit;
   }
 ?>
-<p>
-After this file has been written to, reset the file permissions for security reasons.
+<p>After this file has been written to, reset the file permissions for security reasons.</p>
 <div class="boxMe"><ul class="boxMe"><li>cd <?php echo dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]); ?>/includes</li><li>chmod 704 configure.php</li></ul></div>
-<p>
-<font color="#ff0000"><b>It is important that this installation script <small>(_install.php)</small> is deleted after the configuration has been written.</b></font>
-<p>
+<p><font color="#ff0000"><b>It is important that this installation script <small>(_install.php)</small> is deleted after the configuration has been written.</b></font></p>
 <form name="install" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
   <tr>
