@@ -25,13 +25,19 @@
 
   function tep_session_id($sessid='') {
 
-    return session_id($sessid);
-
+    if ($sessid) 
+       return session_id($sessid);
+    else
+       return session_id();
+      
   }
 
   function tep_session_name($name='') {
 
-    return session_name($name);
+    if ($name)
+      return session_name($name);
+    else
+      return session_name();
 
   }
 
