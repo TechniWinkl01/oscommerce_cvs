@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.14 2002/03/25 18:49:42 project3000 Exp $
+  $Id: account_details.php,v 1.15 2002/05/21 12:35:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,6 +9,11 @@
 
   Released under the GNU General Public License
 */
+
+  $newsletter_array = array(array('id' => '1',
+                                  'text' => ENTRY_NEWSLETTER_YES),
+                            array('id' => '0',
+                                  'text' => ENTRY_NEWSLETTER_NO));
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr>
@@ -27,18 +32,18 @@
             <td class="main">&nbsp;<?php echo ENTRY_GENDER; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($is_read_only) {
-    echo ($account['customers_gender'] == 'm') ? MALE : FEMALE;
-  } elseif ($error) {
-    if ($entry_gender_error) {
-      echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
+    if ($is_read_only) {
+      echo ($account['customers_gender'] == 'm') ? MALE : FEMALE;
+    } elseif ($error) {
+      if ($entry_gender_error) {
+        echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
+      } else {
+        echo ($HTTP_POST_VARS['gender'] == 'm') ? MALE : FEMALE;
+        echo tep_draw_hidden_field('gender');
+      }
     } else {
-      echo ($HTTP_POST_VARS['gender'] == 'm') ? MALE : FEMALE;
-      echo tep_draw_hidden_field('gender');
+      echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
     }
-  } else {
-    echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
-  }
 ?></td>
           </tr>
 <?php
@@ -85,17 +90,17 @@
             <td class="main">&nbsp;<?php echo ENTRY_DATE_OF_BIRTH; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($is_read_only) {
-    echo tep_date_short($account['customers_dob']);
-  } elseif ($error) {
-    if ($entry_date_of_birth_error) {
-      echo tep_draw_input_field('dob') . '&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
+    if ($is_read_only) {
+      echo tep_date_short($account['customers_dob']);
+    } elseif ($error) {
+      if ($entry_date_of_birth_error) {
+        echo tep_draw_input_field('dob') . '&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
+      } else {
+        echo $HTTP_POST_VARS['dob'] . tep_draw_hidden_field('dob');
+      }
     } else {
-      echo $HTTP_POST_VARS['dob'] . tep_draw_hidden_field('dob');
+      echo tep_draw_input_field('dob', tep_date_short($account['customers_dob'])) . '&nbsp;' . ENTRY_DATE_OF_BIRTH_TEXT;
     }
-  } else {
-    echo tep_draw_input_field('dob', tep_date_short($account['customers_dob'])) . '&nbsp;' . ENTRY_DATE_OF_BIRTH_TEXT;
-  }
 ?></td>
           </tr>
 <?php
@@ -127,7 +132,7 @@
     </table></td>
   </tr>
 <?php
- if (ACCOUNT_COMPANY == 'true') {
+  if (ACCOUNT_COMPANY == 'true') {
 ?>  <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
   </tr>
@@ -139,17 +144,17 @@
             <td class="main">&nbsp;<?php echo ENTRY_COMPANY; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($is_read_only) {
-    echo $account['entry_company'];
-  } elseif ($error) {
-    if ($entry_company_error) {
-      echo tep_draw_input_field('company') . '&nbsp;' . ENTRY_COMPANY_ERROR;
+    if ($is_read_only) {
+      echo $account['entry_company'];
+    } elseif ($error) {
+      if ($entry_company_error) {
+        echo tep_draw_input_field('company') . '&nbsp;' . ENTRY_COMPANY_ERROR;
+      } else {
+        echo $HTTP_POST_VARS['company'] . tep_draw_hidden_field('company');
+      }
     } else {
-      echo $HTTP_POST_VARS['company'] . tep_draw_hidden_field('company');
+      echo tep_draw_input_field('company', $account['entry_company']) . '&nbsp;' . ENTRY_COMPANY_TEXT;
     }
-  } else {
-    echo tep_draw_input_field('company', $account['entry_company']) . '&nbsp;' . ENTRY_COMPANY_TEXT;
-  }
 ?></td>
           </tr>
         </tr>
@@ -158,7 +163,7 @@
     </table></td>
   </tr>
 <?php
-}
+  }
 ?>
   <tr>
   <tr>
@@ -192,21 +197,21 @@
             <td class="main">&nbsp;<?php echo ENTRY_SUBURB; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($is_read_only) {
-    echo $account['entry_suburb'];
-  } elseif ($error) {
-    if ($entry_suburb_error) {
-      echo tep_draw_input_field('suburb') . '&nbsp;' . ENTRY_SUBURB_ERROR;
+    if ($is_read_only) {
+      echo $account['entry_suburb'];
+    } elseif ($error) {
+      if ($entry_suburb_error) {
+        echo tep_draw_input_field('suburb') . '&nbsp;' . ENTRY_SUBURB_ERROR;
+      } else {
+        echo $HTTP_POST_VARS['suburb'] . tep_draw_hidden_field('suburb');
+      }
     } else {
-      echo $HTTP_POST_VARS['suburb'] . tep_draw_hidden_field('suburb');
+      echo tep_draw_input_field('suburb', $account['entry_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
     }
-  } else {
-    echo tep_draw_input_field('suburb', $account['entry_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
-  }
 ?></td>
           </tr>
 <?
-   }
+  }
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo ENTRY_POST_CODE; ?></td>
@@ -286,7 +291,7 @@
             <td class="main">&nbsp;</td>
             <td class="main">&nbsp;
 <?php
-  echo tep_draw_input_field('state', $customers_state, 'onChange="resetZoneSelected(this.form);"') . '&nbsp;' . ENTRY_STATE_TEXT;
+      echo tep_draw_input_field('state', $customers_state, 'onChange="resetZoneSelected(this.form);"') . '&nbsp;' . ENTRY_STATE_TEXT;
 ?></td>
           </tr>
 <?php
@@ -341,12 +346,6 @@
   <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_OPTIONS; ?></td>
   </tr>
-<?php
-  $newsletter_array = array(array('id' => '1',
-                                  'text' => ENTRY_NEWSLETTER_YES),
-                            array('id' => '0',
-                                  'text' => ENTRY_NEWSLETTER_NO));
-?>
   <tr>
     <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
       <tr>
@@ -409,7 +408,7 @@
             <td class="main">&nbsp;<?php echo ENTRY_PASSWORD_CONFIRMATION; ?></td>
             <td class="main">&nbsp;
 <?php
-    echo tep_draw_password_field('confirmation') . '&nbsp;' . ENTRY_PASSWORD_CONFIRMATION_TEXT;
+      echo tep_draw_password_field('confirmation') . '&nbsp;' . ENTRY_PASSWORD_CONFIRMATION_TEXT;
 ?></td>
           </tr>
 <?php

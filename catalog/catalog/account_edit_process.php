@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.57 2002/04/02 22:44:18 hpdl Exp $
+  $Id: account_edit_process.php,v 1.58 2002/05/21 12:32:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -164,12 +164,12 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="account_edit" method="post" <?php echo 'action="' . tep_href_link(FILENAME_ACCOUNT_EDIT_PROCESS, '', 'SSL') . '"'; ?> onSubmit="return check_form();"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('account_edit', tep_href_link(FILENAME_ACCOUNT_EDIT_PROCESS, '', 'SSL'), 'post', 'onSubmit="return check_form();"') . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -180,10 +180,13 @@
         <td><?php include(DIR_WS_MODULES . 'account_details.php'); ?></td>
       </tr>
       <tr>
-        <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+            <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+            <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -207,45 +210,28 @@
 <?php
   } else {
     $date_now = date('Ymd');
-//Update the customers table
-    $update_query_customers = 'update ' . TABLE_CUSTOMERS . ' set ';
-    if (ACCOUNT_GENDER == 'true') {
-       $update_query_customers = $update_query_customers . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
-    }
-    $update_query_customers = $update_query_customers . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
-    if (ACCOUNT_DOB == 'true') {
-       $update_query_customers = $update_query_customers . "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
-    }
-    $update_query_customers = $update_query_customers . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
-    // Encrypted password mods
-    // Encrypt the plaintext password
-    if ($passlen > 0) {
-       $cryptpass = crypt_password($HTTP_POST_VARS['password']);
-       $update_query_customers = $update_query_customers . "customers_password = '" . $cryptpass . "', ";
-    }
-    $update_query_customers = $update_query_customers . " customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
-// Update the address_book table
+
+// update the customers table
+    $update_query_customers = "update " . TABLE_CUSTOMERS . " set customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . tep_db_input(tep_db_prepare_input($HTTP_POST_VARS['lastname'])) . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
+    if (ACCOUNT_GENDER == 'true') $update_query_customers .= "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    if (ACCOUNT_DOB == 'true') $update_query_customers .= "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
+    $update_query_customers .= " customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "', customers_password = '" . crypt_password($HTTP_POST_VARS['password']) . "' where customers_id = '" . $customer_id . "'";
+
+// update the address_book table
     $update_query_address = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_GENDER == 'true') {
-       $update_query_address = $update_query_address . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
-    }
-    $update_query_address = $update_query_address . "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
-    $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_COMPANY == 'true') {
-       $update_query_address = $update_query_address . "entry_company = '". $HTTP_POST_VARS['company'] . "', ";
-    }
-    if (ACCOUNT_SUBURB == 'true') {
-       $update_query_address = $update_query_address . "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
-    }
-    $update_query_address = $update_query_address . "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_GENDER == 'true') $update_query_address .= "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    $update_query_address .= "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . tep_db_input(tep_db_prepare_input($HTTP_POST_VARS['lastname'])) . "', ";
+    if (ACCOUNT_COMPANY == 'true') $update_query_address .= "entry_company = '". $HTTP_POST_VARS['company'] . "', ";
+    if (ACCOUNT_SUBURB == 'true') $update_query_address .= "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
+    $update_query_address .= "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
     if (ACCOUNT_STATE == 'true') {
-       if ($HTTP_POST_VARS['zone_id'] > 0) {
-           $update_query_address = $update_query_address . "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
-       } else {
-           $update_query_address = $update_query_address . "entry_zone_id = '0', entry_state = '" . $state . "', ";
-       }
+      if ($HTTP_POST_VARS['zone_id'] > 0) {
+        $update_query_address .= "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
+      } else {
+        $update_query_address .= "entry_zone_id = '0', entry_state = '" . $state . "', ";
+      }
     }
-    $update_query_address = $update_query_address . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $customer_id . "' and address_book_id = '". $customer_default_address_id . "'";
+    $update_query_address .= "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $customer_id . "' and address_book_id = '". $customer_default_address_id . "'";
 
     tep_db_query($update_query_customers);
     tep_db_query($update_query_address);
