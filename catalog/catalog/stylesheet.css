@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.43 2002/05/27 13:11:21 hpdl Exp $
+  $Id: stylesheet.css,v 1.44 2002/05/31 09:23:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 
 .boxText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 .errorBox { font-family : Verdana, Arial, sans-serif; font-size : 10px; background: #ffb3b5; font-weight: bold; }
-.stockWarning { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: crimson; }
+.stockWarning { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: #cc0033; }
 
 BODY {
   background: #ffffff;
@@ -51,6 +51,10 @@ TD.headerNavigation {
 
 A.headerNavigation { 
   color: #FFFFFF; 
+}
+
+A.headerNavigation:hover {
+  color: #ffffff;
 }
 
 TR.headerError {
