@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.37 2002/01/02 23:01:54 hpdl Exp $
+  $Id: stylesheet.css,v 1.38 2002/01/03 15:49:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,6 +15,7 @@
 BODY {
   background-color: #ffffff;
   color: #000000;
+  margin: 0px;
 }
 
 A { 
@@ -164,7 +165,6 @@ TD.subBar {
 TD.main, P.main {
   font-family : Verdana, Arial, sans-serif;
   font-size : 11px;
-  line-height : 1.5;
 }
 
 TD.smallText, SPAN.smallText {
