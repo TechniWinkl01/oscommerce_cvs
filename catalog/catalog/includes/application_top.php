@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.213 2002/02/03 00:57:14 clescuyer Exp $
+  $Id: application_top.php,v 1.214 2002/02/04 10:27:20 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -184,7 +184,13 @@
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
 // lets start our session
-  if (function_exists('session_set_cookie_params')) {
+   if ($HTTP_POST_VARS[tep_session_name()]) {   
+     tep_session_id($HTTP_POST_VARS[tep_session_name()]);   
+   }   
+   if ( (getenv('HTTPS') == 'on') && ($HTTP_GET_VARS[tep_session_name()]) ) {   
+     tep_session_id($HTTP_GET_VARS[tep_session_name()]);   
+   } 
+   if (function_exists('session_set_cookie_params')) {
     session_set_cookie_params(0, substr(DIR_WS_CATALOG, 0, -1));
   }
 
