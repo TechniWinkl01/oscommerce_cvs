@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.5 2001/07/20 07:00:37 jwildeboer Exp $
+  $Id: account_details.php,v 1.6 2001/07/23 11:44:22 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,9 +11,6 @@
 */
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-  if (ACCOUNT_COMPANY) {
-?>
   <tr>
     <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
   </tr>
@@ -21,17 +18,14 @@
     <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
-
-          <tr>
-            <td class="main">&nbsp;<?php echo ENTRY_FIRST_NAME; ?></td>
-            <td class="main">&nbsp;
-
 <?php
   if (ACCOUNT_GENDER) {
     $male = ($account['customers_gender'] == 'm') ? true : false;
     $female = ($account['customers_gender'] == 'f') ? true : false;
 ?>
-
+          <tr>
+            <td class="main">&nbsp;<?php echo ENTRY_GENDER; ?></td>
+            <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
     echo ($account['customers_gender'] == 'm') ? MALE : FEMALE;
@@ -43,14 +37,16 @@
       echo tep_draw_hidden_field('gender');
     }
   } else {
-    echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
+    echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
   }
 ?></td>
           </tr>
 <?php
   }
 ?>
-
+<tr>
+            <td class="main">&nbsp;<?php echo ENTRY_FIRST_NAME; ?></td>
+            <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
     echo $account['customers_firstname'];
@@ -160,9 +156,6 @@
     </table></td>
   </tr>
   <tr>
-<?php
-}
-?>
   <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_ADDRESS; ?></td>
   </tr>
