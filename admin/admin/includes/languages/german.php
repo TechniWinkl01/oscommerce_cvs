@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.40 2001/09/30 10:10:56 mbs Exp $
+  $Id: german.php,v 1.41 2001/10/21 16:07:31 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -86,6 +86,7 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Werkzeuge');
+define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_BACKUP', 'Datensicherung');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 define('BOX_TOOLS_CACHE', 'Cache Steuerung');
@@ -204,6 +205,7 @@ define('IMAGE_NEW_BANNER', 'neuen Banner aufnehmen');
 define('IMAGE_NEW_CATEGORY', 'neue Kategorie erstellen');
 define('IMAGE_NEW_COUNTRY', 'neues Land aufnehmen');
 define('IMAGE_NEW_CURRENCY', 'neue Währung einfügen');
+define('IMAGE_NEW_FOLDER', 'New Folder');
 define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
 define('IMAGE_NEW_PRODUCT', 'neuen Artikel/Produkt aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'neuen Steuer-Klasse erstellen');

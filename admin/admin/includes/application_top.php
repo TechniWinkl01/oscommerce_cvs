@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.83 2001/10/12 15:43:28 dgw_ Exp $
+  $Id: application_top.php,v 1.84 2001/10/21 16:07:30 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -68,6 +68,7 @@
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
+  define('FILENAME_FILE_MANAGER', 'file_manager.php');
   define('FILENAME_LANGUAGES', 'languages.php');
   define('FILENAME_MAIL', 'mail.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
@@ -243,6 +244,7 @@
   require(DIR_WS_CLASSES . 'countries_info.php');
   require(DIR_WS_CLASSES . 'currencies_info.php');
   require(DIR_WS_CLASSES . 'customer_info.php');
+  require(DIR_WS_CLASSES . 'file_manager_info.php');
   require(DIR_WS_CLASSES . 'languages_info.php');
   require(DIR_WS_CLASSES . 'manufacturer_info.php');
   require(DIR_WS_CLASSES . 'module_info.php');
