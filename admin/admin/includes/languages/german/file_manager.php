@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.8 2002/01/07 15:23:55 hpdl Exp $
+  $Id: file_manager.php,v 1.9 2002/01/07 15:32:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,6 +17,7 @@ define('TABLE_HEADING_SIZE', 'Größe');
 define('TABLE_HEADING_PERMISSIONS', 'Permissions');
 define('TABLE_HEADING_USER', 'User');
 define('TABLE_HEADING_GROUP', 'Group');
+define('TABLE_HEADING_LAST_MODIFIED', 'Last Modified');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_FILE_NAME', 'Dateiname:');
@@ -26,6 +27,4 @@ define('TEXT_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_NEW_FOLDER', 'Neues Verzeichnis');
 define('TEXT_NEW_FOLDER_INTRO', 'Geben Sie den Namen für das neue Verzeichnis ein:');
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, daß Sie diese Datei löschen möchten?');
-
-define('TEXT_PREVIOUS_LEVEL', '&lt;Previous Level&gt;');
 ?>

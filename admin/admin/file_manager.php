@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.15 2002/01/07 15:23:54 hpdl Exp $
+  $Id: file_manager.php,v 1.16 2002/01/07 15:32:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -173,7 +173,7 @@
 
         $contents[] = array('name' => $file,
                             'is_dir' => is_dir($current_path . '/' . $file),
-                            'last_modified' => filemtime($current_path . '/' . $file),
+                            'last_modified' => strftime(DATE_TIME_FORMAT, filemtime($current_path . '/' . $file)),
                             'size' => $file_size,
                             'permissions' => $permissions,
                             'user' => $user['name'],
@@ -199,10 +199,11 @@
                 <td class="tableHeading" align="center"><?php echo TABLE_HEADING_PERMISSIONS; ?></td>
                 <td class="tableHeading"><?php echo TABLE_HEADING_USER; ?></td>
                 <td class="tableHeading"><?php echo TABLE_HEADING_GROUP; ?></td>
+                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_LAST_MODIFIED; ?></td>
                 <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="6"><?php echo tep_draw_separator(); ?></td>
+                <td colspan="7"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
   for ($i=0; $i<sizeof($contents); $i++) {
@@ -233,16 +234,17 @@
                 <td class="tableData" align="center"><tt><?php echo $contents[$i]['permissions']; ?></tt></td>
                 <td class="tableData"><tt><?php echo $contents[$i]['user']; ?></tt></td>
                 <td class="tableData"><tt><?php echo $contents[$i]['group']; ?></tt></td>
+                <td class="tableData" align="center"><tt><?php echo $contents[$i]['last_modified']; ?></tt></td>
                 <td class="tableData" align="right"><?php if ($contents[$i]['name'] != '..') echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name'] . '&action=delete') . '">' . tep_image(DIR_WS_ICONS . 'delete.gif', ICON_DELETE) . '</a>&nbsp;'; if (is_object($fInfo) && ($fInfo->name == $contents[$i]['name'])) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $contents[$i]['name']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
 ?>
               <tr>
-                <td colspan="6"><?php echo tep_draw_separator(); ?></td>
+                <td colspan="7"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
-                <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr valign="top">
                     <td class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=reset') . '">' . tep_image(DIR_WS_IMAGES . 'button_reset.gif', IMAGE_RESET) . '</a>'; ?><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=upload'); ?>" method="post" enctype="multipart/form-data"><input type="file" size="10" name="filename"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD); ?></form></td>
                     <td align="right" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER) . '</a>'; ?></td>
