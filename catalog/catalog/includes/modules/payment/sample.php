@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sample.php,v 1.18 2002/01/20 16:07:40 hpdl Exp $
+  $Id: sample.php,v 1.19 2002/01/27 18:45:25 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -97,7 +97,7 @@
 // !Install the module (Administration Tool)_
 // TABLES: configuration
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Sample Payments', 'MODULE_PAYMENT_SAMPLE_STATUS', '0', 'Do you want to accept sample payments?', '6', '6', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Sample Payments', 'MODULE_PAYMENT_SAMPLE_STATUS', '1', 'Do you want to accept sample payments?', '6', '6', now())");
     }
 
 ////
