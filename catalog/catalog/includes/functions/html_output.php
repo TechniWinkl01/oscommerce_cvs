@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.32 2002/04/23 15:31:31 hpdl Exp $
+  $Id: html_output.php,v 1.33 2002/05/21 12:32:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -262,6 +262,16 @@
     }
 
     return $result;
+  }
+
+////
+// Output a form
+  function tep_draw_form($name, $action, $method = 'post', $parameters = '') {
+    $form = '<form name="' . $name . '" action="' . $action . '" method="' . $method . '"';
+    if ($parameters) $form .= ' ' . $parameters;
+    $form .= '>';
+
+    return $form;
   }
 
 ////
