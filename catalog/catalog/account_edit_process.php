@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.58 2002/05/21 12:32:23 hpdl Exp $
+  $Id: account_edit_process.php,v 1.59 2002/05/23 00:37:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -209,32 +209,62 @@
 </html>
 <?php
   } else {
-    $date_now = date('Ymd');
+    $customers_firstname = tep_db_prepare_input($HTTP_POST_VARS['firstname']);
+    $customers_lastname = tep_db_prepare_input($HTTP_POST_VARS['lastname']);
+    $customers_email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
+    $customers_gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
+    $customers_dob = tep_db_prepare_input($HTTP_POST_VARS['dob']);
+    $customers_telephone = tep_db_prepare_input($HTTP_POST_VARS['telephone']);
+    $customers_fax = tep_db_prepare_input($HTTP_POST_VARS['fax']);
+    $customers_newsletter = tep_db_prepare_input($HTTP_POST_VARS['newsletter']);
+    $customers_password = tep_db_prepare_input($HTTP_POST_VARS['password']);
+    $entry_street_address = tep_db_prepare_input($HTTP_POST_VARS['street_address']);
+    $entry_gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
+    $entry_firstname = tep_db_prepare_input($HTTP_POST_VARS['firstname']);
+    $entry_lastname = tep_db_prepare_input($HTTP_POST_VARS['lastname']);
+    $entry_company = tep_db_prepare_input($HTTP_POST_VARS['company']);
+    $entry_suburb = tep_db_prepare_input($HTTP_POST_VARS['suburb']);
+    $entry_postcode = tep_db_prepare_input($HTTP_POST_VARS['postcode']);
+    $entry_city = tep_db_prepare_input($HTTP_POST_VARS['city']);
+    $entry_zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+    $entry_state = tep_db_prepare_input($HTTP_POST_VARS['state']);
+    $entry_country_id = tep_db_prepare_input($HTTP_POST_VARS['country']);
 
-// update the customers table
-    $update_query_customers = "update " . TABLE_CUSTOMERS . " set customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . tep_db_input(tep_db_prepare_input($HTTP_POST_VARS['lastname'])) . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
-    if (ACCOUNT_GENDER == 'true') $update_query_customers .= "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
-    if (ACCOUNT_DOB == 'true') $update_query_customers .= "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
-    $update_query_customers .= " customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "', customers_password = '" . crypt_password($HTTP_POST_VARS['password']) . "' where customers_id = '" . $customer_id . "'";
+    $sql_data_array = array('customers_firstname' => $customers_firstname,
+                            'customers_lastname' => $customers_lastname,
+                            'customers_email_address' => $customers_email_address,
+                            'customers_telephone' => $customers_telephone,
+                            'customers_fax' => $customers_fax,
+                            'customers_newsletter' => $customers_newsletter,
+                            'customers_password' => crypt_password($customers_password));
 
-// update the address_book table
-    $update_query_address = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_GENDER == 'true') $update_query_address .= "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
-    $update_query_address .= "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . tep_db_input(tep_db_prepare_input($HTTP_POST_VARS['lastname'])) . "', ";
-    if (ACCOUNT_COMPANY == 'true') $update_query_address .= "entry_company = '". $HTTP_POST_VARS['company'] . "', ";
-    if (ACCOUNT_SUBURB == 'true') $update_query_address .= "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
-    $update_query_address .= "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $customers_gender;
+    if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = tep_date_raw($customers_dob);
+
+    tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . $customer_id . "'");
+
+    $sql_data_array = array('entry_street_address' => $entry_street_address,
+                            'entry_firstname' => $entry_firstname,
+                            'entry_lastname' => $entry_lastname,
+                            'entry_postcode' => $entry_postcode,
+                            'entry_city' => $entry_city,
+                            'entry_country_id' => $entry_country_id);
+
+    if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $entry_gender;
+    if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
+    if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $entry_suburb;
     if (ACCOUNT_STATE == 'true') {
-      if ($HTTP_POST_VARS['zone_id'] > 0) {
-        $update_query_address .= "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
+      if ($entry_zone_id > 0) {
+        $sql_data_array['entry_zone_id'] = $entry_zone_id;
+        $sql_data_array['entry_state'] = '';
       } else {
-        $update_query_address .= "entry_zone_id = '0', entry_state = '" . $state . "', ";
+        $sql_data_array['entry_zone_id'] = '0';
+        $sql_data_array['entry_state'] = $entry_state;
       }
     }
-    $update_query_address .= "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $customer_id . "' and address_book_id = '". $customer_default_address_id . "'";
 
-    tep_db_query($update_query_customers);
-    tep_db_query($update_query_address);
+    tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . $customer_id . "' and address_book_id = '" . $customer_default_address_id . "'");
+
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . $customer_id . "'");
 
     $customer_first_name = $HTTP_POST_VARS['firstname'];
