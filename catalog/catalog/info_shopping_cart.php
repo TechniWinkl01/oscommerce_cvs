@@ -3,7 +3,7 @@
 <html>
 <head>
 <title><? echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body>
 <?php echo FONT_STYLE_MAIN; ?>

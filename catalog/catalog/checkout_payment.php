@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  if (getenv(HTTPS)) {
+  if (ENABLE_SSL) {
     $connection = 'SSL';
   } else {
     $connection = 'NONSSL';
@@ -46,7 +46,8 @@
 <html>
 <head>
 <title><? echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<base href="<? echo ($connection == 'SSL' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function check_form() {
   var error = 0;

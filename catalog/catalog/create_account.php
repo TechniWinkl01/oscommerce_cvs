@@ -4,7 +4,7 @@
 <html>
 <head>
 <title><? echo TITLE; ?></title>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
