@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.8 2001/08/25 12:00:15 hpdl Exp $
+  $Id: ipayment.php,v 1.9 2001/08/25 12:17:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -96,8 +96,8 @@
 
         $process_button_string = tep_draw_hidden_field('silent', 'true') .
                                  tep_draw_hidden_field('cc_userid', MODULE_PAYMENT_IPAYMENT_USER_ID) .
-                                 tep_draw_hidden_field('item_name', STORE_NAME) . '">' .
-                                 tep_draw_hidden_field('cc_amount', number_format(($total_cost + $shipping_cost) * 100 * $currency_rates['EUR'], 0, '','')) .
+                                 tep_draw_hidden_field('item_name', STORE_NAME) .
+                                 tep_draw_hidden_field('cc_amount', number_format(($total_cost + $shipping_cost) * 100 * $currency_rates[MODULE_PAYMENT_IPAYMENT_CURRENCY], 0, '','')) .
                                  tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['cc_expires_month']) .
                                  tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['cc_expires_year']) .
                                  tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['cc_number']) .
@@ -105,7 +105,7 @@
                                  tep_draw_hidden_field('cc_name', $HTTP_POST_VARS['cc_owner']) .
                                  tep_draw_hidden_field('cc_email', $customer_email_values['customers_email_address']) .
                                  tep_draw_hidden_field('redirect_action', 'GET') .
-                                 tep_draw_hidden_field('cc_currency', 'EUR') .
+                                 tep_draw_hidden_field('cc_currency', MODULE_PAYMENT_IPAYMENT_CURRENCY) .
                                  tep_draw_hidden_field('redirect_url', HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS) .
                                  tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $ipayment_return, 'SSL')) .
                                  tep_draw_hidden_field(tep_session_name(), tep_session_id());
@@ -152,19 +152,21 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow iPayment', 'MODULE_PAYMENT_IPAYMENT_STATUS', '1', 'Do you want to accept iPayment payments?', '6', '3', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('iPayment Account No.', 'MODULE_PAYMENT_IPAYMENT_ID', '99999', 'Your Account No. at iPayment.', '6', '4', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('iPayment User ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID', '99999', 'Your User ID at iPayment.', '6', '4', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow iPayment', 'MODULE_PAYMENT_IPAYMENT_STATUS', '1', 'Do you want to accept iPayment payments?', '6', '1', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('iPayment Account No.', 'MODULE_PAYMENT_IPAYMENT_ID', '99999', 'Your Account No. at iPayment.', '6', '2', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('iPayment User ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID', '99999', 'Your User ID at iPayment.', '6', '3', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('iPayment Currency', 'MODULE_PAYMENT_IPAYMENT_CURRENCY', 'EUR', 'iPayment can charge in EUR, DEM, or USD.', '6', '4', now())");
     }
 
     function remove() {
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_IPAYMENT_STATUS'");
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_IPAYMENT_ID'");
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_IPAYMENT_USER_ID'");
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_IPAYMENT_CURRENCY'");
     }
 
     function keys() {
-      $keys = array('MODULE_PAYMENT_IPAYMENT_STATUS', 'MODULE_PAYMENT_IPAYMENT_ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID');
+      $keys = array('MODULE_PAYMENT_IPAYMENT_STATUS', 'MODULE_PAYMENT_IPAYMENT_ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID', 'MODULE_PAYMENT_IPAYMENT_CURRENCY');
 
       return $keys;
     }
