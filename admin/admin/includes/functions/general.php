@@ -567,4 +567,21 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     
     return $state_prov_code;
   }
+
+  function tep_get_uprid($prid, $params) {
+    $uprid = $prid;
+    if ( (is_array($params)) && (!strstr($prid, '{')) ) {
+      while (list($option, $value) = each($params)) {
+        $uprid = $uprid . '{' . $option . '}' . $value;
+      }
+    }
+
+    return $uprid;
+  }
+
+  function tep_get_prid($uprid) {
+    $pieces = explode ('{', $uprid);
+
+    return $pieces[0];
+  }
 ?>
