@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: validations.php,v 1.6 2001/11/17 04:44:49 hpdl Exp $
+  $Id: validations.php,v 1.7 2002/03/16 14:42:36 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -85,9 +85,9 @@
               $valid_address = false;
             else {
               $top_level_domain = strtolower($domain_components[sizeof($domain_components)-1]);
-              if (strlen($top_level_domain) < 2 || strlen($top_level_domain) > 3)
+              if (strlen($top_level_domain) < 2 || strlen($top_level_domain) > 6)
                 $valid_address = false;
-              elseif (strlen($top_level_domain) == 3) {
+              elseif (strlen($top_level_domain) <= 6 && strlen($top_level_domain) >= 3) {
                 switch ($top_level_domain) {
                   case 'com':
                   case 'net':
@@ -95,6 +95,13 @@
                   case 'gov':
                   case 'edu':
                   case 'int':
+                  case 'biz':
+                  case 'mil':
+                  case 'info':
+                  case 'name':
+                  case 'aero':
+                  case 'coop':
+                  case 'museum':
                     break;
                   default:
                     $valid_address = false;
