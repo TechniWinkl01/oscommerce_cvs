@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.92 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.93 2001/11/20 01:11:33 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,14 +17,14 @@
   }
 
 // Stock Check
-  if (STOCK_CHECK) {
+  if (STOCK_CHECK == 'true') {
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
       $products_name = $products[$i]['name'];
       $products_id = $products[$i]['id'];
       check_stock($products[$i]['id'], $products[$i]['quantity']);
     }
-    if (STOCK_ALLOW_CHECKOUT) {
+    if (STOCK_ALLOW_CHECKOUT == 'true') {
     } else {
       if ($any_out_of_stock) {
         // Out of Stock
@@ -121,7 +121,7 @@
     echo '            <td align="center" valign="top" class="main">&nbsp;' . $products[$i]['quantity'] . '&nbsp;</td>' . "\n";
     echo '            <td valign="top" class="main"><b>&nbsp;' . $products_name . '&nbsp;</b>';
 
-      if (STOCK_CHECK) {
+      if (STOCK_CHECK == 'true') {
         echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
       }
 
@@ -266,7 +266,7 @@
 <?php
   }
 // Stock Options prompts user for sending when STOCK is available or send now !
-  if (($any_out_of_stock) && (STOCK_ALLOW_CHECKOUT) && (MODULE_SHIPPING_INSTALLED)) {
+  if (($any_out_of_stock) && (STOCK_ALLOW_CHECKOUT == 'true') && (MODULE_SHIPPING_INSTALLED)) {
 ?>
           <tr>
             <td class="main">&nbsp;</td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.74 2001/11/16 22:54:12 hpdl Exp $
+  $Id: checkout_process.php,v 1.75 2001/11/20 01:11:33 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -62,7 +62,7 @@
     $products_weight = $products[$i]['weight'];
 
     // Stock Update - Joao Correia
-    if (STOCK_LIMITED) {
+    if (STOCK_LIMITED =='true') {
       $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id like '" . $products[$i]['id'] . "'");
       $stock = tep_db_fetch_array($qtd_stock_query);
 

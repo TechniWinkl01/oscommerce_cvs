@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.50 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.51 2001/11/20 01:11:33 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -104,7 +104,7 @@
       if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</td>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
-      if (STOCK_CHECK) {
+      if (STOCK_CHECK == 'true') {
         echo check_stock($products[$i]['id'], $products[$i]['quantity']);
       }
 
@@ -145,7 +145,7 @@
             <td colspan="<?php echo $colspan; ?>"><?php echo tep_black_line(); ?>
 <?php
     if ($any_out_of_stock) {
-      if (STOCK_ALLOW_CHECKOUT) {
+      if (STOCK_ALLOW_CHECKOUT == 'true') {
             echo "<br><center><font size=\"1\" color=\"crimson\" face=\"verdana\"><center>".OUT_OF_STOCK_CAN_CHECKOUT."</font><br><br></center>";
       } else {
             echo "<br><center><font size=\"1\" color=\"crimson\" face=\"verdana\"><center>".OUT_OF_STOCK_CANT_CHECKOUT."</font><br><br></center>";

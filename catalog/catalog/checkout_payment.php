@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.79 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.80 2001/11/20 01:11:33 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,7 +20,7 @@
   }
 
 // Stock Check !
-  if (STOCK_CHECK) {
+  if (STOCK_CHECK =='true') {
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
     $products_name = $products[$i]['name'];
@@ -28,7 +28,7 @@
     check_stock ($products[$i]['id'], $products[$i]['quantity']);
   }
 
-  if (STOCK_ALLOW_CHECKOUT) {
+  if (STOCK_ALLOW_CHECKOUT =='true') {
   } else {
     if ($any_out_of_stock) {
 // Out of Stock
