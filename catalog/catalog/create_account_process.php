@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.76 2002/05/30 22:03:48 dgw_ Exp $
+  $Id: create_account_process.php,v 1.77 2002/06/03 10:23:13 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -124,7 +124,7 @@
       $check_value = tep_db_fetch_array($check_query);
       $entry_state_has_zones = ($check_value['total'] > 0);
       if ($entry_state_has_zones) {
-        $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name like '" . $HTTP_POST_VARS['state'] . "'");
+        $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
         if (tep_db_num_rows($zone_query) == 1) {
           $zone_values = tep_db_fetch_array($zone_query);
           $zone_id = $zone_values['zone_id'];
