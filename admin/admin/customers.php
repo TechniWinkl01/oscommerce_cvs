@@ -26,10 +26,6 @@
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')) . 'info=' . $HTTP_POST_VARS['customers_id'], 'NONSSL')); tep_exit();
   }
-
-  class Customer_Info {
-    var $id, $name, $country, $date_account_created, $date_account_last_modified, $date_last_logon, $number_of_logons, $number_of_reviews;
-  }
 ?>
 <html>
 <head>
@@ -370,9 +366,8 @@ function check_form() {
 
         $customer_info = tep_array_merge($country, $info, $reviews);
 
-        $cuInfo = new Customer_Info;
         $cuInfo_array = tep_array_merge($customers, $customer_info);
-        tep_set_customer_info($cuInfo_array);
+        $cuInfo = new customerInfo($cuInfo_array);
       }
 
       if ($customers['customers_id'] == @$cuInfo->id) {

@@ -10,10 +10,6 @@
       header('Location: ' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID', 'info')), 'NONSSL')); tep_exit();
     }
   }
-
-  class Review_Info {
-    var $id, $products_id, $products_name, $products_image, $customers_id, $author, $date_added, $read, $text_size, $rating, $average_rating, $text;
-  }
 ?>
 <html>
 <head>
@@ -53,9 +49,8 @@
     $products_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
     $products = tep_db_fetch_array($products_query);
 
-    $rInfo = new Review_Info;
     $rInfo_array = tep_array_merge($reviews, $products);
-    tep_set_review_info($rInfo_array);
+    $rInfo = new reviewInfo($rInfo_array);
 ?>
       <tr><form name="edit_review" <? echo 'action="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info', 'rID')) . 'action=preview&rID=' . $HTTP_GET_VARS['rID'], 'NONSSL') . '"'; ?> method="post">
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -98,17 +93,15 @@
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'preview') {
     if ($HTTP_POST_VARS) {
-      $rInfo = new Review_Info;
-      tep_set_review_info($HTTP_POST_VARS);
+      $rInfo = new reviewInfo($HTTP_POST_VARS);
     } else {
       $reviews_query = tep_db_query("select re.products_id, re.customers_id, re.date_added, re.reviews_read, r.reviews_text, r.reviews_rating from reviews_extra re, reviews r where re.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = re.reviews_id");
       $reviews = tep_db_fetch_array($reviews_query);
       $products_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
       $products = tep_db_fetch_array($products_query);
 
-      $rInfo = new Review_Info;
       $rInfo_array = tep_array_merge($reviews, $products);
-      tep_set_review_info($rInfo_array);
+      $rInfo = new reviewInfo($rInfo_array);
     }
 ?>
       <tr><form name="update_review" <? echo 'action="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info')) . 'action=update_review', 'NONSSL') . '"'; ?> method="post">
@@ -214,10 +207,9 @@
         $reviews_average_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) average_rating from reviews r, reviews_extra re where re.products_id = '" . $reviews['products_id'] . "' and re.reviews_id = r.reviews_id");
         $reviews_average = tep_db_fetch_array($reviews_average_query);
 
-        $rInfo = new Review_Info;
         $review_info = tep_array_merge($reviews_text, $reviews_average);
         $rInfo_array = tep_array_merge($reviews, $review_info, $products_image);
-        tep_set_review_info($rInfo_array);
+        $rInfo = new reviewInfo($rInfo_array);
       }
 
       if ($reviews['reviews_id'] == @$rInfo->id) {

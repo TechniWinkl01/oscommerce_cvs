@@ -12,10 +12,6 @@
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, '', 'NONSSL')); tep_exit();
     }
   }
-
-  class Product_Expected_Info {
-    var $id, $products_name, $date_expected;
-  }
 ?>
 <html>
 <head>
@@ -80,8 +76,7 @@
     $rows++;
 
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $products['products_expected_id'])) && (!$peInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
-      $peInfo = new Product_Expected_Info;
-      tep_set_product_expected_info($products);
+      $peInfo = new productExpectedInfo($products);
     }
 
     if ($products['products_expected_id'] == @$peInfo->id) {

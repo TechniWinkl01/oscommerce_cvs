@@ -12,10 +12,6 @@
       header('Location: ' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL')); tep_exit();
     }
   }
-
-  class Special_Price_Info {
-    var $id, $products_id, $products_price, $products_image, $specials_price, $date_added;
-  }
 ?>
 <html>
 <head>
@@ -84,9 +80,8 @@
       $products_query = tep_db_query("select products_image from products where products_id = '" . $specials['products_id'] . "'");
       $products = tep_db_fetch_array($products_query);
 
-      $sInfo = new Special_Price_Info;
       $sInfo_array = tep_array_merge($specials, $products);
-      tep_set_special_price_info($sInfo_array);
+      $sInfo = new specialPriceInfo($sInfo_array);
     }
 
     if ($specials['specials_id'] == @$sInfo->id) {
@@ -169,9 +164,8 @@
       $product_query = tep_db_query("select products_price from products where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
       $product = tep_db_fetch_array($product_query);
 
-      $sInfo = new Special_Price_Info;
       $sInfo_array = tep_array_merge($HTTP_POST_VARS, $product);
-      tep_set_special_price_info($sInfo_array);
+      $sInfo = new specialPriceInfo($sInfo_array);
 
       $form = '<form name="specials_new" action="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=new_preview', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $sInfo->products_id . '">'  ."\n";
 
@@ -188,9 +182,8 @@
 
     if (substr($HTTP_POST_VARS['specials_new_products_price'], -1) == '%') $HTTP_POST_VARS['specials_new_products_price'] = ($product['products_price'] - (($HTTP_POST_VARS['specials_new_products_price'] / 100) * $product['products_price']));
 
-    $sInfo = new Special_Price_Info;
     $sInfo_array = tep_array_merge($HTTP_POST_VARS, $product);
-    tep_set_special_price_info($sInfo_array);
+    $sInfo = new specialPriceInfo($sInfo_array);
 
     $form = '<form name="specials_new" action="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $sInfo->products_id . '"><input type="hidden" name="specials_new_products_price" value="' . $sInfo->specials_price . '">'  ."\n";
 

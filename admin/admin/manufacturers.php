@@ -35,10 +35,6 @@
       }
     }
   }
-
-  class Manufacturer_Info {
-    var $id, $name, $image, $location, $products_count;
-  }
 ?>
 <html>
 <head>
@@ -139,9 +135,8 @@ function checkForm() {
       $manufacturer_products_query = tep_db_query("select count(*) as total from products_to_manufacturers where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = tep_db_fetch_array($manufacturer_products_query);
 
-      $mInfo = new Manufacturer_Info;
       $mInfo_array = tep_array_merge($manufacturers, $manufacturer_products);
-      tep_set_manufacturer_info($mInfo_array);
+      $mInfo = new manufacturerInfo($mInfo_array);
     }
 
     if ($manufacturers['manufacturers_id'] == @$mInfo->id) {

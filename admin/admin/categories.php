@@ -92,14 +92,6 @@
       tep_exit();
     }
   }
-
-  class Category_Info {
-    var $id, $name, $image, $sort_order, $parent_id, $childs_count, $products_count;
-  }
-
-  class Product_Info {
-    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating;
-  }
 ?>
 <html>
 <head>
@@ -190,13 +182,11 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select manufacturers_id from products_to_manufacturers where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo = new Product_Info;
       $pInfo_array = tep_array_merge($product, $manufacturer);
-      tep_set_product_info($pInfo_array);
+      $pInfo = new productInfo($pInfo_array);
     } elseif ($HTTP_POST_VARS) {
 /* not in use at the moment! this should be used when the user presses 'BACK' on the products preview page.. */
-      $pInfo = new Product_Info;
-      tep_set_product_info($HTTP_POST_VARS);
+      $pInfo = new productInfo($HTTP_POST_VARS);
     }
 
     $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from manufacturers order by manufacturers_name");
@@ -272,18 +262,16 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo = new Product_Info;
       $pInfo_array = tep_array_merge((array)$HTTP_POST_VARS, (array)$manufacturer);
-      tep_set_product_info($pInfo_array);
+      $pInfo = new productInfo($pInfo_array);
     } else {
       $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
       $manufacturer_query = tep_db_query("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image from manufacturers m, products_to_manufacturers p2m where p2m.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p2m.manufacturers_id = m.manufacturers_id");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo = new Product_Info;
       $pInfo_array = tep_array_merge($product, $manufacturer);
-      tep_set_product_info($pInfo_array);
+      $pInfo = new productInfo($pInfo_array);
     }
 
     $form_action = 'insert_product';
@@ -387,9 +375,8 @@ function checkForm() {
         $category_products_query = tep_db_query("select count(*) as products_count from products_to_categories where categories_id = '" . $categories['categories_id'] . "'");
         $category_products = tep_db_fetch_array($category_products_query);
 
-        $cInfo = new Category_Info;
         $cInfo_array = tep_array_merge($categories, $category_childs, $category_products);
-        tep_set_category_info($cInfo_array);
+        $cInfo = new categoryInfo($cInfo_array);
       }
 
       if ($categories['categories_id'] == @$cInfo->id) {
@@ -427,9 +414,8 @@ function checkForm() {
         $reviews_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) average_rating from reviews r, reviews_extra re where re.products_id = '" . $products['products_id'] . "' and re.reviews_id = r.reviews_id");
         $reviews = tep_db_fetch_array($reviews_query);
 
-        $pInfo = new Product_Info;
         $pInfo_array = tep_array_merge($products, $reviews);
-        tep_set_product_info($pInfo_array);
+        $pInfo = new productInfo($pInfo_array);
       }
 
       if ($products['products_id'] == @$pInfo->id) {
