@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.53 2001/11/24 16:34:24 dgw_ Exp $
+  $Id: address_book_process.php,v 1.54 2001/12/01 19:36:44 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -216,8 +216,10 @@
     $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_ADD_ENTRY . '</a>';
   }
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">

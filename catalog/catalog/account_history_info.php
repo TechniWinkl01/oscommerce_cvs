@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.59 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: account_history_info.php,v 1.60 2001/12/01 19:36:44 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,8 +34,10 @@
   require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">

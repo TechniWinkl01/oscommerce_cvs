@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.53 2001/11/24 12:53:01 dgw_ Exp $
+  $Id: login.php,v 1.54 2001/12/01 19:36:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -99,8 +99,10 @@
    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
    $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: localization.php,v 1.4 2001/09/12 21:33:04 dwatkins Exp $
+  $Id: localization.php,v 1.5 2001/12/01 19:36:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org

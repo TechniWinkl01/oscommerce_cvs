@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.65 2001/11/18 18:45:54 dgw_ Exp $
+  $Id: english.php,v 1.66 2001/12/01 19:36:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,6 +34,9 @@ function tep_date_raw($date, $reverse = false) {
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'USD');
+
+// charset for web pages and emails
+define('CHARSET', 'iso-8859-1');
 
 // page title
 define('TITLE', 'The Exchange Project');
