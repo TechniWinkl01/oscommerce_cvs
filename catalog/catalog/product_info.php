@@ -38,7 +38,7 @@ function popupImageWindow(url) {
         </table></td>
       </tr>
 <?
-  $product_info = tep_db_query("select products_id, products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  $product_info = tep_db_query("select products_id, products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, products_date_available, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   if (!tep_db_num_rows($product_info)) { // product not found in database
 ?>
       <tr>
@@ -59,9 +59,6 @@ function popupImageWindow(url) {
     if (tep_db_num_rows($manufacturer_query)) {
       $manufacturer = tep_db_fetch_array($manufacturer_query);
     }
-
-    $raw_date_added = $product_info_values['products_date_added'];
-    $date_added = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date_added, 4, 2),substr($raw_date_added, -2),substr($raw_date_added, 0, 4)));
 
     $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $product_info_values['products_id'] . "'");
     if (tep_db_num_rows($check_special)) {
@@ -147,10 +144,21 @@ function popupImageWindow(url) {
       </tr>
 <?
     }
+
+    if ($product_info_values['products_date_available'] > date('Ymd')) {
 ?>
       <tr>
-        <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo sprintf(TEXT_DATE_ADDED, $date_added); ?></font></td>
+        <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></font></td>
       </tr>
+<?
+    } else {
+?>
+      <tr>
+        <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info_values['products_date_added'])); ?></font></td>
+      </tr>
+<?
+    }
+?>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
       </tr>

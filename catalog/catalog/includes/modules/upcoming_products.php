@@ -1,7 +1,7 @@
-<?php /* $Id: upcoming_products.php,v 1.10 2001/03/04 15:43:01 hpdl Exp $ */ ?>
+<?php /* $Id: upcoming_products.php,v 1.11 2001/04/13 19:46:11 hpdl Exp $ */ ?>
 <!-- upcoming_products //-->
 <?
-    $expected = tep_db_query("select products_name, UNIX_TIMESTAMP(products_expected.date_expected) AS u_date from products_expected order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
+    $expected = tep_db_query("select products_id, products_name, UNIX_TIMESTAMP(products_date_available) date_expected from products where products_date_available != '' order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
     if (tep_db_num_rows($expected) > 0) {
 ?>
           <tr>
@@ -23,8 +23,8 @@
       } else {
         echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '                <td>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $expected_values['products_name'] . '&nbsp;</font></td>' . "\n";
-      echo '                <td align="right">' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected_values['u_date']) . '&nbsp;</font></td>' . "\n";
+      echo '                <td>' . FONT_STYLE_SMALL_TEXT . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected_values['products_id'], 'NONSSL') . '">' . $expected_values['products_name'] . '</a>&nbsp;</font></td>' . "\n";
+      echo '                <td align="right">' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected_values['date_expected']) . '&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>
