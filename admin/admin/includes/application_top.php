@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.172 2004/10/28 12:25:12 hpdl Exp $
+  $Id: application_top.php,v 1.173 2004/10/28 12:40:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -132,9 +132,6 @@
 // initialize the message stack for output messages
   require('includes/classes/message_stack.php');
   $messageStack = new messageStack;
-
-// split-page-results
-  require('includes/classes/split_page_results.php');
 
 // entry/item info classes
   require('includes/classes/object_info.php');
