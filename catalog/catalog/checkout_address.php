@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.66 2002/01/15 19:55:35 dgw_ Exp $
+  $Id: checkout_address.php,v 1.67 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,8 @@
   require('includes/application_top.php');
 
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS, 'SSL'));
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS);
@@ -146,7 +147,7 @@
               <tr>
 <?php
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
-    echo '                <td class="main"><a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&entry_id=' . ($row + 1), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a></td>' . "\n";
+    echo '                <td class="main"><a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'entry_id=' . ($row + 1), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a></td>' . "\n";
   } else {
     echo '                <td valign="top" class="smallText">' . TEXT_MAXIMUM_ENTRIES_REACHED . '</td>' . "\n";
   }

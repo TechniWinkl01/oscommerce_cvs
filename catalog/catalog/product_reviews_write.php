@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.42 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: product_reviews_write.php,v 1.43 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,8 @@
   require('includes/application_top.php');
 
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_PRODUCT_REVIEWS_WRITE . '&products_id=' . $HTTP_GET_VARS['products_id'], 'SSL'));
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
   if (@$HTTP_GET_VARS['action'] == 'process') {

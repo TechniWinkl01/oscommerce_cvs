@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.51 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: create_account.php,v 1.52 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -79,7 +79,7 @@ function update_zone(theForm) {
         </table></td>
       </tr>
 <?php
-  if ($HTTP_GET_VARS['origin']) {
+  if (sizeof($navigation->snapshot) > 0) {
 ?>
       <tr>
         <td class="smallText"><br><?php echo sprintf(TEXT_ORIGIN_LOGIN, tep_href_link(FILENAME_LOGIN, tep_get_all_get_params(), 'SSL')); ?></td>
@@ -102,7 +102,7 @@ function update_zone(theForm) {
       <tr>
         <td align="right" class="main"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
       </tr>
-    </table><?php if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?></form></td>
+    </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

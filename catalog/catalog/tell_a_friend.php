@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.23 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.24 2002/03/07 19:58:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,7 +20,8 @@
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
   } elseif (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false') {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_TELL_A_FRIEND . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'SSL'));
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
   if (!$HTTP_GET_VARS['products_id']) {

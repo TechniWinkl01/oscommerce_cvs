@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.59 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: address_book_process.php,v 1.60 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,24 +12,13 @@
 
   require('includes/application_top.php');
 
-/* addres_book_process.php
+  if (!tep_session_is_registered('customer_id')) {
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
+  }
 
-   Default action: add an entry to the address book of the customer
-   Other actions:
-
-   process:      Check for errors
-   update:       Check for errors and enter the altered data in the
-                 address_book table
-   modify:       modify an existing entry in the address book, needs
-                 the GET-Var entry_id with the address_book_id to modify
-   remove:       remove the entry identified with the GET_Var entry_id
-                 from the address_book table
-
-*/
-
-// send to login when there is no Customer_id
-  if (!@tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK_PROCESS, 'SSL'));
+  if ( ($navigation->snapshot['page'] != FILENAME_ADDRESS_BOOK) || ($navigation->snapshot['page'] != FILENAME_CHECKOUT_ADDRESS) ) {
+    $navigation->set_path_as_snapshot(1);
   }
 
 // are we asked to remove an entry?
@@ -158,8 +147,10 @@
     $update_query = "insert into " . TABLE_ADDRESS_BOOK . " values ('" . $customer_id . "', '" . $HTTP_POST_VARS['entry_id'] . "', '" . $gender . "', '" . $HTTP_POST_VARS['company'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
     tep_db_query($update_query);
 // Go back to where we came from
-    if (@$HTTP_POST_VARS['origin']) {
-      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', 'SSL'));
+    if (sizeof($navigation->snapshot) > 0) {
+      $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array(tep_session_name())), $navigation->snapshot['mode']);
+      $navigation->clear_snapshot();
+      tep_redirect($origin_href);
     } else {
       tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
     }
@@ -564,10 +555,15 @@ function check_form() {
         </table></td>
 <?php
     } else {
+      if (sizeof($navigation->snapshot) > 0) {
+        $back_link = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array(tep_session_name())), $navigation->snapshot['mode']);
+      } else {
+        $back_link = tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL');
+      }
 ?>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><a href="<?php echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main"><?php echo '<a href="' . $back_link . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
             <td align="right" class="main"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
@@ -575,7 +571,7 @@ function check_form() {
     }
 ?>
       </tr>
-    </table><?php if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?></form></td>
+    </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.93 2002/01/27 18:11:27 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.94 2002/03/07 19:58:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,9 +12,9 @@
 
   require('includes/application_top.php');
 
-// Check if user is logged in
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT, 'SSL'));
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
 // Check if there is something in the cart

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.214 2002/02/04 10:27:20 dgw_ Exp $
+  $Id: application_top.php,v 1.215 2002/03/07 19:58:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -180,6 +180,9 @@
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
 
+// include navigation history class
+  require(DIR_WS_CLASSES . 'navigation_history.php');
+
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
@@ -250,6 +253,19 @@
       $currency = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
     }
   }
+
+// navigation history
+  if (tep_session_is_registered('navigation')) {
+    if (!eregi('^4\.', phpversion()) || eregi('^4.0b2', phpversion())) {
+      $broken_navigation = $navigation;
+      $navigation = new navigationHistory;
+      $navigation->unserialize($broken_navigation);
+    }
+  } else {
+    tep_session_register('navigation');
+    $navigation = new navigationHistory;
+  }
+  $navigation->add_current_page();
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {

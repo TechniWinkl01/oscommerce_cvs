@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.71 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: create_account_process.php,v 1.72 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -186,7 +186,7 @@
       <tr>
         <td align="right" class="main"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
       </tr>
-    </table><?php if ($HTTP_POST_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_POST_VARS['origin'] . '">'; } ?></form></td>
+    </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
@@ -243,8 +243,10 @@
     $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
     tep_mail($name, $email_address, EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
-    if ($HTTP_POST_VARS['origin']) {
-      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', 'SSL'));
+    if (sizeof($navigation->snapshot) > 0) {
+      $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array(tep_session_name())), $navigation->snapshot['mode']);
+      $navigation->clear_snapshot();
+      tep_redirect($origin_href);
     } else {
       tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'SSL'));
     }

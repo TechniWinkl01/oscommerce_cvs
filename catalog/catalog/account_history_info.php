@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.69 2002/02/03 01:05:39 clescuyer Exp $
+  $Id: account_history_info.php,v 1.70 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,10 +19,9 @@
       tep_redirect(tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
     }
   } else {
-    if (@$HTTP_GET_VARS['order_id']) {
-      tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY_INFO . '&order_id=' . $HTTP_GET_VARS['order_id'], 'SSL'));
-    } else {
-      tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'SSL'));
+    if (!tep_session_is_registered('customer_id')) {
+      $navigation->set_snapshot();
+      tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
     }
   }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.159 2002/02/08 17:07:12 hpdl Exp $
+  $Id: general.php,v 1.160 2002/03/07 19:58:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1028,5 +1028,22 @@
         return true;
       }
     }
+  }
+
+  function tep_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
+    if ($exclude == '') $exclude = array();
+
+    $get_string = '';
+    if (sizeof($array) > 0) {
+      while (list($key, $value) = each($array)) {
+        if ( (!tep_in_array($key, $exclude)) || ($key != 'x') || ($key != 'y') ) {
+          $get_string .= $key . $equals . $value . $separator;
+        }
+      }
+      $remove_chars = strlen($separator);
+      $get_string = substr($get_string, 0, -$remove_chars);
+    }
+
+    return $get_string;
   }
 ?>

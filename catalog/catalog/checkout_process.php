@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.92 2002/02/09 11:02:25 clescuyer Exp $
+  $Id: checkout_process.php,v 1.93 2002/03/07 19:58:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,8 @@
 
 // check for essential variables (payment module could lose them)
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT, 'SSL'));
+    $navigation->set_snapshot(array('mode' => 'SSL', 'page' => FILENAME_CHECKOUT_PAYMENT));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
   if (!tep_session_is_registered('sendto')) {
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));

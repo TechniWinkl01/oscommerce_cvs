@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.46 2002/01/12 19:19:37 dgw_ Exp $
+  $Id: address_book.php,v 1.47 2002/03/07 19:58:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,9 +16,9 @@
 
   $location = ' &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
 
-// send to login when there is no Customer_id
-  if (!@tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ADDRESS_BOOK, 'SSL'));
+  if (!tep_session_is_registered('customer_id')) {
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
