@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.172 2001/09/14 22:52:15 dwatkins Exp $
+  $Id: application_top.php,v 1.173 2001/10/28 04:49:52 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,6 +21,21 @@
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
+
+// default localization values
+  define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
+  define('DEFAULT_CURRENCY', 'USD'); // codes are in the "currencies" database table (and catalog/includes/data/rates.php)
+  define('USE_DEFAULT_LANGUAGE_CURRENCY', false); // when the language is changed, use its default currency instead of the applications default currency
+
+// Send order confirmation emails ALSO to these email addresses (separated by a comma)
+//  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, someone else <someone@else.com>');
+
+// Use Search-engine Friendly URL's (only works in Apache)
+  define('SEARCH_ENGINE_FRIENDLY_URLS', false);
+
+// set up cache functionality - only for PHP4
+  define('CACHE_ON', false); // Default: false - Turn caching on/off
+  define('DIR_FS_CACHE', '/tmp/'); // Default: /tmp/ - Default cache directory
 
 // Application wide parameter to send out emails or not
   define('SEND_EMAILS', true);
