@@ -115,7 +115,7 @@
   $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
   if (is_object($GLOBALS[$payment])) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
-    $email_order .= $GLOBALS[$payment]->description . "\n\n";
+    $email_order .= $GLOBALS[$payment]->title . "\n\n";
   }
   tep_mail($customer_name, $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
