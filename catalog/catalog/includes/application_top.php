@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.269 2003/03/14 14:10:37 hpdl Exp $
+  $Id: application_top.php,v 1.270 2003/03/19 00:20:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -156,6 +156,25 @@
     tep_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', $current_domain);
 
     if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
+      tep_session_start();
+      $session_started = true;
+    }
+  } elseif (SESSION_BLOCK_SPIDERS == 'True') {
+    $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
+    $spider_flag = false;
+
+    if (tep_not_null($user_agent)) {
+      $spiders = file(DIR_WS_INCLUDES . 'spiders.txt');
+
+      for ($i=0, $n=sizeof($spiders); $i<$n; $i++) {
+        if (is_integer(strpos($spiders[$i], $user_agent))) {
+          $spider_flag = true;
+          break;
+        }
+      }
+    }
+
+    if ($spider_flag == false) {
       tep_session_start();
       $session_started = true;
     }
