@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.6 2002/08/13 16:00:41 dgw_ Exp $
+  $Id: ot_tax.php,v 1.7 2002/11/12 00:46:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
       $this->code = 'ot_tax';
       $this->title = MODULE_ORDER_TOTAL_TAX_TITLE;
       $this->description = MODULE_ORDER_TOTAL_TAX_DESCRIPTION;
-      $this->enabled = MODULE_ORDER_TOTAL_TAX_STATUS;
+      $this->enabled = ((MODULE_ORDER_TOTAL_TAX_STATUS == 'true') ? true : false);
       $this->sort_order = MODULE_ORDER_TOTAL_TAX_SORT_ORDER;
 
       $this->output = array();

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_loworderfee.php,v 1.5 2002/08/13 16:00:41 dgw_ Exp $
+  $Id: ot_loworderfee.php,v 1.6 2002/11/12 00:46:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
       $this->code = 'ot_loworderfee';
       $this->title = MODULE_ORDER_TOTAL_LOWORDERFEE_TITLE;
       $this->description = MODULE_ORDER_TOTAL_LOWORDERFEE_DESCRIPTION;
-      $this->enabled = MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS;
+      $this->enabled = ((MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS == 'true') ? true : false);
       $this->sort_order = MODULE_ORDER_TOTAL_LOWORDERFEE_SORT_ORDER;
 
       $this->output = array();

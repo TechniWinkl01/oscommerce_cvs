@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.9 2002/08/13 16:00:41 dgw_ Exp $
+  $Id: ot_shipping.php,v 1.10 2002/11/12 00:46:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
       $this->code = 'ot_shipping';
       $this->title = MODULE_ORDER_TOTAL_SHIPPING_TITLE;
       $this->description = MODULE_ORDER_TOTAL_SHIPPING_DESCRIPTION;
-      $this->enabled = MODULE_ORDER_TOTAL_SHIPPING_STATUS;
+      $this->enabled = ((MODULE_ORDER_TOTAL_SHIPPING_STATUS == 'true') ? true : false);
       $this->sort_order = MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER;
 
       $this->output = array();
