@@ -260,7 +260,7 @@ function checkForm() {
           </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_IMAGE; ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="file" name="products_image" size="20"><br>&nbsp;<? echo $pInfo->image; ?></font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="file" name="products_image" size="20">&nbsp;<br><? echo $pInfo->image; ?><input type="hidden" name="products_previous_image" value="<? echo $pInfo->image; ?>"></font></td>
           </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_URL; ?>&nbsp;</font></td>
@@ -295,9 +295,16 @@ function checkForm() {
       $pInfo_array = tep_array_merge((array)$HTTP_POST_VARS, (array)$manufacturer);
       $pInfo = new productInfo($pInfo_array);
 
-      $image_location = DIR_SERVER_ROOT . DIR_CATALOG_IMAGES . $products_image_name;
-      if (file_exists($image_location)) @unlink($image_location);
-      copy($products_image, $image_location);
+      // Copy image only if modified
+      if ($products_image && ($products_image != 'none')) {
+        $image_location = DIR_SERVER_ROOT . DIR_CATALOG_IMAGES . $products_image_name;
+        if (file_exists($image_location)) @unlink($image_location);
+        copy($products_image, $image_location);
+        $products_image_name = 'images/' . $products_image_name;
+      } else {
+	$products_image_name = $products_previous_image;
+      }
+
     } else {
       $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
@@ -323,7 +330,7 @@ function checkForm() {
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td wrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image(DIR_CATALOG_IMAGES . $products_image_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $pInfo->name); ?><? echo $pInfo->description; ?></font></td>
+        <td wrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image(DIR_CATALOG . $products_image_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $pInfo->name); ?><? echo $pInfo->description; ?></font></td>
       </tr>
 <?
     if ($pInfo->url) {
@@ -368,7 +375,7 @@ function checkForm() {
 /* Re-Post all POST'ed variables */
       reset($HTTP_POST_VARS);
       while (list($key, $value) = each($HTTP_POST_VARS)) echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($value) . '">';
-      echo '<input type="hidden" name="products_image" value="images/' . $products_image_name . '">';
+      echo '<input type="hidden" name="products_image" value="' . $products_image_name . '">';
 ?>
         <? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>'; ?>&nbsp;<? if ($HTTP_GET_VARS['pID']) { echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); } else { echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); } ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'info=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</font></td>
       </form></tr>
