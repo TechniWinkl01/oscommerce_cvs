@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.38 2002/08/01 10:55:27 hpdl Exp $
+  $Id: product_listing.php,v 1.39 2002/10/26 22:43:14 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,9 +12,6 @@
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-
-  $colspan = sizeof($column_list);
-
   $listing_numrows_sql = $listing_sql;
   $listing_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
 // fix counted products
@@ -24,7 +21,7 @@
   if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '1' || PREV_NEXT_BAR_LOCATION == '3')) {
 ?>
   <tr>
-    <td colspan="<?php echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td class="smallText">&nbsp;<?php echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
         <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
@@ -32,7 +29,7 @@
     </table></td>
   </tr>
   <tr>
-    <td colspan="<?php echo $colspan; ?>"><?php echo tep_draw_separator(); ?></td>
+    <td><?php echo tep_draw_separator(); ?></td>
   </tr>
 <?php
   }
@@ -163,19 +160,19 @@
   } else {
 ?>
   <tr class="productListing-odd">
-    <td colspan="<?php echo $colspan; ?>" class="smallText">&nbsp;<?php echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
+    <td class="smallText">&nbsp;<?php echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
   </tr>
 <?php
   }
 ?>
   <tr>
-    <td colspan="<?php echo $colspan; ?>"><?php echo tep_draw_separator(); ?></td>
+    <td><?php echo tep_draw_separator(); ?></td>
   </tr>
 <?php
   if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '2' || PREV_NEXT_BAR_LOCATION == '3')) {
 ?>
   <tr>
-    <td colspan="<?php echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td class="smallText">&nbsp;<?php echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
         <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
