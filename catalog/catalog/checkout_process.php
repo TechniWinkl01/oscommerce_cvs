@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.90 2002/02/03 00:57:14 clescuyer Exp $
+  $Id: checkout_process.php,v 1.91 2002/02/03 20:08:46 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -69,11 +69,7 @@
     $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
     $products_tax = tep_get_tax_rate($delivery_values['country_id'], $delivery_values['zone_id'], $products[$i]['tax_class_id']);    
     $products_weight = $products[$i]['weight'];
-    $products_attributes = $products[$i]['attributes'];
-// Will work with only one option for downloadable products
-// otherwise, we have to build the query dynamically with a loop
-    list ($options_id, $options_values_id) = each($products_attributes);
-
+    
     // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
       if (DOWNLOAD_ENABLED == 'true') {
@@ -83,9 +79,14 @@
                              ON p.products_id=pa.products_id
                             LEFT JOIN " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
                              ON pa.products_attributes_id=pad.products_attributes_id
-                            WHERE p.products_id = '" . tep_get_prid($products[$i]['id']) . "' 
-                             AND pa.options_id = '" . $options_id . "'
-                             AND pa.options_values_id = '" . $options_values_id . "'";
+                            WHERE p.products_id = '" . tep_get_prid($products[$i]['id']) . "'";
+// Will work with only one option for downloadable products
+// otherwise, we have to build the query dynamically with a loop
+        $products_attributes = $products[$i]['attributes'];
+        if (is_array($products_attributes)) {
+          list ($options_id, $options_values_id) = each($products_attributes);
+          $stock_query_raw .= " AND pa.options_id = '" . $options_id . "' AND pa.options_values_id = '" . $options_values_id . "'";
+        }
         $stock_query = tep_db_query($stock_query_raw);
       } else {
         $stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
