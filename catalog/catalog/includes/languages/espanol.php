@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.47 2001/06/14 23:03:29 hpdl Exp $
+  $Id: espanol.php,v 1.48 2001/06/14 23:08:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -253,6 +253,7 @@ define('TEXT_BY', ' por ');
 define('TEXT_REVIEW_BY', 'por %s %s');
 define('TEXT_REVIEW_WORD_COUNT', '%s palabras');
 define('TEXT_REVIEW_RATING', 'Grado: %s [%s]');
+define('TEXT_NO_REVIEWS', 'En este momento, no hay ningun comentario.');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 ?>

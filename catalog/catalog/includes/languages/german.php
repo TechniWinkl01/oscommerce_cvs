@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.52 2001/06/14 23:03:29 hpdl Exp $
+  $Id: german.php,v 1.53 2001/06/14 23:08:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -75,7 +75,7 @@ define('BOX_SPECIALS_MORE', 'Mehr Angebote..');
 // reviews box text in includes/boxes/reviews.php
 define('BOX_HEADING_REVIEWS', 'Bewertungen');
 define('BOX_REVIEWS_WRITE_REVIEW', 'Bewerten Sie dieses Produkt!');
-define('BOX_REVIEWS_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
+define('BOX_REVIEWS_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor');
 define('BOX_REVIEWS_MORE', 'Mehr Bewertungen..');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
@@ -253,6 +253,7 @@ define('TEXT_BY', ' durch ');
 define('TEXT_REVIEW_BY', 'von %s %s');
 define('TEXT_REVIEW_WORD_COUNT', '%s Wörter');
 define('TEXT_REVIEW_RATING', 'Bewertung: %s [%s]');
+define('TEXT_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 ?>
