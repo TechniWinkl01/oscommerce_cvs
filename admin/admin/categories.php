@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.100 2001/12/30 08:55:07 hpdl Exp $
+  $Id: categories.php,v 1.101 2001/12/30 09:20:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -172,7 +172,7 @@
         } else {
           $products_date_available = tep_db_prepare_input($HTTP_POST_VARS['products_date_available']);
 
-          $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
+          $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
 
           $sql_data_array = array('products_quantity' => tep_db_prepare_input($HTTP_POST_VARS['products_quantity']),
                                   'products_model' => tep_db_prepare_input($HTTP_POST_VARS['products_model']),
@@ -280,7 +280,7 @@
   }
 
   if ($HTTP_GET_VARS['action'] == 'new_product') {
-    if ($HTTP_GET_VARS['pID']) {
+    if ( ($HTTP_GET_VARS['pID']) && (!$HTTP_POST_VARS) ) {
       $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
       $product = tep_db_fetch_array($product_query);
 

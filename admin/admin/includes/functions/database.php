@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.12 2001/12/27 17:55:20 hpdl Exp $
+  $Id: database.php,v 1.13 2001/12/30 09:20:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,6 +63,8 @@
         if (is_string($value)) {
           if ($value == 'now()') {
             $query .= 'now(), ';
+          } elseif ($value == 'null') {
+            $query .= 'null, ';
           } else {
             $query .= '\'' . tep_db_input($value) . '\', ';
           }
@@ -77,6 +79,8 @@
         if (is_string($value)) {
           if ($value == 'now()') {
             $query .= $columns . ' = now(), ';
+          } elseif ($value == 'null') {
+            $query .= $columns .= ' = null, ';
           } else {
             $query .= $columns . ' = \'' . tep_db_input($value) . '\', ';
           }
