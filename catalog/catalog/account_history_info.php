@@ -75,7 +75,7 @@
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format($total_cost,2);?>&nbsp;</font></td>
               </tr>
 <?
-  $order = tep_db_query("select delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, products_tax, payment_method, shipping_cost from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order = tep_db_query("select delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, products_tax, payment_method, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_values = tep_db_fetch_array($order);
 ?>
               <tr>
@@ -87,7 +87,7 @@
   if(!SHIPPING_FREE || $shipping > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TABLE_SUBHEADING_SHIPPING;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$order_values['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING;?>&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format($shipping, 2);?>&nbsp;</font></td>
               </tr>
 <?

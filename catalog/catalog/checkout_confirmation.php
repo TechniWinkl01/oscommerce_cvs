@@ -86,7 +86,8 @@
     if (SHIPPING_MODEL == SHIPPING_UPS) {
       include('includes/ups.php');
       $rate = new Ups;
-      $rate->upsProduct(UPS_SPEED);    // See upsProduct() function for codes
+      $rate->upsProduct($HTTP_POST_VARS['prod']);    // See upsProduct() function for codes
+      // $rate->upsProduct(UPS_SPEED);    // See upsProduct() function for codes
       $rate->origin(UPS_ORIGIN_ZIP, "US"); // Use ISO country codes!
       $rate->dest($address_values['postcode'], "US");      // Use ISO country codes!
       // $rate->dest($address_values['postcode'], $address_values['country']);      // Use ISO country codes!
@@ -95,6 +96,7 @@
       $rate->weight("$total_weight");
       $rate->rescom(UPS_RES);    // See the rescom() function for codes
       $shipping_cost = $rate->getQuote();
+      $shipping_method = "UPS " . $prod;
     }
   }
 
@@ -116,7 +118,7 @@
   if (!SHIPPING_FREE) {
 ?>
               <tr>
-                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_SHIPPING;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<?=$shipping_method . " " . SUB_TITLE_SHIPPING;?>&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;$<?=$shipping_cost;?>&nbsp;</font></td>
               </tr>
 <?
@@ -213,6 +215,7 @@
     <input type="hidden" name="sendto" value="<?=$HTTP_POST_VARS['sendto'];?>">
     <input type="hidden" name="payment" value="<?=$HTTP_POST_VARS['payment'];?>">
     <input type="hidden" name="shipping" value="<?=$shipping_cost;?>">
+    <input type="hidden" name="shipping_method" value="<?=$shipping_method;?>">
 <?
   if ($HTTP_POST_VARS['payment'] == 'cc') {
 ?>

@@ -133,7 +133,8 @@ function check_form() {
           </tr>
         </table></td>
       </tr>
-    </table><input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto']; ?>"></form></td>
+    </table><input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto']; ?>">
+            <input type="hidden" name="prod" value="<? echo $HTTP_POST_VARS['prod']; ?>"></form></td>
 <!-- body_text_eof //-->
     <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>

@@ -59,6 +59,36 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
+<?
+   if (!SHIPPING_FREE) {
+     if (SHIPPING_MODEL == SHIPPING_UPS) {
+?>
+                <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_SHIPPING_INFO;?></b>&nbsp;</font><br><br></td>
+              </tr>
+              <tr>
+                <td><SELECT NAME="prod">
+                  <OPTION SELECTED VALUE="GND">UPS Ground</OPTION>
+                  <OPTION VALUE="1DM">Next Day Air Early AM</OPTION>
+                  <OPTION VALUE="1DA">Next Day Air</OPTION>
+                  <OPTION VALUE="1DP">Next Day Air Saver</OPTION>
+                  <OPTION VALUE="2DM">2nd Day Air Early AM</OPTION>
+                  <OPTION VALUE="3DS">3 Day Select</OPTION>
+                  <OPTION VALUE="STD">Canada Standard</OPTION>
+                  <OPTION VALUE="XPR">Worldwide Express</OPTION>
+                  <OPTION VALUE="XDM">Worldwide Express Plus</OPTION>
+                  <OPTION VALUE="XPD">Worldwide Expedited</OPTION></SELECT><br></td>
+            </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><?=tep_black_line();?></td>
+          </tr>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+<?
+      }
+    }
+?>
                 <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_MY_ADDRESS;?></b>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_DELIVER_TO;?></b>&nbsp;</font></td>
               </tr>

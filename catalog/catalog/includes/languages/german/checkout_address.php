@@ -11,6 +11,7 @@ define('TOP_BAR_TITLE', 'Bestellungswegweiser');
 define('HEADING_TITLE', 'Zu ihren Zustelladressen');
 define('TABLE_HEADING_MY_ADDRESS', 'Meine Adresse');
 define('TABLE_HEADING_DELIVER_TO', 'Ausgesuchte Adresse');
+define('TABLE_HEADING_SHIPPING_INFO', 'Lieferung mit');
 define('TABLE_HEADING_ADDRESS_BOOK', 'Adre&szlig;buch Eintr&auml;ge');
 define('TEXT_ADDRESS_BOOK_NO_ENTRIES', 'Ihr Adre&szlig;buch ist leer!');
 define('TEXT_MAXIMUM_ENTRIES_REACHED', '<font color="#ff0000"><b>ACHTUNG:</b></font> Sie haben ' . MAX_ADDRESS_BOOK_ENTRIES . ' Adre&szlig;bucheintr&auml;ge erreicht!');
