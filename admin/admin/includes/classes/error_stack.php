@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: errorStack.php,v 1.2 2002/01/12 16:13:53 hpdl Exp $
+  $Id: error_stack.php,v 1.1 2002/01/12 16:17:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
