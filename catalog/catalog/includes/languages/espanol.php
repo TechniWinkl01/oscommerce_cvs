@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.94 2002/11/02 03:06:05 hpdl Exp $
+  $Id: espanol.php,v 1.95 2002/11/11 23:08:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,7 +49,6 @@ define('HEADER_TITLE_CREATE_ACCOUNT', 'Crear Cuenta');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mi Cuenta');
 define('HEADER_TITLE_CART_CONTENTS', 'Ver Cesta');
 define('HEADER_TITLE_CHECKOUT', 'Realizar Pedido');
-define('HEADER_TITLE_CONTACT_US', 'Contactenos');
 define('HEADER_TITLE_TOP', 'Inicio');
 define('HEADER_TITLE_CATALOG', 'Catalogo');
 define('HEADER_TITLE_LOGOFF', 'Salir');
@@ -95,21 +94,21 @@ define('BOX_HEADING_SHOPPING_CART', 'Compras');
 define('BOX_SHOPPING_CART_EMPTY', '0 productos');
 
 // order_history box text in includes/boxes/order_history.php
-define('BOX_HEADING_CUSTOMER_ORDERS', 'Order History');
+define('BOX_HEADING_CUSTOMER_ORDERS', 'Mis Pedidos');
 
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Los Mas Vendidos');
 define('BOX_HEADING_BESTSELLERS_IN', 'Los Mas Vendidos en <br>&nbsp;&nbsp;');
 
 // notifications box text in includes/boxes/products_notifications.php
-define('BOX_HEADING_NOTIFICATIONS', 'Notifications');
-define('BOX_NOTIFICATIONS_NOTIFY', 'Notify me of updates to <b>%s</b>');
-define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Do not notify me of updates to <b>%s</b>');
+define('BOX_HEADING_NOTIFICATIONS', 'Notificaciones');
+define('BOX_NOTIFICATIONS_NOTIFY', 'Notifiqueme de cambios a <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'No me notifique de cambios a <b>%s</b>');
 
 // manufacturer box text
-define('BOX_HEADING_MANUFACTURER_INFO', 'Fabricantes Info');
-define('BOX_MANUFACTURER_INFO_HOMEPAGE', '%s Homepage');
-define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Other products');
+define('BOX_HEADING_MANUFACTURER_INFO', 'Fabricante');
+define('BOX_MANUFACTURER_INFO_HOMEPAGE', 'Pagina de %s');
+define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Otros productos');
 
 // languages box text in includes/boxes/languages.php
 define('BOX_HEADING_LANGUAGES', 'Idiomas');
@@ -153,14 +152,12 @@ define('JS_ADDRESS', '* Su \'Direccion\' debe tener al menos ' . ENTRY_STREET_AD
 define('JS_POST_CODE', '* Su \'Codigo Postal\' debe tener al menos ' . ENTRY_POSTCODE_MIN_LENGTH . ' letras.\n');
 define('JS_CITY', '* La \'Poblacion\' debe tener al menos ' . ENTRY_CITY_MIN_LENGTH . ' letras.\n');
 define('JS_STATE', '* Debe indicar la \'Provincia\'.\n');
-define('JS_STATE_SELECT', '-- Seleccione Arriba --');
-define('JS_ZONE', '* La \'Provincia\' se debe seleccionar de la lista para este pais.\n');
 define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.\n');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
 define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmación\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un método de pago para su pedido.\n');
-define('JS_ERROR_SUBMITTED', 'This form has already been submitted. Please press Ok and wait for this process to be completed.');
+define('JS_ERROR_SUBMITTED', 'Ya ha enviado el formulario. Pulse Aceptar y espere a que termine el proceso.');
 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un método de pago para su pedido.');
 
@@ -253,15 +250,15 @@ define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Cambiar Dirección');
 define('IMAGE_BUTTON_CHECKOUT', 'Realizar Pedido');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirmar Pedido');
 define('IMAGE_BUTTON_CONTINUE', 'Continuar');
-define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Continue Shopping');
+define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Seguir Comprando');
 define('IMAGE_BUTTON_DELETE', 'Eliminar');
 define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Editar Cuenta');
 define('IMAGE_BUTTON_HISTORY', 'Historial de Pedidos');
-define('IMAGE_BUTTON_LOGIN', 'Sign In');
+define('IMAGE_BUTTON_LOGIN', 'Entrar');
 define('IMAGE_BUTTON_IN_CART', 'Añadir a la Cesta');
-define('IMAGE_BUTTON_NOTIFICATIONS', 'Notifications');
+define('IMAGE_BUTTON_NOTIFICATIONS', 'Notificaciones');
 define('IMAGE_BUTTON_QUICK_FIND', 'Busqueda Rápida');
-define('IMAGE_BUTTON_REMOVE_NOTIFICATIONS', 'Eliminar Notifications');
+define('IMAGE_BUTTON_REMOVE_NOTIFICATIONS', 'Eliminar Notificaciones');
 define('IMAGE_BUTTON_REVIEWS', 'Comentarios');
 define('IMAGE_BUTTON_SEARCH', 'Search');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Opciones de Envío');
@@ -294,16 +291,16 @@ define('TEXT_NO_NEW_PRODUCTS', 'Ahora mismo no hay novedades.');
 define('TEXT_UNKNOWN_TAX_RATE', 'Impuesto desconocido');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> No he podido enviar el email con el servidor SMTP especificado. Configura tu servidor SMTP en la seccion adecuada del fichero php.ini.</b></font>');
-define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warning: Installation directory exists at: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Please remove this directory for security reasons.');
-define('WARNING_CONFIG_FILE_WRITEABLE', 'Warning: I am able to write to the configuration file: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.');
-define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warning: The sessions directory does not exist: ' . tep_session_save_path() . '. Sessions will not work until this directory is created.');
-define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: I am not able to write to the sessions directory: ' . tep_session_save_path() . '. Sessions will not work until the right user permissions are set.');
-define('WARNING_SESSION_AUTO_START', 'Warning: session.auto_start is enabled - please disable this php feature in php.ini and restart the web server.');
-define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warning: The downloadable products directory does not exist: ' . DIR_FS_DOWNLOAD . '. Downloadable products will not work until this directory is valid.');
+define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Advertencia: El directorio de instalacion existe en: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Por razones de seguridad, elimine este directorio completamente.');
+define('WARNING_CONFIG_FILE_WRITEABLE', 'Advertencia: Puedo escribir en el fichero de configuracion: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. En determinadas circunstancias esto puede suponer un riesgo - por favor corriga los permisos de este fichero.');
+define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Advertencia: El directorio para guardar datos de sesion no existe: ' . tep_session_save_path() . '. Las sesiones no funcionaran hasta que no se corriga este error.');
+define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Avertencia: No puedo escribir en el directorio para datos de sesion: ' . tep_session_save_path() . '. Las sesiones no funcionaran hasta que no se corriga este error.');
+define('WARNING_SESSION_AUTO_START', 'Advertencia: session.auto_start esta activado - desactive esta caracteristica en el fichero php.ini and reinicie el servidor web.');
+define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Advertencia: El directorio para productos descargables no existe: ' . DIR_FS_DOWNLOAD . '. Los productos descargables no funcionaran hasta que no se corriga este error.');
 
-define('TEXT_CCVAL_ERROR_INVALID_DATE', 'The expiry date entered for the credit card is invalid.<br>Please check the date and try again.');
-define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'The credit card number entered is invalid.<br>Please check the number and try again.');
-define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'The first four digits of the number entered are: %s<br>If that number is correct, we do not accept that type of credit card.<br>If it is wrong, please try again.');
+define('TEXT_CCVAL_ERROR_INVALID_DATE', 'La fecha de caducidad de la tarjeta de credito es incorrecta.<br>Compruebe la fecha e intentelo de nuevo.');
+define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'El numero de la tarjeta de credito es incorrecto.<br>Compruebe el numero e intentelo de nuevo.');
+define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'Los primeros cuatro digitos de su tarjeta son: %s<br>Si este numero es correcto, no aceptamos este tipo de tarjetas.<br>Si es incorrecto, intentelo de nuevo.');
 
 /*
   The following copyright announcement can only be

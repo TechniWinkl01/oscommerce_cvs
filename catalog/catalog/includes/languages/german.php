@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.110 2002/11/02 03:06:05 hpdl Exp $
+  $Id: german.php,v 1.111 2002/11/11 23:08:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,7 +49,6 @@ define('HEADER_TITLE_CREATE_ACCOUNT', 'Neues Konto');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mein Konto');
 define('HEADER_TITLE_CART_CONTENTS', 'Warenkorb');
 define('HEADER_TITLE_CHECKOUT', 'Kasse');
-define('HEADER_TITLE_CONTACT_US', 'Kontakt');
 define('HEADER_TITLE_TOP', 'Startseite');
 define('HEADER_TITLE_CATALOG', 'Katalog');
 define('HEADER_TITLE_LOGOFF', 'Abmelden');
@@ -153,8 +152,6 @@ define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muss mindestens aus ' . ENTRY_STREET
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muss mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_CITY', '* Die \'Stadt\' muss mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
-define('JS_STATE_SELECT', '-wählen sie oberhalb-');
-define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.\n');
 define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');

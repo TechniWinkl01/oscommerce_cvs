@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.102 2002/11/02 03:06:05 hpdl Exp $
+  $Id: english.php,v 1.103 2002/11/11 23:08:45 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,7 +49,6 @@ define('HEADER_TITLE_CREATE_ACCOUNT', 'Create an Account');
 define('HEADER_TITLE_MY_ACCOUNT', 'My Account');
 define('HEADER_TITLE_CART_CONTENTS', 'Cart Contents');
 define('HEADER_TITLE_CHECKOUT', 'Checkout');
-define('HEADER_TITLE_CONTACT_US', 'Contact Us');
 define('HEADER_TITLE_TOP', 'Top');
 define('HEADER_TITLE_CATALOG', 'Catalog');
 define('HEADER_TITLE_LOGOFF', 'Log Off');
@@ -153,8 +152,6 @@ define('JS_ADDRESS', '* The \'Street Address\' entry must have at least ' . ENTR
 define('JS_POST_CODE', '* The \'Post Code\' entry must have at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.\n');
 define('JS_CITY', '* The \'City\' entry must have at least ' . ENTRY_CITY_MIN_LENGTH . ' characters.\n');
 define('JS_STATE', '* The \'State\' entry must be selected.\n');
-define('JS_STATE_SELECT', '-- Select Above --');
-define('JS_ZONE', '* The \'State\' entry must be selected from the list for this country.\n');
 define('JS_COUNTRY', '* The \'Country\' entry must be selected.\n');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have at least ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match and have at least ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
