@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.96 2002/04/19 10:30:43 harley_vb Exp $
+  $Id: german.php,v 1.97 2002/04/23 21:38:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -252,6 +252,7 @@ define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse ändern');
 define('IMAGE_BUTTON_CHECKOUT', 'Kasse');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung bestätigen');
 define('IMAGE_BUTTON_CONTINUE', 'Weiter');
+define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Continue Shopping');
 define('IMAGE_BUTTON_DELETE', 'Löschen');
 define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Daten ändern');
 define('IMAGE_BUTTON_HISTORY', 'Bestellübersicht');
