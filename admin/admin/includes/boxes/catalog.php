@@ -10,6 +10,7 @@
 
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
+                               'params' => 'nowrap',
                                'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '">' . BOX_CATALOG_CATEGORIES_PRODUCTS . '</a><br>' .
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">' . BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES . '</a><br>' .
                                           '&nbsp;<a href="' . tep_href_link(FILENAME_MANUFACTURERS, '', 'NONSSL') . '">' . BOX_CATALOG_MANUFACTURERS . '</a><br>' .

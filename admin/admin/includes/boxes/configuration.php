@@ -16,6 +16,7 @@
 
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
+                               'params' => 'nowrap',
                                'text'  => $cfg_groups
                               );
   new infoBox($info_box_contents);
