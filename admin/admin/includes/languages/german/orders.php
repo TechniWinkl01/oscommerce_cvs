@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.14 2002/01/27 15:07:42 harley_vb Exp $
+  $Id: orders.php,v 1.15 2002/01/27 23:25:17 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,11 +64,11 @@ define('TEXT_ALL_ORDERS', 'Alle Bestellungen');
 define('TEXT_NO_ORDER_HISTORY', 'Keine Bestellhistorie verf&uuml;gbar');
 
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
-define('EMAIL_TEXT_SUBJECT', 'Bestellung aktualisiert');
+define('EMAIL_TEXT_SUBJECT', 'Statusänderung Ihrer Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
-define('EMAIL_TEXT_INVOICE_URL', 'Ausf&uuml;hrliche Rechnung:');
+define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Ihre Bestellung ist aktualisiert worden und weist den folgenden Stauts auf:' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Sollten Sie Fragen haben, so antworten Sie bitte auf diese eMail.' . "\n");
+define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüßen' . "\n");
 
 define('SUCCESS_ORDER_UPDATED', 'Hinweis: Die Bestellung wurde erfolgreich aktualisiert.');
 ?>
