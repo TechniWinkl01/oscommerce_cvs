@@ -45,7 +45,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_continue.gif', IMAGE_CONTINUE); ?></a>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a>&nbsp;&nbsp;</td>
       </tr>
       <tr>
         <td align="right" class="smallText" nowrap><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | ' . CHECKOUT_BAR_CONFIRMATION . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_FINISHED . '</font> ]</font>&nbsp;'; ?></td>

@@ -48,7 +48,7 @@ function popupImageWindow(url) {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_main_menu.gif', IMAGE_MAIN_MENU); ?></a></td>
+        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_main_menu.gif', IMAGE_BUTTON_MAIN_MENU); ?></a></td>
       </tr>
 <?
   } else {
@@ -165,8 +165,8 @@ function popupImageWindow(url) {
           <tr>
 <?
     $get_params = substr(tep_get_all_get_params(), 0, -1);
-    echo '            <td class="main" nowrap>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_reviews.gif', IMAGE_REVIEWS) . '</a></td>' . "\n" .
-         '            <td align="right" class="main" nowrap><input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit('button_in_cart.gif', IMAGE_IN_CART) . '&nbsp;&nbsp;</td>' . "\n";
+    echo '            <td class="main" nowrap>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS) . '</a></td>' . "\n" .
+         '            <td align="right" class="main" nowrap><input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART) . '&nbsp;&nbsp;</td>' . "\n";
 ?>
           </tr>
         </table></td>

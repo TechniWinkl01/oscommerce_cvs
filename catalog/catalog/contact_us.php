@@ -57,7 +57,7 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_CONTINUE) . '</a>'; ?>&nbsp;&nbsp;</td>
+        <td align="right"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?>&nbsp;&nbsp;</td>
       </tr>
 <?
   } else {
@@ -110,7 +110,7 @@
             <td colspan="2" class="main"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" colspan="2" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td align="right" colspan="2" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
           </tr>
         </table></form></td>
 <?

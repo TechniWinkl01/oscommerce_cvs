@@ -73,8 +73,8 @@
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td valign="top" nowrap>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
-            <td align="right" valign="top" nowrap><? echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td valign="top" nowrap>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+            <td align="right" valign="top" nowrap><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
           </tr>
 <?
   if ($HTTP_GET_VARS['email'] == 'nonexistent') {

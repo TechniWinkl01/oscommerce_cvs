@@ -308,7 +308,7 @@
   $payment_modules->process_button();
 
   if (!$checkout_form_submit) {
-    echo tep_image_submit('button_confirm_order.gif', IMAGE_CONFIRM_ORDER) . '&nbsp;' . "\n";
+    echo tep_image_submit('button_confirm_order.gif', IMAGE_BUTTON_CONFIRM_ORDER) . '&nbsp;' . "\n";
   } else {
     echo $checkout_form_submit;
   }

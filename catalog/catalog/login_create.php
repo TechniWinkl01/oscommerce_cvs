@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.13 2001/05/23 23:10:59 mbs Exp $
+  // $Id: login_create.php,v 1.14 2001/05/26 17:08:40 hpdl Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
@@ -295,7 +295,7 @@ function check_form() {
           </tr>
           <tr>
             <td valign="top" class="smallText" nowrap>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
-            <td align="right" valign="top" nowrap><? echo tep_image_submit('button_log_in.gif', IMAGE_LOGIN); ?>&nbsp;</td>
+            <td align="right" valign="top" nowrap><? echo tep_image_submit('button_log_in.gif', IMAGE_BUTTON_LOGIN); ?>&nbsp;</td>
           </tr>
           <tr>
             <td align="right" colspan="2" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
@@ -489,7 +489,7 @@ function check_form() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><br><? echo tep_image_submit('button_done.gif', IMAGE_DONE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main" nowrap><br><? echo tep_image_submit('button_done.gif', IMAGE_BUTTON_DONE); ?>&nbsp;&nbsp;</td>
       </tr>
     </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><? if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->

@@ -187,7 +187,7 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
         </table></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><? echo tep_image_submit('button_done.gif', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main" nowrap><? echo tep_image_submit('button_done.gif', IMAGE_BUTTON_DONE); ?>&nbsp;&nbsp;</td>
       </tr>
       <tr>
         <td><?echo tep_black_line(); ?></td>

@@ -197,7 +197,7 @@ function session_win() {
           </tr>
           <tr>
             <td valign="top" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a></td>
-            <td align="right" class="smallText" nowrap><? echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;</td>
+            <td align="right" class="smallText" nowrap><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;</td>
           </tr>
 <?
    $origin = '';
