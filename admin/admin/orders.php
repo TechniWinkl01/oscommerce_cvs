@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.65 2002/01/21 21:57:25 hpdl Exp $
+  $Id: orders.php,v 1.66 2002/01/23 00:41:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,9 +24,12 @@
       tep_redirect(tep_href_link(FILENAME_ORDERS, 'oID=' . $HTTP_GET_VARS['oID']));
       break;
     case 'delete_order':
-      tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
-      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
-      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
+      $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
+
+      tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
+      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($oID) . "'");
+      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "'");
+
       tep_redirect(tep_href_link(FILENAME_ORDERS));
       break;
   }
@@ -292,32 +295,30 @@
           <tr>
             <td colspan="2" class="main"><b><?php echo ENTRY_DATE_PURCHASED; ?></b> <?php echo tep_date_long($info['date_purchased']); ?></td>
           </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_status_array, $info['orders_status']) . ' ' . tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
-          </tr></form>
 <?php
-    if (@$info_values['last_modified']) {
+    if ($info['last_modified']) {
 ?>
           <tr>
-            <td colspan="2" class="main"><br><b>&nbsp;<?php echo ENTRY_DATE_LAST_UPDATED; ?></b> <?php echo tep_date_long($info_values['last_modified']); ?>&nbsp;</td>
+            <td colspan="2" class="main"><b><?php echo ENTRY_DATE_LAST_UPDATED; ?></b> <?php echo tep_date_long($info['last_modified']); ?></td>
           </tr>
 <?php
     }
 ?>
           <tr>
-             <td colspan="2"><br><?php echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
-          <form action="<?php echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>" method="get" onsubmit="return confirm('<?php echo IMAGE_CONFIRM; ?>')">
           <tr>
-            <td colspan="2" align="right"><input type="hidden" name="action" value="delete_order"><input type="hidden" name="orders_id_delete" value="<?php echo $HTTP_GET_VARS['orders_id'] ?>"><?php echo tep_image_submit('button_delete.gif', IMAGE_DELETE); ?>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
-          </tr>
-          </form>
+            <td colspan="2" class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_status_array, $info['orders_status']) . ' ' . tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
+          </form></tr>
           <tr>
-            <td colspan="2" class="main">&nbsp;</td>
+            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
+          <tr>
+            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
+          </tr>
+          <tr><?php echo tep_draw_form('delete', FILENAME_ORDERS, 'oID=' . $HTTP_GET_VARS['oID'] . '&action=delete_order', 'post', 'onsubmit="return confirm(\'' . IMAGE_CONFIRM . '\')"'); ?>
+            <td colspan="2" align="right"><?php echo tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+          </form></tr>
         </table></td>
       </tr>
 <?php
