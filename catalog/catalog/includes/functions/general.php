@@ -6,6 +6,18 @@
     }
   }
 
+////
+// Error message wrapper
+// When optional parameters are provided, it closes the application
+// (ie, halts the current application execution task)
+  function tep_error_message($error_message, $close_application = false, $close_application_error = '') {
+    echo $error_message;
+
+    if ($close_application) {
+      die($close_application_error);
+    }
+  }
+
   function tep_random_select($db_query) {
     $random_product = '';
     $select_products = tep_db_query($db_query);
@@ -1494,11 +1506,14 @@ function tep_address_summary($customers_id, $address_id) {
 
     return $greeting_string;
   }
-  
+
+////
+// Send email
   function tep_mail($to, $subject, $message, $additional_headers = '') {
-
-    $return = mail($to, $subject, $message, $additional_headers);
-
-    return $return;
+    if (mail($to, $subject, $message, $additional_headers)) {
+      return true;
+    } else {
+      return tep_error_message(ERROR_TEP_MAIL);
+    }
   }
 ?>
