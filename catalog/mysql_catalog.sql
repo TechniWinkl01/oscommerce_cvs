@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.114 2001/07/17 22:38:40 mevans Exp $
+# $Id: mysql_catalog.sql,v 1.115 2001/07/18 11:26:19 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -89,6 +89,7 @@ CREATE TABLE configuration (
   last_modified datetime NULL,
   date_added datetime NOT NULL,
   use_function varchar(32) NULL,
+  set_function varchar(32) NULL,
   PRIMARY KEY (configuration_id)
 );
 
@@ -507,7 +508,7 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail Address', 'STORE_OWNER_EMAIL_ADDRESS', 'root@localhost', 'The e-mail address of my store owner', '1', '3', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail From', 'EMAIL_FROM', 'The Exchange Project <root@localhost>', 'The e-mail address used in (sent) e-mails', '1', '4', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Use MIME HTML when sending emails', 'EMAIL_USE_HTML', '0', '0 = If normal text mails are wanted. 1 = If you want to send the HTML version of the mail too.', '1', '4', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, date_added) VALUES ('Country', 'STORE_COUNTRY', '81', 'The country my store is located in', '1', '6', 'tep_get_country_name', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Country', 'STORE_COUNTRY', '81', 'The country my store is located in', '1', '6', 'tep_get_country_name', 'tep_cfg_pull_down_country_list', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Expected Sort Order', 'EXPECTED_PRODUCTS_SORT', 'DESC', 'This is the sort order used in the &quot;expected products&quot; box.  It can be either ASC (ascending) or DESC (descending, the default).', '1', '7', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Expected Sort Field', 'EXPECTED_PRODUCTS_FIELD', 'date_expected', 'The column to sort by in the &quot;expected products&quot; box.  Can be &quot;products_name&quot; or &quot;date_expected&quot; (the default)', '1', '8', now());
 
