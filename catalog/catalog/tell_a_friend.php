@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.3 2001/06/13 15:19:51 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.4 2001/06/13 15:36:52 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -80,14 +80,22 @@
       </tr>
 <?php
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $HTTP_POST_VARS['yourname'], STORE_NAME);
-    $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['friendname'], $HTTP_POST_VARS['yourname'], $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
+    if (tep_session_is_registered('customer_id')) {
+      $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
+      $from_email_address = $account_values['customers_email_address'];
+    } else {
+      $from_name = $HTTP_POST_VARS['yourname'];
+      $from_email_address = $HTTP_POST_VARS['from'];
+    }
+
+    $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $from_name, STORE_NAME);
+    $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['friendname'], $from_name, $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
     if ($HTTP_POST_VARS['yourmessage'] != '') {
       $email_body .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
     }
     $email_body .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $HTTP_GET_VARS['products_id']) . "\n\n";
     $email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
-    tep_mail('', '', $HTTP_POST_VARS['friendemail'], $email_subject, $email_body, '', $from, '');
+    tep_mail('', '', $HTTP_POST_VARS['friendemail'], $email_subject, $email_body, '', $from_email_address, '');
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -104,6 +112,13 @@
       </tr>
 <?php
   } else {
+    if (tep_session_is_registered('customer_id')) {
+      $your_name_prompt = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
+      $your_email_address_prompt = $account_values['customers_email_address'];
+    } else {
+      $your_name_prompt = '<input type="text" name="yourname" value="' . $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'] . '">';
+      $your_email_address_prompt = '<input type="text" name="from" value="' . $account_values['customers_email_address'] . '">';
+    }
 ?>
       <form <?php echo 'action="' . tep_href_link(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '"'; ?> method="post"><input type="hidden" name="products_name" value="<?php echo $product_info_values['products_name']; ?>">
       <tr>
@@ -117,11 +132,11 @@
                 <td class="main"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main">&nbsp;<?php echo FORM_FIELD_CUSTOMER_NAME; ?>&nbsp;</td>
-                    <td class="main">&nbsp;<input type="text" name="yourname" value="<?php echo $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname']; ?>"></td>
+                    <td class="main">&nbsp;<?php echo $your_name_prompt; ?></td>
                   </tr>
                   <tr>
                     <td class="main">&nbsp;<?php echo FORM_FIELD_CUSTOMER_EMAIL; ?>&nbsp;</td>
-                    <td class="main">&nbsp;<input type="text" name="from" value="<?php echo $account_values['customers_email_address']; ?>"></td>
+                    <td class="main">&nbsp;<?php echo $your_email_address_prompt; ?></td>
                   </tr>
                 </table></td>
               </tr>
