@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.101 2002/06/03 13:04:44 hpdl Exp $
+  $Id: german.php,v 1.102 2002/06/17 18:34:22 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -252,24 +252,24 @@ define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse ändern');
 define('IMAGE_BUTTON_CHECKOUT', 'Kasse');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung bestätigen');
 define('IMAGE_BUTTON_CONTINUE', 'Weiter');
-define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Continue Shopping');
+define('IMAGE_BUTTON_CONTINUE_SHOPPING', 'Einkauf fortsetzen');
 define('IMAGE_BUTTON_DELETE', 'Löschen');
 define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Daten ändern');
 define('IMAGE_BUTTON_HISTORY', 'Bestellübersicht');
-define('IMAGE_BUTTON_LOGIN', 'Sign In');
+define('IMAGE_BUTTON_LOGIN', 'Anmelden');
 define('IMAGE_BUTTON_IN_CART', 'In den Warenkorb');
 define('IMAGE_BUTTON_NOTIFICATIONS', 'Benachrichtigungen');
 define('IMAGE_BUTTON_QUICK_FIND', 'Schnellsuche');
 define('IMAGE_BUTTON_REMOVE_NOTIFICATIONS', 'Benachrichtigungen löschen');
 define('IMAGE_BUTTON_REVIEWS', 'Bewertungen');
-define('IMAGE_BUTTON_SEARCH', 'Search');
+define('IMAGE_BUTTON_SEARCH', 'Suchen');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Versandoptionen');
 define('IMAGE_BUTTON_TELL_A_FRIEND', 'Weiterempfehlen');
 define('IMAGE_BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
-define('ICON_ARROW_RIGHT', 'weitere');
+define('ICON_ARROW_RIGHT', 'Zeige mehr');
 define('ICON_CART', 'In den Warenkorb');
 define('ICON_WARNING', 'Warnung');
 
@@ -297,5 +297,5 @@ define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warnung: Das Installationverzeichnis
 define('WARNING_CONFIG_FILE_WRITEABLE', 'Warnung: osC kann in die Konfigurationsdatei schreiben: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. Das stellt ein m&ouml;gliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!');
 define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis f&uuml;r die Sessions existiert nicht: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde.');
 define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warnung: osC kann nicht in das Sessions Verzeichnis schreiben: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden.');
-define('WARNING_SESSION_AUTO_START', 'Warning: session.auto_start is enabled - please disable this php feature in php.ini and restart the web server.');
+define('WARNING_SESSION_AUTO_START', 'Warnung: session.auto_start ist enabled - Bitte disablen Sie diese PHP Feature in der php.ini und starten Sie den WEB-Server neu.');
 ?>
