@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.96 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: checkout_confirmation.php,v 1.97 2001/12/13 13:50:06 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -110,6 +110,7 @@
   $address_values = tep_db_fetch_array($address);
   $total_cost = 0;
   $total_tax = 0;
+  $total_taxes = array();
   $total_weight = 0;
   $products = $cart->get_products();
   for ($i=0; $i<sizeof($products); $i++) {
@@ -161,57 +162,54 @@
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
     if (TAX_INCLUDE == true) {
-      $total_tax += (($total_products_price * $products[$i]['quantity']) - (($total_products_price * $products[$i]['quantity']) / (($products_tax/100)+1)));
+      $total_taxes[number_format($products_tax, TAX_DECIMAL_PLACES)] += (($total_products_price * $products[$i]['quantity']) - (($total_products_price * $products[$i]['quantity']) / (($products_tax/100)+1)));
     } else {
-      $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
+      $total_taxes[number_format($products_tax, TAX_DECIMAL_PLACES)] += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
     }
     $total_cost += ($total_products_price * $products[$i]['quantity']);
   }
 
   $country = tep_get_countries($address_values['country_id']);
-  $shipping_cost = 0.0;
-
-  if (MODULE_SHIPPING_INSTALLED) {
-    $shipping_modules->confirm();
-  }
+  $shipping_cost = 0;
 ?>
           <tr>
             <td colspan="4"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
-              <tr>
-                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($total_cost); ?>&nbsp;</td>
-              </tr>
+            <td align="right" class="tableHeading" colspan="3">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($total_cost); ?>&nbsp;</td>
+          </tr>
 <?php
-  if ($total_tax > 0) {
+  reset($total_taxes);
+  while (list($percentage, $tax) = each($total_taxes)) {
+    $total_tax += $tax;
 ?>
-              <tr>
-                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TAX; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($total_tax); ?>&nbsp;</td>
-              </tr>
+          <tr>
+            <td align="right" class="tableHeading" colspan="3">&nbsp;<?php echo sprintf(SUB_TITLE_TAX, number_format($percentage, TAX_DECIMAL_PLACES)); ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($tax); ?>&nbsp;</td>
+          </tr>
 <?php
   }
   if (MODULE_SHIPPING_INSTALLED) {
+    $shipping_modules->confirm();
 ?>
-              <tr>
-                <td align="right" class="tableHeading">&nbsp;<?php echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($shipping_cost); ?>&nbsp;</td>
-              </tr>
+          <tr>
+            <td align="right" class="tableHeading" colspan="3">&nbsp;<?php echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($shipping_cost); ?>&nbsp;</td>
+          </tr>
 <?php
   }
 ?>
-              <tr>
-                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<?php
-    if (TAX_INCLUDE == true) {
-      echo $currencies->format($total_cost + $shipping_cost);
-    } else {
-      echo $currencies->format($total_cost + $total_tax + $shipping_cost);
-    } ?>&nbsp;</td>
-              </tr>
-            </table></td>
+          <tr>
+            <td align="right" class="tableHeading" colspan="3">&nbsp;<?php echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;
+<?php
+  if (TAX_INCLUDE == true) {
+    echo $currencies->format($total_cost + $shipping_cost);
+  } else {
+    echo $currencies->format($total_cost + $total_tax + $shipping_cost);
+  } 
+?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -353,4 +351,4 @@
 <br>
 </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); var_dump($total_tax);?>

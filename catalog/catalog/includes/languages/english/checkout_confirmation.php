@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.15 2001/09/15 13:35:05 dwatkins Exp $
+  $Id: checkout_confirmation.php,v 1.16 2001/12/13 13:50:06 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,7 +22,7 @@ define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
 define('SUB_TITLE_SUB_TOTAL', 'Sub-Total:');
-define('SUB_TITLE_TAX', 'Tax:');
+define('SUB_TITLE_TAX', 'Tax %s%%:');
 define('SUB_TITLE_SHIPPING', 'Shipping:');
 define('SUB_TITLE_TOTAL', 'Total:');
 
