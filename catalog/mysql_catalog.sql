@@ -18,7 +18,7 @@ CREATE TABLE address_book (
   entry_postcode varchar(8) DEFAULT '' NOT NULL,
   entry_city varchar(32) DEFAULT '' NOT NULL,
   entry_state varchar(32),
-  entry_country varchar(32) DEFAULT '' NOT NULL,
+  entry_country_id int(5) DEFAULT '0' NOT NULL,
   PRIMARY KEY (address_book_id)
 );
 
@@ -136,6 +136,262 @@ CREATE TABLE counter_history (
 # Dumping data for table 'counter_history'
 #
 
+#
+# Table structure for table 'countries'
+#
+
+CREATE TABLE countries (
+  countries_id int(5) DEFAULT '0' NOT NULL auto_increment,
+  countries_name varchar(64) DEFAULT '' NOT NULL,
+  countries_iso_code_2 char(2) DEFAULT '' NOT NULL,
+  countries_iso_code_3 char(3) DEFAULT '' NOT NULL,
+  PRIMARY KEY (countries_id),
+  KEY IDX_COUNTRIES_NAME (countries_name)
+);
+
+#
+# Dumping data for table 'countries'
+#
+
+INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG');
+INSERT INTO countries VALUES (2,'Albania','AL','ALB');
+INSERT INTO countries VALUES (3,'Algeria','DZ','DZA');
+INSERT INTO countries VALUES (4,'American Samoa','AS','ASM');
+INSERT INTO countries VALUES (5,'Andorra','AD','AND');
+INSERT INTO countries VALUES (6,'Angola','AO','AGO');
+INSERT INTO countries VALUES (7,'Anguilla','AI','AIA');
+INSERT INTO countries VALUES (8,'Antarctica','AQ','ATA');
+INSERT INTO countries VALUES (9,'Antigua and Barbuda','AG','ATG');
+INSERT INTO countries VALUES (10,'Argentina','AR','ARG');
+INSERT INTO countries VALUES (11,'Armenia','AM','ARM');
+INSERT INTO countries VALUES (12,'Aruba','AW','ABW');
+INSERT INTO countries VALUES (13,'Australia','AU','AUS');
+INSERT INTO countries VALUES (14,'Austria','AT','AUT');
+INSERT INTO countries VALUES (15,'Azerbaijan','AZ','AZE');
+INSERT INTO countries VALUES (16,'Bahamas','BS','BHS');
+INSERT INTO countries VALUES (17,'Bahrain','BH','BHR');
+INSERT INTO countries VALUES (18,'Bangladesh','BD','BGD');
+INSERT INTO countries VALUES (19,'Barbados','BB','BRB');
+INSERT INTO countries VALUES (20,'Belarus','BY','BLR');
+INSERT INTO countries VALUES (21,'Belgium','BE','BEL');
+INSERT INTO countries VALUES (22,'Belize','BZ','BLZ');
+INSERT INTO countries VALUES (23,'Benin','BJ','BEN');
+INSERT INTO countries VALUES (24,'Bermuda','BM','BMU');
+INSERT INTO countries VALUES (25,'Bhutan','BT','BTN');
+INSERT INTO countries VALUES (26,'Bolivia','BO','BOL');
+INSERT INTO countries VALUES (27,'Bosnia and Herzegowina','BA','BIH');
+INSERT INTO countries VALUES (28,'Botswana','BW','BWA');
+INSERT INTO countries VALUES (29,'Bouvet Island','BV','BVT');
+INSERT INTO countries VALUES (30,'Brazil','BR','BRA');
+INSERT INTO countries VALUES (31,'British Indian Ocean Territory','IO','IOT');
+INSERT INTO countries VALUES (32,'Brunei Darussalam','BN','BRN');
+INSERT INTO countries VALUES (33,'Bulgaria','BG','BGR');
+INSERT INTO countries VALUES (34,'Burkina Faso','BF','BFA');
+INSERT INTO countries VALUES (35,'Burundi','BI','BDI');
+INSERT INTO countries VALUES (36,'Cambodia','KH','KHM');
+INSERT INTO countries VALUES (37,'Cameroon','CM','CMR');
+INSERT INTO countries VALUES (38,'Canada','CA','CAN');
+INSERT INTO countries VALUES (39,'Cape Verde','CV','CPV');
+INSERT INTO countries VALUES (40,'Cayman Islands','KY','CYM');
+INSERT INTO countries VALUES (41,'Central African Republic','CF','CAF');
+INSERT INTO countries VALUES (42,'Chad','TD','TCD');
+INSERT INTO countries VALUES (43,'Chile','CL','CHL');
+INSERT INTO countries VALUES (44,'China','CN','CHN');
+INSERT INTO countries VALUES (45,'Christmas Island','CX','CXR');
+INSERT INTO countries VALUES (46,'Cocos (Keeling) Islands','CC','CCK');
+INSERT INTO countries VALUES (47,'Colombia','CO','COL');
+INSERT INTO countries VALUES (48,'Comoros','KM','COM');
+INSERT INTO countries VALUES (49,'Congo','CG','COG');
+INSERT INTO countries VALUES (50,'Cook Islands','CK','COK');
+INSERT INTO countries VALUES (51,'Costa Rica','CR','CRI');
+INSERT INTO countries VALUES (52,'Cote D\'Ivoire','CI','CIV');
+INSERT INTO countries VALUES (53,'Croatia','HR','HRV');
+INSERT INTO countries VALUES (54,'Cuba','CU','CUB');
+INSERT INTO countries VALUES (55,'Cyprus','CY','CYP');
+INSERT INTO countries VALUES (56,'Czech Republic','CZ','CZE');
+INSERT INTO countries VALUES (57,'Denmark','DK','DNK');
+INSERT INTO countries VALUES (58,'Djibouti','DJ','DJI');
+INSERT INTO countries VALUES (59,'Dominica','DM','DMA');
+INSERT INTO countries VALUES (60,'Dominican Republic','DO','DOM');
+INSERT INTO countries VALUES (61,'East Timor','TP','TMP');
+INSERT INTO countries VALUES (62,'Ecuador','EC','ECU');
+INSERT INTO countries VALUES (63,'Egypt','EG','EGY');
+INSERT INTO countries VALUES (64,'El Salvador','SV','SLV');
+INSERT INTO countries VALUES (65,'Equatorial Guinea','GQ','GNQ');
+INSERT INTO countries VALUES (66,'Eritrea','ER','ERI');
+INSERT INTO countries VALUES (67,'Estonia','EE','EST');
+INSERT INTO countries VALUES (68,'Ethiopia','ET','ETH');
+INSERT INTO countries VALUES (69,'Falkland Islands (Malvinas)','FK','FLK');
+INSERT INTO countries VALUES (70,'Faroe Islands','FO','FRO');
+INSERT INTO countries VALUES (71,'Fiji','FJ','FJI');
+INSERT INTO countries VALUES (72,'Finland','FI','FIN');
+INSERT INTO countries VALUES (73,'France','FR','FRA');
+INSERT INTO countries VALUES (74,'France, MEtropolitan','FX','FXX');
+INSERT INTO countries VALUES (75,'French Guiana','GF','GUF');
+INSERT INTO countries VALUES (76,'French Polynesia','PF','PYF');
+INSERT INTO countries VALUES (77,'French Southern Territories','TF','ATF');
+INSERT INTO countries VALUES (78,'Gabon','GA','GAB');
+INSERT INTO countries VALUES (79,'Gambia','GM','GMB');
+INSERT INTO countries VALUES (80,'Georgia','GE','GEO');
+INSERT INTO countries VALUES (81,'Germany','DE','DEU');
+INSERT INTO countries VALUES (82,'Ghana','GH','GHA');
+INSERT INTO countries VALUES (83,'Gibraltar','GI','GIB');
+INSERT INTO countries VALUES (84,'Greece','GR','GRC');
+INSERT INTO countries VALUES (85,'Greenland','GL','GRL');
+INSERT INTO countries VALUES (86,'Grenada','GD','GRD');
+INSERT INTO countries VALUES (87,'Guadeloupe','GP','GLP');
+INSERT INTO countries VALUES (88,'Guam','GU','GUM');
+INSERT INTO countries VALUES (89,'Guatemala','GT','GTM');
+INSERT INTO countries VALUES (90,'Guinea','GN','GIN');
+INSERT INTO countries VALUES (91,'Guinea-bissau','GW','GNB');
+INSERT INTO countries VALUES (92,'Guyana','GY','GUY');
+INSERT INTO countries VALUES (93,'Haiti','HT','HTI');
+INSERT INTO countries VALUES (94,'Heard and Mc Donald Islands','HM','HMD');
+INSERT INTO countries VALUES (95,'Honduras','HN','HND');
+INSERT INTO countries VALUES (96,'Hong Kong','HK','HKG');
+INSERT INTO countries VALUES (97,'Hungary','HU','HUN');
+INSERT INTO countries VALUES (98,'Iceland','IS','ISL');
+INSERT INTO countries VALUES (99,'India','IN','IND');
+INSERT INTO countries VALUES (100,'Indonesia','ID','IDN');
+INSERT INTO countries VALUES (101,'Iran (Islamic Republic of)','IR','IRN');
+INSERT INTO countries VALUES (102,'Iraq','IQ','IRQ');
+INSERT INTO countries VALUES (103,'Ireland','IE','IRL');
+INSERT INTO countries VALUES (104,'Israel','IL','ISR');
+INSERT INTO countries VALUES (105,'Italy','IT','ITA');
+INSERT INTO countries VALUES (106,'Jamaica','JM','JAM');
+INSERT INTO countries VALUES (107,'Japan','JP','JPN');
+INSERT INTO countries VALUES (108,'Jordan','JO','JOR');
+INSERT INTO countries VALUES (109,'Kazakhstan','KZ','KAZ');
+INSERT INTO countries VALUES (110,'Kenya','KE','KEN');
+INSERT INTO countries VALUES (111,'Kiribati','KI','KIR');
+INSERT INTO countries VALUES (112,'Korea, Democratic People\'s Republic of','KP','PRK');
+INSERT INTO countries VALUES (113,'Korea, Republic of','KR','KOR');
+INSERT INTO countries VALUES (114,'Kuwait','KW','KWT');
+INSERT INTO countries VALUES (115,'Kyrgyzstan','KG','KGZ');
+INSERT INTO countries VALUES (116,'Lao People\'s Democratic Republic','LA','LAO');
+INSERT INTO countries VALUES (117,'Latvia','LV','LVA');
+INSERT INTO countries VALUES (118,'Lebanon','LB','LBN');
+INSERT INTO countries VALUES (119,'Lesotho','LS','LSO');
+INSERT INTO countries VALUES (120,'Liberia','LR','LBR');
+INSERT INTO countries VALUES (121,'Libyan Arab Jamahiriya','LY','LBY');
+INSERT INTO countries VALUES (122,'Liechtenstein','LI','LIE');
+INSERT INTO countries VALUES (123,'Lithuania','LT','LTU');
+INSERT INTO countries VALUES (124,'Luxembourg','LU','LUX');
+INSERT INTO countries VALUES (125,'Macau','MO','MAC');
+INSERT INTO countries VALUES (126,'Macedonia, The Former Yugoslav Republic of','MK','MKD');
+INSERT INTO countries VALUES (127,'Madagascar','MG','MDG');
+INSERT INTO countries VALUES (128,'Malawi','MW','MWI');
+INSERT INTO countries VALUES (129,'Malaysia','MY','MYS');
+INSERT INTO countries VALUES (130,'Maldives','MV','MDV');
+INSERT INTO countries VALUES (131,'Mali','ML','MLI');
+INSERT INTO countries VALUES (132,'Malta','MT','MLT');
+INSERT INTO countries VALUES (133,'Marshall Islands','MH','MHL');
+INSERT INTO countries VALUES (134,'Martinique','MQ','MTQ');
+INSERT INTO countries VALUES (135,'Mauritania','MR','MRT');
+INSERT INTO countries VALUES (136,'Mauritius','MU','MUS');
+INSERT INTO countries VALUES (137,'Mayotte','YT','MYT');
+INSERT INTO countries VALUES (138,'Mexico','MX','MEX');
+INSERT INTO countries VALUES (139,'Micronesia, Federated States of','FM','FSM');
+INSERT INTO countries VALUES (140,'Moldova, Republic of','MD','MDA');
+INSERT INTO countries VALUES (141,'Monaco','MC','MCO');
+INSERT INTO countries VALUES (142,'Mongolia','MN','MNG');
+INSERT INTO countries VALUES (143,'Montserrat','MS','MSR');
+INSERT INTO countries VALUES (144,'Morocco','MA','MAR');
+INSERT INTO countries VALUES (145,'Mozambique','MZ','MOZ');
+INSERT INTO countries VALUES (146,'Myanmar','MM','MMR');
+INSERT INTO countries VALUES (147,'Namibia','NA','NAM');
+INSERT INTO countries VALUES (148,'Nauru','NR','NRU');
+INSERT INTO countries VALUES (149,'Nepal','NP','NPL');
+INSERT INTO countries VALUES (150,'Netherlands','NL','NLD');
+INSERT INTO countries VALUES (151,'Netherlands Antilles','AN','ANT');
+INSERT INTO countries VALUES (152,'New Caledonia','NC','NCL');
+INSERT INTO countries VALUES (153,'New Zealand','NZ','NZL');
+INSERT INTO countries VALUES (154,'Nicaragua','NI','NIC');
+INSERT INTO countries VALUES (155,'Niger','NE','NER');
+INSERT INTO countries VALUES (156,'Nigeria','NG','NGA');
+INSERT INTO countries VALUES (157,'Niue','NU','NIU');
+INSERT INTO countries VALUES (158,'Norfolk Island','NF','NFK');
+INSERT INTO countries VALUES (159,'Northern Mariana Islands','MP','MNP');
+INSERT INTO countries VALUES (160,'Norway','NO','NOR');
+INSERT INTO countries VALUES (161,'Oman','OM','OMN');
+INSERT INTO countries VALUES (162,'Pakistan','PK','PAK');
+INSERT INTO countries VALUES (163,'Palau','PW','PLW');
+INSERT INTO countries VALUES (164,'Panama','PA','PAN');
+INSERT INTO countries VALUES (165,'Papua New Guinea','PG','PNG');
+INSERT INTO countries VALUES (166,'Paraguay','PY','PRY');
+INSERT INTO countries VALUES (167,'Peru','PE','PER');
+INSERT INTO countries VALUES (168,'Philippines','PH','PHL');
+INSERT INTO countries VALUES (169,'Pitcairn','PN','PCN');
+INSERT INTO countries VALUES (170,'Poland','PL','POL');
+INSERT INTO countries VALUES (171,'Portugal','PT','PRT');
+INSERT INTO countries VALUES (172,'Puerto Rico','PR','PRI');
+INSERT INTO countries VALUES (173,'Qatar','QA','QAT');
+INSERT INTO countries VALUES (174,'Reunion','RE','REU');
+INSERT INTO countries VALUES (175,'Romania','RO','ROM');
+INSERT INTO countries VALUES (176,'Russian Federation','RU','RUS');
+INSERT INTO countries VALUES (177,'Rwanda','RW','RWA');
+INSERT INTO countries VALUES (178,'Saint Kitts and Nevis','KN','KNA');
+INSERT INTO countries VALUES (179,'Saint Lucia','LC','LCA');
+INSERT INTO countries VALUES (180,'Saint Vincent and the Grenadines','VC','VCT');
+INSERT INTO countries VALUES (181,'Samoa','WS','WSM');
+INSERT INTO countries VALUES (182,'San Marino','SM','SMR');
+INSERT INTO countries VALUES (183,'Sao Tome and Principe','ST','STP');
+INSERT INTO countries VALUES (184,'Saudi Arabia','SA','SAU');
+INSERT INTO countries VALUES (185,'Senegal','SN','SEN');
+INSERT INTO countries VALUES (186,'Seychelles','SC','SYC');
+INSERT INTO countries VALUES (187,'Sierra Leone','SL','SLE');
+INSERT INTO countries VALUES (188,'Singapore','SG','SGP');
+INSERT INTO countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK');
+INSERT INTO countries VALUES (190,'Slovenia','SI','SVN');
+INSERT INTO countries VALUES (191,'Solomon Islands','SB','SLB');
+INSERT INTO countries VALUES (192,'Somalia','SO','SOM');
+INSERT INTO countries VALUES (193,'south Africa','ZA','ZAF');
+INSERT INTO countries VALUES (194,'South Georgia and the South Sandwich Islands','GS','SGS');
+INSERT INTO countries VALUES (195,'Spain','ES','ESP');
+INSERT INTO countries VALUES (196,'Sri Lanka','LK','LKA');
+INSERT INTO countries VALUES (197,'St. Helena','SH','SHN');
+INSERT INTO countries VALUES (198,'St. Pierre and Miquelon','PM','SPM');
+INSERT INTO countries VALUES (199,'Sudan','SD','SDN');
+INSERT INTO countries VALUES (200,'Suriname','SR','SUR');
+INSERT INTO countries VALUES (201,'Svalbard and Jan Mayen Islands','SJ','SJM');
+INSERT INTO countries VALUES (202,'Swaziland','SZ','SWZ');
+INSERT INTO countries VALUES (203,'Sweden','SE','SWE');
+INSERT INTO countries VALUES (204,'Switzerland','CH','CHE');
+INSERT INTO countries VALUES (205,'Syrian Arab Republic','SY','SYR');
+INSERT INTO countries VALUES (206,'Taiwan, Province of China','TW','TWN');
+INSERT INTO countries VALUES (207,'Tajikistan','TJ','TJK');
+INSERT INTO countries VALUES (208,'Tanzania, United Republic of','TZ','TZA');
+INSERT INTO countries VALUES (209,'Thailand','TH','THA');
+INSERT INTO countries VALUES (210,'Togo','TG','TGO');
+INSERT INTO countries VALUES (211,'Tokelau','TK','TKL');
+INSERT INTO countries VALUES (212,'Tonga','TO','TON');
+INSERT INTO countries VALUES (213,'Trinidad and Tobago','TT','TTO');
+INSERT INTO countries VALUES (214,'Tunisia','TN','TUN');
+INSERT INTO countries VALUES (215,'Turkey','TR','TUR');
+INSERT INTO countries VALUES (216,'Turkmenistan','TM','TKM');
+INSERT INTO countries VALUES (217,'Turks and Caicos Islands','TC','TCA');
+INSERT INTO countries VALUES (218,'Tuvalu','TV','TUV');
+INSERT INTO countries VALUES (219,'Uganda','UG','UGA');
+INSERT INTO countries VALUES (220,'Ukraine','UA','UKR');
+INSERT INTO countries VALUES (221,'United Arab Emirates','AE','ARE');
+INSERT INTO countries VALUES (222,'United Kingdom','GB','GBR');
+INSERT INTO countries VALUES (223,'United States','US','USA');
+INSERT INTO countries VALUES (224,'United States Minor Outlying Islands','UM','UMI');
+INSERT INTO countries VALUES (225,'Uruguay','UY','URY');
+INSERT INTO countries VALUES (226,'Uzbekistan','UZ','UZB');
+INSERT INTO countries VALUES (227,'Vanuatu','VU','VUT');
+INSERT INTO countries VALUES (228,'Vatican City State (Holy See)','VA','VAT');
+INSERT INTO countries VALUES (229,'Venezuela','VE','VEN');
+INSERT INTO countries VALUES (230,'Viet Nam','VN','VNM');
+INSERT INTO countries VALUES (231,'Virgin Islands (British)','VG','VGB');
+INSERT INTO countries VALUES (232,'Virgin Islands (U.S.)','VI','VIR');
+INSERT INTO countries VALUES (233,'Wallis and Futuna Islands','WF','WLF');
+INSERT INTO countries VALUES (234,'Western Sahara','EH','ESH');
+INSERT INTO countries VALUES (235,'Yemen','YE','YEM');
+INSERT INTO countries VALUES (236,'Yugoslavia','YU','YUG');
+INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR');
+INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB');
+INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE');
 
 #
 # Table structure for table 'customers'
@@ -153,10 +409,10 @@ CREATE TABLE customers (
   customers_postcode varchar(8) DEFAULT '' NOT NULL,
   customers_city varchar(32) DEFAULT '' NOT NULL,
   customers_state varchar(32),
-  customers_country varchar(32) DEFAULT '' NOT NULL,
   customers_telephone varchar(32) DEFAULT '' NOT NULL,
   customers_fax varchar(32),
   customers_password varchar(12) DEFAULT '' NOT NULL,
+  customers_country_id int(5) DEFAULT '0' NOT NULL,
   PRIMARY KEY (customers_id)
 );
 
