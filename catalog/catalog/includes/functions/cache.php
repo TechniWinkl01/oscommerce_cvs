@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.6 2001/11/29 12:17:27 hpdl Exp $
+  $Id: cache.php,v 1.7 2002/03/20 12:40:53 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,7 +43,7 @@
     $filename = DIR_FS_CACHE . $filename;
     $success = false;
 
-    if ($auto_expire) {
+    if ($auto_expire && file_exists($filename)) {
       $now = time();
       $filetime = filemtime($filename);
       $difference = $now - $filetime;
