@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.56 2002/11/01 18:16:37 harley_vb Exp $
+# $Id: oscommerce.sql,v 1.57 2002/11/03 23:41:42 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -257,6 +257,7 @@ CREATE TABLE orders (
   orders_id int NOT NULL auto_increment,
   customers_id int NOT NULL,
   customers_name varchar(64) NOT NULL,
+  customers_company varchar(32),
   customers_street_address varchar(64) NOT NULL,
   customers_suburb varchar(32),
   customers_city varchar(32) NOT NULL,
@@ -267,6 +268,7 @@ CREATE TABLE orders (
   customers_email_address varchar(96) NOT NULL,
   customers_address_format_id int(5) NOT NULL,
   delivery_name varchar(64) NOT NULL,
+  delivery_company varchar(32),
   delivery_street_address varchar(64) NOT NULL,
   delivery_suburb varchar(32),
   delivery_city varchar(32) NOT NULL,
@@ -275,6 +277,7 @@ CREATE TABLE orders (
   delivery_country varchar(32) NOT NULL,
   delivery_address_format_id int(5) NOT NULL,
   billing_name varchar(64) NOT NULL,
+  billing_company varchar(32),
   billing_street_address varchar(64) NOT NULL,
   billing_suburb varchar(32),
   billing_city varchar(32) NOT NULL,
