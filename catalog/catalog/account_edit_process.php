@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.66 2002/06/03 20:04:34 dgw_ Exp $
+  $Id: account_edit_process.php,v 1.67 2002/06/03 21:34:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -109,7 +109,7 @@
     $entry_city_error = false;
   }
 
-  if (!$country) {
+  if (!is_numeric($country)) {
     $error = true;
     $entry_country_error = true;
   } else {
@@ -122,23 +122,20 @@
     } else {
       $zone_id = 0;
       $entry_state_error = false;
-      $check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "'");
-      $check_value = tep_db_fetch_array($check_query);
-      $entry_state_has_zones = ($check_value['total'] > 0);
-      if ($entry_state_has_zones) {
-        $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
-        if (tep_db_num_rows($zone_query) == 1) {
-          $zone_values = tep_db_fetch_array($zone_query);
-          $zone_id = $zone_values['zone_id'];
+      $country_check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "'");
+      $country_check = tep_db_fetch_array($country_check_query);
+      if ($entry_state_has_zones = ($country_check['total'] > 0)) {
+        $match_zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
+        if (tep_db_num_rows($match_zone_query) == 1) {
+          $match_zone = tep_db_fetch_array($match_zone_query);
+          $zone_id = $match_zone['zone_id'];
         } else {
           $error = true;
           $entry_state_error = true;
         }
-      } else {
-        if (!$state) {
-          $error = true;
-          $entry_state_error = true;
-        }
+      } elseif (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
+        $error = true;
+        $entry_state_error = true;
       }
     }
   }
@@ -150,8 +147,7 @@
     $entry_telephone_error = false;
   }
 
-  $passlen = strlen($password);
-  if ($passlen < ENTRY_PASSWORD_MIN_LENGTH) {
+  if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
     $error = true;
     $entry_password_error = true;
   } else {
@@ -163,8 +159,8 @@
     $entry_password_error = true;
   }
 
-  $check_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id <> '" . tep_db_input($customer_id) . "'");
-  if (tep_db_num_rows($check_email)) {
+  $check_email_query = tep_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id != '" . tep_db_input($customer_id) . "'");
+  if (tep_db_num_rows($check_email_query)) {
     $error = true;
     $entry_email_address_exists = true;
   } else {
