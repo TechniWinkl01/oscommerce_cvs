@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.158 2002/02/07 11:05:28 dgw_ Exp $
+  $Id: general.php,v 1.159 2002/02/08 17:07:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1010,5 +1010,23 @@
       eval("\$temp=$constant;");
     }
     return $temp;
+  }
+
+////
+// Wrapper for is_null() for php3 compatibility
+  function tep_is_null($value) {
+    if (is_array($value)) {
+      if (sizeof($value) > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 ?>
