@@ -167,7 +167,7 @@
         $cPath_new .= '_' . $cPath_array[$i];
       }
       if ($i != (sizeof($cPath_array)-1)) $cPath_back = $cPath_new; // for a back button function (search for it below)
-      $categories_query = tep_db_query("select categories_name from categories where categories_id = '" . $cPath_array[$i] . "'");
+      $categories_query = tep_db_query("select categories_name from categories_description where categories_id = '" . $cPath_array[$i] . "' and language_id = '" . $languages_id . "'");
       $categories = tep_db_fetch_array($categories_query);
       $parent_categories_name = $categories['categories_name'];
       echo ' -> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath_new, 'NONSSL') . '" class="blacklink">' . $parent_categories_name . '</a>';
@@ -411,7 +411,7 @@
 <?
     $categories_count = 0;
     $rows = 0;
-    $categories_query = tep_db_query("select categories_id, categories_name, categories_image, parent_id, sort_order from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order from categories c, categories_description cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by c.sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
       $categories_count++;
       $rows++;

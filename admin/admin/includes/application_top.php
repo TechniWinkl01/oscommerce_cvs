@@ -33,6 +33,9 @@
   define('DIR_FS_PAYMENT_MODULES', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . 'includes/modules/payment/');
   define('DIR_FS_SHIPPING_MODULES', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . 'includes/modules/shipping/');
 
+// default localization values
+  define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
+
   define('STORE_NAME', 'The Exchange Project');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
@@ -203,34 +206,29 @@
 // define how the session functions will be used
   $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
+// define our general functions used application-wide
+  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+
 // lets start our session
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
     session_set_cookie_params(0, DIR_WS_ADMIN);
   }
 
-// languages - this should be removed when the proper functions are implemented!
-  if (@!$language) {
-    tep_session_register('language');
-    $language = 'english';
-  }
-  if ($HTTP_GET_VARS['language']) {
-    $language = 'english';
-    if ($HTTP_GET_VARS['language'] == 'english') {
-      $language = 'english';
-    } elseif ($HTTP_GET_VARS['language'] == 'german') {
-      $language = 'german';
-    } elseif ($HTTP_GET_VARS['language'] == 'espanol') {
-      $language = 'espanol';
+// language
+  if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
+    if (!$language) {
+      tep_session_register('language');
+      tep_session_register('languages_id');
     }
+
+    $language = tep_get_languages_directory($HTTP_GET_VARS['language']);
+    if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
   }
-  
+
   $include_file = DIR_FS_CATALOG . 'includes/data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   $include_file = DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_WS_INCLUDES . 'include_once.php');
-
-// define our general functions used application-wide
-  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // setup our boxes
   $include_file = DIR_WS_CLASSES . 'boxes.php'; include(DIR_WS_INCLUDES . 'include_once.php');
