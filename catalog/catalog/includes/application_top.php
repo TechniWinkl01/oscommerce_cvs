@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.137 2001/06/06 21:20:58 hpdl Exp $
+  $Id: application_top.php,v 1.138 2001/06/08 19:57:41 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -366,9 +366,14 @@
         tep_exit();
       }
       $quickie_values = tep_db_fetch_array($quickie_query);
-      $cart->add_cart($quickie_values['products_id'], 1, '');
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
-      tep_exit();
+      if (tep_has_product_attributes($quickie_values['products_id'])) {
+        header('Location: ' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'products_id=' . $quickie_values['products_id'], 'NONSSL'));
+        tep_exit();
+      } else {
+        $cart->add_cart($quickie_values['products_id'], 1, '');
+        header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
+        tep_exit();
+      }
     }
   }
 
