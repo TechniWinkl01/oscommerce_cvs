@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.3 2002/01/27 04:12:24 hpdl Exp $
+  $Id: message_stack.php,v 1.4 2002/03/08 21:59:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,6 +45,17 @@
       }
 
       $this->size++;
+    }
+
+    function add_session($message, $type = 'error') {
+      global $messageToStack;
+
+      if (!tep_session_is_registered('messageToStack')) {
+        tep_session_register('messageToStack');
+        $messageToStack = array();
+      }
+
+      $messageToStack[] = array('text' => $message, 'type' => $type);
     }
 
     function reset() {

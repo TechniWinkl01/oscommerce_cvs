@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.83 2002/03/01 23:20:12 hpdl Exp $
+  $Id: orders.php,v 1.84 2002/03/08 21:59:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,12 +51,7 @@
       }
 
       if ($order_updated) {
-        if (!tep_session_is_registered('messageToStack')) {
-          tep_session_register('messageToStack');
-          $messageToStack = array();
-        }
-        $messageToStack[] = array('text' => SUCCESS_ORDER_UPDATED,
-                                  'type' => 'success');
+       $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
       }
 
       tep_redirect(tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('action')) . 'action=edit'));
