@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.1 2002/11/01 04:04:03 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.2 2002/11/01 17:24:47 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,19 +10,19 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Checkout');
-define('NAVBAR_TITLE_2', 'Shipping Method');
+define('NAVBAR_TITLE_1', 'Kasse');
+define('NAVBAR_TITLE_2', 'Versandinformationen');
 
-define('HEADING_TITLE', 'Delivery Information');
+define('HEADING_TITLE', 'Versandinformationen');
 
-define('TABLE_HEADING_SHIPPING_ADDRESS', 'Shipping Address');
-define('TEXT_CHOOSE_SHIPPING_DESTINATION', 'Please choose from your address book where you would like the items to be delivered to.');
-define('TITLE_SHIPPING_ADDRESS', 'Shipping Address:');
+define('TABLE_HEADING_SHIPPING_ADDRESS', 'Versandadresse');
+define('TEXT_CHOOSE_SHIPPING_DESTINATION', 'Bitte w&auml;hlen Sie aus Ihrem Adressbuch die gew&uuml;nschte Versandadresse f&uuml;r Ihre Bestellung aus.');
+define('TITLE_SHIPPING_ADDRESS', 'Versandadresse:');
 
-define('TABLE_HEADING_SHIPPING_METHOD', 'Shipping Method');
-define('TEXT_CHOOSE_SHIPPING_METHOD', 'Please select the preferred shipping method to use on this order.');
-define('TITLE_PLEASE_SELECT', 'Please Select');
+define('TABLE_HEADING_SHIPPING_METHOD', 'Versandart');
+define('TEXT_CHOOSE_SHIPPING_METHOD', 'Bitte w&auml;hlen Sie die gew&uuml;nschte Versandart f&uuml;r Ihre Bestellung aus.');
+define('TITLE_PLEASE_SELECT', 'Bitte w&auml;hlen Sie');
 
-define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continue Checkout Procedure');
-define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'to select the preferred payment method.');
+define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Fortsetzung des Bestellvorganges');
+define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'zur Auswahl der gew&uuml;nschten Zahlungsweise.');
 ?>
