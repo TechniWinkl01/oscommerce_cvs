@@ -45,7 +45,9 @@
   if ($sendto == '') {
     $sendto = '0';
   }
-  if (@!tep_in_array('shipping_quote_all', $HTTP_POST_VARS)) {
+  if (strlen(@$HTTP_POST_VARS['shipping_quote_all']) > 0) {
+    $shipping_quote_all = $HTTP_POST_VARS['shipping_quote_all'];
+  } else {
     $shipping_quote_all = '1';
   }
   if ($sendto == '0') {
