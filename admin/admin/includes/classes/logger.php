@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: logger.php,v 1.1 2002/03/15 02:40:38 hpdl Exp $
+  $Id: logger.php,v 1.2 2002/05/03 10:33:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,7 +34,7 @@
 
       $this->timer_total = number_format(($time_end[1] + $time_end[0] - ($time_start[1] + $time_start[0])), 3);
 
-      $this->write(getenv('REQUEST_URI'), $this->timer_total . 'ms');
+      $this->write(getenv('REQUEST_URI'), $this->timer_total . 's');
 
       if ($display == 'true') {
         return $this->timer_display();
@@ -42,7 +42,7 @@
     }
 
     function timer_display() {
-      return '<span class="smallText">Parse Time: ' . $this->timer_total . 'ms</span>';
+      return '<span class="smallText">Parse Time: ' . $this->timer_total . 's</span>';
     }
 
     function write($message, $type) {

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_bottom.php,v 1.10 2001/11/17 00:37:43 hpdl Exp $
+  $Id: application_bottom.php,v 1.11 2002/05/03 10:34:16 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,10 +18,10 @@
     $time_start = explode(' ', PAGE_PARSE_START_TIME);
     $time_end = explode(' ', $parse_end_time);
     $parse_time = number_format(($time_end[1] + $time_end[0] - ($time_start[1] + $time_start[0])), 3);
-    error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . ' - ' . getenv('REQUEST_URI') . ' (' . $parse_time . 'ms)' . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+    error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . ' - ' . getenv('REQUEST_URI') . ' (' . $parse_time . 's)' . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
 
     if (DISPLAY_PAGE_PARSE_TIME == 'true') {
-      echo '<span class="smallText">Parse Time: ' . $parse_time . 'ms</span>';
+      echo '<span class="smallText">Parse Time: ' . $parse_time . 's</span>';
     }
   }
 ?>
