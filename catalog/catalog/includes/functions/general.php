@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.114 2001/07/13 10:14:58 jwildeboer Exp $
+  $Id: general.php,v 1.115 2001/07/13 10:34:51 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -974,7 +974,7 @@
 
     //plain text version of message
     $body .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: 7bit\r\n\r\n";
-    $body .= $email_text;
+    $body .= strip_tags($email_text);
 
     //HTML version of message 
     $body .= "\r\n--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
