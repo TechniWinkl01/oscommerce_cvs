@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.109 2001/06/27 06:27:16 mbs Exp $
+  $Id: general.php,v 1.110 2001/06/27 14:40:56 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -958,26 +958,26 @@
 // Send email (text/html)
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
     // add From: header
-    $headers = "From: $from_email_name <$from_email_address>\r\n";
+    $headers = "From: $from_email_name <$from_email_address>\n";
 
     // specify MIME version 1.0
-    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "MIME-Version: 1.0\n";
 
     // unique boundary
     $boundary = uniqid("TheExchangeProject");
 
     // tell e-mail client this e-mail contains//alternate versions
-    $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
+    $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\n\n";
 
     // message to people with clients who don't understand MIME
-    $headers .= "This is a MIME encoded message.\r\n\r\n";
+    $headers .= "This is a MIME encoded message.\n\n";
 
     //plain text version of message
-    $headers .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-15\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+    $headers .= "--$boundary\n" . "Content-Type: text/plain; charset=ISO-8859-15\n" . "Content-Transfer-Encoding: base64\n\n";
     $headers .= chunk_split(base64_encode($email_text)); 
 
     //HTML version of message 
-    $headers .= "--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-15\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+    $headers .= "--$boundary\n" . "Content-Type: text/html; charset=ISO-8859-15\n" . "Content-Transfer-Encoding: base64\n\n";
     $headers .= chunk_split(base64_encode($email_text));
 
     //send message
