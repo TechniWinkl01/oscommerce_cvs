@@ -191,10 +191,10 @@
   }
 
   function tep_array_reverse($array) {
-    if (phpversion() >= '4.0.1' && phpversion() <= '4.0.9') {
-      $array_reversed = array_reverse($array);
-    } else { // Either < 4 or 4.0.0 or 4.0x (like 4.0B2)
+    if (phpversion() <= '4.0.0' || (phpversion() > '4.0.' && phpversion() < '4.1')) { // Handle 4.0B...
       for($i=0; $i<sizeof($array); $i++) $array_reversed[$i] = $array[(sizeof($array)-$i-1)];
+    } else {
+      $array_reversed = array_reverse($array);
     }
 
     return $array_reversed;
