@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.69 2002/06/18 14:09:33 dgw_ Exp $
+  $Id: address_book_process.php,v 1.70 2002/07/04 16:13:25 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -216,10 +216,12 @@ function check_form() {
 <?php
  if (ACCOUNT_GENDER == 'true') {
 ?>
-  if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
-  } else {
-    error_message = error_message + "<?php echo JS_GENDER; ?>";
-    error = 1;
+  if (document.add_entry.elements['gender'].type != "hidden") {
+    if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
+    } else {
+      error_message = error_message + "<?php echo JS_GENDER; ?>";
+      error = 1;
+    }
   }
 <?php
  }
