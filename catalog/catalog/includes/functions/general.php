@@ -676,4 +676,10 @@ function tep_address_summary($customers_id, $address_id) {
   $address = stripslashes($address);
   return $address;
 }
+
+  function tep_row_number_format($number) {
+    if ($number < 10) $number = '0' . $number;
+
+    return $number . '.';
+  }
 ?>
