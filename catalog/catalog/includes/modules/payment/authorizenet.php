@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.51 2004/02/13 11:38:45 thomasamoulton Exp $
+  $Id: authorizenet.php,v 1.52 2004/05/12 19:34:36 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -160,10 +160,26 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
         for ($i=$today['year']; $i < $today['year']+10; $i++) {
           $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
         }
+
+        $Qcredit_cards = $osC_Database->query('select credit_card_name, credit_card_code from :table_credit_cards where credit_card_status = :credit_card_status');
+
+        $Qcredit_cards->bindRaw(':table_credit_cards', TABLE_CREDIT_CARDS);
+        $Qcredit_cards->bindInt(':credit_card_status', '1');
+        $Qcredit_cards->setCache('credit-cards');
+        $Qcredit_cards->execute();
+
+        while ($Qcredit_cards->next()) {
+          $credit_cards[] = array('id' => $Qcredit_cards->value('credit_card_code'), 'text' => $Qcredit_cards->value('credit_card_name'));
+        }
+
+        $Qcredit_cards->freeResult();
+
         $selection = array('id' => $this->code,
                            'module' => $this->title,
                            'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
                                                    'field' => tep_draw_input_field('authorizenet_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                             array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
+                                                   'field' => tep_draw_pull_down_menu('authorizenet_cc_type', $credit_cards)),
                                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER,
                                                    'field' => tep_draw_input_field('authorizenet_cc_number')),
                                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
@@ -171,8 +187,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
       } else { // eCheck
         $acct_types = array(array('id' => 'CHECKING', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE_CHECK),
                             array('id' => 'SAVINGS', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE_SAVINGS));
-        $org_types = array(array('id' => 'I', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_PERSONAL),
-                           array('id' => 'B', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_BUSINESS));
+
         $fields = array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_NAME,
                               'field' => tep_draw_input_field('authorizenet_bank_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                         array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE,
@@ -185,6 +200,9 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
                               'field' => tep_draw_input_field('authorizenet_bank_acct')));
 
         if (MODULE_PAYMENT_AUTHORIZENET_WELLSFARGO == 'Yes') { // Add extra fields
+          $org_types = array(array('id' => 'I', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_PERSONAL),
+                             array('id' => 'B', 'text' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_BUSINESS));
+
           $fields_wf = array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_ORG,
                                    'field' => tep_draw_pull_down_menu('wellsfargo_org_type', $org_types)),
                              array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_INTRO,
@@ -206,41 +224,28 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
       return $selection;
     }
 
+
     function pre_confirmation_check() {
+      global $messageStack;
+
       if (PHP_VERSION < 4.1) {
         global $_POST;
       }
 
       if (MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') {
-        include(DIR_WS_CLASSES . 'cc_validation.php');
+        if (!tep_validate_credit_card($_POST['ipayment_cc_number'])) {
+          $messageStack->add_session('checkout_payment', TEXT_CCVAL_ERROR_INVALID_NUMBER, 'error');
 
-        $cc_validation = new cc_validation();
-        $result = $cc_validation->validate($_POST['authorizenet_cc_number'], $_POST['authorizenet_cc_expires_month'], $_POST['authorizenet_cc_expires_year']);
-        $error = '';
-        switch ($result) {
-          case -1:
-            $error = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, substr($cc_validation->cc_number, 0, 4));
-            break;
-          case -2:
-          case -3:
-          case -4:
-            $error = TEXT_CCVAL_ERROR_INVALID_DATE;
-            break;
-          case false:
-            $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
-            break;
-        }
-
-        if ( ($result == false) || ($result < 1) ) {
           $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($_POST['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $_POST['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $_POST['authorizenet_cc_expires_year'];
 
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
-        }
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
+      }
 
-        $this->cc_card_type = $cc_validation->cc_type;
-        $this->cc_card_number = $cc_validation->cc_number;
-        $this->cc_expiry_month = $cc_validation->cc_expiry_month;
-        $this->cc_expiry_year = $cc_validation->cc_expiry_year;
+        $this->cc_card_owner = $_POST['ipayment_cc_owner'];
+        $this->cc_card_type = $_POST['authorizenet_cc_type'];
+        $this->cc_card_number = $_POST['authorizenet_cc_number'];
+        $this->cc_expiry_month = $_POST['authorizenet_cc_expires_month'];
+        $this->cc_expiry_year = $_POST['authorizenet_cc_expires_year'];
       }
     }
 
@@ -252,11 +257,11 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
       if (MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') {
         $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                               'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
-                                                      'field' => $_POST['authorizenet_cc_owner']),
+                                                      'field' => $this->cc_card_owner),
                                                 array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER,
                                                       'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                                 array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
-                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['authorizenet_cc_expires_month'], 1, '20' . $_POST['authorizenet_cc_expires_year'])))));
+                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$this->cc_expiry_month, 1, '20' . $this->cc_expiry_year)))));
       } else { // eCheck
         $fields = array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_NAME,
                               'field' => $_POST['authorizenet_bank_owner']),
@@ -344,7 +349,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
                         'x_ship_to_state' => $order->delivery['state'],
                         'x_ship_to_zip' => $order->delivery['postcode'],
                         'x_ship_to_country' => $order->delivery['country']['title'],
-                        'x_Customer_IP' => getenv('REMOTE_ADDR'));
+                        'x_Customer_IP' => tep_get_ip_address());
 
       $gw_vars = array_merge($gw_common, $gw_pay_type);
       return $gw_vars;

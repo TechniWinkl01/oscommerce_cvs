@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.22 2003/12/04 23:43:16 hpdl Exp $
+  $Id: pm2checkout.php,v 1.23 2004/05/12 19:34:36 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -68,7 +68,7 @@
     }
 
     function selection() {
-      global $order;
+      global $order, $osC_Database;
 
       for ($i=1; $i < 13; $i++) {
         $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
@@ -79,12 +79,27 @@
         $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
       }
 
+      $Qcredit_cards = $osC_Database->query('select credit_card_name, credit_card_code from :table_credit_cards where credit_card_status = :credit_card_status');
+
+      $Qcredit_cards->bindRaw(':table_credit_cards', TABLE_CREDIT_CARDS);
+      $Qcredit_cards->bindInt(':credit_card_status', '1');
+      $Qcredit_cards->setCache('credit-cards');
+      $Qcredit_cards->execute();
+
+      while ($Qcredit_cards->next()) {
+        $credit_cards[] = array('id' => $Qcredit_cards->value('credit_card_code'), 'text' => $Qcredit_cards->value('credit_card_name'));
+      }
+
+      $Qcredit_cards->freeResult();
+
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'fields' => array(array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER_FIRST_NAME,
                                                  'field' => tep_draw_input_field('pm_2checkout_cc_owner_firstname', $order->billing['firstname'])),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER_LAST_NAME,
                                                  'field' => tep_draw_input_field('pm_2checkout_cc_owner_lastname', $order->billing['lastname'])),
+                                           array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
+                                                 'field' => tep_draw_pull_down_menu('pm_2checkout_cc_type', $credit_cards)),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER,
                                                  'field' => tep_draw_input_field('pm_2checkout_cc_number')),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
@@ -102,38 +117,19 @@
         global $_POST;
       }
 
-      include(DIR_WS_CLASSES . 'cc_validation.php');
-
-      $cc_validation = new cc_validation();
-      $result = $cc_validation->validate($_POST['pm_2checkout_cc_number'], $_POST['pm_2checkout_cc_expires_month'], $_POST['pm_2checkout_cc_expires_year']);
-
-      $error = '';
-      switch ($result) {
-        case -1:
-          $error = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, substr($cc_validation->cc_number, 0, 4));
-          break;
-        case -2:
-        case -3:
-        case -4:
-          $error = TEXT_CCVAL_ERROR_INVALID_DATE;
-          break;
-        case false:
-          $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
-          break;
-      }
-
-      if ( ($result == false) || ($result < 1) ) {
-        $messageStack->add_session('checkout_payment', $error, 'error');
+      if (!tep_validate_credit_card($_POST['pm_2checkout_cc_number'])) {
+        $messageStack->add_session('checkout_payment', TEXT_CCVAL_ERROR_INVALID_NUMBER, 'error');
 
         $payment_error_return = 'pm_2checkout_cc_owner_firstname=' . urlencode($_POST['pm_2checkout_cc_owner_firstname']) . '&pm_2checkout_cc_owner_lastname=' . urlencode($_POST['pm_2checkout_cc_owner_lastname']) . '&pm_2checkout_cc_expires_month=' . urlencode($_POST['pm_2checkout_cc_expires_month']) . '&pm_2checkout_cc_expires_year=' . urlencode($_POST['pm_2checkout_cc_expires_year']) . '&pm_2checkout_cc_cvv=' . urlencode($_POST['pm_2checkout_cc_cvv']);
 
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
       }
 
-      $this->cc_card_type = $cc_validation->cc_type;
-      $this->cc_card_number = $cc_validation->cc_number;
-      $this->cc_expiry_month = $cc_validation->cc_expiry_month;
-      $this->cc_expiry_year = $cc_validation->cc_expiry_year;
+      $this->cc_card_type = $_POST['pm_2checkout_cc_type'];
+      $this->cc_card_number = $_POST['pm_2checkout_cc_number'];
+      $this->cc_expiry_month = $_POST['pm_2checkout_cc_expires_month'];
+      $this->cc_expiry_year = $_POST['pm_2checkout_cc_expires_year'];
+      $this->cc_checkcode = $_POST['pm_2checkout_cc_cvv'];
     }
 
     function confirmation() {
@@ -147,11 +143,11 @@
                                               array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER,
                                                     'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                               array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
-                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['pm_2checkout_cc_expires_month'], 1, '20' . $_POST['pm_2checkout_cc_expires_year'])))));
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$this->cc_expiry_month, 1, '20' . $this->cc_expiry_year)))));
 
-      if (tep_not_null($_POST['pm_2checkout_cc_cvv'])) {
+      if (tep_not_null($this->cc_checkcode)) {
         $confirmation['fields'][] = array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER,
-                                          'field' => $_POST['pm_2checkout_cc_cvv']);
+                                          'field' => $this->cc_checkcode);
       }
 
       return $confirmation;
@@ -169,7 +165,7 @@
                                tep_draw_hidden_field('x_invoice_num', date('YmdHis')) .
                                tep_draw_hidden_field('x_test_request', ((MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') ? 'Y' : 'N')) .
                                tep_draw_hidden_field('x_card_num', $this->cc_card_number) .
-                               tep_draw_hidden_field('cvv', $_POST['pm_2checkout_cc_cvv']) .
+                               tep_draw_hidden_field('cvv', $this->cc_checkcode) .
                                tep_draw_hidden_field('x_exp_date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
                                tep_draw_hidden_field('x_first_name', $_POST['pm_2checkout_cc_owner_firstname']) .
                                tep_draw_hidden_field('x_last_name', $_POST['pm_2checkout_cc_owner_lastname']) .

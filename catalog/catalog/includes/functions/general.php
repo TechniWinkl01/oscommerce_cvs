@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.239 2004/04/13 08:10:15 hpdl Exp $
+  $Id: general.php,v 1.240 2004/05/12 19:34:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1346,5 +1346,31 @@
       }
     }
     return $valid_address;
+  }
+
+  function tep_validate_credit_card($card_number) {
+    $cardNumber = strrev($card_number);
+    $numSum = 0;
+
+    for ($i=0; $i<strlen($cardNumber); $i++) {
+      $currentNum = substr($cardNumber, $i, 1);
+
+// Double every second digit
+      if ($i % 2 == 1) {
+        $currentNum *= 2;
+      }
+
+// Add digits of 2-digit numbers together
+      if ($currentNum > 9) {
+        $firstNum = $currentNum % 10;
+        $secondNum = ($currentNum - $firstNum) / 10;
+        $currentNum = $firstNum + $secondNum;
+      }
+
+      $numSum += $currentNum;
+    }
+
+// If the total has no remainder it's OK
+    return ($numSum % 10 == 0);
   }
 ?>

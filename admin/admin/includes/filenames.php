@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.3 2004/04/15 16:06:40 mevans Exp $
+  $Id: filenames.php,v 1.4 2004/05/12 19:31:26 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,6 +19,7 @@
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_COUNTRIES', 'countries.php');
+  define('FILENAME_CREDIT_CARDS', 'credit_cards.php');
   define('FILENAME_CURRENCIES', 'currencies.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'index.php');

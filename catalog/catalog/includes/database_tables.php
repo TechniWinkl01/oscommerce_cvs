@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database_tables.php,v 1.3 2004/04/15 16:05:35 mevans Exp $
+  $Id: database_tables.php,v 1.4 2004/05/12 19:34:32 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,6 +22,7 @@
   define('TABLE_COUNTER', DB_TABLE_PREFIX . 'counter');
   define('TABLE_COUNTER_HISTORY', DB_TABLE_PREFIX . 'counter_history');
   define('TABLE_COUNTRIES', DB_TABLE_PREFIX . 'countries');
+  define('TABLE_CREDIT_CARDS', DB_TABLE_PREFIX . 'credit_cards');
   define('TABLE_CURRENCIES', DB_TABLE_PREFIX . 'currencies');
   define('TABLE_CUSTOMERS', DB_TABLE_PREFIX . 'customers');
   define('TABLE_CUSTOMERS_BASKET', DB_TABLE_PREFIX . 'customers_basket');

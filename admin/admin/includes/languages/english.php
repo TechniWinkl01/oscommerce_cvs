@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.112 2004/04/16 05:37:23 mevans Exp $
+  $Id: english.php,v 1.113 2004/05/12 19:31:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,6 +64,7 @@ define('BOX_CONFIGURATION_MYSTORE', 'My Store');
 define('BOX_CONFIGURATION_LOGGING', 'Logging');
 define('BOX_CONFIGURATION_CACHE', 'Cache');
 define('BOX_CONFIGURATION_SERVICES', 'Services');
+define('BOX_CONFIGURATION_CREDIT_CARDS', 'Credit Cards');
 
 // modules box text in includes/boxes/modules.php
 define('BOX_HEADING_MODULES', 'Modules');
@@ -264,6 +265,7 @@ define('ICON_WARNING', 'Warning');
 define('TEXT_RESULT_PAGE', 'Page %s of %d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> countries)');
+define('TEXT_DISPLAY_NUMBER_OF_CREDIT_CARDS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> credit cards)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> currencies)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> languages)');

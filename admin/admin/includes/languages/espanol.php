@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.107 2004/04/16 05:37:23 mevans Exp $
+  $Id: espanol.php,v 1.108 2004/05/12 19:31:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,6 +64,7 @@ define('BOX_CONFIGURATION_MYSTORE', 'Mi Tienda');
 define('BOX_CONFIGURATION_LOGGING', 'Registro');
 define('BOX_CONFIGURATION_CACHE', 'Cach&eacute;');
 define('BOX_CONFIGURATION_SERVICES', 'Services');
+define('BOX_CONFIGURATION_CREDIT_CARDS', 'Credit Cards');
 
 // modules box text in includes/boxes/modules.php
 define('BOX_HEADING_MODULES', 'M&oacute;dulos');
@@ -259,6 +260,7 @@ define('ICON_WARNING', 'Advertencia');
 define('TEXT_RESULT_PAGE', 'P&aacute;gina %s de %d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
+define('TEXT_DISPLAY_NUMBER_OF_CREDIT_CARDS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> credit cards)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> monedas)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.162 2004/04/15 16:06:42 mevans Exp $
+  $Id: general.php,v 1.163 2004/05/12 19:31:32 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -736,6 +736,18 @@
     }
   }
 
+////
+// Sets the status of a credit card
+  function tep_set_credit_card_status($credit_card_id, $status) {
+    if ($status == '1') {
+      return tep_db_query("update " . TABLE_CREDIT_CARDS . " set credit_card_status = '1' where credit_card_id = '" . $credit_card_id . "'");
+    } elseif ($status == '0') {
+      return tep_db_query("update " . TABLE_CREDIT_CARDS . " set credit_card_status = '0' where credit_card_id = '" . $credit_card_id . "'");
+    } else {
+      return -1;
+    }
+  }
+  
 ////
 // Sets the status of a product
   function tep_set_product_status($products_id, $status) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.18 2004/04/13 08:19:18 hpdl Exp $
+  $Id: configuration.php,v 1.19 2004/05/12 19:31:30 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,6 +28,7 @@
     }
 
     $cfg_groups .= '<a href="' . tep_href_link(FILENAME_SERVICES) . '" class="menuBoxContentLink">' . BOX_CONFIGURATION_SERVICES . '</a><br>';
+    $cfg_groups .= '<a href="' . tep_href_link(FILENAME_CREDIT_CARDS) . '" class="menuBoxContentLink">' . BOX_CONFIGURATION_CREDIT_CARDS . '</a><br>';
 
     $contents[] = array('text'  => $cfg_groups);
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.20 2003/12/18 23:52:15 hpdl Exp $
+  $Id: psigate.php,v 1.21 2004/05/12 19:34:36 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -72,22 +72,37 @@
     }
 
     function selection() {
-      global $order;
+      global $order, $osC_Database;
 
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
         for ($i=1; $i<13; $i++) {
           $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
         }
 
-        $today = getdate(); 
+        $today = getdate();
         for ($i=$today['year']; $i < $today['year']+10; $i++) {
           $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
         }
+
+        $Qcredit_cards = $osC_Database->query('select credit_card_name, credit_card_code from :table_credit_cards where credit_card_status = :credit_card_status');
+
+        $Qcredit_cards->bindRaw(':table_credit_cards', TABLE_CREDIT_CARDS);
+        $Qcredit_cards->bindInt(':credit_card_status', '1');
+        $Qcredit_cards->setCache('credit-cards');
+        $Qcredit_cards->execute();
+
+        while ($Qcredit_cards->next()) {
+          $credit_cards[] = array('id' => $Qcredit_cards->value('credit_card_code'), 'text' => $Qcredit_cards->value('credit_card_name'));
+        }
+
+        $Qcredit_cards->freeResult();
 
         $selection = array('id' => $this->code,
                            'module' => $this->title,
                            'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
                                                    'field' => tep_draw_input_field('psigate_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                             array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE,
+                                                   'field' => tep_draw_pull_down_menu('psigate_cc_type', $credit_cards)),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
                                                    'field' => tep_draw_input_field('psigate_cc_number')),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
@@ -108,38 +123,19 @@
       }
 
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
-        include(DIR_WS_CLASSES . 'cc_validation.php');
-
-        $cc_validation = new cc_validation();
-        $result = $cc_validation->validate($_POST['psigate_cc_number'], $_POST['psigate_cc_expires_month'], $_POST['psigate_cc_expires_year']);
-
-        $error = '';
-        switch ($result) {
-          case -1:
-            $error = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, substr($cc_validation->cc_number, 0, 4));
-            break;
-          case -2:
-          case -3:
-          case -4:
-            $error = TEXT_CCVAL_ERROR_INVALID_DATE;
-            break;
-          case false:
-            $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
-            break;
-        }
-
-        if ( ($result == false) || ($result < 1) ) {
-          $messageStack->add_session('checkout_payment', $error, 'error');
+        if (!tep_validate_credit_card($_POST['ipayment_cc_number'])) {
+          $messageStack->add_session('checkout_payment', TEXT_CCVAL_ERROR_INVALID_NUMBER, 'error');
 
           $payment_error_return = 'psigate_cc_owner=' . urlencode($_POST['psigate_cc_owner']) . '&psigate_cc_expires_month=' . urlencode($_POST['psigate_cc_expires_month']) . '&psigate_cc_expires_year=' . urlencode($_POST['psigate_cc_expires_year']);
 
           tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
         }
 
-        $this->cc_card_type = $cc_validation->cc_type;
-        $this->cc_card_number = $cc_validation->cc_number;
-        $this->cc_expiry_month = $cc_validation->cc_expiry_month;
-        $this->cc_expiry_year = $cc_validation->cc_expiry_year;
+        $this->cc_card_owner = $_POST['psigate_cc_owner'];
+        $this->cc_card_type = $_POST['psigate_cc_type'];
+        $this->cc_card_number = $_POST['psigate_cc_number'];
+        $this->cc_expiry_month = $_POST['psigate_cc_expires_month'];
+        $this->cc_expiry_year = $_POST['psigate_cc_expires_year'];
       } else {
         return false;
       }
@@ -155,11 +151,11 @@
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
         $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                               'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
-                                                      'field' => $_POST['psigate_cc_owner']),
+                                                      'field' => $this->cc_card_owner),
                                                 array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
                                                       'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                                 array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
-                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['psigate_cc_expires_month'], 1, '20' . $_POST['psigate_cc_expires_year'])))));
+                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$this->cc_expiry_month, 1, '20' . $this->cc_expiry_year)))));
 
         return $confirmation;
       } else {

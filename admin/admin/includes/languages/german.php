@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.106 2004/04/16 05:37:23 mevans Exp $
+  $Id: german.php,v 1.107 2004/05/12 19:31:35 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,6 +64,7 @@ define('BOX_CONFIGURATION_MYSTORE', 'My Store');
 define('BOX_CONFIGURATION_LOGGING', 'Logging');
 define('BOX_CONFIGURATION_CACHE', 'Cache');
 define('BOX_CONFIGURATION_SERVICES', 'Dienste');
+define('BOX_CONFIGURATION_CREDIT_CARDS', 'Credit Cards');
 
 // modules box text in includes/boxes/modules.php
 define('BOX_HEADING_MODULES', 'Module');
@@ -119,22 +120,22 @@ define('BOX_LOCALIZATION_ORDERS_STATUS', 'Bestellstatus');
 define('BOX_LOCALIZATION_WEIGHT_CLASSES', 'Weight Classes');
 
 // javascript messages
-define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
+define('JS_ERROR', 'WÃ¤hrend der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
 
-define('JS_OPTIONS_VALUE_PRICE', '* Sie müssen diesem Wert einen Preis zuordnen\n');
-define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* Sie müssen ein Vorzeichen für den Preis angeben (+/-)\n');
+define('JS_OPTIONS_VALUE_PRICE', '* Sie mÃ¼ssen diesem Wert einen Preis zuordnen\n');
+define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* Sie mÃ¼ssen ein Vorzeichen fÃ¼r den Preis angeben (+/-)\n');
 
 define('JS_PRODUCTS_NAME', '* Der neue Artikel muss einen Namen haben\n');
 define('JS_PRODUCTS_DESCRIPTION', '* Der neue Artikel muss eine Beschreibung haben\n');
 define('JS_PRODUCTS_PRICE', '* Der neue Artikel muss einen Preis haben\n');
 define('JS_PRODUCTS_WEIGHT', '* Der neue Artikel muss eine Gewichtsangabe haben\n');
-define('JS_PRODUCTS_QUANTITY', '* Sie müssen dem neuen Artikel eine verfügbare Anzahl zuordnen\n');
-define('JS_PRODUCTS_MODEL', '* Sie müssen dem neuen Artikel eine Artikel-Nr. zuordnen\n');
-define('JS_PRODUCTS_IMAGE', '* Sie müssen dem Artikel ein Bild zuordnen\n');
+define('JS_PRODUCTS_QUANTITY', '* Sie mÃ¼ssen dem neuen Artikel eine verfÃ¼gbare Anzahl zuordnen\n');
+define('JS_PRODUCTS_MODEL', '* Sie mÃ¼ssen dem neuen Artikel eine Artikel-Nr. zuordnen\n');
+define('JS_PRODUCTS_IMAGE', '* Sie mÃ¼ssen dem Artikel ein Bild zuordnen\n');
 
-define('JS_SPECIALS_PRODUCTS_PRICE', '* Es muss ein neuer Preis für diesen Artikel festgelegt werden\n');
+define('JS_SPECIALS_PRODUCTS_PRICE', '* Es muss ein neuer Preis fr diesen Artikel festgelegt werden\n');
 
-define('JS_GENDER', '* Die \'Anrede\' muss ausgewählt werden.\n');
+define('JS_GENDER', '* Die \'Anrede\' muss ausgewÃ¤hlt werden.\n');
 define('JS_FIRST_NAME', '* Der \'Vorname\' muss mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_LAST_NAME', '* Der \'Nachname\' muss mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_DOB', '* Das \'Geburtsdatum\' muss folgendes Format haben: xx.xx.xxxx (Tag/Jahr/Monat).\n');
@@ -142,13 +143,12 @@ define('JS_EMAIL_ADDRESS', '* Die \'eMail-Adresse\' muss mindestens aus ' . ENTR
 define('JS_ADDRESS', '* Die \'Strasse\' muss mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muss mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_CITY', '* Die \'Stadt\' muss mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Zeichen bestehen.\n');
-define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
-define('JS_STATE_SELECT', '-- Wählen Sie oberhalb --');
-define('JS_ZONE', '* Das \'Bundesland\' muss aus der Liste für dieses Land ausgewählt werden.');
-define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
+define('JS_STATE', '* Das \'Bundesland\' muss ausgewÃ¤hlt werden.\n');
+define('JS_STATE_SELECT', '-- WÃ¤hlen Sie oberhalb --');
+define('JS_ZONE', '* Das \'Bundesland\' muss aus der Liste fÃ¼r dieses Land ausgewÃ¤hlt werden.');
+define('JS_COUNTRY', '* Das \'Land\' muss ausgewÃ¤hlt werden.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss aus mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zeichen bestehen.\n');
-define('JS_PASSWORD', '* Das \'Passwort\' sowie die \'Passwortbestätigung\' müssen übereinstimmen und aus mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen bestehen.\n');
-
+define('JS_PASSWORD', '* Das \'Passwort\' sowie die \'PasswortbestÃ¤tigung\' mÃ¼ssen Ã¼bereinstimmen und aus mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer %s existiert nicht!');
 
 define('CATEGORY_PERSONAL', 'Pers&ouml;nliche Daten');
@@ -259,6 +259,7 @@ define('ICON_WARNING', 'Warnung');
 define('TEXT_RESULT_PAGE', 'Seite %s von %d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bannern)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> L&auml;ndern)');
+define('TEXT_DISPLAY_NUMBER_OF_CREDIT_CARDS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> credit cards)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> W&auml;hrungen)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');

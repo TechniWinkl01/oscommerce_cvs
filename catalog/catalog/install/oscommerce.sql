@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.97 2004/04/16 05:31:34 mevans Exp $
+# $Id: oscommerce.sql,v 1.98 2004/05/12 19:34:41 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -141,6 +141,16 @@ CREATE TABLE osc_countries (
   address_format_id int NOT NULL,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
+);
+
+DROP TABLE IF EXISTS osc_credit_cards;
+CREATE TABLE osc_credit_cards (
+  credit_card_id int(11) NOT NULL auto_increment,
+  credit_card_code varchar(4) NOT NULL default '',
+  credit_card_name varchar(32) NOT NULL default '',
+  credit_card_status char(1) NOT NULL default '',
+  sort_order int(1) NOT NULL default '0',
+  PRIMARY KEY  (credit_card_id)
 );
 
 DROP TABLE IF EXISTS osc_currencies;
@@ -1001,6 +1011,14 @@ INSERT INTO osc_countries VALUES (236,'Yugoslavia','YU','YUG','1');
 INSERT INTO osc_countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO osc_countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO osc_countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
+
+INSERT INTO osc_credit_cards VALUES (1,'AMEX','American Express','1','1');
+INSERT INTO osc_credit_cards VALUES (2,'DINR','Diners Club','1','2');
+INSERT INTO osc_credit_cards VALUES (3,'JCB','JCB','1','3');
+INSERT INTO osc_credit_cards VALUES (4,'MC','Mastercard','1','4');
+INSERT INTO osc_credit_cards VALUES (5,'VISA','Visa','1','5');
+INSERT INTO osc_credit_cards VALUES (6,'SOLO','Solo','1','6');
+INSERT INTO osc_credit_cards VALUES (7,'SWIT','Switch','1','7');
 
 INSERT INTO osc_currencies VALUES (1,'US Dollar','USD','$','','2','1.0000', now());
 INSERT INTO osc_currencies VALUES (2,'Euro','EUR','','EUR','2','1.1036', now());
