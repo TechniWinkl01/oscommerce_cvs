@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.32 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: currencies.php,v 1.33 2002/01/15 11:53:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -148,7 +148,7 @@
     }
 
     if ( (is_object($cInfo)) && ($currencies['currencies_id'] == $cInfo->currencies_id) ) {
-      echo '                  <tr class="selectedRow">' . "\n";
+      echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $currencies['currencies_id'] . '&action=edit') . '\'">' . "\n";
     } else {
       echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $currencies['currencies_id']) . '\'">' . "\n";
     }
