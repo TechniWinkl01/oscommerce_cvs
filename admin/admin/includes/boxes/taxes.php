@@ -15,6 +15,7 @@
     $info_box_contents[] = array('align' => 'left',
                                  'text'  => '<a href="' . tep_href_link(FILENAME_COUNTRIES, '', 'NONSSL') . '">' . BOX_TAXES_COUNTRIES . '</a><br>' .
                                             '<a href="' . tep_href_link(FILENAME_ZONES, '', 'NONSSL') . '">' . BOX_TAXES_ZONES . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_GEO_ZONES, '', 'NONSSL') . '">' . BOX_TAXES_GEO_ZONES . '</a><br>' .
                                             '<a href="' . tep_href_link(FILENAME_TAX_CLASSES, '', 'NONSSL') . '">' . BOX_TAXES_TAX_CLASSES . '</a><br>' .
                                             '<a href="' . tep_href_link(FILENAME_TAX_RATES, '', 'NONSSL') . '">' . BOX_TAXES_TAX_RATES . '</a>'
                                 );

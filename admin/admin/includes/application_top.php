@@ -72,6 +72,7 @@
   define('FILENAME_STATS_PRODUCTS_VIEWED', 'stats_products_viewed.php');
   define('FILENAME_TAX_CLASSES', 'tax_classes.php');
   define('FILENAME_TAX_RATES', 'tax_rates.php');
+  define('FILENAME_GEO_ZONES', 'geo_zones.php');
   define('FILENAME_WHOS_ONLINE', 'whos_online.php');
   define('FILENAME_ZONES', 'zones.php');
 
@@ -111,6 +112,8 @@
   define('TABLE_SPECIALS', 'specials');
   define('TABLE_TAX_CLASS', 'tax_class');
   define('TABLE_TAX_RATES', 'tax_rates');
+  define('TABLE_GEO_ZONES', 'geo_zones');
+  define('TABLE_ZONES_TO_GEO_ZONES', 'zones_to_geo_zones');
   define('TABLE_WHOS_ONLINE', 'whos_online');
   define('TABLE_ZONES', 'zones');
 
@@ -230,6 +233,7 @@
   require(DIR_WS_CLASSES . 'review_info.php');
   require(DIR_WS_CLASSES . 'special_price_info.php');
   require(DIR_WS_CLASSES . 'tax_class_info.php');
+  require(DIR_WS_CLASSES . 'geo_zone_info.php');
   require(DIR_WS_CLASSES . 'tax_rate_info.php');
   require(DIR_WS_CLASSES . 'zones_info.php');
 

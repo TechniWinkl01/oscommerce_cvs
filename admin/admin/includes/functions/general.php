@@ -512,6 +512,33 @@
     return $select_string;
   }
 
+  function tep_geo_zones_pull_down($parameters, $selected = '') {
+    $select_string = '<select ' . $parameters . '>';
+    $zones_query = tep_db_query("select geo_zone_id, geo_zone_name from " . TABLE_GEO_ZONES . " order by geo_zone_name");
+    while ($zones = tep_db_fetch_array($zones_query)) {
+      $select_string .= '<option value="' . $zones['geo_zone_id'] . '"';
+      if ($selected == $zones['geo_zone_id']) $select_string .= ' SELECTED';
+      $select_string .= '>' . $zones['geo_zone_name'] . '</option>';
+    }
+    $select_string .= '</select>';
+
+    return $select_string;
+  }
+
+  function tep_get_geo_zone_name($geo_zone_id) {
+    $zones_query = tep_db_query("select geo_zone_name from " . TABLE_GEO_ZONES . " where geo_zone_id = '" . $geo_zone_id . "'");
+
+    if (!tep_db_num_rows($zones_query)) {
+      $geo_zone_name = $geo_zone_id;
+    } else {
+      $zones = tep_db_fetch_array($zones_query);
+      $geo_zone_name = $zones['geo_zone_name'];
+    }
+
+    return $geo_zone_name;
+  }
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //
 // Function	: tep_format_address
