@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.7 2003/06/05 23:23:53 hpdl Exp $
+  $Id: password_forgotten.php,v 1.8 2003/06/09 22:46:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,8 +16,6 @@ define('NAVBAR_TITLE_2', 'Constraseña Olvidada');
 define('HEADING_TITLE', 'He olvidado mi Contraseña!');
 
 define('TEXT_MAIN', 'If you\'ve forgotten your password, enter your e-mail address below and we\'ll send you an e-mail message containing your new password.');
-
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 
 define('TEXT_NO_EMAIL_ADDRESS_FOUND', 'Error: Ese E-Mail no figura en nuestros datos, intentelo de nuevo.');
 

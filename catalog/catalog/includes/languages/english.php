@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.111 2003/06/05 23:23:52 hpdl Exp $
+  $Id: english.php,v 1.112 2003/06/09 22:46:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -274,6 +274,7 @@ define('SMALL_IMAGE_BUTTON_VIEW', 'View');
 
 define('ICON_ARROW_RIGHT', 'more');
 define('ICON_CART', 'In Cart');
+define('ICON_ERROR', 'Error');
 define('ICON_SUCCESS', 'Success');
 define('ICON_WARNING', 'Warning');
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.15 2003/06/05 23:23:53 hpdl Exp $
+  $Id: login.php,v 1.16 2003/06/09 22:46:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,8 +19,6 @@ define('TEXT_NEW_CUSTOMER_INTRODUCTION', 'Al crear una cuenta en ' . STORE_NAME 
 
 define('HEADING_RETURNING_CUSTOMER', 'Ya Soy Cliente');
 define('TEXT_RETURNING_CUSTOMER', 'He comprado otras veces.');
-define('ENTRY_EMAIL_ADDRESS', 'Direccion E-Mail:');
-define('ENTRY_PASSWORD', 'Contraseña:');
 
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
 
