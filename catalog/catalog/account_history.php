@@ -76,11 +76,11 @@
       $row++;
       $history_total = tep_db_query("select final_price, products_tax, products_quantity from orders_products where orders_id = '" . $history_values['orders_id'] . "'");
       while ($history_total_values = tep_db_fetch_array($history_total)) {
-        $cost = $history_total_values['final_price'] * $history_total_values['products_quantity'];
-        $total_cost = $total_cost + $cost + ($cost * ($history_total_values['products_tax']/100));
-        $total_quantity = $total_quantity + $history_total_values['products_quantity'];
+        $cost = $history_total_values['final_price'];
+        $total_cost += $cost + ($cost * ($history_total_values['products_tax']/100));
+        $total_quantity += $history_total_values['products_quantity'];
       }
-      $total_cost = $total_cost + $history_values['shipping_cost'];
+      $total_cost += $history_values['shipping_cost'];
       $history_date = date('l, dS F, Y', mktime(0,0,0,substr($history_values['date_purchased'], 4, 2),substr($history_values['date_purchased'], -2),substr($history_values['date_purchased'], 0, 4)));
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
