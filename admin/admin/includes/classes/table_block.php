@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table_block.php,v 1.3 2003/06/02 16:10:34 dgw_ Exp $
+  $Id: table_block.php,v 1.4 2003/06/02 16:17:05 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,6 @@
       $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
       if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
-
 
       $form_set = false;
       if ($contents['form']) {
