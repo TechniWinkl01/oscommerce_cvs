@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.82 2002/03/01 22:06:44 thomasamoulton Exp $
+  $Id: orders.php,v 1.83 2002/03/01 23:20:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -302,10 +302,6 @@
               </tr>
             </table></td>
             <td valign="top"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
-            <tr>
-              <td class="main"><b><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_PRINTABLE, 'orders_id=' . $HTTP_GET_VARS[
-'oID'], 'NONSSL') . '" TARGET="_blank">' . ENTRY_PRINTABLE . '</a>'; ?> </td>
-            </tr>
           </tr>
         </table></td>
       </form></tr>
