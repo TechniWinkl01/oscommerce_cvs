@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: footer.php,v 1.11 2002/10/29 22:28:51 hpdl Exp $
+  $Id: footer.php,v 1.12 2003/02/17 16:54:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -31,7 +31,7 @@
   following copyright announcement.
 */
 ?>
-E-Commerce Engine Copyright &copy; 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>
+E-Commerce Engine Copyright &copy; 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>
 osCommerce provides no warranty and is redistributable under the <a href="http://www.fsf.org/licenses/gpl.txt" target="_blank">GNU General Public License</a>
     </td>
   </tr>

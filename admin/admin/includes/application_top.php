@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_top.php,v 1.154 2003/02/07 21:46:48 dgw_ Exp $
+  $Id: application_top.php,v 1.155 2003/02/17 16:54:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -34,7 +34,7 @@
   require('includes/configure.php');
 
 // Define the project version
-  define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
+  define('PROJECT_VERSION', 'Preview Release 2.2-MS1');
 
 // Used in the "Backup Manager" to compress backups
   define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
