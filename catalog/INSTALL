@@ -46,57 +46,55 @@ the files 'tep_catalog-pr2.1/tep_database_model-pr2.1.gif'.
 APACHE/SSL/PHP INSTALLATION
 ---------------------------
 
-This is a quick guide of installing PHP as a dynamic
-apache module with SSL. For a more in-depth installation
-guide, it is recommended to read through the documentation
-of each package individually.
+This is a quick guide to install PHP as a dynamic apache
+module with SSL features.
+
+It is recommended to read through the documentation of
+each package for a more in-depth installation guide.
  
-The following was done under a RedHat 6.0/6.1 system
+The individual packages are available at:
 
-1. Extract the files from the necessary packages
+  OpenSSL.......: http://www.openssl.org
+  MOD_SSL.......: http://www.modssl.org
+  Apache........: http://www.apache.org
+  PHP...........: http://www.php.org
+  Zend Optimizer: http://www.zend.com
 
-   tar -xzf openssl-0.9.5a.tar.gz
-   tar -xzf mod_ssl-2.6.4-1.3.12.tar.gz
-   tar -xzf apache_1.3.12.tar.gz
-   tar -xzf php-4.0RC2.tar.gz
-   tar -xzf ZendOptimizer-Beta3-Linux-glibc2.1.tar.gz
+1. Extract the files from their packages:
+
+   tar -xzf openssl-0.9.6.tar.gz
+   tar -xzf mod_ssl-2.8.1-1.3.19.tar.gz
+   tar -xzf apache_1.3.19.tar.gz
+   tar -xzf php-4.0.4pl1.tar.gz
+   tar -xzf ZendOptimizer-1.0.0-PHP_4.0.4-FreeBSD4.0-i386.tar.gz
  
 2. To install SSL support in Apache, we need to first install
-   the OpenSSL package.
+   the OpenSSL package:
  
-   cd openssl-0.9.5a
-   ./configure
+   cd openssl-0.9.6
+   ./config
    make
    make test
    make install
    cd ..
  
-   If you're a US-Citizen, you have to build OpenSSL in
-   conjunction with the RSAref library.
+3. Once OpenSSL is installed, it is now possible to install
+   Apache with MOD-SSL:
  
-3. When OpenSSL is installed, it is now safe to install Apache
-   with MOD-SSL.
- 
-   cd mod_ssl-2.6.4-1.3.12
-   ./configure --with-apache=../apache_1.3.12 \
-     --with-ssl=../openssl-0.9.5a
-   cd ../apache_1.3.12
-   SSL_BASE=/usr/local/ssl ./configure --enable-module=ssl \
-     --enable-module=so
+   cd mod_ssl-mod_ssl-2.8.1-1.3.19
+   ./configure --with-apache=../apache_1.3.19 --with-ssl=../openssl-0.9.6
+   cd ../apache_1.3.19
+   ./configure --enable-module=ssl --enable-module=so
    make
    make certificate
    make install
    cd ..
  
-4. Now to build PHP as a dynamic apache module (DS0)
+4. Once Apache is installed, PHP can be installed as a dynamic
+   module (DS0):
  
-   cd php-4.0RC2
-   CFLAGS='-O2 -I/usr/local/ssl/include' ./configure \
-     --enable-track-vars \
-     --enable-trans-sid \
-     --with-mysql \
-     --disable-debug \
-     --with-apxs=/usr/local/apache/bin/apxs
+   cd php-4.0.4pl1
+   ./configure --enable-track-vars --enable-trans-sid --with-mysql --disable-debug --with-apxs=/usr/local/apache/bin/apxs
    make
    make install
    cp php.ini-dist /usr/local/lib/php.ini
@@ -104,33 +102,37 @@ The following was done under a RedHat 6.0/6.1 system
  
 5. Edit the configuration files for Apache (httpd.conf)
    and PHP (php.ini). Make sure the following is in the
-   httpd.conf file
+   httpd.conf file:
  
    LoadModule php4_module libexec/libphp4.so
    AddType application/x-httpd-php .php
  
    If you have ClearModuleList somewhere in the httpd.conf
-   file, then you must add this line
+   file, then you must add this line:
  
    AddModule mod_php4.c
  
-6. To install the ZendOptimizer beta3, you must be using
-   PHP4.0RC2 with debugging disabled
+6. To install ZendOptimizer v1.0, you must be using atleast 
+   PHP 4.0.4 with debugging disabled:
  
-   cd ZendOptimizer-Beta3-Linux-glibc2.1
+   cd ZendOptimizer-1.0.0-PHP_4.0.4-FreeBSD4.0-i386
    mkdir /usr/local/Zend
    mkdir /usr/local/Zend/lib
    cp ZendOptimizer.so /usr/local/Zend/lib
  
    Add the following to the php.ini
  
-   zend_optimizer.optimization_level=7
+   zend_optimizer.optimization_level=15
    zend_extension="/usr/local/Zend/lib/ZendOptimizer.so"
  
-7. Start Apache
- 
+7. To start Apache with SSL:
+
    /usr/local/apache/bin/apachectl startssl
-   (or start for nonssl mode)
+
+   Or, without SSL:
+
+   /usr/local/apache/bin/apachectl start
+
 
 After the installation, you can create a file in the webroot
 directory which contains <?php phpinfo(); ?> to see the

@@ -1,43 +1,56 @@
-The Exchange Project - FAQ
---------------------------
+The Exchange Project - Frequently Asked Questions
+-------------------------------------------------
 
-Last Update: 14th August, 2000
+Questions:
+01. How can I check my php configuration?
+02. How does the versioning of this project work?
+03. How can I extract the project tar.gz package under a windows environment?
+04. Why can't I get variables to be parsed among pages?
+05. Why is the session-ID screwing up my urls in href links?
+06. I receive an error of not being able to write to the parse_time_log file.
+07. I get one of these errors: Fatal error: Call to undefined function: count_contents(), Fatal error: Call to undefined function: restore_cart(), etc.
 
-q. How can I check the way my PHP was compiled?
+## 01 ##
+q. How can I check my php configuration?
 a. Call phpinfo() in a script:
 
    <? phpinfo(); ?>
 
+## 02 ##
 q. How does the versioning of this project work?
 a. Preview Release 1.0 - initial release.
    Preview Release 1.1 - bugfixes and updates.
    Preview Release 2.x - development releases based on CVS - since new functions will be added,
                          the database design will not be compatible with Preview Release 1.x
    Preview Release 3.0 - next stable release, although a long way away, it will be the basis
-                         basis of a complete version 1.0 of this project.
+                         of a complete version 1.0 of this project.
 
-q. I am on a Windows machine, how can I extract the download package?
+## 03 ##
+q. How can I extract the project tar.gz package under a windows environment?
 a. WinZIP is able to extract gzip/tar archives. Download it at www.winzip.com
 
-q. Variables are'nt being parsed along pages. Why?
+## 04 ##
+q. Why can't I get variables to be parsed among pages?
 a. Your PHP is not compiled to track variables. Compile PHP with --enable-track-vars
 
-q. The session-ID is screwing up my urls in href links! Why?
-a. This is (was?) PHP's fault :P In this project, there is a custom function being called where
-   all links are made, called tep_href_link() - this function is used for normal href links,
-   forms, and header redirects. The best way to avoid this problem is to use the function as
+## 05 ##
+q. Why is the session-ID screwing up my urls in href links?
+a. This project uses a custom function for all href links, called tep_href_link(). This
+   function is used for normal href links, forms, and header redirects. The best way to
+   avoid this problem is to use the function as:
 
    <?php echo '<a href="' . tep_href_link('index.php', 'a=b', 'NONSSL') . '">my link</a>'; ?>
 
-q. An error is reported of not being able to write to the parse_time_log file.
+## 06 ##
+q. I receive an error of not being able to write to the parse_time_log file.
 a. This file needs to have the correct write permissions for the apache user to be able to write
    to it. If you continue to get this error, create a 0 byte file with the right permissions.
 
-q. I get one of these errors:
-   Fatal error: Call to undefined function: count_contents()
-   Fatal error: Call to undefined function: restore_cart()
-   etc.
+## 07 ##
+q. I get one of these errors: Fatal error: Call to undefined function: count_contents(),
+   Fatal error: Call to undefined function: restore_cart(), etc.
 a. PHP3 and some PHP4 betas dont unserialize objects properly. To get it to work, edit the file
    application_top.php and enable the following setting:
    
    define('REPAIR_BROKEN_CART', '1');
+
