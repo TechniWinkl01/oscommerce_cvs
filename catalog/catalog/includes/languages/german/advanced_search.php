@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.19 2003/06/05 23:23:53 hpdl Exp $
+  $Id: advanced_search.php,v 1.20 2003/06/25 21:11:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,7 @@ define('TABLE_HEADING_BUY_NOW', 'jetzt bestellen');
 
 define('TEXT_NO_PRODUCTS', 'Es wurden keine Artikel gefunden, die den Suchkriterien entsprechen.');
 
-define('ERROR_AT_LEAST_ONE_INPUT', 'Atleast one of the fields in the search form must be entered.');
+define('ERROR_AT_LEAST_ONE_INPUT', 'Wenigstens ein Feld des Suchformulars muss ausgefüllt werden.');
 define('ERROR_INVALID_FROM_DATE', 'Unzulässiges von Datum');
 define('ERROR_INVALID_TO_DATE', 'Unzulässiges bis jetzt');
 define('ERROR_TO_DATE_LESS_THAN_FROM_DATE', 'Das Datum von muss grösser oder gleich bis jetzt sein');
