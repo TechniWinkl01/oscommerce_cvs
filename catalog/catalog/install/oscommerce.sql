@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.66 2003/02/03 16:56:43 hpdl Exp $
+# $Id: oscommerce.sql,v 1.67 2003/02/05 22:43:17 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -755,7 +755,6 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Display Tax Groups', 'MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS', 'false', 'Do you want to display tax groups?', '6', '3', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Display Total', 'MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true', 'Do you want to display the total order value?', '6', '1','tep_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Sort Order', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '4', 'Sort order of display.', '6', '2', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function) VALUES ('Tax Class','MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS','0','Use the following tax class on the shipping fee.','6','6',now(),'tep_get_tax_class_title','tep_cfg_pull_down_tax_classes(');
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Country Code', 'STORE_ORIGIN_COUNTRY', 'NONE', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" TARGET="_blank">ISO 3166 Maintenance Agency</A>.', '7', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Postal Code', 'STORE_ORIGIN_ZIP', 'NONE', 'Enter the Postal Code (ZIP) of the Store to be used in shipping quotes.', '7', '2', now());
