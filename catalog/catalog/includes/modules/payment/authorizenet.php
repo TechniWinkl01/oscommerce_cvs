@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.22 2001/09/01 15:50:48 hpdl Exp $
+  $Id: authorizenet.php,v 1.23 2001/09/15 13:46:32 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -77,13 +77,13 @@
 
       $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
 
