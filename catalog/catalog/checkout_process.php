@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.88 2002/01/27 04:32:04 hpdl Exp $
+  $Id: checkout_process.php,v 1.89 2002/02/02 16:32:07 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -69,16 +69,36 @@
     $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
     $products_tax = tep_get_tax_rate($delivery_values['country_id'], $delivery_values['zone_id'], $products[$i]['tax_class_id']);    
     $products_weight = $products[$i]['weight'];
+    $products_attributes = $products[$i]['attributes'];
+// Will work with only one option for downloadable products
+// otherwise, we have to build the query dynamically with a loop
+    list ($options_id, $options_values_id) = each($products_attributes);
 
     // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
-      $stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
+      if (DOWNLOAD_ENABLED) {
+        $stock_query_raw = "SELECT products_quantity, pad.products_attributes_filename 
+                            FROM " . TABLE_PRODUCTS . " p
+                            LEFT JOIN " . TABLE_PRODUCTS_ATTRIBUTES . " pa
+                             ON p.products_id=pa.products_id
+                            LEFT JOIN " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
+                             ON pa.products_attributes_id=pad.products_attributes_id
+                            WHERE p.products_id = '" . tep_get_prid($products[$i]['id']) . "' 
+                             AND pa.options_id = '" . $options_id . "'
+                             AND pa.options_values_id = '" . $options_values_id . "'";
+        $stock_query = tep_db_query($stock_query_raw);
+      } else {
+        $stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
+      }
       $stock_values = tep_db_fetch_array($stock_query);
-      $stock_left = $stock_values['products_quantity'] - $products[$i]['quantity'];
-
-      tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
-      if ($stock_left < 1) {
-        tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
+// do not decrement quantities if products_attributes_filename exists
+      if (!DOWNLOAD_ENABLED || (!$stock_values['products_attributes_filename']!= '')) {
+        $stock_left = $stock_values['products_quantity'] - $products[$i]['quantity'];
+  
+        tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
+        if ($stock_left < 1) {
+          tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($products[$i]['id']) . "'");
+        }
       }
     }
 
@@ -92,9 +112,16 @@
       $attributes_exist = '1';
       reset($products[$i]['attributes']);
       while (list($option, $value) = each($products[$i]['attributes'])) {
-        $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
+        if (DOWNLOAD_ENABLED) {
+          $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, "  . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "' and pa.products_attributes_id=pad.products_attributes_id");
+        } else {
+          $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
+        }
         $attributes_values = tep_db_fetch_array($attributes);
         tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " (orders_id, orders_products_id, products_options, products_options_values, options_values_price, price_prefix) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix']  . "')");
+        if (DOWNLOAD_ENABLED) {
+          tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " (orders_id, orders_products_id, orders_products_filename, download_maxdays, download_count) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_attributes_filename'] . "', '" . $attributes_values['products_attributes_maxdays'] . "', '" . $attributes_values['products_attributes_maxcount']  . "')");
+        }
         $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . $attributes_values['products_options_values_name'];
       }
     }

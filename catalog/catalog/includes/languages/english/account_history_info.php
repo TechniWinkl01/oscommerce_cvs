@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.9 2001/12/20 14:14:14 dgw_ Exp $
+  $Id: account_history_info.php,v 1.10 2002/02/02 16:32:08 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,4 +28,7 @@ define('TABLE_SUBHEADING_TOTAL', 'Total:');
 define('TEXT_COD', 'Cash on Delivery');
 define('TEXT_CC', 'Credit Card');
 define('TEXT_PAYPAL', 'PayPal.com Credit Card/eCheck Processing');
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry Date');
+define('TABLE_HEADING_DOWNLOAD_COUNT', 'Max # downloads');
+define('HEADING_DOWNLOAD', 'Download your products here:');
 ?>

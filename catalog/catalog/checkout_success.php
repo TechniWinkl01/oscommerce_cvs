@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.29 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: checkout_success.php,v 1.30 2002/02/02 16:32:07 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,6 +53,7 @@
       <tr>
         <td align="right" class="checkoutBar"><br>[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_FINISHED; ?></span> ]</td>
       </tr>
+<?PHP if (DOWNLOAD_ENABLED) include(DIR_WS_BOXES . 'downloads.php'); ?>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">

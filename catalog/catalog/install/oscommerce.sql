@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.21 2002/02/02 13:19:40 harley_vb Exp $
+# $Id: oscommerce.sql,v 1.22 2002/02/02 16:32:08 clescuyer Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -322,6 +322,17 @@ CREATE TABLE orders_products_attributes (
   PRIMARY KEY (orders_products_attributes_id)
 );
 
+DROP TABLE IF EXISTS orders_products_download;
+CREATE TABLE orders_products_download (
+  orders_products_download_id int(5) NOT NULL auto_increment,
+  orders_id int(5) NOT NULL default '0',
+  orders_products_id int(5) NOT NULL default '0',
+  orders_products_filename varchar(255) NOT NULL default '',
+  download_maxdays int(2) NOT NULL default '0',
+  download_count int(2) NOT NULL default '0',
+  PRIMARY KEY  (orders_products_download_id)
+);
+
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   products_id int(5) NOT NULL auto_increment,
@@ -348,6 +359,15 @@ CREATE TABLE products_attributes (
   options_values_price decimal(8,2) NOT NULL,
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (products_attributes_id)
+);
+
+DROP TABLE IF EXISTS products_attributes_download;
+CREATE TABLE products_attributes_download (
+  products_attributes_id int(5) NOT NULL,
+  products_attributes_filename varchar(255) NOT NULL default '',
+  products_attributes_maxdays int(2) default '0',
+  products_attributes_maxcount int(2) default '0',
+  PRIMARY KEY  (products_attributes_id)
 );
 
 DROP TABLE IF EXISTS products_description;
@@ -1137,6 +1157,19 @@ INSERT INTO products_attributes VALUES (8,2,3,6,0.00,'+');
 INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
 INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
 INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
+INSERT INTO products_attributes VALUES (20, 21, 5, 10, '0.00', '+');
+INSERT INTO products_attributes VALUES (21, 21, 5, 11, '0.00', '+');
+INSERT INTO products_attributes VALUES (22, 21, 5, 12, '0.00', '+');
+INSERT INTO products_attributes VALUES (23, 21, 5, 15, '0.00', '+');
+INSERT INTO products_attributes VALUES (24, 21, 5, 13, '0.00', '+');
+INSERT INTO products_attributes VALUES (25, 21, 5, 14, '0.00', '+');
+INSERT INTO products_attributes VALUES (26, 22, 5, 10, '0.00', '+');
+INSERT INTO products_attributes VALUES (27, 22, 5, 13, '0.00', '+');
+
+INSERT INTO products_attributes_download VALUES (20, 'swat-wen.exe', 14, 5);
+INSERT INTO products_attributes_download VALUES (21, 'swat-wfr.exe', 14, 5);
+INSERT INTO products_attributes_download VALUES (22, 'swat-men.bin', 14, 5);
+INSERT INTO products_attributes_download VALUES (26, 'unreal.zip', 7, 3);
 
 INSERT INTO products_options VALUES (1,1,'Color');
 INSERT INTO products_options VALUES (2,1,'Size');
@@ -1150,6 +1183,10 @@ INSERT INTO products_options VALUES (1,3,'Color');
 INSERT INTO products_options VALUES (2,3,'Talla');
 INSERT INTO products_options VALUES (3,3,'Modelo');
 INSERT INTO products_options VALUES (4,3,'Memoria');
+INSERT INTO products_options VALUES (5, 3, 'Version');
+INSERT INTO products_options VALUES (5, 2, 'Version');
+INSERT INTO products_options VALUES (5, 1, 'Version');
+
 
 INSERT INTO products_options_values VALUES (1,1,'4 mb');
 INSERT INTO products_options_values VALUES (2,1,'8 mb');
@@ -1178,6 +1215,25 @@ INSERT INTO products_options_values VALUES (6,3,'Premium');
 INSERT INTO products_options_values VALUES (7,3,'Deluxe');
 INSERT INTO products_options_values VALUES (8,3,'PS/2');
 INSERT INTO products_options_values VALUES (9,3,'USB');
+INSERT INTO products_options_values VALUES (10, 1, 'Download: Windows - English');
+INSERT INTO products_options_values VALUES (10, 2, 'Download: Windows - Englisch');
+INSERT INTO products_options_values VALUES (10, 3, 'Download: Windows - Inglese');
+INSERT INTO products_options_values VALUES (11, 1, 'Download: Windows - French');
+INSERT INTO products_options_values VALUES (11, 2, 'Download: Windows - Französich');
+INSERT INTO products_options_values VALUES (11, 3, 'Download: Windows - Francese');
+INSERT INTO products_options_values VALUES (12, 1, 'Download: Mac - English');
+INSERT INTO products_options_values VALUES (12, 2, 'Download: Mac - Englisch');
+INSERT INTO products_options_values VALUES (12, 3, 'Download: Mac - Inglese');
+INSERT INTO products_options_values VALUES (13, 1, 'Box: Windows - English');
+INSERT INTO products_options_values VALUES (13, 2, 'Box: Windows - Englisch');
+INSERT INTO products_options_values VALUES (13, 3, 'Box: Windows - Inglese');
+INSERT INTO products_options_values VALUES (14, 1, 'Box: Windows - French');
+INSERT INTO products_options_values VALUES (14, 2, 'Box: Windows - Französich');
+INSERT INTO products_options_values VALUES (14, 3, 'Box: Windows - Francese');
+INSERT INTO products_options_values VALUES (15, 1, 'Box: Mac - English');
+INSERT INTO products_options_values VALUES (15, 2, 'Box: Mac - Englisch');
+INSERT INTO products_options_values VALUES (15, 3, 'Box: Mac - Inglese');
+
 
 INSERT INTO products_options_values_to_products_options VALUES (1,4,1);
 INSERT INTO products_options_values_to_products_options VALUES (2,4,2);
@@ -1188,6 +1244,13 @@ INSERT INTO products_options_values_to_products_options VALUES (6,3,6);
 INSERT INTO products_options_values_to_products_options VALUES (7,3,7);
 INSERT INTO products_options_values_to_products_options VALUES (8,3,8);
 INSERT INTO products_options_values_to_products_options VALUES (9,3,9);
+INSERT INTO products_options_values_to_products_options VALUES (10, 5, 10);
+INSERT INTO products_options_values_to_products_options VALUES (11, 5, 11);
+INSERT INTO products_options_values_to_products_options VALUES (12, 5, 12);
+INSERT INTO products_options_values_to_products_options VALUES (13, 5, 13);
+INSERT INTO products_options_values_to_products_options VALUES (14, 5, 14);
+INSERT INTO products_options_values_to_products_options VALUES (15, 5, 15);
+
 
 INSERT INTO products_to_categories VALUES (1,4);
 INSERT INTO products_to_categories VALUES (2,4);

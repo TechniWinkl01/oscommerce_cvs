@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.35 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: products_attributes.php,v 1.36 2002/02/02 16:28:44 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,6 +34,9 @@
       case 'add_product_attributes':
         tep_db_query("insert into " . TABLE_PRODUCTS_ATTRIBUTES . " values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['options_id'] . "', '" . $HTTP_POST_VARS['values_id'] . "', '" . $HTTP_POST_VARS['value_price'] . "', '" . $HTTP_POST_VARS['price_prefix'] . "')");
         $products_attributes_id = tep_db_insert_id();
+        if (DOWNLOAD_ENABLED && $HTTP_POST_VARS['products_attributes_filename'] != '') {
+          tep_db_query("insert into " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " values (" . $products_attributes_id . ", '" . $HTTP_POST_VARS['products_attributes_filename'] . "', '" . $HTTP_POST_VARS['products_attributes_maxdays'] . "', '" . $HTTP_POST_VARS['products_attributes_maxcount'] . "')");
+        }
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_option_name':
@@ -53,6 +56,13 @@
         break;
       case 'update_product_attribute':
         tep_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES . " set products_id = '" . $HTTP_POST_VARS['products_id'] . "', options_id = '" . $HTTP_POST_VARS['options_id'] . "', options_values_id = '" . $HTTP_POST_VARS['values_id'] . "', options_values_price = '" . $HTTP_POST_VARS['value_price'] . "', price_prefix = '" . $HTTP_POST_VARS['price_prefix'] . "' where products_attributes_id = '" . $HTTP_POST_VARS['attribute_id'] . "'");
+        if (DOWNLOAD_ENABLED && $HTTP_POST_VARS['products_attributes_filename'] != '') {
+          tep_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " 
+                        set products_attributes_filename='" . $HTTP_POST_VARS['products_attributes_filename'] . "', 
+                            products_attributes_maxdays='" . $HTTP_POST_VARS['products_attributes_maxdays'] . "', 
+                            products_attributes_maxcount='" . $HTTP_POST_VARS['products_attributes_maxcount'] . "'
+                        where products_attributes_id = '" . $HTTP_POST_VARS['attribute_id'] . "'");
+        }
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'delete_option':
@@ -67,6 +77,8 @@
         break;
       case 'delete_attribute':
         tep_db_query("delete from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_attributes_id = '" . $HTTP_GET_VARS['attribute_id'] . "'");
+// Added for DOWNLOAD_ENABLED. Always try to remove attributes, even if downloads are no longer enabled
+        tep_db_query("delete from " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " where products_attributes_id = '" . $HTTP_GET_VARS['attribute_id'] . "'");
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
     }
@@ -671,6 +683,39 @@ function go_option() {
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo tep_image_submit('button_update_red.gif', IMAGE_UPDATE); ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image_button('button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;</td>
 <?php
+      if (DOWNLOAD_ENABLED) {
+        $download_query_raw ="select products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount 
+                              from " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " 
+                              where products_attributes_id='" . $attributes_values['products_attributes_id'] . "'";
+        $download_query = tep_db_query($download_query_raw);
+        if (tep_db_num_rows($download_query) > 0) {
+          $download = tep_db_fetch_array($download_query);
+          $products_attributes_filename = $download['products_attributes_filename'];
+          $products_attributes_maxdays  = $download['products_attributes_maxdays'];
+          $products_attributes_maxcount = $download['products_attributes_maxcount'];
+        }
+?>
+          <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+            <td>&nbsp;</td>
+            <td colspan="5">
+              <table>
+                <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+                  <td class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
+                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
+                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
+                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+<?php
+      }
+?>
+<?php
     } elseif (($HTTP_GET_VARS['action'] == 'delete_product_attribute') && ($HTTP_GET_VARS['attribute_id'] == $attributes_values['products_attributes_id'])) {
 ?>
             <td class="smallText">&nbsp;<b><?php echo $attributes_values["products_attributes_id"]; ?></b>&nbsp;</td>
@@ -734,6 +779,31 @@ function go_option() {
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo tep_image_submit('button_insert.gif', IMAGE_INSERT); ?>&nbsp;</td>
           </tr>
+<?php
+      if (DOWNLOAD_ENABLED) {
+        $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
+        $products_attributes_maxcount = DOWNLOAD_MAX_COUNT;
+?>
+          <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+            <td>&nbsp;</td>
+            <td colspan="5">
+              <table>
+                <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+                  <td class="tableHeading"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
+                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
+                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
+                  <td class="smallText"><?PHP echo tep_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+<?php
+      } // end of DOWNLOAD_ENABLED section
+?>
 <?php
   }
 ?>

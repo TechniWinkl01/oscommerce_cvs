@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.211 2002/01/31 22:11:49 jan0815 Exp $
+  $Id: application_top.php,v 1.212 2002/02/02 16:32:07 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,6 +53,7 @@
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
   define('FILENAME_DEFAULT', 'default.php');
+  define('FILENAME_DOWNLOAD', 'download.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');
   define('FILENAME_LOGOFF', 'logoff.php');
@@ -98,10 +99,12 @@
   define('TABLE_ORDERS', 'orders');
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
+  define('TABLE_ORDERS_PRODUCTS_DOWNLOAD', 'orders_products_download');
   define('TABLE_ORDERS_STATUS', 'orders_status');
   define('TABLE_ORDERS_STATUS_HISTORY', 'orders_status_history');
   define('TABLE_PRODUCTS', 'products');
   define('TABLE_PRODUCTS_ATTRIBUTES', 'products_attributes');
+  define('TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD', 'products_attributes_download');
   define('TABLE_PRODUCTS_DESCRIPTION', 'products_description');
   define('TABLE_PRODUCTS_OPTIONS', 'products_options');
   define('TABLE_PRODUCTS_OPTIONS_VALUES', 'products_options_values');
@@ -130,6 +133,13 @@
   define('ACCOUNT_COMPANY', 0);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
+
+// Downloadable products
+  define('DOWNLOAD_ENABLED', 1);      // 0=disable, 1=enable
+  define('DOWNLOAD_BY_REDIRECT', 0);  // 0=disable, 1=enable
+  define('DOWNLOAD_MAX_DAYS', 14);    // Download available for n days, 0=no limit
+  define('DOWNLOAD_MAX_COUNT', 5);    // Download possible n times, 0=no download possible
+  
 
 // Categories Box: recursive products count
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
