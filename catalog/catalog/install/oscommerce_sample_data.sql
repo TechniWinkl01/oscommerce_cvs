@@ -1,4 +1,4 @@
-# $Id: oscommerce_sample_data.sql,v 1.2 2004/04/03 10:27:43 mevans Exp $
+# $Id: oscommerce_sample_data.sql,v 1.3 2004/04/14 23:24:40 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -288,7 +288,6 @@ INSERT INTO osc_products_options VALUES (4,3,'Memoria');
 INSERT INTO osc_products_options VALUES (5, 3, 'Version');
 INSERT INTO osc_products_options VALUES (5, 2, 'Version');
 INSERT INTO osc_products_options VALUES (5, 1, 'Version');
-
 
 INSERT INTO osc_products_options_values VALUES (1,1,'4 mb');
 INSERT INTO osc_products_options_values VALUES (2,1,'8 mb');

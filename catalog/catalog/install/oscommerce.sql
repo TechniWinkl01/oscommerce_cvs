@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.94 2004/04/14 23:22:58 hpdl Exp $
+# $Id: oscommerce.sql,v 1.95 2004/04/14 23:24:40 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -219,7 +219,6 @@ CREATE TABLE osc_languages (
   PRIMARY KEY (languages_id),
   KEY IDX_LANGUAGES_NAME (name)
 );
-
 
 DROP TABLE IF EXISTS osc_manufacturers;
 CREATE TABLE osc_manufacturers (
