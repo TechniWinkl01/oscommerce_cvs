@@ -114,10 +114,9 @@
         }
 
         if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$mInfo)) {
-          $module_info = array('code' => $module->code);
+          $module_info = array('code' => $module->code, 'status' => $module->check());
           $mInfo_array = tep_array_merge($module_info, $module->keys());
           $mInfo = new moduleInfo($mInfo_array);
-          $mInfo->status = ($module->check() == '1') ? '1' : '0';
         }
 
         if ($mInfo && ($class == $mInfo->code) ) {
