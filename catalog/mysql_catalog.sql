@@ -486,7 +486,7 @@ CREATE TABLE orders (
   cc_number varchar(32),
   cc_expires varchar(4),
   date_purchased varchar(8),
-  products_tax decimal(4,2) DEFAULT '0.00' NOT NULL,
+  products_tax decimal(6,4) DEFAULT '0.00' NOT NULL,
   shipping_cost decimal(8,2) DEFAULT '0.00' NOT NULL,
   shipping_method varchar(32),
   orders_status varchar(10) DEFAULT 'Pending' NOT NULL,
