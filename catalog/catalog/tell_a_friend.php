@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.29 2003/02/06 14:11:51 thomasamoulton Exp $
+  $Id: tell_a_friend.php,v 1.30 2003/02/13 04:01:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -25,8 +25,8 @@
   }
 
   $valid_product = false;
-  if (tep_not_null($HTTP_GET_VARS['products_id'])) {
-    $product_info = tep_db_query("select pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
+  if (isset($HTTP_GET_VARS['products_id'])) {
+    $product_info = tep_db_query("select pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
     $valid_product = (tep_db_num_rows($product_info) > 0);
   }
 ?>
@@ -35,7 +35,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -81,7 +81,7 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-    if ($HTTP_GET_VARS['action'] == 'process') {
+    if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
       if (tep_session_is_registered('customer_id')) {
         $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
         $from_email_address = $account_values['customers_email_address'];
@@ -92,7 +92,7 @@
 
       $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $from_name, STORE_NAME);
       $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['friendname'], $from_name, $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
-      if ($HTTP_POST_VARS['yourmessage'] != '') {
+      if (tep_not_null($HTTP_POST_VARS['yourmessage'])) {
         $email_body .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
       }
       $email_body .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $HTTP_GET_VARS['products_id']) . "\n\n";

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.68 2003/01/09 15:20:44 hpdl Exp $
+  $Id: shopping_cart.php,v 1.69 2003/02/13 04:01:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,7 +21,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -59,13 +59,11 @@
 <?php
     $any_out_of_stock = 0;
     $products = $cart->get_products();
-    $size = sizeof($products);
-    for ($i=0; $i<$size; $i++) {
-
+    for ($i=0, $n=sizeof($products); $i<$n; $i++) {
 // Push all attributes information in an array
-      if ($products[$i]['attributes']) {
+      if (isset($products[$i]['attributes'])) {
         while (list($option, $value) = each($products[$i]['attributes'])) {
-          echo '<input type="hidden" name="id[' . $products[$i]['id'] . '][' . $option . ']" value="' . $value . '">';
+          echo tep_draw_hidden_field('id[' . $products[$i]['id'] . '][' . $option . ']', $value);
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix
                                       from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa
                                       where pa.products_id = '" . $products[$i]['id'] . "'
@@ -85,6 +83,7 @@
         }
       }
     }
+
     require(DIR_WS_MODULES. 'order_details.php');
 ?>
         </table></td>
@@ -96,7 +95,7 @@
         <td align="right" class="main"><b><?php echo SUB_TITLE_SUB_TOTAL; ?> <?php echo $currencies->format($cart->show_total()); ?></b></td>
       </tr>
 <?php
-    if ($any_out_of_stock) {
+    if ($any_out_of_stock == 1) {
       if (STOCK_ALLOW_CHECKOUT == 'true') {
 ?>
       <tr>
@@ -118,7 +117,7 @@
             <td class="main"><?php echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
 <?php
     $back = sizeof($navigation->path)-2;
-    if ($navigation->path[$back]) {
+    if (isset($navigation->path[$back])) {
 ?>
             <td class="main"><?php echo '<a href="' . tep_href_link($navigation->path[$back]['page'], tep_array_to_string($navigation->path[$back]['get'], array('action')), $navigation->path[$back]['mode']) . '">' . tep_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING) . '</a>'; ?></td>
 <?php
