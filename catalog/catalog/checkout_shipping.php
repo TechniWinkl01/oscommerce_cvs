@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.19 2003/12/18 23:52:14 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.20 2004/02/14 21:04:00 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,8 +50,11 @@
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if ($order->content_type == 'virtual') {
-    $osC_Session->set('shipping', false);
-    $osC_Session->set('sendto', false);
+
+    $false = false;
+
+    $osC_Session->set('shipping', $false);
+    $osC_Session->set('sendto', $false);
 
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
   }
