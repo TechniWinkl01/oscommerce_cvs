@@ -1,30 +1,36 @@
-TODO List for The Exchange Project: Administration Tool Preview Release 2.0
----------------------------------------------------------------------------
+The Exchange Project Preview Release 2 TODO List
 
-general
+Note: The following items are in no particular order
+
+Key: * To-Do
+     - Done
+
+Administration Tool Module
+--------------------------
+- Products Expected in new GUI
+- Customers in new GUI
+* Orders in new GUI
+* All Statistics in new GUI
+* Add 'Copy To' image button to products info box -> products in multiple categories
+* Add 'Add Manufacturer' image button to products info box -> products with multiple manufacturers
+* New Products Search page
+* Left hand navigation boxes to be processed by the infoBox class
+* Products Status Activated / Deactivated
+* Add image upload feature for new categories and products
+* Add 'Deactivate Customer' option to Customers (also needs work on the catalog module on login function)
+* Add customers orders total to customers info box
+* Add 'Reset Password' option for Customers
+* Further beginner / expert mode text
+* When deleting a product, and it is in more than one category, only remove the product_to_category link, and not the product itself
+
+General
 -------
- + update administration tool for the new database model
- + add project configuration parameters to the database
- + beginner / expert mode
- + friendlier GUI
-
-specfic
--------
-
-admin/categories.php
---------------------
- + retrieve total count of products in current category (through child categories)
- + error handling improvement
- + code optimizations
- + products status code alterations
- + update tep_get_all_get_params function, to accept an array of exclusions (and not $exclude1 -> $exclude4)
- + more options when deleting products or categories (products-> activate/deactivate (no products will actually be deleted from the database, only deactivated (status code 0)))
- + more expert options
- + update database structure for date added and last modified entries in info box
- + add upload image support
- + add multiple categories / manufacturers support
- + when deleting a product, and it is in more than one category, only remove the product_to_category link, and not the product itself
-
-admin/default.php
------------------
- + add customization functions to the front page statistics
+* Implement new Manufacturers structure -> remove tep_product_name() function
+* New Template File/Directory Structure
+* Add Configuration Parameters to the database
+* Make the download package install out of the box for both PHP3 and PHP4 -> include the PHP3 session class
+* Retrieve total count of products in current category (through child categories)
+* Error handling improvement
+* Update tep_get_all_get_params function, to accept an array of exclusions (and not $exclude1 -> $exclude4)
+* Update database structure for date added and last modified entries in info box
+- Front page statistics
