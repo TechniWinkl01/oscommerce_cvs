@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.42 2002/06/16 18:49:12 harley_vb Exp $
+  $Id: password_forgotten.php,v 1.43 2002/06/27 14:41:32 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,7 +71,7 @@
         <td><form name="password_forgotten" method="post" action="<?php echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
           <tr>
             <td align="right" class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
-            <td class="main"><input type="text" name="email_address" maxlength="96" value="<?php if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>"></td>
+            <td class="main"><input type="text" name="email_address" maxlength="96" value="<?php echo $HTTP_COOKIE_VARS['email_address']; ?>"></td>
           </tr>
           <tr>
             <td colspan="2"><br><table border="0" cellpadding="0" cellspacing="0" width="100%">

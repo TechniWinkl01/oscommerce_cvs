@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.67 2002/06/16 18:01:08 harley_vb Exp $
+  $Id: login.php,v 1.68 2002/06/27 14:41:32 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,6 @@
         tep_session_register('customer_zone_id');
 
         setcookie('email_address', $email_address, time()+2592000);
-        setcookie('password', $password, time()+2592000);
         setcookie('first_name', $customer_first_name, time()+2592000);
 
         $date_now = date('Ymd');
