@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.94 2002/01/05 05:29:22 hpdl Exp $
+  $Id: general.php,v 1.95 2002/01/05 10:12:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -705,7 +705,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     list($system, $host, $kernel) = preg_split('/[\s,]+/', @exec('uname -a'), 5);
 
-    return array('date' => date('M d H:i:s Y'),
+    return array('date' => tep_datetime_short(date('Y-m-d H:i:s')),
                  'system' => $system,
                  'kernel' => $kernel,
                  'host' => $host,
@@ -717,7 +717,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
                  'db_server' => DB_SERVER,
                  'db_ip' => gethostbyname(DB_SERVER),
                  'db_version' => 'MySQL ' . (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''),
-                 'db_date' => tep_date_long($db['datetime']));
+                 'db_date' => tep_datetime_short($db['datetime']));
   }
 
 ////
