@@ -17,6 +17,12 @@
 
   $date_now = date('Ymd');
 
+  // Ugly fix, will be addressed properly later on
+  while (list($key) = each($delivery_values)) 
+    $delivery_values[$key] = addslashes($delivery_values[$key]);
+  while (list($key) = each($customer_values)) 
+    $customer_values[$key] = addslashes($customer_values[$key]);
+
   $delivery_name = $delivery_values['firstname'] . ' ' . $delivery_values['lastname'];
   $customer_name = $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];
 
