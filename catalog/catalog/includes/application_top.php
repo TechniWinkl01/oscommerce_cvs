@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_top.php,v 1.195 2001/12/15 12:25:19 hpdl Exp $
+  $Id: application_top.php,v 1.196 2001/12/15 12:48:53 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,15 +14,21 @@
   define('PAGE_PARSE_START_TIME', microtime());
 
 // Disable use_trans_sid as tep_href_link() does this manually
+// Add the 'includes' directory in the include_path, so we can include the configure.php file
+// For security reasons, the configure.php file should be located outside the webserver directory
   if (function_exists('ini_set')) {
     ini_set('session.use_trans_sid', 0);
+    ini_set('include_path', ini_get('include_path') . ':includes/');
   }
 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
 // Include application configuration parameters
-  require('includes/configure.php');
+// First look in include_path set above, if not found look in 'includes/'
+  if (!@include('configure.php')) {
+    include('includes/configure.php');
+  }
 
 // Define the project version
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
