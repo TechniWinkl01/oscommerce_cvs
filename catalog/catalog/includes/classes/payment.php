@@ -32,6 +32,8 @@
     }
 
     function selection() {
+      global $payment;
+
       if (MODULE_PAYMENT_INSTALLED) {
         $rows = 0;
         reset($this->modules);
@@ -132,5 +134,20 @@
         echo $show_info_string;
       }
     }
+
+    function output_error() {
+      global $language;
+
+      if (MODULE_PAYMENT_INSTALLED) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, strrpos($value, '.'));
+          if ($GLOBALS[$class]->enabled) {
+            echo $GLOBALS[$class]->output_error();
+          }
+        }
+      }
+    }
+
   }
 ?>

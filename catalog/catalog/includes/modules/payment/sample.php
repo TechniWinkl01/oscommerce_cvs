@@ -71,6 +71,12 @@
     }
 
 ////
+// !If an error occurs with the process, output error messages here
+    function output_error() {
+      return false;
+    }
+
+////
 // !Check if module is installed (Administration Tool)_
 // TABLES: configuration
     function check() {

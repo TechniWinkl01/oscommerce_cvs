@@ -78,7 +78,7 @@ $process_button_string = '<input type="hidden" name="silent" value="true">' .
 			  '<input type="hidden" name="redirect_action" value="GET">' .
 			  '<input type="hidden" name="cc_currency" value="EUR">' .
 			  '<input type="hidden" name="redirect_url" value="' . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '">' .
-			  '<input type="hidden" name="silent_error_url" value="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'ipayment_return=' . $ipayment_return, 'SSL') . '">' .
+			  '<input type="hidden" name="silent_error_url" value="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $ipayment_return, 'SSL') . '">' .
 		          '<input type="hidden" name="' . tep_session_name() . '"" value="' . tep_session_id() . '">';
       }
         return $process_button_string;
@@ -90,6 +90,20 @@ $process_button_string = '<input type="hidden" name="silent" value="true">' .
 
     function after_process() {
 	  return false;
+    }
+
+    function output_error() {
+      global $HTTP_GET_VARS;
+
+      $output_error_string = '      <tr>' . "\n" .
+                             '        <td class="main">' . IPAYMENT_ERROR_MESSAGE . '<br><font color="#ff0000"><b>' . urldecode($HTTP_GET_VARS['cc_errormsg']) . '<br>';
+      if ($HTTP_GET_VARS['cc_additional']) {
+        $output_error_string .= '(' . urldecode($HTTP_GET_VARS['cc_additional']) . ')<br>';
+      }
+      $output_error_string .= IPAYMENT_ERROR_MESSAGE2 . '</b></font><br><br></td>' . "\n" .
+                              '     </tr>' . "\n";
+
+      return $output_error_string;
     }
 
     function check() {

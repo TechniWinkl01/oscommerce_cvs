@@ -130,6 +130,10 @@
 	  return false;
     }
 
+    function output_error() {
+      return false;
+    }
+
     function check() {
       $check = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS'");
       $check = tep_db_num_rows($check);
