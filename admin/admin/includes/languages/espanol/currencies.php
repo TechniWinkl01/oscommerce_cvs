@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.9 2002/01/11 02:20:56 hpdl Exp $
+  $Id: currencies.php,v 1.10 2002/01/11 04:54:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,7 +31,7 @@ define('TEXT_INFO_CURRENCY_EXAMPLE', 'Ejemplo:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca los datos de la nueva moneda');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar esta moneda?');
 define('TEXT_INFO_HEADING_NEW_CURRENCY', 'Nueva Moneda');
-define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (don\'t forget to update the currency values)');
+define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (requires a manual update of currency values)');
 
 define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Error: The default currency can not be removed. Please set another currency as default, and try again.');
 ?>
