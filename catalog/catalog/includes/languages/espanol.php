@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.93 2002/11/01 04:29:02 hpdl Exp $
+  $Id: espanol.php,v 1.94 2002/11/02 03:06:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -129,9 +129,8 @@ define('BOX_HEADING_TELL_A_FRIEND', 'Diselo a un Amigo');
 define('BOX_TELL_A_FRIEND_TEXT', 'Envia esta pagina a un amigo con un comentario.');
 
 // checkout procedure text
-define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
-define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'entrega');
-define('CHECKOUT_BAR_PAYMENT_METHOD', 'pago');
+define('CHECKOUT_BAR_DELIVERY', 'entrega');
+define('CHECKOUT_BAR_PAYMENT', 'pago');
 define('CHECKOUT_BAR_CONFIRMATION', 'confirmación');
 define('CHECKOUT_BAR_FINISHED', 'finalizado!');
 

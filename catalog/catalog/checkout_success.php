@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.37 2002/11/01 04:27:01 hpdl Exp $
+  $Id: checkout_success.php,v 1.38 2002/11/02 03:06:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -132,7 +132,30 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td align="right" class="checkoutBar">[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_FINISHED; ?></span> ]</td>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="1" align="right"><?php echo tep_draw_separator('pixel_silver.gif', '1', '5'); ?></td>
+                <td width="50%" align="right"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
+              </tr>
+            </table></td>
+            <td width="25%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
+            <td width="25%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
+            <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
+                <td width="50%"><?php echo tep_image(DIR_WS_IMAGES . 'checkout_bullet.gif'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td align="center" width="25%" class="checkoutBarFrom"><?php echo CHECKOUT_BAR_DELIVERY; ?></td>
+            <td align="center" width="25%" class="checkoutBarFrom"><?php echo CHECKOUT_BAR_PAYMENT; ?></td>
+            <td align="center" width="25%" class="checkoutBarFrom"><?php echo CHECKOUT_BAR_CONFIRMATION; ?></td>
+            <td align="center" width="25%" class="checkoutBarCurrent"><?php echo CHECKOUT_BAR_FINISHED; ?></td>
+          </tr>
+        </table></td>
       </tr>
 <?php if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_MODULES . 'downloads.php'); ?>
     </table></form></td>

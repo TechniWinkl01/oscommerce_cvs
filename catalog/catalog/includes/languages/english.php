@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.101 2002/11/01 04:29:01 hpdl Exp $
+  $Id: english.php,v 1.102 2002/11/02 03:06:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -129,11 +129,10 @@ define('BOX_HEADING_TELL_A_FRIEND', 'Tell A Friend');
 define('BOX_TELL_A_FRIEND_TEXT', 'Tell someone you know about this product.');
 
 // checkout procedure text
-define('CHECKOUT_BAR_CART_CONTENTS', 'cart contents');
-define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'delivery address');
-define('CHECKOUT_BAR_PAYMENT_METHOD', 'payment method');
-define('CHECKOUT_BAR_CONFIRMATION', 'confirmation');
-define('CHECKOUT_BAR_FINISHED', 'finished!');
+define('CHECKOUT_BAR_DELIVERY', 'Delivery Information');
+define('CHECKOUT_BAR_PAYMENT', 'Payment Information');
+define('CHECKOUT_BAR_CONFIRMATION', 'Confirmation');
+define('CHECKOUT_BAR_FINISHED', 'Finished!');
 
 // pull down default text
 define('PULL_DOWN_DEFAULT', 'Please Select');

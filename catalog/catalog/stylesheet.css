@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.49 2002/11/01 01:58:48 hpdl Exp $
+  $Id: stylesheet.css,v 1.50 2002/11/02 03:06:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -264,18 +264,9 @@ SPAN.productSpecialPrice {
   color: #ff0000;
 }
 
-TD.checkoutBar {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;
-  color: #aabbdd;
-}
-
-SPAN.checkoutBarHighlighted {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 10px;
-  color: #000000;
-}
-
 .moduleRow { }
 .moduleRowOver { background-color: #D7E9F7; cursor: hand; }
 .moduleRowSelected { background-color: #E9F4FC; }
+
+.checkoutBarFrom, .checkoutBarTo { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #8c8c8c; }
+.checkoutBarCurrent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; }
