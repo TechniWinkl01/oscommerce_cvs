@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.124 2002/04/25 12:42:29 thomasamoulton Exp $
+  $Id: general.php,v 1.125 2002/05/03 10:39:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -223,7 +223,7 @@
   }
 
   function tep_info_image($image, $alt, $width = '', $height = '') {
-    if ( ($image) && (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $image)) ) {
+    if ( ($image) && (file_exists(DIR_FS_CATALOG_IMAGES . $image)) ) {
       $image = tep_image(DIR_WS_CATALOG_IMAGES . $image, $alt, $width, $height);
     } else {
       $image = TEXT_IMAGE_NONEXISTENT;
