@@ -212,7 +212,7 @@ function popupImageWindow(url) {
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
     $info_box_contents = array();
     if ($bInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $bInfo->title . '</b>&nbsp;');

@@ -90,11 +90,11 @@ function update_zone(theForm) {
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_TAX_CLASS_TITLE; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COUNTRIES_NAME; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ZONE; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_TAX_RATE; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX_CLASS_TITLE; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_COUNTRIES_NAME; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ZONE; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX_RATE; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="5"><? echo tep_black_line(); ?></td>
@@ -148,7 +148,7 @@ function update_zone(theForm) {
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $info_box_contents = array();
   if ($trInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $trInfo->class_title . '</b>&nbsp;');

@@ -183,10 +183,10 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_RATING; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_RATING; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -250,7 +250,7 @@
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
     $info_box_contents = array();
     if ($rInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $rInfo->products_name . '</b>&nbsp;');
@@ -268,7 +268,7 @@
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_REVIEW_INTRO);
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<b>' . $rInfo->products_name . '</b>');
-        $info_box_contents[] = array('align' => 'center', 'fonr_style' => FONT_STYLE_INFO_BOX_BODY, 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       } else {
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info')) . 'action=edit&rID=' . $rInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action')) . 'action=delete&rID=' . $rInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');

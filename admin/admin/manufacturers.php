@@ -112,9 +112,9 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_MANUFACTURERS; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_MANUFACTURERS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="3"><? echo tep_black_line(); ?></td>
@@ -185,7 +185,7 @@
   }
 ?>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->name . '</b>&nbsp;');

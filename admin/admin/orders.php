@@ -156,10 +156,10 @@ function alertBox() {
           <tr>
             <td colspan="2"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</b></font></td>
-                <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</b></font></td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -311,11 +311,11 @@ function alertBox() {
             <td colspan="5"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</b></font></td>
-            <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ORDER_TOTAL; ?>&nbsp;</b></font></td>
-            <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</b></font></td>
-            <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_DATE_PURCHASED; ?>&nbsp;</b></font></td>
-            <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</b></font></td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_ORDER_TOTAL; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_DATE_PURCHASED; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="5"><? echo tep_black_line(); ?></td>

@@ -61,10 +61,10 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</b></font></td>
-                <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCTS_PRICE; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_PRODUCTS_PRICE; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -92,7 +92,7 @@
     }
 ?>
                 <td class="smallText">&nbsp;<? echo $specials['products_name']; ?>&nbsp;</td>
-                <td align="right" class="smallText">&nbsp;<s><? echo tep_currency_format($specials['products_price']); ?></s> <font color="<? echo SPECIALS_PRICE_COLOR; ?>"><? echo tep_currency_format($specials['specials_new_products_price']); ?></font>&nbsp;</td>
+                <td align="right" class="smallText">&nbsp;<span class="oldPrice"><? echo tep_currency_format($specials['products_price']); ?></span> <span class="specialPrice"><? echo tep_currency_format($specials['specials_new_products_price']); ?></span>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<? echo tep_date_short($specials['specials_date_added']); ?>&nbsp;</td>
 <?
     if ($specials['specials_id'] == @$sInfo->id) {
@@ -121,7 +121,7 @@
                 </table></td>
               </tr>
             </table></td>
-            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $info_box_contents = array();
   if ($sInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $sInfo->products_name . '</b>&nbsp;');

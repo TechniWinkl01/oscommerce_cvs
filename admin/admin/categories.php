@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.64 2001/07/09 18:10:12 dwatkins Exp $
+  $Id: categories.php,v 1.65 2001/07/16 16:59:02 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -309,7 +309,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td class="main" align="right"><br>&nbsp;<input type="hidden" name="products_date_added" value="<? if (@$pInfo->date_added) { echo $pInfo->date_added; } else { echo date('Ymd'); } ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'pinfo', 'info')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</td>
+        <td class="main" align="right"><br>&nbsp;<input type="hidden" name="products_date_added" value="<? if (@$pInfo->date_added) { echo $pInfo->date_added; } else { echo date('Y-m-d'); } ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'pinfo', 'info')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</td>
       </form></tr>
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'new_product_preview') {
@@ -505,9 +505,9 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td width="10%" align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-                <td width="80%"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?>&nbsp;</b></font></td>
-                <td width="10%" align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="3"><? echo tep_black_line(); ?></td>

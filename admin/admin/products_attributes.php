@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.21 2001/07/09 18:10:13 dwatkins Exp $
+  $Id: products_attributes.php,v 1.22 2001/07/16 16:59:05 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -204,9 +204,9 @@ function checkFormAtrib() {
     if (tep_db_num_rows($products)) {
 ?>
                   <tr>
-                    <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-                    <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</b></font></td>
-                    <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</b></font></td>
+                    <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                    <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+                    <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
                   </tr>
                   <tr>
                     <td colspan="3"><? echo tep_black_line(); ?></td>
@@ -312,9 +312,9 @@ function checkFormAtrib() {
                 <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="3"><? echo tep_black_line(); ?></td>
@@ -406,9 +406,9 @@ function checkFormAtrib() {
     if (tep_db_num_rows($products)) {
 ?>
                   <tr>
-                    <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-                    <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</b></font></td>
-                    <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</b></font></td>
+                    <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                    <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+                    <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
                   </tr>
                   <tr>
                     <td colspan="3"><? echo tep_black_line(); ?></td>
@@ -510,10 +510,10 @@ function checkFormAtrib() {
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-                <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</b></font></td>
-          			<td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</b></font></td>
-                <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+          			<td class="tableHeading">&nbsp;<? echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -676,13 +676,13 @@ function checkFormAtrib() {
             <td colspan="7"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
-            <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</b></font></td>
-            <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</b></font></td>
-            <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</b></font></td>
-  	        <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</b></font></td>
-            <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</b></font></td>
-	          <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
+            <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+            <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+            <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+  	        <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
+            <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
+	          <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="7"><? echo tep_black_line(); ?></td>

@@ -135,18 +135,6 @@
   define('HEADING_IMAGE_HEIGHT', 60);
   define('EMAIL_FROM', 'The Exchange Project <root@localhost>');
 
-  define('TABLE_HEADING_FONT_FACE', 'Verdana, Arial');
-  define('TABLE_HEADING_FONT_SIZE', '1');
-  define('TABLE_HEADING_FONT_COLOR', '#000000');
-
-  define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
-
-// font styles
-  define('FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">');
-  define('FONT_STYLE_INFO_BOX_HEADING', '<font face="Verdana, Arial" size="1" color="#ffffff">');
-  define('FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">');
-  define('FONT_STYLE_NAVIGATION_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">');
-
 // minimum length of text field values accepted
   define('ENTRY_FIRST_NAME_MIN_LENGTH', 3);
   define('ENTRY_LAST_NAME_MIN_LENGTH', 3);

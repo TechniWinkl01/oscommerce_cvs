@@ -44,9 +44,9 @@
             <td colspan="3"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="center"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</b></font></td>
-            <td><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</b></font></td>
-            <td align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</b></font></td>
+            <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="3"><? echo tep_black_line(); ?></td>
