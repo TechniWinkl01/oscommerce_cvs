@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.118 2004/07/22 17:23:53 hpdl Exp $
+  $Id: checkout_payment.php,v 1.119 2004/07/22 21:45:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,6 +45,11 @@
         break;
       }
     }
+  }
+
+// redirect to the billing address page when no default address exists
+  if ($osC_Customer->hasDefaultAddress() === false) {
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'));
   }
 
 // if no billing destination address was selected, use the customers own address as default
