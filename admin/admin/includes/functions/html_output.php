@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.20 2002/02/13 13:16:55 hpdl Exp $
+  $Id: html_output.php,v 1.21 2002/03/07 21:56:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -165,9 +165,9 @@
   function tep_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" name="' . $name . '"';
     if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= ' value="' . trim($GLOBALS[$name]) . '"';
+      $field .= ' value="' . htmlentities(trim($GLOBALS[$name])) . '"';
     } elseif ($value != '') {
-      $field .= ' value="' . trim($value) . '"';
+      $field .= ' value="' . htmlentities(trim($value)) . '"';
     }
     if ($parameters != '') {
       $field .= ' ' . $parameters;
