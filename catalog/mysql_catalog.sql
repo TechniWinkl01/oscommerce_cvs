@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.167 2001/12/24 18:01:40 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.168 2001/12/27 16:48:31 dgw_ Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -14,8 +14,8 @@
 #       * To see the 'diff'erence between MySQL databases, use
 #         the mysqldiff perl script located in the extras
 #         directory of the 'catalog' module.
-#       * Comments should be made by starting the line with
-#         a '#' symbol. (don't use inline comments)
+#       * Comments should be like these, full line comments.
+#         (don't use inline comments)
 
 DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
