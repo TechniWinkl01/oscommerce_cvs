@@ -52,30 +52,29 @@
     $products_tax = tep_get_tax_rate($delivery_values['zone_id'], $products[$i]['tax_class_id']);
     $products_weight = $products[$i]['weight'];
 
-   // Stock Update - Joao Correia
-   if (STOCK_LIMITED) {
-   $qtd_stock_query = tep_db_query("select products_quantity from products where products_id like '" . $products[$i]['id'] . "'");
-   $stock = tep_db_fetch_array($qtd_stock_query);
+    // Stock Update - Joao Correia
+    if (STOCK_LIMITED) {
+      $qtd_stock_query = tep_db_query("select products_quantity from products where products_id like '" . $products[$i]['id'] . "'");
+      $stock = tep_db_fetch_array($qtd_stock_query);
 
-   $qtd_stock = $stock['products_quantity'];
-   $qtd_buy =  ($products[$i]['quantity']);
-   $qtd_left = ($qtd_stock -= $qtd_buy);
+      $qtd_stock = $stock['products_quantity'];
+      $qtd_buy =  ($products[$i]['quantity']);
+      $qtd_left = ($qtd_stock -= $qtd_buy);
 
-   tep_db_query("update products set products_quantity = '" . $qtd_left ."' where products_id like '" . $products[$i]['id'] . "'");
+      tep_db_query("update products set products_quantity = '" . $qtd_left ."' where products_id like '" . $products[$i]['id'] . "'");
 
-   if ($qtd_left == '0') {
-   tep_db_query("update products set products_status = '0' where products_id like '" . $products[$i]['id'] . "'");
+      if ($qtd_left == '0') {
+        tep_db_query("update products set products_status = '0' where products_id like '" . $products[$i]['id'] . "'");
       }
-   }
-   // Stock Update !
-
+    }
+    // Stock Update !
 
     tep_db_query("insert into orders_products (orders_id, products_id, products_name, products_price, final_price, products_tax, products_quantity) values ('" . $insert_id . "', '" . tep_get_prid($products[$i]['id'])  . "', '" . addslashes($products_name) . "', '" . $products_price . "', '"  . $total_products_price . "', '" . $products_tax . "', '" . $products[$i]['quantity']   . "')");
     $order_products_id = tep_db_insert_id();
 
-
 //------insert customer choosen option to order--------
     $attributes_exist = '0';
+    $products_ordered_attributes = '';
     if ($products[$i]['attributes']) {
       $attributes_exist = '1';
       reset($products[$i]['attributes']);
@@ -83,6 +82,7 @@
         $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id");
         $attributes_values = tep_db_fetch_array($attributes);
         tep_db_query("insert into orders_products_attributes (orders_id, orders_products_id, products_options, products_options_values, options_values_price, price_prefix) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix']  . "')");
+        $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . $attributes_values['products_options_values_name'];
       }
     }
 //------insert customer choosen option eof ----
@@ -90,7 +90,7 @@
     $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
     $total_cost += $total_products_price;
 
-    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' = ' . tep_currency_format(($total_products_price * $products[$i]['quantity'])) . "\n";
+    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . tep_currency_format(($total_products_price * $products[$i]['quantity'])) . $products_ordered_attributes . "\n";
   }
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
