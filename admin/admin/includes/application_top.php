@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.96 2001/12/04 13:48:16 dgw_ Exp $
+  $Id: application_top.php,v 1.97 2001/12/13 11:31:11 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,38 +16,20 @@
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
+// Include application configuration parameters
+  require('includes/configure.php');
+
 // Define the project version
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
 
-// define our webserver variables
-// FS = Filesystem (physical)
-// WS = Webserver (virtual)
-  define('HTTP_SERVER', '');
-  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
-  define('DIR_WS_ADMIN', '/admin/');
-  define('DIR_WS_CATALOG', '/catalog/');
-  define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);
-  define('DIR_WS_IMAGES', DIR_WS_ADMIN . 'images/');
-  define('DIR_WS_CATALOG_IMAGES', DIR_WS_CATALOG . 'images/');
-  define('DIR_WS_INCLUDES', 'includes/');
-  define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');
-  define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
-  define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
-  define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
-  define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
-  define('DIR_WS_CATALOG_LANGUAGES', DIR_WS_CATALOG . 'includes/languages/');
-  define('DIR_FS_CATALOG_LANGUAGES', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_LANGUAGES);
-  define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
-  define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
-  define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
-  define('DIR_FS_BACKUP', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . 'backups/');
-
+// Used in the "Backup Manager" to compress backups
   define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
   define('LOCAL_EXE_GUNZIP', '/usr/bin/gunzip');
   define('LOCAL_EXE_ZIP', '/usr/local/bin/zip');
   define('LOCAL_EXE_UNZIP', '/usr/local/bin/unzip');
 
-  define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
+// if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
+  define('EXIT_AFTER_REDIRECT', 1);
 
 // define the filenames used in the project
   define('FILENAME_BACKUP', 'backup.php');
@@ -121,14 +103,6 @@
   define('TABLE_ZONES_TO_GEO_ZONES', 'zones_to_geo_zones');
   define('TABLE_WHOS_ONLINE', 'whos_online');
   define('TABLE_ZONES', 'zones');
-
-// define our database connection
-  define('DB_SERVER', '');
-  define('DB_SERVER_USERNAME', 'mysql');
-  define('DB_SERVER_PASSWORD', '');
-  define('DB_DATABASE', 'catalog');
-  define('USE_PCONNECT', 1);
-  define('STORE_SESSIONS', '');
 
 // customization for the design layout
   define('TAX_VALUE', 0); // propducts tax
