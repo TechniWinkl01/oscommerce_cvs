@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: server_info.php,v 1.1 2004/08/15 22:59:26 hpdl Exp $
+  $Id: server_info.php,v 1.2 2004/08/17 23:50:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $system = tep_get_system_information();
+  $system = osc_get_system_information();
 ?>
 
 <h1><?php echo HEADING_TITLE; ?></h1>
@@ -40,6 +40,10 @@
   <tr>
     <td class="smallText"><b><?php echo TITLE_SERVER_UP_TIME; ?></b></td>
     <td colspan="3" class="smallText"><?php echo $system['uptime']; ?></td>
+  </tr>
+  <tr>
+    <td class="smallText"><b><?php echo TITLE_DATABASE_UP_TIME; ?></b></td>
+    <td colspan="3" class="smallText"><?php echo $system['db_uptime']; ?></td>
   </tr>
   <tr>
     <td colspan="4"><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>

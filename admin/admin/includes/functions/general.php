@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.165 2004/08/15 18:10:55 hpdl Exp $
+  $Id: general.php,v 1.166 2004/08/17 23:50:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -815,13 +815,19 @@
 
 ////
 // Retreive server information
-  function tep_get_system_information() {
-    global $HTTP_SERVER_VARS;
+  function osc_get_system_information() {
+    if (PHP_VERSION < 4.1) {
+      global $_SERVER;
+    }
 
-    $db_query = tep_db_query("select now() as datetime");
-    $db = tep_db_fetch_array($db_query);
+    global $osC_Database;
+
+    $Qdb_date = $osC_Database->query('select now() as datetime');
+    $Qdb_uptime = $osC_Database->query('show status like "Uptime"');
 
     list($system, $host, $kernel) = preg_split('/[\s,]+/', @exec('uname -a'), 5);
+
+    $db_uptime = intval($Qdb_uptime->valueInt('Value') / 3600) . ':' . str_pad(intval(($Qdb_uptime->valueInt('Value') / 60) % 60), 2, '0', STR_PAD_LEFT);
 
     return array('date' => tep_datetime_short(date('Y-m-d H:i:s')),
                  'system' => $system,
@@ -829,13 +835,14 @@
                  'host' => $host,
                  'ip' => gethostbyname($host),
                  'uptime' => @exec('uptime'),
-                 'http_server' => $HTTP_SERVER_VARS['SERVER_SOFTWARE'],
+                 'http_server' => $_SERVER['SERVER_SOFTWARE'],
                  'php' => PHP_VERSION,
                  'zend' => (function_exists('zend_version') ? zend_version() : ''),
                  'db_server' => DB_SERVER,
                  'db_ip' => gethostbyname(DB_SERVER),
                  'db_version' => 'MySQL ' . (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''),
-                 'db_date' => tep_datetime_short($db['datetime']));
+                 'db_date' => tep_datetime_short($Qdb_date->value('datetime')),
+                 'db_uptime' => $db_uptime);
   }
 
   function tep_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
