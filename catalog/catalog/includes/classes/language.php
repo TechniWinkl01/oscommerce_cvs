@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.9 2004/11/24 15:53:52 hpdl Exp $
+  $Id: language.php,v 1.10 2004/11/29 00:07:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -136,7 +136,7 @@
       foreach ($http_accept_language as $browser_language) {
         foreach ($browser_languages as $key => $value) {
           if (eregi('^(' . $value . ')(;q=[0-9]\\.[0-9])?$', $browser_language) && $this->exists($key)) {
-            $this->set($this->_languages[$key]);
+            $this->set($key);
 
             return true;
           }
