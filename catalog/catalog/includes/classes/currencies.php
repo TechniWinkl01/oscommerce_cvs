@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.11 2002/05/16 15:33:25 hpdl Exp $
+  $Id: currencies.php,v 1.12 2002/09/01 13:47:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,7 +48,7 @@
           $format_string .= ' <small>[' . $this->format($number, true, 'EUR') . ']</small>';
         }
       } else {
-        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$current_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
+        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
       }
 
       return $format_string;
