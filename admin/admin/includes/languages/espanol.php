@@ -46,7 +46,7 @@ define('BOX_CATALOG_MANUFACTURERS', 'Fabricantes');
 define('BOX_CATALOG_REVIEWS', 'Comentarios');
 define('BOX_CATALOG_SPECIALS', 'Ofertas');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Proximamente');
-define('BOX_CATALOG_ORDERS_STATUS', 'Pedidos Estado');
+define('BOX_CATALOG_ORDERS_STATUS', 'Estado Pedidos');
 
 // categories box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Clientes');
@@ -56,8 +56,8 @@ define('BOX_CUSTOMERS_ORDERS', 'Pedidos');
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Zonas / Impuestos');
 define('BOX_TAXES_COUNTRIES', 'Paises');
-define('BOX_TAXES_ZONES', 'Zonas');
-define('BOX_TAXES_GEO_ZONES', 'Tax Zones');
+define('BOX_TAXES_ZONES', 'Provincias');
+define('BOX_TAXES_GEO_ZONES', 'Zonas de Impuestos');
 define('BOX_TAXES_TAX_CLASSES', 'Tipos de Impuesto');
 define('BOX_TAXES_TAX_RATES', 'Porcentajes');
 
@@ -84,6 +84,10 @@ define('BOX_MAIL_MAIL', 'Send eMail(s)');
 // banners box text in includes/boxes/banners.php
 define('BOX_HEADING_BANNERS', 'Banners');
 define('BOX_BANNERS_MANAGER', 'Banner Manager');
+
+// gateway box text in includes/boxes/gateway.php
+define('BOX_HEADING_GATEWAY', 'Pasarelas de Pago');
+define('BOX_GATEWAY_ITRANSACT', 'iTransact.com');
 
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
@@ -203,11 +207,8 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
-<<<<<<< espanol.php
-define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax zones)');
-=======
+define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos estado)');
->>>>>>> 1.34
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> porcentajes de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
