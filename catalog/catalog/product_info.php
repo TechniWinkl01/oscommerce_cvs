@@ -180,7 +180,11 @@ function popupImageWindow(url) {
         </table></td>
       </tr>
 <?
-  $include_file = DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
+    if (CACHE_ON && !SID) {
+      echo tep_cache_also_purchased();
+    } else {
+      $include_file = DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS; include(DIR_WS_INCLUDES . 'include_once.php');
+    }
   }
 ?>
     </table></form></td>

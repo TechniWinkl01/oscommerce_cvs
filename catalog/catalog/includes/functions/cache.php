@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.2 2001/08/09 19:59:58 hpdl Exp $
+  $Id: cache.php,v 1.3 2001/08/10 21:18:20 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -106,6 +106,23 @@
       $cache_output = ob_get_contents();
       ob_end_clean();
       write_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id']);
+    }
+
+    return $cache_output;
+  }
+
+////
+//! Cache the also purchased module
+// Cache the also purchased module
+  function tep_cache_also_purchased($refresh = false) {
+    global $HTTP_GET_VARS, $languages_id;
+
+    if ($refresh || !read_cache($cache_output, 'also_purchased.cache' . $HTTP_GET_VARS['products_id'])) {
+      ob_start();
+      include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
+      $cache_output = ob_get_contents();
+      ob_end_clean();
+      write_cache($cache_output, 'also_purchased.cache' . $HTTP_GET_VARS['products_id']);
     }
 
     return $cache_output;
