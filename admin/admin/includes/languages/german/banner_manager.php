@@ -1,7 +1,7 @@
 <?
 /*
 German Text for The Exchange Project Administration Tool Preview Release 2.2
-Last Update: 05/03/2001
+Last Update: 06/05/2001
 Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
@@ -10,15 +10,15 @@ define('HEADING_TITLE', 'Banner Manager');
 
 define('TABLE_HEADING_BANNERS', 'Banner');
 define('TABLE_HEADING_GROUPS', 'Gruppe');
-define('TABLE_HEADING_STATISTICS', 'Angezeigt / Klicks');
+define('TABLE_HEADING_STATISTICS', 'Anzeigen / Klicks');
 define('TABLE_HEADING_STATUS', 'Status');
 
-define('TEXT_BANNERS_TITLE', 'Banner Title:');
-define('TEXT_BANNERS_URL', 'Banner URL:');
-define('TEXT_BANNERS_GROUP', 'Banner Group:');
-define('TEXT_BANNERS_NEW_GROUP', ', or enter a new banner group below');
-define('TEXT_BANNERS_IMAGE', 'Image:');
-define('TEXT_BANNERS_IMAGE_LOCAL', ', or enter local file below');
-define('TEXT_BANNERS_IMAGE_TARGET', 'Image Target (Save To):');
-define('TEXT_BANNERS_INSERT_NOTE', '<b>Image Notes:</b><ul><li>Uploading directories must have proper user (write) permissions setup!</li><li>Do not fill out the \'Save To\' field if you are not uploading an image to the webserver (ie, you are using a local (serverside) image).</li><li>The \'Save To\' field must be an existing directory with an ending slash (eg, banners/).</li></ul>');
+define('TEXT_BANNERS_TITLE', 'Banner-Titel:'); 
+define('TEXT_BANNERS_URL', 'Banner-URL:'); 
+define('TEXT_BANNERS_GROUP', 'Banner-Gruppe:'); 
+define('TEXT_BANNERS_NEW_GROUP', ', oder geben Sie unten eine neue Banner-Gruppe ein'); 
+define('TEXT_BANNERS_IMAGE', 'Bild (Datei):'); 
+define('TEXT_BANNERS_IMAGE_LOCAL', ', oder geben Sie unten die lokale Datei auf Ihrem Server an'); 
+define('TEXT_BANNERS_IMAGE_TARGET', 'Bildziel (Speichern nach):'); 
+define('TEXT_BANNERS_INSERT_NOTE', '<b>Bemerkung:</b><ul><li>Das Bildverzeichnis muss Schreibrecht besitzen!</li><li>Füllen Sie das Feld \'Bildziel (Speichern nach)\' nicht aus, wenn Sie kein Bild auf Ihren Server kopieren möchten (z.B. wenn sich bereits das Bild auf dem Server befindet).</li><li>Das \'Bildziel (Speichern nach)\' Feld muss ein bereits existierendes Verzeichnis mit \'/\' am Ende sein (z.B. banners/).</li></ul>'); 
 ?>
