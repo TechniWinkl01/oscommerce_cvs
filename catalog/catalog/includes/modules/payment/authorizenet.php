@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.32 2002/01/30 19:37:55 project3000 Exp $
+  $Id: authorizenet.php,v 1.33 2002/04/05 01:22:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,17 +93,12 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id, $sendto;
-
-      $customer_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " ab on c.customers_default_address_id = ab.address_book_id and c.customers_id = ab.customers_id where c.customers_id = '" . $customer_id . "'");
-      $customer_values = tep_db_fetch_array($customer_query);
-      $delivery_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_ADDRESS_BOOK . " ab where ab.address_book_id = '" . $sendto . "' and ab.customers_id = '" . $customer_id . "'");
-      $delivery_values = tep_db_fetch_array($delivery_query);
+      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $order, $customer_id;
 
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
                                tep_draw_hidden_field('x_Card_Num', $CardNumber) .
                                tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['authorizenet_cc_expires_month'] . $HTTP_POST_VARS['authorizenet_cc_expires_year']) .
-                               tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
+                               tep_draw_hidden_field('x_Amount', number_format($order->info['total'], 2)) .
                                tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
                                tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
                                tep_draw_hidden_field('x_Method', MODULE_PAYMENT_AUTHORIZENET_METHOD) .
@@ -111,22 +106,22 @@
                                tep_draw_hidden_field('x_Cust_ID', $customer_id) .
                                tep_draw_hidden_field('x_Email_Customer', (MODULE_PAYMENT_AUTHORIZENET_EMAIL == '1'? 'TRUE': 'FALSE')) .
                                tep_draw_hidden_field('x_Email_Merchant', (MODULE_PAYMENT_AUTHORIZENET_EMAIL_MERCHANT == '1'? 'TRUE': 'FALSE')) .
-                               tep_draw_hidden_field('x_first_name', $customer_values['customers_firstname']) .
-                               tep_draw_hidden_field('x_last_name', $customer_values['customers_lastname']) .
-                               tep_draw_hidden_field('x_address', $customer_values['entry_street_address']) .
-                               tep_draw_hidden_field('x_city', $customer_values['entry_city']) .
-                               tep_draw_hidden_field('x_state', tep_get_zone_name($customer_values['entry_country_id'], $customer_values['entry_zone_id'], $customer_values['entry_state'])) .
-                               tep_draw_hidden_field('x_zip', $customer_values['entry_postcode']) .
-                               tep_draw_hidden_field('x_country', tep_get_country_name($customer_values['entry_country_id'])) .
-                               tep_draw_hidden_field('x_phone', $customer_values['customers_telephone']) .
-                               tep_draw_hidden_field('x_email', $customer_values['customers_email_address']) .
-                               tep_draw_hidden_field('x_ship_to_first_name', $delivery_values['entry_firstname']) .
-                               tep_draw_hidden_field('x_ship_to_last_name', $delivery_values['entry_lastname']) .
-                               tep_draw_hidden_field('x_ship_to_address', $delivery_values['entry_street_address']) .
-                               tep_draw_hidden_field('x_ship_to_city', $delivery_values['entry_city']) .
-                               tep_draw_hidden_field('x_ship_to_state', tep_get_zone_name($delivery_values['entry_country_id'], $delivery_values['entry_zone_id'], $delivery_values['entry_state'])) .
-                               tep_draw_hidden_field('x_ship_to_zip', $delivery_values['entry_postcode']) .
-                               tep_draw_hidden_field('x_ship_to_country', tep_get_country_name($delivery_values['entry_country_id'])) .
+                               tep_draw_hidden_field('x_first_name', $order->customer['firstname']) .
+                               tep_draw_hidden_field('x_last_name', $order->customer['lastname']) .
+                               tep_draw_hidden_field('x_address', $order->customer['street_address']) .
+                               tep_draw_hidden_field('x_city', $order->customer['city']) .
+                               tep_draw_hidden_field('x_state', $order->customer['state']) .
+                               tep_draw_hidden_field('x_zip', $order->customer['postcode']) .
+                               tep_draw_hidden_field('x_country', $order->customer['country']) .
+                               tep_draw_hidden_field('x_phone', $order->customer['telephone']) .
+                               tep_draw_hidden_field('x_email', $order->customer['email_address']) .
+                               tep_draw_hidden_field('x_ship_to_first_name', $order->delivery['firstname']) .
+                               tep_draw_hidden_field('x_ship_to_last_name', $order->delivery['lastname']) .
+                               tep_draw_hidden_field('x_ship_to_address', $order->delivery['street_address']) .
+                               tep_draw_hidden_field('x_ship_to_city', $order->delivery['city']) .
+                               tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
+                               tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
+                               tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']) .
                                tep_draw_hidden_field('x_Customer_IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
       if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == '1') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
 
