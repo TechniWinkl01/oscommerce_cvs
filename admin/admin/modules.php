@@ -106,7 +106,7 @@
       $check = 0;
       include($module_directory . $entry);
       $class = substr($entry, 0, strrpos($entry, '.'));
-      if (class_exists($class)) {
+      if (tep_class_exists($class)) {
         $module = new $class;
         $check = $module->check();
         if ($check == '1') {
