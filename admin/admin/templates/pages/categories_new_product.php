@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories_new_product.php,v 1.2 2004/08/02 12:35:56 hpdl Exp $
+  $Id: categories_new_product.php,v 1.3 2004/08/04 16:53:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -231,7 +231,7 @@ updateGross();
   </tr>
   <tr>
     <td class="main"><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
-    <td class="main"><?php echo tep_draw_file_field('products_image') . '<br>' . (isset($pInfo) ? $pInfo->products_image . tep_draw_hidden_field('products_previous_image', $pInfo->products_image) : ''); ?></td>
+    <td class="main"><?php echo osc_draw_file_field('products_image') . '<br>' . (isset($pInfo) ? $pInfo->products_image . tep_draw_hidden_field('products_previous_image', $pInfo->products_image) : ''); ?></td>
   </tr>
   <tr>
     <td class="smallText" colspan="2">&nbsp;</td>

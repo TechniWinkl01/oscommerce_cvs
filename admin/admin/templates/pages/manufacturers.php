@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.1 2004/07/22 23:29:21 hpdl Exp $
+  $Id: manufacturers.php,v 1.2 2004/08/04 16:53:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,7 @@
 
     <p><?php echo TEXT_NEW_INTRO; ?></p>
     <p><?php echo TEXT_MANUFACTURERS_NAME . '<br>' . osc_draw_input_field('manufacturers_name'); ?></p>
-    <p><?php echo TEXT_MANUFACTURERS_IMAGE . '<br>' . tep_draw_file_field('manufacturers_image'); ?></p>
+    <p><?php echo TEXT_MANUFACTURERS_IMAGE . '<br>' . osc_draw_file_field('manufacturers_image'); ?></p>
     <p>
 <?php
   echo TEXT_MANUFACTURERS_URL;
@@ -117,7 +117,7 @@
     <p><?php echo TEXT_EDIT_INTRO; ?></p>
     <p><?php echo TEXT_MANUFACTURERS_NAME . '<br>' . osc_draw_input_field('manufacturers_name', $mInfo->manufacturers_name); ?></p>
     <p><?php echo tep_info_image($mInfo->manufacturers_image, $mInfo->manufacturers_name) . '<br>' . DIR_WS_CATALOG_IMAGES . '<br><b>' . $mInfo->manufacturers_image . '</b>'; ?></p>
-    <p><?php echo TEXT_MANUFACTURERS_IMAGE . '<br>' . tep_draw_file_field('manufacturers_image'); ?></p>
+    <p><?php echo TEXT_MANUFACTURERS_IMAGE . '<br>' . osc_draw_file_field('manufacturers_image'); ?></p>
     <p>
 <?php
     echo TEXT_MANUFACTURERS_URL;

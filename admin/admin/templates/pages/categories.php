@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.1 2004/07/22 23:26:52 hpdl Exp $
+  $Id: categories.php,v 1.2 2004/08/04 16:53:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -177,7 +177,7 @@
   }
 ?>
     </p>
-    <p><?php echo TEXT_CATEGORIES_IMAGE . '<br>' . tep_draw_file_field('categories_image'); ?></p>
+    <p><?php echo TEXT_CATEGORIES_IMAGE . '<br>' . osc_draw_file_field('categories_image'); ?></p>
     <p><?php echo TEXT_EDIT_SORT_ORDER . '<br>' . osc_draw_input_field('sort_order'); ?></p>
 
     <p align="center"><?php echo '<input type="submit" value="' . IMAGE_SAVE . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="toggleInfoBox(\'cDefault\');" class="operationButton">'; ?></p>
@@ -248,7 +248,7 @@
 ?>
     </p>
     <p><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . DIR_WS_CATALOG_IMAGES . '<br><b>' . $cInfo->categories_image . '</b>'; ?></p>
-    <p><?php echo TEXT_EDIT_CATEGORIES_IMAGE . '<br>' . tep_draw_file_field('categories_image'); ?></p>
+    <p><?php echo TEXT_EDIT_CATEGORIES_IMAGE . '<br>' . osc_draw_file_field('categories_image'); ?></p>
     <p><?php echo TEXT_EDIT_SORT_ORDER . '<br>' . osc_draw_input_field('sort_order', $cInfo->sort_order); ?></p>
 
     <p align="center"><?php echo '<input type="submit" value="' . IMAGE_UPDATE . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="toggleInfoBox(\'cDefault\');" class="operationButton">'; ?></p>
