@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.96 2002/07/21 23:38:57 hpdl Exp $
+  $Id: checkout_payment.php,v 1.97 2002/11/01 03:33:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,14 +12,27 @@
 
   require('includes/application_top.php');
 
+// if there is nothing in the customers cart, redirect them to the shopping cart page
+  if ($cart->count_contents() < 1) {
+    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
+  }
+
+// if the customer is not logged on, redirect them to the login page
   if (!tep_session_is_registered('customer_id')) {
     $navigation->set_snapshot();
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-// Check if there is something in the cart
-  if ($cart->count_contents() == 0) {
-    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
+// if no shipping method has been selected, redirect the customer to the shipping method selection page
+  if (!tep_session_is_registered('shipping')) {
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+  }
+
+// avoid hack attempts during the checkout procedure by checking the internal cartID
+  if (isset($cart->cartID) && tep_session_is_registered('cartID')) {
+    if ($cart->cartID != $cartID) {
+      tep_redirect(tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+    }
   }
 
 // Stock Check
@@ -31,48 +44,40 @@
         $any_out_of_stock = 1;
       }
     }
-    if ($any_out_of_stock) {
+    if ($any_out_of_stock == 1) {
       tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
   }
 
-// Register needed checkout variables
-  if (!tep_session_is_registered('sendto')) {
-    $sendto = $customer_default_address_id;
-    tep_session_register('sendto');
-  }
-  if ($HTTP_POST_VARS['sendto']) {
-    $sendto = $HTTP_POST_VARS['sendto'];
-  }
-
-  if ($HTTP_POST_VARS['shipping_quote_all'] == '0') {
-    $shipping_quote_all = '0';
+// if no billing destination address was selected, use the customers own address as default
+  if (!tep_session_is_registered('billto')) {
+    tep_session_register('billto');
+    $billto = $customer_default_address_id;
   } else {
-    $shipping_quote_all = '1';
+// verify the selected billing address
+    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $billto . "'");
+    $check_address = tep_db_fetch_array($check_address_query);
+
+    if ($check_address['total'] != '1') {
+      $billto = $customer_default_address_id;
+      if (tep_session_is_registered('payment')) tep_session_unregister('payment');
+    }
   }
 
-  $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
-  $address_values = tep_db_fetch_array($address);
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
 
   $total_weight = $cart->show_weight();
   $total_count = $cart->count_contents();
 
-// load shipping modules as objects
-  require(DIR_WS_CLASSES . 'shipping.php');
-  $shipping_modules = new shipping;
-  $shipping_modules->quote();
-  if ( ($shipping_quoted == '') && (MODULE_SHIPPING_INSTALLED) ) { // Null if no quotes selected
-    tep_redirect(tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , 'SSL'));
-  }
+// load all enabled payment modules
+  require(DIR_WS_CLASSES . 'payment.php');
+  $payment_modules = new payment;
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT);
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'));
-  $breadcrumb->add(NAVBAR_TITLE_2);
-
-// load payment modules as objects
-  require(DIR_WS_CLASSES . 'payment.php');
-  $payment_modules = new payment;
+  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -82,44 +87,38 @@
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
-function check_form() {
-  var error = 0;
-  var error_message = "<?php echo JS_ERROR; ?>";
-  var payment_value = null;
-<?php
-// load the javascript_validation function from the payment modules
-  if (MODULE_PAYMENT_INSTALLED) {
-?>
-  if (document.payment.payment.length) {
-    for (var i = 0; i < document.payment.payment.length; i++)
-      if (document.payment.payment[i].checked)
-        payment_value = document.payment.payment[i].value;
-  } else if (document.payment.payment.checked) {
-    payment_value = document.payment.payment.value;
-  } else if (document.payment.payment.value) {
-    payment_value = document.payment.payment.value;
-  }
-<?php
-    echo $payment_modules->javascript_validation();
+var selected;
+
+function selectRowEffect(object, buttonSelect) {
+  if (!selected) {
+    if (document.getElementById) {
+      selected = document.getElementById('defaultSelected');
+    } else {
+      selected = document.all['defaultSelected'];
+    }
   }
 
-  if (tep_count_payment_modules() > 1) {
-?>
-  if (payment_value == null) {
-    error_message = error_message + "<?php echo JS_ERROR_NO_PAYMENT_MODULE_SELECTED; ?>";
-    error = 1;
-  }
-<?php
-  }
-?>
-  if (error == 1) {
-    alert(error_message);
-    return false;
+  if (selected) selected.className = 'moduleRow';
+  object.className = 'moduleRowSelected';
+  selected = object;
+
+// one button is not an array
+  if (document.checkout_payment.payment[0]) {
+    document.checkout_payment.payment[buttonSelect].checked=true;
   } else {
-    return true;
+    document.checkout_payment.payment.checked=true;
   }
 }
+
+function rowOverEffect(object) {
+  if (object.className == 'moduleRow') object.className = 'moduleRowOver';
+}
+
+function rowOutEffect(object) {
+  if (object.className == 'moduleRowOver') object.className = 'moduleRow';
+}
 //--></script>
+<?php echo $payment_modules->javascript_validation(); ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
@@ -135,7 +134,7 @@ function check_form() {
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="payment" method="post" action="<?php echo tep_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'); ?>" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('checkout_payment', tep_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'), 'post', 'onsubmit="return check_form();"'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -148,92 +147,165 @@ function check_form() {
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-  if ($HTTP_GET_VARS['payment_error']) {
+  if (isset($HTTP_GET_VARS['payment_error']) && is_object(${$HTTP_GET_VARS['payment_error']}) && ($error = ${$HTTP_GET_VARS['payment_error']}->get_error())) {
 ?>
       <tr>
-        <td class="main"><?php echo $payment_modules->output_error(); ?></td>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b><?php echo $error['title']; ?></b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBoxNotice">
+          <tr class="infoBoxNoticeContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main" width="100%" valign="top"><?php echo $error['error']; ?></td>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
   }
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-   if (MODULE_PAYMENT_INSTALLED) {
-?>
           <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_METHODS; ?></td>
-                <td class="tableHeading" align="right"><?php if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?></td>
-              </tr>
-            </table></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $payment_modules->selection(); ?></td>
-          </tr>
-<?php
-  }
-?>
-          <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo tep_draw_separator(); ?></td>
-              </tr>
-              <tr>
-                <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, ' ', '<br>'); ?></td>
-              </tr>
-            </table></td>
-          </tr>
-<?php
-  if (MODULE_SHIPPING_INSTALLED) {
-    $shipping_modules->cheapest();
-?>
-          <tr>
-            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
-                <td class="tableHeading" align="right" class="tableHeading"><?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
-              </tr>
-            </table></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td><?php echo $shipping_modules->display(); ?></td>
-          </tr>
-<?php
-  }
-?>
-          <tr>
-            <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td><?php echo tep_draw_textarea_field('comments', 'virtual', '60', '5'); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a></td>
-                <td class="main" align="center"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
-                <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
-              </tr>
-            </table></td>
-          </tr>
-          <tr>
-            <td align="right" class="checkoutBar"><br>[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></span> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</td>
+            <td class="main"><b><?php echo TABLE_HEADING_BILLING_ADDRESS; ?></b></td>
           </tr>
         </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                <td class="main" width="50%" valign="top"><?php echo TEXT_SELECTED_BILLING_DESTINATION; ?><br><br><?php echo '<a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL') . '">' . tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS) . '</a>'; ?></td>
+                <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="main" align="center" valign="top"><b><?php echo TITLE_BILLING_ADDRESS; ?></b><br><?php echo tep_image(DIR_WS_IMAGES . 'arrow_south_east.gif'); ?></td>
+                    <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                    <td class="main" valign="top"><?php echo tep_address_label($customer_id, $billto, true, ' ', '<br>'); ?></td>
+                    <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main" width="50%" valign="top"><?php echo TEXT_SELECT_PAYMENT_METHOD; ?></td>
+                <td class="main" width="50%" valign="top" align="right"><b><?php echo TITLE_PLEASE_SELECT; ?></b><br><?php echo tep_image(DIR_WS_IMAGES . 'arrow_east_south.gif'); ?></td>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+<?php
+  $selection = $payment_modules->selection();
+
+  $radio_buttons = 0;
+  for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
+?>
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+    if ( ($selection[$i]['id'] == $payment) || ($n == 1) ) {
+      echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+    } else {
+      echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+    }
+?>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                    <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
+                    <td class="main" align="right"><?php if (sizeof($selection) > 1) echo tep_draw_radio_field('payment', $selection[$i]['id']); ?></td>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                  </tr>
+<?php
+    if (isset($selection[$i]['error'])) {
+?>
+                  <tr>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                    <td class="main" colspan="4"><?php echo $selection[$i]['error']; ?></td>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                  </tr>
+<?php
+    } else {
+?>
+                  <tr>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                    <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
+<?php
+      for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
+?>
+                      <tr>
+                        <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                        <td class="main"><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
+                        <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                        <td class="main"><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
+                        <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                      </tr>
+<?php
+      }
+?>
+                    </table></td>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                  </tr>
+<?php
+      $radio_buttons++;
+    }
+?>
+                </table></td>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+              </tr>
+<?php
+  }
+?>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main"><b><?php echo TITLE_CONTINUE_CHECKOUT_PROCEDURE . '</b><br>' . TEXT_CONTINUE_CHECKOUT_PROCEDURE;d?></td>
+                <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td align="right" class="checkoutBar"><br>[ <?php echo '<a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') . '">' . CHECKOUT_BAR_DELIVERY_ADDRESS . '</a>'; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></span> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</td>
       </tr>
     </table>
     </form></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.15 2002/04/17 15:57:07 harley_vb Exp $
+  $Id: checkout_payment.php,v 1.16 2002/11/01 03:33:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,13 +10,19 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Kasse'); 
-define('NAVBAR_TITLE_2', 'Zahlungsweise'); 
-define('HEADING_TITLE', 'Zahlungsweise:'); 
-define('TABLE_HEADING_COMMENTS', 'F&uuml;gen Sie Ihrer Bestellung einen Kommentar oder Hinweis hinzu'); 
-define('TABLE_HEADING_METHODS', 'Zahlungsweisen');
-define('TABLE_HEADING_SELECTION', 'Zahlungsweise');
-define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferanschrift');
-define('TABLE_HEADING_SHIPPING_INFO','Versandart'); 
-define('TABLE_HEADING_SHIPPING_QUOTE','Versandkosten'); 
+define('NAVBAR_TITLE_1', 'Kasse');
+define('NAVBAR_TITLE_2', 'Zahlungsweise');
+
+define('HEADING_TITLE', 'Zahlungsweise:');
+
+define('TABLE_HEADING_BILLING_ADDRESS', 'Billing Address');
+define('TEXT_SELECTED_BILLING_DESTINATION', 'Please choose from your address book where you would like the invoice to be sent to.');
+define('TITLE_BILLING_ADDRESS', 'Billing Address:');
+
+define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
+define('TEXT_SELECT_PAYMENT_METHOD', 'Please select the preferred payment method to use on this order.');
+define('TITLE_PLEASE_SELECT', 'Please Select');
+
+define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continue Checkout Procedure');
+define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'to confirm this order.');
 ?>
