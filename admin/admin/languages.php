@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.28 2002/03/09 16:16:23 dgw_ Exp $
+  $Id: languages.php,v 1.29 2002/03/11 17:03:37 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,7 @@
       $lng_query = tep_db_query("select languages_id from " . TABLE_LANGUAGES . " where code = '" . DEFAULT_CURRENCY . "'");
       $lng = tep_db_fetch_array($lng_query);
       if ($lng['languages_id'] == $lID) {
-        tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
+        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
       }
 
       tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where language_id = '" . tep_db_input($lID) . "'");
