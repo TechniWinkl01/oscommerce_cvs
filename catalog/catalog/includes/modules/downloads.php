@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: downloads.php,v 1.5 2002/07/03 05:06:44 project3000 Exp $
+  $Id: downloads.php,v 1.1 2002/10/16 21:35:15 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com

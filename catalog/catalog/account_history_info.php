@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.87 2002/08/08 22:36:45 hpdl Exp $
+  $Id: account_history_info.php,v 1.88 2002/10/16 21:35:13 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -219,7 +219,7 @@
         </table></td>
       </tr>
 <?php
-  if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_BOXES . 'downloads.php');
+  if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_MODULES . 'downloads.php');
 ?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

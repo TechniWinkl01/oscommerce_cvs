@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.35 2002/07/21 23:38:57 hpdl Exp $
+  $Id: checkout_success.php,v 1.36 2002/10/16 21:35:13 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,7 @@
       <tr>
         <td align="right" class="checkoutBar">[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <span class="checkoutBarHighlighted"><?php echo CHECKOUT_BAR_FINISHED; ?></span> ]</td>
       </tr>
-<?php if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_BOXES . 'downloads.php'); ?>
+<?php if (DOWNLOAD_ENABLED == 'true') include(DIR_WS_MODULES . 'downloads.php'); ?>
     </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
