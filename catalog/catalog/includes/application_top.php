@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.277 2003/07/01 14:34:54 hpdl Exp $
+  $Id: application_top.php,v 1.278 2003/07/09 01:15:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,6 +28,12 @@
 // include server parameters
   require('includes/configure.php');
 
+  if (strlen(DB_SERVER) < 1) {
+    if (is_dir('install')) {
+      header('Location: install/index.php');
+    }
+  }
+
 // define the project version
   define('PROJECT_VERSION', 'osCommerce 2.2-MS2-CVS');
 
@@ -36,6 +42,12 @@
 
 // set php_self in the local scope
   if (!isset($PHP_SELF)) $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
+
+  if ($request_type == 'NONSSL') {
+    define('DIR_WS_CATALOG', DIR_WS_HTTP_CATALOG);
+  } else {
+    define('DIR_WS_CATALOG', DIR_WS_HTTPS_CATALOG);
+  }
 
 // include the list of project filenames
   require(DIR_WS_INCLUDES . 'filenames.php');
@@ -100,10 +112,9 @@
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
 
-// set the top level domains
-  $http_domain = tep_get_top_level_domain(HTTP_SERVER);
-  $https_domain = tep_get_top_level_domain(HTTPS_SERVER);
-  $current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+// set the cookie domain
+  $cookie_domain = (($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN);
+  $cookie_path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);
 
 // include cache functions if enabled
   if (USE_CACHE == 'true') include(DIR_WS_FUNCTIONS . 'cache.php');
@@ -120,8 +131,8 @@
 // check if sessions are supported, otherwise use the php3 compatible session class
   if (!function_exists('session_start')) {
     define('PHP_SESSION_NAME', 'osCsid');
-    define('PHP_SESSION_PATH', '/');
-    define('PHP_SESSION_DOMAIN', '.' . $current_domain);
+    define('PHP_SESSION_PATH', $cookie_path);
+    define('PHP_SESSION_DOMAIN', $cookie_domain);
     define('PHP_SESSION_SAVE_PATH', SESSION_WRITE_DIRECTORY);
 
     include(DIR_WS_CLASSES . 'sessions.php');
@@ -136,11 +147,11 @@
 
 // set the session cookie parameters
    if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, '/', (tep_not_null($current_domain) ? '.' . $current_domain : ''));
+    session_set_cookie_params(0, $cookie_path, $cookie_domain);
   } elseif (function_exists('ini_set')) {
     ini_set('session.cookie_lifetime', '0');
-    ini_set('session.cookie_path', '/');
-    ini_set('session.cookie_domain', (tep_not_null($current_domain) ? '.' . $current_domain : ''));
+    ini_set('session.cookie_path', $cookie_path);
+    ini_set('session.cookie_domain', $cookie_domain);
   }
 
 // set the session ID if it exists
@@ -153,7 +164,7 @@
 // start the session
   $session_started = false;
   if (SESSION_FORCE_COOKIE_USE == 'True') {
-    tep_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, '/', $current_domain);
+    tep_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, $cookie_path, $cookie_domain);
 
     if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
       tep_session_start();

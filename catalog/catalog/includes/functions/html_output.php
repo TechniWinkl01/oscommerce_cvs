@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.55 2003/07/01 14:34:55 hpdl Exp $
+  $Id: html_output.php,v 1.56 2003/07/09 01:15:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,19 +13,19 @@
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true) {
-    global $request_type, $session_started, $SID, $http_domain, $https_domain;
+    global $request_type, $session_started, $SID;
 
     if (!tep_not_null($page)) {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
     }
 
     if ($connection == 'NONSSL') {
-      $link = HTTP_SERVER . DIR_WS_CATALOG;
+      $link = HTTP_SERVER . DIR_WS_HTTP_CATALOG;
     } elseif ($connection == 'SSL') {
       if (ENABLE_SSL == true) {
-        $link = HTTPS_SERVER . DIR_WS_CATALOG;
+        $link = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
       } else {
-        $link = HTTP_SERVER . DIR_WS_CATALOG;
+        $link = HTTP_SERVER . DIR_WS_HTTP_CATALOG;
       }
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
@@ -46,7 +46,7 @@
       if (tep_not_null($SID)) {
         $_sid = $SID;
       } elseif ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == true) ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') ) ) {
-        if ($http_domain != $https_domain) {
+        if (HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN) {
           $_sid = tep_session_name() . '=' . tep_session_id();
         }
       }

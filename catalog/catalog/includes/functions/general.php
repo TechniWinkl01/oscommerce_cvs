@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.230 2003/06/29 11:21:12 hpdl Exp $
+  $Id: general.php,v 1.231 2003/07/09 01:15:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1167,26 +1167,6 @@
       }
     } else {
       return mt_rand();
-    }
-  }
-
-  function tep_get_top_level_domain($url) {
-    if (strpos($url, '://')) {
-      $url = parse_url($url);
-      $url = $url['host'];
-    }
-
-    $domain_array = explode('.', $url);
-    $domain_size = sizeof($domain_array);
-
-    if ($domain_size > 1) {
-      if (is_numeric($domain_array[$domain_size-2]) && is_numeric($domain_array[$domain_size-1])) {
-        return false;
-      } else {
-        return $domain_array[$domain_size-2] . '.' . $domain_array[$domain_size-1];
-      }
-    } else {
-      return false;
     }
   }
 
