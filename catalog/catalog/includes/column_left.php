@@ -12,4 +12,5 @@
   require(DIR_WS_BOXES . 'whats_new.php');
   require(DIR_WS_BOXES . 'search.php');
   require(DIR_WS_BOXES . 'add_a_quickie.php');
+  require(DIR_WS_BOXES . 'information.php');
 ?>

@@ -91,6 +91,13 @@ define('BOX_LANGUAGES_ESPANOL', 'Español');
 // currencies box text in includes/boxes/currencies.php
 define('BOX_HEADING_CURRENCIES', 'Currencies');
 
+// information box text in includes/boxes/information.php
+define('BOX_HEADING_INFORMATION', 'Information');
+define('BOX_INFORMATION_PRIVACY', 'Privacy Notice');
+define('BOX_INFORMATION_CONDITIONS', 'Conditions of Use');
+define('BOX_INFORMATION_SHIPPING', 'Shipping & Returns');
+define('BOX_INFORMATION_CONTACT', 'Contact Us');
+
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cart contents');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'delivery address');
