@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.18 2002/04/08 01:13:43 hpdl Exp $
+  $Id: upgrade_3.php,v 1.19 2002/04/08 14:19:03 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -268,23 +268,6 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration_group values ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1')");
   osc_db_query("insert into configuration_group values ('13', 'Download', 'Downloadable products options', '13', '1')");
 
-  osc_db_query("insert into products_attributes values (26, 22, 5, 10, '0.00', '+')");
-  osc_db_query("insert into products_attributes values (27, 22, 5, 13, '0.00', '+')");
-
-  osc_db_query("insert into products_attributes_download values (26, 'unreal.zip', 7, 3)");
-  osc_db_query("insert into products_options values (5, 1, 'Version')");
-  osc_db_query("insert into products_options values (5, 2, 'Version')");
-  osc_db_query("insert into products_options values (5, 3, 'Versión')");
-
-  osc_db_query("insert into products_options_values values (10, 1, 'Download: Windows - English')");
-  osc_db_query("insert into products_options_values values (10, 2, 'Download: Windows - Englisch')");
-  osc_db_query("insert into products_options_values values (10, 3, 'Download: Windows - Inglese')");
-  osc_db_query("insert into products_options_values values (13, 1, 'Box: Windows - English')");
-  osc_db_query("insert into products_options_values values (13, 2, 'Box: Windows - Englisch')");
-  osc_db_query("insert into products_options_values values (13, 3, 'Box: Windows - Inglese')");
-
-  osc_db_query("insert into products_options_values_to_products_options values (10, 5, 10)");
-  osc_db_query("insert into products_options_values_to_products_options values (13, 5, 13)");
 ?>
 
 <script language="javascript"><!--
