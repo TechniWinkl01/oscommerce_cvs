@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.219 2002/03/13 13:07:05 hpdl Exp $
+  $Id: application_top.php,v 1.220 2002/03/13 13:52:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -272,10 +272,10 @@
   if ($HTTP_GET_VARS['action']) {
     if (DISPLAY_CART == 'true') {
       $goto =  FILENAME_SHOPPING_CART;
-      $parameters = array('action', 'cPath', 'products_id');
+      $parameters = array('action', 'cPath', 'products_id', 'pid');
     } else {
       $goto = basename($PHP_SELF);
-      $parameters = array('action');
+      $parameters = array('action', 'pid');
     }
     switch ($HTTP_GET_VARS['action']) {
       // customer wants to update the product quantity in their shopping cart
@@ -349,6 +349,15 @@
                                 $navigation->set_snapshot();
                                 tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
                               }
+                              break;
+      case 'cust_order' :     if (tep_session_is_registered('customer_id')) {
+                                if (tep_has_product_attributes($HTTP_GET_VARS['pid'])) {
+                                  tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['pid'], 'NONSSL'));
+                                } else {
+                                  $cart->add_cart($HTTP_GET_VARS['pid'], 1);
+                                }
+                              }
+                              tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               break;
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.87 2002/03/10 01:32:09 hpdl Exp $
+  $Id: english.php,v 1.88 2002/03/13 13:52:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,6 +94,9 @@ define('BOX_REVIEWS_TEXT_OF_5_STARS', '%s of 5 Stars!');
 // shopping_cart box text in includes/boxes/shopping_cart.php
 define('BOX_HEADING_SHOPPING_CART', 'Shopping Cart');
 define('BOX_SHOPPING_CART_EMPTY', '0 items');
+
+// order_history box text in includes/boxes/order_history.php
+define('BOX_HEADING_CUSTOMER_ORDERS', 'Order History');
 
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Bestsellers');
@@ -261,6 +264,7 @@ define('IMAGE_BUTTON_TELL_A_FRIEND', 'Tell a Friend');
 define('IMAGE_BUTTON_UPDATE_CART', 'Update Cart');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Review');
 
+define('ICON_CART', 'In Cart');
 define('ICON_WARNING', 'Warning');
 
 define('TEXT_GREETING_PERSONAL', 'Welcome back <span class="greetUser">%s!</span> Would you like to see which <a href="%s"><u>new products</u></a> are available to purchase?');

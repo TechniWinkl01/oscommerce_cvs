@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.91 2002/03/11 15:08:18 harley_vb Exp $
+  $Id: german.php,v 1.92 2002/03/13 13:52:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,6 +94,9 @@ define('BOX_REVIEWS_TEXT_OF_5_STARS', '%s von 5 Sternen!');
 // shopping_cart box text in includes/boxes/shopping_cart.php
 define('BOX_HEADING_SHOPPING_CART', 'Warenkorb');
 define('BOX_SHOPPING_CART_EMPTY', '0 Produkte');
+
+// order_history box text in includes/boxes/order_history.php
+define('BOX_HEADING_CUSTOMER_ORDERS', 'Order History');
 
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Bestseller');
@@ -261,6 +264,7 @@ define('IMAGE_BUTTON_TELL_A_FRIEND', 'Weiterempfehlen');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
+define('ICON_CART', 'In Cart');
 define('ICON_WARNING', 'Warnung');
 
 define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span> M&ouml;chten Sie die <a href="%s"><u>neue Produkte</u></a> ansehen?');

@@ -1,20 +1,20 @@
 <?php
 /*
-  $Id: column_right.php,v 1.14 2002/03/10 01:32:09 hpdl Exp $
+  $Id: column_right.php,v 1.15 2002/03/13 13:52:20 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
   require(DIR_WS_BOXES . 'shopping_cart.php');
 
-  if ($HTTP_GET_VARS['products_id']) {
-    include(DIR_WS_BOXES . 'manufacturer_info.php');
-  }
+  if ($HTTP_GET_VARS['products_id'])  include(DIR_WS_BOXES . 'manufacturer_info.php');
+
+  if (tep_session_is_registered('customer_id')) include(DIR_WS_BOXES . 'order_history.php');
 
   if ($HTTP_GET_VARS['products_id']) {
     if (session_is_registered('customer_id')) {
@@ -33,9 +33,7 @@
   }
 
   if ($HTTP_GET_VARS['products_id']) {
-    if (basename($PHP_SELF) != FILENAME_TELL_A_FRIEND) {
-      include(DIR_WS_BOXES . 'tell_a_friend.php');
-    }
+    if (basename($PHP_SELF) != FILENAME_TELL_A_FRIEND) include(DIR_WS_BOXES . 'tell_a_friend.php');
   } else {
     include(DIR_WS_BOXES . 'specials.php');
   }
