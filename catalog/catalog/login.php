@@ -180,21 +180,18 @@ function session_win() {
             <td class="main" nowrap>&nbsp;</td>
             <td class="main" nowrap>&nbsp;<input type="password" name="password" maxlength="12" value="<? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>">&nbsp;</td>
           </tr>
-          <tr>
-            <td align="right" class="main">&nbsp;</td>
-            <td><? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" class="main">&nbsp;</td>
-            <td class="smallText">&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
-          </tr>
+          <tr><label for="setcookie">
+            <td align="right" class="main"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>></td>
+            <td class="main" nowrap>&nbsp;<? echo TEXT_COOKIE; ?></td>
+          </label></tr>
         </table>
         <table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="2" valign="top" class="smallText" nowrap>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
+            <td valign="top" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a></td>
+            <td align="right" class="smallText" nowrap><? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</td>
           </tr>
 <?
    $origin = '';
