@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.243 2002/08/07 18:33:25 hpdl Exp $
+  $Id: application_top.php,v 1.244 2002/08/08 16:38:56 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,9 @@
 
 // Check if register_globals is enabled.
 // Since this is a temporary measure this message is hardcoded. The requirement will be removed before 2.2 is finalized.
-  ini_get('register_globals') or exit('FATAL ERROR: register_globals is disabled in php.ini, please enable it!');
+  if (function_exists('ini_get')) {
+    ini_get('register_globals') or exit('FATAL ERROR: register_globals is disabled in php.ini, please enable it!');
+  }
 
 // Disable use_trans_sid as tep_href_link() does this manually
   if (function_exists('ini_set')) {
