@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.15 2003/02/06 17:38:17 thomasamoulton Exp $
+  $Id: checkout_payment.php,v 1.16 2003/07/08 16:45:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,9 +15,9 @@ define('NAVBAR_TITLE_2', 'Forma de Pago');
 
 define('HEADING_TITLE', 'Forma de Pago');
 
-define('TABLE_HEADING_BILLING_ADDRESS', 'Direccion de Facturacion');
-define('TEXT_SELECTED_BILLING_DESTINATION', 'Elija la direccion de su libreta donde quiera recibir la factura.');
-define('TITLE_BILLING_ADDRESS', 'Direccion de Facturacion:');
+define('TABLE_HEADING_BILLING_ADDRESS', 'Direcci&oacute;n de Facturaci&oacute;n');
+define('TEXT_SELECTED_BILLING_DESTINATION', 'Elija la direcci&oacute;n de su libreta donde quiera recibir la factura.');
+define('TITLE_BILLING_ADDRESS', 'Direcci&oacute;n de Facturaci&oacute;n:');
 
 define('TABLE_HEADING_PAYMENT_METHOD', 'Forma de Pago');
 define('TEXT_SELECT_PAYMENT_METHOD', 'Escoja la forma de pago preferida para este pedido.');

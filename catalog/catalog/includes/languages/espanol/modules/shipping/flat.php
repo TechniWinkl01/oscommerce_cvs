@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: flat.php,v 1.5 2002/11/19 01:14:33 dgw_ Exp $
+  $Id: flat.php,v 1.6 2003/07/08 16:45:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,5 +12,5 @@
 
 define('MODULE_SHIPPING_FLAT_TEXT_TITLE', 'Tarifa Unica');
 define('MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION', 'Tarifa Unica por Pedido');
-define('MODULE_SHIPPING_FLAT_TEXT_WAY', '');
+define('MODULE_SHIPPING_FLAT_TEXT_WAY', 'La mejor opcion');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.4 2003/02/06 17:38:17 thomasamoulton Exp $
+  $Id: checkout_shipping.php,v 1.5 2003/07/08 16:45:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,18 +11,18 @@
 */
 
 define('NAVBAR_TITLE_1', 'Realizar Pedido');
-define('NAVBAR_TITLE_2', 'Forma de Envio');
+define('NAVBAR_TITLE_2', 'Forma de Env&iacute;o');
 
-define('HEADING_TITLE', 'Datos del Envio');
+define('HEADING_TITLE', 'Datos del Env&iacute;o');
 
-define('TABLE_HEADING_SHIPPING_ADDRESS', 'Direccion de Entrega');
-define('TEXT_CHOOSE_SHIPPING_DESTINATION', 'Escoja una direccion de su libreta para la entrega de los productos de este pedido.');
-define('TITLE_SHIPPING_ADDRESS', 'Direccion de Entrega:');
+define('TABLE_HEADING_SHIPPING_ADDRESS', 'Direcci&oacute;n de Entrega');
+define('TEXT_CHOOSE_SHIPPING_DESTINATION', 'Escoja una direcci&oacute;n de su libreta para la entrega de los productos de este pedido.');
+define('TITLE_SHIPPING_ADDRESS', 'Direcci&oacute;n de Entrega:');
 
-define('TABLE_HEADING_SHIPPING_METHOD', 'Forma de Envio');
-define('TEXT_CHOOSE_SHIPPING_METHOD', 'Seleccione la forma de envio preferida para la entrega de este pedido.');
+define('TABLE_HEADING_SHIPPING_METHOD', 'Forma de Env&iacute;o');
+define('TEXT_CHOOSE_SHIPPING_METHOD', 'Seleccione la forma de env&iacute;o preferida para la entrega de este pedido.');
 define('TITLE_PLEASE_SELECT', 'Seleccione');
-define('TEXT_ENTER_SHIPPING_INFORMATION', 'Esta es la unica forma de envio disponible para su pedido.');
+define('TEXT_ENTER_SHIPPING_INFORMATION', 'Esta es la unica forma de env&iacute;o disponible para su pedido.');
 
 define('TABLE_HEADING_COMMENTS', 'Agregue Los Comentarios Sobre Su Orden');
 

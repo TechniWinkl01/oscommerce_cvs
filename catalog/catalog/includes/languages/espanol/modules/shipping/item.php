@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: item.php,v 1.5 2002/11/19 01:14:34 dgw_ Exp $
+  $Id: item.php,v 1.6 2003/07/08 16:45:36 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,5 +12,5 @@
 
 define('MODULE_SHIPPING_ITEM_TEXT_TITLE', 'Por artículo');
 define('MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION', 'Por artículo');
-define('MODULE_SHIPPING_ITEM_TEXT_WAY', '');
+define('MODULE_SHIPPING_ITEM_TEXT_WAY', 'La Mejor Opcion');
 ?>

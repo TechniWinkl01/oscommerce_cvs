@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.14 2003/06/05 23:23:52 hpdl Exp $
+  $Id: advanced_search.php,v 1.15 2003/07/08 16:45:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,7 @@ define('TABLE_HEADING_BUY_NOW', 'Buy Now');
 
 define('TEXT_NO_PRODUCTS', 'There is no product that matches the search criteria.');
 
-define('ERROR_AT_LEAST_ONE_INPUT', 'Atleast one of the fields in the search form must be entered.');
+define('ERROR_AT_LEAST_ONE_INPUT', 'At least one of the fields in the search form must be entered.');
 define('ERROR_INVALID_FROM_DATE', 'Invalid From Date.');
 define('ERROR_INVALID_TO_DATE', 'Invalid To Date.');
 define('ERROR_TO_DATE_LESS_THAN_FROM_DATE', 'To Date must be greater than or equal to From Date.');
