@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.47 2002/04/01 23:41:49 hpdl Exp $
+  $Id: manufacturers.php,v 1.48 2002/08/19 01:59:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,23 +31,19 @@
         tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
       }
 
-      if ($HTTP_POST_FILES['manufacturers_image']) {
-        $uploaded_tmp_file = $HTTP_POST_FILES['manufacturers_image']['tmp_name'];
-        $uploaded_file = basename($HTTP_POST_FILES['manufacturers_image']['name']);
-      } elseif ($HTTP_POST_VARS['manufacturers_image']) {
-        $uploaded_tmp_file = $HTTP_POST_VARS['manufacturers_image'];
-        $uploaded_file = basename($HTTP_POST_VARS['manufacturers_image_name']);
-      } else {
-        $uploaded_tmp_file = $manufacturers_image;
-        $uploaded_file = basename($manufacturers_image_name);
-      }
+      $manufacturers_image = tep_get_uploaded_file('manufacturers_image');
+      $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES);
 
-      if ($uploaded_tmp_file != 'none') {
-        if (tep_is_uploaded_file($uploaded_tmp_file)) {
-          tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $uploaded_file . "' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-          $image_location = DIR_FS_CATALOG_IMAGES . $uploaded_file;
-          if (file_exists($image_location)) @unlink($image_location);
-          copy($uploaded_tmp_file, $image_location);
+      if (is_uploaded_file($manufacturers_image['tmp_name'])) {
+        if (!is_writeable($image_directory)) {
+          if (is_dir($image_directory)) {
+            $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $image_directory), 'error');
+          } else {
+            $messageStack->add_session(sprintf(ERROR_DIRECTORY_DOES_NOT_EXIST, $image_directory), 'error');
+          }
+        } else {
+          tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image['name'] . "' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
+          tep_copy_uploaded_file($manufacturers_image, $image_directory);
         }
       }
 
@@ -169,7 +165,7 @@
                 </table></td>
               </tr>
 <?php
-  if (!$HTTP_GET_VARS['action'] == 'new') {
+  if ($HTTP_GET_VARS['action'] != 'new') {
 ?>
               <tr>
                 <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=new') . '">' . tep_image_button('button_insert.gif', IMAGE_INSERT) . '</a>'; ?></td>
