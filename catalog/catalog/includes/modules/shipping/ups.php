@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.41 2002/01/31 23:02:46 thomasamoulton Exp $
+  $Id: ups.php,v 1.42 2002/05/30 15:38:29 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -90,7 +90,7 @@
       global $HTTP_GET_VARS, $currencies, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
-      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
+      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_ups'] == '1') ) {
         if ($this->quote > 0) {
@@ -123,9 +123,9 @@
     }
 
     function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
 
-      if ($HTTP_POST_VARS['shipping_selected'] == 'ups') {
+      if ($shipping_selected == 'ups') {
         $shipping_cost = $HTTP_POST_VARS['shipping_ups_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_ups_method'];
       }

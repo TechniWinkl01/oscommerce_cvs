@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.18 2002/02/02 21:17:36 dgw_ Exp $
+  $Id: table.php,v 1.19 2002/05/30 15:38:29 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -79,7 +79,7 @@
       global $HTTP_GET_VARS, $currencies, $shipping_cheapest, $shipping_table_method, $shipping_table_cost, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
-      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
+      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
         $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
@@ -103,9 +103,9 @@
     }
 
     function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
 
-      if ($HTTP_POST_VARS['shipping_selected'] == 'table') {
+      if ($shipping_selected == 'table') {
         $shipping_cost = $HTTP_POST_VARS['shipping_table_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_table_method'];
       }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.31 2002/05/13 11:53:51 thomasamoulton Exp $
+  $Id: fedex.php,v 1.32 2002/05/30 15:38:29 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -88,7 +88,7 @@
       global $HTTP_GET_VARS, $currencies, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
-      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
+      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
 
       $display_string = '';
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
@@ -123,9 +123,9 @@
     }
 
     function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
 
-      if ($HTTP_POST_VARS['shipping_selected'] == 'fedex') {
+      if ($shipping_selected == 'fedex') {
         $shipping_cost = $HTTP_POST_VARS['shipping_fedex_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_fedex_method'];
       }

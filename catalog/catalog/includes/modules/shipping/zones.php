@@ -184,7 +184,7 @@
     function display() {
       global $HTTP_GET_VARS, $currencies, $shipping_cheapest, $shipping_zones_method, $shipping_zones_cost, $shipping_selected;
 
-      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
+      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_zones'] == '1') ) {
         $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
@@ -208,9 +208,9 @@
     }
 
     function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
 
-      if ($HTTP_POST_VARS['shipping_selected'] == 'zones') {
+      if ($shipping_selected == 'zones') {
         $shipping_cost = $HTTP_POST_VARS['shipping_zones_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_zones_method'];
       }
