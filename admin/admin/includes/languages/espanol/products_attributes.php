@@ -1,35 +1,36 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.9 2003/07/07 09:23:06 dgw_ Exp $
+  $Id: products_attributes.php,v 1.10 2004/08/29 22:21:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE_OPT', 'Opciones del Producto');
-define('HEADING_TITLE_VAL', 'Valores para Opciones');
-define('HEADING_TITLE_ATRIB', 'Atributos');
+  define('HEADING_TITLE', 'Atributos del Producto');
 
-define('TABLE_HEADING_ID', 'ID');
-define('TABLE_HEADING_PRODUCT', 'Nombre del Producto');
-define('TABLE_HEADING_OPT_NAME', 'Nombre de la Opci&oacute;n');
-define('TABLE_HEADING_OPT_VALUE', 'Valor de la Opci&oacute;n');
-define('TABLE_HEADING_OPT_PRICE', 'Precio');
-define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Prefijo');
-define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
-define('TABLE_HEADING_DOWNLOAD', 'Productos descargables:');
-define('TABLE_TEXT_FILENAME', 'Nombre del Fichero:');
-define('TABLE_TEXT_MAX_DAYS', 'Dias de caducidad:');
-define('TABLE_TEXT_MAX_COUNT', 'N&uacute;mero m&aacute;ximo de descargas:');
+  define('TABLE_HEADING_ATTRIBUTE_GROUPS', 'Atributos');
+  define('TABLE_HEADING_TOTAL_ENTRIES', 'Total Entries');
+  define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
+  define('TABLE_HEADING_ENTRIES', 'Entries');
 
-define('MAX_ROW_LISTS_OPTIONS', 10);
+  define('TEXT_INFO_HEADING_NEW_ATTRIBUTE_GROUP', 'New Attribute Group');
+  define('TEXT_INFO_HEADING_NEW_ATTRIBUTE_ENTRY', 'New Attribute Entry');
 
-define('TEXT_WARNING_OF_DELETE', 'Esta opcion tiene productos y valores - no es seguro eliminarla.');
-define('TEXT_OK_TO_DELETE', 'Esta opcion no esta en uso - es seguro eliminarla.');
-define('TEXT_OPTION_ID', 'ID de Opci&oacute;n');
-define('TEXT_OPTION_NAME', 'Nombre de Opci&oacute;n');
+  define('TEXT_INFO_ATTRIBUTE_GROUP_NAME', 'Attribute Group Name:');
+  define('TEXT_INFO_ATTRIBUTE_ENTRY_NAME', 'Attribute Entry Name:');
+
+  define('TEXT_INFO_INSERT_ATTRIBUTE_INTRO', 'Please enter the new Attribute Group information');
+  define('TEXT_INFO_DELETE_ATTRIBUTE_INTRO', 'Are you sure you want to delete this Attribute Group?');
+  define('TEXT_INFO_INSERT_ATTRIBUTE_ENTRY_INTRO', 'Please enter the new Attribute Entry information');
+  define('TEXT_INFO_DELETE_ATTRIBUTE_ENTRY_INTRO', 'Are you sure you want to delete this Attribute Entry?');
+  define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
+
+  define('TEXT_INFO_DELETE_ATTRIBUTE_GROUP_PROHIBITED', 'Warning: This Attribute Group cannot be deleted as it is currently assigned to %s products.');
+  define('TEXT_INFO_DELETE_ATTRIBUTE_GROUP_WARNING', 'Warning: This Attribute Group has %s entries assigned which would also be deleted.');
+
+  define('TEXT_INFO_DELETE_ATTRIBUTE_ENTRY_PROHIBITED', 'Warning: This Attribute Entry cannot be deleted as it is currently assigned to %s products.');
 ?>
