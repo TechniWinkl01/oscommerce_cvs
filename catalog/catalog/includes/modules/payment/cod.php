@@ -35,7 +35,7 @@
     }
 
     function output_error() {
-      return false;
+      return 'sfdgsgsfg';
     }
 
     function check() {

@@ -136,13 +136,13 @@
     }
 
     function output_error() {
-      global $language;
+      global $payment;
 
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
+          if ($GLOBALS[$class]->code == $payment) {
             echo $GLOBALS[$class]->output_error();
           }
         }
