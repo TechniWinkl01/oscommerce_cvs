@@ -336,8 +336,6 @@
     
     $result .= ">\n";
     
-    $result .= "<option value=\"\">" . PLEASE_SELECT . "\n";
-
     // Preset the width of the drop-down for Netscape
     //
     // 53 "&nbsp;" would provide the width for my longer state/province name
@@ -349,19 +347,22 @@
     }
 
     $state_prov_result = tep_db_query("select zone_id, zone_name from zones where zone_country_id = '" . $country_code . "' order by zone_name");
-      
+
+    $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
+ 
     $populated = 0;
     while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
+    $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
       $populated++;
       // printed SELECTED if an item was previously selected
       // so we maintain the state
       if ($selected == $state_prov_values[zone_id]) {
-        $result .= "<option value=\"$state_prov_values[zone_id]\" SELECTED>$state_prov_values[zone_name]\n";
+        $result .= "<option value=\"$state_prov_values[zone_id]\" SELECTED>$state_prov_values[zone_name]</option>\n";
       } else {
-        $result .= "<option value=\"$state_prov_values[zone_id]\">$state_prov_values[zone_name]\n";
+        $result .= "<option value=\"$state_prov_values[zone_id]\">$state_prov_values[zone_name]</option>\n";
       }
     }
-
+ 
     // Create dummy options for Netscape to preset the height of the drop-down
     if ($populated == 0) {
       if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) { 
