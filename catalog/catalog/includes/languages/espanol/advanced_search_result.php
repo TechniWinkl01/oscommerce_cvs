@@ -1,4 +1,10 @@
 <?
+/*
+Spanish Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): David Garcia Watkins (dgw@q-logic.org)
+*/
+
 define('NAVBAR_TITLE1', 'Búsqueda Avanzada');
 define('NAVBAR_TITLE2', 'Búsqueda Avanzada Resulta');
 define('TOP_BAR_TITLE', 'Búsqueda Avanzada Resulta');

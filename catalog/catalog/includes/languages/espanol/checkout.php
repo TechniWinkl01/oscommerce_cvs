@@ -1,7 +1,7 @@
 <?
 /*
 Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 11/11/2000
+Last Update: 01/12/2000
 Author(s): David Garcia Watkins (dgw@q-logic.org)
 */
 
@@ -13,7 +13,6 @@ define('TABLE_HEADING_QUANTITY', 'Cantidad');
 define('TABLE_HEADING_PRODUCTS', 'Producto(s)');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TEXT_CART_EMPTY', 'Su Cesta esta vacia!');
-define('SUB_TITLE_FINAL', 'Precio Final:');
 define('SUB_TITLE_SUB_TOTAL', 'Subtotal:');
 define('SUB_TITLE_TAX', 'Impuestos:');
 define('SUB_TITLE_TOTAL', 'Total:');

@@ -1,4 +1,10 @@
 <?
+/*
+German Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+*/
+
 define('NAVBAR_TITLE1', 'Hochentwickelte Suche');
 define('NAVBAR_TITLE2', 'Hochentwickelte Suche Resultiert');
 define('TOP_BAR_TITLE', 'Hochentwickelte Suche Resultiert');

@@ -1,4 +1,10 @@
 <?
+/*
+English Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+*/
+
 define('NAVBAR_TITLE', 'Advanced Search');
 define('TOP_BAR_TITLE', 'Advanced Search');
 define('HEADING_TITLE', 'Enter Search Criteria');
