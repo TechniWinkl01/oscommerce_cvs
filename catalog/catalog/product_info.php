@@ -112,7 +112,7 @@
             $selected = 1;
             echo ' SELECTED';
           }
-          echo '>' . $products_options_values['products_options_values_name'] . '&nbsp;(' . $products_options_values['price_prefix'] . CURRENCY_BEFORE . $products_options_values['options_values_price'] .')&nbsp</option>';
+          echo '>' . $products_options_values['products_options_values_name'] . '&nbsp;(' . $products_options_values['price_prefix'] . tep_currency_format($products_options_values['options_values_price']) .')&nbsp</option>';
         };
         echo '</select></td></tr>';
       }
