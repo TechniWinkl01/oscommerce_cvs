@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.63 2002/05/20 18:53:06 dgw_ Exp $
+  $Id: login.php,v 1.64 2002/05/30 18:27:42 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,19 +13,23 @@
   require('includes/application_top.php');
 
   if ($HTTP_GET_VARS['action'] == 'process') {
+    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
+    $password = tep_db_prepare_input($HTTP_POST_VARS['password']);
     // Check if email exists
-    $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "'");
     if ($HTTP_POST_VARS['user'] == 'new') {
       if (!tep_db_num_rows($check_customer_query)) {
-        tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'], 'SSL'));
+        tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $email_address, 'SSL'));
       } else {
         tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail_email', 'SSL'));
       }
     } else {
-      if (tep_db_num_rows($check_customer_query)) {
+      if (!tep_db_num_rows($check_customer_query)) {
+        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'SSL'));
+      } else {
         $check_customer = tep_db_fetch_array($check_customer_query);
         // Check that password is good
-        $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer['customers_password']);
+        $pass_ok = validate_password($password, $check_customer['customers_password']);
         if ($pass_ok != true) {
           tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'SSL'));
         } else {
@@ -43,8 +47,8 @@
           tep_session_register('customer_zone_id');
 
           if ($HTTP_POST_VARS['setcookie'] == '1') {
-            setcookie('email_address', $HTTP_POST_VARS['email_address'], time()+2592000);
-            setcookie('password', $HTTP_POST_VARS['password'], time()+2592000);
+            setcookie('email_address', $email_address, time()+2592000);
+            setcookie('password', $password, time()+2592000);
             setcookie('first_name', $customer_first_name, time()+2592000);
           } elseif ( ($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password']) ) {
             setcookie('email_address', '');
@@ -66,13 +70,12 @@
             tep_redirect(tep_href_link(FILENAME_DEFAULT));
           }
         }
-      } else {
-        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'SSL'));
       }
     }
-  } else {
-   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
-   $location = ' &raquo; <a href="' . tep_href_link(FILENAME_LOGIN, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  }
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_LOGIN, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -114,7 +117,7 @@ function session_win() {
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><form name="login" method="post" action="<?php echo tep_href_link(FILENAME_LOGIN, 'action=process&email_address=' . $HTTP_POST_VARS['email_address'], 'SSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form name="login" method="post" action="<?php echo tep_href_link(FILENAME_LOGIN, 'action=process', 'SSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if ($HTTP_GET_VARS['login'] == 'fail') {
 ?>
@@ -135,21 +138,24 @@ function session_win() {
           </tr>
 <?
   }
+
+  $email_address = tep_db_prepare_input($HTTP_COOKIE_VARS['email_address']);
+  $password = tep_db_prepare_input($HTTP_COOKIE_VARS['password']);
 ?>
           <tr>
             <td align="right" class="main"><?php echo ENTRY_EMAIL_ADDRESS2; ?></td>
-            <td class="main"><input type="text" name="email_address" maxlength="96" value="<?php if ($HTTP_GET_VARS['email_address']) echo $HTTP_GET_VARS['email_address']; elseif (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['email_address']; } ?>"></td>
+            <td class="main"><input type="text" name="email_address" maxlength="96" value="<?php echo $email_address; ?>"></td>
           </tr>
           <tr>
-            <td align="right" class="main"><input type="radio" name="user" value="new"<?php if ((!$HTTP_COOKIE_VARS['email_address'] || !$HTTP_COOKIE_VARS['password']) && (!$HTTP_GET_VARS['email_address'])) { echo ' checked'; } ?>></td>
+            <td align="right" class="main"><input type="radio" name="user" value="new"<?php if (!$email_address) echo ' checked'; ?>></td>
             <td class="main"><?php echo TEXT_NEW_CUSTOMER; ?></td>
           </tr>
           <tr>
-            <td align="right" class="main"><input type="radio" name="user" value="returning"<?php if (($HTTP_COOKIE_VARS['email_address'] && $HTTP_COOKIE_VARS['password']) || ($HTTP_GET_VARS['email_address'])) { echo ' checked'; } ?>></td>
-            <td class="main"><?php echo TEXT_RETURNING_CUSTOMER; ?><br><input type="password" name="password" maxlength="40" value="<?php if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo $HTTP_COOKIE_VARS['password']; } ?>"></td>
+            <td align="right" class="main"><input type="radio" name="user" value="returning"<?php if ($email_address) echo ' checked'; ?>></td>
+            <td class="main"><?php echo TEXT_RETURNING_CUSTOMER; ?><br><input type="password" name="password" maxlength="40" value="<?php echo $password; ?>"></td>
           </tr>
           <tr><label for="setcookie">
-            <td align="right" class="main"><input type="checkbox" name="setcookie" value="1" id="setcookie" <?php if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>></td>
+            <td align="right" class="main"><input type="checkbox" name="setcookie" value="1" id="setcookie" <?php if ($email_address) echo 'CHECKED'; ?>></td>
             <td class="main"><?php echo TEXT_COOKIE; ?></td>
           </label></tr>
           <tr>
@@ -180,7 +186,5 @@ function session_win() {
 </body>
 </html>
 <?php
-  }
-
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>
