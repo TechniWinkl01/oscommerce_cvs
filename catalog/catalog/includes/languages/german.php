@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.89 2002/03/10 01:32:09 hpdl Exp $
+  $Id: german.php,v 1.90 2002/03/11 15:00:37 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,7 +79,7 @@ define('BOX_HEADING_WHATS_NEW', 'Neue Produkte');
 
 // quick_find box text in includes/boxes/quick_find.php
 define('BOX_HEADING_SEARCH', 'Schnellsuche');
-define('BOX_SEARCH_TEXT', 'Verwenden Sie Schl&uuml;sselw&ouml;rter, um ein Produkt zu finden.');
+define('BOX_SEARCH_TEXT', 'Verwenden Sie Stichworte, um ein Produkt zu finden.');
 define('BOX_SEARCH_ADVANCED_SEARCH', 'erweiterte Suche');
 
 // specials box text in includes/boxes/specials.php
@@ -100,9 +100,9 @@ define('BOX_HEADING_BESTSELLERS', 'Bestseller');
 define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller<br>&nbsp;&nbsp;');
 
 // notifications box text in includes/boxes/products_notifications.php
-define('BOX_HEADING_NOTIFICATIONS', 'Notifications');
-define('BOX_NOTIFICATIONS_NOTIFY', 'Notify me of updates to <b>%s</b>');
-define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Do not notify me of updates to <b>%s</b>');
+define('BOX_HEADING_NOTIFICATIONS', 'Benachrichtigungen');
+define('BOX_NOTIFICATIONS_NOTIFY', 'Benachrichtigen Sie mich &uuml;ber Updates zum Artikel <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Benachrichtigen Sie mich nicht &uuml;ber Updates zum Artikel <b>%s</b>');
 
 // manufacturer box text
 define('BOX_HEADING_MANUFACTURER_INFO', 'Hersteller Info');
@@ -124,7 +124,7 @@ define('BOX_INFORMATION_CONTACT', 'Kontakt');
 
 // tell a friend box text in includes/boxes/tell_a_friend.php
 define('BOX_HEADING_TELL_A_FRIEND', 'Weiterempfehlen');
-define('BOX_TELL_A_FRIEND_TEXT', 'Empfehlen Sie diesen Artikel einfach per EMail weiter.');
+define('BOX_TELL_A_FRIEND_TEXT', 'Empfehlen Sie diesen Artikel einfach per eMail weiter.');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'Warenkorbinhalt');
@@ -153,12 +153,12 @@ define('JS_POST_CODE', '* Die \'Postleitzahl\' muß mindestens aus ' . ENTRY_POST
 define('JS_CITY', '* Die \'Stadt\' muß mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
 define('JS_STATE_SELECT', '-- wählen sie oberhalb aus --');
-define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.\n');
-define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
+define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.');
+define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.\n');
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
 
 define('CATEGORY_COMPANY', 'Firmendaten');
@@ -236,7 +236,7 @@ define('PREVNEXT_TITLE_NEXT_PAGE', 'n&auml;chste Seite');
 define('PREVNEXT_TITLE_LAST_PAGE', 'letzte Seite');
 define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');
 define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehende %d Seiten');
-define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Nächste %d Seiten');
+define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'N&auml;chste %d Seiten');
 define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ERSTE');
 define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;vorherige]');
 define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
@@ -244,16 +244,16 @@ define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Neue Adresse');
 define('IMAGE_BUTTON_ADDRESS_BOOK', 'Adressbuch');
-define('IMAGE_BUTTON_BACK', 'Zurück');
-define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse ändern');
+define('IMAGE_BUTTON_BACK', 'Zur&uuml;ck');
+define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse &auml;ndern');
 define('IMAGE_BUTTON_CHECKOUT', 'Kasse');
-define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung bestätigen');
+define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung best&auml;tigen');
 define('IMAGE_BUTTON_CONTINUE', 'Weiter');
-define('IMAGE_BUTTON_DELETE', 'Löschen');
-define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Daten ändern');
-define('IMAGE_BUTTON_HISTORY', 'Bestellübersicht');
+define('IMAGE_BUTTON_DELETE', 'L&ouml;schen');
+define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Daten &auml;ndern');
+define('IMAGE_BUTTON_HISTORY', 'Bestell&uuml;bersicht');
 define('IMAGE_BUTTON_IN_CART', 'In den Warenkorb');
-define('IMAGE_BUTTON_NOTIFICATIONS', 'Notifications');
+define('IMAGE_BUTTON_NOTIFICATIONS', 'Benachrichtigungen');
 define('IMAGE_BUTTON_QUICK_FIND', 'Schnellsuche');
 define('IMAGE_BUTTON_REVIEWS', 'Bewertungen');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Versandoptionen');
@@ -261,11 +261,11 @@ define('IMAGE_BUTTON_TELL_A_FRIEND', 'Weiterempfehlen');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
-define('ICON_WARNING', 'Warning');
+define('ICON_WARNING', 'Warnung');
 
 define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span> M&ouml;chten Sie die <a href="%s"><u>neue Produkte</u></a> ansehen?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Wenn Sie nicht %s sind, melden Sie sich bitte <a href="%s"><u>hier</u></a> mit Ihrem Kundenkonto an.</small>');
-define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchten Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?');
+define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> M&ouml;chten Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> er&ouml;ffnen?');
 
 define('TEXT_SORT_PRODUCTS', 'Sortierung der Artikel ist ');
 define('TEXT_DESCENDINGLY', 'absteigend');
@@ -273,18 +273,18 @@ define('TEXT_ASCENDINGLY', 'aufsteigend');
 define('TEXT_BY', ' durch ');
 
 define('TEXT_REVIEW_BY', 'von %s');
-define('TEXT_REVIEW_WORD_COUNT', '%s Wörter');
+define('TEXT_REVIEW_WORD_COUNT', '%s Worte');
 define('TEXT_REVIEW_RATING', 'Bewertung: %s [%s]');
-define('TEXT_REVIEW_DATE_ADDED', 'Datum hinzugefügt: %s');
+define('TEXT_REVIEW_DATE_ADDED', 'Datum hinzugef&uuml;gt: %s');
 define('TEXT_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 
 define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neue Produkte.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
-define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch.</b></font>');
-define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warning: Installation directory exists at: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Please remove this directory for security reasons.');
-define('WARNING_CONFIG_FILE_WRITEABLE', 'Warning: I am able to write to the configuration file: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.');
-define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warning: The sessions directory does not exist: ' . tep_session_save_path() . '. Sessions will not work until this directory is created.');
-define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: I am not able to write to the sessions directory: ' . tep_session_save_path() . '. Sessions will not work until the right user permissions are set.');
+define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>Fehler:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch.</b></font>');
+define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Bitte l&ouml;schen Sie das Verzeichnis aus Gr&uuml;nden der Sicherheit!');
+define('WARNING_CONFIG_FILE_WRITEABLE', 'Warnung: osC kann in die Konfigurationsdatei schreiben: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. Das stellt ein m&ouml;gliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!');
+define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis f&uuml;r die Sessions existiert nicht: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde.');
+define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warnung: osC kann nicht in das Sessions Verzeichnis schreiben: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden.');
 ?>
