@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.34 2002/04/08 01:13:43 hpdl Exp $
+# $Id: oscommerce.sql,v 1.35 2002/04/08 12:17:23 clescuyer Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -357,7 +357,7 @@ CREATE TABLE orders_total (
   sort_order int NOT NULL,
   PRIMARY KEY (orders_total_id),
   KEY idx_orders_total_orders_id (orders_id)
-)
+);
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
