@@ -116,7 +116,7 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $address_book = tep_db_query("select address_book_id from address_book_to_customers where customers_id = '" . $customer_id . "' order by address_book_id");
+  $address_book = tep_db_query("select address_book_id from " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " where customers_id = '" . $customer_id . "' order by address_book_id");
   if (!@tep_db_num_rows($address_book)) {
 ?>
           <tr>

@@ -49,9 +49,9 @@
     $shipping_quote_all = '1';
   }
   if ($sendto == '0') {
-    $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
+    $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
   } else {
-    $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from address_book where address_book_id = '" . $sendto . "'");
+    $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $sendto . "'");
   }
   $address_values = tep_db_fetch_array($address);
   $total_weight = $cart->show_weight();

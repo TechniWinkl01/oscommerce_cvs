@@ -102,7 +102,7 @@
     $password_error = 0;
   }
 
-  $check_email = tep_db_query('select customers_email_address from customers where customers_email_address = "' . $HTTP_POST_VARS['email_address'] . '"');
+  $check_email = tep_db_query('select customers_email_address from ' . TABLE_CUSTOMERS . ' where customers_email_address = "' . $HTTP_POST_VARS['email_address'] . '"');
   if (@tep_db_num_rows($check_email)) {
     $email_exists = 1;
     $error = 1;
@@ -386,9 +386,9 @@
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
 // Crypted passwords mods
     $crypted_password = crypt_password($HTTP_POST_VARS['password']);
-    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "', '" . $HTTP_POST_VARS['newsletter'] . "')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS . " values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "', '" . $HTTP_POST_VARS['newsletter'] . "')");
     $insert_id = tep_db_insert_id();
-    tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
 
     $customer_id = $insert_id;
     tep_session_register('customer_id');
