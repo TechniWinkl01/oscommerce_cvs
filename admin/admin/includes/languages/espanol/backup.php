@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.6 2001/11/21 09:04:08 hpdl Exp $
+  $Id: backup.php,v 1.7 2001/11/21 12:46:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,8 +20,8 @@ define('TABLE_HEADING_ACTION', 'Acción');
 
 define('TEXT_INFO_HEADING_NEW_BACKUP', 'Nueva Copia De Seguridad');
 define('TEXT_INFO_NEW_BACKUP', 'No interrumpa el proceso de copia, que puede durar unos minutos.');
-define('TEXT_INFO_UNPACK', '<br><br>(after unpacking the file from the archive)');
-define('TEXT_INFO_RESTORE', 'Do not interrupt the restoration process.<br><br>The larger the backup, the longer this process takes!<br><br>If possible, use the mysql client.<br><br>For example:<br><br><b>mysql -h' . DB_SERVER . ' -u' . DB_SERVER_USERNAME . ' -p ' . DB_DATABASE . ' < %s </b> %s');
+define('TEXT_INFO_UNPACK', '<br><br>(despues de descomprimir el archivo)');
+define('TEXT_INFO_RESTORE', 'No interrumpa el proceso de restauración.<br><br>Cuanto mas grande sea la copia de seguridad, mas tardará este proceso!<br><br>Si es posible, use el cliente de mysql.<br><br>Por ejemplo:<br><br><b>mysql -h' . DB_SERVER . ' -u' . DB_SERVER_USERNAME . ' -p ' . DB_DATABASE . ' < %s </b> %s');
 define('TEXT_INFO_DATE', 'Fecha:');
 define('TEXT_INFO_SIZE', 'Tamaño:');
 define('TEXT_INFO_COMPRESSION', 'Compresión:');
