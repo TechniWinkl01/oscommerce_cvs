@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.165 2004/04/09 01:54:20 hpdl Exp $
+  $Id: application_top.php,v 1.166 2004/04/09 02:06:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -190,7 +190,7 @@
 
 // the following cache blocks are used in the Tools->Cache section
 // ('language' in the filename is automatically replaced by available languages)
-  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'category_tree-language.cache', 'multiple' => false),
+  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'category_tree', 'file' => 'category_tree-language.cache', 'multiple' => false),
                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
                        );
