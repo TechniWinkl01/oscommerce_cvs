@@ -97,10 +97,10 @@
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td class="main"><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+                    <td class="main"><? echo tep_address_label($customer_id, 1, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
                   </tr>
                 </table></td>
-                <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</td>
+                <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="1" CHECKED>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
