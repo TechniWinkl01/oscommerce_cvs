@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.77 2002/01/28 01:49:13 hpdl Exp $
+  $Id: orders.php,v 1.78 2002/01/28 03:46:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -59,21 +59,28 @@
                                   'type' => 'success');
       }
 
-      tep_redirect(tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID']));
+      tep_redirect(tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=edit'));
       break;
-    case 'delete_order':
+    case 'deleteconfirm':
       $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
+
+      if ($HTTP_POST_VARS['restock'] == 'on') {
+        $order_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($oID) . "'");
+        while ($order = tep_db_fetch_array($order_query)) {
+          tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = products_quantity + " . $order['products_quantity'] . " where products_id = '" . $order['products_id'] . "'");
+        }
+      }
 
       tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
       tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($oID) . "'");
       tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "'");
       tep_db_query("delete from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "'");
 
-      tep_redirect(tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']));
+      tep_redirect(tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '')));
       break;
   }
 
-  if ($HTTP_GET_VARS['oID']) {
+  if ( ($HTTP_GET_VARS['action'] == 'edit') && ($HTTP_GET_VARS['oID']) ) {
     $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
 
     $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
@@ -107,7 +114,7 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  if ( ($HTTP_GET_VARS['oID']) && ($order_exists) ) {
+  if ( ($HTTP_GET_VARS['action'] == 'edit') && ($order_exists) ) {
     $orders_query = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
     $orders = tep_db_fetch_array($orders_query);
     $sold_to_query = tep_db_query("select customers_name as name, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country as country, customers_address_format_id as format_id from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
@@ -120,7 +127,7 @@
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $HTTP_GET_VARS['oID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -287,7 +294,7 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=update_order'); ?>
+      <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=update_order'); ?>
         <td class="main"><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5', $info['comments']); ?></td>
       </tr>
       <tr>
@@ -344,7 +351,7 @@
         </table></td>
       </tr>
       <tr>
-        <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+        <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $HTTP_GET_VARS['oID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
   } else {
@@ -356,7 +363,7 @@
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr><?php echo tep_draw_form('orders', FILENAME_ORDERS, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"'); ?></td>
+                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"') . tep_draw_hidden_field('action', 'edit'); ?></td>
               </form></tr>
               <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', tep_array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
@@ -366,29 +373,31 @@
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
+            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td class="tableHeading"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-          </tr>
-          <tr>
-            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
-          </tr>
+            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="tableHeading"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="5"><?php echo tep_draw_separator(); ?></td>
+              </tr>
 <?php
     if ($HTTP_GET_VARS['cID']) {
       $cID = tep_db_prepare_input($HTTP_GET_VARS['cID']);
-      $orders_query_raw = "select o.orders_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . tep_db_input($cID) . "' and o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.customers_id, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . tep_db_input($cID) . "' and o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by orders_id DESC";
     } elseif ($HTTP_GET_VARS['status']) {
       $status = tep_db_prepare_input($HTTP_GET_VARS['status']);
-      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' and s.orders_status_id = '" . tep_db_input($status) . "' order by o.orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' and s.orders_status_id = '" . tep_db_input($status) . "' order by o.orders_id DESC";
     } else {
-      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by o.orders_id DESC";
+      $orders_query_raw = "select o.orders_id, o.customers_name, o.payment_method, o.date_purchased, o.last_modified, o.shipping_cost, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_status = s.orders_status_id and s.language_id = '" . $languages_id . "' order by o.orders_id DESC";
     }
     $orders_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
     $orders_query = tep_db_query($orders_query_raw);
@@ -401,27 +410,71 @@
         $total += $subtotal + $tax;
       }
       $total += $orders['shipping_cost'];
+
+      if (((!$HTTP_GET_VARS['oID']) || ($HTTP_GET_VARS['oID'] == $orders['orders_id'])) && (!$oInfo)) {
+        $oInfo = new objectInfo($orders);
+      }
+
+      if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) {
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+      } else {
+        echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']) . '\'">' . "\n";
+      }
 ?>
-          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']); ?>'">
-            <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
-            <td class="tableData" align="right"><?php echo tep_currency_format($total); ?></td>
-            <td class="tableData" align="right"><?php echo $orders['payment_method']; ?></td>
-            <td class="tableData" align="right"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
-            <td class="tableData" align="right"><?php echo $orders['orders_status_name']; ?></td>
-          </tr>
+                <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
+                <td class="tableData" align="right"><?php echo tep_currency_format($total); ?></td>
+                <td class="tableData" align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
+                <td class="tableData" align="right"><?php echo $orders['orders_status_name']; ?></td>
+                <td class="tableData" align="right"><?php if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+              </tr>
 <?php
     }
 ?>
-          <tr>
-            <td colspan="5"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText"><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
-                <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' '; echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] : '')); ?></td>
+                <td colspan="5"><?php echo tep_draw_separator(); ?></td>
+              </tr>
+              <tr>
+                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="smallText"><?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                    <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' '; echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] : '')); ?></td>
+                  </tr>
+                </table></td>
               </tr>
             </table></td>
+<?php
+  $heading = array();
+  $contents = array();
+  switch ($HTTP_GET_VARS['action']) {
+    case 'delete':
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ORDER . '</b>');
+
+      $contents = array('form' => tep_draw_form('orders', FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $oInfo->orders_id . '&action=deleteconfirm'));
+      $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
+      $contents[] = array('text' => '<br>' . tep_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $oInfo->orders_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      break;
+    default:
+      if (is_object($oInfo)) {
+        $heading[] = array('text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . tep_datetime_short($oInfo->date_purchased) . '</b>');
+
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $oInfo->orders_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . (($HTTP_GET_VARS['status']) ? '&status=' . $HTTP_GET_VARS['status'] : '') . '&oID=' . $oInfo->orders_id . '&action=delete') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');
+        $contents[] = array('text' => '<br>' . TEXT_DATE_ORDER_CREATED . ' ' . tep_date_short($oInfo->date_purchased));
+        if (tep_not_null($oInfo->last_modified)) $contents[] = array('text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . tep_date_short($oInfo->last_modified));
+        $contents[] = array('text' => '<br>' . TEXT_INFO_PAYMENT_METHOD . ' '  . $oInfo->payment_method);
+      }
+      break;
+  }
+
+  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+    echo '            <td width="25%" valign="top">' . "\n";
+
+    $box = new box;
+    echo $box->infoBox($heading, $contents);
+
+    echo '            </td>' . "\n";
+  }
+?>
           </tr>
         </table></td>
       </tr>

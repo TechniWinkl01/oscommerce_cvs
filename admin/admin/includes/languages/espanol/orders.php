@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.14 2002/01/28 03:07:44 hpdl Exp $
+  $Id: orders.php,v 1.15 2002/01/28 03:46:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,6 +20,7 @@ define('TABLE_HEADING_ORDER_TOTAL', 'Total Pedido');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Metodo de Pago');
 define('TABLE_HEADING_DATE_PURCHASED', 'Fecha de Compra');
 define('TABLE_HEADING_STATUS', 'Estado');
+define('TABLE_HEADING_ACTION', 'Accion');
 define('TABLE_HEADING_QUANTITY', 'Cantidad');
 define('TABLE_HEADING_PRODUCTS_MODEL', 'Modelo');
 define('TABLE_HEADING_PRODUCTS', 'Productos');
@@ -59,6 +60,13 @@ define('ENTRY_DATE_PURCHASED', 'Fecha de Compra:');
 define('ENTRY_STATUS', 'Estado:');
 define('ENTRY_DATE_LAST_UPDATED', 'Ultima Modificacion:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
+
+define('TEXT_INFO_HEADING_DELETE_ORDER', 'Delete Order');
+define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this order?');
+define('TEXT_INFO_RESTOCK_PRODUCT_QUANTITY', 'Restock product quantity');
+define('TEXT_DATE_ORDER_CREATED', 'Date Created:');
+define('TEXT_DATE_ORDER_LAST_MODIFIED', 'Last Modified:');
+define('TEXT_INFO_PAYMENT_METHOD', 'Payment Method:');
 
 define('TEXT_ALL_ORDERS', 'All Orders');
 define('TEXT_NO_ORDER_HISTORY', 'No Order History Available');
