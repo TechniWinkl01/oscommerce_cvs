@@ -61,7 +61,7 @@
           <tr>
             <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_QUANTITY;?>&nbsp;</b></font></td>
             <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCT;?>&nbsp;</b></font></td>
-            <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_TAX;?>&nbsp;</b></font></td>
+            <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_TAX;?>&nbsp;</b></font></td>
             <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_TOTAL;?>&nbsp;</b></font></td>
           </tr>
           <tr>
@@ -72,6 +72,8 @@
   $total_cost = 0;
   $total_tax = 0;
   while ($orders_products_values = tep_db_fetch_array($orders_products)) {
+    $final_price = $orders_products_values['final_price'];
+
     echo '          <tr>' . "\n";
     echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $orders_products_values['products_quantity'] . '&nbsp;</font></td>' . "\n";
     echo '            <td valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $orders_products_values['products_name'] . '&nbsp;</b>' . "\n";
@@ -81,31 +83,30 @@
     if (@tep_db_num_rows($attributes_query)) {
       $attributes_exist = '1';
       while ($attributes = tep_db_fetch_array($attributes_query)) {
-		echo "\n" . '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
+		echo '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
       }
     }
 //------display customer choosen option eof-----
 	echo '</font></td>' . "\n";
-    echo '            <td valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;</font></td>' . "\n";
+    echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . round($orders_products_values['products_tax']) . '%&nbsp;</font></td>' . "\n";
     echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['products_id'] . "'");
-      $final_price = $orders_products_values['final_price'];
       while ($attributes_values = tep_db_fetch_array($attributes)) {
         if ($attributes_values['options_values_price'] != '0') {
-          echo "\n" . '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($orders_products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
+          echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($orders_products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
         } else {
-          echo "\n" . '<br>&nbsp;';
+          echo '<br>&nbsp;';
         }
       }
     }
 //------display customer choosen option eof-----
 	echo '</font></td>' . "\n";
     echo '          </tr>' . "\n";
-    if (!$attributes_exist == '1') $final_price = $orders_products_values['products_price'];
+
     $cost = ($orders_products_values['products_quantity'] * $final_price);
-    $total_tax += ($cost * ($orders_products_values['products_tax']/100));
+    $total_tax += ($cost * $orders_products_values['products_tax']/100);
     $total_cost += $cost;
   }
 ?>

@@ -72,12 +72,11 @@
       }
     }
 //------insert customer choosen option eof ---- 
-
-    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' = ' . tep_currency_format($total_products_price) . "\n";
-
     $total_weight += ($products[$i]['quantity'] * $products_weight);
-    $total_tax += ($total_products_price * $products_tax/100);
+    $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
     $total_cost += $total_products_price;
+
+    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' = ' . tep_currency_format($total_tax) . "\n";
   }
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
@@ -89,7 +88,7 @@
   mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
 
 // send emails to other people
-  if (SEND_EXTRA_ORDER_EMAILS_TO) {
+  if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
     mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
   }
 

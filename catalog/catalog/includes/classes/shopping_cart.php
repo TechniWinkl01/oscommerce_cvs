@@ -282,9 +282,9 @@
           $attribute_price_query = tep_db_query("select options_values_price, price_prefix from products_attributes where products_id = '" . $products_id . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
           $attribute_price = tep_db_fetch_array($attribute_price_query);
           if ($attribute_price['price_prefix'] == '+') {
-            $attributes_price += $this->contents[$products_id]['qty'] * $attribute_price['options_values_price'];
+            $attributes_price += $attribute_price['options_values_price'];
           } else {
-            $attributes_price -= $this->contents[$products_id]['qty'] * $attribute_price['options_values_price'];
+            $attributes_price -= $attribute_price['options_values_price'];
           }
         }
       }
@@ -313,7 +313,7 @@
                                   'price' => $products_price,
                                   'quantity' => $this->contents[$products_id]['qty'],
                                   'weight' => $products['products_weight'],
-                                  'final_price' => (($products_price * $this->contents[$products_id]['qty']) + $this->attributes_price($products_id)),
+                                  'final_price' => ($products_price + $this->attributes_price($products_id)),
                                   'tax_class_id' => $products['products_tax_class_id'],
                                   'attributes' => $this->contents[$products_id]['attributes']);
       }
