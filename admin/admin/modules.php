@@ -2,11 +2,13 @@
   require('includes/application_top.php');
 
   switch ($HTTP_GET_VARS['set']) {
-    case 'payment'  : $module_directory = DIR_FS_PAYMENT_MODULES;
+    case 'payment'  : $module_type = 'payment';
+                      $module_directory = DIR_FS_PAYMENT_MODULES;
                       $module_key = 'MODULE_PAYMENT_INSTALLED';
                       $heading_title = HEADING_TITLE_MODULES_PAYMENT;
                       break;
-    case 'shipping' : $module_directory = DIR_FS_SHIPPING_MODULES;
+    case 'shipping' : $module_type = 'shipping';
+                      $module_directory = DIR_FS_SHIPPING_MODULES;
                       $module_key = 'MODULE_SHIPPING_INSTALLED';
                       $heading_title = HEADING_TITLE_MODULES_SHIPPING;
                       break;
@@ -107,6 +109,7 @@
       include($module_directory . $entry);
       $class = substr($entry, 0, strrpos($entry, '.'));
       if (tep_class_exists($class)) {
+        include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/' . $module_type . '/' . $entry);
         $module = new $class;
         $check = $module->check();
         if ($check == '1') {
@@ -114,7 +117,7 @@
         }
 
         if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$mInfo)) {
-          $module_info = array('code' => $module->code, 'status' => $module->check());
+          $module_info = array('code' => $module->code, 'title' => $module->title, 'description' => $module->description, 'status' => $module->check());
           $mInfo_array = tep_array_merge($module_info, $module->keys());
           $mInfo = new moduleInfo($mInfo_array);
         }
@@ -173,7 +176,7 @@
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $info_box_contents = array();
-  if ($mInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->code . '</b>&nbsp;');
+  if ($mInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->title . '</b>&nbsp;');
 ?>
               <tr class="boxHeading">
                 <td><? new infoBoxHeading($info_box_contents); ?></td>
@@ -207,10 +210,11 @@
       $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
       if ($field_set == '1') {
         $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . $mInfo->description);
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . $keys);
       }
     } else {
-      $info_box_contents[] = array('align' => 'left', 'text' => 'Not Installed');
+      $info_box_contents[] = array('align' => 'left', 'text' => $mInfo->description);
     }
   }
 ?>
