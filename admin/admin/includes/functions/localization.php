@@ -1,5 +1,5 @@
 <?php
-  function quotecurrency($code, $base = CURRENCY_VALUE) {
+  function quotecurrency($code, $base = DEFAULT_CURRENCY) {
     $err_num = $err_msg='';
     $s = fsockopen('www.oanda.com', 5011, $err_num, $err_msg, 5);
     if (!$s) {
