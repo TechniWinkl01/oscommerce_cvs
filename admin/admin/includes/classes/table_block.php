@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.1 2002/01/08 17:55:13 hpdl Exp $
+  $Id: table_block.php,v 1.1 2002/01/12 16:13:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  class table {
+  class tableBlock {
     var $table_border = '0';
     var $table_width = '100%';
     var $table_cellspacing = '0';
@@ -19,7 +19,7 @@
     var $table_row_parameters = '';
     var $table_data_parameters = '';
 
-    function table($contents) {
+    function tableBlock($contents) {
       $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
       if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";

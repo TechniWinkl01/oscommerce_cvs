@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: errorStack.php,v 1.1 2002/01/08 17:55:13 hpdl Exp $
+  $Id: errorStack.php,v 1.2 2002/01/12 16:13:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
   if ($errorStack->size > 0) echo $errorStack->output();
 */
 
-  class errorStack extends table {
+  class errorStack extends tableBlock {
     var $size = 0;
 
     function errorStack() {
@@ -43,7 +43,7 @@
 
     function output() {
       $this->table_data_parameters = 'class="errorBox"';
-      return $this->table($this->errors);
+      return $this->tableBlock($this->errors);
     }
   }
 ?>

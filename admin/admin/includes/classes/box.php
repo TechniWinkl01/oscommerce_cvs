@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: box.php,v 1.3 2002/01/08 18:58:25 hpdl Exp $
+  $Id: box.php,v 1.4 2002/01/12 16:13:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,7 @@
   echo $box->infoBox($heading, $contents);
 */
 
-  class box extends table {
+  class box extends tableBlock {
     function box() {
       $this->heading = array();
       $this->contents = array();
@@ -32,11 +32,11 @@
     function infoBox($heading, $contents) {
       $this->table_row_parameters = 'class="boxHeading"';
       $this->table_data_parameters = 'class="infoBoxHeading"';
-      $this->heading = $this->table($heading);
+      $this->heading = $this->tableBlock($heading);
 
       $this->table_row_parameters = '';
       $this->table_data_parameters = 'class="boxContents"';
-      $this->contents = $this->table($contents);
+      $this->contents = $this->tableBlock($contents);
 
       return $this->heading . $this->contents;
     }
@@ -48,10 +48,10 @@
       } else {
         $heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
       }
-      $this->heading = $this->table($heading);
+      $this->heading = $this->tableBlock($heading);
 
       $this->table_data_parameters = 'class="infoBox"';
-      $this->contents = $this->table($contents);
+      $this->contents = $this->tableBlock($contents);
 
       return $this->heading . $this->contents;
     }
