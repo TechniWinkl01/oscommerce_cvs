@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.134 2001/09/21 19:54:18 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.135 2001/09/22 15:31:17 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -10,6 +10,7 @@
 #         the mysqldiff perl script located in the extras
 #         directory of the 'catalog' module.
 
+DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
    customers_id int(5) DEFAULT '0' NOT NULL,
    address_book_id int(5) DEFAULT '1' NOT NULL,
@@ -27,6 +28,7 @@ CREATE TABLE address_book (
    PRIMARY KEY (address_book_id, customers_id)
 );
 
+DROP TABLE IF EXISTS address_format;
 CREATE TABLE address_format (
   address_format_id int(5) NOT NULL auto_increment,
   address_format varchar(128) NOT NULL,
@@ -34,6 +36,7 @@ CREATE TABLE address_format (
   PRIMARY KEY (address_format_id)
 );
 
+DROP TABLE IF EXISTS banners;
 CREATE TABLE banners (
   banners_id int(5) NOT NULL auto_increment,
   banners_title varchar(64) NOT NULL,
@@ -50,6 +53,7 @@ CREATE TABLE banners (
   PRIMARY KEY  (banners_id)
 );
 
+DROP TABLE IF EXISTS banners_history;
 CREATE TABLE banners_history (
   banners_history_id int(5) NOT NULL auto_increment,
   banners_id int(5) NOT NULL,
@@ -59,6 +63,7 @@ CREATE TABLE banners_history (
   PRIMARY KEY  (banners_history_id)
 );
 
+DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
    categories_id int(5) NOT NULL auto_increment,
    categories_image varchar(64),
@@ -70,6 +75,7 @@ CREATE TABLE categories (
    KEY idx_categories_parent_id (parent_id)
 );
 
+DROP TABLE IF EXISTS categories_description;
 CREATE TABLE categories_description (
    categories_id int(5) DEFAULT '0' NOT NULL,
    language_id int(5) DEFAULT '1' NOT NULL,
@@ -78,6 +84,7 @@ CREATE TABLE categories_description (
    KEY idx_categories_name (categories_name)
 );
 
+DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
   configuration_id int(5) NOT NULL auto_increment,
   configuration_title varchar(64) NOT NULL,
@@ -93,6 +100,7 @@ CREATE TABLE configuration (
   PRIMARY KEY (configuration_id)
 );
 
+DROP TABLE IF EXISTS configuration_group;
 CREATE TABLE configuration_group (
   configuration_group_id int(5) NOT NULL auto_increment,
   configuration_group_title varchar(64) NOT NULL,
@@ -102,16 +110,19 @@ CREATE TABLE configuration_group (
   PRIMARY KEY (configuration_group_id)
 );
 
+DROP TABLE IF EXISTS counter;
 CREATE TABLE counter (
   startdate char(8),
   counter int(12)
 );
 
+DROP TABLE IF EXISTS counter_history;
 CREATE TABLE counter_history (
   month char(8),
   counter int(12)
 );
 
+DROP TABLE IF EXISTS countries;
 CREATE TABLE countries (
   countries_id int(5) NOT NULL auto_increment,
   countries_name varchar(64) NOT NULL,
@@ -122,6 +133,7 @@ CREATE TABLE countries (
   KEY IDX_COUNTRIES_NAME (countries_name)
 );
 
+DROP TABLE IF EXISTS currencies;
 CREATE TABLE currencies (
   currencies_id int(5) NOT NULL auto_increment,
   title varchar(32) NOT NULL,
@@ -135,6 +147,7 @@ CREATE TABLE currencies (
   PRIMARY KEY (currencies_id)
 );
 
+DROP TABLE IF EXISTS customers;
 CREATE TABLE customers (
    customers_id int(5) NOT NULL auto_increment,
    customers_gender char(1) NOT NULL,
@@ -150,6 +163,7 @@ CREATE TABLE customers (
    PRIMARY KEY (customers_id)
 );
 
+DROP TABLE IF EXISTS customers_basket;
 CREATE TABLE customers_basket (
   customers_basket_id int(5) NOT NULL auto_increment,
   customers_id int(5) NOT NULL,
@@ -160,6 +174,7 @@ CREATE TABLE customers_basket (
   PRIMARY KEY (customers_basket_id)
 );
 
+DROP TABLE IF EXISTS customers_basket_attributes;
 CREATE TABLE customers_basket_attributes (
   customers_basket_attributes_id int(5) NOT NULL auto_increment,
   customers_id int(5) NOT NULL,
@@ -169,6 +184,7 @@ CREATE TABLE customers_basket_attributes (
   PRIMARY KEY (customers_basket_attributes_id)
 );
 
+DROP TABLE IF EXISTS customers_info;
 CREATE TABLE customers_info (
   customers_info_id int(5) NOT NULL,
   customers_info_date_of_last_logon datetime,
@@ -178,6 +194,7 @@ CREATE TABLE customers_info (
   PRIMARY KEY (customers_info_id)
 );
 
+DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
   languages_id int(5) NOT NULL auto_increment,
   name varchar(32)  NOT NULL,
@@ -190,6 +207,7 @@ CREATE TABLE languages (
 );
 
 
+DROP TABLE IF EXISTS manufacturers;
 CREATE TABLE manufacturers (
   manufacturers_id int(5) NOT NULL auto_increment,
   manufacturers_name varchar(32) NOT NULL,
@@ -198,6 +216,7 @@ CREATE TABLE manufacturers (
   KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
 );
 
+DROP TABLE IF EXISTS manufacturers_info;
 CREATE TABLE manufacturers_info (
   manufacturers_id int(5) NOT NULL,
   languages_id int(5) NOT NULL,
@@ -208,6 +227,7 @@ CREATE TABLE manufacturers_info (
   PRIMARY KEY (manufacturers_id, languages_id)
 );
 
+DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
   orders_id int(5) NOT NULL auto_increment,
   customers_id int(5) NOT NULL,
@@ -246,6 +266,7 @@ CREATE TABLE orders (
   PRIMARY KEY (orders_id)
 );
 
+DROP TABLE IF EXISTS orders_products;
 CREATE TABLE orders_products (
   orders_products_id int(5) NOT NULL auto_increment,
   orders_id int(5) NOT NULL,
@@ -258,6 +279,7 @@ CREATE TABLE orders_products (
   PRIMARY KEY (orders_products_id)
 );
 
+DROP TABLE IF EXISTS orders_status;
 CREATE TABLE orders_status (
    orders_status_id int(5) DEFAULT '0' NOT NULL,
    language_id int(5) DEFAULT '1' NOT NULL,
@@ -266,6 +288,7 @@ CREATE TABLE orders_status (
    KEY idx_orders_status_name (orders_status_name)
 );
 
+DROP TABLE IF EXISTS orders_products_attributes;
 CREATE TABLE orders_products_attributes (
   orders_products_attributes_id int(5) NOT NULL auto_increment,
   orders_id int(5) NOT NULL,
@@ -277,6 +300,7 @@ CREATE TABLE orders_products_attributes (
   PRIMARY KEY (orders_products_attributes_id)
 );
 
+DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   products_id int(5) NOT NULL auto_increment,
   products_quantity int(4) NOT NULL,
@@ -293,6 +317,7 @@ CREATE TABLE products (
   PRIMARY KEY (products_id)
 );
 
+DROP TABLE IF EXISTS products_attributes;
 CREATE TABLE products_attributes (
   products_attributes_id int(5) NOT NULL auto_increment,
   products_id int(5) NOT NULL,
@@ -303,6 +328,7 @@ CREATE TABLE products_attributes (
   PRIMARY KEY (products_attributes_id)
 );
 
+DROP TABLE IF EXISTS products_description;
 CREATE TABLE products_description (
   products_id int(5) NOT NULL auto_increment,
   language_id int(5) NOT NULL default '1',
@@ -314,6 +340,7 @@ CREATE TABLE products_description (
   KEY products_name (products_name)
 );
 
+DROP TABLE IF EXISTS products_options;
 CREATE TABLE products_options (
   products_options_id int(5) NOT NULL default '0',
   language_id int(5) NOT NULL default '1',
@@ -321,6 +348,7 @@ CREATE TABLE products_options (
   PRIMARY KEY  (products_options_id,language_id)
 );
 
+DROP TABLE IF EXISTS products_options_values;
 CREATE TABLE products_options_values (
   products_options_values_id int(5) NOT NULL default '0',
   language_id int(5) NOT NULL default '1',
@@ -328,6 +356,7 @@ CREATE TABLE products_options_values (
   PRIMARY KEY  (products_options_values_id,language_id)
 );
 
+DROP TABLE IF EXISTS products_options_values_to_products_options;
 CREATE TABLE products_options_values_to_products_options (
   products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
   products_options_id int(5) NOT NULL,
@@ -335,12 +364,14 @@ CREATE TABLE products_options_values_to_products_options (
   PRIMARY KEY (products_options_values_to_products_options_id)
 );
 
+DROP TABLE IF EXISTS products_to_categories;
 CREATE TABLE products_to_categories (
   products_id int(5) NOT NULL auto_increment,
   categories_id int(5) NOT NULL,
   PRIMARY KEY (products_id,categories_id)
 );
 
+DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
   reviews_id int(5) NOT NULL auto_increment,
   products_id int(5) NOT NULL,
@@ -353,6 +384,7 @@ CREATE TABLE reviews (
   PRIMARY KEY (reviews_id)
 );
 
+DROP TABLE IF EXISTS reviews_description;
 CREATE TABLE reviews_description (
   reviews_id int(5) NOT NULL,
   languages_id int(5) NOT NULL,
@@ -360,6 +392,7 @@ CREATE TABLE reviews_description (
   PRIMARY KEY (reviews_id, languages_id)
 );
 
+DROP TABLE IF EXISTS sessions;
 CREATE TABLE sessions (
   sesskey varchar(32) NOT NULL,
   expiry int(11) unsigned NOT NULL,
@@ -367,6 +400,7 @@ CREATE TABLE sessions (
   PRIMARY KEY (sesskey)
 );
 
+DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
   specials_id int(5) NOT NULL auto_increment,
   products_id int(5) NOT NULL,
@@ -379,6 +413,7 @@ CREATE TABLE specials (
   PRIMARY KEY (specials_id)
 );
 
+DROP TABLE IF EXISTS tax_class;
 CREATE TABLE tax_class (
   tax_class_id int(5) NOT NULL auto_increment,
   tax_class_title varchar(32) NOT NULL,
@@ -388,6 +423,7 @@ CREATE TABLE tax_class (
   PRIMARY KEY (tax_class_id)
 );
 
+DROP TABLE IF EXISTS tax_rates;
 CREATE TABLE tax_rates (
   tax_rates_id int(5) NOT NULL auto_increment,
   tax_zone_id int(5) NOT NULL,
@@ -400,6 +436,7 @@ CREATE TABLE tax_rates (
   PRIMARY KEY (tax_rates_id)
 );
 
+DROP TABLE IF EXISTS geo_zones;
 CREATE TABLE geo_zones (
   geo_zone_id int(5) NOT NULL auto_increment,
   geo_zone_name varchar(32) NOT NULL,
@@ -409,6 +446,7 @@ CREATE TABLE geo_zones (
   PRIMARY KEY (geo_zone_id)
 );
 
+DROP TABLE IF EXISTS whos_online;
 CREATE TABLE whos_online (
   customer_id int(5),
   full_name varchar(64) NOT NULL,
@@ -419,6 +457,7 @@ CREATE TABLE whos_online (
   last_page_url varchar(64) NOT NULL
 );
 
+DROP TABLE IF EXISTS zones;
 CREATE TABLE zones (
   zone_id int(5) NOT NULL auto_increment,
   zone_country_id int(5) NOT NULL,
@@ -427,6 +466,7 @@ CREATE TABLE zones (
   PRIMARY KEY (zone_id)
 );
 
+DROP TABLE IF EXISTS zones_to_geo_zones;
 CREATE TABLE zones_to_geo_zones (
    association_id int(5) NOT NULL auto_increment,
    zone_country_id int(5) NOT NULL,
