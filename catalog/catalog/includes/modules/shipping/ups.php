@@ -1,5 +1,5 @@
 <?
-  /* $Id: ups.php,v 1.16 2001/02/12 11:48:39 tmoulton Exp $ */
+  /* $Id: ups.php,v 1.17 2001/02/14 20:43:01 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/ups.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -30,7 +30,7 @@
 <?
   } elseif ($action == 'quote') {
       if ($shipping_quote_ups == "1") {
-        include(DIR_INCLUDES . 'ups.php');
+        include(DIR_CLASSES . 'ups.php');
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
         $rate->origin(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY); // Use ISO country codes!
