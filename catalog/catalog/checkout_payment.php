@@ -100,7 +100,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
@@ -134,14 +134,13 @@ function check_form() {
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap colspan="2"><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_DELIVERY_ADDRESS; ?></b>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_TABLE_HEADING; ?>&nbsp;<b><? echo TABLE_HEADING_DELIVERY_ADDRESS; ?></b>&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
-            <td nowrap><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection) . '">' . tep_image(DIR_WS_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
@@ -177,19 +176,19 @@ function check_form() {
             <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap colspan="2"><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+            <td nowrap><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
           </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><textarea name="comments" rows=5 cols=60></textarea></td>
+            <td><textarea name="comments" rows=5 cols=60></textarea></td>
           </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
+            <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_shipping_options.gif', CHANGE_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
