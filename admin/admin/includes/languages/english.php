@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.83 2002/01/27 04:06:13 hpdl Exp $
+  $Id: english.php,v 1.84 2002/03/08 18:38:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,6 +99,7 @@ define('BOX_TOOLS_CACHE', 'Cache Control');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
 define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
 define('BOX_TOOLS_MAIL', 'Send Email');
+define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
 
@@ -173,6 +174,7 @@ define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
 define('PASSWORD_HIDDEN', '--HIDDEN--');
 
 // images
+define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
 define('IMAGE_BACK', 'Back');
 define('IMAGE_BACKUP', 'Backup');
 define('IMAGE_CANCEL', 'Cancel');
@@ -199,6 +201,7 @@ define('IMAGE_NEW_CURRENCY', 'New Currency');
 define('IMAGE_NEW_FILE', 'New File');
 define('IMAGE_NEW_FOLDER', 'New Folder');
 define('IMAGE_NEW_LANGUAGE', 'New Language');
+define('IMAGE_NEW_NEWSLETTER', 'New Newsletter');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
 define('IMAGE_NEW_TAX_RATE', 'New Tax Rate');
@@ -210,6 +213,7 @@ define('IMAGE_RESTORE', 'Restore');
 define('IMAGE_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
+define('IMAGE_SEND', 'Send');
 define('IMAGE_UPDATE', 'Update');
 define('IMAGE_UPDATE_CURRENCIES', 'Update Exchange Rate');
 define('IMAGE_UPLOAD', 'Upload');
@@ -235,6 +239,7 @@ define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (o
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> currencies)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> languages)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> manufacturers)');
+define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> newsletters)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders status)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)');
@@ -264,6 +269,8 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</spa
 
 define('ERROR_BANNER_TITLE', 'Error: Banner title required');
 define('ERROR_BANNER_GROUP', 'Error: Banner group required');
+define('ERROR_NEWSLETTER_TITLE', 'Error: Newsletter title required');
+define('ERROR_NEWSLETTER_MODULE', 'Error: Newsletter module required');
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
 define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Error: There is currently no default language set. Please set one at: Administration Tool->Localization->Languages');
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tools.php,v 1.18 2002/01/11 05:03:25 hpdl Exp $
+  $Id: tools.php,v 1.19 2002/03/08 18:38:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,6 +28,7 @@
                                    '<a href="' . tep_href_link(FILENAME_DEFINE_LANGUAGE) . '">' . BOX_TOOLS_DEFINE_LANGUAGE . '</a><br>' .
                                    '<a href="' . tep_href_link(FILENAME_FILE_MANAGER) . '">' . BOX_TOOLS_FILE_MANAGER . '</a><br>' .
                                    '<a href="' . tep_href_link(FILENAME_MAIL) . '">' . BOX_TOOLS_MAIL . '</a><br>' .
+                                   '<a href="' . tep_href_link(FILENAME_NEWSLETTERS) . '">' . BOX_TOOLS_NEWSLETTER_MANAGER . '</a><br>' .
                                    '<a href="' . tep_href_link(FILENAME_SERVER_INFO) . '">' . BOX_TOOLS_SERVER_INFO . '</a><br>' .
                                    '<a href="' . tep_href_link(FILENAME_WHOS_ONLINE) . '">' . BOX_TOOLS_WHOS_ONLINE . '</a>');
   }

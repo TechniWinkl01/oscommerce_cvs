@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.135 2002/02/03 00:57:59 clescuyer Exp $
+  $Id: application_top.php,v 1.136 2002/03/08 18:38:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,6 +49,7 @@
   define('FILENAME_MAIL', 'mail.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_MODULES', 'modules.php');
+  define('FILENAME_NEWSLETTERS', 'newsletters.php');
   define('FILENAME_ORDERS', 'orders.php');
   define('FILENAME_ORDERS_STATUS', 'orders_status.php');
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
@@ -84,6 +85,7 @@
   define('TABLE_LANGUAGES', 'languages');
   define('TABLE_MANUFACTURERS', 'manufacturers');
   define('TABLE_MANUFACTURERS_INFO', 'manufacturers_info');
+  define('TABLE_NEWSLETTERS', 'newsletters');
   define('TABLE_ORDERS', 'orders');
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
