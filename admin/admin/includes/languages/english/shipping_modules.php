@@ -1,0 +1,16 @@
+<?
+/*
+English Text for The Exchange Project Administration Tool Preview Release 2.0
+Last Update: 02/12/2000
+Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+*/
+
+define('TOP_BAR_TITLE', 'Shipping Modules');
+define('HEADING_TITLE', 'Shipping Modules');
+
+define('TABLE_HEADING_CONFIGURATION_TITLE', 'Filename');
+define('TABLE_HEADING_CONFIGURATION_VALUE', 'Installed');
+define('TABLE_HEADING_ACTION', 'Install/Remove');
+
+define('IMAGE_INSTALL_REMOVE', 'Click to Install/Remove this module');
+?>

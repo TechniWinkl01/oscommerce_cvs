@@ -52,6 +52,7 @@ define('BOX_HEADING_CONFIGURATION', 'Configuration');
 // modules box text in includes/boxes/modules.php
 define('BOX_HEADING_MODULES', 'Modules');
 define('BOX_MODULES_PAYMENT', 'Payment');
+define('BOX_MODULES_SHIPPING', 'Shipping');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalog');
