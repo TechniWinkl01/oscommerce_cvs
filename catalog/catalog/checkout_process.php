@@ -2,7 +2,7 @@
 <?
   if ($HTTP_GET_VARS['paypal_return'] != '') {
     $arg = urldecode($HTTP_GET_VARS['paypal_return']);
-    $args = explode("|", $arg);
+    $args = explode('|', $arg);
     $payment = $args[0];
     $sendto = $args[1];
     $shipping_cost = $args[2];
@@ -11,7 +11,7 @@
     $cc_owner = '';
     $cc_number = '';
     $cc_expires = '';
-   } else {
+  } else {
     $payment = $HTTP_POST_VARS['payment'];
     $sendto = $HTTP_POST_VARS['sendto'];
     $shipping_method = $HTTP_POST_VARS['shipping_method'];
@@ -20,7 +20,8 @@
     $cc_owner = $HTTP_POST_VARS['cc_owner'];
     $cc_number = $HTTP_POST_VARS['cc_number'];
     $cc_expires = $HTTP_POST_VARS['cc_expires'];
-   }
+  }
+
   if ($sendto == '0') {
     $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
   } else {
@@ -37,6 +38,7 @@
 
   $delivery_name = $delivery_values['firstname'] . ' ' . $delivery_values['lastname'];
   $customer_name = $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];
+
   $cust_state = tep_get_zone_name($customer_values['customers_country_id'], $customer_values['customers_zone_id'], $customer_values['customers_state']);
   $cust_fmt_id = tep_get_address_format_id($customer_values['customers_country_id']);
   $del_state = tep_get_zone_name($delivery_values['country_id'], $delivery_values['zone_id'], $delivery_values['state']);

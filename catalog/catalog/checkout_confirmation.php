@@ -248,7 +248,7 @@
       break;
     case 'paypal' : // PayPal
       echo '          <tr>' . "\n";
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . EXT_PAYPAL . '&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_PAYPAL . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
       break;
   }
