@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.10 2001/11/19 13:12:45 hpdl Exp $
+  $Id: backup.php,v 1.11 2001/11/19 13:55:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,7 @@
 
   require('includes/application_top.php');
 
-  if ($HTTP_GET_VARS['action'] == 'backup') {
+  if ($HTTP_POST_VARS['action'] == 'backup') {
     // increase timeout to 3 minutes
     tep_set_time_limit(180);
     // Force download
@@ -21,7 +21,7 @@
     $tables_query = tep_db_query('show tables');
     while ($tables = tep_db_fetch_array($tables_query)) {
       $table = $tables[0];
-      if ($HTTP_GET_VARS['drop'] == 'yes') $schema = 'drop table if exists ' . $table . ';' . "\n";
+      if ($HTTP_POST_VARS['drop'] == 'on') $schema = 'drop table if exists ' . $table . ';' . "\n";
       $schema .= 'create table ' . $table . '(' . "\n";
       $table_list = array();
       $fields_query = tep_db_query("show fields from " . $table);
@@ -145,12 +145,12 @@
           <tr>
             <td class="main">&nbsp;</td>
           </tr>
-          <tr><form action="<?php echo tep_href_link(FILENAME_BACKUP, '', 'NONSSL'); ?>" method="get">
-            <td class="main" align="center"><input type="checkbox" name="drop" value="yes">&nbsp;<?php echo TEXT_DROP_TABLES; ?></td>
+          <tr><?php echo tep_draw_form('backup', FILENAME_BACKUP); ?>
+            <td class="main" align="center"><?php echo tep_draw_checkbox_field('drop') . ' ' . TEXT_DROP_TABLES; ?></td>
           </tr>
           <tr>
-            <td class="main" align="center"><input type="hidden" name="action" value="backup"><?php echo tep_image_submit('images/button_backup.gif', IMAGE_BACKUP); ?></td>
-          </form></tr>
+            <td class="main" align="center"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP); ?></td>
+          <?php echo tep_draw_hidden_field('action', 'backup'); ?></form></tr>
         </table></td>
       </tr>
     </table></td>

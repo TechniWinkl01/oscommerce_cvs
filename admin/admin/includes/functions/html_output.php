@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.2 2001/11/19 13:48:19 hpdl Exp $
+  $Id: html_output.php,v 1.3 2001/11/19 13:55:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -62,7 +62,7 @@
   function tep_image_submit($image, $alt) {
     global $language;
 
-    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '">';
+    $image_submit = '<input type="image" src="' . $image . '" border="0" alt="' . $alt . '">';
 
     return $image_submit;
   }
