@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.3 2002/03/11 01:36:46 hpdl Exp $
+  $Id: product_notification.php,v 1.4 2002/04/13 15:22:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,11 +102,7 @@ function selectAll(FormName, SelectBox) {
       } else {
         $chosen = $HTTP_POST_VARS['chosen'];
 
-        $ids = '';
-        for ($i=0; $i<sizeof($chosen); $i++) {
-          $ids .= $chosen[$i] . ',';
-        }
-        $ids = substr($ids, 0, -1);
+        $ids = implode(',', $chosen);
 
         $products_query = tep_db_query("select distinct customers_id from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id in (" . $ids . ")");
         while ($products = tep_db_fetch_array($products_query)) {
@@ -144,9 +140,8 @@ function selectAll(FormName, SelectBox) {
         if ($HTTP_GET_VARS['global'] == 'true') {
           $confirm_string .= tep_draw_hidden_field('global', 'true');
         } else {
-          reset($audience);
-          while (list($key, $value) = each($audience)) {
-            $confirm_string .= tep_draw_hidden_field('chosen[]', $key);
+          for ($i=0; $i<sizeof($chosen); $i++) {
+            $confirm_string .= tep_draw_hidden_field('chosen[]', $chosen[$i]);
           }
         }
         $confirm_string .= tep_image_submit('button_send.gif', IMAGE_SEND) . ' ';
@@ -180,11 +175,7 @@ function selectAll(FormName, SelectBox) {
       } else {
         $chosen = $HTTP_POST_VARS['chosen'];
 
-        $ids = '';
-        for ($i=0; $i<sizeof($chosen); $i++) {
-          $ids .= $chosen[$i] . ',';
-        }
-        $ids = substr($ids, 0, -1);
+        $ids = implode(',', $chosen);
 
         $products_query = tep_db_query("select distinct pn.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where c.customers_id = pn.customers_id and pn.products_id in (" . $ids . ")");
         while ($products = tep_db_fetch_array($products_query)) {
