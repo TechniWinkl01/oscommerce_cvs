@@ -29,7 +29,7 @@
   tep_db_connect() or die('Unable to connect to database server!');
 
   echo 'The Exchange Project - Products<>Manufacturers Update Script' . "\n\n";
-  echo '(1/3) Added manufacturers_id to "products" table' . "\n";
+  echo '(1/4) Added manufacturers_id to "products" table' . "\n";
 
   if (tep_db_query("alter table products add manufacturers_id int(5) null")) {
     echo ' ..done!' . "\n";
@@ -38,7 +38,16 @@
     exit();
   }
 
-  echo '(2/3) Updating manufacturers_id in "products" table';
+  echo '(2/4) Removing manufacturers_location from "manufacturers"' . "\n";
+
+  if (tep_db_query("alter table manufacturers drop manufacturers_location")) {
+    echo ' ..done!' . "\n";
+  } else {
+    echo ' ..STOP! Could not alter the "manufacturers" table - check table permissions!' . "\n";
+    exit();
+  }
+
+  echo '(3/4) Updating manufacturers_id in "products" table';
 
   $manufacturers_query = tep_db_query("select products_id, manufacturers_id from products_to_manufacturers");
   while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
@@ -47,7 +56,7 @@
 
   echo ' ..done!' . "\n";
 
-  echo '(3/3) Removing "products_to_manufacturers" table';
+  echo '(4/4) Removing "products_to_manufacturers" table';
   
   if (tep_db_query("drop table products_to_manufacturers")) {
     echo ' ..done!' . "\n";
