@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.36 2004/03/14 21:52:51 mevans Exp $
+  $Id: secpay.php,v 1.37 2004/03/26 18:33:59 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,8 +98,18 @@
           break;
       }
 
+      for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
+        $order_details .= 'prod=' . $order->products[$i]['name'] . ',item_amout=' . number_format($order->products[$i]['final_price'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '') . 'x' . $order->products[$i]['qty'] . ';';
+      }
+
+      $order_details .= 'TAX=' . number_format($order->info['tax'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '') . ';';
+      $order_details .= 'SHIPPING=' . number_format($order->info['shipping_cost'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '') . ';';
+
+      $trans_id = STORE_NAME . date('Ymdhis');
+      $digest = md5($trans_id . number_format($order->info['total'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '') . MODULE_PAYMENT_SECPAY_DIGEST_KEY);
+
       $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
-                               tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
+                               tep_draw_hidden_field('trans_id', $trans_id) .
                                tep_draw_hidden_field('amount', number_format($order->info['total'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '')) .
                                tep_draw_hidden_field('bill_name', $order->billing['firstname'] . ' ' . $order->billing['lastname']) .
                                tep_draw_hidden_field('bill_addr_1', $order->billing['street_address']) .
@@ -118,6 +128,8 @@
                                tep_draw_hidden_field('ship_post_code', $order->delivery['postcode']) .
                                tep_draw_hidden_field('ship_country', $order->delivery['country']['title']) .
                                tep_draw_hidden_field('currency', $sec_currency) .
+                               tep_draw_hidden_field('order', $order_details) .
+                               tep_draw_hidden_field('digest', $digest) .
                                tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false) . ';' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'SSL', false)) .
                                tep_draw_hidden_field('backcallback', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL', false)) .
                                tep_draw_hidden_field($osC_Session->name, $osC_Session->id) .
