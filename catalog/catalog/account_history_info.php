@@ -1,6 +1,19 @@
 <? include('includes/application_top.php'); ?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY_INFO; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_2 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $HTTP_GET_VARS['order_id'], 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_3 . '</a>'; ?>
+<?
+  if (tep_session_is_registered('customer_id')) {
+    $customer_number = tep_db_query("select customers_id from orders where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
+    $customer_number_values = tep_db_fetch_array($customer_number);
+    if ($customer_number_values['customers_id'] != $customer_id) {
+      header('Location: ' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'));
+      tep_exit();
+    }
+  } else {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=account_history', 'NONSSL'));
+    tep_exit();
+  }
+?>
 <html>
 <head>
 <title><?=TITLE;?></title>
