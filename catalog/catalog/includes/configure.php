@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.2 2001/08/09 18:07:01 hpdl Exp $
+  $Id: configure.php,v 1.3 2001/08/11 11:36:35 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,6 +43,9 @@
 
 // Send order confirmation emails ALSO to these email addresses (separated by a comma)
 //  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, someone else <someone@else.com>');
+
+// Use Search-engine Friendly URL's (only works in Apache)
+  define('SEARCH_ENGINE_FRIENDLY_URLS', false);
 
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off

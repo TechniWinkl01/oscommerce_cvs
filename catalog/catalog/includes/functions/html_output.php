@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.7 2001/08/09 19:23:27 dwatkins Exp $
+  $Id: html_output.php,v 1.8 2001/08/11 11:36:38 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,7 @@
 
 ////
 // The HTML href link wrapper function
-  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
+  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true) {
     if ($page == '') {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
     }
@@ -27,11 +27,14 @@
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
     }
-    // Put SID in the URL, if we are using cookies to propagate it, when changing to SSL
-    if (!SID && !getenv(HTTPS) && $connection=='SSL' && ENABLE_SSL)
+    // If we are using cookies to propagate the session id and we are changing servers
+    // .. then put SID in the URL to keep propagating across servers
+    $sess = '';
+    if (!SID && !getenv('HTTPS') && $connection=='SSL' && ENABLE_SSL && $add_session_id) {
       $sess = tep_session_name() . '=' . tep_session_id();
-    else
+    } elseif ($add_session_id) {
       $sess = SID;
+    }
     if ($parameters == '') {
       $link = $link . $page . '?' . $sess;
     } else {
@@ -39,6 +42,15 @@
     }
 
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+
+    if (SEARCH_ENGINE_FRIENDLY_URLS == true) {
+      while (strpos($link, '&&')) {
+        $link = str_replace("&&", "&", $link);
+      }
+      $link = str_replace("?", "/", $link);
+      $link = str_replace("&", "/", $link);
+      $link = str_replace("=", "/", $link);
+    }
 
     return $link;
   }

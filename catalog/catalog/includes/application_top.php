@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.157 2001/08/09 18:06:58 hpdl Exp $
+  $Id: application_top.php,v 1.158 2001/08/11 11:36:34 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -165,6 +165,19 @@
 // Categories Box: recursive products count
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
+
+// Get variables from $PATH_INFO
+  if (SEARCH_ENGINE_FRIENDLY_URLS == true) {
+    $PHP_SELF = str_replace($PATH_INFO,'',$PHP_SELF);
+    if (strlen($PATH_INFO) > 1) {
+      $vars = explode('/', substr($PATH_INFO, 1));
+      while (list(, $var) = each($vars)) { 
+        list(, $val) = each($vars); 
+        $HTTP_GET_VARS[$var] = $val; 
+        $GLOBALS[$var] = $val; 
+      }
+    }
+  }
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
