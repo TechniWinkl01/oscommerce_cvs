@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.110 2002/01/07 14:49:36 hpdl Exp $
+  $Id: application_top.php,v 1.111 2002/01/08 17:55:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -194,6 +194,9 @@
 
 // setup our boxes
   require(DIR_WS_CLASSES . 'boxes.php');
+  require(DIR_WS_CLASSES . 'table.php');
+  require(DIR_WS_CLASSES . 'box.php');
+  require(DIR_WS_CLASSES . 'errorStack.php');
 
 // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
