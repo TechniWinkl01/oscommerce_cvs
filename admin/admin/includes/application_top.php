@@ -173,6 +173,9 @@
 
 // lets start our session
   tep_session_start();
+  if (function_exists('session_set_cookie_params')) {
+    session_set_cookie_params(0, DIR_ADMIN);
+  }
 
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
