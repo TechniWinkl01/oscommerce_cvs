@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.34 2002/11/25 17:43:26 dgw_ Exp $
+  $Id: paypal.php,v 1.35 2002/11/25 18:23:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -91,8 +91,7 @@
     }
 
     function remove() {
-      $keys = "'" . implode("', '", $this->keys()) . "'";
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
     function keys() {
