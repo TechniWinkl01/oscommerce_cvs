@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.36 2002/06/05 20:59:08 dgw_ Exp $
+  $Id: product_listing.php,v 1.37 2002/07/17 15:24:28 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,11 @@
 
   $colspan = sizeof($column_list);
 
+  $listing_numrows_sql = $listing_sql;
   $listing_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
+// fix counted products
+  $listing_numrows = tep_db_query($listing_numrows_sql);
+  $listing_numrows = tep_db_num_rows($listing_numrows);
 
   if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '1' || PREV_NEXT_BAR_LOCATION == '3')) {
 ?>
