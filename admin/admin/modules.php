@@ -106,10 +106,10 @@
       $entry = $directory_array[$files];
 
       $check = 0;
+      include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/' . $module_type . '/' . $entry);
       include($module_directory . $entry);
       $class = substr($entry, 0, strrpos($entry, '.'));
       if (tep_class_exists($class)) {
-        include(DIR_FS_CATALOG_LANGUAGES . $language . '/modules/' . $module_type . '/' . $entry);
         $module = new $class;
         $check = $module->check();
         if ($check == '1') {
