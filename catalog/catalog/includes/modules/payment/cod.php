@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cod.php,v 1.19 2002/11/04 02:47:55 hpdl Exp $
+  $Id: cod.php,v 1.20 2002/11/18 20:50:29 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
         $check_flag = false;
         $check_query = tep_db_query("select zone_country_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_COD_ZONE . "'");
         while ($check = tep_db_fetch_array($check_query)) {
-          if ($check['zone_country_id'] == $order->billing['country']['id']) {
+          if ($check['zone_country_id'] == $order->delivery['country']['id']) {
             $check_flag = true;
             break;
           }
