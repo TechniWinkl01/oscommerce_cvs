@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.29 2002/05/23 13:41:06 hpdl Exp $
+  $Id: upgrade_3.php,v 1.30 2002/05/26 18:08:51 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -436,7 +436,7 @@ changeText('statusText', 'Updating Orders');
   osc_db_query("alter table orders_products add column products_model varchar(12)");
   osc_db_query("alter table orders_products change products_price products_price decimal(15,4) not null");
   osc_db_query("alter table orders_products change final_price final_price decimal(15,4) not null");
-  osc_db_query("alter table orders_products_attributes change options_values_price options_calues_price decimal(15,4) not null");
+  osc_db_query("alter table orders_products_attributes change options_values_price options_values_price decimal(15,4) not null");
 
   osc_db_query("create table orders_status ( orders_status_id int(5) default '0' not null, language_id int(5) default '1' not null, orders_status_name varchar(32) not null, primary key (orders_status_id, language_id), key idx_orders_status_name (orders_status_name))");
 
