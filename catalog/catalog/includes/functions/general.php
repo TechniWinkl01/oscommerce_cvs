@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.238 2004/04/13 07:59:08 hpdl Exp $
+  $Id: general.php,v 1.239 2004/04/13 08:10:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,19 +11,11 @@
 */
 
 ////
-// Stop from parsing any further PHP code
-  function tep_exit() {
-    global $osC_Session;
-
-   $osC_Session->close();
-
-   exit();
-  }
-
-////
 // Redirect to another page or site
   function tep_redirect($url) {
-    if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on') ) { // We are loading an SSL page
+    global $osC_Services, $request_type;
+
+    if ( (ENABLE_SSL == true) && ($request_type == 'SSL') ) { // We are loading an SSL page
       if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
         $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
       }
@@ -31,7 +23,9 @@
 
     header('Location: ' . $url);
 
-    tep_exit();
+    $osC_Services->stopServices();
+
+    exit;
   }
 
 ////

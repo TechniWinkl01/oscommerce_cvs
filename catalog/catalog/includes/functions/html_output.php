@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.59 2003/12/17 15:30:01 hpdl Exp $
+  $Id: html_output.php,v 1.60 2004/04/13 08:10:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true) {
-    global $request_type, $osC_Session, $SID;
+    global $request_type, $osC_Session, $SID, $osC_Services;
 
     if (!tep_not_null($page)) {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
@@ -42,7 +42,7 @@
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
 // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
-    if ( ($add_session_id == true) && ($osC_Session->is_started == true) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
+    if ( ($add_session_id == true) && ($osC_Session->is_started == true) && (SERVICE_SESSION_FORCE_COOKIE_USAGE == 'False') ) {
       if (tep_not_null($SID)) {
         $_sid = $SID;
       } elseif ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == true) ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') ) ) {
@@ -52,7 +52,7 @@
       }
     }
 
-    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
+    if ( ($search_engine_safe == true) && $osC_Services->isStarted('sefu')) {
       while (strstr($link, '&&')) $link = str_replace('&&', '&', $link);
 
       $link = str_replace('?', '/', $link);

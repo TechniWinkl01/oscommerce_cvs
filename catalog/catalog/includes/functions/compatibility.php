@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.20 2003/11/17 17:39:00 hpdl Exp $
+  $Id: compatibility.php,v 1.21 2004/04/13 08:10:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,6 +71,21 @@
       }
 
       return $tmp_array;
+    }
+  }
+
+  if (!function_exists('array_search')) {
+    function array_search($needle, $haystack) {
+      $match = false;
+
+      foreach ($haystack as $key => $value) {
+        if ($value == $needle) {
+          $match = $key;
+          break;
+        }
+      }
+
+      return $match;
     }
   }
 ?>

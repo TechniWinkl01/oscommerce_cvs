@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.82 2004/03/28 17:36:36 mevans Exp $
+  $Id: login.php,v 1.83 2004/04/13 08:11:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,7 +34,7 @@
       if (!tep_validate_password($password, $check_customer['customers_password'])) {
         $error = true;
       } else {
-        if (SESSION_RECREATE == 'True') {
+        if (SERVICE_SESSION_REGENERATE_ID == 'True') {
           $osC_Session->recreate();
         }
 

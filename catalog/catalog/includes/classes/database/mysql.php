@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mysql.php,v 1.2 2004/04/08 02:32:15 hpdl Exp $
+  $Id: mysql.php,v 1.3 2004/04/13 08:09:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,7 +82,7 @@
     }
 
     function simpleQuery($query, $debug = false) {
-      global $messageStack;
+      global $messageStack, $osC_Services;
 
       if ($this->isConnected()) {
         $this->number_of_queries++;
@@ -91,8 +91,14 @@
           $debug = true;
         }
 
-        if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
-          error_log('QUERY ' . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+        if (($debug === true) && (!isset($osC_Services) || !$osC_Service->isStarted('debug'))) {
+          $debug = false;
+        }
+
+        if (isset($osC_Services) && $osC_Services->isStarted('debug')) {
+          if (tep_not_null(SERVICE_DEBUG_EXECUTION_TIME_LOG) && (SERVICE_DEBUG_LOG_DB_QUERIES == 'True')) {
+            @error_log('QUERY ' . $query . "\n", 3, SERVICE_DEBUG_EXECUTION_TIME_LOG);
+          }
         }
 
         if ($debug === true) {

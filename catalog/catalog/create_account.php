@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.71 2004/04/03 10:27:42 mevans Exp $
+  $Id: create_account.php,v 1.72 2004/04/13 08:11:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -227,7 +227,7 @@
 
       tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . (int)$customer_id . "', '0', now())");
 
-      if (SESSION_RECREATE == 'True') {
+      if (SERVICE_SESSION_REGENERATE_ID == 'True') {
         $osC_Session->recreate();
       }
 
