@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.97 2001/06/04 20:41:11 kwiltner Exp $
+  $Id: general.php,v 1.98 2001/06/06 18:03:02 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -85,7 +85,7 @@ return $any_out_of_stock;
       }
       if ($l == $len) {
         $l = 0;
-        $output .= '-';
+        $output .= '- ';
       }
       $output .= $char;
     }
