@@ -77,6 +77,39 @@
           <tr>
             <td><? echo tep_black_line();?></td>
           </tr>
+          <tr>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+<?
+    if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
+// check to see if there are deeper categories within the current category
+      $category_links = tep_array_reverse($cPath_array);
+      for($i=0;$i<sizeof($category_links);$i++) {
+        $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order");
+        if (tep_db_num_rows($categories) < 1) {
+          // do nothing, go through the loop
+        } else {
+          break; // we've found the deepest category the customer is in
+        }
+      }
+    } else {
+      $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order");
+    }
+
+    $rows = 0;
+    while ($categories_values = tep_db_fetch_array($categories)) {
+      $rows++;
+      $cPath_new = tep_get_path($categories_values['categories_id']);
+      echo '                <td>' . FONT_STYLE_GENERAL . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
+      if ((($rows / 3) == floor($rows / 3)) && ($rows != MAX_DISPLAY_NEW_PRODUCTS) && ($rows != tep_db_num_rows($categories))) {
+        echo '              </tr>' . "\n";
+        echo '              <tr>' . "\n";
+      }
+    }
+?>
+              </tr>
+            </table></td>
+          </tr>
 <?
     $new_products_category_id = $current_category_id;
     $include_file = DIR_MODULES . FILENAME_NEW_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
