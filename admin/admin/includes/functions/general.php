@@ -456,7 +456,7 @@
     // finish the popup menu
     $result .= "\n</select>\n";
     
-    echo $result;
+    return $result;
 
   }
 
@@ -474,7 +474,7 @@
   //               updating the State/Province Drop-Down list
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_js_zone_list($SelectedCountryVar, $FormName) {
+  function tep_js_zone_list($SelectedCountryVar, $FormName, $zoneInputName = 'zone_id') {
     $country_query = tep_db_query("select distinct zone_country_id from zones order by zone_country_id");
     $NumCountry=1;
     while ($country_values = tep_db_fetch_array($country_query)) {
@@ -488,8 +488,8 @@
       $NumState = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
         if ($NumState == 1)
-          print ("    " . $FormName . ".zone_id.options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
-        print ("    " . $FormName . ".zone_id.options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
+          print ("    " . $FormName . "." . $zoneInputName . ".options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
+        print ("    " . $FormName . "." . $zoneInputName . ".options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
         $NumState++;
       }
       $NumCountry++;
@@ -497,4 +497,16 @@
     }
   }
 
+  function tep_tax_classes_pull_down($parameters, $selected = '') {
+    $select_string = '<select ' . $parameters . '>';
+    $classes_query = tep_db_query("select tax_class_id, tax_class_title from tax_class order by tax_class_title");
+    while ($classes = tep_db_fetch_array($classes_query)) {
+      $select_string .= '<option value="' . $classes['tax_class_id'] . '"';
+      if ($selected == $classes['tax_class_id']) $select_string .= ' SELECTED';
+      $select_string .= '>' . $classes['tax_class_title'] . '</option>';
+    }
+    $select_string .= '</select>';
+
+    return $select_string;
+  }
 ?>

@@ -50,6 +50,7 @@
   define('FILENAME_STATS_PRODUCTS_PURCHASED', 'stats_products_purchased.php');
   define('FILENAME_STATS_PRODUCTS_VIEWED', 'stats_products_viewed.php');
   define('FILENAME_TAX_CLASSES', 'tax_classes.php');
+  define('FILENAME_TAX_RATES', 'tax_rates.php');
   define('FILENAME_ZONES', 'zones.php');
 
 // define our database connection
@@ -210,6 +211,7 @@
   $include_file = DIR_CLASSES . 'review_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'special_price_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'tax_class_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'tax_rate_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'zones_info.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // calculate category path
