@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.96 2001/12/30 04:42:23 hpdl Exp $
+  $Id: categories.php,v 1.97 2001/12/30 04:48:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -292,7 +292,7 @@
       $product_query = tep_db_query("select pd.products_name, pd.products_description, pd.products_url, p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "'");
       $product = tep_db_fetch_array($product_query);
 
-      $pInfo = new productInfo($product);
+      $pInfo = new objectInfo($product);
     } elseif ($HTTP_POST_VARS) {
 /* not in use at the moment! this should be used when the user presses 'BACK' on the products preview page.. */
       $pInfo = new productInfo($HTTP_POST_VARS);
@@ -321,10 +321,10 @@
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_STATUS; ?>&nbsp;</td>
             <td class="main">&nbsp;<input type="radio" name="products_status" value="1"<?php
-	if (@$pInfo->status == '1' && $product['products_status'] == '1') {  
+	if (@$pInfo->products_status == '1' && $product['products_status'] == '1') {  
 	  echo ' CHECKED';
 	} ?>>&nbsp;<?php echo TEXT_PRODUCT_AVAILABLE; ?>&nbsp;<input type="radio" name="products_status" value="0"<?php
-        if (@$pInfo->status == '0' && $product['products_status'] == '0') {  
+        if (@$pInfo->products_status == '0' && $product['products_status'] == '0') {  
 	  echo ' CHECKED';
 	} ?>>&nbsp;<?php echo TEXT_PRODUCT_NOT_AVAILABLE; ?>&nbsp;</td>
           </tr>
@@ -342,7 +342,7 @@
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_NAME . ' (' . $languages[$i]['name'] . ')'; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="products_name[<?php echo $languages[$i]['id']; ?>]" value="<?php echo tep_get_products_name($pInfo->id, $languages[$i]['id']); ?>">&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="products_name[<?php echo $languages[$i]['id']; ?>]" value="<?php echo tep_get_products_name($pInfo->products_id, $languages[$i]['id']); ?>">&nbsp;</td>
           </tr>
 <?php
     }
@@ -355,7 +355,7 @@
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_DESCRIPTION . ' (' . $languages[$i]['name'] . ')'; ?>&nbsp;</td>
-            <td class="main">&nbsp;<textarea name="products_description[<?php echo $languages[$i]['id']; ?>]" cols="50" rows="10"><?php echo tep_get_products_description($pInfo->id, $languages[$i]['id']); ?></textarea>&nbsp;</td>
+            <td class="main">&nbsp;<textarea name="products_description[<?php echo $languages[$i]['id']; ?>]" cols="50" rows="10"><?php echo tep_get_products_description($pInfo->products_id, $languages[$i]['id']); ?></textarea>&nbsp;</td>
           </tr>
 <?php
     }
@@ -365,37 +365,37 @@
           </tr>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_QUANTITY; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="products_quantity" value="<?php echo @$pInfo->quantity; ?>">&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="products_quantity" value="<?php echo @$pInfo->products_quantity; ?>">&nbsp;</td>
           </tr>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_MODEL; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="products_model" value="<?php echo @$pInfo->model; ?>">&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="products_model" value="<?php echo @$pInfo->products_model; ?>">&nbsp;</td>
           </tr>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_IMAGE; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="file" name="products_image" size="20">&nbsp;<br>&nbsp;<?php echo @$pInfo->image; ?><input type="hidden" name="products_previous_image" value="<?php echo @$pInfo->image; ?>"></td>
+            <td class="main">&nbsp;<input type="file" name="products_image" size="20">&nbsp;<br>&nbsp;<?php echo @$pInfo->products_image; ?><input type="hidden" name="products_previous_image" value="<?php echo @$pInfo->products_image; ?>"></td>
           </tr>
 <?php
     for ($i=0; $i<sizeof($languages); $i++) {
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_URL . ' (' . $languages[$i]['name'] . ')'; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="products_url[<?php echo $languages[$i]['id']; ?>]" value="<?php echo tep_get_products_url($pInfo->id, $languages[$i]['id']); ?>">&nbsp;<span class="smallText"><?php echo TEXT_PRODUCTS_URL_WITHOUT_HTTP; ?></span></td>
+            <td class="main">&nbsp;<input type="text" name="products_url[<?php echo $languages[$i]['id']; ?>]" value="<?php echo tep_get_products_url($pInfo->products_id, $languages[$i]['id']); ?>">&nbsp;<span class="smallText"><?php echo TEXT_PRODUCTS_URL_WITHOUT_HTTP; ?></span></td>
           </tr>
 <?php
     }
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_PRICE; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="products_price" value="<?php echo @$pInfo->price; ?>">&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="products_price" value="<?php echo @$pInfo->products_price; ?>">&nbsp;</td>
           </tr>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_TAX_CLASS; ?>&nbsp;</td>
-            <td class="main">&nbsp;<select name="products_tax_class_id"><option value="0">None Selected</option><?php while ($tax_class = tep_db_fetch_array($tax_class_query)) { echo '<option value="' . $tax_class['tax_class_id'] . '"'; if (@$pInfo->tax_class == $tax_class['tax_class_id']) echo ' SELECTED'; echo '>' . $tax_class['tax_class_title'] . '</option>'; } ?></select>&nbsp;</td>
+            <td class="main">&nbsp;<select name="products_tax_class_id"><option value="0">None Selected</option><?php while ($tax_class = tep_db_fetch_array($tax_class_query)) { echo '<option value="' . $tax_class['tax_class_id'] . '"'; if (@$pInfo->products_tax_class_id == $tax_class['tax_class_id']) echo ' SELECTED'; echo '>' . $tax_class['tax_class_title'] . '</option>'; } ?></select>&nbsp;</td>
           </tr>
           <tr>
             <td class="main">&nbsp;<?php echo TEXT_PRODUCTS_WEIGHT; ?>&nbsp;</td>
-            <td class="main">&nbsp;<input type="text" name="products_weight" value="<?php echo @$pInfo->weight; ?>">&nbsp;</td>
+            <td class="main">&nbsp;<input type="text" name="products_weight" value="<?php echo @$pInfo->products_weight; ?>">&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -403,7 +403,7 @@
         <td><br><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td class="main" align="right"><br>&nbsp;<input type="hidden" name="products_date_added" value="<?php if (@$pInfo->date_added) { echo $pInfo->date_added; } else { echo date('Y-m-d'); } ?>"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'pinfo', 'info')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</td>
+        <td class="main" align="right"><br>&nbsp;<input type="hidden" name="products_date_added" value="<?php if (@$pInfo->products_date_added) { echo $pInfo->products_date_added; } else { echo date('Y-m-d'); } ?>"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'pinfo', 'info')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</td>
       </form></tr>
 <?php
   } elseif ($HTTP_GET_VARS['action'] == 'new_product_preview') {
