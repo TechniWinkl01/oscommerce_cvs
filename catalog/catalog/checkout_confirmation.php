@@ -277,7 +277,7 @@
       $products_price = $products[$i]['price'];
       $products_id = $products[$i]['id'];
       $products_quantity = $products[$i]['quantity'];
-      check_stock($products[$i]['id'], $products[$i]['quantity']);
+      $out_of_stock = check_stock($products[$i]['id'], $products[$i]['quantity']);
 
       if ($out_of_stock) {
 //  $qtd_to_ship = ($products_quantity  -= $qtd_stock);

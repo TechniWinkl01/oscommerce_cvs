@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.100 2001/06/09 18:49:37 hpdl Exp $
+  $Id: general.php,v 1.101 2001/06/11 16:23:10 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -42,35 +42,34 @@
     return $random_product;
   }
 
-// Check  & Update Stock
+////
+// Check & Update Stock
 // Check Stock function
+  function check_stock ($ident, $qtd) {
+    global $qtd_stock, $any_out_of_stock;
 
- function check_stock ($ident, $qtd) {
-  global $qtd_stock, $out_of_stock, $any_out_of_stock;
+    $ident = tep_get_prid($ident);
+    $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id like '$ident'");
+    $stock = tep_db_fetch_array($qtd_stock_query);
+    $qtd_stock = $stock['products_quantity'];
+    $qtd_buy =  ($qtd);
+    $qtd_left = ($qtd_stock -= $qtd_buy);
 
-        $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id like '$ident'");
-        $stock = tep_db_fetch_array($qtd_stock_query);
-        $qtd_stock = $stock['products_quantity'];
-        $qtd_buy =  ($qtd);
-        $qtd_left = ($qtd_stock -= $qtd_buy);
+    if ($qtd_left <= '-1') {
 
-        if ($qtd_left <= '-1') {
+      $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id like '$ident'");
+      $stock = tep_db_fetch_array($qtd_stock_query);
+      $qtd_stock = $stock['products_quantity'];
 
-        $qtd_stock_query = tep_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id like '$ident'");
-        $stock = tep_db_fetch_array($qtd_stock_query);
-        $qtd_stock = $stock['products_quantity'];
+      $out_of_stock = "<font size=1 color=crimson face=verdana><small>***</small></font>";
+      $any_out_of_stock = "YES";
 
-        $out_of_stock = "<font size=1 color=crimson face=verdana><small>***</small></font>";
-        $any_out_of_stock = "YES";
+    } else {
+      $out_of_stock = "";
+    }
 
-        } else {
-        $out_of_stock = "";
-        }
-
-return $out_of_stock;
-return $any_out_of_stock;
-
-}
+    return $out_of_stock;
+  }
 // End Check Stock
 
   function tep_break_string($string, $len) {

@@ -92,7 +92,7 @@
       echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
       if (STOCK_CHECK) {
-      echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
+        echo check_stock($products[$i]['id'], $products[$i]['quantity']);
       }
 
 
