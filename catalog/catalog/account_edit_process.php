@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.59 2002/05/23 00:37:54 hpdl Exp $
+  $Id: account_edit_process.php,v 1.60 2002/05/23 01:02:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -126,7 +126,7 @@
     $entry_password_error = true;
   }
 
-  $check_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "' and customers_id <> '" . $customer_id . "'");
+  $check_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input(tep_db_prepare_input($HTTP_POST_VARS['email_address'])) . "' and customers_id <> '" . $customer_id . "'");
   if (tep_db_num_rows($check_email)) {
     $error = true;
     $entry_email_address_exists = true;
