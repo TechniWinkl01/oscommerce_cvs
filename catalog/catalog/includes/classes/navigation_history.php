@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.6 2003/06/09 22:23:43 hpdl Exp $
+  $Id: navigation_history.php,v 1.7 2003/11/17 19:17:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,10 +11,12 @@
 */
 
   class navigationHistory {
-    var $path, $snapshot;
+    var $path, $snapshot, $set_global;
 
     function navigationHistory() {
       $this->reset();
+
+      $this->setGlobal();
     }
 
     function reset() {
@@ -23,7 +25,11 @@
     }
 
     function add_current_page() {
-      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $request_type, $cPath;
+      global $PHP_SELF, $request_type, $cPath;
+
+      if ($this->set_global) {
+        global $_GET, $_POST;
+      }
 
       $set = 'true';
       for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
@@ -60,8 +66,8 @@
       if ($set == 'true') {
         $this->path[] = array('page' => basename($PHP_SELF),
                               'mode' => $request_type,
-                              'get' => $HTTP_GET_VARS,
-                              'post' => $HTTP_POST_VARS);
+                              'get' => $_GET,
+                              'post' => $_POST);
       }
     }
 
@@ -75,7 +81,11 @@
     }
 
     function set_snapshot($page = '') {
-      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $request_type;
+      global $PHP_SELF, $request_type;
+
+      if ($this->set_global) {
+        global $_GET, $_POST;
+      }
 
       if (is_array($page)) {
         $this->snapshot = array('page' => $page['page'],
@@ -85,8 +95,8 @@
       } else {
         $this->snapshot = array('page' => basename($PHP_SELF),
                                 'mode' => $request_type,
-                                'get' => $HTTP_GET_VARS,
-                                'post' => $HTTP_POST_VARS);
+                                'get' => $_GET,
+                                'post' => $_POST);
       }
     }
 
@@ -102,7 +112,13 @@
                               'post' => $this->path[$pos]['post']);
     }
 
+    function setGlobal() {
+      $this->set_global = (PHP_VERSION < 4.1) ? true : false;
+    }
+
     function debug() {
+      global $osC_Session;
+
       for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
         echo $this->path[$i]['page'] . '?';
         while (list($key, $value) = each($this->path[$i]['get'])) {
@@ -120,15 +136,7 @@
       if (sizeof($this->snapshot) > 0) {
         echo '<br><br>';
 
-        echo $this->snapshot['mode'] . ' ' . $this->snapshot['page'] . '?' . tep_array_to_string($this->snapshot['get'], array(tep_session_name())) . '<br>';
-      }
-    }
-
-    function unserialize($broken) {
-      for(reset($broken);$kv=each($broken);) {
-        $key=$kv['key'];
-        if (gettype($this->$key)!="user function")
-        $this->$key=$kv['value'];
+        echo $this->snapshot['mode'] . ' ' . $this->snapshot['page'] . '?' . tep_array_to_string($this->snapshot['get'], array($osC_Session->name)) . '<br>';
       }
     }
   }
