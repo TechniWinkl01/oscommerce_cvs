@@ -73,7 +73,7 @@
     return $black_line;
   }
 
-  function tep_currency_format($number, $calculate_currency_value = true, $currency_value = CURRENCY_VALUE) {
+  function tep_currency_format($number, $calculate_currency_value = true, $currency_value = DEFAULT_CURRENCY) {
     $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " where code = '" . $currency_value . "'");
     $currency = tep_db_fetch_array($currency_query);
 

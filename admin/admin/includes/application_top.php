@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.79 2001/09/19 11:15:01 mbs Exp $
+  $Id: application_top.php,v 1.80 2001/09/21 11:52:34 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -42,7 +42,8 @@
 
 // default localization values
   define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
-  define('CURRENCY_VALUE', 'USD');  // The currency used in the admin tool and in the database
+  define('DEFAULT_CURRENCY', 'USD');  // The currency used to display money in the admin tool
+  define('CURRENCY_VALUE', 'USD');  // The currency used in the database
 
   define('STORE_NAME', 'The Exchange Project');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
