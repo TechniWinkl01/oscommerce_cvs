@@ -1,7 +1,7 @@
 <?
 /*
 German Text for The Exchange Project Preview Release 2.2
-Last Update: 04/24/2001
+Last Update: 26/05/2001
 Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
@@ -22,6 +22,6 @@ define('TEXT_EMAIL_INTRO', 'Ihr Freund, %s, hat diesen tollen Artikel %s bei %s 
 define('TEXT_EMAIL_LINK', "Um das Produkt anzusehen, klicken Sie bitte auf den Link oder kopieren diesen und fügen Sie ihn in die URL-Zeile Ihres Browsers ein:\n%s");
 define('TEXT_EMAIL_SIGNATURE', "Mit freundlichen Grüßen, \n%s");
 
-define('IMAGE_PROCESS', 'Bestätigen');
+define('IMAGE_CONTINUE', 'Weiter');
 define('IMAGE_BACK', 'Zurück');
 ?>
