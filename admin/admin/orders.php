@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.67 2002/01/23 03:06:43 hpdl Exp $
+  $Id: orders.php,v 1.68 2002/01/23 03:19:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -223,7 +223,7 @@
         $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
         while ($attributes = tep_db_fetch_array($attributes_query)) {
           if ($attributes['options_values_price'] != '0') {
-            echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>';
+            echo '<br><small><i>' . $attributes['price_prefix'] . tep_currency_format($products['products_quantity'] * $attributes['options_values_price']) . '</i></small>';
           } else {
             echo '<br>&nbsp;';
           }
