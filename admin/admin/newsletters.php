@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.14 2002/03/29 13:04:25 dgw_ Exp $
+  $Id: newsletters.php,v 1.15 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -153,7 +153,7 @@
       $dir->close();
     }
 
-    for ($i=0; $i<sizeof($directory_array); $i++) {
+    for ($i = 0, $n = sizeof($directory_array); $i < $n; $i++) {
       $modules_array[] = array('id' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')), 'text' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')));
     }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.48 2002/08/19 01:59:21 hpdl Exp $
+  $Id: manufacturers.php,v 1.49 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,7 +48,7 @@
       }
 
       $languages = tep_get_languages();
-      for ($i=0; $i<sizeof($languages); $i++) {
+      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
         $language_id = $languages[$i]['id'];
 
@@ -188,7 +188,7 @@
 
       $manufacturer_inputs_string = '';
       $languages = tep_get_languages();
-      for ($i=0; $i<sizeof($languages); $i++) {
+      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $manufacturer_inputs_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('manufacturers_url[' . $languages[$i]['id'] . ']');
       }
 
@@ -205,7 +205,7 @@
 
       $manufacturer_inputs_string = '';
       $languages = tep_get_languages();
-      for ($i=0; $i<sizeof($languages); $i++) {
+      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
         $manufacturer_inputs_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('manufacturers_url[' . $languages[$i]['id'] . ']', tep_get_manufacturer_url($mInfo->manufacturers_id, $languages[$i]['id']));
       }
 

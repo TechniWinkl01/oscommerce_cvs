@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.37 2002/08/19 01:45:23 hpdl Exp $
+  $Id: file_manager.php,v 1.38 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -107,7 +107,7 @@
   $current_path_array = explode('/', $current_path);
   $document_root_array = explode('/', DIR_FS_DOCUMENT_ROOT);
   $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT, 'text' => $in_directory));
-  for ($i=0; $i<sizeof($current_path_array); $i++) {
+  for ($i = 0, $n = sizeof($current_path_array); $i < $n; $i++) {
     if ($current_path_array[$i] != $document_root_array[$i]) {
       $goto_array[] = array('id' => implode('/', tep_array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i]);
     }
@@ -227,7 +227,7 @@
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-  for ($i=0; $i<sizeof($contents); $i++) {
+  for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $contents[$i]['name'])) && (!$fInfo) && ($HTTP_GET_VARS['action'] != 'upload') && ($HTTP_GET_VARS['action'] != 'new_folder') ) {
       $fInfo = new objectInfo($contents[$i]);
     }

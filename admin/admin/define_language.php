@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.11 2002/03/16 00:52:24 hpdl Exp $
+  $Id: define_language.php,v 1.12 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@
   $languages_array = array();
   $languages = tep_get_languages();
   $lng_exists = false;
-  for ($i=0; $i<sizeof($languages); $i++) {
+  for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
     if ($languages[$i]['directory'] == $HTTP_GET_VARS['lngdir']) $lng_exists = true;
 
     $languages_array[] = array('id' => $languages[$i]['directory'],

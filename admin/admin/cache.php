@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.20 2002/03/16 00:31:20 hpdl Exp $
+  $Id: cache.php,v 1.21 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,12 +68,12 @@
 <?php
   if ($messageStack->size < 1) {
     $languages = tep_get_languages();
-    for ($i=0; $i<sizeof($languages); $i++) {
+    for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
       if ($languages[$i]['code'] == DEFAULT_LANGUAGE) {
         $language = $languages[$i]['directory'];
       }
     }
-    for ($i=0; $i<sizeof($cache_blocks); $i++) {
+    for ($i = 0, $n = sizeof($cache_blocks); $i < $n; $i++) {
       $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
       if (file_exists(DIR_FS_CACHE . $cached_file)) {
         $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cached_file));

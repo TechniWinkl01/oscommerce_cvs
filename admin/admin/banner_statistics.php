@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_statistics.php,v 1.3 2002/09/26 13:48:31 project3000 Exp $
+  $Id: banner_statistics.php,v 1.4 2002/11/22 14:45:45 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -126,7 +126,7 @@
              <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_CLICKS; ?></td>
            </tr>
 <?php
-    for ($i=0; $i<sizeof($stats); $i++) {
+    for ($i = 0, $n = sizeof($stats); $i < $n; $i++) {
       echo '            <tr class="dataTableRow">' . "\n" .
            '              <td class="dataTableContent">' . $stats[$i][0] . '</td>' . "\n" .
            '              <td class="dataTableContent" align="right">' . number_format($stats[$i][1]) . '</td>' . "\n" .

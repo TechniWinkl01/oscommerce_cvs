@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: packingslip.php,v 1.3 2002/06/11 17:55:38 dgw_ Exp $
+  $Id: packingslip.php,v 1.4 2002/11/22 14:45:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,13 +94,13 @@
         <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
       </tr>
 <?php
-    for ($i=0; $i<sizeof($order->products); $i++) {
+    for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
       echo '      <tr class="dataTableRow">' . "\n" .
            '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
       if (sizeof($order->products[$i]['attributes']) > 0) {
-        for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+        for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           echo '</i></small></nobr>';
         }

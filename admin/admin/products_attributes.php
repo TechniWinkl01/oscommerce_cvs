@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.47 2002/10/15 15:12:35 thomasamoulton Exp $
+  $Id: products_attributes.php,v 1.48 2002/11/22 14:45:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,14 +17,14 @@
     $page_info = 'option_page=' . $HTTP_GET_VARS['option_page'] . '&value_page=' . $HTTP_GET_VARS['value_page'] . '&attribute_page=' . $HTTP_GET_VARS['attribute_page'];
     switch($HTTP_GET_VARS['action']) {
       case 'add_product_options':
-        for ($i = 0; $i < sizeof($languages); $i ++) {
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $HTTP_POST_VARS['option_name'];
           tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . $HTTP_POST_VARS['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
         }
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info)); 
         break;
       case 'add_product_option_values':
-        for ($i = 0; $i < sizeof($languages); $i ++) {
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $value_name = $HTTP_POST_VARS['value_name'];
           tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . $HTTP_POST_VARS['value_id'] . "', '" . $languages[$i]['id'] . "', '" . $value_name[$languages[$i]['id']] . "')");
         }
@@ -40,14 +40,14 @@
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_option_name':
-        for ($i = 0; $i < sizeof($languages); $i ++) {
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = $HTTP_POST_VARS['option_name'];
           tep_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "' where products_options_id = '" . $HTTP_POST_VARS['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
         }
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_value':
-        for ($i = 0; $i < sizeof($languages); $i ++) {
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $value_name = $HTTP_POST_VARS['value_name'];
           tep_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES . " set products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' where products_options_values_id = '" . $HTTP_POST_VARS['value_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
         }
@@ -261,7 +261,7 @@ function go_option() {
       if (($HTTP_GET_VARS['action'] == 'update_option') && ($HTTP_GET_VARS['option_id'] == $options_values['products_options_id'])) {
         echo '<form name="option" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name', 'NONSSL') . '" method="post">';
         $inputs = '';
-        for ($i = 0; $i < sizeof($languages); $i ++) {
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $option_name = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
           $option_name = tep_db_fetch_array($option_name);
           $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br>';
@@ -297,7 +297,7 @@ function go_option() {
 <?php
       echo '<form name="options" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options&option_page=' . $option_page, 'NONSSL') . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
       $inputs = '';
-      for ($i = 0; $i < sizeof($languages); $i ++) {
+      for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
         $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br>';
       }
 ?>
@@ -459,7 +459,7 @@ function go_option() {
       if (($HTTP_GET_VARS['action'] == 'update_option_value') && ($HTTP_GET_VARS['value_id'] == $values_values['products_options_values_id'])) {
         echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_value', 'NONSSL') . '" method="post">';
         $inputs = '';
-        for ($i = 0; $i < sizeof($languages); $i ++) {
+        for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
           $value_name = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_values['products_options_values_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
           $value_name = tep_db_fetch_array($value_name);
           $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br>';
@@ -515,7 +515,7 @@ function go_option() {
       }
 
       $inputs = '';
-      for ($i = 0; $i < sizeof($languages); $i ++) {
+      for ($i = 0, $n = sizeof($languages); $i < $n; $i ++) {
         $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15">&nbsp;<br>';
       }
 ?>

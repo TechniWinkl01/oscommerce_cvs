@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.15 2002/10/29 22:31:25 hpdl Exp $
+  $Id: index.php,v 1.16 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,7 +57,7 @@
 
   $languages = tep_get_languages();
   $languages_array = array();
-  for ($i=0; $i<sizeof($languages); $i++) {
+  for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
     $languages_array[] = array('id' => $languages[$i]['code'],
                                'text' => $languages[$i]['name']);
   }
@@ -199,7 +199,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 <?php
   $col = 2;
   $counter = 0;
-  for ($i=0; $i<sizeof($cat); $i++) {
+  for ($i = 0, $n = sizeof($cat); $i < $n; $i++) {
     $counter++;
     if ($counter < $col) {
       echo '                  <tr>' . "\n";
@@ -216,7 +216,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
          '                            <td class="sub">';
 
     $children = '';
-    for ($j=0; $j<sizeof($cat[$i]['children']); $j++) {
+    for ($j = 0, $k = sizeof($cat[$i]['children']); $j < $k; $j++) {
       $children .= '<a href="' . $cat[$i]['children'][$j]['link'] . '" class="sub">' . $cat[$i]['children'][$j]['title'] . '</a>, ';
     }
     echo substr($children, 0, -2);

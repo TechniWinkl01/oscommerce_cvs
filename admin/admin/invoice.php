@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: invoice.php,v 1.1 2002/06/11 18:17:59 dgw_ Exp $
+  $Id: invoice.php,v 1.2 2002/11/22 14:45:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -100,13 +100,13 @@
         <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
       </tr>
 <?php
-    for ($i=0; $i<sizeof($order->products); $i++) {
+    for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
       echo '      <tr class="dataTableRow">' . "\n" .
            '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-      if (sizeof($order->products[$i]['attributes']) > 0) {
-        for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+      if ($k = sizeof($order->products[$i]['attributes']) > 0) {
+        for ($j = 0; $j < $k; $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
           echo '</i></small></nobr>';
@@ -126,7 +126,7 @@
       <tr>
         <td align="right" colspan="8"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-  for ($i=0; $i<sizeof($order->totals); $i++) {
+  for ($i = 0, $n = sizeof($order->totals); $i < $n; $i++) {
     echo '          <tr>' . "\n" .
          '            <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
          '            <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.29 2002/11/11 21:37:45 hpdl Exp $
+  $Id: whos_online.php,v 1.30 2002/11/22 14:45:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -157,7 +157,7 @@
 
       if (is_object($cart)) {
         $products = $cart->get_products();
-        for ($i=0; $i<sizeof($products); $i++) {
+        for ($i = 0, $n = sizeof($products); $i < $n; $i++) {
           $contents[] = array('text' => $products[$i]['quantity'] . ' x ' . $products[$i]['name']);
         }
 
