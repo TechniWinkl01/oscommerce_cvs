@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.1 2002/03/08 18:38:18 hpdl Exp $
+  $Id: newsletters.php,v 1.2 2002/03/08 18:52:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,7 @@ define('TEXT_NEWSLETTER_TITLE', 'Newsletter Title:');
 define('TEXT_NEWSLETTER_CONTENT', 'Content:');
 
 define('TEXT_NEWSLETTER_DATE_ADDED', 'Date Added:');
+define('TEXT_NEWSLETTER_DATE_SENT', 'Date Sent:');
 
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this newsletter?');
 
