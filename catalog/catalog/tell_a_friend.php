@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.35 2003/02/17 04:28:10 thomasamoulton Exp $
+  $Id: tell_a_friend.php,v 1.36 2003/02/17 07:55:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,11 +53,11 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?php
   if ($valid_product == false) {
 ?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE_ERROR; ?></td>
           </tr>
@@ -73,6 +73,8 @@
   } else {
     $product_info = tep_db_fetch_array($product_info_query);
 ?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_info['products_name']); ?></td>
             <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', sprintf(HEADING_TITLE, $product_info['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
