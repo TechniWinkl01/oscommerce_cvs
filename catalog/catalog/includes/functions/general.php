@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.231 2003/07/09 01:15:48 hpdl Exp $
+  $Id: general.php,v 1.232 2003/11/17 18:55:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,10 @@
 ////
 // Stop from parsing any further PHP code
   function tep_exit() {
-   tep_session_close();
+    global $osC_Session;
+
+   $osC_Session->close();
+
    exit();
   }
 
@@ -78,9 +81,9 @@
 // Return a product's name
 // TABLES: products
   function tep_get_products_name($product_id, $language = '') {
-    global $languages_id;
+    global $osC_Session;
 
-    if (empty($language)) $language = $languages_id;
+    if (empty($language)) $language = $osC_Session->value('languages_id');
 
     $product_query = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . (int)$product_id . "' and language_id = '" . (int)$language . "'");
     $product = tep_db_fetch_array($product_query);
@@ -148,15 +151,19 @@
 ////
 // Return all HTTP GET variables, except those passed as a parameter
   function tep_get_all_get_params($exclude_array = '') {
-    global $HTTP_GET_VARS;
+    global $osC_Session;
+
+    if (PHP_VERSION < 4.1) {
+      global $_GET;
+    }
 
     if (!is_array($exclude_array)) $exclude_array = array();
 
     $get_url = '';
-    if (is_array($HTTP_GET_VARS) && (sizeof($HTTP_GET_VARS) > 0)) {
-      reset($HTTP_GET_VARS);
-      while (list($key, $value) = each($HTTP_GET_VARS)) {
-        if ( (strlen($value) > 0) && ($key != tep_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
+    if (is_array($_GET) && (sizeof($_GET) > 0)) {
+      reset($_GET);
+      while (list($key, $value) = each($_GET)) {
+        if ( (is_string($value) && (strlen($value) > 0)) && ($key != $osC_Session->name) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
           $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
         }
       }
@@ -241,9 +248,11 @@
 ////
 // Returns the clients browser
   function tep_browser_detect($component) {
-    global $HTTP_USER_AGENT;
+    if (PHP_VERSION < 4.1) {
+      global $_SERVER;
+    }
 
-    return stristr($HTTP_USER_AGENT, $component);
+    return stristr($_SERVER['HTTP_USER_AGENT'], $component);
   }
 
 ////
@@ -300,52 +309,6 @@
     }
 
     return $number;
-  }
-
-////
-// Returns the tax rate for a zone / class
-// TABLES: tax_rates, zones_to_geo_zones
-  function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
-    global $customer_zone_id, $customer_country_id;
-
-    if ( ($country_id == -1) && ($zone_id == -1) ) {
-      if (!tep_session_is_registered('customer_id')) {
-        $country_id = STORE_COUNTRY;
-        $zone_id = STORE_ZONE;
-      } else {
-        $country_id = $customer_country_id;
-        $zone_id = $customer_zone_id;
-      }
-    }
-
-    $tax_query = tep_db_query("select sum(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id) left join " . TABLE_GEO_ZONES . " tz on (tz.geo_zone_id = tr.tax_zone_id) where (za.zone_country_id is null or za.zone_country_id = '0' or za.zone_country_id = '" . (int)$country_id . "') and (za.zone_id is null or za.zone_id = '0' or za.zone_id = '" . (int)$zone_id . "') and tr.tax_class_id = '" . (int)$class_id . "' group by tr.tax_priority");
-    if (tep_db_num_rows($tax_query)) {
-      $tax_multiplier = 1.0;
-      while ($tax = tep_db_fetch_array($tax_query)) {
-        $tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);
-      }
-      return ($tax_multiplier - 1.0) * 100;
-    } else {
-      return 0;
-    }
-  }
-
-////
-// Return the tax description for a zone / class
-// TABLES: tax_rates;
-  function tep_get_tax_description($class_id, $country_id, $zone_id) {
-    $tax_query = tep_db_query("select tax_description from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za on (tr.tax_zone_id = za.geo_zone_id) left join " . TABLE_GEO_ZONES . " tz on (tz.geo_zone_id = tr.tax_zone_id) where (za.zone_country_id is null or za.zone_country_id = '0' or za.zone_country_id = '" . (int)$country_id . "') and (za.zone_id is null or za.zone_id = '0' or za.zone_id = '" . (int)$zone_id . "') and tr.tax_class_id = '" . (int)$class_id . "' order by tr.tax_priority");
-    if (tep_db_num_rows($tax_query)) {
-      $tax_description = '';
-      while ($tax = tep_db_fetch_array($tax_query)) {
-        $tax_description .= $tax['tax_description'] . ' + ';
-      }
-      $tax_description = substr($tax_description, 0, -3);
-
-      return $tax_description;
-    } else {
-      return TEXT_UNKNOWN_TAX_RATE;
-    }
   }
 
 ////
@@ -508,11 +471,11 @@
   }
 
   function tep_get_categories($categories_array = '', $parent_id = '0', $indent = '') {
-    global $languages_id;
+    global $osC_Session;
 
     if (!is_array($categories_array)) $categories_array = array();
 
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where parent_id = '" . (int)$parent_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' order by sort_order, cd.categories_name");
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where parent_id = '" . (int)$parent_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . (int)$osC_Session->value('languages_id') . "' order by sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
       $categories_array[] = array('id' => $categories['categories_id'],
                                   'text' => $indent . $categories['categories_name']);
@@ -931,10 +894,10 @@
 ////
 // Return a customer greeting
   function tep_customer_greeting() {
-    global $customer_id, $customer_first_name;
+    global $osC_Customer;
 
-    if (tep_session_is_registered('customer_first_name') && tep_session_is_registered('customer_id')) {
-      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, tep_output_string_protected($customer_first_name), tep_href_link(FILENAME_PRODUCTS_NEW));
+    if ($osC_Customer->isLoggedOn()) {
+      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, tep_output_string_protected($osC_Customer->first_name), tep_href_link(FILENAME_PRODUCTS_NEW));
     } else {
       $greeting_string = sprintf(TEXT_GREETING_GUEST, tep_href_link(FILENAME_LOGIN, '', 'SSL'), tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'));
     }
@@ -1006,7 +969,7 @@
     for ($i=0, $n=sizeof($modules_array); $i<$n; $i++) {
       $class = substr($modules_array[$i], 0, strrpos($modules_array[$i], '.'));
 
-      if (is_object($GLOBALS[$class])) {
+      if (isset($GLOBALS[$class]) && is_object($GLOBALS[$class])) {
         if ($GLOBALS[$class]->enabled) {
           $count++;
         }
@@ -1113,40 +1076,27 @@
     return $value;
   }
 
-////
-// Checks to see if the currency code exists as a currency
-// TABLES: currencies
-  function tep_currency_exists($code) {
-    $code = tep_db_prepare_input($code);
+  function tep_array_filter($array, $callback) {
+    $parsed_array = array();
 
-    $currency_code = tep_db_query("select currencies_id from " . TABLE_CURRENCIES . " where code = '" . tep_db_input($code) . "'");
-    if (tep_db_num_rows($currency_code)) {
-      return $code;
-    } else {
-      return false;
+    reset($array);
+    while (list($key, $value) = each($array)) {
+      if ($callback($value)) {
+        $parsed_array[] = $value;
+      }
     }
-  }
 
-  function tep_string_to_int($string) {
-    return (int)$string;
+    return $parsed_array;
   }
 
 ////
 // Parse and secure the cPath parameter values
   function tep_parse_category_path($cPath) {
 // make sure the category IDs are integers
-    $cPath_array = array_map('tep_string_to_int', explode('_', $cPath));
+    $cPath_array = tep_array_filter(explode('_', $cPath), 'is_numeric');
 
 // make sure no duplicate category IDs exist which could lock the server in a loop
-    $tmp_array = array();
-    $n = sizeof($cPath_array);
-    for ($i=0; $i<$n; $i++) {
-      if (!in_array($cPath_array[$i], $tmp_array)) {
-        $tmp_array[] = $cPath_array[$i];
-      }
-    }
-
-    return $tmp_array;
+    return array_unique($cPath_array);
   }
 
 ////
@@ -1175,6 +1125,10 @@
   }
 
   function tep_get_ip_address() {
+    if (PHP_VERSION < 4.1) {
+      global $_SERVER;
+    }
+
     if (isset($_SERVER)) {
       if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -1197,18 +1151,18 @@
   }
 
   function tep_count_customer_orders($id = '', $check_session = true) {
-    global $customer_id;
+    global $osC_Customer;
 
     if (is_numeric($id) == false) {
-      if (tep_session_is_registered('customer_id')) {
-        $id = $customer_id;
+      if ($osC_Customer->isLoggedOn()) {
+        $id = $osC_Customer->id;
       } else {
         return 0;
       }
     }
 
     if ($check_session == true) {
-      if ( (tep_session_is_registered('customer_id') == false) || ($id != $customer_id) ) {
+      if ( ($osC_Customer->isLoggedOn() == false) || ($id != $osC_Customer->id) ) {
         return 0;
       }
     }
@@ -1220,18 +1174,18 @@
   }
 
   function tep_count_customer_address_book_entries($id = '', $check_session = true) {
-    global $customer_id;
+    global $osC_Customer;
 
     if (is_numeric($id) == false) {
-      if (tep_session_is_registered('customer_id')) {
-        $id = $customer_id;
+      if ($osC_Customer->isLoggedOn()) {
+        $id = $osC_Customer->id;
       } else {
         return 0;
       }
     }
 
     if ($check_session == true) {
-      if ( (tep_session_is_registered('customer_id') == false) || ($id != $customer_id) ) {
+      if ( ($osC_Customer->isLoggedOn() == false) || ($id != $osC_Customer->id) ) {
         return 0;
       }
     }
