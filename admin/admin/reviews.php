@@ -205,7 +205,7 @@
         $products_image = tep_db_fetch_array($products_image_query);
 
 // find out the rating average from customer reviews
-        $reviews_average_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) average_rating from reviews r, reviews_extra re where re.products_id = '" . $reviews['products_id'] . "' and re.reviews_id = r.reviews_id");
+        $reviews_average_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) as average_rating from reviews r, reviews_extra re where re.products_id = '" . $reviews['products_id'] . "' and re.reviews_id = r.reviews_id");
         $reviews_average = tep_db_fetch_array($reviews_average_query);
 
         $review_info = tep_array_merge($reviews_text, $reviews_average);

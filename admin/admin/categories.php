@@ -475,7 +475,7 @@ function checkForm() {
 
       if ( ((!$HTTP_GET_VARS['pinfo'] && !$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['pinfo'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($HTTP_GET_VARS['action'], 0, 4) != 'new_') ) {
 // find out the rating average from customer reviews
-        $reviews_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) average_rating from reviews r, reviews_extra re where re.products_id = '" . $products['products_id'] . "' and re.reviews_id = r.reviews_id");
+        $reviews_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) as average_rating from reviews r, reviews_extra re where re.products_id = '" . $products['products_id'] . "' and re.reviews_id = r.reviews_id");
         if ($reviews_query != '') $reviews = tep_db_fetch_array($reviews_query);
         $pInfo_array = tep_array_merge($products, $reviews);
         $pInfo = new productInfo($pInfo_array);
