@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.64 2002/06/04 10:55:11 clescuyer Exp $
+  $Id: shopping_cart.php,v 1.65 2002/06/16 20:48:50 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,10 +40,10 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -115,18 +115,18 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
+<?php
+    if ($navigation->path[sizeof($navigation->path)-2]) {
+?>
+            <td class="main"><?php echo '<a href="' . tep_href_link($navigation->path[sizeof($navigation->path)-2]['page'], tep_array_to_string($navigation->path[sizeof($navigation->path)-2]['get'], array('action')), $navigation->path[sizeof($navigation->path)-2]['mode']) . '">' . tep_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING) . '</a>'; ?></td>
+<?php
+    }
+?>
             <td align="right" class="main"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><?php echo tep_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT); ?></a></td>
           </tr>
         </table></form></td>
       </tr>
 <?php
-    if ($navigation->path[sizeof($navigation->path)-2]) {
-?>
-      <tr>
-        <td class="main"><br><?php echo '<a href="' . tep_href_link($navigation->path[sizeof($navigation->path)-2]['page'], tep_array_to_string($navigation->path[sizeof($navigation->path)-2]['get'], array('action')), $navigation->path[sizeof($navigation->path)-2]['mode']) . '">' . tep_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING) . '</a>'; ?></td>
-      </tr>
-<?php
-    }
   } else {
 ?>
       <tr>
