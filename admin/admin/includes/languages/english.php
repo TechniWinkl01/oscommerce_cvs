@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.63 2001/12/08 22:41:51 dgw_ Exp $
+  $Id: english.php,v 1.64 2001/12/11 22:02:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -209,6 +209,7 @@ define('IMAGE_NEW_BANNER', 'New Banner');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_COUNTRY', 'New Country');
 define('IMAGE_NEW_CURRENCY', 'New Currency');
+define('IMAGE_NEW_FILE', 'New File');
 define('IMAGE_NEW_FOLDER', 'New Folder');
 define('IMAGE_NEW_LANGUAGE', 'New Language');
 define('IMAGE_NEW_PRODUCT', 'New Product');

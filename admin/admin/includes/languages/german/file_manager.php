@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.2 2001/11/18 12:39:46 mabosch Exp $
+  $Id: file_manager.php,v 1.3 2001/12/11 22:02:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,6 +17,7 @@ define('TABLE_HEADING_FILENAME', 'Name');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_FILE_NAME', 'Dateiname:');
+define('TEXT_FILE_CONTENTS', 'Contents:');
 define('TEXT_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_NEW_FOLDER', 'Neues Verzeichnis');
 define('TEXT_NEW_FOLDER_INTRO', 'Geben Sie den Namen für das neue Verzeichnis ein:');

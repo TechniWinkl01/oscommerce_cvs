@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.1 2001/10/21 16:07:31 dgw_ Exp $
+  $Id: file_manager.php,v 1.2 2001/12/11 22:02:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,6 +17,7 @@ define('TABLE_HEADING_FILENAME', 'Nombre');
 define('TABLE_HEADING_ACTION', 'Accion');
 
 define('TEXT_FILE_NAME', 'Nombre:');
+define('TEXT_FILE_CONTENTS', 'Contenido:');
 define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
 define('TEXT_NEW_FOLDER', 'Nueva Carpeta');
 define('TEXT_NEW_FOLDER_INTRO', 'Introduzca el nombre de la carpeta nueva:');

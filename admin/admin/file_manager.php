@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.3 2001/12/06 18:10:42 dgw_ Exp $
+  $Id: file_manager.php,v 1.4 2001/12/11 22:02:00 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,6 +43,13 @@
         break;
       case 'insert':
         if (mkdir($current_path . '/' . $HTTP_POST_VARS['file_name'], 0777)) {
+          tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        }
+        break;
+      case 'save':
+        if ($fp = fopen($current_path . '/' . $HTTP_POST_VARS['filename'], 'w+')) {
+          fputs($fp, stripslashes($HTTP_POST_VARS['contents']));
+          fclose($fp);
           tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         }
         break;
@@ -108,6 +115,37 @@
           </tr>
         </table></td>
       </tr>
+<?php
+  if ($HTTP_GET_VARS['action'] == 'new_file') {
+?>
+      <tr>
+        <td><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=save'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="main">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
+            <td class="main"><input name="filename"></td>
+          </tr>
+          <tr valign="top">
+            <td class="main"><?php echo TEXT_FILE_CONTENTS; ?></td>
+            <td class="main"><textarea rows="15" cols="60" name="contents"></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="main">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="main">&nbsp;</td>
+            <td class="main"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE); ?>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL); ?></a></td>
+          </tr>
+        </table></form></td>
+      </tr>
+<?php
+  } else {
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -169,7 +207,7 @@
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER); ?></a>&nbsp;&nbsp;</td>
+                    <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE); ?></a>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER); ?></a>&nbsp;&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -232,6 +270,9 @@
           </tr>
         </table></td>
       </tr>
+<?php
+  }
+?>
     </table></td>
 <!-- body_text_eof //-->
   </tr>
