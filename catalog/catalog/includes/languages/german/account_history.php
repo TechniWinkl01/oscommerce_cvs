@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 04/05/2001
-Author(s): Mathias Kowalkowski (m.kowalkowski@comnet-gmbh.net)
+German Text for The Exchange Project Preview Release 2.2
+Last Update: 19/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
@@ -17,5 +17,5 @@ define('TABLE_HEADING_ORDER_STATUS', 'Bestellstatus');
 define('TEXT_NO_PURCHASES', 'Sie haben noch keine Bestellungen get&auml;tigt.');
 define('TABLE_TEXT', 'Um Ihre Bestellinformation abzufragen, klicken Sie auf das \'Bestelldatum\'');
 
-define('IMAGE_BACK', 'Zur&uuml;ck');
+define('IMAGE_BACK', 'Zurück');
 ?>

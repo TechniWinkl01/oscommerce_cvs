@@ -1,15 +1,15 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Preview Release 2.2
+Last Update: 19/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('NAVBAR_TITLE', 'Mein Konto');
 define('TOP_BAR_TITLE', 'Mein Konto');
 define('HEADING_TITLE', 'pers&ouml;nliche Daten :');
 
-define('IMAGE_EDIT_ACCOUNT', 'pers&ouml;nliche Daten &auml;ndern');
-define('IMAGE_ADDRESS_BOOK', 'Adre&szlig;buch');
-define('IMAGE_HISTORY', 'Bereits get&auml;tigte Bestellungen');
+define('IMAGE_EDIT_ACCOUNT', 'persönliche Daten ändern');
+define('IMAGE_ADDRESS_BOOK', 'Adressbuch');
+define('IMAGE_HISTORY', 'Bereits getätigte Bestellungen');
 ?>

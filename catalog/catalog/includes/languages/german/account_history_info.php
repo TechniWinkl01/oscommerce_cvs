@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Preview Release 2.2
+Last Update: 19/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
@@ -23,7 +23,7 @@ define('TABLE_SUBHEADING_SHIPPING', 'Versandkosten:');
 define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
 define('TEXT_CC', 'Kreditkarte');
-define('TEXT_PAYPAL', 'PayPal.com Kredit Karte/eCheck Processing');
+define('TEXT_PAYPAL', 'PayPal.com Kredit Karte/eCheck Abrechnung');
 
-define('IMAGE_BACK', 'Zur&uuml;ck');
+define('IMAGE_BACK', 'Zurück');
 ?>
