@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.158 2003/03/22 02:44:55 hpdl Exp $
+  $Id: application_top.php,v 1.159 2003/06/11 22:26:20 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -156,6 +156,10 @@
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
+// define our general functions used application-wide
+  require(DIR_WS_FUNCTIONS . 'general.php');
+  require(DIR_WS_FUNCTIONS . 'html_output.php');
+
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
     define('PHP_SESSION_NAME', 'sID');
@@ -192,10 +196,6 @@
   if (file_exists(DIR_WS_LANGUAGES . $language . '/' . $current_page)) {
     include(DIR_WS_LANGUAGES . $language . '/' . $current_page);
   }
-
-// define our general functions used application-wide
-  require(DIR_WS_FUNCTIONS . 'general.php');
-  require(DIR_WS_FUNCTIONS . 'html_output.php');
 
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
