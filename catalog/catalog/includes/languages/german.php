@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.72 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: german.php,v 1.73 2001/12/12 15:16:46 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,6 +34,9 @@ function tep_date_raw($date, $reverse = false) {
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'DEM');
+
+// Global entries for the <html> tag
+define('HTML_PARAMS','dir="LTR" lang="de"');
 
 // charset for web pages and emails
 define('CHARSET', 'iso-8859-1');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.17 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.18 2001/12/12 15:16:46 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,7 @@
   $product_info_values = tep_db_fetch_array($product_info);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>

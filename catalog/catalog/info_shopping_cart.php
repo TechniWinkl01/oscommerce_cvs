@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: info_shopping_cart.php,v 1.15 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: info_shopping_cart.php,v 1.16 2001/12/12 15:16:46 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,7 @@
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_INFO_SHOPPING_CART);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>

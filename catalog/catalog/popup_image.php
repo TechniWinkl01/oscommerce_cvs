@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.11 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: popup_image.php,v 1.12 2001/12/12 15:16:46 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,7 @@
   $products_values = tep_db_fetch_array($products_query);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <title><?php echo $products_values['products_name']; ?></title>
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.57 2001/12/10 10:08:32 dgw_ Exp $
+  $Id: default.php,v 1.58 2001/12/12 15:16:46 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -35,7 +35,7 @@
   $location = '';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>"> 
 <title><?php echo TITLE; ?></title>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.54 2001/12/01 19:36:44 dgw_ Exp $
+  $Id: address_book_process.php,v 1.55 2001/12/12 15:16:46 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -217,7 +217,7 @@
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>

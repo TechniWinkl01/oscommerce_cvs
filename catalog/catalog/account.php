@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.46 2001/12/01 19:36:42 dgw_ Exp $
+  $Id: account.php,v 1.47 2001/12/12 15:16:45 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,7 +21,7 @@
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
