@@ -12,6 +12,7 @@ Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 setlocale('LC_TIME', 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
+define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 // the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 

@@ -12,6 +12,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 setlocale('LC_TIME', 'en_US.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
+define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 // the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
@@ -50,7 +51,7 @@ define('MALE_ADDRESS', 'Mr.');
 define('FEMALE_ADDRESS', 'Ms.');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
+define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 // categories box text in includes/boxes/categories.php
 define('BOX_HEADING_CATEGORIES', 'Categories');

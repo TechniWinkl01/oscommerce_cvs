@@ -109,9 +109,7 @@
 ?>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<?
-  $dob_formatted = date(DATE_FORMAT_SHORT, mktime(0,0,0,substr($account_values['customers_dob'], 4, 2),substr($account_values['customers_dob'], -2),substr($account_values['customers_dob'], 0, 4)));
-  echo strftime($dob_formatted); ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<? echo date(DATE_FORMAT, mktime(0, 0, 0, substr($account_values['customers_dob'], 4, 2), substr($account_values['customers_dob'], 6, 2), substr($account_values['customers_dob'], 0, 4))); ?>&nbsp;</font></td>
           </tr>
 <?
    }
