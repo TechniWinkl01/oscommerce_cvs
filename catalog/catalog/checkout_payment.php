@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.94 2002/03/07 19:58:10 hpdl Exp $
+  $Id: checkout_payment.php,v 1.95 2002/06/16 14:40:36 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -138,7 +138,7 @@ function check_form() {
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -163,7 +163,7 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="tableHeading"><?php echo TABLE_HEADING_METHODS; ?></td>
-                <td align="right" class="tableHeading"><?php if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?></td>
+                <td class="tableHeading" align="right"><?php if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -197,7 +197,7 @@ function check_form() {
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
-                <td align="right" class="tableHeading"><?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
+                <td class="tableHeading" align="right" class="tableHeading"><?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
               </tr>
             </table></td>
           </tr>
