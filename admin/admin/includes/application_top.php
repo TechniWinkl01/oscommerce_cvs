@@ -11,7 +11,7 @@
 // define our webserver variables
   define('HTTP_SERVER', 'http://exchange');
   define('DIR_SERVER_ROOT', '/www'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
-  define('DIR_LOGS', DIR_SERVER_ROOT . 'logs/');
+  define('DIR_LOGS', '/usr/local/apache/logs/');
   define('DIR_ADMIN', '/admin/');
   define('DIR_CATALOG', '/catalog/');
   define('DIR_CATALOG_IMAGES', DIR_CATALOG . 'images/');
