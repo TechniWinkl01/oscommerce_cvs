@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.189 2001/11/20 22:58:26 dgw_ Exp $
+  $Id: application_top.php,v 1.190 2001/11/22 21:26:05 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -262,8 +262,8 @@
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
-    $goto = (CART_DISPLAY == true) ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
-    $parameters = (CART_DISPLAY == true) ? array('action', 'cPath', 'products_id') : array('action');
+    $goto = (CART_DISPLAY == 'true') ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
+    $parameters = (CART_DISPLAY == 'true') ? array('action', 'cPath', 'products_id') : array('action');
     if ($HTTP_GET_VARS['action'] == 'add_update_product') {
       // customer wants to update the product quantity in their shopping cart
       if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
