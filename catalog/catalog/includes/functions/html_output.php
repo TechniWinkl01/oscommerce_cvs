@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.2 2001/06/05 19:00:09 kwiltner Exp $
+  $Id: html_output.php,v 1.3 2001/06/13 20:11:05 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -235,5 +235,89 @@
     }
 
     return $result;
+  }
+
+////
+// Output a form input field
+  function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
+    $field = '<input type="' . $type . '" name="' . $name . '"';
+    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+      $field .= ' value="' . $GLOBALS[$name] . '"';
+    } elseif ($value != '') {
+      $field .= ' value="' . $value . '"';
+    }
+    if ($parameters != '') {
+      $field .= ' ' . $parameters;
+    }
+    $field .= '>';
+
+    return $field;
+  }
+
+////
+// Output a form password field
+  function tep_draw_password_field($name, $value = '') {
+    $field = tep_draw_input_field($name, $value, '', 'password', false);
+
+    return $field;
+  }
+
+////
+// Output a form checkbox field
+  function tep_draw_checkbox_field($name, $type = 'checkbox', $value = '', $checked = false) {
+    $checkbox = '<input type="' . $type . '" name="' . $name . '"';
+    if ($value != '') {
+      $checkbox .= ' value="' . $value . '"';
+    }
+    if ( ($checked == true) || ($GLOBALS[$name] == 'on') ) {
+      $checkbox .= ' CHECKED';
+    }
+    $checkbox .= '>';
+
+    return $checkbox;
+  }
+
+////
+// Output a form radio field
+  function tep_draw_radio_field($name, $value = '', $selected = false) {
+    return tep_draw_checkbox_field($name, 'radio', $value, $selected);
+  }
+
+////
+// Output a form textarea field
+  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $reinsert_value = true) {
+    $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '">';
+    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+      $field .= $GLOBALS[$name];
+    } elseif ($text != '') {
+      $field .= $text;
+    }
+    $field .= '</textarea>';
+
+    return $field;
+  }
+
+////
+// Output a form hidden field
+  function tep_draw_hidden_field($name, $value) {
+    $field = '<input type="hidden" name="' . $name . '" value="' . $value . '">';
+
+    return $field;
+  }
+
+////
+// Output a form pull down menu
+  function tep_draw_pull_down_menu($name, $values, $default = '') {
+    $field = '<select name="' . $name . '">';
+    for ($i=0; $i<sizeof($values); $i++) {
+      $field .= '<option value="' . $values[$i]['id'] . '"';
+      if ( ($GLOBALS[$name] == $values[$i]['id']) || ($default == $values[$i]['id']) ) {
+        $field .= ' SELECTED';
+      }
+      $field .= '>' . $values[$i]['text'] . '</option>';
+    }
+    $field .= '</select>';
+
+    return $field;
   }
 ?>
