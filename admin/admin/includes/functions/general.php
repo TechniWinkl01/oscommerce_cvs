@@ -1,4 +1,4 @@
-<?
+<?php
   function tep_exit() {
     if (EXIT_AFTER_REDIRECT == 1) {
      return exit();

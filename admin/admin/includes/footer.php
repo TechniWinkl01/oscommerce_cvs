@@ -1,6 +1,6 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="footer">
-    <td class="footer">&nbsp;&nbsp;<? echo strftime(DATE_FORMAT_LONG); ?></td>
+    <td class="footer">&nbsp;&nbsp;<?php echo strftime(DATE_FORMAT_LONG); ?></td>
   </tr>
 </table>
 <br>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.4 2001/09/09 18:52:43 hpdl Exp $
+  $Id: specials.php,v 1.5 2001/09/19 11:12:52 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org

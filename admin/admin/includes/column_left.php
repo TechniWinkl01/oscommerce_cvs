@@ -1,4 +1,4 @@
-<?
+<?php
   require('includes/boxes/configuration.php');
   require('includes/boxes/modules.php');
   require('includes/boxes/catalog.php');

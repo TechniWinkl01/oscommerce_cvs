@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.2
-Last Update: 20/05/2001
-Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
+  $Id: products_attributes.php,v 1.4 2001/09/19 11:13:21 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Artikelmerkmale');

@@ -1,10 +1,13 @@
 <?php
 /*
+  $Id: currencies.php,v 1.6 2001/09/19 11:13:32 mbs Exp $
+
   The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
 
-  German Text for The Exchange Project Administration Tool
+  Copyright (c) 2000,2001 The Exchange Project
 
-  $Id: currencies.php,v 1.5 2001/09/18 10:57:24 mbs Exp $
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'W&auml;hrungen');

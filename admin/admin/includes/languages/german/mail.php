@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: mail.php,v 1.4 2001/09/19 11:13:25 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
 define('TOP_BAR_TITLE', 'Mail');
 define('HEADING_TITLE', 'eMail an Kunden versenden');
 define('SUB_BAR_TITLE', 'Wählen Sie einen, Newsletter-Abonnomenten oder alle Kunden aus.');

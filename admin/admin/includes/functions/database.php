@@ -1,4 +1,4 @@
-<?
+<?php
   function tep_db_connect() {
     global $db_link;
     

@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+  $Id: manufacturers.php,v 1.7 2001/09/19 11:13:24 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Hersteller');

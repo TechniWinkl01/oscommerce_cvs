@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: application_top.php,v 1.79 2001/09/19 11:15:01 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   if (file_exists('includes/local/configure.php')) {
     include('includes/local/configure.php');
   }

@@ -1,8 +1,13 @@
-<?
+<?php
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.1
-Last Update: 15/03/2001
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+  $Id: whos_online.php,v 1.6 2001/09/19 11:13:13 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Wer ist Online');

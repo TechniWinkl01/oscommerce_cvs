@@ -1,10 +1,13 @@
 <?php
 /*
+  $Id: tax_rates.php,v 1.7 2001/09/19 11:13:13 mbs Exp $
+
   The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
 
-  German Text for The Exchange Project Administration Tool
+  Copyright (c) 2000,2001 The Exchange Project
 
-  $Id: tax_rates.php,v 1.6 2001/08/08 13:50:16 mbs Exp $
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Steuers&auml;tze');

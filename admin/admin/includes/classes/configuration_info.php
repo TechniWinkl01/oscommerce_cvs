@@ -1,4 +1,4 @@
-<?
+<?php
   class configurationInfo {
     var $id, $title, $key, $value, $description, $date_added, $last_modified, $use_function, $set_function;
 

@@ -1,10 +1,13 @@
 <?php
 /*
+  $Id: geo_zones.php,v 1.3 2001/09/19 11:13:28 mbs Exp $
+
   The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
 
-  German Text for The Exchange Project Administration Tool
+  Copyright (c) 2000,2001 The Exchange Project
 
-  $Id: geo_zones.php,v 1.2 2001/08/08 13:50:17 mbs Exp $
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Geographische Zonen');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.13 2001/09/10 07:44:45 mbs Exp $
+  $Id: banner_manager.php,v 1.14 2001/09/19 11:13:37 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org

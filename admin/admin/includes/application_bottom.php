@@ -1,4 +1,4 @@
-<?
+<?php
 // here you could insert the page_close() function for phplib..
 
   if (STORE_PAGE_PARSE_TIME == '1') {

@@ -1,10 +1,13 @@
 <?php
 /*
+  $Id: countries.php,v 1.4 2001/09/19 11:13:33 mbs Exp $
+
   The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
 
-  German Text for The Exchange Project Administration Tool
+  Copyright (c) 2000,2001 The Exchange Project
 
-  $Id: countries.php,v 1.3 2001/08/18 15:40:08 mbs Exp $
+  Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'L&auml;nder');

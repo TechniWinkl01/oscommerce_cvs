@@ -1,4 +1,4 @@
-<?
+<?php
   function tep_get_languages_directory($code) {
     global $languages_id;
 

@@ -1,4 +1,4 @@
-<?
+<?php
   function quotecurrency($code, $base) {
     $err_num = $err_msg='';
     $s = fsockopen('www.oanda.com', 5011, &$err_num, &$err_msg, 3);
