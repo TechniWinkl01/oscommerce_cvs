@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.13 2002/03/17 17:43:30 harley_vb Exp $
+  $Id: newsletters.php,v 1.14 2002/03/29 13:04:25 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -221,7 +221,8 @@
 
     include(DIR_WS_LANGUAGES . $language . '/modules/newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
     include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
-    $module = new $nInfo->module($nInfo->title, $nInfo->content);
+    $module_name = $nInfo->module;
+    $module = new $module_name($nInfo->title, $nInfo->content);
 ?>
       <tr>
         <td><?php if ($module->show_choose_audience) { echo $module->choose_audience(); } else { echo $module->confirm(); } ?></td>
@@ -237,7 +238,8 @@
 
     include(DIR_WS_LANGUAGES . $language . '/modules/newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
     include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
-    $module = new $nInfo->module($nInfo->title, $nInfo->content);
+    $module_name = $nInfo->module;
+    $module = new $module_name($nInfo->title, $nInfo->content);
 ?>
       <tr>
         <td><?php echo $module->confirm(); ?></td>
@@ -253,7 +255,8 @@
 
     include(DIR_WS_LANGUAGES . $language . '/modules/newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
     include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($PHP_SELF, strrpos($PHP_SELF, '.')));
-    $module = new $nInfo->module($nInfo->title, $nInfo->content);
+    $module_name = $nInfo->module;
+    $module = new $module_name($nInfo->title, $nInfo->content);
 ?>
       <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
