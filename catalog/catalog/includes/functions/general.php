@@ -552,8 +552,8 @@
       $NumState = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
         if ($NumState == 1)
-          print ("    " . $FormName . ".state.options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
-        print ("    " . $FormName . ".state.options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
+          print ("    " . $FormName . ".zone_id.options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
+        print ("    " . $FormName . ".zone_id.options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
         $NumState++;
       }
       $NumCountry++;
