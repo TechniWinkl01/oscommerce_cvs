@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.107 2003/02/06 17:37:08 thomasamoulton Exp $
+  $Id: orders.php,v 1.108 2003/05/14 18:58:09 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -128,7 +128,7 @@
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main" valign="top"><b><?php echo ENTRY_CUSTOMER; ?></b></td>
-                <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '', '<br>'); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
@@ -145,13 +145,13 @@
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main" valign="top"><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
-                <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '', '<br>'); ?></td>
               </tr>
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main" valign="top"><b><?php echo ENTRY_BILLING_ADDRESS; ?></b></td>
-                <td class="main"><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main"><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, '', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>
