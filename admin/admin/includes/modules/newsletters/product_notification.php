@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.4 2002/04/13 15:22:01 hpdl Exp $
+  $Id: product_notification.php,v 1.5 2002/06/04 10:15:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -192,12 +192,12 @@ function selectAll(FormName, SelectBox) {
         }
       }
 
+      $mimemessage = new email(array('X-Mailer: osCommerce bulk mailer'));
+      $mimemessage->add_text($this->content);
+      $mimemessage->build_message();
+
       reset($audience);
       while (list($key, $value) = each ($audience)) {
-        $mimemessage = new email(array('X-Mailer: osCommerce bulk mailer'));
-        $mimemessage->add_text($this->content);
-        $mimemessage->build_message();
-
         $mimemessage->send($value['firstname'] . ' ' . $value['lastname'], $value['email_address'], '', EMAIL_FROM, $this->title);
       }
 
