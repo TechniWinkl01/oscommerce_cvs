@@ -1,8 +1,13 @@
-# MySQL dump 8.10
+# The Exchange Project
+# Database Model for Preview Release 2.0
 #
-# Host: localhost    Database: catalog
-#--------------------------------------------------------
-# Server version	3.23.25-beta
+# NOTE: * Please make any modifications to this file by hand!
+#       * DO NOT use a mysqldump created file for new changes!
+#       * Please take note of the table structure, and use this
+#         structure as a standard for future modifications!
+#       * To see the 'diff'erence between MySQL databases, use
+#         the mysqldiff perl script located in the extras
+#         directory of the 'catalog' module.
 
 #
 # Table structure for table 'address_book'
@@ -10,15 +15,15 @@
 
 CREATE TABLE address_book (
   address_book_id int(5) NOT NULL auto_increment,
-  entry_gender char(1) DEFAULT '' NOT NULL,
-  entry_firstname varchar(32) DEFAULT '' NOT NULL,
-  entry_lastname varchar(32) DEFAULT '' NOT NULL,
-  entry_street_address varchar(64) DEFAULT '' NOT NULL,
+  entry_gender char(1) NOT NULL,
+  entry_firstname varchar(32) NOT NULL,
+  entry_lastname varchar(32) NOT NULL,
+  entry_street_address varchar(64) NOT NULL,
   entry_suburb varchar(32),
-  entry_postcode varchar(8) DEFAULT '' NOT NULL,
-  entry_city varchar(32) DEFAULT '' NOT NULL,
+  entry_postcode varchar(8) NOT NULL,
+  entry_city varchar(32) NOT NULL,
   entry_state varchar(32),
-  entry_country_id int(5) DEFAULT '0' NOT NULL,
+  entry_country_id int(5) NOT NULL,
   PRIMARY KEY (address_book_id)
 );
 
@@ -26,15 +31,14 @@ CREATE TABLE address_book (
 # Dumping data for table 'address_book'
 #
 
-
 #
 # Table structure for table 'address_book_to_customers'
 #
 
 CREATE TABLE address_book_to_customers (
   address_book_to_customers_id int(5) NOT NULL auto_increment,
-  address_book_id int(5) DEFAULT '0' NOT NULL,
-  customers_id int(5) DEFAULT '0' NOT NULL,
+  address_book_id int(5) NOT NULL,
+  customers_id int(5) NOT NULL,
   PRIMARY KEY (address_book_to_customers_id)
 );
 
@@ -42,18 +46,18 @@ CREATE TABLE address_book_to_customers (
 # Dumping data for table 'address_book_to_customers'
 #
 
-
 #
 # Table structure for table 'categories'
 #
 
 CREATE TABLE categories (
   categories_id int(5) NOT NULL auto_increment,
-  categories_name varchar(32) DEFAULT '' NOT NULL,
+  categories_name varchar(32) NOT NULL,
   categories_image varchar(64),
   parent_id int(5),
   sort_order int(3),
-  PRIMARY KEY (categories_id)
+  PRIMARY KEY (categories_id),
+  KEY IDX_CATEGORIES_NAME (categories_name)
 );
 
 #
@@ -109,16 +113,15 @@ CREATE TABLE counter_history (
 # Dumping data for table 'counter_history'
 #
 
-
 #
 # Table structure for table 'countries'
 #
 
 CREATE TABLE countries (
   countries_id int(5) NOT NULL auto_increment,
-  countries_name varchar(64) DEFAULT '' NOT NULL,
-  countries_iso_code_2 char(2) DEFAULT '' NOT NULL,
-  countries_iso_code_3 char(3) DEFAULT '' NOT NULL,
+  countries_name varchar(64) NOT NULL,
+  countries_iso_code_2 char(2) NOT NULL,
+  countries_iso_code_3 char(3) NOT NULL,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
 );
@@ -373,20 +376,20 @@ INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE');
 
 CREATE TABLE customers (
   customers_id int(5) NOT NULL auto_increment,
-  customers_gender char(1) DEFAULT '' NOT NULL,
-  customers_firstname varchar(32) DEFAULT '' NOT NULL,
-  customers_lastname varchar(32) DEFAULT '' NOT NULL,
-  customers_dob varchar(8) DEFAULT '' NOT NULL,
-  customers_email_address varchar(96) DEFAULT '' NOT NULL,
-  customers_street_address varchar(64) DEFAULT '' NOT NULL,
+  customers_gender char(1) NOT NULL,
+  customers_firstname varchar(32) NOT NULL,
+  customers_lastname varchar(32) NOT NULL,
+  customers_dob varchar(8) NOT NULL,
+  customers_email_address varchar(96) NOT NULL,
+  customers_street_address varchar(64) NOT NULL,
   customers_suburb varchar(32),
-  customers_postcode varchar(8) DEFAULT '' NOT NULL,
-  customers_city varchar(32) DEFAULT '' NOT NULL,
+  customers_postcode varchar(8) NOT NULL,
+  customers_city varchar(32) NOT NULL,
   customers_state varchar(32),
-  customers_telephone varchar(32) DEFAULT '' NOT NULL,
+  customers_telephone varchar(32) NOT NULL,
   customers_fax varchar(32),
-  customers_password varchar(40) DEFAULT '' NOT NULL,
-  customers_country_id int(5) DEFAULT '0' NOT NULL,
+  customers_password varchar(40) NOT NULL,
+  customers_country_id int(5) NOT NULL,
   PRIMARY KEY (customers_id)
 );
 
@@ -402,10 +405,10 @@ INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@th
 
 CREATE TABLE customers_basket (
   customers_basket_id int(5) NOT NULL auto_increment,
-  customers_id int(5) DEFAULT '0' NOT NULL,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  customers_basket_quantity int(2) DEFAULT '0' NOT NULL,
-  final_price decimal(6,2) DEFAULT '0.00' NOT NULL,
+  customers_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  customers_basket_quantity int(2) NOT NULL,
+  final_price decimal(6,2) NOT NULL,
   customers_basket_date_added char(8),
   PRIMARY KEY (customers_basket_id)
 );
@@ -414,13 +417,12 @@ CREATE TABLE customers_basket (
 # Dumping data for table 'customers_basket'
 #
 
-
 #
 # Table structure for table 'customers_info'
 #
 
 CREATE TABLE customers_info (
-  customers_info_id int(5) DEFAULT '0' NOT NULL,
+  customers_info_id int(5) NOT NULL,
   customers_info_date_of_last_logon char(8),
   customers_info_number_of_logons int(5),
   customers_info_date_account_created char(8),
@@ -440,10 +442,11 @@ INSERT INTO customers_info VALUES (1,'20001028',19,'20000312','20000514');
 
 CREATE TABLE manufacturers (
   manufacturers_id int(5) NOT NULL auto_increment,
-  manufacturers_name varchar(32) DEFAULT '' NOT NULL,
-  manufacturers_location tinyint(1) DEFAULT '0' NOT NULL,
+  manufacturers_name varchar(32) NOT NULL,
+  manufacturers_location tinyint(1) NOT NULL,
   manufacturers_image varchar(64),
-  PRIMARY KEY (manufacturers_id)
+  PRIMARY KEY (manufacturers_id),
+  KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
 );
 
 #
@@ -466,33 +469,33 @@ INSERT INTO manufacturers VALUES (9,'Hewlett Packard',0,'images/manufacturer_hew
 
 CREATE TABLE orders (
   orders_id int(5) NOT NULL auto_increment,
-  customers_id int(5) DEFAULT '0' NOT NULL,
-  customers_name varchar(64) DEFAULT '' NOT NULL,
-  customers_street_address varchar(64) DEFAULT '' NOT NULL,
+  customers_id int(5) NOT NULL,
+  customers_name varchar(64) NOT NULL,
+  customers_street_address varchar(64) NOT NULL,
   customers_suburb varchar(32),
-  customers_city varchar(32) DEFAULT '' NOT NULL,
-  customers_postcode varchar(8) DEFAULT '' NOT NULL,
+  customers_city varchar(32) NOT NULL,
+  customers_postcode varchar(8) NOT NULL,
   customers_state varchar(32),
-  customers_country varchar(32) DEFAULT '' NOT NULL,
-  customers_telephone varchar(32) DEFAULT '' NOT NULL,
-  customers_email_address varchar(96) DEFAULT '' NOT NULL,
-  delivery_name varchar(64) DEFAULT '' NOT NULL,
-  delivery_street_address varchar(64) DEFAULT '' NOT NULL,
+  customers_country varchar(32) NOT NULL,
+  customers_telephone varchar(32) NOT NULL,
+  customers_email_address varchar(96) NOT NULL,
+  delivery_name varchar(64) NOT NULL,
+  delivery_street_address varchar(64) NOT NULL,
   delivery_suburb varchar(32),
-  delivery_city varchar(32) DEFAULT '' NOT NULL,
-  delivery_postcode varchar(8) DEFAULT '' NOT NULL,
+  delivery_city varchar(32) NOT NULL,
+  delivery_postcode varchar(8) NOT NULL,
   delivery_state varchar(32),
-  delivery_country varchar(32) DEFAULT '' NOT NULL,
-  payment_method varchar(12) DEFAULT '' NOT NULL,
+  delivery_country varchar(32) NOT NULL,
+  payment_method varchar(12) NOT NULL,
   cc_type varchar(20),
   cc_owner varchar(64),
   cc_number varchar(32),
   cc_expires varchar(4),
   date_purchased varchar(8),
-  products_tax decimal(6,4) DEFAULT '0.0000' NOT NULL,
-  shipping_cost decimal(8,2) DEFAULT '0.00' NOT NULL,
+  products_tax decimal(6,4) NOT NULL,
+  shipping_cost decimal(8,2) NOT NULL,
   shipping_method varchar(32),
-  orders_status varchar(10) DEFAULT 'Pending' NOT NULL,
+  orders_status varchar(10) NOT NULL,
   orders_date_finished varchar(14),
   PRIMARY KEY (orders_id)
 );
@@ -501,19 +504,18 @@ CREATE TABLE orders (
 # Dumping data for table 'orders'
 #
 
-
 #
 # Table structure for table 'orders_products'
 #
 
 CREATE TABLE orders_products (
   orders_products_id int(5) NOT NULL auto_increment,
-  orders_id int(5) DEFAULT '0' NOT NULL,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  products_name varchar(64) DEFAULT '' NOT NULL,
-  products_price decimal(8,2) DEFAULT '0.00' NOT NULL,
-  final_price decimal(8,2) DEFAULT '0.00' NOT NULL,
-  products_quantity int(2) DEFAULT '0' NOT NULL,
+  orders_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  products_name varchar(64) NOT NULL,
+  products_price decimal(8,2) NOT NULL,
+  final_price decimal(8,2) NOT NULL,
+  products_quantity int(2) NOT NULL,
   PRIMARY KEY (orders_products_id)
 );
 
@@ -521,18 +523,17 @@ CREATE TABLE orders_products (
 # Dumping data for table 'orders_products'
 #
 
-
 #
 # Table structure for table 'orders_products_attributes'
 #
 
 CREATE TABLE orders_products_attributes (
   orders_products_attributes_id int(5) NOT NULL auto_increment,
-  orders_products_id int(5) DEFAULT '0' NOT NULL,
-  products_options varchar(32) DEFAULT '' NOT NULL,
-  products_options_values varchar(32) DEFAULT '' NOT NULL,
-  options_values_price decimal(8,2) DEFAULT '0.00' NOT NULL,
-  price_prefix char(1) DEFAULT '' NOT NULL,
+  orders_products_id int(5) NOT NULL,
+  products_options varchar(32) NOT NULL,
+  products_options_values varchar(32) NOT NULL,
+  options_values_price decimal(8,2) NOT NULL,
+  price_prefix char(1) NOT NULL,
   PRIMARY KEY (orders_products_attributes_id)
 );
 
@@ -540,24 +541,23 @@ CREATE TABLE orders_products_attributes (
 # Dumping data for table 'orders_products_attributes'
 #
 
-
 #
 # Table structure for table 'products'
 #
 
 CREATE TABLE products (
   products_id int(5) NOT NULL auto_increment,
-  products_name varchar(32) DEFAULT '' NOT NULL,
+  products_name varchar(32) NOT NULL,
   products_description text,
-  products_quantity int(4) DEFAULT '0' NOT NULL,
+  products_quantity int(4) NOT NULL,
   products_model varchar(12),
   products_image varchar(64),
   products_url varchar(255),
-  products_price decimal(8,2) DEFAULT '0.00' NOT NULL,
+  products_price decimal(8,2) NOT NULL,
   products_date_added varchar(8),
-  products_viewed int(5) DEFAULT '0',
-  products_weight decimal(4,2) DEFAULT '0.00' NOT NULL,
-  products_status tinyint(1) DEFAULT '1' NOT NULL,
+  products_viewed int(5),
+  products_weight decimal(4,2) NOT NULL,
+  products_status tinyint(1) NOT NULL,
   PRIMARY KEY (products_id),
   KEY products_name (products_name)
 );
@@ -600,11 +600,11 @@ INSERT INTO products VALUES (27,'LaserJet 1100Xi','HP has always set the pace in
 
 CREATE TABLE products_attributes (
   products_attributes_id int(5) NOT NULL auto_increment,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  options_id int(5) DEFAULT '0' NOT NULL,
-  options_values_id int(5) DEFAULT '0' NOT NULL,
-  options_values_price decimal(8,2) DEFAULT '0.00' NOT NULL,
-  price_prefix char(1) DEFAULT '+' NOT NULL,
+  products_id int(5) NOT NULL,
+  options_id int(5) NOT NULL,
+  options_values_id int(5) NOT NULL,
+  options_values_price decimal(8,2) NOT NULL,
+  price_prefix char(1) NOT NULL,
   PRIMARY KEY (products_attributes_id)
 );
 
@@ -630,8 +630,8 @@ INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
 
 CREATE TABLE products_attributes_to_basket (
   products_attributes_to_basket_id int(5) NOT NULL auto_increment,
-  customers_basket_id int(5) DEFAULT '0' NOT NULL,
-  products_attributes_id int(5) DEFAULT '0' NOT NULL,
+  customers_basket_id int(5) NOT NULL,
+  products_attributes_id int(5) NOT NULL,
   PRIMARY KEY (products_attributes_to_basket_id)
 );
 
@@ -639,14 +639,13 @@ CREATE TABLE products_attributes_to_basket (
 # Dumping data for table 'products_attributes_to_basket'
 #
 
-
 #
 # Table structure for table 'products_expected'
 #
 
 CREATE TABLE products_expected (
   products_expected_id int(5) NOT NULL auto_increment,
-  products_name varchar(255) DEFAULT '' NOT NULL,
+  products_name varchar(255) NOT NULL,
   date_expected varchar(8),
   PRIMARY KEY (products_expected_id)
 );
@@ -665,7 +664,7 @@ INSERT INTO products_expected VALUES (3,'American Pie (Warner)','20000317');
 
 CREATE TABLE products_options (
   products_options_id int(5) NOT NULL auto_increment,
-  products_options_name varchar(32) DEFAULT '' NOT NULL,
+  products_options_name varchar(32) NOT NULL,
   PRIMARY KEY (products_options_id)
 );
 
@@ -684,7 +683,7 @@ INSERT INTO products_options VALUES (4,'Memory');
 
 CREATE TABLE products_options_values (
   products_options_values_id int(5) NOT NULL auto_increment,
-  products_options_values_name varchar(64) DEFAULT '' NOT NULL,
+  products_options_values_name varchar(64) NOT NULL,
   PRIMARY KEY (products_options_values_id)
 );
 
@@ -708,8 +707,8 @@ INSERT INTO products_options_values VALUES (9,'USB');
 
 CREATE TABLE products_options_values_to_products_options (
   products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
-  products_options_id int(5) DEFAULT '0' NOT NULL,
-  products_options_values_id int(5) DEFAULT '0' NOT NULL,
+  products_options_id int(5) NOT NULL,
+  products_options_values_id int(5) NOT NULL,
   PRIMARY KEY (products_options_values_to_products_options_id)
 );
 
@@ -733,7 +732,7 @@ INSERT INTO products_options_values_to_products_options VALUES (9,3,9);
 
 CREATE TABLE products_to_categories (
   products_id int(5) NOT NULL auto_increment,
-  categories_id int(5) DEFAULT '0' NOT NULL,
+  categories_id int(5) NOT NULL,
   PRIMARY KEY (products_id,categories_id)
 );
 
@@ -775,8 +774,8 @@ INSERT INTO products_to_categories VALUES (27,5);
 
 CREATE TABLE products_to_manufacturers (
   products_to_manufacturers_id int(5) NOT NULL auto_increment,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  manufacturers_id int(5) DEFAULT '0' NOT NULL,
+  products_id int(5) NOT NULL,
+  manufacturers_id int(5) NOT NULL,
   PRIMARY KEY (products_to_manufacturers_id)
 );
 
@@ -818,7 +817,7 @@ INSERT INTO products_to_manufacturers VALUES (27,27,9);
 
 CREATE TABLE reviews (
   reviews_id int(5) NOT NULL auto_increment,
-  reviews_text text DEFAULT '' NOT NULL,
+  reviews_text text NOT NULL,
   reviews_rating int(1),
   PRIMARY KEY (reviews_id)
 );
@@ -834,10 +833,10 @@ INSERT INTO reviews VALUES (1,'this has to be one of the funniest movies release
 #
 
 CREATE TABLE reviews_extra (
-  reviews_id int(5) DEFAULT '0' NOT NULL,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  customers_id int(5) DEFAULT '0' NOT NULL,
-  date_added char(8) DEFAULT '' NOT NULL,
+  reviews_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  customers_id int(5) NOT NULL,
+  date_added char(8) NOT NULL,
   reviews_read int(5)
 );
 
@@ -853,8 +852,8 @@ INSERT INTO reviews_extra VALUES (1,19,1,'20000312',56);
 
 CREATE TABLE specials (
   specials_id int(5) NOT NULL auto_increment,
-  products_id int(5) DEFAULT '0' NOT NULL,
-  specials_new_products_price decimal(8,2) DEFAULT '0.00' NOT NULL,
+  products_id int(5) NOT NULL,
+  specials_new_products_price decimal(8,2) NOT NULL,
   specials_date_added char(8),
   PRIMARY KEY (specials_id)
 );
