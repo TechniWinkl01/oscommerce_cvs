@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.18 2002/03/15 02:40:38 hpdl Exp $
+  $Id: database.php,v 1.19 2002/03/27 11:13:40 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,7 +61,9 @@
       $query = substr($query, 0, -2) . ') values (';
       reset($data);
       while (list(, $value) = each($data)) {
-        if (is_string($value)) {
+        if (is_numeric($value)) {
+          $query .= $value . ', ';
+        } else {
           if ($value == 'now()') {
             $query .= 'now(), ';
           } elseif ($value == 'null') {
@@ -69,15 +71,15 @@
           } else {
             $query .= '\'' . tep_db_input($value) . '\', ';
           }
-        } else {
-          $query .= $value . ', ';
         }
       }
       $query = substr($query, 0, -2) . ')';
     } elseif ($action == 'update') {
       $query = 'update ' . $table . ' set ';
       while (list($columns, $value) = each($data)) {
-        if (is_string($value)) {
+        if (is_numeric($value)) {
+          $query .= $columns . ' = ' . $value . ', ';
+        } else {
           if ($value == 'now()') {
             $query .= $columns . ' = now(), ';
           } elseif ($value == 'null') {
@@ -85,8 +87,6 @@
           } else {
             $query .= $columns . ' = \'' . tep_db_input($value) . '\', ';
           }
-        } else {
-          $query .= $columns . ' = ' . $value . ', ';
         }
       }
       $query = substr($query, 0, -2) . ' where ' . $parameters;

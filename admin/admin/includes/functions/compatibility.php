@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.3 2001/06/11 11:14:40 dwatkins Exp $
+  $Id: compatibility.php,v 1.4 2002/03/27 11:13:40 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -37,5 +37,11 @@
     do_magic_quotes_gpc($HTTP_GET_VARS);
     do_magic_quotes_gpc($HTTP_POST_VARS);
     do_magic_quotes_gpc($HTTP_COOKIE_VARS);
+  }
+
+  if (!function_exists('is_numeric')) {
+    function is_numeric($param) {
+      return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+    }
   }
 ?>
