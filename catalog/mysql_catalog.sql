@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.123 2001/08/02 11:59:02 jwildeboer Exp $
+# $Id: mysql_catalog.sql,v 1.124 2001/08/04 12:23:13 mbradley Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -386,11 +386,21 @@ CREATE TABLE tax_rates (
   tax_rates_id int(5) NOT NULL auto_increment,
   tax_zone_id int(5) NOT NULL,
   tax_class_id int(5) NOT NULL,
+  tax_priority int(5) DEFAULT 1,
   tax_rate decimal(7,4) NOT NULL,
   tax_description varchar(255) NOT NULL,
   last_modified datetime NULL,
   date_added datetime NOT NULL,
   PRIMARY KEY (tax_rates_id)
+);
+
+CREATE TABLE geo_zones (
+  geo_zone_id int(5) NOT NULL auto_increment,
+  geo_zone_name varchar(32) NOT NULL,
+  geo_zone_description varchar(255) NOT NULL,
+  last_modified datetime NULL,
+  date_added datetime NOT NULL,
+  PRIMARY KEY (geo_zone_id)
 );
 
 CREATE TABLE whos_online (
@@ -410,6 +420,17 @@ CREATE TABLE zones (
   zone_name varchar(32) NOT NULL,
   PRIMARY KEY (zone_id)
 );
+
+CREATE TABLE zones_to_geo_zones (
+   association_id int(5) NOT NULL auto_increment,
+   zone_country_id int(5) NOT NULL,
+   zone_id int(5) NULL,
+   geo_zone_id int(5) NULL,
+   last_modified datetime NULL,
+   date_added datetime NOT NULL,
+   PRIMARY KEY (association_id)
+);
+
 
 # data
 
@@ -1099,7 +1120,9 @@ INSERT INTO specials VALUES (4,16,29.99, now(),'');
 
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
 
-INSERT INTO tax_rates VALUES (1, 18, 1, 7.0, 'FL TAX 7.0%', now(), now());
+INSERT INTO tax_rates VALUES (1, 1, 1, 1, 7.0, 'FL TAX 7.0%', now(), now());
+INSERT INTO geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,date_added) VALUES (1,"Florida","Florida local sales tax zone",now());
+INSERT INTO zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now()); # USA/Florida
 
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
 INSERT INTO zones VALUES (2,223,'AK','Alaska');

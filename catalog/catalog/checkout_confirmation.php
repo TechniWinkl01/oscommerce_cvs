@@ -99,7 +99,7 @@
     $products_name = $products[$i]['name'];
     $products_price = $products[$i]['price'];
     $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
-    $products_tax = tep_get_tax_rate($address_values['zone_id'], $products[$i]['tax_class_id']);
+    $products_tax = tep_get_tax_rate($address_values['country_id'], $address_values['zone_id'], $products[$i]['tax_class_id']);
     $products_weight = $products[$i]['weight'];
 
     echo '          <tr>' . "\n";

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.155 2001/07/29 15:54:39 mbs Exp $
+  $Id: application_top.php,v 1.156 2001/08/04 12:23:27 mbradley Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -115,6 +115,8 @@
   define('TABLE_SPECIALS', 'specials');
   define('TABLE_TAX_CLASS', 'tax_class');
   define('TABLE_TAX_RATES', 'tax_rates');
+  define('TABLE_GEO_ZONES', 'geo_zones');
+  define('TABLE_ZONES_TO_GEO_ZONES', 'zones_to_geo_zones');
   define('TABLE_WHOS_ONLINE', 'whos_online');
   define('TABLE_ZONES', 'zones');
 
