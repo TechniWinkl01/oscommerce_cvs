@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.90 2001/05/22 21:46:03 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.91 2001/05/23 20:35:54 jwildeboer Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -302,16 +302,18 @@ CREATE TABLE products_description (
 );
 
 CREATE TABLE products_options (
-  products_options_id int(5) NOT NULL auto_increment,
-  products_options_name varchar(32) NOT NULL,
-  PRIMARY KEY (products_options_id)
-);
+  products_options_id int(5) NOT NULL default '0',
+  language_id int(5) NOT NULL default '1',
+  products_options_name varchar(32) NOT NULL default '',
+  PRIMARY KEY  (products_options_id,language_id)
+);  
 
 CREATE TABLE products_options_values (
-  products_options_values_id int(5) NOT NULL auto_increment,
-  products_options_values_name varchar(64) NOT NULL,
-  PRIMARY KEY (products_options_values_id)
-);
+  products_options_values_id int(5) NOT NULL default '0',
+  language_id int(5) NOT NULL default '1',
+  products_options_values_name varchar(64) NOT NULL default '',
+  PRIMARY KEY  (products_options_values_id,language_id)
+); 
 
 CREATE TABLE products_options_values_to_products_options (
   products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
@@ -945,20 +947,33 @@ INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
 INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
 INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
 
-INSERT INTO products_options VALUES (1,'Color');
-INSERT INTO products_options VALUES (2,'Size');
-INSERT INTO products_options VALUES (3,'Model');
-INSERT INTO products_options VALUES (4,'Memory');
+INSERT INTO products_options VALUES (1,1,'Color');
+INSERT INTO products_options VALUES (2,1,'Size');
+INSERT INTO products_options VALUES (3,1,'Model');
+INSERT INTO products_options VALUES (4,1,'Memory');
+INSERT INTO products_options VALUES (1,2,'Farbe');
+INSERT INTO products_options VALUES (2,2,'Größe');
+INSERT INTO products_options VALUES (3,2,'Modell');
+INSERT INTO products_options VALUES (4,2,'Speicher');
 
-INSERT INTO products_options_values VALUES (1,'4 mb');
-INSERT INTO products_options_values VALUES (2,'8 mb');
-INSERT INTO products_options_values VALUES (3,'16 mb');
-INSERT INTO products_options_values VALUES (4,'32 mb');
-INSERT INTO products_options_values VALUES (5,'Value');
-INSERT INTO products_options_values VALUES (6,'Premium');
-INSERT INTO products_options_values VALUES (7,'Deluxe');
-INSERT INTO products_options_values VALUES (8,'PS/2');
-INSERT INTO products_options_values VALUES (9,'USB');
+INSERT INTO products_options_values VALUES (1,1,'4 mb');
+INSERT INTO products_options_values VALUES (2,1,'8 mb');
+INSERT INTO products_options_values VALUES (3,1,'16 mb');
+INSERT INTO products_options_values VALUES (4,1,'32 mb');
+INSERT INTO products_options_values VALUES (5,1,'Value');
+INSERT INTO products_options_values VALUES (6,1,'Premium');
+INSERT INTO products_options_values VALUES (7,1,'Deluxe');
+INSERT INTO products_options_values VALUES (8,1,'PS/2');
+INSERT INTO products_options_values VALUES (9,1,'USB');
+INSERT INTO products_options_values VALUES (1,2,'4 MB');
+INSERT INTO products_options_values VALUES (2,2,'8 MB');
+INSERT INTO products_options_values VALUES (3,2,'16 MB');
+INSERT INTO products_options_values VALUES (4,2,'32 MB');
+INSERT INTO products_options_values VALUES (5,2,'Value Ausgabe');
+INSERT INTO products_options_values VALUES (6,2,'Premium Ausgabe');
+INSERT INTO products_options_values VALUES (7,2,'Deluxe Ausgabe');
+INSERT INTO products_options_values VALUES (8,2,'PS/2 Anschluss');
+INSERT INTO products_options_values VALUES (9,2,'USB Anschluss');
 
 INSERT INTO products_options_values_to_products_options VALUES (1,4,1);
 INSERT INTO products_options_values_to_products_options VALUES (2,4,2);
@@ -1089,6 +1104,7 @@ INSERT INTO zones VALUES (75,38,'PE','Prince Edward Island');
 INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
+
 
 
 

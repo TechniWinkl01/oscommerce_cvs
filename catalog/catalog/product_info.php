@@ -70,7 +70,7 @@ function popupImageWindow(url) {
     } else {
       $products_price = tep_currency_format($product_info_values['products_price']);
     }
-    $products_attributes = tep_db_query("select popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
+    $products_attributes = tep_db_query("select popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
     if (tep_db_num_rows($products_attributes)) {
       $products_attributes = '1';
     } else {
@@ -101,12 +101,12 @@ function popupImageWindow(url) {
         <td><table border="0" width="100%"><tr><td class="main"><br><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_info_values['products_image']; ?>&alt=<? echo addslashes($product_info_values['products_name']); ?>')"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a><p><? echo stripslashes($product_info_values['products_description']); ?></p>
 <?
     if ($products_attributes == '1') {
-      $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
+      $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
       echo '<b>' . TEXT_PRODUCT_OPTIONS . '</b><br>';
       echo '<table border="0" cellpading="0" cellspacing"0">';
       while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
         $selected = 0;
-        $products_options = tep_db_query("select products_options_values.products_options_values_id, products_options_values.products_options_values_name, products_attributes.options_values_price, products_attributes.price_prefix from products_attributes, products_options_values where products_attributes.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_attributes.options_id = '" . $products_options_name_values['products_options_id'] . "' and products_attributes.options_values_id = products_options_values.products_options_values_id");
+        $products_options = tep_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from products_attributes pa, products_options_values pov where pa.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pa.options_id = '" . $products_options_name_values['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . $languages_id . "'");
         echo '<tr><td class="main">' . $products_options_name_values['products_options_name'] . ':&nbsp;</td><td>' . "\n" . '<select name ="id[' . $products_options_name_values['products_options_id'] . ']">' . "\n"; 
         while ($products_options_values = tep_db_fetch_array($products_options)) {
           echo "\n" . '<option name="' . $products_options_name_values['products_options_name'] . '" value="' . $products_options_values['products_options_values_id'] . '"';
@@ -204,4 +204,5 @@ function popupImageWindow(url) {
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+
 
