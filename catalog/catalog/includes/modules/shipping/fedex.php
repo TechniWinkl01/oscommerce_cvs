@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.34 2002/08/28 22:55:57 hpdl Exp $
+  $Id: fedex.php,v 1.35 2002/08/29 02:00:54 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,20 +11,22 @@
 */
 
   class fedex {
-    var $code, $title, $description, $icon, $enabled, $fedex_countries, $fedex_countries_nbr;
+    var $code, $title, $description, $icon, $enabled, $countries;
 
 // class constructor
     function fedex() {
+      global $address_values;
+
       $this->code = 'fedex';
       $this->title = MODULE_SHIPPING_FEDEX_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION;
       $this->icon = DIR_WS_ICONS . 'shipping_fedex.gif';
       $this->enabled = MODULE_SHIPPING_FEDEX_STATUS;
 
-// only these three are needed since FedEx only ships to them
-// convert TEP country id to ISO 3166 id
-      $this->fedex_countries = array(38 => 'CA', 138 => 'MX', 223 => 'US');
-      $this->fedex_countries_nbr = array(38, 138, 223);
+      $this->countries = $this->country_list();
+      $country_query = tep_db_query("select countries_iso_code_2 from " . TABLE_COUNTRIES . " where countries_id = '" . tep_db_input($address_values['country_id']) . "'");
+      $country = tep_db_fetch_array($country_query);
+      $this->dest_iso_code = $country['countries_iso_code_2'];
     }
 
 // class methods
@@ -45,10 +47,10 @@
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
         $shipping_quoted = 'fedex';
 // only calculate if FedEx ships there.
-        if (in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
+        if (isset($this->countries[$this->dest_iso_code])) {
           include(DIR_WS_CLASSES . '_fedex.php');
           $rate = new _FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
-          $rate->SetDest($address_values['postcode']);//, $this->fedex_countries[$address_values['country_id']]);
+          $rate->SetDest($address_values['postcode'], $this->countries[$this->dest_iso_code]);
 // fedex doesnt accept weights below one
           $rate->SetWeight($shipping_weight);
           $quote = $rate->GetQuote();
@@ -69,7 +71,7 @@
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
 // only calculate if FedEx ships there.
-        if ( (in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
+        if ( (isset($this->countries[$this->dest_iso_code])) && (!$quote['ErrorNbr']) ) {
           if ($shipping_count == 0) {
             $shipping_cheapest = 'fedex';
             $shipping_cheapest_cost = $shipping_fedex_cost;
@@ -149,6 +151,207 @@
 
     function keys() {
       return array('MODULE_SHIPPING_FEDEX_STATUS');
+    }
+
+    function country_list() {
+      $list = array('AL' => 'Albania',
+                    'DZ' => 'Algeria',
+                    'AS' => 'American Samoa',
+                    'AD' => 'Andorra',
+                    'AO' => 'Angola',
+                    'AI' => 'Anguilla',
+                    'AG' => 'Antigua',
+                    'AR' => 'Argentina',
+                    'AM' => 'Armenia',
+                    'AW' => 'Aruba',
+                    'AU' => 'Australia',
+                    'AT' => 'Austria',
+                    'AZ' => 'Azerbaijan',
+                    'BS' => 'Bahamas',
+                    'BH' => 'Bahrain',
+                    'BD' => 'Bangladesh',
+                    'BB' => 'Barbados',
+                    'BY' => 'Belarus',
+                    'BE' => 'Belgium',
+                    'BZ' => 'Belize',
+                    'BJ' => 'Benin',
+                    'BM' => 'Bermuda',
+                    'BT' => 'Bhutan',
+                    'BO' => 'Bolivia',
+                    'BW' => 'Botswana',
+                    'BR' => 'Brazil',
+                    'VG' => 'British Virgin Islands',
+                    'BN' => 'Brunei',
+                    'BG' => 'Bulgaria',
+                    'BF' => 'Burkina Faso',
+                    'BI' => 'Burundi',
+                    'KH' => 'Cambodia',
+                    'CM' => 'Cameroon',
+                    'CA' => 'Canada',
+                    'CV' => 'Cape Verde',
+                    'KY' => 'Cayman Islands',
+                    'TD' => 'Chad',
+                    'CL' => 'Chile',
+                    'CN' => 'China',
+                    'CO' => 'Colombia',
+                    'CG' => 'Congo Brazzaville',
+                    'ZR' => 'Congo Democratic Republic of',
+                    'CK' => 'Cook Islands',
+                    'CR' => 'Costa Rica',
+                    'HR' => 'Croatia',
+                    'CY' => 'Cyprus',
+                    'CZ' => 'Czech Republic',
+                    'DK' => 'Denmark',
+                    'DJ' => 'Djibouti',
+                    'DM' => 'Dominica',
+                    'DO' => 'Dominican Republic',
+                    'EC' => 'Ecuador',
+                    'EG' => 'Egypt',
+                    'SV' => 'El Savador',
+                    'GQ' => 'Equatorial Guinea',
+                    'ER' => 'Eritrea',
+                    'EE' => 'Estonia',
+                    'ET' => 'Ethiopia',
+                    'FO' => 'Faroe Islands',
+                    'FJ' => 'Fiji',
+                    'FI' => 'Finland',
+                    'FR' => 'France',
+                    'GF' => 'French Guiana',
+                    'PF' => 'French Polynesia',
+                    'GA' => 'Gabon',
+                    'GM' => 'Gambia',
+                    'GE' => 'Georgia',
+                    'DE' => 'Germany',
+                    'GH' => 'Ghana',
+                    'GI' => 'Gibraltar',
+                    'GR' => 'Greece',
+                    'GL' => 'Greenland',
+                    'GD' => 'Grenada',
+                    'GP' => 'Guadeloupe',
+                    'GU' => 'Guam',
+                    'GT' => 'Guatemala',
+                    'GN' => 'Guinea',
+                    'GY' => 'Guyana',
+                    'HT' => 'Haiti',
+                    'HN' => 'Honduras',
+                    'HK' => 'Hong Kong',
+                    'HU' => 'Hungary',
+                    'IS' => 'Iceland',
+                    'IN' => 'India',
+                    'ID' => 'Indonesia',
+                    'IE' => 'Ireland',
+                    'IL' => 'Israel',
+                    'IT' => 'Italy',
+                    'CI' => 'Ivory Coast',
+                    'JM' => 'Jamaica',
+                    'JP' => 'Japan',
+                    'JO' => 'Jordan',
+                    'KZ' => 'Kazakhstan',
+                    'KE' => 'Kenya',
+                    'KW' => 'Kuwait',
+                    'KG' => 'Kyrgyzstan',
+                    'LA' => 'Laos',
+                    'LV' => 'Latvia',
+                    'LB' => 'Lebanon',
+                    'LS' => 'Lesotho',
+                    'LR' => 'Liberia',
+                    'LI' => 'Liechtenstein',
+                    'LT' => 'Lithuania',
+                    'LU' => 'Luxembourg',
+                    'MO' => 'Macau',
+                    'MK' => 'Macedonia',
+                    'MG' => 'Madagascar',
+                    'MW' => 'Malawai',
+                    'MY' => 'Malaysia',
+                    'MV' => 'Maldives',
+                    'ML' => 'Mali',
+                    'MT' => 'Malta',
+                    'MH' => 'Marschall Islands',
+                    'MQ' => 'Martinique',
+                    'MR' => 'Mauritania',
+                    'MU' => 'Mauritius',
+                    'MX' => 'Mexico',
+                    'FM' => 'Micronesia',
+                    'MD' => 'Moldova',
+                    'MC' => 'Monaco',
+                    'MN' => 'Mongolia',
+                    'MS' => 'Montserrat',
+                    'MA' => 'Morocco',
+                    'MZ' => 'Mozambique',
+                    'NA' => 'Namibia',
+                    'NP' => 'Nepal',
+                    'NL' => 'Netherlands',
+                    'AN' => 'Netherlands Antilles',
+                    'NC' => 'New Caledonia',
+                    'NZ' => 'New Zealand',
+                    'NI' => 'Nicaragua',
+                    'NE' => 'Niger',
+                    'NG' => 'Nigeria',
+                    'NO' => 'Norway',
+                    'OM' => 'Oman',
+                    'PK' => 'Pakistan',
+                    'PW' => 'Palau',
+                    'PA' => 'Panama',
+                    'PG' => 'Papua New Guinea',
+                    'PY' => 'Paraguay',
+                    'PE' => 'Peru',
+                    'PH' => 'Philippines',
+                    'PL' => 'Poland',
+                    'PT' => 'Portugal',
+                    'PR' => 'Puerto Rico',
+                    'QA' => 'Qatar',
+                    'RE' => 'Reunion',
+                    'RO' => 'Romania',
+                    'RU' => 'Russian Federation',
+                    'RW' => 'Rwanda',
+                    'MP' => 'Saipan',
+                    'SM' => 'San Marino',
+                    'SA' => 'Saudi Arabia',
+                    'SN' => 'Senegal',
+                    'SC' => 'Seychelles',
+                    'SL' => 'Sierra Leone',
+                    'SG' => 'Singapore',
+                    'SK' => 'Slovak Republic',
+                    'SI' => 'Slovenia',
+                    'ZA' => 'South Africa',
+                    'KR' => 'South Korea',
+                    'ES' => 'Spain',
+                    'LK' => 'Sri Lanka',
+                    'KN' => 'St. Kitts/Nevis',
+                    'LC' => 'St. Lucia',
+                    'VC' => 'St. Vincent',
+                    'SR' => 'Suriname',
+                    'SZ' => 'Swaziland',
+                    'SE' => 'Sweden',
+                    'CH' => 'Switzerland',
+                    'SY' => 'Syria',
+                    'TW' => 'Taiwan',
+                    'TZ' => 'Tanzania',
+                    'TH' => 'Thailand',
+                    'TG' => 'Togo',
+                    'TT' => 'Trinidad/Tobago',
+                    'TN' => 'Tunisia',
+                    'TR' => 'Turkey',
+                    'TM' => 'Turkmenistan',
+                    'TC' => 'Turks & Caicos Islands',
+                    'VI' => 'U.S. Virgin Islands',
+                    'UG' => 'Uganda',
+                    'UA' => 'Ukraine',
+                    'AE' => 'United Arab Emirates',
+                    'GB' => 'United Kingdom',
+                    'UY' => 'Uruguay',
+                    'US' => 'U.S.A.',
+                    'UZ' => 'Uzbekistan',
+                    'VU' => 'Vanuatu',
+                    'VA' => 'Vatican City',
+                    'VE' => 'Venezuela',
+                    'VN' => 'Vietnam',
+                    'WF' => 'Wallis & Futuna',
+                    'YE' => 'Yemen',
+                    'ZM' => 'Zambia',
+                    'ZW' => 'Zimbabwe');
+
+      return $list;
     }
   }
 ?>
