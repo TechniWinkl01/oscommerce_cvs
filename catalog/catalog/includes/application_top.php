@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.221 2002/03/23 11:17:02 project3000 Exp $
+  $Id: application_top.php,v 1.222 2002/04/02 16:36:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
   require('includes/configure.php');
 
 // Define the project version
-  define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
+  define('PROJECT_VERSION', 'osCommerce 2.2-CVS');
 
 // define the filenames used in the project
   define('FILENAME_ACCOUNT', 'account.php');
