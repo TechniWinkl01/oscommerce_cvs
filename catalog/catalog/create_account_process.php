@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.45 2001/06/19 08:36:59 hpdl Exp $
+  $Id: create_account_process.php,v 1.46 2001/06/20 14:36:05 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -226,6 +226,7 @@
 </html>
 <?php
   } else {
+    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_PROCESS);
     $date_now = date('Ymd');
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 0, 2) . substr($HTTP_POST_VARS['dob'], 2, 2);
 // Crypted passwords mods
