@@ -231,6 +231,7 @@
     $rInfo->text_size = $rInfo_array['reviews_text_size'];
     $rInfo->rating = $rInfo_array['reviews_rating'];
     $rInfo->average_rating = $rInfo_array['average_rating'];
+    $rInfo->text = $rInfo_array['reviews_text'];
   }
 
   function tep_categories_pull_down($parameters, $exclude = '') {
