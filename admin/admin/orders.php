@@ -5,6 +5,9 @@
       $order_finish = ($HTTP_GET_VARS['status'] == 'Delivered') ? ', orders_date_finished = now()' : '';
       tep_db_query("update orders set orders_status = '" . $HTTP_GET_VARS['status'] . "', last_modified = now()" . $order_finish . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $HTTP_GET_VARS['orders_id'])); tep_exit();
+    } elseif ($HTTP_GET_VARS['action'] == 'delete_order') {
+      tep_db_query("delete from orders where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
+      header('Location: ' . tep_href_link(FILENAME_ORDERS, '')); tep_exit();
     }
   }
 
@@ -267,9 +270,11 @@ function alertBox() {
           <tr>
              <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
+          <form action="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>" method="get" onsubmit="return confirm('<? echo IMAGE_CONFIRM; ?>')">
           <tr>
-            <td align="right" colspan="2"><br><? echo '<a href="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td colspan="2" align="right" nowrap><input type="hidden" name="action" value="delete_order"><input type="hidden" name="orders_id_delete" value="<? echo $HTTP_GET_VARS['orders_id'] ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
+          </form>
           <tr>
             <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
