@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.40 2002/08/01 17:37:24 hpdl Exp $
+  $Id: html_output.php,v 1.41 2002/08/01 19:38:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,12 +65,13 @@
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
     if ( (($src == '') || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
-      return '';
+      return false;
     }
 
-    $image = '<img src="' . $src . '" border="0" alt="' . htmlspecialchars($alt) . '"';
+    $image = '<img src="' . $src . '" border="0"';
+
     if (tep_not_null($alt)) {
-      $image .= ' title=" ' . htmlspecialchars($alt) . ' "';
+      $image .= ' alt="' . htmlspecialchars($alt) . '" title=" ' . htmlspecialchars($alt) . ' "';
     }
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
@@ -86,7 +87,7 @@
           $height = $image_size[1];
         }
       } elseif (IMAGE_REQUIRED == 'false') {
-        return '';
+        return false;
       }
     }
 
@@ -94,9 +95,7 @@
       $image .= ' width="' . $width . '" height="' . $height . '"';
     }
 
-    if ($params != '') {
-      $image .= ' ' . $params;
-    }
+    if (tep_not_null($params)) $image .= ' ' . $params;
 
     $image .= '>';
 
@@ -109,9 +108,10 @@
   function tep_image_submit($image, $alt) {
     global $language;
 
-    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . htmlspecialchars($alt) . '"';
+    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0"';
+
     if (tep_not_null($alt)) {
-      $image_submit .= ' title=" ' . htmlspecialchars($alt) . ' ">';
+      $image_submit .= ' alt="' . htmlspecialchars($alt) . '" title=" ' . htmlspecialchars($alt) . ' ">';
     }
 
     return $image_submit;
@@ -132,85 +132,6 @@
   }
 
 ////
-// Creates a pull-down list of countries
-// Parameters:
-// name:       the name of the pull-down list
-// selected:   the default selected item
-// javascript: javascript for the pull-down list (ie, onChange="this.form.submit()")
-// size:       pull-down list size
-  function tep_get_country_list($name, $selected = '', $javascript = '', $size = 1) {
-    $result = '<select name="' . $name . '"';
-
-    if ($size != 1) $result .= ' size="' . $size . '"';
-
-    if ($javascript != '') $result .= ' ' . $javascript;
-
-    $result .= '><option value="">' . PULL_DOWN_DEFAULT . '</option>';
-
-    $countries = tep_get_countries();
-    for ($i=0; $i<sizeof($countries); $i++) {
-      $result .= '<option value="' . $countries[$i]['countries_id'] . '"';
-      if ($selected == $countries[$i]['countries_id']) $result .= ' SELECTED';
-      $result .= '>' . $countries[$i]['countries_name'] . '</option>';
-     }
-    $result .= '</select>';
-
-    return $result;
-  }
-
-////
-// Creates a pull-down list of states and provinces
-// Parameters:
-// popup_name:   the name of the pull-down list
-// country_code: the default selected item
-// selected:     the default selected item
-// javascript:   javascript for the pull-down list (ie, onChange="this.form.submit()")
-// size:         pull-down list size
-// TABLES: zones
-  function tep_get_zone_list($popup_name, $country_code = '', $selected = '', $javascript = '', $size = 1) {
-    $result = '<select name="' . $popup_name . '"';
-
-    if ($size != 1) $result .= ' size="' . $size . '"';
-
-    if ($javascript) $result .= ' ' . $javascript;
-
-    $result .= '>';
-
-    // Preset the width of the drop-down for Netscape
-    if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
-      for ($i=0; $i<53; $i++) $result .= '&nbsp;';
-    }
-
-    $state_prov_result = tep_db_query("select zone_id, zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_code . "' order by zone_name");
-    if (tep_db_num_rows($state_prov_result)) {
-      $result .= '<option>' . PULL_DOWN_DEFAULT . '</option>';
-    } else {
-      $result .= '<option>' . TYPE_BELOW . '</option>';
-    }
-
-    $populated = 0;
-    while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
-      $populated++;
-      $result .= '<option value="' . $state_prov_values['zone_id'] . '"';
-      if ($selected == $state_prov_values['zone_id']) $result .= ' SELECTED';
-      $result .= '>' . $state_prov_values['zone_name'] . '</option>';
-    }
-
-    // Create dummy options for Netscape to preset the height of the drop-down
-    if ($populated == 0) {
-      if ( (!tep_browser_detect('MSIE')) && (tep_browser_detect('Mozilla/4')) ) {
-        for ($i=0; $i<9; $i++) {
-          $result .= '<option></option>';
-        }
-      }
-    }
-
-    $result .= '</select>';
-
-    return $result;
-  }
-
-////
 // Output a form
   function tep_draw_form($name, $action, $method = 'post', $parameters = '') {
     $form = '<form name="' . $name . '" action="' . $action . '" method="' . $method . '"';
@@ -224,14 +145,15 @@
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" name="' . $name . '"';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+
+    if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
       $field .= ' value="' . htmlspecialchars(trim($GLOBALS[$name])) . '"';
-    } elseif ($value != '') {
+    } elseif (tep_not_null($value)) {
       $field .= ' value="' . htmlspecialchars(trim($value)) . '"';
     }
-    if ($parameters != '') {
-      $field .= ' ' . $parameters;
-    }
+
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+
     $field .= '>';
 
     return $field;
@@ -247,12 +169,13 @@
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
   function tep_draw_selection_field($name, $type, $value = '', $checked = false) {
     $selection = '<input type="' . $type . '" name="' . $name . '"';
-    if ($value != '') {
-      $selection .= ' value="' . $value . '"';
-    }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) ) {
+
+    if (tep_not_null($value)) $selection .= ' value="' . $value . '"';
+
+    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ( (isset($value)) && ($GLOBALS[$name] == $value) ) ) {
       $selection .= ' CHECKED';
     }
+
     $selection .= '>';
 
     return $selection;
@@ -274,11 +197,13 @@
 // Output a form textarea field
   function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $reinsert_value = true) {
     $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '">';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+
+    if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
       $field .= $GLOBALS[$name];
-    } elseif ($text != '') {
+    } elseif (tep_not_null($text)) {
       $field .= $text;
     }
+
     $field .= '</textarea>';
 
     return $field;
@@ -291,26 +216,41 @@
 ////
 // Hide form elements
   function tep_hide_session_id() {
-    if (SID) return tep_draw_hidden_field(tep_session_name(), tep_session_id());
+    if (tep_not_null(SID)) return tep_draw_hidden_field(tep_session_name(), tep_session_id());
   }
 
 ////
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
     $field = '<select name="' . $name . '"';
-    if ($parameters) $field .= ' ' . $parameters;
+
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+
     $field .= '>';
+
     for ($i=0; $i<sizeof($values); $i++) {
       $field .= '<option value="' . $values[$i]['id'] . '"';
       if ( ($GLOBALS[$name] == $values[$i]['id']) || ($default == $values[$i]['id']) ) {
         $field .= ' SELECTED';
       }
-      $field .= '>' . $values[$i]['text'] . '</option>';
+      $field .= '>' . htmlspecialchars($values[$i]['text']) . '</option>';
     }
     $field .= '</select>';
 
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
+    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
+  }
+
+////
+// Creates a pull-down list of countries
+  function tep_get_country_list($name, $selected = '', $parameters = '') {
+    $countries_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT));
+    $countries = tep_get_countries();
+    for ($i=0; $i<sizeof($countries); $i++) {
+      $countries_array[] = array('id' => $countries[$i]['countries_id'], 'text' => $countries[$i]['countries_name']);
+    }
+
+    return tep_draw_pull_down_menu($name, $countries_array, $selected, $parameters);
   }
 ?>
