@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.229 2003/06/17 17:33:16 dgw_ Exp $
+  $Id: general.php,v 1.230 2003/06/29 11:21:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,7 +54,7 @@
   }
 
   function tep_sanitize_string($string) {
-    $string = ereg_replace(' +', ' ', $string);
+    $string = ereg_replace(' +', ' ', trim($string));
 
     return preg_replace("/[<>]/", '_', $string);
   }
