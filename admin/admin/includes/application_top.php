@@ -43,6 +43,7 @@
   define('FILENAME_STATS_CUSTOMERS', 'stats_customers.php');
   define('FILENAME_STATS_PRODUCTS_PURCHASED', 'stats_products_purchased.php');
   define('FILENAME_STATS_PRODUCTS_VIEWED', 'stats_products_viewed.php');
+  define('FILENAME_ZONES', 'zones.php');
 
 // define our database connection
   define('DB_SERVER', $HTTP_ENV_VARS['HOSTNAME']);
@@ -201,6 +202,7 @@
   $include_file = DIR_CLASSES . 'product_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'review_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'special_price_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'zones_info.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
