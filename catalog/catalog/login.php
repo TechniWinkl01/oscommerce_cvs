@@ -107,6 +107,7 @@
 <html>
 <head>
 <title><? echo TITLE; ?></title>
+<base href="<? echo (getenv('SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function session_win() {

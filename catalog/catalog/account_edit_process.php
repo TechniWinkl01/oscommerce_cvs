@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.40 2001/07/31 21:22:13 dwatkins Exp $
+  $Id: account_edit_process.php,v 1.41 2001/08/11 11:44:48 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -140,6 +140,7 @@
 <html>
 <head>
 <title><?php echo TITLE; ?></title>
+<base href="<? echo (getenv('SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <?php
   require('includes/form_check.js.php');

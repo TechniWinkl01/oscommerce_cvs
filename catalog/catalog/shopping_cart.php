@@ -4,6 +4,7 @@
 <html>
 <head>
 <title><? echo TITLE; ?></title>
+<base href="<? echo (getenv('SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -152,13 +153,12 @@
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>">
-              <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                <tr>
-                  <td class="main">&nbsp;&nbsp;<? echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
-                  <td align="right" class="main"><a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT); ?></a>&nbsp;&nbsp;</td>
-                </tr>
-              </table></td>
+            <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><? echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
+                <td align="right" class="main"><a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image_button('button_checkout.gif', IMAGE_BUTTON_CHECKOUT); ?></a></td>
+              </tr>
+            </table></td>
           </tr>
 </form>
 <?
