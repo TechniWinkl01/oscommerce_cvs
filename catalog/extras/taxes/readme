@@ -7,7 +7,7 @@ If you want Canada and USA states include "na_zones.sql" in the database.
 
 Until you add a tax_class and tax_rate the tax rate will be TAX_VALUE (as it was before)
 
-To add tax do this:
+To add tax do this:  (these three commands are also in fla_test.sql)
 
 Not that 18 is the tax_zone for USA, Florida
 
@@ -18,6 +18,7 @@ Set products_tax_class_id to 1 'Taxable Goods'
 
 update products set products_tax_class_id = 1 where products_tax_class_id = '0';
 
+These also assume you have included 'na_zones.sql'
 
 Any questions send mail to tep-dev
 
