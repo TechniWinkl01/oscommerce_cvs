@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.85 2003/07/19 20:40:24 project3000 Exp $
+# $Id: oscommerce.sql,v 1.86 2003/07/23 23:11:33 project3000 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -543,7 +543,7 @@ CREATE TABLE whos_online (
   ip_address varchar(15) NOT NULL,
   time_entry varchar(14) NOT NULL,
   time_last_click varchar(14) NOT NULL,
-  last_page_url varchar(64) NOT NULL
+  last_page_url varchar(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS zones;

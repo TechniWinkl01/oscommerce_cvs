@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.62 2003/07/12 09:00:26 hpdl Exp $
+  $Id: upgrade_3.php,v 1.63 2003/07/23 23:11:33 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -787,7 +787,7 @@ changeText('statusText', 'Updating Whos Online');
 <?php
   flush();
 
-  osc_db_query("create table whos_online (customer_id int(5),  full_name varchar(64) not null, session_id varchar(128) not null, ip_address varchar(15) not null, time_entry varchar(14) not null, time_last_click varchar(14) not null, last_page_url varchar(64) not null)");
+  osc_db_query("create table whos_online (customer_id int(5),  full_name varchar(64) not null, session_id varchar(128) not null, ip_address varchar(15) not null, time_entry varchar(14) not null, time_last_click varchar(14) not null, last_page_url varchar(255) not null)");
 ?>
 
 <script language="javascript"><!--
