@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.16 2003/06/05 23:16:46 hpdl Exp $
+  $Id: currencies.php,v 1.17 2003/11/17 19:15:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,9 +33,9 @@
 
 // class methods
     function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
-      global $currency;
+      global $osC_Session;
 
-      if (empty($currency_type)) $currency_type = $currency;
+      if (empty($currency_type)) $currency_type = $osC_Session->value('currency');
 
       if ($calculate_currency_value == true) {
         $rate = (tep_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
@@ -70,6 +70,14 @@
 
     function display_price($products_price, $products_tax, $quantity = 1) {
       return $this->format(tep_add_tax($products_price, $products_tax) * $quantity);
+    }
+
+    function exists($code) {
+      if (isset($this->currencies[$code])) {
+        return true;
+      }
+
+      return false;
     }
   }
 ?>
