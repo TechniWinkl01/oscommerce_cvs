@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.32 2004/07/22 23:30:17 hpdl Exp $
+  $Id: products_expected.php,v 1.33 2004/10/28 18:59:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,9 +35,9 @@
           $Qproduct->execute();
 
           if ($osC_Database->isError() === false) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
         }
 

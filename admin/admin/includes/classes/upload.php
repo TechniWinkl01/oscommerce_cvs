@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upload.php,v 1.4 2004/08/03 10:54:52 hpdl Exp $
+  $Id: upload.php,v 1.5 2004/10/28 19:00:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
     }
 
     function parse() {
-      global $messageStack;
+      global $osC_MessageStack;
 
       if (isset($_FILES[$this->file])) {
         $file = array('name' => $_FILES[$this->file]['name'],
@@ -61,9 +61,9 @@
         if (sizeof($this->extensions) > 0) {
           if (!in_array(strtolower(substr($file['name'], strrpos($file['name'], '.')+1)), $this->extensions)) {
             if ($this->message_location == 'direct') {
-              $messageStack->add(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+              $osC_MessageStack->add('header', ERROR_FILETYPE_NOT_ALLOWED, 'error');
             } else {
-              $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+              $osC_MessageStack->add_session('header', ERROR_FILETYPE_NOT_ALLOWED, 'error');
             }
 
             return false;
@@ -81,9 +81,9 @@
         }
       } else {
         if ($this->message_location == 'direct') {
-          $messageStack->add(WARNING_NO_FILE_UPLOADED, 'warning');
+          $osC_MessageStack->add('header', WARNING_NO_FILE_UPLOADED, 'warning');
         } else {
-          $messageStack->add_session(WARNING_NO_FILE_UPLOADED, 'warning');
+          $osC_MessageStack->add_session('header', WARNING_NO_FILE_UPLOADED, 'warning');
         }
 
         return false;
@@ -91,7 +91,7 @@
     }
 
     function save() {
-      global $messageStack;
+      global $osC_MessageStack;
 
       if (substr($this->destination, -1) != '/') $this->destination .= '/';
 
@@ -99,17 +99,17 @@
         chmod($this->destination . $this->filename, $this->permissions);
 
         if ($this->message_location == 'direct') {
-          $messageStack->add(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
+          $osC_MessageStack->add('header', SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
         } else {
-          $messageStack->add_session(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
         }
 
         return true;
       } else {
         if ($this->message_location == 'direct') {
-          $messageStack->add(ERROR_FILE_NOT_SAVED, 'error');
+          $osC_MessageStack->add('header', ERROR_FILE_NOT_SAVED, 'error');
         } else {
-          $messageStack->add_session(ERROR_FILE_NOT_SAVED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_FILE_NOT_SAVED, 'error');
         }
 
         return false;
@@ -149,20 +149,20 @@
     }
 
     function check_destination() {
-      global $messageStack;
+      global $osC_MessageStack;
 
       if (!is_writeable($this->destination)) {
         if (is_dir($this->destination)) {
           if ($this->message_location == 'direct') {
-            $messageStack->add(sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
+            $osC_MessageStack->add('header', sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
           } else {
-            $messageStack->add_session(sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
+            $osC_MessageStack->add_session('header', sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
           }
         } else {
           if ($this->message_location == 'direct') {
-            $messageStack->add(sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
+            $osC_MessageStack->add('header', sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
           } else {
-            $messageStack->add_session(sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
+            $osC_MessageStack->add_session('header', sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
           }
         }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.23 2004/07/22 23:30:03 hpdl Exp $
+  $Id: orders_status.php,v 1.24 2004/10/28 18:59:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,11 +82,11 @@
             }
           }
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
           $osC_Database->rollbackTransaction();
 
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $_GET['page'] . '&osID=' . $orders_status_id));
@@ -105,15 +105,15 @@
 
           if ( (DEFAULT_ORDERS_STATUS_ID == $_GET['osID']) || ($Qorders->valueInt('total') > 0) || ($Qhistory->valueInt('total') > 0) ) {
             if (DEFAULT_ORDERS_STATUS_ID == $_GET['osID']) {
-              $messageStack->add_session(TEXT_INFO_DELETE_PROHIBITED, 'warning');
+              $osC_MessageStack->add_session('header', TEXT_INFO_DELETE_PROHIBITED, 'warning');
             }
 
             if ($Qorders->valueInt('total') > 0) {
-              $messageStack->add_session(sprintf(TEXT_INFO_DELETE_PROHIBITED_ORDERS, $Qorders->valueInt('total')), 'warning');
+              $osC_MessageStack->add_session('header', sprintf(TEXT_INFO_DELETE_PROHIBITED_ORDERS, $Qorders->valueInt('total')), 'warning');
             }
 
             if ($Qhistory->valueInt('total') > 0) {
-              $messageStack->add_session(sprintf(TEXT_INFO_DELETE_PROHIBITED_HISTORY, $Qhistory->valueInt('total')), 'warning');
+              $osC_MessageStack->add_session('header', sprintf(TEXT_INFO_DELETE_PROHIBITED_HISTORY, $Qhistory->valueInt('total')), 'warning');
             }
 
             tep_redirect(tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $_GET['page'] . '&osID=' . $_GET['osID']));
@@ -124,12 +124,12 @@
 
             if ($osC_Database->isError() === false) {
               if ($Qstatus->affectedRows()) {
-                $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+                $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
               } else {
-                $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+                $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
               }
             } else {
-              $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+              $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
             }
 
             tep_redirect(tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $_GET['page']));

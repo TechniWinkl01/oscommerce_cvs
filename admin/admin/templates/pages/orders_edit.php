@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_edit.php,v 1.1 2004/07/22 23:29:47 hpdl Exp $
+  $Id: orders_edit.php,v 1.2 2004/10/28 19:00:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,8 +22,8 @@
 
 <?php
   if ($osC_Order->isValid() === false) {
-    $messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $_GET['oID']), 'error');
-    echo $messageStack->output();
+    $osC_MessageStack->add('orders_edit', sprintf(ERROR_ORDER_DOES_NOT_EXIST, $_GET['oID']), 'error');
+    echo $osC_MessageStack->output('orders_edit');
   } else {
 ?>
 

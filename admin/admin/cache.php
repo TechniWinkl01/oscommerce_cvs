@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.27 2004/08/18 11:49:35 hpdl Exp $
+  $Id: cache.php,v 1.28 2004/10/28 18:59:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,9 +30,9 @@
 
 // check if the cache directory exists
   if (is_dir(DIR_FS_WORK)) {
-    if (!is_writeable(DIR_FS_WORK)) $messageStack->add(ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
+    if (!is_writeable(DIR_FS_WORK)) $osC_MessageStack->add('header', ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
-    $messageStack->add(ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST, 'error');
+    $osC_MessageStack->add('header', ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 
   $page_contents = 'cache.php';

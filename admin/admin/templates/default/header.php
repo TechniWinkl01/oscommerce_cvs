@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.5 2004/08/29 22:22:08 hpdl Exp $
+  $Id: header.php,v 1.6 2004/10/28 19:00:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,8 +12,8 @@
 
   $languages = tep_get_languages();
 
-  if ($messageStack->size > 0) {
-    echo $messageStack->output();
+  if ($osC_MessageStack->size('header') > 0) {
+    echo $osC_MessageStack->output('header');
   }
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: countries.php,v 1.29 2004/07/22 23:27:30 hpdl Exp $
+  $Id: countries.php,v 1.30 2004/10/28 18:59:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,12 +38,12 @@
 
         if ($osC_Database->isError() === false) {
           if ($Qcountry->affectedRows()) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         } else {
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
@@ -80,11 +80,11 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
         }
 

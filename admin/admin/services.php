@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: services.php,v 1.2 2004/07/22 23:30:41 hpdl Exp $
+  $Id: services.php,v 1.3 2004/10/28 18:59:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,11 +51,11 @@
 
             osC_Cache::clear('configuration');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         }
 
@@ -79,9 +79,9 @@
           if ($Qsu->affectedRows()) {
             osC_Cache::clear('configuration');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         }
 
@@ -151,9 +151,9 @@
           if ($Qsu->affectedRows()) {
             osC_Cache::clear('configuration');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         }
 

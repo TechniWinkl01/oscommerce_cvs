@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.75 2004/08/15 18:18:31 hpdl Exp $
+  $Id: banner_manager.php,v 1.76 2004/10/28 18:59:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,12 +28,12 @@
         $banner_error = false;
 
         if (empty($_POST['banners_title'])) {
-          $messageStack->add(ERROR_BANNER_TITLE_REQUIRED, 'error');
+          $osC_MessageStack->add('header', ERROR_BANNER_TITLE_REQUIRED, 'error');
           $banner_error = true;
         }
 
         if (empty($_POST['banners_group'])) {
-          $messageStack->add(ERROR_BANNER_GROUP_REQUIRED, 'error');
+          $osC_MessageStack->add('header', ERROR_BANNER_GROUP_REQUIRED, 'error');
           $banner_error = true;
         }
 
@@ -86,9 +86,9 @@
               $banners_id = $osC_Database->nextID();
             }
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
           tep_redirect(tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners_id));
@@ -106,10 +106,10 @@
               if (is_writeable('../images/' . $Qimage->value('banners_image'))) {
                 unlink('../images/' . $Qimage->value('banners_image'));
               } else {
-                $messageStack->add_session(ERROR_IMAGE_IS_NOT_WRITEABLE, 'error');
+                $osC_MessageStack->add_session('header', ERROR_IMAGE_IS_NOT_WRITEABLE, 'error');
               }
             } else {
-              $messageStack->add_session(ERROR_IMAGE_DOES_NOT_EXIST, 'error');
+              $osC_MessageStack->add_session('header', ERROR_IMAGE_DOES_NOT_EXIST, 'error');
             }
           }
 
@@ -143,7 +143,7 @@
             }
           }
 
-          $messageStack->add_session(SUCCESS_BANNER_REMOVED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_BANNER_REMOVED, 'success');
 
           tep_redirect(tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page']));
         }
@@ -158,10 +158,10 @@
       if (is_writeable('images/graphs')) {
         $dir_ok = true;
       } else {
-        $messageStack->add(ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE, 'error');
+        $osC_MessageStack->add('header', ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE, 'error');
       }
     } else {
-      $messageStack->add(ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST, 'error');
+      $osC_MessageStack->add('header', ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST, 'error');
     }
   }
 

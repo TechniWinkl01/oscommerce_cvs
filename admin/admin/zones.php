@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: zones.php,v 1.24 2004/07/22 23:32:05 hpdl Exp $
+  $Id: zones.php,v 1.25 2004/10/28 18:59:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,12 +43,12 @@
           }
 
           if ($Qzone->affectedRows()) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         } else {
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_ZONES, 'page=' . $_GET['page'] . '&zID=' . $zone_id));
@@ -62,12 +62,12 @@
 
           if ($osC_Database->isError() === false) {
             if ($Qzone->affectedRows()) {
-              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
             } else {
-              $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+              $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
             }
           } else {
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
           tep_redirect(tep_href_link(FILENAME_ZONES, 'page=' . $_GET['page']));

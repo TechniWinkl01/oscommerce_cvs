@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_classes.php,v 1.22 2004/07/22 23:31:48 hpdl Exp $
+  $Id: tax_classes.php,v 1.23 2004/10/28 18:59:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,12 +48,12 @@
           }
 
           if ($Qclass->affectedRows()) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         } else {
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tcID=' . $tax_class_id));
@@ -85,11 +85,11 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
           tep_redirect(tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page']));
@@ -123,12 +123,12 @@
           }
 
           if ($Qrate->affectedRows()) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         } else {
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tcID=' . $_GET['tcID'] . '&action=list&entriesPage=' . $_GET['entriesPage'] . '&trID=' . $tax_rate_id));
@@ -142,12 +142,12 @@
 
           if ($osC_Database->isError() === false) {
             if ($Qrate->affectedRows()) {
-              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
             } else {
-              $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+              $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
             }
           } else {
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
           tep_redirect(tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tcID=' . $_GET['tcID'] . '&action=list&entriesPage=' . $_GET['entriesPage']));

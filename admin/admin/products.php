@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.15 2004/10/26 20:15:19 hpdl Exp $
+  $Id: products.php,v 1.16 2004/10/28 18:59:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -66,7 +66,7 @@
             osC_Cache::clear('category_tree');
             osC_Cache::clear('also_purchased');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           }
         }
 
@@ -93,11 +93,11 @@
               osC_Cache::clear('category_tree');
               osC_Cache::clear('also_purchased');
 
-              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
 
               tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['move_to_category_id'] . '&search=' . $_GET['search'] . '&pID=' . $_GET['pID']));
             } else {
-              $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+              $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
             }
           }
         }
@@ -281,11 +281,11 @@
             osC_Cache::clear('category_tree');
             osC_Cache::clear('also_purchased');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
           tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&pID=' . $products_id));
@@ -309,13 +309,13 @@
                 $Qcat->execute();
 
                 if ($Qcat->affectedRows()) {
-                  $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+                  $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
 
                   tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['categories_id'] . '&search=' . $_GET['search'] . '&pID=' . $_GET['pID']));
                 }
               }
             } else {
-              $messageStack->add_session(ERROR_CANNOT_LINK_TO_SAME_CATEGORY, 'error');
+              $osC_MessageStack->add_session('header', ERROR_CANNOT_LINK_TO_SAME_CATEGORY, 'error');
             }
           } elseif ($_POST['copy_as'] == 'duplicate') {
             $Qproduct = $osC_Database->query('select products_quantity, products_model, products_image, products_price, products_date_available, products_weight, products_tax_class_id, manufacturers_id from :table_products where products_id = :products_id');
@@ -387,13 +387,13 @@
                 osC_Cache::clear('category_tree');
                 osC_Cache::clear('also_purchased');
 
-                $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+                $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
 
                 tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['categories_id'] . '&search=' . $_GET['search'] . '&pID=' . $new_product_id));
               } else {
                 $osC_Database->rollbackTransaction();
 
-                $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+                $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
               }
             }
           }
@@ -410,10 +410,10 @@
 // check if the catalog image directory exists
   if (is_dir(DIR_FS_CATALOG_IMAGES)) {
     if (!is_writeable(DIR_FS_CATALOG_IMAGES)) {
-      $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
+      $osC_MessageStack->add('header', ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
     }
   } else {
-    $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
+    $osC_MessageStack->add('header', ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 
   switch ($action) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.156 2004/10/26 20:19:54 hpdl Exp $
+  $Id: categories.php,v 1.157 2004/10/28 18:59:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,11 +106,11 @@
           osC_Cache::clear('category_tree');
           osC_Cache::clear('also_purchased');
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
           $osC_Database->rollbackTransaction();
 
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&cID=' . $category_id));
@@ -160,7 +160,7 @@
           osC_Cache::clear('category_tree');
           osC_Cache::clear('also_purchased');
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         }
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search']));
@@ -170,7 +170,7 @@
           $path = explode('_', $_POST['move_to_category_id']);
 
           if (in_array($_GET['cID'], $path)) {
-            $messageStack->add_session(ERROR_CANNOT_MOVE_CATEGORY_TO_PARENT, 'error');
+            $osC_MessageStack->add_session('header', ERROR_CANNOT_MOVE_CATEGORY_TO_PARENT, 'error');
           } else {
             $Qupdate = $osC_Database->query('update :table_categories set parent_id = :parent_id, last_modified = now() where categories_id = :categories_id');
             $Qupdate->bindTable(':table_categories', TABLE_CATEGORIES);
@@ -183,7 +183,7 @@
               osC_Cache::clear('category_tree');
               osC_Cache::clear('also_purchased');
 
-              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
 
               tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search']));
             }

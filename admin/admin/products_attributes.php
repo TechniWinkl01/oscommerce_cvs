@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.55 2004/08/29 22:19:03 hpdl Exp $
+  $Id: products_attributes.php,v 1.56 2004/10/28 18:59:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,11 +92,11 @@
         if ($error === false) {
           $osC_Database->commitTransaction();
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
           $osC_Database->rollbackTransaction();
 
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'page=' . $_GET['page'] . '&paID=' . $group_id));
@@ -151,11 +151,11 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
         }
 
@@ -217,11 +217,11 @@
         if ($error === false) {
           $osC_Database->commitTransaction();
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
           $osC_Database->rollbackTransaction();
 
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'page=' . $_GET['page'] . '&paID=' . $_GET['paID'] . '&action=list&entriesPage=' . $_GET['entriesPage'] . '&paeID=' . $entry_id));
@@ -256,11 +256,11 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
         }
 

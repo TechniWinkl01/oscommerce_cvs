@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.63 2004/08/15 18:15:04 hpdl Exp $
+  $Id: backup.php,v 1.64 2004/10/28 18:59:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
           $osC_Cache->clear('configuration');
         }
 
-        $messageStack->add_session(SUCCESS_LAST_RESTORE_CLEARED, 'success');
+        $osC_MessageStack->add_session('header', SUCCESS_LAST_RESTORE_CLEARED, 'success');
 
         tep_redirect(tep_href_link(FILENAME_BACKUP));
         break;
@@ -174,7 +174,7 @@
               unlink(DIR_FS_BACKUP . $backup_file);
           }
 
-          $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DATABASE_SAVED, 'success');
         }
 
         tep_redirect(tep_href_link(FILENAME_BACKUP));
@@ -335,7 +335,7 @@
             unlink($restore_from);
           }
 
-          $messageStack->add_session(SUCCESS_DATABASE_RESTORED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DATABASE_RESTORED, 'success');
         }
 
         tep_redirect(tep_href_link(FILENAME_BACKUP));
@@ -357,7 +357,7 @@
               exit;
             }
           } else {
-            $messageStack->add(ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE, 'error');
+            $osC_MessageStack->add('header', ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE, 'error');
           }
         }
         break;
@@ -367,7 +367,7 @@
             tep_remove(DIR_FS_BACKUP . basename($_GET['file']));
 
             if (!$tep_remove_error) {
-              $messageStack->add_session(SUCCESS_BACKUP_DELETED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_BACKUP_DELETED, 'success');
 
               tep_redirect(tep_href_link(FILENAME_BACKUP));
             }
@@ -383,10 +383,10 @@
     if (is_writeable(DIR_FS_BACKUP)) {
       $dir_ok = true;
     } else {
-      $messageStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
+      $osC_MessageStack->add('header', ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
     }
   } else {
-    $messageStack->add(ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
+    $osC_MessageStack->add('header', ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 
   $page_contents = 'backup.php';

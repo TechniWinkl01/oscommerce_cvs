@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.42 2004/07/22 23:30:50 hpdl Exp $
+  $Id: specials.php,v 1.43 2004/10/28 18:59:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -49,9 +49,9 @@
           $Qspecial->execute();
 
           if ($osC_Database->isError() === false) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
         }
 
@@ -65,9 +65,9 @@
           $Qspecial->execute();
 
           if ($Qspecial->affectedRows()) {
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         }
 

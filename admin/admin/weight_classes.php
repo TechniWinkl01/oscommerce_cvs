@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: weight_classes.php,v 1.2 2004/07/22 23:31:58 hpdl Exp $
+  $Id: weight_classes.php,v 1.3 2004/10/28 18:59:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -141,11 +141,11 @@
             }
           }
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
           $osC_Database->rollbackTransaction();
 
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_WEIGHT_CLASSES, 'page=' . $_GET['page'] . '&wcID=' . $weight_class_id));
@@ -159,11 +159,11 @@
 
           if ( (SHIPPING_WEIGHT_UNIT == $_GET['wcID']) || ($Qcheck->valueInt('total') > 0) ) {
             if (SHIPPING_WEIGHT_UNIT == $_GET['wcID']) {
-              $messageStack->add_session(TEXT_INFO_DELETE_PROHIBITED, 'warning');
+              $osC_MessageStack->add_session('header', TEXT_INFO_DELETE_PROHIBITED, 'warning');
             }
 
             if ($Qcheck->valueInt('total') > 0) {
-              $messageStack->add_session(sprintf(TEXT_INFO_DELETE_PROHIBITED_PRODUCTS, $Qcheck->valueInt('total')), 'warning');
+              $osC_MessageStack->add_session('header', sprintf(TEXT_INFO_DELETE_PROHIBITED_PRODUCTS, $Qcheck->valueInt('total')), 'warning');
             }
 
             tep_redirect(tep_href_link(FILENAME_WEIGHT_CLASSES, 'page=' . $_GET['page'] . '&wcID=' . $_GET['wcID']));
@@ -199,11 +199,11 @@
               $osC_Cache->clear('weight-classes');
               $osC_Cache->clear('weight-rules');
 
-              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
             } else {
               $osC_Database->rollbackTransaction();
 
-              $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+              $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
             }
 
             tep_redirect(tep_href_link(FILENAME_WEIGHT_CLASSES, 'page=' . $_GET['page']));

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.59 2004/08/18 11:49:35 hpdl Exp $
+  $Id: manufacturers.php,v 1.60 2004/10/28 18:59:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,11 +83,11 @@
 
           osC_Cache::reset('manufacturers');
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
           $osC_Database->rollbackTransaction();
 
-          $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+          $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page'] . '&mID=' . $manufacturers_id));
@@ -137,7 +137,7 @@
 
           osC_Cache::reset('manufacturers');
 
-          $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+          $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         }
 
         tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $_GET['page']));

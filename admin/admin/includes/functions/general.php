@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.171 2004/10/28 15:19:09 hpdl Exp $
+  $Id: general.php,v 1.172 2004/10/28 19:00:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -938,7 +938,7 @@
   }
 
   function tep_remove($source) {
-    global $messageStack, $tep_remove_error;
+    global $osC_MessageStack, $tep_remove_error;
 
     if (isset($tep_remove_error)) $tep_remove_error = false;
 
@@ -949,7 +949,7 @@
           if (is_writeable($source . '/' . $file)) {
             tep_remove($source . '/' . $file);
           } else {
-            $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
+            $osC_MessageStack->add('header', sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
             $tep_remove_error = true;
           }
         }
@@ -959,14 +959,14 @@
       if (is_writeable($source)) {
         rmdir($source);
       } else {
-        $messageStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
+        $osC_MessageStack->add('header', sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
         $tep_remove_error = true;
       }
     } else {
       if (is_writeable($source)) {
         unlink($source);
       } else {
-        $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
+        $osC_MessageStack->add('header', sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
         $tep_remove_error = true;
       }
     }

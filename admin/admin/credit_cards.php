@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: credit_cards.php,v 1.3 2004/10/28 13:46:40 hpdl Exp $
+  $Id: credit_cards.php,v 1.4 2004/10/28 18:59:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,12 +26,12 @@
         $error = false;
 
         if (empty($_POST['credit_card_name'])) {
-          $messageStack->add(ERROR_CREDIT_CARD_NAME, 'error');
+          $osC_MessageStack->add('header', ERROR_CREDIT_CARD_NAME, 'error');
           $error = true;
         }
 
         if (empty($_POST['credit_card_code'])) {
-          $messageStack->add(ERROR_CREDIT_CARD_CODE, 'error');
+          $osC_MessageStack->add('header', ERROR_CREDIT_CARD_CODE, 'error');
           $error = true;
         }
 
@@ -52,9 +52,9 @@
           if ($Qcc->affectedRows()) {
             osC_Cache::clear('credit-cards');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
 
           tep_redirect(tep_href_link(FILENAME_CREDIT_CARDS, 'page=' . $_GET['page'] . '&ccID=' . ((isset($_GET['ccID']) && is_numeric($_GET['ccID'])) ? $_GET['ccID'] : $osC_Database->nextID())));
@@ -77,9 +77,9 @@
           if ($Qdel->affectedRows()) {
             osC_Cache::clear('credit-cards');
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
-            $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+            $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
           }
         }
 

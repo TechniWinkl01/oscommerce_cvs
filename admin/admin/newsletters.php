@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.19 2004/08/17 23:54:16 hpdl Exp $
+  $Id: newsletters.php,v 1.20 2004/10/28 18:59:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,13 +28,13 @@
         if (!isset($_POST['module']) || (isset($_POST['module']) && empty($_POST['module']))) {
           $newsletter_error = true;
 
-          $messageStack->add(ERROR_NEWSLETTER_MODULE, 'error');
+          $osC_MessageStack->add('header', ERROR_NEWSLETTER_MODULE, 'error');
         }
 
         if (!isset($_POST['title']) || (isset($_POST['title']) && empty($_POST['title']))) {
           $newsletter_error = true;
 
-          $messageStack->add(ERROR_NEWSLETTER_TITLE, 'error');
+          $osC_MessageStack->add('header', ERROR_NEWSLETTER_TITLE, 'error');
         }
 
         if ($newsletter_error === false) {

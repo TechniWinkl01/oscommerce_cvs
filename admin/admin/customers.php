@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.89 2004/10/28 13:46:41 hpdl Exp $
+  $Id: customers.php,v 1.90 2004/10/28 18:59:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,18 +29,18 @@
 
         if (ACCOUNT_GENDER > 0) {
           if (!isset($_POST['gender']) || (($_POST['gender'] != 'm') && ($_POST['gender'] != 'f'))) {
-            $messageStack->add(ENTRY_GENDER_ERROR);
+            $osC_MessageStack->add('header', ENTRY_GENDER_ERROR, 'error');
             $error = true;
           }
         }
 
         if (!isset($_POST['firstname']) || (strlen(trim($_POST['firstname'])) < ACCOUNT_FIRST_NAME)) {
-          $messageStack->add(ENTRY_FIRST_NAME_ERROR);
+          $osC_MessageStack->add('header', ENTRY_FIRST_NAME_ERROR, 'error');
           $error = true;
         }
 
         if (!isset($_POST['lastname']) || (strlen(trim($_POST['lastname'])) < ACCOUNT_LAST_NAME)) {
-          $messageStack->add(ENTRY_LAST_NAME_ERROR);
+          $osC_MessageStack->add('header', ENTRY_LAST_NAME_ERROR, 'error');
           $error = true;
         }
 
@@ -48,16 +48,16 @@
           if (isset($_POST['dob_days']) && isset($_POST['dob_months']) && isset($_POST['dob_years']) && checkdate($_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years'])) {
             $dob = adodb_mktime(0, 0, 0, $_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years']);
           } else {
-            $messageStack->add(ENTRY_DATE_OF_BIRTH_ERROR);
+            $osC_MessageStack->add('header', ENTRY_DATE_OF_BIRTH_ERROR, 'error');
             $error = true;
           }
         }
 
         if (!isset($_POST['email_address']) || (strlen(trim($_POST['email_address'])) < ACCOUNT_EMAIL_ADDRESS)) {
-          $messageStack->add(ENTRY_EMAIL_ADDRESS_ERROR);
+          $osC_MessageStack->add('header', ENTRY_EMAIL_ADDRESS_ERROR, 'error');
           $error = true;
         } elseif (tep_validate_email($_POST['email_address']) == false) {
-          $messageStack->add(ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+          $osC_MessageStack->add('header', ENTRY_EMAIL_ADDRESS_CHECK_ERROR, 'error');
           $error = true;
         } else {
           $Qcheck = $osC_Database->query('select customers_id from :table_customers where customers_email_address = :customers_email_address');
@@ -71,7 +71,7 @@
           $Qcheck->execute();
 
           if ($Qcheck->numberOfRows() > 0) {
-            $messageStack->add(ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
+            $osC_MessageStack->add('header', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS, 'error');
             $error = true;
           }
 
@@ -79,57 +79,57 @@
         }
 
         if ( (!isset($_GET['cID']) || (isset($_POST['password']) && !empty($_POST['password']))) && (strlen(trim($_POST['password'])) < ACCOUNT_PASSWORD)) {
-          $messageStack->add(ENTRY_PASSWORD_ERROR);
+          $osC_MessageStack->add('header', ENTRY_PASSWORD_ERROR, 'error');
           $error = true;
         } elseif (isset($_POST['confirmation']) && !empty($_POST['confirmation']) && (trim($_POST['password']) != trim($_POST['confirmation']))) {
-          $messageStack->add(ENTRY_PASSWORD_ERROR_NOT_MATCHING);
+          $osC_MessageStack->add('header', ENTRY_PASSWORD_ERROR_NOT_MATCHING, 'error');
           $error = true;
         }
 
         if (!isset($_GET['cID']) || (strlen(trim($_POST['ab_street_address'])) > 0)) {
           if (ACCOUNT_GENDER > 0) {
             if (!isset($_POST['ab_gender']) || (($_POST['ab_gender'] != 'm') && ($_POST['ab_gender'] != 'f'))) {
-              $messageStack->add(ENTRY_GENDER_ERROR);
+              $osC_MessageStack->add('header', ENTRY_GENDER_ERROR, 'error');
               $error = true;
             }
           }
 
           if (!isset($_POST['ab_firstname']) || (strlen(trim($_POST['ab_firstname'])) < ACCOUNT_FIRST_NAME)) {
-            $messageStack->add(ENTRY_FIRST_NAME_ERROR);
+            $osC_MessageStack->add('header', ENTRY_FIRST_NAME_ERROR, 'error');
             $error = true;
           }
 
           if (!isset($_POST['ab_lastname']) || (strlen(trim($_POST['ab_lastname'])) < ACCOUNT_LAST_NAME)) {
-            $messageStack->add(ENTRY_LAST_NAME_ERROR);
+            $osC_MessageStack->add('header', ENTRY_LAST_NAME_ERROR, 'error');
             $error = true;
           }
 
           if (ACCOUNT_COMPANY > 0) {
             if (!isset($_POST['ab_company']) || (strlen(trim($_POST['ab_company'])) < ACCOUNT_COMPANY)) {
-              $messageStack->add(ENTRY_COMPANY_ERROR);
+              $osC_MessageStack->add('header', ENTRY_COMPANY_ERROR, 'error');
               $error = true;
             }
           }
 
           if (!isset($_POST['ab_street_address']) || (strlen(trim($_POST['ab_street_address'])) < ACCOUNT_STREET_ADDRESS)) {
-            $messageStack->add(ENTRY_STREET_ADDRESS_ERROR);
+            $osC_MessageStack->add('header', ENTRY_STREET_ADDRESS_ERROR, 'error');
             $error = true;
           }
 
           if (ACCOUNT_SUBURB > 0) {
             if (!isset($_POST['ab_suburb']) || (strlen(trim($_POST['ab_suburb'])) < ACCOUNT_SUBURB)) {
-              $messageStack->add(ENTRY_SUBURB_ERROR);
+              $osC_MessageStack->add('header', ENTRY_SUBURB_ERROR, 'error');
               $error = true;
             }
           }
 
           if (!isset($_POST['ab_postcode']) || (strlen(trim($_POST['ab_postcode'])) < ACCOUNT_POST_CODE)) {
-            $messageStack->add(ENTRY_POST_CODE_ERROR);
+            $osC_MessageStack->add('header', ENTRY_POST_CODE_ERROR, 'error');
             $error = true;
           }
 
           if (!isset($_POST['ab_city']) || (strlen(trim($_POST['ab_city'])) < ACCOUNT_CITY)) {
-            $messageStack->add(ENTRY_CITY_ERROR);
+            $osC_MessageStack->add('header', ENTRY_CITY_ERROR, 'error');
             $error = true;
           }
 
@@ -164,7 +164,7 @@
                 if ($Qzone->numberOfRows() === 1) {
                   $zone_id = $Qzone->valueInt('zone_id');
                 } else {
-                  $messageStack->add(ENTRY_STATE_ERROR_SELECT);
+                  $osC_MessageStack->add('header', ENTRY_STATE_ERROR_SELECT, 'error');
                   $error = true;
                 }
               }
@@ -172,27 +172,27 @@
               $Qzone->freeResult();
             } else {
               if (strlen(trim($_POST['ab_state'])) < ACCOUNT_STATE) {
-                $messageStack->add(ENTRY_STATE_ERROR);
+                $osC_MessageStack->add('header', ENTRY_STATE_ERROR, 'error');
                 $error = true;
               }
             }
           }
 
           if ( (is_numeric($_POST['ab_country']) === false) || ($_POST['ab_country'] < 1) ) {
-            $messageStack->add(ENTRY_COUNTRY_ERROR);
+            $osC_MessageStack->add('header', ENTRY_COUNTRY_ERROR, 'error');
             $error = true;
           }
 
           if (ACCOUNT_TELEPHONE > 0) {
             if (!isset($_POST['ab_telephone']) || (strlen(trim($_POST['ab_telephone'])) < ACCOUNT_TELEPHONE)) {
-              $messageStack->add(ENTRY_TELEPHONE_NUMBER_ERROR);
+              $osC_MessageStack->add('header', ENTRY_TELEPHONE_NUMBER_ERROR, 'error');
               $error = true;
             }
           }
 
           if (ACCOUNT_FAX > 0) {
             if (!isset($_POST['ab_fax']) || (strlen(trim($_POST['ab_fax'])) < ACCOUNT_FAX)) {
-              $messageStack->add(ENTRY_FAX_NUMBER_ERROR);
+              $osC_MessageStack->add('header', ENTRY_FAX_NUMBER_ERROR, 'error');
               $error = true;
             }
           }
@@ -347,14 +347,14 @@
                 tep_mail($full_name, $Qcustomer->value('customers_email_address'), EMAIL_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
               }
 
-              $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+              $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
             } else {
-              $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
+              $osC_MessageStack->add_session('header', WARNING_DB_ROWS_NOT_UPDATED, 'warning');
             }
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
           tep_redirect(tep_href_link(FILENAME_CUSTOMERS, (isset($_GET['search']) ? 'search=' . $_GET['search'] . '&' : '') . 'page=' . $_GET['page'] . '&cID=' . $customer_id));
@@ -493,11 +493,11 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
+            $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
             $osC_Database->rollbackTransaction();
 
-            $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
+            $osC_MessageStack->add_session('header', ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
         }
 

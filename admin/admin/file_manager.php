@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.45 2004/08/15 18:16:07 hpdl Exp $
+  $Id: file_manager.php,v 1.46 2004/10/28 18:59:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -55,9 +55,9 @@
             tep_remove($target);
           } else {
             if (is_file($target)) {
-              $messageStack->add_session(sprintf(ERROR_FILE_NOT_WRITEABLE, $target), 'error');
+              $osC_MessageStack->add_session('header', sprintf(ERROR_FILE_NOT_WRITEABLE, $target), 'error');
             } else {
-              $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $target), 'error');
+              $osC_MessageStack->add_session('header', sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $target), 'error');
             }
           }
         }
@@ -74,10 +74,10 @@
                 tep_redirect(tep_href_link(FILENAME_FILE_MANAGER, 'entry=' . urlencode(basename($_POST['directory_name']))));
               }
             } else {
-              $messageStack->add(sprintf(ERROR_DIRECTORY_EXISTS, $new_directory), 'error');
+              $osC_MessageStack->add('header', sprintf(ERROR_DIRECTORY_EXISTS, $new_directory), 'error');
             }
           } else {
-            $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $current_path), 'error');
+            $osC_MessageStack->add_session('header', sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $current_path), 'error');
           }
         }
 
@@ -107,7 +107,7 @@
             new upload('file_' . $i, $current_path);
           }
         } else {
-          $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $current_path), 'error');
+          $osC_MessageStack->add_session('header', sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $current_path), 'error');
         }
 
         tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.176 2004/10/28 15:19:05 hpdl Exp $
+  $Id: application_top.php,v 1.177 2004/10/28 19:00:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -81,7 +81,7 @@
   } else {
     include('../includes/classes/session.php');
   }
-  $osC_Session = new osC_Session;
+  $osC_Session = new osC_Session();
   $osC_Session->setName('osCAdminID');
 
 // lets start our session
@@ -123,8 +123,9 @@
   require('includes/classes/table_block.php');
 
 // initialize the message stack for output messages
-  require('includes/classes/message_stack.php');
-  $messageStack = new messageStack;
+  require('../includes/classes/message_stack.php');
+  $osC_MessageStack = new messageStack();
+  $osC_MessageStack->loadFromSession();
 
 // entry/item info classes
   require('includes/classes/object_info.php');
@@ -138,15 +139,15 @@
 
 // check if a default currency is set
   if (!defined('DEFAULT_CURRENCY')) {
-    $messageStack->add(ERROR_NO_DEFAULT_CURRENCY_DEFINED, 'error');
+    $osC_MessageStack->add('header', ERROR_NO_DEFAULT_CURRENCY_DEFINED, 'error');
   }
 
 // check if a default language is set
   if (!defined('DEFAULT_LANGUAGE')) {
-    $messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
+    $osC_MessageStack->add('header', ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
   }
 
   if (function_exists('ini_get') && ((bool)ini_get('file_uploads') == false) ) {
-    $messageStack->add(WARNING_FILE_UPLOADS_DISABLED, 'warning');
+    $osC_MessageStack->add('header', WARNING_FILE_UPLOADS_DISABLED, 'warning');
   }
 ?>
