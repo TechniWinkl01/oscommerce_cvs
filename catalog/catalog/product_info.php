@@ -68,14 +68,14 @@ function popupImageWindow(url) {
     if ($new_price) {
       $products_price = '<s>' . tep_currency_format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>';
     } else {
-       $products_price = tep_currency_format($product_info_values['products_price']);
+      $products_price = tep_currency_format($product_info_values['products_price']);
     }
-	$products_attributes = tep_db_query("select popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
-	if (tep_db_num_rows($products_attributes)) {
-	$products_attributes = '1';
+    $products_attributes = tep_db_query("select popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
+    if (tep_db_num_rows($products_attributes)) {
+      $products_attributes = '1';
     } else {
-	$products_attributes = '0';
-	}
+      $products_attributes = '0';
+    }
 ?>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -85,7 +85,9 @@ function popupImageWindow(url) {
           </tr>
 <?
     if (PRODUCT_LIST_MODEL) {
-      echo '<tr><td class="pageHeading" nowrap>&nbsp;' . $product_info_values['products_model'] . '&nbsp;</td>';
+      echo '          <tr>' . "\n" .
+           '            <td colspan="2" class="pageHeading" nowrap>&nbsp;' . $product_info_values['products_model'] . '&nbsp;</td>' . "\n" .
+           '          </tr>' . "\n";
     }
 ?>
         </table></td>
@@ -93,14 +95,6 @@ function popupImageWindow(url) {
       <tr>
         <td><? echo tep_black_line(); ?></td>
       </tr></table>
-<?
-    if ($cart->get_quantity($HTTP_GET_VARS['products_id']) > 0) {
-      $product_exists_in_cart = '1';
-      $product_quantity_in_cart = $cart->get_quantity($HTTP_GET_VARS['products_id']);
-    } else {
-      $product_exists_in_cart = '0';
-    }
-?>	  
     <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
@@ -173,14 +167,8 @@ function popupImageWindow(url) {
       echo '            <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_reviews.gif', IMAGE_REVIEWS) . '</a>&nbsp;</td>' . "\n";
     }
 
-    echo '<td align="center" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_EMAILPRODUCT, 'action=where&' . $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_tellafriend.gif', IMAGE_TELLAFRIEND) . '</a>&nbsp;</td>' . "\n";
-
-    echo '<td align="right" class="main" nowrap>&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">';
-    if ($product_exists_in_cart == '1') {
-      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL) . '</a>';
-    } else {
-      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_add_to_cart.gif', IMAGE_ADD_TO_CART);
-    }
+    echo '            <td align="center" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_EMAILPRODUCT, 'action=where&' . $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_tellafriend.gif', IMAGE_TELLAFRIEND) . '</a>&nbsp;</td>' . "\n";
+    echo '            <td align="right" class="main" nowrap>&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_add_to_cart.gif', IMAGE_ADD_TO_CART);
     $get_params_back = substr(tep_get_all_get_params(array('products_id','language','currency')), 0, -1);
     if ($get_params_back != '') {
       echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';

@@ -59,7 +59,7 @@
       }
     }
 
-    function add_cart($products_id, $qty, $attributes = '') {
+    function add_cart($products_id, $qty = '', $attributes = '') {
       global $new_products_id_in_cart, $customer_id;
 
       $products_id = tep_get_uprid($products_id, $attributes);
@@ -67,10 +67,11 @@
       if ($this->in_cart($products_id)) {
         $this->update_quantity($products_id, $qty, $attributes);
       } else {
+        if ($qty == '') $qty = '1'; // if no quantity is supplied, then add '1' to the customers basket
+
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
 // insert into database
-
         if ($customer_id) tep_db_query("insert into customers_basket (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
 
         if (is_array($attributes)) {
@@ -87,8 +88,10 @@
       $this->cleanup();
     }
 
-    function update_quantity($products_id, $quantity, $attributes = '') {
+    function update_quantity($products_id, $quantity = '', $attributes = '') {
       global $customer_id;
+
+      if ($quantity == '') return true; // nothing needs to be updated if theres no quantity, so we return true..
 
       $this->contents[$products_id] = array('qty' => $quantity);
 // update database
