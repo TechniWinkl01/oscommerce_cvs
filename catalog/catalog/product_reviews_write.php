@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.44 2002/04/18 22:50:28 harley_vb Exp $
+  $Id: product_reviews_write.php,v 1.45 2002/04/20 10:25:23 harley_vb Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -117,7 +117,10 @@ function checkForm() {
             <td class="main"><b><?php echo SUB_TITLE_FROM; ?></b> <?php echo $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname']; ?></td>
           </tr>
           <tr>
-            <td class="main"><br><b><?php echo SUB_TITLE_REVIEW; ?></b><br><textarea name="review" wrap="soft" cols="60" rows="15"></textarea></td>
+            <td class="main"><br><b><?php echo SUB_TITLE_REVIEW; ?></b></td>
+          </tr>
+          <tr>
+            <td><?php echo tep_draw_textarea_field('review', 'soft', 60, 15);?></td>
           </tr>
           <tr>
             <td class="smallText"><?php echo TEXT_NO_HTML; ?></td>
