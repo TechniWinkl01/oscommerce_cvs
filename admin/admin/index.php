@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.13 2002/09/28 11:49:28 project3000 Exp $
+  $Id: index.php,v 1.14 2002/09/29 14:14:27 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,9 +15,9 @@
   $cat = array(array('title' => BOX_HEADING_CONFIGURATION,
                      'image' => 'configuration.gif',
                      'href' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=1'),
-                     'children' => array(array('title' => 'My Store', 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=1')),
-                                         array('title' => 'Logging', 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=10')),
-                                         array('title' => 'Cache', 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=11')))),
+                     'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=1')),
+                                         array('title' => BOX_CONFIGURATION_LOGGING, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=10')),
+                                         array('title' => BOX_CONFIGURATION_CACHE, 'link' => tep_href_link(FILENAME_CONFIGURATION, 'selected_box=configuration&gID=11')))),
                array('title' => BOX_HEADING_MODULES,
                      'image' => 'modules.gif',
                      'href' => tep_href_link(FILENAME_MODULES, 'selected_box=modules&set=payment'),

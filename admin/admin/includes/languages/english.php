@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.99 2002/08/17 11:00:45 project3000 Exp $
+  $Id: english.php,v 1.100 2002/09/29 14:14:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,6 +57,9 @@ define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 // configuration box text in includes/boxes/configuration.php
 define('BOX_HEADING_CONFIGURATION', 'Configuration');
+define('BOX_CONFIGURATION_MYSTORE', 'My Store');
+define('BOX_CONFIGURATION_LOGGING', 'Logging');
+define('BOX_CONFIGURATION_CACHE', 'Cache');
 
 // modules box text in includes/boxes/modules.php
 define('BOX_HEADING_MODULES', 'Modules');
