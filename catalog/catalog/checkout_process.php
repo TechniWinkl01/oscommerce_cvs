@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.112 2002/08/19 11:06:01 hpdl Exp $
+  $Id: checkout_process.php,v 1.113 2002/11/01 04:22:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,11 +12,12 @@
 
   include('includes/application_top.php');
 
-// check for essential variables (payment module could lose them)
+// if the customer is not logged on, redirect them to the login page
   if (!tep_session_is_registered('customer_id')) {
     $navigation->set_snapshot(array('mode' => 'SSL', 'page' => FILENAME_CHECKOUT_PAYMENT));
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
+  
   if (!tep_session_is_registered('sendto')) {
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
   }
@@ -25,11 +26,18 @@
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
  }
 
+// avoid hack attempts during the checkout procedure by checking the internal cartID
+  if (isset($cart->cartID) && tep_session_is_registered('cartID')) {
+    if ($cart->cartID != $cartID) {
+      tep_redirect(tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
+    }
+  }
+
   include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS);
 
-// load payment modules as objects
+// load selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
-  $payment_modules = new payment;
+  $payment_modules = new payment($payment);
 
 // load the before_process function from the payment modules
   $payment_modules->before_process();
@@ -60,6 +68,14 @@
                           'delivery_state' => $order->delivery['state'], 
                           'delivery_country' => $order->delivery['country']['title'], 
                           'delivery_address_format_id' => $order->delivery['format_id'], 
+                          'billing_name' => $order->billing['firstname'] . ' ' . $order->billing['lastname'], 
+                          'billing_street_address' => $order->billing['street_address'], 
+                          'billing_suburb' => $order->billing['suburb'], 
+                          'billing_city' => $order->billing['city'], 
+                          'billing_postcode' => $order->billing['postcode'], 
+                          'billing_state' => $order->billing['state'], 
+                          'billing_country' => $order->billing['country']['title'], 
+                          'billing_address_format_id' => $order->billing['format_id'], 
                           'payment_method' => $order->info['payment_method'], 
                           'cc_type' => $order->info['cc_type'], 
                           'cc_owner' => $order->info['cc_owner'], 
@@ -196,8 +212,8 @@
 // lets start with the email confirmation
   $email_order = STORE_NAME . "\n" . 
                  EMAIL_SEPARATOR . "\n" . 
-                 EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . 
-                 EMAIL_TEXT_INVOICE_URL . ' ' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $insert_id, 'SSL', false) . "\n" . 
+                 EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" .
+                 EMAIL_TEXT_INVOICE_URL . ' ' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $insert_id, 'SSL', false) . "\n" .
                  EMAIL_TEXT_DATE_ORDERED . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
   if ($order->info['comments']) {
     $email_order .= $order->info['comments'] . "\n\n";
@@ -213,7 +229,10 @@
 
   $email_order .= "\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
                   EMAIL_SEPARATOR . "\n" .
-                  tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
+                  tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n" .
+                  EMAIL_TEXT_BILLING_ADDRESS . "\n" .
+                  EMAIL_SEPARATOR . "\n" .
+                  tep_address_label($customer_id, $billto, 0, '', "\n") . "\n\n";
   if (is_object($$payment)) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . 
                     EMAIL_SEPARATOR . "\n";
@@ -237,11 +256,12 @@
 
 // unregister session variables used during checkout
   tep_session_unregister('sendto');
-  tep_session_unregister('comments');
+  tep_session_unregister('billto');
+  tep_session_unregister('shipping');
   tep_session_unregister('payment');
-  tep_session_unregister('shipping_selected');
-  tep_session_unregister('shipping_cost');
-  tep_session_unregister('shipping_method');
+
+  tep_session_register('last_order');
+  $last_order = $insert_id;
 
   tep_redirect(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 
