@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.95 2002/03/15 20:03:34 harley_vb Exp $
+  $Id: checkout_process.php,v 1.96 2002/03/29 16:19:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -179,9 +179,10 @@
   if (is_object($$payment)) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . 
                     EMAIL_SEPARATOR . "\n";
-    $email_order .= $$payment->title . "\n\n";
-    if ($$payment->email_footer) { 
-      $email_order .= $$payment->email_footer . "\n\n";
+    $payment_class = $$payment;
+    $email_order .= $payment_class->title . "\n\n";
+    if ($payment_class->email_footer) { 
+      $email_order .= $payment_class->email_footer . "\n\n";
     }
   }
   tep_mail($customer_name, $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
