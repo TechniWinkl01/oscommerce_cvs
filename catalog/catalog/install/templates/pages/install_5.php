@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.3 2002/01/05 06:40:40 hpdl Exp $
+  $Id: install_5.php,v 1.4 2002/01/05 12:21:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -132,6 +132,7 @@
                      'define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
                      'define(\'DIR_FS_CATALOG\', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG); // absolute path required' . "\n" .
                      'define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
+                     'define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
                      'define(\'DIR_WS_CATALOG_IMAGES\', DIR_WS_CATALOG . \'images/\');' . "\n" .
                      'define(\'DIR_WS_INCLUDES\', \'includes/\');' . "\n" .
                      'define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
