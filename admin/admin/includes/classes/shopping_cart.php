@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: shopping_cart.php,v 1.6 2002/04/20 16:49:31 harley_vb Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+
   class shoppingCart {
     var $contents, $total, $weight;
 
@@ -227,16 +238,18 @@
     }
 
     function get_products() {
+      global $languages_id;
+
       if (!is_array($this->contents)) return 0;
       $products_array = array();
       reset($this->contents);
       while (list($products_id, ) = each($this->contents)) {
-        $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_model, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id='" . tep_get_prid($products_id) . "' and p.products_id='" . tep_get_prid($products_id) . "'");
+        $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_model, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id='" . tep_get_prid($products_id) . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
         if ($products = tep_db_fetch_array($products_query)) {
           $prid = $products['products_id'];
           $products_price = $products['products_price'];
 
-          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "'");
+          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (tep_db_num_rows($specials_query)) {
             $specials = tep_db_fetch_array($specials_query);
             $products_price = $specials['specials_new_products_price'];
