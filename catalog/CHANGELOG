@@ -16,6 +16,8 @@ xx/02/2001 The Exchange Project Preview Release 2.1
  * Added languages box - customers can now choose their language anywhere
    except during the checkout procedure (due to POST variables in forms)
 
+ * Added a 'Contact Us' Page.
+
  * Selectable columns in 'Product Listings'.
 
  * Added a delete button to the orders in the admin tool.
