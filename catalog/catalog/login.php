@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.61 2002/03/10 22:33:02 harley_vb Exp $
+  $Id: login.php,v 1.62 2002/05/20 13:58:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,7 +63,7 @@
             $navigation->clear_snapshot();
             tep_redirect($origin_href);
           } else {
-            tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
+            tep_redirect(tep_href_link(FILENAME_ACCOUNT));
           }
         }
       } else {
