@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.92 2001/11/20 20:56:02 hpdl Exp $
+  $Id: application_top.php,v 1.93 2001/11/20 21:49:59 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,7 +41,7 @@
   define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
   define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
   define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
-  define('DIR_FS_BACKUP', '/www/admin22/backups/');
+  define('DIR_FS_BACKUP', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . 'backups/');
 
   define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
   define('LOCAL_EXE_GUNZIP', '/usr/bin/gunzip');
@@ -181,7 +181,7 @@
 // lets start our session
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, DIR_WS_ADMIN);
+    session_set_cookie_params(0, substr(DIR_WS_ADMIN, 0, -1));
   }
 
 // language
