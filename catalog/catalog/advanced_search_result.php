@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.54 2002/06/16 14:11:23 harley_vb Exp $
+  $Id: advanced_search_result.php,v 1.55 2002/06/17 12:48:30 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -239,49 +239,33 @@
     $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) <= " . $pto . ")";
   }
 
-  if (!$HTTP_GET_VARS['sort'] || !ereg("[1-8][ad]", $HTTP_GET_VARS['sort'])) {
+  if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'], 0 , 1) > sizeof($column_list)) ) {
     for ($col=0; $col<sizeof($column_list); $col++) {
       if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
         $HTTP_GET_VARS['sort'] = $col+1 . 'a';
         $order_str = ' order by pd.products_name';
+        break;
       }
     }
   } else {
     $sort_col = substr($HTTP_GET_VARS['sort'], 0 , 1);
     $sort_order = substr($HTTP_GET_VARS['sort'], 1);
-
-    if ($sort_col <= sizeof($column_list)) {
-      $order_str = ' order by ';
-      switch ($column_list[$sort_col-1]) {
-        case 'PRODUCT_LIST_MODEL':
-          $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
-        case 'PRODUCT_LIST_NAME':
-          $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
-          break;
-        case 'PRODUCT_LIST_MANUFACTURER':
-          $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
-        case 'PRODUCT_LIST_QUANTITY':
-          $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
-        case 'PRODUCT_LIST_IMAGE':
-          $order_str .= "pd.products_name";
-          break;
-        case 'PRODUCT_LIST_WEIGHT':
-          $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
-        case 'PRODUCT_LIST_PRICE':
-          $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
-      }        
-    } else {
-      for ($col=0; $col<sizeof($column_list); $col++) {
-        if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
-          $HTTP_GET_VARS['sort'] = $col . 'a';
-          $order_str = ' order by pd.products_name';
-        }
-      }
+    $order_str = ' order by ';
+    switch ($column_list[$sort_col-1]) {
+      case 'PRODUCT_LIST_MODEL':        $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+                                        break;
+      case 'PRODUCT_LIST_NAME':         $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
+                                        break;
+      case 'PRODUCT_LIST_MANUFACTURER': $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+                                        break;
+      case 'PRODUCT_LIST_QUANTITY':     $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+                                        break;
+      case 'PRODUCT_LIST_IMAGE':        $order_str .= "pd.products_name";
+                                        break;
+      case 'PRODUCT_LIST_WEIGHT':       $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+                                        break;
+      case 'PRODUCT_LIST_PRICE':        $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+                                        break;
     }
   }
 
