@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.193 2002/11/11 21:38:06 project3000 Exp $
+  $Id: general.php,v 1.194 2002/11/12 01:31:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1114,5 +1114,17 @@
 
   function tep_string_to_int($string) {
     return (int)$string;
+  }
+
+////
+// Parse and secure the cPath parameter values
+  function tep_parse_category_path($cPath) {
+// make sure the category IDs are integers
+    $cPath_array = array_map('tep_string_to_int', explode('_', $cPath));
+
+// make sure no duplicate category IDs exist which could lock the server in a loop
+    $cPath_array = array_unique($cPath_array);
+
+    return $cPath_array;
   }
 ?>
