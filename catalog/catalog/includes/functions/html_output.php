@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.46 2002/11/18 11:54:32 thomasamoulton Exp $
+  $Id: html_output.php,v 1.47 2002/11/18 21:15:13 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,16 +52,18 @@
       $sid = SID;
     }
 
-    if (isset($sid)) {
-      $link .= $separator . $sid;
-    }
-
     if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
       while (strstr($link, '&&')) $link = str_replace('&&', '&', $link);
 
       $link = str_replace('?', '/', $link);
       $link = str_replace('&', '/', $link);
       $link = str_replace('=', '/', $link);
+
+      $separator = '?';
+    }
+    
+    if (isset($sid)) {
+      $link .= $separator . $sid;
     }
 
     return $link;
