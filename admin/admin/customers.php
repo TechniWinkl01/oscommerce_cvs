@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.54 2002/01/08 02:28:40 hpdl Exp $
+  $Id: customers.php,v 1.55 2002/01/08 03:02:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -465,7 +465,7 @@ function check_form() {
       }
 
       if ( (is_object($cInfo)) && ($customers['customers_id'] == $cInfo->customers_id) ) {
-        echo '          <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->customer_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
       } else {
         echo '          <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $customers['customers_id']) . '\'">' . "\n";
       }
