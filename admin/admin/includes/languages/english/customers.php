@@ -15,6 +15,7 @@ if ($HTTP_GET_VARS['action'] == 'add_customers') {
 } else {
   define('HEADING_TITLE', 'Customers');
 }
+define('MAX_ROW_LISTS', 10);
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_FIRSTNAME', 'First Name');
