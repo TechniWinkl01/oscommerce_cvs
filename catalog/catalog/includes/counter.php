@@ -1,28 +1,42 @@
 <?php
 /*
-  $Id: counter.php,v 1.5 2003/02/10 22:30:52 hpdl Exp $
+  $Id: counter.php,v 1.6 2004/02/16 07:15:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  $counter_query = tep_db_query("select startdate, counter from " . TABLE_COUNTER);
+  $Qcounter = $osC_Database->query('select startdate, counter from :table_counter');
+  $Qcounter->bindRaw(':table_counter', TABLE_COUNTER);
+  $Qcounter->execute();
 
-  if (!tep_db_num_rows($counter_query)) {
-    $date_now = date('Ymd');
-    tep_db_query("insert into " . TABLE_COUNTER . " (startdate, counter) values ('" . $date_now . "', '1')");
-    $counter_startdate = $date_now;
-    $counter_now = 1;
+  if ($Qcounter->numberOfRows()) {
+    $counter_startdate = $Qcounter->value('startdate');
+    $counter_now = $Qcounter->valueInt('counter') + 1;
+
+    $Qcounterupdate = $osC_Database->query('update :table_counter set counter = :counter');
+    $Qcounterupdate->bindRaw(':table_counter', TABLE_COUNTER);
+    $Qcounterupdate->bindInt(':counter', $counter_now);
+    $Qcounterupdate->execute();
+
+    $Qcounterupdate->freeResult();
   } else {
-    $counter = tep_db_fetch_array($counter_query);
-    $counter_startdate = $counter['startdate'];
-    $counter_now = ($counter['counter'] + 1);
-    tep_db_query("update " . TABLE_COUNTER . " set counter = '" . $counter_now . "'");
+    $counter_startdate = date('Ymd');
+    $counter_now = 1;
+
+    $Qcounterupdate = $osC_Database->query('insert into :table_counter (startdate, counter) values (:start_date, 1)');
+    $Qcounterupdate->bindRaw(':table_counter', TABLE_COUNTER);
+    $Qcounterupdate->bindValue(':start_date', $counter_startdate);
+    $Qcounterupdate->execute();
+
+    $Qcounterupdate->freeResult();
   }
+
+  $Qcounter->freeResult();
 
   $counter_startdate_formatted = strftime(DATE_FORMAT_LONG, mktime(0, 0, 0, substr($counter_startdate, 4, 2), substr($counter_startdate, -2), substr($counter_startdate, 0, 4)));
 ?>
