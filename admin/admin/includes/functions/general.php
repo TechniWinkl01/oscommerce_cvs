@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.132 2002/07/19 17:42:09 dgw_ Exp $
+  $Id: general.php,v 1.133 2002/08/09 15:13:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1128,14 +1128,25 @@
   }
 
 ////
+// Wrapper function for round() for php3 compatibility
+  function tep_round($value, $precision) {
+    if (eregi('^3\.', phpversion())) {
+      $exp = pow(10, $precision);
+      return round($value * $exp) / $exp;
+    } else {
+      return round($value, $precision);
+    }
+  }
+
+////
 // Add tax to a products price
   function tep_add_tax($price, $tax) {
     global $currencies;
 
     if (DISPLAY_PRICE_WITH_TAX) {
-      return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
+      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
     } else {
-      return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
   }
 
@@ -1143,7 +1154,7 @@
   function tep_calculate_tax($price, $tax) {
     global $currencies;
 
-    return round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+    return tep_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
   }
 
 ////
