@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.68 2002/06/04 10:30:21 hpdl Exp $
+  $Id: account_edit_process.php,v 1.69 2002/06/04 16:28:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,7 +125,7 @@
       $country_check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "'");
       $country_check = tep_db_fetch_array($country_check_query);
       if ($entry_state_has_zones = ($country_check['total'] > 0)) {
-        $match_zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
+        $match_zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and (zone_name = '" . tep_db_input($state) . "' or zone_code = '" . tep_db_input($state) . "')");
         if (tep_db_num_rows($match_zone_query) == 1) {
           $match_zone = tep_db_fetch_array($match_zone_query);
           $zone_id = $match_zone['zone_id'];
