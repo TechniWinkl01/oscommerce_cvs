@@ -58,11 +58,11 @@ TD.infoBox, SPAN.infoBox {
 	font-size : 10px;
 }
 
-TR.selectedRow, TABLE.Box {
+TR.selectedRow, TD.Box {
   background-color: #b0c8df;
 }
 
-TR.BoxHeading {
+TABLE.BoxHeading, TR.BoxHeading {
   background-color: #81a2b6;
 }
 

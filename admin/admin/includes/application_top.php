@@ -149,17 +149,6 @@
 
   define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
 
-  define('CATEGORY_FONT_FACE', 'Verdana, Arial');
-  define('CATEGORY_FONT_SIZE', 2);
-  define('CATEGORY_FONT_COLOR', '#AABBDD');
-
-  define('ENTRY_FONT_FACE', 'Verdana, Arial');
-  define('ENTRY_FONT_SIZE', 2);
-  define('ENTRY_FONT_COLOR', '#000000');
-  define('VALUE_FONT_FACE', 'Verdana, Arial');
-  define('VALUE_FONT_SIZE', 2);
-  define('VALUE_FONT_COLOR', '#000000');
-
 // font styles
   define('FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">');
   define('FONT_STYLE_INFO_BOX_HEADING', '<font face="Verdana, Arial" size="1" color="#ffffff">');

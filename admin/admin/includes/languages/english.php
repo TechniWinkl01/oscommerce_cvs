@@ -121,11 +121,11 @@ define('JS_PASSWORD', '* The \'Password\' amd \'Confirmation\' entries must matc
 
 define('JS_ORDER_DOES_NOT_EXIST', 'Order Number %s does not exist!');
 
-define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
-define('CATEGORY_ADDRESS', '<b>[ Address ]</b>');
-define('CATEGORY_CONTACT', '<b>[ Contact ]</b>');
-define('CATEGORY_PASSWORD', '<b>[ Password ]</b>');
-define('CATEGORY_OPTIONS', '<b>[ Options ]</b>');
+define('CATEGORY_PERSONAL', 'Personal');
+define('CATEGORY_ADDRESS', 'Address');
+define('CATEGORY_CONTACT', 'Contact');
+define('CATEGORY_PASSWORD', 'Password');
+define('CATEGORY_OPTIONS', 'Options');
 define('ENTRY_GENDER', 'Gender:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');

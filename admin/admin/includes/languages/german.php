@@ -121,11 +121,11 @@ define('JS_PASSWORD', '* Das \'Passwort\' sowie die \'Passwortbestätigung\' müss
 
 define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer %s existiert nicht!');
 
-define('CATEGORY_PERSONAL', '<b>[ Pers&ouml;nliche Daten ]</b>');
-define('CATEGORY_ADDRESS', '<b>[ Adresse ]</b>');
-define('CATEGORY_CONTACT', '<b>[ Kontakt ]</b>');
-define('CATEGORY_PASSWORD', '<b>[ Passwort ]</b>');
-define('CATEGORY_OPTIONS', '<b>[ Optionen ]</b>');
+define('CATEGORY_PERSONAL', 'Pers&ouml;nliche Daten');
+define('CATEGORY_ADDRESS', 'Adresse');
+define('CATEGORY_CONTACT', 'Kontakt');
+define('CATEGORY_PASSWORD', 'Passwort');
+define('CATEGORY_OPTIONS', 'Optionen');
 define('ENTRY_GENDER', 'Geschlecht:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');

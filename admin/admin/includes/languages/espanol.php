@@ -121,11 +121,11 @@ define('JS_PASSWORD', '* La \'Contraseña\' y \'Confirmacion\' deben ser iguales 
 
 define('JS_ORDER_DOES_NOT_EXIST', 'El pedido número %s no existe!');
 
-define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
-define('CATEGORY_ADDRESS', '<b>[ Domicilio ]</b>');
-define('CATEGORY_CONTACT', '<b>[ Contacto ]</b>');
-define('CATEGORY_PASSWORD', '<b>[ Contraseña ]</b>');
-define('CATEGORY_OPTIONS', '<b>[ Options ]</b>');
+define('CATEGORY_PERSONAL', 'Personal');
+define('CATEGORY_ADDRESS', 'Domicilio');
+define('CATEGORY_CONTACT', 'Contacto');
+define('CATEGORY_PASSWORD', 'Contraseña');
+define('CATEGORY_OPTIONS', 'Options');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
