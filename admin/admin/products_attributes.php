@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.41 2002/03/16 01:29:37 hpdl Exp $
+  $Id: products_attributes.php,v 1.42 2002/03/17 01:58:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -487,7 +487,7 @@ function go_option() {
                 <td align="center" class="smallText">&nbsp;<?php echo $values_values["products_options_values_id"]; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
-                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_value&value_id=' . $values_values['products_options_values_id'] . '&value_page=' . $HTTP_GET_VARS['value_page'], 'NONSSL') . '">'; ?><?php echo tep_image_button('button_update.gif', IMAGE_MODIFY); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') , '">'; ?><?php echo tep_image_button('button_delete.gif', IMAGE_DELETE); ?></a>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_value&value_id=' . $values_values['products_options_values_id'] . '&value_page=' . $HTTP_GET_VARS['value_page'], 'NONSSL') . '">'; ?><?php echo tep_image_button('button_update.gif', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') , '">'; ?><?php echo tep_image_button('button_delete.gif', IMAGE_DELETE); ?></a>&nbsp;</td>
 <?php
       }
       $max_values_id_query = tep_db_query("select max(products_options_values_id) + 1 as next_id from " . TABLE_PRODUCTS_OPTIONS_VALUES);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.82 2002/03/16 21:00:35 hpdl Exp $
+  $Id: german.php,v 1.83 2002/03/17 01:58:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -193,7 +193,6 @@ define('IMAGE_ICON_STATUS_RED_LIGHT', 'deaktivieren');
 define('IMAGE_ICON_INFO', 'Information');
 define('IMAGE_INSERT', 'Einf&uuml;gen');
 define('IMAGE_LOCK', 'Sperren');
-define('IMAGE_MODIFY', '&Auml;ndern');
 define('IMAGE_MOVE', 'Verschieben');
 define('IMAGE_NEW_BANNER', 'neuen Banner aufnehmen');
 define('IMAGE_NEW_CATEGORY', 'neue Kategorie erstellen');
