@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.31 2002/04/04 20:27:10 dgw_ Exp $
+  $Id: reviews.php,v 1.32 2002/04/24 17:30:23 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,15 +19,19 @@
                                'text'  => BOX_HEADING_REVIEWS);
   new infoBoxHeading($info_box_contents, false, false, tep_href_link(FILENAME_REVIEWS, '', 'NONSSL'));
 
+  $random_select = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image from " . TABLE_REVIEWS . " r left join " . TABLE_PRODUCTS . " p on r.products_id = p.products_id where p.products_status = '1'";
   if ($HTTP_GET_VARS['products_id']) {
-    $random_product = tep_random_select("select r.reviews_id, substring(rd.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and r.reviews_id = rd.reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
-  } else {
-    $random_product = tep_random_select("select r.reviews_id, substring(rd.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and r.reviews_id = rd.reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
+    $random_select .= " and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "'";
   }
+  $random_select .= " order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS;
+  $random_product = tep_random_select($random_select);
 
   if ($random_product) {
 // display random review box
-    $review = htmlspecialchars($random_product['reviews_text']);
+    $random_product['products_name'] = tep_get_products_name($random_product['products_id']);
+    $review_query = tep_db_query("select substring(reviews_text, 1, 60) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . $random_product['reviews_id'] . "' and languages_id = '" . $languages_id . "'");
+    $review_value = tep_db_fetch_array($review_query);
+    $review = htmlspecialchars($review_value['reviews_text']);
     $review = tep_break_string($review, 15, '-<br>');
 
     $info_box_contents = array();
