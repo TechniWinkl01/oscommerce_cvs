@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.178 2002/05/28 01:13:07 thomasamoulton Exp $
+  $Id: general.php,v 1.179 2002/06/03 12:34:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -923,15 +923,14 @@
     $message = new email(array('X-Mailer: osC mailer'));
 
     // Build the text version
-    $text= strip_tags($email_text);
-    // Global check:
-    // should we use HTML or not?
+    $text = strip_tags($email_text);
     if (EMAIL_USE_HTML == 'true') {
       $message->add_html($email_text, $text);
     } else {
       $message->add_text($text);
     }
-    //send message
+
+    // Send message
     $message->build_message();
     $message->send($to_name, $to_email_address, $from_email_name, $from_email_address, $email_subject);
   }
