@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.30 2002/04/23 10:49:06 thomasamoulton Exp $
+  $Id: html_output.php,v 1.31 2002/04/23 15:24:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -118,7 +118,10 @@
   function tep_image_submit($image, $alt) {
     global $language;
 
-    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '">';
+    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '"';
+    if (tep_not_null($alt)) {
+      $image_submit .= ' title=" ' . htmlspecialchars($alt) . ' ">';
+    }
 
     return $image_submit;
   }
