@@ -182,20 +182,20 @@
   define('ACCOUNT_STATE', 1);
 
 // include the database functions
-  $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_FUNCTIONS . 'database.php');
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
 
 // include shopping cart class
-  $include_file = DIR_WS_CLASSES . 'shopping_cart.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'shopping_cart.php');
 
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
-    $include_file = DIR_WS_CLASSES . 'sessions.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+    include(DIR_WS_CLASSES . 'sessions.php');
   }
 
 // include mysql session storage handler
@@ -204,7 +204,7 @@
   }
 
 // define how the session functions will be used
-  $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_FUNCTIONS . 'sessions.php');
 
 // lets start our session
   tep_session_start();
@@ -212,10 +212,8 @@
     session_set_cookie_params(0, DIR_WS_ADMIN);
   }
 
-// define our general functions used application-wide
-  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-
 // language
+  require(DIR_WS_FUNCTIONS . 'languages.php');
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
     if (!$language) {
       tep_session_register('language');
@@ -226,15 +224,19 @@
     if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
   }
 
-  $include_file = DIR_FS_CATALOG . 'includes/data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-  $include_file = DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_WS_INCLUDES . 'include_once.php');
+// include the currency rates, and the language translations
+  require(DIR_FS_CATALOG . 'includes/data/rates.php');
+  require(DIR_WS_LANGUAGES . $language . '.php');
+  require(DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF));
+
+// define our general functions used application-wide
+  require(DIR_WS_FUNCTIONS . 'general.php');
 
 // setup our boxes
-  $include_file = DIR_WS_CLASSES . 'boxes.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'boxes.php');
 
 // split-page-results
-  $include_file = DIR_WS_CLASSES . 'split_page_results.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // entry/item info classes
   require(DIR_WS_CLASSES . 'category_info.php');
