@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.9 2002/02/18 13:07:51 harley_vb Exp $
+  $Id: geo_zones.php,v 1.10 2003/05/05 20:45:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,6 +38,7 @@ define('TEXT_INFO_DELETE_SUB_ZONE_INTRO', 'Sind Sie sicher, dass Sie diese Unter
 define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
 define('TEXT_INFO_ZONE_NAME', 'Name der Steuerzone:');
+define('TEXT_INFO_NUMBER_ZONES', 'Number of Zones:');
 define('TEXT_INFO_ZONE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_COUNTRY_ZONE', 'Bundesland:');

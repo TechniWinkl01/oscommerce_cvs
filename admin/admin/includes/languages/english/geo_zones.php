@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.6 2002/02/17 18:45:07 dgw_ Exp $
+  $Id: geo_zones.php,v 1.7 2003/05/05 20:45:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,6 +38,7 @@ define('TEXT_INFO_DELETE_SUB_ZONE_INTRO', 'Are you sure you want to delete this 
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_INFO_ZONE_NAME', 'Zone Name:');
+define('TEXT_INFO_NUMBER_ZONES', 'Number of Zones:');
 define('TEXT_INFO_ZONE_DESCRIPTION', 'Description:');
 define('TEXT_INFO_COUNTRY', 'Country:');
 define('TEXT_INFO_COUNTRY_ZONE', 'Zone:');
