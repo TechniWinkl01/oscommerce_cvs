@@ -34,6 +34,7 @@
   if (STORE_PAGE_PARSE_TIME == '1') {
     $parse_start_time = microtime();
   }
+  define('STORE_DB_TRANSACTIONS', 0);
 
 // define the filenames used in the project
   define('FILENAME_CATEGORIES', 'categories.php');
