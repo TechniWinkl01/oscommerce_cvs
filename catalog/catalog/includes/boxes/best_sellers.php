@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: best_sellers.php,v 1.17 2002/04/04 22:59:34 dgw_ Exp $
+  $Id: best_sellers.php,v 1.18 2002/04/05 11:47:32 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,9 +13,9 @@
 <!-- best_sellers //-->
 <?php
   if ($HTTP_GET_VARS['cPath']) {
-    $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, p.products_ordered from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and ((c.categories_id = '" . $current_category_id . "') OR (c.parent_id = '" . $current_category_id . "')) order by p.products_ordered DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $best_sellers_query = tep_db_query("select distinct p.products_id, pd.products_name, p.products_ordered from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c where p.products_status = '1' and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and (c.categories_id = '" . $current_category_id . "' OR c.parent_id = '" . $current_category_id . "') order by p.products_ordered DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   } else {
-    $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, p.products_ordered from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by products_ordered DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, p.products_ordered from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_ordered DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   }
 
   if (tep_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
