@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.78 2002/06/03 20:04:35 dgw_ Exp $
+  $Id: create_account_process.php,v 1.79 2002/06/18 14:09:33 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -128,8 +128,14 @@
           $zone_values = tep_db_fetch_array($zone_query);
           $zone_id = $zone_values['zone_id'];
         } else {
-          $error = true;
-          $entry_state_error = true;
+          $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_code = '" . tep_db_input($state) . "'");
+          if (tep_db_num_rows($zone_query) == 1) {
+            $zone_values = tep_db_fetch_array($zone_query);
+            $zone_id = $zone_values['zone_id'];
+          } else {
+            $error = true;
+            $entry_state_error = true;
+          }
         }
       } else {
         if (!$state) {
