@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.5 2002/01/29 15:37:31 hpdl Exp $
+  $Id: popup_image.php,v 1.6 2002/05/20 10:58:19 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,7 @@
 
   require('includes/application_top.php');
 
+  reset($HTTP_GET_VARS);
   while (list($key, ) = each($HTTP_GET_VARS)) {
     switch ($key) {
       case 'banner':
