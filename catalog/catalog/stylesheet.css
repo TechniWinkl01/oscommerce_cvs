@@ -201,11 +201,6 @@ CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA {
   font-size : 11px;
 }
 
-FORM {
-  margin: 0px;
-  padding: 0px;
-}
-
 SPAN.greetUser {
   font-family : Verdana, Arial, sans-serif;
   font-size : 12px;
