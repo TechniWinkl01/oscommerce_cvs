@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.15 2003/03/17 22:15:49 hpdl Exp $
+  $Id: currencies.php,v 1.16 2003/06/05 23:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,6 +50,14 @@
       }
 
       return $format_string;
+    }
+
+    function is_set($code) {
+      if (isset($this->currencies[$code]) && tep_not_null($this->currencies[$code])) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     function get_value($code) {
