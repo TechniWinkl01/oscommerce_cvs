@@ -1,6 +1,8 @@
 <?php
-	/* $Id: fedex.php,v 1.5 2001/02/07 21:08:33 pkellum Exp $ */
-	$include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
+	/* $Id: fedex.php,v 1.6 2001/02/12 11:48:38 tmoulton Exp $ */
+        if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
+	  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
+        }
 	// only these three are needed since FedEx only ships to them
 	// convert TEP country id to ISO 3166 id
 	$fedex_countries = array(38 => 'CA',138 => 'MX',223 => 'US');

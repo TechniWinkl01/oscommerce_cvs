@@ -1,5 +1,8 @@
 <?
-  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/item.php';include(DIR_INCLUDES . 'include_once.php');
+  /* $Id: item.php,v 1.13 2001/02/12 11:48:39 tmoulton Exp $ */
+  if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
+    $include_file = DIR_LANGUAGES . $language . '/modules/shipping/item.php';include(DIR_INCLUDES . 'include_once.php');
+  }
 
   if ($action == 'select') {
 ?>
