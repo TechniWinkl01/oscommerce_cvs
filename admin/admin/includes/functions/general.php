@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.122 2002/04/08 21:44:57 hpdl Exp $
+  $Id: general.php,v 1.123 2002/04/12 22:37:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -901,6 +901,7 @@
     tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($order_id) . "'");
     tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($order_id) . "'");
     tep_db_query("delete from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($order_id) . "'");
+    tep_db_query("delete from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . tep_db_input($order_id) . "'");
   }
 
   function tep_reset_cache_block($cache_block) {
