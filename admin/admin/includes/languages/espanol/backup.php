@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.20 2002/03/16 21:30:02 hpdl Exp $
+  $Id: backup.php,v 1.21 2002/04/30 16:38:12 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,6 +36,7 @@ define('TEXT_NO_EXTENSION', 'Ninguna');
 define('TEXT_BACKUP_DIRECTORY', 'Directorio para Copias de Seguridad:');
 define('TEXT_LAST_RESTORATION', 'Ultima Restauración:');
 define('TEXT_FORGET', '(<u>olvidar</u>)');
+define('TEXT_DELETE_INTRO', 'Seguro que quiere eliminar esta copia?');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de copias de seguridad.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: No hay permiso de escritura en el directorio de copias de seguridad.');

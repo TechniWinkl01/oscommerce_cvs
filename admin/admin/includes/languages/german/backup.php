@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.19 2002/03/30 14:53:08 harley_vb Exp $
+  $Id: backup.php,v 1.20 2002/04/30 16:38:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,6 +36,7 @@ define('TEXT_NO_EXTENSION', 'Keine');
 define('TEXT_BACKUP_DIRECTORY', 'Sicherungsverzeichnis:');
 define('TEXT_LAST_RESTORATION', 'Letzte Wiederherstellung:');
 define('TEXT_FORGET', '(<u> vergessen</u>)');
+define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this backup?');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Sicherungsverzeichnis ist nicht vorhanden.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Sicherungsverzeichnis ist schreibgesch&uuml;tzt.');
