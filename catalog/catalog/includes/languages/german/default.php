@@ -13,10 +13,13 @@ define('TABLE_HEADING_DATE_EXPECTED', 'Datum');
 if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TOP_BAR_TITLE', 'Online Produkte');
   define('HEADING_TITLE', 'Was haben wir den hier?');
+  define('TABLE_HEADING_IMAGE', '');
   define('TABLE_HEADING_MODEL', 'Modell');
   define('TABLE_HEADING_PRODUCTS', 'Produkte');
   define('TABLE_HEADING_MANUFACTURER', 'Hersteller');
+  define('TABLE_HEADING_QUANTITY', 'Quantität');
   define('TABLE_HEADING_PRICE', 'Preis');
+  define('TABLE_HEADING_WEIGHT', 'Gewicht');
   define('TABLE_HEADING_BUY_NOW', 'Kaufen Sie Jetzt');
   define('TEXT_NO_PRODUCTS', 'Es gibt keine Produkte in diese Kategorie.');
   define('TEXT_NO_PRODUCTS2', 'Es gibt kein Produkt, das von diesem Hersteller vorhanden ist.');

@@ -128,7 +128,45 @@
       <tr>
         <td>
 <?
-  $select_str = "select distinct m.manufacturers_id, m.manufacturers_name, p.products_id, p.products_model, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
+  // create column list
+  $configuration_query = tep_db_query("select c.configuration_key from configuration_group cg, configuration c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION') order by c.configuration_value");
+
+  while ($configuration = tep_db_fetch_array($configuration_query)) {
+    $column_list[] = $configuration['configuration_key'];
+  }
+
+  $select_column_list = '';
+
+  for ($col=0; $col<sizeof($column_list); $col++) {
+    if ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW' ||
+        $column_list[$col] == 'PRODUCT_LIST_NAME' ||
+        $column_list[$col] == 'PRODUCT_LIST_PRICE')
+      continue;
+
+    if ($select_column_list != '')
+      $select_column_list .= ', ';
+    switch ($column_list[$col]) {
+      case 'PRODUCT_LIST_MODEL':
+        $select_column_list .= 'p.products_model';
+        break;
+      case 'PRODUCT_LIST_MANUFACTURER':
+        $select_column_list .= 'm.manufacturers_name';
+        break;
+      case 'PRODUCT_LIST_QUANTITY':
+        $select_column_list .= 'p.products_quantity';
+        break;
+      case 'PRODUCT_LIST_IMAGE':
+        $select_column_list .= 'p.products_image';
+        break;
+      case 'PRODUCT_LIST_WEIGHT':
+        $select_column_list .= 'p.products_weight';
+        break;
+    }
+  }
+  if ($select_column_list != '')
+    $select_column_list .= ', ';
+
+  $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
 
   $from_str = "from manufacturers m, products_to_manufacturers p2m, products p";
 
@@ -191,34 +229,49 @@
 
   $order_str = " order by ";
   
-  if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
-      $HTTP_GET_VARS['sort'] = '2a';
-  
-  switch ($HTTP_GET_VARS['sort']) {
-    case '1a':
-      $order_str .= "p.products_model, p.products_name";
-      break;
-    case '1d':
-      $order_str .= "p.products_model desc, p.products_name";
-      break;
-    case '2a':
-      $order_str .= "p.products_name";
-      break;
-    case '2d':
-      $order_str .= "p.products_name desc";
-      break;
-    case '3a':
-      $order_str .= "m.manufacturers_name, p.products_name";
-      break;
-    case '3d':
-      $order_str .= "m.manufacturers_name desc, p.products_name";
-      break;
-    case '4a':
-      $order_str .= "final_price, p.products_name";
-      break;
-    case '4d':
-      $order_str .= "final_price desc, p.products_name";
-      break;
+  if (!$HTTP_GET_VARS['sort'] || !ereg("[1-8][ad]", $HTTP_GET_VARS['sort'])) {
+    for ($col=0; $col<sizeof($column_list); $col++) {
+      if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+        $HTTP_GET_VARS['sort'] = $col+1 . 'a';
+        $order_str .= "p.products_name";
+      }
+    }
+  } else {
+    $sort_col = substr($HTTP_GET_VARS['sort'], 0 , 1);
+    $sort_order = substr($HTTP_GET_VARS['sort'], 1);
+
+    if ($sort_col <= sizeof($column_list)) {
+      switch ($column_list[$sort_col-1]) {
+        case 'PRODUCT_LIST_MODEL':
+          $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_NAME':
+          $order_str .= "p.products_name " . ($sort_order == 'd' ? "desc" : "");
+          break;
+        case 'PRODUCT_LIST_MANUFACTURER':
+          $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_QUANTITY':
+          $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_IMAGE':
+          $order_str .= "p.products_name";
+          break;
+        case 'PRODUCT_LIST_WEIGHT':
+          $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_PRICE':
+          $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+      }        
+    } else {
+      for ($col=0; $col<sizeof($column_list); $col++) {
+        if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+          $HTTP_GET_VARS['sort'] = $col . 'a';
+          $order_str .= "p.products_name";
+        }
+      }
+    }
   }
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;

@@ -129,51 +129,106 @@
         </table></td>
       </tr>
 <?
+    // create column list
+    $configuration_query = tep_db_query("select c.configuration_key from configuration_group cg, configuration c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION', 'PRODUCT_LIST_USE_ROLLOVER', 'PRODUCT_LIST_BACKGROUND_COLOR', 'PRODUCT_LIST_ALTERNATE_COLOR') order by c.configuration_value");
+
+    while ($configuration = tep_db_fetch_array($configuration_query)) {
+      $column_list[] = $configuration['configuration_key'];
+    }
+
+    $select_column_list = '';
+
+    for ($col=0; $col<sizeof($column_list); $col++) {
+      if ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW' ||
+          $column_list[$col] == 'PRODUCT_LIST_NAME' ||
+          $column_list[$col] == 'PRODUCT_LIST_PRICE')
+        continue;
+
+      if ($select_column_list != '')
+        $select_column_list .= ', ';
+      switch ($column_list[$col]) {
+        case 'PRODUCT_LIST_MODEL':
+          $select_column_list .= 'p.products_model';
+          break;
+        case 'PRODUCT_LIST_MANUFACTURER':
+          $select_column_list .= 'm.manufacturers_name';
+          break;
+        case 'PRODUCT_LIST_QUANTITY':
+          $select_column_list .= 'p.products_quantity';
+          break;
+        case 'PRODUCT_LIST_IMAGE':
+          $select_column_list .= 'p.products_image';
+          break;
+        case 'PRODUCT_LIST_WEIGHT':
+          $select_column_list .= 'p.products_weight';
+          break;
+      }
+    }
+    if ($select_column_list != '')
+      $select_column_list .= ', ';
+
     if ($HTTP_GET_VARS['manufacturers_id']) {
       if ($HTTP_GET_VARS['filter_id']) {
-        $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.products_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "' order by ";
       } else {
-        $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.products_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by ";
       }
       $filterlist_sql = "select distinct c.categories_id as id, c.categories_name as name from products p, products_to_manufacturers p2m, products_to_categories p2c, categories c where p.products_status = '1' and p.products_id = p2m.products_id and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by c.categories_name";
     } else {
       if ($HTTP_GET_VARS['filter_id']) {
-        $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.products_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by ";
       } else {
-        $listing_sql = "select p.products_id, p.products_name, p.products_model, m.manufacturers_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.products_name, m.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_manufacturers p2m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by ";
       }
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_manufacturers p2m, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
-    if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
-      $HTTP_GET_VARS['sort'] = '2a';
-  
-    switch ($HTTP_GET_VARS['sort']) {
-      case '1a':
-        $listing_sql .= "p.products_model, p.products_name";
-        break;
-      case '1d':
-        $listing_sql .= "p.products_model desc, p.products_name";
-        break;
-      case '2a':
-        $listing_sql .= "p.products_name";
-        break;
-      case '2d':
-        $listing_sql .= "p.products_name desc";
-        break;
-      case '3a':
-        $listing_sql .= "m.manufacturers_name, p.products_name";
-        break;
-      case '3d':
-        $listing_sql .= "m.manufacturers_name desc, p.products_name";
-        break;
-      case '4a':
-        $listing_sql .= "final_price, p.products_name";
-        break;
-      case '4d':
-        $listing_sql .= "final_price desc, p.products_name";
-        break;
-  }
+    if (!$HTTP_GET_VARS['sort'] || !ereg("[1-8][ad]", $HTTP_GET_VARS['sort'])) {
+      for ($col=0; $col<sizeof($column_list); $col++) {
+        if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+          $HTTP_GET_VARS['sort'] = $col+1 . 'a';
+          $listing_sql .= "p.products_name";
+        }
+      }
+    }
+    else {
+      $sort_col = substr($HTTP_GET_VARS['sort'], 0 , 1);
+      $sort_order = substr($HTTP_GET_VARS['sort'], 1);
+
+      if ($sort_col <= sizeof($column_list)) {
+        switch ($column_list[$sort_col-1]) {
+          case 'PRODUCT_LIST_MODEL':
+            $listing_sql .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            break;
+          case 'PRODUCT_LIST_NAME':
+            $listing_sql .= "p.products_name " . ($sort_order == 'd' ? "desc" : "");
+            break;
+          case 'PRODUCT_LIST_MANUFACTURER':
+            $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            break;
+          case 'PRODUCT_LIST_QUANTITY':
+            $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            break;
+          case 'PRODUCT_LIST_IMAGE':
+            $listing_sql .= "p.products_name";
+            break;
+          case 'PRODUCT_LIST_WEIGHT':
+            $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            break;
+          case 'PRODUCT_LIST_PRICE':
+            $listing_sql .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+            break;
+        }        
+      }
+      else {
+        for ($col=0; $col<sizeof($column_list); $col++) {
+          if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+            $HTTP_GET_VARS['sort'] = $col . 'a';
+            $listing_sql .= "p.products_name";
+          }
+        }
+      }
+    }
 ?>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">

@@ -1,0 +1,54 @@
+Product Listing changes:
+
+- add options to enable/disable columns to the admin configuration section
+- individual column can be enabled/disabled by setting the following keys to a value:
+
+  PRODUCT_LIST_IMAGE
+  PRODUCT_LIST_MODEL
+  PRODUCT_LIST_NAME
+  PRODUCT_LIST_MANUFACTURER
+  PRODUCT_LIST_QUANTITY
+  PRODUCT_LIST_PRICE
+  PRODUCT_LIST_WEIGHT
+  PRODUCT_LIST_BUY_NOW
+
+- to disable a column, sets its value to 0
+- to enable a column, sets its value to a non-zero integer;
+- the values will also be used to determine the columns' order
+
+  e.g. if you wish to display Model, Name, Price and Buy Now columns in that order, 
+       you should set:
+  
+       Keys                        Value
+       -------------------------   -----
+       PRODUCT_LIST_IMAGE            0
+       PRODUCT_LIST_MODEL            1
+       PRODUCT_LIST_NAME             2
+       PRODUCT_LIST_MANUFACTURER     0
+       PRODUCT_LIST_QUANTITY         0
+       PRODUCT_LIST_PRICE            3
+       PRODUCT_LIST_WEIGHT           0
+       PRODUCT_LIST_BUY_NOW          4
+
+  e.g. if you wish to display Image, Name, Manufacturer Name, Price and Buy Now columns
+       in that order, you should set:
+  
+       Keys                        Value
+       -------------------------   -----
+       PRODUCT_LIST_IMAGE            1
+       PRODUCT_LIST_MODEL            0
+       PRODUCT_LIST_NAME             2
+       PRODUCT_LIST_MANUFACTURER     3
+       PRODUCT_LIST_QUANTITY         0
+       PRODUCT_LIST_PRICE            4
+       PRODUCT_LIST_WEIGHT           0
+       PRODUCT_LIST_BUY_NOW          5
+
+******************
+**** IMPORTANT ***
+******************
+
+If you have defined any of these keys in local/configure.php, please remove them before
+running the new product listing code.
+
+A SQL script, product_listing.sql, is included in extras/product_listing for updating the database.

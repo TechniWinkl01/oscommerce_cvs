@@ -8,10 +8,13 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 define('NAVBAR_TITLE', 'Search Results');
 define('TOP_BAR_TITLE', 'Search Results');
 define('HEADING_TITLE', 'Can\'t Find What Your Looking For?');
+define('TABLE_HEADING_IMAGE', '');
 define('TABLE_HEADING_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCTS', 'Product Name');
 define('TABLE_HEADING_MANUFACTURER', 'Manufacturer');
+define('TABLE_HEADING_QUANTITY', 'Quantity');
 define('TABLE_HEADING_PRICE', 'Price');
+define('TABLE_HEADING_WEIGHT', 'Weight');
 define('TABLE_HEADING_BUY_NOW', 'Buy Now');
 define('TEXT_NO_PRODUCTS', 'There is no product that matches the search criteria.');
 define('TEXT_SORT_PRODUCTS', 'Sort products ');

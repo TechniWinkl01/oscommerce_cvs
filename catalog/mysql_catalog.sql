@@ -154,6 +154,8 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('General', 'FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">', 'General font style', '5', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Info-Box Headings', 'FONT_STYLE_INFO_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">', 'Font style for info-box headings', '5', '2', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Info-Box Contents', 'FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">', 'Font style for info-box contents', '5', '3', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Listing Headings', 'FONT_STYLE_LIST_BOX_HEADING', '<font face="Verdana, Arial" size="2">', 'Font style for listing box headings', '5', '4', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Listing Contents', 'FONT_STYLE_LIST_BOX_BODY', '<font face="Verdana, Arial" size="1">', 'Font style for listing box contents', '5', '5', now());
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Payment Modules', 'PAYMENT_MODULES', 'cc.php;cod.php;paypal.php', 'This is automatically updated. No need to edit.', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Cash On Delivery (COD)', 'PAYMENT_SUPPORT_COD', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '1', now());
@@ -165,6 +167,17 @@ insert into configuration (configuration_title, configuration_key, configuration
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Package Tare weight.', 'SHIPPING_BOX_WEIGHT', '3', 'What is the weight of typical packaging of small to medium packages?', '7', '2', now());
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Larger packages may be based upon a percentage increase.', 'SHIPPING_BOX_PADDING', '10', 'For 10% enter 10', '7', '3', now());
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Handling Fee', 'SHIPPING_HANDLING', '5.00', 'Enter the handling fee you may charge.', '7', '4', now());
+
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Image', 'PRODUCT_LIST_IMAGE', '0', 'Do you want to display the Product Image?', '8', '1', now()); 
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Manufaturer Name','PRODUCT_LIST_MANUFACTURER', '0', 'Do you want to display the Product Manufacturer Name?', '8', '2', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Model #', 'PRODUCT_LIST_MODEL', '0', 'Do you want to display the Product Model #?', '8', '3', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Name', 'PRODUCT_LIST_NAME', '1', 'Do you want to display the Product Name?', '8', '4', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Price', 'PRODUCT_LIST_PRICE', '2', 'Do you want to display the Product Price', '8', '5', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Quantity', 'PRODUCT_LIST_QUANTITY', '0', 'Do you want to display the Product Quantity?', '8', '6', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Weight', 'PRODUCT_LIST_WEIGHT', '0', 'Do you want to display the Product Weight?', '8', '7', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Buy Now column', 'PRODUCT_LIST_BUY_NOW', '0', 'Do you want to display the Buy Now column?', '8', '8', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Category/Manufacturer Filter (0=disable; 1=enable)', 'PRODUCT_LIST_FILTER', '1', 'Do you want to display the Category/Manufacturer Filter?', '8', '9', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Location of Prev/Next Navigation Bar (1-top, 2-bottom, 3-both)', 'PREV_NEXT_BAR_LOCATION', '2', 'Sets the location of the Prev/Next Navigation Bar (1-top, 2-bottom, 3-both)', '8', '10', now());
 
 #
 # Table structure for table 'configuration_group'
@@ -182,13 +195,15 @@ CREATE TABLE configuration_group (
 # Dumping data for table 'configuration_group'
 #
 
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('1', 'My Store', 'General information about my store', '1');
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2');
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3');
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('4', 'Images', 'Image parameters', '4');
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('5', 'Font Styles', 'Font stlyes used for text output', '5');
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('6', 'Payment Options', 'Payment options available at my store', '6');
-insert into configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) values ('7', 'Shipping Options', 'Shipping options available at my store', '7');
+INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1');
+INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2');
+INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3');
+INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4');
+INSERT INTO configuration_group VALUES ('5', 'Font Styles', 'Font stlyes used for text output', '5');
+INSERT INTO configuration_group VALUES ('6', 'Payment Options', 'Payment options available at my store', '6');
+INSERT INTO configuration_group VALUES ('7', 'Shipping Options', 'Shipping options available at my store', '7');
+INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8');
+
 #
 # Table structure for table 'counter'
 #

@@ -2,42 +2,95 @@
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_SEARCH; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : ' . NAVBAR_TITLE; ?>
 <?
+  // create column list
+  $configuration_query = tep_db_query("select c.configuration_key from configuration_group cg, configuration c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION') order by c.configuration_value");
+
+  while ($configuration = tep_db_fetch_array($configuration_query)) {
+    $column_list[] = $configuration['configuration_key'];
+  }
+
+  $select_column_list = '';
+
+  for ($col=0; $col<sizeof($column_list); $col++) {
+    if ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW' ||
+        $column_list[$col] == 'PRODUCT_LIST_NAME' ||
+        $column_list[$col] == 'PRODUCT_LIST_PRICE')
+      continue;
+
+    if ($select_column_list != '')
+      $select_column_list .= ', ';
+    switch ($column_list[$col]) {
+      case 'PRODUCT_LIST_MODEL':
+        $select_column_list .= 'p.products_model';
+        break;
+      case 'PRODUCT_LIST_MANUFACTURER':
+        $select_column_list .= 'm.manufacturers_name';
+        break;
+      case 'PRODUCT_LIST_QUANTITY':
+        $select_column_list .= 'p.products_quantity';
+        break;
+      case 'PRODUCT_LIST_IMAGE':
+        $select_column_list .= 'p.products_image';
+        break;
+      case 'PRODUCT_LIST_WEIGHT':
+        $select_column_list .= 'p.products_weight';
+        break;
+    }
+  }
+  if ($select_column_list != '')
+    $select_column_list .= ', ';
+
   $search_keywords = explode(' ', trim($HTTP_GET_VARS['query']));
-  $search_query = "select m.manufacturers_name, m.manufacturers_id, p.products_id, p.products_model, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from manufacturers m, products_to_manufacturers p2m, products p left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
+  $search_query = "select " . $select_column_list . " m.manufacturers_id, p.products_id, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from manufacturers m, products_to_manufacturers p2m, products p left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
   for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
     $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
   }
 
   $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') order by ";
 
-  if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
-      $HTTP_GET_VARS['sort'] = '2a';
-  
-  switch ($HTTP_GET_VARS['sort']) {
-    case '1a':
-      $search_query .= "p.products_model, p.products_name";
-      break;
-    case '1d':
-      $search_query .= "p.products_model desc, p.products_name";
-      break;
-    case '2a':
-      $search_query .= "p.products_name";
-      break;
-    case '2d':
-      $search_query .= "p.products_name desc";
-      break;
-    case '3a':
-      $search_query .= "m.manufacturers_name, p.products_name";
-      break;
-    case '3d':
-      $search_query .= "m.manufacturers_name desc, p.products_name";
-      break;
-    case '4a':
-      $search_query .= "final_price, p.products_name";
-      break;
-    case '4d':
-      $search_query .= "final_price desc, p.products_name";
-      break;
+  if (!$HTTP_GET_VARS['sort'] || !ereg("[1-8][ad]", $HTTP_GET_VARS['sort'])) {
+    for ($col=0; $col<sizeof($column_list); $col++) {
+      if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+        $HTTP_GET_VARS['sort'] = $col+1 . 'a';
+        $search_query .= "p.products_name";
+      }
+    }
+  } else {
+    $sort_col = substr($HTTP_GET_VARS['sort'], 0 , 1);
+    $sort_order = substr($HTTP_GET_VARS['sort'], 1);
+
+    if ($sort_col <= sizeof($column_list)) {
+      switch ($column_list[$sort_col-1]) {
+        case 'PRODUCT_LIST_MODEL':
+          $search_query .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_NAME':
+          $search_query .= "p.products_name " . ($sort_order == 'd' ? "desc" : "");
+          break;
+        case 'PRODUCT_LIST_MANUFACTURER':
+          $search_query .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_QUANTITY':
+          $search_query .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_IMAGE':
+          $search_query .= "p.products_name";
+          break;
+        case 'PRODUCT_LIST_WEIGHT':
+          $search_query .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+        case 'PRODUCT_LIST_PRICE':
+          $search_query .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
+          break;
+      }        
+    } else {
+      for ($col=0; $col<sizeof($column_list); $col++) {
+        if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+          $HTTP_GET_VARS['sort'] = $col . 'a';
+          $search_query .= "p.products_name";
+        }
+      }
+    }
   }
 ?>
 <html>

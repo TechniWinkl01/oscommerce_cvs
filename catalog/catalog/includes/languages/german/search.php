@@ -8,10 +8,13 @@ Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 define('NAVBAR_TITLE', 'Suchergebnis');
 define('TOP_BAR_TITLE', 'Suchergebnis');
 define('HEADING_TITLE', 'Suchen Sie etwas bestimmtes?');
+define('TABLE_HEADING_IMAGE', '');
 define('TABLE_HEADING_MODEL', 'Modell');
 define('TABLE_HEADING_PRODUCTS', 'Produkte');
 define('TABLE_HEADING_MANUFACTURER', 'Hersteller');
+define('TABLE_HEADING_QUANTITY', 'Quantität');
 define('TABLE_HEADING_PRICE', 'Preis');
+define('TABLE_HEADING_WEIGHT', 'Gewicht');
 define('TABLE_HEADING_BUY_NOW', 'Kaufen Sie Jetzt');
 define('TEXT_NO_PRODUCTS', 'NEs gibt keine Produkte in diese Kategorie.');
 define('TEXT_SORT_PRODUCTS', 'Sortierung produkte ');

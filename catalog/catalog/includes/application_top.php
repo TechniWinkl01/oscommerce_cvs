@@ -174,12 +174,6 @@
   define('UPS_PACKAGE', "CP");
   define('UPS_RES', "RES");
 
-// Product listing control
-  define('PRODUCT_LIST_MODEL', 0); // Make true to display Model # before Product name
-  define('PRODUCT_LIST_FILTER', 1); // Display Categories/Manufacturers Filter: 0=disable; 1=enable
-  define('PRODUCT_LIST_MANUFACTURER', 1); // Display Manufacturer Column:  0=disable; 1=enable
-  define('PRODUCT_LIST_BUY_NOW', 1); // Display 'Buy Now' link: 0=disable; 1=enable
-
 // Advanced Search controls
   define('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and'); // default boolean search operator: or/and
   define('ADVANCED_SEARCH_DISPLAY_TIPS', 1); // Display Advanced Search Tips at the bottom of the page: 0=disable; 1=enable
