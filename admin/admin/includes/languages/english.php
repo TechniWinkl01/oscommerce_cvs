@@ -14,10 +14,6 @@ define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
-// the CURRENCY_* constants will be used to format the currency to the selected locale..
-// this is used with the tep_currency_format() function..
-define('CURRENCY_VALUE', 'USD'); // currency value for exchange rate
-
 // page title
 define('TITLE', 'The Exchange Project');
 

@@ -35,6 +35,7 @@
 
 // default localization values
   define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
+  define('CURRENCY_VALUE', 'USD');  // The currency used in the admin tool and in the database
 
   define('STORE_NAME', 'The Exchange Project');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
