@@ -69,15 +69,16 @@
 <?
   $installed_modules = '';
   $dir = dir(DIR_PAYMENT_MODULES);
-  while($entry=$dir->read()) {
-    if (eregi('.php[34]*$', $entry)) {
-      $check = 0;
-      $payment_action = 'PM_CHECK';
-      include(DIR_PAYMENT_MODULES . $entry);
-      if ($check > 1) {
-        $installed_modules .= ($installed_modules)?';' . $entry:$entry;
-      }
-      if ($check) {
+  if ($dir) {
+    while($entry=$dir->read()) {
+      if (eregi('.php[34]*$', $entry)) {
+        $check = 0;
+        $payment_action = 'PM_CHECK';
+        include(DIR_PAYMENT_MODULES . $entry);
+        if ($check > 1) {
+          $installed_modules .= ($installed_modules)?';' . $entry:$entry;
+        }
+        if ($check) {
 ?>
               <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $entry; ?>&nbsp;</font></td>
@@ -85,10 +86,11 @@
                 <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo ($check == 1)?tep_href_link(FILENAME_PAYMENT_MODULES, 'install=' . $entry, 'NONSSL'):tep_href_link(FILENAME_PAYMENT_MODULES, 'remove=' . $entry, 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_INSTALL_REMOVE); ?></a>&nbsp;</font></td>
               </tr>
 <?
+        }
       }
     }
+    $dir->close();
   }
-  $dir->close();
   
   $check = tep_db_query("select configuration_value from configuration where configuration_key = 'PAYMENT_MODULES'");
   if (tep_db_num_rows($check) > 0) {

@@ -20,10 +20,12 @@ function check_form() {
   }
 <?
 // Call payment validation
-  $modules = explode(';', PAYMENT_MODULES);
-  while (list(,$value) = each($modules)) {
-    $payment_action = 'PM_VALIDATION';
-    include(DIR_PAYMENT_MODULES . $value);
+  if (defined('PAYMENT_MODULES')) {
+    $modules = explode(';', PAYMENT_MODULES);
+    while (list(,$value) = each($modules)) {
+      $payment_action = 'PM_VALIDATION';
+      include(DIR_PAYMENT_MODULES . $value);
+    }
   }
 ?>
   if (error == 1) {
@@ -89,12 +91,15 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $rows = 0;
-  $modules = explode(';', PAYMENT_MODULES);
+  if (defined('PAYMENT_MODULES'))
+    $modules = explode(';', PAYMENT_MODULES);
+  else
+    $modules = array();
   while (list(,$value) = each($modules)) {
     $rows ++;
     // Get id and description from payment modules
-    $payment_action = ''; 
-    include(DIR_PAYMENT_MODULES . $value); 
+    $payment_action = '';
+    include(DIR_PAYMENT_MODULES . $value);
     if ($payment_enabled) {
 ?>
               <tr bgcolor="#f4f7fd">
