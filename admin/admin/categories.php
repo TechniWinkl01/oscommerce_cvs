@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.81 2001/12/23 16:45:25 dgw_ Exp $
+  $Id: categories.php,v 1.82 2001/12/27 17:58:52 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,35 +13,57 @@
   require('includes/application_top.php');
 
   if ($HTTP_GET_VARS['action']) {
-// update status
     switch ($HTTP_GET_VARS['action']) {
-      case 'setflag':         if ($HTTP_GET_VARS['flag']) {
-                                tep_set_product_status($HTTP_GET_VARS['id'], '1');
-                              } else {
-                                tep_set_product_status($HTTP_GET_VARS['id'], '0');
-                              }
-                              header('Location: ' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath'], 'NONSSL')); tep_exit();
-                              break;
-// update category
-      case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
+      case 'setflag': // update the products status
+        if ( ($HTTP_GET_VARS['flag'] == '0') || ($HTTP_GET_VARS['flag'] == '1') ) {
+          tep_set_product_status($HTTP_GET_VARS['id'], $HTTP_GET_VARS['flag']);
+        }
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath']));
+        break;
+      case 'insert_category': // insert category
+      case 'update_category': // update category
+        $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
+        $sort_order = tep_db_prepare_input($HTTP_POST_VARS['sort_order']);
+        $parent_id = tep_db_prepare_input($HTTP_POST_VARS['parent_id']);
 
-                              $languages = tep_get_languages();
-                              for ($i=0; $i<sizeof($languages); $i++) {
-                                $categories_name_array = $HTTP_POST_VARS['categories_name'];
-                                $language_id = $languages[$i]['id'];
-                                $categories_name = $categories_name_array[$language_id];
-                                tep_db_query("update " . TABLE_CATEGORIES_DESCRIPTION . " set categories_name = '" . $categories_name . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
-                              }
+        $sql_data_array = array('sort_order' => $sort_order);
 
-                              if ( ($categories_image != 'none') && ($categories_image != '') ) {
-                                tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
-                                $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
-                                if (file_exists($image_location)) @unlink($image_location);
-                                copy($categories_image, $image_location);
-                              }
+        if ($HTTP_GET_VARS['action'] == 'insert_category') {
+          $insert_sql_data = array('parent_id' => $current_category_id,
+                                   'date_added' => 'now()');
+          $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+          tep_db_perform(TABLE_CATEGORIES, $sql_data_array);
+          $categories_id = tep_db_insert_id();
+        } elseif ($HTTP_GET_VARS['action'] == 'update_category') {
+          $update_sql_data = array('parent_id' => $parent_id,
+                                   'last_modified' => 'now()');
+          $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
+          tep_db_perform(TABLE_CATEGORIES, $sql_data_array, 'update', 'categories_id = \'' . $categories_id . '\'');
+        }
 
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'info=' . $HTTP_POST_VARS['categories_id'], 'NONSSL'));
-                              break;
+        $languages = tep_get_languages();
+        for ($i=0; $i<sizeof($languages); $i++) {
+          $categories_name_array = $HTTP_POST_VARS['categories_name'];
+          $language_id = $languages[$i]['id'];
+          $sql_data_array = array('categories_name' => $categories_name_array[$language_id]);
+          if ($HTTP_GET_VARS['action'] == 'insert_category') {
+            $insert_sql_data = array('categories_id' => $categories_id,
+                                     'language_id' => $languages[$i]['id']);
+            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            tep_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array);
+          } elseif ($HTTP_GET_VARS['action'] == 'update_category') {
+            tep_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array, 'update', 'categories_id = \'' . $categories_id . '\' and language_id = \'' . $languages[$i]['id'] . '\'');
+          }
+        }
+
+        if ( ($categories_image != 'none') && ($categories_image != '') ) {
+          tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . tep_db_input($categories_id) . "'");
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
+          copy($categories_image, $image_location);
+        }
+
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'info=' . $categories_id));
+        break;
 // delete category
       case 'deleteconfirm':   if ($HTTP_POST_VARS['categories_id']) {
                                 tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
@@ -72,27 +94,6 @@
                                 tep_db_query("update " . TABLE_CATEGORIES . " set parent_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
                               } elseif ($HTTP_POST_VARS['products_id']) {
                                 tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
-                              }
-
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
-                              break;
-// insert category
-      case 'insert_category': tep_db_query("insert into " . TABLE_CATEGORIES . " (parent_id, sort_order, date_added) values ('" . $current_category_id . "', '" . $HTTP_POST_VARS['sort_order'] . "', now())");
-                              $categories_id = tep_db_insert_id();
-
-                              $languages = tep_get_languages();
-                              for ($i=0; $i<sizeof($languages); $i++) {
-                                $categories_name_array = $HTTP_POST_VARS['categories_name'];
-                                $language_id = $languages[$i]['id'];
-                                $categories_name = $categories_name_array[$language_id];
-                                tep_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, language_id, categories_name) values ('" . $categories_id . "', '" . $languages[$i]['id'] . "', '" . $categories_name . "')");
-                              }
-
-                              if (!($categories_image == 'none' || $categories_image == '')) {
-                                tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . $categories_id . "'");
-                                $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $categories_image_name;
-                                if (file_exists($image_location)) @unlink($image_location);
-                                copy($categories_image, $image_location);
                               }
 
                               tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
@@ -678,7 +679,7 @@
     switch ($HTTP_GET_VARS['action']) {
 /* edit category box contents */
       case 'edit_category':
-        $form = '<form name="categories" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=update_category', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>');
