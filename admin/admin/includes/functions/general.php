@@ -254,6 +254,19 @@
     $peInfo->date_expected = $peInfo_array['date_expected'];
   }
 
+  function tep_set_customer_info($cuInfo_array) {
+    global $cuInfo;
+
+    $cuInfo->id = $cuInfo_array['customers_id'];
+    $cuInfo->name = $cuInfo_array['customers_firstname'] . ' ' . $cuInfo_array['customers_lastname'];
+    $cuInfo->country = $cuInfo_array['countries_name'];
+    $cuInfo->date_account_created = $cuInfo_array['date_account_created'];
+    $cuInfo->date_account_last_modified = $cuInfo_array['date_account_last_modified'];
+    $cuInfo->date_last_logon = $cuInfo_array['date_last_logon'];
+    $cuInfo->number_of_logons = $cuInfo_array['number_of_logons'];
+    $cuInfo->number_of_reviews = $cuInfo_array['number_of_reviews'];
+  }
+
   function tep_categories_pull_down($parameters, $exclude = '') {
     $select_string = '<select ' . $parameters . '>';
     $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
@@ -276,6 +289,19 @@
     $products_query = tep_db_query("select products_id from products order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $select_string .= '<option value="' . $products['products_id'] . '">' . tep_products_name($products['products_id']) . '</option>';
+    }
+    $select_string .= '</select>';
+
+    return $select_string;
+  }
+
+  function tep_countries_pull_down($parameters, $selected = '') {
+    $select_string = '<select ' . $parameters . '>';
+    $countries_query = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+    while ($countries = tep_db_fetch_array($countries_query)) {
+      $select_string .= '<option value="' . $countries['countries_id'] . '"';
+      if ($selected == $countries['countries_id']) $select_string .= ' SELECTED';
+      $select_string .= '>' . $countries['countries_name'] . '</option>';
     }
     $select_string .= '</select>';
 
@@ -324,5 +350,25 @@
     }
 
     return $image;
+  }
+
+  function tep_break_string($string, $len) {
+    $l = 0;
+    $output = '';
+    for ($i = 0; $i < strlen($string); $i++) {
+      $char = substr($string, $i, 1);
+      if ($char != ' ') {
+        $l++;
+      } else {
+        $l = 0;
+      }
+      if ($l == $len) {
+        $l = 0;
+        $output .= '-';
+      }
+      $output .= $char;
+    }
+
+    return $output;
   }
 ?>
