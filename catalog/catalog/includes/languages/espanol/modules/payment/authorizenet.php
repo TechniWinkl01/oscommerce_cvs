@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.9 2002/11/01 05:09:52 hpdl Exp $
+  $Id: authorizenet.php,v 1.10 2002/11/01 05:10:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
