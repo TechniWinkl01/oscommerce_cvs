@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.22 2002/03/16 02:05:11 hpdl Exp $
+  $Id: whos_online.php,v 1.23 2002/04/06 19:00:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -110,7 +110,7 @@
 
     if (sizeof($contents) > 0) {
       $contents[] = array('text' => tep_draw_separator('pixel_black.gif', '100%', '1'));
-      $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . tep_currency_format($cart->show_total()));
+      $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . tep_currency_format($cart->show_total(), true, $currency));
     } else {
       $contents[] = array('text' => '');
     }
