@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.150 2002/01/09 17:19:25 hpdl Exp $
+  $Id: general.php,v 1.151 2002/01/12 14:15:20 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -126,7 +126,9 @@
     if (is_array($HTTP_GET_VARS)) {
       reset($HTTP_GET_VARS);
       while (list($key, $value) = each($HTTP_GET_VARS)) {
-        if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
+        if ((strlen($value) > 0) && ($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) {
+          $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
+        }
       }
     }
     return $get_url;
@@ -777,7 +779,7 @@
       for ($i=0; $i<sizeof($format_string_array); $i++) {
         if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm') $month = $date_to_check_array[$i];
         if ($format_string_array[$i] == 'dd') $day = $date_to_check_array[$i];
-        if ($format_string_array[$i] == 'yyyy') $year = $date_to_check_array[$i];
+        if ( ($format_string_array[$i] == 'yyyy') || ($format_string_array[$i] == 'aaaa') ) $year = $date_to_check_array[$i];
       }
     } else {
       if (strlen($format_string) == 8 || strlen($format_string) == 9) {
