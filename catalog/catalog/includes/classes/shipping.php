@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shipping.php,v 1.19 2003/01/11 13:24:41 thomasamoulton Exp $
+  $Id: shipping.php,v 1.20 2003/01/29 19:53:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
