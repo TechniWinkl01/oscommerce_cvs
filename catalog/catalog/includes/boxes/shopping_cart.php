@@ -1,12 +1,24 @@
+<?php
+/*
+  $Id: shopping_cart.php,v 1.11 2001/12/19 01:37:55 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- shopping_cart //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => '<a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_SHOPPING_CART . '</a>'
                               );
-  new infoBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents, false, true);
 
   $cart_contents_string = '';
   if ($cart->count_contents() > 0) {

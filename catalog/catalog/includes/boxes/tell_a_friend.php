@@ -1,12 +1,24 @@
+<?php
+/*
+  $Id: tell_a_friend.php,v 1.7 2001/12/19 01:37:55 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- tell_a_friend //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_TELL_A_FRIEND
                               );
-  new infoBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents, false, false);
 
   $hide = '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">';
   $hide .= tep_hide_session_id();

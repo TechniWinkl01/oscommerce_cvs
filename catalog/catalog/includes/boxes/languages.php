@@ -1,12 +1,24 @@
+<?php
+/*
+  $Id: languages.php,v 1.8 2001/12/19 01:37:55 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- languages //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_LANGUAGES
                               );
-  new infoBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents, false, false);
 
   $languages = tep_get_languages();
 

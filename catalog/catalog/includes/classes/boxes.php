@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: boxes.php,v 1.10 2001/09/20 19:27:15 mbs Exp $
+  $Id: boxes.php,v 1.11 2001/12/19 01:37:55 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,68 +20,99 @@
     var $table_data_parameters = '';
 
 // class constructor
-    function tableBox($contents) {
-      echo '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-      if ($this->table_parameters != '') echo ' ' . $this->table_parameters;
-      echo '>' . "\n";
+    function tableBox($contents, $direct_output = false) {
+      $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
+      if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
+      $tableBox_string .= '>' . "\n";
 
       for ($i=0; $i<sizeof($contents); $i++) {
-        if ($contents[$i]['form']) echo $contents[$i]['form'] . "\n";
+        if ($contents[$i]['form']) $tableBox_string .= $contents[$i]['form'] . "\n";
 
-        echo '  <tr';
-        if ($this->table_row_parameters != '') echo ' ' . $this->table_row_parameters;
-        if ($contents[$i]['params']) echo ' ' . $contents[$i]['params'];
-        echo '>' . "\n";
+        $tableBox_string .= '  <tr';
+        if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
+        if ($contents[$i]['params']) $tableBox_string .= ' ' . $contents[$i]['params'];
+        $tableBox_string .= '>' . "\n";
 
         if (is_array($contents[$i][0])) {
           for ($x=0; $x<sizeof($contents[$i]); $x++) {
             if ($contents[$i][$x]['text']) { // 'text' must always be explicit (ie, set) .. used in conjunction with alternate row colours
-              if ($contents[$i][$x]['form']) echo $contents[$i][$x]['form'] . "\n";
-              echo '    <td';
-              if ($contents[$i][$x]['align'] != 'left') echo ' align="' . $contents[$i][$x]['align'] . '"';
+              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'] . "\n";
+              $tableBox_string .= '    <td';
+              if ($contents[$i][$x]['align'] != 'left') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
               if ($contents[$i][$x]['params']) {
-                echo ' ' . $contents[$i][$x]['params'];
+                $tableBox_string .= ' ' . $contents[$i][$x]['params'];
               } elseif ($this->table_data_parameters != '') {
-                echo ' ' . $this->table_data_parameters;
+                $tableBox_string .= ' ' . $this->table_data_parameters;
               }
-              echo '>' . $contents[$i][$x]['text'] . '</td>' . "\n";
-              if ($contents[$i][$x]['form']) echo '</form>' . "\n";
+              $tableBox_string .= '>' . $contents[$i][$x]['text'] . '</td>' . "\n";
+              if ($contents[$i][$x]['form']) $tableBox_string .= '</form>' . "\n";
             }
           }
         } else {
-          echo '    <td';
-          if ($contents[$i]['align'] != 'left') echo ' align="' . $contents[$i]['align'] . '"';
+          $tableBox_string .= '    <td';
+          if ($contents[$i]['align'] != 'left') $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
           if ($contents[$i]['params']) {
-            echo ' ' . $contents[$i]['params'];
+            $tableBox_string .= ' ' . $contents[$i]['params'];
           } elseif ($this->table_data_parameters != '') {
-            echo ' ' . $this->table_data_parameters;
+            $tableBox_string .= ' ' . $this->table_data_parameters;
           }
-          echo '>' . $contents[$i]['text'] . '</td>' . "\n";
+          $tableBox_string .= '>' . $contents[$i]['text'] . '</td>' . "\n";
         }
 
-        echo '  </tr>' . "\n";
+        $tableBox_string .= '  </tr>' . "\n";
 
-        if ($contents[$i]['form']) echo '</form>' . "\n";
+        if ($contents[$i]['form']) $tableBox_string .= '</form>' . "\n";
       }
 
-      echo '</table>' . "\n";
-    }
+      $tableBox_string .= '</table>' . "\n";
 
+      if ($direct_output) echo $tableBox_string;
+
+      return $tableBox_string;
+    }
   }
 
   class infoBox extends tableBox {
     function infoBox($contents) {
-      $this->table_data_parameters = 'class="infoBox"';
-      $this->tableBox($contents);
+      $info_box_contents = array();
+      $info_box_contents[] = array('align' => 'left', 'text' => $this->infoBoxContents($contents));
+      $this->table_cellpadding = '1';
+      $this->table_parameters = 'bgcolor="#b6b7cb"';
+      $this->tableBox($info_box_contents, true);
+    }
+
+    function infoBoxContents($contents) {
+      $this->table_cellpadding = '3';
+      $this->table_parameters = 'bgcolor="#f8f8f9"';
+      $info_box_contents = array();
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      $info_box_contents[] = array(array('align' => $contents[0]['align'], 'form' => $contents[0]['form'], 'params' => 'class="boxText"', 'text' => $contents[0]['text']));
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      return $this->tableBox($info_box_contents);
     }
   }
 
   class infoBoxHeading extends tableBox {
-    function infoBoxHeading($contents) {
-      $this->table_parameters = 'class="infoBoxHeading"';
-      $this->table_data_parameters = 'class="infoBoxHeading"';
-      $contents[0]['text'] = '&nbsp;' . $contents[0]['text'];
-      $this->tableBox($contents);
+    function infoBoxHeading($contents, $left_corner = true, $right_corner = true) {
+      $this->table_cellpadding = '0';
+      $this->table_row_parameters = 'valign="center" bgcolor="#bbc3d3"';
+
+      if ($left_corner) {
+        $left_corner = tep_image(DIR_WS_IMAGES . 'infobox/corner_left.gif');
+      } else {
+        $left_corner = tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif');
+      }
+      if ($right_corner) {
+        $right_corner = tep_image(DIR_WS_IMAGES . 'infobox/corner_right.gif');
+      } else {
+        $right_corner = '';
+      }
+
+      $info_box_contents = array();
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeadingg"', 'text' => $left_corner),
+                                   array('align' => 'left', 'params' => 'width="100%" height="14" class="infoBoxHeadingg"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
+                                   array('align' => 'left', 'params' => 'height="14" class="infoBoxHeadingg"', 'text' => $right_corner));
+      $this->tableBox($info_box_contents, true);
     }
   }
 ?>

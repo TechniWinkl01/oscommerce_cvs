@@ -1,11 +1,23 @@
+<?php
+/*
+  $Id: manufacturers.php,v 1.11 2001/12/19 01:37:55 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- manufacturers //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_MANUFACTURERS);
-  new infoBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents, false, false);
 
   $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
 

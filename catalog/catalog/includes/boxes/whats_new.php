@@ -1,14 +1,26 @@
+<?php
+/*
+  $Id: whats_new.php,v 1.23 2001/12/19 01:37:55 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- whats_new //-->
           <tr>
             <td>
-<?
+<?php
   if ($random_product = tep_random_select("select p.products_id, pd.products_name, p.products_image, p.products_price, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status='1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
                                  'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_WHATS_NEW . '</a>'
                                 );
-    new infoBoxHeading($info_box_contents);
+    new infoBoxHeading($info_box_contents, false, false);
 
     if ($random_product['specials_new_products_price']) {
       $whats_new_price =  '<s>' . $currencies->format($random_product['products_price']) . '</s><br>';

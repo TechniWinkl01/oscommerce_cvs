@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: manufacturer_info.php,v 1.6 2001/11/29 20:49:18 hpdl Exp $
+  $Id: manufacturer_info.php,v 1.7 2001/12/19 01:37:55 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,11 +21,11 @@
 <!-- manufacturer_info //-->
           <tr>
             <td>
-<?
+<?php
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
                                  'text'  => BOX_HEADING_MANUFACTURER_INFO);
-    new infoBoxHeading($info_box_contents);
+    new infoBoxHeading($info_box_contents, false, false);
 
     $manufacturer_info_string = '<div align="center">' . tep_image(DIR_WS_IMAGES . $manufacturer['manufacturers_image'], $manufacturer['manufacturers_name']) . '</div>' .
                                  '<table border="0" width="' . BOX_WIDTH . '" cellspacing="0" cellpadding="0">';

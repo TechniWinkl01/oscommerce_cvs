@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: reviews.php,v 1.24 2001/11/29 20:49:18 hpdl Exp $
+  $Id: reviews.php,v 1.25 2001/12/19 01:37:55 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -17,7 +17,7 @@
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => '<a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_REVIEWS . '</a>');
-  new infoBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents, false, false);
 
   if ($HTTP_GET_VARS['products_id']) {
     $random_product = tep_random_select("select r.reviews_id, substring(rd.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and r.reviews_id = rd.reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);

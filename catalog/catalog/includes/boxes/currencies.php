@@ -1,12 +1,24 @@
+<?php
+/*
+  $Id: currencies.php,v 1.9 2001/12/19 01:37:55 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- currencies //-->
           <tr>
             <td>
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_CURRENCIES
                               );
-  new infoBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents, false, false);
 
   $select_box = '<select name="currency" onChange="this.form.submit();">';
   reset($currencies->currencies);

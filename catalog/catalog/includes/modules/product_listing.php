@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.29 2001/11/29 20:49:18 hpdl Exp $
+  $Id: product_listing.php,v 1.30 2001/12/19 01:37:55 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -172,7 +172,7 @@
 
       }
     }
-    new infoBox($list_box_contents);
+    new tableBox($list_box_contents, true);
 
     echo '    </td>' . "\n";
     echo '  </tr>' . "\n";

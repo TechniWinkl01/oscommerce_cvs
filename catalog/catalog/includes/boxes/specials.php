@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.23 2001/11/29 20:49:18 hpdl Exp $
+  $Id: specials.php,v 1.24 2001/12/19 01:37:55 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,7 +21,7 @@
     $info_box_contents[] = array('align' => 'left',
                                  'text'  => '<a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_SPECIALS . '</a>'
                                 );
-    new infoBoxHeading($info_box_contents);
+    new infoBoxHeading($info_box_contents, false, false);
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center',
