@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.23 2002/01/01 17:26:00 dgw_ Exp $
+  $Id: html_output.php,v 1.24 2002/01/15 20:24:37 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -126,12 +126,6 @@
     global $language;
 
     return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $params);
-  }
-
-////
-// Draw a 1 pixel black line
-  function tep_black_line() {
-    return tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
   }
 
 ////
