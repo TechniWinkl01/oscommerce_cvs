@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.79 2003/05/19 20:17:49 hpdl Exp $
+  $Id: login.php,v 1.80 2003/06/05 23:28:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,6 +17,9 @@
     tep_redirect(tep_href_link(FILENAME_COOKIE_USAGE));
   }
 
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
+
+  $error = false;
   if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
     $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
     $password = tep_db_prepare_input($HTTP_POST_VARS['password']);
@@ -24,18 +27,18 @@
 // Check if email exists
     $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "'");
     if (!tep_db_num_rows($check_customer_query)) {
-      $HTTP_GET_VARS['login'] = 'fail';
+      $error = true;
     } else {
       $check_customer = tep_db_fetch_array($check_customer_query);
 // Check that password is good
       if (!tep_validate_password($password, $check_customer['customers_password'])) {
-        $HTTP_GET_VARS['login'] = 'fail';
+        $error = true;
       } else {
         if (SESSION_RECREATE == 'True') {
           tep_session_recreate();
         }
-        
-        $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $check_customer['customers_id'] . "' and address_book_id = '" . $check_customer['customers_default_address_id'] . "'");
+
+        $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$check_customer['customers_id'] . "' and address_book_id = '" . (int)$check_customer['customers_default_address_id'] . "'");
         $check_country = tep_db_fetch_array($check_country_query);
 
         $customer_id = $check_customer['customers_id'];
@@ -49,7 +52,6 @@
         tep_session_register('customer_country_id');
         tep_session_register('customer_zone_id');
 
-        $date_now = date('Ymd');
         tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . (int)$customer_id . "'");
 
 // restore cart contents
@@ -66,7 +68,9 @@
     }
   }
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
+  if ($error == true) {
+    $messageStack->add('login', TEXT_LOGIN_ERROR);
+  }
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_LOGIN, '', 'SSL'));
 ?>
@@ -97,38 +101,34 @@ function session_win() {
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('login', tep_href_link(FILENAME_LOGIN, 'action=process', 'SSL')); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td rowspan="2" class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
-<?php
-  if (sizeof(TEXT_STEP_BY_STEP) > 0) {
-?>
-      <tr>
-        <td class="main"><?php echo TEXT_STEP_BY_STEP; ?></td>
-      </tr>
-<?php
-  }
-?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-  if (isset($HTTP_GET_VARS['login']) && ($HTTP_GET_VARS['login'] == 'fail')) {
-    $info_message = TEXT_LOGIN_ERROR;
-  } elseif ($cart->count_contents()) {
-    $info_message = TEXT_VISITORS_CART;
+  if ($messageStack->size('login') > 0) {
+?>
+      <tr>
+        <td><?php echo $messageStack->output('login'); ?></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
   }
 
-  if (isset($info_message)) {
+  if ($cart->count_contents() > 0) {
 ?>
       <tr>
-        <td class="smallText"><?php echo $info_message; ?></td>
+        <td class="smallText"><?php echo TEXT_VISITORS_CART; ?></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
@@ -137,15 +137,15 @@ function session_win() {
   }
 ?>
       <tr>
-        <td><?php echo tep_draw_form('login', tep_href_link(FILENAME_LOGIN, 'action=process', 'SSL')); ?><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main" width="50%" valign="top"><b><?php echo HEADING_NEW_CUSTOMER; ?></b></td>
             <td class="main" width="50%" valign="top"><b><?php echo HEADING_RETURNING_CUSTOMER; ?></b></td>
           </tr>
           <tr>
-            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="1" class="infoBox">
-              <tr>
-                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="infoBoxContents">
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="1" cellpadding="2" class="infoBox">
+              <tr class="infoBoxContents">
+                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
@@ -155,12 +155,21 @@ function session_win() {
                   <tr>
                     <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
+                  <tr>
+                    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                      <tr>
+                        <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                        <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
+                        <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                      </tr>
+                    </table></td>
+                  </tr>
                 </table></td>
               </tr>
             </table></td>
-            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="1" class="infoBox">
-              <tr>
-                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="infoBoxContents">
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="1" cellpadding="2" class="infoBox">
+              <tr class="infoBoxContents">
+                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
@@ -187,17 +196,22 @@ function session_win() {
                   <tr>
                     <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
+                  <tr>
+                    <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                      <tr>
+                        <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                        <td align="right"><?php echo tep_image_submit('button_login.gif', IMAGE_BUTTON_LOGIN); ?></td>
+                        <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                      </tr>
+                    </table></td>
+                  </tr>
                 </table></td>
               </tr>
             </table></td>
           </tr>
-          <tr>
-            <td width="50%" align="right" valign="top"><?php echo '<a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
-            <td width="50%" align="right" valign="top"><?php echo tep_image_submit('button_login.gif', IMAGE_BUTTON_LOGIN); ?></td>
-          </tr>
-        </table></form></td>
+        </table></td>
       </tr>
-    </table></td>
+    </table></form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.25 2003/05/27 17:17:23 hpdl Exp $
+  $Id: products_new.php,v 1.26 2003/06/05 23:31:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,7 +53,7 @@
 <?php
   $products_new_array = array();
 
-  $products_new_query_raw = "select p.products_id, pd.products_name, p.products_image, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, p.products_date_added, m.manufacturers_name from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status = '1' order by p.products_date_added DESC, pd.products_name";
+  $products_new_query_raw = "select p.products_id, pd.products_name, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, m.manufacturers_name from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on (p.manufacturers_id = m.manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' order by p.products_date_added DESC, pd.products_name";
   $products_new_split = new splitPageResults($products_new_query_raw, $HTTP_GET_VARS['page'], MAX_DISPLAY_PRODUCTS_NEW);
 
   if (($products_new_split->number_of_rows > 0) && ((PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3'))) {
@@ -78,8 +78,8 @@
   if ($products_new_split->number_of_rows > 0) {
     $products_new_query = tep_db_query($products_new_split->sql_query);
     while ($products_new = tep_db_fetch_array($products_new_query)) {
-      if (tep_not_null($products_new['specials_new_products_price'])) {
-        $products_price = '<s>' .  $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id'])) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($products_new['specials_new_products_price'], tep_get_tax_rate($products_new['products_tax_class_id'])) . '</span>';
+      if ($new_price = tep_get_products_special_price($products_new['products_id'])) {
+        $products_price = '<s>' . $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($products_new['products_tax_class_id'])) . '</span>';
       } else {
         $products_price = $currencies->display_price($products_new['products_price'], tep_get_tax_rate($products_new['products_tax_class_id']));
       }

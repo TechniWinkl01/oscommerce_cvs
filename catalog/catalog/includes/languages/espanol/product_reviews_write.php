@@ -1,23 +1,24 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.8 2003/04/15 17:48:49 dgw_ Exp $
+  $Id: product_reviews_write.php,v 1.9 2003/06/05 23:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Comentarios');
-define('HEADING_TITLE', '¿Tienes algo que decir?');
-define('SUB_TITLE_PRODUCT', 'Producto:');
+
 define('SUB_TITLE_FROM', 'De:');
 define('SUB_TITLE_REVIEW', 'Comentario:');
 define('SUB_TITLE_RATING', 'Evaluacion:');
+
 define('TEXT_NO_HTML', '<small><font color="#ff0000"><b>NOTA:</b></font></small>&nbsp;No se traduce el codigo HTML!');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>MALO</b></font></small>');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>BUENO</b></font></small>');
-define('ERROR_INVALID_PRODUCT', 'Ese producto ya no esta disponible, pruebe con otro.');
+
+define('TEXT_CLICK_TO_ENLARGE', 'Haga Click para agrandar');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_search_help.php,v 1.3 2003/02/13 03:10:56 hpdl Exp $
+  $Id: popup_search_help.php,v 1.4 2003/06/05 23:26:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,11 +24,7 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
-<style type="text/css"><!--
-BODY { margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; }
-//--></style>
 <body marginwidth="10" marginheight="10" topmargin="10" bottommargin="10" leftmargin="10" rightmargin="10">
-
 <?php
   $info_box_contents = array();
   $info_box_contents[] = array('text' => HEADING_SEARCH_HELP);

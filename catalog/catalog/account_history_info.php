@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.97 2003/05/19 20:17:49 hpdl Exp $
+  $Id: account_history_info.php,v 1.99 2003/06/09 22:35:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,7 +95,7 @@
                 <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>'); ?></td>
               </tr>
 <?php
-    if ($order->info['shipping_method']) {
+    if (tep_not_null($order->info['shipping_method'])) {
 ?>
               <tr>
                 <td class="main"><b><?php echo HEADING_SHIPPING_METHOD; ?></b></td>
@@ -143,7 +143,9 @@
 
     echo '</td>' . "\n";
 
-    if (sizeof($order->info['tax_groups']) > 1) echo '            <td class="main" valign="top" align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
+    if (sizeof($order->info['tax_groups']) > 1) {
+      echo '            <td class="main" valign="top" align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
+    }
 
     echo '            <td class="main" align="right" valign="top">' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
          '          </tr>' . "\n";

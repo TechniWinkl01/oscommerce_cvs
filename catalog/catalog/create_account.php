@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.63 2003/05/28 18:00:30 hpdl Exp $
+  $Id: create_account.php,v 1.64 2003/06/05 23:27:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -192,7 +192,7 @@
 
       $address_id = tep_db_insert_id();
 
-      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = '" . $address_id . "' where customers_id = '" . (int)$customer_id . "'");
+      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = '" . (int)$address_id . "' where customers_id = '" . (int)$customer_id . "'");
 
       tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . (int)$customer_id . "', '0', now())");
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_newsletters.php,v 1.2 2003/05/22 14:24:53 hpdl Exp $
+  $Id: account_newsletters.php,v 1.3 2003/06/05 23:23:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,7 +106,7 @@ function checkBox(object) {
                     <td class="main"><b><?php echo MY_NEWSLETTERS_GENERAL_NEWSLETTER; ?></b></td>
                   </tr>
                   <tr>
-                    <td></td>
+                    <td class="main">&nbsp;</td>
                     <td><table border="0" cellspacing="0" cellpadding="2">
                       <tr>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: conditions.php,v 1.21 2003/02/13 04:23:22 hpdl Exp $
+  $Id: conditions.php,v 1.22 2003/06/05 23:26:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,14 +51,23 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo TEXT_INFORMATION; ?></td>
-          </tr>
-        </table></td>
+        <td class="main"><?php echo TEXT_INFORMATION; ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

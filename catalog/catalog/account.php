@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.59 2003/05/19 20:17:49 hpdl Exp $
+  $Id: account.php,v 1.60 2003/06/05 23:23:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -103,14 +103,16 @@ function rowOutEffect(object) {
         $order_name = $orders['billing_name'];
         $order_country = $orders['billing_country'];
       }
-
-      echo '                  <tr class="moduleRow" onMouseOver="rowOverEffect(this)" onMouseOut="rowOutEffect(this)" onClick="document.location.href=\'' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $orders['orders_id'], 'SSL') . '\'">' . "\n" .
-           '                    <td class="main" width="80">' . tep_date_short($orders['date_purchased']) . '</td>' . "\n" .
-           '                    <td class="main">#' . $orders['orders_id'] . '</td>' . "\n" .
-           '                    <td class="main">' . $order_name . ', ' . $order_country . '</td>' . "\n" .
-           '                    <td class="main">' . $orders['orders_status_name'] . '</td>' . "\n" .
-           '                    <td class="main" align="right">' . $orders['order_total'] . '</td>' . "\n" .
-           '                    <td class="main" align="right"><a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $orders['orders_id'], 'SSL') . '">' . tep_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW) . '</a></td>' . "\n" .           '                  </tr>' . "\n";
+?>
+                  <tr class="moduleRow" onMouseOver="rowOverEffect(this)" onMouseOut="rowOutEffect(this)" onClick="document.location.href='<?php echo tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $orders['orders_id'], 'SSL'); ?>'">
+                    <td class="main" width="80"><?php echo tep_date_short($orders['date_purchased']); ?></td>
+                    <td class="main"><?php echo '#' . $orders['orders_id']; ?></td>
+                    <td class="main"><?php echo $order_name . ', ' . $order_country; ?></td>
+                    <td class="main"><?php echo $orders['orders_status_name']; ?></td>
+                    <td class="main" align="right"><?php echo $orders['order_total']; ?></td>
+                    <td class="main" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $orders['orders_id'], 'SSL') . '">' . tep_image_button('small_view.gif', SMALL_IMAGE_BUTTON_VIEW) . '</a>'; ?></td>
+                  </tr>
+<?php
     }
 ?>
                 </table></td>
@@ -143,13 +145,13 @@ function rowOutEffect(object) {
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif'); ?> <?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL') . '">' . MY_ACCOUNT_INFORMATION . '</a>'; ?></td>
+                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif') . ' <a href="' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL') . '">' . MY_ACCOUNT_INFORMATION . '</a>'; ?></td>
                   </tr>
                   <tr>
-                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif'); ?> <?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '">' . MY_ACCOUNT_ADDRESS_BOOK . '</a>'; ?></td>
+                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif') . ' <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '">' . MY_ACCOUNT_ADDRESS_BOOK . '</a>'; ?></td>
                   </tr>
                   <tr>
-                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif'); ?> <?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL') . '">' . MY_ACCOUNT_PASSWORD . '</a>'; ?></td>
+                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif') . ' <a href="' . tep_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL') . '">' . MY_ACCOUNT_PASSWORD . '</a>'; ?></td>
                   </tr>
                 </table></td>
                 <td width="10" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -178,7 +180,7 @@ function rowOutEffect(object) {
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif'); ?> <?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">' . MY_ORDERS_VIEW . '</a>'; ?></td>
+                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif') . ' <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">' . MY_ORDERS_VIEW . '</a>'; ?></td>
                   </tr>
                 </table></td>
                 <td width="10" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -207,10 +209,10 @@ function rowOutEffect(object) {
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif'); ?> <?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_NEWSLETTERS, '', 'SSL') . '">' . EMAIL_NOTIFICATIONS_NEWSLETTERS . '</a>'; ?></td>
+                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif') . ' <a href="' . tep_href_link(FILENAME_ACCOUNT_NEWSLETTERS, '', 'SSL') . '">' . EMAIL_NOTIFICATIONS_NEWSLETTERS . '</a>'; ?></td>
                   </tr>
                   <tr>
-                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif'); ?> <?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'SSL') . '">' . EMAIL_NOTIFICATIONS_PRODUCTS . '</a>'; ?></td>
+                    <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'arrow_green.gif') . ' <a href="' . tep_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'SSL') . '">' . EMAIL_NOTIFICATIONS_PRODUCTS . '</a>'; ?></td>
                   </tr>
                 </table></td>
                 <td width="10" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>

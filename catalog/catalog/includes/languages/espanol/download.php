@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.2 2002/11/12 00:45:21 dgw_ Exp $
+  $Id: download.php,v 1.3 2003/06/05 23:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,5 +9,4 @@
 
   Released under the GNU General Public License
 */
-
 ?>

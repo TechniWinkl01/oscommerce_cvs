@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.110 2003/05/19 20:17:50 hpdl Exp $
+  $Id: english.php,v 1.111 2003/06/05 23:23:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -246,6 +246,7 @@ define('PREVNEXT_BUTTON_LAST', 'LAST&gt;&gt;');
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Add Address');
 define('IMAGE_BUTTON_ADDRESS_BOOK', 'Address Book');
 define('IMAGE_BUTTON_BACK', 'Back');
+define('IMAGE_BUTTON_BUY_NOW', 'Buy Now');
 define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Change Address');
 define('IMAGE_BUTTON_CHECKOUT', 'Checkout');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirm Order');

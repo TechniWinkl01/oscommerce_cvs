@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.63 2003/05/19 20:17:49 hpdl Exp $
+  $Id: account_edit.php,v 1.64 2003/06/05 23:23:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,7 +52,7 @@
     }
 
     if (ACCOUNT_DOB == 'true') {
-      if (checkdate(substr(tep_date_raw($dob), 4, 2), substr(tep_date_raw($dob), 6, 2), substr(tep_date_raw($dob), 0, 4)) == false) {
+      if (!checkdate(substr(tep_date_raw($dob), 4, 2), substr(tep_date_raw($dob), 6, 2), substr(tep_date_raw($dob), 0, 4))) {
         $error = true;
 
         $messageStack->add('account_edit', ENTRY_DATE_OF_BIRTH_ERROR);
@@ -65,7 +65,7 @@
       $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR);
     }
 
-    if (tep_validate_email($email_address) == false) {
+    if (!tep_validate_email($email_address)) {
       $error = true;
 
       $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);

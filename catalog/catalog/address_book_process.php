@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.77 2003/05/27 17:49:53 hpdl Exp $
+  $Id: address_book_process.php,v 1.78 2003/06/05 23:24:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -86,7 +86,7 @@
       $messageStack->add('addressbook', ENTRY_CITY_ERROR);
     }
 
-    if (is_numeric($country) == false) {
+    if (!is_numeric($country)) {
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_COUNTRY_ERROR);
@@ -187,7 +187,7 @@
   if (isset($HTTP_GET_VARS['edit']) && is_numeric($HTTP_GET_VARS['edit'])) {
     $entry_query = tep_db_query("select entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$HTTP_GET_VARS['edit'] . "'");
 
-    if (tep_db_num_rows($entry_query) == false) {
+    if (!tep_db_num_rows($entry_query)) {
       $messageStack->add_session('addressbook', ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY);
 
       tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
@@ -240,7 +240,7 @@
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <?php
-  if (isset($HTTP_GET_VARS['delete']) == false) {
+  if (!isset($HTTP_GET_VARS['delete'])) {
     include('includes/form_check.js.php');
   }
 ?>
@@ -259,7 +259,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php if (isset($HTTP_GET_VARS['delete']) == false) echo tep_draw_form('addressbook', tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, (isset($HTTP_GET_VARS['edit']) ? 'edit=' . $HTTP_GET_VARS['edit'] : ''), 'SSL'), 'post', 'onSubmit="return check_form(addressbook);"'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php if (!isset($HTTP_GET_VARS['delete'])) echo tep_draw_form('addressbook', tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, (isset($HTTP_GET_VARS['edit']) ? 'edit=' . $HTTP_GET_VARS['edit'] : ''), 'SSL'), 'post', 'onSubmit="return check_form(addressbook);"'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -378,7 +378,7 @@
     }
   }
 ?>
-    </table><?php if (isset($HTTP_GET_VARS['delete']) == false) echo '</form>'; ?></td>
+    </table><?php if (!isset($HTTP_GET_VARS['delete'])) echo '</form>'; ?></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: logoff.php,v 1.12 2003/02/13 03:01:51 hpdl Exp $
+  $Id: logoff.php,v 1.13 2003/06/05 23:28:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,8 +16,6 @@
 
   $breadcrumb->add(NAVBAR_TITLE);
 
-//  tep_session_destroy();
-
   tep_session_unregister('customer_id');
   tep_session_unregister('customer_default_address_id');
   tep_session_unregister('customer_first_name');
@@ -26,7 +24,6 @@
   tep_session_unregister('comments');
 
   $cart->reset();
-
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -55,12 +52,35 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td><?php echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td valign="top" class="main"><div align="center" class="pageHeading"><?php echo HEADING_TITLE; ?></div><br><?php echo TEXT_MAIN; ?></td>
+            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="pageHeading" align="center"><?php echo HEADING_TITLE; ?></td>
+              </tr>
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo TEXT_MAIN; ?></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td align="right"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.42 2003/05/27 17:11:26 hpdl Exp $
+  $Id: product_listing.php,v 1.43 2003/06/05 23:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -130,7 +130,7 @@
             break;
           case 'PRODUCT_LIST_BUY_NOW':
             $lc_align = 'center';
-            $lc_text = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $listing['products_id']) . '">' . tep_image_button('button_buy_now.gif', TEXT_BUY . $listing['products_name'] . TEXT_NOW) . '</a>&nbsp;';
+            $lc_text = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $listing['products_id']) . '">' . tep_image_button('button_buy_now.gif', IMAGE_BUTTON_BUY_NOW) . '</a>&nbsp;';
             break;
         }
 
@@ -146,7 +146,7 @@
 
     $list_box_contents[0] = array('params' => 'class="productListing-odd"');
     $list_box_contents[0][] = array('params' => 'class="productListing-data"',
-                                   'text' => (isset($HTTP_GET_VARS['manufacturers_id']) ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS));
+                                   'text' => TEXT_NO_PRODUCTS);
 
     new productListingBox($list_box_contents);
   }
