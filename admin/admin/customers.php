@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.42 2001/09/19 11:51:58 mbs Exp $
+  $Id: customers.php,v 1.43 2001/09/30 21:49:37 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -117,41 +117,41 @@ function check_form() {
 <?php
     }
 ?>
-  if (firstname = "" || firstname.length < 3) {
+  if (firstname = "" || firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
     error = 1;
   }
 
-  if (lastname = "" || lastname.length < 3) {
+  if (lastname = "" || lastname.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_LAST_NAME; ?>";
     error = 1;
   }
 <?php
     if (ACCOUNT_DOB) {
 ?>
-  if (dob = "" || dob.length < 10) {
+  if (dob = "" || dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_DOB; ?>";
     error = 1;
   }
 <?php
     }
 ?>
-  if (email_address = "" || email_address.length < 6) {
+  if (email_address = "" || email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
     error = 1;
   }
 
-  if (street_address = "" || street_address.length < 5) {
+  if (street_address = "" || street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_ADDRESS; ?>";
     error = 1;
   }
 
-  if (postcode = "" || postcode.length < 4) {
+  if (postcode = "" || postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_POST_CODE; ?>";
     error = 1;
   }
 
-  if (city = "" || city.length < 4) {
+  if (city = "" || city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_CITY; ?>";
     error = 1;
   }
@@ -178,7 +178,7 @@ function check_form() {
     error = 1;
   }
 
-  if (telephone = "" || telephone.length < 5) {
+  if (telephone = "" || telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_TELEPHONE; ?>";
     error = 1;
   }
