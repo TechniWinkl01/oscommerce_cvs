@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.53 2002/01/06 13:48:19 hpdl Exp $
+  $Id: customers.php,v 1.54 2002/01/08 02:28:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -444,7 +444,7 @@ function check_form() {
 <?php
     $search = tep_db_prepare_input($HTTP_GET_VARS['search']);
     $search = (tep_not_null($search)) ? '%' . $search . '%' : '%';
-    $customers_query_raw = "select c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, a.entry_country_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_id = a.customers_id and (c.customers_lastname like '" . $search . "' or c.customers_firstname like '" . $search . "') order by c.customers_lastname DESC";
+    $customers_query_raw = "select c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, a.entry_country_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_id = a.customers_id and (c.customers_lastname like '" . $search . "' or c.customers_firstname like '" . $search . "') order by c.customers_lastname";
     $customers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_query_raw, $customers_query_numrows);
     $customers_query = tep_db_query($customers_query_raw);
     while ($customers = tep_db_fetch_array($customers_query)) {
