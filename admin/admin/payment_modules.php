@@ -1,15 +1,17 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['install']) {
-    $payment_action = 'PM_INSTALL';
     include(DIR_FS_PAYMENT_MODULES . $install);
-    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); 
-    tep_exit();
+    $class = substr($install, 0, -4);
+    $payment_module = new $class;
+    $payment_module->install();
+    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['remove']) {
-    $payment_action = 'PM_REMOVE';
     include(DIR_FS_PAYMENT_MODULES . $remove);
-    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); 
-    tep_exit();
+    $class = substr($remove, 0, -4);
+    $payment_module = new $class;
+    $payment_module->remove();
+    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
   }
 ?>
 <html>
@@ -70,20 +72,22 @@
   $installed_modules = '';
   $dir = dir(DIR_FS_PAYMENT_MODULES);
   if ($dir) {
-    while($entry=$dir->read()) {
+    while($entry = $dir->read()) {
       if (eregi('.php[34]*$', $entry)) {
         $check = 0;
-        $payment_action = 'PM_CHECK';
         include(DIR_FS_PAYMENT_MODULES . $entry);
+        $class = substr($entry, 0, -4);
+        $payment_module = new $class;
+        $check = $payment_module->check();
         if ($check > 1) {
-          $installed_modules .= ($installed_modules)?';' . $entry:$entry;
+          $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
         }
         if ($check) {
 ?>
               <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $entry; ?>&nbsp;</font></td>
-                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo ($check == 1)?'No':'Yes'; ?>&nbsp;</font></td>
-                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo ($check == 1)?tep_href_link(FILENAME_PAYMENT_MODULES, 'install=' . $entry, 'NONSSL'):tep_href_link(FILENAME_PAYMENT_MODULES, 'remove=' . $entry, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_INSTALL_REMOVE); ?></a>&nbsp;</font></td>
+                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo ($check == 1) ? 'No' : 'Yes'; ?>&nbsp;</font></td>
+                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo ($check == 1) ? tep_href_link(FILENAME_PAYMENT_MODULES, 'install=' . $entry, 'NONSSL') : tep_href_link(FILENAME_PAYMENT_MODULES, 'remove=' . $entry, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_INSTALL_REMOVE); ?></a>&nbsp;</font></td>
               </tr>
 <?
         }
@@ -91,15 +95,15 @@
     }
     $dir->close();
   }
-  
+
   $check = tep_db_query("select configuration_value from configuration where configuration_key = 'PAYMENT_MODULES'");
   if (tep_db_num_rows($check) > 0) {
     list($check) = tep_db_fetch_array($check);
     if ($check <> $installed_modules) {
-      tep_db_query("UPDATE configuration set configuration_value = '$installed_modules' where configuration_key = 'PAYMENT_MODULES'");
+      tep_db_query("update configuration set configuration_value = '" . $installed_modules . "' where configuration_key = 'PAYMENT_MODULES'");
     }
   } else {
-    tep_db_query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Payment Modules', 'PAYMENT_MODULES', '$installed_modules', 'This is automatically updated. No need to edit.', '6', '0', now())");
+    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Payment Modules', 'PAYMENT_MODULES', '" . $installed_modules . "', 'This is automatically updated. No need to edit.', '6', '0', now())");
   }
 ?>
               <tr>
