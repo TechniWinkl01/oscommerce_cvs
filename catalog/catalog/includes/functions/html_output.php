@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.61 2004/04/16 14:05:36 hpdl Exp $
+  $Id: html_output.php,v 1.62 2004/07/22 16:46:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -155,92 +155,154 @@
     return $form;
   }
 
-////
-// Output a form input field
-  function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
+  function osc_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    $field_value = $value;
+
     $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
-    if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
-      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
-    } elseif (tep_not_null($value)) {
-      $field .= ' value="' . tep_output_string($value) . '"';
+    if ($reinsert_value === true) {
+      if (isset($_GET[$name])) {
+        $field_value = $_GET[$name];
+      } elseif (isset($_POST[$name])) {
+        $field_value = $_POST[$name];
+      }
     }
 
-    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+    if (strlen(trim($field_value)) > 0) {
+      $field .= ' value="' . tep_output_string($field_value) . '"';
+    }
+
+    if (!empty($parameters)) {
+      $field .= ' ' . $parameters;
+    }
 
     $field .= '>';
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
 
     return $field;
   }
 
-////
-// Output a form password field
-  function tep_draw_password_field($name, $value = '', $parameters = 'maxlength="40"') {
-    return tep_draw_input_field($name, $value, $parameters, 'password', false);
+  function osc_draw_password_field($name, $value = '', $parameters = '', $required = false) {
+    return osc_draw_input_field($name, $value, $parameters, $required, 'password', false);
   }
 
-////
-// Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
-  function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '') {
-    $selection = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
-
-    if (tep_not_null($value)) $selection .= ' value="' . tep_output_string($value) . '"';
-
-    if ( ($checked == true) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
-      $selection .= ' CHECKED';
+  function osc_draw_selection_field($name, $type, $values, $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
     }
 
-    if (tep_not_null($parameters)) $selection .= ' ' . $parameters;
+    if (!is_array($values)) {
+      $values = array($values);
+    }
 
-    $selection .= '>';
+    if (isset($_GET[$name])) {
+      $default = $_GET[$name];
+    } elseif (isset($_POST[$name])) {
+      $default = $_POST[$name];
+    }
 
-    return $selection;
+    $field = '';
+
+    foreach ($values as $key => $value) {
+      if (is_array($value)) {
+        $selection_value = $value['id'];
+        $selection_text = '&nbsp;' . $value['text'];
+      } else {
+        $selection_value = $value;
+        $selection_text = '';
+      }
+
+      $field .= '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+
+      if (!empty($selection_value)) {
+        $field .= ' value="' . tep_output_string($selection_value) . '"';
+      }
+
+      if ((is_bool($default) && $default === true) || (!empty($default) && ($default == $selection_value))) {
+        $field .= ' CHECKED';
+      }
+
+      if (!empty($parameters)) {
+        $field .= ' ' . $parameters;
+      }
+
+      $field .= '>' . $selection_text . $separator;
+    }
+
+    $field = substr($field, 0, strlen($field)-strlen($separator));
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
+
+    return $field;
   }
 
-////
-// Output a form checkbox field
-  function tep_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
-    return tep_draw_selection_field($name, 'checkbox', $value, $checked, $parameters);
+  function osc_draw_checkbox_field($name, $values, $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
+    return osc_draw_selection_field($name, 'checkbox', $values, $default, $parameters, $required, $separator);
   }
 
-////
-// Output a form radio field
-  function tep_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
-    return tep_draw_selection_field($name, 'radio', $value, $checked, $parameters);
+  function osc_draw_radio_field($name, $values, $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
+    return osc_draw_selection_field($name, 'radio', $values, $default, $parameters, $required, $separator);
   }
 
-////
-// Output a form textarea field
-  function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true) {
+  function osc_draw_textarea_field($name, $value = '', $width = '60', $height = '5', $wrap = 'soft', $parameters = '', $reinsert_value = true, $required = false) {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
+    if ($reinsert_value === true) {
+      if (isset($_GET[$name])) {
+        $value = $_GET[$name];
+      } elseif (isset($_POST[$name])) {
+        $value = $_POST[$name];
+      }
+    }
+
     $field = '<textarea name="' . tep_output_string($name) . '" wrap="' . tep_output_string($wrap) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
 
-    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
-
-    $field .= '>';
-
-    if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
-      $field .= stripslashes($GLOBALS[$name]);
-    } elseif (tep_not_null($text)) {
-      $field .= $text;
+    if (!empty($parameters)) {
+      $field .= ' ' . $parameters;
     }
 
-    $field .= '</textarea>';
+    $field .= '>' . $value . '</textarea>';
+
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
+    }
 
     return $field;
   }
 
-////
-// Output a form hidden field
-  function tep_draw_hidden_field($name, $value = '', $parameters = '') {
-    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
-
-    if (tep_not_null($value)) {
-      $field .= ' value="' . tep_output_string($value) . '"';
-    } elseif (isset($GLOBALS[$name])) {
-      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
+  function osc_draw_hidden_field($name, $value = '', $parameters = '') {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
     }
 
-    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+    if (empty($value)) {
+      if (isset($_GET[$name])) {
+        $value = $_GET[$name];
+      } elseif (isset($_POST[$name])) {
+        $value = $_POST[$name];
+      }
+    }
+
+    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
+
+    if (!empty($value)) {
+      $field .= ' value="' . tep_output_string($value) . '"';
+    }
+
+    if (!empty($parameters)) {
+      $field .= ' ' . $parameters;
+    }
 
     $field .= '>';
 
@@ -253,47 +315,46 @@
     global $osC_Session, $SID;
 
     if (($osC_Session->is_started == true) && tep_not_null($SID)) {
-      return tep_draw_hidden_field($osC_Session->name, $osC_Session->id);
+      return osc_draw_hidden_field($osC_Session->name, $osC_Session->id);
     }
   }
 
-////
-// Output a form pull down menu
-  function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
+  function osc_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
+    if (PHP_VERSION < 4.1) {
+      global $_GET, $_POST;
+    }
+
     $field = '<select name="' . tep_output_string($name) . '"';
 
-    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+    if (!empty($parameters)) $field .= ' ' . $parameters;
 
     $field .= '>';
 
-    if (empty($default) && isset($GLOBALS[$name])) $default = stripslashes($GLOBALS[$name]);
+    $default_value = $default;
+
+    if (isset($_GET[$name])) {
+      $default_value = $_GET[$name];
+    } elseif (isset($_POST[$name])) {
+      $default_value = $_POST[$name];
+    }
 
     for ($i=0, $n=sizeof($values); $i<$n; $i++) {
       $field .= '<option value="' . tep_output_string($values[$i]['id']) . '"';
-      if ($default == $values[$i]['id']) {
+
+      if ($default_value == $values[$i]['id']) {
         $field .= ' SELECTED';
       }
 
       $field .= '>' . tep_output_string($values[$i]['text'], array('"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;')) . '</option>';
     }
+
     $field .= '</select>';
 
-    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
-
-    return $field;
-  }
-
-////
-// Creates a pull-down list of countries
-  function tep_get_country_list($name, $selected = '', $parameters = '') {
-    $countries_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT));
-    $countries = tep_get_countries();
-
-    for ($i=0, $n=sizeof($countries); $i<$n; $i++) {
-      $countries_array[] = array('id' => $countries[$i]['countries_id'], 'text' => $countries[$i]['countries_name']);
+    if ($required === true) {
+      $field .= '&nbsp;<span class="inputRequirement">*</span>';
     }
 
-    return tep_draw_pull_down_menu($name, $countries_array, $selected, $parameters);
+    return $field;
   }
 
   function tep_draw_date_pull_down_menu($name, $value = '', $default_today = true, $show_days = true, $use_month_names = true, $year_range_start = '0', $year_range_end  = '1') {
@@ -323,7 +384,7 @@
         $days_default = 1;
       }
 
-      $days_select_string = tep_draw_pull_down_menu($name . '_days', $days_array, $days_default);
+      $days_select_string = osc_draw_pull_down_menu($name . '_days', $days_array, $days_default);
     }
 
 // months pull down menu
@@ -343,7 +404,7 @@
       $months_default = 1;
     }
 
-    $months_select_string = tep_draw_pull_down_menu($name . '_months', $months_array, $months_default, $params);
+    $months_select_string = osc_draw_pull_down_menu($name . '_months', $months_array, $months_default, $params);
 
 // year pull down menu
     $year = date('Y');
@@ -364,7 +425,7 @@
       $years_default = $year - $year_range_start;
     }
 
-    $years_select_string = tep_draw_pull_down_menu($name . '_years', $years_array, $years_default, $params);
+    $years_select_string = osc_draw_pull_down_menu($name . '_years', $years_array, $years_default, $params);
 
     return $days_select_string . $months_select_string . $years_select_string;
   }
