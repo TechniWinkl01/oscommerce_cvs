@@ -2,13 +2,13 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into specials values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['specials_new_products_price'] . "', '" . date('Ymd') . "')");
+      tep_db_query("insert into " . TABLE_SPECIALS . " values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['specials_new_products_price'] . "', '" . date('Ymd') . "')");
       header('Location: ' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update specials set specials_new_products_price = '" . $HTTP_POST_VARS['specials_price'] . "' where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
+      tep_db_query("update " . TABLE_SPECIALS . " set specials_new_products_price = '" . $HTTP_POST_VARS['specials_price'] . "' where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from specials where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
+      tep_db_query("delete from " . TABLE_SPECIALS . " where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL')); tep_exit();
     }
   }
@@ -71,14 +71,14 @@
               </tr>
 <?
   $rows = 0;
-  $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added from products p, specials s, products_description pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by s.specials_date_added DESC";
+  $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by s.specials_date_added DESC";
   $specials_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $specials_query_raw, $specials_query_numrows);
   $specials_query = tep_db_query($specials_query_raw);
   while ($specials = tep_db_fetch_array($specials_query)) {
     $rows++;
 
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $specials['specials_id'])) && (!$sInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
-      $products_query = tep_db_query("select products_image from products where products_id = '" . $specials['products_id'] . "'");
+      $products_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $specials['products_id'] . "'");
       $products = tep_db_fetch_array($products_query);
 
       $sInfo_array = tep_array_merge($specials, $products);
@@ -162,7 +162,7 @@
       $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_select.gif', '66', '20', '0', IMAGE_SELECT) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
     } else {
 // product has been chosen, its time to specify the new price
-      $product_query = tep_db_query("select pd.products_name, p.products_price from products p, products_description pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' and p.products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+      $product_query = tep_db_query("select pd.products_name, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' and p.products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
       $product = tep_db_fetch_array($product_query);
 
       $sInfo_array = tep_array_merge($HTTP_POST_VARS, $product);
@@ -178,7 +178,7 @@
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', '66', '20', '0', IMAGE_PREVIEW) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
     }
   } elseif ($HTTP_GET_VARS['action'] == 'new_preview') {
-    $product_query = tep_db_query("select p.products_price, p.products_image, pd.products_name from products p, products_description pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' and p.products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+    $product_query = tep_db_query("select p.products_price, p.products_image, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' and p.products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
     $product = tep_db_fetch_array($product_query);
 
     if (substr($HTTP_POST_VARS['specials_new_products_price'], -1) == '%') $HTTP_POST_VARS['specials_new_products_price'] = ($product['products_price'] - (($HTTP_POST_VARS['specials_new_products_price'] / 100) * $product['products_price']));

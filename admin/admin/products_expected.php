@@ -55,10 +55,10 @@
                 <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $languages_query = tep_db_query("select languages_id from languages where directory = '".$language."'") ;
+  $languages_query = tep_db_query("select languages_id from " . TABLE_LANGUAGES . " where directory = '".$language."'") ;
   $languages = tep_db_fetch_array($languages_query) ;
   $rows = 0;
-  $products_query_raw = "select pd.products_id, pd.products_name, p.products_date_available from products_description pd, products p where p.products_id = pd.products_id and p.products_date_available != '' and pd.language_id = '". $languages['languages_id'] ."' order by p.products_date_available DESC";
+  $products_query_raw = "select pd.products_id, pd.products_name, p.products_date_available from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p where p.products_id = pd.products_id and p.products_date_available != '' and pd.language_id = '". $languages['languages_id'] ."' order by p.products_date_available DESC";
   $products_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_query_raw, $products_query_numrows);
   $products_query = tep_db_query($products_query_raw);
   while ($products = tep_db_fetch_array($products_query)) {
