@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.9 2002/01/10 12:54:34 jan0815 Exp $
+  $Id: languages.php,v 1.10 2002/04/24 16:48:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,11 +20,13 @@
                               );
   new infoBoxHeading($info_box_contents, false, false);
 
-  $languages = tep_get_languages();
+  if (!class_exists('language')) include(DIR_WS_CLASSES . 'language.php');
+  if (!is_object($lng)) $lng = new language;
 
   $languages_string = '';
-  for ($i=0; $i<sizeof($languages); $i++) {
-    $languages_string .= ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language', 'currency')) . 'language=' . $languages[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_LANGUAGES .  $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '</a> ';
+  reset($lng->catalog_languages);
+  while (list($key, $value) = each($lng->catalog_languages)) {
+    $languages_string .= ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language', 'currency')) . 'language=' . $key, 'NONSSL') . '">' . tep_image(DIR_WS_LANGUAGES .  $value['directory'] . '/images/' . $value['image'], $value['name']) . '</a> ';
   }
 
   $info_box_contents = array();

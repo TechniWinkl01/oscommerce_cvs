@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.169 2002/04/23 21:33:25 hpdl Exp $
+  $Id: general.php,v 1.170 2002/04/24 16:48:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1059,5 +1059,17 @@
     }
 
     return $value;
+  }
+
+////
+// Checks to see if the currency code exists as a currency
+// TABLES: currencies
+  function tep_currency_exists($code) {
+    $currency_code = tep_db_query("select currencies_id from " . TABLE_CURRENCIES . " where code = '" . $code . "'");
+    if (tep_db_num_rows($currency_code)) {
+      return $code;
+    } else {
+      return false;
+    }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.224 2002/04/08 01:13:43 hpdl Exp $
+  $Id: application_top.php,v 1.225 2002/04/24 16:48:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -217,9 +217,6 @@
   require(DIR_WS_CLASSES . 'currencies.php');
   $currencies = new currencies();
 
-// define our localization functions
-  require(DIR_WS_FUNCTIONS . 'localization.php');
-
 // include the mail classes
   require(DIR_WS_CLASSES . 'mime.php');
   require(DIR_WS_CLASSES . 'email.php');
@@ -231,10 +228,13 @@
       tep_session_register('languages_id');
     }
 
-    $language_code = ($HTTP_GET_VARS['language']) ? $HTTP_GET_VARS['language'] : DEFAULT_LANGUAGE;
-    $languages = tep_get_languages($language_code);
-    $language = $languages[0]['directory'];
-    $languages_id = $languages[0]['id'];
+    include(DIR_WS_CLASSES . 'language.php');
+    $lng = new language($HTTP_GET_VARS['language']);
+
+    if (!$HTTP_GET_VARS['language']) $lng->get_browser_language();
+
+    $language = $lng->language['directory'];
+    $languages_id = $lng->language['id'];
   }
 
 // include the language translations
