@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.22 2002/11/12 13:34:22 dgw_ Exp $
+  $Id: categories.php,v 1.23 2002/11/12 14:09:30 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -128,6 +128,8 @@
         $foo[$last_id]['next_id'] = $foo[$value]['next_id'];
         $foo[$value]['next_id'] = $first_id;
         $new_path .= '_';
+      } else {
+        break;
       }
     }
   }
