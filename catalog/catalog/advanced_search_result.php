@@ -216,8 +216,9 @@
     $where_str .= " and p.products_date_added <= '" . tep_reformat_date_to_yyyymmdd($HTTP_GET_VARS['dto'], DOB_FORMAT_STRING) . "'";
   }
 
-  $pfrom = $HTTP_GET_VARS['pfrom'] / $currency_rates[$currency];
-  $pto = $HTTP_GET_VARS['pto'] / $currency_rates[$currency];
+  $rate = $currencies->get_value($currency);
+  $pfrom = $HTTP_GET_VARS['pfrom'] / $rate;
+  $pto = $HTTP_GET_VARS['pto'] / $rate;
   if ($pfrom && $pto) {
     $where_str .= " and (IFNULL(s.specials_new_products_price,p.products_price) >= " . $pfrom . " and IFNULL(s.specials_new_products_price,p.products_price) <= " . $pto . ")";
   }

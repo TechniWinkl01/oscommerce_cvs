@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.171 2001/09/09 22:12:13 hpdl Exp $
+  $Id: application_top.php,v 1.172 2001/09/14 22:52:15 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -235,9 +235,6 @@
     tep_session_register('cart');
     $cart = new shoppingCart;
   }
-
-// include the currency rates
-  require(DIR_WS_INCLUDES . 'data/rates.php');
 
 // include currencies class and create an instance
   require(DIR_WS_CLASSES . 'currencies.php');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.14 2001/09/01 15:50:49 hpdl Exp $
+  $Id: ipayment.php,v 1.15 2001/09/14 22:52:17 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -80,7 +80,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currency_rates;
+      global $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currencies;
 
       $customer_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
       $customer_email_values = tep_db_fetch_array($customer_email);
@@ -88,7 +88,7 @@
       $process_button_string = tep_draw_hidden_field('silent', 'true') .
                                tep_draw_hidden_field('cc_userid', MODULE_PAYMENT_IPAYMENT_USER_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('cc_amount', number_format(($total_cost + $shipping_cost) * 100 * $currency_rates[MODULE_PAYMENT_IPAYMENT_CURRENCY], 0, '','')) .
+                               tep_draw_hidden_field('cc_amount', number_format(($total_cost + $shipping_cost) * 100 * $currencies->get_value(MODULE_PAYMENT_IPAYMENT_CURRENCY), 0, '','')) .
                                tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['cc_expires_month']) .
                                tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['cc_expires_year']) .
                                tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['cc_number']) .

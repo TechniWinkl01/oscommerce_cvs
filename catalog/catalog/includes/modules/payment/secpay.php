@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.11 2001/09/01 15:50:49 hpdl Exp $
+  $Id: secpay.php,v 1.12 2001/09/14 22:52:18 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,11 +41,11 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currencies;
 
       $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
                                tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
-                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax + $shipping_cost) * $currency_rates[MODULE_PAYMENT_SECPAY_CURRENCY], 2)) .
+                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax + $shipping_cost) * $currencies->get_value(MODULE_PAYMENT_SECPAY_CURRENCY), 2)) .
                                tep_draw_hidden_field('currency', MODULE_PAYMENT_SECPAY_CURRENCY) .
                                tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, 'sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method)), true) .
                                tep_draw_hidden_field(tep_session_name(), tep_session_id()) .

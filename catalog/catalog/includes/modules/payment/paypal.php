@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.21 2001/08/29 23:34:23 hpdl Exp $
+  $Id: paypal.php,v 1.22 2001/09/14 22:52:18 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,7 +41,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
+      global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currencies;
 
       $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method) . '&comments=' . urlencode($comments);
       $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&comments=' . urlencode($comments);
@@ -49,8 +49,8 @@
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2)) .
-                               tep_draw_hidden_field('shipping', number_format($shipping_cost * $currency_rates['USD'], 2)) .
+                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax) * $currencies->currencies['USD']['value'], 2)) .
+                               tep_draw_hidden_field('shipping', number_format($shipping_cost * $currencies->get_value('USD'), 2)) .
                                tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, $paypal_return, 'SSL')) .
                                tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $paypal_cancel_return, 'SSL'));
 
