@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.31 2002/01/31 01:22:54 harley_vb Exp $
+  $Id: specials.php,v 1.32 2002/02/06 23:41:15 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,8 +46,10 @@
       tep_redirect(tep_href_link(FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $specials_id));
       break;
     case 'deleteconfirm':
-// delete a product on special
-      tep_db_query("delete from " . TABLE_SPECIALS . " where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
+      $specials_id = tep_db_prepare_input($HTTP_GET_VARS['sID']);
+
+      tep_db_query("delete from " . TABLE_SPECIALS . " where specials_id = '" . tep_db_input($specials_id) . "'");
+
       tep_redirect(tep_href_link(FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page']));
       break;
   }
@@ -225,7 +227,7 @@
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>');
 
-      $contents = array('form' => tep_draw_form('specials', FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $sInfo->specials . '&action=deleteconfirm'));
+      $contents = array('form' => tep_draw_form('specials', FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $sInfo->products_name . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, 'page=' . $HTTP_GET_VARS['page'] . '&sID=' . $sInfo->specials_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
