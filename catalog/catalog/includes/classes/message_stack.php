@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.3 2003/12/04 14:12:16 hpdl Exp $
+  $Id: message_stack.php,v 1.4 2003/12/04 22:56:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,6 +46,8 @@
       $messageToStack[] = array('class' => $class, 'text' => $message, 'type' => $type);
 
       $osC_Session->set('messageToStack', $messageToStack);
+
+      $this->add($class, $message, $type);
     }
 
     function reset() {
