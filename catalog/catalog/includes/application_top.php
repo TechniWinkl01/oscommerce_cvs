@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.139 2001/06/08 20:21:09 hpdl Exp $
+  $Id: application_top.php,v 1.140 2001/06/08 21:24:36 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,7 +22,7 @@
 
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
-  define('PROJECT_VERSION', 'Preview Release 2.1');
+  define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
 
 // Define the webserver and path parameters
 // * DIR_FS_* = Filesystem directories (local/physical)
@@ -171,7 +171,6 @@
   define('STOCK_LIMITED', 1); // Subtract product in stock by product orders
   define('STOCK_ALLOW_CHECKOUT', 1); 
 
-
 // set to "1" if extended email check function should be used
 // If you're testing locally and your webserver has no possibility to query
 // a dns server you should set this to "0" !
@@ -200,9 +199,6 @@
 
 // Manufacturers box
   define('DISPLAY_EMPTY_MANUFACTURERS', 1); // Display Manufacturers with no products: 0=disable; 1=enable
-
-// Rollover Effect
-  define('USE_ROLLOVER_EFFECT', 1); // Rollover Effect: 0=disable; 1=enable
 
 // Categories Box: recursive products count
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
