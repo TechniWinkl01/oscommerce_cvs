@@ -1,6 +1,4 @@
 <?
-  // No language file for this file...
-
   /* Include the configured shipping methods */
   define('DIR_SHIPPING_MODULES', DIR_MODULES . 'shipping/');
 
@@ -19,7 +17,7 @@
   }
 
   if (SHIPPING_MODULES) {
-    $modules = explode(' ', SHIPPING_MODULES);
+    $modules = explode(';', SHIPPING_MODULES);
     while (list(,$value) = each($modules)) {
       include(DIR_SHIPPING_MODULES . $value); 
     }

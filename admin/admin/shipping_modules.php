@@ -76,7 +76,7 @@
         $action = 'check';
         include(DIR_SHIPPING_MODULES . $entry);
         if ($check > 1) {
-          $installed_modules .= ($installed_modules)?' ' . $entry:$entry;
+          $installed_modules .= ($installed_modules)?';' . $entry:$entry;
         }
         if ($check) {
 ?>
