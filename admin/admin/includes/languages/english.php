@@ -48,6 +48,7 @@ define('BOX_HEADING_SEARCH', 'Quick Find');
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categories / Products');
+define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Products Attributes');
 define('BOX_CATALOG_MANUFACTURERS', 'Manufacturers');
 define('BOX_CATALOG_REVIEWS', 'Reviews');
 define('BOX_CATALOG_SPECIALS', 'Specials');
@@ -75,13 +76,10 @@ define('JS_SORT_ORDER', '* A numeric sort order is needed for the new category\n
 define('JS_CATEGORIES_IMAGE', '* An image is required for the new category\n');
 define('JS_CATEGORY_DELETE_CONFIRM', '*** WARNING ***\n\nDo you really want to remove this category AND all products linked to it?');
 
-define('JS_SUBCATEGORIES_NAME', '* The new subcategory needs a name\n');
-define('JS_SUBCATEGORIES_IMAGE', '* The new subcategory needs an image\n');
-define('JS_SUBCATEGORIES_DELETE_CONFIRM', '*** WARNING ***\n\nDo you really want to remove this subcategory AND all products linked to it?');
-
-define('JS_INDEX_NAME', '* The new index needs a name\n');
-define('JS_INDEX_SORT_ORDER', '* The new index needs a sort order number\n');
-define('JS_INDEX_SQL_SELECT', '* The new index needs a sql_select value\n');
+define('JS_OPTIONS_OPTION_NAME', '* The new option needs a name\n');
+define('JS_OPTIONS_VALUE_NAME', '* The new option value needs a name\n');
+define('JS_OPTIONS_VALUE_PRICE', '* The new product atribute needs a price value\n');
+define('JS_OPTIONS_VALUE_PRICE_PREFIX', '* The new product atribute needs a price prefix\n');
 
 define('JS_MANUFACTURERS_NAME', '* The new manufacturer needs a name\n');
 define('JS_MANUFACTURERS_LOCATION', '* The new manufacturer needs a location value (0=left, 1=right)\n');

@@ -40,7 +40,7 @@
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_ORDERS', 'orders.php');
-  define('FILENAME_PRODUCTS', 'products.php');
+  define('FILENAME_PRODUCTS_ATTRIBUTES', 'products_attributes.php');
   define('FILENAME_PRODUCTS_EXPECTED', 'products_expected.php');
   define('FILENAME_REVIEWS', 'reviews.php');
   define('FILENAME_SPECIALS', 'specials.php');

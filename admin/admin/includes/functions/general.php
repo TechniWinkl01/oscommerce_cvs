@@ -220,4 +220,37 @@
     }
     echo '</select>';
   }
+
+    function tep_products_name_only($products_id) {
+    global $products_name_only;
+    
+    $products_only = tep_db_query("select products_name from products where products_id = '" . $products_id . "'");
+    $products_values_only = tep_db_fetch_array($products_only);
+    
+    $products_name_only = $products_values_only['products_name'];
+    
+    return $products_name_only;
+  }
+
+    function tep_options_name($options_id) {
+    global $options_name;
+    
+    $options = tep_db_query("select products_options_name from products_options where products_options_id = '" . $options_id . "'");
+    $options_values = tep_db_fetch_array($options);
+    
+    $options_name = $options_values['products_options_name'];
+    
+    return $options_name;
+  }
+
+    function tep_values_name($values_id) {
+    global $values_name;
+    
+    $values = tep_db_query("select products_options_values_name from products_options_values where products_options_values_id = '" . $values_id . "'");
+    $values_values = tep_db_fetch_array($values);
+    
+    $values_name = $values_values['products_options_values_name'];
+    
+    return $values_name;
+  }
 ?>
