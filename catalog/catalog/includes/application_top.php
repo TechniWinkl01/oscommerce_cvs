@@ -185,7 +185,7 @@
   }
 
 // Create the cart & Fix the cart if necesary
-  if (is_object($cart)) {
+  if ($cart) {
     if (!eregi('^4\.', phpversion()) || eregi('^php4b', phpversion())) {
       $broken_cart = $cart;
       $cart = new shoppingCart;
