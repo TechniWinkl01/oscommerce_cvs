@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.71 2003/06/20 00:30:15 hpdl Exp $
+  $Id: banner_manager.php,v 1.72 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -77,7 +77,7 @@
             $insert_sql_data = array('date_added' => 'now()',
                                      'status' => '1');
 
-            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             tep_db_perform(TABLE_BANNERS, $sql_data_array);
 
@@ -349,7 +349,7 @@ function popupImageWindow(url) {
       $info = tep_db_fetch_array($info_query);
 
       if ((!isset($HTTP_GET_VARS['bID']) || (isset($HTTP_GET_VARS['bID']) && ($HTTP_GET_VARS['bID'] == $banners['banners_id']))) && !isset($bInfo) && (substr($action, 0, 3) != 'new')) {
-        $bInfo_array = tep_array_merge($banners, $info);
+        $bInfo_array = array_merge($banners, $info);
         $bInfo = new objectInfo($bInfo_array);
       }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.53 2003/06/20 00:38:02 hpdl Exp $
+  $Id: manufacturers.php,v 1.54 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,14 +26,14 @@
         if ($action == 'insert') {
           $insert_sql_data = array('date_added' => 'now()');
 
-          $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+          $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
           tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
           $manufacturers_id = tep_db_insert_id();
         } elseif ($action == 'save') {
           $update_sql_data = array('last_modified' => 'now()');
 
-          $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
+          $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
           tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "'");
         }
@@ -53,7 +53,7 @@
             $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
                                      'languages_id' => $language_id);
 
-            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
           } elseif ($action == 'save') {
@@ -148,7 +148,7 @@
       $manufacturer_products_query = tep_db_query("select count(*) as products_count from " . TABLE_PRODUCTS . " where manufacturers_id = '" . (int)$manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = tep_db_fetch_array($manufacturer_products_query);
 
-      $mInfo_array = tep_array_merge($manufacturers, $manufacturer_products);
+      $mInfo_array = array_merge($manufacturers, $manufacturer_products);
       $mInfo = new objectInfo($mInfo_array);
     }
 

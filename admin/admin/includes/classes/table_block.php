@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table_block.php,v 1.6 2003/06/20 00:18:30 hpdl Exp $
+  $Id: table_block.php,v 1.7 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
       if (isset($contents['form'])) {
         $tableBox_string .= $contents['form'] . "\n";
         $form_set = true;
-        tep_array_shift($contents);
+        $contents = array_shift($contents);
       }
 
       $tableBox_string .= '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.141 2003/06/20 00:23:57 hpdl Exp $
+  $Id: categories.php,v 1.142 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
           $insert_sql_data = array('parent_id' => $current_category_id,
                                    'date_added' => 'now()');
 
-          $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+          $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
           tep_db_perform(TABLE_CATEGORIES, $sql_data_array);
 
@@ -52,7 +52,7 @@
         } elseif ($action == 'update_category') {
           $update_sql_data = array('last_modified' => 'now()');
 
-          $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
+          $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
           tep_db_perform(TABLE_CATEGORIES, $sql_data_array, 'update', "categories_id = '" . (int)$categories_id . "'");
         }
@@ -69,7 +69,7 @@
             $insert_sql_data = array('categories_id' => $categories_id,
                                      'language_id' => $languages[$i]['id']);
 
-            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             tep_db_perform(TABLE_CATEGORIES_DESCRIPTION, $sql_data_array);
           } elseif ($action == 'update_category') {
@@ -219,7 +219,7 @@
           if ($action == 'insert_product') {
             $insert_sql_data = array('products_date_added' => 'now()');
 
-            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             tep_db_perform(TABLE_PRODUCTS, $sql_data_array);
             $products_id = tep_db_insert_id();
@@ -228,7 +228,7 @@
           } elseif ($action == 'update_product') {
             $update_sql_data = array('products_last_modified' => 'now()');
 
-            $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
+            $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
             tep_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', "products_id = '" . (int)$products_id . "'");
           }
@@ -245,7 +245,7 @@
               $insert_sql_data = array('products_id' => $products_id,
                                        'language_id' => $language_id);
 
-              $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+              $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
               tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
             } elseif ($action == 'update_product') {
@@ -403,6 +403,14 @@
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script language="javascript"><!--
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
+//--></script>
+<script language="Javascript1.2" src="includes/external/htmlarea/htmlarea.js"></script>
+<script language="JavaScript1.2" defer><!--
+<?php
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+      echo 'editor_generate(\'products_description[' . $languages[$i]['id'] . ']\');' . "\n";
+    }
+?>
 //--></script>
 <script language="javascript"><!--
 var tax_rates = new Array();
@@ -760,7 +768,7 @@ updateGross();
         $category_childs = array('childs_count' => tep_childs_in_category_count($categories['categories_id']));
         $category_products = array('products_count' => tep_products_in_category_count($categories['categories_id']));
 
-        $cInfo_array = tep_array_merge($categories, $category_childs, $category_products);
+        $cInfo_array = array_merge($categories, $category_childs, $category_products);
         $cInfo = new objectInfo($cInfo_array);
       }
 
@@ -794,7 +802,7 @@ updateGross();
 // find out the rating average from customer reviews
         $reviews_query = tep_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " where products_id = '" . (int)$products['products_id'] . "'");
         $reviews = tep_db_fetch_array($reviews_query);
-        $pInfo_array = tep_array_merge($products, $reviews);
+        $pInfo_array = array_merge($products, $reviews);
         $pInfo = new objectInfo($pInfo_array);
       }
 

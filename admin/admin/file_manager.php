@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.40 2003/06/20 00:36:38 hpdl Exp $
+  $Id: file_manager.php,v 1.41 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,7 +99,7 @@
   $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT, 'text' => $in_directory));
   for ($i=0, $n=sizeof($current_path_array); $i<$n; $i++) {
     if ((isset($document_root_array[$i]) && ($current_path_array[$i] != $document_root_array[$i])) || !isset($document_root_array[$i])) {
-      $goto_array[] = array('id' => implode('/', tep_array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i]);
+      $goto_array[] = array('id' => implode('/', array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i]);
     }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.77 2003/06/20 00:32:26 hpdl Exp $
+  $Id: customers.php,v 1.78 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -730,9 +730,9 @@ function check_form() {
         $reviews_query = tep_db_query("select count(*) as number_of_reviews from " . TABLE_REVIEWS . " where customers_id = '" . (int)$customers['customers_id'] . "'");
         $reviews = tep_db_fetch_array($reviews_query);
 
-        $customer_info = tep_array_merge($country, $info, $reviews);
+        $customer_info = array_merge($country, $info, $reviews);
 
-        $cInfo_array = tep_array_merge($customers, $customer_info);
+        $cInfo_array = array_merge($customers, $customer_info);
         $cInfo = new objectInfo($cInfo_array);
       }
 

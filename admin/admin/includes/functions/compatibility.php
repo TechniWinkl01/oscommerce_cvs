@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.8 2003/04/09 16:13:27 project3000 Exp $
+  $Id: compatibility.php,v 1.9 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -78,6 +78,79 @@
         }
       }
       return false;
+    }
+  }
+
+  if (!function_exists('in_array')) {
+    function in_array($lookup_value, $lookup_array) {
+      reset($lookup_array);
+      while (list($key, $value) = each($lookup_array)) {
+        if ($value == $lookup_value) return true;
+      }
+
+      return false;
+    }
+  }
+
+  if (!function_exists('array_merge')) {
+    function array_merge($array1, $array2, $array3 = '') {
+      if ($array3 == '') $array3 = array();
+
+      while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
+      while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
+
+      if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
+
+      return (array)$array_merged;
+    }
+  }
+
+  if (!function_exists('array_shift')) {
+    function array_shift(&$array) {
+      $i = 0;
+      $shifted_array = array();
+      reset($array);
+      while (list($key, $value) = each($array)) {
+        if ($i > 0) {
+          $shifted_array[$key] = $value;
+        } else {
+          $return = $array[$key];
+        }
+        $i++;
+      }
+      $array = $shifted_array;
+
+      return $return;
+    }
+  }
+
+  if (!function_exists('array_reverse')) {
+    function array_reverse($array) {
+      $reversed_array = array();
+
+      for ($i=sizeof($array)-1; $i>=0; $i--) {
+        $reversed_array[] = $array[$i];
+      }
+
+      return $reversed_array;
+    }
+  }
+
+  if (!function_exists('array_slice')) {
+    function array_slice($array, $offset, $length = '0') {
+      $length = abs($length);
+
+      if ($length == 0) {
+        $high = sizeof($array);
+      } else {
+        $high = $offset+$length;
+      }
+
+      for ($i=$offset; $i<$high; $i++) {
+        $new_array[$i-$offset] = $array[$i];
+      }
+
+      return $new_array;
     }
   }
 ?>

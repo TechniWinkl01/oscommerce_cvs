@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.39 2003/06/20 00:44:15 hpdl Exp $
+  $Id: specials.php,v 1.40 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -189,7 +189,7 @@
       if ((!isset($HTTP_GET_VARS['sID']) || (isset($HTTP_GET_VARS['sID']) && ($HTTP_GET_VARS['sID'] == $specials['specials_id']))) && !isset($sInfo)) {
         $products_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . (int)$specials['products_id'] . "'");
         $products = tep_db_fetch_array($products_query);
-        $sInfo_array = tep_array_merge($specials, $products);
+        $sInfo_array = array_merge($specials, $products);
         $sInfo = new objectInfo($sInfo_array);
       }
 

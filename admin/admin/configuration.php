@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.41 2003/06/20 00:31:35 hpdl Exp $
+  $Id: configuration.php,v 1.42 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,7 +95,7 @@
       $cfg_extra_query = tep_db_query("select configuration_key, configuration_description, date_added, last_modified, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_id = '" . (int)$configuration['configuration_id'] . "'");
       $cfg_extra = tep_db_fetch_array($cfg_extra_query);
 
-      $cInfo_array = tep_array_merge($configuration, $cfg_extra);
+      $cInfo_array = array_merge($configuration, $cfg_extra);
       $cInfo = new objectInfo($cInfo_array);
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.20 2003/06/20 00:39:59 hpdl Exp $
+  $Id: orders_status.php,v 1.21 2003/06/20 15:32:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,7 +37,7 @@
             $insert_sql_data = array('orders_status_id' => $orders_status_id,
                                      'language_id' => $language_id);
 
-            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             tep_db_perform(TABLE_ORDERS_STATUS, $sql_data_array);
           } elseif ($action == 'save') {
