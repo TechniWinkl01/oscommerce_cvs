@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.61 2002/11/05 12:14:39 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.62 2002/11/19 18:03:50 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -187,8 +187,10 @@
 
   $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m using(manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
   if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
-    if (!tep_session_is_registered('customer_country_id')) $customer_country_id = STORE_COUNTRY;
-    if (!tep_session_is_registered('customer_zone_id')) $customer_zone_id = STORE_ZONE;
+    if (!tep_session_is_registered('customer_country_id')) {
+      $customer_country_id = STORE_COUNTRY;
+      $customer_zone_id = STORE_ZONE;
+    }
     $from_str .= " left join " . TABLE_TAX_RATES . " tr on p.products_tax_class_id = tr.tax_class_id left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on tr.tax_zone_id = gz.geo_zone_id and (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . $customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . $customer_zone_id . "')";
   }
   $where_str = " where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id ";
