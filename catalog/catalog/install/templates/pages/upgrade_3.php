@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.16 2002/04/04 20:14:52 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.17 2002/04/04 22:59:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,7 +122,7 @@ changeText('statusText', 'Updating Banners');
 <?php
   flush();
 
-  osc_db_query("create table banners ( banners_id int(5) not null auto_increment, banners_title varchar(64) not null, banners_url varchar(64) not null, banners_image varchar(64) not null, banners_group varchar(10) not null, banners_html_text text, expires_impressions int(7) default '0', expires_date datetime default null, date_scheduled datetime default null, date_added datetime not null, date_status_change datetime default null, status int(1) default '1', primary key (banners_id) )");
+  osc_db_query("create table banners ( banners_id int(5) not null auto_increment, banners_title varchar(64) not null, banners_url varchar(64) not null, banners_image varchar(64) not null, banners_group varchar(10) not null, banners_html_text text, expires_impressions int(7) default '0', expires_date datetime default null, date_scheduled datetime default null, date_added datetime not null, date_status_change datetime default null, status int(1) default '1' not null, primary key (banners_id) )");
   osc_db_query("create table banners_history ( banners_history_id int(5) not null auto_increment, banners_id int(5) not null, banners_shown int(5) not null default '0', banners_clicked int(5) not null default '0', banners_history_date datetime not null, primary key (banners_history_id) )");
   osc_db_query("insert into banners values (1, 'osCommerce', 'http://www.oscommerce.com', 'banners/oscommerce.gif', '468x50', '', 0, null, null, now(), null, 1)");
 
@@ -498,6 +498,12 @@ changeText('statusText', 'Updating Products');
 
   osc_db_query("alter table products add products_date_available datetime");
   osc_db_query("alter table products add products_last_modified datetime");
+
+  osc_db_query("alter table products add products_ordered int default '0' not null");
+  $products_query = osc_db_query("select products_id, sum(products_quantity) as products_ordered from orders_products group by products_id");
+  while ($products = osc_db_fetch_array($products_query)) {
+    osc_db_query("update products set products_ordered = '" . $products['products_ordered'] . "' where products_id = '" . $products['products_id'] . "'");
+  }
 
   osc_db_query("drop table products_expected");
 
