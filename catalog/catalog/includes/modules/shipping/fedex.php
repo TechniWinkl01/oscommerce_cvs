@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.21 2001/08/23 21:36:39 hpdl Exp $
+  $Id: fedex.php,v 1.22 2001/08/25 10:28:02 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -102,11 +102,18 @@
           $display_string .= '<tr>' . "\n" .
                              '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
                              '  <td class="main">&nbsp;' . $shipping_fedex_method . '&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_fedex_cost) . '&nbsp;</td>' . "\n" .
-                             '  <td align="right">&nbsp;' . tep_draw_radio_field('shipping_selected', 'fedex') .
-                                                            tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) . 
-                                                            tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n" .
-                             '</tr>' . "\n";
+                             '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_fedex_cost);
+          if (tep_count_shipping_modules() > 1) {
+            $display_string .= '&nbsp;</td>' . "\n" .
+                               '  <td align="right">&nbsp;' . tep_draw_radio_field('shipping_selected', 'fedex') .
+                                                              tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) . 
+                                                              tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n";
+          } else {
+            $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'fedex') .
+                                          tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) .
+                                          tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n";
+          }
+          $display_string .= '</tr>' . "\n";
         }
       }
 

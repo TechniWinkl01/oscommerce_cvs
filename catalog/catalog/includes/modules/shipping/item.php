@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: item.php,v 1.25 2001/08/23 21:36:39 hpdl Exp $
+  $Id: item.php,v 1.26 2001/08/25 10:28:02 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -69,11 +69,18 @@
         $display_string = '<tr>' . "\n" .
                           '  <td class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_TITLE . '&nbsp;</td>' . "\n" .
                           '  <td class="main">&nbsp;' . $shipping_item_method . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_item_cost) . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'item') .
-                                                                      tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
-                                                                      tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '&nbsp;</td>' . "\n" .
-                          '</tr>' . "\n";
+                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_item_cost);
+        if (tep_count_shipping_modules() > 1) {
+          $display_string .= '&nbsp;</td>' . "\n" .
+                             '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'item') .
+                                                                         tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
+                                                                         tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '&nbsp;</td>' . "\n";
+        } else {
+          $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'item') .
+                                        tep_draw_hidden_field('shipping_item_cost', $shipping_item_cost) .
+                                        tep_draw_hidden_field('shipping_item_method', $shipping_item_method) . '&nbsp;</td>' . "\n";
+        }
+        $display_string .= '</tr>' . "\n";
       }
 
       return $display_string;

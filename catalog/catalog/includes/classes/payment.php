@@ -43,11 +43,17 @@
             $rows ++;
             $selection_string .= '              <tr class="payment-odd">' . "\n" .
                                  '                <td colspan="3" class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
-                                 '                <td align="right" class="main">&nbsp;<input type="radio" name="payment" value="' . $GLOBALS[$class]->code . '"';
-            if ( (!$payment && $rows == 1) || ($payment == $GLOBALS[$class]->code)) {
-              $selection_string .= ' CHECKED';
+                                 '                <td align="right" class="main">&nbsp;';
+            if (tep_count_payment_modules() > 1) {
+              $selection_string .= '<input type="radio" name="payment" value="' . $GLOBALS[$class]->code . '"';
+              if ( (!$payment && $rows == 1) || ($payment == $GLOBALS[$class]->code)) {
+                $selection_string .= ' CHECKED';
+              }
+              $selection_string .= '>';
+            } else {
+              $selection_string .= tep_draw_hidden_field('payment', $GLOBALS[$class]->code);
             }
-            $selection_string .= '>&nbsp;</td>' . "\n" .
+            $selection_string .= '&nbsp;</td>' . "\n" .
                                  '              </tr>' . "\n" .
                                  '              <tr class="payment-even">' . "\n" .
                                  '                <td colspan="2">';

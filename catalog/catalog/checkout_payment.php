@@ -92,6 +92,8 @@ function check_form() {
         payment_value = document.payment.payment[i].value;
   } else if (document.payment.payment.checked) {
     payment_value = document.payment.payment.value;
+  } else if (document.payment.payment.value) {
+    payment_value = document.payment.payment.value;
   }
 <?
     $payment_modules->javascript_validation();
@@ -161,7 +163,7 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<? if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -199,7 +201,7 @@ function check_form() {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td colspan="2" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
-                <td colspan=2 align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
+                <td colspan=2 align="right" class="tableHeading">&nbsp;<? if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

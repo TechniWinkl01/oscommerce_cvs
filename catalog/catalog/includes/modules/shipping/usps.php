@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.22 2001/08/23 21:36:40 hpdl Exp $
+  $Id: usps.php,v 1.23 2001/08/25 10:28:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -99,11 +99,18 @@
         $display_string = '<tr>' . "\n" .
                           '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
                           '  <td class="main">&nbsp;' . $shipping_usps_method . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_usps_cost) . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'usps') .
-                                                                      tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
-                                                                      tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n" .
-                          '</tr>' . "\n";
+                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_usps_cost);
+        if (tep_count_shipping_modules() > 1) {
+          $display_string .= '&nbsp;</td>' . "\n" .
+                             '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'usps') .
+                                                                         tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
+                                                                         tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n";
+        } else {
+          $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'usps') .
+                                        tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
+                                        tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n";
+        }
+        $display_string .= '</tr>' . "\n";
       }
 
       return $display_string;

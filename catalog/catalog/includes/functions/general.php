@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.124 2001/08/22 20:17:30 hpdl Exp $
+  $Id: general.php,v 1.125 2001/08/25 10:28:00 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1010,5 +1010,21 @@
     $orders_status = tep_db_fetch_array($orders_status_query);
 
     return $orders_status['orders_status_name'];
+  }
+
+  function tep_count_modules($modules = '') {
+    if (!$modules) return '0';
+
+    $modules_array = split(';', $modules);
+
+    return sizeof($modules_array);
+  }
+
+  function tep_count_payment_modules() {
+    return tep_count_modules(MODULE_PAYMENT_INSTALLED);
+  }
+
+  function tep_count_shipping_modules() {
+    return tep_count_modules(MODULE_SHIPPING_INSTALLED);
   }
 ?>
