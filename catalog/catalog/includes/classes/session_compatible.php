@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session_compatible.php,v 1.1 2003/11/17 16:55:21 hpdl Exp $
+  $Id: session_compatible.php,v 1.2 2003/12/17 15:33:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,7 +39,35 @@
 
 // class methods
     function start() {
-      if (session_start()) {
+      if (PHP_VERSION < 4.1) {
+        global $_GET, $_POST, $_COOKIE;
+      }
+
+      $sane_session_id = true;
+
+      if (isset($_GET[$this->name])) {
+        if (preg_match('/^[a-zA-Z0-9]+$/', $_GET[$this->name]) == false) {
+          unset($_GET[$this->name]);
+
+          $sane_session_id = false;
+        }
+      } elseif (isset($_POST[$this->name])) {
+        if (preg_match('/^[a-zA-Z0-9]+$/', $_POST[$this->name]) == false) {
+          unset($_POST[$this->name]);
+
+          $sane_session_id = false;
+        }
+      } elseif (isset($_COOKIE[$this->name])) {
+        if (preg_match('/^[a-zA-Z0-9]+$/', $_COOKIE[$this->name]) == false) {
+          unset($_COOKIE[$this->name]);
+
+          $sane_session_id = false;
+        }
+      }
+
+      if ($sane_session_id == false) {
+        tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false));
+      } elseif (session_start()) {
         $this->setStarted(true);
 
         $this->setID();
