@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application.php,v 1.3 2002/08/12 15:54:14 dgw_ Exp $
+  $Id: application.php,v 1.4 2002/11/29 10:55:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,6 +9,9 @@
 
   Released under the GNU General Public License
 */
+
+// Set the level of error reporting
+  error_reporting(E_ALL & ~E_NOTICE);
 
 // Check if register_globals is enabled.
 // Since this is a temporary measure this message is hardcoded. The requirement will be removed before 2.2 is finalized.
