@@ -9,7 +9,8 @@
     while ($table = tep_db_fetch_array($tables)) {
       $table = $table[0];
       // Schema for creating the table
-//      $schema = "drop table if exists $table;\n";
+      if ($HTTP_GET_VARS['drop'] == 'yes')
+        $schema = "drop table if exists $table;\n";
       $schema = "create table $table (\n";
       $table_list = '(';
       $fields = tep_db_query("show fields from $table");
@@ -58,12 +59,12 @@
       $rows = tep_db_query("select * from $table");
       while ($row = tep_db_fetch_array($rows)) {
         $schema_insert = "INSERT INTO $table $table_list VALUES (";
-        while (list($field) = each($row)) {
-          list($field) = each($row);
-          if(!isset($row[$field]))
+        $num_fields = sizeof($row) / 2;
+        for ($i = 0; $i < $num_fields; $i ++) {
+          if (!isset($row[$i]))
             $schema_insert .= " NULL,";
-          elseif($row[$field] != "")
-            $schema_insert .= " '".addslashes($row[$field])."',";
+          elseif($row[$i] != "")
+            $schema_insert .= " '".addslashes($row[$i])."',";
           else
             $schema_insert .= " '',";
         }
@@ -134,6 +135,9 @@
             <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
           <tr><form action="<? echo tep_href_link(FILENAME_BACKUP, '', 'NONSSL'); ?>" method="get">
+            <td align="center"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><input type="checkbox" name="drop" value="yes">&nbsp;<? echo TEXT_DROP_TABLES; ?></font></td>
+          </tr>
+          <tr>
             <td align="center"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><input type="hidden" name="action" value="backup"><? echo tep_image_submit('images/button_backup.gif', 66, 20, 0, IMAGE_BACKUP); ?></font></td>
           </form></tr>
         </table></td>

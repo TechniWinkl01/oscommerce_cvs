@@ -9,5 +9,6 @@ define('TOP_BAR_TITLE', 'Copia de Seguridad');
 define('HEADING_TITLE', 'Copia de Seguridad');
 define('SUB_BAR_TITLE', 'Haga copias de sus datos a menudo!');
 define('TEXT_MAIN', 'Haga click en el siguiente boton para bajarse una copia de seguridad de sus datos.');
+define('TEXT_DROP_TABLES', 'Generar sentencias \'drop table\'?');
 define('IMAGE_BACKUP', 'Copia de Seguridad');
 ?>
