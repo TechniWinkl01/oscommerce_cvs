@@ -37,7 +37,8 @@
                categories_image varchar(64),
                parent_id int(5),
                sort_order int(3),
-               PRIMARY KEY (categories_id))")) {
+               PRIMARY KEY (categories_id),
+               KEY IDX_CATEGORIES_NAME (categories_name))")) {
     $query1 = '1';
   } else {
     $query1 = '0';

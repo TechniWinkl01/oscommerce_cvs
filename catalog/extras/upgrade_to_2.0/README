@@ -1,0 +1,12 @@
+If you are upgrading fron pr1.1 you will need to follow the following steps to upgrade:
+
+Go into the following extras directories and follow README upgrade instructions:
+
+category_structure
+db_configure
+payment_options
+address_format
+add_attributes
+taxes
+
+and then you may include misc_updates.sql from this directory.
