@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.153 2003/03/22 02:44:57 hpdl Exp $
+  $Id: general.php,v 1.154 2003/05/14 17:40:26 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -327,20 +327,6 @@
     return $geo_zone_name;
   }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//
-// Function	: tep_format_address
-//
-// Arguments	: customers_id, address_id, html
-//
-// Return	: properly formatted address
-//
-// Description	: This function will lookup the Addres format from the countries database
-//		  and properly format the address label.
-//
-//////////////////////////////////////////////////////////////////////////////////////////
-
   function tep_address_format($address_format_id, $address, $html, $boln, $eoln) {
     $address_format_query = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $address_format_id . "'");
     $address_format = tep_db_fetch_array($address_format_query);
@@ -394,7 +380,7 @@
       $address = $company . $cr . $address;
     }
 
-    return $boln . $address . $eoln;
+    return $address;
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
