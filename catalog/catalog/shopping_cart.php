@@ -20,7 +20,7 @@
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
 // customer wants to remove all products from their shopping cart
-      $cart->reset();
+      $cart->reset(TRUE);
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
     }
   }
