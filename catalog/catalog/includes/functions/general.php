@@ -1045,7 +1045,7 @@ function tep_address_summary($customers_id, $address_id) {
     $objects = $temp;
 
     // validate search string
-    $test_str = "";
+    $test_str = "SELECT ";
     for($i=0; $i<count($objects); $i++) { 
       switch ($objects[$i]) {
         case 'and':
@@ -1064,10 +1064,7 @@ function tep_address_summary($customers_id, $address_id) {
       }
     }
   
-    $test_result = 0;
-    @eval('$test_result = ' . $test_str . ';');
-    
-    if ($test_result == 1)
+    if (tep_db_query($test_str))
       return true;
     else
       return false;
