@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.38 2002/11/23 02:29:39 thomasamoulton Exp $
+  $Id: usps.php,v 1.39 2002/11/27 11:57:39 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -142,12 +142,15 @@
           $this->types = array($this->service => $this->types[$this->service]);
         }
 
+        $dest_zip = str_replace(' ', '', $order->delivery['postcode']);
+        if ($order->delivery['country']['iso_code_2'] == 'US') $dest_zip = substr($dest_zip, 0, 5);
+
         reset($this->types);
         while (list($key, $value) = each($this->types)) {
           $request .= '<Package ID="' . $services_count . '">' .
                       '<Service>' . $key . '</Service>' .
                       '<ZipOrigination>' . STORE_ORIGIN_ZIP . '</ZipOrigination>' .
-                      '<ZipDestination>' . $order->delivery['postcode'] . '</ZipDestination>' .
+                      '<ZipDestination>' . $dest_zip . '</ZipDestination>' .
                       '<Pounds>' . $this->pounds . '</Pounds>' .
                       '<Ounces>' . $this->ounces . '</Ounces>' .
                       '<Container>' . $this->container . '</Container>' .
