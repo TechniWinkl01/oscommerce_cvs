@@ -1,125 +1,112 @@
 <?php
 /*
-  $Id: install_4.php,v 1.9 2002/08/19 01:18:59 hpdl Exp $
+  $Id: install_4.php,v 1.10 2003/07/09 01:11:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
+
+  $cookie_path = substr(dirname(getenv('SCRIPT_NAME')), 0, -7);
+
+  $www_location = 'http://' . getenv('HTTP_HOST') . getenv('SCRIPT_NAME');
+  $www_location = substr($www_location, 0, strpos($www_location, 'install'));
+
+  if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
+    $script_filename = getenv('SCRIPT_FILENAME');
+  }
+  $script_filename = str_replace('//', '/', $script_filename);
+
+  $dir_fs_www_root_array = explode('/', dirname($script_filename));
+  $dir_fs_www_root = array();
+  for ($i=0, $n=sizeof($dir_fs_www_root_array)-1; $i<$n; $i++) {
+    $dir_fs_www_root[] = $dir_fs_www_root_array[$i];
+  }
+  $dir_fs_www_root = implode('/', $dir_fs_www_root) . '/';
 ?>
-<p><span class="pageHeading">osCommerce</span><br><font color="#9a9a9a">Open Source E-Commerce Solutions</font></p>
+<p class="pageTitle">New Installation</p>
 
-<p class="pageTitle">New Install</p>
-
-<p><b>Step 2: osCommerce Configuration</b></p>
-
-<?php
-  if ( ( (file_exists($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . 'includes/configure.php')) && (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . 'includes/configure.php')) ) || ( (file_exists($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/includes/configure.php')) && (!is_writeable($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/includes/configure.php')) ) ) {
-?>
-
-<p>The following error has occurred:</p>
-
-<p><div class="boxMe"><b>The configuration files do not exist, or permission levels are not set.</b><br><br>Please perform the following actions:
-<ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul>
-<ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN']; ?>/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p>
-
-<p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i>.</p>
-
-<p class="noteBox">If you are running this installation procedure under a Microsoft Windows environment, try renaming the existing configuration file so a new file can be created.</p>
-
-<form name="install" action="install.php?step=4" method="post">
-
-<?php
-    reset($HTTP_POST_VARS);
-    while (list($key, $value) = each($HTTP_POST_VARS)) {
-      if ($key != 'x' && $key != 'y') {
-        if (is_array($value)) {
-          for ($i=0; $i<sizeof($value); $i++) {
-            echo osc_draw_hidden_field($key . '[]', $value[$i]);
-          }
-        } else {
-          echo osc_draw_hidden_field($key, $value);
-        }
-      }
-    }
-?>
-
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_retry.gif" border="0" alt="Retry"></td>
-  </tr>
-</table>
-
-</form>
-
-<?php
-  } else {
-?>
+<p><b>osCommerce Configuration</b></p>
 
 <form name="install" action="install.php?step=5" method="post">
 
-<p>The following configuration values will be written to:<br><br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG']; ?>includes/configure.php<br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN']; ?>includes/configure.php</p>
+<p><b>Please enter the web server information:</b></p>
 
-<p><b>1. Please enter your web server information:</b></p>
+<table width="95%" border="0" cellpadding="2" class="formPage">
+  <tr>
+    <td width="30%" valign="top">WWW Address:</td>
+    <td width="70%" class="smallDesc">
+      <?php echo osc_draw_input_field('HTTP_WWW_ADDRESS', $www_location); ?>
+      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbWWW');"><br>
+      <div id="dbWWWSD">The full website address to the online store</div>
+      <div id="dbWWW" class="longDescription">The web address to the online store, for example <i>http://www.my-server.com/catalog/</i></div>
+    </td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top">Webserver Root Directory:</td>
+    <td width="70%" class="smallDesc">
+      <?php echo osc_draw_input_field('DIR_FS_DOCUMENT_ROOT', $dir_fs_www_root); ?>
+      <img src="images/layout/help_icon.gif"  onClick="toggleBox('dbRoot');"><br>
+      <div id="dbRootSD">The server path to the online store</div>
+      <div id="dbRoot" class="longDescription">The directory where osCommerce is installed on the server, for example <i>/home/myname/public_html/osCommerce/</i></div>
+    </td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top">HTTP Cookie Domain:</td>
+    <td width="70%" class="smallDesc">
+      <?php echo osc_draw_input_field('HTTP_COOKIE_DOMAIN', getenv('HTTP_HOST')); ?>
+      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbCookieD');"><br>
+      <div id="dbCookieDSD">The domain to store cookies in</div>
+      <div id="dbCookieD" class="longDescription">The full or top-level domain to store the cookies in, for example <i>.my-server.com</i></div>
+    </td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top">HTTP Cookie Path:</td>
+    <td width="70%" class="smallDesc">
+      <?php echo osc_draw_input_field('HTTP_COOKIE_PATH', $cookie_path); ?>
+      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbCookieP');"><br>
+      <div id="dbCookiePSD">The path to store cookies under</div>
+      <div id="dbCookieP" class="longDescription">The web address to limit the cookie to, for example <i>/catalog/</i></div>
+    </td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top">Enable SSL Connections:</td>
+    <td width="70%" class="smallDesc">
+      <?php echo osc_draw_checkbox_field('ENABLE_SSL', 'true'); ?>
+      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbSSL');"><br>
+      <div id="dbSSLSD"></div>
+      <div id="dbSSL" class="longDescription">Enable secure SSL/HTTPS connections (requires a secure certificate installed on the web server)</div>
+    </td>
+  </tr>
+</table>
 
-<p><b>HTTP Server</b><br><?php echo osc_draw_input_field('HTTP_SERVER', 'http://' . getenv('HTTP_HOST')); ?><br>
-The web server can be in the form of a hostname, such as <i>http://www.myserver.com</i>, or as an IP address, such as <i>http://192.168.0.1</i>.</p>
-
-<p><b>HTTPS Server</b><br><?php echo osc_draw_input_field('HTTPS_SERVER', 'https://' . getenv('HTTP_HOST')); ?><br>
-The secure web server can be in the form of a hostname, such as <i>https://www.myserver.com</i>, or as an IP address, such as <i>https://192.168.0.1</i>.</p>
-
-<p><?php echo osc_draw_checkbox_field('ENABLE_SSL', 'true'); ?> <b>Enable SSL Connections</b><br>
-Enable Secure Connections With SSL (HTTPS)</p>
-
-<p><b>Webserver Root Directory</b><br><?php echo osc_draw_input_field('DIR_FS_DOCUMENT_ROOT'); ?><br>
-The directory where your web pages are being served from, usually <i>/home/myname/public_html</i>.</p>
-
-<p><b>Webserver Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_FS_CATALOG'); ?><br>
-The directory where your catalog pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog/</b></i>.</p>
-
-<p><b>Webserver Administration Tool Directory</b><br><?php echo osc_draw_input_field('DIR_FS_ADMIN'); ?><br>
-The directory where your administration tool pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog/admin/</b></i>.</p>
-
-<p><b>WWW Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_WS_CATALOG'); ?><br>
-The directory where the osCommerce Catalog module resides, usually <i>/catalog/</i>.</p>
-
-<p><b>WWW Administration Tool Directory</b><br><?php echo osc_draw_input_field('DIR_WS_ADMIN'); ?><br>
-The directory where the osCommerce Administration Tool resides, usually <i>/admin/</i>.</p>
-
-<p><b>2. Please enter your database server information:</b></p>
-
-<p><b>Database Server</b><br><?php echo osc_draw_input_field('DB_SERVER'); ?><br>
-The database server can be in the form of a hostname, such as <i>db1.myserver.com</i>, or as an IP address, such as <i>192.168.0.1</i>.</p>
-
-<p><b>Username</b><br><?php echo osc_draw_input_field('DB_SERVER_USERNAME'); ?><br>
-The username is used to connect to the database server. An example username is <i>mysql_10</i>.<br><br>Note: Create and Drop permissions are not needed.</p>
-
-<p><b>Password</b><br><?php echo osc_draw_input_field('DB_SERVER_PASSWORD'); ?><br>
-The password is used together with the username, which forms the database user account.</p>
-
-<p><b>Database</b><br><?php echo osc_draw_input_field('DB_DATABASE'); ?><br>
-The database used to hold the catalog data. An example database name is <i>catalog</i>.</p>
-
-<p><?php echo osc_draw_checkbox_field('USE_PCONNECT', 'true'); ?> <b>Enable Persistent Connections</b><br>
-Enable persistent database connections. Please disable this if you are on a shared server.</p>
-
-<p><?php echo osc_draw_radio_field('STORE_SESSIONS', 'files', true); ?> <b>Store Sessions as Files</b><br>
-<?php echo osc_draw_radio_field('STORE_SESSIONS', 'mysql'); ?> <b>Store Sessions in the Database</b><br>
-The location to store PHP's sessions files.</p>
+<p>&nbsp;</p>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="hidden" name="install[]" value="configure"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
   </tr>
 </table>
 
-</form>
-
 <?php
+  reset($HTTP_POST_VARS);
+  while (list($key, $value) = each($HTTP_POST_VARS)) {
+    if (($key != 'x') && ($key != 'y')) {
+      if (is_array($value)) {
+        for ($i=0; $i<sizeof($value); $i++) {
+          echo osc_draw_hidden_field($key . '[]', $value[$i]);
+        }
+      } else {
+        echo osc_draw_hidden_field($key, $value);
+      }
+    }
   }
+
+  echo osc_draw_hidden_field('install[]', 'configure');
 ?>
+
+</form>

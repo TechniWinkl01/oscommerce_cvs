@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application.php,v 1.4 2002/11/29 10:55:17 dgw_ Exp $
+  $Id: application.php,v 1.5 2003/07/09 01:11:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,14 +19,7 @@
     ini_get('register_globals') or exit('FATAL ERROR: register_globals is disabled in php.ini, please enable it!');
   }
 
-  define('CR', "\n");
-
-  define('BOX_BGCOLOR_HEADING', '#bbc3d3');
-  define('BOX_BGCOLOR_CONTENTS', '#f8f8f9');
-  define('BOX_SHADOW', '#b6b7cb');
-
   require('includes/functions/general.php');
   require('includes/functions/database.php');
-  require('includes/functions/output.php');
   require('includes/functions/html_output.php');
 ?>

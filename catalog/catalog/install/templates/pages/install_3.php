@@ -1,20 +1,31 @@
 <?php
 /*
-  $Id: install_3.php,v 1.6 2002/08/15 17:36:18 dgw_ Exp $
+  $Id: install_3.php,v 1.7 2003/07/09 01:11:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
+
+  if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
+    $script_filename = getenv('SCRIPT_FILENAME');
+  }
+  $script_filename = str_replace('//', '/', $script_filename);
+
+  $dir_fs_www_root_array = explode('/', dirname($script_filename));
+  $dir_fs_www_root = array();
+  for ($i=0, $n=sizeof($dir_fs_www_root_array)-1; $i<$n; $i++) {
+    $dir_fs_www_root[] = $dir_fs_www_root_array[$i];
+  }
+  $dir_fs_www_root = implode('/', $dir_fs_www_root) . '/';
 ?>
-<p><span class="pageHeading">osCommerce</span><br><font color="#9a9a9a">Open Source E-Commerce Solutions</font></p>
 
-<p class="pageTitle">New Install</p>
+<p class="pageTitle">New Installation</p>
 
-<p><b>Step 1: Database Import</b></p>
+<p><b>Database Import</b></p>
 
 <?php
   if (osc_in_array('database', $HTTP_POST_VARS['install'])) {
@@ -27,27 +38,28 @@
     osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
     $db_error = false;
-    $sql_file = $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . 'install/oscommerce.sql';
-//    $script_filename = (($SCRIPT_FILENAME) ? $SCRIPT_FILENAME : $HTTP_SERVER_VARS['SCRIPT_FILENAME']);
-//    $script_directory = dirname($script_filename);
-//    $sql_file = $script_directory . '/oscommerce.sql';
+    $sql_file = $dir_fs_www_root . 'install/oscommerce.sql';
 
     osc_set_time_limit(0);
     osc_db_install($db['DB_DATABASE'], $sql_file);
 
-    if ($db_error) {
+    if ($db_error != false) {
 ?>
-
-<p>The following error has occurred:</p>
-
-<p class="boxme"><?php echo $db_error; ?></p>
-
 <form name="install" action="install.php?step=3" method="post">
+
+<table width="95%" border="0" cellpadding="2" class="formPage">
+  <tr>
+    <td>
+      <p>The following error has occurred:</p>
+       <p class="boxme"><?php echo $db_error; ?></p>
+    </td>
+  </tr>
+</table>
 
 <?php
       reset($HTTP_POST_VARS);
       while (list($key, $value) = each($HTTP_POST_VARS)) {
-        if ($key != 'x' && $key != 'y') {
+        if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
             for ($i=0; $i<sizeof($value); $i++) {
               echo osc_draw_hidden_field($key . '[]', $value[$i]);
@@ -58,6 +70,8 @@
         }
       }
 ?>
+
+<p>&nbsp;</p>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
@@ -71,15 +85,20 @@
 <?php
     } else {
 ?>
-
-<p>The database import was successful!</p>
-
 <form name="install" action="install.php?step=4" method="post">
+
+<table width="95%" border="0" cellpadding="2" class="formPage">
+  <tr>
+    <td>
+      <p>The database import was <b>successful!</b></p>
+    </td>
+  </tr>
+</table>
 
 <?php
       reset($HTTP_POST_VARS);
       while (list($key, $value) = each($HTTP_POST_VARS)) {
-        if ($key != 'x' && $key != 'y') {
+        if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
             for ($i=0; $i<sizeof($value); $i++) {
               echo osc_draw_hidden_field($key . '[]', $value[$i]);
@@ -90,6 +109,8 @@
         }
       }
 ?>
+
+<p>&nbsp;</p>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.2 2003/06/17 17:13:37 dgw_ Exp $
+  $Id: install.php,v 1.3 2003/07/09 01:11:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,25 @@
       break;
     case '5':
       if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_5.php';
+        if (isset($HTTP_POST_VARS['ENABLE_SSL']) && ($HTTP_POST_VARS['ENABLE_SSL'] == 'true')) {
+          $page_contents = 'install_5.php';
+        } else {
+          $page_contents = 'install_6.php';
+        }
+      } else {
+        $page_contents = 'install.php';
+      }
+      break;
+    case '6':
+      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
+        $page_contents = 'install_6.php';
+      } else {
+        $page_contents = 'install.php';
+      }
+      break;
+    case '7':
+      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
+        $page_contents = 'install_7.php';
       } else {
         $page_contents = 'install.php';
       }

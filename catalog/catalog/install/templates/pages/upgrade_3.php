@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.60 2003/06/08 11:03:51 project3000 Exp $
+  $Id: upgrade_3.php,v 1.61 2003/07/09 01:11:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,11 +10,8 @@
   Released under the GNU General Public License
 */
 ?>
-<p><span class="pageHeading">osCommerce</span><br><font color="#9a9a9a">Open Source E-Commerce Solutions</font></p>
 
 <p class="pageTitle">Upgrade</p>
-
-<p><b>Step 1: Database Upgrade</b></p>
 
 <?php
   $db = array();

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: main_page.php,v 1.2 2002/01/29 11:48:51 hpdl Exp $
+  $Id: main_page.php,v 1.3 2003/07/09 01:11:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -22,31 +22,7 @@
 
 <link rel="stylesheet" type="text/css" href="templates/main_page/stylesheet.css">
 
-<?php
-  if ($page_contents == 'upgrade_3.php') {
-?>
-
-<script language="JavaScript"><!--
-function changeStyle(what, how) {
-  if (document.getElementById) {
-    document.getElementById(what).style.fontWeight = how;
-  } else if (document.all) {
-    document.all[what].style.fontWeight = how;
-  }
-}
-
-function changeText(where, what) {
-  if (document.getElementById) {
-    document.getElementById(where).innerHTML = what;
-  } else if (document.all) {
-    document.all[where].innerHTML = what;
-  }
-}
-//--></script>
-
-<?php
-  }
-?>
+<script language="javascript" src="templates/main_page/javascript.js"></script>
 
 </head>
 
@@ -54,31 +30,15 @@ function changeText(where, what) {
 
 <?php require('templates/main_page/header.php'); ?>
 
-<table cellspacing="0" cellpadding="0" width="780" border="0">
-  <tr>
-    <td><img src="images/pixel_trans.gif" border="0" width="1" height="5"></td>
-  </tr>
-</table>
-
 <table cellspacing="0" cellpadding="0" width="780" border="0" align="center">
   <tr>
-    <td width="125" valign="top">
-
-<?php require('templates/main_page/boxes_left.php'); ?>
-
-    </td>
-    <td width="5"></td>
-    <td width="650" valign="top">
-
-<?php require('templates/pages/' . $page_contents); ?>
-
-    </td>
+    <td width="5%" class="leftColumn" valign="top" background="images/layout/left_column_background.gif"><img src="images/layout/left_column_top.gif"></td>
+    <td width="85%" valign="top"><?php require('templates/pages/' . $page_contents); ?></td>
+    <td width="5%" class="rightColumn" valign="top"><img src="images/layout/right_column_upper_curve.gif" width="47"></td>
   </tr>
 </table>
 
-<br>
 <?php require('templates/main_page/footer.php'); ?>
-<br>
 
 </body>
 

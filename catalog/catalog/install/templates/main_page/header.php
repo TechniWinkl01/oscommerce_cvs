@@ -1,27 +1,34 @@
 <?php
 /*
-  $Id: header.php,v 1.1 2002/01/02 13:02:39 hpdl Exp $
+  $Id: header.php,v 1.2 2003/07/09 01:11:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 ?>
 <!-- header //-->
-<table border="0" width="780" cellspacing="0" cellpadding="0" align="center">
+
+<p>&nbsp;</p>
+
+<table width="75%" cellpadding="0" cellspacing="0" border="0" align="center">
   <tr>
-    <td><img src="images/oscommerce.gif" border="0" alt="osCommerce"></td>
-  </tr>
-  <tr>
-    <td height="20" background="images/header_titlebar_background.gif"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td><table width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td valign="middle" class="navigationBar">&nbsp;<a href="index.php"><font color="#ffffff">osC</font></a> :// <a href="<?php echo $page_file; ?>"><font color="#ffffff"><?php echo $page_title; ?></font></a></td>
-        <td align="right" valign="middle" class="navigationBar">&nbsp;<a href="http://www.oscommerce.com" target="_blank"><font color="#ffffff">Support Site</font></a>&nbsp;</td>
+        <td width="1%"><img src="images/layout/topleft.gif" width="15" height="15" border="0"></td>
+        <td width="98%" background="images/layout/topmid.gif"><img src="images/pixel_trans.gif" width="15" height="15" border="0"></td>
+        <td width="1%"><img src="images/layout/topright.gif" width="15" height="15" border="0"></td>
       </tr>
-    </table></td>
-  </tr>
-</table>
+      <tr>
+        <td width="1%" background="images/layout/midleft.gif"><img src="images/pixel_trans.gif" width="15" height="15" border="0"></td>
+        <td width="98%" bgcolor="ffffff"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td><img src="images/layout/left_header_curve.gif"></td>
+            <td width="100%" background="images/layout/middle_header_filler.gif">&nbsp;</td>
+            <td align="right" valign="top"><img src="images/oscommerce.gif" border="0" alt="osCommerce"></td>
+          </tr>
+        </table>
 <!-- header_eof //-->
