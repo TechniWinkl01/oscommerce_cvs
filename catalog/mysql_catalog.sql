@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.105 2001/06/11 22:40:26 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.106 2001/06/13 07:47:14 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -419,26 +419,26 @@ INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postco
 
 INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
 
-INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0', '2001-06-07 00:02:20', '');
-INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0', '2001-06-07 00:02:20', '');
+INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', now(), '');
+INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', now(), '');
+INSERT INTO categories VALUES ( '3', 'images/category_dvd_movies.gif', '0', '3', now(), '');
+INSERT INTO categories VALUES ( '4', 'images/subcategory_graphic_cards.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '5', 'images/subcategory_printers.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '6', 'images/subcategory_monitors.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '7', 'images/subcategory_speakers.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '8', 'images/subcategory_keyboards.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '9', 'images/subcategory_mice.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '10', 'images/subcategory_action.gif', '3', '0', now(), '');
+INSERT INTO categories VALUES ( '11', 'images/subcategory_science_fiction.gif', '3', '0', now(), '');
+INSERT INTO categories VALUES ( '12', 'images/subcategory_comedy.gif', '3', '0', now(), '');
+INSERT INTO categories VALUES ( '13', 'images/subcategory_cartoons.gif', '3', '0', now(), '');
+INSERT INTO categories VALUES ( '14', 'images/subcategory_thriller.gif', '3', '0', now(), '');
+INSERT INTO categories VALUES ( '15', 'images/subcategory_drama.gif', '3', '0', now(), '');
+INSERT INTO categories VALUES ( '16', 'images/subcategory_memory.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '17', 'images/subcategory_cdrom_drives.gif', '1', '0', now(), '');
+INSERT INTO categories VALUES ( '18', 'images/subcategory_simulation.gif', '2', '0', now(), '');
+INSERT INTO categories VALUES ( '19', 'images/subcategory_action_games.gif', '2', '0', now(), '');
+INSERT INTO categories VALUES ( '20', 'images/subcategory_strategy.gif', '2', '0', now(), '');
 
 INSERT INTO categories_description VALUES ( '1', '1', 'Hardware');
 INSERT INTO categories_description VALUES ( '2', '1', 'Software');
@@ -537,7 +537,7 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Selection of Random Reviews', 'MAX_RANDOM_SELECT_REVIEWS', '10', 'How many records to select from to choose one random product review', '3', '10', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Selection of Random New Products', 'MAX_RANDOM_SELECT_NEW', '10', 'How many records to select from to choose one random new product to display', '3', '11', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Selection of Products on Special', 'MAX_RANDOM_SELECT_SPECIALS', '10', 'How many records to select from to choose one random product special to display', '3', '12', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Categories To List Per Row', 'MAX_DISPLAY_CATEGORIES_PER_ROW', '3', 'How many categories to list per row', '3', '13', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Categories To List Per Row', 'MAX_DISPLAY_CATEGORIES_PER_ROW', '3', 'How many categories to list per row', '3', '13', now());
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Small Image Width', 'SMALL_IMAGE_WIDTH', '100', 'The pixel width of small images', '4', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Small Image Height', 'SMALL_IMAGE_HEIGHT', '80', 'The pixel height of small images', '4', '2', now());
@@ -549,17 +549,17 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Image Required', 'IMAGE_REQUIRED', '1', 'Enable to display broken images. Good for development.', '4', '8', now());
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_PAYMENT_INSTALLED', 'cc.php;cod.php', 'List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: cc.php;cod.php;paypal.php)', '6', '0', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Modules', 'MODULE_SHIPPING_INSTALLED', '', 'List of shipping module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ups.php;flat.php;item.php)', '6', '0', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_SHIPPING_INSTALLED', '', 'List of shipping module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ups.php;flat.php;item.php)', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Cash On Delivery (COD)', 'MODULE_PAYMENT_COD_STATUS', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Credit Card', 'MODULE_PAYMENT_CC_STATUS', '1', 'Do you want to accept credit card payments?', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card TP email address', 'MODULE_PAYMENT_CC_EMAIL', 'NONE', 'If this email address is not NONE then the middle digits of any stored cc numbers will be X-ed out and emailed with the order id.', '6', '0', now());
 
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Country Code', 'STORE_ORIGIN_COUNTRY', 'NONE', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" TARGET="_blank">ISO 3166 Maintenance Agency</A>.', '7', '1', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Postal Code', 'STORE_ORIGIN_ZIP', 'NONE', 'Enter the Postal Code (ZIP) of the Store to be used in shipping quotes.', '7', '2', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the Maximum Package Weight you will ship', 'SHIPPING_MAX_WEIGHT', '50', 'Carriers have a max weight limit for a single package. This is a common one for all.', '7', '3', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Package Tare weight.', 'SHIPPING_BOX_WEIGHT', '3', 'What is the weight of typical packaging of small to medium packages?', '7', '4', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Larger packages - percentage increase.', 'SHIPPING_BOX_PADDING', '10', 'For 10% enter 10', '7', '5', now());
-insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Handling Fee', 'SHIPPING_HANDLING', '5.00', 'Enter the handling fee you may charge.', '7', '6', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Country Code', 'STORE_ORIGIN_COUNTRY', 'NONE', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" TARGET="_blank">ISO 3166 Maintenance Agency</A>.', '7', '1', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Postal Code', 'STORE_ORIGIN_ZIP', 'NONE', 'Enter the Postal Code (ZIP) of the Store to be used in shipping quotes.', '7', '2', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enter the Maximum Package Weight you will ship', 'SHIPPING_MAX_WEIGHT', '50', 'Carriers have a max weight limit for a single package. This is a common one for all.', '7', '3', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Package Tare weight.', 'SHIPPING_BOX_WEIGHT', '3', 'What is the weight of typical packaging of small to medium packages?', '7', '4', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Larger packages - percentage increase.', 'SHIPPING_BOX_PADDING', '10', 'For 10% enter 10', '7', '5', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Handling Fee', 'SHIPPING_HANDLING', '5.00', 'Enter the handling fee you may charge.', '7', '6', now());
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Image', 'PRODUCT_LIST_IMAGE', '0', 'Do you want to display the Product Image?', '8', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Manufaturer Name','PRODUCT_LIST_MANUFACTURER', '0', 'Do you want to display the Product Manufacturer Name?', '8', '2', now());
@@ -860,33 +860,33 @@ INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0,
 INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, '', now());
 INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, '', now());
 
-INSERT INTO products VALUES (1,32,'MG200MMS','images/matrox/mg200mms.gif',299.99,'2001-06-07 00:02:20','','',23.00,1,1,1);
-INSERT INTO products VALUES (2,32,'MG400-32MB','images/matrox/mg400-32mb.gif',499.99,'2001-06-07 00:02:20','','',23.00,1,1,1);
-INSERT INTO products VALUES (3,2,'MSIMPRO','images/microsoft/msimpro.gif',49.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (4,13,'DVD-RPMK','images/dvd/replacement_killers.gif',42.00,'2001-06-07 00:02:20','','',23.00,1,1,2);
-INSERT INTO products VALUES (5,17,'DVD-BLDRNDC','images/dvd/blade_runner.gif',35.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (6,10,'DVD-MATR','images/dvd/the_matrix.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (7,10,'DVD-YGEM','images/dvd/youve_got_mail.gif',34.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (8,10,'DVD-ABUG','images/dvd/a_bugs_life.gif',35.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (9,10,'DVD-UNSG','images/dvd/under_siege.gif',29.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (10,10,'DVD-UNSG2','images/dvd/under_siege2.gif',29.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (11,10,'DVD-FDBL','images/dvd/fire_down_below.gif',29.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (12,10,'DVD-DHWV','images/dvd/die_hard_3.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
-INSERT INTO products VALUES (13,10,'DVD-LTWP','images/dvd/lethal_weapon.gif',34.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (14,10,'DVD-REDC','images/dvd/red_corner.gif',32.00,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (15,10,'DVD-FRAN','images/dvd/frantic.gif',35.00,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (16,10,'DVD-CUFI','images/dvd/courage_under_fire.gif',38.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
-INSERT INTO products VALUES (17,10,'DVD-SPEED','images/dvd/speed.gif',39.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
-INSERT INTO products VALUES (18,10,'DVD-SPEED2','images/dvd/speed_2.gif',42.00,'2001-06-07 00:02:20','','',7.00,1,1,4);
-INSERT INTO products VALUES (19,10,'DVD-TSAB','images/dvd/theres_something_about_mary.gif',49.99,'2001-06-07 00:02:20','','',7.00,1,1,4);
-INSERT INTO products VALUES (20,10,'DVD-BELOVED','images/dvd/beloved.gif',54.99,'2001-06-07 00:02:20','','',7.00,1,1,3);
-INSERT INTO products VALUES (21,16,'PC-SWAT3','images/sierra/swat_3.gif',79.99,'2001-06-07 00:02:20','','',7.00,1,1,7);
-INSERT INTO products VALUES (22,13,'PC-UNTM','images/gt_interactive/unreal_tournament.gif',89.99,'2001-06-07 00:02:20','','',7.00,1,1,8);
-INSERT INTO products VALUES (23,16,'PC-TWOF','images/gt_interactive/wheel_of_time.gif',99.99,'2001-06-07 00:02:20','','',10.00,1,1,8);
-INSERT INTO products VALUES (24,17,'PC-DISC','images/gt_interactive/disciples.gif',90.00,'2001-06-07 00:02:20','','',8.00,1,1,8);
-INSERT INTO products VALUES (25,16,'MSINTKB','images/microsoft/intkeyboardps2.gif',69.99,'2001-06-07 00:02:20','','',8.00,1,1,2);
-INSERT INTO products VALUES (26,10,'MSIMEXP','images/microsoft/imexplorer.gif',64.95,'2001-06-07 00:02:20','','',8.00,1,1,2);
-INSERT INTO products VALUES (27,8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif',499.99,'2001-06-07 00:02:20','','',45.00,1,1,9);
+INSERT INTO products VALUES (1,32,'MG200MMS','images/matrox/mg200mms.gif',299.99, now(),'','',23.00,1,1,1);
+INSERT INTO products VALUES (2,32,'MG400-32MB','images/matrox/mg400-32mb.gif',499.99, now(),'','',23.00,1,1,1);
+INSERT INTO products VALUES (3,2,'MSIMPRO','images/microsoft/msimpro.gif',49.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (4,13,'DVD-RPMK','images/dvd/replacement_killers.gif',42.00, now(),'','',23.00,1,1,2);
+INSERT INTO products VALUES (5,17,'DVD-BLDRNDC','images/dvd/blade_runner.gif',35.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (6,10,'DVD-MATR','images/dvd/the_matrix.gif',39.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (7,10,'DVD-YGEM','images/dvd/youve_got_mail.gif',34.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (8,10,'DVD-ABUG','images/dvd/a_bugs_life.gif',35.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (9,10,'DVD-UNSG','images/dvd/under_siege.gif',29.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (10,10,'DVD-UNSG2','images/dvd/under_siege2.gif',29.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (11,10,'DVD-FDBL','images/dvd/fire_down_below.gif',29.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (12,10,'DVD-DHWV','images/dvd/die_hard_3.gif',39.99, now(),'','',7.00,1,1,4);
+INSERT INTO products VALUES (13,10,'DVD-LTWP','images/dvd/lethal_weapon.gif',34.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (14,10,'DVD-REDC','images/dvd/red_corner.gif',32.00, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (15,10,'DVD-FRAN','images/dvd/frantic.gif',35.00, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (16,10,'DVD-CUFI','images/dvd/courage_under_fire.gif',38.99, now(),'','',7.00,1,1,4);
+INSERT INTO products VALUES (17,10,'DVD-SPEED','images/dvd/speed.gif',39.99, now(),'','',7.00,1,1,4);
+INSERT INTO products VALUES (18,10,'DVD-SPEED2','images/dvd/speed_2.gif',42.00, now(),'','',7.00,1,1,4);
+INSERT INTO products VALUES (19,10,'DVD-TSAB','images/dvd/theres_something_about_mary.gif',49.99, now(),'','',7.00,1,1,4);
+INSERT INTO products VALUES (20,10,'DVD-BELOVED','images/dvd/beloved.gif',54.99, now(),'','',7.00,1,1,3);
+INSERT INTO products VALUES (21,16,'PC-SWAT3','images/sierra/swat_3.gif',79.99, now(),'','',7.00,1,1,7);
+INSERT INTO products VALUES (22,13,'PC-UNTM','images/gt_interactive/unreal_tournament.gif',89.99, now(),'','',7.00,1,1,8);
+INSERT INTO products VALUES (23,16,'PC-TWOF','images/gt_interactive/wheel_of_time.gif',99.99, now(),'','',10.00,1,1,8);
+INSERT INTO products VALUES (24,17,'PC-DISC','images/gt_interactive/disciples.gif',90.00, now(),'','',8.00,1,1,8);
+INSERT INTO products VALUES (25,16,'MSINTKB','images/microsoft/intkeyboardps2.gif',69.99, now(),'','',8.00,1,1,2);
+INSERT INTO products VALUES (26,10,'MSIMEXP','images/microsoft/imexplorer.gif',64.95, now(),'','',8.00,1,1,2);
+INSERT INTO products VALUES (27,8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif',499.99, now(),'','',45.00,1,1,9);
 
 INSERT INTO products_description VALUES (1,1,'Matrox G200 MMS','Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8&quot; PCI board.<br><br>With continuing demand for digital flat panels in the financial workplace, the Matrox G200 MMS is the ultimate in flexible solutions. The Matrox G200 MMS also supports the new digital video interface (DVI) created by the Digital Display Working Group (DDWG) designed to ease the adoption of digital flat panels. Other configurations include composite video capture ability and onboard TV tuner, making the Matrox G200 MMS the complete solution for business needs.<br><br>Based on the award-winning MGA-G200 graphics chip, the Matrox G200 Multi-Monitor Series provides superior 2D/3D graphics acceleration to meet the demanding needs of business applications such as real-time stock quotes (Versus), live video feeds (Reuters & Bloombergs), multiple windows applications, word processing, spreadsheets and CAD.','www.matrox.com/mga/feat_story/jun99/mms_g200.htm',0);
 INSERT INTO products_description VALUES (2,1,'Matrox G400 32MB','<b>Dramatically Different High Performance Graphics</b><br><br>Introducing the Millennium G400 Series - a dramatically different, high performance graphics experience. Armed with the industry\'s fastest graphics chip, the Millennium G400 Series takes explosive acceleration two steps further by adding unprecedented image quality, along with the most versatile display options for all your 3D, 2D and DVD applications. As the most powerful and innovative tools in your PC\'s arsenal, the Millennium G400 Series will not only change the way you see graphics, but will revolutionize the way you use your computer.<br><br><b>Key features:</b><ul><li>New Matrox G400 256-bit DualBus graphics chip</li><li>Explosive 3D, 2D and DVD performance</li><li>DualHead Display</li><li>Superior DVD and TV output</li><li>3D Environment-Mapped Bump Mapping</li><li>Vibrant Color Quality rendering </li><li>UltraSharp DAC of up to 360 MHz</li><li>3D Rendering Array Processor</li><li>Support for 16 or 32 MB of memory</li></ul>','www.matrox.com/mga/products/mill_g400/home.htm',0);
@@ -1061,14 +1061,14 @@ INSERT INTO products_to_categories VALUES (25,8);
 INSERT INTO products_to_categories VALUES (26,9);
 INSERT INTO products_to_categories VALUES (27,5);
 
-INSERT INTO reviews VALUES (1,19,1,5,'2001-06-07 00:02:20','',0);
+INSERT INTO reviews VALUES (1,19,1,5, now(),'',0);
 
 INSERT INTO reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
 
-INSERT INTO specials VALUES (1,3,39.99,'2001-06-07 00:02:20','');
-INSERT INTO specials VALUES (2,5,30.00,'2001-06-07 00:02:20','');
-INSERT INTO specials VALUES (3,6,30.00,'2001-06-07 00:02:20','');
-INSERT INTO specials VALUES (4,16,29.99,'2001-06-07 00:02:20','');
+INSERT INTO specials VALUES (1,3,39.99, now(),'');
+INSERT INTO specials VALUES (2,5,30.00, now(),'');
+INSERT INTO specials VALUES (3,6,30.00, now(),'');
+INSERT INTO specials VALUES (4,16,29.99, now(),'');
 
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
 
