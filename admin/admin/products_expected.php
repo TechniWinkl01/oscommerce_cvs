@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.20 2001/09/22 15:21:56 hpdl Exp $
+  $Id: products_expected.php,v 1.21 2001/09/22 20:22:38 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  tep_db_query("update " . TABLE_PRODUCTS . " set products_date_available = '' where to_days(now()) > to_days(products_date_available)");
 ?>
 <html>
 <head>
