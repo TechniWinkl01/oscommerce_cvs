@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.50 2001/06/02 15:30:56 hpdl Exp $
+  $Id: categories.php,v 1.51 2001/06/02 18:31:32 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -199,6 +199,8 @@
     } elseif ($HTTP_POST_VARS) {
 /* not in use at the moment! this should be used when the user presses 'BACK' on the products preview page.. */
       $pInfo = new productInfo($HTTP_POST_VARS);
+    } else {
+      $pInfo = new productInfo(array());
     }
 
     $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from manufacturers order by manufacturers_name");
@@ -398,7 +400,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>"><? echo $products_name{$languages[$i]['id']} . ' (' . $languages[$i]['name'] . ')<br>@ ' . tep_currency_format($pInfo->price); ?></font></td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>"><? echo $products_name[$languages[$i]['id']] . ' (' . $languages[$i]['name'] . ')<br>@ ' . tep_currency_format($pInfo->price); ?></font></td>
             <td align="right" nowrap><? echo tep_image(DIR_WS_CATALOG . $pInfo->manufacturers_image, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $pInfo->manufacturer); ?></td>
           </tr>
         </table></td>
@@ -407,13 +409,13 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td wrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image(DIR_WS_CATALOG . $products_image_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $products_name{$languages[$i]['id']}) . ' (' . $languages[$i]['name'] . ')<br>' . $products_description{$languages[$i]['id']}; ?></font></td>
+        <td wrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image(DIR_WS_CATALOG . $products_image_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $products_name[$languages[$i]['id']]) . ' (' . $languages[$i]['name'] . ')<br>' . $products_description[$languages[$i]['id']]; ?></font></td>
       </tr>
 <?
         if ($pInfo->url) {
 ?>
       <tr>
-        <td nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $products_url{$languages[$i]['id']}) . ' (' . $languages[$i]['name'] . ')'; ?></font></td>
+        <td nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $products_url[$languages[$i]['id']]) . ' (' . $languages[$i]['name'] . ')'; ?></font></td>
       </tr>
 <?
         }
@@ -468,9 +470,9 @@
       while (list($key, $value) = each($HTTP_POST_VARS)) echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes($value)) . '">';
       $languages = tep_get_languages();
       for ($i=0; $i<sizeof($languages); $i++) {
-        echo '<input type="hidden" name="products_name[' . $languages[$i]['id'] . ']" value="' . htmlspecialchars(stripslashes($products_name{$languages[$i]['id']})) . '">' .
-             '<input type="hidden" name="products_description[' . $languages[$i]['id'] . ']" value="' . htmlspecialchars(stripslashes($products_description{$languages[$i]['id']})) . '">' .
-             '<input type="hidden" name="products_url[' . $languages[$i]['id'] . ']" value="' . htmlspecialchars(stripslashes($products_url{$languages[$i]['id']})) . '">';
+        echo '<input type="hidden" name="products_name[' . $languages[$i]['id'] . ']" value="' . htmlspecialchars(stripslashes($products_name[$languages[$i]['id']])) . '">' .
+             '<input type="hidden" name="products_description[' . $languages[$i]['id'] . ']" value="' . htmlspecialchars(stripslashes($products_description[$languages[$i]['id']])) . '">' .
+             '<input type="hidden" name="products_url[' . $languages[$i]['id'] . ']" value="' . htmlspecialchars(stripslashes($products_url[$languages[$i]['id']])) . '">';
       }
       echo '<input type="hidden" name="products_image" value="' . htmlspecialchars(stripslashes($products_image_name)) . '">';
 

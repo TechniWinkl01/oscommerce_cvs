@@ -119,7 +119,7 @@
           $mInfo = new moduleInfo($mInfo_array);
         }
 
-        if ($class == $mInfo->code) {
+        if ($mInfo && ($class == $mInfo->code) ) {
           echo '              <tr bgcolor="#b0c8df">' . "\n";
         } else {
           echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
@@ -135,7 +135,7 @@
         }
 ?>&nbsp;</font></td>
 <?
-        if ($class == $mInfo->code) {
+        if ($mInfo && ($class == $mInfo->code)) {
 ?>
                     <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
 <?
