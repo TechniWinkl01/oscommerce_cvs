@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.7 2002/08/05 18:07:10 dgw_ Exp $
+  $Id: download.php,v 1.8 2002/11/19 00:48:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,11 +51,10 @@
 function tep_random_name()
 {
   $letters = 'abcdefghijklmnopqrstuvwxyz';
-  srand((double) microtime() * 1000000);
   $dirname = '.';
-  $length = floor(rand(16,20));
+  $length = floor(tep_rand(16,20));
   for ($i = 1; $i <= $length; $i++) {
-   $q = floor(rand(1,26));
+   $q = floor(tep_rand(1,26));
    $dirname .= $letters[$q];
   }
   return $dirname;

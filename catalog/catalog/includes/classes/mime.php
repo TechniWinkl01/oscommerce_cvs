@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mime.php,v 1.6 2002/08/12 22:54:48 hpdl Exp $
+  $Id: mime.php,v 1.7 2002/11/19 00:48:26 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -115,8 +115,7 @@
       $encoded = $this->_encoded;
 
       if (tep_not_null($this->_subparts)) {
-        srand((double)microtime()*1000000);
-        $boundary = '=_' . md5(uniqid(rand()) . microtime());
+        $boundary = '=_' . md5(uniqid(tep_rand()) . microtime());
         $this->_headers['Content-Type'] .= ';' . $this->lf . chr(9) . 'boundary="' . $boundary . '"';
 
 // Add body parts to $subparts
