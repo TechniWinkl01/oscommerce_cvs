@@ -8,7 +8,7 @@ Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 define('NAVBAR_TITLE_1', 'Kasse');
 define('NAVBAR_TITLE_2', 'Best&auml;tigung');
 define('TOP_BAR_TITLE', 'Bestellassistent');
-define('HEADING_TITLE', 'Bestellung absenden :');
+define('HEADING_TITLE', 'Bestellung aufgeben :');
 define('TABLE_HEADING_QUANTITY', 'Menge');
 define('TABLE_HEADING_PRODUCTS', 'Produkte');
 define('TABLE_HEADING_TAX', 'Mwst.');
@@ -25,7 +25,7 @@ define('TEXT_TYPE', 'Typ:');
 define('TEXT_OWNER', 'Eigent&uuml;mer:');
 define('TEXT_NUMBER', 'Nummer:');
 define('TEXT_EXPIRES', 'G&uuml;ltig bis:');
-define('TEXT_VAL', 'Kredit Karte Fehler!');
+define('TEXT_VAL', 'Fehler bei der &Uuml;berp&uuml;fung der Kreditkarte!');
 
 define('IMAGE_PROCESS', 'Best&auml;tigung');
 define('IMAGE_BACK', 'Zur&uuml;ck');
