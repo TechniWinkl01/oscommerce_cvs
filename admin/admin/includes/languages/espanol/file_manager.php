@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.13 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: file_manager.php,v 1.14 2002/08/19 01:45:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,4 +34,5 @@ define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: No puedo escribir en este direct
 define('ERROR_FILE_NOT_WRITEABLE', 'Error: No puedo escribir en este fichero. Asigne los permisos adecuados a: %s');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: No puedo eliminar el directorio. Asigne los permisos adecuados a: %s');
 define('ERROR_FILE_NOT_REMOVEABLE', 'Error: No puedo eliminar este fichero. Asigne los permisos adecuados a: %s');
+define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
 ?>
