@@ -38,10 +38,7 @@
 // lets start our session
   tep_session_start();
 
-  tep_session_register('cart');
-  if (!$cart) {
-    $cart = new shoppingCart;
-  }
+  define('SESSION_OBJECTS_ALLOWED', 1);
 
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
@@ -103,6 +100,15 @@
 
 // split-page-results
   $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+
+  if (SESSION_OBJECTS_ALLOWED) {
+    tep_session_register('cart');
+    if (!$cart) {
+      $cart = new shoppingCart;
+    }
+  } else {
+    $cart = new shoppingCart($cart_contents);
+  }
 
 // infobox
   $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
