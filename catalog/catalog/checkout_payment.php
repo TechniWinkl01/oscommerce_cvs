@@ -94,21 +94,19 @@ function check_form() {
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_CASH_ON_DELIVERY;?>&nbsp;</font></td>
-                <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="cod" CHECKED>&nbsp;</font></td>
+                <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="cod"
+<? if (@$HTTP_POST_VARS['cc_owner'] == '' || @$HTTP_POST_VARS['cc_expires'] == '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
               </tr>
               <tr>
                 <td nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_CREDIT_CARD;?>&nbsp;</font></td>
-                <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="cc">&nbsp;</font></td>
+                <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="radio" name="payment" value="cc"
+<? if (@$HTTP_POST_VARS['cc_owner'] != '' || @$HTTP_POST_VARS['cc_expires'] != '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
               </tr>
               <tr>
                 <td colspan="2"><br><table border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_CREDIT_CARD_TYPE;?>&nbsp;</font></td>
-                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<select name="cc_type"><option value="Visa">Visa</option><option value="Mastercard">Mastercard</option><option name="American Express">American Express</option></select>&nbsp;</font></td>
-                  </tr>
-                  <tr>
                     <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_CREDIT_CARD_OWNER;?>&nbsp;</font></td>
-                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="cc_owner">&nbsp;</font></td>
+                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="cc_owner" value="<?=$HTTP_POST_VARS['cc_owner'];?>">&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_CREDIT_CARD_NUMBER;?>&nbsp;</font></td>
@@ -116,7 +114,7 @@ function check_form() {
                   </tr>
                   <tr>
                     <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=SUB_TITLE_CREDIT_CARD_EXPIRES;?>&nbsp;</font></td>
-                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="cc_expires">&nbsp;</font></td>
+                    <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="cc_expires" value="<?=$HTTP_POST_VARS['cc_expires'];?>">&nbsp;</font></td>
                   </tr>
                 </table></td>
               </tr>
