@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.4 2001/09/19 11:13:05 mbs Exp $
+  $Id: configuration.php,v 1.5 2001/11/19 11:14:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,5 +20,4 @@ define('TABLE_HEADING_ACTION', 'Accion');
 define('TEXT_INFO_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_INFO_DATE_ADDED', 'Fecha de Alta:');
 define('TEXT_INFO_LAST_MODIFIED', 'Ultima Modificacion:');
-define('TEXT_INFO_DESCRIPTION', 'Descripcion:');
 ?>

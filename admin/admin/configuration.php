@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.17 2001/11/17 05:53:04 hpdl Exp $
+  $Id: configuration.php,v 1.18 2001/11/19 11:14:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -105,11 +105,11 @@
 <?php
     if ($configuration['cfgID'] == @$cfgInfo->id) {
 ?>
-                    <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
 <?php
     } else {
 ?>
-                    <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('info', 'action')) . 'info=' . $configuration['cfgID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('info', 'action')) . 'info=' . $configuration['cfgID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
 <?php
     }
 ?>
@@ -152,8 +152,9 @@
   } else {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DESCRIPTION . '<br>' . $cfgInfo->description);
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added) . '<br>' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . $cfgInfo->description);
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added));
+    if (tep_not_null($cfgInfo->last_modified)) $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
   }
 ?>
               <tr><?php echo $form; ?>
