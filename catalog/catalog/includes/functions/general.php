@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.151 2002/01/12 14:15:20 dgw_ Exp $
+  $Id: general.php,v 1.152 2002/01/12 14:58:58 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -496,53 +496,6 @@
     }
   }
 
-////
-// Returns a date to YYYYMMDD format (will be removed later)
-  function tep_reformat_date_to_yyyymmdd($date_to_reformat, $format_string) {
-    $separator_idx = -1;
-    $separators = array('-', ' ', '/', '.');
-    $month_abbr = array('jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec');
-    $format_string = strtolower($format_string);
-
-    for ($i=0; $i<sizeof($separators); $i++) {
-      $pos_separator = strpos($format_string, $separators[$i]);
-      if ($pos_separator) {
-        $separator_idx = $i;
-        break;
-      }
-    }
-
-    if ($separator_idx != -1) {
-      $format_string_array = explode($separators[$separator_idx], $format_string);
-      $date_to_reformat_array = explode($separators[$separator_idx], $date_to_reformat);
-
-      for ($i=0; $i<sizeof($format_string_array); $i++) {
-        if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm') $month = $date_to_reformat_array[$i];
-        if ($format_string_array[$i] == 'dd') $day = $date_to_reformat_array[$i];
-        if ($format_string_array[$i] == 'yyyy') $year = $date_to_reformat_array[$i];
-      }
-    } else {
-      $pos_month = strpos($format_string, 'mmm');
-      if ($pos_month != false) {
-        $month = substr( $date_to_reformat, $pos_month, 3 );
-        for ($i=0; $i<sizeof($month_abbr); $i++) {
-          if ($month == $month_abbr[$i]) {
-            $month = $i;
-            break;
-          }
-        }
-      } else {
-        $month = substr($date_to_reformat, strpos($format_string, 'mm'), 2);
-      }
-
-      $day = substr($date_to_reformat, strpos($format_string, 'dd'), 2);
-      $year = substr($date_to_reformat, strpos($format_string, 'yyyy'), 2);
-    }
-
-    return sprintf('%04d%02d%02d', $year, $month, $day);
-  }
-
-////
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
   function tep_date_long($raw_date) {

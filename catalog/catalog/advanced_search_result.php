@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.46 2002/01/11 21:05:20 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.47 2002/01/12 14:58:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -223,10 +223,10 @@
     }
   }
   if ($HTTP_GET_VARS['dfrom'] && $HTTP_GET_VARS['dfrom'] != DOB_FORMAT_STRING) {
-    $where_str .= " and p.products_date_added >= '" . tep_reformat_date_to_yyyymmdd($HTTP_GET_VARS['dfrom'], DOB_FORMAT_STRING) . "'";
+    $where_str .= " and p.products_date_added >= '" . tep_date_raw($dfrom_to_check) . "'";
   }
   if ($HTTP_GET_VARS['dto'] && $HTTP_GET_VARS['dto'] != DOB_FORMAT_STRING) {
-    $where_str .= " and p.products_date_added <= '" . tep_reformat_date_to_yyyymmdd($HTTP_GET_VARS['dto'], DOB_FORMAT_STRING) . "'";
+    $where_str .= " and p.products_date_added <= '" . tep_date_raw($dto_to_check) . "'";
   }
 
   $rate = $currencies->get_value($currency);
