@@ -77,11 +77,15 @@
     }
 
     function process_button() {
+      global $payment;
+
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          echo $GLOBALS[$class]->process_button();
+          if ($GLOBALS[$class]->code == $payment) {
+            echo $GLOBALS[$class]->process_button();
+          }
         }
       }
     }
