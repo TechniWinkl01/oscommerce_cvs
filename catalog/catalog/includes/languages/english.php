@@ -62,7 +62,7 @@ define('BOX_SEARCH_ADVANCED_SEARCH', 'Advanced Search');
 
 // add_a_quickie box text in includes/boxes/add_a_quickie.php
 define('BOX_HEADING_ADD_PRODUCT_ID', 'Add a Quickie!');
-define('BOX_ADD_PRODUCT_ID_TEXT', 'Enter the ID of the product you wish to add to your shopping cart.');
+define('BOX_ADD_PRODUCT_ID_TEXT', 'Enter the model of the product you wish to add to your shopping cart.');
 
 // specials box text in includes/boxes/specials.php
 define('BOX_HEADING_SPECIALS', 'Specials');

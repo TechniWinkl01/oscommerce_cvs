@@ -62,7 +62,7 @@ define('BOX_SEARCH_ADVANCED_SEARCH', 'erweiterte Suche');
 
 // add_a_quickie box text in includes/boxes/add_a_quickie.php
 define('BOX_HEADING_ADD_PRODUCT_ID', 'Schnelleinkauf');
-define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe der gew&uuml;nschten Produktnr.');
+define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe der gew&uuml;nschten Produktmodell.');
 
 // specials box text in includes/boxes/specials.php
 define('BOX_HEADING_SPECIALS', 'Angebote');
