@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_products_purchased.php,v 1.6 2002/01/17 11:41:26 jan0815 Exp $
+  $Id: stats_products_purchased.php,v 1.7 2002/03/30 14:59:36 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,6 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Statistik');
 define('HEADING_TITLE', 'meist verkaufte Artikel');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
