@@ -83,7 +83,7 @@ class session
     
     var $use_cookies = true;
     var $cookie_lifetime = 0;
-    var $cookie_path = "/";
+    var $cookie_path = DIR_WS_ADMIN;
     var $cookie_domain = "";
 
     var $gc_probability = 1;
@@ -697,5 +697,5 @@ echo "foo: $foo";
  *
  */
  
-/* $Id: sessions.php,v 1.1 2000/11/06 23:04:52 hpdl Exp $ */ 
+/* $Id: sessions.php,v 1.2 2001/03/13 17:53:12 dwatkins Exp $ */ 
 ?>

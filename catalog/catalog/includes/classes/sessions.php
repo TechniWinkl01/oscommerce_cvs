@@ -83,7 +83,7 @@ class session
     
     var $use_cookies = true;
     var $cookie_lifetime = 0;
-    var $cookie_path = "/";
+    var $cookie_path = DIR_WS_CATALOG;
     var $cookie_domain = "";
 
     var $gc_probability = 1;
@@ -698,5 +698,5 @@ echo "foo: $foo";
  *
  */
  
-/* $Id: sessions.php,v 1.3 2000/12/06 20:59:12 dwatkins Exp $ */ 
+/* $Id: sessions.php,v 1.4 2001/03/13 17:53:12 dwatkins Exp $ */ 
 ?>
