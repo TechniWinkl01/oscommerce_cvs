@@ -8,10 +8,6 @@
 #         the mysqldiff perl script located in the extras
 #         directory of the 'catalog' module.
 
-#
-# Table structure for table 'address_book'
-#
-
 CREATE TABLE address_book (
   address_book_id int(5) NOT NULL auto_increment,
   entry_gender char(1) NOT NULL,
@@ -27,28 +23,12 @@ CREATE TABLE address_book (
   PRIMARY KEY (address_book_id)
 );
 
-#
-# Dumping data for table 'address_book'
-#
-
-#
-# Table structure for table 'address_book_to_customers'
-#
-
 CREATE TABLE address_book_to_customers (
   address_book_to_customers_id int(5) NOT NULL auto_increment,
   address_book_id int(5) NOT NULL,
   customers_id int(5) NOT NULL,
   PRIMARY KEY (address_book_to_customers_id)
 );
-
-#
-# Dumping data for table 'address_book_to_customers'
-#
-
-#
-# Table structure for table 'categories'
-#
 
 CREATE TABLE categories (
   categories_id int(5) NOT NULL auto_increment,
@@ -60,9 +40,290 @@ CREATE TABLE categories (
   KEY IDX_CATEGORIES_NAME (categories_name)
 );
 
-#
-# Dumping data for table 'categories'
-#
+CREATE TABLE configuration (
+  configuration_id int(5) NOT NULL auto_increment,
+  configuration_title varchar(64) NOT NULL,
+  configuration_key varchar(64) NOT NULL,
+  configuration_value varchar(255) NOT NULL,
+  configuration_description varchar(255) NOT NULL,
+  configuration_group_id int(5) NOT NULL,
+  sort_order int(5) NULL,
+  last_modified timestamp(14) NULL,
+  date_added timestamp(14) NOT NULL,
+  use_function varchar(32) NULL,
+  PRIMARY KEY (configuration_id)
+);
+
+CREATE TABLE configuration_group (
+  configuration_group_id int(5) NOT NULL auto_increment,
+  configuration_group_title varchar(64) NOT NULL,
+  configuration_group_description varchar(255) NOT NULL,
+  sort_order int(5) NULL,
+  PRIMARY KEY (configuration_group_id)
+);
+
+CREATE TABLE counter (
+  startdate char(8),
+  counter int(12)
+);
+
+CREATE TABLE counter_history (
+  month char(8),
+  counter int(12)
+);
+
+CREATE TABLE address_format (
+  address_format_id int(5) NOT NULL auto_increment,
+  address_format varchar(128) NOT NULL,
+  address_summary varchar(48) NOT NULL,
+  PRIMARY KEY (address_format_id)
+);
+
+CREATE TABLE countries (
+  countries_id int(5) NOT NULL auto_increment,
+  countries_name varchar(64) NOT NULL,
+  countries_iso_code_2 char(2) NOT NULL,
+  countries_iso_code_3 char(3) NOT NULL,
+  address_format_id int(5) NOT NULL,
+  PRIMARY KEY (countries_id),
+  KEY IDX_COUNTRIES_NAME (countries_name)
+);
+
+CREATE TABLE customers (
+  customers_id int(5) NOT NULL auto_increment,
+  customers_gender char(1) NOT NULL,
+  customers_firstname varchar(32) NOT NULL,
+  customers_lastname varchar(32) NOT NULL,
+  customers_dob varchar(8) NOT NULL,
+  customers_email_address varchar(96) NOT NULL,
+  customers_street_address varchar(64) NOT NULL,
+  customers_suburb varchar(32),
+  customers_postcode varchar(10) NOT NULL,
+  customers_city varchar(32) NOT NULL,
+  customers_state varchar(32),
+  customers_telephone varchar(32) NOT NULL,
+  customers_fax varchar(32),
+  customers_password varchar(40) NOT NULL,
+  customers_country_id int(5) NOT NULL,
+  customers_zone_id int(5) NOT NULL,
+  PRIMARY KEY (customers_id)
+);
+
+CREATE TABLE customers_basket (
+  customers_basket_id int(5) NOT NULL auto_increment,
+  customers_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  customers_basket_quantity int(2) NOT NULL,
+  final_price decimal(6,2) NOT NULL,
+  customers_basket_date_added char(8),
+  PRIMARY KEY (customers_basket_id)
+);
+
+CREATE TABLE customers_basket_attributes (
+  customers_basket_attributes_id int(5) NOT NULL auto_increment,
+  customers_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  products_options_id int(5) NOT NULL,
+  products_options_value_id int(5) NOT NULL,
+  PRIMARY KEY (customers_basket_attributes_id)
+);
+
+CREATE TABLE customers_info (
+  customers_info_id int(5) NOT NULL,
+  customers_info_date_of_last_logon char(8),
+  customers_info_number_of_logons int(5),
+  customers_info_date_account_created char(8),
+  customers_info_date_account_last_modified char(8),
+  PRIMARY KEY (customers_info_id)
+);
+
+CREATE TABLE manufacturers (
+  manufacturers_id int(5) NOT NULL auto_increment,
+  manufacturers_name varchar(32) NOT NULL,
+  manufacturers_location tinyint(1) NOT NULL,
+  manufacturers_image varchar(64),
+  PRIMARY KEY (manufacturers_id),
+  KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
+);
+
+CREATE TABLE orders (
+  orders_id int(5) NOT NULL auto_increment,
+  customers_id int(5) NOT NULL,
+  customers_name varchar(64) NOT NULL,
+  customers_street_address varchar(64) NOT NULL,
+  customers_suburb varchar(32),
+  customers_city varchar(32) NOT NULL,
+  customers_postcode varchar(10) NOT NULL,
+  customers_state varchar(32),
+  customers_country varchar(32) NOT NULL,
+  customers_telephone varchar(32) NOT NULL,
+  customers_email_address varchar(96) NOT NULL,
+  customers_address_format_id int(5) NOT NULL,
+  delivery_name varchar(64) NOT NULL,
+  delivery_street_address varchar(64) NOT NULL,
+  delivery_suburb varchar(32),
+  delivery_city varchar(32) NOT NULL,
+  delivery_postcode varchar(10) NOT NULL,
+  delivery_state varchar(32),
+  delivery_country varchar(32) NOT NULL,
+  delivery_address_format_id int(5) NOT NULL,
+  payment_method varchar(12) NOT NULL,
+  cc_type varchar(20),
+  cc_owner varchar(64),
+  cc_number varchar(32),
+  cc_expires varchar(4),
+  last_modified timestamp(14),
+  date_purchased timestamp(14),
+  shipping_cost decimal(8,2) NOT NULL,
+  shipping_method varchar(32),
+  orders_status varchar(10) NOT NULL,
+  orders_date_finished timestamp(14),
+  PRIMARY KEY (orders_id)
+);
+
+CREATE TABLE orders_products (
+  orders_products_id int(5) NOT NULL auto_increment,
+  orders_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  products_name varchar(64) NOT NULL,
+  products_price decimal(8,2) NOT NULL,
+  final_price decimal(8,2) NOT NULL,
+  products_tax decimal(7,4) NOT NULL,
+  products_quantity int(2) NOT NULL,
+  PRIMARY KEY (orders_products_id)
+);
+
+CREATE TABLE orders_products_attributes (
+  orders_products_attributes_id int(5) NOT NULL auto_increment,
+  orders_id int(5) NOT NULL,
+  orders_products_id int(5) NOT NULL,
+  products_options varchar(32) NOT NULL,
+  products_options_values varchar(32) NOT NULL,
+  options_values_price decimal(8,2) NOT NULL,
+  price_prefix char(1) NOT NULL,
+  PRIMARY KEY (orders_products_attributes_id)
+);
+
+CREATE TABLE products (
+  products_id int(5) NOT NULL auto_increment,
+  products_name varchar(32) NOT NULL,
+  products_description text,
+  products_quantity int(4) NOT NULL,
+  products_model varchar(12),
+  products_image varchar(64),
+  products_url varchar(255),
+  products_price decimal(8,2) NOT NULL,
+  products_date_added varchar(8),
+  products_viewed int(5),
+  products_weight decimal(5,2) NOT NULL,
+  products_status tinyint(1) NOT NULL,
+  products_tax_class_id int(5) NOT NULL,
+  PRIMARY KEY (products_id),
+  KEY products_name (products_name)
+);
+
+CREATE TABLE products_attributes (
+  products_attributes_id int(5) NOT NULL auto_increment,
+  products_id int(5) NOT NULL,
+  options_id int(5) NOT NULL,
+  options_values_id int(5) NOT NULL,
+  options_values_price decimal(8,2) NOT NULL,
+  price_prefix char(1) NOT NULL,
+  PRIMARY KEY (products_attributes_id)
+);
+
+CREATE TABLE products_expected (
+  products_expected_id int(5) NOT NULL auto_increment,
+  products_name varchar(255) NOT NULL,
+  date_expected varchar(8),
+  PRIMARY KEY (products_expected_id)
+);
+
+CREATE TABLE products_options (
+  products_options_id int(5) NOT NULL auto_increment,
+  products_options_name varchar(32) NOT NULL,
+  PRIMARY KEY (products_options_id)
+);
+
+CREATE TABLE products_options_values (
+  products_options_values_id int(5) NOT NULL auto_increment,
+  products_options_values_name varchar(64) NOT NULL,
+  PRIMARY KEY (products_options_values_id)
+);
+
+CREATE TABLE products_options_values_to_products_options (
+  products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
+  products_options_id int(5) NOT NULL,
+  products_options_values_id int(5) NOT NULL,
+  PRIMARY KEY (products_options_values_to_products_options_id)
+);
+
+CREATE TABLE products_to_categories (
+  products_id int(5) NOT NULL auto_increment,
+  categories_id int(5) NOT NULL,
+  PRIMARY KEY (products_id,categories_id)
+);
+
+CREATE TABLE products_to_manufacturers (
+  products_to_manufacturers_id int(5) NOT NULL auto_increment,
+  products_id int(5) NOT NULL,
+  manufacturers_id int(5) NOT NULL,
+  PRIMARY KEY (products_to_manufacturers_id)
+);
+
+CREATE TABLE reviews (
+  reviews_id int(5) NOT NULL auto_increment,
+  reviews_text text NOT NULL,
+  reviews_rating int(1),
+  PRIMARY KEY (reviews_id)
+);
+
+CREATE TABLE reviews_extra (
+  reviews_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  customers_id int(5) NOT NULL,
+  date_added char(8) NOT NULL,
+  reviews_read int(5)
+);
+
+CREATE TABLE specials (
+  specials_id int(5) NOT NULL auto_increment,
+  products_id int(5) NOT NULL,
+  specials_new_products_price decimal(8,2) NOT NULL,
+  specials_date_added char(8),
+  PRIMARY KEY (specials_id)
+);
+
+CREATE TABLE zones (
+  zone_id int(5) NOT NULL auto_increment,
+  zone_country_id int(5) NOT NULL,
+  zone_code varchar(5) NOT NULL,
+  zone_name varchar(32) NOT NULL,
+  PRIMARY KEY (zone_id)
+);
+
+CREATE TABLE tax_class (
+  tax_class_id int(5) NOT NULL auto_increment,
+  tax_class_title varchar(32) NOT NULL,
+  tax_class_description varchar(255) NOT NULL,
+  last_modified timestamp(14) NULL,
+  date_added timestamp(14) NOT NULL,
+  PRIMARY KEY (tax_class_id)
+);
+
+CREATE TABLE tax_rates (
+  tax_rates_id int(5) NOT NULL auto_increment,
+  tax_zone_id int(5) NOT NULL,
+  tax_class_id int(5) NOT NULL,
+  tax_rate decimal(7,4) NOT NULL,
+  tax_description varchar(255) NOT NULL,
+  last_modified timestamp(14) NULL,
+  date_added timestamp(14) NOT NULL,
+  PRIMARY KEY (tax_rates_id)
+);
+
+
+# data
 
 INSERT INTO categories VALUES (1,'Hardware','images/category_hardware.gif',0,1);
 INSERT INTO categories VALUES (2,'Software','images/category_software.gif',0,2);
@@ -84,28 +345,6 @@ INSERT INTO categories VALUES (17,'CDROM Drives','images/subcategory_cdrom_drive
 INSERT INTO categories VALUES (18,'Simulation','images/subcategory_simulation.gif',2,0);
 INSERT INTO categories VALUES (19,'Action','images/subcategory_action_games.gif',2,0);
 INSERT INTO categories VALUES (20,'Strategy','images/subcategory_strategy.gif',2,0);
-
-#
-# Table structure for table 'configuration'
-#
-
-CREATE TABLE configuration (
-  configuration_id int(5) NOT NULL auto_increment,
-  configuration_title varchar(64) NOT NULL,
-  configuration_key varchar(64) NOT NULL,
-  configuration_value varchar(255) NOT NULL,
-  configuration_description varchar(255) NOT NULL,
-  configuration_group_id int(5) NOT NULL,
-  sort_order int(5) NULL,
-  last_modified timestamp(14) NULL,
-  date_added timestamp(14) NOT NULL,
-  use_function varchar(32) NULL,
-  PRIMARY KEY (configuration_id)
-);
-
-#
-# Dumping data for table 'configuration'
-#
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'The Exchange Project', 'The name of my store', '1', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Owner', 'STORE_OWNER', 'Harald Ponce de Leon', 'The name of my store owner', '1', '2', now());
@@ -192,22 +431,6 @@ insert into configuration (configuration_title, configuration_key, configuration
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Postal Code', 'STORE_ORIGIN_ZIP', 'NONE', 'Enter the Postal Code (ZIP) of the Store to be used in shipping quotes.', '1', '8', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Country Code', 'STORE_ORIGIN_COUNTRY', 'NONE', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" TARGET="_blank">ISO 3166 Maintenance Agency</A>.', '1', '9', now());
 
-#
-# Table structure for table 'configuration_group'
-#
-
-CREATE TABLE configuration_group (
-  configuration_group_id int(5) NOT NULL auto_increment,
-  configuration_group_title varchar(64) NOT NULL,
-  configuration_group_description varchar(255) NOT NULL,
-  sort_order int(5) NULL,
-  PRIMARY KEY (configuration_group_id)
-);
-
-#
-# Dumping data for table 'configuration_group'
-#
-
 INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1');
 INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2');
 INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3');
@@ -217,72 +440,13 @@ INSERT INTO configuration_group VALUES ('6', 'Payment Options', 'Payment options
 INSERT INTO configuration_group VALUES ('7', 'Shipping Options', 'Shipping options available at my store', '7');
 INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8');
 
-#
-# Table structure for table 'counter'
-#
-
-CREATE TABLE counter (
-  startdate char(8),
-  counter int(12)
-);
-
-#
-# Dumping data for table 'counter'
-#
-
 INSERT INTO counter VALUES ('20000312',148052);
 
-#
-# Table structure for table 'counter_history'
-#
-
-CREATE TABLE counter_history (
-  month char(8),
-  counter int(12)
-);
-
-#
-# Dumping data for table 'counter_history'
-#
-
-#
-# Table structure for table 'address_format'
-#
-
-CREATE TABLE address_format (
-  address_format_id int(5) NOT NULL auto_increment,
-  address_format varchar(128) NOT NULL,
-  address_summary varchar(48) NOT NULL,
-  PRIMARY KEY (address_format_id)
-);
-
-#
-# Dumping data for table 'address_format'
-#
 # 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore
-
 INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
 INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
 INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$city / $country');
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
-
-#
-# Table structure for table 'countries'
-#
-
-CREATE TABLE countries (
-  countries_id int(5) NOT NULL auto_increment,
-  countries_name varchar(64) NOT NULL,
-  countries_iso_code_2 char(2) NOT NULL,
-  countries_iso_code_3 char(3) NOT NULL,
-  address_format_id int(5) NOT NULL,
-  PRIMARY KEY (countries_id),
-  KEY IDX_COUNTRIES_NAME (countries_name)
-);
-
-#
-# Dumping data for table 'countries'
-#
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1');
@@ -524,106 +688,9 @@ INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
-#
-# Table structure for table 'customers'
-#
-
-CREATE TABLE customers (
-  customers_id int(5) NOT NULL auto_increment,
-  customers_gender char(1) NOT NULL,
-  customers_firstname varchar(32) NOT NULL,
-  customers_lastname varchar(32) NOT NULL,
-  customers_dob varchar(8) NOT NULL,
-  customers_email_address varchar(96) NOT NULL,
-  customers_street_address varchar(64) NOT NULL,
-  customers_suburb varchar(32),
-  customers_postcode varchar(10) NOT NULL,
-  customers_city varchar(32) NOT NULL,
-  customers_state varchar(32),
-  customers_telephone varchar(32) NOT NULL,
-  customers_fax varchar(32),
-  customers_password varchar(40) NOT NULL,
-  customers_country_id int(5) NOT NULL,
-  customers_zone_id int(5) NOT NULL,
-  PRIMARY KEY (customers_id)
-);
-
-#
-# Dumping data for table 'customers'
-#
-
 INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca',81, 0);
 
-#
-# Table structure for table 'customers_basket'
-#
-
-CREATE TABLE customers_basket (
-  customers_basket_id int(5) NOT NULL auto_increment,
-  customers_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
-  customers_basket_quantity int(2) NOT NULL,
-  final_price decimal(6,2) NOT NULL,
-  customers_basket_date_added char(8),
-  PRIMARY KEY (customers_basket_id)
-);
-
-#
-# Dumping data for table 'customers_basket'
-#
-
-#
-# Table structure for table 'customers_basket_attributes'
-#
-
-CREATE TABLE customers_basket_attributes (
-  customers_basket_attributes_id int(5) NOT NULL auto_increment,
-  customers_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
-  products_options_id int(5) NOT NULL,
-  products_options_value_id int(5) NOT NULL,
-  PRIMARY KEY (customers_basket_attributes_id)
-);
-
-#
-# Dumping data for table 'customers_basket_attributes'
-#
-
-#
-# Table structure for table 'customers_info'
-#
-
-CREATE TABLE customers_info (
-  customers_info_id int(5) NOT NULL,
-  customers_info_date_of_last_logon char(8),
-  customers_info_number_of_logons int(5),
-  customers_info_date_account_created char(8),
-  customers_info_date_account_last_modified char(8),
-  PRIMARY KEY (customers_info_id)
-);
-
-#
-# Dumping data for table 'customers_info'
-#
-
 INSERT INTO customers_info VALUES (1,'20001028',19,'20000312','20000514');
-
-#
-# Table structure for table 'manufacturers'
-#
-
-CREATE TABLE manufacturers (
-  manufacturers_id int(5) NOT NULL auto_increment,
-  manufacturers_name varchar(32) NOT NULL,
-  manufacturers_location tinyint(1) NOT NULL,
-  manufacturers_image varchar(64),
-  PRIMARY KEY (manufacturers_id),
-  KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
-);
-
-#
-# Dumping data for table 'manufacturers'
-#
 
 INSERT INTO manufacturers VALUES (1,'Matrox',0,'images/manufacturer_matrox.gif');
 INSERT INTO manufacturers VALUES (2,'Microsoft',0,'images/manufacturer_microsoft.gif');
@@ -634,114 +701,6 @@ INSERT INTO manufacturers VALUES (6,'Canon',0,'images/manufacturer_canon.gif');
 INSERT INTO manufacturers VALUES (7,'Sierra',1,'images/manufacturer_sierra.gif');
 INSERT INTO manufacturers VALUES (8,'GT Interactive',1,'images/manufacturer_gt_interactive.gif');
 INSERT INTO manufacturers VALUES (9,'Hewlett Packard',0,'images/manufacturer_hewlett_packard.gif');
-
-#
-# Table structure for table 'orders'
-#
-
-CREATE TABLE orders (
-  orders_id int(5) NOT NULL auto_increment,
-  customers_id int(5) NOT NULL,
-  customers_name varchar(64) NOT NULL,
-  customers_street_address varchar(64) NOT NULL,
-  customers_suburb varchar(32),
-  customers_city varchar(32) NOT NULL,
-  customers_postcode varchar(10) NOT NULL,
-  customers_state varchar(32),
-  customers_country varchar(32) NOT NULL,
-  customers_telephone varchar(32) NOT NULL,
-  customers_email_address varchar(96) NOT NULL,
-  customers_address_format_id int(5) NOT NULL,
-  delivery_name varchar(64) NOT NULL,
-  delivery_street_address varchar(64) NOT NULL,
-  delivery_suburb varchar(32),
-  delivery_city varchar(32) NOT NULL,
-  delivery_postcode varchar(10) NOT NULL,
-  delivery_state varchar(32),
-  delivery_country varchar(32) NOT NULL,
-  delivery_address_format_id int(5) NOT NULL,
-  payment_method varchar(12) NOT NULL,
-  cc_type varchar(20),
-  cc_owner varchar(64),
-  cc_number varchar(32),
-  cc_expires varchar(4),
-  last_modified timestamp(14),
-  date_purchased timestamp(14),
-  shipping_cost decimal(8,2) NOT NULL,
-  shipping_method varchar(32),
-  orders_status varchar(10) NOT NULL,
-  orders_date_finished timestamp(14),
-  PRIMARY KEY (orders_id)
-);
-
-#
-# Dumping data for table 'orders'
-#
-
-#
-# Table structure for table 'orders_products'
-#
-
-CREATE TABLE orders_products (
-  orders_products_id int(5) NOT NULL auto_increment,
-  orders_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
-  products_name varchar(64) NOT NULL,
-  products_price decimal(8,2) NOT NULL,
-  final_price decimal(8,2) NOT NULL,
-  products_tax decimal(7,4) NOT NULL,
-  products_quantity int(2) NOT NULL,
-  PRIMARY KEY (orders_products_id)
-);
-
-#
-# Dumping data for table 'orders_products'
-#
-
-#
-# Table structure for table 'orders_products_attributes'
-#
-
-CREATE TABLE orders_products_attributes (
-  orders_products_attributes_id int(5) NOT NULL auto_increment,
-  orders_id int(5) NOT NULL,
-  orders_products_id int(5) NOT NULL,
-  products_options varchar(32) NOT NULL,
-  products_options_values varchar(32) NOT NULL,
-  options_values_price decimal(8,2) NOT NULL,
-  price_prefix char(1) NOT NULL,
-  PRIMARY KEY (orders_products_attributes_id)
-);
-
-#
-# Dumping data for table 'orders_products_attributes'
-#
-
-#
-# Table structure for table 'products'
-#
-
-CREATE TABLE products (
-  products_id int(5) NOT NULL auto_increment,
-  products_name varchar(32) NOT NULL,
-  products_description text,
-  products_quantity int(4) NOT NULL,
-  products_model varchar(12),
-  products_image varchar(64),
-  products_url varchar(255),
-  products_price decimal(8,2) NOT NULL,
-  products_date_added varchar(8),
-  products_viewed int(5),
-  products_weight decimal(5,2) NOT NULL,
-  products_status tinyint(1) NOT NULL,
-  products_tax_class_id int(5) NOT NULL,
-  PRIMARY KEY (products_id),
-  KEY products_name (products_name)
-);
-
-#
-# Dumping data for table 'products'
-#
 
 INSERT INTO products VALUES (1,'Matrox G200 MMS','Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8&quot; PCI board.<br><br>With continuing demand for digital flat panels in the financial workplace, the Matrox G200 MMS is the ultimate in flexible solutions. The Matrox G200 MMS also supports the new digital video interface (DVI) created by the Digital Display Working Group (DDWG) designed to ease the adoption of digital flat panels. Other configurations include composite video capture ability and onboard TV tuner, making the Matrox G200 MMS the complete solution for business needs.<br><br>Based on the award-winning MGA-G200 graphics chip, the Matrox G200 Multi-Monitor Series provides superior 2D/3D graphics acceleration to meet the demanding needs of business applications such as real-time stock quotes (Versus), live video feeds (Reuters & Bloombergs), multiple windows applications, word processing, spreadsheets and CAD.',32,'MG200MMS','images/matrox/mg200mms.gif','www.matrox.com/mga/feat_story/jun99/mms_g200.htm',299.99,'19991217',219,23.00,1,1);
 INSERT INTO products VALUES (2,'Matrix G400 32MB','<b>Dramatically Different High Performance Graphics</b><br><br>Introducing the Millennium G400 Series - a dramatically different, high performance graphics experience. Armed with the industry\'s fastest graphics chip, the Millennium G400 Series takes explosive acceleration two steps further by adding unprecedented image quality, along with the most versatile display options for all your 3D, 2D and DVD applications. As the most powerful and innovative tools in your PC\'s arsenal, the Millennium G400 Series will not only change the way you see graphics, but will revolutionize the way you use your computer.<br><br><b>Key features:</b><ul><li>New Matrox G400 256-bit DualBus graphics chip</li><li>Explosive 3D, 2D and DVD performance</li><li>DualHead Display</li><li>Superior DVD and TV output</li><li>3D Environment-Mapped Bump Mapping</li><li>Vibrant Color Quality rendering </li><li>UltraSharp DAC of up to 360 MHz</li><li>3D Rendering Array Processor</li><li>Support for 16 or 32 MB of memory</li></ul>',32,'MG400-32MB','images/matrox/mg400-32mb.gif','www.matrox.com/mga/products/mill_g400/home.htm',499.99,'19991217',228,23.00,1,1);
@@ -771,24 +730,6 @@ INSERT INTO products VALUES (25,'Microsoft Internet Keyboard PS/2','The Internet
 INSERT INTO products VALUES (26,'Microsoft IntelliMouse Explorer PS2/USB','Microsoft introduces its most advanced mouse, the IntelliMouse Explorer! IntelliMouse Explorer features a sleek design, an industrial-silver finish, a glowing red underside and taillight, creating a style and look unlike any other mouse. IntelliMouse Explorer combines the accuracy and reliability of Microsoft IntelliEye optical tracking technology, the convenience of two new customizable function buttons, the efficiency of the scrolling wheel and the comfort of expert ergonomic design. All these great features make this the best mouse for the PC!',10,'MSIMEXP','images/microsoft/imexplorer.gif','www.microsoft.com/mouse/explorer.htm',64.95,'20000302',1946,8.00,1,1);
 INSERT INTO products VALUES (27,'Hewlett Packard LaserJet 1100Xi','HP has always set the pace in laser printing technology. The new generation HP LaserJet 1100 series sets another impressive pace, delivering a stunning 8 pages per minute print speed. The 600 dpi print resolution with HP\'s Resolution Enhancement technology (REt) makes every document more professional.<br><br>Enhanced print speed and laser quality results are just the beginning. With 2MB standard memory, HP LaserJet 1100xi users will be able to print increasingly complex pages. Memory can be increased to 18MB to tackle even more complex documents with ease. The HP LaserJet 1100xi supports key operating systems including Windows 3.1, 3.11, 95, 98, NT 4.0, OS/2 and DOS. Network compatibility available via the optional HP JetDirect External Print Servers.<br><br>HP LaserJet 1100xi also features The Document Builder for the Web Era from Trellix Corp. (featuring software to create Web documents).',8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif','www.pandi.hp.com/pandi-db/prodinfo.main?product=laserjet1100',499.99,'20000302',1574,45.00,1,1);
 
-#
-# Table structure for table 'products_attributes'
-#
-
-CREATE TABLE products_attributes (
-  products_attributes_id int(5) NOT NULL auto_increment,
-  products_id int(5) NOT NULL,
-  options_id int(5) NOT NULL,
-  options_values_id int(5) NOT NULL,
-  options_values_price decimal(8,2) NOT NULL,
-  price_prefix char(1) NOT NULL,
-  PRIMARY KEY (products_attributes_id)
-);
-
-#
-# Dumping data for table 'products_attributes'
-#
-
 INSERT INTO products_attributes VALUES (1,1,4,1,0.00,'+');
 INSERT INTO products_attributes VALUES (2,1,4,2,50.00,'+');
 INSERT INTO products_attributes VALUES (3,1,4,3,70.00,'+');
@@ -801,57 +742,14 @@ INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
 INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
 INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
 
-#
-# Table structure for table 'products_expected'
-#
-
-CREATE TABLE products_expected (
-  products_expected_id int(5) NOT NULL auto_increment,
-  products_name varchar(255) NOT NULL,
-  date_expected varchar(8),
-  PRIMARY KEY (products_expected_id)
-);
-
-#
-# Dumping data for table 'products_expected'
-#
-
 INSERT INTO products_expected VALUES (1,'The Beach','20000320');
 INSERT INTO products_expected VALUES (2,'Alien Triology (Warner)','20000317');
 INSERT INTO products_expected VALUES (3,'American Pie (Warner)','20000317');
-
-#
-# Table structure for table 'products_options'
-#
-
-CREATE TABLE products_options (
-  products_options_id int(5) NOT NULL auto_increment,
-  products_options_name varchar(32) NOT NULL,
-  PRIMARY KEY (products_options_id)
-);
-
-#
-# Dumping data for table 'products_options'
-#
 
 INSERT INTO products_options VALUES (1,'Color');
 INSERT INTO products_options VALUES (2,'Size');
 INSERT INTO products_options VALUES (3,'Model');
 INSERT INTO products_options VALUES (4,'Memory');
-
-#
-# Table structure for table 'products_options_values'
-#
-
-CREATE TABLE products_options_values (
-  products_options_values_id int(5) NOT NULL auto_increment,
-  products_options_values_name varchar(64) NOT NULL,
-  PRIMARY KEY (products_options_values_id)
-);
-
-#
-# Dumping data for table 'products_options_values'
-#
 
 INSERT INTO products_options_values VALUES (1,'4 mb');
 INSERT INTO products_options_values VALUES (2,'8 mb');
@@ -863,21 +761,6 @@ INSERT INTO products_options_values VALUES (7,'Deluxe');
 INSERT INTO products_options_values VALUES (8,'PS/2');
 INSERT INTO products_options_values VALUES (9,'USB');
 
-#
-# Table structure for table 'products_options_values_to_products_options'
-#
-
-CREATE TABLE products_options_values_to_products_options (
-  products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
-  products_options_id int(5) NOT NULL,
-  products_options_values_id int(5) NOT NULL,
-  PRIMARY KEY (products_options_values_to_products_options_id)
-);
-
-#
-# Dumping data for table 'products_options_values_to_products_options'
-#
-
 INSERT INTO products_options_values_to_products_options VALUES (1,4,1);
 INSERT INTO products_options_values_to_products_options VALUES (2,4,2);
 INSERT INTO products_options_values_to_products_options VALUES (3,4,3);
@@ -887,20 +770,6 @@ INSERT INTO products_options_values_to_products_options VALUES (6,3,6);
 INSERT INTO products_options_values_to_products_options VALUES (7,3,7);
 INSERT INTO products_options_values_to_products_options VALUES (8,3,8);
 INSERT INTO products_options_values_to_products_options VALUES (9,3,9);
-
-#
-# Table structure for table 'products_to_categories'
-#
-
-CREATE TABLE products_to_categories (
-  products_id int(5) NOT NULL auto_increment,
-  categories_id int(5) NOT NULL,
-  PRIMARY KEY (products_id,categories_id)
-);
-
-#
-# Dumping data for table 'products_to_categories'
-#
 
 INSERT INTO products_to_categories VALUES (1,4);
 INSERT INTO products_to_categories VALUES (2,4);
@@ -930,21 +799,6 @@ INSERT INTO products_to_categories VALUES (25,8);
 INSERT INTO products_to_categories VALUES (26,9);
 INSERT INTO products_to_categories VALUES (27,5);
 
-#
-# Table structure for table 'products_to_manufacturers'
-#
-
-CREATE TABLE products_to_manufacturers (
-  products_to_manufacturers_id int(5) NOT NULL auto_increment,
-  products_id int(5) NOT NULL,
-  manufacturers_id int(5) NOT NULL,
-  PRIMARY KEY (products_to_manufacturers_id)
-);
-
-#
-# Dumping data for table 'products_to_manufacturers'
-#
-
 INSERT INTO products_to_manufacturers VALUES (1,1,1);
 INSERT INTO products_to_manufacturers VALUES (2,2,1);
 INSERT INTO products_to_manufacturers VALUES (3,3,2);
@@ -973,76 +827,14 @@ INSERT INTO products_to_manufacturers VALUES (25,25,2);
 INSERT INTO products_to_manufacturers VALUES (26,26,2);
 INSERT INTO products_to_manufacturers VALUES (27,27,9);
 
-#
-# Table structure for table 'reviews'
-#
-
-CREATE TABLE reviews (
-  reviews_id int(5) NOT NULL auto_increment,
-  reviews_text text NOT NULL,
-  reviews_rating int(1),
-  PRIMARY KEY (reviews_id)
-);
-
-#
-# Dumping data for table 'reviews'
-#
-
 INSERT INTO reviews VALUES (1,'this has to be one of the funniest movies released for 1999!',5);
 
-#
-# Table structure for table 'reviews_extra'
-#
-
-CREATE TABLE reviews_extra (
-  reviews_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
-  customers_id int(5) NOT NULL,
-  date_added char(8) NOT NULL,
-  reviews_read int(5)
-);
-
-#
-# Dumping data for table 'reviews_extra'
-#
-
 INSERT INTO reviews_extra VALUES (1,19,1,'20000312',56);
-
-#
-# Table structure for table 'specials'
-#
-
-CREATE TABLE specials (
-  specials_id int(5) NOT NULL auto_increment,
-  products_id int(5) NOT NULL,
-  specials_new_products_price decimal(8,2) NOT NULL,
-  specials_date_added char(8),
-  PRIMARY KEY (specials_id)
-);
-
-#
-# Dumping data for table 'specials'
-#
 
 INSERT INTO specials VALUES (1,3,39.99,'20000114');
 INSERT INTO specials VALUES (2,5,30.00,'20000114');
 INSERT INTO specials VALUES (3,6,30.00,'20000115');
 INSERT INTO specials VALUES (4,16,29.99,'20000217');
-
-#
-# Table structure for table 'zones'
-#
-CREATE TABLE zones (
-  zone_id int(5) NOT NULL auto_increment,
-  zone_country_id int(5) NOT NULL,
-  zone_code varchar(5) NOT NULL,
-  zone_name varchar(32) NOT NULL,
-  PRIMARY KEY (zone_id)
-);
-
-#
-# Dumping data for table 'zones'
-#
 
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
 INSERT INTO zones VALUES (2,223,'AK','Alaska');
@@ -1123,42 +915,7 @@ INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
 
-#
-# Table structure for table 'tax_class'
-#
-
-CREATE TABLE tax_class (
-  tax_class_id int(5) NOT NULL auto_increment,
-  tax_class_title varchar(32) NOT NULL,
-  tax_class_description varchar(255) NOT NULL,
-  last_modified timestamp(14) NULL,
-  date_added timestamp(14) NOT NULL,
-  PRIMARY KEY (tax_class_id)
-);
-
-#
-# Dumping data for table 'tax_class'
-#
-
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
 
-#
-# Table structure for table 'tax_rates'
-#
-
-CREATE TABLE tax_rates (
-  tax_rates_id int(5) NOT NULL auto_increment,
-  tax_zone_id int(5) NOT NULL,
-  tax_class_id int(5) NOT NULL,
-  tax_rate decimal(7,4) NOT NULL,
-  tax_description varchar(255) NOT NULL,
-  last_modified timestamp(14) NULL,
-  date_added timestamp(14) NOT NULL,
-  PRIMARY KEY (tax_rates_id)
-);
-
-#
-# Dumping data for table 'tax_rates'
-#
-
 INSERT INTO tax_rates VALUES (1, 18, 1, 7.0, 'FL TAX 7.0%', now(), now());
+
