@@ -64,6 +64,7 @@ define('BOX_HEADING_WHATS_NEW', 'Whats New?');
 // quick_find box text in includes/boxes/quick_find.php
 define('BOX_HEADING_SEARCH', 'Quick Find');
 define('BOX_SEARCH_TEXT', 'Use keywords to find the product your looking for.');
+define('BOX_SEARCH_ADVANCED_SEARCH', 'Advanced Search');
 
 // add_a_quickie box text in includes/boxes/add_a_quickie.php
 define('BOX_HEADING_ADD_PRODUCT_ID', 'Add a Quickie!');

@@ -54,6 +54,8 @@
   define('FILENAME_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
   define('FILENAME_ADDRESS_BOOK', 'address_book.php');
   define('FILENAME_ADDRESS_BOOK_PROCESS', 'address_book_process.php');
+  define('FILENAME_ADVANCED_SEARCH', 'advanced_search.php');
+  define('FILENAME_ADVANCED_SEARCH_RESULT', 'advanced_search_result.php');
   define('FILENAME_CHECKOUT', 'checkout.php');
   define('FILENAME_CHECKOUT_ADDRESS', 'checkout_address.php');
   define('FILENAME_CHECKOUT_CONFIRMATION', 'checkout_confirmation.php');

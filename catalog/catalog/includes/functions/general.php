@@ -682,4 +682,162 @@ function tep_address_summary($customers_id, $address_id) {
 
     return $number . '.';
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_display_cat_select
+  //
+  // Arguments   : select_name      value of the select's "name" attribute
+  //               selected         array of categories_ids of category to be selected
+  //                                (0=selects blank; when more than one ID is selected
+  //                                 the "multiple" attribute will be included)
+  //               size             value of the select's "size" attribute
+  //               multiple         include/exclude select's "mutliple" attribute
+  //                                (0=exclude; 1=include)
+  //               blank_text       string for displaying in the first option
+  //
+  // Return      : products count
+  //
+  // Description : Function to builds html <select> box for selecting categories
+  //
+  // Sample call:  To display a drop-down with categories_id '5' selected:
+  //                $selected[0] = 5;
+  //                display_cat_select("category",$selected);
+  //
+  //               To display a list box with 10 rows with categories_id '5' and '11' selected:
+  //                $selected[0] = 5;
+  //                $selected[1] = 11;
+  //                display_cat_select("category",$selected, 10);
+  //
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_display_cat_select($select_name, $selected, $size=1, $multiple=0, $blank_text="" ) {
+
+    echo "<select name='$select_name' size='$size'";
+    if ((sizeof($selected) > 1) || ($multiple == 1)) echo " multiple";
+    echo "><option value=\"\"";
+    if (in_array(0, $selected)) echo " selected";
+    echo ">$blank_text\n";
+
+    $output = '';
+    tep_build_cat_options($output,$selected);
+    echo $output;
+    echo "</select>\n";
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_build_cat_options
+  //
+  // Arguments   : output       text string of <option>'s
+  //               preselected  array of categories_ids that are selected
+  //               parent_id    parent_id of current category
+  //               indent       string for spaces categories into visual "nest"
+  //
+  // Return      : products count
+  //
+  // Description : recursively go through the category tree, starting at a parent, and
+  //               drill down, printing options for a selection list box.  preselected
+  //               items are marked as being selected
+  //
+  //               called by tep_display_cat_select()
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_build_cat_options(&$output, $preselected, $parent_id=0, $indent="") {
+
+    $sql = tep_db_query("SELECT categories_id, categories_name FROM categories WHERE parent_id = $parent_id order by sort_order, categories_name");
+    while ($cat =  tep_db_fetch_array($sql)) {
+      $selected = in_array($cat[categories_id], $preselected) ? " selected"  :  "";
+      $output .= "<option value=\"" . $cat['categories_id'] . "\"$selected>$indent" .  $cat['categories_name'] . "</option>\n";
+
+      if ($cat['categories_id'] != $parent_id)
+        tep_build_cat_options($output, $preselected, $cat['categories_id'], $indent."&nbsp;&nbsp;");
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_get_subcategories
+  //
+  // Arguments   : categories   array of categories_ids
+  //               parent_id    parent_id of current category
+  //
+  // Return      : none
+  //
+  // Description : recursively go through the category tree to retrieve all subcategories' ids
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_subcategories(&$categories, $parent_id=0) {
+
+    $sql = tep_db_query("SELECT categories_id FROM categories WHERE parent_id = $parent_id");
+
+    while ($cat = tep_db_fetch_array($sql)) {
+      $categories[sizeof($categories)] = $cat['categories_id'];
+
+      if ($cat['categories_id'] != $parent_id)
+        tep_get_subcategories($categories, $cat['categories_id']);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_reformat_date_to_yyyymmdd
+  //
+  // Arguments   : date_to_reformat   date to reformat
+  //               format_string      original format string
+  //
+  // Return      : reformatted date
+  //
+  // Description : generic function to reformat date to tep date format YYYYMMDD
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_reformat_date_to_yyyymmdd($date_to_reformat, $format_string) {
+    $separator_idx = -1;
+    $separators = array("-"," ","/",".");
+    $month_abbr = array("jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
+    $format_string = strtolower($format_string);
+
+    for ($i=0; $i<sizeof($separators); $i++) {
+      $pos_separator = strpos($format_string, $separators[$i]);
+      if ($pos_separator != false) {
+        $separator_idx = $i;
+        break;
+      }
+    }
+  
+    if ($separator_idx != -1) {
+      $format_string_array = explode( $separators[$separator_idx], $format_string );
+      $date_to_reformat_array = explode( $separators[$separator_idx], $date_to_reformat );
+  
+      for ($i=0; $i<sizeof($format_string_array); $i++) {
+        if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm')
+          $month = $date_to_reformat_array[$i];
+        if ($format_string_array[$i] == 'dd')
+          $day = $date_to_reformat_array[$i];
+        if ($format_string_array[$i] == 'yyyy')
+          $year = $date_to_reformat_array[$i];
+      }
+    }
+    else {
+      $pos_month = strpos($format_string, 'mmm');
+      if ($pos_month != false) {
+        $month = substr( $date_to_reformat, $pos_month, 3 );
+        for ($i=0; $i<sizeof($month_abbr); $i++) {
+          if ($month == $month_abbr[$i]) {
+            $month = $i;
+            break;
+          }
+        }
+      }
+      else {
+        $month = substr( $date_to_reformat, strpos($format_string, 'mm'), 2 );
+      }
+  
+      $day = substr( $date_to_reformat, strpos($format_string, 'dd'), 2 );
+      $year = substr( $date_to_reformat, strpos($format_string, 'yyyy'), 2 );
+    }
+  
+    return sprintf ("%04d%02d%02d", $year, $month, $day);
+  }
 ?>
