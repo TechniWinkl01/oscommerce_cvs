@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.49 2001/11/19 12:12:01 hpdl Exp $
+  $Id: espanol.php,v 1.50 2001/11/19 16:52:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,6 +18,7 @@ setlocale(LC_TIME, 'es_ES.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd/m/Y');  // this is used for date()
+define('PHP_DATE_TIME_FORMAT', 'd/m/Y H:i:s'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 ////
@@ -183,6 +184,7 @@ define('PASSWORD_HIDDEN', '--OCULTO--');
 
 // images
 define('IMAGE_BACK', 'Atras');
+define('IMAGE_BACKUP', 'Backup');
 define('IMAGE_CANCEL', 'Cancelar');
 define('IMAGE_CONFIRM', 'Confirmar');
 define('IMAGE_COPY', 'Copiar');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.57 2001/11/19 12:12:01 hpdl Exp $
+  $Id: english.php,v 1.58 2001/11/19 16:52:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,6 +18,7 @@ setlocale(LC_TIME, 'en_US.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
+define('PHP_DATE_TIME_FORMAT', 'm/d/Y H:i:s'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 ////
@@ -87,7 +88,7 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Customer Orders-Total');
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Tools');
 define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
-define('BOX_TOOLS_BACKUP', 'Backup');
+define('BOX_TOOLS_BACKUP', 'Backup Manager');
 define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
 define('BOX_TOOLS_CACHE', 'Cache Control');
 define('BOX_TOOLS_MAIL', 'Send Email');
@@ -183,6 +184,7 @@ define('PASSWORD_HIDDEN', '--HIDDEN--');
 
 // images
 define('IMAGE_BACK', 'Back');
+define('IMAGE_BACKUP', 'Backup');
 define('IMAGE_CANCEL', 'Cancel');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_COPY', 'Copy');

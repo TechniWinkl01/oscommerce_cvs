@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.4 2001/09/19 11:12:14 mbs Exp $
+  $Id: backup.php,v 1.5 2001/11/19 16:52:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,10 +10,17 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Backup');
-define('HEADING_TITLE', 'Backup');
-define('SUB_BAR_TITLE', 'Backup your data often!');
-define('TEXT_MAIN', 'Click the button below to download a backup copy of the database.');
-define('TEXT_DROP_TABLES', 'Generate \'drop table\' statements?');
-define('IMAGE_BACKUP', 'Backup');
+define('TOP_BAR_TITLE', 'Backup Manager');
+define('HEADING_TITLE', 'Backup Manager');
+
+define('TABLE_HEADING_TITLE', 'Title');
+define('TABLE_HEADING_FILE_DATE', 'Date');
+define('TABLE_HEADING_FILE_SIZE', 'Size');
+define('TABLE_HEADING_ACTION', 'Action');
+
+define('TEXT_INFO_HEADING_NEW_BACKUP', 'New Backup');
+define('TEXT_INFO_NEW_BACKUP', 'Do not interrupt the backup process which might take a couple of minutes.');
+define('TEXT_INFO_DATE', 'Date:');
+define('TEXT_INFO_SIZE', 'Size:');
+define('TEXT_INFO_COMPRESSION', 'Compression:');
 ?>

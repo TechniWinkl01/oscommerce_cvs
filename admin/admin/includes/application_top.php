@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.89 2001/11/19 13:44:47 hpdl Exp $
+  $Id: application_top.php,v 1.90 2001/11/19 16:52:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,6 +39,12 @@
   define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
   define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
   define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
+  define('DIR_FS_BACKUP', '/www/admin22/backups/');
+
+  define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
+  define('LOCAL_EXE_GUNZIP', '/usr/bin/gunzip');
+  define('LOCAL_EXE_ZIP', '/usr/local/bin/zip');
+  define('LOCAL_EXE_UNZIP', '/usr/local/bin/unzip');
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
 
@@ -213,6 +219,7 @@
   require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // entry/item info classes
+  require(DIR_WS_CLASSES . 'backup_info.php');
   require(DIR_WS_CLASSES . 'banner_info.php');
   require(DIR_WS_CLASSES . 'category_info.php');
   require(DIR_WS_CLASSES . 'configuration_info.php');

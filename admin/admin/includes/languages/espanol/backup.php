@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.3 2001/09/19 11:13:07 mbs Exp $
+  $Id: backup.php,v 1.4 2001/11/19 16:52:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,8 +12,15 @@
 
 define('TOP_BAR_TITLE', 'Copia de Seguridad');
 define('HEADING_TITLE', 'Copia de Seguridad');
-define('SUB_BAR_TITLE', 'Haga copias de sus datos a menudo!');
-define('TEXT_MAIN', 'Haga click en el siguiente boton para bajarse una copia de seguridad de sus datos.');
-define('TEXT_DROP_TABLES', 'Generar sentencias \'drop table\'?');
-define('IMAGE_BACKUP', 'Copia de Seguridad');
+
+define('TABLE_HEADING_TITLE', 'Title');
+define('TABLE_HEADING_FILE_DATE', 'Date');
+define('TABLE_HEADING_FILE_SIZE', 'Size');
+define('TABLE_HEADING_ACTION', 'Action');
+
+define('TEXT_INFO_HEADING_NEW_BACKUP', 'New Backup');
+define('TEXT_INFO_NEW_BACKUP', 'Do not interrupt the backup process which might take a couple of minutes.');
+define('TEXT_INFO_DATE', 'Date:');
+define('TEXT_INFO_SIZE', 'Size:');
+define('TEXT_INFO_COMPRESSION', 'Compression:');
 ?>
