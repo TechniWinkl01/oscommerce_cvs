@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.6 2004/02/16 07:31:26 hpdl Exp $
+  $Id: index.php,v 1.7 2004/04/15 19:15:04 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -160,7 +160,7 @@
           $select_column_list .= 'p.products_image, ';
           break;
         case 'PRODUCT_LIST_WEIGHT':
-          $select_column_list .= 'p.products_weight, ';
+          $select_column_list .= 'p.products_weight, p.products_weight_class, ';
           break;
       }
     }
