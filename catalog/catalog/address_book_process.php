@@ -20,35 +20,35 @@
     }
    }
 
-    if (@strlen(trim($HTTP_POST_VARS['firstname'])) < ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH) {
+    if (@strlen(trim($HTTP_POST_VARS['firstname'])) < ENTRY_FIRST_NAME_MIN_LENGTH) {
       $firstname_error = 1;
       $error = 1;
     } else {
       $firstname_error = 0;
     }
 
-    if (@strlen(trim($HTTP_POST_VARS['lastname'])) < ADDRESS_BOOK_LAST_NAME_MIN_LENGTH) {
+    if (@strlen(trim($HTTP_POST_VARS['lastname'])) < ENTRY_LAST_NAME_MIN_LENGTH) {
       $lastname_error = 1;
       $error = 1;
     } else {
       $lasttname_error = 0;
     }
 
-    if (@strlen(trim($HTTP_POST_VARS['street_address'])) < ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH) {
+    if (@strlen(trim($HTTP_POST_VARS['street_address'])) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
       $street_address_error = 1;
       $error = 1;
     } else {
       $street_address_error = 0;
     }
 
-    if (@strlen(trim($HTTP_POST_VARS['postcode'])) < ADDRESS_BOOK_POST_CODE_MIN_LENGTH) {
+    if (@strlen(trim($HTTP_POST_VARS['postcode'])) < ENTRY_POST_CODE_MIN_LENGTH) {
       $postcode_error = 1;
       $error = 1;
     } else {
       $postcode_error = 0;
     }
 
-    if (@strlen(trim($HTTP_POST_VARS['city'])) < ADDRESS_BOOK_CITY_MIN_LENGTH) {
+    if (@strlen(trim($HTTP_POST_VARS['city'])) < ENTRY_CITY_MIN_LENGTH) {
       $city_error = 1;
       $error = 1;
     } else {
@@ -219,27 +219,27 @@ function check_form() {
 <?
  }
 ?>
-  if (firstname == "" || firstname.length < <? echo ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH;?>) {
+  if (firstname == "" || firstname.length < <? echo ENTRY_FIRST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<? echo JS_FIRST_NAME;?>";
     error = 1;
   }
 
-  if (lastname == "" || lastname.length < <? echo ADDRESS_BOOK_LAST_NAME_MIN_LENGTH;?>) {
+  if (lastname == "" || lastname.length < <? echo ENTRY_LAST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<? echo JS_LAST_NAME;?>";
     error = 1;
   }
 
-  if (street_address == "" || street_address.length < <? echo ADDRESS_BOOK_STREET_ADDRESS_MIN_LENGTH;?>) {
+  if (street_address == "" || street_address.length < <? echo ENTRY_STREET_ADDRESS_MIN_LENGTH;?>) {
     error_message = error_message + "<? echo JS_ADDRESS;?>";
     error = 1;
   }
 
-  if (postcode == "" || postcode.length < <? echo ADDRESS_BOOK_POST_CODE_MIN_LENGTH;?>) {
+  if (postcode == "" || postcode.length < <? echo ENTRY_POST_CODE_MIN_LENGTH;?>) {
     error_message = error_message + "<? echo JS_POST_CODE;?>";
     error = 1;
   }
 
-  if (city == "" || city.length < <? echo ADDRESS_BOOK_CITY_MIN_LENGTH;?>) {
+  if (city == "" || city.length < <? echo ENTRY_CITY_MIN_LENGTH;?>) {
     error_message = error_message + "<? echo JS_CITY;?>";
     error = 1;
   }
