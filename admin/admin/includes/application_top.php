@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.145 2002/04/25 12:44:54 thomasamoulton Exp $
+  $Id: application_top.php,v 1.146 2002/05/03 10:28:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -167,6 +167,7 @@
 
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
+  tep_session_name('osCAdminsID');
 
 // lets start our session
   tep_session_start();
