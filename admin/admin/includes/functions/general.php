@@ -25,8 +25,9 @@
     } else {
       $link = $link . $page . '?' . $parameters . '&' . SID;
     }
-    
-    while (substr($link, -1) == '&') $link = substr($link, 0, -1);
+
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+
     return $link;
   }
 
