@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.17 2002/08/12 12:52:12 hpdl Exp $
+  $Id: install_5.php,v 1.18 2002/10/11 11:18:07 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -128,8 +128,7 @@
                      '// Define the webserver and path parameters' . "\n" .
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
-                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
-                     '  define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost or - https://localhost should not be NULL for productive servers' . "\n" .
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\');' . "\n" .
                      '  define(\'HTTPS_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\');' . "\n" .
                      '  define(\'ENABLE_SSL\', \'' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for administration tool' . "\n" .
