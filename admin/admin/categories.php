@@ -309,8 +309,14 @@ function checkForm() {
 <?
     if ($HTTP_GET_VARS['read'] == 'only') {
       if ($HTTP_GET_VARS['origin']) {
-        $back_url = $HTTP_GET_VARS['origin'];
-        $back_url_params = '';
+        $pos_params = strpos($HTTP_GET_VARS['origin'], '?', 0);
+        if ($pos_params != false) {
+          $back_url = substr($HTTP_GET_VARS['origin'], 0, $pos_params);
+          $back_url_params = substr($HTTP_GET_VARS['origin'], $pos_params + 1);
+        } else {
+          $back_url = $HTTP_GET_VARS['origin'];
+          $back_url_params = '';
+        }
       } else {
         $back_url = FILENAME_CATEGORIES;
         $back_url_params = tep_get_all_get_params(array('action', 'pID', 'read', 'info')) . 'info=' . $HTTP_GET_VARS['pID'];
