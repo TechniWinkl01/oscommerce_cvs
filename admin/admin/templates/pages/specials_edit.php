@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials_edit.php,v 1.1 2004/07/22 23:30:50 hpdl Exp $
+  $Id: specials_edit.php,v 1.2 2004/08/02 12:35:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -38,10 +38,10 @@
   }
 ?>
 
-<style type="text/css">@import url('external/jscalendar/0.9.6/calendar-win2k-1.css');</style>
-<script type="text/javascript" src="external/jscalendar/0.9.6/calendar.js"></script>
-<script type="text/javascript" src="external/jscalendar/0.9.6/lang/calendar-en.js"></script>
-<script type="text/javascript" src="external/jscalendar/0.9.6/calendar-setup.js"></script>
+<style type="text/css">@import url('external/jscalendar/calendar-win2k-1.css');</style>
+<script type="text/javascript" src="external/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="external/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="external/jscalendar/calendar-setup.js"></script>
 
 <h1><?php echo HEADING_TITLE; ?></p>
 

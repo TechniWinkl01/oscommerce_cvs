@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories_new_product.php,v 1.1 2004/07/22 23:26:52 hpdl Exp $
+  $Id: categories_new_product.php,v 1.2 2004/08/02 12:35:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -67,10 +67,10 @@
   $languages = tep_get_languages();
 ?>
 <script type="text/javascript" src="external/FCKeditor/2.0b1/fckeditor.js"></script>
-<style type="text/css">@import url('external/jscalendar/0.9.6/calendar-win2k-1.css');</style>
-<script type="text/javascript" src="external/jscalendar/0.9.6/calendar.js"></script>
-<script type="text/javascript" src="external/jscalendar/0.9.6/lang/calendar-en.js"></script>
-<script type="text/javascript" src="external/jscalendar/0.9.6/calendar-setup.js"></script>
+<style type="text/css">@import url('external/jscalendar/calendar-win2k-1.css');</style>
+<script type="text/javascript" src="external/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="external/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="external/jscalendar/calendar-setup.js"></script>
 <script language="javascript"><!--
 var tax_rates = new Array();
 <?php
