@@ -194,7 +194,7 @@
 
 // Create the cart & Fix the cart if necesary
   if ($cart) {
-    if (!eregi('^4\.', phpversion()) || eregi('^php4b', phpversion())) {
+    if (!eregi('^4\.', phpversion()) || eregi('^4.0b2', phpversion())) {
       $broken_cart = $cart;
       $cart = new shoppingCart;
       $cart->unserialize($broken_cart);
