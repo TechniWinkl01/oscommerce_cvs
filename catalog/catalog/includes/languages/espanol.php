@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.38 2001/06/03 19:02:16 dwatkins Exp $
+  $Id: espanol.php,v 1.39 2001/06/04 14:17:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -237,4 +237,6 @@ define('TEXT_SORT_PRODUCTS', 'Ordenar Productos ');
 define('TEXT_DESCENDINGLY', 'Descendentemente');
 define('TEXT_ASCENDINGLY', 'Ascendentemente');
 define('TEXT_BY', ' por ');
+
+define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 ?>
