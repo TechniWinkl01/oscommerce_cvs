@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.102 2002/01/02 14:40:57 hpdl Exp $
+  $Id: categories.php,v 1.103 2002/01/04 03:05:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -302,7 +302,7 @@
     }
 
     $tax_class_array = array(array('id' => '0', 'text' => '--none--'));
-    $tax_class_query = tep_db_query("select tax_class_id, tax_class_title from " . TABLE_TAX_CLASS . " order by tax_class_id");
+    $tax_class_query = tep_db_query("select tax_class_id, tax_class_title from " . TABLE_TAX_CLASS . " order by tax_class_title");
     while ($tax_class = tep_db_fetch_array($tax_class_query)) {
       $tax_class_array[] = array('id' => $tax_class['tax_class_id'],
                                  'text' => $tax_class['tax_class_title']);
@@ -322,9 +322,6 @@
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator(); ?></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -441,22 +438,12 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td><?php echo tep_draw_separator(); ?></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
         <td class="main" align="right"><?php echo tep_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $HTTP_GET_VARS['pID']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
       </form></tr>
 <?php
   } elseif ($HTTP_GET_VARS['action'] == 'new_product_preview') {
     if ($HTTP_POST_VARS) {
-      $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
-      $manufacturer = tep_db_fetch_array($manufacturer_query);
-
-      $pInfo_array = tep_array_merge($HTTP_POST_VARS, $manufacturer);
-      $pInfo = new objectInfo($pInfo_array);
+      $pInfo = new objectInfo($HTTP_POST_VARS);
       $products_name = $HTTP_POST_VARS['products_name'];
       $products_description = $HTTP_POST_VARS['products_description'];
       $products_url = $HTTP_POST_VARS['products_url'];
@@ -470,7 +457,7 @@
         $products_image_name = $HTTP_POST_VARS['products_previous_image'];
       }
     } else {
-      $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.manufacturers_id, m.manufacturers_name, m.manufacturers_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id where p.products_id = pd.products_id and pd.products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+      $product_query = tep_db_query("select p.products_id, pd.language_id, pd.products_name, pd.products_description, pd.products_url, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.manufacturers_id  from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and p.products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo = new objectInfo($product);
@@ -603,10 +590,10 @@
             <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
             <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr><?php echo tep_draw_form('search', FILENAME_CATEGORIES, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . tep_draw_input_field('search', $HTTP_GET_VARS['search']); ?></td>
+                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('search', $HTTP_GET_VARS['search']); ?></td>
               </form></tr>
               <tr><?php echo tep_draw_form('goto', FILENAME_CATEGORIES, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo tep_draw_pull_down_menu('cPath', tep_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?></td>
+                <td class="smallText" align="right"><?php echo HEADING_TITLE_GOTO . ' ' . tep_draw_pull_down_menu('cPath', tep_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"'); ?></td>
               </form></tr>            
             </table></td>
           </tr>

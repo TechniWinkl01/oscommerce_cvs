@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.18 2001/12/30 03:44:33 hpdl Exp $
+  $Id: categories.php,v 1.19 2002/01/04 03:05:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,8 @@
 */
 
 define('HEADING_TITLE', 'Categories / Products');
-define('HEADING_TITLE_SEARCH', 'Keywords: ');
+define('HEADING_TITLE_SEARCH', 'Search:');
+define('HEADING_TITLE_GOTO', 'Go To:');
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Categories / Products');
