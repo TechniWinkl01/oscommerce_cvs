@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.30 2002/11/01 05:00:46 hpdl Exp $
+  $Id: payment.php,v 1.31 2002/11/04 00:50:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,7 +71,7 @@
               '    }' . "\n" .
               '  } else if (document.checkout_payment.payment.checked) {' . "\n" .
               '    payment_value = document.checkout_payment.payment.value;' . "\n" .
-              '  } else if (document.payment.checkout_payment.value) {' . "\n" .
+              '  } else if (document.checkout_payment.payment.value) {' . "\n" .
               '    payment_value = document.checkout_payment.payment.value;' . "\n" .
               '  }' . "\n\n";
 
