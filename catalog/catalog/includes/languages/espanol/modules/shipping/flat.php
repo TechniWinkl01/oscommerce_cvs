@@ -1,16 +1,16 @@
 <?php
 /*
-  $Id: flat.php,v 1.4 2001/09/20 19:40:53 mbs Exp $
+  $Id: flat.php,v 1.5 2002/11/19 01:14:33 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('MODULE_SHIPPING_FLAT_TEXT_TITLE', 'Solo Coste');
-define('MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION', 'Solo Coste');
-define('MODULE_SHIPPING_FLAT_TEXT_WAY', 'La Mejor Manera');
+define('MODULE_SHIPPING_FLAT_TEXT_TITLE', 'Tarifa Unica');
+define('MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION', 'Tarifa Unica por Pedido');
+define('MODULE_SHIPPING_FLAT_TEXT_WAY', '');
 ?>
