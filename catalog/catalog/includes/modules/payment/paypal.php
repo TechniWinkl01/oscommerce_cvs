@@ -19,11 +19,11 @@
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS, $paypal_return, $checkout_form_action, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax;
+      global $HTTP_POST_VARS, $paypal_return, $checkout_form_action, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
 
       if ($this->payment_enabled) {
         $paypal_return = urlencode($HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . urlencode($shipping_method) . '|' . urlencode($comments) . '&' . SID);
-        $checkout_form_action = 'https://secure.paypal.com/xclick/business=' . rawurlencode(PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME) . '&amount=' . number_format(($total_cost + $total_tax),2) . '&shipping=' . number_format($shipping_cost, 2) . '&return=' . urlencode(HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return);
+        $checkout_form_action = 'https://secure.paypal.com/xclick/business=' . rawurlencode(PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME) . '&amount=' . number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2) . '&shipping=' . number_format($shipping_cost * $currency_rates['USD'], 2) . '&return=' . urlencode(HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return);
       }
     }
 
