@@ -23,4 +23,5 @@ define('TABLE_HEADING_COUNTRY', 'Country');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('CUSTOMER_SEARCH_TEXT', 'Search customer by Email, First Name, Last Name:');
+define('PLEASE_SELECT', '-- Please Select --');
 ?>
