@@ -160,13 +160,21 @@
   }
 
   function tep_date_long($raw_date) {
-    $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
+    if (Strlen($raw_date) == 14) {
+      $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
+    } else {
+      $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
+    }
 
     return $date_formated;
   }
 
   function tep_date_short($raw_date) {
-    $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
+    if (strlen($raw_date) == 14) {
+      $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
+    } else {
+      $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
+    }
 
     return $date_formated;
   }
@@ -336,5 +344,31 @@
     }
 
     return $output;
+  }
+
+  function tep_get_country_name($country_id) {
+    $country_query = tep_db_query("select countries_name from countries where countries_id = '" . $country_id . "'");
+
+    if (!tep_db_num_rows($country_query)) {
+      $country_name = $country_id;
+    } else {
+      $country = tep_db_fetch_array($country_query);
+      $country_name = $country['countries_name'];
+    }
+
+    return $country_name;
+  }
+
+  function tep_not_null($value) {
+    switch ($value) {
+      case is_string($value):
+                              if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+                                return true;
+                              } else {
+                                return false;
+                              }
+                              break;
+      default: return false;
+    }
   }
 ?>
