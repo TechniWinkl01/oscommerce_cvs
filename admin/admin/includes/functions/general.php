@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.142 2002/11/03 23:51:40 hpdl Exp $
+  $Id: general.php,v 1.143 2002/11/04 02:16:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1234,5 +1234,29 @@
     } else {
       return call_user_func(array($object, $function), $parameter);
     }
+  }
+
+  function tep_get_zone_class_title($zone_class_id) {
+    if ($zone_class_id == '0') {
+      return TEXT_NONE;
+    } else {
+      $classes_query = tep_db_query("select geo_zone_name from " . TABLE_GEO_ZONES . " where geo_zone_id = '" . $zone_class_id . "'");
+      $classes = tep_db_fetch_array($classes_query);
+
+      return $classes['geo_zone_name'];
+    }
+  }
+
+  function tep_cfg_pull_down_zone_classes($zone_class_id, $key = '') {
+    $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+
+    $zone_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
+    $zone_class_query = tep_db_query("select geo_zone_id, geo_zone_name from " . TABLE_GEO_ZONES . " order by geo_zone_name");
+    while ($zone_class = tep_db_fetch_array($zone_class_query)) {
+      $zone_class_array[] = array('id' => $zone_class['geo_zone_id'],
+                                  'text' => $zone_class['geo_zone_name']);
+    }
+
+    return tep_draw_pull_down_menu($name, $zone_class_array, $zone_class_id);
   }
 ?>
