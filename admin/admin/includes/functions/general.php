@@ -74,14 +74,12 @@
   }
 
   function tep_currency_format($number, $calculate_currency_value = true, $currency_value = CURRENCY_VALUE) {
-    global $currency_rates;
-
-    $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from " . TABLE_CURRENCIES . " where code = '" . $currency_value . "'");
+    $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " where code = '" . $currency_value . "'");
     $currency = tep_db_fetch_array($currency_query);
 
     if ($calculate_currency_value == true) {
       if (strlen($currency_value) == 3) {
-        $rate = $currency_rates[$currency_value]; // read from catalog/includes/data/rates.php - the value is in /catalog/includes/languages/<language>.php
+        $rate = $currency['value'];
       } else {
         $rate = 1;
       }
