@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.34 2002/05/30 15:36:36 dgw_ Exp $
+  $Id: authorizenet.php,v 1.35 2002/06/03 12:36:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,13 +12,19 @@
 
   class authorizenet {
     var $code, $title, $description, $enabled;
+    var $cc_number, $cc_expires_month, $cc_expires_year;
 
 // class constructor
     function authorizenet() {
+      global $HTTP_POST_VARS;
+
       $this->code = 'authorizenet';
       $this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
       $this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_AUTHORIZENET_STATUS;
+      $this->cc_number = tep_db_prepare_input($HTTP_POST_VARS['authorizenet_cc_number']);
+      $this->cc_expires_month = tep_db_prepare_input($HTTP_POST_VARS['authorizenet_cc_expires_month']);
+      $this->cc_expires_year = tep_db_prepare_input($HTTP_POST_VARS['authorizenet_cc_expires_year']);
     }
 
 // class methods
@@ -50,7 +56,7 @@
                           '  </tr>' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year) . '</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month, date('m')) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year) . '</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '</table>' . "\n";
 
@@ -58,22 +64,21 @@
     }
 
     function pre_confirmation_check() {
-      global $payment, $HTTP_POST_VARS;
 
       include(DIR_WS_FUNCTIONS . 'ccval.php');
 
-      $cc_val = OnlyNumericSolution($HTTP_POST_VARS['authorizenet_cc_number']);
-      $cc_val = CCValidationSolution($cc_val);
-      if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['authorizenet_cc_expires_month'], $HTTP_POST_VARS['authorizenet_cc_expires_year']);
-
+      $cc_val = CCValidationSolution($this->cc_number);
+      if ($cc_val == '1') {
+        $cc_val = ValidateExpiry($this->cc_expires_month, $this->cc_expires_year);
+      }
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $payment . '&cc_expires_month=' . $HTTP_POST_VARS['authorizenet_cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['authorizenet_cc_expires_year'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $this->code . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action;
+      global $CardName, $CardNumber, $checkout_form_action;
 
       $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                              '  <tr>' . "\n" .
@@ -83,7 +88,7 @@
                              '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['authorizenet_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['authorizenet_cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$this->cc_expires_month, 1, '20' . $this->cc_expires_year)) . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
 
@@ -93,11 +98,11 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $order, $customer_id;
+      global $HTTP_SERVER_VARS, $CardNumber, $order, $customer_id;
 
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
                                tep_draw_hidden_field('x_Card_Num', $CardNumber) .
-                               tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['authorizenet_cc_expires_month'] . $HTTP_POST_VARS['authorizenet_cc_expires_year']) .
+                               tep_draw_hidden_field('x_Exp_Date', $this->cc_expires_month . $this->cc_expires_year) .
                                tep_draw_hidden_field('x_Amount', number_format($order->info['total'], 2)) .
                                tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
                                tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
