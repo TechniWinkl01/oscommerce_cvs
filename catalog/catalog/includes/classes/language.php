@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: language.php,v 1.6 2003/06/28 16:53:09 dgw_ Exp $
+  $Id: language.php,v 1.7 2004/02/16 07:08:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 
@@ -17,6 +17,8 @@
     var $languages, $catalog_languages, $browser_languages, $language;
 
     function language($lng = '') {
+      global $osC_Database;
+
       $this->languages = array('ar' => 'ar([-_][[:alpha:]]{2})?|arabic',
                                'bg' => 'bg|bulgarian',
                                'br' => 'pt[-_]br|brazilian portuguese',
@@ -56,13 +58,19 @@
                                'zh' => 'zh|chinese simplified');
 
       $this->catalog_languages = array();
-      $languages_query = tep_db_query("select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " order by sort_order");
-      while ($languages = tep_db_fetch_array($languages_query)) {
-        $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
-                                                             'name' => $languages['name'],
-                                                             'image' => $languages['image'],
-                                                             'directory' => $languages['directory']);
+
+      $Qlanguages = $osC_Database->query('select languages_id, name, code, image, directory from :table_languages order by sort_order');
+      $Qlanguages->bindRaw(':table_languages', TABLE_LANGUAGES);
+      $Qlanguages->execute();
+
+      while ($Qlanguages->next()) {
+        $this->catalog_languages[$Qlanguages->value('code')] = array('id' => $Qlanguages->valueInt('languages_id'),
+                                                                     'name' => $Qlanguages->value('name'),
+                                                                     'image' => $Qlanguages->value('image'),
+                                                                     'directory' => $Qlanguages->value('directory'));
       }
+
+      $Qlanguages->freeResult();
 
       $this->browser_languages = '';
       $this->language = '';

@@ -1,32 +1,21 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.4 2003/12/04 22:56:19 hpdl Exp $
+  $Id: message_stack.php,v 1.5 2004/02/16 07:08:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   class messageStack {
+    var $messages;
 
 // class constructor
     function messageStack() {
-      global $osC_Session;
-
       $this->messages = array();
-
-      if ($osC_Session->exists('messageToStack')) {
-        $messageToStack = $osC_Session->value('messageToStack');
-
-        for ($i=0, $n=sizeof($messageToStack); $i<$n; $i++) {
-          $this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);
-        }
-
-        $osC_Session->remove('messageToStack');
-      }
     }
 
 // class methods
@@ -90,6 +79,20 @@
       }
 
       return $class_size;
+    }
+
+    function loadFromSession() {
+      global $osC_Session;
+
+      if ($osC_Session->exists('messageToStack')) {
+        $messageToStack = $osC_Session->value('messageToStack');
+
+        for ($i=0, $n=sizeof($messageToStack); $i<$n; $i++) {
+          $this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);
+        }
+
+        $osC_Session->remove('messageToStack');
+      }
     }
   }
 ?>

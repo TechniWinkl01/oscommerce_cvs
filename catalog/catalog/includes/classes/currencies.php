@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: currencies.php,v 1.18 2003/12/18 23:52:14 hpdl Exp $
+  $Id: currencies.php,v 1.19 2004/02/16 07:08:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,16 +15,22 @@
 
 // class constructor
     function osC_Currencies() {
+      global $osC_Database;
+
       $this->currencies = array();
-      $currencies_query = tep_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
-      while ($currencies = tep_db_fetch_array($currencies_query)) {
-        $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
-                                                       'symbol_left' => $currencies['symbol_left'],
-                                                       'symbol_right' => $currencies['symbol_right'],
-                                                       'decimal_point' => $currencies['decimal_point'],
-                                                       'thousands_point' => $currencies['thousands_point'],
-                                                       'decimal_places' => $currencies['decimal_places'],
-                                                       'value' => $currencies['value']);
+
+      $Qcurrencies = $osC_Database->query('select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from :table_currencies');
+      $Qcurrencies->bindRaw(':table_currencies', TABLE_CURRENCIES);
+      $Qcurrencies->execute();
+
+      while ($Qcurrencies->next()) {
+        $this->currencies[$Qcurrencies->value('code')] = array('title' => $Qcurrencies->value('title'),
+                                                               'symbol_left' => $Qcurrencies->value('symbol_left'),
+                                                               'symbol_right' => $Qcurrencies->value('symbol_right'),
+                                                               'decimal_point' => $Qcurrencies->value('decimal_point'),
+                                                               'thousands_point' => $Qcurrencies->value('thousands_point'),
+                                                               'decimal_places' => $Qcurrencies->valueInt('decimal_places'),
+                                                               'value' => $Qcurrencies->valueDecimal('value'));
       }
     }
 

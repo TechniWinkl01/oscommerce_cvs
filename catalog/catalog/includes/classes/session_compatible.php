@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session_compatible.php,v 1.3 2003/12/17 15:36:14 hpdl Exp $
+  $Id: session_compatible.php,v 1.4 2004/02/16 07:08:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,7 @@
       global $cookie_path, $cookie_domain;
 
       $this->setName('osCsid');
-      $this->setSavePath(SESSION_WRITE_DIRECTORY);
+      $this->setSavePath(DIR_FS_WORK);
 
       session_set_cookie_params(0, $cookie_path, $cookie_domain);
 
@@ -136,8 +136,8 @@
       }
 
       if (STORE_SESSIONS == '') {
-        if (file_exists($this->save_path . '/' . $this->id)) {
-          @unlink($this->save_path . '/' . $this->id);
+        if (file_exists($this->save_path . $this->id)) {
+          @unlink($this->save_path . $this->id);
         }
       }
 
@@ -163,6 +163,10 @@
     }
 
     function setSavePath($path) {
+      if (substr($path, -1) == '/') {
+        $path = substr($path, 0, -1);
+      }
+
       session_save_path($path);
 
       $this->save_path = session_save_path();
