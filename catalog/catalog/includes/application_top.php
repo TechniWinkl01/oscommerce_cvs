@@ -218,6 +218,9 @@
   if (!SID && $HTTP_GET_VARS[tep_session_name()]) 
     tep_session_id( $HTTP_GET_VARS[tep_session_name()] );
   tep_session_start();
+  if (function_exists('session_set_cookie_params')) {
+    session_set_cookie_params(0, DIR_CATALOG);
+  }
 
 // Fix the cart if necesary
   if (REPAIR_BROKEN_CART && is_object($cart) ) {
