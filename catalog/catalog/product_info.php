@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: product_info.php,v 1.103 2004/03/14 13:55:37 mevans Exp $
+  $Id: product_info.php,v 1.104 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -147,7 +147,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
 ?>
             <tr>
               <td class="main"><?php echo $products_options_name['products_options_name'] . ':'; ?></td>
-              <td class="main"><?php echo tep_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $selected_attribute); ?></td>
+              <td class="main"><?php echo osc_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $selected_attribute); ?></td>
             </tr>
 <?php
       }
@@ -210,7 +210,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params()) . '">' . tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS) . '</a>'; ?></td>
-                <td class="main" align="right"><?php echo tep_draw_hidden_field('products_id', $product_info['products_id']) . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
+                <td class="main" align="right"><?php echo osc_draw_hidden_field('products_id', $product_info['products_id']) . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.52 2004/04/16 14:05:33 hpdl Exp $
+  $Id: advanced_search.php,v 1.53 2004/07/22 17:23:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -153,8 +153,8 @@ function popupWindow(url) {
   new infoBoxHeading($info_box_contents, true, true);
 
   $info_box_contents = array();
-  $info_box_contents[] = array('text' => tep_draw_input_field('keywords', '', 'style="width: 100%"'));
-  $info_box_contents[] = array('align' => 'right', 'text' => tep_draw_checkbox_field('search_in_description', '1') . ' ' . TEXT_SEARCH_IN_DESCRIPTION);
+  $info_box_contents[] = array('text' => osc_draw_input_field('keywords', '', 'style="width: 100%"'));
+  $info_box_contents[] = array('align' => 'right', 'text' => osc_draw_checkbox_field('search_in_description', '1', true) . ' ' . TEXT_SEARCH_IN_DESCRIPTION);
 
   new infoBox($info_box_contents);
 ?>
@@ -180,29 +180,29 @@ function popupWindow(url) {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="fieldKey"><?php echo ENTRY_CATEGORIES; ?></td>
-                <td class="fieldValue"><?php echo tep_draw_pull_down_menu('categories_id', tep_get_categories(array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES)))); ?></td>
+                <td class="fieldValue"><?php echo osc_draw_pull_down_menu('categories_id', tep_get_categories(array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES)))); ?></td>
               </tr>
               <tr>
                 <td class="fieldKey">&nbsp;</td>
-                <td class="smallText"><?php echo tep_draw_checkbox_field('inc_subcat', '1', true) . ' ' . ENTRY_INCLUDE_SUBCATEGORIES; ?></td>
+                <td class="smallText"><?php echo osc_draw_checkbox_field('inc_subcat', '1', true) . ' ' . ENTRY_INCLUDE_SUBCATEGORIES; ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
               </tr>
               <tr>
                 <td class="fieldKey"><?php echo ENTRY_MANUFACTURERS; ?></td>
-                <td class="fieldValue"><?php echo tep_draw_pull_down_menu('manufacturers_id', tep_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS)))); ?></td>
+                <td class="fieldValue"><?php echo osc_draw_pull_down_menu('manufacturers_id', tep_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS)))); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
               </tr>
               <tr>
                 <td class="fieldKey"><?php echo ENTRY_PRICE_FROM; ?></td>
-                <td class="fieldValue"><?php echo tep_draw_input_field('pfrom'); ?></td>
+                <td class="fieldValue"><?php echo osc_draw_input_field('pfrom'); ?></td>
               </tr>
               <tr>
                 <td class="fieldKey"><?php echo ENTRY_PRICE_TO; ?></td>
-                <td class="fieldValue"><?php echo tep_draw_input_field('pto'); ?></td>
+                <td class="fieldValue"><?php echo osc_draw_input_field('pto'); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

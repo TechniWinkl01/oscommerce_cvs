@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.144 2004/03/18 10:32:52 mevans Exp $
+  $Id: checkout_confirmation.php,v 1.145 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -306,7 +306,7 @@
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><?php echo nl2br(tep_output_string_protected($order->info['comments'])) . tep_draw_hidden_field('comments', $order->info['comments']); ?></td>
+                <td class="main"><?php echo nl2br(tep_output_string_protected($order->info['comments'])) . osc_draw_hidden_field('comments', $order->info['comments']); ?></td>
               </tr>
             </table></td>
           </tr>

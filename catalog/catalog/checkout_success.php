@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.50 2003/11/17 20:58:34 hpdl Exp $
+  $Id: checkout_success.php,v 1.51 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -84,7 +84,7 @@
     $products_displayed = array();
     for ($i=0, $n=sizeof($products_array); $i<$n; $i++) {
       if (!in_array($products_array[$i]['id'], $products_displayed)) {
-        echo tep_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
+        echo osc_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
         $products_displayed[] = $products_array[$i]['id'];
       }
     }

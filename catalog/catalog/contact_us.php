@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.44 2003/12/03 17:32:53 project3000 Exp $
+  $Id: contact_us.php,v 1.45 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -128,19 +128,19 @@
                 <td class="main"><?php echo ENTRY_NAME; ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_draw_input_field('name'); ?></td>
+                <td class="main"><?php echo osc_draw_input_field('name'); ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo ENTRY_EMAIL; ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo tep_draw_input_field('email'); ?></td>
+                <td class="main"><?php echo osc_draw_input_field('email'); ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo ENTRY_ENQUIRY; ?></td>
               </tr>
               <tr>
-                <td><?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15); ?></td>
+                <td><?php echo osc_draw_textarea_field('enquiry', '', 50, 15); ?></td>
               </tr>
             </table></td>
           </tr>

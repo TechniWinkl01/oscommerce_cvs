@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.43 2003/11/17 21:08:41 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.44 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -156,11 +156,11 @@
                 <td><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_CUSTOMER_NAME; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('from_name'); ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('from_name', '', '', true); ?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_CUSTOMER_EMAIL; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('from_email_address'); ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('from_email_address', '', '', true); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -178,11 +178,11 @@
                 <td><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_FRIEND_NAME; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('to_name') . '&nbsp;<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>'; ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('to_name', '', '', true); ?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_FRIEND_EMAIL; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('to_email_address') . '&nbsp;<span class="inputRequirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>'; ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('to_email_address', '', '', true); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -197,7 +197,7 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
               <tr class="infoBoxContents">
-                <td><?php echo tep_draw_textarea_field('message', 'soft', 40, 8); ?></td>
+                <td><?php echo osc_draw_textarea_field('message', '', 40, 8); ?></td>
               </tr>
             </table></td>
           </tr>

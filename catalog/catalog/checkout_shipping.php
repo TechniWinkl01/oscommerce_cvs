@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.21 2004/03/16 20:14:22 mevans Exp $
+  $Id: checkout_shipping.php,v 1.22 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -208,7 +208,7 @@ function rowOutEffect(object) {
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php echo tep_draw_form('checkout_address', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL')) . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('checkout_address', tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL')) . osc_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -265,7 +265,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-    if (sizeof($quotes) > 1 && sizeof($quotes[0]) > 1) {
+    if ( (sizeof($quotes) > 1) && (sizeof($quotes[0]) > 1) ) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -296,7 +296,7 @@ function rowOutEffect(object) {
                   </tr>
                   <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, 0)">
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                    <td class="main" width="100%"><?php echo sprintf(FREE_SHIPPING_DESCRIPTION, $osC_Currencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) . tep_draw_hidden_field('shipping', 'free_free'); ?></td>
+                    <td class="main" width="100%"><?php echo sprintf(FREE_SHIPPING_DESCRIPTION, $osC_Currencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) . osc_draw_hidden_field('shipping', 'free_free'); ?></td>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
                 </table></td>
@@ -326,10 +326,7 @@ function rowOutEffect(object) {
 <?php
         } else {
           for ($j=0, $n2=sizeof($quotes[$i]['methods']); $j<$n2; $j++) {
-// set the radio button to be checked if it is the method chosen
-            $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $osC_Session->value('shipping')) ? true : false);
-
-            if ( ($checked == true) || ( ($n == 1) && ($n2 == 1) ) ) {
+            if ( (($n == 1) && ($n2 == 1)) || ($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $osC_Session->value('shipping')) ) {
               echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
             } else {
               echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
@@ -341,11 +338,11 @@ function rowOutEffect(object) {
             if ( ($n > 1) || ($n2 > 1) ) {
 ?>
                     <td class="main"><?php echo $osC_Currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], (isset($quotes[$i]['tax']) ? $quotes[$i]['tax'] : 0))); ?></td>
-                    <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
+                    <td class="main" align="right"><?php echo osc_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $osC_Session->value('shipping')); ?></td>
 <?php
             } else {
 ?>
-                    <td class="main" align="right" colspan="2"><?php echo $osC_Currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax'])) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
+                    <td class="main" align="right" colspan="2"><?php echo $osC_Currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax'])) . osc_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
 <?php
             }
 ?>
@@ -385,7 +382,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
+                <td><?php echo osc_draw_textarea_field('comments', ($osC_Session->exists('comments') ? $osC_Session->value('comments') : '')); ?></td>
               </tr>
             </table></td>
           </tr>

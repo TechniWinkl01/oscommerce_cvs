@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.51 2003/11/17 21:04:11 hpdl Exp $
+  $Id: password_forgotten.php,v 1.52 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -99,7 +99,7 @@
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo '<b>' . ENTRY_EMAIL_ADDRESS . '</b> ' . tep_draw_input_field('email_address'); ?></td>
+                <td class="main"><?php echo '<b>' . ENTRY_EMAIL_ADDRESS . '</b> ' . osc_draw_input_field('email_address'); ?></td>
               </tr>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

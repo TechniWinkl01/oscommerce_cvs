@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.58 2004/04/13 07:52:41 hpdl Exp $
+  $Id: product_reviews_write.php,v 1.59 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -162,13 +162,13 @@ function popupWindow(url) {
                   <tr class="infoBoxContents">
                     <td><table border="0" width="100%" cellspacing="2" cellpadding="2">
                       <tr>
-                        <td class="main"><?php echo tep_draw_textarea_field('review', 'soft', 60, 15); ?></td>
+                        <td class="main"><?php echo osc_draw_textarea_field('review', '', 60, 15); ?></td>
                       </tr>
                       <tr>
                         <td class="smallText" align="right"><?php echo TEXT_NO_HTML; ?></td>
                       </tr>
                       <tr>
-                        <td class="main"><?php echo '<b>' . SUB_TITLE_RATING . '</b> ' . TEXT_BAD . ' ' . tep_draw_radio_field('rating', '1') . ' ' . tep_draw_radio_field('rating', '2') . ' ' . tep_draw_radio_field('rating', '3') . ' ' . tep_draw_radio_field('rating', '4') . ' ' . tep_draw_radio_field('rating', '5') . ' ' . TEXT_GOOD; ?></td>
+                        <td class="main"><?php echo '<b>' . SUB_TITLE_RATING . '</b> ' . TEXT_BAD . ' ' . osc_draw_radio_field('rating', array('1', '2', '3', '4', '5')) . ' ' . TEXT_GOOD; ?></td>
                       </tr>
                     </table></td>
                   </tr>

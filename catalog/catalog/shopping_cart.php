@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.75 2003/12/18 23:52:14 hpdl Exp $
+  $Id: shopping_cart.php,v 1.76 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -78,7 +78,7 @@
 // Push all attributes information in an array
       if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
         while (list($option, $value) = each($products[$i]['attributes'])) {
-          echo tep_draw_hidden_field('id[' . $products[$i]['id'] . '][' . $option . ']', $value);
+          echo osc_draw_hidden_field('id[' . $products[$i]['id'] . '][' . $option . ']', $value);
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix
                                       from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa
                                       where pa.products_id = '" . $products[$i]['id'] . "'
@@ -110,7 +110,7 @@
 
       $info_box_contents[$cur_row][] = array('align' => 'center',
                                              'params' => 'class="productListing-data" valign="top"',
-                                             'text' => tep_draw_checkbox_field('cart_delete[]', $products[$i]['id']));
+                                             'text' => osc_draw_checkbox_field('cart_delete[]', $products[$i]['id']));
 
       $products_name = '<table border="0" cellspacing="2" cellpadding="2">' .
                        '  <tr>' .
@@ -142,7 +142,7 @@
 
       $info_box_contents[$cur_row][] = array('align' => 'center',
                                              'params' => 'class="productListing-data" valign="top"',
-                                             'text' => tep_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'size="4"') . tep_draw_hidden_field('products_id[]', $products[$i]['id']));
+                                             'text' => osc_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'size="4"') . osc_draw_hidden_field('products_id[]', $products[$i]['id']));
 
       $info_box_contents[$cur_row][] = array('align' => 'right',
                                              'params' => 'class="productListing-data" valign="top"',

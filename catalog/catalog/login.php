@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: login.php,v 1.83 2004/04/13 08:11:37 hpdl Exp $
+  $Id: login.php,v 1.84 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -171,11 +171,11 @@ function session_win() {
                   </tr>
                   <tr>
                     <td class="main"><b><?php echo ENTRY_EMAIL_ADDRESS; ?></b></td>
-                    <td class="main"><?php echo tep_draw_input_field('email_address'); ?></td>
+                    <td class="main"><?php echo osc_draw_input_field('email_address'); ?></td>
                   </tr>
                   <tr>
                     <td class="main"><b><?php echo ENTRY_PASSWORD; ?></b></td>
-                    <td class="main"><?php echo tep_draw_password_field('password'); ?></td>
+                    <td class="main"><?php echo osc_draw_password_field('password'); ?></td>
                   </tr>
                   <tr>
                     <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

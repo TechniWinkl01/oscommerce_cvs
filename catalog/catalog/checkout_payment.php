@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.117 2003/12/17 16:16:16 project3000 Exp $
+  $Id: checkout_payment.php,v 1.118 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -175,7 +175,7 @@ function rowOutEffect(object) {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main"><?php echo TEXT_CONDITIONS_DESCRIPTION . '<br><br>' . tep_draw_checkbox_field('conditions', '1', false, 'id="conditions"') . '<label for="conditions">&nbsp;' . TEXT_CONDITIONS_CONFIRM . '</label>'; ?></td>
+                <td class="main"><?php echo TEXT_CONDITIONS_DESCRIPTION . '<br><br>' . osc_draw_checkbox_field('conditions', '1', false, 'id="conditions"') . '<label for="conditions">&nbsp;' . TEXT_CONDITIONS_CONFIRM . '</label>'; ?></td>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>
@@ -253,14 +253,12 @@ function rowOutEffect(object) {
 
   $radio_buttons = 0;
   for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
-    $checked = ($selection[$i]['id'] == $osC_Session->value('payment') ? true : false);
-
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-    if ( ($checked == true) || ($n == 1) ) {
+    if ( ($n == 1) || ($selection[$i]['id'] == $osC_Session->value('payment')) ) {
       echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     } else {
       echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
@@ -268,15 +266,7 @@ function rowOutEffect(object) {
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
-                    <td class="main" align="right">
-<?php
-    if (sizeof($selection) > 1) {
-      echo tep_draw_radio_field('payment', $selection[$i]['id'], $checked);
-    } else {
-      echo tep_draw_hidden_field('payment', $selection[$i]['id']);
-    }
-?>
-                    </td>
+                    <td class="main" align="right"><?php echo osc_draw_radio_field('payment', $selection[$i]['id'], $osC_Session->value('payment')); ?></td>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
@@ -338,7 +328,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
+                <td><?php echo osc_draw_textarea_field('comments', ($osC_Session->exists('comments') ? $osC_Session->value('comments') : '')); ?></td>
               </tr>
             </table></td>
           </tr>

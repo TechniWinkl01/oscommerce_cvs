@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.7 2004/04/15 19:15:04 mevans Exp $
+  $Id: index.php,v 1.8 2004/07/22 17:23:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -239,17 +239,17 @@
       if (tep_db_num_rows($filterlist_query) > 1) {
         echo '            <td align="center" class="main">' . tep_draw_form('filter', FILENAME_DEFAULT, 'get') . TEXT_SHOW . '&nbsp;';
         if (isset($_GET['manufacturers_id']) && tep_not_null($_GET['manufacturers_id'])) {
-          echo tep_draw_hidden_field('manufacturers_id', $_GET['manufacturers_id']);
+          echo osc_draw_hidden_field('manufacturers_id', $_GET['manufacturers_id']);
           $options = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
         } else {
-          echo tep_draw_hidden_field('cPath', $cPath);
+          echo osc_draw_hidden_field('cPath', $cPath);
           $options = array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS));
         }
-        echo tep_draw_hidden_field('sort', $_GET['sort']);
+        echo osc_draw_hidden_field('sort', $_GET['sort']);
         while ($filterlist = tep_db_fetch_array($filterlist_query)) {
           $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
         }
-        echo tep_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'onchange="this.form.submit()"');
+        echo osc_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'onchange="this.form.submit()"');
         echo '</form></td>' . "\n";
       }
     }
