@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.38 2003/11/17 19:31:57 hpdl Exp $
+  $Id: payment.php,v 1.39 2003/12/04 14:29:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,7 +65,7 @@
 */   
     function update_status() {
       if (is_array($this->modules)) {
-        if (is_object($GLOBALS[$this->selected_module])) {
+        if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module])) {
           if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
             $GLOBALS[$this->selected_module]->update_status();
           }
