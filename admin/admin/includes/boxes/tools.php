@@ -13,11 +13,12 @@
   if ($selected_box == 'tools') {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, '', 'NONSSL') . '">' . BOX_TOOLS_FILE_MANAGER . '</a><br>' .
-                                            '<a href="' . tep_href_link(FILENAME_BACKUP, '', 'NONSSL') . '">' . BOX_TOOLS_BACKUP . '</a><br>' .
-                                            '<a href="' . tep_href_link(FILENAME_WHOS_ONLINE, '', 'NONSSL') . '">' . BOX_TOOLS_WHOS_ONLINE . '</a><br>' .
-                                            '<a href="' . tep_href_link(FILENAME_CACHE, '', 'NONSSL') . '">' . BOX_TOOLS_CACHE . '</a><br>' .
-                                            '<a href="' . tep_href_link(FILENAME_MAIL, '', 'NONSSL') . '">' . BOX_TOOLS_MAIL . '</a>'
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER) . '">' . BOX_TOOLS_FILE_MANAGER . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_BACKUP) . '">' . BOX_TOOLS_BACKUP . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_WHOS_ONLINE) . '">' . BOX_TOOLS_WHOS_ONLINE . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_CACHE) . '">' . BOX_TOOLS_CACHE . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_MAIL) . '">' . BOX_TOOLS_MAIL . '</a><br>' .
+                                            '<a href="' . tep_href_link(FILENAME_SERVER_INFO) . '">' . BOX_TOOLS_SERVER_INFO . '</a>'
                                 );
     new infoBox($info_box_contents);
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.70 2002/01/04 10:44:57 hpdl Exp $
+  $Id: english.php,v 1.71 2002/01/05 10:06:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,6 +98,7 @@ define('BOX_TOOLS_BACKUP', 'Database Backup');
 define('BOX_TOOLS_WHOS_ONLINE', 'Who\'s Online');
 define('BOX_TOOLS_CACHE', 'Cache Control');
 define('BOX_TOOLS_MAIL', 'Send Email');
+define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localization');

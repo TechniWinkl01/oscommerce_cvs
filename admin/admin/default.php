@@ -1,18 +1,23 @@
 <?php
 /*
-  $Id: default.php,v 1.33 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: default.php,v 1.34 2002/01/05 10:06:08 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  $system = tep_get_system_information();
+  $limits = array(array('id' => '5', 'text' => '5'),
+                  array('id' => '10', 'text' => '10'),
+                  array('id' => '20', 'text' => '20'),
+                  array('id' => '30', 'text' => '30'));
+
+  if (!$HTTP_GET_VARS['limit']) $limit = 10;
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -21,88 +26,28 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_button.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
-          <tr class="subBar">
-            <td class="subBar">&nbsp;<?php echo SUB_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td><table border="0" cellspacing="0" cellpadding="3">
-              <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_HOST; ?></b></td>
-                <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
-                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo TITLE_DATABASE_HOST; ?></b></td>
-                <td class="smallText"><?php echo $system['db_server'] . ' (' . $system['db_ip'] . ')'; ?></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_OS; ?></b></td>
-                <td class="smallText"><?php echo $system['system'] . ' ' . $system['kernel']; ?></td>
-                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo TITLE_DATABASE; ?></b></td>
-                <td class="smallText"><?php echo $system['db_version']; ?></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_DATE; ?></b></td>
-                <td class="smallText"><?php echo $system['date']; ?></td>
-                <td class="smallText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><?php echo TITLE_DATABASE_DATE; ?></b></td>
-                <td class="smallText"><?php echo $system['db_date']; ?></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TITLE_SERVER_UP_TIME; ?></b></td>
-                <td colspan="3" class="smallText"><?php echo $system['uptime']; ?></td>
-              </tr>
-              <tr>
-                <td colspan="4" height="5"></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TITLE_HTTP_SERVER; ?></b></td>
-                <td colspan="3" class="smallText"><?php echo $system['http_server']; ?></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TITLE_PHP_VERSION; ?></b></td>
-                <td colspan="3" class="smallText"><?php echo $system['php'] . ' (' . TITLE_ZEND_VERSION . ' ' . $system['zend'] . ')'; ?></td>
-              </tr>
-            </table></td>
-          </tr>
+          <tr><?php echo tep_draw_form('limit', FILENAME_DEFAULT, '', 'get'); ?>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', '1', HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_pull_down_menu('limit', $limits, '', 'onChange="this.form.submit();"'); ?></td>
+          </form></tr>
         </table></td>
       </tr>
       <tr>
@@ -110,30 +55,40 @@
           <tr>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr class="subBar">
-                <td colspan="2" class="subBar">&nbsp;<?php echo TABLE_HEADING_NEW_CUSTOMERS; ?>&nbsp;</td>
+                <td colspan="2" class="subBar"><?php echo TABLE_HEADING_NEW_CUSTOMERS; ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit 5");
+  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit " . $limit);
+  $rows = 0;
   while ($customers = tep_db_fetch_array($customers_query)) {
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . addslashes($customers['customers_lastname']) . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
-    echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">'. $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($customers['customers_info_date_account_created']) . '&nbsp;</td>' . "\n";
+    $rows++;
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . addslashes($customers['customers_lastname']) . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n";
+    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">'. $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a></td>' . "\n";
+    echo '                <td align="right" class="smallText">' . tep_datetime_short($customers['customers_info_date_account_created']) . '</td>' . "\n";
     echo '              </tr>' . "\n";
+  }
+
+  if ($rows < $limit) {
+    for ($i=$rows; $i<$limit; $i++) {
+      echo '              <tr class="tableRow">' . "\n";
+      echo '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n";
+      echo '              </tr>' . "\n";
+    }
   }
 ?>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
             </table></td>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
   $orders_status_query = tep_db_query("select orders_status_name from orders_status where orders_status_id = '1' and language_id = '" . $languages_id . "'");
@@ -142,14 +97,16 @@
   $orders_pending = tep_db_fetch_array($orders_pending_query);
 ?>
               <tr class="subBar">
-                <td colspan="3" class="subBar">&nbsp;<?php echo TABLE_HEADING_LAST_ORDERS . ' (' . $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . ')'; ?>&nbsp;</td>
+                <td colspan="3" class="subBar"><?php echo TABLE_HEADING_LAST_ORDERS . ' (' . $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . ')'; ?></td>
               </tr>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit 5");
+  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit " . $limit);
+  $rows = 0;
   while ($orders = tep_db_fetch_array($orders_query)) {
+    $rows++;
     $total_cost = 0;
     $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders['orders_id'] . "'");
     while ($orders_products = tep_db_fetch_array($orders_products_query)) {
@@ -161,63 +118,91 @@
     }
     $total_cost += $orders['shipping_cost'];
 
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '\'">' . "\n";
-    echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '" class="blacklink">' . $orders['customers_name'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td class="smallText">&nbsp;' . tep_currency_format($total_cost) . '&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($orders['date_purchased']) . '&nbsp;</td>' . "\n";
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id']) . '\'">' . "\n";
+    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id']) . '" class="blacklink">' . $orders['customers_name'] . '</a></td>' . "\n";
+    echo '                <td class="smallText">' . tep_currency_format($total_cost) . '</td>' . "\n";
+    echo '                <td align="right" class="smallText">' . tep_datetime_short($orders['date_purchased']) . '</td>' . "\n";
     echo '              </tr>' . "\n";
+  }
+
+  if ($rows < $limit) {
+    for ($i=$rows; $i<$limit; $i++) {
+      echo '              <tr class="tableRow">' . "\n";
+      echo '                <td class="smallText" colspan="3">&nbsp;</td>' . "\n";
+      echo '              </tr>' . "\n";
+    }
   }
 ?>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr class="subBar">
-                <td colspan="2" class="subBar">&nbsp;<?php echo TABLE_HEADING_NEW_PRODUCTS; ?>&nbsp;</td>
+                <td colspan="2" class="subBar"><?php echo TABLE_HEADING_NEW_PRODUCTS; ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by p.products_id DESC limit 5");
+  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by p.products_id DESC limit " . $limit);
+  $rows = 0;
   while ($products = tep_db_fetch_array($products_query)) {
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
-    echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($products['products_date_added']) . '&nbsp;</td>' . "\n";
+    $rows++;
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n";
+    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">' . $products['products_name'] . '</a></td>' . "\n";
+    echo '                <td align="right" class="smallText">' . tep_datetime_short($products['products_date_added']) . '</td>' . "\n";
     echo '              </tr>' . "\n";
+  }
+
+  if ($rows < $limit) {
+    for ($i=$rows; $i<$limit; $i++) {
+      echo '              <tr class="tableRow">' . "\n";
+      echo '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n";
+      echo '              </tr>' . "\n";
+    }
   }
 ?>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
             </table></td>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr class="subBar">
-                <td colspan="2" class="subBar">&nbsp;<?php echo TABLE_HEADING_NEW_REVIEWS; ?>&nbsp;</td>
+                <td colspan="2" class="subBar"><?php echo TABLE_HEADING_NEW_REVIEWS; ?></td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit 5");
+  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit " . $limit);
+  $rows = 0;
   while ($reviews = tep_db_fetch_array($reviews_query)) {
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
-    echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $reviews['products_name'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($reviews['date_added']) . '&nbsp;</td>' . "\n";
+    $rows++;
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n";
+    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">' . $reviews['products_name'] . '</a></td>' . "\n";
+    echo '                <td align="right" class="smallText">' . tep_datetime_short($reviews['date_added']) . '</td>' . "\n";
     echo '              </tr>' . "\n";
+  }
+
+  if ($rows < $limit) {
+    for ($i=$rows; $i<$limit; $i++) {
+      echo '              <tr class="tableRow">' . "\n";
+      echo '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n";
+      echo '              </tr>' . "\n";
+    }
   }
 ?>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
             </table></td>
           </tr>
