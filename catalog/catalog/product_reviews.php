@@ -39,7 +39,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -50,8 +50,8 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo sprintf(HEADING_TITLE, $product_values['products_name']); ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo sprintf(HEADING_TITLE, $product_values['products_name']); ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_reviews.gif', sprintf(HEADING_TITLE, $product_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -61,11 +61,11 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_AUTHOR; ?>&nbsp;</td>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_RATING; ?>&nbsp;</td>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_READ; ?>&nbsp;</td>
-            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_AUTHOR; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_RATING; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_READ; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_DATE_ADDED; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="5"><? echo tep_black_line(); ?></td>
@@ -87,11 +87,11 @@
       } else {
         echo '          <tr class="productReviews-odd">' . "\n";
       }
-      echo '            <td class="smallText" nowrap>&nbsp;' . $row . '.&nbsp;</td>' . "\n";
-      echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
-      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '&nbsp;</td>' . "\n";
-      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . $reviews_values['reviews_read'] . '&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText" nowrap>&nbsp;' . $date_added . '&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;' . $row . '.&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText">&nbsp;' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText">&nbsp;' . $reviews_values['reviews_read'] . '&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText">&nbsp;' . $date_added . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   } else {

@@ -33,7 +33,7 @@ function popupImageWindow(url) {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -42,13 +42,13 @@ function popupImageWindow(url) {
   if (!tep_db_num_rows($product_info)) { // product not found in database
 ?>
       <tr>
-        <td class="main" nowrap><br>&nbsp;<? echo TEXT_PRODUCT_NOT_FOUND; ?>&nbsp;</td>
+        <td class="main"><br>&nbsp;<? echo TEXT_PRODUCT_NOT_FOUND; ?>&nbsp;</td>
       </tr>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_main_menu.gif', IMAGE_BUTTON_MAIN_MENU); ?></a></td>
+        <td align="right"><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_main_menu.gif', IMAGE_BUTTON_MAIN_MENU); ?></a></td>
       </tr>
 <?
   } else {
@@ -80,13 +80,13 @@ function popupImageWindow(url) {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? if (isset($manufacturer)) echo tep_image($manufacturer['manufacturers_image'], $manufacturer['manufacturers_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? if (isset($manufacturer)) echo tep_image($manufacturer['manufacturers_image'], $manufacturer['manufacturers_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
 <?
     if (PRODUCT_LIST_MODEL) {
       echo '          <tr>' . "\n" .
-           '            <td colspan="2" class="pageHeading" nowrap>&nbsp;' . $product_info_values['products_model'] . '&nbsp;</td>' . "\n" .
+           '            <td colspan="2" class="pageHeading">&nbsp;' . $product_info_values['products_model'] . '&nbsp;</td>' . "\n" .
            '          </tr>' . "\n";
     }
 ?>
@@ -130,7 +130,7 @@ function popupImageWindow(url) {
     if ($reviews_values['count'] > 0) {
 ?>
       <tr>
-        <td class="main" nowrap><br><? echo TEXT_CURRENT_REVIEWS . ' ' . $reviews_values['count']; ?><br>&nbsp;</td>
+        <td class="main"><br><? echo TEXT_CURRENT_REVIEWS . ' ' . $reviews_values['count']; ?><br>&nbsp;</td>
       </tr>
 <?
     }
@@ -138,7 +138,7 @@ function popupImageWindow(url) {
     if ($product_info_values['products_url']) {
 ?>
       <tr>
-        <td class="main" nowrap><? echo sprintf(TEXT_MORE_INFORMATION, $product_info_values['products_url']); ?><br>&nbsp;</td>
+        <td class="main"><? echo sprintf(TEXT_MORE_INFORMATION, $product_info_values['products_url']); ?><br>&nbsp;</td>
       </tr>
 <?
     }
@@ -146,13 +146,13 @@ function popupImageWindow(url) {
     if ($product_info_values['products_date_available'] > date('Ymd')) {
 ?>
       <tr>
-        <td align="center" class="smallText" nowrap><? echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></td>
+        <td align="center" class="smallText"><? echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></td>
       </tr>
 <?
     } else {
 ?>
       <tr>
-        <td align="center" class="smallText" nowrap><? echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info_values['products_date_added'])); ?></td>
+        <td align="center" class="smallText"><? echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info_values['products_date_added'])); ?></td>
       </tr>
 <?
     }
@@ -165,8 +165,8 @@ function popupImageWindow(url) {
           <tr>
 <?
     $get_params = substr(tep_get_all_get_params(), 0, -1);
-    echo '            <td class="main" nowrap>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS) . '</a></td>' . "\n" .
-         '            <td align="right" class="main" nowrap><input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART) . '&nbsp;&nbsp;</td>' . "\n";
+    echo '            <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS) . '</a></td>' . "\n" .
+         '            <td align="right" class="main"><input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART) . '&nbsp;&nbsp;</td>' . "\n";
 ?>
           </tr>
         </table></td>
