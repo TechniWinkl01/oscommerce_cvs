@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.19 2001/11/29 20:49:18 hpdl Exp $
+  $Id: update.php,v 1.20 2001/12/01 20:17:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,7 +27,7 @@
 <p>
 <b>The Exchange Project Preview Release 2.2 Database Update Script</b>
 <p>
-<form name="database" action="<?php echo basename($HTTP_SERVER_VARS['SCRIPT_FILENAME']); ?>" method="post">
+<form name="database" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
   <tr>
     <td colspan="2"><b>Database Server Information</b></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: images.php,v 1.2 2001/11/29 22:09:50 hpdl Exp $
+  $Id: images.php,v 1.3 2001/12/01 20:17:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -33,7 +33,7 @@ categories.categories_image<br>
 manufacturers.manufacturers_image<br>
 products.products_image
 <p>
-<form name="database" action="<?php echo basename($HTTP_SERVER_VARS['SCRIPT_FILENAME']); ?>" method="post">
+<form name="database" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
   <tr>
     <td colspan="2"><b>Database Server Information</b></td>
