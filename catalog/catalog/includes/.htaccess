@@ -1,4 +1,4 @@
-# $Id: .htaccess,v 1.3 2001/04/15 17:16:49 dwatkins Exp $
+# $Id: .htaccess,v 1.4 2001/04/22 20:30:03 dwatkins Exp $
 #
 # This is used with Apache WebServers
 # The following blocks direct HTTP requests in this directory recursively
@@ -16,5 +16,7 @@
 #
 # Example: http://server/catalog/includes/application_top.php will not work
 
+<Files *.php>
 Order Deny,Allow
 Deny from all
+</Files>
