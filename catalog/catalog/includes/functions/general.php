@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.194 2002/11/12 01:31:25 hpdl Exp $
+  $Id: general.php,v 1.195 2002/11/12 14:08:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1123,8 +1123,13 @@
     $cPath_array = array_map('tep_string_to_int', explode('_', $cPath));
 
 // make sure no duplicate category IDs exist which could lock the server in a loop
-    $cPath_array = array_unique($cPath_array);
+    $tmp_array = array();
+    for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
+      if (!in_array($cPath_array[$i], $tmp_array)) {
+        $tmp_array[] = $cPath_array[$i];
+      }
+    }
 
-    return $cPath_array;
+    return $tmp_array;
   }
 ?>
