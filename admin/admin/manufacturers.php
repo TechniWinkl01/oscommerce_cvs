@@ -160,7 +160,7 @@ function checkForm() {
     $rows++;
 
     if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $manufacturers['manufacturers_id'])) && (!$mInfo) && ($HTTP_GET_VARS['action'] != 'new')) {
-      $manufacturer_products_query = tep_db_query("select count(*) as total from products_to_manufacturers where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
+      $manufacturer_products_query = tep_db_query("select count(*) as total from products where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = tep_db_fetch_array($manufacturer_products_query);
 
       $mInfo_array = tep_array_merge($manufacturers, $manufacturer_products);
