@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.4 2002/05/30 15:36:36 dgw_ Exp $
+  $Id: psigate.php,v 1.5 2002/05/31 16:48:28 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,24 +82,31 @@
     }
 
     function pre_confirmation_check() {
-      global $payment, $HTTP_POST_VARS;
+      global $HTTP_POST_VARS, $payment, $psigate_cc_owner, $psigate_cc_number, $psigate_cc_expires_month, $psigate_cc_expires_year;
+
+      $psigate_cc_owner = tep_db_prepare_input($HTTP_POST_VARS['psigate_cc_owner']);
+      $psigate_cc_number = tep_db_prepare_input($HTTP_POST_VARS['psigate_cc_number']);
+      $psigate_cc_expires_month = tep_db_prepare_input($HTTP_POST_VARS['psigate_cc_expires_month']);
+      $psigate_cc_expires_year = tep_db_prepare_input($HTTP_POST_VARS['psigate_cc_expires_year']);
 
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'local') {
         include(DIR_WS_FUNCTIONS . 'ccval.php');
 
-        $cc_val = OnlyNumericSolution($HTTP_POST_VARS['psigate_cc_number']);
+        $cc_val = OnlyNumericSolution($psigate_cc_number);
         $cc_val = CCValidationSolution($cc_val);
-        if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['psigate_cc_expires_month'], $HTTP_POST_VARS['psigate_cc_expires_year']);
+        if ($cc_val == '1') {
+          $cc_val = ValidateExpiry($psigate_cc_expires_month, $psigate_cc_expires_year);
+        }
 
         if ($cc_val != '1') {
-          $payment_error_return = 'payment_error=' . $payment . '&cc_expires_month=' . $HTTP_POST_VARS['psigate_cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['psigate_cc_expires_year'] . '&cc_val=' . urlencode($cc_val);
+          $payment_error_return = 'payment_error=' . $payment . '&cc_expires_month=' . $psigate_cc_expires_month . '&cc_expires_year=' . $psigate_cc_expires_year . '&cc_val=' . urlencode($cc_val);
           tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
         }
       }
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action;
+      global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action, $psigate_cc_owner, $psigate_cc_expires_month, $psigate_cc_expires_year;
 
       $confirmation_string = '';
 
@@ -109,13 +116,13 @@
                                '    <td class="main">&nbsp;' . MODULE_PAYMENT_PSIGATE_TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
                                '  </tr>' . "\n" .
                                '  <tr>' . "\n" .
-                               '    <td class="main">&nbsp;' . MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER . '&nbsp;' . $HTTP_POST_VARS['psigate_cc_owner'] . '&nbsp;</td>' . "\n" .
+                               '    <td class="main">&nbsp;' . MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER . '&nbsp;' . $psigate_cc_owner . '&nbsp;</td>' . "\n" .
                                '  </tr>' . "\n" .
                                '  <tr>' . "\n" .
                                '    <td class="main">&nbsp;' . MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
                                '  </tr>' . "\n" .
                                '  <tr>' . "\n" .
-                               '    <td class="main">&nbsp;' . MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['psigate_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['psigate_cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                               '    <td class="main">&nbsp;' . MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$psigate_cc_expires_month, 1, '20' . $psigate_cc_expires_year)) . '&nbsp;</td>' . "\n" .
                                '  </tr>' . "\n" .
                                '</table>' . "\n";
 
@@ -127,7 +134,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $order, $customer_id, $currencies;
+      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $psigate_cc_owner, $psigate_cc_expires_month, $psigate_cc_expires_year, $order, $customer_id, $currencies;
 
       $countries_query = tep_db_query("select countries_iso_code_2 from " . TABLE_COUNTRIES . " where countries_name in ('" . $order->customer['country'] . "', '" . $order->delivery['country'] . "')");
       while ($countries = tep_db_fetch_array($countries_query)) {
@@ -163,8 +170,8 @@
 
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'local') {
         $process_button_string .= tep_draw_hidden_field('CardNumber', $CardNumber) .
-                                  tep_draw_hidden_field('ExpMonth', $HTTP_POST_VARS['psigate_cc_expires_month']) .
-                                  tep_draw_hidden_field('ExpYear', $HTTP_POST_VARS['psigate_cc_expires_year']);
+                                  tep_draw_hidden_field('ExpMonth', $psigate_cc_expires_month) .
+                                  tep_draw_hidden_field('ExpYear', $psigate_cc_expires_year);
       }
 
       return $process_button_string;
