@@ -1,47 +1,51 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.11 2003/07/18 19:46:05 project3000 Exp $
+  $Id: compatibility.php,v 1.12 2004/07/22 23:10:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-////
-// Recursively handle magic_quotes_gpc turned off.
-// This is due to the possibility of have an array in
-// $HTTP_xxx_VARS
-// Ie, products attributes
-  function do_magic_quotes_gpc(&$ar) {
-    if (!is_array($ar)) return false;
+  if (PHP_VERSION < 4.1) {
+    if (isset($HTTP_SERVER_VARS)) $_SERVER =& $HTTP_SERVER_VARS;
+    if (isset($HTTP_GET_VARS)) $_GET =& $HTTP_GET_VARS;
+    if (isset($HTTP_POST_VARS)) $_POST =& $HTTP_POST_VARS;
+    if (isset($HTTP_COOKIE_VARS)) $_COOKIE =& $HTTP_COOKIE_VARS;
+    if (isset($HTTP_POST_FILES)) $_FILES =& $HTTP_POST_FILES;
+    if (isset($HTTP_ENV_VARS)) $_ENV =& $HTTP_ENV_VARS;
+  }
 
-    while (list($key, $value) = each($ar)) {
+// Recursively handle magic_quotes_gpc turned off.
+  function osc_remove_magic_quotes(&$array) {
+    if (!is_array($array) || (sizeof($array) < 1)) {
+      return false;
+    }
+
+    foreach ($array as $key => $value) {
       if (is_array($value)) {
-        do_magic_quotes_gpc($value);
+        osc_remove_magic_quotes($array[$key]);
       } else {
-        $ar[$key] = addslashes($value);
+        $array[$key] = stripslashes($value);
       }
     }
   }
 
-// $HTTP_xxx_VARS are always set on php4
-  if (!is_array($HTTP_GET_VARS)) $HTTP_GET_VARS = array();
-  if (!is_array($HTTP_POST_VARS)) $HTTP_POST_VARS = array();
-  if (!is_array($HTTP_COOKIE_VARS)) $HTTP_COOKIE_VARS = array();
-
 // handle magic_quotes_gpc turned off.
-  if (!get_magic_quotes_gpc()) {
-    do_magic_quotes_gpc($HTTP_GET_VARS);
-    do_magic_quotes_gpc($HTTP_POST_VARS);
-    do_magic_quotes_gpc($HTTP_COOKIE_VARS);
-  }
+  if (get_magic_quotes_gpc() > 0) {
+    if (isset($_GET)) {
+      osc_remove_magic_quotes($_GET);
+    }
 
-  if (!function_exists('is_numeric')) {
-    function is_numeric($param) {
-      return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+    if (isset($_POST)) {
+      osc_remove_magic_quotes($_POST);
+    }
+
+    if (isset($_COOKIE)) {
+      osc_remove_magic_quotes($_COOKIE);
     }
   }
 
@@ -81,79 +85,6 @@
     }
   }
 
-  if (!function_exists('in_array')) {
-    function in_array($lookup_value, $lookup_array) {
-      reset($lookup_array);
-      while (list($key, $value) = each($lookup_array)) {
-        if ($value == $lookup_value) return true;
-      }
-
-      return false;
-    }
-  }
-
-  if (!function_exists('array_merge')) {
-    function array_merge($array1, $array2, $array3 = '') {
-      if ($array3 == '') $array3 = array();
-
-      while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
-      while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
-
-      if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
-
-      return (array)$array_merged;
-    }
-  }
-
-  if (!function_exists('array_shift')) {
-    function array_shift(&$array) {
-      $i = 0;
-      $shifted_array = array();
-      reset($array);
-      while (list($key, $value) = each($array)) {
-        if ($i > 0) {
-          $shifted_array[$key] = $value;
-        } else {
-          $return = $array[$key];
-        }
-        $i++;
-      }
-      $array = $shifted_array;
-
-      return $return;
-    }
-  }
-
-  if (!function_exists('array_reverse')) {
-    function array_reverse($array) {
-      $reversed_array = array();
-
-      for ($i=sizeof($array)-1; $i>=0; $i--) {
-        $reversed_array[] = $array[$i];
-      }
-
-      return $reversed_array;
-    }
-  }
-
-  if (!function_exists('array_slice')) {
-    function array_slice($array, $offset, $length = '0') {
-      $length = abs($length);
-
-      if ($length == 0) {
-        $high = sizeof($array);
-      } else {
-        $high = $offset+$length;
-      }
-
-      for ($i=$offset; $i<$high; $i++) {
-        $new_array[$i-$offset] = $array[$i];
-      }
-
-      return $new_array;
-    }
-  }
-
   if (!function_exists('array_map')) {
     function array_map($callback, $array) {
       if (is_array($array)) {
@@ -166,6 +97,27 @@
       } else {
         return $callback($array);
       }
+    }
+  }
+
+  if (!function_exists('file_get_contents')) {
+    function file_get_contents($filename) {
+      if ($handle = @fopen($filename, 'rb')) {
+        $data = fread($handle, filesize($filename));
+        fclose($fh);
+
+        return $data;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  if (!function_exists('constant')) {
+    function constant($constant) {
+      eval("\$temp=$constant;");
+
+      return $temp;
     }
   }
 ?>
