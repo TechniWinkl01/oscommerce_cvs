@@ -108,13 +108,16 @@ return $any_out_of_stock;
         $rate = $currency_value;
       }
 
-// If the selected currency is in the european euro-conversion, the currency will displayed in the national and euro currency.
-      if ($currency=='DEM' || $currency=='BEF' || $currency=='LUF' || $currency=='ESP' || $currency=='FRF' || $currency=='IEP' || $currency=='ITL' || $currency=='NLG' || $currency=='ATS' || $currency=='PTE' || $currency=='FIM' || $currency=='GRD') {
-        $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'] . ' [€ ' . number_format($number,2) . ']';
+// If the selected currency is in the european euro-conversion and the default currency is euro, the currency will displayed in the national and euro currency.
+      if (DEFAULT_CURRENCY=='EUR') {
+        if ($currency=='DEM' || $currency=='BEF' || $currency=='LUF' || $currency=='ESP' || $currency=='FRF' || $currency=='IEP' || $currency=='ITL' || $currency=='NLG' || $currency=='ATS' || $currency=='PTE' || $currency=='FIM' || $currency=='GRD') {
+          $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'] . ' [€ ' . number_format($number,2) . ']';
+        } else {
+          $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
+        }
       } else {
-        $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
+        $number2currency = $currencies['symbol_left'] . number_format($number, $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
       }
-
     } else {
       $number2currency = $currencies['symbol_left'] . number_format($number, $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
     }
