@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.39 2003/12/04 14:29:40 hpdl Exp $
+  $Id: payment.php,v 1.40 2004/04/13 07:55:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,14 +15,18 @@
 
 // class constructor
     function payment($module = '') {
-      global $osC_Session, $PHP_SELF;
+      if (PHP_VERSION < 4.1) {
+        global $_SERVER;
+      }
+
+      global $osC_Session;
 
       if (defined('MODULE_PAYMENT_INSTALLED') && tep_not_null(MODULE_PAYMENT_INSTALLED)) {
         $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 
         $include_modules = array();
 
-        if ( (tep_not_null($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
+        if ( (tep_not_null($module)) && (in_array($module . '.' . substr($_SERVER['PHP_SELF'], (strrpos($_SERVER['PHP_SELF'], '.')+1)), $this->modules)) ) {
           $this->selected_module = $module;
 
           $include_modules[] = array('class' => $module, 'file' => $module . '.php');
@@ -62,7 +66,7 @@
    The following method is a work-around to implementing the method in all
    payment modules available which would break the modules in the contributions
    section. This should be looked into again post 2.2.
-*/   
+*/
     function update_status() {
       if (is_array($this->modules)) {
         if (isset($GLOBALS[$this->selected_module]) && is_object($GLOBALS[$this->selected_module])) {

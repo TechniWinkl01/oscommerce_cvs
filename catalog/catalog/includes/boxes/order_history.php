@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_history.php,v 1.6 2003/11/17 20:02:18 hpdl Exp $
+  $Id: order_history.php,v 1.7 2004/04/13 07:53:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
       while ($products = tep_db_fetch_array($products_query)) {
         $customer_orders_string .= '  <tr>' .
                                    '    <td class="infoBoxContents"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id']) . '">' . $products['products_name'] . '</a></td>' .
-                                   '    <td class="infoBoxContents" align="right" valign="top"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']) . '">' . tep_image(DIR_WS_ICONS . 'cart.gif', ICON_CART) . '</a></td>' .
+                                   '    <td class="infoBoxContents" align="right" valign="top"><a href="' . tep_href_link(basename($_SERVER['PHP_SELF']), tep_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']) . '">' . tep_image(DIR_WS_ICONS . 'cart.gif', ICON_CART) . '</a></td>' .
                                    '  </tr>';
       }
       $customer_orders_string .= '</table>';

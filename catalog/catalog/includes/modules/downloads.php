@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: downloads.php,v 1.4 2003/11/17 20:11:44 hpdl Exp $
+  $Id: downloads.php,v 1.5 2004/04/13 08:00:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 ?>
 <!-- downloads //-->
 <?php
-  if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
+  if (!strstr($_SERVER['PHP_SELF'], FILENAME_ACCOUNT_HISTORY_INFO)) {
 // Get last order id for checkout_success
     $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$osC_Customer->id . "' order by orders_id desc limit 1");
     $orders = tep_db_fetch_array($orders_query);
@@ -69,7 +69,7 @@
         </table></td>
       </tr>
 <?php
-    if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
+    if (!strstr($_SERVER['PHP_SELF'], FILENAME_ACCOUNT_HISTORY_INFO)) {
 ?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

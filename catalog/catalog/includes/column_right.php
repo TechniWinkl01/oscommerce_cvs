@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_right.php,v 1.18 2003/11/17 17:34:05 hpdl Exp $
+  $Id: column_right.php,v 1.19 2004/04/13 08:01:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,14 +33,14 @@
   }
 
   if (isset($_GET['products_id'])) {
-    if (basename($PHP_SELF) != FILENAME_TELL_A_FRIEND) include(DIR_WS_BOXES . 'tell_a_friend.php');
+    if (basename($_SERVER['PHP_SELF']) != FILENAME_TELL_A_FRIEND) include(DIR_WS_BOXES . 'tell_a_friend.php');
   } else {
     include(DIR_WS_BOXES . 'specials.php');
   }
 
   require(DIR_WS_BOXES . 'reviews.php');
 
-  if (substr(basename($PHP_SELF), 0, 8) != 'checkout') {
+  if (substr(basename($_SERVER['PHP_SELF']), 0, 8) != 'checkout') {
     include(DIR_WS_BOXES . 'languages.php');
     include(DIR_WS_BOXES . 'currencies.php');
   }

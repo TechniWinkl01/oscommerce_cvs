@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.8 2003/12/04 12:48:04 hpdl Exp $
+  $Id: navigation_history.php,v 1.9 2004/04/13 07:55:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,11 @@
     }
 
     function add_current_page() {
-      global $PHP_SELF, $request_type, $cPath;
+      if (PHP_VERSION < 4.1) {
+        global $_SERVER;
+      }
+
+      global $request_type, $cPath;
 
       if ($this->set_global) {
         global $_GET, $_POST;
@@ -33,7 +37,7 @@
 
       $set = 'true';
       for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
-        if ($this->path[$i]['page'] == basename($PHP_SELF)) {
+        if ($this->path[$i]['page'] == basename($_SERVER['PHP_SELF'])) {
           if (isset($cPath)) {
             if (!isset($this->path[$i]['get']['cPath'])) {
               continue;
@@ -64,7 +68,7 @@
       }
 
       if ($set == 'true') {
-        $this->path[] = array('page' => basename($PHP_SELF),
+        $this->path[] = array('page' => basename($_SERVER['PHP_SELF']),
                               'mode' => $request_type,
                               'get' => $_GET,
                               'post' => $_POST);
@@ -72,16 +76,22 @@
     }
 
     function remove_current_page() {
-      global $PHP_SELF;
+      if (PHP_VERSION < 4.1) {
+        global $_SERVER;
+      }
 
       $last_entry_position = sizeof($this->path) - 1;
-      if ($this->path[$last_entry_position]['page'] == basename($PHP_SELF)) {
+      if ($this->path[$last_entry_position]['page'] == basename($_SERVER['PHP_SELF'])) {
         unset($this->path[$last_entry_position]);
       }
     }
 
     function set_snapshot($page = '') {
-      global $PHP_SELF, $request_type;
+      if (PHP_VERSION < 4.1) {
+        global $_SERVER;
+      }
+
+      global $request_type;
 
       if ($this->set_global) {
         global $_GET, $_POST;
@@ -93,7 +103,7 @@
                                 'get' => $page['get'],
                                 'post' => $page['post']);
       } else {
-        $this->snapshot = array('page' => basename($PHP_SELF),
+        $this->snapshot = array('page' => basename($_SERVER['PHP_SELF']),
                                 'mode' => $request_type,
                                 'get' => $_GET,
                                 'post' => $_POST);
