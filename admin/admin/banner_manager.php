@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.67 2002/08/17 13:53:35 hpdl Exp $
+  $Id: banner_manager.php,v 1.68 2002/08/18 18:56:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,6 @@
         $banners_url = tep_db_prepare_input($HTTP_POST_VARS['banners_url']);
         $new_banners_group = tep_db_prepare_input($HTTP_POST_VARS['new_banners_group']);
         $banners_group = (empty($new_banners_group)) ? tep_db_prepare_input($HTTP_POST_VARS['banners_group']) : $new_banners_group;
-        $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
         $html_text = tep_db_prepare_input($HTTP_POST_VARS['html_text']);
         $banners_image = tep_get_uploaded_file('banners_image');
         $banners_image_local = tep_db_prepare_input($HTTP_POST_VARS['banners_image_local']);
@@ -55,9 +54,9 @@
           $store_image = false;
           if (!is_writeable($image_directory)) {
             if (is_dir($image_directory)) {
-              $messageStack->add(ERROR_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
+              $messageStack->add(sprintf(ERROR_IMAGE_DIRECTORY_NOT_WRITEABLE, $image_directory), 'error');
             } else {
-              $messageStack->add(ERROR_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
+              $messageStack->add(sprintf(ERROR_IMAGE_DIRECTORY_DOES_NOT_EXIST, $image_directory), 'error');
             }
             $banner_error = true;
           } else {
@@ -68,7 +67,7 @@
         if (!$banner_error) {
           if ( (empty($html_text)) && ($store_image == true) ) {
             tep_copy_uploaded_file($banners_image, $image_directory);
-            $db_image_location = (!empty($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image['name'];
+            $db_image_location = (tep_not_null($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image['name'];
           }
 
           $sql_data_array = array('banners_title' => $banners_title,
