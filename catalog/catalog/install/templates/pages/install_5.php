@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.2 2002/01/03 20:27:16 hpdl Exp $
+  $Id: install_5.php,v 1.3 2002/01/05 06:40:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -104,7 +104,7 @@
                      'define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
                      'define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
                      'define(\'USE_PCONNECT\', ' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '); // use persisstent connections?' . "\n" .
-                     'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
     $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'includes/configure.php', 'w');
@@ -153,7 +153,7 @@
                      'define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
                      'define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
                      'define(\'USE_PCONNECT\', ' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '); // use persisstent connections?' . "\n" .
-                     'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
     $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'includes/configure.php', 'w');

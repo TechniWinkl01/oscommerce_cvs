@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_3.php,v 1.1 2002/01/02 13:02:39 hpdl Exp $
+  $Id: install_3.php,v 1.2 2002/01/05 06:40:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,9 +27,11 @@
     osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
     $db_error = false;
-    $script_directory = dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']);
+    $script_filename = (($SCRIPT_FILENAME) ? $SCRIPT_FILENAME : $HTTP_SERVER_VARS['SCRIPT_FILENAME']);
+    $script_directory = dirname($script_filename);
     $sql_file = $script_directory . '/oscommerce.sql';
 
+    set_time_limit(180);
     osc_db_install($db['DB_DATABASE'], $sql_file);
 
     if ($db_error) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.2 2002/01/03 20:27:16 hpdl Exp $
+  $Id: install_4.php,v 1.3 2002/01/05 06:40:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,6 +25,8 @@
 <p><div class="boxMe"><b>The configuration files do not exist, or permission levels are not set.</b><br><br>Please perform the following actions:
 <ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul>
 <ul class="boxMe"><li>cd <?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN']; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p>
+
+<p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i></p>
 
 <form name="install" action="install.php?step=4" method="post">
 
@@ -54,6 +56,7 @@
 
 <?php
   } else {
+    $http_host = (($HTTP_HOST) ? $HTTP_HOST : $HTTP_SERVER_VARS['HTTP_HOST']);
 ?>
 
 <form name="install" action="install.php?step=5" method="post">

@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.1 2002/01/02 13:02:39 hpdl Exp $
+  $Id: stylesheet.css,v 1.2 2002/01/05 06:40:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,7 @@ A:link, A:visited { color: #0029A3; text-decoration: none; }
 A:hover { color: #5D59ac; text-decoration: underline; }
 TD, UL, P, BODY { font-family: Verdana, Arial, sans-serif; font-size: 11px; line-height: 1.5; }
 .boxMe { font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #000000; background-color: #e5e5e5; }
+.noteBox { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.5; background-color: #fef3da; border: thin dashed; padding: 6px; }
 .navigationBar { font-family: Verdana, Arial, sans-serif; font-size: 10px; font-weight: bold; color: #ffffff; }
 .footerBar { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; }
 .mainText { font-family: Verdana, Arial, sans-serif; font-size: 11px; line-height: 1.5; }
