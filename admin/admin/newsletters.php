@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.6 2002/03/08 22:10:08 hpdl Exp $
+  $Id: newsletters.php,v 1.7 2002/03/08 22:11:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,6 +48,7 @@
           if ($HTTP_GET_VARS['action'] == 'insert') {
             $sql_data_array['date_added'] = 'now()';
             $sql_data_array['status'] = '0';
+            $sql_data_array['locked'] = '0';
 
             tep_db_perform(TABLE_NEWSLETTERS, $sql_data_array);
             $newsletter_id = tep_db_insert_id();
