@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.62 2002/03/23 11:17:02 project3000 Exp $
+  $Id: address_book_process.php,v 1.63 2002/04/06 09:29:46 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -347,10 +347,15 @@ function check_form() {
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
+<?php
+    $rowspan =  5;
+    if (ACCOUNT_GENDER == 'true') $rowspan = $rowspan + 1;
+    if (ACCOUNT_COMPANY == 'true') $rowspan = $rowspan + 2;
+?>
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" rowspan="<?php echo $rowspan =  5 + ACCOUNT_GENDER + ACCOUNT_COMPANY * 2; ?>" class="accountCategory"><?php echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" rowspan="<?php echo $rowspan; ?>" class="accountCategory"><?php echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?php
    if (ACCOUNT_GENDER == 'true') {
@@ -431,7 +436,9 @@ function check_form() {
     } else {
       echo '<input type="text" name="lastname" value="' . @$lastname . '" maxlength="32">&nbsp;' . ENTRY_LAST_NAME_TEXT;
     }
-    $rowspan = 5+ACCOUNT_STATE*2+ACCOUNT_SUBURB;
+   $rowspan =  5;
+   if (ACCOUNT_SUBURB == 'true') $rowspan = $rowspan + 1;
+   if (ACCOUNT_STATE == 'true') $rowspan = $rowspan + 2;
     ?></td>
           </tr>
           <tr>
