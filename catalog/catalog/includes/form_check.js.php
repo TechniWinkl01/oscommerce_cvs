@@ -1,8 +1,16 @@
 <script language="javascript"><!--
+
+var submitted = false;
+
 function check_form() {
   var error = 0;
   var error_message = "<?php echo JS_ERROR; ?>";
 
+  if(submitted){ 
+    alert( "<?php echo JS_ERROR_SUBMITTED; ?>"); 
+    return false; 
+  }
+   
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
 <?php
@@ -118,11 +126,12 @@ function check_form() {
     }
   }
 
-  if (error == 1) {
-    alert(error_message);
-    return false;
-  } else {
-    return true;
-  }
+  if (error == 1) { 
+    alert(error_message); 
+    return false; 
+  } else { 
+    submitted = true; 
+    return true; 
+  } 
 }
 //--></script>

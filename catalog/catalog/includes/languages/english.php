@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.95 2002/06/03 13:04:43 hpdl Exp $
+  $Id: english.php,v 1.96 2002/06/30 14:19:57 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -162,6 +162,8 @@ define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have at least ' . 
 define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match and have at least ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
 define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please select a payment method for your order.\n');
+define('JS_ERROR_SUBMITTED', 'This form has already been submitted. Please press Ok and wait for this process to be completed.');
+
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Please select a payment method for your order.');
 
 define('CATEGORY_COMPANY', 'Company Details');
