@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: general.php,v 1.149 2002/12/13 17:34:34 thomasamoulton Exp $
+  $Id: general.php,v 1.150 2003/01/14 22:21:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -1260,7 +1260,35 @@
 
     return tep_draw_pull_down_menu($name, $zone_class_array, $zone_class_id);
   }
-  
+
+  function tep_cfg_pull_down_order_statuses($order_status_id, $key = '') {
+    global $languages_id;
+
+    $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+
+    $statuses_array = array(array('id' => '0', 'text' => TEXT_DEFAULT));
+    $statuses_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "' order by orders_status_name");
+    while ($statuses = tep_db_fetch_array($statuses_query)) {
+      $statuses_array[] = array('id' => $statuses['orders_status_id'],
+                                'text' => $statuses['orders_status_name']);
+    }
+
+    return tep_draw_pull_down_menu($name, $statuses_array, $order_status_id);
+  }
+
+  function tep_get_order_status_name($order_status_id, $language_id = '') {
+    global $languages_id;
+
+    if ($order_status_id < 1) return TEXT_DEFAULT;
+
+    if (!is_numeric($language_id)) $language_id = $languages_id;
+
+    $status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $order_status_id . "' and language_id = '" . $language_id . "'");
+    $status = tep_db_fetch_array($status_query);
+
+    return $status['orders_status_name'];
+  }
+
 ////
 // Return a random value
   function tep_rand($min = null, $max = null) {
