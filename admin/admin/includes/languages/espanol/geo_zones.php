@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.6 2002/01/16 15:28:09 hpdl Exp $
+  $Id: geo_zones.php,v 1.7 2002/02/17 18:45:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,6 +41,7 @@ define('TEXT_INFO_ZONE_NAME', 'Zone Name:');
 define('TEXT_INFO_ZONE_DESCRIPTION', 'Description:');
 define('TEXT_INFO_COUNTRY', 'Country:');
 define('TEXT_INFO_COUNTRY_ZONE', 'Zone:');
-define('TYPE_BELOW', '*');
-define('PLEASE_SELECT', '*');
+define('TYPE_BELOW', 'Todas las zonas');
+define('PLEASE_SELECT', 'Todas las zonas');
+define('TEXT_ALL_COUNTRIES', 'Todos los paises');
 ?>

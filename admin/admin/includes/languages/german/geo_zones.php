@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.7 2002/01/28 09:46:12 harley_vb Exp $
+  $Id: geo_zones.php,v 1.8 2002/02/17 18:45:08 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,4 +43,5 @@ define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_COUNTRY_ZONE', 'Bundesland:');
 define('TYPE_BELOW', '*');
 define('PLEASE_SELECT', '*');
+define('TEXT_ALL_COUNTRIES', 'All Countries');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.116 2002/02/08 16:48:43 hpdl Exp $
+  $Id: general.php,v 1.117 2002/02/17 18:45:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -570,28 +570,16 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 ////
 // Returns an array with countries
 // TABLES: countries
-  function tep_get_countries($countries_id = '', $with_iso_codes = false) {
+  function tep_get_countries($default = '') {
     $countries_array = array();
-    if ($countries_id) {
-      if ($with_iso_codes) {
-        $countries_query = tep_db_query("select countries_id, countries_name, countries_iso_code_2, countries_iso_code_3 from " . TABLE_COUNTRIES . " where countries_id = '" . tep_db_input($countries_id) . "'");
-        $countries = tep_db_fetch_array($countries_query);
-        $countries_array = array('id' => $countries['countries_id'],
-                                 'text' => $countries['countries_name'],
-                                 'countries_iso_code_2' => $countries['countries_iso_code_2'],
-                                 'countries_iso_code_3' => $countries['countries_iso_code_3']);
-      } else {
-        $countries_query = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . tep_db_input($countries_id) . "'");
-        $countries = tep_db_fetch_array($countries_query);
-        $countries_array = array('id' => $countries['countries_id'],
+    if ($default) {
+      $countries_array[] = array('id' => '',
+                                 'text' => $default);
+    }
+    $countries_query = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " order by countries_name");
+    while ($countries = tep_db_fetch_array($countries_query)) {
+      $countries_array[] = array('id' => $countries['countries_id'],
                                  'text' => $countries['countries_name']);
-      }
-    } else {
-      $countries_query = tep_db_query("select countries_id, countries_name from " . TABLE_COUNTRIES . " order by countries_name");
-      while ($countries = tep_db_fetch_array($countries_query)) {
-        $countries_array[] = array('id' => $countries['countries_id'],
-                                   'text' => $countries['countries_name']);
-      }
     }
 
     return $countries_array;
