@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.201 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: general.php,v 1.202 2002/11/23 02:29:39 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -980,8 +980,8 @@
 
     $modules_array = split(';', $modules);
 
-    $size = sizeof($modules_array);
-    for ($i=0, $n=$size; $i<$n; $i++) {
+    $n = sizeof($modules_array);
+    for ($i=0; $i<$n; $i++) {
       $class = substr($modules_array[$i], 0, strrpos($modules_array[$i], '.'));
 
       if (is_object($GLOBALS[$class])) {
@@ -1119,8 +1119,8 @@
 
 // make sure no duplicate category IDs exist which could lock the server in a loop
     $tmp_array = array();
-    $size = sizeof($cPath_array);
-    for ($i=0, $n=$size; $i<$n; $i++) {
+    $n = sizeof($cPath_array);
+    for ($i=0; $i<$n; $i++) {
       if (!in_array($cPath_array[$i], $tmp_array)) {
         $tmp_array[] = $cPath_array[$i];
       }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.255 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: application_top.php,v 1.256 2002/11/23 02:29:39 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -430,8 +430,8 @@
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
 
   if (isset($cPath_array)) {
-    $size = sizeof($cPath_array);
-    for ($i = 0, $n = $size; $i < $n; $i++) {
+    $n = sizeof($cPath_array);
+    for ($i = 0; $i < $n; $i++) {
       $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
       if (tep_db_num_rows($categories_query) > 0) {
         $categories = tep_db_fetch_array($categories_query);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.37 2002/11/23 02:08:12 thomasamoulton Exp $
+  $Id: usps.php,v 1.38 2002/11/23 02:29:39 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -222,8 +222,8 @@
           }
         }
 
-        $size = sizeof($response);
-        for ($i=0, $n=$size; $i<$n; $i++) {
+        $n = sizeof($response);
+        for ($i=0; $i<$n; $i++) {
           if (strpos($response[$i], '<Postage>')) {
             $service = ereg('<Service>(.*)</Service>', $response[$i], $regs);
             $service = $regs[1];

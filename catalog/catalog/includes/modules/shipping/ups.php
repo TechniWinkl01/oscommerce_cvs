@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.45 2002/11/23 02:08:12 thomasamoulton Exp $
+  $Id: ups.php,v 1.46 2002/11/23 02:29:39 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -240,8 +240,8 @@
 
       $returnval = array();
 
-      $size = sizeof($body_array);
-      for ($i=0, $n=$size; $i<$n; $i++) {
+      $n = sizeof($body_array);
+      for ($i=0; $i<$n; $i++) {
         $result = explode('%', $body_array[$i]);
         $errcode = substr($result[0], -1);
         switch ($errcode) {
