@@ -9,74 +9,42 @@
   new infoBoxHeading($info_box_contents);
 
   $categories_string = '';
-  /**
-  * @version 0.1 22/02/00
-  * @author Tobias Nix <t.nix@paupau.de>
-  */
-
-  $result = tep_db_query("SELECT * FROM categories WHERE parent_id = '0' ORDER BY sort_order, categories_name");
-  while( $row = mysql_fetch_array( $result ) )  {
-    $foo[ $row[ categories_id ] ] = array('name'    => $row[ categories_name ],
-                                          'parent'  => $row[ parent_id ],
-                                          'level'   => 0,
-                                          'path'    => $row[ categories_id ],
-                                          'next_id' => false
-                                         );
-    if( isset( $prev_id ) )  
-      $foo[ $prev_id ][ next_id ] = $row[ categories_id ];
-    $prev_id = $row[ categories_id ];
-    if( !isset( $first_element) )  $first_element = $row[ categories_id ] ;
-  }
-  
-  if( $cPath )  {
-    $id = split ("_", $cPath);
-    foreach( $id as $key => $value )  {
-      $new_path .= $value;
-      unset( $prev_id );
-      unset( $first_id );
-      $result = tep_db_query("SELECT * FROM categories WHERE parent_id = '$value' ORDER BY sort_order, categories_name");
-      $category_check = mysql_num_rows( $result ) . "<br>";
-      while( $row = mysql_fetch_array( $result ) ) {
-        $foo[ $row[ categories_id ] ] = array('name'    => $row[ categories_name ],
-                                              'parent'  => $row[ parent_id ],
-                                              'level'   => $key+1,
-                                              'path'    => $new_path . "_" .$row[ categories_id ],
-                                              'next_id' => false
-                                             );
-        if( isset( $prev_id ) )  
-          $foo[ $prev_id ][ next_id ] = $row[ categories_id ];
-        $prev_id = $row[ categories_id ];
-		
-        if( !isset( $first_id ) )  $first_id = $row[ categories_id ];	
-        $last_id = $row[ categories_id ];
+  if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
+// check to see if there are deeper categories within the current category
+    $category_links = tep_array_reverse($cPath_array);
+    for($i=0;$i<sizeof($category_links);$i++) {
+      $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order, categories_name");
+      if (tep_db_num_rows($categories) < 1) {
+        // do nothing, go through the loop
+      } else {
+        break; // we've found the deepest category the customer is in
       }
-      if( $category_check != 0 )  {
-        $foo[ $last_id ][ next_id ] = $foo[ $value ][ next_id ];
-        $foo[ $value ][ next_id ] = $first_id;	
-      }
-      $new_path .= "_";
     }
+  } else {
+    $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
   }
-  
-  function show_category( $counter )  {
-    global $foo;
-    global $categories_string;
 
-    for( $a = 0; $a < $foo[ $counter ][ level ] ; $a++ )  $categories_string .= "&nbsp;";
-    $categories_string .= "<a href=\"";
-	
-    if( $foo[ $counter ][ parent ] == 0 )  
-      $cPath_new = "cPath=".$counter;
-    else
-      $cPath_new = "cPath=".$foo[ $counter ][ path ] ;
-  
-    $categories_string .= tep_href_link(FILENAME_DEFAULT, $cPath_new );
+  while ($categories_values = tep_db_fetch_array($categories)) {
+    $count_str = '';
+    if (SHOW_COUNTS) {
+      if (USE_RECURSIVE_COUNT) {  
+        $total_count = tep_count_products_in_category($categories_values['categories_id']);
+      } else {
+        if (@$HTTP_GET_VARS['cPath']) {
+          $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.categories_id = '" . $categories_values['categories_id'] . "'");
+        } else {
+          $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.parent_id = '" . $categories_values['categories_id'] . "'");
+        }
+        $total_products_values = tep_db_fetch_array($total_products);
+        $total_count = $total_products_values['total'];
+      }
+      if ($total_count > 0) $count_str = ' (' . $total_count . ')';
+    }
 
-    $categories_string .= "\">" . $foo[ $counter ][ name ] . "</a><br>";	
-    if( $foo[ $counter ][ next_id ] )  show_category($foo[ $counter ][ next_id ]);
+    $cPath_new = tep_get_path($categories_values['categories_id']);
+    $categories_string .= '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a>' . $count_str . '<br>';
   }
-  show_category( $first_element ); 
-  
+
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => $categories_string
