@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.8 2001/08/25 14:03:47 hpdl Exp $
+  $Id: secpay.php,v 1.9 2001/08/25 14:26:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -42,22 +42,22 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates, $customer_id, $sendto;
+      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates, $sendto;
 
 	  if ($this->enabled) {
         $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
                                  tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
                                  tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax + $shipping_cost) * $currency_rates[MODULE_PAYMENT_SECPAY_CURRENCY], 2)) .
                                  tep_draw_hidden_field('currency', MODULE_PAYMENT_SECPAY_CURRENCY) .
-                                 tep_draw_hidden_field('callback', HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?' . tep_session_name() . '=' . tep_session_id() . '&customer_id=' . $customer_id . '&sendto=' . $sendto . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method)) .
-                                 tep_draw_hidden_field('options', 'test_status=' . MODULE_PAYMENT_SECPAY_TEST_STATUS . ',dups=false,cb_post=true,cb_flds=customer_id:sendto:payment:shipping_cost:shipping_method:' . tep_session_name());
+                                 tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, 'sendto=' . $sendto . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method))) .
+                                 tep_draw_hidden_field('options', 'test_status=' . MODULE_PAYMENT_SECPAY_TEST_STATUS . ',dups=false,cb_post=true,cb_flds=sendto:payment:shipping_cost:shipping_method' . (SID) ? ':' . tep_session_name() : '');
       }
 
       return $process_button_string;
     }
 
     function before_process() {
-      global $HTTP_POST_VARS, $payment, $sendto, $shipping_cost, $shipping_method, $comments, $customer_id;
+      global $HTTP_POST_VARS, $payment, $sendto, $shipping_cost, $shipping_method, $comments;
 
       $remote_host = getenv('REMOTE_HOST');
       if ($payment == $this->code) {
@@ -68,7 +68,6 @@
           header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS['session'] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL'));
           tep_exit();
         } elseif ( ($remote_host == 'secpay.com') && ($HTTP_POST_VARS['valid'] == 'true') ) {
-          $customer_id = $HTTP_POST_VARS['customer_id'];
           $sendto = $HTTP_POST_VARS['sendto'];
         }
       }
