@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: server_info.php,v 1.4 2003/03/17 15:43:10 hpdl Exp $
+  $Id: server_info.php,v 1.5 2003/06/20 00:41:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -101,6 +101,10 @@
     ereg("(<style type=\"text/css\">{1})(.*)(</style>{1})", $phpinfo, $regs);
     echo '<style type="text/css">' . $regs[2] . '</style>';
     ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);
+    echo '<table border="1" cellpadding="3" width="600" align="center" style="border: 0px; border-color: #000000;">' .
+         '  <tr><td><a href="http://www.oscommerce.com"><img border="0" src="images/oscommerce.gif" alt=" osCommerce " /></a><h1 class="p"> ' . PROJECT_VERSION . '</h1></td>' . 
+         '  </tr>' .
+         '</table>';
     echo $regs[2];
   } else {
     phpinfo();

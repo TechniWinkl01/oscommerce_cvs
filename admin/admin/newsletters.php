@@ -1,31 +1,33 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.15 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: newsletters.php,v 1.16 2003/06/20 00:38:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  if ($HTTP_GET_VARS['action']) {
-    switch ($HTTP_GET_VARS['action']) {
+  $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
+
+  if (tep_not_null($action)) {
+    switch ($action) {
       case 'lock':
       case 'unlock':
         $newsletter_id = tep_db_prepare_input($HTTP_GET_VARS['nID']);
-        $status = (($HTTP_GET_VARS['action'] == 'lock') ? '1' : '0');
+        $status = (($action == 'lock') ? '1' : '0');
 
-        tep_db_query("update " . TABLE_NEWSLETTERS . " set locked = '" . $status . "' where newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+        tep_db_query("update " . TABLE_NEWSLETTERS . " set locked = '" . $status . "' where newsletters_id = '" . (int)$newsletter_id . "'");
 
         tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']));
         break;
       case 'insert':
       case 'update':
-        $newsletter_id = tep_db_prepare_input($HTTP_POST_VARS['newsletter_id']);
+        if (isset($HTTP_POST_VARS['newsletter_id'])) $newsletter_id = tep_db_prepare_input($HTTP_POST_VARS['newsletter_id']);
         $newsletter_module = tep_db_prepare_input($HTTP_POST_VARS['module']);
         $title = tep_db_prepare_input($HTTP_POST_VARS['title']);
         $content = tep_db_prepare_input($HTTP_POST_VARS['content']);
@@ -35,56 +37,59 @@
           $messageStack->add(ERROR_NEWSLETTER_TITLE, 'error');
           $newsletter_error = true;
         }
+
         if (empty($module)) {
           $messageStack->add(ERROR_NEWSLETTER_MODULE, 'error');
           $newsletter_error = true;
         }
 
-        if (!$newsletter_error) {
+        if ($newsletter_error == false) {
           $sql_data_array = array('title' => $title,
                                   'content' => $content,
                                   'module' => $newsletter_module);
 
-          if ($HTTP_GET_VARS['action'] == 'insert') {
+          if ($action == 'insert') {
             $sql_data_array['date_added'] = 'now()';
             $sql_data_array['status'] = '0';
             $sql_data_array['locked'] = '0';
 
             tep_db_perform(TABLE_NEWSLETTERS, $sql_data_array);
             $newsletter_id = tep_db_insert_id();
-          } elseif ($HTTP_GET_VARS['action'] == 'update') {
-            tep_db_perform(TABLE_NEWSLETTERS, $sql_data_array, 'update', 'newsletters_id = \'' . tep_db_input($newsletter_id) . '\'');
+          } elseif ($action == 'update') {
+            tep_db_perform(TABLE_NEWSLETTERS, $sql_data_array, 'update', "newsletters_id = '" . (int)$newsletter_id . "'");
           }
 
-          tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $newsletter_id));
+          tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'nID=' . $newsletter_id));
         } else {
-          $HTTP_GET_VARS['action'] = 'new';
+          $action = 'new';
         }
         break;
       case 'deleteconfirm':
         $newsletter_id = tep_db_prepare_input($HTTP_GET_VARS['nID']);
 
-        tep_db_query("delete from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+        tep_db_query("delete from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$newsletter_id . "'");
 
         tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'delete':
-      case 'new': if (!$HTTP_GET_VARS['nID']) break;
+      case 'new': if (!isset($HTTP_GET_VARS['nID'])) break;
       case 'send':
       case 'confirm_send':
         $newsletter_id = tep_db_prepare_input($HTTP_GET_VARS['nID']);
 
-        $check_query = tep_db_query("select locked from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+        $check_query = tep_db_query("select locked from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$newsletter_id . "'");
         $check = tep_db_fetch_array($check_query);
 
         if ($check['locked'] < 1) {
-          switch ($HTTP_GET_VARS['action']) {
+          switch ($action) {
             case 'delete': $error = ERROR_REMOVE_UNLOCKED_NEWSLETTER; break;
             case 'new': $error = ERROR_EDIT_UNLOCKED_NEWSLETTER; break;
             case 'send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
             case 'confirm_send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
           }
+
           $messageStack->add_session($error, 'error');
+
           tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']));
         }
         break;
@@ -123,20 +128,26 @@
         </table></td>
       </tr>
 <?php
-  if ($HTTP_GET_VARS['action'] == 'new') {
+  if ($action == 'new') {
     $form_action = 'insert';
-    if ($HTTP_GET_VARS['nID']) {
-      $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
+
+    $parameters = array('title' => '',
+                        'content' => '',
+                        'module' => '');
+
+    $nInfo = new objectInfo($parameters);
+
+    if (isset($HTTP_GET_VARS['nID'])) {
       $form_action = 'update';
 
-      $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($nID) . "'");
+      $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
+
+      $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$nID . "'");
       $newsletter = tep_db_fetch_array($newsletter_query);
 
-      $nInfo = new objectInfo($newsletter);
+      $nInfo->objectInfo($newsletter);
     } elseif ($HTTP_POST_VARS) {
-      $nInfo = new objectInfo($HTTP_POST_VARS);
-    } else {
-      $nInfo = new objectInfo(array());
+      $nInfo->objectInfo($HTTP_POST_VARS);
     }
 
     $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
@@ -153,14 +164,14 @@
       $dir->close();
     }
 
-    for ($i = 0, $n = sizeof($directory_array); $i < $n; $i++) {
+    for ($i=0, $n=sizeof($directory_array); $i<$n; $i++) {
       $modules_array[] = array('id' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')), 'text' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')));
     }
 ?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
-      <tr><?php echo tep_draw_form('newsletter', FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&action=' . $form_action); if ($form_action == 'update') echo tep_draw_hidden_field('newsletter_id', $nID); ?>
+      <tr><?php echo tep_draw_form('newsletter', FILENAME_NEWSLETTERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'action=' . $form_action); if ($form_action == 'update') echo tep_draw_hidden_field('newsletter_id', $nID); ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_MODULE; ?></td>
@@ -188,15 +199,15 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" align="right"><?php echo (($form_action == 'insert') ? tep_image_submit('button_save.gif', IMAGE_SAVE) : tep_image_submit('button_update.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
+            <td class="main" align="right"><?php echo (($form_action == 'insert') ? tep_image_submit('button_save.gif', IMAGE_SAVE) : tep_image_submit('button_update.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_NEWSLETTERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . (isset($HTTP_GET_VARS['nID']) ? 'nID=' . $HTTP_GET_VARS['nID'] : '')) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
 <?php
-  } elseif ($HTTP_GET_VARS['action'] == 'preview') {
+  } elseif ($action == 'preview') {
     $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
 
-    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($nID) . "'");
+    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$nID . "'");
     $newsletter = tep_db_fetch_array($newsletter_query);
 
     $nInfo = new objectInfo($newsletter);
@@ -211,10 +222,10 @@
         <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
-  } elseif ($HTTP_GET_VARS['action'] == 'send') {
+  } elseif ($action == 'send') {
     $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
 
-    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($nID) . "'");
+    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$nID . "'");
     $newsletter = tep_db_fetch_array($newsletter_query);
 
     $nInfo = new objectInfo($newsletter);
@@ -228,10 +239,10 @@
         <td><?php if ($module->show_choose_audience) { echo $module->choose_audience(); } else { echo $module->confirm(); } ?></td>
       </tr>
 <?php
-  } elseif ($HTTP_GET_VARS['action'] == 'confirm') {
+  } elseif ($action == 'confirm') {
     $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
 
-    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($nID) . "'");
+    $newsletter_query = tep_db_query("select title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$nID . "'");
     $newsletter = tep_db_fetch_array($newsletter_query);
 
     $nInfo = new objectInfo($newsletter);
@@ -245,10 +256,10 @@
         <td><?php echo $module->confirm(); ?></td>
       </tr>
 <?php
-  } elseif ($HTTP_GET_VARS['action'] == 'confirm_send') {
+  } elseif ($action == 'confirm_send') {
     $nID = tep_db_prepare_input($HTTP_GET_VARS['nID']);
 
-    $newsletter_query = tep_db_query("select newsletters_id, title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($nID) . "'");
+    $newsletter_query = tep_db_query("select newsletters_id, title, content, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$nID . "'");
     $newsletter = tep_db_fetch_array($newsletter_query);
 
     $nInfo = new objectInfo($newsletter);
@@ -303,11 +314,11 @@
     $newsletters_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $newsletters_query_raw, $newsletters_query_numrows);
     $newsletters_query = tep_db_query($newsletters_query_raw);
     while ($newsletters = tep_db_fetch_array($newsletters_query)) {
-      if (((!$HTTP_GET_VARS['nID']) || (@$HTTP_GET_VARS['nID'] == $newsletters['newsletters_id'])) && (!$nInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
+    if ((!isset($HTTP_GET_VARS['nID']) || (isset($HTTP_GET_VARS['nID']) && ($HTTP_GET_VARS['nID'] == $newsletters['newsletters_id']))) && !isset($nInfo) && (substr($action, 0, 3) != 'new')) {
         $nInfo = new objectInfo($newsletters);
       }
 
-      if ( (is_object($nInfo)) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) {
+      if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) {
         echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '\'">' . "\n";
       } else {
         echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $newsletters['newsletters_id']) . '\'">' . "\n";
@@ -318,7 +329,7 @@
                 <td class="dataTableContent" align="right"><?php echo $newsletters['module']; ?></td>
                 <td class="dataTableContent" align="center"><?php if ($newsletters['status'] == '1') { echo tep_image(DIR_WS_ICONS . 'tick.gif', ICON_TICK); } else { echo tep_image(DIR_WS_ICONS . 'cross.gif', ICON_CROSS); } ?></td>
                 <td class="dataTableContent" align="center"><?php if ($newsletters['locked'] > 0) { echo tep_image(DIR_WS_ICONS . 'locked.gif', ICON_LOCKED); } else { echo tep_image(DIR_WS_ICONS . 'unlocked.gif', ICON_UNLOCKED); } ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($nInfo)) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $newsletters['newsletters_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $newsletters['newsletters_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -338,7 +349,8 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($HTTP_GET_VARS['action']) {
+
+  switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
 

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.6 2002/05/20 10:58:19 dgw_ Exp $
+  $Id: popup_image.php,v 1.7 2003/06/20 00:40:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,7 +18,7 @@
       case 'banner':
         $banners_id = tep_db_prepare_input($HTTP_GET_VARS['banner']);
 
-        $banner_query = tep_db_query("select banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where banners_id = '" . tep_db_input($banners_id) . "'");
+        $banner_query = tep_db_query("select banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where banners_id = '" . (int)$banners_id . "'");
         $banner = tep_db_fetch_array($banner_query);
 
         $page_title = $banner['banners_title'];

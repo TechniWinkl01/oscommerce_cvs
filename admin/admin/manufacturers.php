@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.52 2003/03/22 02:44:55 hpdl Exp $
+  $Id: manufacturers.php,v 1.53 2003/06/20 00:38:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,80 +12,92 @@
 
   require('includes/application_top.php');
 
-  switch ($HTTP_GET_VARS['action']) {
-    case 'insert':
-    case 'save':
-      $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
-      $manufacturers_name = tep_db_prepare_input($HTTP_POST_VARS['manufacturers_name']);
+  $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 
-      $sql_data_array = array('manufacturers_name' => $manufacturers_name);
+  if (tep_not_null($action)) {
+    switch ($action) {
+      case 'insert':
+      case 'save':
+        if (isset($HTTP_GET_VARS['mID'])) $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
+        $manufacturers_name = tep_db_prepare_input($HTTP_POST_VARS['manufacturers_name']);
 
-      if ($HTTP_GET_VARS['action'] == 'insert') {
-        $insert_sql_data = array('date_added' => 'now()');
-        $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
-        tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
-        $manufacturers_id = tep_db_insert_id();
-      } elseif ($HTTP_GET_VARS['action'] == 'save') {
-        $update_sql_data = array('last_modified' => 'now()');
-        $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
-        tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-      }
+        $sql_data_array = array('manufacturers_name' => $manufacturers_name);
 
-      if ($manufacturers_image = new upload('manufacturers_image', DIR_FS_CATALOG_IMAGES)) {
-        tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image->filename . "' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-      }
+        if ($action == 'insert') {
+          $insert_sql_data = array('date_added' => 'now()');
 
-      $languages = tep_get_languages();
-      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
-        $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
-        $language_id = $languages[$i]['id'];
-
-        $sql_data_array = array('manufacturers_url' => tep_db_prepare_input($manufacturers_url_array[$language_id]));
-
-        if ($HTTP_GET_VARS['action'] == 'insert') {
-          $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
-                                   'languages_id' => $language_id);
           $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
-          tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
-        } elseif ($HTTP_GET_VARS['action'] == 'save') {
-          tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . tep_db_input($manufacturers_id) . "' and languages_id = '" . $language_id . "'");
+
+          tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array);
+          $manufacturers_id = tep_db_insert_id();
+        } elseif ($action == 'save') {
+          $update_sql_data = array('last_modified' => 'now()');
+
+          $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
+
+          tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "'");
         }
-      }
 
-      if (USE_CACHE == 'true') {
-        tep_reset_cache_block('manufacturers');
-      }
-
-      tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $manufacturers_id));
-      break;
-    case 'deleteconfirm':
-      $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
-
-      if ($HTTP_POST_VARS['delete_image'] == 'on') {
-        $manufacturer_query = tep_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-        $manufacturer = tep_db_fetch_array($manufacturer_query);
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturer['manufacturers_image'];
-        if (file_exists($image_location)) @unlink($image_location);
-      }
-
-      tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-      tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-
-      if ($HTTP_POST_VARS['delete_products'] == 'on') {
-        $products_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-        while ($products = tep_db_fetch_array($products_query)) {
-          tep_remove_product($products['products_id']);
+        if ($manufacturers_image = new upload('manufacturers_image', DIR_FS_CATALOG_IMAGES)) {
+          tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image->filename . "' where manufacturers_id = '" . (int)$manufacturers_id . "'");
         }
-      } else {
-        tep_db_query("update " . TABLE_PRODUCTS . " set manufacturers_id = '' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-      }
 
-      if (USE_CACHE == 'true') {
-        tep_reset_cache_block('manufacturers');
-      }
+        $languages = tep_get_languages();
+        for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
+          $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
+          $language_id = $languages[$i]['id'];
 
-      tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page']));
-      break;
+          $sql_data_array = array('manufacturers_url' => tep_db_prepare_input($manufacturers_url_array[$language_id]));
+
+          if ($action == 'insert') {
+            $insert_sql_data = array('manufacturers_id' => $manufacturers_id,
+                                     'languages_id' => $language_id);
+
+            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+
+            tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array);
+          } elseif ($action == 'save') {
+            tep_db_perform(TABLE_MANUFACTURERS_INFO, $sql_data_array, 'update', "manufacturers_id = '" . (int)$manufacturers_id . "' and languages_id = '" . (int)$language_id . "'");
+          }
+        }
+
+        if (USE_CACHE == 'true') {
+          tep_reset_cache_block('manufacturers');
+        }
+
+        tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'mID=' . $manufacturers_id));
+        break;
+      case 'deleteconfirm':
+        $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
+
+        if (isset($HTTP_POST_VARS['delete_image']) && ($HTTP_POST_VARS['delete_image'] == 'on')) {
+          $manufacturer_query = tep_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$manufacturers_id . "'");
+          $manufacturer = tep_db_fetch_array($manufacturer_query);
+
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturer['manufacturers_image'];
+
+          if (file_exists($image_location)) @unlink($image_location);
+        }
+
+        tep_db_query("delete from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . (int)$manufacturers_id . "'");
+        tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$manufacturers_id . "'");
+
+        if (isset($HTTP_POST_VARS['delete_products']) && ($HTTP_POST_VARS['delete_products'] == 'on')) {
+          $products_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where manufacturers_id = '" . (int)$manufacturers_id . "'");
+          while ($products = tep_db_fetch_array($products_query)) {
+            tep_remove_product($products['products_id']);
+          }
+        } else {
+          tep_db_query("update " . TABLE_PRODUCTS . " set manufacturers_id = '' where manufacturers_id = '" . (int)$manufacturers_id . "'");
+        }
+
+        if (USE_CACHE == 'true') {
+          tep_reset_cache_block('manufacturers');
+        }
+
+        tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page']));
+        break;
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -132,22 +144,22 @@
   $manufacturers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_query_raw, $manufacturers_query_numrows);
   $manufacturers_query = tep_db_query($manufacturers_query_raw);
   while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
-    if (((!$HTTP_GET_VARS['mID']) || (@$HTTP_GET_VARS['mID'] == $manufacturers['manufacturers_id'])) && (!$mInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
-      $manufacturer_products_query = tep_db_query("select count(*) as products_count from " . TABLE_PRODUCTS . " where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
+    if ((!isset($HTTP_GET_VARS['mID']) || (isset($HTTP_GET_VARS['mID']) && ($HTTP_GET_VARS['mID'] == $manufacturers['manufacturers_id']))) && !isset($mInfo) && (substr($action, 0, 3) != 'new')) {
+      $manufacturer_products_query = tep_db_query("select count(*) as products_count from " . TABLE_PRODUCTS . " where manufacturers_id = '" . (int)$manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = tep_db_fetch_array($manufacturer_products_query);
 
       $mInfo_array = tep_array_merge($manufacturers, $manufacturer_products);
       $mInfo = new objectInfo($mInfo_array);
     }
 
-    if ( (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) {
+    if (isset($mInfo) && is_object($mInfo) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) {
       echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $manufacturers['manufacturers_id'] . '&action=edit') . '\'">' . "\n";
     } else {
       echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '\'">' . "\n";
     }
 ?>
                 <td class="dataTableContent"><?php echo $manufacturers['manufacturers_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($manufacturers['manufacturers_id'] == $mInfo->manufacturers_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $manufacturers['manufacturers_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
@@ -161,7 +173,7 @@
                 </table></td>
               </tr>
 <?php
-  if ($HTTP_GET_VARS['action'] != 'new') {
+  if ($action != 'new') {
 ?>
               <tr>
                 <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=new') . '">' . tep_image_button('button_insert.gif', IMAGE_INSERT) . '</a>'; ?></td>
@@ -173,7 +185,8 @@
 <?php
   $heading = array();
   $contents = array();
-  switch ($HTTP_GET_VARS['action']) {
+
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_MANUFACTURER . '</b>');
 
@@ -184,7 +197,7 @@
 
       $manufacturer_inputs_string = '';
       $languages = tep_get_languages();
-      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
+      for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
         $manufacturer_inputs_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('manufacturers_url[' . $languages[$i]['id'] . ']');
       }
 
@@ -201,7 +214,7 @@
 
       $manufacturer_inputs_string = '';
       $languages = tep_get_languages();
-      for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
+      for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
         $manufacturer_inputs_string .= '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $languages[$i]['directory'] . '/images/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('manufacturers_url[' . $languages[$i]['id'] . ']', tep_get_manufacturer_url($mInfo->manufacturers_id, $languages[$i]['id']));
       }
 
@@ -224,7 +237,7 @@
       $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->manufacturers_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
-      if (is_object($mInfo)) {
+      if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>' . $mInfo->manufacturers_name . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=edit') . '">' . tep_image_button('button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $mInfo->manufacturers_id . '&action=delete') . '">' . tep_image_button('button_delete.gif', IMAGE_DELETE) . '</a>');

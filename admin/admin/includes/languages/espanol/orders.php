@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.24 2003/02/09 13:15:22 thomasamoulton Exp $
+  $Id: orders.php,v 1.25 2003/06/20 00:28:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,26 +25,16 @@ define('TABLE_HEADING_PRODUCTS_MODEL', 'Modelo');
 define('TABLE_HEADING_PRODUCTS', 'Productos');
 define('TABLE_HEADING_TAX', 'Impuesto');
 define('TABLE_HEADING_TOTAL', 'Total');
-define('TABLE_HEADING_STATUS', 'Estado');
 define('TABLE_HEADING_PRICE_EXCLUDING_TAX', 'Precio (ex)');
 define('TABLE_HEADING_PRICE_INCLUDING_TAX', 'Precio (inc)');
 define('TABLE_HEADING_TOTAL_EXCLUDING_TAX', 'Total (ex)');
 define('TABLE_HEADING_TOTAL_INCLUDING_TAX', 'Total (inc)');
 
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Cliente Notificado');
 define('TABLE_HEADING_DATE_ADDED', 'Añadido el');
 
 define('ENTRY_CUSTOMER', 'Cliente:');
 define('ENTRY_SOLD_TO', 'Cliente:');
-define('ENTRY_STREET_ADDRESS', 'Direccion:');
-define('ENTRY_SUBURB', '');
-define('ENTRY_CITY', 'Poblacion:');
-define('ENTRY_POST_CODE', 'Codigo Postal:');
-define('ENTRY_STATE', 'Provincia:');
-define('ENTRY_COUNTRY', 'Pais:');
-define('ENTRY_TELEPHONE', 'Telefono:');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('ENTRY_DELIVERY_TO', 'Enviar A:');
 define('ENTRY_SHIP_TO', 'Enviar A:');
 define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');

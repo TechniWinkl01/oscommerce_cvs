@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: packingslip.php,v 1.6 2003/05/14 18:58:09 dgw_ Exp $
+  $Id: packingslip.php,v 1.7 2003/06/20 00:40:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -16,7 +16,7 @@
   $currencies = new currencies();
 
   $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
-  $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
+  $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . (int)$oID . "'");
 
   include(DIR_WS_CLASSES . 'order.php');
   $order = new order($oID);
@@ -94,13 +94,13 @@
         <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
       </tr>
 <?php
-    for ($i = 0, $n = sizeof($order->products); $i < $n; $i++) {
+    for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
       echo '      <tr class="dataTableRow">' . "\n" .
            '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-      if (sizeof($order->products[$i]['attributes']) > 0) {
-        for ($j = 0, $k = sizeof($order->products[$i]['attributes']); $j < $k; $j++) {
+      if (isset($order->products[$i]['attributes']) && (sizeof($order->products[$i]['attributes']) > 0)) {
+        for ($j=0, $k=sizeof($order->products[$i]['attributes']); $j<$k; $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           echo '</i></small></nobr>';
         }

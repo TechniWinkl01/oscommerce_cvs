@@ -1,117 +1,121 @@
 <?php
 /*
-  $Id: languages.php,v 1.33 2003/05/07 15:27:40 dgw_ Exp $
+  $Id: languages.php,v 1.34 2003/06/20 00:37:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  switch ($HTTP_GET_VARS['action']) {
-    case 'insert':
-      $name = tep_db_prepare_input($HTTP_POST_VARS['name']);
-      $code = tep_db_prepare_input($HTTP_POST_VARS['code']);
-      $image = tep_db_prepare_input($HTTP_POST_VARS['image']);
-      $directory = tep_db_prepare_input($HTTP_POST_VARS['directory']);
-      $sort_order = tep_db_prepare_input($HTTP_POST_VARS['sort_order']);
+  $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
 
-      tep_db_query("insert into " . TABLE_LANGUAGES . " (name, code, image, directory, sort_order) values ('" . tep_db_input($name) . "', '" . tep_db_input($code) . "', '" . tep_db_input($image) . "', '" . tep_db_input($directory) . "', '" . tep_db_input($sort_order) . "')");
-      $insert_id = tep_db_insert_id();
+  if (tep_not_null($action)) {
+    switch ($action) {
+      case 'insert':
+        $name = tep_db_prepare_input($HTTP_POST_VARS['name']);
+        $code = tep_db_prepare_input($HTTP_POST_VARS['code']);
+        $image = tep_db_prepare_input($HTTP_POST_VARS['image']);
+        $directory = tep_db_prepare_input($HTTP_POST_VARS['directory']);
+        $sort_order = tep_db_prepare_input($HTTP_POST_VARS['sort_order']);
+
+        tep_db_query("insert into " . TABLE_LANGUAGES . " (name, code, image, directory, sort_order) values ('" . tep_db_input($name) . "', '" . tep_db_input($code) . "', '" . tep_db_input($image) . "', '" . tep_db_input($directory) . "', '" . tep_db_input($sort_order) . "')");
+        $insert_id = tep_db_insert_id();
 
 // create additional categories_description records
-      $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id where cd.language_id = '" . $languages_id . "'");
-      while ($categories = tep_db_fetch_array($categories_query)) {
-        tep_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, language_id, categories_name) values ('" . $categories['categories_id'] . "', '" . $insert_id . "', '" . tep_db_input($categories['categories_name']) . "')");
-      }
+        $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c left join " . TABLE_CATEGORIES_DESCRIPTION . " cd on c.categories_id = cd.categories_id where cd.language_id = '" . (int)$languages_id . "'");
+        while ($categories = tep_db_fetch_array($categories_query)) {
+          tep_db_query("insert into " . TABLE_CATEGORIES_DESCRIPTION . " (categories_id, language_id, categories_name) values ('" . (int)$categories['categories_id'] . "', '" . (int)$insert_id . "', '" . tep_db_input($categories['categories_name']) . "')");
+        }
 
 // create additional products_description records
-      $products_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, pd.products_url from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where pd.language_id = '" . $languages_id . "'");
-      while ($products = tep_db_fetch_array($products_query)) {
-        tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url) values ('" . $products['products_id'] . "', '" . $insert_id . "', '" . tep_db_input($products['products_name']) . "', '" . tep_db_input($products['products_description']) . "', '" . tep_db_input($products['products_url']) . "')");
-      }
+        $products_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, pd.products_url from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where pd.language_id = '" . (int)$languages_id . "'");
+        while ($products = tep_db_fetch_array($products_query)) {
+          tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url) values ('" . (int)$products['products_id'] . "', '" . (int)$insert_id . "', '" . tep_db_input($products['products_name']) . "', '" . tep_db_input($products['products_description']) . "', '" . tep_db_input($products['products_url']) . "')");
+        }
 
 // create additional products_options records
-      $products_options_query = tep_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $languages_id . "'");
-      while ($products_options = tep_db_fetch_array($products_options_query)) {
-        tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, language_id, products_options_name) values ('" . $products_options['products_options_id'] . "', '" . $insert_id . "', '" . tep_db_input($products_options['products_options_name']) . "')");
-      }
+        $products_options_query = tep_db_query("select products_options_id, products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . (int)$languages_id . "'");
+        while ($products_options = tep_db_fetch_array($products_options_query)) {
+          tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, language_id, products_options_name) values ('" . (int)$products_options['products_options_id'] . "', '" . (int)$insert_id . "', '" . tep_db_input($products_options['products_options_name']) . "')");
+        }
 
 // create additional products_options_values records
-      $products_options_values_query = tep_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . $languages_id . "'");
-      while ($products_options_values = tep_db_fetch_array($products_options_values_query)) {
-        tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . $products_options_values['products_options_values_id'] . "', '" . $insert_id . "', '" . tep_db_input($products_options_values['products_options_values_name']) . "')");
-      }
+        $products_options_values_query = tep_db_query("select products_options_values_id, products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . (int)$languages_id . "'");
+        while ($products_options_values = tep_db_fetch_array($products_options_values_query)) {
+          tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . (int)$products_options_values['products_options_values_id'] . "', '" . (int)$insert_id . "', '" . tep_db_input($products_options_values['products_options_values_name']) . "')");
+        }
 
 // create additional manufacturers_info records
-      $manufacturers_query = tep_db_query("select m.manufacturers_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on m.manufacturers_id = mi.manufacturers_id where mi.languages_id = '" . $languages_id . "'");
-      while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
-        tep_db_query("insert into " . TABLE_MANUFACTURERS_INFO . " (manufacturers_id, languages_id, manufacturers_url) values ('" . $manufacturers['manufacturers_id'] . "', '" . $insert_id . "', '" . tep_db_input($manufacturers['manufacturers_url']) . "')");
-      }
+        $manufacturers_query = tep_db_query("select m.manufacturers_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on m.manufacturers_id = mi.manufacturers_id where mi.languages_id = '" . (int)$languages_id . "'");
+        while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
+          tep_db_query("insert into " . TABLE_MANUFACTURERS_INFO . " (manufacturers_id, languages_id, manufacturers_url) values ('" . $manufacturers['manufacturers_id'] . "', '" . (int)$insert_id . "', '" . tep_db_input($manufacturers['manufacturers_url']) . "')");
+        }
 
 // create additional orders_status records
-      $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "'");
-      while ($orders_status = tep_db_fetch_array($orders_status_query)) {
-        tep_db_query("insert into " . TABLE_ORDERS_STATUS . " (orders_status_id, language_id, orders_status_name) values ('" . $orders_status['orders_status_id'] . "', '" . $insert_id . "', '" . tep_db_input($orders_status['orders_status_name']) . "')");
-      }
+        $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$languages_id . "'");
+        while ($orders_status = tep_db_fetch_array($orders_status_query)) {
+          tep_db_query("insert into " . TABLE_ORDERS_STATUS . " (orders_status_id, language_id, orders_status_name) values ('" . (int)$orders_status['orders_status_id'] . "', '" . (int)$insert_id . "', '" . tep_db_input($orders_status['orders_status_name']) . "')");
+        }
 
-      if ($HTTP_POST_VARS['default'] == 'on') {
-        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . tep_db_input($code) . "' where configuration_key = 'DEFAULT_LANGUAGE'");
-      }
+        if (isset($HTTP_POST_VARS['default']) && ($HTTP_POST_VARS['default'] == 'on')) {
+          tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . tep_db_input($code) . "' where configuration_key = 'DEFAULT_LANGUAGE'");
+        }
 
-      tep_redirect(tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $insert_id));
-      break;
-    case 'save':
-      $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
-      $name = tep_db_prepare_input($HTTP_POST_VARS['name']);
-      $code = tep_db_prepare_input($HTTP_POST_VARS['code']);
-      $image = tep_db_prepare_input($HTTP_POST_VARS['image']);
-      $directory = tep_db_prepare_input($HTTP_POST_VARS['directory']);
-      $sort_order = tep_db_prepare_input($HTTP_POST_VARS['sort_order']);
+        tep_redirect(tep_href_link(FILENAME_LANGUAGES, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'lID=' . $insert_id));
+        break;
+      case 'save':
+        $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
+        $name = tep_db_prepare_input($HTTP_POST_VARS['name']);
+        $code = tep_db_prepare_input($HTTP_POST_VARS['code']);
+        $image = tep_db_prepare_input($HTTP_POST_VARS['image']);
+        $directory = tep_db_prepare_input($HTTP_POST_VARS['directory']);
+        $sort_order = tep_db_prepare_input($HTTP_POST_VARS['sort_order']);
 
-      tep_db_query("update " . TABLE_LANGUAGES . " set name = '" . tep_db_input($name) . "', code = '" . tep_db_input($code) . "', image = '" . tep_db_input($image) . "', directory = '" . tep_db_input($directory) . "', sort_order = '" . tep_db_input($sort_order) . "' where languages_id = '" . tep_db_input($lID) . "'");
+        tep_db_query("update " . TABLE_LANGUAGES . " set name = '" . tep_db_input($name) . "', code = '" . tep_db_input($code) . "', image = '" . tep_db_input($image) . "', directory = '" . tep_db_input($directory) . "', sort_order = '" . tep_db_input($sort_order) . "' where languages_id = '" . (int)$lID . "'");
 
-      if ($HTTP_POST_VARS['default'] == 'on') {
-        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . tep_db_input($code) . "' where configuration_key = 'DEFAULT_LANGUAGE'");
-      }
+        if ($HTTP_POST_VARS['default'] == 'on') {
+          tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . tep_db_input($code) . "' where configuration_key = 'DEFAULT_LANGUAGE'");
+        }
 
-      tep_redirect(tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $HTTP_GET_VARS['lID']));
-      break;
-    case 'deleteconfirm':
-      $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
+        tep_redirect(tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $HTTP_GET_VARS['lID']));
+        break;
+      case 'deleteconfirm':
+        $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
 
-      $lng_query = tep_db_query("select languages_id from " . TABLE_LANGUAGES . " where code = '" . DEFAULT_CURRENCY . "'");
-      $lng = tep_db_fetch_array($lng_query);
-      if ($lng['languages_id'] == $lID) {
-        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
-      }
+        $lng_query = tep_db_query("select languages_id from " . TABLE_LANGUAGES . " where code = '" . DEFAULT_CURRENCY . "'");
+        $lng = tep_db_fetch_array($lng_query);
+        if ($lng['languages_id'] == $lID) {
+          tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
+        }
 
-      tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where language_id = '" . tep_db_input($lID) . "'");
-      tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . tep_db_input($lID) . "'");
-      tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . tep_db_input($lID) . "'");
-      tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . tep_db_input($lID) . "'");
-      tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . tep_db_input($lID) . "'");
-      tep_db_query("delete from " . TABLE_ORDERS_STATUS . " where language_id = '" . tep_db_input($lID) . "'");
-      tep_db_query("delete from " . TABLE_LANGUAGES . " where languages_id = '" . tep_db_input($lID) . "'");
+        tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where language_id = '" . (int)$lID . "'");
+        tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . (int)$lID . "'");
+        tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . (int)$lID . "'");
+        tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . (int)$lID . "'");
+        tep_db_query("delete from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . (int)$lID . "'");
+        tep_db_query("delete from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$lID . "'");
+        tep_db_query("delete from " . TABLE_LANGUAGES . " where languages_id = '" . (int)$lID . "'");
 
-      tep_redirect(tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page']));
-      break;
-    case 'delete':
-      $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
+        tep_redirect(tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page']));
+        break;
+      case 'delete':
+        $lID = tep_db_prepare_input($HTTP_GET_VARS['lID']);
 
-      $lng_query = tep_db_query("select code from " . TABLE_LANGUAGES . " where languages_id = '" . tep_db_input($lID) . "'");
-      $lng = tep_db_fetch_array($lng_query);
+        $lng_query = tep_db_query("select code from " . TABLE_LANGUAGES . " where languages_id = '" . (int)$lID . "'");
+        $lng = tep_db_fetch_array($lng_query);
 
-      $remove_language = true;
-      if ($lng['code'] == DEFAULT_LANGUAGE) {
-        $remove_language = false;
-        $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
-      }
-      break;
+        $remove_language = true;
+        if ($lng['code'] == DEFAULT_LANGUAGE) {
+          $remove_language = false;
+          $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
+        }
+        break;
+    }
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -160,11 +164,11 @@
   $languages_query = tep_db_query($languages_query_raw);
 
   while ($languages = tep_db_fetch_array($languages_query)) {
-    if (((!$HTTP_GET_VARS['lID']) || (@$HTTP_GET_VARS['lID'] == $languages['languages_id'])) && (!$lInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
+    if ((!isset($HTTP_GET_VARS['lID']) || (isset($HTTP_GET_VARS['lID']) && ($HTTP_GET_VARS['lID'] == $languages['languages_id']))) && !isset($lInfo) && (substr($action, 0, 3) != 'new')) {
       $lInfo = new objectInfo($languages);
     }
 
-    if ( (is_object($lInfo)) && ($languages['languages_id'] == $lInfo->languages_id) ) {
+    if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) {
       echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
     } else {
       echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
@@ -177,7 +181,7 @@
     }
 ?>
                 <td class="dataTableContent"><?php echo $languages['code']; ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($lInfo)) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $languages['languages_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $languages['languages_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
@@ -189,7 +193,7 @@
                     <td class="smallText" align="right"><?php echo $languages_split->display_links($languages_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?></td>
                   </tr>
 <?php
-  if (!$HTTP_GET_VARS['action']) {
+  if (!$action) {
 ?>
                   <tr>
                     <td align="right" colspan="2"><?php echo '<a href="' . tep_href_link(FILENAME_LANGUAGES, 'page=' . $HTTP_GET_VARS['page'] . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . tep_image_button('button_new_language.gif', IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
@@ -201,13 +205,10 @@
               </tr>
             </table></td>
 <?php
-  $direction_options = array( array('id' => '', 'text' => TEXT_INFO_LANGUAGE_DIRECTION_DEFAULT),
-                              array('id' => 'ltr', 'text' => TEXT_INFO_LANGUAGE_DIRECTION_LEFT_TO_RIGHT),
-                              array('id' => 'rtl', 'text' => TEXT_INFO_LANGUAGE_DIRECTION_RIGHT_TO_LEFT));
-
   $heading = array();
   $contents = array();
-  switch ($HTTP_GET_VARS['action']) {
+
+  switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_LANGUAGE . '</b>');
 

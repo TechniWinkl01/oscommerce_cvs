@@ -1,21 +1,24 @@
 <?php
 /*
-  $Id: cache.php,v 1.21 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: cache.php,v 1.22 2003/06/20 00:30:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  if ($HTTP_GET_VARS['action']) {
-    if ($HTTP_GET_VARS['action'] == 'reset') {
+  $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
+
+  if (tep_not_null($action)) {
+    if ($action == 'reset') {
       tep_reset_cache_block($HTTP_GET_VARS['block']);
     }
+
     tep_redirect(tep_href_link(FILENAME_CACHE));
   }
 
@@ -68,25 +71,31 @@
 <?php
   if ($messageStack->size < 1) {
     $languages = tep_get_languages();
-    for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
+
+    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
       if ($languages[$i]['code'] == DEFAULT_LANGUAGE) {
         $language = $languages[$i]['directory'];
       }
     }
-    for ($i = 0, $n = sizeof($cache_blocks); $i < $n; $i++) {
+
+    for ($i=0, $n=sizeof($cache_blocks); $i<$n; $i++) {
       $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
+
       if (file_exists(DIR_FS_CACHE . $cached_file)) {
         $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cached_file));
       } else {
         $cache_mtime = TEXT_FILE_DOES_NOT_EXIST;
         $dir = dir(DIR_FS_CACHE);
+
         while ($cache_file = $dir->read()) {
           $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
+
           if (ereg('^' . $cached_file, $cache_file)) {
             $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_file));
             break;
           }
         }
+
         $dir->close();
       }
 ?>
