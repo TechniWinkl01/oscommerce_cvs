@@ -49,6 +49,10 @@ xx/02/2001 The Exchange Project Preview Release 2.1
  * Categories box has been updated to display path taken in bold, and
    display the parent categories (tree navigation)
 
+ * Font styles implemented
+
+ * tep_image now optionally calculates image size if omitted
+
 
 13/12/2000 The Exchange Project Preview Release 2.0a
 ----------------------------------------------------
