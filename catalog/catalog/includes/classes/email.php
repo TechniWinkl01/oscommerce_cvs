@@ -1,7 +1,6 @@
 <?php
-
 /*
-  $Id: email.php,v 1.3 2002/01/31 21:09:49 uid65040 Exp $
+  $Id: email.php,v 1.4 2002/02/05 06:02:04 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,8 +18,7 @@
   
 */
 
-class email{
-
+class email {
   var $html;
   var $text;
   var $output;
@@ -31,20 +29,21 @@ class email{
   var $attachments;
   var $headers;
 
-/***************************************
-** Constructor function. Sets the headers
-** if supplied.
-***************************************/
+  /***************************************
+   ** Constructor function. Sets the headers
+   ** if supplied.
+   ***************************************/
 
-  function email($headers = array()){
+  function email($headers = array()) {
 
-    /***************************************
-        ** Initialise some variables.
-        ***************************************/
+  /***************************************
+   ** Initialise some variables.
+   ***************************************/
 
     $this->html_images  = array();
     $this->headers      = array();
 
+    // Makesure we use the correct linefeed sequence
     if (EMAIL_LINEFEED == 'CRLF') {
       $this->lf = "\r\n";
     } else {
@@ -52,22 +51,22 @@ class email{
     }
 
     /***************************************
-    ** If you want the auto load functionality
-    ** to find other image/file types, add the
-    ** extension and content type here.
-    ***************************************/
+     ** If you want the auto load functionality
+     ** to find other mime-image/file types, add the
+     ** extension and content type here.
+     ***************************************/
 
     $this->image_types = array(
-                  'gif'  => 'image/gif',
-                  'jpg'  => 'image/jpeg',
-                  'jpeg'  => 'image/jpeg',
-                  'jpe'  => 'image/jpeg',
-                  'bmp'  => 'image/bmp',
-                  'png'  => 'image/png',
-                  'tif'  => 'image/tiff',
-                  'tiff'  => 'image/tiff',
-                  'swf'  => 'application/x-shockwave-flash'
-                  );
+      'gif'  => 'image/gif',
+      'jpg'  => 'image/jpeg',
+      'jpeg' => 'image/jpeg',
+      'jpe'  => 'image/jpeg',
+      'bmp'  => 'image/bmp',
+      'png'  => 'image/png',
+      'tif'  => 'image/tiff',
+      'tiff' => 'image/tiff',
+      'swf'  => 'application/x-shockwave-flash'
+    );
 
     /***************************************
      ** Set these up
@@ -85,46 +84,46 @@ class email{
 
     $this->headers[] = 'MIME-Version: 1.0';
 
-    foreach($headers as $value){
+    foreach($headers as $value) {
       if(!empty($value))
         $this->headers[] = $value;
     }
   }
 
-/***************************************
-** This function will read a file in
-** from a supplied filename and return
-** it. This can then be given as the first
-** argument of the the functions
-** add_html_image() or add_attachment().
-***************************************/
+  /***************************************
+  ** This function will read a file in
+  ** from a supplied filename and return
+  ** it. This can then be given as the first
+  ** argument of the the functions
+  ** add_html_image() or add_attachment().
+  ***************************************/
 
-  function get_file($filename){
+  function get_file($filename) {
 
     $return = '';
-    if($fp = fopen($filename, 'rb')){
-      while(!feof($fp)){
+    if($fp = fopen($filename, 'rb')) {
+      while(!feof($fp)) {
         $return .= fread($fp, 1024);
       }
       fclose($fp);
       return $return;
 
-    }else{
+    } else {
       return FALSE;
     }
   }
 
-/***************************************
-** Function for extracting images from
-** html source. This function will look
-** through the html code supplied by add_html()
-** and find any file that ends in one of the
-** extensions defined in $obj->image_types.
-** If the file exists it will read it in and
-** embed it, (not an attachment).
-**
-** Function contributed by Dan Allen
-***************************************/
+  /***************************************
+  ** Function for extracting images from
+  ** html source. This function will look
+  ** through the html code supplied by add_html()
+  ** and find any file that ends in one of the
+  ** extensions defined in $obj->image_types.
+  ** If the file exists it will read it in and
+  ** embed it, (not an attachment).
+  **
+  ** Function contributed by Dan Allen
+  ***************************************/
 
   function find_html_images($images_dir) {
 
@@ -134,21 +133,21 @@ class email{
 
     preg_match_all('/"([^"]+\.('.implode('|', $extensions).'))"/Ui', $this->html, $images);
 
-    for($i=0; $i<count($images[1]); $i++){
-      if(file_exists($images_dir.$images[1][$i])){
+    for($i=0; $i<count($images[1]); $i++) {
+      if(file_exists($images_dir.$images[1][$i])) {
         $html_images[] = $images[1][$i];
         $this->html = str_replace($images[1][$i], basename($images[1][$i]), $this->html);
       }
     }
 
-    if(!empty($html_images)){
+    if(!empty($html_images)) {
 
       // If duplicate images are embedded, they may show up as attachments, so remove them.
       $html_images = array_unique($html_images);
       sort($html_images);
   
-      for($i=0; $i<count($html_images); $i++){
-        if($image = $this->get_file($images_dir.$html_images[$i])){
+      for($i=0; $i<count($html_images); $i++) {
+        if($image = $this->get_file($images_dir.$html_images[$i])) {
           $content_type = $this->image_types[substr($html_images[$i], strrpos($html_images[$i], '.') + 1)];
           $this->add_html_image($image, basename($html_images[$i]), $content_type);
         }
@@ -156,12 +155,12 @@ class email{
     }
   }
 
-/***************************************
-** Adds plain text. Use this function
-** when NOT sending html email
-***************************************/
+  /***************************************
+  ** Adds plain text. Use this function
+  ** when NOT sending html email
+  ***************************************/
 
-  function add_text($text = ''){
+  function add_text($text = '') {
     $this->text = $text;
   }
 
@@ -171,79 +170,75 @@ class email{
 ** content-id's.
 ***************************************/
 
-  function add_html($html, $text = NULL, $images_dir = NULL){
-
-    $this->html      = $html;
+  function add_html($html, $text = NULL, $images_dir = NULL) {
+    $this->html       = $html;
     $this->html_text  = $text;
-
     if(isset($images_dir))
       $this->find_html_images($images_dir);
   }
 
-/***************************************
-** Adds an image to the list of embedded
-** images.
-***************************************/
+  /***************************************
+  ** Adds an image to the list of embedded
+  ** images.
+  ***************************************/
 
-  function add_html_image($file, $name = '', $c_type='application/octet-stream'){
+  function add_html_image($file, $name = '', $c_type='application/octet-stream') {
     $this->html_images[] = array(
-                    'body'   => $file,
-                    'name'   => $name,
-                    'c_type' => $c_type,
-                    'cid'    => md5(uniqid(time()))
-                  );
+                                  'body'   => $file,
+                                  'name'   => $name,
+                                  'c_type' => $c_type,
+                                  'cid'    => md5(uniqid(time()))
+                                );
   }
 
+  /***************************************
+  ** Adds a file to the list of attachments.
+  ***************************************/
 
-/***************************************
-** Adds a file to the list of attachments.
-***************************************/
-
-  function add_attachment($file, $name = '', $c_type='application/octet-stream', $encoding = 'base64'){
+  function add_attachment($file, $name = '', $c_type='application/octet-stream', $encoding = 'base64') {
     $this->attachments[] = array(
-                  'body'    => $file,
-                  'name'    => $name,
-                  'c_type'  => $c_type,
-                  'encoding'  => $encoding
-                  );
+                                  'body'    => $file,
+                                  'name'    => $name,
+                                  'c_type'  => $c_type,
+                                  'encoding'  => $encoding
+                                );
   }
 
-/***************************************
-** Adds a text subpart to a mime_part object
-***************************************/
+  /***************************************
+   ** Adds a text subpart to a mime_part object
+   ***************************************/
 
-  function &add_text_part(&$obj, $text){
-
+  function &add_text_part(&$obj, $text) {
     $params['content_type'] = 'text/plain';
     $params['encoding']     = $this->build_params['text_encoding'];
     $params['charset']      = $this->build_params['text_charset'];
-    if(is_object($obj)){
+    if(is_object($obj)) {
       return $obj->addSubpart($text, $params);
-    }else{
+    } else {
       return new mime($text, $params);
     }
   }
 
-/***************************************
-** Adds a html subpart to a mime_part object
-***************************************/
+  /***************************************
+   ** Adds a html subpart to a mime_part object
+   ***************************************/
 
-  function &add_html_part(&$obj){
+  function &add_html_part(&$obj) {
     $params['content_type'] = 'text/html';
     $params['encoding']     = $this->build_params['html_encoding'];
     $params['charset']      = $this->build_params['html_charset'];
-    if(is_object($obj)){
+    if(is_object($obj)) {
       return $obj->addSubpart($this->html, $params);
-    }else{
+    } else {
       return new mime($this->html, $params);
     }
   }
 
-/***************************************
-** Starts a message with a mixed part
-***************************************/
+  /***************************************
+   ** Starts a message with a mixed part
+   ***************************************/
 
-  function &add_mixed_part(){
+  function &add_mixed_part() {
 
     $params['content_type'] = 'multipart/mixed';
     return new mime('', $params);
@@ -253,36 +248,34 @@ class email{
 ** Adds an alternative part to a mime_part object
 ***************************************/
 
-  function &add_alternative_part(&$obj){
+  function &add_alternative_part(&$obj) {
 
     $params['content_type'] = 'multipart/alternative';
-    if(is_object($obj)){
+    if(is_object($obj)) {
       return $obj->addSubpart('', $params);
-    }else{
+    } else {
       return new mime('', $params);
     }
   }
 
-/***************************************
-** Adds a html subpart to a mime_part object
-***************************************/
+  /***************************************
+  ** Adds a html subpart to a mime_part object
+  ***************************************/
 
-  function &add_related_part(&$obj){
-
+  function &add_related_part(&$obj) {
     $params['content_type'] = 'multipart/related';
-    if(is_object($obj)){
+    if(is_object($obj)) {
       return $obj->addSubpart('', $params);
-    }else{
+    } else {
       return new mime('', $params);
     }
   }
 
-/***************************************
-** Adds an html image subpart to a mime_part object
-***************************************/
+  /***************************************
+  ** Adds an html image subpart to a mime_part object
+  ***************************************/
 
-  function &add_html_image_part(&$obj, $value){
-
+  function &add_html_image_part(&$obj, $value) {
     $params['content_type'] = $value['c_type'];
     $params['encoding']     = 'base64';
     $params['disposition']  = 'inline';
@@ -291,12 +284,11 @@ class email{
     $obj->addSubpart($value['body'], $params);
   }
 
-/***************************************
-** Adds an attachment subpart to a mime_part object
-***************************************/
+  /***************************************
+  ** Adds an attachment subpart to a mime_part object
+  ***************************************/
 
-  function &add_attachment_part(&$obj, $value){
-
+  function &add_attachment_part(&$obj, $value) {
     $params['content_type'] = $value['c_type'];
     $params['encoding']     = $value['encoding'];
     $params['disposition']  = 'attachment';
@@ -304,27 +296,27 @@ class email{
     $obj->addSubpart($value['body'], $params);
   }
 
-/***************************************
-** Builds the multipart message from the
-** list ($this->_parts). $params is an
-** array of parameters that shape the building
-** of the message. Currently supported are:
-**
-** $params['html_encoding'] - The type of encoding to use on html. Valid options are
-**                            "7bit", "quoted-printable" or "base64" (all without quotes).
-**                            7bit is EXPRESSLY NOT RECOMMENDED. Default is quoted-printable
-** $params['text_encoding'] - The type of encoding to use on plain text Valid options are
-**                            "7bit", "quoted-printable" or "base64" (all without quotes).
-**                            Default is 7bit
-** $params['text_wrap']     - The character count at which to wrap 7bit encoded data.
-**                            Default this is 998.
-** $params['html_charset']  - The character set to use for a html section.
-**                            Default is iso-8859-1
-** $params['text_charset']  - The character set to use for a text section.
-**                          - Default is iso-8859-1
-***************************************/
+  /***************************************
+  ** Builds the multipart message from the
+  ** list ($this->_parts). $params is an
+  ** array of parameters that shape the building
+  ** of the message. Currently supported are:
+  **
+  ** $params['html_encoding'] - The type of encoding to use on html. Valid options are
+  **                            "7bit", "quoted-printable" or "base64" (all without quotes).
+  **                            7bit is EXPRESSLY NOT RECOMMENDED. Default is quoted-printable
+  ** $params['text_encoding'] - The type of encoding to use on plain text Valid options are
+  **                            "7bit", "quoted-printable" or "base64" (all without quotes).
+  **                            Default is 7bit
+  ** $params['text_wrap']     - The character count at which to wrap 7bit encoded data.
+  **                            Default this is 998.
+  ** $params['html_charset']  - The character set to use for a html section.
+  **                            Default is iso-8859-1
+  ** $params['text_charset']  - The character set to use for a text section.
+  **                          - Default is iso-8859-1
+  ***************************************/
 
-  function build_message($params = array()){
+  function build_message($params = array()) {
     if(count($params) > 0)
       while(list($key, $value) = each($params))
         $this->build_params[$key] = $value;
@@ -338,7 +330,7 @@ class email{
     $html        = !empty($this->html)        ? TRUE : FALSE;
     $text        = isset($this->text)         ? TRUE : FALSE;
 
-    switch(TRUE){
+    switch(TRUE) {
 
       case $text AND !$attachments:
         $message =& $this->add_text_part($null, $this->text);
@@ -360,21 +352,21 @@ class email{
         break;
 
       case $html AND !$attachments AND !$html_images:
-        if(!is_null($this->html_text)){
+        if(!is_null($this->html_text)) {
           $message =& $this->add_alternative_part($null);
           $this->add_text_part($message, $this->html_text);
           $this->add_html_part($message);
-        }else{
+        } else {
           $message =& $this->add_html_part($null);
         }
         break;
 
       case $html AND !$attachments AND $html_images:
-        if(!is_null($this->html_text)){
+        if(!is_null($this->html_text)) {
           $message =& $this->add_alternative_part($null);
           $this->add_text_part($message, $this->html_text);
           $related =& $this->add_related_part($message);
-        }else{
+        } else {
           $message =& $this->add_related_part($null);
           $related =& $message;
         }
@@ -385,11 +377,11 @@ class email{
 
       case $html AND $attachments AND !$html_images:
         $message =& $this->add_mixed_part();
-        if(!is_null($this->html_text)){
+        if(!is_null($this->html_text)) {
           $alt =& $this->add_alternative_part($message);
           $this->add_text_part($alt, $this->html_text);
           $this->add_html_part($alt);
-        }else{
+        } else {
           $this->add_html_part($message);
         }
         for($i=0; $i<count($this->attachments); $i++)
@@ -398,11 +390,11 @@ class email{
 
       case $html AND $attachments AND $html_images:
         $message =& $this->add_mixed_part();
-        if(!is_null($this->html_text)){
+        if(!is_null($this->html_text)) {
           $alt =& $this->add_alternative_part($message);
           $this->add_text_part($alt, $this->html_text);
           $rel =& $this->add_related_part($alt);
-        }else{
+        } else {
           $rel =& $this->add_related_part($message);
         }
         $this->add_html_part($rel);
@@ -414,33 +406,32 @@ class email{
 
     }
 
-    if(isset($message)){
+    if(isset($message)) {
       $output = $message->encode();
       $this->output = $output['body'];
 
-      foreach($output['headers'] as $key => $value){
+      foreach($output['headers'] as $key => $value) {
         $headers[] = $key.': '.$value;
       }
 
       $this->headers = array_merge($this->headers, $headers);
       return TRUE;
-    }else
+    } else {
       return FALSE;
+    }
   }
 
 /***************************************
 ** Sends the mail.
 ***************************************/
 
-  function send($to_name, $to_addr, $from_name, $from_addr, $subject = '', $headers = ''){
-
+  function send($to_name, $to_addr, $from_name, $from_addr, $subject = '', $headers = '') {
     $to    = ($to_name != '')   ? '"'.$to_name.'" <'.$to_addr.'>' : $to_addr;
     $from  = ($from_name != '') ? '"'.$from_name.'" <'.$from_addr.'>' : $from_addr;
-
     if(is_string($headers))
       $headers = explode($this->lf, trim($headers));
 
-    for($i=0; $i<count($headers); $i++){
+    for($i=0; $i<count($headers); $i++) {
       if(is_array($headers[$i]))
         for($j=0; $j<count($headers[$i]); $j++)
           if($headers[$i][$j] != '')
@@ -451,13 +442,8 @@ class email{
     }
     if(!isset($xtra_headers))
       $xtra_headers = array();
-
     if (EMAIL_TRANSPORT=="smtp") {
-      return mail(
-        $to_addr, 
-        $subject, 
-        $this->output,
-         'From: ' . $from . $this->lf . 'To: ' . $to . $this->lf . implode($this->lf, $this->headers) . $this->lf . implode($this->lf, $xtra_headers));
+      return mail ($to_addr, $subject, $this->output, 'From: ' . $from . $this->lf . 'To: ' . $to . $this->lf . implode($this->lf, $this->headers) . $this->lf . implode($this->lf, $xtra_headers));
     } else {
       return mail($to, $subject, $this->output, 'From: '.$from.$this->lf.implode($this->lf, $this->headers).$this->lf.implode($this->lf, $xtra_headers));
     }
@@ -479,21 +465,18 @@ class email{
 **        string Extra headers])
 ***************************************/
 
-  function get_rfc822($to_name, $to_addr, $from_name, $from_addr, $subject = '', $headers = ''){
-
+  function get_rfc822($to_name, $to_addr, $from_name, $from_addr, $subject = '', $headers = '') {
     // Make up the date header as according to RFC822
     $date = 'Date: '.date('D, d M y H:i:s');
-
     $to   = ($to_name   != '') ? 'To: "'.$to_name.'" <'.$to_addr.'>' : 'To: '.$to_addr;
     $from = ($from_name != '') ? 'From: "'.$from_name.'" <'.$from_addr.'>' : 'From: '.$from_addr;
-
     if(is_string($subject))
       $subject = 'Subject: '.$subject;
 
     if(is_string($headers))
       $headers = explode($this->lf, trim($headers));
 
-    for($i=0; $i<count($headers); $i++){
+    for($i=0; $i<count($headers); $i++) {
       if(is_array($headers[$i]))
         for($j=0; $j<count($headers[$i]); $j++)
           if($headers[$i][$j] != '')
@@ -510,7 +493,5 @@ class email{
 
     return $date.$this->lf.$from.$this->lf.$to.$this->lf.$subject.$this->lf.implode($this->lf, $headers).$this->lf.$this->lf.$this->output;
   }
-
-
-} // End of class.
+}
 ?>

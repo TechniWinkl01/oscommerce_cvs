@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.156 2002/01/31 22:11:49 jan0815 Exp $
+  $Id: general.php,v 1.157 2002/02/05 06:02:04 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -925,7 +925,7 @@
     }
     //send message
     $message->build_message();
-    $message->send($to_name, $to_email_address, $from_email_name, $from_email, $email_subject);
+    $message->send($to_name, $to_email_address, $from_email_name, $from_email_address, $email_subject);
   }
 
 ////
