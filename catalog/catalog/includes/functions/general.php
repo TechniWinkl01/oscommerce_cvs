@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.126 2001/08/25 19:53:13 hpdl Exp $
+  $Id: general.php,v 1.127 2001/08/28 09:10:06 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -124,7 +124,6 @@
         if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
       }
     }
-
     return $get_url;
   }
 
@@ -392,7 +391,7 @@
 ////
 // Return a formatted address
 // TABLES: customers, address_book
-  function tep_address_label($customers_id, $address_id = 0, $html = false, $boln = '', $eoln = "\n") {
+  function tep_address_label($customers_id, $address_id = 1, $html = false, $boln = '', $eoln = "\n") {
       $address_query = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customers_id . "' and address_book_id = '" . $address_id . "'");
     $address = tep_db_fetch_array($address_query);
     $format_id = tep_get_address_format_id($address['country_id']);
