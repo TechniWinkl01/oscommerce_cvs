@@ -1,10 +1,11 @@
 <?
   class moduleInfo {
-    var $code, $description, $keys;
+    var $code, $description, $keys, $status;
 
 // class constructor
     function moduleInfo($mInfo_array) {
       $this->code = $mInfo_array['code'];
+      $this->status = '1';
 
       for ($i=0; $i<sizeof($mInfo_array)-1; $i++) { // minus 1 due to 'code'
         $key_value_query = tep_db_query("select configuration_title, configuration_value, configuration_description from " . TABLE_CONFIGURATION . " where configuration_key = '" . $mInfo_array[$i] . "'");

@@ -117,6 +117,7 @@
           $module_info = array('code' => $module->code);
           $mInfo_array = tep_array_merge($module_info, $module->keys());
           $mInfo = new moduleInfo($mInfo_array);
+          $mInfo->status = ($module->check() == '1') ? '1' : '0';
         }
 
         if ($mInfo && ($class == $mInfo->code) ) {
@@ -197,18 +198,22 @@
     $info_box_contents[] = array('align' => 'left', 'text' => $keys);
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } else {
-    $field_set = 0;
-    $keys = '';
-    reset($mInfo->keys);
-    while (list(, $value) = each($mInfo->keys)) {
-      $keys .= '<b>' . $value['title'] . '</b><br>' . $value['value'] . '<br><br>';
-      if ( ($value['title'] != '') && ($value['value'] != '')) $field_set = 1;
-    }
-    $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
     $info_box_contents = array();
-    if ($field_set == '1') {
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
-      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . $keys);
+    if ($mInfo->status == '1') {
+      $field_set = 0;
+      $keys = '';
+      reset($mInfo->keys);
+      while (list(, $value) = each($mInfo->keys)) {
+        $keys .= '<b>' . $value['title'] . '</b><br>' . $value['value'] . '<br><br>';
+        if ( ($value['title'] != '') && ($value['value'] != '')) $field_set = 1;
+      }
+      $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
+      if ($field_set == '1') {
+        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . $keys);
+      }
+    } else {
+      $info_box_contents[] = array('align' => 'left', 'text' => 'Not Installed');
     }
   }
 ?>
