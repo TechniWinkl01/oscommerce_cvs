@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.112 2004/08/17 23:56:43 hpdl Exp $
+  $Id: espanol.php,v 1.113 2004/08/18 11:56:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,7 +95,6 @@ define('BOX_TAXES_COUNTRIES', 'Paises');
 define('BOX_TAXES_ZONES', 'Provincias');
 define('BOX_TAXES_GEO_ZONES', 'Zonas de Impuestos');
 define('BOX_TAXES_TAX_CLASSES', 'Tipos de Impuestos');
-define('BOX_TAXES_TAX_RATES', 'Impuestos');
 
 // reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Informes');

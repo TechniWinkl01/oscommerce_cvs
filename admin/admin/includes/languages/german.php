@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.111 2004/08/17 23:56:43 hpdl Exp $
+  $Id: german.php,v 1.112 2004/08/18 11:56:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,7 +95,6 @@ define('BOX_TAXES_COUNTRIES', 'Land');
 define('BOX_TAXES_ZONES', 'Bundesl&auml;nder');
 define('BOX_TAXES_GEO_ZONES', 'Steuerzonen');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
-define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
 
 // reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Berichte');
