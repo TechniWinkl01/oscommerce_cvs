@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.4 2002/03/08 21:15:18 hpdl Exp $
+  $Id: newsletters.php,v 1.5 2002/03/08 21:34:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -219,7 +219,12 @@
     $module = new $nInfo->module($nInfo->title, $nInfo->content);
 ?>
       <tr>
-        <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'ani_send_email.gif', IMAGE_ANI_SEND_EMAIL) . '&nbsp;&nbsp;<b>' .  TEXT_PLEASE_WAIT . '</b>'; ?></td>
+        <td><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main" valign="middle"><?php echo tep_image(DIR_WS_IMAGES . 'ani_send_email.gif', IMAGE_ANI_SEND_EMAIL); ?></td>
+            <td class="main" valign="middle"><b><?php echo TEXT_PLEASE_WAIT; ?></b></td>
+          </tr>
+        </table></td>
       </tr>
 <?php
   tep_set_time_limit(0);
@@ -227,13 +232,13 @@
   $module->send($nInfo->newsletters_id);
 ?>
       <tr>
-        <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
         <td class="main"><font color="#ff0000"><b><?php echo TEXT_FINISHED_SENDING_EMAILS; ?></b></font></td>
       </tr>
       <tr>
-        <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
         <td><?php echo '<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>

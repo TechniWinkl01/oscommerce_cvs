@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.3 2002/03/08 21:15:19 hpdl Exp $
+  $Id: newsletters.php,v 1.4 2002/03/08 21:34:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,6 +28,6 @@ define('TEXT_NEWSLETTER_DATE_SENT', 'Date Sent:');
 
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this newsletter?');
 
-define('TEXT_PLEASE_WAIT', 'Please wait .. sending emails ..');
+define('TEXT_PLEASE_WAIT', 'Please wait .. sending emails ..<br><br>Please do not interrupt this process!');
 define('TEXT_FINISHED_SENDING_EMAILS', 'Finished sending e-mails!');
 ?>
