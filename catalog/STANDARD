@@ -91,4 +91,74 @@ Class Structure
   }
   
   $class = new myWorkingClass;
-  $class->do_something();     
+  $class->do_something();
+
+
+Function Comments
+-----------------
+
+The support site uses an application called PHPXref which cross-
+references inline comments with functions.
+
+PHPXref requires that you comment your files in a certain style
+for your entries to be used as documentation.
+
+There are a few different comments that PHPXref recognizes:
+
+1) File description:
+   This provides a one line summary of what the file is and will
+   show up in the directory listings.  To use it you should place
+   one comment near the top of each file in the following format:
+
+// filename.php - This is a description of the file called filename.php
+
+   ie. the line must begin with '//' followed by the name of the
+   file, followed by a hyphen and then the description.
+
+   If you need an extra line then add one in the same format:
+
+// filename.php - This is a description of the file called filename.php
+// filename.php - that needs two lines to describe it
+
+   You can also designate an author for the file by adding a line
+   thus:
+
+// filename.php - author: gareth,james
+
+2) Function description:
+   The main reason this script exists is to provide a means of
+   documenting each function in use.  Each description consists
+   of a one line summary and a long description.
+
+   Example:
+
+////
+// !A short summary about what this function does
+// A longer, more complete description would go here
+// We might include details of what the function parameters do and what the 
+// result should be, etc.
+function example_function($foo) {
+        ...
+}
+
+   Points to note: The description must begin with four forward
+   slashes "////" on a line by itself.  
+
+   The one line summary must begin with "// !" (note the
+   exclamation mark).
+
+   The remainder of the description must begin with "// " on each line
+
+   The function declaration should immediately follow the description.
+
+3) Table references:
+   As the parser has no reliable means of determining when you reference
+   a database table in your code (ie. you may be referencing by variable,
+   etc) you need to give it a hint by using a comment in the following
+   style:
+
+// TABLES: table1, table2, table3
+
+   You can insert these comments anywhere in your scripts.  I recommend
+   adding them to the end of each function description to note what
+   tables that function uses.
