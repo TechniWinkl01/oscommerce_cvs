@@ -6,10 +6,12 @@
   }
 
   if (@$HTTP_GET_VARS['action'] == 'process') {
+    $customer = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+    $customer_values = tep_db_fetch_array($customer);
     $date_now = date('Ymd');
-    tep_db_query("insert into " . TABLE_REVIEWS . " values ('', '" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', '" . $HTTP_POST_VARS['rating'] . "', now(), '', 0)");
+    tep_db_query("insert into " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added) values ('" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', '" . $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'] . "', '" . $HTTP_POST_VARS['rating'] . "', now())");
     $insert_id = tep_db_insert_id();
-    tep_db_query("insert into " . TABLE_REVIEWS_DESCRIPTION . " values ('" . $insert_id . "', '" . $languages_id . "', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "')");
+    tep_db_query("insert into " . TABLE_REVIEWS_DESCRIPTION . " (reviews_id, languages_id, reviews_text) values ('" . $insert_id . "', '" . $languages_id . "', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "')");
 
     header('Location: ' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $HTTP_POST_VARS['get_params'], 'NONSSL'));
     tep_exit();

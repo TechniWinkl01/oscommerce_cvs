@@ -71,12 +71,10 @@
             <td colspan="5"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $reviews = tep_db_query("select reviews_rating, reviews_id, customers_id, date_added, last_modified, reviews_read from " . TABLE_REVIEWS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "' order by reviews_id DESC");
+  $reviews = tep_db_query("select reviews_rating, reviews_id, customers_name, date_added, last_modified, reviews_read from " . TABLE_REVIEWS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "' order by reviews_id DESC");
   if (tep_db_num_rows($reviews)) {
     $row = 0;
     while ($reviews_values = tep_db_fetch_array($reviews)) {
-      $customers_name = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $reviews_values['customers_id'] . "'");
-      $customers_name_values = tep_db_fetch_array($customers_name);
       $row++;
       if (strlen($row) < 2) {
         $row = '0' . $row;
@@ -88,7 +86,7 @@
         echo '          <tr class="productReviews-odd">' . "\n";
       }
       echo '            <td class="smallText">&nbsp;' . $row . '.&nbsp;</td>' . "\n";
-      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $reviews_values['customers_name'] . '</a>&nbsp;</td>' . "\n";
       echo '            <td align="center" class="smallText">&nbsp;' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '&nbsp;</td>' . "\n";
       echo '            <td align="center" class="smallText">&nbsp;' . $reviews_values['reviews_read'] . '&nbsp;</td>' . "\n";
       echo '            <td align="right" class="smallText">&nbsp;' . $date_added . '&nbsp;</td>' . "\n";

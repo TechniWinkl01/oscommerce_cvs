@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.27 2001/06/15 20:43:04 hpdl Exp $
+  $Id: reviews.php,v 1.28 2001/07/31 17:54:14 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -65,7 +65,7 @@
       <tr>
         <td><br>
 <?php
-  $reviews_query_raw = "select r.reviews_id, rd.reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, c.customers_firstname, c.customers_lastname from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CUSTOMERS . " c where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' and r.customers_id = c.customers_id order by r.reviews_id DESC";
+  $reviews_query_raw = "select r.reviews_id, rd.reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' order by r.reviews_id DESC";
 
   $reviews_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_NEW_REVIEWS, $reviews_query_raw, $reviews_numrows);
 
@@ -76,8 +76,7 @@
                              'reviews_id' => $reviews['reviews_id'],
                              'products_name' => $reviews['products_name'],
                              'products_image' => $reviews['products_image'],
-                             'authors_first_name' => $reviews['customers_firstname'],
-                             'authors_last_name' => $reviews['customers_lastname'],
+                             'authors_name' => $reviews['customers_name'],
                              'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250)) . '..',
                              'rating' => $reviews['reviews_rating'],
                              'word_count' => tep_word_count($reviews['reviews_text'], ' '),

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.59 2001/07/20 07:00:35 jwildeboer Exp $
+  $Id: english.php,v 1.60 2001/07/31 17:54:43 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -266,7 +266,7 @@ define('TEXT_DESCENDINGLY', 'descendingly');
 define('TEXT_ASCENDINGLY', 'ascendingly');
 define('TEXT_BY', ' by ');
 
-define('TEXT_REVIEW_BY', 'by %s %s');
+define('TEXT_REVIEW_BY', 'by %s');
 define('TEXT_REVIEW_WORD_COUNT', '%s words');
 define('TEXT_REVIEW_RATING', 'Rating: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Date Added: %s');
