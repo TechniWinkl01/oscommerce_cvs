@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.53 2002/09/26 14:43:14 project3000 Exp $
+# $Id: oscommerce.sql,v 1.54 2002/10/27 18:50:05 dgw_ Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -11,6 +11,8 @@
 #       * DO NOT use a mysqldump created file for new changes!
 #       * Please take note of the table structure, and use this
 #         structure as a standard for future modifications!
+#       * Any tables you add here should be added in admin/backup.php
+#         and in catalog/install/includes/database.php
 #       * To see the 'diff'erence between MySQL databases, use
 #         the mysqldiff perl script located in the extras
 #         directory of the 'catalog' module.
