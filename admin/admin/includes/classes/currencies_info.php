@@ -1,6 +1,6 @@
 <?php
   class currenciesInfo {
-    var $id, $title, $code, $symbol_left, $symbol_right, $decimal_point, $thousands_point, $decimal_places, $value;
+    var $id, $title, $code, $symbol_left, $symbol_right, $decimal_point, $thousands_point, $decimal_places, $last_updated, $value;
 
 // class constructor
     function currenciesInfo($cInfo_array) {
@@ -12,6 +12,7 @@
       $this->decimal_point = $cInfo_array['decimal_point'];
       $this->thousands_point = $cInfo_array['thousands_point'];
       $this->decimal_places = $cInfo_array['decimal_places'];
+      $this->last_updated = $cInfo_array['last_updated'];
       $this->value = $cInfo_array['value'];
     }
   }

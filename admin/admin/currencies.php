@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.17 2001/09/21 11:54:08 dwatkins Exp $
+  $Id: currencies.php,v 1.18 2001/10/12 14:28:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,7 +25,10 @@
     } elseif ($HTTP_GET_VARS['action'] == 'update') {
       $currencies_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
       while ($currencies_values = tep_db_fetch_array($currencies_query)) {
-        tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . quotecurrency($currencies_values['code']) . "' where currencies_id = '" . $currencies_values['currencies_id'] . "'");
+        $rate = quotecurrency($currencies_values['code']);
+        if ($rate <> 'na') {
+          tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . $rate . "', last_updated = now() where currencies_id = '" . $currencies_values['currencies_id'] . "'");
+        }
       }
       Header('Location: ' . tep_href_link(FILENAME_CURRENCIES));
       tep_exit();
@@ -90,7 +93,7 @@
                 <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-  $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " order by title";
+  $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, last_updated, value from " . TABLE_CURRENCIES . " order by title";
   $currencies_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $currencies_query_raw, $currencies_query_numrows);
   $currencies_query = tep_db_query($currencies_query_raw);
 
@@ -207,6 +210,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_DECIMAL_POINT . '&nbsp;' . $cInfo->decimal_point);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '&nbsp;' . $cInfo->thousands_point);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '&nbsp;' . $cInfo->decimal_places);
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_LAST_UPDATED . '&nbsp;' . tep_date_short($cInfo->last_updated));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_VALUE . '&nbsp;' . number_format($cInfo->value, 4));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>&nbsp;' . tep_currency_format(30) . ' = ' . tep_currency_format('30', true, $cInfo->code));
   }

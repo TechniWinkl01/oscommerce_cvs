@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.6 2001/09/19 11:13:04 mbs Exp $
+  $Id: currencies.php,v 1.7 2001/10/12 14:28:43 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,6 +27,7 @@ define('TEXT_INFO_CURRENCY_SYMBOL_RIGHT', 'Simbolo a la derecha:');
 define('TEXT_INFO_CURRENCY_DECIMAL_POINT', 'Punto decimal:');
 define('TEXT_INFO_CURRENCY_THOUSANDS_POINT', 'Separador de miles:');
 define('TEXT_INFO_CURRENCY_DECIMAL_PLACES', 'Lugares decimales:');
+define('TEXT_INFO_CURRENCY_LAST_UPDATED', 'Actualizado el:');
 define('TEXT_INFO_CURRENCY_VALUE', 'Valor:');
 define('TEXT_INFO_CURRENCY_EXAMPLE', 'Ejemplo:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca los datos de la nueva moneda');
