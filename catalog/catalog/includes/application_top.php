@@ -25,6 +25,7 @@
   if (STORE_PAGE_PARSE_TIME == '1') {
     $parse_start_time = microtime();
   }
+  define('STORE_DB_TRANSACTIONS', 0);
 
 // define how the session functions will be used
   $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
@@ -181,6 +182,12 @@
   define('ADDRESS_BOOK_POST_CODE_MIN_LENGTH', 4);
   define('ADDRESS_BOOK_CITY_MIN_LENGTH', 4);
   define('ADDRESS_BOOK_COUNTRY_MIN_LENGTH', 3);
+
+// Control what fields of the customer table are used
+  define('ACCOUNT_GENDER', 1);
+  define('ACCOUNT_DOB', 1);
+  define('ACCOUNT_SUBURB', 1);
+  define('ACCOUNT_STATE', 1);
 
   define('CC_OWNER_MIN_LENGTH', 3);
   define('CC_NUMBER_MIN_LENGTH', 10);
