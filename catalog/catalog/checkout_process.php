@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.125 2003/02/16 13:21:43 thomasamoulton Exp $
+  $Id: checkout_process.php,v 1.126 2003/03/22 11:08:22 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -148,7 +148,7 @@
           $stock_left = $stock_values['products_quantity'];
         }
         tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $stock_left . "' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
-        if ($stock_left < 1) {
+        if ( ($stock_left < 1) && (STOCK_ALLOW_CHECKOUT == 'false') ) {
           tep_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . tep_get_prid($order->products[$i]['id']) . "'");
         }
       }
