@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.4 2003/02/11 00:04:52 hpdl Exp $
+  $Id: navigation_history.php,v 1.5 2003/02/12 21:07:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,6 +62,15 @@
                               'mode' => (($HTTP_SERVER_VARS['HTTPS'] == 'on') ? 'SSL' : 'NONSSL'),
                               'get' => $HTTP_GET_VARS,
                               'post' => $HTTP_POST_VARS);
+      }
+    }
+
+    function remove_current_page() {
+      global $PHP_SELF;
+
+      $last_entry_position = sizeof($this->path) - 1;
+      if ($this->path[$last_entry_position]['page'] == basename($PHP_SELF)) {
+        unset($this->path[$last_entry_position]);
       }
     }
 

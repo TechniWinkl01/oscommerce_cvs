@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_search_help.php,v 1.1 2002/05/27 13:31:54 hpdl Exp $
+  $Id: popup_search_help.php,v 1.2 2003/02/12 21:07:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $navigation->remove_current_page();
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH);
 ?>

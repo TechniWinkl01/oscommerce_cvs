@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.14 2003/02/06 14:11:50 thomasamoulton Exp $
+  $Id: popup_image.php,v 1.15 2003/02/12 21:07:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,8 @@
 */
 
   require('includes/application_top.php');
+
+  $navigation->remove_current_page();
 
   $products_query = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and pd.language_id = '" . $languages_id . "'");
   $products_values = tep_db_fetch_array($products_query);
