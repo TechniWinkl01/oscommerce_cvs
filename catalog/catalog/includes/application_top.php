@@ -99,6 +99,9 @@
 // Include validation functions (right now only email address)
  $include_file = DIR_FUNCTIONS . 'validations.php'; include(DIR_INCLUDES . 'include_once.php'); 
 
+// split-page-results
+  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
