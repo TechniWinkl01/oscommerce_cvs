@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.68 2001/11/17 20:26:19 hpdl Exp $
+  $Id: general.php,v 1.69 2001/11/17 21:30:40 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -975,10 +975,10 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
                  'uptime' => exec('uptime'),
                  'http_server' => $HTTP_SERVER_VARS['SERVER_SOFTWARE'],
                  'php' => phpversion(),
-                 'zend' => @zend_version(),
+                 'zend' => (function_exists('zend_version') ? zend_version() : ''),
                  'db_server' => DB_SERVER,
                  'db_ip' => gethostbyname(DB_SERVER),
-                 'db_version' => 'MySQL ' . @mysql_get_server_info(),
+                 'db_version' => 'MySQL ' . (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''),
                  'db_date' => $db['datetime']);
   }
 ?>
