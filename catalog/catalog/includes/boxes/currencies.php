@@ -10,7 +10,7 @@
 
   $currencies_query = tep_db_query("select title, code from currencies order by title");
 
-  $select_box = '<select name="currency" onChange="this.form.submit();" style="font-size:11px;font-family:Verdana,Arial;">';
+  $select_box = '<select name="currency" onChange="this.form.submit();">';
   while ($currencies = tep_db_fetch_array($currencies_query)) {
     $select_box .= '<option value="' . $currencies['code'] . '"';
 // $currency is a session variable

@@ -26,7 +26,7 @@
                                 );
   } else {
 // Display a drop-down
-    $select_box = '<select name="manufacturers_id" onChange="this.form.submit();" style="font-size:11px;font-family:Verdana,Arial;">';
+    $select_box = '<select name="manufacturers_id" onChange="this.form.submit();">';
     $select_box .= '<option value="">' . PULL_DOWN_DEFAULT . '</option>';
     while ($manufacturers_values = tep_db_fetch_array($manufacturers_query)) {
       $select_box .= '<option value="' . $manufacturers_values['manufacturers_id'] . '"';

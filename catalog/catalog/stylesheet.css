@@ -166,3 +166,8 @@ SPAN.newItemInCart {
 	font-size : 10px;
     color : #ff0000;
 }
+
+CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 11px;
+}
