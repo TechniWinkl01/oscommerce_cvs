@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.270 2003/03/19 00:20:27 hpdl Exp $
+  $Id: application_top.php,v 1.271 2003/03/19 17:11:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -167,9 +167,11 @@
       $spiders = file(DIR_WS_INCLUDES . 'spiders.txt');
 
       for ($i=0, $n=sizeof($spiders); $i<$n; $i++) {
-        if (is_integer(strpos($spiders[$i], $user_agent))) {
-          $spider_flag = true;
-          break;
+        if (tep_not_null($spiders[$i])) {
+          if (is_integer(strpos($user_agent, trim($spiders[$i])))) {
+            $spider_flag = true;
+            break;
+          }
         }
       }
     }
