@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.50 2001/11/19 16:52:47 hpdl Exp $
+  $Id: espanol.php,v 1.51 2001/11/21 09:04:08 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -212,6 +212,7 @@ define('IMAGE_NEW_TAX_CLASS', 'Nuevo Tipo de Impuesto');
 define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_ORDERS', 'Pedidos');
 define('IMAGE_PREVIEW', 'Ver');
+define('IMAGE_RESTORE', 'Restore');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
 define('IMAGE_SELECT', 'Seleccionar');

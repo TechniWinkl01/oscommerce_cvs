@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.72 2001/11/19 18:45:27 project3000 Exp $
+  $Id: general.php,v 1.73 2001/11/21 09:04:08 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -300,7 +300,7 @@
     return $image;
   }
 
-  function tep_break_string($string, $len) {
+  function tep_break_string($string, $len, $break_char = '-') {
     $l = 0;
     $output = '';
     for ($i = 0; $i < strlen($string); $i++) {
@@ -312,7 +312,7 @@
       }
       if ($l == $len) {
         $l = 0;
-        $output .= '-';
+        $output .= $break_char;
       }
       $output .= $char;
     }
