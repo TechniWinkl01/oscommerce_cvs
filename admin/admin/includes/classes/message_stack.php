@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.2 2002/01/27 04:02:21 hpdl Exp $
+  $Id: message_stack.php,v 1.3 2002/01/27 04:12:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,13 +35,13 @@
 
     function add($message, $type = 'error') {
       if ($type == 'error') {
-        $this->errors[] = array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . '&nbsp;' . $message);
+        $this->errors[] = array('params' => 'class="messageStackError"', 'text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . '&nbsp;' . $message);
       } elseif ($type == 'warning') {
-        $this->errors[] = array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . '&nbsp;' . $message);
+        $this->errors[] = array('params' => 'class="messageStackWarning"', 'text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . '&nbsp;' . $message);
       } elseif ($type == 'success') {
-        $this->errors[] = array('text' => tep_image(DIR_WS_ICONS . 'success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
+        $this->errors[] = array('params' => 'class="messageStackSuccess"', 'text' => tep_image(DIR_WS_ICONS . 'success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
       } else {
-        $this->errors[] = array('text' => $message);
+        $this->errors[] = array('params' => 'class="messageStackError"', 'text' => $message);
       }
 
       $this->size++;

@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.20 2002/01/27 04:02:21 hpdl Exp $
+  $Id: stylesheet.css,v 1.21 2002/01/27 04:12:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,18 @@ TD.boxContents {
 TD.messageBox {
 	font-family : Verdana, Arial, sans-serif;
 	font-size : 10px;
+}
+
+TD.messageStackError, TD.messageStackWarning {
+	font-family : Verdana, Arial, sans-serif;
+	font-size : 10px;
     background-color: #ffb3b5;
+}
+
+TD.messageStackSuccess {
+	font-family : Verdana, Arial, sans-serif;
+	font-size : 10px;
+    background-color: #99ff00;
 }
 
 TR.selectedRow, TD.box {
