@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.52 2001/12/12 22:57:05 dgw_ Exp $
+  $Id: german.php,v 1.53 2001/12/13 08:59:07 mabosch Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -90,7 +90,7 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Werkzeuge');
-define('BOX_TOOLS_FILE_MANAGER', 'File Manager');
+define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
 define('BOX_TOOLS_BACKUP', 'Datenbanksicherung');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 define('BOX_TOOLS_CACHE', 'Cache Steuerung');
@@ -209,8 +209,8 @@ define('IMAGE_NEW_BANNER', 'neuen Banner aufnehmen');
 define('IMAGE_NEW_CATEGORY', 'neue Kategorie erstellen');
 define('IMAGE_NEW_COUNTRY', 'neues Land aufnehmen');
 define('IMAGE_NEW_CURRENCY', 'neue Währung einfügen');
-define('IMAGE_NEW_FILE', 'New File');
-define('IMAGE_NEW_FOLDER', 'New Folder');
+define('IMAGE_NEW_FILE', 'Neue Datei');
+define('IMAGE_NEW_FOLDER', 'Neues Verzeichnis');
 define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
 define('IMAGE_NEW_PRODUCT', 'neuen Artikel/Produkt aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'neuen Steuer-Klasse erstellen');
@@ -256,6 +256,6 @@ define('PREVNEXT_BUTTON_PREV', '[&lt;&lt;&nbsp;vorherige]');
 define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste&nbsp;&gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
-define('TEXT_DEFAULT', 'default');
-define('TEXT_SET_DEFAULT', 'Set as default');
+define('TEXT_DEFAULT', 'Standard');
+define('TEXT_SET_DEFAULT', 'als Standard setzen');
 ?>
