@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.9 2002/01/31 01:19:19 harley_vb Exp $
+  $Id: specials.php,v 1.10 2002/03/16 15:07:21 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,8 +27,8 @@ define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_INFO_NEW_PRICE', 'New Price:');
 define('TEXT_INFO_ORIGINAL_PRICE', 'Original Price:');
 define('TEXT_INFO_PERCENTAGE', 'Percentage:');
-define('TEXT_INFO_EXPIRES_DATE', 'Expires At: <b>%s</b>');
-define('TEXT_INFO_STATUS_CHANGE', 'Status Change: %s');
+define('TEXT_INFO_EXPIRES_DATE', 'Expires At:');
+define('TEXT_INFO_STATUS_CHANGE', 'Status Change:');
 
 define('TEXT_INFO_HEADING_DELETE_SPECIALS', 'Delete Special');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete the special products price?');
