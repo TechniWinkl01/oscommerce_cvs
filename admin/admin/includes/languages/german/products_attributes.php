@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.6 2002/02/02 16:28:45 clescuyer Exp $
+  $Id: products_attributes.php,v 1.7 2002/03/09 16:54:04 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,4 +31,6 @@ define('MAX_ROW_LISTS_OPTIONS', 10);
 
 define('TEXT_WARNING_OF_DELETE', 'Mit dieser Option sind Artikel, sowie Optionsmerkmale verbunden - L&ouml;schen wird nicht empfohlen.');
 define('TEXT_OK_TO_DELETE', 'Mit dieser Option sind keine Artikel, sowie Optionsmerkmale verbunden - Sie kann gel&ouml;scht werden.');
+define('TEXT_OPTION_ID', 'Option ID');
+define('TEXT_OPTION_NAME', 'Option Name');
 ?>
