@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_top.php,v 1.106 2002/01/04 06:06:27 hpdl Exp $
+  $Id: application_top.php,v 1.107 2002/01/04 07:49:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -198,7 +198,6 @@
   require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // entry/item info classes
-  require(DIR_WS_CLASSES . 'currencies_info.php');
   require(DIR_WS_CLASSES . 'customer_info.php');
   require(DIR_WS_CLASSES . 'file_manager_info.php');
   require(DIR_WS_CLASSES . 'languages_info.php');
