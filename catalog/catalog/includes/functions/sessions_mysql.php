@@ -60,7 +60,7 @@
   }
 
   function sess_read($key) {
-    $qry = "SELECT value FROM sessions WHERE sesskey = '$key' AND expiry > " . time();
+    $qry = "SELECT value FROM " . TABLE_SESSIONS . " WHERE sesskey = '$key' AND expiry > " . time();
     $qid = tep_db_query($qry);
 
     if (list($value) = tep_db_fetch_array($qid)) {
@@ -76,14 +76,14 @@
     $expiry = time() + $SESS_LIFE;
     $value = addslashes($val);
 
-    $qry = "SELECT count(*) as total FROM sessions  WHERE sesskey = '$key'";
+    $qry = "SELECT count(*) as total FROM " . TABLE_SESSIONS . " WHERE sesskey = '$key'";
     $qid = tep_db_query($qry);
     list($total) = tep_db_fetch_array($qid);
 
     if ($total > 0) {
-      $qry = "UPDATE sessions SET expiry = $expiry, value = '$value' WHERE sesskey = '$key'";
+      $qry = "UPDATE " . TABLE_SESSIONS . " SET expiry = $expiry, value = '$value' WHERE sesskey = '$key'";
     } else {
-      $qry = "INSERT INTO sessions VALUES ('$key', $expiry, '$value')";
+      $qry = "INSERT INTO " . TABLE_SESSIONS . " VALUES ('$key', $expiry, '$value')";
     }
     $qid = tep_db_query($qry);
 
@@ -91,14 +91,14 @@
   } 
 
   function sess_destroy($key) {
-    $qry = "DELETE FROM sessions WHERE sesskey = '$key'";
+    $qry = "DELETE FROM " . TABLE_SESSIONS . " WHERE sesskey = '$key'";
     $qid = tep_db_query($qry);
 
     return $qid;
   }
 
   function sess_gc($maxlifetime) {
-    $qry = "DELETE FROM sessions WHERE expiry < " . time();
+    $qry = "DELETE FROM " . TABLE_SESSIONS . " WHERE expiry < " . time();
     $qid = tep_db_query($qry);
 
     return mysql_affected_rows();
