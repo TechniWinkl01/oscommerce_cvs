@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.101 2004/08/06 10:59:11 tmoulton Exp $
+# $Id: oscommerce.sql,v 1.102 2004/08/17 23:47:54 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -262,6 +262,15 @@ CREATE TABLE osc_newsletters (
   status int(1),
   locked int(1) DEFAULT '0',
   PRIMARY KEY (newsletters_id)
+);
+
+DROP TABLE IF EXISTS osc_newsletters_log;
+CREATE TABLE osc_newsletters_log (
+  newsletters_id int NOT NULL,
+  email_address varchar(255) NOT NULL,
+  date_sent datetime,
+  KEY IDX_NEWSLETTERS_LOG_NEWSLETTERS_ID (newsletters_id),
+  KEY IDX_NEWSLETTERS_LOG_EMAIL_ADDRESS (email_address)
 );
 
 DROP TABLE IF EXISTS osc_orders;
