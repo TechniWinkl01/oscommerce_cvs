@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: sessions.php,v 1.9 2002/08/09 15:11:30 hpdl Exp $
+  $Id: sessions.php,v 1.10 2002/11/22 18:46:38 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 
@@ -441,9 +441,8 @@
 
 // Check if we should clean up (call the garbage collection routines)
     if ($session->gc_probability > 0) {
-      srand(time());
       $randmax = getrandmax();
-      $nrand = (int)(100 * rand() / $randmax);
+      $nrand = (int)(100 * tep_rand() / $randmax);
       if ($nrand < $session->gc_probability) {
         $mod->gc($session->gc_maxlifetime);
       }
