@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.6 2002/01/30 01:23:42 hpdl Exp $
+  $Id: products_expected.php,v 1.7 2002/01/30 12:40:35 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,8 @@
 define('HEADING_TITLE', 'erwartete Artikel');
 
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
-define('TABLE_HEADING_DATE_EXPECTED', 'erwartetet am');
+define('TABLE_HEADING_DATE_EXPECTED', 'verfügbar ab:');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_DATE_EXPECTED', 'erwartet am:');
+define('TEXT_INFO_DATE_EXPECTED', 'verfügbar ab:');
 ?>
