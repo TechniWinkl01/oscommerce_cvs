@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.14 2003/03/14 02:10:58 hpdl Exp $
+  $Id: sessions.php,v 1.15 2003/06/16 16:24:00 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,8 +45,11 @@
     var $delimiter = "\n";
     var $delimiter_value = '[==]';
 
+    var $vars;
+
     function php3session() {
       $this->mod_name = $this->save_handler;
+      $this->vars = array();
     }
   }
 
