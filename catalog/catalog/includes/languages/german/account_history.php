@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.12 2002/06/02 19:14:46 hpdl Exp $
+  $Id: account_history.php,v 1.13 2002/06/17 18:41:09 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,9 +15,9 @@ define('NAVBAR_TITLE_2', 'get&auml;tigte Bestellungen');
 
 define('HEADING_TITLE', 'get&auml;tigte Bestellungen');
 
-define('TEXT_ORDER_NUMBER', 'Bestellungsnummer:');
-define('TEXT_ORDER_STATUS', 'Bestellungsstatus:');
-define('TEXT_ORDER_DATE', 'Bestellungsdatum:');
+define('TEXT_ORDER_NUMBER', 'Bestellungnummer:');
+define('TEXT_ORDER_STATUS', 'Bestellungstatus:');
+define('TEXT_ORDER_DATE', 'Bestellungdatum:');
 define('TEXT_ORDER_SHIPPED_TO', 'Versenden an:');
 define('TEXT_ORDER_PRODUCTS', 'Artikel:');
 define('TEXT_ORDER_COST', 'Summe:');
