@@ -1,17 +1,17 @@
 <?php
 /*
-  $Id: usps.php,v 1.34 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: usps.php,v 1.35 2002/11/01 04:52:45 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
   class usps {
-    var $code, $title, $description, $icon, $enabled, $quote;
+    var $code, $title, $description, $icon, $enabled, $countries;
 
 // class constructor
     function usps() {
@@ -20,115 +20,64 @@
       $this->description = MODULE_SHIPPING_USPS_TEXT_DESCRIPTION;
       $this->icon = DIR_WS_ICONS . 'shipping_usps.gif';
       $this->enabled = MODULE_SHIPPING_USPS_STATUS;
+
+      $this->types = array('Express' => 'Express Mail',
+                           'First Class' => 'First-Class Mail',
+                           'Priority' => 'Priority Mail',
+                           'Parcel' => 'Parcel Post');
+
+      $this->countries = $this->country_list();
     }
 
 // class methods
-    function selection() {
-      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_USPS_TEXT_TITLE . '</td>' . "\n" .
-                          '    <td align="right" class="main"><select name="shipping_usps_prod">' .
-                                                                   '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
-                                                                   '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
-                                                                   '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
-                                                                   '</select>' . tep_draw_checkbox_field('shipping_quote_usps', '1', true) . '</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '</table>' . "\n";
+    function quote($method = '') {
+      global $shipping_weight, $shipping_num_boxes;
 
-      return $selection_string;
-    }
+      if ( (tep_not_null($method)) && (isset($this->types[$method])) ) {
+        $prod = $method;
+      } else {
+        $prod = 'Priority';
+      }
 
-    function quote() {
-      global $HTTP_POST_VARS, $address_values, $shipping_weight, $rate, $shipping_usps_cost, $shipping_usps_method, $shipping_num_boxes, $shipping_quoted;
+      $this->_setMachinable('False');
+      $this->_setContainer('None');
+      $this->_setSize('REGULAR');
 
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_usps'] == '1') ) {
-        $shipping_quoted = 'usps';
-        $prod = ($HTTP_POST_VARS['shipping_usps_prod']) ? $HTTP_POST_VARS['shipping_usps_prod'] : 'priority';
-        include(DIR_WS_CLASSES . '_usps.php');
-        $rate = new _USPS;
-        $rate->SetServer(MODULE_SHIPPING_USPS_SERVER);
-        $rate->setUserName(MODULE_SHIPPING_USPS_USERID);
-        $rate->setPass(MODULE_SHIPPING_USPS_PASSWORD);
-        $rate->SetService($prod);
-        $rate->setMachinable("False");
-        $rate->SetOrigZip(STORE_ORIGIN_ZIP);
-        $rate->SetDestZip($address_values['postcode']);
 // usps doesnt accept zero weight
-        $shipping_weight = ($shipping_weight < 0.1 ? 0.1 : $shipping_weight);
-        $shipping_pounds = floor ($shipping_weight);
-        $shipping_ounces = round(16 * ($shipping_weight - floor($shipping_weight)));
-        $rate->SetWeight($shipping_pounds, $shipping_ounces);
-        $this->quote = $rate->getPrice();
-        $shipping_usps_cost = (SHIPPING_HANDLING + $this->quote) * $shipping_num_boxes;
-        if ($prod != 'Parcel') {
-          $shipping_usps_method = 'USPS ' . $prod . ' Mail';
-        } else {
-          $shipping_usps_method = 'USPS ' . $prod . ' Post';
-        }
-        $shipping_usps_method = $shipping_usps_method . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
-      }
-    }
+      $shipping_weight = ($shipping_weight < 0.1 ? 0.1 : $shipping_weight);
+      $shipping_pounds = floor ($shipping_weight);
+      $shipping_ounces = round(16 * ($shipping_weight - floor($shipping_weight)));
+      $this->_setWeight($shipping_pounds, $shipping_ounces);
 
-    function cheapest() {
-      global $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_usps_cost;
+      $uspsQuote = $this->_getQuote();
 
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_usps'] == '1') ) {
-        if ($shipping_count == 0) {
-          $shipping_cheapest = 'usps';
-          $shipping_cheapest_cost = $shipping_usps_cost;
+      if (is_array($uspsQuote)) {
+        if (isset($uspsQuote['error'])) {
+          $this->quotes = array('module' => $this->title,
+                                'error' => $uspsQuote['error']);
         } else {
-          if ($shipping_usps_cost < $shipping_cheapest_cost) {
-            $shipping_cheapest = 'usps';
-            $shipping_cheapest_cost = $shipping_usps_cost;
+          $this->quotes = array('id' => $this->code,
+                                'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . 'lbs)');
+
+          $methods = array();
+          for ($i=0; $i<sizeof($uspsQuote); $i++) {
+            list($type, $cost) = each($uspsQuote[$i]);
+
+            $methods[] = array('id' => $type,
+                               'title' => ((isset($this->types[$type])) ? $this->types[$type] : $type),
+                               'cost' => (SHIPPING_HANDLING + $cost) * $shipping_num_boxes);
           }
+
+          $this->quotes['methods'] = $methods;
         }
-        $shipping_count++;
-      }
-    }
-
-    function display() {
-      global $HTTP_GET_VARS, $currencies, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest, $shipping_selected;
-
-// set a global for the radio field (auto select cheapest shipping method)
-      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_usps'] == '1') ) {
-        if ($this->quote > 0) {
-          $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
-                            '  <tr>' . "\n" .
-                            '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_USPS_TEXT_TITLE . ' <small><i>(' . $shipping_usps_method . ')</i></small></td>' . "\n" .
-                            '    <td align="right" class="main">' . $currencies->format($shipping_usps_cost);
-          if (tep_count_shipping_modules() > 1) {
-            $display_string .= tep_draw_radio_field('shipping_selected', 'usps') .
-                               tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
-                               tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '</td>' . "\n";
-          } else {
-            $display_string .= tep_draw_hidden_field('shipping_selected', 'usps') .
-                               tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
-                               tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '</td>' . "\n";
-          }
-          $display_string .= '  </tr>' . "\n" .
-                             '</table>' . "\n";
-        } else {
-          $display_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
-                             '  <tr>' . "\n" .
-                             '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_USPS_TEXT_TITLE . '</td>' . "\n" .
-                             '    <td class="main"><font color="#ff0000">Error:</font> ' . $this->quote . '</td>' . "\n" .
-                             '  </tr>' . "\n" .
-                             '</table>' . "\n";
-        }
+      } else {
+        $this->quotes = array('module' => $this->title,
+                              'error' => 'An error occured with the USPS shipping calculations.<br>If you prefer to use USPS as your shipping method, please contact the store owner.');
       }
 
-      return $display_string;
-    }
+      if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);
 
-    function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
-
-      if ($shipping_selected == 'usps') {
-        $shipping_cost = $HTTP_POST_VARS['shipping_usps_cost'];
-        $shipping_method = $HTTP_POST_VARS['shipping_usps_method'];
-      }
+      return $this->quotes;
     }
 
     function check() {
@@ -141,22 +90,399 @@
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable USPS Shipping', 'MODULE_SHIPPING_USPS_STATUS', '1', 'Do you want to offer USPS shipping?', '6', '10', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS USERID', 'MODULE_SHIPPING_USPS_USERID', 'NONE', 'Enter the USPS USERID assigned to you.', '6', '11', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS Password', 'MODULE_SHIPPING_USPS_PASSWORD', 'NONE', 'See USERID, above.', '6', '12', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS URL of the production Server', 'MODULE_SHIPPING_USPS_SERVER', 'NONE', 'See above', '6', '13', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS User ID', 'MODULE_SHIPPING_USPS_USERID', 'NONE', 'Enter the USPS USERID assigned to you.', '6', '11', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS Password', 'MODULE_SHIPPING_USPS_PASSWORD', 'NONE', 'See USERID, above.', '6', '12', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Which server to use', 'MODULE_SHIPPING_USPS_SERVER', 'test', 'An account at USPS is needed to use the Production server', '6', '13', 'tep_cfg_select_option(array(\'test\', \'production\'), ', now())");
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_USPS_STATUS'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_USPS_USERID'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_USPS_PASSWORD'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_USPS_SERVER'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_USPS_STATUS', 'MODULE_SHIPPING_USPS_USERID', 'MODULE_SHIPPING_USPS_PASSWORD', 'MODULE_SHIPPING_USPS_SERVER');
+      return array('MODULE_SHIPPING_USPS_STATUS', 'MODULE_SHIPPING_USPS_USERID', 'MODULE_SHIPPING_USPS_PASSWORD', 'MODULE_SHIPPING_USPS_SERVER');
+    }
 
-      return $keys;
+    function _setWeight($pounds, $ounces=0) {
+      $this->pounds = $pounds;
+      $this->ounces = $ounces;
+    }
+
+    function _setContainer($container) {
+      $this->container = $container;
+    }
+
+    function _setSize($size) {
+      $this->size = $size;
+    }
+
+    function _setMachinable($machinable) {
+      $this->machinable = $machinable;
+    }
+
+    function _getQuote() {
+      global $order;
+
+      if ($order->delivery['country']['id'] == STORE_COUNTRY) {
+        $request  = '<RateRequest USERID="' . MODULE_SHIPPING_USPS_USERID . '" PASSWORD="' . MODULE_SHIPPING_USPS_PASSWORD . '">';
+        $services_count = 0;
+        reset($this->types);
+        while (list($key, $value) = each($this->types)) {
+          $request .= '<Package ID="' . $services_count . '">' .
+                      '<Service>' . $key . '</Service>' .
+                      '<ZipOrigination>' . STORE_ORIGIN_ZIP . '</ZipOrigination>' .
+                      '<ZipDestination>' . $order->delivery['postcode'] . '</ZipDestination>' .
+                      '<Pounds>' . $this->pounds . '</Pounds>' .
+                      '<Ounces>' . $this->ounces . '</Ounces>' .
+                      '<Container>' . $this->container . '</Container>' .
+                      '<Size>' . $this->size . '</Size>' .
+                      '<Machinable>' . $this->machinable . '</Machinable>' .
+                      '</Package>';
+          $services_count++;
+        }
+        $request .= '</RateRequest>';
+
+        $request = 'API=Rate&XML=' . urlencode($request);
+      } else {
+        $request  = '<IntlRateRequest USERID="' . MODULE_SHIPPING_USPS_USERID . '" PASSWORD="' . MODULE_SHIPPING_USPS_PASSWORD . '">' .
+                    '<Package ID="0">' .
+                    '<Pounds>' . $this->pounds . '</Pounds>' .
+                    '<Ounces>' . $this->ounces . '</Ounces>' .
+                    '<MailType>Package</MailType>' .
+                    '<Country>' . $this->countries[$order->delivery['country']['iso_code_2']] . '</Country>' .
+                    '</Package>' .
+                    '</IntlRateRequest>';
+
+        $request = 'API=IntlRate&XML=' . urlencode($request);
+      }
+
+      switch (MODULE_SHIPPING_USPS_SERVER) {
+        case 'production': $usps_server = 'production.shippingapis.com';
+                           $api_dll = 'shippingapi.dll';
+                           break;
+        case 'test':
+        default:           $usps_server = 'testing.shippingapis.com';
+                           $api_dll = 'ShippingAPITest.dll';
+                           break;
+      }
+
+      $body = '';
+
+      $http = new httpClient();
+      if ($http->Connect($usps_server, 80)) {
+        $http->addHeader('Host', $usps_server);
+        $http->addHeader('User-Agent', 'osCommerce');
+        $http->addHeader('Connection', 'Close');
+
+        if ($http->Get('/' . $api_dll . '?' . $request)) $body = $http->getBody();
+
+        $http->Disconnect();
+      } else {
+        return false;
+      }
+
+      $response = array();
+      while (true) {
+        if ($start = strpos($body, '<Package ID=')) {
+          $body = substr($body, $start);
+          $end = strpos($body, '</Package>');
+          $response[] = substr($body, 0, $end+10);
+          $body = substr($body, $end+9);
+        } else {
+          break;
+        }
+      }
+
+      $rates = array();
+      if ($order->delivery['country']['id'] == STORE_COUNTRY) {
+        if (sizeof($response) == '1') {
+          if (ereg('<Error>', $response[0])) {
+            $number = ereg('<Number>(.*)</Number>', $response[0], $regs);
+            $number = $regs[1];
+            $description = ereg('<Description>(.*)</Description>', $response[0], $regs);
+            $description = $regs[1];
+
+            return array('error' => $number . ' - ' . $description);
+          }
+        }
+
+        for ($i=0, $n=sizeof($response); $i<$n; $i++) {
+          if (strpos($response[$i], '<Postage>')) {
+            $service = ereg('<Service>(.*)</Service>', $response[$i], $regs);
+            $service = $regs[1];
+            $postage = ereg('<Postage>(.*)</Postage>', $response[$i], $regs);
+            $postage = $regs[1];
+
+            $rates[] = array($service => $postage);
+          }
+        }
+      } else {
+        if (ereg('<Error>', $response[0])) {
+          $number = ereg('<Number>(.*)</Number>', $response[0], $regs);
+          $number = $regs[1];
+          $description = ereg('<Description>(.*)</Description>', $response[0], $regs);
+          $description = $regs[1];
+
+          return array('error' => $number . ' - ' . $description);
+        } else {
+          $body = $response[0];
+          $services = array();
+          while (true) {
+            if ($start = strpos($body, '<Service ID=')) {
+              $body = substr($body, $start);
+              $end = strpos($body, '</Service>');
+              $services[] = substr($body, 0, $end+10);
+              $body = substr($body, $end+9);
+            } else {
+              break;
+            }
+          }
+
+          for ($i=0, $n=sizeof($services); $i<$n; $i++) {
+            if (strpos($services[$i], '<Postage>')) {
+              $service = ereg('<SvcDescription>(.*)</SvcDescription>', $services[$i], $regs);
+              $service = $regs[1];
+              $postage = ereg('<Postage>(.*)</Postage>', $services[$i], $regs);
+              $postage = $regs[1];
+
+              $rates[] = array($service => $postage);
+            }
+          }
+        }
+      }
+
+      return ((sizeof($rates) > 0) ? $rates : false);
+    }
+
+    function country_list() {
+      $list = array('AF' => 'Afghanistan',
+                    'AL' => 'Albania',
+                    'DZ' => 'Algeria',
+                    'AD' => 'Andorra',
+                    'AO' => 'Angola',
+                    'AI' => 'Anguilla',
+                    'AG' => 'Antigua and Barbuda',
+                    'AR' => 'Argentina',
+                    'AM' => 'Armenia',
+                    'AW' => 'Aruba',
+                    'AU' => 'Australia',
+                    'AT' => 'Austria',
+                    'AZ' => 'Azerbaijan',
+                    'BS' => 'Bahamas',
+                    'BH' => 'Bahrain',
+                    'BD' => 'Bangladesh',
+                    'BB' => 'Barbados',
+                    'BY' => 'Belarus',
+                    'BE' => 'Belgium',
+                    'BZ' => 'Belize',
+                    'BJ' => 'Benin',
+                    'BM' => 'Bermuda',
+                    'BT' => 'Bhutan',
+                    'BO' => 'Bolivia',
+                    'BA' => 'Bosnia-Herzegovina',
+                    'BW' => 'Botswana',
+                    'BR' => 'Brazil',
+                    'VG' => 'British Virgin Islands',
+                    'BN' => 'Brunei Darussalam',
+                    'BG' => 'Bulgaria',
+                    'BF' => 'Burkina Faso',
+                    'MM' => 'Burma',
+                    'BI' => 'Burundi',
+                    'KH' => 'Cambodia',
+                    'CM' => 'Cameroon',
+                    'CA' => 'Canada',
+                    'CV' => 'Cape Verde',
+                    'KY' => 'Cayman Islands',
+                    'CF' => 'Central African Republic',
+                    'TD' => 'Chad',
+                    'CL' => 'Chile',
+                    'CN' => 'China',
+                    'CX' => 'Christmas Island (Australia)',
+                    'CC' => 'Cocos Island (Australia)',
+                    'CO' => 'Colombia',
+                    'KM' => 'Comoros',
+                    'CG' => 'Congo (Brazzaville),Republic of the',
+                    'ZR' => 'Congo, Democratic Republic of the',
+                    'CK' => 'Cook Islands (New Zealand)',
+                    'CR' => 'Costa Rica',
+                    'CI' => 'Cote d\'Ivoire (Ivory Coast)',
+                    'HR' => 'Croatia',
+                    'CU' => 'Cuba',
+                    'CY' => 'Cyprus',
+                    'CZ' => 'Czech Republic',
+                    'DK' => 'Denmark',
+                    'DJ' => 'Djibouti',
+                    'DM' => 'Dominica',
+                    'DO' => 'Dominican Republic',
+                    'TP' => 'East Timor (Indonesia)',
+                    'EC' => 'Ecuador',
+                    'EG' => 'Egypt',
+                    'SV' => 'El Salvador',
+                    'GQ' => 'Equatorial Guinea',
+                    'ER' => 'Eritrea',
+                    'EE' => 'Estonia',
+                    'ET' => 'Ethiopia',
+                    'FK' => 'Falkland Islands',
+                    'FO' => 'Faroe Islands',
+                    'FJ' => 'Fiji',
+                    'FI' => 'Finland',
+                    'FR' => 'France',
+                    'GF' => 'French Guiana',
+                    'PF' => 'French Polynesia',
+                    'GA' => 'Gabon',
+                    'GM' => 'Gambia',
+                    'GE' => 'Georgia, Republic of',
+                    'DE' => 'Germany',
+                    'GH' => 'Ghana',
+                    'GI' => 'Gibraltar',
+                    'GB' => 'Great Britain and Northern Ireland',
+                    'GR' => 'Greece',
+                    'GL' => 'Greenland',
+                    'GD' => 'Grenada',
+                    'GP' => 'Guadeloupe',
+                    'GT' => 'Guatemala',
+                    'GN' => 'Guinea',
+                    'GW' => 'Guinea-Bissau',
+                    'GY' => 'Guyana',
+                    'HT' => 'Haiti',
+                    'HN' => 'Honduras',
+                    'HK' => 'Hong Kong',
+                    'HU' => 'Hungary',
+                    'IS' => 'Iceland',
+                    'IN' => 'India',
+                    'ID' => 'Indonesia',
+                    'IR' => 'Iran',
+                    'IQ' => 'Iraq',
+                    'IE' => 'Ireland',
+                    'IL' => 'Israel',
+                    'IT' => 'Italy',
+                    'JM' => 'Jamaica',
+                    'JP' => 'Japan',
+                    'JO' => 'Jordan',
+                    'KZ' => 'Kazakhstan',
+                    'KE' => 'Kenya',
+                    'KI' => 'Kiribati',
+                    'KW' => 'Kuwait',
+                    'KG' => 'Kyrgyzstan',
+                    'LA' => 'Laos',
+                    'LV' => 'Latvia',
+                    'LB' => 'Lebanon',
+                    'LS' => 'Lesotho',
+                    'LR' => 'Liberia',
+                    'LY' => 'Libya',
+                    'LI' => 'Liechtenstein',
+                    'LT' => 'Lithuania',
+                    'LU' => 'Luxembourg',
+                    'MO' => 'Macao',
+                    'MK' => 'Macedonia, Republic of',
+                    'MG' => 'Madagascar',
+                    'MW' => 'Malawi',
+                    'MY' => 'Malaysia',
+                    'MV' => 'Maldives',
+                    'ML' => 'Mali',
+                    'MT' => 'Malta',
+                    'MQ' => 'Martinique',
+                    'MR' => 'Mauritania',
+                    'MU' => 'Mauritius',
+                    'YT' => 'Mayotte (France)',
+                    'MX' => 'Mexico',
+                    'MD' => 'Moldova',
+                    'MC' => 'Monaco (France)',
+                    'MN' => 'Mongolia',
+                    'MS' => 'Montserrat',
+                    'MA' => 'Morocco',
+                    'MZ' => 'Mozambique',
+                    'NA' => 'Namibia',
+                    'NR' => 'Nauru',
+                    'NP' => 'Nepal',
+                    'NL' => 'Netherlands',
+                    'AN' => 'Netherlands Antilles',
+                    'NC' => 'New Caledonia',
+                    'NZ' => 'New Zealand',
+                    'NI' => 'Nicaragua',
+                    'NE' => 'Niger',
+                    'NG' => 'Nigeria',
+                    'KP' => 'North Korea (Korea, Democratic People\'s Republic of)',
+                    'NO' => 'Norway',
+                    'OM' => 'Oman',
+                    'PK' => 'Pakistan',
+                    'PA' => 'Panama',
+                    'PG' => 'Papua New Guinea',
+                    'PY' => 'Paraguay',
+                    'PE' => 'Peru',
+                    'PH' => 'Philippines',
+                    'PN' => 'Pitcairn Island',
+                    'PL' => 'Poland',
+                    'PT' => 'Portugal',
+                    'QA' => 'Qatar',
+                    'RE' => 'Reunion',
+                    'RO' => 'Romania',
+                    'RU' => 'Russia',
+                    'RW' => 'Rwanda',
+                    'SH' => 'Saint Helena',
+                    'KN' => 'Saint Kitts (St. Christopher and Nevis)',
+                    'LC' => 'Saint Lucia',
+                    'PM' => 'Saint Pierre and Miquelon',
+                    'VC' => 'Saint Vincent and the Grenadines',
+                    'SM' => 'San Marino',
+                    'ST' => 'Sao Tome and Principe',
+                    'SA' => 'Saudi Arabia',
+                    'SN' => 'Senegal',
+                    'YU' => 'Serbia-Montenegro',
+                    'SC' => 'Seychelles',
+                    'SL' => 'Sierra Leone',
+                    'SG' => 'Singapore',
+                    'SK' => 'Slovak Republic',
+                    'SI' => 'Slovenia',
+                    'SB' => 'Solomon Islands',
+                    'SO' => 'Somalia',
+                    'ZA' => 'South Africa',
+                    'GS' => 'South Georgia (Falkland Islands)',
+                    'KR' => 'South Korea (Korea, Republic of)',
+                    'ES' => 'Spain',
+                    'LK' => 'Sri Lanka',
+                    'SD' => 'Sudan',
+                    'SR' => 'Suriname',
+                    'SZ' => 'Swaziland',
+                    'SE' => 'Sweden',
+                    'CH' => 'Switzerland',
+                    'SY' => 'Syrian Arab Republic',
+                    'TW' => 'Taiwan',
+                    'TJ' => 'Tajikistan',
+                    'TZ' => 'Tanzania',
+                    'TH' => 'Thailand',
+                    'TG' => 'Togo',
+                    'TK' => 'Tokelau (Union) Group (Western Samoa)',
+                    'TO' => 'Tonga',
+                    'TT' => 'Trinidad and Tobago',
+                    'TN' => 'Tunisia',
+                    'TR' => 'Turkey',
+                    'TM' => 'Turkmenistan',
+                    'TC' => 'Turks and Caicos Islands',
+                    'TV' => 'Tuvalu',
+                    'UG' => 'Uganda',
+                    'UA' => 'Ukraine',
+                    'AE' => 'United Arab Emirates',
+                    'UY' => 'Uruguay',
+                    'UZ' => 'Uzbekistan',
+                    'VU' => 'Vanuatu',
+                    'VA' => 'Vatican City',
+                    'VE' => 'Venezuela',
+                    'VN' => 'Vietnam',
+                    'WF' => 'Wallis and Futuna Islands',
+                    'WS' => 'Western Samoa',
+                    'YE' => 'Yemen',
+                    'ZM' => 'Zambia',
+                    'ZW' => 'Zimbabwe');
+
+      return $list;
     }
   }
 ?>
