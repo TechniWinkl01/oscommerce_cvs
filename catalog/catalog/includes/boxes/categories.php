@@ -37,7 +37,7 @@
     if (SHOW_COUNTS) {
       $products_in_category = tep_count_products_in_category($counter);
       if ($products_in_category > 0) {
-        $categories_string .= ' (' . $products_in_category . ')';
+        $categories_string .= '&nbsp;(' . $products_in_category . ')';
       }
     }
 
