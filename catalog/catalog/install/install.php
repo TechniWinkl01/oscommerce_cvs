@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.1 2002/01/02 13:02:38 hpdl Exp $
+  $Id: install.php,v 1.2 2003/06/17 17:13:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
 
   switch ($HTTP_GET_VARS['step']) {
     case '2':
-      if (osc_in_array(array('database'), $HTTP_POST_VARS['install'])) {
+      if (osc_in_array('database', $HTTP_POST_VARS['install'])) {
         $page_contents = 'install_2.php';
       } elseif (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
         $page_contents = 'install_4.php';
