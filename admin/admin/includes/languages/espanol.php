@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.78 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: espanol.php,v 1.79 2002/03/09 22:39:09 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -192,6 +192,7 @@ define('IMAGE_ICON_STATUS_RED', 'Inactivo');
 define('IMAGE_ICON_STATUS_RED_LIGHT', 'Desactivar');
 define('IMAGE_ICON_INFO', 'Datos');
 define('IMAGE_INSERT', 'Insertar');
+define('IMAGE_LOCKED', 'Bloqueado');
 define('IMAGE_MODIFY', 'Modificar');
 define('IMAGE_MOVE', 'Mover');
 define('IMAGE_NEW_BANNER', 'Nuevo Banner');
@@ -215,6 +216,7 @@ define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
 define('IMAGE_SELECT', 'Seleccionar');
 define('IMAGE_SEND', 'Enviar');
+define('IMAGE_UNLOCKED', 'Desbloqueado');
 define('IMAGE_UPDATE', 'Actualizar');
 define('IMAGE_UPDATE_CURRENCIES', 'Actualizar Cambio de Moneda');
 define('IMAGE_UPLOAD', 'Subir');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.77 2002/03/09 17:16:11 harley_vb Exp $
+  $Id: german.php,v 1.78 2002/03/09 22:38:17 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,7 +99,7 @@ define('BOX_TOOLS_CACHE', 'Cache Steuerung');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
 define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
-define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
+define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 
@@ -166,7 +166,7 @@ define('ENTRY_STATE', 'Bundesland:');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
 define('ENTRY_FAX_NUMBER', 'Faxnummer:');
-define('ENTRY_NEWSLETTER', 'Newsletter:');
+define('ENTRY_NEWSLETTER', 'Rundschreiben:');
 define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
 define('ENTRY_PASSWORD', 'Passwort:');
@@ -192,6 +192,7 @@ define('IMAGE_ICON_STATUS_RED', 'inaktiv');
 define('IMAGE_ICON_STATUS_RED_LIGHT', 'deaktivieren');
 define('IMAGE_ICON_INFO', 'Information');
 define('IMAGE_INSERT', 'Einf&uuml;gen');
+define('IMAGE_LOCKED', 'Sperren');
 define('IMAGE_MODIFY', '&Auml;ndern');
 define('IMAGE_MOVE', 'Verschieben');
 define('IMAGE_NEW_BANNER', 'neuen Banner aufnehmen');
@@ -201,7 +202,7 @@ define('IMAGE_NEW_CURRENCY', 'neue W&auml;hrung einf&uuml;gen');
 define('IMAGE_NEW_FILE', 'Neue Datei');
 define('IMAGE_NEW_FOLDER', 'Neues Verzeichnis');
 define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
-define('IMAGE_NEW_NEWSLETTER', 'Neuer Newsletter');
+define('IMAGE_NEW_NEWSLETTER', 'Neues Rundschreiben');
 define('IMAGE_NEW_PRODUCT', 'neuen Artikel aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'neue Steuerklasse erstellen');
 define('IMAGE_NEW_TAX_RATE', 'neuen Steuersatz anlegen');
@@ -215,6 +216,7 @@ define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Ausw&auml;hlen');
 define('IMAGE_SEND', 'Versenden');
+define('IMAGE_UNLOCKED', 'Entsperren');
 define('IMAGE_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
@@ -242,7 +244,7 @@ define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> W&auml;hrungen)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
-define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Angezeigt werden <b>%d</b> to <b>%d</b> (von insgesamt <b>%d</b> Newsletters)');
+define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Angezeigt werden <b>%d</b> to <b>%d</b> (von insgesamt <b>%d</b> Rundschreiben)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellungen)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellstatus)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Artikeln)');
