@@ -65,8 +65,7 @@
       }
     }
 
-    if ($payment_action == 'PM_CONFIRMATION') {
-      $payment_action = 'PM_PROCESS_BUTTON';
+    if ($payment_action == 'PM_PROCESS_BUTTON') {
       include(DIR_PAYMENT_MODULES . $payment_file);
     }
 
