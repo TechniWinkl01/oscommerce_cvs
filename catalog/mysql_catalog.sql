@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.72 2001/04/11 20:21:43 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.73 2001/04/12 19:40:20 dwatkins Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -306,6 +306,13 @@ CREATE TABLE reviews_extra (
   customers_id int(5) NOT NULL,
   date_added char(8) NOT NULL,
   reviews_read int(5)
+);
+
+CREATE TABLE sessions (
+  sesskey varchar(32) NOT NULL,
+  expiry int(11) unsigned NOT NULL,
+  value text NOT NULL,
+  PRIMARY KEY (sesskey)
 );
 
 CREATE TABLE specials (
