@@ -22,6 +22,7 @@
     $delivery_values[$key] = addslashes($delivery_values[$key]);
   while (list($key) = each($customer_values)) 
     $customer_values[$key] = addslashes($customer_values[$key]);
+  $comments = urldecode($comments);
 
   $delivery_name = $delivery_values['firstname'] . ' ' . $delivery_values['lastname'];
   $customer_name = $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];

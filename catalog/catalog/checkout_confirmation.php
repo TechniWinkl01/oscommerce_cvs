@@ -211,7 +211,7 @@
                    '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
                    '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
                    '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
-                   '<input type="hidden" name="comments" value="' . stripslashes($comments) . '">' .
+                   '<input type="hidden" name="comments" value="' . urlencode(stripslashes($comments)) . '">' .
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 // Draw the checkout process button
