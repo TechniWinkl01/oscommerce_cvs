@@ -84,7 +84,7 @@ define('BOX_HEADING_MAIL', 'Mail');
 define('BOX_MAIL_MAIL', 'eMail(s) senden');
 
 // banners box text in includes/boxes/banners.php
-define('BOX_HEADING_BANNERS', 'Banners');
+define('BOX_HEADING_BANNERS', 'Banner');
 define('BOX_BANNERS_MANAGER', 'Banner Manager');
 
 // javascript messages
@@ -186,14 +186,14 @@ define('IMAGE_EDIT', 'Editieren');
 define('IMAGE_INSERT', 'Einf&uuml;gen');
 define('IMAGE_MODIFY', '&Auml;ndern');
 define('IMAGE_MOVE', 'Verschieben');
-define('IMAGE_NEW_BANNER', 'New Banner');
+define('IMAGE_NEW_BANNER', 'Neuer Banner');
 define('IMAGE_NEW_CATEGORY', 'Neue Kategorie');
 define('IMAGE_NEW_LANGUAGE', 'Neue Sprache');
 define('IMAGE_NEW_PRODUCT', 'Neuer Artikel');
 define('IMAGE_NEW_TAX_CLASS', 'Neue Steuer-Klasse');
 define('IMAGE_NEW_ZONE', 'Neue Zone');
 define('IMAGE_NEW_COUNTRY', 'Neue Land');
-define('IMAGE_NEW_CURRENCY', 'New Currency');
+define('IMAGE_NEW_CURRENCY', 'Neue Währung');
 define('IMAGE_PREVIEW', 'Vorschau');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
@@ -204,7 +204,7 @@ define('IMAGE_ICON_INFO', 'Information');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');
-define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
+define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Banner)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Berichten)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sonderartikeln)');
