@@ -173,7 +173,7 @@ function session_win() {
             <td class="main">&nbsp;<? echo TEXT_NEW_CUSTOMER; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main">&nbsp;</td>
+            <td align="right" class="main"><input type="radio" name="user" value="" checked></td>
             <td class="main">&nbsp;<? echo TEXT_RETURNING_CUSTOMER; ?>&nbsp;</td>
           </tr>
           <tr>
