@@ -1,142 +1,134 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.12 2003/11/17 20:10:05 hpdl Exp $
+  $Id: address_book_details.php,v 1.13 2004/07/22 21:50:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
-
-  if (!isset($process)) $process = false;
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  if (ACCOUNT_GENDER > -1) {
+    $gender_array = array(array('id' => 'm', 'text' => MALE),
+                          array('id' => 'f', 'text' => FEMALE));
+?>
   <tr>
-    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td class="main"><b><?php echo NEW_ADDRESS_TITLE; ?></b></td>
-        <td class="inputRequirement" align="right"><?php echo FORM_REQUIRED_INFORMATION; ?></td>
-      </tr>
-    </table></td>
+    <td class="main"><?php echo ENTRY_GENDER; ?></td>
+    <td class="main"><?php echo osc_draw_radio_field('gender', $gender_array, (isset($entry['entry_gender']) ? $entry['entry_gender'] : (($osC_Customer->hasDefaultAddress() === false) ? $osC_Customer->gender : '')), '', (ACCOUNT_GENDER > 0)); ?></td>
+  </tr>
+<?php
+  }
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('firstname', (isset($entry['entry_firstname']) ? $entry['entry_firstname'] : (($osC_Customer->hasDefaultAddress() === false) ? $osC_Customer->first_name : '')), '', true); ?></td>
   </tr>
   <tr>
-    <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-      <tr class="infoBoxContents">
-        <td><table border="0" cellspacing="2" cellpadding="2">
+    <td class="main"><?php echo ENTRY_LAST_NAME; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('lastname', (isset($entry['entry_lastname']) ? $entry['entry_lastname'] : (($osC_Customer->hasDefaultAddress() === false) ? $osC_Customer->last_name : '')), '', true); ?></td>
+  </tr>
 <?php
-  if (ACCOUNT_GENDER == 'true') {
-    $male = false;
-    $female = false;
+  if (ACCOUNT_COMPANY > -1) {
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_COMPANY; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('company', (isset($entry['entry_company']) ? $entry['entry_company'] : ''), '', (ACCOUNT_COMPANY > 0)); ?></td>
+  </tr>
+<?php
+  }
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_STREET_ADDRESS; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('street_address', (isset($entry['entry_street_address']) ? $entry['entry_street_address'] : ''), '', true); ?></td>
+  </tr>
+<?php
+  if (ACCOUNT_SUBURB > -1) {
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_SUBURB; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('suburb', (isset($entry['entry_suburb']) ? $entry['entry_suburb'] : ''), '', (ACCOUNT_SUBURB > 0)); ?></td>
+  </tr>
+<?php
+  }
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_POST_CODE; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('postcode', (isset($entry['entry_postcode']) ? $entry['entry_postcode'] : ''), '', true); ?></td>
+  </tr>
+  <tr>
+    <td class="main"><?php echo ENTRY_CITY; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('city', (isset($entry['entry_city']) ? $entry['entry_city'] : ''), '', true); ?></td>
+  </tr>
+<?php
+  if (ACCOUNT_STATE > -1) {
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_STATE; ?></td>
+    <td class="main">
+<?php
+    if (isset($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['action'] == 'update'))) {
+      if ($entry_state_has_zones === true) {
+        $Qzones = $osC_Database->query('select zone_name from :table_zones where zone_country_id = :zone_country_id order by zone_name');
+        $Qzones->bindRaw(':table_zones', TABLE_ZONES);
+        $Qzones->bindInt(':zone_country_id', $_POST['country']);
+        $Qzones->execute();
 
-    if (isset($gender)) {
-      $male = ($gender == 'm') ? true : false;
-      $female = ($gender == 'f') ? true : false;
-    } elseif (isset($entry['entry_gender'])) {
-      $male = ($entry['entry_gender'] == 'm') ? true : false;
-      $female = ($entry['entry_gender'] == 'f') ? true : false;
-    }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_GENDER; ?></td>
-            <td class="main"><?php echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . (tep_not_null(ENTRY_GENDER_TEXT) ? '<span class="inputRequirement">' . ENTRY_GENDER_TEXT . '</span>': ''); ?></td>
-          </tr>
-<?php
-  }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('firstname', (isset($entry['entry_firstname']) ? $entry['entry_firstname'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_LAST_NAME; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('lastname', (isset($entry['entry_lastname']) ? $entry['entry_lastname'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-          </tr>
-<?php
-  if (ACCOUNT_COMPANY == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_COMPANY; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('company', (isset($entry['entry_company']) ? $entry['entry_company'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_COMPANY_TEXT) ? '<span class="inputRequirement">' . ENTRY_COMPANY_TEXT . '</span>': ''); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-          </tr>
-<?php
-  }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_STREET_ADDRESS; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('street_address', (isset($entry['entry_street_address']) ? $entry['entry_street_address'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="inputRequirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': ''); ?></td>
-          </tr>
-<?php
-  if (ACCOUNT_SUBURB == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_SUBURB; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('suburb', (isset($entry['entry_suburb']) ? $entry['entry_suburb'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_SUBURB_TEXT) ? '<span class="inputRequirement">' . ENTRY_SUBURB_TEXT . '</span>': ''); ?></td>
-          </tr>
-<?php
-  }
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_POST_CODE; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('postcode', (isset($entry['entry_postcode']) ? $entry['entry_postcode'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="inputRequirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_CITY; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('city', (isset($entry['entry_city']) ? $entry['entry_city'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_CITY_TEXT) ? '<span class="inputRequirement">' . ENTRY_CITY_TEXT . '</span>': ''); ?></td>
-          </tr>
-<?php
-  if (ACCOUNT_STATE == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_STATE; ?></td>
-            <td class="main">
-<?php
-    if ($process == true) {
-      if ($entry_state_has_zones == true) {
         $zones_array = array();
-        $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' order by zone_name");
-        while ($zones_values = tep_db_fetch_array($zones_query)) {
-          $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
+        while ($Qzones->next()) {
+          $zones_array[] = array('id' => $Qzones->value('zone_name'), 'text' => $Qzones->value('zone_name'));
         }
-        echo tep_draw_pull_down_menu('state', $zones_array);
+
+        echo osc_draw_pull_down_menu('state', $zones_array, '', '', (ACCOUNT_STATE > 0));
       } else {
-        echo tep_draw_input_field('state');
+        echo osc_draw_input_field('state', '', '', (ACCOUNT_STATE > 0));
       }
     } else {
-      echo tep_draw_input_field('state', (isset($entry['entry_country_id']) ? tep_get_zone_name($entry['entry_country_id'], $entry['entry_zone_id'], $entry['entry_state']) : ''));
+      echo osc_draw_input_field('state', (isset($entry['entry_country_id']) ? tep_get_zone_name($entry['entry_country_id'], $entry['entry_zone_id'], $entry['entry_state']) : ''), '', (ACCOUNT_STATE > 0));
     }
-
-    if (tep_not_null(ENTRY_STATE_TEXT)) echo '&nbsp;<span class="inputRequirement">' . ENTRY_STATE_TEXT;
-?></td>
-          </tr>
-<?php
-  }
 ?>
-          <tr>
-            <td class="main"><?php echo ENTRY_COUNTRY; ?></td>
-            <td class="main"><?php echo tep_get_country_list('country', (isset($entry['entry_country_id']) ? $entry['entry_country_id'] : '')) . '&nbsp;' . (tep_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">' . ENTRY_COUNTRY_TEXT . '</span>': ''); ?></td>
-          </tr>
-<?php
-  if ((isset($_GET['edit']) && ($osC_Customer->default_address_id != $_GET['edit'])) || (isset($_GET['edit']) == false) ) {
-?>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="main"><?php echo tep_draw_checkbox_field('primary', 'on', false, 'id="primary"') . ' ' . SET_AS_PRIMARY; ?></td>
-          </tr>
-<?php
-  }
-?>
-        </table></td>
-      </tr>
-    </table></td>
+    </td>
   </tr>
+<?php
+  }
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_COUNTRY; ?></td>
+    <td class="main"><?php echo tep_get_country_list('country', (isset($entry['entry_country_id']) ? $entry['entry_country_id'] : STORE_COUNTRY), '', true); ?></td>
+  </tr>
+<?php
+  if (ACCOUNT_TELEPHONE > -1) {
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('telephone', (isset($entry['entry_telephone']) ? $entry['entry_telephone'] : ''), '', (ACCOUNT_TELEPHONE > 0)); ?></td>
+  </tr>
+<?php
+  }
+?>
+<?php
+  if (ACCOUNT_FAX > -1) {
+?>
+  <tr>
+    <td class="main"><?php echo ENTRY_FAX_NUMBER; ?></td>
+    <td class="main"><?php echo osc_draw_input_field('fax', (isset($entry['entry_fax']) ? $entry['entry_fax'] : ''), '', (ACCOUNT_FAX > 0)); ?></td>
+  </tr>
+<?php
+  }
+?>
+<?php
+  if ($osC_Customer->hasDefaultAddress() && ((isset($_GET['edit']) && ($osC_Customer->default_address_id != $_GET['edit'])) || (isset($_GET['edit']) == false)) ) {
+?>
+  <tr>
+    <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="main"><?php echo osc_draw_checkbox_field('primary', 'on', false, 'id="primary"') . '<label for="primary">&nbsp;' . SET_AS_PRIMARY . '</label>'; ?></td>
+  </tr>
+<?php
+  }
+?>
 </table>
