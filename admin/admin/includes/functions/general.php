@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.114 2002/01/28 06:30:42 hpdl Exp $
+  $Id: general.php,v 1.115 2002/01/29 14:49:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -643,12 +643,6 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
   function tep_cfg_pull_down_zone_list($zone_id) {
     return tep_draw_pull_down_menu('configuration_value', tep_get_country_zones(STORE_COUNTRY), $zone_id);
-  }
-
-////
-// Alias function for Store configuration values in the Administration Tool
-  function tep_cfg_pull_down_orders_status($orders_status_id) {
-    return tep_draw_pull_down_menu('configuration_value', tep_get_orders_status(), $orders_status_id);
   }
 
 ////
