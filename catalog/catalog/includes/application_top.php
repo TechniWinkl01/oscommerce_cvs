@@ -63,6 +63,7 @@
   define('FILENAME_CHECKOUT_PAYMENT', 'checkout_payment.php');
   define('FILENAME_CHECKOUT_PROCESS', 'checkout_process.php');
   define('FILENAME_CHECKOUT_SUCCESS', 'checkout_success.php');
+  define('FILENAME_CONTACT_US', 'contact_us.php');
   define('FILENAME_CREATE_ACCOUNT', 'create_account.php');
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');

@@ -36,6 +36,7 @@ define('HEADER_TITLE_CREATE_ACCOUNT', 'Crear Cuenta');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mi Cuenta');
 define('HEADER_TITLE_CART_CONTENTS', 'Ver Cesta');
 define('HEADER_TITLE_CHECKOUT', 'Realizar Pedido');
+ define('HEADER_TITLE_CONTACT_US', 'Contactenos');
 define('HEADER_TITLE_TOP', 'Inicio');
 define('HEADER_TITLE_CATALOG', 'Catalogo');
 define('HEADER_TITLE_LOGOFF', 'Salir');
@@ -90,7 +91,7 @@ define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Ver Contenido');
 define('BOX_HEADING_BESTSELLERS', 'Los Mas Vendidos');
 define('BOX_HEADING_BESTSELLERS_IN', 'Los Mas Vendidos en <br>&nbsp;&nbsp;');
 
-// languages box test in includes/boxes/languages.php
+// languages box text in includes/boxes/languages.php
 define('BOX_HEADING_LANGUAGES', 'Idiomas');
 define('BOX_LANGUAGES_ENGLISH', 'English');
 define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
