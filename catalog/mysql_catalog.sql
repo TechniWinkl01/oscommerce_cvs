@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.153 2001/11/30 16:26:41 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.154 2001/12/01 18:37:51 dgw_ Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -209,8 +209,6 @@ CREATE TABLE languages (
   code char(2) NOT NULL,
   image varchar(64),
   directory varchar(32),
-  charset varchar(64),
-  direction char(3),
   sort_order int(3),
   PRIMARY KEY (languages_id),
   KEY IDX_LANGUAGES_NAME (name)
@@ -945,9 +943,9 @@ INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', '
 
 INSERT INTO customers_info VALUES('1', '', '0', now(), '');
 
-INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english','iso-8859-15','',1);
-INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german','iso-8859-15','',2);
-INSERT INTO languages VALUES (3,'Español','es','flag_es.gif','espanol','iso-8859-15','',3);
+INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
+INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
+INSERT INTO languages VALUES (3,'Español','es','flag_es.gif','espanol',3);
 
 INSERT INTO manufacturers VALUES (1,'Matrox','manufacturer_matrox.gif');
 INSERT INTO manufacturers VALUES (2,'Microsoft','manufacturer_microsoft.gif');
