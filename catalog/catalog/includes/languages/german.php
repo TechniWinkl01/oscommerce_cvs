@@ -29,8 +29,8 @@ define('HEADER_TITLE_CART_CONTENTS', 'Einkaufswagen Inhalt');
 define('HEADER_TITLE_CHECKOUT', 'Kasse');
 define('HEADER_TITLE_TOP', 'Top');
 define('HEADER_TITLE_CATALOG', 'Katalog');
-define('HEADER_TITLE_LOGOFF' , 'Abmelden');
-define('HEADER_TITLE_LOGIN' , 'Anmelden');
+define('HEADER_TITLE_LOGOFF', 'Abmelden');
+define('HEADER_TITLE_LOGIN', 'Anmelden');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'hits seit');
