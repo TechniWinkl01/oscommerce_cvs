@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: logoff.php,v 1.6 2002/03/10 22:35:12 harley_vb Exp $
+  $Id: logoff.php,v 1.7 2002/10/28 01:21:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,10 +12,10 @@
 
   require('includes/application_top.php');
 
-  tep_session_unregister('customer_id');
-  tep_session_unregister('customer_country_id');
-  tep_session_unregister('customer_zone_id');
   $cart->reset(FALSE);
+
+  tep_session_destroy();
+
   require('includes/counter.php');
   tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
 
