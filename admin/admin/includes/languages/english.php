@@ -161,6 +161,7 @@ define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_SAVE', 'Save');
+define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
 define('IMAGE_UPDATE', 'Update');
 
@@ -172,6 +173,7 @@ define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <b>%d</b> to <b>%d</b> (of 
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> manufacturers)');
 define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products on special)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products expected)');
+define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');

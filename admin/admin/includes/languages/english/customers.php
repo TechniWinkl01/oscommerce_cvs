@@ -6,23 +6,19 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('TOP_BAR_TITLE', 'Customers');
-if ($HTTP_GET_VARS['action'] == 'add_customers') {
-  define('HEADING_TITLE', 'New Customer');
-} elseif ($HTTP_GET_VARS['action'] == 'update') {
-  define('HEADING_TITLE', 'Update Customer');
-} elseif ($HTTP_GET_VARS['action'] == 'delete') {
-  define('HEADING_TITLE', 'Delete Customer');
-} else {
-  define('HEADING_TITLE', 'Customers');
-}
-define('MAX_ROW_LISTS', 10);
+define('HEADING_TITLE', 'Customers');
+define('HEADING_TITLE_SEARCH', 'Single Keyword Search (First Name / Last Name):');
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_FIRSTNAME', 'First Name');
 define('TABLE_HEADING_LASTNAME', 'Last Name');
-define('TABLE_HEADING_COUNTRY', 'Country');
+define('TABLE_HEADING_ACCOUNT_CREATED', 'Account Created');
 define('TABLE_HEADING_ACTION', 'Action');
 
-define('CUSTOMER_SEARCH_TEXT', 'Search customer by Email, First Name, Last Name:');
-define('PLEASE_SELECT', '-- Please Select --');
+define('TEXT_DATE_ACCOUNT_CREATED', 'Account Created:');
+define('TEXT_DATE_ACCOUNT_LAST_MODIFIED', 'Last Modified:');
+define('TEXT_INFO_DATE_LAST_LOGON', 'Last Logon:');
+define('TEXT_INFO_NUMBER_OF_LOGONS', 'Number of Logons:');
+define('TEXT_INFO_COUNTRY', 'Country:');
+define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Number of Reviews:');
 ?>
