@@ -3,7 +3,7 @@
 <? $location = ' : <a href="' . tep_href_link(FILENAME_CONTACT_US, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'send') {
-    tep_mail(STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], "From: " . $HTTP_POST_VARS['name'] . ' <' . $HTTP_POST_VARS['email'] . '>');
+    tep_mail('', '', STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], $HTTP_POST_VARS['name'], $HTTP_POST_VARS['email'], '');
     Header('Location: ' . tep_href_link(FILENAME_CONTACT_US, 'action=success', 'NONSSL'));
     tep_exit();
   }

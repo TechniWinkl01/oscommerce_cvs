@@ -11,7 +11,7 @@
       $sql = sprintf("UPDATE " . TABLE_CUSTOMERS . " SET customers_password = '%s' WHERE customers_id = %d", $crpted_password, $check_customer_values['customers_id']);
       tep_db_query($sql);
       
-      tep_mail($HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass), 'From: ' . EMAIL_FROM);
+      tep_mail('', '', $HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass), '', EMAIL_FROM, '');
       header('Location: ' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
       tep_exit();
     } else {
