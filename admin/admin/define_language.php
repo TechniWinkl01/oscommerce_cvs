@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.9 2002/01/15 11:35:43 hpdl Exp $
+  $Id: define_language.php,v 1.10 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,9 +95,9 @@
       $file_writeable = true;
       if (!is_writeable($file)) {
         $file_writeable = false;
-        $errorStack->reset();
-        $errorStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $file), 'error');
-        echo $errorStack->output();
+        $messageStack->reset();
+        $messageStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $file), 'error');
+        echo $messageStack->output();
       }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.68 2002/01/23 03:19:46 hpdl Exp $
+  $Id: orders.php,v 1.69 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,9 +18,8 @@
       $status = tep_db_prepare_input($HTTP_POST_VARS['status']);
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
 
-      $order_finish = ($status == '3') ? ', orders_date_finished = now()' : '';
-      tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . tep_db_input($status) . "', last_modified = now()" . $order_finish . " where orders_id = '" . tep_db_input($oID) . "'");
-      tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comments) . "' where orders_id = '" . tep_db_input($oID) . "'");
+      tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . tep_db_input($status) . "', last_modified = now() where orders_id = '" . tep_db_input($oID) . "'");
+      if (tep_not_null($comments)) tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comments) . "' where orders_id = '" . tep_db_input($oID) . "'");
 
       tep_redirect(tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID']));
       break;
@@ -42,7 +41,7 @@
     $order_exists = true;
     if (!tep_db_num_rows($orders_query)) {
       $order_exists = false;
-      $errorStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
+      $messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
     }
   }
 
@@ -358,9 +357,9 @@
       while ($orders_products = tep_db_fetch_array($orders_products_query)) {
         $subtotal = ($orders_products['final_price'] * $orders_products['products_quantity']);
         $tax = $subtotal * ($orders_products['products_tax']/100);
-        $total =+ $subtotal + $tax;
+        $total += $subtotal + $tax;
       }
-      $total = $total + $orders['shipping_cost'];
+      $total += $orders['shipping_cost'];
 ?>
           <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $orders['orders_id']); ?>'">
             <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $orders['orders_id']) . '">' . $orders['customers_name'] . '</a>'; ?></td>

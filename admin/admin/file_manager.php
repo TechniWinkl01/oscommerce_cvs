@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.31 2002/01/16 22:01:30 hpdl Exp $
+  $Id: file_manager.php,v 1.32 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,7 +84,7 @@
         $directory_writeable = true;
         if (!is_writeable($current_path)) {
           $directory_writeable = false;
-          $errorStack->add(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $current_path), 'error');
+          $messageStack->add(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $current_path), 'error');
         }
         break;
       case 'edit':
@@ -93,7 +93,7 @@
         $file_writeable = true;
         if (!is_writeable($current_path . '/' . $HTTP_GET_VARS['info'])) {
           $file_writeable = false;
-          $errorStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $current_path . '/' . $HTTP_GET_VARS['info']), 'error');
+          $messageStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $current_path . '/' . $HTTP_GET_VARS['info']), 'error');
         }
         break;
       case 'delete':

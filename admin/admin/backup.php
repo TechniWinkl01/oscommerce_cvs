@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.45 2002/01/15 12:01:49 hpdl Exp $
+  $Id: backup.php,v 1.46 2002/01/26 17:15:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -286,9 +286,9 @@
 
 // check if the backup directory exists
   if (is_dir(DIR_FS_BACKUP)) {
-    if (!is_writeable(DIR_FS_BACKUP)) $errorStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
+    if (!is_writeable(DIR_FS_BACKUP)) $messageStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
-    $errorStack->add(ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
+    $messageStack->add(ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -410,7 +410,7 @@
       $contents = array('form' => tep_draw_form('backup', FILENAME_BACKUP, 'action=backupnow'));
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
 
-      if ($errorStack->size > 0) {
+      if ($messageStack->size > 0) {
         $contents[] = array('text' => '<br>' . tep_draw_radio_field('compress', 'no', true) . ' ' . TEXT_INFO_USE_NO_COMPRESSION);
         $contents[] = array('text' => '<br>' . tep_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       } else {

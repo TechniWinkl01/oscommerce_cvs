@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: error_stack.php,v 1.1 2002/01/12 16:17:55 hpdl Exp $
+  $Id: message_stack.php,v 1.1 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,16 +11,16 @@
 
   Example usage:
 
-  $errorStack = new errorStack();
-  $errorStack->add('Error: Error 1', 'error');
-  $errorStack->add('Error: Error 2', 'warning');
-  if ($errorStack->size > 0) echo $errorStack->output();
+  $messageStack = new messageStack();
+  $messageStack->add('Error: Error 1', 'error');
+  $messageStack->add('Error: Error 2', 'warning');
+  if ($messageStack->size > 0) echo $messageStack->output();
 */
 
-  class errorStack extends tableBlock {
+  class messageStack extends tableBlock {
     var $size = 0;
 
-    function errorStack() {
+    function messageStack() {
       $this->errors = array();
     }
 

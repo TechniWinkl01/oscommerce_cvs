@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.122 2002/01/21 21:57:25 hpdl Exp $
+  $Id: application_top.php,v 1.123 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -196,8 +196,8 @@
   require(DIR_WS_CLASSES . 'boxes.php');
   require(DIR_WS_CLASSES . 'table_block.php');
   require(DIR_WS_CLASSES . 'box.php');
-  require(DIR_WS_CLASSES . 'error_stack.php');
-  $errorStack = new errorStack;
+  require(DIR_WS_CLASSES . 'message_stack.php');
+  $messageStack = new messageStack;
 
 // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
@@ -244,11 +244,11 @@
 
 // check if a default currency is set
   if (!tep_not_null(DEFAULT_CURRENCY)) {
-    $errorStack->add(ERROR_NO_DEFAULT_CURRENCY_DEFINED, 'error');
+    $messageStack->add(ERROR_NO_DEFAULT_CURRENCY_DEFINED, 'error');
   }
 
 // check if a default language is set
   if (!tep_not_null(DEFAULT_LANGUAGE)) {
-    $errorStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
+    $messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
   }
 ?>

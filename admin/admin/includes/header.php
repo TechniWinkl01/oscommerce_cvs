@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.14 2002/01/14 14:30:55 hpdl Exp $
+  $Id: header.php,v 1.15 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,8 +10,8 @@
   Released under the GNU General Public License
 */
 
-  if ($errorStack->size > 0) {
-    echo $errorStack->output();
+  if ($messageStack->size > 0) {
+    echo $messageStack->output();
   }
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">

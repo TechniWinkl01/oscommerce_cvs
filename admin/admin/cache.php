@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.17 2002/01/12 16:30:29 hpdl Exp $
+  $Id: cache.php,v 1.18 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,9 +21,9 @@
 
 // check if the cache directory exists
   if (is_dir(DIR_FS_CACHE)) {
-    if (!is_writeable(DIR_FS_CACHE)) $errorStack->add(ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
+    if (!is_writeable(DIR_FS_CACHE)) $messageStack->add(ERROR_CACHE_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
-    $errorStack->add(ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST, 'error');
+    $messageStack->add(ERROR_CACHE_DIRECTORY_DOES_NOT_EXIST, 'error');
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -72,7 +72,7 @@
                 <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  if ($errorStack->size < 1) {
+  if ($messageStack->size < 1) {
     $languages = tep_get_languages();
     for ($i=0; $i<sizeof($languages); $i++) {
       if ($languages[$i]['code'] == DEFAULT_LANGUAGE) {

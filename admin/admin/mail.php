@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.25 2002/01/19 13:32:06 hpdl Exp $
+  $Id: mail.php,v 1.26 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -42,11 +42,11 @@
   }
 
   if ( ($HTTP_GET_VARS['action'] == 'preview') && (!$HTTP_POST_VARS['customers_email_address']) ) {
-    $errorStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
+    $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
   }
 
   if ($HTTP_GET_VARS['mail_sent_to']) {
-    $errorStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $HTTP_GET_VARS['mail_sent_to']), 'notice');
+    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $HTTP_GET_VARS['mail_sent_to']), 'notice');
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">

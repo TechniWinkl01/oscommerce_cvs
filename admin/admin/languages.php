@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.25 2002/01/18 00:46:42 hpdl Exp $
+  $Id: languages.php,v 1.26 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -109,7 +109,7 @@
       $remove_language = true;
       if ($lng['code'] == DEFAULT_LANGUAGE) {
         $remove_language = false;
-        $errorStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
+        $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
       }
       break;
   }

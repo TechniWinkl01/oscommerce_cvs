@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.108 2002/01/25 19:16:16 dgw_ Exp $
+  $Id: general.php,v 1.109 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1005,7 +1005,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   }
 
   function tep_remove($source) {
-    global $errorStack, $tep_remove_error;
+    global $messageStack, $tep_remove_error;
 
     if (isset($tep_remove_error)) $tep_remove_error = false;
 
@@ -1016,7 +1016,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
           if (is_writeable($source . '/' . $file)) {
             tep_remove($source . '/' . $file);
           } else {
-            $errorStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
+            $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
             $tep_remove_error = true;
           }
         }
@@ -1026,14 +1026,14 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       if (is_writeable($source)) {
         rmdir($source);
       } else {
-        $errorStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
+        $messageStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
         $tep_remove_error = true;
       }
     } else {
       if (is_writeable($source)) {
         unlink($source);
       } else {
-        $errorStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
+        $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
         $tep_remove_error = true;
       }
     }

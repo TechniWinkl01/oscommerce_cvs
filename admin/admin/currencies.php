@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.35 2002/01/18 00:46:42 hpdl Exp $
+  $Id: currencies.php,v 1.36 2002/01/26 17:15:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,7 +84,7 @@
         $remove_currency = true;
         if ($currency['code'] == DEFAULT_CURRENCY) {
           $remove_currency = false;
-          $errorStack->add(ERROR_REMOVE_DEFAULT_CURRENCY, 'error');
+          $messageStack->add(ERROR_REMOVE_DEFAULT_CURRENCY, 'error');
         }
         break;
     }
