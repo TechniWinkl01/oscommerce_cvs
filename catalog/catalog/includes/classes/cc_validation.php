@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc_validation.php,v 1.2 2003/02/11 00:04:50 hpdl Exp $
+  $Id: cc_validation.php,v 1.3 2003/02/12 20:43:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,6 +28,8 @@
         $this->cc_type = 'Discover';
       } elseif (ereg('^(3[0-9]{4}|2131|1800)[0-9]{11}$', $this->cc_number)) {
         $this->cc_type = 'JCB';
+      } elseif (ereg('^5610[0-9]{12}$', $this->cc_number)) { 
+        $this->cc_type = 'Australian BankCard';
       } else {
         return -1;
       }
