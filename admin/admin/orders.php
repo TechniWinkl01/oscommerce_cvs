@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.84 2002/03/08 21:59:40 hpdl Exp $
+  $Id: orders.php,v 1.85 2002/03/11 17:17:10 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
 
       $order_updated = false;
-      $check_status_query = tep_db_query("select customers_name, customers_email_address, orders_status, date_purchased from orders where orders_id = '" . tep_db_input($oID) . "'");
+      $check_status_query = tep_db_query("select customers_name, customers_email_address, orders_status, date_purchased from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
       $check_status = tep_db_fetch_array($check_status_query);
       if ($check_status['orders_status'] != $status) {
         tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . tep_db_input($status) . "', last_modified = now() where orders_id = '" . tep_db_input($oID) . "'");
