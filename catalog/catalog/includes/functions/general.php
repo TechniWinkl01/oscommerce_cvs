@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.163 2002/03/29 16:15:41 dgw_ Exp $
+  $Id: general.php,v 1.164 2002/04/03 22:57:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -987,5 +987,55 @@
     }
 
     return $get_string;
+  }
+
+  function tep_not_null($value) {
+    if (is_array($value)) {
+      if (sizeof($value) > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+////
+// Output the tax percentage with optional padded decimals
+  function tep_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
+    if (strpos($value, '.')) {
+      $loop = true;
+      while ($loop) {
+        if (substr($value, -1) == '0') {
+          $value = substr($value, 0, -1);
+        } else {
+          $loop = false;
+          if (substr($value, -1) == '.') {
+            $value = substr($value, 0, -1);
+          }
+        }
+      }
+    }
+
+    if ($padding > 0) {
+      if ($decimal_pos = strpos($value, '.')) {
+        $decimals = strlen(substr($value, ($decimal_pos+1)));
+        for ($i=$decimals; $i<$padding; $i++) {
+          $value .= '0';
+        }
+      } else {
+        $value .= '.';
+        for ($i=0; $i<$padding; $i++) {
+          $value .= '0';
+        }
+      }
+    }
+
+    return $value;
   }
 ?>
