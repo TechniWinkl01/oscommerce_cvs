@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.5 2001/05/26 16:45:23 hpdl Exp $
+  $Id: login.php,v 1.6 2001/06/11 14:37:06 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,5 +28,5 @@ define('TEXT_RETURNING_CUSTOMER', 'I am a returning customer,<br>&nbsp;and my pa
 define('TEXT_COOKIE', 'Save login information in a cookie?');
 define('TEXT_PASSWORD_FORGOTTEN', 'Forgot your password? Click here');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
-define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> You\'r \'E-Mail Address\' was not found on our database, please use your \'Password\' for login.');
+define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> You\'r \'E-Mail Address\' was found on our database, please use your \'Password\' for login.');
 ?>

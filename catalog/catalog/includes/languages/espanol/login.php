@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.5 2001/05/26 16:47:34 hpdl Exp $
+  $Id: login.php,v 1.6 2001/06/11 14:37:07 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,6 +27,6 @@ define('TEXT_NEW_CUSTOMER', 'Soy un nuevo cliente.');
 define('TEXT_RETURNING_CUSTOMER', 'Ya he comprado otras veces,<br>&nbsp; y my contraseña es:');
 define('TEXT_COOKIE', '¿Guardar informacion en un \'cookie\'?');
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Ese \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
-define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> Ese \'E-Mail\' no figura en nuestros datos, use su \'contraseña\' para entrar.');
+define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> El \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
+define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> El \'E-Mail\' ya figura en nuestros datos, use su \'contraseña\' para entrar.');
 ?>
