@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.87 2001/12/29 06:14:20 hpdl Exp $
+  $Id: categories.php,v 1.88 2001/12/29 23:26:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,23 +71,19 @@
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
         break;
       case 'delete_product_confirm':
-        if ($HTTP_POST_VARS['products_id']) {
-          $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
-          $products_categories_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "'");
-          $products_categories = tep_db_fetch_array($products_categories_query);
+        if ( ($HTTP_POST_VARS['products_id']) && (is_array($HTTP_POST_VARS['product_categories'])) ) {
+          $product_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
+          $product_categories = $HTTP_POST_VARS['product_categories'];
 
-          if ($products_categories['total'] > 1) {
-            tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
-          } else {
-            $products_image = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($products_id) . "'");
-            $products_image = tep_db_fetch_array($products_image);
-            if (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image'])) {
-              @unlink(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image']);
-            }
-            tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . tep_db_input($products_id) . "'");
-            tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($products_id) . "'");
-            tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "'");
-            tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . tep_db_input($products_id) . "'");
+          for ($i=0; $i<sizeof($product_categories); $i++) {
+            tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($product_id) . "' and categories_id = '" . tep_db_input($product_categories[$i]) . "'");
+          }
+
+          $product_categories_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($product_id) . "'");
+          $product_categories = tep_db_fetch_array($product_categories_query);
+
+          if ($product_categories['total'] == '0') {
+            tep_remove_product($product_id);
           }
         }
 
@@ -695,6 +691,20 @@
         $info_box_contents = array('form' => tep_draw_form('products', FILENAME_CATEGORIES, 'action=delete_product_confirm&cPath=' . $cPath) . tep_draw_hidden_field('products_id', $pInfo->id));
         $info_box_contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
         $info_box_contents[] = array('text' => '<br><b>' . $pInfo->name . '</b>');
+
+        $product_categories_string = '';
+        $product_categories = tep_generate_category_path($pInfo->id, 'product');
+        for ($i=0; $i<sizeof($product_categories); $i++) {
+          $category_path = '';
+          for ($j=0; $j<sizeof($product_categories[$i]); $j++) {
+            $category_path .= $product_categories[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
+          }
+          $category_path = substr($category_path, 0, -16);
+          $product_categories_string .= tep_draw_checkbox_field('product_categories[]', $product_categories[$i][sizeof($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br>';
+        }
+        $product_categories_string = substr($product_categories_string, 0, -4);
+
+        $info_box_contents[] = array('text' => '<br>' . $product_categories_string);
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       case 'move_product':
