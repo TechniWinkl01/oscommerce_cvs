@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.80 2002/05/21 12:27:00 hpdl Exp $
+  $Id: account_history_info.php,v 1.81 2002/05/23 01:24:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  $customer_number_query = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
+  $customer_number_query = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". tep_db_input(tep_db_prepare_input($HTTP_GET_VARS['order_id'])) . "'");
   $customer_number = tep_db_fetch_array($customer_number_query);
   if ($customer_number['customers_id'] != $customer_id) {
     tep_redirect(tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
