@@ -89,6 +89,7 @@
   define('IMAGE_REQUIRED', 1); // require product images? 1 = yes
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // Display format for tax rate
+  define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('SMALL_IMAGE_WIDTH', 100); // the width in pixels of small images (default: 100);
   define('SMALL_IMAGE_HEIGHT', 80); // the height in pixels of small images (default: 80);

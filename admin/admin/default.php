@@ -99,7 +99,11 @@
     $total_cost = 0;
     $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from orders_products where orders_id = '" . $orders['orders_id'] . "'");
     while ($orders_products = tep_db_fetch_array($orders_products_query)) {
-      $total_cost += ($orders_products['final_price'] + ($orders_products['final_price'] * ($orders_products['products_tax']/100))) * $orders_products['products_quantity'];
+      if (TAX_INCLUDE == true) {
+        $total_cost += $orders_products['final_price'] * $orders_products['products_quantity'];
+      } else {
+        $total_cost += ($orders_products['final_price'] + ($orders_products['final_price'] * ($orders_products['products_tax']/100))) * $orders_products['products_quantity'];
+      }
     }
     $total_cost += $orders['shipping_cost'];
 

@@ -215,7 +215,11 @@ function alertBox() {
     echo '          </tr>' . "\n";
 
     $cost = ($products_values['products_quantity'] * $final_price);
-    $total_tax += ($cost * $products_values['products_tax']/100);
+    if (TAX_INCLUDE == true) {
+      $total_tax += (($products_values['products_quantity'] * $final_price) - (($products_values['products_quantity'] * $final_price) / (($products_values['products_tax']/100)+1)));
+    } else {
+      $total_tax += ($cost * $products_values['products_tax']/100);
+    }
     $total_cost += $cost;
     }
 ?>
@@ -244,7 +248,12 @@ function alertBox() {
 ?>
                   <tr>
                     <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_TOTAL; ?>&nbsp;</b></font></td>
-                    <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo tep_currency_format($total_cost + $total_tax + $shipping); ?>&nbsp;</b></font></td>
+                    <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<?
+    if (TAX_INCLUDE == true) {
+      echo tep_currency_format($total_cost + $shipping);
+    } else {
+      echo tep_currency_format($total_cost + $total_tax + $shipping);
+    } ?>&nbsp;</b></font></td>
                   </tr>
                 </table></td>
               </tr>
@@ -327,7 +336,11 @@ function alertBox() {
       while ($orders_products_values = tep_db_fetch_array($orders_products)) {
         $subtotal = ($orders_products_values['final_price'] * $orders_products_values['products_quantity']);
         $tax = $subtotal * ($orders_products_values['products_tax']/100);
-        $total = $total + $subtotal + $tax;
+        if (TAX_INCLUDE == true) {
+          $total = $total + $subtotal;
+        } else {
+          $total = $total + $subtotal + $tax;
+        }
       }
       $total = $total + $orders_values['shipping_cost'];
       $date_formatted = substr($orders_values['date_purchased'], 6, 2) . '/' . substr($orders_values['date_purchased'], 4, 2) . '/' . substr($orders_values['date_purchased'], 0, 4);
