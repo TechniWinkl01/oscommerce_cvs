@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.38 2002/06/04 09:57:08 project3000 Exp $
+  $Id: html_output.php,v 1.39 2002/08/01 12:47:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -220,17 +220,6 @@
   }
 
 ////
-// Hide form elements
-  function tep_hide_session_id() {
-    $result = '';
-    if (SID) {
-      $result = '<input type="hidden" name="' . tep_session_name() . '" value="' . tep_session_id() . '">';
-    }
-
-    return $result;
-  }
-
-////
 // Output a form
   function tep_draw_form($name, $action, $method = 'post', $parameters = '') {
     $form = '<form name="' . $name . '" action="' . $action . '" method="' . $method . '"';
@@ -245,9 +234,9 @@
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" name="' . $name . '"';
     if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= ' value="' . trim($GLOBALS[$name]) . '"';
+      $field .= ' value="' . htmlspecialchars(trim($GLOBALS[$name])) . '"';
     } elseif ($value != '') {
-      $field .= ' value="' . trim($value) . '"';
+      $field .= ' value="' . htmlspecialchars(trim($value)) . '"';
     }
     if ($parameters != '') {
       $field .= ' ' . $parameters;
@@ -260,9 +249,7 @@
 ////
 // Output a form password field
   function tep_draw_password_field($name, $value = '') {
-    $field = tep_draw_input_field($name, $value, 'maxlength="40"', 'password', false);
-
-    return $field;
+    return tep_draw_input_field($name, $value, 'maxlength="40"', 'password', false);
   }
 
 ////
@@ -306,18 +293,14 @@
     return $field;
   }
 
-////
-// Output a form hidden field
   function tep_draw_hidden_field($name, $value = '') {
-    $field = '<input type="hidden" name="' . $name . '" value="';
-    if ($value != '') {
-      $field .= trim($value);
-    } else {
-      $field .= trim($GLOBALS[$name]);
-    }
-    $field .= '">';
+    return tep_draw_input_field($name, $value, '', 'hidden', false);
+  }
 
-    return $field;
+////
+// Hide form elements
+  function tep_hide_session_id() {
+    if (SID) return tep_draw_hidden_field(tep_session_name(), tep_session_id());
   }
 
 ////
