@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.7 2001/06/08 23:13:49 hpdl Exp $
+  $Id: sessions.php,v 1.8 2001/11/20 20:04:57 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -9,18 +9,19 @@
 
   Released under the GNU General Public License
 
-  Original source by Tobias Ratschiller and Till Gerken (Web Application Development with PHP)
+  Original source from Web Application Development with PHP (Tobias Ratschiller, Till Gerken)
+  Copyright (c) 2000, New Riders Publishing
 */
 
   $SID = '';
 
-  class session {
+  class php3session {
     var $name = PHP_SESSION_NAME;
     var $auto_start = false;
     var $referer_check = false;
 
     var $save_path = PHP_SESSION_SAVE_PATH;
-    var $save_handler = 'files';
+    var $save_handler = 'php3session_files';
 
     var $lifetime = 0;
 
@@ -44,12 +45,12 @@
     var $delimiter = "\n";
     var $delimiter_value = '[==]';
 
-    function session() {
+    function php3session() {
       $this->mod_name = $this->save_handler;
     }
   }
 
-  class user {
+  class php3session_user {
     var $open_func, $close_func, $read_func, $write_func, $destroy_func, $gc_func;
 
     function open($save_path, $sess_name) {
@@ -101,7 +102,7 @@
     }
   }
 
-  class files {
+  class php3session_files {
     function open($save_path, $sess_name) {
       return true;
     }
@@ -238,14 +239,14 @@
   function session_set_save_handler($open, $close, $read, $write, $destroy, $gc) {
     global $session, $user;
 
-    $user = new user;
+    $user = new php3session_user;
     $user->open_func = $open;
     $user->close_func = $close;
     $user->read_func = $read;
     $user->write_func = $write;
     $user->destroy_func = $destroy;
     $user->gc_func = $gc;
-    $session->mod_name = 'user';
+    $session->mod_name = 'php3session_user';
   }
 
   function session_module_name($name = '') {
@@ -470,7 +471,7 @@
       return false;
     }
     unset($session);
-    $session = new session;
+    $session = new php3session;
 
     return true;
   }
@@ -500,7 +501,7 @@
     return true;
   }
 
-  $session = new session;
+  $session = new php3session;
   $mod = $session->save_handler;
   $$mod = new $mod;
 
