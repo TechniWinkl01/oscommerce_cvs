@@ -22,69 +22,79 @@
 
 // class methods
     function select() {
-      reset($this->modules);
-      while (list(, $value) = each($this->modules)) {
-        $class = substr($value, 0, -4);
-        echo $GLOBALS[$class]->select();
+      if (SHIPPING_MODULES) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, -4);
+          echo $GLOBALS[$class]->select();
+        }
       }
     }
 
     function quote() {
       global $total_weight, $shipping_weight, $shipping_quoted, $shipping_num_boxes;
 
-      $shipping_quoted = '';
-      $shipping_num_boxes = 1;
-      $shipping_weight = $total_weight;
+      if (SHIPPING_MODULES) {
+        $shipping_quoted = '';
+        $shipping_num_boxes = 1;
+        $shipping_weight = $total_weight;
 
-      if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-        $shipping_num_boxes = round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
-        $shipping_weight = $total_weight/$shipping_num_boxes;
-      }
+        if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
+          $shipping_num_boxes = round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
+          $shipping_weight = $total_weight/$shipping_num_boxes;
+        }
 
-      if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) {
-        $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
-      } else {
-        $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
-      }
+        if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) {
+          $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
+        } else {
+          $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
+        }
 
-      $shipping_weight = round($shipping_weight+0.5);
+        $shipping_weight = round($shipping_weight+0.5);
 
-      reset($this->modules);
-      while (list(, $value) = each($this->modules)) {
-        $class = substr($value, 0, -4);
-        $GLOBALS[$class]->quote();
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, -4);
+          $GLOBALS[$class]->quote();
+        }
       }
     }
 
     function cheapest() {
-      reset($this->modules);
-      while (list(, $value) = each($this->modules)) {
-        $class = substr($value, 0, -4);
-        echo $GLOBALS[$class]->cheapest();
+      if (SHIPPING_MODULES) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, -4);
+          echo $GLOBALS[$class]->cheapest();
+        }
       }
     }
 
     function display() {
-      reset($this->modules);
-      while (list(, $value) = each($this->modules)) {
-        $class = substr($value, 0, -4);
-        echo $GLOBALS[$class]->display();
+      if (SHIPPING_MODULES) {
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, -4);
+          echo $GLOBALS[$class]->display();
+        }
       }
     }
 
     function confirm() {
       global $shipping_cost, $shipping_method;
 
-      $confirm_string .= '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' . 
-                         '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
+      if (SHIPPING_MODULES) {
+        $confirm_string .= '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' . 
+                           '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 
-      reset($this->modules);
-      while (list(, $value) = each($this->modules)) {
-        $class = substr($value, 0, -4);
-        $confirm_string .= $GLOBALS[$class]->confirm();
+        reset($this->modules);
+        while (list(, $value) = each($this->modules)) {
+          $class = substr($value, 0, -4);
+          $confirm_string .= $GLOBALS[$class]->confirm();
+        }
+
+        return $confirm_string;
       }
-
-      return $confirm_string;
     }
   }
 //
