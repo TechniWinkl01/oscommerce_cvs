@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.129 2001/06/04 16:05:55 hpdl Exp $
+  $Id: application_top.php,v 1.130 2001/06/04 16:29:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -273,6 +273,9 @@
     $cart = new shoppingCart;
   }
 
+// include the currency rates
+  require(DIR_WS_INCLUDES . 'data/rates.php');
+
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
 
@@ -289,8 +292,7 @@
     $languages_id = $languages[0]['id'];
   }
 
-// include the currency rates, and the language translations
-  require(DIR_WS_INCLUDES . 'data/rates.php');
+// include the language translations
   require(DIR_WS_LANGUAGES . $language . '.php');
 
 // define our general functions used application-wide

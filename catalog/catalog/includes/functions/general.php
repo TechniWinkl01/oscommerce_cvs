@@ -96,45 +96,6 @@ return $any_out_of_stock;
 }
 // End Check Stock
 
-// $currency is in the session variable
-  function tep_currency_format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
-    global $currency_rates, $currency;
-
-    if ($currency_type == '') {
-      $currency_type = $currency;
-    }
-
-    $currencies_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from " . TABLE_CURRENCIES . " where code = '" . $currency_type . "'");
-    $currencies = tep_db_fetch_array($currencies_query);
-
-    if ($calculate_currency_value == true) {
-      if (strlen($currency_type) == 3) {
-        $rate = $currency_rates[$currency_type]; // read from catalog/includes/data/rates.php - the value is in /catalog/includes/languages/<language>.php
-      } else {
-        $rate = 1;
-      }
-
-      if ($currency_value != '') {
-        $rate = $currency_value;
-      }
-
-// If the selected currency is in the european euro-conversion and the default currency is euro, the currency will displayed in the national and euro currency.
-      if (DEFAULT_CURRENCY=='EUR') {
-        if ($currency=='DEM' || $currency=='BEF' || $currency=='LUF' || $currency=='ESP' || $currency=='FRF' || $currency=='IEP' || $currency=='ITL' || $currency=='NLG' || $currency=='ATS' || $currency=='PTE' || $currency=='FIM' || $currency=='GRD') {
-          $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'] . ' [€ ' . number_format($number * $currency_rates['EUR'],2) . ']';
-        } else {
-          $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
-        }
-      } else {
-        $number2currency = $currencies['symbol_left'] . number_format($number * $rate, $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
-      }
-    } else {
-      $number2currency = $currencies['symbol_left'] . number_format($number, $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
-    }
-
-    return $number2currency;
-  }
-
   function tep_break_string($string, $len) {
     $l = 0;
     $output = '';
@@ -1385,15 +1346,6 @@ function tep_address_summary($customers_id, $address_id) {
       $result .= '<input type="hidden" name="' . $value . '" value="' . $GLOBALS[$value] . '">';
     }
     return $result;
-  }
-
-  function tep_currency_exists($code) {
-    $currency_code = tep_db_query("select count(*) as count from " . TABLE_CURRENCIES . " where code = '" . $code . "'");
-    if (tep_db_num_rows($currency_code)) {
-      return $code;
-    } else {
-      return false;
-    }
   }
 
   function tep_get_uprid($prid, $params) {
