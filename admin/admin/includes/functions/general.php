@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.145 2002/11/14 19:31:31 hpdl Exp $
+  $Id: general.php,v 1.146 2002/11/19 19:11:05 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,11 +47,11 @@
         $current_category_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . $current_category_id . "'");
         $current_category = tep_db_fetch_array($current_category_query);
         if ($last_category['parent_id'] == $current_category['parent_id']) {
-          for ($i=0; $i<(sizeof($cPath_array)-1); $i++) {
+          for ($i = 0, $n = sizeof($cPath_array) - 1; $i < $n; $i++) {
             $cPath_new .= '_' . $cPath_array[$i];
           }
         } else {
-          for ($i=0; $i<sizeof($cPath_array); $i++) {
+          for ($i = 0, $n = sizeof($cPath_array); $i < $n; $i++) {
             $cPath_new .= '_' . $cPath_array[$i];
           }
         }
@@ -707,7 +707,7 @@
 ////
 // Alias function for Store configuration values in the Administration Tool
   function tep_cfg_select_option($select_array, $key_value, $key = '') {
-    for ($i=0; $i<sizeof($select_array); $i++) {
+    for ($i = 0, $n = sizeof($select_array); $i < $n; $i++) {
       $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
       $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
       if ($key_value == $select_array[$i]) $string .= ' CHECKED';
@@ -861,8 +861,8 @@
   function tep_output_generated_category_path($id, $from = 'category') {
     $calculated_category_path_string = '';
     $calculated_category_path = tep_generate_category_path($id, $from);
-    for ($i=0; $i<sizeof($calculated_category_path); $i++) {
-      for ($j=0; $j<sizeof($calculated_category_path[$i]); $j++) {
+    for ($i = 0, $n = sizeof($calculated_category_path); $i < $n; $i++) {
+      for ($j = 0, $k = sizeof($calculated_category_path[$i]); $j < $k; $j++) {
         $calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
       }
       $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
@@ -948,14 +948,14 @@
   function tep_reset_cache_block($cache_block) {
     global $cache_blocks;
 
-    for ($i=0; $i<sizeof($cache_blocks); $i++) {
+    for ($i = 0, $n = sizeof($cache_blocks); $i < $n; $i++) {
       if ($cache_blocks[$i]['code'] == $cache_block) {
         if ($cache_blocks[$i]['multiple']) {
           if ($dir = @opendir(DIR_FS_CACHE)) {
             while ($cache_file = readdir($dir)) {
               $cached_file = $cache_blocks[$i]['file'];
               $languages = tep_get_languages();
-              for ($j=0; $j<sizeof($languages); $j++) {
+              for ($j = 0, $k = sizeof($languages); $j < $k; $j++) {
                 $cached_file_unlink = ereg_replace('-language', '-' . $languages[$j]['directory'], $cached_file);
                 if (ereg('^' . $cached_file_unlink, $cache_file)) {
                   @unlink(DIR_FS_CACHE . $cache_file);
@@ -967,7 +967,7 @@
         } else {
           $cached_file = $cache_blocks[$i]['file'];
           $languages = tep_get_languages();
-          for ($i=0; $i<sizeof($languages); $i++) {
+          for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {
             $cached_file = ereg_replace('-language', '-' . $languages[$i]['directory'], $cached_file);
             @unlink(DIR_FS_CACHE . $cached_file);
           }
@@ -1259,5 +1259,23 @@
     }
 
     return tep_draw_pull_down_menu($name, $zone_class_array, $zone_class_id);
+  }
+  
+////
+// Return a random value
+  function tep_rand($min = null, $max = null) {
+    static $seeded;
+
+    if (!$seeded) {
+      mt_srand((double)microtime()*1000000);
+      $seeded = true;
+    }
+    if (!isset($min) && !isset($max)) {
+      return mt_rand();
+    } elseif ($min == $max) {
+      return $min;
+    } else {
+      return mt_rand($min, $max);
+    }
   }
 ?>
