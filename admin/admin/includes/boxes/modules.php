@@ -5,19 +5,17 @@
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_MODULES,
-                               'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=modules'),
-                               'img'  => ($selected_box == 'modules') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '', '11', '11') : tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '', '11', '11')
+                               'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=modules')
                               );
-  new navigationBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents);
 
   if ($selected_box == 'modules') {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'params' => 'nowrap',
                                  'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=payment', 'NONSSL') . '">' . BOX_MODULES_PAYMENT . '</a><br>' .
                                             '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=shipping', 'NONSSL') . '">' . BOX_MODULES_SHIPPING . '</a>'
                                 );
-    new navigationBox($info_box_contents);
+    new infoBox($info_box_contents);
   }
 ?>
             </td>

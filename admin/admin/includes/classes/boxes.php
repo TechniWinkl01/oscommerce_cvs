@@ -7,7 +7,6 @@
     var $table_parameters = '';
     var $table_row_parameters = '';
     var $table_data_parameters = '';
-    var $font_style = FONT_STYLE_GENERAL;
 
 // class constructor
     function tableBox($contents) {
@@ -16,17 +15,42 @@
       echo '>' . "\n";
 
       for ($i=0; $i<sizeof($contents); $i++) {
+        if ($contents[$i]['form']) echo $contents[$i]['form'] . "\n";
+
         echo '  <tr';
-        if ($this->table_row_parameters != '') echo ' ' . $this->table_row_paramters;
+        if ($this->table_row_parameters != '') echo ' ' . $this->table_row_parameters;
+        if ($contents[$i]['params']) echo ' ' . $contents[$i]['params'];
         echo '>' . "\n";
 
-        echo '    <td';
-        if ($contents[$i]['align'] != 'left') echo ' align="' . $contents[$i]['align'] . '"';
-        if ($this->table_data_parameters != '') echo ' ' . $this->table_data_parameters;
-        if ($contents[$i]['params']) echo ' ' . $contents[$i]['params'];
-        echo '>' . $this->font_style . $contents[$i]['text'] . '</font></td>' . "\n";
+        if (is_array($contents[$i][0])) {
+          for ($x=0; $x<sizeof($contents[$i]); $x++) {
+            if ($contents[$i][$x]['text']) { // 'text' must always be explicit (ie, set) .. used in conjunction with alternate row colours
+              if ($contents[$i][$x]['form']) echo $contents[$i][$x]['form'] . "\n";
+              echo '    <td';
+              if ($contents[$i][$x]['align'] != 'left') echo ' align="' . $contents[$i][$x]['align'] . '"';
+              if ($contents[$i][$x]['params']) {
+                echo ' ' . $contents[$i][$x]['params'];
+              } elseif ($this->table_data_parameters != '') {
+                echo ' ' . $this->table_data_parameters;
+              }
+              echo '>' . $contents[$i][$x]['text'] . '</td>' . "\n";
+              if ($contents[$i][$x]['form']) echo '</form>' . "\n";
+            }
+          }
+        } else {
+          echo '    <td';
+          if ($contents[$i]['align'] != 'left') echo ' align="' . $contents[$i]['align'] . '"';
+          if ($contents[$i]['params']) {
+            echo ' ' . $contents[$i]['params'];
+          } elseif ($this->table_data_parameters != '') {
+            echo ' ' . $this->table_data_parameters;
+          }
+          echo '>' . $contents[$i]['text'] . '</td>' . "\n";
+        }
 
         echo '  </tr>' . "\n";
+
+        if ($contents[$i]['form']) echo '</form>' . "\n";
       }
 
       echo '</table>' . "\n";
@@ -35,58 +59,22 @@
   }
 
   class infoBox extends tableBox {
-
-// class constructor
     function infoBox($contents) {
-      $this->font_style = FONT_STYLE_INFO_BOX_BODY;
-
+      $this->table_data_parameters = 'class="infoBox"';
       $this->tableBox($contents);
     }
-
   }
 
-  class infoBoxHeading extends infoBox {
-
-// class constructor
+  class infoBoxHeading extends tableBox {
     function infoBoxHeading($contents) {
-      $this->table_cellpadding = '0';
-      $this->table_data_parameters = 'nowrap';
-      $this->font_style = FONT_STYLE_INFO_BOX_HEADING;
-
-      $this->tableBox($contents);
-    }
-
-  }
-
-  class navigationBoxHeading extends tableBox {
-
-// class constructor
-    function navigationBoxHeading($contents) {
-      $this->table_parameters = 'bgcolor="' . BOX_HEADING_BACKGROUND_COLOR . '" class="boxborder"';
-      $this->table_data_parameters = 'nowrap';
-      $this->font_style = FONT_STYLE_NAVIGATION_BOX_HEADING;
-
+      $this->table_parameters = 'class="infoBoxHeading"';
+      $this->table_data_parameters = 'class="infoBoxHeading"';
       if ($contents[0]['link']) {
-        $contents[0]['text'] = '&nbsp;<a class="blacklink" href="' . $contents[0]['link'] . '">' . $contents[0]['text'] . '</a>&nbsp;</font></td><td align="right">' . $this->font_style . '<a href="' . $contents[0]['link'] . '">' . $contents[0]['img'] . '</a>&nbsp;';
+        $contents[0]['text'] = '&nbsp;<a class="blacklink" href="' . $contents[0]['link'] . '">' . $contents[0]['text'] . '</a>&nbsp;';
       } else {
         $contents[0]['text'] = '&nbsp;' . $contents[0]['text'];
       }
-
       $this->tableBox($contents);
     }
-
   }
-
-  class navigationBox extends tableBox {
-
-// class constructor
-    function navigationBox($contents) {
-      $this->table_data_parameters = 'bgcolor="' . BOX_CONTENT_BACKGROUND_COLOR . '"';
-      $this->font_style = FONT_STYLE_INFO_BOX_BODY;
-
-      $this->tableBox($contents);
-    }
-
-  }
-
 ?>

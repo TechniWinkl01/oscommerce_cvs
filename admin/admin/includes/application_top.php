@@ -135,26 +135,7 @@
   define('SMALL_IMAGE_HEIGHT', 80); // the height in pixels of small images (default: 80);
   define('HEADING_IMAGE_WIDTH', 85);
   define('HEADING_IMAGE_HEIGHT', 60);
-
-  define('HEADER_BACKGROUND_COLOR', '#AABBDD');
-  define('HEADER_NAVIGATION_BAR_BACKGROUND_COLOR', '#000000');
-  define('HEADER_NAVIGATION_BAR_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('HEADER_NAVIGATION_BAR_FONT_COLOR', '#FFFFFF');
-  define('HEADER_NAVIGATION_BAR_FONT_SIZE', '2');
-
-  define('FOOTER_BAR_BACKGROUND_COLOR', '#000000');
-  define('FOOTER_BAR_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('FOOTER_BAR_FONT_COLOR', '#FFFFFF');
-  define('FOOTER_BAR_FONT_SIZE', '2');
-
-  define('BOX_HEADING_BACKGROUND_COLOR', '#AABBDD');
-  define('BOX_HEADING_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('BOX_HEADING_FONT_COLOR', '#000000');
-  define('BOX_HEADING_FONT_SIZE', '2');
-  define('BOX_CONTENT_BACKGROUND_COLOR', '#FFFFFF');
-  define('BOX_CONTENT_FONT_FACE', 'Verdana, Arial');
-  define('BOX_CONTENT_FONT_COLOR', '#000000');
-  define('BOX_CONTENT_FONT_SIZE', '1');
+  define('EMAIL_FROM', 'The Exchange Project <root@localhost>');
 
   define('TOP_BAR_BACKGROUND_COLOR', '#AABBDD');
   define('TOP_BAR_FONT_FACE', 'Tahoma, Verdana, Arial');

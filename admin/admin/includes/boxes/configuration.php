@@ -5,10 +5,9 @@
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_CONFIGURATION,
-                               'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=configuration'),
-                               'img'   => ($selected_box == 'configuration') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '', '11', '11') : tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '', '11', '11')
+                               'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=configuration')
                               );
-  new navigationBoxHeading($info_box_contents);
+  new infoBoxHeading($info_box_contents);
 
   if ($selected_box == 'configuration') {
     $cfg_groups = '';
@@ -18,10 +17,9 @@
     }
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'params' => 'nowrap',
                                  'text'  => $cfg_groups
                                 );
-    new navigationBox($info_box_contents);
+    new infoBox($info_box_contents);
   }
 ?>
             </td>
