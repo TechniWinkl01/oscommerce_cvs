@@ -253,7 +253,7 @@
           </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_IMAGE; ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="file" name="products_image" size="20">&nbsp;<br><? echo $pInfo->image; ?><input type="hidden" name="products_previous_image" value="<? echo $pInfo->image; ?>"></font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="file" name="products_image" size="20">&nbsp;<br><? echo @$pInfo->image; ?><input type="hidden" name="products_previous_image" value="<? echo @$pInfo->image; ?>"></font></td>
           </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_URL; ?>&nbsp;</font></td>
