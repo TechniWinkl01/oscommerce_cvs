@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.74 2001/11/22 23:56:50 hpdl Exp $
+  $Id: general.php,v 1.75 2001/11/23 14:56:22 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -310,8 +310,8 @@
       } else {
         $l = 0;
       }
-      if ($l == $len) {
-        $l = 0;
+      if ($l > $len) {
+        $l = 1;
         $output .= $break_char;
       }
       $output .= $char;
