@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.41 2003/06/09 23:03:54 hpdl Exp $
+  $Id: contact_us.php,v 1.42 2003/06/12 12:17:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,9 +16,12 @@
 
   $error = false;
   if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'send')) {
-    $email_address = trim($HTTP_POST_VARS['email']);
+    $name = tep_db_prepare_input($HTTP_POST_VARS['name']);
+    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email']);
+    $enquiry = tep_db_prepare_input($HTTP_POST_VARS['enquiry']);
+
     if (tep_validate_email($email_address)) {
-      tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], $HTTP_POST_VARS['name'], $email_address);
+      tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $enquiry, $name, $email_address);
 
       tep_redirect(tep_href_link(FILENAME_CONTACT_US, 'action=success'));
     } else {
