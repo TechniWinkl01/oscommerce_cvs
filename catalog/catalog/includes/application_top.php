@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.237 2002/06/27 14:58:23 dgw_ Exp $
+  $Id: application_top.php,v 1.238 2002/07/11 17:20:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -418,35 +418,4 @@
   define('WARN_CONFIG_WRITEABLE', 'true');
   define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
   define('WARN_SESSION_AUTO_START', 'true');
-
-// check if the 'install' directory exists, and warn of its existence
-  if (WARN_INSTALL_EXISTENCE == 'true') {
-    if (is_dir(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install')) {
-      tep_output_warning(WARNING_INSTALL_DIRECTORY_EXISTS);
-    }
-  }
-
-// check if the configure.php file is writeable
-  if (WARN_CONFIG_WRITEABLE == 'true') {
-    if ( (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) && (is_writeable(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) ) {
-      tep_output_warning(WARNING_CONFIG_FILE_WRITEABLE);
-    }
-  }
-
-// check if the configure.php file is writeable
-  if (WARN_SESSION_DIRECTORY_NOT_WRITEABLE == 'true') {
-    if (STORE_SESSIONS == '') {
-      if (!is_dir(tep_session_save_path())) {
-        tep_output_warning(WARNING_SESSION_DIRECTORY_NON_EXISTENT);
-      } elseif (!is_writeable(tep_session_save_path())) {
-        tep_output_warning(WARNING_SESSION_DIRECTORY_NOT_WRITEABLE);
-      }
-    }
-  }
-
-  if ( (function_exists('ini_get')) && (WARN_SESSION_AUTO_START == 'true') ) {
-    if (ini_get('session.auto_start') == '1') {
-      tep_output_warning(WARNING_SESSION_AUTO_START);
-    }
-  }
 ?>
