@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.15 2001/11/04 19:27:47 dgw_ Exp $
+  $Id: categories.php,v 1.16 2001/12/28 21:32:40 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -41,7 +41,6 @@ define('TEXT_EDIT_CATEGORIES_ID', 'Category ID:');
 define('TEXT_EDIT_CATEGORIES_NAME', 'Category Name:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Category Image:');
 define('TEXT_EDIT_SORT_ORDER', 'Sort Order:');
-define('TEXT_EDIT_PARENT_ID', 'Parent ID:');
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Please choose a new category you wish to copy this product to');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Current Categories:');
@@ -52,10 +51,9 @@ define('TEXT_DELETE_PRODUCT_INTRO', 'Are you sure you want to permanently delete
 define('TEXT_DELETE_WARNING_CHILDS', '<b>WARNING:</b> There are %s (child-)categories still linked to this category!');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNING:</b> There are %s products still linked to this category!');
 
-define('TEXT_MOVE_PRODUCTS_INTRO', 'Please select which parent-category you wish to move <b>%s</b> to');
-define('TEXT_MOVE_CATEGORIES_INTRO', 'Please select which parent-category you wish to move <b>%s</b> to');
+define('TEXT_MOVE_PRODUCTS_INTRO', 'Please select which category you wish <b>%s</b> to reside in');
+define('TEXT_MOVE_CATEGORIES_INTRO', 'Please select which category you wish <b>%s</b> to reside in');
 define('TEXT_MOVE', 'Move <b>%s</b> to:');
-define('TEXT_MOVE_NOTE', '<small><b>NOTE:</b></small> Take some caffeine before you move anything!');
 
 define('TEXT_NEW_CATEGORY_INTRO', 'Please fill out the following information for the new category');
 define('TEXT_CATEGORIES_NAME', 'Category Name:');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.81 2001/12/28 13:37:32 dgw_ Exp $
+  $Id: general.php,v 1.82 2001/12/28 21:32:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -208,6 +208,20 @@
     $select_string .= '</select>';
 
     return $select_string;
+  }
+
+  function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '') {
+    global $languages_id, $category_tree_array;
+
+    if (!$category_tree_array) $category_tree_array = array(array('id' => '0', 'text' => '--Top--'));
+
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and c.parent_id = '" . $parent_id . "' order by c.sort_order, cd.categories_name");
+    while ($categories = tep_db_fetch_array($categories_query)) {
+      if ($exclude != $categories['categories_id']) $category_tree_array[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
+      tep_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude);
+    }
+
+    return $category_tree_array;
   }
 
   function tep_draw_products_pull_down($name, $parameters = '', $exclude = '') {

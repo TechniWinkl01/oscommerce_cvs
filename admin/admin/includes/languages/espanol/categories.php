@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.9 2001/11/04 19:27:47 dgw_ Exp $
+  $Id: categories.php,v 1.10 2001/12/28 21:32:40 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -41,7 +41,6 @@ define('TEXT_EDIT_CATEGORIES_ID', 'ID Categoria:');
 define('TEXT_EDIT_CATEGORIES_NAME', 'Nombre Categoria:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Imagen Categoria:');
 define('TEXT_EDIT_SORT_ORDER', 'Orden:');
-define('TEXT_EDIT_PARENT_ID', 'ID Categoria Superior:');
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Elija la categoria hacia donde quiera copiar este producto');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Categorias:');
@@ -55,7 +54,6 @@ define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Hay %s productos en 
 define('TEXT_MOVE_PRODUCTS_INTRO', 'Elija la categoria hacia donde quiera mover <b>%s</b>');
 define('TEXT_MOVE_CATEGORIES_INTRO', 'Elija la categoria hacia donde quiera mover <b>%s</b>');
 define('TEXT_MOVE', 'Mover <b>%s</b> a:');
-define('TEXT_MOVE_NOTE', '<small><b>NOTA:</b></small> Tome algo de cafeina antes de mover nada!');
 
 define('TEXT_NEW_CATEGORY_INTRO', 'Rellene la siguiente informacion para la nueva categoria');
 define('TEXT_CATEGORIES_NAME', 'Nombre Categoria:');

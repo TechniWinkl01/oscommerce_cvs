@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.9 2001/11/04 19:27:47 dgw_ Exp $
+  $Id: categories.php,v 1.10 2001/12/28 21:32:40 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -41,7 +41,6 @@ define('TEXT_EDIT_CATEGORIES_ID', 'Kategorie ID:');
 define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild:');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');
-define('TEXT_EDIT_PARENT_ID', '&Uuml;bergeordnete ID:');
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Bitte w&auml;hlen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren m&ouml;chten:');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
@@ -55,7 +54,6 @@ define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNING:</b> Es existieren noch %s Ar
 define('TEXT_MOVE_PRODUCTS_INTRO', 'Bitte w&auml;hlen Sie die &uuml;bergordnete Kategorie, in die Sie <b>%s</b> verschieben m&ouml;chten');
 define('TEXT_MOVE_CATEGORIES_INTRO', 'Bitte w&auml;hlen Sie die &uuml;bergordnete Kategorie, in die Sie <b>%s</b> verschieben m&ouml;chten');
 define('TEXT_MOVE', 'Verschiebe <b>%s</b> nach:');
-define('TEXT_MOVE_NOTE', '<small><b>NOTE:</b></small> Nehmen Sie ein wenig Kaffee zu sich, bevor Sie irgendetwas verschieben!');
 
 define('TEXT_NEW_CATEGORY_INTRO', 'Bitte f&uuml;llen Sie die folgenden Felder f&uuml;r die neue Kategorie aus:');
 define('TEXT_CATEGORIES_NAME', 'Kategorie Name:');
