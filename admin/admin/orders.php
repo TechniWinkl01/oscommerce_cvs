@@ -2,7 +2,7 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_order') {
-      $order_finish = ($HTTP_GET_VARS['status'] == 'Delivered') ? ', orders_date_finished = now()' : '';
+      $order_finish = ($HTTP_GET_VARS['status'] == '3') ? ', orders_date_finished = now()' : '';
       tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . $HTTP_GET_VARS['status'] . "', last_modified = now()" . $order_finish . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
       tep_db_query("update " . TABLE_ORDERS . " set comments = '" . $HTTP_GET_VARS['comments'] . "' where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $HTTP_GET_VARS['orders_id'])); tep_exit();
@@ -278,7 +278,7 @@ function alertBox() {
             <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_DATE_PURCHASED; ?></b> <? echo tep_date_long($info_values['date_purchased']); ?>&nbsp;</td>
           </tr>
           <tr><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>">
-            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</td>
+            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <? echo tep_orders_status_pull_down('name="status"', $info_values['orders_status']); ?>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</td>
           </tr></form>
 <?
     if ($date_updated != '') {

@@ -13,7 +13,7 @@
       header('Location: ' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action', 'info')) . 'info=' . $HTTP_POST_VARS['order_status_id'], 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      if (tep_db_query("delete from " . ORDERS_STATUS . " where orders_status_id = '" . $HTTP_POST_VARS['orders_status_id'] . "'")) {
+      if (tep_db_query("delete from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $HTTP_POST_VARS['orders_status_id'] . "'")) {
         header('Location: ' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
       } else {
@@ -195,7 +195,6 @@
         }
 
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_ORDERS_STATUS_ID . '<br>&nbsp;<input type="text" name="orders_status_id" value="' . $osInfo->id . '" size="2"><br>&nbsp;');
-   #    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_ORDERS_STATUS_NAME . '<br>&nbsp;<input type="text" name="orders_status_name" value="' . $osInfo->name . '"><br>&nbsp;<br>&nbsp;');
         $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
 
         break;
@@ -209,7 +208,6 @@
         for ($i=0; $i<sizeof($languages); $i++) {
           $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . tep_get_orders_status_name($osInfo->id, $languages[$i]['id']) . '&nbsp;(' . $languages[$i]['name'] . ')</b>');
         } 
-   #    if ($osInfo->products_count > 0) $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $osInfo->products_count));
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS_STATUS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
 
         break;

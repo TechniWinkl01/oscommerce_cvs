@@ -289,6 +289,23 @@
     return $options_name;
   }
 
+////
+// Returns a pulldown with all orders status from table orders_status
+  function tep_orders_status_pull_down($parameters, $selected = '') {
+    global $languages_id;
+
+    $select_string = '<select ' . $parameters . '>';
+    $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '$languages_id' order by orders_status_id");
+    while ($orders_status = tep_db_fetch_array($orders_status_query)) {
+      $select_string .= '<option value="' . $orders_status['orders_status_id'] . '"';
+      if ($selected == $orders_status['orders_status_id']) $select_string .= ' SELECTED';
+      $select_string .= '>' . $orders_status['orders_status_name'] . '</option>';
+    }
+    $select_string .= '</select>';
+
+    return $select_string;
+  }
+
   function tep_values_name($values_id) {
     global $languages_id;
 
