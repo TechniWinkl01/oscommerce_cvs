@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.192 2001/11/23 16:07:36 dgw_ Exp $
+  $Id: application_top.php,v 1.193 2001/11/24 12:59:11 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -262,7 +262,7 @@
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
-    if (CART_DISPLAY == 'true') {
+    if (DISPLAY_CART == 'true') {
       $goto =  FILENAME_SHOPPING_CART;
       $parameters = array('action', 'cPath', 'products_id');
     } else {
