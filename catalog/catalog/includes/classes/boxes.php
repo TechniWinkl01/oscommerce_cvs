@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.25 2002/04/19 09:34:47 harley_vb Exp $
+  $Id: boxes.php,v 1.26 2002/04/19 10:22:40 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -104,7 +104,7 @@
         $left_corner = tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif');
       }
       if ($right_arrow) {
-        $right_arrow = '<a href="' . $right_arrow . '">' . tep_image(DIR_WS_IMAGES . 'infobox/arrow_right.gif') . '</a>';
+        $right_arrow = '<a href="' . $right_arrow . '">' . tep_image(DIR_WS_IMAGES . 'infobox/arrow_right.gif', ICON_ARROW_RIGHT) . '</a>';
       } else {
         $right_arrow = '';
       }
