@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: also_purchased_products.php,v 1.15 2002/01/11 20:02:25 dgw_ Exp $
+  $Id: also_purchased_products.php,v 1.16 2002/01/11 22:17:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,7 @@
 <!-- also_purchased_products //-->
 <?php
   if ($HTTP_GET_VARS['products_id']) {
-    $orders_query = tep_db_query("select distinct p.products_id, p.products_image, pd.products_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where o.orders_id = op.orders_id and op.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id <> '" . $HTTP_GET_VARS['products_id'] . "' order by o.date_purchased desc limit " . MAX_DISPLAY_ALSO_PURCHASED);
+    $orders_query = tep_db_query("select p.products_id, p.products_image, pd.products_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where o.orders_id = op.orders_id and op.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id <> '" . $HTTP_GET_VARS['products_id'] . "' group by p.products_id order by o.date_purchased desc limit " . MAX_DISPLAY_ALSO_PURCHASED);
     $num_products_ordered = tep_db_num_rows($orders_query);
     if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
 
