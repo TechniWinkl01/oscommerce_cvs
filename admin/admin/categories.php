@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.56 2001/06/06 23:13:04 mbs Exp $
+  $Id: categories.php,v 1.57 2001/06/07 10:00:02 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -562,7 +562,7 @@
 
       if ( ((!$HTTP_GET_VARS['pinfo'] && !$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['pinfo'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($HTTP_GET_VARS['action'], 0, 4) != 'new_') ) {
 // find out the rating average from customer reviews
-        $reviews_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re where re.products_id = '" . $products['products_id'] . "' and re.reviews_id = r.reviews_id");
+        $reviews_query = tep_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from " . TABLE_REVIEWS . " where products_id = '" . $products['products_id'] . "'");
         if ($reviews_query != '') $reviews = tep_db_fetch_array($reviews_query);
         $pInfo_array = tep_array_merge($products, $reviews);
         $pInfo = new productInfo($pInfo_array);
@@ -797,3 +797,4 @@
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+
