@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.41 2001/06/03 08:45:43 mbs Exp $
+  $Id: english.php,v 1.42 2001/06/03 10:48:37 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -216,7 +216,7 @@ define('PREVNEXT_BUTTON_LAST', 'LAST&gt;&gt;');
 
 define('IMAGE_BUTTON_ADD_ADDRESS', 'Add Address');
 define('IMAGE_BUTTON_ADD_QUICK', 'Add a Quickie!');
-define('IMAGE_BUTTON_ADDRESS_BOOK', 'Adressbook');
+define('IMAGE_BUTTON_ADDRESS_BOOK', 'Address Book');
 define('IMAGE_BUTTON_BACK', 'Back');
 define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Change Address');
 define('IMAGE_BUTTON_CHECKOUT', 'Checkout');
