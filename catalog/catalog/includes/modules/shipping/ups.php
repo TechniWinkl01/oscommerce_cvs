@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.53 2003/02/05 22:41:52 hpdl Exp $
+  $Id: ups.php,v 1.54 2003/04/08 23:23:42 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,8 +80,8 @@
 
       $this->_upsProduct($prod);
 
-      $country_name = tep_get_countries(STORE_COUNTRY, true);
-      $this->_upsOrigin(STORE_ORIGIN_ZIP, $country_name['countries_iso_code_2']);
+      $country_name = tep_get_countries(SHIPPING_ORIGIN_COUNTRY, true);
+      $this->_upsOrigin(SHIPPING_ORIGIN_ZIP, $country_name['countries_iso_code_2']);
       $this->_upsDest($order->delivery['postcode'], $order->delivery['country']['iso_code_2']);
       $this->_upsRate(MODULE_SHIPPING_UPS_PICKUP);
       $this->_upsContainer(MODULE_SHIPPING_UPS_PACKAGE);

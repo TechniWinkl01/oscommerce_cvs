@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.46 2003/02/14 12:54:38 dgw_ Exp $
+  $Id: usps.php,v 1.47 2003/04/08 23:23:42 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -167,7 +167,7 @@
     function _getQuote() {
       global $order;
 
-      if ($order->delivery['country']['id'] == STORE_COUNTRY) {
+      if ($order->delivery['country']['id'] == SHIPPING_ORIGIN_COUNTRY) {
         $request  = '<RateRequest USERID="' . MODULE_SHIPPING_USPS_USERID . '" PASSWORD="' . MODULE_SHIPPING_USPS_PASSWORD . '">';
         $services_count = 0;
 
@@ -182,7 +182,7 @@
         while (list($key, $value) = each($this->types)) {
           $request .= '<Package ID="' . $services_count . '">' .
                       '<Service>' . $key . '</Service>' .
-                      '<ZipOrigination>' . STORE_ORIGIN_ZIP . '</ZipOrigination>' .
+                      '<ZipOrigination>' . SHIPPING_ORIGIN_ZIP . '</ZipOrigination>' .
                       '<ZipDestination>' . $dest_zip . '</ZipDestination>' .
                       '<Pounds>' . $this->pounds . '</Pounds>' .
                       '<Ounces>' . $this->ounces . '</Ounces>' .
@@ -246,7 +246,7 @@
       }
 
       $rates = array();
-      if ($order->delivery['country']['id'] == STORE_COUNTRY) {
+      if ($order->delivery['country']['id'] == SHIPPING_ORIGIN_COUNTRY) {
         if (sizeof($response) == '1') {
           if (ereg('<Error>', $response[0])) {
             $number = ereg('<Number>(.*)</Number>', $response[0], $regs);
