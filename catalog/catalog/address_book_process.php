@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.66 2002/06/03 10:23:13 dgw_ Exp $
+  $Id: address_book_process.php,v 1.67 2002/06/03 20:04:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,7 +108,6 @@
 
     if (ACCOUNT_STATE == 'true') {
       if ($entry_country_error) {
-        $entry_state_error = false;
         $entry_state_error = true;
       } else {
         $zone_id = 0;
