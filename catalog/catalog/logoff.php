@@ -1,6 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
-  tep_session_destroy();
+  tep_session_unregister('customer_id');
+  $cart->reset(FALSE);
   include('includes/counter.php');
   header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
   tep_exit();
