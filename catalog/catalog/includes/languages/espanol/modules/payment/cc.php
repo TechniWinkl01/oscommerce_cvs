@@ -1,6 +1,7 @@
 <?
   define('MODULE_PAYMENT_CC_TEXT_TITLE', 'Tarjeta de Credito');
   define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4111111111111111<br>Expiry: Any');
+  define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE', 'Tipo de Tarjeta:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER', 'Titular de la Tarjeta:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER', 'Numero de la Tarjeta:');
   define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES', 'Fecha de Caducidad:');
