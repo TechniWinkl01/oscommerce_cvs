@@ -618,6 +618,34 @@
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //
+  // Function    : tep_get_zone_code
+  //
+  // Arguments   : country           country code string
+  //               zone              state/province zone_id
+  //               def_state         default string if zone==0
+  //
+  // Return      : state_prov_code   state/province code
+  //
+  // Description : Function to retrieve the state/province code (as in FL for Florida etc)
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_zone_code($country, $zone, $def_state) {
+
+    $state_prov_query = tep_db_query("select zone_code from tax_zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
+
+    if (!tep_db_num_rows($state_prov_query)) {
+      $state_prov_code = $def_state;
+    }
+    else {
+      $state_prov_values = tep_db_fetch_array($state_prov_query);
+      $state_prov_code = $state_prov_values['zone_code'];
+    }
+    
+    return $state_prov_code;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
   // Function    : tep_get_tax_rate
   //
   // Arguments   : tax_zone_id, tax_class_id
@@ -693,4 +721,103 @@
 
     return $products_count;
   }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+// Function	: tep_format_address
+//
+// Arguments	: customers_id, address_id, html
+//
+// Return	: properly formatted address
+//
+// Description	: This function will lookup the Addres format from the countries database
+//		  and properly format the address label.
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+function tep_format_address($customers_id, $address_id, $html=0, $boln='', $eoln="\n") {
+  if ($html == 0) { // Text Mode
+    $CR = $eoln;
+    $cr = $CR;
+    $HR = '----------------------------------------';
+    $hr = '----------------------------------------';
+  } else {
+    if ($html == 1) { // HTML Mode
+      $HR = '<HR>';
+      $hr = '<hr>';
+      if ($boln == '' && $eoln == "\n") { // Valu not specified, use rational defaults
+        $CR = '<BR>';
+        $cr = '<br>';
+        $eoln = $cr;
+      } else { // Use values supplied
+        $CR = $eoln . $boln;
+        $cr = $CR;
+      }
+    }
+  }
+  if ($address_id == 0) {
+    $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customers_id . "'");
+  } else {
+    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from address_book where address_book_id = '" . $address_id . "'");
+  }
+  $delivery_values = tep_db_fetch_array($delivery);
+  $country_id = $delivery_values['country_id'];
+  $format = tep_db_query("select countries_address_format as format from countries where countries_id = '" . $country_id . "'");
+  $format_values = tep_db_fetch_array($format);
+  $firstname = addslashes($delivery_values['firstname']);
+  $lastname = addslashes($delivery_values['lastname']);
+  $street = addslashes($delivery_values['street_address']);
+  $suburb = addslashes($delivery_values['suburb']);
+  $city = addslashes($delivery_values['city']);
+  $state = addslashes($delivery_values['state']);
+  $zone_id = $delivery_values['zone_id'];
+  $postcode = addslashes($delivery_values['postcode']);
+  $zip = $postcode;
+  $country = tep_get_country_name($country_id);
+  $state = tep_get_zone_code($country_id, $zone_id, $state);
+
+  $streets = $street;
+  if ($suburb != '') $streets = $street . $cr . $suburb;
+
+  $fmt = $format_values['format'];
+  eval("\$address = \"$fmt\";");
+  $address = stripslashes($address);
+  return $boln . $address . $eoln;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+// Function	: tep_address_summary
+//
+// Arguments	: customers_id, address_id
+//
+// Return	: properly formatted address summary
+//
+// Description	: This function will lookup the Addres format from the countries database
+//		  and properly format the address summary.
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+function tep_address_summary($customers_id, $address_id) {
+  if ($address_id == 0) {
+    $delivery = tep_db_query("select customers_suburb as suburb, customers_city as city, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customers_id . "'");
+  } else {
+    $delivery = tep_db_query("select entry_suburb as suburb, entry_city as city, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from address_book where address_book_id = '" . $address_id . "'");
+  }
+  $delivery_values = tep_db_fetch_array($delivery);
+  $country_id = $delivery_values['country_id'];
+  $format = tep_db_query("select countries_address_summary as summary from countries where countries_id = '" . $country_id . "'");
+  $format_values = tep_db_fetch_array($format);
+  $suburb = addslashes($delivery_values['suburb']);
+  $city = addslashes($delivery_values['city']);
+  $state = addslashes($delivery_values['state']);
+  $zone_id = $delivery_values['zone_id'];
+  $country = tep_get_country_name($country_id);
+  $state = tep_get_zone_code($country_id, $zone_id, $state);
+
+  $fmt = $format_values['summary'];
+  eval("\$address = \"$fmt\";");
+  $address = stripslashes($address);
+  return $address;
+}
 ?>
