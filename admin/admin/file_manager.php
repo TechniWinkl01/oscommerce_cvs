@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.1 2001/10/21 16:07:30 dgw_ Exp $
+  $Id: file_manager.php,v 1.2 2001/11/20 19:08:13 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -147,7 +147,7 @@
                 <td class="main"><?php echo $file['name']; ?></td>
 <?
     }
-    if ($fmInfo->key == $key) {
+    if (is_object($fmInfo) && ($fmInfo->key == $key)) {
 ?>
                 <td align="center" class="main"><?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
 <?php
