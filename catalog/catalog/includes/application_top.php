@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.138 2001/06/08 19:57:41 hpdl Exp $
+  $Id: application_top.php,v 1.139 2001/06/08 20:21:09 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -358,19 +358,19 @@
     } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
       // customer wants to add a quickie to the cart (called from a box)
       $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
-      if (tep_db_num_rows($quickie_query) == 0) {
-        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '" . $HTTP_POST_VARS['quickie'] . "%'");
+      if (!tep_db_num_rows($quickie_query)) {
+        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '%" . $HTTP_POST_VARS['quickie'] . "%'");
       }
-      if (tep_db_num_rows($quickie_query) == 0 ||tep_db_num_rows($quickie_query) > 1) {
-        Header( 'Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
+      if (tep_db_num_rows($quickie_query) != 1) {
+        header( 'Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
         tep_exit();
       }
-      $quickie_values = tep_db_fetch_array($quickie_query);
-      if (tep_has_product_attributes($quickie_values['products_id'])) {
-        header('Location: ' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'products_id=' . $quickie_values['products_id'], 'NONSSL'));
+      $quickie = tep_db_fetch_array($quickie_query);
+      if (tep_has_product_attributes($quickie['products_id'])) {
+        header('Location: ' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $quickie['products_id'], 'NONSSL'));
         tep_exit();
       } else {
-        $cart->add_cart($quickie_values['products_id'], 1, '');
+        $cart->add_cart($quickie['products_id'], 1);
         header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
         tep_exit();
       }
