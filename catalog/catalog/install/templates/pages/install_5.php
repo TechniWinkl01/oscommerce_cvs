@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.6 2002/01/27 03:14:24 hpdl Exp $
+  $Id: install_5.php,v 1.7 2002/01/27 16:48:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -72,39 +72,39 @@
   } else {
     $file_contents = '<?php' . "\n" .
                      '/*' . "\n" .
-                     'osCommerce, Open Source E-Commerce Solutions' . "\n" .
-                     'http://www.oscommerce.com' . "\n" .
+                     '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
+                     '  http://www.oscommerce.com' . "\n" .
                      '' . "\n" .
-                     'Copyright (c) 2002 osCommerce' . "\n" .
+                     '  Copyright (c) 2002 osCommerce' . "\n" .
                      '' . "\n" .
-                     'Released under the GNU General Public License' . "\n" .
+                     '  Released under the GNU General Public License' . "\n" .
                      '*/' . "\n" .
                      '' . "\n" .
                      '// Define the webserver and path parameters' . "\n" .
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
-                     'define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
-                     'define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
-                     'define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
-                     'define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     'define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
-                     'define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
-                     'define(\'DIR_WS_INCLUDES\', \'includes/\'); // If "URL fopen wrappers" are enabled in PHP (which they are in the default configuration), this can be a URL instead of a local pathname' . "\n" .
-                     'define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
-                     'define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
-                     'define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
-                     'define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
-                     'define(\'DIR_WS_PAYMENT_MODULES\', DIR_WS_MODULES . \'payment/\');' . "\n" .
-                     'define(\'DIR_WS_SHIPPING_MODULES\', DIR_WS_MODULES . \'shipping/\');' . "\n" .
-                     'define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
+                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
+                     '  define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
+                     '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
+                     '  define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
+                     '  define(\'DIR_WS_INCLUDES\', \'includes/\'); // If "URL fopen wrappers" are enabled in PHP (which they are in the default configuration), this can be a URL instead of a local pathname' . "\n" .
+                     '  define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
+                     '  define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
+                     '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
+                     '  define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
+                     '  define(\'DIR_WS_PAYMENT_MODULES\', DIR_WS_MODULES . \'payment/\');' . "\n" .
+                     '  define(\'DIR_WS_SHIPPING_MODULES\', DIR_WS_MODULES . \'shipping/\');' . "\n" .
+                     '  define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
-                     'define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
-                     'define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
-                     'define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
-                     'define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
-                     'define(\'USE_PCONNECT\', ' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '); // use persisstent connections?' . "\n" .
-                     'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
+                     '  define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
+                     '  define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
+                     '  define(\'USE_PCONNECT\', ' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '); // use persisstent connections?' . "\n" .
+                     '  define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
     $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'includes/configure.php', 'w');
@@ -113,50 +113,50 @@
 
     $file_contents = '<?php' . "\n" .
                      '/*' . "\n" .
-                     'osCommerce, Open Source E-Commerce Solutions' . "\n" .
-                     'http://www.oscommerce.com' . "\n" .
+                     '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
+                     '  http://www.oscommerce.com' . "\n" .
                      '' . "\n" .
-                     'Copyright (c) 2002 osCommerce' . "\n" .
+                     '  Copyright (c) 2002 osCommerce' . "\n" .
                      '' . "\n" .
-                     'Released under the GNU General Public License' . "\n" .
+                     '  Released under the GNU General Public License' . "\n" .
                      '*/' . "\n" .
                      '' . "\n" .
                      '// Define the webserver and path parameters' . "\n" .
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
-                     'define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
-                     'define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
-                     'define(\'HTTP_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\');' . "\n" .
-                     'define(\'HTTPS_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\');' . "\n" .
-                     'define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
-                     'define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . '\'); // where the pages are located on the server' . "\n" .
-                     'define(\'DIR_WS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_WS_ADMIN'] . '\'); // absolute path required' . "\n" .
-                     'define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     'define(\'DIR_FS_CATALOG\', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG); // absolute path required' . "\n" .
-                     'define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
-                     'define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
-                     'define(\'DIR_WS_CATALOG_IMAGES\', DIR_WS_CATALOG . \'images/\');' . "\n" .
-                     'define(\'DIR_WS_INCLUDES\', \'includes/\');' . "\n" .
-                     'define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
-                     'define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
-                     'define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
-                     'define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
-                     'define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
-                     'define(\'DIR_WS_CATALOG_LANGUAGES\', DIR_WS_CATALOG . \'includes/languages/\');' . "\n" .
-                     'define(\'DIR_FS_CATALOG_LANGUAGES\', DIR_FS_CATALOG . \'includes/languages/\');' . "\n" .
-                     'define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
-                     'define(\'DIR_FS_PAYMENT_MODULES\', DIR_FS_CATALOG . \'includes/modules/payment/\');' . "\n" .
-                     'define(\'DIR_FS_SHIPPING_MODULES\', DIR_FS_CATALOG . \'includes/modules/shipping/\');' . "\n" .
-                     'define(\'DIR_FS_CACHE\', \'/tmp/\');' . "\n" .
-                     'define(\'DIR_FS_BACKUP\', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . \'backups/\');' . "\n" .
+                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'HTTP_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\');' . "\n" .
+                     '  define(\'HTTPS_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\');' . "\n" .
+                     '  define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
+                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . '\'); // where the pages are located on the server' . "\n" .
+                     '  define(\'DIR_WS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_WS_ADMIN'] . '\'); // absolute path required' . "\n" .
+                     '  define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
+                     '  define(\'DIR_FS_CATALOG\', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG); // absolute path required' . "\n" .
+                     '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
+                     '  define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
+                     '  define(\'DIR_WS_CATALOG_IMAGES\', DIR_WS_CATALOG . \'images/\');' . "\n" .
+                     '  define(\'DIR_WS_INCLUDES\', \'includes/\');' . "\n" .
+                     '  define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
+                     '  define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
+                     '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
+                     '  define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
+                     '  define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
+                     '  define(\'DIR_WS_CATALOG_LANGUAGES\', DIR_WS_CATALOG . \'includes/languages/\');' . "\n" .
+                     '  define(\'DIR_FS_CATALOG_LANGUAGES\', DIR_FS_CATALOG . \'includes/languages/\');' . "\n" .
+                     '  define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
+                     '  define(\'DIR_FS_PAYMENT_MODULES\', DIR_FS_CATALOG . \'includes/modules/payment/\');' . "\n" .
+                     '  define(\'DIR_FS_SHIPPING_MODULES\', DIR_FS_CATALOG . \'includes/modules/shipping/\');' . "\n" .
+                     '  define(\'DIR_FS_CACHE\', \'/tmp/\');' . "\n" .
+                     '  define(\'DIR_FS_BACKUP\', DIR_FS_DOCUMENT_ROOT . DIR_WS_ADMIN . \'backups/\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
-                     'define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
-                     'define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
-                     'define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
-                     'define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
-                     'define(\'USE_PCONNECT\', ' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '); // use persisstent connections?' . "\n" .
-                     'define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
+                     '  define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
+                     '  define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
+                     '  define(\'USE_PCONNECT\', ' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '); // use persisstent connections?' . "\n" .
+                     '  define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
     $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_ADMIN'] . 'includes/configure.php', 'w');
