@@ -1,16 +1,15 @@
 <?php
 /*
-  $Id: reviews.php,v 1.3 2001/09/19 11:12:53 mbs Exp $
+  $Id: reviews.php,v 1.4 2002/01/30 16:24:48 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Comentarios');
 define('HEADING_TITLE', 'Comentarios');
 
 define('TABLE_HEADING_PRODUCTS', 'Productos');
@@ -25,18 +24,19 @@ define('ENTRY_REVIEW', 'Comentario:');
 define('ENTRY_REVIEW_TEXT', '<small><font color="#ff0000"><b>NOTA:</b></font></small>&nbsp;no se traduce el codigo HTML!&nbsp;');
 define('ENTRY_RATING', 'Evaluacion:');
 
-define('TEXT_DELETE_REVIEW_INTRO', '¿Seguro que desea eliminar este comentario?');
+define('TEXT_INFO_DELETE_REVIEW_INTRO', '¿Seguro que desea eliminar este comentario?');
 
-define('TEXT_DATE_ADDED', 'Fecha Alta:');
-define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
-define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
-define('TEXT_REVIEW_AUTHOR', 'Autor:');
-define('TEXT_REVIEW_RATING', 'Evaluacion:');
-define('TEXT_REVIEW_READ', 'Leer:');
-define('TEXT_REVIEW_SIZE', 'Tamaño:');
-define('TEXT_PRODUCTS_AVERAGE_RATING', 'Evaluacion Media:');
+define('TEXT_INFO_DATE_ADDED', 'Fecha Alta:');
+define('TEXT_INFO_LAST_MODIFIED', 'Ultima Modificacion:');
+define('TEXT_INFO_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
+define('TEXT_INFO_REVIEW_AUTHOR', 'Autor:');
+define('TEXT_INFO_REVIEW_RATING', 'Evaluacion:');
+define('TEXT_INFO_REVIEW_READ', 'Leer:');
+define('TEXT_INFO_REVIEW_SIZE', 'Tamaño:');
+define('TEXT_INFO_PRODUCTS_AVERAGE_RATING', 'Evaluacion Media:');
 
 define('TEXT_OF_5_STARS', '%s de 5 Estrellas!');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>BUENO</b></font></small>');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>MALO</b></font></small>');
+define('TEXT_INFO_HEADING_DELETE_REVIEW', 'Eliminar Comentario');
 ?>
