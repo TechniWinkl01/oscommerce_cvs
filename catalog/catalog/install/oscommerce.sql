@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.7 2002/01/19 16:15:07 hpdl Exp $
+# $Id: oscommerce.sql,v 1.8 2002/01/23 16:23:56 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -268,7 +268,7 @@ CREATE TABLE orders (
   date_purchased datetime,
   shipping_cost decimal(8,2) NOT NULL,
   shipping_method varchar(32),
-  orders_status varchar(10) NOT NULL,
+  orders_status int(5) NOT NULL,
   orders_date_finished datetime,
   comments text,
   currency char(3),

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.29 2002/01/23 02:40:45 hpdl Exp $
+  $Id: update.php,v 1.30 2002/01/23 16:23:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -496,6 +496,27 @@ changeText('statusText', 'Updating Orders');
     tep_db_query("insert into orders_status values ('2', '" . $languages[$i]['id'] . "', 'Processing')");
     tep_db_query("insert into orders_status values ('3', '" . $languages[$i]['id'] . "', 'Delivered')");
   }
+
+  tep_db_query("update orders set orders_status = '1' where orders_status = 'Pending'");
+  tep_db_query("update orders set orders_status = '2' where orders_status = 'Processing'");
+  tep_db_query("update orders set orders_status = '3' where orders_status = 'Delivered'");
+
+  $status = array();
+  $orders_status_query = tep_db_query("select distinct orders_status from orders where orders_status not in ('1', '2', '3')");
+  while ($orders_status = tep_db_fetch_array($orders_status_query)) {
+    $status[] = array('text' => $orders_status['orders_status']);
+  }
+
+  $orders_status_id = 4;
+  for ($i=0; $i<sizeof($status); $i++) {
+    for ($j=0; $j<sizeof($languages); $j++) {
+      tep_db_query("insert into orders_status values ('" . $orders_status_id . "', '" . $languages[$j]['id'] . "', '" . $status[$i]['text'] . "')");
+    }
+    tep_db_query("update orders set orders_status = '" . $orders_status_id . "' where orders_status = '" . $status[$i]['text'] . "'");
+    $orders_status_id++;
+  }
+
+  tep_db_query("alter table orders change orders_status orders_status int(5) not null");
 ?>
 
 <script language="javascript"><!--
