@@ -10,7 +10,14 @@
       for ($i=0; $i<sizeof($cache_blocks); $i++) {
         if ($HTTP_GET_VARS['block'] == $cache_blocks[$i]['code']) {
           if ($cache_blocks[$i]['multiple']) {
-            @unlink(DIR_FS_CACHE . $cache_blocks[$i]['file'] . '*');
+            if ($dir = @opendir(DIR_FS_CACHE)) {
+              while ($cache_file = readdir($dir)) {
+                if (ereg($cache_blocks[$i]['file'], $cache_file)) {
+                  @unlink(DIR_FS_CACHE . $cache_file);
+                }
+              }
+              closedir($dir);
+            }
           } else {
             @unlink(DIR_FS_CACHE . $cache_blocks[$i]['file']);
           }
