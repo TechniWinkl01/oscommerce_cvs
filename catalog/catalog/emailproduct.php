@@ -54,12 +54,19 @@
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    mail($friendemail, $email_subject, $email_taf, 'From: ' . $from);
+    $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $HTTP_POST_VARS['yourname'], STORE_NAME);
+    $email_taf = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['yourname'], $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
+    if ($HTTP_POST_VARS['yourmessage'] != '') {
+      $email_taf .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
+    }
+    $email_taf .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $products_id) . "\n\n";
+    $email_taf .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
+    mail($HTTP_POST_VARS['friendemail'], $email_subject, $email_taf, 'From: ' . $from);
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><? echo TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT; ?> <?php echo $products_name; ?> <?php echo TEXT_EMAILPRODUCT_HAS_BEEN_SENT; ?> <? echo $friendemail; ?></td>
+            <td class="main"><? echo TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT; ?> <?php echo $HTTP_POST_VARS['products_name']; ?> <?php echo TEXT_EMAILPRODUCT_HAS_BEEN_SENT; ?> <? echo $HTTP_POST_VARS['friendemail']; ?></td>
           </tr>
         </table></td>
       </tr>

@@ -17,14 +17,10 @@ define('TEXT_EMAILPRODUCT_TELLAFRIEND', 'Informacion sobre:');
 define('TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT', 'Tu email sobre ');
 define('TEXT_EMAILPRODUCT_HAS_BEEN_SENT', 'ha sido enviado a  -');
 
-$email_subject = 'Your friend ' . $yourname . ' has recommended this great product from ' . STORE_NAME;
-$email_taf = 'Your friend, ' . $HTTP_POST_VARS['yourname'] . ', thought that you would be interested in the ' . $products_name . ' from ' . STORE_NAME . '.' . "\n\n";
-
-if ($yourmessage != '') {
-  $email_taf .= $yourmessage . "\n\n";
-}
-$email_taf .= 'To view the product click on the link below or copy and paste the link into your web browser:' . "\n\n" . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $products_id . "\n\n";
-$email_taf .= 'Regards' . "\n" . STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n";
+define('TEXT_EMAIL_SUBJECT', 'Su amigo %s le quiere recomendar este product de %s');
+define('TEXT_EMAIL_INTRO', 'Su amigo %s, pensó que estaria interesado en %s de %s.');
+define('TEXT_EMAIL_LINK', "Para ver el producto use el siguiente enlace:\n%s");
+define('TEXT_EMAIL_SIGNATURE', "Atentamente, \n%s");
 
 define('IMAGE_PROCESS', 'Procesar');
 define('IMAGE_BACK', 'Volver');

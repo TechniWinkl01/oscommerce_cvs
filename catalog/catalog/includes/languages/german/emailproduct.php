@@ -17,14 +17,10 @@ define('TEXT_EMAILPRODUCT_TELLAFRIEND', 'Sie empfehlen diesen Artikel weiter:');
 define('TEXT_EMAILPRODUCT_YOUR_MAIL_ABOUT', 'Ihre EMail über');
 define('TEXT_EMAILPRODUCT_HAS_BEEN_SENT', 'wurde gesendet an -');
 
-$email_subject = 'Ihr Freund ' . $yourname . ', hat diesen tollen Artikel gefunden, bei ' . STORE_NAME;
-$email_taf = 'Ihr Freund, ' . $HTTP_POST_VARS['yourname'] . ', hat diesen tollen Artikel ' . $products_name . ' bei ' . STORE_NAME . ' gefunden.' . "\n\n";
-
-if ($yourmessage != '') {
-  $email_taf .= $yourmessage . "\n\n";
-}
-$email_taf .= 'Um das Produkt anzusehen, klicken Sie bitte auf den Link oder kopieren diesen und fügen Sie ihn in die URL-Zeile Ihres Browsers ein:' . "\n\n" . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $products_id . "\n\n";
-$email_taf .= 'Mit freundlichen Grüßen' . "\n" . STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n";
+define('TEXT_EMAIL_SUBJECT', 'Ihr Freund %s, hat diesen tollen Artikel gefunden, bei %s');
+define('TEXT_EMAIL_INTRO', 'Ihr Freund, %s, hat diesen tollen Artikel %s bei %s gefunden.");
+define('TEXT_EMAIL_LINK', "Um das Produkt anzusehen, klicken Sie bitte auf den Link oder kopieren diesen und fügen Sie ihn in die URL-Zeile Ihres Browsers ein:\n%s");
+define('TEXT_EMAIL_SIGNATURE', "Mit freundlichen Grüßen, \n%s");
 
 define('IMAGE_PROCESS', 'Bestätigen');
 define('IMAGE_BACK', 'Zurück');
