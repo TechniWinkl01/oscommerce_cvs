@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.1 2001/03/13 23:03:17 hpdl Exp $
+  $Id: cache.php,v 1.2 2001/04/01 00:51:21 hpdl Exp $
 
   phpCache v1.2 By nathan@0x00.org
 
@@ -83,9 +83,7 @@
 
 /* duh ? */
     function cache_debug($s) {
-      global $CACHE_DEBUG;
-
-      if ($CACHE_DEBUG) {
+      if (CACHE_DEBUG == true) {
         echo 'Debug: ' . $s . '<br>' . "\n";
       }
     }
@@ -131,7 +129,7 @@
     function cache($cachetime, $object, $key = NULL) {
       global $cache_pbuffer, $cache_absfile, $cache_file, $cache_data, $cache_expire_cond;
 
-      if (!CACHE_ON) {
+      if (CACHE_ON != true) {
         $this->cache_debug('Not caching, CACHE_ON is off');
         return 0;
       }
@@ -204,7 +202,7 @@
     function endcache($store = TRUE) {
       global $cache_pbuffer, $cache_absfile, $cache_data, $cache_variables, $cache_headers, $cache_expire_variables;
 
-      if (!CACHE_ON) {
+      if (CACHE_ON != true) {
         $this->cache_debug('Not caching, CACHE_ON is off');
         return 0;
       }

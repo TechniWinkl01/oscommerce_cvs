@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.98 2001/04/01 00:40:08 hpdl Exp $
+  $Id: application_top.php,v 1.99 2001/04/01 00:51:20 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -175,14 +175,16 @@
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
 
-// include cache class - only for PHP4
-  $CACHE_DEBUG = 0;     /* Default: 0 - Turn debugging on/off */
-  define(CACHE_ON, 0); /* Default: 0 - Turn caching on/off */
-  define(CACHE_DIR, '/tmp/'); /* Default: /tmp/ - Default cache directory */
-  define(CACHE_GC, .10); /* Default: .10 - Probability of garbage collection */
+// set up cache functionality - only for PHP4
+  define('CACHE_ON', false); // Default: false - Turn caching on/off
+  define('CACHE_DIR', '/tmp/'); // Default: /tmp/ - Default cache directory
+  define('CACHE_DEBUG', false); // Default: false - Turn debugging on/off
+  define('CACHE_GC', .10); // Default: .10 - Probability of garbage collection
 
-  require(DIR_WS_CLASSES . 'cache.php');
-  $cache = new phpCache;
+  if (CACHE_ON == true) {
+    include(DIR_WS_CLASSES . 'cache.php');
+    $cache = new phpCache;
+  }
 
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
