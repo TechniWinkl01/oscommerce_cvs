@@ -1392,7 +1392,7 @@ function tep_address_summary($customers_id, $address_id) {
   }
 
   function tep_get_prid($uprid) {
-    $pieces = explode ('{', $uprid, 2);
+    $pieces = explode ('{', $uprid);
 
     return $pieces[0];
   }
