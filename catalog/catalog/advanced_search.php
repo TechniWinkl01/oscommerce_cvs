@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.51 2003/11/17 20:49:39 hpdl Exp $
+  $Id: advanced_search.php,v 1.52 2004/04/16 14:05:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,9 @@
 */
 
   require('includes/application_top.php');
+
+  $products_date_query = tep_db_query("select min(year(products_date_added)) as min_year, max(year(products_date_added)) as max_year from " . TABLE_PRODUCTS . " limit 1");
+  $products_date = tep_db_fetch_array($products_date_query);
 
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ADVANCED_SEARCH);
 
@@ -30,39 +33,31 @@ function check_form() {
   var error_found = false;
   var error_field;
   var keywords = document.advanced_search.keywords.value;
-  var dfrom = document.advanced_search.dfrom.value;
-  var dto = document.advanced_search.dto.value;
   var pfrom = document.advanced_search.pfrom.value;
   var pto = document.advanced_search.pto.value;
   var pfrom_float;
   var pto_float;
+  var dfrom;
+  var dfrom_days = document.advanced_search.datefrom_days.value;
+  var dfrom_months = document.advanced_search.datefrom_months.value;
+  var dfrom_years = document.advanced_search.datefrom_years.value;
+  var dto;
+  var dto_days = document.advanced_search.dateto_days.value;
+  var dto_months = document.advanced_search.dateto_months.value;
+  var dto_years = document.advanced_search.dateto_years.value;
 
-  if ( ((keywords == '') || (keywords.length < 1)) && ((dfrom == '') || (dfrom == '<?php echo DOB_FORMAT_STRING; ?>') || (dfrom.length < 1)) && ((dto == '') || (dto == '<?php echo DOB_FORMAT_STRING; ?>') || (dto.length < 1)) && ((pfrom == '') || (pfrom.length < 1)) && ((pto == '') || (pto.length < 1)) ) {
-    error_message = error_message + "* <?php echo ERROR_AT_LEAST_ONE_INPUT; ?>\n";
-    error_field = document.advanced_search.keywords;
-    error_found = true;
+  if ( (dfrom_days.length > 0) && (dfrom_months.length > 0) && (dfrom_years.length > 0) ) {
+    dfrom = dfrom_years + dfrom_months + dfrom_days;
   }
 
-  if ((dfrom.length > 0) && (dfrom != '<?php echo DOB_FORMAT_STRING; ?>')) {
-    if (!IsValidDate(dfrom, '<?php echo DOB_FORMAT_STRING; ?>')) {
-      error_message = error_message + "* <?php echo ERROR_INVALID_FROM_DATE; ?>\n";
-      error_field = document.advanced_search.dfrom;
-      error_found = true;
-    }
+  if ( (dto_days.length > 0) && (dto_months.length > 0) && (dto_years.length > 0) ) {
+    dto = dto_years + dto_months + dto_days;
   }
 
-  if ((dto.length > 0) && (dto != '<?php echo DOB_FORMAT_STRING; ?>')) {
-    if (!IsValidDate(dto, '<?php echo DOB_FORMAT_STRING; ?>')) {
-      error_message = error_message + "* <?php echo ERROR_INVALID_TO_DATE; ?>\n";
-      error_field = document.advanced_search.dto;
-      error_found = true;
-    }
-  }
-
-  if ((dfrom.length > 0) && (dfrom != '<?php echo DOB_FORMAT_STRING; ?>') && (IsValidDate(dfrom, '<?php echo DOB_FORMAT_STRING; ?>')) && (dto.length > 0) && (dto != '<?php echo DOB_FORMAT_STRING; ?>') && (IsValidDate(dto, '<?php echo DOB_FORMAT_STRING; ?>'))) {
-    if (!CheckDateRange(document.advanced_search.dfrom, document.advanced_search.dto)) {
+  if ((dfrom.length > 0) && (dto.length > 0)) {
+    if (dfrom > dto) {
       error_message = error_message + "* <?php echo ERROR_TO_DATE_LESS_THAN_FROM_DATE; ?>\n";
-      error_field = document.advanced_search.dto;
+      error_field = document.advanced_search.dateto_days;
       error_found = true;
     }
   }
@@ -102,8 +97,6 @@ function check_form() {
     error_field.focus();
     return false;
   } else {
-    RemoveFormatString(document.advanced_search.dfrom, "<?php echo DOB_FORMAT_STRING; ?>");
-    RemoveFormatString(document.advanced_search.dto, "<?php echo DOB_FORMAT_STRING; ?>");
     return true;
   }
 }
@@ -216,11 +209,11 @@ function popupWindow(url) {
               </tr>
               <tr>
                 <td class="fieldKey"><?php echo ENTRY_DATE_FROM; ?></td>
-                <td class="fieldValue"><?php echo tep_draw_input_field('dfrom', DOB_FORMAT_STRING, 'onFocus="RemoveFormatString(this, \'' . DOB_FORMAT_STRING . '\')"'); ?></td>
+                <td class="fieldValue"><?php echo tep_draw_date_pull_down_menu('datefrom', '', false, true, true, date('Y') - $products_date['min_year'], 0); ?></td>
               </tr>
               <tr>
                 <td class="fieldKey"><?php echo ENTRY_DATE_TO; ?></td>
-                <td class="fieldValue"><?php echo tep_draw_input_field('dto', DOB_FORMAT_STRING, 'onFocus="RemoveFormatString(this, \'' . DOB_FORMAT_STRING . '\')"'); ?></td>
+                <td class="fieldValue"><?php echo tep_draw_date_pull_down_menu('dateto', '', true, true, true, date('Y') - $products_date['max_year'], 0); ?></td>
               </tr>
             </table></td>
           </tr>

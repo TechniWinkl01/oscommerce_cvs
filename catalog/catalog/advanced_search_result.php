@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.74 2003/12/18 23:52:14 hpdl Exp $
+  $Id: advanced_search_result.php,v 1.75 2004/04/16 14:05:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,105 +16,86 @@
 
   $error = false;
 
-  if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
-       (isset($_GET['dfrom']) && (empty($_GET['dfrom']) || ($_GET['dfrom'] == DOB_FORMAT_STRING))) &&
-       (isset($_GET['dto']) && (empty($_GET['dto']) || ($_GET['dto'] == DOB_FORMAT_STRING))) &&
-       (isset($_GET['pfrom']) && !is_numeric($_GET['pfrom'])) &&
-       (isset($_GET['pto']) && !is_numeric($_GET['pto'])) ) {
-    $error = true;
+  $pfrom = '';
+  $pto = '';
+  $keywords = '';
+  $datefrom = '';
+  $dateto = '';
 
-    $messageStack->add_session('search', ERROR_AT_LEAST_ONE_INPUT);
-  } else {
-    $dfrom = '';
-    $dto = '';
-    $pfrom = '';
-    $pto = '';
-    $keywords = '';
-
-    if (isset($_GET['dfrom'])) {
-      $dfrom = (($_GET['dfrom'] == DOB_FORMAT_STRING) ? '' : $_GET['dfrom']);
-    }
-
-    if (isset($_GET['dto'])) {
-      $dto = (($_GET['dto'] == DOB_FORMAT_STRING) ? '' : $_GET['dto']);
-    }
-
-    if (isset($_GET['pfrom'])) {
-      $pfrom = $_GET['pfrom'];
-    }
-
-    if (isset($_GET['pto'])) {
-      $pto = $_GET['pto'];
-    }
-
-    if (isset($_GET['keywords'])) {
-      $keywords = $_GET['keywords'];
-    }
-
-    $date_check_error = false;
-    if (tep_not_null($dfrom)) {
-      if (!tep_checkdate($dfrom, DOB_FORMAT_STRING, $dfrom_array)) {
-        $error = true;
-        $date_check_error = true;
-
-        $messageStack->add_session('search', ERROR_INVALID_FROM_DATE);
-      }
-    }
-
-    if (tep_not_null($dto)) {
-      if (!tep_checkdate($dto, DOB_FORMAT_STRING, $dto_array)) {
-        $error = true;
-        $date_check_error = true;
-
-        $messageStack->add_session('search', ERROR_INVALID_TO_DATE);
-      }
-    }
-
-    if (($date_check_error == false) && tep_not_null($dfrom) && tep_not_null($dto)) {
-      if (mktime(0, 0, 0, $dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > mktime(0, 0, 0, $dto_array[1], $dto_array[2], $dto_array[0])) {
-        $error = true;
-
-        $messageStack->add_session('search', ERROR_TO_DATE_LESS_THAN_FROM_DATE);
-      }
-    }
-
-    $price_check_error = false;
-    if (tep_not_null($pfrom)) {
-      if (!settype($pfrom, 'double')) {
-        $error = true;
-        $price_check_error = true;
-
-        $messageStack->add_session('search', ERROR_PRICE_FROM_MUST_BE_NUM);
-      }
-    }
-
-    if (tep_not_null($pto)) {
-      if (!settype($pto, 'double')) {
-        $error = true;
-        $price_check_error = true;
-
-        $messageStack->add_session('search', ERROR_PRICE_TO_MUST_BE_NUM);
-      }
-    }
-
-    if (($price_check_error == false) && is_float($pfrom) && is_float($pto)) {
-      if ($pfrom >= $pto) {
-        $error = true;
-
-        $messageStack->add_session('search', ERROR_PRICE_TO_LESS_THAN_PRICE_FROM);
-      }
-    }
-
-    if (tep_not_null($keywords)) {
-      if (!tep_parse_search_string($keywords, $search_keywords)) {
-        $error = true;
-
-        $messageStack->add_session('search', ERROR_INVALID_KEYWORDS);
-      }
+  if (isset($_GET['datefrom_days']) && !empty($_GET['datefrom_days']) && isset($_GET['datefrom_months']) && !empty($_GET['datefrom_months']) && isset($_GET['datefrom_years']) && !empty($_GET['datefrom_years'])) {
+    if (checkdate($_GET['datefrom_months'], $_GET['datefrom_days'], $_GET['datefrom_years'])) {
+      $datefrom = mktime(0, 0, 0, $_GET['datefrom_months'], $_GET['datefrom_days'], $_GET['datefrom_years']);
+    } else {
+      $error = true;
+      $messageStack->add_session('search', ERROR_INVALID_FROM_DATE);
     }
   }
 
-  if (empty($dfrom) && empty($dto) && empty($pfrom) && empty($pto) && empty($keywords)) {
+  if (isset($_GET['dateto_days']) && !empty($_GET['dateto_days']) && isset($_GET['dateto_months']) && !empty($_GET['dateto_months']) && isset($_GET['dateto_years']) && !empty($_GET['dateto_years'])) {
+    if (checkdate($_GET['dateto_months'], $_GET['dateto_days'], $_GET['dateto_years'])) {
+      $dateto = mktime(0, 0, 0, $_GET['dateto_months'], $_GET['dateto_days'], $_GET['dateto_years']);
+    } else {
+      $error = true;
+      $messageStack->add_session('search', ERROR_INVALID_TO_DATE);
+    }
+  }
+
+  if (isset($_GET['pfrom'])) {
+    $pfrom = $_GET['pfrom'];
+  }
+
+  if (isset($_GET['pto'])) {
+    $pto = $_GET['pto'];
+  }
+
+  if (isset($_GET['keywords'])) {
+    $keywords = $_GET['keywords'];
+  }
+
+  if (tep_not_null($datefrom) && tep_not_null($dateto)) {
+    if ($datefrom > $dateto) {
+      $error = true;
+
+      $messageStack->add_session('search', ERROR_TO_DATE_LESS_THAN_FROM_DATE);
+    }
+  }
+
+  $price_check_error = false;
+  if (tep_not_null($pfrom)) {
+    if (!settype($pfrom, 'double')) {
+      $error = true;
+      $price_check_error = true;
+
+      $messageStack->add_session('search', ERROR_PRICE_FROM_MUST_BE_NUM);
+    }
+  }
+
+  if (tep_not_null($pto)) {
+    if (!settype($pto, 'double')) {
+      $error = true;
+      $price_check_error = true;
+
+      $messageStack->add_session('search', ERROR_PRICE_TO_MUST_BE_NUM);
+    }
+  }
+
+  if (($price_check_error == false) && is_float($pfrom) && is_float($pto)) {
+    if ($pfrom >= $pto) {
+      $error = true;
+
+      $messageStack->add_session('search', ERROR_PRICE_TO_LESS_THAN_PRICE_FROM);
+    }
+  }
+
+  if (tep_not_null($keywords)) {
+    if (!tep_parse_search_string($keywords, $search_keywords)) {
+      $error = true;
+
+      $messageStack->add_session('search', ERROR_INVALID_KEYWORDS);
+    }
+  }
+
+  if (empty($datefrom) && empty($dateto) && empty($pfrom) && empty($pto) && empty($keywords)) {
     $error = true;
 
     $messageStack->add_session('search', ERROR_AT_LEAST_ONE_INPUT);
@@ -267,12 +248,12 @@
     $where_str .= " )";
   }
 
-  if (tep_not_null($dfrom)) {
-    $where_str .= " and p.products_date_added >= '" . tep_date_raw($dfrom) . "'";
+  if (tep_not_null($datefrom)) {
+    $where_str .= " and p.products_date_added >= '" . date('Ymd', $datefrom) . "'";
   }
 
-  if (tep_not_null($dto)) {
-    $where_str .= " and p.products_date_added <= '" . tep_date_raw($dto) . "'";
+  if (tep_not_null($dateto)) {
+    $where_str .= " and p.products_date_added <= '" . date('Ymd', $dateto) . "'";
   }
 
   if (tep_not_null($pfrom)) {

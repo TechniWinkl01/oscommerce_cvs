@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.66 2003/11/17 20:45:28 hpdl Exp $
+  $Id: account_edit.php,v 1.67 2004/04/16 14:05:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,7 @@
     if (ACCOUNT_GENDER == 'true') $gender = tep_db_prepare_input($_POST['gender']);
     $firstname = tep_db_prepare_input($_POST['firstname']);
     $lastname = tep_db_prepare_input($_POST['lastname']);
-    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($_POST['dob']);
+    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($_POST['dob_years']) . tep_db_prepare_input($_POST['dob_months']) . tep_db_prepare_input($_POST['dob_days']);
     $email_address = tep_db_prepare_input($_POST['email_address']);
     $telephone = tep_db_prepare_input($_POST['telephone']);
     $fax = tep_db_prepare_input($_POST['fax']);
@@ -53,7 +53,9 @@
     }
 
     if (ACCOUNT_DOB == 'true') {
-      if (!checkdate(substr(tep_date_raw($dob), 4, 2), substr(tep_date_raw($dob), 6, 2), substr(tep_date_raw($dob), 0, 4))) {
+      if (checkdate($_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years'])) {
+        $dob = mktime(0, 0, 0, $_POST['dob_months'], $_POST['dob_days'], $_POST['dob_years']);
+      } else {
         $error = true;
 
         $messageStack->add('account_edit', ENTRY_DATE_OF_BIRTH_ERROR);
@@ -94,7 +96,7 @@
                               'customers_fax' => $fax);
 
       if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
-      if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = tep_date_raw($dob);
+      if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = date('Ymd', $dob);
 
       tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$osC_Customer->id . "'");
 
@@ -118,7 +120,7 @@
     }
   }
 
-  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
+  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, unix_timestamp(customers_dob) as customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
   $account = tep_db_fetch_array($account_query);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
@@ -132,6 +134,7 @@
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <?php require('includes/form_check.js.php'); ?>
+<script language="javascript" src="includes/general.js"></script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
@@ -214,7 +217,7 @@
 ?>
                   <tr>
                     <td class="main"><?php echo ENTRY_DATE_OF_BIRTH; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('dob', tep_date_short($account['customers_dob'])) . '&nbsp;' . (tep_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': ''); ?></td>
+                    <td class="main"><?php echo tep_draw_date_pull_down_menu('dob', $account['customers_dob'], false, true, true, date('Y')-1901, -5) . '&nbsp;' . (tep_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': ''); ?></td>
                   </tr>
 <?php
   }

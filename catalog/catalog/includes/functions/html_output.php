@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.60 2004/04/13 08:10:15 hpdl Exp $
+  $Id: html_output.php,v 1.61 2004/04/16 14:05:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -294,5 +294,78 @@
     }
 
     return tep_draw_pull_down_menu($name, $countries_array, $selected, $parameters);
+  }
+
+  function tep_draw_date_pull_down_menu($name, $value = '', $default_today = true, $show_days = true, $use_month_names = true, $year_range_start = '0', $year_range_end  = '1') {
+    $params = '';
+
+// days pull down menu
+    $days_select_string = '';
+
+    if ($show_days === true) {
+      $params = 'onChange="updateDatePullDownMenu(this.form, \'' . $name . '\');"';
+
+      $days_in_month = ($default_today === true) ? date('t') : 31;
+
+      $days_array = array();
+      for ($i=1; $i<=$days_in_month; $i++) {
+        $days_array[] = array('id' => $i,
+                              'text' => $i);
+      }
+
+      if (isset($GLOBALS[$name . '_days'])) {
+        $days_default = $GLOBALS[$name . '_days'];
+      } elseif (!empty($value)) {
+        $days_default = date('j', $value);
+      } elseif ($default_today === true) {
+        $days_default = date('j');
+      } else {
+        $days_default = 1;
+      }
+
+      $days_select_string = tep_draw_pull_down_menu($name . '_days', $days_array, $days_default);
+    }
+
+// months pull down menu
+    $months_array = array();
+    for ($i=1; $i<=12; $i++) {
+      $months_array[] = array('id' => $i,
+                              'text' => (($use_month_names === true) ? strftime('%B', mktime(0, 0, 0, $i)) : $i));
+    }
+
+    if (isset($GLOBALS[$name . '_months'])) {
+      $months_default = $GLOBALS[$name . '_months'];
+    } elseif (!empty($value)) {
+      $months_default = date('n', $value);
+    } elseif ($default_today === true) {
+      $months_default = date('n');
+    } else {
+      $months_default = 1;
+    }
+
+    $months_select_string = tep_draw_pull_down_menu($name . '_months', $months_array, $months_default, $params);
+
+// year pull down menu
+    $year = date('Y');
+
+    $years_array = array();
+    for ($i = ($year - $year_range_start); $i <= ($year + $year_range_end); $i++) {
+      $years_array[] = array('id' => $i,
+                             'text' => $i);
+    }
+
+    if (isset($GLOBALS[$name . '_years'])) {
+      $years_default = $GLOBALS[$name . '_years'];
+    } elseif (!empty($value)) {
+      $years_default = date('Y', $value);
+    } elseif ($default_today === true) {
+      $years_default = $year;
+    } else {
+      $years_default = $year - $year_range_start;
+    }
+
+    $years_select_string = tep_draw_pull_down_menu($name . '_years', $years_array, $years_default, $params);
+
+    return $days_select_string . $months_select_string . $years_select_string;
   }
 ?>

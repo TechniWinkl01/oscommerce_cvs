@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.113 2004/04/16 05:31:33 mevans Exp $
+  $Id: espanol.php,v 1.114 2004/04/16 14:05:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,20 +23,9 @@ define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd/m/Y');  // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
-////
-// Return date in raw format
-// $date should be in format mm/dd/yyyy
-// raw date is in format YYYYMMDD, or DDMMYYYY
-function tep_date_raw($date, $reverse = false) {
-  if ($reverse) {
-    return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-  } else {
-    return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
-  }
-}
-
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'EUR');
+
 define('NUMERIC_DECIMAL_SEPARATOR', '.');
 define('NUMERIC_THOUSANDS_SEPARATOR', ',');
 
@@ -178,7 +167,7 @@ define('ENTRY_LAST_NAME_ERROR', 'Sus apellidos deben tener al menos ' . ENTRY_LA
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH', 'Fecha de Nacimiento:');
 define('ENTRY_DATE_OF_BIRTH_ERROR', 'Su fecha de nacimiento debe tener este formato: DD/MM/AAAA (p.ej. 21/05/1970)');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '* (p.ej. 21/05/1970)');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '*');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Su direcci&oacute;n de E-Mail debe tener al menos ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' letras.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Su direcci&oacute;n de E-Mail no parece v&aacute;lida - por favor haga los cambios necesarios.');
