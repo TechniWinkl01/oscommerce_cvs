@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_details.php,v 1.7 2003/02/13 01:46:54 hpdl Exp $
+  $Id: order_details.php,v 1.8 2003/05/03 09:29:39 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,7 +95,7 @@
 
 // Product price  
     if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
-      echo '    <td align="right" valign="top" class="main"><b>' . $currencies->display_price($products[$i]['price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>';
+      echo '    <td align="right" valign="bottom" class="main"><b>' . $currencies->display_price($products[$i]['price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>';
     } else {
       echo '    <td align="right" valign="top" class="main"><b>' . $currencies->display_price($products[$i]['price'], $products[$i]['tax'], $products[$i]['quantity']) . '</b>';
     }
