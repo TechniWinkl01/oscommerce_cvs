@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.73 2002/11/22 22:06:14 project3000 Exp $
+  $Id: customers.php,v 1.74 2003/02/06 19:28:52 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -160,39 +160,39 @@ function check_form() {
   }
 <?php } ?>
 
-  if (customers_firstname = "" || customers_firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
+  if (customers_firstname == "" || customers_firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
     error = 1;
   }
 
-  if (customers_lastname = "" || customers_lastname.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
+  if (customers_lastname == "" || customers_lastname.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_LAST_NAME; ?>";
     error = 1;
   }
 
 <?php if (ACCOUNT_DOB == 'true') { ?>
-  if (customers_dob = "" || customers_dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
+  if (customers_dob == "" || customers_dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_DOB; ?>";
     error = 1;
   }
 <?php } ?>
 
-  if (customers_email_address = "" || customers_email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
+  if (customers_email_address == "" || customers_email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
     error = 1;
   }
 
-  if (entry_street_address = "" || entry_street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
+  if (entry_street_address == "" || entry_street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_ADDRESS; ?>";
     error = 1;
   }
 
-  if (entry_postcode = "" || entry_postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
+  if (entry_postcode == "" || entry_postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_POST_CODE; ?>";
     error = 1;
   }
 
-  if (entry_city = "" || entry_city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
+  if (entry_city == "" || entry_city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_CITY; ?>";
     error = 1;
   }
@@ -217,7 +217,7 @@ function check_form() {
     error = 1;
   }
 
-  if (customers_telephone = "" || customers_telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
+  if (customers_telephone == "" || customers_telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_TELEPHONE; ?>";
     error = 1;
   }
