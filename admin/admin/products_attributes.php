@@ -29,7 +29,7 @@
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_value') {
       tep_db_query("delete from products_options_values where products_options_values_id = '" . $HTTP_GET_VARS['value_id'] . "'");
-      tep_db_query("delete from products_options_values_to_products_options where products_options_values_to_products_options_id = '" . $HTTP_GET_VARS['value_id'] . "'");
+      tep_db_query("delete from products_options_values_to_products_options where products_options_values_id = '" . $HTTP_GET_VARS['value_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL')); tep_exit();  
     } elseif ($HTTP_GET_VARS['action'] == 'delete_attribute') {
       tep_db_query("delete from products_attributes where products_attributes_id = '" . $HTTP_GET_VARS['attribute_id'] . "'");
