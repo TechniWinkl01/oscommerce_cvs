@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.7 2001/09/09 22:12:14 hpdl Exp $
+  $Id: banner.php,v 1.8 2001/09/09 22:42:07 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -61,12 +61,12 @@
       $banners_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
       $banners = tep_db_fetch_array($banners_query);
       if ($banners['count'] > 0) {
-        $banner = tep_random_select("select banners_id, banners_title, banners_image from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
+        $banner = tep_random_select("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
       } else {
         return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> No banners with group \'' . $identifier . '\' found!</b>';
       }
     } elseif ($action == 'static') {
-      $banner_query = tep_db_query("select banners_id, banners_title, banners_image from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . $identifier . "'");
+      $banner_query = tep_db_query("select banners_id, banners_title, banners_image, banners_html_text from " . TABLE_BANNERS . " where status = '1' and banners_id = '" . $identifier . "'");
       if (tep_db_num_rows($banner_query)) {
         $banner = tep_db_fetch_array($banner_query);
       } else {
@@ -76,7 +76,11 @@
       return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
     }
 
-    $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $banner['banners_image'], $banner['banners_title']) . '</a>';
+    if ($banner['banners_html_text']) {
+      $banner_string = $banner['banners_html_text'];
+    } else {
+      $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $banner['banners_image'], $banner['banners_title']) . '</a>';
+    }
 
     $banner_check_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner['banners_id'] . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
     $banner_check = tep_db_fetch_array($banner_check_query);

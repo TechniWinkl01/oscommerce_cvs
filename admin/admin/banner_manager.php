@@ -19,19 +19,26 @@
       $banners_group = (strlen($HTTP_POST_VARS['new_banners_group']) > 0) ? $HTTP_POST_VARS['new_banners_group'] : $HTTP_POST_VARS['banners_group'];
       $banners_image_target = $HTTP_POST_VARS['banners_image_target'];
 
-      $image_location = '';
-      if ($banners_image != 'none') {
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES;
-        if ($banners_image_target != '') {
-          $image_location .= $banners_image_target;
+      $html_text = '';
+      $db_image_location = '';
+      if ($HTTP_POST_VARS['html_text']) {
+        $html_text = $HTTP_POST_VARS['html_text'];
+      } else {
+        $image_location = '';
+        if ($banners_image != 'none') {
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES;
+          if ($banners_image_target != '') {
+            $image_location .= $banners_image_target;
+          }
+          copy($banners_image, $image_location . $banners_image_name);
+        } elseif ($banners_image_local != '') {
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $HTTP_POST_VARS['banners_image_local'];
         }
-        copy($banners_image, $image_location . $banners_image_name);
-      } elseif ($banners_image_local != '') {
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $HTTP_POST_VARS['banners_image_local'];
+
+        $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : $banners_image_target . $banners_image_name;
       }
 
-      $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : $banners_image_target . $banners_image_name;
-      tep_db_query("update " . TABLE_BANNERS . " set banners_title = '" . $banners_title . "', banners_url = '" . $banners_url . "', banners_image = '" . $db_image_location . "', banners_group = '" . $banners_group . "' where banners_id = '" . $banners_id . "'");
+      tep_db_query("update " . TABLE_BANNERS . " set banners_title = '" . $banners_title . "', banners_url = '" . $banners_url . "', banners_image = '" . $db_image_location . "', banners_group = '" . $banners_group . "', banners_html_text = '" . $html_text . "' where banners_id = '" . $banners_id . "'");
 
       if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year']) {
         $expires_date = $HTTP_POST_VARS['year'];
@@ -58,19 +65,26 @@
       $banners_group = (strlen($HTTP_POST_VARS['new_banners_group']) > 0) ? $HTTP_POST_VARS['new_banners_group'] : $HTTP_POST_VARS['banners_group'];
       $banners_image_target = $HTTP_POST_VARS['banners_image_target'];
 
-      $image_location = '';
-      if ($banners_image != 'none') {
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES;
-        if ($banners_image_target != '') {
-          $image_location .= $banners_image_target;
+      $html_text = '';
+      $db_image_location = '';
+      if ($HTTP_POST_VARS['html_text']) {
+        $html_text = $HTTP_POST_VARS['html_text'];
+      } else {
+        $image_location = '';
+        if ($banners_image != 'none') {
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES;
+          if ($banners_image_target != '') {
+            $image_location .= $banners_image_target;
+          }
+          copy($banners_image, $image_location . $banners_image_name);
+        } elseif ($banners_image_local != '') {
+          $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $HTTP_POST_VARS['banners_image_local'];
         }
-        copy($banners_image, $image_location . $banners_image_name);
-      } elseif ($banners_image_local != '') {
-        $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $HTTP_POST_VARS['banners_image_local'];
+
+        $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : $banners_image_target . $banners_image_name;
       }
 
-      $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? $HTTP_POST_VARS['banners_image_local'] : $banners_image_target . $banners_image_name;
-      tep_db_query("insert into " . TABLE_BANNERS . " (banners_title, banners_url, banners_image, banners_group, date_added, status) values ('" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', now(), '1')");
+      tep_db_query("insert into " . TABLE_BANNERS . " (banners_title, banners_url, banners_image, banners_group, banners_html_text, date_added, status) values ('" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', '" . $html_text . "', now(), '1')");
       $banners_id = tep_db_insert_id();
 
       if ($HTTP_POST_VARS['day'] && $HTTP_POST_VARS['month'] && $HTTP_POST_VARS['year']) {
@@ -159,7 +173,7 @@ function popupImageWindow(url) {
     if ($HTTP_GET_VARS['bID']) {
 	  $form_action = 'update';
 
-      $banner_query = tep_db_query("select banners_title, banners_url, banners_image, banners_group, status, date_scheduled, expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['bID'] . "'");
+      $banner_query = tep_db_query("select banners_title, banners_url, banners_image, banners_group, banners_html_text, status, date_scheduled, expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['bID'] . "'");
       $banner = tep_db_fetch_array($banner_query);
 
       $bInfo = new bannerInfo($banner);
@@ -205,6 +219,10 @@ function popupImageWindow(url) {
             <td class="main">&nbsp;<? echo DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES; ?><input type="text" name="banners_image_target">&nbsp;</td>
           </tr>
           <tr>
+            <td valign="top" class="main">&nbsp;<? echo TEXT_BANNERS_HTML_TEXT; ?>&nbsp;</td>
+            <td class="main">&nbsp;<textarea name="html_text" cols="60" rows="5"><? echo $bInfo->html_text; ?></textarea></td>
+          </tr>
+          <tr>
             <td class="main">&nbsp;<? echo TEXT_BANNERS_EXPIRES_ON; ?><br>&nbsp;<span class="smallText">(dd/mm/yyyy)</span>&nbsp;</td>
             <td class="main">&nbsp;<input class="cal-TextBox" size="2" maxlength="2" type="text" name="day" value="<? echo $bInfo->expires_date_caljs_day; ?>"><input class="cal-TextBox" size="2" maxlength="2" type="text" name="month" value="<? echo $bInfo->expires_date_caljs_month; ?>"><input class="cal-TextBox" size="4" maxlength="4" type="text" name="year" value="<? echo $bInfo->expires_date_caljs_year; ?>"><a class="so-BtnLink" href="javascript:calClick();return false;" onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);" onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_banner','dteWhen','BTN_date');return false;"><img align="absmiddle" border="0" name="BTN_date" src="<?php echo DIR_WS_IMAGES; ?>cal_date_up.gif" width="22" height="17"></a><? echo TEXT_BANNERS_OR_AT; ?>&nbsp;<br>&nbsp;<input type="text" name="impressions" maxlength="7" size="7" value="<? echo $bInfo->expires_impressions; ?>"> <? echo TEXT_BANNERS_IMPRESSIONS; ?></td>
           </tr>
@@ -220,7 +238,7 @@ function popupImageWindow(url) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><br><? echo TEXT_BANNERS_INSERT_NOTE; ?><br><? echo TEXT_BANNERS_EXPIRCY_NOTE; ?></td>
+            <td class="main"><br><? echo TEXT_BANNERS_BANNER_NOTE; ?><br><? echo TEXT_BANNERS_INSERT_NOTE; ?><br><? echo TEXT_BANNERS_EXPIRCY_NOTE; ?><br><? echo TEXT_BANNERS_SCHEDULE_NOTE; ?></td>
             <td class="main" align="right" valign="top"><br><? echo (($form_action == 'insert') ? tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) : tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?></td>
           </tr>
         </table></td>
