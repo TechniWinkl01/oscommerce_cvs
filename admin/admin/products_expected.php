@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.19 2001/09/18 21:10:00 mbs Exp $
+  $Id: products_expected.php,v 1.20 2001/09/22 15:21:56 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -68,10 +68,8 @@
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-  $languages_query = tep_db_query("select languages_id from " . TABLE_LANGUAGES . " where directory = '".$language."'") ;
-  $languages = tep_db_fetch_array($languages_query) ;
   $rows = 0;
-  $products_query_raw = "select pd.products_id, pd.products_name, p.products_date_available from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p where p.products_id = pd.products_id and p.products_date_available != '' and pd.language_id = '". $languages['languages_id'] ."' order by p.products_date_available DESC";
+  $products_query_raw = "select pd.products_id, pd.products_name, p.products_date_available from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p where p.products_id = pd.products_id and p.products_date_available != '' and pd.language_id = '" . $languages_id . "' order by p.products_date_available DESC";
   $products_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_query_raw, $products_query_numrows);
   $products_query = tep_db_query($products_query_raw);
   while ($products = tep_db_fetch_array($products_query)) {
@@ -129,8 +127,10 @@
               </tr>
 <?php
   $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('info', 'action')) . 'action=new_product&pID=' . $peInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
-  $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_EXPECTED . ' ' . tep_date_short($peInfo->date_available));
+  if ($peInfo) {
+    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('info', 'action')) . 'action=new_product&pID=' . $peInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_EXPECTED . ' ' . tep_date_short($peInfo->date_available));
+  }
 ?>
               <tr><?php echo $form; ?>
                 <td class="box"><?php new infoBox($info_box_contents); ?></td>

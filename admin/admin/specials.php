@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.23 2001/09/19 11:51:56 mbs Exp $
+  $Id: specials.php,v 1.24 2001/09/22 15:21:57 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -243,28 +243,29 @@
                 <td><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-    if ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      $form = '<form name="specials_delete" action="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '" method="post"><input type="hidden" name="specials_id" value="' . $sInfo->id . '">' . "\n";
+    $info_box_contents = array();
+    if ($sInfo) {
+      if ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
+        $form = '<form name="specials_delete" action="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '" method="post"><input type="hidden" name="specials_id" value="' . $sInfo->id . '">' . "\n";
 
-      $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DELETE_INTRO . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $sInfo->products_name . '</b>');
-      $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
-    } else { // default info box
-      $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action', 'info')) . 'action=edit&sID=' . $sInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-      $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($sInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($sInfo->last_modified));
-      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
-      $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
-      $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
-      $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_PERCENTAGE . ' ' . number_format($sInfo->percentage) . '%');
+        $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DELETE_INTRO . '<br>&nbsp;');
+        $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $sInfo->products_name . '</b>');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      } else { // default info box
+        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action', 'info')) . 'action=edit&sID=' . $sInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($sInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($sInfo->last_modified));
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
+        $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
+        $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_PERCENTAGE . ' ' . number_format($sInfo->percentage) . '%');
 
-      if ($sInfo->expires_date) {
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_INFO_EXPIRES_AT, tep_date_short($sInfo->expires_date)));
-      }
+        if ($sInfo->expires_date) {
+          $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_INFO_EXPIRES_AT, tep_date_short($sInfo->expires_date)));
+        }
 
-      if ($sInfo->date_status_change) {
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_INFO_STATUS_CHANGE, tep_date_short($sInfo->date_status_change)));
+        if ($sInfo->date_status_change) {
+          $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_INFO_STATUS_CHANGE, tep_date_short($sInfo->date_status_change)));
+        }
       }
     }
 ?>

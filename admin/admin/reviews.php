@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.27 2001/09/18 17:21:34 mbs Exp $
+  $Id: reviews.php,v 1.28 2001/09/22 15:21:56 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -274,10 +274,11 @@
                 <td><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
+    $info_box_contents = array();
+    if ($rInfo) {
       if ($HTTP_GET_VARS['action'] == 'delete') {
         $form = '<form name="delete_review" action="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action')) . 'action=delete_review', 'NONSSL') . '" method="post">' . "\n";
 
-        $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_REVIEW_INTRO);
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<b>' . $rInfo->products_name . '</b>');
         $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
@@ -292,6 +293,7 @@
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_REVIEW_SIZE . ' ' . $rInfo->text_size . ' bytes');
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($rInfo->average_rating, 2) . '%');
       }
+    }
 ?>
               <tr><?php echo $form; ?>
                 <td class="box"><?php new infoBox($info_box_contents); ?></td>
