@@ -362,7 +362,7 @@ function check_form() {
     echo '            <td class="pageHeading">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
   }
   echo '            <td align="right">&nbsp;' . tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '&nbsp;</td>' . "\n";
-  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_COMPANY;
+  $rowspan = 7+ACCOUNT_GENDER+ACCOUNT_COMPANY;
 ?>
           </tr>
         </table></td>
