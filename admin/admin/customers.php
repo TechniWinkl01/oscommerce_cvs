@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.50 2002/01/05 05:50:31 hpdl Exp $
+  $Id: customers.php,v 1.51 2002/01/06 12:44:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -463,9 +463,9 @@ function check_form() {
         echo '          <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $customers['customers_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="tableData"><?php echo $cInfo->customers_lastname; ?></td>
-                <td class="tableData"><?php echo $cInfo->customers_firstname; ?></td>
-                <td class="tableData" align="right"><?php echo tep_date_short($cInfo->date_account_created); ?></td>
+                <td class="tableData"><?php echo $customers['customers_lastname']; ?></td>
+                <td class="tableData"><?php echo $customers['customers_firstname']; ?></td>
+                <td class="tableData" align="right"><?php echo tep_date_short($info['date_account_created']); ?></td>
                 <td class="tableData" align="right"><?php if ( (is_object($cInfo)) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $customers['customers_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
