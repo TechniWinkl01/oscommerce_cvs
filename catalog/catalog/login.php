@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.48 2001/09/20 13:31:56 mbs Exp $
+  $Id: login.php,v 1.49 2001/11/05 19:39:12 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -154,13 +154,18 @@ function session_win() {
             <td colspan="2" class="smallText"><?php echo TEXT_LOGIN_ERROR; ?>&nbsp;<br>&nbsp;</td>
           </tr>
 <?php
-  }
-  if ($HTTP_GET_VARS['login'] == 'fail_email') {
+  } elseif ($HTTP_GET_VARS['login'] == 'fail_email') {
 ?>
           <tr>
             <td colspan="2" class="smallText"><?php echo TEXT_LOGIN_ERROR_EMAIL; ?>&nbsp;<br>&nbsp;</td>
           </tr>
 <?php
+  } elseif ($cart->count_contents()) {
+?>
+          <tr>
+            <td colspan="2" class="smallText"><?php echo TEXT_VISITORS_CART; ?>&nbsp;<br>&nbsp;</td>
+          </tr>
+<?
   }
 ?>
           <tr>

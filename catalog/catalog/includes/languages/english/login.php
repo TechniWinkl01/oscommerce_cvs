@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.6 2001/06/11 14:37:06 dwatkins Exp $
+  $Id: login.php,v 1.7 2001/11/05 19:39:13 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -29,4 +29,5 @@ define('TEXT_COOKIE', 'Save login information in a cookie?');
 define('TEXT_PASSWORD_FORGOTTEN', 'Forgot your password? Click here');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
 define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> You\'r \'E-Mail Address\' was found on our database, please use your \'Password\' for login.');
+define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. <a href="javascript:session_win();">[More Info]</a>');
 ?>

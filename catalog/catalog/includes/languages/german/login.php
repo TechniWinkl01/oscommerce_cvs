@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.5 2001/05/26 16:49:35 hpdl Exp $
+  $Id: login.php,v 1.6 2001/11/05 19:39:13 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -29,4 +29,5 @@ define('TEXT_COOKIE', 'Wollen Sie die Anmeldeinformation in einem Cookie speiche
 define('TEXT_PASSWORD_FORGOTTEN', 'Haben Sie Ihr Paßwort vergessen?');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Keine &Uuml;bereinstimmung der \'E-Mail Adresse\' und/oder dem \'Passwort\'.');
 define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>FEHLER:</b></font> Ihre \'E-Mail Adresse\' befindet sich bereits in unserer Datenbank, bitte melden Sie sich mit Ihrem Passwort an.');
+define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>ACHTUNG:</b></font> Ihre Besuchereingaben werden automatisch mit ihrem Mitgliedschaft Konto verbunden. <a href="javascript:session_win();">[Mehr Information]</a>');
 ?>
