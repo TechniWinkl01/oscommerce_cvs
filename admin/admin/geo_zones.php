@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.18 2002/01/17 13:20:29 jan0815 Exp $
+  $Id: geo_zones.php,v 1.19 2002/01/17 15:48:42 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -155,13 +155,13 @@ function update_zone(theForm) {
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td valign="top" class="smallText"><?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['spage'], TEXT_DISPLAY_NUMBER_OF_TAX_ZONES); ?></td>
+                    <td valign="top" class="smallText"><?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['spage'], TEXT_DISPLAY_NUMBER_OF_COUNTRIES); ?></td>
                     <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE . ' '; echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['spage']); ?></td>
                   </tr>
                 </table></td>
               </tr>
               <tr>
-                <td align="right" colspan="3"><?php if (!$HTTP_GET_VARS['saction']) echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> <a href="' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $sInfo->association_id . '&saction=new') . '">' . tep_image_button('button_new_zone.gif', IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
+                <td align="right" colspan="3"><?php if (!$HTTP_GET_VARS['saction']) echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a> <a href="' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $sInfo->association_id . '&saction=new') . '">' . tep_image_button('button_insert.gif', IMAGE_INSERT) . '</a>'; ?></td>
               </tr>
             </table>
 <?php
@@ -201,13 +201,13 @@ function update_zone(theForm) {
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td valign="top" class="smallText"><?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['zpage'], TEXT_DISPLAY_NUMBER_OF_ZONES); ?></td>
+                    <td valign="top" class="smallText"><?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['zpage'], TEXT_DISPLAY_NUMBER_OF_TAX_ZONES); ?></td>
                     <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE . ' '; echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['zpage']); ?></td>
                   </tr>
                 </table></td>
               </tr>
               <tr>
-                <td align="right" colspan="2"><?php if (!$HTTP_GET_VARS['action']) echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=new_zone') . '">' . tep_image_button('button_new_zone.gif', IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
+                <td align="right" colspan="2"><?php if (!$HTTP_GET_VARS['action']) echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=new_zone') . '">' . tep_image_button('button_insert.gif', IMAGE_INSERT) . '</a>'; ?></td>
               </tr>
             </table>
 <?php
