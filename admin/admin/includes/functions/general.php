@@ -279,9 +279,9 @@
   }
 
   function tep_options_name($options_id) {
-    global $options_name;
+    global $languages_id;
 
-    $options = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_id . "'");
+    $options = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_id . "' and language_id = '" . $languages_id . "'");
     $options_values = tep_db_fetch_array($options);
 
     $options_name = $options_values['products_options_name'];
@@ -290,9 +290,9 @@
   }
 
   function tep_values_name($values_id) {
-    global $values_name;
+    global $languages_id;
 
-    $values = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_id . "'");
+    $values = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_id . "' and language_id = '" . $languages_id . "'");
     $values_values = tep_db_fetch_array($values);
 
     $values_name = $values_values['products_options_values_name'];
