@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.18 2002/04/25 12:44:55 thomasamoulton Exp $
+  $Id: orders.php,v 1.19 2002/04/30 15:34:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,7 +37,7 @@ define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Cliente Notificado');
 define('TABLE_HEADING_DATE_ADDED', 'Añadido el');
 
 define('ENTRY_CUSTOMER', 'Cliente:');
-define('ENTRY_SOLD_TO', Cliente:');
+define('ENTRY_SOLD_TO', 'Cliente:');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
 define('ENTRY_SUBURB', '');
 define('ENTRY_CITY', 'Poblacion:');
