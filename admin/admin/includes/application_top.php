@@ -178,7 +178,7 @@
   require(DIR_WS_CLASSES . 'shopping_cart.php');
 
 // include the html graph class
-  require(DIR_WS_FUNCTIONS . 'html_graph.php');
+  require(DIR_WS_FUNCTIONS . 'html_graphs.php');
 
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
@@ -217,7 +217,8 @@
 // include the currency rates, and the language translations
   require(DIR_FS_CATALOG . 'includes/data/rates.php');
   require(DIR_WS_LANGUAGES . $language . '.php');
-  require(DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF));
+  $current_page = split('\?', basename($PHP_SELF)); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility
+  require(DIR_WS_LANGUAGES . $language . '/' . $current_page);
 
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');

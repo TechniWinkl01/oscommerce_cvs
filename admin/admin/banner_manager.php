@@ -226,10 +226,10 @@ function popupImageWindow(url) {
                 <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $stats_query = tep_db_query("select dayofmonth(banners_history_date) as name, banners_shown as value from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $bInfo->id . "' and to_days(now()) - to_days(banners_history_date) <= 7 order by banners_history_date");
     $info_box_contents = array();
 //    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-    $info_box_contents[] = array('align' => 'center', 'text' => GraphResult($stats_query, 'Statistics'));
+    $info_box_contents[] = array('align' => 'center', 'text' => tep_banner_graph_infoBox($bInfo->id, '3'));
+    $info_box_contents[] = array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'graph_hbar_blue.gif', 'Blue', '5', '5') . ' Banner Views<br>' . tep_image(DIR_WS_IMAGES . 'graph_hbar_red.gif', 'Red', '5', '5') . ' Banner Clicks');
 ?>
               <tr bgcolor="#b0c8df"><? echo $form; ?>
                 <td>
