@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.174 2001/11/08 22:44:24 dgw_ Exp $
+  $Id: application_top.php,v 1.175 2001/11/12 21:31:03 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,9 +22,7 @@
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
 
-// default localization values
-  define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
-  define('DEFAULT_CURRENCY', 'USD'); // codes are in the "currencies" database table (and catalog/includes/data/rates.php)
+// localization
   define('USE_DEFAULT_LANGUAGE_CURRENCY', false); // when the language is changed, use its default currency instead of the applications default currency
 
 // Send order confirmation emails ALSO to these email addresses (separated by a comma)
