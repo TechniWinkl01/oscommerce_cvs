@@ -420,7 +420,7 @@ CREATE TABLE customers (
 # Dumping data for table 'customers'
 #
 
-INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','NeverNeverLand','11111','','woooooo');
+INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','woooooo','81');
 
 #
 # Table structure for table 'customers_basket'
