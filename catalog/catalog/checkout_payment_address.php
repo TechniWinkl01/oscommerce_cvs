@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.12 2003/05/19 20:17:49 hpdl Exp $
+  $Id: checkout_payment_address.php,v 1.13 2003/05/27 17:49:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,14 +65,6 @@
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_LAST_NAME_ERROR);
-      }
-
-      if (ACCOUNT_COMPANY == 'true') {
-        if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-          $error = true;
-
-          $messageStack->add('checkout_address', ENTRY_COMPANY_ERROR);
-        }
       }
 
       if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {

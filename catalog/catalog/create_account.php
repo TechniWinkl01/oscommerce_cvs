@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.60 2003/05/19 20:17:49 hpdl Exp $
+  $Id: create_account.php,v 1.61 2003/05/27 17:49:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
     $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
     if (ACCOUNT_COMPANY == 'true') $company = tep_db_prepare_input($HTTP_POST_VARS['company']);
     $street_address = tep_db_prepare_input($HTTP_POST_VARS['street_address']);
-    $suburb = tep_db_prepare_input($HTTP_POST_VARS['suburb']);
+    if (ACCOUNT_SUBURB == 'true') $suburb = tep_db_prepare_input($HTTP_POST_VARS['suburb']);
     $postcode = tep_db_prepare_input($HTTP_POST_VARS['postcode']);
     $city = tep_db_prepare_input($HTTP_POST_VARS['city']);
     $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
@@ -83,14 +83,6 @@
         $error = true;
 
         $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
-      }
-    }
-
-    if (ACCOUNT_COMPANY == 'true') {
-      if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-        $error = true;
-
-        $messageStack->add('create_account', ENTRY_COMPANY_ERROR);
       }
     }
 

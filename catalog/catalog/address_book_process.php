@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.76 2003/05/19 20:17:49 hpdl Exp $
+  $Id: address_book_process.php,v 1.77 2003/05/27 17:49:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,14 +53,6 @@
         $error = true;
 
         $messageStack->add('addressbook', ENTRY_GENDER_ERROR);
-      }
-    }
-
-    if (ACCOUNT_COMPANY == 'true') {
-      if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-        $error = true;
-
-        $messageStack->add('addressbook', ENTRY_COMPANY_ERROR);
       }
     }
 
