@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.15 2002/04/13 16:01:17 hpdl Exp $
+  $Id: install_5.php,v 1.16 2002/08/12 12:10:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -136,9 +136,9 @@
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
                      '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_WS_ADMIN'] . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/\'); // absolute pate required' . "\n" .
+                     '  define(\'DIR_FS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '\'); // absolute pate required' . "\n" .
                      '  define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '/\'); // absolute path required' . "\n" .
+                     '  define(\'DIR_FS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '\'); // absolute path required' . "\n" .
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
                      '  define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
                      '  define(\'DIR_WS_CATALOG_IMAGES\', DIR_WS_CATALOG . \'images/\');' . "\n" .
