@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.12 2003/05/05 17:44:36 dgw_ Exp $
+  $Id: split_page_results.php,v 1.13 2003/05/05 17:56:50 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,10 +45,6 @@
 
 // calculate number of pages needing links
       $num_pages = ceil($query_numrows / $max_rows_per_page);
-
-      if ($current_page_number > $num_pages) {
-        $current_page_number = $num_pages;
-      }
 
       $pages_array = array();
       for ($i=1; $i<=$num_pages; $i++) {
