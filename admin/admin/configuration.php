@@ -1,15 +1,9 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action']) {
-    if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into products_expected values ('', '" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['date_expected'] . "')");
-      header('Location: ' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, '', 'NONSSL')); tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'save') {
+    if ($HTTP_GET_VARS['action'] == 'save') {
       tep_db_query("update configuration set configuration_key = '" . $HTTP_POST_VARS['configuration_key'] . "', configuration_value = '" . $HTTP_POST_VARS['configuration_value'] . "', use_function = '" . $HTTP_POST_VARS['use_function'] . "', last_modified = now() where configuration_id = '" . $HTTP_POST_VARS['configuration_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . '&gID=' . $HTTP_GET_VARS['gID'], 'NONSSL')); tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-      tep_db_query("delete from products_expected where products_expected_id = '" . $HTTP_POST_VARS['products_expected_id'] . "'");
-      header('Location: ' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, '', 'NONSSL')); tep_exit();
     }
   }
 ?>
@@ -159,7 +153,7 @@
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
   } else {
     $info_box_contents = array();
-    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added) . '<br>&nbsp;' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DESCRIPTION . '<br>' . $cfgInfo->description);
   }
