@@ -2,9 +2,7 @@
           <tr>
             <td>
 <?
-  $products = @tep_db_query('select products_id from products limit 0,1');
-  if (@tep_db_num_rows($products) > 0) {
-    tep_random_select("select p.products_id, p.products_name, p.products_image from products p where p.products_status='1' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW);
+  if (tep_random_select("select p.products_id, p.products_name, p.products_image from products p where p.products_status='1' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',

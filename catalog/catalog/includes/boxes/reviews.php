@@ -2,9 +2,7 @@
           <tr>
             <td>
 <?
-  $reviews = @tep_db_query('select reviews_id from reviews limit 0,1');
-  if (@tep_db_num_rows($reviews) > 0) {
-    tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, p.products_name, p.products_image from reviews r, reviews_extra re, products p where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
+  if (tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, p.products_name, p.products_image from reviews r, reviews_extra re, products p where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS)) {
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
