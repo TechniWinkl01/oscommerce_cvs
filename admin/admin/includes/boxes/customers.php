@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: customers.php,v 1.16 2003/07/09 01:18:53 hpdl Exp $
+  $Id: customers.php,v 1.17 2004/07/22 23:06:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,15 +18,13 @@
   $contents = array();
 
   $heading[] = array('text'  => BOX_HEADING_CUSTOMERS,
-                     'link'  => tep_href_link(FILENAME_CUSTOMERS, 'selected_box=customers'));
+                     'link'  => "javascript:toggleBlock('customers');");
 
-  if ($selected_box == 'customers') {
-    $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CUSTOMERS_CUSTOMERS . '</a><br>' .
-                                   '<a href="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CUSTOMERS_ORDERS . '</a>');
-  }
+  $contents[] = array('text'  => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CUSTOMERS_CUSTOMERS . '</a><br>' .
+                                 '<a href="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '" class="menuBoxContentLink">' . BOX_CUSTOMERS_ORDERS . '</a>');
 
   $box = new box;
-  echo $box->menuBox($heading, $contents);
+  echo $box->menuBox($heading, $contents, 'customers');
 ?>
             </td>
           </tr>
