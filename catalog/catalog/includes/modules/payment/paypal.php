@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.44 2004/07/22 22:00:10 hpdl Exp $
+  $Id: paypal.php,v 1.45 2004/08/06 11:40:50 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
 
       if (is_object($order)) $this->update_status();
 
-      $this->form_action_url = 'https://secure.paypal.com/cgi-bin/webscr';
+      $this->form_action_url = 'https://www.paypal.com/cgi-bin/webscr';
     }
 
     function update_status() {
@@ -105,6 +105,7 @@
                                osc_draw_hidden_field('currency_code', $my_currency) .
                                osc_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
                                osc_draw_hidden_field('rm', '2') .
+                               tep_draw_hidden_field('bn', 'osCommerce') .
                                osc_draw_hidden_field('no_note', '1') .
                                osc_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
 
