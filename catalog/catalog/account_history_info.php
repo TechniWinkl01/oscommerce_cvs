@@ -10,8 +10,13 @@
       tep_exit();
     }
   } else {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'NONSSL'));
-    tep_exit();
+    if (@$HTTP_GET_VARS['order_id']) {
+      header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY_INFO . '&order_id=' . $HTTP_GET_VARS['order_id'], 'NONSSL'));
+      tep_exit();
+    } else {
+      header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'NONSSL'));
+      tep_exit();
+    }
   }
 ?>
 <html>
