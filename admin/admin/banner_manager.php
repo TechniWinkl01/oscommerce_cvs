@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.64 2002/05/09 14:09:37 hpdl Exp $
+  $Id: banner_manager.php,v 1.65 2002/08/13 20:47:04 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -285,7 +285,7 @@ function popupImageWindow(url) {
           </tr>
           <tr>
             <td valign="top" class="main"><?php echo TEXT_BANNERS_HTML_TEXT; ?></td>
-            <td class="main"><?php echo tep_draw_textarea_field('html_text', 'soft', '60', '5', $bInfo->html_text); ?></td>
+            <td class="main"><?php echo tep_draw_textarea_field('html_text', 'soft', '60', '5', $bInfo->banners_html_text); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
