@@ -14,7 +14,7 @@
     srand((double)microtime()*1000000); // seed the random number generator
     $num_rows = tep_db_num_rows($select_products);
     if ($num_rows != 0) {
-      $random_row = @rand(0, (num_rows - 1));
+      $random_row = @rand(0, ($num_rows - 1));
       tep_db_data_seek($select_products, $random_row);
       $random_product = tep_db_fetch_array($select_products);
     }
