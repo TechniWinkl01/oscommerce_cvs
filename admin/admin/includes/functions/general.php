@@ -91,7 +91,7 @@
     }
     if ($manufacturers_location == '0') {
       $products_name = $products_manufacturers . ' ' . $products_name;
-    } else {
+    } elseif ($manufacturers_location == '1') {
       $products_name = $products_name . ' (' . $products_manufacturers . ')';
     }
 
@@ -161,5 +161,63 @@
     $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
 
     return $date_formated;
+  }
+
+  function tep_array_merge($array1, $array2, $array3 = array()) {
+
+    if (function_exists('array_merge')) {
+      $array_merged = array_merge($array1, $array2, $array3);
+    } else {
+      while (list($key,$val) = each($array1)) $array_merged[$key] = $val;
+      while (list($key,$val) = each($array2)) $array_merged[$key] = $val;
+      while (list($key,$val) = each($array3)) $array_merged[$key] = $val;
+    }
+
+    return (array) $array_merged;
+  }
+
+  function tep_set_category_info($cInfo_array) {
+    global $cInfo;
+
+    $cInfo->id = $cInfo_array['categories_id'];
+    $cInfo->name = $cInfo_array['categories_name'];
+    $cInfo->image = $cInfo_array['categories_image'];
+    $cInfo->sort_order = $cInfo_array['sort_order'];
+    $cInfo->parent_id = $cInfo_array['parent_id'];
+    $cInfo->childs_count = $cInfo_array['childs_count'];
+    $cInfo->products_count = $cInfo_array['products_count'];
+  }
+
+  function tep_set_product_info($pInfo_array) {
+    global $pInfo;
+
+    $pInfo->id = $pInfo_array['products_id'];
+    $pInfo->name = $pInfo_array['products_name'];
+    $pInfo->image = $pInfo_array['products_image'];
+    $pInfo->description = stripslashes($pInfo_array['products_description']);
+    $pInfo->quantity = $pInfo_array['products_quantity'];
+    $pInfo->model = $pInfo_array['products_model'];
+    $pInfo->url = $pInfo_array['products_url'];
+    $pInfo->price = $pInfo_array['products_price'];
+    $pInfo->date_added = $pInfo_array['products_date_added'];
+    $pInfo->weight = $pInfo_array['products_weight'];
+    $pInfo->manufacturer = $pInfo_array['manufacturers_name'];
+    $pInfo->manufacturers_id = $pInfo_array['manufacturers_id'];
+    $pInfo->manufacturers_image = $pInfo_array['manufacturers_image'];
+  }
+
+  function tep_categories_pull_down($parameters, $exclude = '') {
+    echo '<select ' . $parameters . '>';
+    $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
+    while ($categories_all = tep_db_fetch_array($categories_all_query)) {
+      if ($categories_all['categories_id'] != $exclude) {
+        $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories_all['parent_id'] . "'");
+        $categories_parent = tep_db_fetch_array($categories_parent_query);
+        echo '<option value="' . $categories_all['categories_id'] . '">' . $categories_all['categories_name'];
+        if (tep_db_num_rows($categories_parent_query) > 0) echo ' (' . $categories_parent['categories_name'] . ')';
+        echo '</option>';
+      }
+    }
+    echo '</select>';
   }
 ?>
