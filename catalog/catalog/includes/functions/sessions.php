@@ -25,7 +25,9 @@
 
   function tep_session_close() {
 
-    return session_close();
+    if (function_exists('session_close')) {
+      return session_close();
+    }
 
   }
 
