@@ -172,12 +172,14 @@ function alertBox() {
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], 6, 2),substr($info_values['date_purchased'], 0, 4)));
     if (@$info_values['last_modified'] != '0') {
       $date_updated = date('l, jS F, Y', mktime(0,0,0,substr($info_values['last_modified'], 4, 2),substr($info_values['last_modified'], 6, 2),substr($info_values['last_modified'], 0, 4)));
-    } else $date_updated = '';
+    } else {
+      $date_updated = '';
+    }
     $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $total_cost = 0;
     $total_tax = 0;
     while ($products_values = tep_db_fetch_array($products)) {
-    $final_price = $products_values['final_price'];
+      $final_price = $products_values['final_price'];
 
       echo '          <tr>' . "\n";
       echo '            <td align="center" class="main">&nbsp;' . $products_values['products_quantity'] . '&nbsp;</td>' . "\n";
@@ -188,7 +190,7 @@ function alertBox() {
       if (@tep_db_num_rows($attributes_query)) {
         $attributes_exist = '1';
         while ($attributes = tep_db_fetch_array($attributes_query)) {
-	  	echo '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
+	  	    echo '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
         }
       }
 //------display customer choosen option eof-----
@@ -196,27 +198,27 @@ function alertBox() {
       echo '            <td align="center" valign="top" class="main">&nbsp;' . number_format($products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
       echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products_values['products_quantity'] * $products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
-    if ($attributes_exist == '1') {
-      $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
-      while ($attributes_values = tep_db_fetch_array($attributes)) {
-        if ($attributes_values['options_values_price'] != '0') {
-          echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
-        } else {
-          echo '<br>&nbsp;';
+      if ($attributes_exist == '1') {
+        $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['orders_products_id'] . "'");
+        while ($attributes_values = tep_db_fetch_array($attributes)) {
+          if ($attributes_values['options_values_price'] != '0') {
+            echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
+          } else {
+            echo '<br>&nbsp;';
+          }
         }
       }
-    }
 //------display customer choosen option eof-----
-	  echo '            </td>' . "\n";
-    echo '          </tr>' . "\n";
+	    echo '            </td>' . "\n";
+      echo '          </tr>' . "\n";
 
-    $cost = ($products_values['products_quantity'] * $final_price);
-    if (TAX_INCLUDE == true) {
-      $total_tax += (($products_values['products_quantity'] * $final_price) - (($products_values['products_quantity'] * $final_price) / (($products_values['products_tax']/100)+1)));
-    } else {
-      $total_tax += ($cost * $products_values['products_tax']/100);
-    }
-    $total_cost += $cost;
+      $cost = ($products_values['products_quantity'] * $final_price);
+      if (TAX_INCLUDE == true) {
+        $total_tax += (($products_values['products_quantity'] * $final_price) - (($products_values['products_quantity'] * $final_price) / (($products_values['products_tax']/100)+1)));
+      } else {
+        $total_tax += ($cost * $products_values['products_tax']/100);
+      }
+      $total_cost += $cost;
     }
 ?>
               <tr>
