@@ -100,7 +100,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -146,11 +146,11 @@
 <?
     if ($manufacturers['manufacturers_id'] == @$mInfo->id) {
 ?>
-                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
+                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</font></td>
 <?
     } else {
 ?>
-                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $manufacturers['manufacturers_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
+                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $manufacturers['manufacturers_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
 <?
     }
 ?>
@@ -173,7 +173,7 @@
                 <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td align="right" colspan="3"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=new', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?></a>&nbsp;</font></td>
+                <td align="right" colspan="3"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=new', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?></a>&nbsp;</font></td>
               </tr>
 <?
   if ($HTTP_GET_VARS['error']) {
@@ -205,7 +205,7 @@
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_NEW_INTRO . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="file" name="manufacturers_image" size="20" style="font-size:10px"><br>&nbsp;<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="manufacturers" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="original_manufacturers_id" value="' . $mInfo->id . '">'  ."\n";
 
@@ -213,7 +213,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>&nbsp;');
     if (EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_ID . '<br>&nbsp;<input type="text" name="manufacturers_id" value="' . $mInfo->id . '" size="2"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name" value="' . $mInfo->name . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="file" name="manufacturers_image" size="20" style="font-size:10px"><br>' . $mInfo->image . '<br>&nbsp;<br>&nbsp;');
-    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="manufacturers" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="manufacturers_id" value="' . $mInfo->id . '">' . "\n";
 
@@ -221,10 +221,10 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_INTRO . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->name . '</b>');
     if ($mInfo->products_count > 0) $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $mInfo->products_count));
-    $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } else {
     $info_box_contents = array();
-    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . '&nbsp;<br>&nbsp;' . TEXT_LAST_MODIFIED);
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($mInfo->image, $mInfo->name));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $mInfo->products_count);

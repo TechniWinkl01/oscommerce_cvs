@@ -6,7 +6,7 @@
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_TOOLS,
                                'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=tools'),
-                               'img'  => ($selected_box == 'tools') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '11', '11', '0', '') : tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '11', '11', '0', '')
+                               'img'  => ($selected_box == 'tools') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '', '11', '11') : tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '', '11', '11')
                               );
   new navigationBoxHeading($info_box_contents);
 

@@ -31,24 +31,34 @@
     return $link;
   }
 
-  function tep_image($src, $width, $height, $border, $alt) {
-    $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '"';
-    if ($alt != '') {
-      $image .= ' alt=" ' . $alt . ' "';
+  function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
+    $image = '<img src="' . $src . '" border="0" alt=" ' . $alt . ' "';
+    if ($width) {
+      $image .= ' width="' . $width . '"';
+    }
+    if ($height) {
+      $image .= ' height="' . $height . '"';
     }
     $image .= '>';
 
     return $image;
   }
 
-  function tep_image_submit($src, $width, $height, $border, $alt) {
-    $image_submit = '<input type="image" src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
+  function tep_image_submit($src, $alt = '', $width = '', $height = '', $params = '') {
+    $image_submit = '<input type="image" src="' . $src . '" border="0" alt=" ' . $alt . ' "';
+    if ($width) {
+      $image .= ' width="' . $width . '"';
+    }
+    if ($width) {
+      $image .= ' height="' . $height . '"';
+    }
+    $image .= '>';
 
     return $image_submit;
   }
 
   function tep_black_line() {
-    $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '100%', '1', '0', '');
+    $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
 
     return $black_line;
   }
@@ -284,7 +294,7 @@
   function tep_info_image($image_source, $image_alt) {
     $image_size = @getimagesize(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . $image_source);
     if ($image_size) {
-      $image = tep_image(DIR_WS_CATALOG . $image_source, $image_size[0], $image_size[1], 0, $image_alt);
+      $image = tep_image(DIR_WS_CATALOG . $image_source, $image_alt, $image_size[0], $image_size[1]);
     } else {
       $image = TEXT_IMAGE_NONEXISTENT;
     }
