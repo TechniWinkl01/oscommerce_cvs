@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.67 2003/02/05 22:43:17 hpdl Exp $
+# $Id: oscommerce.sql,v 1.68 2003/02/06 17:38:19 thomasamoulton Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -294,7 +294,6 @@ CREATE TABLE orders (
   date_purchased datetime,
   orders_status int(5) NOT NULL,
   orders_date_finished datetime,
-  comments text,
   currency char(3),
   currency_value decimal(14,6),
   PRIMARY KEY (orders_id)
@@ -327,10 +326,10 @@ DROP TABLE IF EXISTS orders_status_history;
 CREATE TABLE orders_status_history (
    orders_status_history_id int NOT NULL auto_increment,
    orders_id int NOT NULL,
-   new_value int(5) NOT NULL,
-   old_value int(5),
+   orders_status_id int(5) NOT NULL,
    date_added datetime NOT NULL,
    customer_notified int(1) DEFAULT '0',
+   comments text,
    PRIMARY KEY (orders_status_history_id)
 );
 

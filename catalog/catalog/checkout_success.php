@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.43 2002/11/23 02:29:38 thomasamoulton Exp $
+  $Id: checkout_success.php,v 1.44 2003/02/06 17:38:15 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,18 +13,6 @@
   require('includes/application_top.php');
 
   if ($HTTP_GET_VARS['action'] == 'update') {
-    if (tep_not_null($HTTP_POST_VARS['comment']) && tep_session_is_registered('last_order')) {
-      $comment = tep_db_prepare_input($HTTP_POST_VARS['comment']);
-
-      if (tep_session_is_registered('customer_id')) {
-        tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comment) . "' where customers_id = '" . $customer_id . "' and orders_id = '" . $last_order . "'");
-      } else {
-        tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comment) . "' where customers_id = '0' and orders_id = '" . $last_order . "'");
-      }
-
-      tep_session_unregister('last_order');
-    }
-
     $notify_string = '';
     if (tep_session_is_registered('customer_id')) {
       $notify_string .= 'action=notify&';
@@ -117,23 +105,7 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
-      <tr>
-        <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="6" class="infoBox">
-          <tr class="infoBoxContents">
-            <td class="main"><?php echo tep_draw_textarea_field('comment', 'virtual', '60', '5'); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-      </tr>
-      <tr>
+      <tr class="infoBoxContents">
         <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
       </tr>
       <tr>

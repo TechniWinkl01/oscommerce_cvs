@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.18 2003/01/20 19:46:49 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.19 2003/02/06 17:38:16 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,6 +24,7 @@ define('HEADING_BILLING_INFORMATION', 'Datos de Facturacion');
 define('HEADING_BILLING_ADDRESS', 'Direccion de Facturacion');
 define('HEADING_PAYMENT_METHOD', 'Forma de Pago');
 define('HEADING_PAYMENT_INFORMATION', 'Datos del Pago');
+define('HEADING_ORDER_COMMENTS', 'Comentarios Sobre Su Orden');
 
 define('TEXT_EDIT', 'Cambio');
 ?>

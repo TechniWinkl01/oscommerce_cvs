@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.18 2002/11/22 14:45:48 dgw_ Exp $
+  $Id: orders_status.php,v 1.19 2003/02/06 17:37:09 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,7 @@
         $remove_status = false;
         $messageStack->add(ERROR_STATUS_USED_IN_ORDERS, 'error');
       } else {
-        $history_query = tep_db_query("select count(*) as count from " . TABLE_ORDERS_STATUS_HISTORY . " where '" . tep_db_input($oID) . "' in (new_value, old_value)");
+        $history_query = tep_db_query("select count(*) as count from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_status_id = '" . tep_db_input($oID) . "'");
         $history = tep_db_fetch_array($history_query);
         if ($history['count'] > 0) {
           $remove_status = false;

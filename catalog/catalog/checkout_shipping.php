@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.9 2003/02/05 22:34:44 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.10 2003/02/06 17:38:15 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -87,6 +87,11 @@
 
 // process the selected shipping method
   if ( isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process') ) {
+    if (!tep_session_is_registered('comments')) tep_session_register('comments');
+    if ($HTTP_POST_VARS['comments_added'] != '') {
+      $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
+    }
+
     if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
 
     if ( (tep_count_shipping_modules() > 0) || ($free_shipping == true) ) {
@@ -359,6 +364,21 @@ function rowOutEffect(object) {
 <?php
   }
 ?>
+      <tr>
+        <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td>
+          <?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?>
+          <?php echo tep_draw_hidden_field('comments_added', 'YES'); ?>
+        </td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.91 2003/01/09 15:55:00 hpdl Exp $
+  $Id: account_history_info.php,v 1.92 2003/02/06 17:38:13 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -197,7 +197,7 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td class="main"><b><?php echo HEADING_ORDER_STATUS; ?></b></td>
+        <td class="main"><b><?php echo HEADING_ORDER_HISTORY; ?></b></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
@@ -205,24 +205,17 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
-            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td valign="top"><table border="1" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  $statuses_query = tep_db_query("select os.orders_status_name, osh.date_added from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh where osh.orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and osh.new_value = os.orders_status_id and os.language_id = '" . $languages_id . "' order by osh.date_added desc");
+  $statuses_query = tep_db_query("select os.orders_status_name, osh.date_added, osh.comments from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh where osh.orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and osh.orders_status_id = os.orders_status_id and os.language_id = '" . $languages_id . "' order by osh.date_added");
   while ($statuses = tep_db_fetch_array($statuses_query)) {
     echo '              <tr>' . "\n" .
-         '                <td class="main">' . tep_date_short($statuses['date_added']) . '</td>' . "\n" .
-         '                <td class="main">' . $statuses['orders_status_name'] . '</td>' . "\n" .
+         '                <td class="main" valign="top" width="70">' . tep_date_short($statuses['date_added']) . '</td>' . "\n" .
+         '                <td class="main" valign="top" width="70">' . $statuses['orders_status_name'] . '</td>' . "\n" .
+         '                <td class="main" valign="top">' . ($statuses['comments'] == '' ? '&nbsp;' : nl2br(tep_db_output($statuses['comments']))) . '</td>' . "\n" .
          '              </tr>' . "\n";
   }
 ?>
-            </table></td>
-            <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><b><?php echo HEADING_COMMENT; ?></b></td>
-              </tr>
-              <tr>
-                <td class="main"><?php echo ((strlen($order->info['comments']) > 0) ? nl2br($order->info['comments']) : '<i>' . TEXT_NO_COMMENTS_AVAILABLE . '</i>'); ?></td>
-              </tr>
             </table></td>
           </tr>
         </table></td>

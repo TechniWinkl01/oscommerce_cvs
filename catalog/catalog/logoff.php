@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: logoff.php,v 1.10 2003/01/14 18:04:51 dgw_ Exp $
+  $Id: logoff.php,v 1.11 2003/02/06 17:38:15 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,7 +16,17 @@
 
   $breadcrumb->add(NAVBAR_TITLE);
 
-  tep_session_destroy();
+//  tep_session_destroy();
+
+  tep_session_unregister('customer_id');
+  tep_session_unregister('customer_default_address_id');
+  tep_session_unregister('customer_first_name');
+  tep_session_unregister('customer_country_id');
+  tep_session_unregister('customer_zone_id');
+  tep_session_unregister('comments');
+
+  $cart->reset();
+
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.43 2003/02/05 22:43:18 hpdl Exp $
+  $Id: upgrade_3.php,v 1.44 2003/02/06 17:38:19 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -501,7 +501,13 @@ changeText('statusText', 'Updating Orders');
 
   osc_db_query("alter table orders change orders_status orders_status int(5) not null");
 
-  osc_db_query("create table orders_status_history ( orders_status_history_id int(5) not null auto_increment, orders_id int(5) not null, new_value int(5) not null, old_value int(5), date_added datetime not null, customer_notified int(1) default '0', primary key (orders_status_history_id))");
+  osc_db_query("create table orders_status_history ( orders_status_history_id int(5) not null auto_increment, orders_id int(5) not null, orders_status_id int(5) not null, date_added datetime not null, customer_notified int(1) default '0', comments text, primary key (orders_status_history_id))");
+
+  $orders_query = osc_db_query("select orders_id, date_purchased, comments from orders where comments <> ''");
+  while ($order = osc_db_fetch_array($orders_query)) {
+    osc_db_query("insert into orders_status_history (orders_id, orders_status_id, date_added, comments) values ('" . $order['orders_id'] . "', '1', '" . $order['date_purchased'] . "', '" . $order['comments'] . "')");
+  }
+  osc_db_query("alter table orders drop comments");
 
   $orders_products_query = osc_db_query("select op.orders_products_id, opa.orders_products_attributes_id, op.products_id from orders_products op, orders_products_attributes opa where op.orders_id = opa.orders_id");
   while ($orders_products = osc_db_fetch_array($orders_products_query)) {

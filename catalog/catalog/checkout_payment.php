@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.104 2002/12/05 00:26:32 thomasamoulton Exp $
+  $Id: checkout_payment.php,v 1.105 2003/02/06 17:38:14 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,8 +65,7 @@
     }
   }
 
-  require(DIR_WS_CLASSES . 'order.php');
-  $order = new order;
+  if (!tep_session_is_registered('comments')) tep_session_register('comments');
 
   $total_weight = $cart->show_weight();
   $total_count = $cart->count_contents();
@@ -310,6 +309,21 @@ function rowOutEffect(object) {
             </table></td>
           </tr>
         </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td>
+          <?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?>
+          <?php echo tep_draw_hidden_field('comments_added', 'YES'); ?>
+        </td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.24 2002/11/23 13:58:04 thomasamoulton Exp $
+  $Id: orders.php,v 1.25 2003/02/06 17:37:16 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,6 +15,7 @@ define('HEADING_TITLE_SEARCH', 'Bestell-Nr.:');
 define('HEADING_TITLE_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Kommentar');
+define('TABLE_HEADING_SPECIAL_INSTRUCTIONS', 'Special Instructions');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
 define('TABLE_HEADING_ORDER_TOTAL', 'Gesamtwert');
 define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');
@@ -31,8 +32,7 @@ define('TABLE_HEADING_PRICE_INCLUDING_TAX', 'Preis (inkl.)');
 define('TABLE_HEADING_TOTAL_EXCLUDING_TAX', 'Total (exkl.)');
 define('TABLE_HEADING_TOTAL_INCLUDING_TAX', 'Total (inkl.)');
 
-define('TABLE_HEADING_NEW_VALUE', 'neuer Status');
-define('TABLE_HEADING_OLD_VALUE', 'alter Status');
+define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Kunde benachrichtigt');
 define('TABLE_HEADING_DATE_ADDED', 'hinzugef&uuml;gt am:');
 

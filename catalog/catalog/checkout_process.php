@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.120 2003/02/05 18:22:17 project3000 Exp $
+  $Id: checkout_process.php,v 1.121 2003/02/06 17:38:14 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,6 @@
                           'cc_expires' => $order->info['cc_expires'], 
                           'date_purchased' => 'now()', 
                           'orders_status' => $order->info['order_status'], 
-                          'comments' => $order->info['comments'], 
                           'currency' => $order->info['currency'], 
                           'currency_value' => $order->info['currency_value']);
   tep_db_perform(TABLE_ORDERS, $sql_data_array);
@@ -105,9 +104,10 @@
 
   $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
   $sql_data_array = array('orders_id' => $insert_id, 
-                          'new_value' => DEFAULT_ORDERS_STATUS_ID, 
+                          'orders_status_id' => DEFAULT_ORDERS_STATUS_ID, 
                           'date_added' => 'now()', 
-                          'customer_notified' => $customer_notification);
+                          'customer_notified' => $customer_notification,
+                          'comments' => $order->info['comments']);
   tep_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
 
 // initialized for the email confirmation
@@ -223,7 +223,7 @@
                  EMAIL_TEXT_INVOICE_URL . ' ' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $insert_id, 'SSL', false) . "\n" .
                  EMAIL_TEXT_DATE_ORDERED . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
   if ($order->info['comments']) {
-    $email_order .= $order->info['comments'] . "\n\n";
+    $email_order .= tep_db_output($order->info['comments']) . "\n\n";
   }
   $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . 
                   EMAIL_SEPARATOR . "\n" . 
@@ -270,9 +270,7 @@
   tep_session_unregister('billto');
   tep_session_unregister('shipping');
   tep_session_unregister('payment');
-
-  tep_session_register('last_order');
-  $last_order = $insert_id;
+  tep_session_unregister('comments');
 
   tep_redirect(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 

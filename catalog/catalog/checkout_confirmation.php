@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.130 2003/01/29 19:57:12 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.131 2003/02/06 17:38:13 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,6 +37,11 @@
 
   if (!tep_session_is_registered('payment')) tep_session_register('payment');
   if (isset($HTTP_POST_VARS['payment'])) $payment = $HTTP_POST_VARS['payment'];
+
+  if (!tep_session_is_registered('comments')) tep_session_register('comments');
+  if ($HTTP_POST_VARS['comments_added'] != '') {
+    $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
+  }
 
 // load the selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
@@ -277,8 +282,29 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
+<?php
+  if ($order->info['comments'] != '') {
+?>
       <tr>
-        <td align="right" class="main">
+        <td class="main"><?php echo '<b>' . HEADING_ORDER_COMMENTS . '</b> <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr class="infoBoxContents">
+        <td class="main"><?php echo nl2br($order->info['comments']); ?></td>
+        <?php echo tep_draw_hidden_field('comments', $order->info['comments']); ?>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
+  }
+?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="right" class="main">
 <?php
   if (isset($$payment->form_action_url)) {
     $form_action_url = $$payment->form_action_url;
@@ -294,7 +320,9 @@
 
   echo tep_image_submit('button_confirm_order.gif', IMAGE_BUTTON_CONFIRM_ORDER) . '</form>' . "\n";
 ?>
-        </td>
+            </td>
+          </tr>
+        </table></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>

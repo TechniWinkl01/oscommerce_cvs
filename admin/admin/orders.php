@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.106 2002/11/23 13:58:03 thomasamoulton Exp $
+  $Id: orders.php,v 1.107 2003/02/06 17:37:08 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,9 +31,9 @@
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
 
       $order_updated = false;
-      $check_status_query = tep_db_query("select customers_name, customers_email_address, orders_status, date_purchased, comments from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
+      $check_status_query = tep_db_query("select customers_name, customers_email_address, orders_status, date_purchased from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
       $check_status = tep_db_fetch_array($check_status_query);
-      if ($check_status['orders_status'] != $status) {
+      if ($check_status['orders_status'] != $status || $comments != '') {
         tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . tep_db_input($status) . "', last_modified = now() where orders_id = '" . tep_db_input($oID) . "'");
 
         $customer_notified = '0';
@@ -47,13 +47,8 @@
           $customer_notified = '1';
         }
 
-        tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, old_value, date_added, customer_notified) values ('" . tep_db_input($oID) . "', '" . tep_db_input($status) . "', '" . $check_status['orders_status'] . "', now(), '" . $customer_notified . "')");
+        tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, orders_status_id, date_added, customer_notified, comments) values ('" . tep_db_input($oID) . "', '" . tep_db_input($status) . "', now(), '" . $customer_notified . "', '" . tep_db_input($comments)  . "')");
 
-        $order_updated = true;
-      }
-
-      if ($check_status['comments'] != $comments) {
-        tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comments) . "' where orders_id = '" . tep_db_input($oID) . "'");
         $order_updated = true;
       }
 
@@ -251,13 +246,48 @@
         </table></td>
       </tr>
       <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><table border="1" cellspacing="0" cellpadding="5">
+          <tr>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_STATUS; ?></b></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+          </tr>
+<?php
+    $orders_history_query = tep_db_query("select orders_status_id, date_added, customer_notified, comments from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "' order by date_added");
+    if (tep_db_num_rows($orders_history_query)) {
+      while ($orders_history = tep_db_fetch_array($orders_history_query)) {
+        echo '          <tr>' . "\n" .
+             '            <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
+             '            <td class="smallText" align="center">';
+        if ($orders_history['customer_notified'] == '1') {
+          echo tep_image(DIR_WS_ICONS . 'tick.gif', ICON_TICK) . "</td>\n";
+        } else {
+          echo tep_image(DIR_WS_ICONS . 'cross.gif', ICON_CROSS) . "</td>\n";
+        }
+        echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
+             '            <td class="smallText">' . nl2br(tep_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
+             '          </tr>' . "\n";
+      }
+    } else {
+        echo '          <tr>' . "\n" .
+             '            <td class="smallText" colspan="5">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
+             '          </tr>' . "\n";
+    }
+?>
+        </table></td>
+      </tr>
+      <tr>
         <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
       </tr>
       <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, tep_get_all_get_params(array('action')) . 'action=update_order'); ?>
-        <td class="main"><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5', $order->info['comments']); ?></td>
+        <td class="main"><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5'); ?></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -278,41 +308,6 @@
           </tr>
         </table></td>
       </form></tr>
-      <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-      </tr>
-      <tr>
-        <td class="main"><table border="1" cellspacing="0" cellpadding="5">
-          <tr>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_NEW_VALUE; ?></b></td>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_OLD_VALUE; ?></b></td>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
-            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
-          </tr>
-<?php
-    $orders_history_query = tep_db_query("select new_value, old_value, date_added, customer_notified from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "' order by orders_status_history_id desc");
-    if (tep_db_num_rows($orders_history_query)) {
-      while ($orders_history = tep_db_fetch_array($orders_history_query)) {
-        echo '          <tr>' . "\n" .
-             '            <td class="smallText">' . $orders_status_array[$orders_history['new_value']] . '</td>' . "\n" .
-             '            <td class="smallText">' . (tep_not_null($orders_history['old_value']) ? $orders_status_array[$orders_history['old_value']] : '&nbsp;') . '</td>' . "\n" .
-             '            <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
-             '            <td class="smallText" align="center">';
-        if ($orders_history['customer_notified'] == '1') {
-          echo tep_image(DIR_WS_ICONS . 'tick.gif', ICON_TICK);
-        } else {
-          echo tep_image(DIR_WS_ICONS . 'cross.gif', ICON_CROSS);
-        }
-        echo '          </tr>' . "\n";
-      }
-    } else {
-        echo '          <tr>' . "\n" .
-             '            <td class="smallText" colspan="4">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
-             '          </tr>' . "\n";
-    }
-?>
-        </table></td>
-      </tr>
       <tr>
         <td colspan="2" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_INVOICE, 'oID=' . $HTTP_GET_VARS['oID']) . '" TARGET="_blank">' . tep_image_button('button_invoice.gif', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS_PACKINGSLIP, 'oID=' . $HTTP_GET_VARS['oID']) . '" TARGET="_blank">' . tep_image_button('button_packingslip.gif', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('action'))) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
