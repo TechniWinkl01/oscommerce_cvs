@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.33 2001/06/14 00:04:38 hpdl Exp $
+  $Id: account_edit_process.php,v 1.34 2001/06/14 00:10:28 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -115,6 +115,11 @@
     $entry_password_error = true;
   } else {
     $entry_password_error = false;
+  }
+
+  if (trim($HTTP_POST_VARS['password']) != trim($HTTP_POST_VARS['confirmation'])) {
+    $error = true;
+    $entry_password_error = true;
   }
 
   $check_email = tep_db_query("select customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "' and customers_id <> '" . $customer_id . "'");
