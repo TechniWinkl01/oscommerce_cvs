@@ -123,6 +123,8 @@ define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss aus mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' sowie die \'Passwortbestätigung\' müssen übereinstimmen und aus mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen bestehen.\n');
 
+define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer ' . $HTTP_GET_VARS['error'] . ' existiert nicht!');
+
 define('CATEGORY_PERSONAL', '<b>[ Pers&ouml;nliche Daten ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Adresse ]</b>');
 define('CATEGORY_CONTACT', '<b>[ Kontakt ]</b>');

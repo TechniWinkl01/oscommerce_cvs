@@ -7,6 +7,7 @@ Author(s): David Garcia Watkins (dgw@q-logic.org)
 
 define('TOP_BAR_TITLE', 'Pedidos');
 define('HEADING_TITLE', 'Pedidos');
+define('HEADING_TITLE_SEARCH', 'incorpore la identificación de la pedido');
 
 define('TABLE_HEADING_CUSTOMERS', 'Clientes');
 define('TABLE_HEADING_CUSTOMERS_INFO', 'Informacion Cliente');

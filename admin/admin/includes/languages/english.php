@@ -123,6 +123,8 @@ define('JS_COUNTRY', '* The \'Country\' value must be chosen.\n');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' amd \'Confirmation\' entries must match amd have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
+define('JS_ORDER_DOES_NOT_EXIST', 'Order Number ' . $HTTP_GET_VARS['error'] . ' does not exist!');
+
 define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Address ]</b>');
 define('CATEGORY_CONTACT', '<b>[ Contact ]</b>');

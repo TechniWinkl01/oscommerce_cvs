@@ -7,6 +7,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('TOP_BAR_TITLE', 'Orders');
 define('HEADING_TITLE', 'Orders');
+define('HEADING_TITLE_SEARCH', 'Enter Order ID');
 
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_CUSTOMERS_INFO', 'Customers Info');

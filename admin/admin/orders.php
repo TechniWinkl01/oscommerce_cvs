@@ -2,9 +2,18 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_order') {
-      $date_now = date('YmdHis');
-      tep_db_query("update orders set orders_status = '" . $HTTP_GET_VARS['status'] . "', orders_date_finished = '" . $date_now . "' where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+      $order_finish = ($HTTP_GET_VARS['status'] == 'Delivered') ? ', orders_date_finished = now()' : '';
+      tep_db_query("update orders set orders_status = '" . $HTTP_GET_VARS['status'] . "', last_modified = now()" . $order_finish . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $HTTP_GET_VARS['orders_id'])); tep_exit();
+    }
+  }
+
+// * check if orders exist, if not redirect back to orders page with error
+// * this check is done at the top to avoid headers being sent for the redirect
+  if (@$HTTP_GET_VARS['orders_id']) {
+    $orders = tep_db_query("select orders_id from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    if (!tep_db_num_rows($orders)) {
+      header('Location: ' . tep_href_link(FILENAME_ORDERS, 'error=' . $HTTP_GET_VARS['orders_id'], 'NONSSL')); tep_exit();
     }
   }
 ?>
@@ -13,7 +22,19 @@
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<?
+  if (@$HTTP_GET_VARS['error']) {
+?>
+<script language="javascript"><!---
+function alertBox() {
+  alert('<? echo JS_ORDER_DOES_NOT_EXIST; ?>');
+  return true;
+}
+//--></script>
+<?
+  }
+?>
+<body <? if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?> marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -43,7 +64,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
+            <td align="right" nowrap><br><form name="orders" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_search.gif', '66', '20', '0', IMAGE_SEARCH); ?>&nbsp;</font></form></td>
           </tr>
         </table></td>
       </tr>
@@ -155,57 +176,58 @@
               <tr>
                 <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_QUANTITY;?>&nbsp;</b></font></td>
                 <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_PRODUCTS;?>&nbsp;</b></font></td>
-                <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_TAX;?>&nbsp;</b></font></td>
+                <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_TAX;?>&nbsp;</b></font></td>
                 <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_TOTAL;?>&nbsp;</b></font></td>
               </tr>
               <tr>
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $subtotal = 0;
-    $taxed = 0;
-    $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], -2),substr($info_values['date_purchased'], 0, 4)));
     $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $total_cost = 0;
+    $total_tax = 0;
     while ($products_values = tep_db_fetch_array($products)) {
+    $final_price = $products_values['final_price'];
+
       echo '          <tr>' . "\n";
       echo '            <td align="center" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $products_values['products_quantity'] . '&nbsp;</font></td>' . "\n";
       echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
       $attributes_exist = '0';
-      $attributes_query = tep_db_query("select products_options, products_options_values from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
+      $attributes_query = tep_db_query("select products_options, products_options_values from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
       if (@tep_db_num_rows($attributes_query)) {
         $attributes_exist = '1';
         while ($attributes = tep_db_fetch_array($attributes_query)) {
-		  echo "\n" . '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
+	  	echo '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
         }
       }
 //------display customer choosen option eof-----
-      echo '</font></td>' . "\n";
-      echo '            <td valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;</font></td>' . "\n";
+	  echo '</font></td>' . "\n";
+      echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . round($products_values['products_tax']) . '%&nbsp;</font></td>' . "\n";
       echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($products_values['products_quantity'] * $products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
-      if ($attributes_exist == '1') {
-        $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
-        $final_price = $products_values['final_price'];
-        while ($attributes_values = tep_db_fetch_array($attributes)) {
-          if ($attributes_values['options_values_price'] != '0') {
-            echo "\n" . '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
-          } else {
-            echo "\n" . '<br>&nbsp;';
-          }
+    if ($attributes_exist == '1') {
+      $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
+      while ($attributes_values = tep_db_fetch_array($attributes)) {
+        if ($attributes_values['options_values_price'] != '0') {
+          echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
+        } else {
+          echo '<br>&nbsp;';
         }
       }
+    }
 //------display customer choosen option eof-----
-      echo '</font></td>' . "\n";
-      echo '          </tr>' . "\n";
-      if (!$attributes_exist == '1') $final_price = $products_values['products_price'];
-      $cost = ($products_values['products_quantity'] * $final_price);
-      $total_tax += ($cost * ($products_values['products_tax']/100));
-      $total_cost += $cost;
+	echo '</font></td>' . "\n";
+    echo '          </tr>' . "\n";
+
+    $cost = ($products_values['products_quantity'] * $final_price);
+    $total_tax += ($cost * $products_values['products_tax']/100);
+    $total_cost += $cost;
     }
 ?>
               <tr>
@@ -252,8 +274,8 @@
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?>&nbsp;</font></td>
           </tr></form>
 <?
-    if (@$info_values['orders_date_finished'] != '0') {
-      $date_updated = substr($info_values['orders_date_finished'], 6, 2) . '/' . substr($info_values['orders_date_finished'], 4, 2) . '/' . substr($info_values['orders_date_finished'], 0, 4) . '&nbsp;' . substr($info_values['orders_date_finished'], -6, 2) . ':' . substr($info_values['orders_date_finished'], -4, 2) . ':' . substr($info_values['orders_date_finished'], -2);
+    if (@$info_values['last_modified'] != '0') {
+      $date_updated = substr($info_values['last_modified'], 6, 2) . '/' . substr($info_values['last_modified'], 4, 2) . '/' . substr($info_values['last_modified'], 0, 4) . '&nbsp;' . substr($info_values['last_modified'], -6, 2) . ':' . substr($info_values['last_modified'], -4, 2) . ':' . substr($info_values['last_modified'], -2);
 ?>
           <tr>
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_DATE_LAST_UPDATED; ?></b> <? echo $date_updated; ?>&nbsp;</font></td>

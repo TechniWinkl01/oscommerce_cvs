@@ -121,6 +121,8 @@ define('JS_COUNTRY', '* Debe seleccionar un \'Pais\'.\n');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
 define('JS_PASSWORD', '* La \'Contraseña\' y \'Confirmacion\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
+define('JS_ORDER_DOES_NOT_EXIST', 'El pedido número ' . $HTTP_GET_VARS['error'] . ' no existe!');
+
 define('CATEGORY_PERSONAL', '<b>[ Personal ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Domicilio ]</b>');
 define('CATEGORY_CONTACT', '<b>[ Contacto ]</b>');

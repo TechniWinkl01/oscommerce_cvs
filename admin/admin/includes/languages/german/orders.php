@@ -7,6 +7,7 @@ Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 
 define('TOP_BAR_TITLE', 'Bestellungen');
 define('HEADING_TITLE', 'Bestellungen');
+define('HEADING_TITLE_SEARCH', 'tragen Sie die Bestellungsnummer ein');
 
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
 define('TABLE_HEADING_CUSTOMERS_INFO', 'Kundeninformation');
