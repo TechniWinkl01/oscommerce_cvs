@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.5 2001/10/26 13:13:56 hpdl Exp $
+  $Id: update.php,v 1.6 2001/10/27 00:15:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -145,9 +145,9 @@ function changeStyle(what, how) {
 
 function changeText(where, what) {
   if (document.getElementById) {
-    document.getElementById(where).innerText = what;
+    document.getElementById(where).innerHTML = what;
   } else if (document.all) {
-    document.all[where].innerText = what;
+    document.all[where].innerHTML = what;
   }
 }
 //--></script>
@@ -165,6 +165,11 @@ function changeText(where, what) {
 <span id="manufacturers"><span id="manufacturersMarker">-</span> Manufacturers</span><br>
 <span id="orders"><span id="ordersMarker">-</span> Orders</span><br>
 <span id="products"><span id="productsMarker">-</span> Products</span><br>
+<span id="reviews"><span id="reviewsMarker">-</span> Reviews</span><br>
+<span id="sessions"><span id="sessionsMarker">-</span> Sessions</span><br>
+<span id="specials"><span id="specialsMarker">-</span> Specials</span><br>
+<span id="taxes"><span id="taxesMarker">-</span> Taxes</span><br>
+<span id="whosOnline"><span id="whosOnlineMarker">-</span> Whos Online</span><br>
 <p>
 Status: <span id="statusText">Preparing</span>
 </body>
@@ -468,6 +473,125 @@ changeText('statusText', 'Updating Products');
 changeStyle('products', 'normal');
 changeText('productsMarker', '*');
 changeText('statusText', 'Updating Products .. done!');
+
+changeStyle('reviews', 'bold');
+changeText('reviewsMarker', '?');
+changeText('statusText', 'Updating Reviews');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("create table reviews_description ( reviews_id int(5) not null, languages_id int(5) not null, reviews_text text not null, primary key (reviews_id, languages_id))");
+
+  tep_db_query("alter table reviews add products_id int(5) not null default '0' after reviews_id");
+  tep_db_query("alter table reviews add customers_id int(5) after products_id");
+  tep_db_query("alter table reviews add customers_name varchar(64) not null default '' after customers_id");
+  tep_db_query("alter table reviews add date_added datetime after reviews_rating");
+  tep_db_query("alter table reviews add last_modified datetime after date_added");
+  tep_db_query("alter table reviews add reviews_read int(5)");
+
+  $reviews_query = tep_db_query("select r.reviews_id, re.products_id, re.customers_id, r.reviews_rating, re.date_added, re.reviews_read, r.reviews_text from reviews r, reviews_extra re where r.reviews_id = re.reviews_id order by r.reviews_id");
+  while ($reviews = tep_db_fetch_array($reviews_query)) {
+    $customer_query = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $reviews['customers_id'] . "'");
+    if (tep_db_num_rows($customer_query)) {
+      $customer = tep_db_fetch_array($customer_query);
+      $customers_name = $customer['customers_firstname'] . ' ' . $customer['customers_lastname'];
+    } else {
+      $customers_name = '';
+    }
+
+    tep_db_query("update reviews set products_id = '" . $reviews['products_id'] . "', customers_id = '" . $reviews['customers_id'] . "', customers_name = '" . addslashes($customers_name) . "', date_added = '" . $reviews['date_added'] . "', last_modified = '', reviews_read = '" . $reviews['reviews_read'] . "' where reviews_id = '" . $reviews['reviews_id'] . "'");
+    tep_db_query("insert into reviews_description (reviews_id, languages_id, reviews_text) values ('" . $reviews['reviews_id'] . "', '" . $languages[0]['id'] . "', '" . addslashes($reviews['reviews_text']) . "')");
+  }
+
+  tep_db_query("alter table reviews drop reviews_text");
+
+  tep_db_query("drop table reviews_extra");
+?>
+
+<script language="javascript"><!--
+changeStyle('reviews', 'normal');
+changeText('reviewsMarker', '*');
+changeText('statusText', 'Updating Reviews .. done!');
+
+changeStyle('sessions', 'bold');
+changeText('sessionsMarker', '?');
+changeText('statusText', 'Updating Sessions');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("create table sessions (sesskey varchar(32) not null, expiry int(11) unsigned not null, value text not null, primary key (sesskey))");
+?>
+
+<script language="javascript"><!--
+changeStyle('sessions', 'normal');
+changeText('sessionsMarker', '*');
+changeText('statusText', 'Updating Sessions .. done!');
+
+changeStyle('specials', 'bold');
+changeText('specialsMarker', '?');
+changeText('statusText', 'Updating Specials');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("alter table specials change specials_date_added specials_date_added datetime");
+
+  tep_db_query("alter table specials add specials_last_modified datetime");
+  tep_db_query("alter table specials add expires_date datetime");
+  tep_db_query("alter table specials add date_status_change datetime");
+  tep_db_query("alter table specials add status int(1) default '1'");
+?>
+
+<script language="javascript"><!--
+changeStyle('specials', 'normal');
+changeText('specialsMarker', '*');
+changeText('statusText', 'Updating Specials .. done!');
+
+changeStyle('taxes', 'bold');
+changeText('taxesMarker', '?');
+changeText('statusText', 'Updating Taxes');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("alter table tax_class change date_added date_added datetime not null");
+  tep_db_query("alter table tax_class change last_modified last_modified datetime");
+
+  tep_db_query("alter table tax_rates change date_added date_added datetime not null");
+  tep_db_query("alter table tax_rates change last_modified last_modified datetime");
+
+  tep_db_query("alter table tax_rates add tax_priority int(5) default '1' after tax_class_id");
+
+  tep_db_query("create table geo_zones (geo_zone_id int(5) not null auto_increment, geo_zone_name varchar(32) not null, geo_zone_description varchar(255) not null, last_modified datetime, date_added datetime not null, primary key (geo_zone_id))");
+  tep_db_query("create table zones_to_geo_zones (association_id int(5) not null auto_increment, zone_country_id int(5) not null, zone_id int(5), geo_zone_id int(5), last_modified datetime, date_added datetime not null, primary key (association_id))");
+?>
+
+<script language="javascript"><!--
+changeStyle('taxes', 'normal');
+changeText('taxesMarker', '*');
+changeText('statusText', 'Updating Taxes .. done!');
+
+changeStyle('whosOnline', 'bold');
+changeText('whosOnlineMarker', '?');
+changeText('statusText', 'Updating Whos Online');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("create table whos_online (customer_id int(5),  full_name varchar(64) not null, session_id varchar(128) not null, ip_address varchar(15) not null, time_entry varchar(14) not null, time_last_click varchar(14) not null, last_page_url varchar(64) not null)");
+?>
+
+<script language="javascript"><!--
+changeStyle('whosOnline', 'normal');
+changeText('whosOnlineMarker', '*');
+changeText('statusText', 'Updating Whos Online .. done!');
 
 changeStyle('statusText', 'bold');
 changeText('statusText', 'Update Complete!');
