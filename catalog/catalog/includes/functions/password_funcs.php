@@ -23,18 +23,13 @@
 *    USA
 *   
 *   $Log: password_funcs.php,v $
-*   Revision 1.1  2000/10/18 03:57:26  dmcclelland
-*   Added one way ecrypted password support.
-*   This alters the customer table by extending the
-*   password filed to 40 chars long. One define and an additional
-*   include are added to application_top.php
-*   A new file password_funcs.php is included in functions/.
-*   The fogottoen password script now will assign a random
-*   new password to the user and then mail it to them.
+*   Revision 1.2  2000/10/18 14:16:08  dmcclelland
+*   Replaced calls to gettimeofday() with mt_rand() and mt_srand().
+*   gettimeofday() is very new in PHP4.
 *
 *    
 *
-*   $Id: password_funcs.php,v 1.1 2000/10/18 03:57:26 dmcclelland Exp $ 
+*   $Id: password_funcs.php,v 1.2 2000/10/18 14:16:08 dmcclelland Exp $ 
 *********************************************************************/
 
 /*  This funstion validates a candidate password.
@@ -71,10 +66,11 @@ function validate_password($plain_pass, $db_pass){
 
 function crypt_password($plain_pass){
     /* create a semi random salt */
+    mt_srand ((double) microtime() * 1000000);
+    for($i=0;$i<10;$i++){
+     $tstring	.= mt_rand();
+    }
     
-    $tarray = gettimeofday();
-    $tstring += $tarray['usec'];
-    $tstring  = $tarray['sec'];
     $salt = substr(md5($tstring),0, 2);
     
     $passtring = $salt . $plain_pass;
