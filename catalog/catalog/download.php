@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.4 2002/03/29 00:22:14 clescuyer Exp $
+  $Id: download.php,v 1.5 2002/04/09 13:14:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -86,7 +86,7 @@ function tep_unlink_temp_dir($dir)
 
 // Now send the file with header() magic
   header("Expires: Mon, 26 Nov 1962 00:00:00 GMT");
-  header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+  header("Last-Modified: " . gmdate("D,d M Y H:i:s") . " GMT");
   header("Cache-Control: no-cache, must-revalidate");
   header("Pragma: no-cache");
   header("Content-Type: Application/octet-stream");
