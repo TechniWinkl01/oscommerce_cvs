@@ -16,6 +16,13 @@ xx/02/2001 The Exchange Project Preview Release 2.1
  * Added languages box - customers can now choose their language anywhere
    except during the checkout procedure (due to POST variables in forms)
 
+ * Added currencies box - customers can now choose their currency
+   independent from the language chosen
+
+ * Currencies can be added/deleted/modified through the administration
+   tool - no longer through individual language files in the include
+   directory
+
  * Added a 'Contact Us' Page.
 
  * Added COMMENTS field to Orders table - an order history
