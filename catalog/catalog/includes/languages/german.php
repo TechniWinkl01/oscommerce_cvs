@@ -86,16 +86,16 @@ define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller<br>&nbsp;&nbsp;');
 define('BOX_HEADING_LANGUAGES', 'Sprachen');
 define('BOX_LANGUAGES_ENGLISH', 'English');
 define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
-define('BOX_LANGUAGES_ESPANOL', 'Espanol');
+define('BOX_LANGUAGES_ESPANOL', 'Spanisch');
 
 // currencies box text in includes/boxes/currencies.php
 define('BOX_HEADING_CURRENCIES', 'W&auml;hrungen');
 
 // information box text in includes/boxes/information.php
 define('BOX_HEADING_INFORMATION', 'Information');
-define('BOX_INFORMATION_PRIVACY', 'Privatsphäre und Datenschutz');
+define('BOX_INFORMATION_PRIVACY', 'Privatsph&auml;re<br>&nbsp;und Datenschutz');
 define('BOX_INFORMATION_CONDITIONS', 'Unsere AGBs');
-define('BOX_INFORMATION_SHIPPING', 'Liefer- und Versandkosten');
+define('BOX_INFORMATION_SHIPPING', 'Liefer- und<br>&nbsp;Versandkosten');
 define('BOX_INFORMATION_CONTACT', 'Kontakt');
 
 // checkout procedure text
