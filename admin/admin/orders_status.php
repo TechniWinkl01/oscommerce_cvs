@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.10 2002/01/28 06:30:42 hpdl Exp $
+  $Id: orders_status.php,v 1.11 2002/01/29 14:43:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,10 +40,20 @@
         }
       }
 
+      if ($HTTP_POST_VARS['default'] == 'on') {
+        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . tep_db_input($orders_status_id) . "' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
+      }
+
       tep_redirect(tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $orders_status_id));
       break;
     case 'deleteconfirm':
       $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
+
+      $orders_status_query = tep_db_query("select configuration_value from configuration where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
+      $orders_status = tep_db_fetch_array($orders_status_query);
+      if ($orders_status['configuration_value'] == $oID) {
+        tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
+      }
 
       tep_db_query("delete from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . tep_db_input($oID) . "'");
 
@@ -56,7 +66,10 @@
       $status = tep_db_fetch_array($status_query);
 
       $remove_status = true;
-      if ($status['count'] > 0) {
+      if ($oID == DEFAULT_ORDERS_STATUS_ID) {
+        $remove_status = false;
+        $messageStack->add(ERROR_REMOVE_DEFAULT_ORDER_STATUS, 'error');
+      } elseif ($status['count'] > 0) {
         $remove_status = false;
         $messageStack->add(ERROR_STATUS_USED_IN_ORDERS, 'error');
       } else {
@@ -129,8 +142,13 @@
     } else {
       echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $orders_status['orders_status_id']) . '\'">' . "\n";
     }
+
+    if (DEFAULT_ORDERS_STATUS_ID == $orders_status['orders_status_id']) {
+      echo '                <td class="tableData"><b>' . $orders_status['orders_status_name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+    } else {
+      echo '                <td class="tableData">' . $orders_status['orders_status_name'] . '</td>' . "\n";
+    }
 ?>
-                <td class="tableData"><?php echo $orders_status['orders_status_name']; ?></td>
                 <td class="tableData" align="right"><?php if ( (is_object($oInfo)) && ($orders_status['orders_status_id'] == $oInfo->orders_status_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $orders_status['orders_status_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
@@ -189,6 +207,7 @@
       }
 
       $contents[] = array('text' => '<br>' . TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string);
+      if (DEFAULT_ORDERS_STATUS_ID != $oInfo->orders_status_id) $contents[] = array('text' => '<br>' . tep_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
       $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_ORDERS_STATUS, 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $oInfo->orders_status_id) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     case 'delete':

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.4 2002/01/28 06:30:43 hpdl Exp $
+  $Id: orders_status.php,v 1.5 2002/01/29 14:43:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,7 @@ define('TEXT_INFO_HEADING_NEW_ORDERS_STATUS', 'New Orders Status');
 define('TEXT_INFO_HEADING_EDIT_ORDERS_STATUS', 'Edit Orders Status');
 define('TEXT_INFO_HEADING_DELETE_ORDERS_STATUS', 'Delete Orders Status');
 
+define('ERROR_REMOVE_DEFAULT_ORDER_STATUS', 'Error: The default order status can not be removed. Please set another order status as default, and try again.');
 define('ERROR_STATUS_USED_IN_ORDERS', 'Error: This order status is currently used in orders.');
 define('ERROR_STATUS_USED_IN_HISTORY', 'Error: This order status is currently used in the order status history.');
 ?>
