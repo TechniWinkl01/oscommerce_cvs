@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.175 2001/11/12 21:31:03 hpdl Exp $
+  $Id: application_top.php,v 1.176 2001/11/15 01:57:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,9 +21,6 @@
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
-
-// localization
-  define('USE_DEFAULT_LANGUAGE_CURRENCY', false); // when the language is changed, use its default currency instead of the applications default currency
 
 // Send order confirmation emails ALSO to these email addresses (separated by a comma)
 //  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, someone else <someone@else.com>');
@@ -274,14 +271,14 @@
   require(DIR_WS_FUNCTIONS . 'html_output.php');
 
 // currency
-  if ( (!$currency) || ($HTTP_GET_VARS['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY) && (LANGUAGE_CURRENCY != $currency) ) ) {
+  if ( (!$currency) || ($HTTP_GET_VARS['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') && (LANGUAGE_CURRENCY != $currency) ) ) {
     if (!$currency) tep_session_register('currency');
 
     if ($HTTP_GET_VARS['currency']) {
       $currency = tep_currency_exists($HTTP_GET_VARS['currency']);
-      if (!$currency) $currency = (USE_DEFAULT_LANGUAGE_CURRENCY) ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+      if (!$currency) $currency = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
     } else {
-      $currency = (USE_DEFAULT_LANGUAGE_CURRENCY) ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
+      $currency = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;
     }
   }
 

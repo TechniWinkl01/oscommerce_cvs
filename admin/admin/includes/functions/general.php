@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.65 2001/10/02 22:33:18 mbs Exp $
+  $Id: general.php,v 1.66 2001/11/15 01:57:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -943,5 +943,23 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 // Output a form checkbox field
   function tep_draw_checkbox_field($name, $value = '', $checked = false) {
     return tep_draw_selection_field($name, 'checkbox', $value, $checked);
+  }
+
+////
+// Alias function for Store configuration values in the Administration Tool
+  function tep_cfg_true_false_option($key_name, $key_value) {
+//    if (function_exists('constant')) {
+//      $key_value = constant($key_name);
+//    } else {
+//      $key_value =  eval('return ' . $key_name . ';');
+//    }
+
+    $string = '<input type="radio" name="configuration_value" value="true"';
+    if ($key_value == 'true') $string .= ' CHECKED';
+    $string .= '> True<br><input type="radio" name="configuration_value" value="false"';
+    if ($key_value != 'true') $string .= ' CHECKED';
+    $string .= '> False';
+
+    return $string;
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.140 2001/11/13 12:03:47 jan0815 Exp $
+  $Id: general.php,v 1.141 2001/11/15 01:57:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -979,7 +979,7 @@
 
     // Global check:
     // should we use HTML or not?
-    if (EMAIL_USE_HTML) {
+    if (EMAIL_USE_HTML == 'true') {
 
       // specify MIME version 1.0
       $headers .= "MIME-Version: 1.0\r\n";

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.7 2001/11/12 21:38:14 hpdl Exp $
+  $Id: update.php,v 1.8 2001/11/15 01:57:19 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -277,7 +277,8 @@ changeText('statusText', 'Updating Configuration');
   tep_db_query("alter table configuration change date_added date_added datetime not null");
   tep_db_query("alter table configuration add set_function varchar(32) after use_function");
 
-  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Use MIME HTML when sending emails', 'EMAIL_USE_HTML', '0', '0 = If normal text mails are wanted. 1 = If you want to send the HTML version of the mail too.', '1', '4', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Use MIME HTML when sending emails', 'EMAIL_USE_HTML', 'false', 'Send Emails in HTML format', '1', '4', 'tep_cfg_true_false_option', now())");
+  tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Switch To Default Currency', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 'Automatically switch to the language\'s currency when it is changed', '1', '9', 'tep_cfg_true_false_option', now())");
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Company', 'ENTRY_COMPANY_LENGTH', '2', 'Minimum length of company name', '2', '6', now())");
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Manufacturers Select Size', 'MAX_MANUFACTURERS_LIST', '1', 'Used in manufacturers box; when this value is \'1\' the classic drop-down list will be used for the manufacturers box. Otherwise, a list-box with the specified number of rows will be displayed.', '3', '7', now())");
   tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('New Products Listing', 'MAX_DISPLAY_PRODUCTS_NEW', '10', 'Maximum number of new products to display in new products page', '3', '14', now())");
