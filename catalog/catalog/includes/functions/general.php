@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.146 2001/12/15 13:11:02 hpdl Exp $
+  $Id: general.php,v 1.147 2001/12/17 20:09:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -944,10 +944,10 @@
     if ($first_name) {
       $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $first_name, tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL'));
       if (!$customer_id) {
-        $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name, tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
+        $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name, tep_href_link(FILENAME_LOGIN, '', 'SSL'));
       }
     } else {
-      $greeting_string = sprintf(TEXT_GREETING_GUEST, tep_href_link(FILENAME_LOGIN, '', 'NONSSL'), tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
+      $greeting_string = sprintf(TEXT_GREETING_GUEST, tep_href_link(FILENAME_LOGIN, '', 'SSL'), tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'));
     }
 
     return $greeting_string;
