@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.15 2002/06/11 19:49:52 hpdl Exp $
+  $Id: order.php,v 1.16 2002/07/27 13:39:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -116,10 +116,10 @@
     function cart() {
       global $customer_id, $sendto, $cart, $products, $languages_id, $currency, $currencies, $payment;
 
-      $customer_address_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, co.countries_name, co.address_format_id, ab.entry_state from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " co on (ab.entry_country_id = co.countries_id) where c.customers_id = '" . $customer_id . "' and ab.customers_id = '" . $customer_id . "' and c.customers_default_address_id = ab.address_book_id");
+      $customer_address_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, co.countries_id, co.countries_name, co.countries_iso_code_2, co.countries_iso_code_3, co.address_format_id, ab.entry_state from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " co on (ab.entry_country_id = co.countries_id) where c.customers_id = '" . $customer_id . "' and ab.customers_id = '" . $customer_id . "' and c.customers_default_address_id = ab.address_book_id");
       $customer_address = tep_db_fetch_array($customer_address_query);
 
-      $shipping_address_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_name, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $customer_id . "' and ab.address_book_id = '" . $sendto . "'");
+      $shipping_address_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $customer_id . "' and ab.address_book_id = '" . $sendto . "'");
       $shipping_address = tep_db_fetch_array($shipping_address_query);
 
       $this->info = array('currency' => $currency,
@@ -144,7 +144,7 @@
                               'city' => $customer_address['entry_city'],
                               'postcode' => $customer_address['entry_postcode'],
                               'state' => ((tep_not_null($customer_address['entry_state'])) ? $customer_address['entry_state'] : $customer_address['zone_name']),
-                              'country' => $customer_address['countries_name'],
+                              'country' => array('id' => $customer_address['countries_id'], 'title' => $customer_address['countries_name'], 'iso_code_2' => $customer_address['countries_iso_code_2'], 'iso_code_3' => $customer_address['countries_iso_code_3']),
                               'format_id' => $customer_address['address_format_id'],
                               'telephone' => $customer_address['customers_telephone'],
                               'email_address' => $customer_address['customers_email_address']);
@@ -156,7 +156,7 @@
                               'city' => $shipping_address['entry_city'],
                               'postcode' => $shipping_address['entry_postcode'],
                               'state' => ((tep_not_null($shipping_address['entry_state'])) ? $shipping_address['entry_state'] : $shipping_address['zone_name']),
-                              'country' => $shipping_address['countries_name'],
+                              'country' => array('id' => $shipping_address['countries_id'], 'title' => $shipping_address['countries_name'], 'iso_code_2' => $shipping_address['countries_iso_code_2'], 'iso_code_3' => $shipping_address['countries_iso_code_3']),
                               'country_id' => $shipping_address['entry_country_id'],
                               'format_id' => $shipping_address['address_format_id']);
 

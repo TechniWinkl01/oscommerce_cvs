@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.10 2002/06/05 17:57:17 dgw_ Exp $
+  $Id: pm2checkout.php,v 1.11 2002/07/27 13:39:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -112,7 +112,7 @@
                                tep_draw_hidden_field('x_city', $order->customer['city']) .
                                tep_draw_hidden_field('x_state', $order->customer['state']) .
                                tep_draw_hidden_field('x_zip', $order->customer['postcode']) .
-                               tep_draw_hidden_field('x_country', $order->customer['country']) .
+                               tep_draw_hidden_field('x_country', $order->customer['country']['title']) .
                                tep_draw_hidden_field('x_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('x_phone', $order->customer['telephone']) .
                                tep_draw_hidden_field('x_ship_to_first_name', $order->delivery['firstname']) .
@@ -121,7 +121,7 @@
                                tep_draw_hidden_field('x_ship_to_city', $order->delivery['city']) .
                                tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
                                tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
-                               tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']) .
+                               tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
                                tep_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
                                tep_draw_hidden_field('x_email_merchant', MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT);
 

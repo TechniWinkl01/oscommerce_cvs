@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.21 2002/05/31 18:17:43 dgw_ Exp $
+  $Id: secpay.php,v 1.22 2002/07/27 13:39:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,7 +52,7 @@
                                tep_draw_hidden_field('bill_city', $order->customer['city']) .
                                tep_draw_hidden_field('bill_state', $order->customer['state']) .
                                tep_draw_hidden_field('bill_post_code', $order->customer['postcode']) .
-                               tep_draw_hidden_field('bill_country', $order->customer['country']) .
+                               tep_draw_hidden_field('bill_country', $order->customer['country']['title']) .
                                tep_draw_hidden_field('bill_tel', $order->customer['telephone']) .
                                tep_draw_hidden_field('bill_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('ship_name', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
@@ -61,7 +61,7 @@
                                tep_draw_hidden_field('ship_city', $order->delivery['city']) .
                                tep_draw_hidden_field('ship_state', $order->delivery['state']) .
                                tep_draw_hidden_field('ship_post_code', $order->delivery['postcode']) .
-                               tep_draw_hidden_field('ship_country', $order->delivery['country']) .
+                               tep_draw_hidden_field('ship_country', $order->delivery['country']['title']) .
                                tep_draw_hidden_field('currency', MODULE_PAYMENT_SECPAY_CURRENCY) .
                                tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
                                tep_draw_hidden_field(tep_session_name(), tep_session_id()) .

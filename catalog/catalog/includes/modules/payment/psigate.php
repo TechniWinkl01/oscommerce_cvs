@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.5 2002/05/31 16:48:28 dgw_ Exp $
+  $Id: psigate.php,v 1.6 2002/07/27 13:39:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -136,16 +136,6 @@
     function process_button() {
       global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $psigate_cc_owner, $psigate_cc_expires_month, $psigate_cc_expires_year, $order, $customer_id, $currencies;
 
-      $countries_query = tep_db_query("select countries_iso_code_2 from " . TABLE_COUNTRIES . " where countries_name in ('" . $order->customer['country'] . "', '" . $order->delivery['country'] . "')");
-      while ($countries = tep_db_fetch_array($countries_query)) {
-        if (isset($Bcountry)) {
-          $Scountry = $countries['countries_iso_code_2'];
-        } else {
-          $Bcountry = $countries['countries_iso_code_2'];
-        }
-      }
-      if (!isset($Scountry)) $Scountry = $Bcountry;
-
       $process_button_string = tep_draw_hidden_field('MerchantID', MODULE_PAYMENT_PSIGATE_MERCHANT_ID) .
                                tep_draw_hidden_field('FullTotal', number_format($order->info['total'] * $currencies->get_value(MODULE_PAYMENT_PSIGATE_CURRENCY), 2)) .
                                tep_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) . 
@@ -155,7 +145,7 @@
                                tep_draw_hidden_field('Bcity', $order->customer['city']) .
                                tep_draw_hidden_field('Bstate', $order->customer['state']) .
                                tep_draw_hidden_field('Bzip', $order->customer['postcode']) .
-                               tep_draw_hidden_field('Bcountry', $Bcountry) .
+                               tep_draw_hidden_field('Bcountry', $order->customer['country']['iso_code_2']) .
                                tep_draw_hidden_field('Phone', $order->customer['telephone']) .
                                tep_draw_hidden_field('Email', $order->customer['email_address']) .
                                tep_draw_hidden_field('Sname', $order->delivery['firstname'] . ' ' . $order->delivery['lastname']) .
@@ -163,7 +153,7 @@
                                tep_draw_hidden_field('Scity', $order->delivery['city']) .
                                tep_draw_hidden_field('Sstate', $order->delivery['state']) .
                                tep_draw_hidden_field('Szip', $order->delivery['postcode']) .
-                               tep_draw_hidden_field('Scountry', $Scountry) .
+                               tep_draw_hidden_field('Scountry', $order->delivery['country']['iso_code_2']) .
                                tep_draw_hidden_field('ChargeType', MODULE_PAYMENT_PSIGATE_TRANSACTION_TYPE) .
                                tep_draw_hidden_field('Result', MODULE_PAYMENT_PSIGATE_TRANSACTION_MODE) .
                                tep_draw_hidden_field('IP', $HTTP_SERVER_VARS['REMOTE_ADDR']);
