@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.18 2003/02/11 01:31:01 hpdl Exp $
+  $Id: database.php,v 1.19 2003/03/22 12:41:16 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -120,7 +120,7 @@
   }
 
   function tep_db_output($string) {
-    return stripslashes($string);
+    return htmlspecialchars($string);
   }
 
   function tep_db_input($string) {
