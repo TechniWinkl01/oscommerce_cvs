@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.15 2003/03/22 03:11:54 hpdl Exp $
+  $Id: sessions.php,v 1.16 2003/04/02 14:40:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,8 +122,13 @@
       $session_backup = $_SESSION;
 
       unset($_COOKIE[tep_session_name()]);
- 
+
       tep_session_destroy();
+
+      if (STORE_SESSIONS == 'mysql') {
+        session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
+      }
+
       tep_session_start();
 
       $_SESSION = $session_backup;
