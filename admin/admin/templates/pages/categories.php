@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.3 2004/08/27 22:13:15 hpdl Exp $
+  $Id: categories.php,v 1.4 2004/10/26 20:20:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,11 +18,12 @@
 <?php
   echo tep_draw_form('search', FILENAME_CATEGORIES, '', 'get') .
        HEADING_TITLE_SEARCH . ' ' . osc_draw_input_field('search') .
-       '<input type="submit" value="GO" class="operationButton"></form><br>' .
-       tep_draw_form('goto', FILENAME_CATEGORIES, '', 'get') .
-       HEADING_TITLE_GOTO . ' ' . osc_draw_pull_down_menu('cPath', tep_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"') .
+       osc_draw_pull_down_menu('cPath', array_merge(array(array('id' => '', 'text' => '-- ' . TEXT_TOP . ' --')), $categories_array)) .
+       '<input type="submit" value="GO" class="operationButton">' .
+       '<input type="button" value="RESET" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES) . '\';" class="sectionButton"' . ((!empty($_GET['search']) || ($current_category_id > 0)) ? '' : ' disabled') . '>' .
        '</form>';
 ?>
+
     </td>
   </tr>
 </table>
@@ -38,23 +39,25 @@
     </thead>
     <tbody>
 <?php
-  if (isset($_GET['search']) && !empty($_GET['search'])) {
-    $Qcategories = $osC_Database->query('select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from :table_categories c, :table_categories_description cd where c.categories_id = cd.categories_id and cd.language_id = :language_id and cd.categories_name like :categories_name order by c.sort_order, cd.categories_name');
+  $Qcategories = $osC_Database->query('select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from :table_categories c, :table_categories_description cd where c.categories_id = cd.categories_id and cd.language_id = :language_id');
+
+  if (!empty($_GET['search'])) {
+    $Qcategories->appendQuery('and cd.categories_name like :categories_name');
     $Qcategories->bindValue(':categories_name', '%' . $_GET['search'] . '%');
   } else {
-    $Qcategories = $osC_Database->query('select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from :table_categories c, :table_categories_description cd where c.parent_id = :parent_id and c.categories_id = cd.categories_id and cd.language_id = :language_id order by c.sort_order, cd.categories_name');
+    $Qcategories->appendQuery('and c.parent_id = :parent_id');
     $Qcategories->bindInt(':parent_id', $current_category_id);
   }
+
+  $Qcategories->appendQuery('order by c.sort_order, cd.categories_name');
+
   $Qcategories->bindTable(':table_categories', TABLE_CATEGORIES);
   $Qcategories->bindTable(':table_categories_description', TABLE_CATEGORIES_DESCRIPTION);
   $Qcategories->bindInt(':language_id', $osC_Session->value('languages_id'));
+  $Qcategories->setBatchLimit($_GET['page'], MAX_DISPLAY_SEARCH_RESULTS);
   $Qcategories->execute();
 
   while ($Qcategories->next()) {
-  if (isset($_GET['search']) && !empty($_GET['search'])) {
-      $cPath = $Qcategories->valueInt('parent_id');
-    }
-
     if (!isset($cInfo) && (!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $Qcategories->valueInt('categories_id')))) && ($action != 'cNew')) {
       $cInfo_extra = array('childs_count' => tep_childs_in_category_count($Qcategories->valueInt('categories_id')),
                            'products_count' => tep_products_in_category_count($Qcategories->valueInt('categories_id')));
@@ -65,21 +68,21 @@
     if (isset($cInfo) && ($Qcategories->valueInt('categories_id') == $cInfo->categories_id)) {
       echo '      <tr class="selected">' . "\n";
     } else {
-      echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $Qcategories->valueInt('categories_id')) . '\';">' . "\n";
+      echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $Qcategories->valueInt('categories_id')) . '\';">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($Qcategories->valueInt('categories_id'))) . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '&nbsp;<b>' . $Qcategories->value('categories_name') . '</b></a>'; ?></td>
+        <td><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $osC_CategoryTree->buildBreadcrumb($Qcategories->valueInt('categories_id'))) . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '&nbsp;<b>' . $Qcategories->value('categories_name') . '</b></a>'; ?></td>
         <td align="center"><?php echo tep_image('templates/' . $template . '/images/icons/checkbox_ticked.gif'); ?></td>
         <td align="right">
 <?php
     if (isset($cInfo) && ($Qcategories->valueInt('categories_id') == $cInfo->categories_id)) {
-      echo '<a href="#" onClick="toggleInfoBox(\'cEdit\');">' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;' .
+      echo '<a href="#" onClick="toggleInfoBox(\'cEdit\');">' . tep_image('templates/' . $template . '/images/icons/16x16/edit.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;' .
            '<a href="#" onClick="toggleInfoBox(\'cMove\');">' . tep_image('templates/' . $template . '/images/icons/16x16/move.png', IMAGE_MOVE, '16', '16') . '</a>&nbsp;' .
            '<a href="#" onClick="toggleInfoBox(\'cDelete\');">' . tep_image('templates/' . $template . '/images/icons/16x16/trash.png', IMAGE_DELETE, '16', '16') . '</a>';
     } else {
-      echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $Qcategories->valueInt('categories_id') . '&action=cEdit') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;' .
-           '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $Qcategories->valueInt('categories_id') . '&action=cMove') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/move.png', IMAGE_MOVE, '16', '16') . '&nbsp;</a>' .
-           '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $Qcategories->valueInt('categories_id') . '&action=cDelete') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/trash.png', IMAGE_DELETE, '16', '16') . '</a>';
+      echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $Qcategories->valueInt('categories_id') . '&action=cEdit') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/edit.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;' .
+           '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $Qcategories->valueInt('categories_id') . '&action=cMove') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/move.png', IMAGE_MOVE, '16', '16') . '</a>&nbsp;' .
+           '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $Qcategories->valueInt('categories_id') . '&action=cDelete') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/trash.png', IMAGE_DELETE, '16', '16') . '</a>';
     }
 ?>
         </td>
@@ -90,16 +93,21 @@
     </tbody>
   </table>
 
+  <table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+      <td class="smallText"><?php echo $Qcategories->displayBatchLinksTotal(TEXT_DISPLAY_NUMBER_OF_CATEGORIES); ?></td>
+      <td class="smallText" align="right"><?php echo $Qcategories->displayBatchLinksPullDown('page', 'cPath=' . $cPath . '&search=' . $_GET['search']); ?></td>
+    </tr>
+  </table>
+
   <p align="right">
 <?php
-  if (sizeof($cPath_array) > 0) {
-    echo '<input type="button" value="' . IMAGE_BACK . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . implode('_', array_slice($cPath_array, 0, -1)) . '&cID=' . $current_category_id) . '\';" class="infoBoxButton"> ';
+  if (!empty($cPath)) {
+    echo '<input type="button" value="' . IMAGE_BACK . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . implode('_', array_slice($cPath_array, 0, -1)) . '&search=' . $_GET['search'] . '&cID=' . $current_category_id) . '\';" class="infoBoxButton"> ';
   }
 
-  if (!isset($_GET['search'])) {
-    if ($action != 'cNew') {
-      echo '<input type="button" value="' . IMAGE_NEW_CATEGORY . '" onClick="toggleInfoBox(\'cNew\');" class="infoBoxButton"> ';
-    }
+  if (empty($_GET['search']) && ($action != 'cNew')) {
+    echo '<input type="button" value="' . IMAGE_NEW_CATEGORY . '" onClick="toggleInfoBox(\'cNew\');" class="infoBoxButton"> ';
   }
 ?>
   </p>
@@ -108,7 +116,7 @@
 <div id="infoBox_cNew" <?php if ($action != 'cNew') { echo 'style="display: none;"'; } ?>>
   <div class="infoBoxHeading"><?php echo tep_image('templates/' . $template . '/images/icons/16x16/new.png', IMAGE_INSERT, '16', '16') . ' ' . TEXT_INFO_HEADING_NEW_CATEGORY; ?></div>
   <div class="infoBoxContent">
-    <?php echo tep_draw_form('cNew', FILENAME_CATEGORIES, 'cPath=' . $cPath . '&action=save_category', 'post', 'enctype="multipart/form-data"'); ?>
+    <?php echo tep_draw_form('cNew', FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&action=save_category', 'post', 'enctype="multipart/form-data"'); ?>
 
     <p><?php echo TEXT_NEW_CATEGORY_INTRO; ?></p>
     <p>
@@ -136,10 +144,10 @@
 <div id="infoBox_cMove" <?php if ($action != 'cMove') { echo 'style="display: none;"'; } ?>>
   <div class="infoBoxHeading"><?php echo tep_image('templates/' . $template . '/images/icons/16x16/move.png', IMAGE_MOVE, '16', '16') . ' ' . $cInfo->categories_name; ?></div>
   <div class="infoBoxContent">
-    <?php echo tep_draw_form('cMove', FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category_confirm'); ?>
+    <?php echo tep_draw_form('cMove', FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $cInfo->categories_id . '&action=move_category_confirm'); ?>
 
     <p><?php echo sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->categories_name); ?></p>
-    <p><?php echo sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br>' . osc_draw_pull_down_menu('move_to_category_id', tep_get_category_tree(), $current_category_id); ?></p>
+    <p><?php echo sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br>' . osc_draw_pull_down_menu('move_to_category_id', $categories_array); ?></p>
 
     <p align="center"><?php echo '<input type="submit" value="' . IMAGE_MOVE . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="toggleInfoBox(\'cDefault\');" class="operationButton">'; ?></p>
 
@@ -161,14 +169,14 @@
       echo '    <p>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count) . '</p>';
     }
 ?>
-    <p align="center"><?php echo '<input type="button" value="' . IMAGE_DELETE . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category_confirm') . '\'" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="toggleInfoBox(\'cDefault\');" class="operationButton">'; ?></p>
+    <p align="center"><?php echo '<input type="button" value="' . IMAGE_DELETE . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $cInfo->categories_id . '&action=delete_category_confirm') . '\'" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="toggleInfoBox(\'cDefault\');" class="operationButton">'; ?></p>
   </div>
 </div>
 
 <div id="infoBox_cEdit" <?php if ($action != 'cEdit') { echo 'style="display: none;"'; } ?>>
   <div class="infoBoxHeading"><?php echo tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . ' ' . $cInfo->categories_name; ?></div>
   <div class="infoBoxContent">
-    <?php echo tep_draw_form('cEdit', FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=save_category', 'post', 'enctype="multipart/form-data"'); ?>
+    <?php echo tep_draw_form('cEdit', FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $cInfo->categories_id . '&action=save_category', 'post', 'enctype="multipart/form-data"'); ?>
 
     <p><?php echo TEXT_EDIT_INTRO; ?></p>
     <p>

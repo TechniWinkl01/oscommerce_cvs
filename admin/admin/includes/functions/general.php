@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.168 2004/08/27 22:06:06 hpdl Exp $
+  $Id: general.php,v 1.169 2004/10/26 20:19:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,43 +58,6 @@
     $customers_values = tep_db_fetch_array($customers);
 
     return $customers_values['customers_firstname'] . ' ' . $customers_values['customers_lastname'];
-  }
-
-  function tep_get_path($current_category_id = '') {
-    global $cPath_array;
-
-    if ($current_category_id == '') {
-      $cPath_new = implode('_', $cPath_array);
-    } else {
-      if (sizeof($cPath_array) == 0) {
-        $cPath_new = $current_category_id;
-      } else {
-        $cPath_new = '';
-        $last_category_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . (int)$cPath_array[(sizeof($cPath_array)-1)] . "'");
-        $last_category = tep_db_fetch_array($last_category_query);
-
-        $current_category_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . (int)$current_category_id . "'");
-        $current_category = tep_db_fetch_array($current_category_query);
-
-        if ($last_category['parent_id'] == $current_category['parent_id']) {
-          for ($i = 0, $n = sizeof($cPath_array) - 1; $i < $n; $i++) {
-            $cPath_new .= '_' . $cPath_array[$i];
-          }
-        } else {
-          for ($i = 0, $n = sizeof($cPath_array); $i < $n; $i++) {
-            $cPath_new .= '_' . $cPath_array[$i];
-          }
-        }
-
-        $cPath_new .= '_' . $current_category_id;
-
-        if (substr($cPath_new, 0, 1) == '_') {
-          $cPath_new = substr($cPath_new, 1);
-        }
-      }
-    }
-
-    return 'cPath=' . $cPath_new;
   }
 
   function tep_get_all_get_params($exclude_array = '') {
@@ -159,27 +122,6 @@
     $second = (int)substr($raw_datetime, 17, 2);
 
     return strftime(DATE_TIME_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
-  }
-
-  function tep_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '', $include_itself = false) {
-    global $osC_Session;
-
-    if (!is_array($category_tree_array)) $category_tree_array = array();
-    if ( (sizeof($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => TEXT_TOP);
-
-    if ($include_itself) {
-      $category_query = tep_db_query("select cd.categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " cd where cd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and cd.categories_id = '" . (int)$parent_id . "'");
-      $category = tep_db_fetch_array($category_query);
-      $category_tree_array[] = array('id' => $parent_id, 'text' => $category['categories_name']);
-    }
-
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$osC_Session->value('languages_id') . "' and c.parent_id = '" . (int)$parent_id . "' order by c.sort_order, cd.categories_name");
-    while ($categories = tep_db_fetch_array($categories_query)) {
-      if ($exclude != $categories['categories_id']) $category_tree_array[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
-      $category_tree_array = tep_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $category_tree_array);
-    }
-
-    return $category_tree_array;
   }
 
   function tep_draw_products_pull_down($name, $parameters = '', $exclude = '') {
@@ -924,8 +866,9 @@
     tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . (int)$category_id . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . (int)$category_id . "'");
 
-    osC_Cache::reset('categories');
-    osC_Cache::reset('also_purchased');
+    osC_Cache::clear('categories');
+    osC_Cache::clear('category_tree');
+    osC_Cache::clear('also_purchased');
   }
 
   function tep_remove_product($product_id) {
@@ -955,8 +898,9 @@
     }
     tep_db_query("delete from " . TABLE_REVIEWS . " where products_id = '" . (int)$product_id . "'");
 
-    osC_Cache::reset('categories');
-    osC_Cache::reset('also_purchased');
+    osC_Cache::clear('categories');
+    osC_Cache::clear('category_tree');
+    osC_Cache::clear('also_purchased');
   }
 
   function tep_remove_order($order_id, $restock = false) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.121 2004/08/29 22:22:07 hpdl Exp $
+  $Id: english.php,v 1.122 2004/10/26 20:20:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -265,6 +265,7 @@ define('ICON_PRODUCTS', 'Products');
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Page&nbsp;%s&nbsp;of %d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
+define('TEXT_DISPLAY_NUMBER_OF_CATEGORIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> categories)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> countries)');
 define('TEXT_DISPLAY_NUMBER_OF_CREDIT_CARDS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> credit cards)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> customers)');

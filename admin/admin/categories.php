@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.155 2004/08/27 22:13:11 hpdl Exp $
+  $Id: categories.php,v 1.156 2004/10/26 20:19:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,20 +12,35 @@
 
   require('includes/application_top.php');
 
-  $selected_box = 'catalog';
-
 // calculate category path
   $cPath = (isset($_GET['cPath']) ? $_GET['cPath'] : '');
 
-  if (tep_not_null($cPath)) {
+  if (!empty($cPath)) {
     $cPath_array = tep_parse_category_path($cPath);
     $cPath = implode('_', $cPath_array);
-    $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
+    $current_category_id = end($cPath_array);
   } else {
     $current_category_id = 0;
   }
 
+  require('../includes/classes/category_tree.php');
+  $osC_CategoryTree = new osC_CategoryTree();
+  $osC_CategoryTree->setSpacerString('&nbsp;', 2);
+
+  $categories_array = array();
+  foreach ($osC_CategoryTree->getTree() as $value) {
+    $categories_array[] = array('id' => $value['id'], 'text' => $value['title']);
+  }
+
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
+
+  if (!isset($_GET['page']) || (isset($_GET['page']) && !is_numeric($_GET['page']))) {
+    $_GET['page'] = 1;
+  }
+
+  if (!isset($_GET['search'])) {
+    $_GET['search'] = '';
+  }
 
   if (!empty($action)) {
     switch ($action) {
@@ -88,6 +103,7 @@
           $osC_Database->commitTransaction();
 
           osC_Cache::clear('categories');
+          osC_Cache::clear('category_tree');
           osC_Cache::clear('also_purchased');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
@@ -97,11 +113,13 @@
           $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $category_id));
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&cID=' . $category_id));
         break;
       case 'delete_category_confirm':
         if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
-          $categories = tep_get_category_tree($_GET['cID'], '', '0', '', true);
+          $osC_CategoryTree->setBreadcrumbUsage(false);
+
+          $categories = array_merge(array(array('id' => $_GET['cID'], 'text' => '')), $osC_CategoryTree->getTree($_GET['cID']));
           $products = array();
           $products_delete = array();
 
@@ -139,38 +157,40 @@
           }
 
           osC_Cache::clear('categories');
+          osC_Cache::clear('category_tree');
           osC_Cache::clear('also_purchased');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath));
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search']));
         break;
       case 'move_category_confirm':
-        if (isset($_GET['cID']) && ($_GET['cID'] != $_POST['move_to_category_id'])) {
-          $path = explode('_', tep_get_generated_category_path_ids($_POST['move_to_category_id']));
+        if (isset($_GET['cID']) && ($_GET['cID'] != end(explode('_', $_POST['move_to_category_id'])))) {
+          $path = explode('_', $_POST['move_to_category_id']);
 
           if (in_array($_GET['cID'], $path)) {
             $messageStack->add_session(ERROR_CANNOT_MOVE_CATEGORY_TO_PARENT, 'error');
           } else {
             $Qupdate = $osC_Database->query('update :table_categories set parent_id = :parent_id, last_modified = now() where categories_id = :categories_id');
             $Qupdate->bindTable(':table_categories', TABLE_CATEGORIES);
-            $Qupdate->bindInt(':parent_id', $_POST['move_to_category_id']);
+            $Qupdate->bindInt(':parent_id', end(explode('_', $_POST['move_to_category_id'])));
             $Qupdate->bindInt(':categories_id', $_GET['cID']);
             $Qupdate->execute();
 
             if ($Qupdate->affectedRows()) {
               osC_Cache::clear('categories');
+              osC_Cache::clear('category_tree');
               osC_Cache::clear('also_purchased');
 
               $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
-              tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $_POST['move_to_category_id'] . '&cID=' . $_GET['cID']));
+              tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search']));
             }
           }
         }
 
-        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $_GET['cID']));
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $_GET['cID']));
         break;
     }
   }
