@@ -70,6 +70,7 @@
                 <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
+          </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
