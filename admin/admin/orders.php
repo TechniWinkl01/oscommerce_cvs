@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.89 2002/03/31 23:40:53 hpdl Exp $
+  $Id: orders.php,v 1.90 2002/04/02 15:31:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -234,8 +234,8 @@
                 <td align="right" class="smallText"><?php echo tep_currency_format($order->info['shipping_cost']); ?></td>
               </tr>
               <tr>
-                <td align="right" class="main"><b><?php echo ENTRY_TOTAL; ?></b></td>
-                <td align="right" class="main"><b><?php echo tep_currency_format($order->info['total']); ?></b></td>
+                <td align="right" class="smallText"><b><?php echo ENTRY_TOTAL; ?></b></td>
+                <td align="right" class="smallText"><b><?php echo tep_currency_format($order->info['total']); ?></b></td>
               </tr>
             </table></td>
           </tr>
