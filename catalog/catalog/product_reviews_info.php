@@ -80,7 +80,14 @@ function popupImageWindow(url) {
                 <td class="main">&nbsp;<b><? echo SUB_TITLE_DATE; ?></b>&nbsp;<? echo tep_date_long($reviews_values['date_added']); ?>&nbsp;</td>
               </tr>
             </table></td>
-            <td class="main" align="right"><br><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_values['products_image']; ?>&alt=<? echo rawurlencode(addslashes($product_values['products_name'])); ?>')"><? echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT); ?><br><?php echo TEXT_CLICK_TO_ENLARGE; ?></a>&nbsp;</td>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main" align="right"><a href="javascript:popupImageWindow('<? echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><? echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="center" hspace="5" vspace="5"'); ?></a></td>
+              </tr>
+              <tr>
+                <td align="right" class="smallText"><a href="javascript:popupImageWindow('<? echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_values['products_id']); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
+              </tr>
+            </table></td>
           </tr>
         </table>
       </tr>
