@@ -153,7 +153,7 @@
 // set to "1" if extended email check function should be used
 // If you're testing locally and your webserver has no possibility to query 
 // a dns server you should set this to "0" !
-  define('ENTRY_EMAIL_ADDRESS_CHECK', 0); 
+  define('ENTRY_EMAIL_ADDRESS_CHECK', 1); 
 
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
