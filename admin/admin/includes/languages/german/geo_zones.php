@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.8 2002/02/17 18:45:08 dgw_ Exp $
+  $Id: geo_zones.php,v 1.9 2002/02/18 13:07:51 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,7 @@ define('TEXT_INFO_ZONE_NAME', 'Name der Steuerzone:');
 define('TEXT_INFO_ZONE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_COUNTRY_ZONE', 'Bundesland:');
-define('TYPE_BELOW', '*');
-define('PLEASE_SELECT', '*');
-define('TEXT_ALL_COUNTRIES', 'All Countries');
+define('TYPE_BELOW', 'Alle Bundesl&auml;nder');
+define('PLEASE_SELECT', 'Alle Bundesl&auml;nder');
+define('TEXT_ALL_COUNTRIES', 'Alle L&auml;nder');
 ?>
