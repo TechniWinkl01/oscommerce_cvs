@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.70 2002/01/27 03:20:39 hpdl Exp $
+  $Id: german.php,v 1.71 2002/01/27 04:06:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -223,6 +223,7 @@ define('ICON_FILE_DOWNLOAD', 'Herunterladen');
 define('ICON_FOLDER', 'Ordner');
 define('ICON_PREVIOUS_LEVEL', 'Vorherige Ebene');
 define('ICON_PREVIEW', 'Vorschau');
+define('ICON_SUCCESS', 'Success');
 define('ICON_TICK', 'True');
 define('ICON_WARNING', 'Warnung');
 
