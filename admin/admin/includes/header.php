@@ -7,6 +7,6 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerNavigation">
     <td class="headerNavigation"><b>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_TOP . '</a>'; ?></b></td>
-    <td class="headerNavigation" align="right"><b><? echo '<a href="http://theexchangeproject.org" class="whitelink">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?> &nbsp;|&nbsp; <? echo '<a href="' . DIR_WS_CATALOG . FILENAME_DEFAULT . '" class="whitelink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>'; ?> &nbsp;|&nbsp; <? echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '" class="whitelink"', 'NONSSL') . '">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</b></td>
+    <td class="headerNavigation" align="right"><b><? echo '<a href="http://theexchangeproject.org" class="whitelink">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?> &nbsp;|&nbsp; <? echo '<a href="' . DIR_WS_CATALOG . FILENAME_DEFAULT . '" class="whitelink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>'; ?> &nbsp;|&nbsp; <? echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</b></td>
   </tr>
 </table>
