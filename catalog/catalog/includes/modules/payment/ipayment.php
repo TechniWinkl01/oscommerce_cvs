@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.25 2002/11/01 05:02:56 hpdl Exp $
+  $Id: ipayment.php,v 1.26 2002/11/01 22:36:21 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -42,6 +42,8 @@
     }
 
     function selection() {
+      global $order;
+
       for ($i=1; $i < 13; $i++) {
         $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
       }
@@ -54,7 +56,7 @@
       $selection = array('id' => $this->code,
                          'module' => $this->title,
                          'fields' => array(array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_OWNER,
-                                                 'field' => tep_draw_input_field('ipayment_cc_owner')),
+                                                 'field' => tep_draw_input_field('ipayment_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_NUMBER,
                                                  'field' => tep_draw_input_field('ipayment_cc_number')),
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_EXPIRES,
