@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.167 2004/07/22 23:02:43 hpdl Exp $
+  $Id: application_top.php,v 1.168 2004/08/15 18:11:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,9 +80,6 @@
 
 // initialize the logger class
   require('includes/classes/logger.php');
-
-// include shopping cart class
-  require('includes/classes/shopping_cart.php');
 
 // include session class
   if (PHP_VERSION < 4.1) {
