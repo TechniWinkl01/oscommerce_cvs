@@ -4,8 +4,16 @@
 The Exchange Project Preview Release 2.1 -
 
  * Payment methods are now modules, which makes it easier
-   to implement other payment methods.
+   to implement other payment methods. Supported methods
+   COD, Credit Card, Paypal. CC also supports storing only
+   part of the CC# in the DB with the other digits being
+   emailled to a specific email address.
 
+ * Shipping Modules - Modular shipping methods with support
+   for UPS, USPS, FEDEX(Ground), Per Item and Flat rate shipping.
+
+ * Db query clean up a few AS clauses were added for earlier MySQL
+   versions. Error checking added for when no records exist.
 
 01/12/2000
 ----------
