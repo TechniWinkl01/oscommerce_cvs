@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.16 2003/04/02 14:40:42 hpdl Exp $
+  $Id: sessions.php,v 1.17 2003/06/11 17:35:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
 
     function _sess_read($key) {
-      $qid = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . $key . "' and expiry > '" . time() . "'");
+      $qid = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "' and expiry > '" . time() . "'");
 
       $value = tep_db_fetch_array($qid);
       if ($value['value']) {
@@ -38,20 +38,20 @@
       global $SESS_LIFE;
 
       $expiry = time() + $SESS_LIFE;
-      $value = addslashes($val);
+      $value = $val;
 
-      $qid = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
+      $qid = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "'");
       $total = tep_db_fetch_array($qid);
 
       if ($total['total'] > 0) {
-        return tep_db_query("update " . TABLE_SESSIONS . " set expiry = '" . $expiry . "', value = '" . $value . "' where sesskey = '" . $key . "'");
+        return tep_db_query("update " . TABLE_SESSIONS . " set expiry = '" . tep_db_input($expiry) . "', value = '" . tep_db_input($value) . "' where sesskey = '" . tep_db_input($key) . "'");
       } else {
-        return tep_db_query("insert into " . TABLE_SESSIONS . " values ('" . $key . "', '" . $expiry . "', '" . $value . "')");
+        return tep_db_query("insert into " . TABLE_SESSIONS . " values ('" . tep_db_input($key) . "', '" . tep_db_input($expiry) . "', '" . tep_db_input($value) . "')");
       }
     }
 
     function _sess_destroy($key) {
-      return tep_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . $key . "'");
+      return tep_db_query("delete from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "'");
     }
 
     function _sess_gc($maxlifetime) {

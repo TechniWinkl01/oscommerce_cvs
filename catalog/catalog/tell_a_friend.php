@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.41 2003/06/10 18:20:37 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.42 2003/06/11 17:35:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -77,9 +77,9 @@
       $email_body .= sprintf(TEXT_EMAIL_LINK, tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'])) . "\n\n" .
                      sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
 
-      tep_mail($to_name, $to_email_address, $email_subject, $email_body, '', $from_email_address);
+      tep_mail($to_name, $to_email_address, $email_subject, $email_body, $from_name, $from_email_address);
 
-      $messageStack->add_session('header', sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, stripslashes($product_info['products_name']), tep_output_string_protected($to_name)), 'success');
+      $messageStack->add_session('header', sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, $product_info['products_name'], tep_output_string_protected($to_name)), 'success');
 
       tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id']));
     }

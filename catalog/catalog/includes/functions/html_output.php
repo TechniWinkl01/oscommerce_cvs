@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.53 2003/06/09 21:15:07 hpdl Exp $
+  $Id: html_output.php,v 1.54 2003/06/11 17:35:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -161,7 +161,7 @@
     $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
-      $field .= ' value="' . tep_output_string($GLOBALS[$name]) . '"';
+      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
     } elseif (tep_not_null($value)) {
       $field .= ' value="' . tep_output_string($value) . '"';
     }
@@ -186,7 +186,7 @@
 
     if (tep_not_null($value)) $selection .= ' value="' . tep_output_string($value) . '"';
 
-    if ( ($checked == true) || (isset($GLOBALS[$name]) && ($GLOBALS[$name] == 'on')) || ( (isset($value)) && (isset($GLOBALS[$name]) && ($GLOBALS[$name] == $value)) ) ) {
+    if ( ($checked == true) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
       $selection .= ' CHECKED';
     }
 
@@ -219,7 +219,7 @@
     $field .= '>';
 
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
-      $field .= $GLOBALS[$name];
+      $field .= stripslashes($GLOBALS[$name]);
     } elseif (tep_not_null($text)) {
       $field .= $text;
     }
@@ -232,17 +232,17 @@
 ////
 // Output a form hidden field
   function tep_draw_hidden_field($name, $value = '', $parameters = '') {
-    $field = '<input type="hidden" name="' . tep_output_string($name) . '" value="';
+    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
 
     if (tep_not_null($value)) {
-      $field .= tep_output_string($value);
-    } else {
-      $field .= tep_output_string($GLOBALS[$name]);
+      $field .= ' value="' . tep_output_string($value) . '"';
+    } elseif (isset($GLOBALS[$name])) {
+      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
     }
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
-    $field .= '">';
+    $field .= '>';
 
     return $field;
   }
@@ -266,7 +266,7 @@
 
     $field .= '>';
 
-    if (empty($default) && isset($GLOBALS[$name])) $default = $GLOBALS[$name];
+    if (empty($default) && isset($GLOBALS[$name])) $default = stripslashes($GLOBALS[$name]);
 
     for ($i=0, $n=sizeof($values); $i<$n; $i++) {
       $field .= '<option value="' . tep_output_string($values[$i]['id']) . '"';
