@@ -1,12 +1,12 @@
 <? include('includes/application_top.php')?>
 <?
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT, 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
     tep_exit();
   }
 ?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
+<? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>

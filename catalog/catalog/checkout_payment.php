@@ -1,11 +1,16 @@
 <? include('includes/application_top.php'); ?>
 <?
+    if (getenv(HTTPS)) {
+      $connection = 'SSL';
+    } else {
+      $connection = 'NONSSL';
+    } 
   if ($cart->count_contents() == 0) {
     header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
     tep_exit();
   }
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT, 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=' . $connection, 'NONSSL'));
     tep_exit();
   }
   $sendto = $HTTP_POST_VARS['sendto'];
@@ -24,17 +29,12 @@
   $action = 'quote'; 
   include(DIR_MODULES . 'shipping.php');
   if ($shipping_quoted == '' && SHIPPING_MODULES != '') { // Null if no quotes selected
-    if (getenv(HTTPS)) {
-      $connection = 'SSL';
-    } else {
-      $connection = 'NONSSL';
-    } 
     header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection));
     tep_exit();
   }
 ?> 
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
+<? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
