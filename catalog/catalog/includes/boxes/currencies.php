@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.15 2003/02/10 22:31:00 hpdl Exp $
+  $Id: currencies.php,v 1.16 2003/02/12 20:27:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
     }
 
     $info_box_contents = array();
-    $info_box_contents[] = array('form' => tep_draw_form('currencies', tep_href_link(basename($PHP_SELF), '', ((getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL'), false), 'get'),
+    $info_box_contents[] = array('form' => tep_draw_form('currencies', tep_href_link(basename($PHP_SELF), '', $request_type, false), 'get'),
                                  'align' => 'center',
                                  'text' => tep_draw_pull_down_menu('currency', $currencies_array, $currency, 'onChange="this.form.submit();" style="width: 100%"') . $hidden_get_variables . tep_hide_session_id());
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.13 2003/02/10 22:31:00 hpdl Exp $
+  $Id: languages.php,v 1.14 2003/02/12 20:27:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,12 +24,10 @@
     $lng = new language;
   }
 
-  $connection = ((getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL');
-
   $languages_string = '';
   reset($lng->catalog_languages);
   while (list($key, $value) = each($lng->catalog_languages)) {
-    $languages_string .= ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language', 'currency')) . 'language=' . $key, $connection) . '">' . tep_image(DIR_WS_LANGUAGES .  $value['directory'] . '/images/' . $value['image'], $value['name']) . '</a> ';
+    $languages_string .= ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language', 'currency')) . 'language=' . $key, $request_type) . '">' . tep_image(DIR_WS_LANGUAGES .  $value['directory'] . '/images/' . $value['image'], $value['name']) . '</a> ';
   }
 
   $info_box_contents = array();

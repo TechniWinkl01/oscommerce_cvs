@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.261 2003/02/10 22:30:47 hpdl Exp $
+  $Id: application_top.php,v 1.262 2003/02/12 20:27:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,20 +10,20 @@
   Released under the GNU General Public License
 */
 
-// Start the clock for the page parse time log
+// start the timer for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
-// Set the level of error reporting
+// set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
 
-// Check if register_globals is enabled.
-// Since this is a temporary measure this message is hardcoded. The requirement will be removed before 2.2 is finalized.
+// check if register_globals is enabled.
+// since this is a temporary measure this message is hardcoded. The requirement will be removed before 2.2 is finalized.
   if (function_exists('ini_get')) {
     ini_get('register_globals') or exit('FATAL ERROR: register_globals is disabled in php.ini, please enable it!');
   }
 
-// Disable use_trans_sid as tep_href_link() does this manually
-  if (function_exists('ini_set')) ini_set('session.use_trans_sid', 0);
+// disable use_trans_sid as tep_href_link() does this manually
+  if (function_exists('ini_set')) @ini_set('session.use_trans_sid', 0);
 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
@@ -31,8 +31,12 @@
 // include server parameters
   require('includes/configure.php');
 
-// Define the project version
+
+// define the project version
   define('PROJECT_VERSION', 'osCommerce 2.2-CVS');
+
+// set the type of request (secure or not)
+  $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
 
 // define the filenames used in the project
   define('FILENAME_ACCOUNT', 'account.php');
