@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.26 2001/06/14 23:20:24 hpdl Exp $
+  $Id: reviews.php,v 1.27 2001/06/15 20:43:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,7 @@
                              'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250)) . '..',
                              'rating' => $reviews['reviews_rating'],
                              'word_count' => tep_word_count($reviews['reviews_text'], ' '),
-                             'date_added' => $reviews['date_added']);
+                             'date_added' => tep_date_long($reviews['date_added']));
   }
 
   require(DIR_WS_MODULES  . 'reviews.php');
