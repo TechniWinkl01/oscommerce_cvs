@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.281 2003/11/17 17:23:44 hpdl Exp $
+  $Id: application_top.php,v 1.282 2003/11/17 21:39:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -171,7 +171,7 @@
   if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($osC_Session->is_started == true) ) {
     $ssl_session_id = getenv('SSL_SESSION_ID');
 
-    if ($osC_Session->exists('SSL_SESSION_ID') == false) {
+    if ($osC_Session->exists('SESSION_SSL_ID') == false) {
       $osC_Session->set('SESSION_SSL_ID', $ssl_session_id);
     }
 
