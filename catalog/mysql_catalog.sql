@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.108 2001/06/15 16:30:35 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.109 2001/06/15 16:39:19 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -45,7 +45,7 @@ CREATE TABLE banners (
   banners_url varchar(64) NOT NULL,
   banners_image varchar(64) NOT NULL,
   banners_group varchar(10) NOT NULL,
-  date_added timestamp(14) NOT NULL,
+  date_added datetime NOT NULL,
   status int(1) DEFAULT '1',
   PRIMARY KEY  (banners_id)
 );
@@ -55,7 +55,7 @@ CREATE TABLE banners_history (
   banners_id int(5) NOT NULL,
   banners_shown int(5) NOT NULL DEFAULT '0',
   banners_clicked int(5) NOT NULL DEFAULT '0',
-  banners_history_date timestamp(14) NOT NULL,
+  banners_history_date datetime NOT NULL,
   PRIMARY KEY  (banners_history_id)
 );
 
@@ -86,8 +86,8 @@ CREATE TABLE configuration (
   configuration_description varchar(255) NOT NULL,
   configuration_group_id int(5) NOT NULL,
   sort_order int(5) NULL,
-  last_modified timestamp(14) NULL,
-  date_added timestamp(14) NOT NULL,
+  last_modified datetime NULL,
+  date_added datetime NOT NULL,
   use_function varchar(32) NULL,
   PRIMARY KEY (configuration_id)
 );
@@ -238,12 +238,12 @@ CREATE TABLE orders (
   cc_owner varchar(64),
   cc_number varchar(32),
   cc_expires varchar(4),
-  last_modified timestamp(14),
-  date_purchased timestamp(14),
+  last_modified datetime,
+  date_purchased datetime,
   shipping_cost decimal(8,2) NOT NULL,
   shipping_method varchar(32),
   orders_status varchar(10) NOT NULL,
-  orders_date_finished timestamp(14),
+  orders_date_finished datetime,
   comments text,
   currency char(3),
   currency_value decimal(14,6),
@@ -375,8 +375,8 @@ CREATE TABLE tax_class (
   tax_class_id int(5) NOT NULL auto_increment,
   tax_class_title varchar(32) NOT NULL,
   tax_class_description varchar(255) NOT NULL,
-  last_modified timestamp(14) NULL,
-  date_added timestamp(14) NOT NULL,
+  last_modified datetime NULL,
+  date_added datetime NOT NULL,
   PRIMARY KEY (tax_class_id)
 );
 
@@ -386,8 +386,8 @@ CREATE TABLE tax_rates (
   tax_class_id int(5) NOT NULL,
   tax_rate decimal(7,4) NOT NULL,
   tax_description varchar(255) NOT NULL,
-  last_modified timestamp(14) NULL,
-  date_added timestamp(14) NOT NULL,
+  last_modified datetime NULL,
+  date_added datetime NOT NULL,
   PRIMARY KEY (tax_rates_id)
 );
 
