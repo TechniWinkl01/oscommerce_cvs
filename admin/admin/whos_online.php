@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.34 2004/04/08 05:46:52 hpdl Exp $
+  $Id: whos_online.php,v 1.35 2004/04/08 06:12:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -158,7 +158,7 @@
           }
         }
 
-        $session_data_cart = substr($session_data, $start_cart, $i);
+        $session_data_cart = substr($session_data, $start_cart, $i - $start_cart);
         session_decode($session_data_cart);
       }
 
