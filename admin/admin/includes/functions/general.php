@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.147 2002/11/19 19:30:15 dgw_ Exp $
+  $Id: general.php,v 1.148 2002/11/25 10:41:34 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -934,7 +934,7 @@
     if ($restock == 'on') {
       $order_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($order_id) . "'");
       while ($order = tep_db_fetch_array($order_query)) {
-        tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = products_quantity + " . $order['products_quantity'] . " where products_id = '" . $order['products_id'] . "'");
+        tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = products_quantity + " . $order['products_quantity'] . ", products_ordered = products_ordered - " . $order['products_quantity'] . " where products_id = '" . $order['products_id'] . "'");
       }
     }
 
