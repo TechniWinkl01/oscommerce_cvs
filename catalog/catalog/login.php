@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.51 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: login.php,v 1.52 2001/11/13 22:13:00 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,34 +13,45 @@
   require('includes/application_top.php');
 
   if ($HTTP_GET_VARS['action'] == 'process') {
+    // Build a string to append to every URL
+    $origin_info = '';
+    if ($HTTP_POST_VARS['origin']) {
+      $origin_info .= '&origin=' . $HTTP_POST_VARS['origin'];
+    }
+    if ($HTTP_POST_VARS['connection']) {
+      $origin_info .= '&connection=' . $HTTP_POST_VARS['connection'];
+    }
+    if ($HTTP_POST_VARS['products_id']) {
+      $origin_info .= '&products_id=' . $HTTP_POST_VARS['products_id'];
+    }
+    if ($HTTP_POST_VARS['order_id']) {
+      $origin_info .= '&order_id=' . $HTTP_POST_VARS['order_id'];
+    }
+    if ($HTTP_POST_VARS['emailproduct']) {
+      $origin_info .= '&emailproduct=' . $HTTP_POST_VARS['emailproduct'];
+    }
+    if ($HTTP_POST_VARS['send_to']) {
+      $origin_info .= '&send_to=' . $HTTP_POST_VARS['send_to'];
+    }
+    if ($HTTP_POST_VARS['email_address']) {
+      $origin_info .= '&email_address=' . $HTTP_POST_VARS['email_address'];
+    }
+    // Check if email exists
     $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
-
     if ($HTTP_POST_VARS['user'] == 'new') {
       if (!tep_db_num_rows($check_customer_query)) {
-        tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT, $origin_info));
       } else {
-        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail_email&email_address=' . $HTTP_POST_VARS['email_address'], 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail_email' . $origin_info));
       }
     } else {
-
       if (tep_db_num_rows($check_customer_query)) {
         $check_customer = tep_db_fetch_array($check_customer_query);
         // Check that password is good
         $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer['customers_password']);
         if ($pass_ok != true) {
-          if (@$HTTP_POST_VARS['origin']) {
-            if (@$HTTP_POST_VARS['products_id']) {
-              tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-            } elseif (@$HTTP_POST_VARS['order_id']) {
-              tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-            } else {
-              tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-            }
-          } else {
-            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
-          }
+          tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail' . $origin_info));
         } else {
-
           $customer_id = $check_customer['customers_id'];
           $customer_default_address_id = $check_customer['customers_default_address_id'];
           $customer_first_name = $check_customer['customers_firstname'];
@@ -80,17 +91,7 @@
           }
         }
       } else {
-        if (@$HTTP_POST_VARS['origin']) {
-          if (@$HTTP_POST_VARS['products_id']) {
-            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-          } elseif (@$HTTP_POST_VARS['order_id']) {
-            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-          } else {
-            tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-          }
-        } else {
-          tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
-        }
+        tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail' . $origin_info, 'NONSSL'));
       }
     }
   } else {
@@ -197,31 +198,27 @@ function session_win() {
             <td valign="top" class="smallText">&nbsp;<a href="<?php echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><?php echo TEXT_PASSWORD_FORGOTTEN; ?></a></td>
             <td align="right" class="smallText"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;</td>
           </tr>
-<?php
-   $origin = '';
-   if ($HTTP_GET_VARS['products_id']) {
-     $origin = 'products_id=' . $HTTP_GET_VARS['products_id'];
-   }
-   if ($HTTP_GET_VARS['order_id']) {
-     $origin = 'order_id=' . $HTTP_GET_VARS['order_id'];
-   }
-   if ($HTTP_GET_VARS['emailproduct']) {
-     $origin = 'emailproduct=' . $HTTP_GET_VARS['emailproduct'];
-   }
-   if ($HTTP_GET_VARS['origin']) {
-     if ($origin != '') {
-       $origin = $origin . '&';
-     }
-     $origin = $origin . 'origin=' . $HTTP_GET_VARS['origin'];
-   }
-   if ($HTTP_GET_VARS['connection']) {
-     if ($origin != '') {
-       $origin = $origin . '&';
-     }
-     $origin = $origin . 'connection=' . $HTTP_GET_VARS['connection'];
-   }
-?>
-        </table><?php if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><?php if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?><?php if ($HTTP_GET_VARS['products_id']) { echo '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">'; } ?><?php if ($HTTP_GET_VARS['send_to']) { echo '<input type="hidden" name="send_to" value="' . $HTTP_GET_VARS['send_to'] . '">'; } ?><?php if ($HTTP_GET_VARS['order_id']) { echo '<input type="hidden" name="order_id" value="' . $HTTP_GET_VARS['order_id'] . '">'; } ?><?php if ($HTTP_GET_VARS['emailproduct']) { echo '<input type="hidden" name="emailproduct" value="' . $HTTP_GET_VARS['emailproduct'] . '">'; } ?></form></td>
+        </table>
+<?php 
+  if ($HTTP_GET_VARS['origin']) { 
+    echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; 
+  }
+  if ($HTTP_GET_VARS['connection']) { 
+    echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; 
+  } 
+  if ($HTTP_GET_VARS['products_id']) { 
+    echo '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">'; 
+  }
+  if ($HTTP_GET_VARS['send_to']) { 
+    echo '<input type="hidden" name="send_to" value="' . $HTTP_GET_VARS['send_to'] . '">'; 
+  } 
+  if ($HTTP_GET_VARS['order_id']) { 
+    echo '<input type="hidden" name="order_id" value="' . $HTTP_GET_VARS['order_id'] . '">'; 
+  } 
+  if ($HTTP_GET_VARS['emailproduct']) { 
+    echo '<input type="hidden" name="emailproduct" value="' . $HTTP_GET_VARS['emailproduct'] . '">'; 
+  } 
+?></form></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
