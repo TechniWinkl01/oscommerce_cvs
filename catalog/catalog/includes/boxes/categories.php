@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.24 2003/06/09 22:09:55 hpdl Exp $
+  $Id: categories.php,v 1.25 2003/07/09 01:13:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,8 +25,7 @@
       $cPath_new = 'cPath=' . $tree[$counter]['path'];
     }
 
-    $categories_string .= tep_href_link(FILENAME_DEFAULT, $cPath_new);
-    $categories_string .= '">';
+    $categories_string .= tep_href_link(FILENAME_DEFAULT, $cPath_new) . '">';
 
     if (isset($cPath_array) && in_array($counter, $cPath_array)) {
       $categories_string .= '<b>';
