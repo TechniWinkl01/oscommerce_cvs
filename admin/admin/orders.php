@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: orders.php,v 1.52 2001/09/18 13:04:12 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_order') {
       $order_finish = ($HTTP_GET_VARS['status'] == '3') ? ', orders_date_finished = now()' : '';
@@ -24,34 +36,34 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<?
+<?php
   if (@$HTTP_GET_VARS['error']) {
 ?>
 <script language="javascript"><!---
 function alertBox() {
-  alert('<? echo sprintf(JS_ORDER_DOES_NOT_EXIST, $HTTP_GET_VARS['error']); ?>');
+  alert('<?php echo sprintf(JS_ORDER_DOES_NOT_EXIST, $HTTP_GET_VARS['error']); ?>');
   return true;
 }
 //--></script>
-<?
+<?php
   }
 ?>
-<body <? if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?>>
+<body <?php if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?>>
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -61,19 +73,19 @@ function alertBox() {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" class="smallText"><br><form name="orders" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get">&nbsp;<? echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?>&nbsp;</form></td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right" class="smallText"><br><form name="orders" <?php echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<?php echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?>&nbsp;</form></td>
           </tr>
         </table></td>
       </tr>
-<?
+<?php
   if (@$HTTP_GET_VARS['orders_id']) {
     $orders = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $orders_values = tep_db_fetch_array($orders);
@@ -85,39 +97,39 @@ function alertBox() {
       <tr>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main" valign="top"><b>&nbsp;<? echo TABLE_HEADING_CUSTOMERS_INFO; ?>&nbsp;</b></td>
-            <td class="main" valign="top"><b>&nbsp;<? echo TABLE_HEADING_DELIVERY_INFO; ?>&nbsp;</b></td>
+            <td class="main" valign="top"><b>&nbsp;<?php echo TABLE_HEADING_CUSTOMERS_INFO; ?>&nbsp;</b></td>
+            <td class="main" valign="top"><b>&nbsp;<?php echo TABLE_HEADING_DELIVERY_INFO; ?>&nbsp;</b></td>
           </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top">&nbsp;<? echo ENTRY_CUSTOMER; ?>&nbsp;</td>
-                <td class="main"><? echo tep_address_format($sold_to_values['format_id'], $sold_to_values, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main" valign="top">&nbsp;<?php echo ENTRY_CUSTOMER; ?>&nbsp;</td>
+                <td class="main"><?php echo tep_address_format($sold_to_values['format_id'], $sold_to_values, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
               <tr>
-                <td class="main">&nbsp;<? echo ENTRY_TELEPHONE; ?>&nbsp;</td>
-                <td class="main">&nbsp;<? echo $orders_values['customers_telephone']; ?>&nbsp;</td>
+                <td class="main">&nbsp;<?php echo ENTRY_TELEPHONE; ?>&nbsp;</td>
+                <td class="main">&nbsp;<?php echo $orders_values['customers_telephone']; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td class="main">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-                <td class="main">&nbsp;<a href="mailto:<? echo $orders_values['customers_email_address']; ?>"><u><? echo $orders_values['customers_email_address']; ?></u></a>&nbsp;</td>
+                <td class="main">&nbsp;<?php echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+                <td class="main">&nbsp;<a href="mailto:<?php echo $orders_values['customers_email_address']; ?>"><u><?php echo $orders_values['customers_email_address']; ?></u></a>&nbsp;</td>
               </tr>
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top">&nbsp;<? echo ENTRY_DELIVERY_TO; ?>&nbsp;</td>
-                <td class="main"><? echo tep_address_format($ship_to_values['format_id'], $ship_to_values, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main" valign="top">&nbsp;<?php echo ENTRY_DELIVERY_TO; ?>&nbsp;</td>
+                <td class="main"><?php echo tep_address_format($ship_to_values['format_id'], $ship_to_values, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td class="main" colspan="2"><br><b>&nbsp;<? echo TABLE_HEADING_PAYMENT_INFORMATION; ?>&nbsp;</b></td>
+            <td class="main" colspan="2"><br><b>&nbsp;<?php echo TABLE_HEADING_PAYMENT_INFORMATION; ?>&nbsp;</b></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -125,8 +137,8 @@ function alertBox() {
           <tr>
             <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main">&nbsp;<? echo ENTRY_PAYMENT_METHOD; ?>&nbsp;</td>
-                <td class="main">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
+                <td class="main">&nbsp;<?php echo ENTRY_PAYMENT_METHOD; ?>&nbsp;</td>
+                <td class="main">&nbsp;<?php echo $orders_values['payment_method']; ?>&nbsp;</td>
               </tr>
 <?php
     if ($orders_values['cc_type'] || $orders_values['cc_owner'] || $orders_values['cc_number']) {
@@ -156,13 +168,13 @@ function alertBox() {
           <tr>
             <td colspan="2"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
-                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><? echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?
     $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
@@ -222,31 +234,31 @@ function alertBox() {
     }
 ?>
               <tr>
-                <td colspan="4"><? echo tep_black_line(); ?></td>
+                <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
                 <td align="right" colspan="4"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td align="right" class="main">&nbsp;<? echo ENTRY_SUB_TOTAL; ?>&nbsp;</td>
-                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<?php echo ENTRY_SUB_TOTAL; ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<?php echo tep_currency_format($total_cost); ?>&nbsp;</td>
                   </tr>
                   <tr>
-                    <td align="right" class="main">&nbsp;<? echo ENTRY_TAX; ?>&nbsp;</td>
-                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<?php echo ENTRY_TAX; ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<?php echo tep_currency_format($total_tax); ?>&nbsp;</td>
                   </tr>
-<?
+<?php
   if ($shipping != 0) {
 ?>
                   <tr>
-                    <td align="right" class="main">&nbsp;<? echo $shipping_method . " " . ENTRY_SHIPPING; ?>&nbsp;</td>
-                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($shipping); ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<?php echo $shipping_method . " " . ENTRY_SHIPPING; ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<?php echo tep_currency_format($shipping); ?>&nbsp;</td>
                   </tr>
-<?
+<?php
   }
 ?>
                   <tr>
-                    <td align="right" class="main"><b>&nbsp;<? echo ENTRY_TOTAL; ?>&nbsp;</b></td>
-                    <td align="right" class="main"><b>&nbsp;<?
+                    <td align="right" class="main"><b>&nbsp;<?php echo ENTRY_TOTAL; ?>&nbsp;</b></td>
+                    <td align="right" class="main"><b>&nbsp;<?php
     if (TAX_INCLUDE == true) {
       echo tep_currency_format($total_cost + $shipping);
     } else {
@@ -258,45 +270,45 @@ function alertBox() {
             </table></td>
           </tr>
           <tr>
-            <td colspan="2" class="main"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td colspan="2" class="main"><b>&nbsp;<?php echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
            </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
-          <form name="status" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '"'; ?> method="get">
+          <form name="status" <?php echo 'action="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '"'; ?> method="get">
           <tr>
-            <td colspan="2" class="main"><? echo "<textarea name=comments rows=5 cols=60>" . $info_values['comments'] . "</textarea>" ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2" class="main"><?php echo "<textarea name=comments rows=5 cols=60>" . $info_values['comments'] . "</textarea>" ?></td>
           </tr>
           <tr>
-            <td colspan="2" class="main"><b>&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</b></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="main"><b>&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</b></td>
            </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_DATE_PURCHASED; ?></b> <? echo tep_date_long($info_values['date_purchased']); ?>&nbsp;</td>
+            <td colspan="2" class="main"><br><b>&nbsp;<?php echo ENTRY_DATE_PURCHASED; ?></b> <?php echo tep_date_long($info_values['date_purchased']); ?>&nbsp;</td>
           </tr>
-          <tr><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>">
-            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <? echo tep_orders_status_pull_down('name="status"', $info_values['orders_status']); ?>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</td>
+          <tr><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<?php echo $HTTP_GET_VARS['orders_id']; ?>">
+            <td colspan="2" class="main"><br><b>&nbsp;<?php echo ENTRY_STATUS; ?></b> <?php echo tep_orders_status_pull_down('name="status"', $info_values['orders_status']); ?>&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</td>
           </tr></form>
-<?
+<?php
     if ($date_updated != '') {
 ?>
           <tr>
-            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_DATE_LAST_UPDATED; ?></b> <? echo tep_date_long($info_values['last_modified']); ?>&nbsp;</td>
+            <td colspan="2" class="main"><br><b>&nbsp;<?php echo ENTRY_DATE_LAST_UPDATED; ?></b> <?php echo tep_date_long($info_values['last_modified']); ?>&nbsp;</td>
           </tr>
-<?
+<?php
     }
 ?>
           <tr>
-             <td colspan="2"><br><? echo tep_black_line(); ?></td>
+             <td colspan="2"><br><?php echo tep_black_line(); ?></td>
           </tr>
-          <form action="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>" method="get" onsubmit="return confirm('<? echo IMAGE_CONFIRM; ?>')">
+          <form action="<?php echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>" method="get" onsubmit="return confirm('<?php echo IMAGE_CONFIRM; ?>')">
           <tr>
-            <td colspan="2" align="right"><input type="hidden" name="action" value="delete_order"><input type="hidden" name="orders_id_delete" value="<? echo $HTTP_GET_VARS['orders_id'] ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE); ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td colspan="2" align="right"><input type="hidden" name="action" value="delete_order"><input type="hidden" name="orders_id_delete" value="<?php echo $HTTP_GET_VARS['orders_id'] ?>"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE); ?>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
           </form>
           <tr>
@@ -304,25 +316,25 @@ function alertBox() {
           </tr>
         </table></td>
       </tr>
-<?
+<?php
   } else {
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="5"><? echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_ORDER_TOTAL; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_DATE_PURCHASED; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_ORDER_TOTAL; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_DATE_PURCHASED; ?>&nbsp;</td>
+            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="5"><? echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_black_line(); ?></td>
           </tr>
-<?
+<?php
     if ($HTTP_GET_VARS['customers_id']) {
       $orders_query_raw = "select orders_id, customers_name, customers_id, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "' order by orders_id DESC";
     } else {
@@ -346,30 +358,30 @@ function alertBox() {
       }
       $total = $total + $orders_values['shipping_cost'];
 ?>
-          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
-            <td class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><? echo $orders_values['customers_name']; ?></a>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo tep_currency_format($total); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo tep_date_short($orders_values['date_purchased']); ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<? echo tep_get_orders_status_name($orders_values['orders_status'], $languages_id); ?>&nbsp;</td>
+          <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
+            <td class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><?php echo $orders_values['customers_name']; ?></a>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo tep_currency_format($total); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo $orders_values['payment_method']; ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo tep_datetime_short($orders_values['date_purchased']); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo tep_get_orders_status_name($orders_values['orders_status'], $languages_id); ?>&nbsp;</td>
           </tr>
-<?
+<?php
     }
 ?>
           <tr>
-            <td colspan="5"><? echo tep_black_line(); ?></td>
+            <td colspan="5"><?php echo tep_black_line(); ?></td>
           </tr>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText">&nbsp;<? echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
+                    <td class="smallText">&nbsp;<?php echo $orders_split->display_count($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>&nbsp;</td>
+                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $orders_split->display_links($orders_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
         </table></td>
       </tr>
-<?
+<?php
   }
 ?>
     </table></td>
@@ -379,8 +391,8 @@ function alertBox() {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
