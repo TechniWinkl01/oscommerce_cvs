@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.5 2001/11/13 16:02:30 hpdl Exp $
+  $Id: cache.php,v 1.6 2001/11/29 12:17:27 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -97,14 +97,14 @@
 //! Cache the categories box
 // Cache the categories box
   function tep_cache_categories_box($auto_expire = false, $refresh = false) {
-    global $HTTP_GET_VARS, $foo, $languages_id, $id, $categories_string;
+    global $HTTP_GET_VARS, $foo, $language, $languages_id, $id, $categories_string;
 
-    if ($refresh || !read_cache($cache_output, 'categories_box.cache' . $HTTP_GET_VARS['cPath'], $auto_expire)) {
+    if ($refresh || !read_cache($cache_output, 'categories_box-' . $language . '.cache' . $HTTP_GET_VARS['cPath'], $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'categories.php');
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'categories_box.cache' . $HTTP_GET_VARS['cPath']);
+      write_cache($cache_output, 'categories_box-' . $language . '.cache' . $HTTP_GET_VARS['cPath']);
     }
 
     return $cache_output;
@@ -114,14 +114,14 @@
 //! Cache the manufacturers box
 // Cache the manufacturers box
   function tep_cache_manufacturers_box($auto_expire = false, $refresh = false) {
-    global $HTTP_GET_VARS;
+    global $HTTP_GET_VARS, $language;
 
-    if ($refresh || !read_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id'], $auto_expire)) {
+    if ($refresh || !read_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $HTTP_GET_VARS['manufacturers_id'], $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'manufacturers.php');
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'manufacturers_box.cache' . $HTTP_GET_VARS['manufacturers_id']);
+      write_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $HTTP_GET_VARS['manufacturers_id']);
     }
 
     return $cache_output;
@@ -131,14 +131,14 @@
 //! Cache the also purchased module
 // Cache the also purchased module
   function tep_cache_also_purchased($auto_expire = false, $refresh = false) {
-    global $HTTP_GET_VARS, $languages_id;
+    global $HTTP_GET_VARS, $language, $languages_id;
 
-    if ($refresh || !read_cache($cache_output, 'also_purchased.cache' . $HTTP_GET_VARS['products_id'], $auto_expire)) {
+    if ($refresh || !read_cache($cache_output, 'also_purchased-' . $language . '.cache' . $HTTP_GET_VARS['products_id'], $auto_expire)) {
       ob_start();
       include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'also_purchased.cache' . $HTTP_GET_VARS['products_id']);
+      write_cache($cache_output, 'also_purchased-' . $language . '.cache' . $HTTP_GET_VARS['products_id']);
     }
 
     return $cache_output;

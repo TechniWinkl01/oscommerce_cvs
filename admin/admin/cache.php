@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.5 2001/09/19 09:11:32 mbs Exp $
+  $Id: cache.php,v 1.6 2001/11/29 12:17:26 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,9 +12,9 @@
 
   require('includes/application_top.php');
 
-  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box.cache', 'multiple' => true),
-                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box.cache', 'multiple' => true),
-                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased.cache', 'multiple' => true)
+  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box-language.cache', 'multiple' => true),
+                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
+                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
                        );
 
   if ($HTTP_GET_VARS['action']) {
@@ -24,14 +24,24 @@
           if ($cache_blocks[$i]['multiple']) {
             if ($dir = @opendir(DIR_FS_CACHE)) {
               while ($cache_file = readdir($dir)) {
-                if (ereg('^' . $cache_blocks[$i]['file'], $cache_file)) {
-                  @unlink(DIR_FS_CACHE . $cache_file);
+                $cached_file = $cache_blocks[$i]['file'];
+                $languages = tep_get_languages();
+                for ($j=0; $j<sizeof($languages); $j++) {
+                  $cached_file_unlink = ereg_replace('-language', '-' . $languages[$j]['directory'], $cached_file);
+                  if (ereg('^' . $cached_file_unlink, $cache_file)) {
+                    @unlink(DIR_FS_CACHE . $cache_file);
+                  }
                 }
               }
               closedir($dir);
             }
           } else {
-            @unlink(DIR_FS_CACHE . $cache_blocks[$i]['file']);
+            $cached_file = $cache_blocks[$i]['file'];
+            $languages = tep_get_languages();
+            for ($i=0; $i<sizeof($languages); $i++) {
+              $cached_file = ereg_replace('-language', '-' . $languages[$i]['directory'], $cached_file);
+              @unlink(DIR_FS_CACHE . $cached_file);
+            }
           }
           break;
         }
@@ -96,14 +106,22 @@
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
+  $languages = tep_get_languages();
+  for ($i=0; $i<sizeof($languages); $i++) {
+    if ($languages[$i]['code'] == DEFAULT_LANGUAGE) {
+      $language = $languages[$i]['directory'];
+    }
+  }
   for ($i=0; $i<sizeof($cache_blocks); $i++) {
-    if (file_exists(DIR_FS_CACHE . $cache_blocks[$i]['file'])) {
-      $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_blocks[$i]['file']));
+    $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
+    if (file_exists(DIR_FS_CACHE . $cached_file)) {
+      $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cached_file));
     } else {
       $cache_mtime = TEXT_FILE_DOES_NOT_EXIST;
       if ($dir = @opendir(DIR_FS_CACHE)) {
         while ($cache_file = readdir($dir)) {
-          if (ereg('^' . $cache_blocks[$i]['file'], $cache_file)) {
+          $cached_file = ereg_replace('-language', '-' . $language, $cache_blocks[$i]['file']);
+          if (ereg('^' . $cached_file, $cache_file)) {
             $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_file));
             break;
           }
