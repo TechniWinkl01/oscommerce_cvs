@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.177 2001/11/16 22:54:12 hpdl Exp $
+  $Id: application_top.php,v 1.178 2001/11/16 23:10:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,9 +21,6 @@
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
-
-// Use Search-engine Friendly URL's (only works in Apache)
-  define('SEARCH_ENGINE_FRIENDLY_URLS', false);
 
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off
@@ -171,7 +168,7 @@
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
 // Get variables from $PATH_INFO
-  if (SEARCH_ENGINE_FRIENDLY_URLS == true) {
+  if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
     if (strlen($PATH_INFO) > 1) {
       $PHP_SELF = str_replace($PATH_INFO,'',$PHP_SELF);
       $vars = explode('/', substr($PATH_INFO, 1));

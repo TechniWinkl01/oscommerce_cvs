@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.16 2001/10/30 17:04:12 dgw_ Exp $
+  $Id: html_output.php,v 1.17 2001/11/16 23:10:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -51,7 +51,7 @@
     }
 
     // Substitute key symbols with slashes
-    if ( (SEARCH_ENGINE_FRIENDLY_URLS == true) && ($convertable == true) ) {
+    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($convertable == true) ) {
       while (strpos($link, '&&')) {
         $link = str_replace("&&", "&", $link);
       }
