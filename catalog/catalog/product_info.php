@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.80 2002/03/31 12:12:39 dgw_ Exp $
+  $Id: product_info.php,v 1.81 2002/04/05 10:16:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,7 +52,7 @@ function popupImageWindow(url) {
         <td class="main"><br><?php echo TEXT_PRODUCT_NOT_FOUND; ?></td>
       </tr>
       <tr>
-        <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_main_menu.gif', IMAGE_BUTTON_MAIN_MENU); ?></a></td>
+        <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
       </tr>
 <?php
   } else {
