@@ -52,7 +52,7 @@
     while ($new_values = tep_db_fetch_array($new)) {
       $row++;
       echo '            <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image($new_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0', $new_values['products_name']) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $new_values['products_name'] . '</a><br><s>' . tep_currency_format($new_values['products_price']) . '</s>&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_values['specials_new_products_price']) . '</font></font></td>' . "\n";
-      if ((($row / 3) == floor($row / 3)) && ($row != 9)) {
+      if ((($row / 3) == floor($row / 3))) {
         echo '          </tr>' . "\n";
         echo '          <tr>' . "\n";
         echo '            <td>&nbsp;</td>' . "\n";
