@@ -14,7 +14,7 @@ function resize() {
 
 <body onload="resize();">
 
-<?php echo '<img src="' . $HTTP_GET_VARS['image'] . '" border="0" alt="' . stripslashes($HTTP_GET_VARS['alt']) . '">'; ?>
+<?php echo '<img src="' . $HTTP_GET_VARS['image'] . '" border="0" alt="' . rawurldecode(stripslashes($HTTP_GET_VARS['alt'])) . '">'; ?>
 
 </body>
 
