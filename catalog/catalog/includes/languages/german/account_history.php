@@ -13,6 +13,7 @@ define('TABLE_HEADING_ORDER_NUMBER', 'Auftragsnummer');
 define('TABLE_HEADING_ORDER_DATE', 'Bestelldatum');
 define('TABLE_HEADING_ORDER_QUANTITY', 'Anzahl');
 define('TABLE_HEADING_ORDER_COST', 'Preis');
+define('TABLE_HEADING_ORDER_STATUS', 'Bestellstatus');
 define('TEXT_NO_PURCHASES', 'Sie haben noch keine Bestellungen get&auml;tigt.');
 define('TABLE_TEXT', 'Um Ihre Bestellinformation abzufragen, klicken Sie auf das \'Bestelldatum\'');
 
