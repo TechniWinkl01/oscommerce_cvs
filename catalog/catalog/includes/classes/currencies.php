@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.10 2002/05/01 14:42:50 hpdl Exp $
+  $Id: currencies.php,v 1.11 2002/05/16 15:33:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,13 +22,12 @@
       $currencies_query = tep_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
       while ($currencies = tep_db_fetch_array($currencies_query)) {
 	    $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
-                                                     'symbol_left' => $currencies['symbol_left'],
-                                                     'symbol_right' => $currencies['symbol_right'],
-                                                     'decimal_point' => $currencies['decimal_point'],
-                                                     'thousands_point' => $currencies['thousands_point'],
-                                                     'decimal_places' => $currencies['decimal_places'],
-                                                     'value' => $currencies['value']
-                                                    );
+                                                       'symbol_left' => $currencies['symbol_left'],
+                                                       'symbol_right' => $currencies['symbol_right'],
+                                                       'decimal_point' => $currencies['decimal_point'],
+                                                       'thousands_point' => $currencies['thousands_point'],
+                                                       'decimal_places' => $currencies['decimal_places'],
+                                                       'value' => $currencies['value']);
       }
     }
 
@@ -60,8 +59,7 @@
     }
 
     function display_price($products_price, $products_tax, $quantity = 1) {
-      return $this->format(tep_add_tax($products_price * $quantity, $products_tax));
+      return $this->format(tep_add_tax($products_price, $products_tax) * $quantity);
     }
-
   }
 ?>

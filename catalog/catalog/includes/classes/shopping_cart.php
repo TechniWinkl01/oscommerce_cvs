@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.27 2002/05/01 14:42:51 hpdl Exp $
+  $Id: shopping_cart.php,v 1.28 2002/05/16 15:33:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -211,7 +211,7 @@
             $products_price = $specials['specials_new_products_price'];
           }
 
-          $this->total += tep_add_tax($products_price * $qty, $products_tax);
+          $this->total += tep_add_tax($products_price, $products_tax) * $qty;
           $this->weight += ($qty * $products_weight);
         }
 

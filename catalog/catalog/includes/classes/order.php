@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.10 2002/05/01 14:42:51 hpdl Exp $
+  $Id: order.php,v 1.11 2002/05/16 15:33:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -115,9 +115,9 @@
                           'shipping_cost' => $GLOBALS['shipping_cost'],
                           'comments' => $GLOBALS['comments']);
 
-    if (is_object($GLOBALS[$payment])) {
-      $this->info['payment_method'] = $GLOBALS[$payment]->title;
-    }
+      if (is_object($GLOBALS[$payment])) {
+        $this->info['payment_method'] = $GLOBALS[$payment]->title;
+      }
 
       $this->customer = array('firstname' => $customer_address['customers_firstname'],
                               'lastname' => $customer_address['customers_lastname'],
@@ -172,9 +172,15 @@
           }
         }
 
-        $this->info['subtotal'] += tep_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']);
-        $this->info['tax'] += tep_calculate_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']);
-        $this->info['tax_groups']["{$this->products[$index]['tax']}"] += tep_calculate_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']);
+        $shown_price = tep_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
+        $this->info['subtotal'] += $shown_price;
+        if (DISPLAY_PRICE_WITH_TAX == true) {
+          $this->info['tax'] += $shown_price - ($shown_price / (($this->products[$index]['tax'] < 10) ? "1.0{$this->products[$index]['tax']}" : "1.{$this->products[$index]['tax']}"));
+          $this->info['tax_groups']["{$this->products[$index]['tax']}"] += $shown_price - ($shown_price / (($this->products[$index]['tax'] < 10) ? "1.0{$this->products[$index]['tax']}" : "1.{$this->products[$index]['tax']}"));
+        } else {
+          $this->info['tax'] += ($this->products[$index]['tax'] / 100) * $shown_price;
+          $this->info['tax_groups']["{$this->products[$index]['tax']}"] += ($this->products[$index]['tax'] / 100) * $shown_price;
+        }
 
         $index++;
       }
