@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.30 2001/12/09 22:56:47 dgw_ Exp $
+  $Id: products_attributes.php,v 1.31 2001/12/13 10:50:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -253,6 +253,7 @@ function go_option() {
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
+    $next_id = 1;
     $options = tep_db_query($options);
     while ($options_values = tep_db_fetch_array($options)) {
       $rows++;
@@ -452,6 +453,7 @@ function go_option() {
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
+    $next_id = 1;
     $values = tep_db_query($values);
     while ($values_values = tep_db_fetch_array($values)) {
       $options_name = tep_options_name($values_values['products_options_id']);
@@ -620,6 +622,7 @@ function go_option() {
             <td colspan="7"><?php echo tep_black_line(); ?></td>
           </tr>
 <?php
+  $next_id = 1;
   $attributes = tep_db_query($attributes);
   while ($attributes_values = tep_db_fetch_array($attributes)) {
     $products_name_only = tep_get_products_name($attributes_values['products_id']);
