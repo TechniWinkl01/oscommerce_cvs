@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.32 2001/06/14 00:01:21 hpdl Exp $
+  $Id: account_edit_process.php,v 1.33 2001/06/14 00:04:38 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -179,14 +179,19 @@
         <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td width="100%"><br>
+        <td><br>
 <?php
   require(DIR_WS_MODULES . 'account_details.php');
 ?>
         </td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
+        <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+          </tr>
+        </table></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->
