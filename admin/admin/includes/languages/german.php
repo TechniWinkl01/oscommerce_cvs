@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.76 2002/03/09 17:04:11 dgw_ Exp $
+  $Id: german.php,v 1.77 2002/03/09 17:16:11 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -174,7 +174,7 @@ define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbest&auml;tigung:');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // images
-define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
+define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
 define('IMAGE_BACK', 'Zur&uuml;ck');
 define('IMAGE_BACKUP', 'Datensicherung');
 define('IMAGE_CANCEL', 'Abbruch');
@@ -201,7 +201,7 @@ define('IMAGE_NEW_CURRENCY', 'neue W&auml;hrung einf&uuml;gen');
 define('IMAGE_NEW_FILE', 'Neue Datei');
 define('IMAGE_NEW_FOLDER', 'Neues Verzeichnis');
 define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
-define('IMAGE_NEW_NEWSLETTER', 'New Newsletter');
+define('IMAGE_NEW_NEWSLETTER', 'Neuer Newsletter');
 define('IMAGE_NEW_PRODUCT', 'neuen Artikel aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'neue Steuerklasse erstellen');
 define('IMAGE_NEW_TAX_RATE', 'neuen Steuersatz anlegen');
@@ -209,12 +209,12 @@ define('IMAGE_NEW_TAX_ZONE', 'neue Steuerzone erstellen');
 define('IMAGE_NEW_ZONE', 'neues Bundesland einf&uuml;gen');
 define('IMAGE_ORDERS', 'Bestellungen');
 define('IMAGE_PREVIEW', 'Vorschau');
-define('IMAGE_RESET', 'Reset');
+define('IMAGE_RESET', 'Zur&uuml;cksetzen');
 define('IMAGE_RESTORE', 'Zur&uuml;cksichern');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Ausw&auml;hlen');
-define('IMAGE_SEND', 'Send');
+define('IMAGE_SEND', 'Versenden');
 define('IMAGE_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
@@ -226,12 +226,12 @@ define('ICON_ERROR', 'Fehler');
 define('ICON_FILE', 'Datei');
 define('ICON_FILE_DOWNLOAD', 'Herunterladen');
 define('ICON_FOLDER', 'Ordner');
-define('ICON_LOCKED', 'Locked');
+define('ICON_LOCKED', 'Gesperrt');
 define('ICON_PREVIOUS_LEVEL', 'Vorherige Ebene');
 define('ICON_PREVIEW', 'Vorschau');
 define('ICON_SUCCESS', 'Erfolg');
 define('ICON_TICK', 'Wahr');
-define('ICON_UNLOCKED', 'Unlocked');
+define('ICON_UNLOCKED', 'Entsperrt');
 define('ICON_WARNING', 'Warnung');
 
 // constants for use in tep_prev_next_display function
@@ -242,7 +242,7 @@ define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> W&auml;hrungen)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
-define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> newsletters)');
+define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Angezeigt werden <b>%d</b> to <b>%d</b> (von insgesamt <b>%d</b> Newsletters)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellungen)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellstatus)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Artikeln)');
