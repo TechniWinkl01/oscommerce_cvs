@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.148 2001/06/14 02:11:33 hpdl Exp $
+  $Id: application_top.php,v 1.149 2001/06/15 19:37:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,6 @@
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_INFO_SHOPPING_CART', 'info_shopping_cart.php');
   define('FILENAME_LOGIN', 'login.php');
-  define('FILENAME_LOGIN_CREATE', 'login_create.php');
   define('FILENAME_LOGOFF', 'logoff.php');
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
