@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.73 2003/06/09 23:03:56 hpdl Exp $
+  $Id: shopping_cart.php,v 1.74 2003/11/17 21:07:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require("includes/application_top.php");
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_SHOPPING_CART);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_SHOPPING_CART);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SHOPPING_CART));
 ?>
@@ -86,8 +86,8 @@
                                        and pa.options_id = popt.products_options_id
                                        and pa.options_values_id = '" . $value . "'
                                        and pa.options_values_id = poval.products_options_values_id
-                                       and popt.language_id = '" . $languages_id . "'
-                                       and poval.language_id = '" . $languages_id . "'");
+                                       and popt.language_id = '" . $osC_Session->value('languages_id') . "'
+                                       and poval.language_id = '" . $osC_Session->value('languages_id') . "'");
           $attributes_values = tep_db_fetch_array($attributes);
 
           $products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
@@ -146,7 +146,7 @@
 
       $info_box_contents[$cur_row][] = array('align' => 'right',
                                              'params' => 'class="productListing-data" valign="top"',
-                                             'text' => '<b>' . $currencies->display_price($products[$i]['final_price'], tep_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>');
+                                             'text' => '<b>' . $currencies->display_price($products[$i]['final_price'], $osC_Tax->getTaxRate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>');
     }
 
     new productListingBox($info_box_contents);

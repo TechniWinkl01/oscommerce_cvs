@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cookie_usage.php,v 1.2 2003/06/05 23:26:23 hpdl Exp $
+  $Id: cookie_usage.php,v 1.3 2003/11/17 21:00:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_COOKIE_USAGE);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_COOKIE_USAGE);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_COOKIE_USAGE));
 ?>

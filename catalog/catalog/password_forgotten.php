@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.50 2003/06/05 23:28:24 hpdl Exp $
+  $Id: password_forgotten.php,v 1.51 2003/11/17 21:04:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,10 +12,10 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PASSWORD_FORGOTTEN);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_PASSWORD_FORGOTTEN);
 
-  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
-    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
+  if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+    $email_address = tep_db_prepare_input($_POST['email_address']);
 
     $check_customer_query = tep_db_query("select customers_firstname, customers_lastname, customers_password, customers_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "'");
     if (tep_db_num_rows($check_customer_query)) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: privacy.php,v 1.22 2003/06/05 23:26:23 hpdl Exp $
+  $Id: privacy.php,v 1.23 2003/11/17 21:00:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRIVACY);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_PRIVACY);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_PRIVACY));
 ?>

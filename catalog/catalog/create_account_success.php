@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_success.php,v 1.30 2003/06/05 23:27:00 hpdl Exp $
+  $Id: create_account_success.php,v 1.31 2003/11/17 21:01:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,13 +12,13 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_SUCCESS);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_CREATE_ACCOUNT_SUCCESS);
 
   $breadcrumb->add(NAVBAR_TITLE_1);
   $breadcrumb->add(NAVBAR_TITLE_2);
 
   if (sizeof($navigation->snapshot) > 0) {
-    $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array(tep_session_name())), $navigation->snapshot['mode']);
+    $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array($osC_Session->name)), $navigation->snapshot['mode']);
     $navigation->clear_snapshot();
   } else {
     $origin_href = tep_href_link(FILENAME_DEFAULT);

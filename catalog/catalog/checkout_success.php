@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.49 2003/06/09 23:03:53 hpdl Exp $
+  $Id: checkout_success.php,v 1.50 2003/11/17 20:58:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,13 +13,13 @@
   require('includes/application_top.php');
 
 // if the customer is not logged on, redirect them to the shopping cart page
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
   }
 
-  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'update')) {
+  if (isset($_GET['action']) && ($_GET['action'] == 'update')) {
     $notify_string = 'action=notify&';
-    $notify = $HTTP_POST_VARS['notify'];
+    $notify = (isset($_POST['notify']) ? $_POST['notify'] : array());
     if (!is_array($notify)) $notify = array($notify);
     for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
       $notify_string .= 'notify[]=' . $notify[$i] . '&';
@@ -29,16 +29,16 @@
     tep_redirect(tep_href_link(FILENAME_DEFAULT, $notify_string));
   }
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SUCCESS);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_CHECKOUT_SUCCESS);
 
   $breadcrumb->add(NAVBAR_TITLE_1);
   $breadcrumb->add(NAVBAR_TITLE_2);
 
-  $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$customer_id . "'");
+  $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$osC_Customer->id . "'");
   $global = tep_db_fetch_array($global_query);
 
   if ($global['global_product_notifications'] != '1') {
-    $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$customer_id . "' order by date_purchased desc limit 1");
+    $orders_query = tep_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$osC_Customer->id . "' order by date_purchased desc limit 1");
     $orders = tep_db_fetch_array($orders_query);
 
     $products_array = array();

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.18 2003/06/05 23:26:23 hpdl Exp $
+  $Id: popup_image.php,v 1.19 2003/11/17 21:00:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   $navigation->remove_current_page();
 
-  $products_query = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['pID'] . "' and pd.language_id = '" . (int)$languages_id . "'");
+  $products_query = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where p.products_status = '1' and p.products_id = '" . (int)$_GET['pID'] . "' and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "'");
   $products = tep_db_fetch_array($products_query);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">

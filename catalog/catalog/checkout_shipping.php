@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.16 2003/06/09 23:03:53 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.17 2003/11/17 20:58:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,8 +14,9 @@
   require('includes/classes/http_client.php');
 
 // if the customer is not logged on, redirect them to the login page
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot();
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
@@ -25,17 +26,17 @@
   }
 
 // if no shipping destination address was selected, use the customers own address as default
-  if (!tep_session_is_registered('sendto')) {
-    tep_session_register('sendto');
-    $sendto = $customer_default_address_id;
+  if ($osC_Session->exists('sendto') == false) {
+    $osC_Session->set('sendto', $osC_Customer->default_address_id);
   } else {
 // verify the selected shipping address
-    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$sendto . "'");
+    $check_address_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$osC_Customer->id . "' and address_book_id = '" . (int)$osC_Session->value('sendto') . "'");
     $check_address = tep_db_fetch_array($check_address_query);
 
     if ($check_address['total'] != '1') {
-      $sendto = $customer_default_address_id;
-      if (tep_session_is_registered('shipping')) tep_session_unregister('shipping');
+      $osC_Session->set('sendto', $osC_Customer->default_address_id);
+
+      $osC_Session->remove('shipping');
     }
   }
 
@@ -44,15 +45,14 @@
 
 // register a random ID in the session to check throughout the checkout procedure
 // against alterations in the shopping cart contents
-  if (!tep_session_is_registered('cartID')) tep_session_register('cartID');
-  $cartID = $cart->cartID;
+  $osC_Session->set('cartID', $cart->cartID);
 
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
   if ($order->content_type == 'virtual') {
-    if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
-    $shipping = false;
-    $sendto = false;
+    $osC_Session->set('shipping', false);
+    $osC_Session->set('sendto', false);
+
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
   }
 
@@ -63,7 +63,7 @@
   require(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;
 
-  if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+  if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true')) {
     $pass = false;
 
     switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -86,53 +86,51 @@
     if ( ($pass == true) && ($order->info['total'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
       $free_shipping = true;
 
-      include(DIR_WS_LANGUAGES . $language . '/modules/order_total/ot_shipping.php');
+      include(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/modules/order_total/ot_shipping.php');
     }
   } else {
     $free_shipping = false;
   }
 
 // process the selected shipping method
-  if ( isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process') ) {
-    if (!tep_session_is_registered('comments')) tep_session_register('comments');
-    if (tep_not_null($HTTP_POST_VARS['comments'])) {
-      $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
+  if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
+    if (tep_not_null($_POST['comments'])) {
+      $osC_Session->set('comments', tep_db_prepare_input($_POST['comments']));
     }
 
-    if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
-
     if ( (tep_count_shipping_modules() > 0) || ($free_shipping == true) ) {
-      if ( (isset($HTTP_POST_VARS['shipping'])) && (strpos($HTTP_POST_VARS['shipping'], '_')) ) {
-        $shipping = $HTTP_POST_VARS['shipping'];
+      if (isset($_POST['shipping']) && strpos($_POST['shipping'], '_')) {
+        $osC_Session->set('shipping', $_POST['shipping']);
 
-        list($module, $method) = explode('_', $shipping);
-        if ( is_object($$module) || ($shipping == 'free_free') ) {
-          if ($shipping == 'free_free') {
+        list($module, $method) = explode('_', $osC_Session->value('shipping'));
+        if (is_object($$module) || ($osC_Session->value('shipping') == 'free_free')) {
+          if ($osC_Session->value('shipping') == 'free_free') {
             $quote[0]['methods'][0]['title'] = FREE_SHIPPING_TITLE;
             $quote[0]['methods'][0]['cost'] = '0';
           } else {
             $quote = $shipping_modules->quote($method, $module);
           }
+
           if (isset($quote['error'])) {
-            tep_session_unregister('shipping');
+            $osC_Session->remove('shipping');
           } else {
-            if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
-              $shipping = array('id' => $shipping,
-                                'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
-                                'cost' => $quote[0]['methods'][0]['cost']);
+            if (isset($quote[0]['methods'][0]['title']) && isset($quote[0]['methods'][0]['cost'])) {
+              $osC_Session->set('shipping', array('id' => $osC_Session->value('shipping'),
+                                                  'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
+                                                  'cost' => $quote[0]['methods'][0]['cost']));
 
               tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
             }
           }
         } else {
-          tep_session_unregister('shipping');
+          $osC_Session->remove('shipping');
         }
       }
     } else {
-      $shipping = false;
-                
+      $osC_Session->set('shipping', false);
+
       tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
-    }    
+    }
   }
 
 // get all available shipping quotes
@@ -142,9 +140,11 @@
 // if the modules status was changed when none were available, to save on implementing
 // a javascript force-selection method, also automatically select the cheapest shipping
 // method if more than one module is now enabled
-  if ( !tep_session_is_registered('shipping') || ( tep_session_is_registered('shipping') && ($shipping == false) && (tep_count_shipping_modules() > 1) ) ) $shipping = $shipping_modules->cheapest();
+  if ( ($osC_Session->exists('shipping') == false) || ($osC_Session->exists('shipping') && ($osC_Session->value('shipping') == false) && (tep_count_shipping_modules() > 1)) ) {
+    $osC_Session->set('shipping', $shipping_modules->cheapest());
+  }
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SHIPPING);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_CHECKOUT_SHIPPING);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
@@ -227,14 +227,14 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td class="main" width="50%" valign="top"><?php echo TEXT_CHOOSE_SHIPPING_DESTINATION . '<br><br><a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL') . '">' . tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS) . '</a>'; ?></td>
                 <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main" align="center" valign="top"><?php echo '<b>' . TITLE_SHIPPING_ADDRESS . '</b><br>' . tep_image(DIR_WS_IMAGES . 'arrow_south_east.gif'); ?></td>
-                    <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
-                    <td class="main" valign="top"><?php echo tep_address_label($customer_id, $sendto, true, ' ', '<br>'); ?></td>
-                    <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                    <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                    <td class="main" valign="top"><?php echo tep_address_label($osC_Customer->id, $osC_Session->value('sendto'), true, ' ', '<br>'); ?></td>
+                    <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -295,7 +295,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
                 </table></td>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
     } else {
@@ -322,9 +322,9 @@ function rowOutEffect(object) {
         } else {
           for ($j=0, $n2=sizeof($quotes[$i]['methods']); $j<$n2; $j++) {
 // set the radio button to be checked if it is the method chosen
-            $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
+            $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $osC_Session->value('shipping')) ? true : false);
 
-            if ( ($checked == true) || ($n == 1 && $n2 == 1) ) {
+            if ( ($checked == true) || ( ($n == 1) && ($n2 == 1) ) ) {
               echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
             } else {
               echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
@@ -352,7 +352,7 @@ function rowOutEffect(object) {
         }
 ?>
                 </table></td>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
       }

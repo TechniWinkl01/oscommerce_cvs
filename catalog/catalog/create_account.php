@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.65 2003/06/09 23:03:54 hpdl Exp $
+  $Id: create_account.php,v 1.66 2003/11/17 21:01:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,46 +13,46 @@
   require('includes/application_top.php');
 
 // needs to be included earlier to set the success message in the messageStack
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_CREATE_ACCOUNT);
 
   $process = false;
-  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
+  if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
     $process = true;
 
     if (ACCOUNT_GENDER == 'true') {
-      if (isset($HTTP_POST_VARS['gender'])) {
-        $gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
+      if (isset($_POST['gender'])) {
+        $gender = tep_db_prepare_input($_POST['gender']);
       } else {
         $gender = false;
       }
     }
-    $firstname = tep_db_prepare_input($HTTP_POST_VARS['firstname']);
-    $lastname = tep_db_prepare_input($HTTP_POST_VARS['lastname']);
-    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($HTTP_POST_VARS['dob']);
-    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
-    if (ACCOUNT_COMPANY == 'true') $company = tep_db_prepare_input($HTTP_POST_VARS['company']);
-    $street_address = tep_db_prepare_input($HTTP_POST_VARS['street_address']);
-    if (ACCOUNT_SUBURB == 'true') $suburb = tep_db_prepare_input($HTTP_POST_VARS['suburb']);
-    $postcode = tep_db_prepare_input($HTTP_POST_VARS['postcode']);
-    $city = tep_db_prepare_input($HTTP_POST_VARS['city']);
+    $firstname = tep_db_prepare_input($_POST['firstname']);
+    $lastname = tep_db_prepare_input($_POST['lastname']);
+    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($_POST['dob']);
+    $email_address = tep_db_prepare_input($_POST['email_address']);
+    if (ACCOUNT_COMPANY == 'true') $company = tep_db_prepare_input($_POST['company']);
+    $street_address = tep_db_prepare_input($_POST['street_address']);
+    if (ACCOUNT_SUBURB == 'true') $suburb = tep_db_prepare_input($_POST['suburb']);
+    $postcode = tep_db_prepare_input($_POST['postcode']);
+    $city = tep_db_prepare_input($_POST['city']);
     if (ACCOUNT_STATE == 'true') {
-      $state = tep_db_prepare_input($HTTP_POST_VARS['state']);
-      if (isset($HTTP_POST_VARS['zone_id'])) {
-        $zone_id = tep_db_prepare_input($HTTP_POST_VARS['zone_id']);
+      $state = tep_db_prepare_input($_POST['state']);
+      if (isset($_POST['zone_id'])) {
+        $zone_id = tep_db_prepare_input($_POST['zone_id']);
       } else {
         $zone_id = false;
       }
     }
-    $country = tep_db_prepare_input($HTTP_POST_VARS['country']);
-    $telephone = tep_db_prepare_input($HTTP_POST_VARS['telephone']);
-    $fax = tep_db_prepare_input($HTTP_POST_VARS['fax']);
-    if (isset($HTTP_POST_VARS['newsletter'])) {
-      $newsletter = tep_db_prepare_input($HTTP_POST_VARS['newsletter']);
+    $country = tep_db_prepare_input($_POST['country']);
+    $telephone = tep_db_prepare_input($_POST['telephone']);
+    $fax = tep_db_prepare_input($_POST['fax']);
+    if (isset($_POST['newsletter'])) {
+      $newsletter = tep_db_prepare_input($_POST['newsletter']);
     } else {
       $newsletter = false;
     }
-    $password = tep_db_prepare_input($HTTP_POST_VARS['password']);
-    $confirmation = tep_db_prepare_input($HTTP_POST_VARS['confirmation']);
+    $password = tep_db_prepare_input($_POST['password']);
+    $confirmation = tep_db_prepare_input($_POST['confirmation']);
 
     $error = false;
 
@@ -213,37 +213,27 @@
       tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . (int)$customer_id . "', '0', now())");
 
       if (SESSION_RECREATE == 'True') {
-        tep_session_recreate();
+        $osC_Session->recreate();
       }
 
-      $customer_first_name = $firstname;
-      $customer_default_address_id = $address_id;
-      $customer_country_id = $country;
-      $customer_zone_id = $zone_id;
-      tep_session_register('customer_id');
-      tep_session_register('customer_first_name');
-      tep_session_register('customer_default_address_id');
-      tep_session_register('customer_country_id');
-      tep_session_register('customer_zone_id');
+      $osC_Customer->setCustomerData($customer_id);
 
 // restore cart contents
       $cart->restore_contents();
 
 // build the message content
-      $name = $firstname . ' ' . $lastname;
-
       if (ACCOUNT_GENDER == 'true') {
          if ($gender == 'm') {
-           $email_text = sprintf(EMAIL_GREET_MR, $lastname);
+           $email_text = sprintf(EMAIL_GREET_MR, $osC_Customer->last_name);
          } else {
-           $email_text = sprintf(EMAIL_GREET_MS, $lastname);
+           $email_text = sprintf(EMAIL_GREET_MS, $osC_Customer->last_name);
          }
       } else {
-        $email_text = sprintf(EMAIL_GREET_NONE, $firstname);
+        $email_text = sprintf(EMAIL_GREET_NONE, $osC_Customer->full_name);
       }
 
       $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
-      tep_mail($name, $email_address, EMAIL_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+      tep_mail($osC_Customer->full_name, $osC_Customer->email_address, EMAIL_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
       tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'SSL'));
     }

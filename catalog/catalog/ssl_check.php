@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ssl_check.php,v 1.1 2003/03/10 23:32:20 hpdl Exp $
+  $Id: ssl_check.php,v 1.2 2003/11/17 21:00:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_SSL_CHECK);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_SSL_CHECK);
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_SSL_CHECK));
 ?>

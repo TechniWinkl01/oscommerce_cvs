@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.139 2003/06/11 17:34:53 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.140 2003/11/17 20:58:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,9 @@
   require('includes/application_top.php');
 
 // if the customer is not logged on, redirect them to the login page
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot(array('mode' => 'SSL', 'page' => FILENAME_CHECKOUT_PAYMENT));
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
@@ -24,28 +25,29 @@
   }
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
-  if (isset($cart->cartID) && tep_session_is_registered('cartID')) {
-    if ($cart->cartID != $cartID) {
+  if (isset($cart->cartID) && $osC_Session->exists('cartID')) {
+    if ($cart->cartID != $osC_Session->value('cartID')) {
       tep_redirect(tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
     }
   }
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
-  if (!tep_session_is_registered('shipping')) {
+  if ($osC_Session->exists('shipping') == false) {
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
   }
 
-  if (!tep_session_is_registered('payment')) tep_session_register('payment');
-  if (isset($HTTP_POST_VARS['payment'])) $payment = $HTTP_POST_VARS['payment'];
+  if (isset($_POST['payment'])) {
+    $osC_Session->set('payment', $_POST['payment']);
+  }
+  $payment =& $osC_Session->value('payment');
 
-  if (!tep_session_is_registered('comments')) tep_session_register('comments');
-  if (tep_not_null($HTTP_POST_VARS['comments'])) {
-    $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
+  if (tep_not_null($_POST['comments'])) {
+    $osC_Session->set('comments', tep_db_prepare_input($_POST['comments']));
   }
 
 // load the selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
-  $payment_modules = new payment($payment);
+  $payment_modules = new payment($osC_Session->value('payment'));
 
   require(DIR_WS_CLASSES . 'order.php');
   $order = new order;
@@ -62,7 +64,7 @@
 
 // load the selected shipping module
   require(DIR_WS_CLASSES . 'shipping.php');
-  $shipping_modules = new shipping($shipping);
+  $shipping_modules = new shipping($osC_Session->value('shipping'));
 
   require(DIR_WS_CLASSES . 'order_total.php');
   $order_total_modules = new order_total;
@@ -81,7 +83,7 @@
     }
   }
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_CHECKOUT_CONFIRMATION);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2);
@@ -124,7 +126,7 @@
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
 <?php
-  if ($sendto != false) {
+  if ($osC_Session->value('sendto') != false) {
 ?>
             <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
@@ -149,7 +151,7 @@
 <?php
   }
 ?>
-            <td width="<?php echo (($sendto != false) ? '70%' : '100%'); ?>" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td width="<?php echo (($osC_Session->value('sendto') != false) ? '70%' : '100%'); ?>" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
