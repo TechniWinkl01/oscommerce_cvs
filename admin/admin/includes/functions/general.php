@@ -622,4 +622,25 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     return $category['categories_name'];
   }
+
+  function tep_get_products_name($product_id, $language_id) {
+    $product_query = tep_db_query("select products_name from products_description where products_id = '" . $product_id . "' and language_id = '" . $language_id . "'");
+    $product = tep_db_fetch_array($product_query);
+
+    return $product['products_name'];
+  }
+
+  function tep_get_products_description($product_id, $language_id) {
+    $product_query = tep_db_query("select products_description from products_description where products_id = '" . $product_id . "' and language_id = '" . $language_id . "'");
+    $product = tep_db_fetch_array($product_query);
+
+    return $product['products_description'];
+  }
+
+  function tep_get_products_url($product_id, $language_id) {
+    $product_query = tep_db_query("select products_url from products_description where products_id = '" . $product_id . "' and language_id = '" . $language_id . "'");
+    $product = tep_db_fetch_array($product_query);
+
+    return $product['products_url'];
+  }
 ?>
