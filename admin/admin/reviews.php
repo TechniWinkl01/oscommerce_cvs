@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.39 2002/03/17 17:49:46 harley_vb Exp $
+  $Id: reviews.php,v 1.40 2003/03/22 15:58:33 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -140,7 +140,7 @@
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top" class="main"><b><?php echo ENTRY_REVIEW; ?></b><br><br><?php echo nl2br(htmlspecialchars(tep_break_string($rInfo->reviews_text, 15))); ?></td>
+            <td valign="top" class="main"><b><?php echo ENTRY_REVIEW; ?></b><br><br><?php echo nl2br(tep_db_output(tep_break_string($rInfo->reviews_text, 15))); ?></td>
           </tr>
         </table></td>
       </tr>
