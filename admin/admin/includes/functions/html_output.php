@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.31 2004/07/22 23:12:58 hpdl Exp $
+  $Id: html_output.php,v 1.32 2004/08/03 11:00:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -206,6 +206,26 @@
 // Output a form filefield
   function tep_draw_file_field($name, $required = false) {
     $field = tep_draw_input_field($name, '', '', $required, 'file');
+
+    return $field;
+  }
+
+  function osc_draw_file_field($name, $max_size = true, $required = false) {
+    static $upload_max_filesize;
+
+    $field = osc_draw_input_field($name, '', '', $required, 'file');
+
+    if (is_bool($max_size) && ($max_size === true)) {
+      if (!isset($upload_max_filesize)) {
+        $upload_max_filesize = @ini_get('upload_max_filesize');
+      }
+
+      $max_size = $upload_max_filesize;
+    }
+
+    if (!empty($max_size)) {
+      $field .= '&nbsp;' . sprintf(MAXIMUM_FILE_UPLOAD_SIZE, tep_output_string($max_size));
+    }
 
     return $field;
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.109 2004/07/22 23:18:41 hpdl Exp $
+  $Id: espanol.php,v 1.110 2004/08/03 11:00:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -302,4 +302,6 @@ define('WARNING_FILE_UPLOADS_DISABLED', 'Warning: Se ha desactivado la subida de
 define('SUCCESS_DB_ROWS_UPDATED', 'Success: Entry successfully updated!');
 define('WARNING_DB_ROWS_NOT_UPDATED', 'Warning: Entry not updated due to the data content being the same.');
 define('ERROR_DB_ROWS_NOT_UPDATED', 'Error: Entry not updated due to an error.');
+
+define('MAXIMUM_FILE_UPLOAD_SIZE', '(Max: %s)');
 ?>
