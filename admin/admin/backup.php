@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.58 2003/06/20 00:29:56 hpdl Exp $
+  $Id: backup.php,v 1.59 2003/06/28 16:57:05 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,6 +25,8 @@
         break;
       case 'backupnow':
         tep_set_time_limit(0);
+        $backup_file = 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
+        $fp = fopen(DIR_FS_BACKUP . $backup_file, 'w');
 
         $schema = '# osCommerce, Open Source E-Commerce Solutions' . "\n" .
                   '# http://www.oscommerce.com' . "\n" .
@@ -36,13 +38,14 @@
                   '# Database Server: ' . DB_SERVER . "\n" .
                   '#' . "\n" .
                   '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
+        fputs($fp, $schema);
 
         $tables_query = tep_db_query('show tables');
         while ($tables = tep_db_fetch_array($tables_query)) {
           list(,$table) = each($tables);
 
-          $schema .= 'drop table if exists ' . $table . ';' . "\n" .
-                     'create table ' . $table . ' (' . "\n";
+          $schema = 'drop table if exists ' . $table . ';' . "\n" .
+                    'create table ' . $table . ' (' . "\n";
 
           $table_list = array();
           $fields_query = tep_db_query("show fields from " . $table);
@@ -91,111 +94,61 @@
           }
 
           $schema .= "\n" . ');' . "\n\n";
+          fputs($fp, $schema);
 
 // dump the data
           $rows_query = tep_db_query("select " . implode(',', $table_list) . " from " . $table);
           while ($rows = tep_db_fetch_array($rows_query)) {
-            $schema_insert = 'insert into ' . $table . ' (' . implode(', ', $table_list) . ') values (';
+            $schema = 'insert into ' . $table . ' (' . implode(', ', $table_list) . ') values (';
 
             reset($table_list);
             while (list(,$i) = each($table_list)) {
               if (!isset($rows[$i])) {
-                $schema_insert .= 'NULL, ';
+                $schema .= 'NULL, ';
               } elseif (tep_not_null($rows[$i])) {
                 $row = addslashes($rows[$i]);
                 $row = ereg_replace("\n#", "\n".'\#', $row);
 
-                $schema_insert .= '\'' . $row . '\', ';
+                $schema .= '\'' . $row . '\', ';
               } else {
-                $schema_insert .= '\'\', ';
+                $schema .= '\'\', ';
               }
             }
 
-            $schema_insert = ereg_replace(', $', '', $schema_insert) . ');' . "\n";
+            $schema = ereg_replace(', $', '', $schema) . ');' . "\n";
+            fputs($fp, $schema);
 
-            $schema .= $schema_insert;
           }
-
-          $schema .= "\n";
         }
 
+        fclose($fp);
+
         if (isset($HTTP_POST_VARS['download']) && ($HTTP_POST_VARS['download'] == 'yes')) {
-          $backup_file = 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
-
           switch ($HTTP_POST_VARS['compress']) {
-            case 'no':
-              header('Content-type: application/x-octet-stream');
-              header('Content-disposition: attachment; filename=' . $backup_file);
-
-              echo $schema;
-
-              exit;
-              break;
             case 'gzip':
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'w')) {
-                fputs($fp, $schema);
-                fclose($fp);
-
-                exec(LOCAL_EXE_GZIP . ' ' . DIR_FS_BACKUP . $backup_file);
-
-                $backup_file .= '.gz';
-              }
-
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'rb')) {
-                $buffer = fread($fp, filesize(DIR_FS_BACKUP . $backup_file));
-                fclose($fp);
-
-                unlink(DIR_FS_BACKUP . $backup_file);
-
-                header('Content-type: application/x-octet-stream');
-                header('Content-disposition: attachment; filename=' . $backup_file);
-
-                echo $buffer;
-
-                exit;
-              }
+              exec(LOCAL_EXE_GZIP . ' ' . DIR_FS_BACKUP . $backup_file);
+              $backup_file .= '.gz';
               break;
             case 'zip':
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'w')) {
-                fputs($fp, $schema);
-                fclose($fp);
-
-                exec(LOCAL_EXE_ZIP . ' -j ' . DIR_FS_BACKUP . $backup_file . '.zip ' . DIR_FS_BACKUP . $backup_file);
-
-                unlink(DIR_FS_BACKUP . $backup_file);
-
-                $backup_file .= '.zip';
-              }
-
-              if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'rb')) {
-                $buffer = fread($fp, filesize(DIR_FS_BACKUP . $backup_file));
-                fclose($fp);
-
-                unlink(DIR_FS_BACKUP . $backup_file);
-
-                header('Content-type: application/x-octet-stream');
-                header('Content-disposition: attachment; filename=' . $backup_file);
-
-                echo $buffer;
-
-                exit;
-              }
+              exec(LOCAL_EXE_ZIP . ' -j ' . DIR_FS_BACKUP . $backup_file . '.zip ' . DIR_FS_BACKUP . $backup_file);
+              unlink(DIR_FS_BACKUP . $backup_file);
+              $backup_file .= '.zip';
           }
+          header('Content-type: application/x-octet-stream');
+          header('Content-disposition: attachment; filename=' . $backup_file);
+
+          readfile(DIR_FS_BACKUP . $backup_file);
+          unlink(DIR_FS_BACKUP . $backup_file);
+
+          exit;
         } else {
-          $backup_file = DIR_FS_BACKUP . 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
-
-          if ($fp = fopen($backup_file, 'w')) {
-            fputs($fp, $schema);
-            fclose($fp);
-
-            switch ($HTTP_POST_VARS['compress']) {
-              case 'gzip':
-                exec(LOCAL_EXE_GZIP . ' ' . $backup_file);
-                break;
-              case 'zip':
-                exec(LOCAL_EXE_ZIP . ' -j ' . $backup_file . '.zip ' . $backup_file);
-                unlink($backup_file);
-            }
+          switch ($HTTP_POST_VARS['compress']) {
+            case 'gzip':
+              exec(LOCAL_EXE_GZIP . ' ' . DIR_FS_BACKUP . $backup_file);
+              break;
+            case 'zip':
+              exec(LOCAL_EXE_ZIP . ' -j ' . DIR_FS_BACKUP . $backup_file . '.zip ' . DIR_FS_BACKUP . $backup_file);
+              unlink(DIR_FS_BACKUP . $backup_file);
           }
 
           $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
