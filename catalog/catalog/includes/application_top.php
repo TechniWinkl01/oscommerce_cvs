@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.234 2002/05/28 11:10:11 thomasamoulton Exp $
+  $Id: application_top.php,v 1.235 2002/06/05 19:15:49 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -395,14 +395,16 @@
   tep_expire_specials();
 
 // calculate category path
-  $cPath = $HTTP_GET_VARS['cPath'];
+  if ($HTTP_GET_VARS['cPath']) {
+    $cPath = $HTTP_GET_VARS['cPath'];
+  } elseif ($HTTP_GET_VARS['products_id'] && !$HTTP_GET_VARS['manufacturers_id']) {
+    $cPath = tep_get_product_path($HTTP_GET_VARS['products_id']);
+  } else {
+    $cPath = '';
+  }
   if (strlen($cPath) > 0) {
     $cPath_array = explode('_', $cPath);
-    if (sizeof($cPath_array) > 1) {
-      $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
-    } else {
-      $current_category_id = $cPath_array[0];
-    }
+    $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
   } else {
     $current_category_id = 0;
   }
