@@ -155,6 +155,7 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Info-Box Headings', 'FONT_STYLE_INFO_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">', 'Font style for info-box headings', '5', '2', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Info-Box Contents', 'FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">', 'Font style for info-box contents', '5', '3', now());
 
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Payment Modules', 'PAYMENT_MODULES', 'cc.php;cod.php;paypal.php', 'This is automatically updated. No need to edit.', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Cash On Delivery (COD)', 'PAYMENT_SUPPORT_COD', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Credit Card', 'PAYMENT_SUPPORT_CC', '1', 'Do you want to accept credit card payments?', '6', '2', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow PayPal', 'PAYMENT_SUPPORT_PAYPAL', '1', 'Do you want to accept PayPal payments?', '6', '3', now());
@@ -176,13 +177,13 @@ CREATE TABLE configuration_group (
 # Dumping data for table 'configuration_group'
 #
 
-INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('My Store', 'General information about my store', '1');
-INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Minimum Values', 'The minimum values for functions / data', '2');
-INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Maximum Values', 'The maximum values for functions / data', '3');
-INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Images', 'Image parameters', '4');
-INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Font Styles', 'Font stlyes used for text output', '5');
-INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Payment Options', 'Payment options available at my store', '6');
-
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('1', 'My Store', 'General information about my store', '1');
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2');
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3');
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('4', 'Images', 'Image parameters', '4');
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('5', 'Font Styles', 'Font stlyes used for text output', '5');
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) VALUES ('6', 'Payment Options', 'Payment options available at my store', '6');
+insert into configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order) values ('7', 'Shipping Options', 'Shipping options available at my store', '7');
 #
 # Table structure for table 'counter'
 #
