@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.31 2002/01/20 16:07:40 hpdl Exp $
+  $Id: usps.php,v 1.32 2002/03/27 13:16:28 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,6 +53,8 @@
         $rate->setMachinable("False");
         $rate->SetOrigZip(STORE_ORIGIN_ZIP);
         $rate->SetDestZip($address_values['postcode']);
+// usps doesnt accept zero weight
+        $shipping_weight = ($shipping_weight < 0.1 ? 0.1 : $shipping_weight);
         $shipping_pounds = floor ($shipping_weight);
         $shipping_ounces = round(16 * ($shipping_weight - floor($shipping_weight)));
         $rate->SetWeight($shipping_pounds, $shipping_ounces);
