@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.35 2004/04/08 06:12:24 hpdl Exp $
+  $Id: whos_online.php,v 1.36 2004/04/08 06:18:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -132,7 +132,7 @@
           }
         }
 
-        $session_data_id = substr($session_data, $start_id, $i);
+        $session_data_id = substr($session_data, $start_id, $i - $start_id);
         include(DIR_FS_CATALOG . 'includes/classes/customer.php');
         session_decode($session_data_id);
         $customer_id = $osC_Customer->id;
