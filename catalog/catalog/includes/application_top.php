@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.158 2001/08/11 11:36:34 dwatkins Exp $
+  $Id: application_top.php,v 1.159 2001/08/13 17:36:58 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -141,6 +141,7 @@
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
   define('ACCOUNT_DOB', 1);
+  define('ACCOUNT_COMPANY', 0);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
 

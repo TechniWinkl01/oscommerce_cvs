@@ -369,7 +369,7 @@ function check_form() {
     echo '            <td class="pageHeading">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
   }
   echo '            <td align="right">&nbsp;' . tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '&nbsp;</td>' . "\n";
-  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_COMPANY;
+  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_COMPANY*2;
 ?>
           </tr>
         </table></td>
@@ -380,7 +380,7 @@ function check_form() {
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?
    if (ACCOUNT_GENDER) {
@@ -462,14 +462,14 @@ function check_form() {
     } else {
       echo '<input type="text" name="lastname" value="' . @$lastname . '" maxlength="32">&nbsp;' . ENTRY_LAST_NAME_TEXT;
     }
-    $rowspan = 6+ACCOUNT_STATE+ACCOUNT_SUBURB;
+    $rowspan = 5+ACCOUNT_STATE*2+ACCOUNT_SUBURB;
     ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
+            <td align="right" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
             <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
