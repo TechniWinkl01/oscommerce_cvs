@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.22 2002/01/20 21:50:39 hpdl Exp $
+  $Id: stats_customers.php,v 1.23 2002/01/23 23:12:35 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,52 +19,43 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
-      </tr>
-    </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;<?php if (TAX_INCLUDE == 'true') { echo TEXT_INCL_TAX; } else { echo TEXT_EXCL_TAX; } ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?>&nbsp;<?php if (TAX_INCLUDE == 'true') { echo TEXT_INCL_TAX; } else { echo TEXT_EXCL_TAX; } ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="3"><?php echo tep_black_line(); ?></td>
+            <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_CUSTOMERS; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
+            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="tableHeading"><?php echo TABLE_HEADING_NUMBER; ?></td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
   if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
@@ -83,21 +74,22 @@
     }
 ?>
           <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL'); ?>'">
-            <td align="center" class="smallText">&nbsp;<?php echo $rows; ?>.&nbsp;</td>
-            <td class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL') . '" class="blacklink">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<?php echo tep_currency_format($customers['ordersum']); ?>&nbsp;</td>
+                <td class="tableData"><?php echo $rows; ?>.</td>
+                <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_STATS_CUSTOMERS, 'NONSSL') . '" class="blacklink">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
+                <td class="tableData" align="right"><?php echo tep_currency_format($customers['ordersum']); ?>&nbsp;</td>
           </tr>
 <?php
   }
 ?>
           <tr>
-            <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
+            </table></td>
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText">&nbsp;<?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?>&nbsp;</td>
-                <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
+                <td class="smallText"><?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
+                <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE; ?> <?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
