@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.15 2003/06/09 22:35:34 hpdl Exp $
+  $Id: split_page_results.php,v 1.16 2003/11/17 19:43:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,15 +15,17 @@
 
 /* class constructor */
     function splitPageResults($query, $max_rows, $count_key = '*', $page_holder = 'page') {
-      global $HTTP_GET_VARS, $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_GET, $_POST;
+      }
 
       $this->sql_query = $query;
       $this->page_name = $page_holder;
 
-      if (isset($HTTP_GET_VARS[$page_holder])) {
-        $page = $HTTP_GET_VARS[$page_holder];
-      } elseif (isset($HTTP_POST_VARS[$page_holder])) {
-        $page = $HTTP_POST_VARS[$page_holder];
+      if (isset($_GET[$page_holder])) {
+        $page = $_GET[$page_holder];
+      } elseif (isset($_POST[$page_holder])) {
+        $page = $_POST[$page_holder];
       } else {
         $page = '';
       }
