@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.34 2002/01/15 12:01:49 hpdl Exp $
+  $Id: currencies.php,v 1.35 2002/01/18 00:46:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -78,7 +78,7 @@
       case 'delete':
         $currencies_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
 
-        $currency_query = tep_db_query("select code from currencies where currencies_id = '" . $currencies_id . "'");
+        $currency_query = tep_db_query("select code from currencies where currencies_id = '" . tep_db_input($currencies_id) . "'");
         $currency = tep_db_fetch_array($currency_query);
 
         $remove_currency = true;

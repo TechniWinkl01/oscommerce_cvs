@@ -1,19 +1,17 @@
 <?php
 /*
-  $Id: languages.php,v 1.8 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: languages.php,v 1.9 2002/01/18 00:46:42 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Sprachen');
 define('HEADING_TITLE', 'Sprachen');
 
-define('TABLE_HEADING_LANGUAGE_ID', 'ID');
 define('TABLE_HEADING_LANGUAGE_NAME', 'Name');
 define('TABLE_HEADING_LANGUAGE_CODE', 'Codierung');
 define('TABLE_HEADING_ACTION', 'Aktion');
@@ -26,5 +24,9 @@ define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Verzeichnis:');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Sortierreihenfolge:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte f&uuml;llen Sie die folgenden Felder f&uuml;r die neue Sprache aus:');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Sprache l&ouml;schen m&ouml;chten?');
-define('TEXT_INFO_HEADING_NEW_CURRENCY', 'Neue Sprache');
+define('TEXT_INFO_HEADING_NEW_LANGUAGE', 'Neue Sprache');
+define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Edit Language');
+define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Delete Language');
+
+define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Error: The default language can not be removed. Please set another language as default, and try again.');
 ?>
