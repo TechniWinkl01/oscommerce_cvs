@@ -25,4 +25,5 @@ define('TEXT_INFO_RATE_DESCRIPTION', 'Beschreibung:');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie den neuen Steuersatz mit den dazugeh&ouml;rigen Angaben ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass sie diesen Steuersatz l&ouml;schen m&ouml;chten?');
 define('TEXT_INFO_HEADING_NEW_TAX_CLASS', 'Neuer Steuersatz');
+define('PLEASE_SELECT', 'Bitte W&auml;hlen');
 ?>

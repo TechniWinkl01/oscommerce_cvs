@@ -25,4 +25,5 @@ define('TEXT_INFO_RATE_DESCRIPTION', 'Description:');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new tax class with its related data');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this tax rate?');
 define('TEXT_INFO_HEADING_NEW_TAX_CLASS', 'New Tax Rate');
+define('PLEASE_SELECT', 'Please Select');
 ?>

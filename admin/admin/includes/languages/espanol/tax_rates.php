@@ -25,4 +25,5 @@ define('TEXT_INFO_RATE_DESCRIPTION', 'Descripcion:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca un nombre y los datos del nuevo porcentaje');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este porcentaje?');
 define('TEXT_INFO_HEADING_NEW_TAX_CLASS', 'Nuevo Porcentaje');
+define('PLEASE_SELECT', 'Seleccionar');
 ?>
