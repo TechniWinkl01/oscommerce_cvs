@@ -51,7 +51,7 @@ define('BOX_CATALOG_REVIEWS', 'Berichte');
 define('BOX_CATALOG_SPECIALS', 'Sonderangebote');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'erwartete Artikel');
 
-// categories box text in includes/boxes/customers.php
+// customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Kunden');
 define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
@@ -63,20 +63,21 @@ define('BOX_TAXES_ZONES', 'Zonen');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
 define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
 
-// whats_new box text in includes/boxes/statistics.php
+// statistics box text in includes/boxes/statistics.php
 define('BOX_HEADING_STATISTICS', 'Statistiken');
 define('BOX_STATISTICS_PRODUCTS_VIEWED', 'besuchte Artikel');
 define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'gekaufte Artikel');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Kunden-Bestellstatistik');
 
+// tools text in includes/boxes/tools.php
+define('BOX_HEADING_TOOLS', 'Werkzeuge');
+define('BOX_TOOLS_BACKUP', 'Datensicherung');
+define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
+
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Lokalisation');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
-
-// tools text in includes/boxes/tools.php
-define('BOX_HEADING_TOOLS', 'Werkzeuge');
-define('BOX_TOOLS_BACKUP', 'Datensicherung');
 
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
