@@ -9,8 +9,5 @@ define('TOP_BAR_TITLE', 'Modulos de Pago');
 define('HEADING_TITLE', 'Modulos de Pago');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Fichero');
-define('TABLE_HEADING_CONFIGURATION_VALUE', 'Instalado');
-define('TABLE_HEADING_ACTION', 'Instalar/Desinstalar');
-
-define('IMAGE_INSTALL_REMOVE', 'Haga click para instalar/desinstalar este modulo');
+define('TABLE_HEADING_STATUS', 'Estado');
 ?>

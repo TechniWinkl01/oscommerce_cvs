@@ -9,8 +9,5 @@ define('TOP_BAR_TITLE', 'Payment Modules');
 define('HEADING_TITLE', 'Payment Modules');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Filename');
-define('TABLE_HEADING_CONFIGURATION_VALUE', 'Installed');
-define('TABLE_HEADING_ACTION', 'Install/Remove');
-
-define('IMAGE_INSTALL_REMOVE', 'Click to Install/Remove this module');
+define('TABLE_HEADING_STATUS', 'Status');
 ?>
