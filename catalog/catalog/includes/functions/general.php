@@ -113,7 +113,11 @@
       if ($height == 0 || $height=="" ) {
         $height= $size[1];
       }
-      $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
+      $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '"';
+      if ($alt != '') {
+        $image .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
+      }
+      $image .= '>';
     }
     return $image;
   }
@@ -121,7 +125,11 @@
   function tep_image_submit($src, $width, $height, $border, $alt) {
     global $image_submit;
     
-    $image_submit = '<input type="image" src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '" alt=" ' . $alt . ' ">';
+    $image_submit = '<input type="image" src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '"';
+    if ($alt != '') {
+      $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
+    }
+    $image_submit .= '>';
     
     return $image_submit;
   }
@@ -156,7 +164,7 @@
 
     reset($HTTP_GET_VARS);
     while (list($key, $value) = each($HTTP_GET_VARS)) {
-      if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
+      if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . rawurlencode(StripSlashes($value)) . '&';
     }
 
     return $get_url;
