@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.93 2002/09/29 14:14:29 project3000 Exp $
+  $Id: german.php,v 1.94 2002/11/11 13:30:17 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -217,6 +217,7 @@ define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Ausw&auml;hlen');
 define('IMAGE_SEND', 'Versenden');
+define('IMAGE_SEND_EMAIL', 'Send Email');
 define('IMAGE_UNLOCK', 'Entsperren');
 define('IMAGE_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
