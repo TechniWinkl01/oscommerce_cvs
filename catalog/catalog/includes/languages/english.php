@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.42 2001/06/03 10:48:37 dwatkins Exp $
+  $Id: english.php,v 1.43 2001/06/03 11:02:01 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -223,7 +223,7 @@ define('IMAGE_BUTTON_CHECKOUT', 'Checkout');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirm Order');
 define('IMAGE_BUTTON_CONTINUE', 'Continue');
 define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Edit Account');
-define('IMAGE_BUTTON_HISTORY', 'History');
+define('IMAGE_BUTTON_HISTORY', 'Order History');
 define('IMAGE_BUTTON_IN_CART', 'In Cart');
 define('IMAGE_BUTTON_QUICK_FIND', 'Quick Find');
 define('IMAGE_BUTTON_REVIEWS', 'Reviews');
