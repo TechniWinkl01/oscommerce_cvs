@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: moneyorder.php,v 1.4 2002/11/01 05:36:58 hpdl Exp $
+  $Id: moneyorder.php,v 1.5 2003/01/16 20:13:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,6 @@
 */
 
   define('MODULE_PAYMENT_MONEYORDER_TEXT_TITLE', 'Check/Money Order');
-  define('MODULE_PAYMENT_MONEYORDER_TEXT_DESCRIPTION', 'Make Payable To:<br><br>' . nl2br(STORE_NAME_ADDRESS) . '<br><br>' . 'Your order will not ship until we receive payment.');
-  define('MODULE_PAYMENT_MONEYORDER_TEXT_EMAIL_FOOTER', "Make Payable To:\n\n" . STORE_NAME_ADDRESS . "\n\n" . 'Your order will not ship until we receive payment.');
+  define('MODULE_PAYMENT_MONEYORDER_TEXT_DESCRIPTION', 'Make Payable To:&nbsp' . MODULE_PAYMENT_MONEYORDER_PAYTO . '<br><br>Send To:<br>' . nl2br(STORE_NAME_ADDRESS) . '<br><br>' . 'Your order will not ship until we receive payment.');
+  define('MODULE_PAYMENT_MONEYORDER_TEXT_EMAIL_FOOTER', "Make Payable To: ". MODULE_PAYMENT_MONEYORDER_PAYTO . "\n\nSend To:\n" . STORE_NAME_ADDRESS . "\n\n" . 'Your order will not ship until we receive payment.');
 ?>
