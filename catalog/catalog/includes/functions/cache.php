@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.11 2003/07/01 14:34:54 hpdl Exp $
+  $Id: cache.php,v 1.12 2003/09/25 08:34:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -118,7 +118,7 @@
     global $HTTP_GET_VARS, $language;
 
     $manufacturers_id = '';
-    if (isset($HTTP_GET_VARS['manufactuers_id']) && tep_not_null($HTTP_GET_VARS['manufacturers_id'])) {
+    if (isset($HTTP_GET_VARS['manufacturers_id']) && tep_not_null($HTTP_GET_VARS['manufacturers_id'])) {
       $manufacturers_id = $HTTP_GET_VARS['manufacturers_id'];
     }
 
