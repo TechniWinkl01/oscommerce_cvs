@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.27 2001/12/19 01:37:54 hpdl Exp $
+  $Id: stylesheet.css,v 1.28 2001/12/19 11:23:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,7 +9,6 @@
   Released under the GNU General Public License
 */
 
-.infoBoxHeadingg { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; }
 .boxText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 
 BODY {
@@ -84,16 +83,10 @@ TD.footer {
   font-weight : bold;
 }
 
-TABLE.infoBoxHeading {
-  background-color : #aabbdd;
-  border-color : #000000;
-  border-style : solid;
-  border-width : 1px;
-}
-
 TD.infoBoxHeading {
-  font-family : Tahoma, Verdana, Arial, sans-serif;
-  font-size : 12px;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+  color: #ffffff;
 }
 
 A.infoBoxHeading { 
