@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.19 2002/09/22 17:44:44 project3000 Exp $
+  $Id: account_details.php,v 1.20 2002/09/22 17:54:34 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -276,6 +276,9 @@
     }
 ?></td>
           </tr>
+<?php
+  }
+?>
           <tr>
             <td class="main">&nbsp;<?php echo ENTRY_COUNTRY; ?></td>
             <td class="main">&nbsp;
@@ -293,9 +296,6 @@
   }
 ?></td>
           </tr>
-<?php
-  }
-?>
         </table></td>
       </tr>
     </table></td>
