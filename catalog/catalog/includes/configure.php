@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: configure.php,v 1.11 2002/04/06 15:54:42 hpdl Exp $
+  $Id: configure.php,v 1.12 2002/06/16 22:11:53 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
