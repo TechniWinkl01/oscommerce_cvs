@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_rates.php,v 1.26 2002/05/15 12:49:42 hpdl Exp $
+  $Id: tax_rates.php,v 1.27 2002/06/07 01:17:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -105,7 +105,7 @@
                 <td class="dataTableContent"><?php echo $rates['tax_priority']; ?></td>
                 <td class="dataTableContent"><?php echo $rates['tax_class_title']; ?></td>
                 <td class="dataTableContent"><?php echo $rates['geo_zone_name']; ?></td>
-                <td class="dataTableContent"><?php echo number_format($rates['tax_rate'], TAX_DECIMAL_PLACES); ?>%</td>
+                <td class="dataTableContent"><?php echo tep_display_tax_value($rates['tax_rate']); ?>%</td>
                 <td class="dataTableContent" align="right"><?php if ( (is_object($trInfo)) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_TAX_RATES, 'page=' . $HTTP_GET_VARS['page'] . '&tID=' . $rates['tax_rates_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
