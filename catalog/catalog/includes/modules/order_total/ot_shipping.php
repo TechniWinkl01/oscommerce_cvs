@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.15 2003/02/07 22:01:57 dgw_ Exp $
+  $Id: ot_shipping.php,v 1.16 2003/11/17 20:27:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
 
     function process() {
-      global $order, $currencies;
+      global $osC_Session, $osC_Tax, $order, $currencies;
 
       if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -45,12 +45,14 @@
         }
       }
 
-      $module = substr($GLOBALS['shipping']['id'], 0, strpos($GLOBALS['shipping']['id'], '_'));
+      $shipping =& $osC_Session->value('shipping');
+
+      $module = substr($shipping['id'], 0, strpos($shipping['id'], '_'));
 
       if (tep_not_null($order->info['shipping_method'])) {
         if ($GLOBALS[$module]->tax_class > 0) {
-          $shipping_tax = tep_get_tax_rate($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
-          $shipping_tax_description = tep_get_tax_description($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+          $shipping_tax = $osC_Tax->getTaxRate($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+          $shipping_tax_description = $osC_Tax->getTaxRateDescription($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
 
           $order->info['tax'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
           $order->info['tax_groups']["$shipping_tax_description"] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
