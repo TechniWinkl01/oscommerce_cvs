@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.8 2001/08/11 11:36:38 dwatkins Exp $
+  $Id: html_output.php,v 1.9 2001/08/22 11:29:24 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,6 +13,8 @@
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true) {
+
+    // build URL thats points to $page
     if ($page == '') {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
     }
@@ -27,22 +29,28 @@
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
     }
-    // If we are using cookies to propagate the session id and we are changing servers
-    // .. then put SID in the URL to keep propagating across servers
+    if ($parameters == '') {
+      $link = $link . $page;
+      $separator = '?';
+    } else {
+      $link = $link . $page . '?' . $parameters;
+      $separator = '&';
+    }
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
+
+    // find out the session id based on the constant SID
+    // There is a special case when these are true: 
+    //   1) using cookies to propagate the session id 
+    //   2) changing servers (ie from nonSSL to SSL)
+    // We then put session id manually in the URL to keep propagating it across servers
     $sess = '';
     if (!SID && !getenv('HTTPS') && $connection=='SSL' && ENABLE_SSL && $add_session_id) {
       $sess = tep_session_name() . '=' . tep_session_id();
     } elseif ($add_session_id) {
       $sess = SID;
     }
-    if ($parameters == '') {
-      $link = $link . $page . '?' . $sess;
-    } else {
-      $link = $link . $page . '?' . $parameters . '&' . $sess;
-    }
 
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
-
+    // Substitute key symbols with slashes
     if (SEARCH_ENGINE_FRIENDLY_URLS == true) {
       while (strpos($link, '&&')) {
         $link = str_replace("&&", "&", $link);
@@ -50,7 +58,14 @@
       $link = str_replace("?", "/", $link);
       $link = str_replace("&", "/", $link);
       $link = str_replace("=", "/", $link);
+      $separator = '?';
     }
+
+    // Append the session id string to the URL
+    if ($sess) {
+      $sess = $separator . $sess;
+    }
+    $link .= $sess;
 
     return $link;
   }
