@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.144 2002/11/11 20:53:21 hpdl Exp $
+  $Id: general.php,v 1.145 2002/11/14 19:31:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -107,11 +107,12 @@
     $minute = (int)substr($raw_date, 14, 2);
     $second = (int)substr($raw_date, 17, 2);
 
-    if (date('Y', mktime($hour, $minute, $second, $month, $day, $year)) > $year) {
-      return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
-    } else {
+    if (@date('Y', mktime($hour, $minute, $second, $month, $day, $year)) == $year) {
       return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
+    } else {
+      return ereg_replace('2037' . '$', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
     }
+
   }
 
   function tep_datetime_short($raw_datetime) {
