@@ -323,7 +323,7 @@ INSERT INTO countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK');
 INSERT INTO countries VALUES (190,'Slovenia','SI','SVN');
 INSERT INTO countries VALUES (191,'Solomon Islands','SB','SLB');
 INSERT INTO countries VALUES (192,'Somalia','SO','SOM');
-INSERT INTO countries VALUES (193,'south Africa','ZA','ZAF');
+INSERT INTO countries VALUES (193,'South Africa','ZA','ZAF');
 INSERT INTO countries VALUES (194,'South Georgia and the South Sandwich Islands','GS','SGS');
 INSERT INTO countries VALUES (195,'Spain','ES','ESP');
 INSERT INTO countries VALUES (196,'Sri Lanka','LK','LKA');
