@@ -1,6 +1,6 @@
-<?
+<?php
 /*
-  $Id: itransact_split.php,v 1.17 2002/05/30 15:36:36 dgw_ Exp $
+  $Id: itransact_split.php,v 1.18 2002/06/23 13:43:01 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,7 @@
 */
 
 /*
-  See README_catalog_itransact_split 
+  See README_catalog_itransact_split
   iTransact Payment Module itransact_split.php
   Author: TriciaB (info@barestyle.com)
   File resides in: catalog/includes/modules/payment/
