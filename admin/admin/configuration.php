@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.36 2002/03/16 00:20:49 hpdl Exp $
+  $Id: configuration.php,v 1.37 2002/08/08 11:26:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,7 +71,17 @@
   $configuration_query = tep_db_query("select configuration_id, configuration_title, configuration_value, use_function from " . TABLE_CONFIGURATION . " where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "' order by sort_order");
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     if (tep_not_null($configuration['use_function'])) {
-      $cfgValue = $configuration['use_function']($configuration['configuration_value']);
+      $use_function = $configuration['use_function'];
+      if (ereg('->', $use_function)) {
+        $class_method = explode('->', $use_function);
+        if (!is_object(${$class_method[0]})) {
+          include(DIR_WS_CLASSES . $class_method[0] . '.php');
+          ${$class_method[0]} = new $class_method[0]();
+        }
+        $cfgValue = call_user_func(array(&${$class_method[0]}, $class_method[1]), $configuration['configuration_value']);
+      } else {
+        $cfgValue = call_user_func($use_function, $value['value']);
+      }
     } else {
       $cfgValue = $configuration['configuration_value'];
     }
