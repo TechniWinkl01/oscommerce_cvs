@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.20 2001/11/30 14:36:35 dgw_ Exp $
+  $Id: html_output.php,v 1.21 2001/12/03 22:02:54 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -73,13 +73,13 @@
 ////
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
-    if ( (($src == '') || ($src == DIR_WS_IMAGES)) && (!IMAGE_REQUIRED) ) {
+    if ( (($src == '') || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
       return;
     }
 
     $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
 
-    if ( (CONFIG_CALCULATE_IMAGE_SIZE) && ((!$width) || (!$height)) ) {
+    if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
       if ($image_size = @getimagesize($src)) {
         if ( (!$width) && ($height) ) {
           $ratio = $height / $image_size[1];
@@ -91,7 +91,7 @@
           $width = $image_size[0];
           $height = $image_size[1];
         }
-      } elseif (!IMAGE_REQUIRED) {
+      } elseif (IMAGE_REQUIRED == 'false') {
         return '';
       }
     }
