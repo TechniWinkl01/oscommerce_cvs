@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.6 2002/04/05 00:22:12 hpdl Exp $
+  $Id: pm2checkout.php,v 1.7 2002/04/05 00:40:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -101,8 +101,8 @@
                                tep_draw_hidden_field('x_test_request', MODULE_PAYMENT_2CHECKOUT_TESTMODE) .
                                tep_draw_hidden_field('x_card_num', $CardNumber) .
                                tep_draw_hidden_field('x_exp_date', $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . $HTTP_POST_VARS['pm_2checkout_cc_expires_year']) .
-                               tep_draw_hidden_field('x_first_name', $order->customer['first_name']) .
-                               tep_draw_hidden_field('x_last_name', $order->customer['last_name']) .
+                               tep_draw_hidden_field('x_first_name', $order->customer['firstname']) .
+                               tep_draw_hidden_field('x_last_name', $order->customer['lastname']) .
                                tep_draw_hidden_field('x_address', $order->customer['street_address']) .
                                tep_draw_hidden_field('x_city', $order->customer['city']) .
                                tep_draw_hidden_field('x_state', $order->customer['state']) .
@@ -110,8 +110,8 @@
                                tep_draw_hidden_field('x_country', $order->customer['country']) .
                                tep_draw_hidden_field('x_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('x_phone', $order->customer['telephone']) .
-                               tep_draw_hidden_field('x_ship_to_first_name', $order->delivery['first_name']) .
-                               tep_draw_hidden_field('x_ship_to_last_name', $order->delivery['last_name']) .
+                               tep_draw_hidden_field('x_ship_to_first_name', $order->delivery['firstname']) .
+                               tep_draw_hidden_field('x_ship_to_last_name', $order->delivery['lastname']) .
                                tep_draw_hidden_field('x_ship_to_address', $order->delivery['street_address']) .
                                tep_draw_hidden_field('x_ship_to_city', $order->delivery['city']) .
                                tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
