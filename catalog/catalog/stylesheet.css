@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.51 2003/01/20 19:46:48 hpdl Exp $
+  $Id: stylesheet.css,v 1.52 2003/02/13 13:54:41 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -261,6 +261,11 @@ SPAN.markProductOutOfStock {
 }
 
 SPAN.productSpecialPrice {
+  font-family: Verdana, Arial, sans-serif;
+  color: #ff0000;
+}
+
+SPAN.errorText {
   font-family: Verdana, Arial, sans-serif;
   color: #ff0000;
 }

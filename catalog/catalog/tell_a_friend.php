@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.31 2003/02/13 04:23:23 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.32 2003/02/13 13:54:41 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
 
   $valid_product = false;
   if (isset($HTTP_GET_VARS['products_id'])) {
-    $product_info = tep_db_query("select pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
+    $product_info = tep_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
     $valid_product = (tep_db_num_rows($product_info) > 0);
   }
 ?>
@@ -81,7 +81,40 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-    if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
+
+    $error = false;
+
+    if (($HTTP_GET_VARS['action'] == 'process') && !tep_validate_email(trim($HTTP_POST_VARS['friendemail']))) {
+      $friendemail_error = true;
+      $error = true;
+    }
+
+    if (($HTTP_GET_VARS['action'] == 'process') && !tep_not_null($HTTP_POST_VARS['friendname'])) {
+      $friendname_error = true;
+      $error = true;
+    }
+
+    if (tep_session_is_registered('customer_id')) {
+      $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
+      $from_email_address = $account_values['customers_email_address'];
+    } else {
+      $from_name = $HTTP_POST_VARS['yourname'];
+      $from_email_address = $HTTP_POST_VARS['from'];
+    }
+	  
+    if (!tep_session_is_registered('customer_id')) {
+      if (($HTTP_GET_VARS['action'] == 'process') && !tep_validate_email(trim($from_email_address))) {
+        $fromemail_error = true;
+        $error = true;
+      }
+    }
+
+    if (($HTTP_GET_VARS['action'] == 'process') && !tep_not_null($from_name)) {
+      $fromname_error = true;
+      $error = true;
+    }
+
+    if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process') && $error == false) {
       if (tep_session_is_registered('customer_id')) {
         $from_name = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
         $from_email_address = $account_values['customers_email_address'];
@@ -115,8 +148,10 @@
         $your_name_prompt = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
         $your_email_address_prompt = $account_values['customers_email_address'];
       } else {
-        $your_name_prompt = tep_draw_input_field('yourname', $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname']);
-        $your_email_address_prompt = tep_draw_input_field('from', $account_values['customers_email_address']);
+        $your_name_prompt = tep_draw_input_field('yourname', ($fromname_error ? $HTTP_POST_VARS['yourname'] : $HTTP_GET_VARS['yourname']));
+        if ($fromname_error) $your_name_prompt .= '&nbsp;<span class="errorText">' . TEXT_REQUIRED . '</span>';
+        $your_email_address_prompt = tep_draw_input_field('from', ($fromemail_error ? $HTTP_POST_VARS['from'] : $HTTP_GET_VARS['from']));
+        if ($fromemail_error) $your_email_address_prompt .= ENTRY_EMAIL_ADDRESS_CHECK_ERROR;
       }
 ?>
       <tr>
@@ -149,11 +184,11 @@
                 <td class="main"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_FRIEND_NAME; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('friendname');?></td>
+                    <td class="main"><?php echo tep_draw_input_field('friendname', ($friendname_error ? $HTTP_POST_VARS['friendname'] : $HTTP_GET_VARS['friendname'])); if ($friendname_error) echo '&nbsp;<span class="errorText">' . TEXT_REQUIRED . '</span>';?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_FRIEND_EMAIL; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('friendemail', $HTTP_GET_VARS['send_to']);?></td>
+                    <td class="main"><?php echo tep_draw_input_field('friendemail', ($friendemail_error ? $HTTP_POST_VARS['friendemail'] : $HTTP_GET_VARS['send_to'])); if ($friendemail_error) echo ENTRY_EMAIL_ADDRESS_CHECK_ERROR; ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -169,21 +204,20 @@
               </tr>
             </table></td>
           </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id']) . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
-            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id']) . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+                <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+              </tr>
+            </table></td>
           </tr>
-        </form>
+        </table></form></td>
+      </tr>
 <?php
     }
   }
 ?>
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
