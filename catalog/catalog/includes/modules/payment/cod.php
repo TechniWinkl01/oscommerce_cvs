@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cod.php,v 1.18 2002/11/04 02:13:51 hpdl Exp $
+  $Id: cod.php,v 1.19 2002/11/04 02:47:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,7 @@
 
 // class constructor
     function cod() {
-      global $customer_id, $order;
+      global $order;
 
       $this->code = 'cod';
       $this->title = MODULE_PAYMENT_COD_TEXT_TITLE;
