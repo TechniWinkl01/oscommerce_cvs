@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.21 2002/01/02 23:01:54 hpdl Exp $
+  $Id: boxes.php,v 1.22 2002/01/03 00:19:56 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,13 +21,12 @@
 
 // class constructor
     function tableBox($contents, $direct_output = false) {
-      $tableBox_string = '';
-      if ($contents['form']) $tableBox_string .= $contents['form'] . "\n";
-      $tableBox_string .= '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
+      $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
       if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
 
       for ($i=0; $i<sizeof($contents); $i++) {
+        if ($contents[$i]['form']) $tableBox_string .= $contents[$i]['form'] . "\n";
         $tableBox_string .= '  <tr';
         if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
         if ($contents[$i]['params']) $tableBox_string .= ' ' . $contents[$i]['params'];
@@ -35,7 +34,8 @@
 
         if (is_array($contents[$i][0])) {
           for ($x=0; $x<sizeof($contents[$i]); $x++) {
-            if ($contents[$i][$x]['text']) { // 'text' must always be explicit (ie, set) .. used in conjunction with alternate row colours
+            if ($contents[$i][$x]['text']) {
+              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'] . "\n";
               $tableBox_string .= '    <td';
               if ($contents[$i][$x]['align'] != 'left') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
               if ($contents[$i][$x]['params']) {
@@ -43,11 +43,8 @@
               } elseif ($this->table_data_parameters != '') {
                 $tableBox_string .= ' ' . $this->table_data_parameters;
               }
-              $tableBox_string .= '>';
-              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'];
-              $tableBox_string .= $contents[$i][$x]['text'];
+              $tableBox_string .= '>' . $contents[$i][$x]['text'] . '</td>' . "\n";
               if ($contents[$i][$x]['form']) $tableBox_string .= '</form>';
-              $tableBox_string .= '</td>' . "\n";
             }
           }
         } else {
@@ -62,10 +59,10 @@
         }
 
         $tableBox_string .= '  </tr>' . "\n";
+        if ($contents[$i]['form']) $tableBox_string .= '</form>' . "\n";
       }
 
       $tableBox_string .= '</table>' . "\n";
-      if ($contents['form']) $tableBox_string .= '</form>' . "\n";
 
       if ($direct_output) echo $tableBox_string;
 
@@ -87,7 +84,6 @@
       $this->table_parameters = 'class="infoBoxContents"';
       $info_box_contents = array();
       $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
-      $info_box_contents['form'] = $contents['form'];
       for ($i=0; $i<sizeof($contents); $i++) {
         $info_box_contents[] = array(array('align' => $contents[$i]['align'], 'form' => $contents[$i]['form'], 'params' => 'class="boxText"', 'text' => $contents[$i]['text']));
       }

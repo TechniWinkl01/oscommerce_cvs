@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.12 2002/01/02 16:25:33 dgw_ Exp $
+  $Id: manufacturers.php,v 1.13 2002/01/03 00:19:55 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,8 +46,8 @@
     $select_box .= tep_hide_session_id();
 
     $info_box_contents = array();
-    $info_box_contents['form'] = '<form name="manufacturers" method="get" action="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false) . '">';
-    $info_box_contents[] = array('align' => 'left',
+    $info_box_contents[] = array('form'  => '<form name="manufacturers" method="get" action="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false) . '">',
+                                 'align' => 'left',
                                  'text'  => $select_box);
   }
 

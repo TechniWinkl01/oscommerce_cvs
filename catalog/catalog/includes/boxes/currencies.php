@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.10 2002/01/02 16:25:33 dgw_ Exp $
+  $Id: currencies.php,v 1.11 2002/01/03 00:19:55 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,8 +44,8 @@
   $select_box .= $hidden_get_variables;
 
   $info_box_contents = array();
-  $info_box_contents['form'] = '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL', false) . '">';
-  $info_box_contents[] = array('align' => 'left',
+  $info_box_contents[] = array('form'  => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL', false) . '">',
+                               'align' => 'left',
                                'text'  => $select_box
                               );
 
