@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.117 2001/05/17 16:29:35 jcorreia Exp $
+  $Id: application_top.php,v 1.118 2001/05/17 16:44:21 jcorreia Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -113,15 +113,6 @@
   define('USE_PCONNECT', true); // use persisstent connections?
   define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 
-// Stock Check & Update
-  define('STOCK_CHECK', 1);  // Enable Stock Check, before client can buy a product it checks the stock
-                             // and prevents client from buying more products than u have in Stock
-
-  define('STOCK_ALLOW_CHECKOUT', 0); //Enable costumer to checkout with no products in stock
-                                     
-  define('STOCK_LIMITED', 1);// When enabled STOCK_LIMITED, Updates product quantity bought by client
-                             // Remaning Products = products_in_stock - products_bought_by_client
-
 // customization for the design layout
   define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 16); // propducts tax
@@ -136,8 +127,8 @@
 
 // Stock Check & Update
   define('STOCK_CHECK', 1);
-  define('STOCK_LIMITED', 1);
-  define('STOCK_ALLOW_CHECKOUT', 1);
+  define('STOCK_LIMITED', 1); // Subtract product in stock by product orders
+  define('STOCK_ALLOW_CHECKOUT', 1); 
 
 
 // set to "1" if extended email check function should be used
