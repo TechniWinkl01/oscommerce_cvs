@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.109 2002/06/10 17:40:34 dgw_ Exp $
+  $Id: checkout_process.php,v 1.110 2002/07/15 17:32:29 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -105,8 +105,7 @@
 // otherwise, we have to build the query dynamically with a loop
         $products_attributes = $order->products[$i]['attributes'];
         if (is_array($products_attributes)) {
-          list ($options_id, $options_values_id) = each($products_attributes);
-          $stock_query_raw .= " AND pa.options_id = '" . $options_id . "' AND pa.options_values_id = '" . $options_values_id . "'";
+          $stock_query_raw .= " AND pa.options_id = '" . $products_attributes[$i]['option_id'] . "' AND pa.options_values_id = '" . $products_attributes[$i]['value_id'] . "'";
         }
         $stock_query = tep_db_query($stock_query_raw);
       } else {
