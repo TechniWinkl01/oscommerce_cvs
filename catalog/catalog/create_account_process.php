@@ -421,7 +421,7 @@
       } else {
         $connection_type = 'NONSSL';
       }
-      header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'] . '.php', '', $connection_type));
+      header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
       tep_exit();
     } else {
       header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'NONSSL'));

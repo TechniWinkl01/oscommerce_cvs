@@ -10,7 +10,7 @@
       tep_exit();
     }
   } else {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=account_history', 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_HISTORY, 'NONSSL'));
     tep_exit();
   }
 ?>

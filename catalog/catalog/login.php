@@ -41,7 +41,7 @@
 
       if (@$HTTP_POST_VARS['origin']) {
         if (@$HTTP_POST_VARS['products_id']) {
-          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'] . '.php', 'products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
+          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
           tep_exit();
         } else {
           if (@$HTTP_POST_VARS['connection'] == 'secure') {
@@ -49,7 +49,7 @@
           } else {
             $connection_type = 'NONSSL';
           }
-          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'] . '.php', '', $connection_type));
+          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
           tep_exit();
         }
       } else {

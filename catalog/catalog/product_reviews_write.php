@@ -1,7 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
   if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=product_reviews_write&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_PRODUCT_REVIEWS_WRITE . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
     tep_exit();
   }
 

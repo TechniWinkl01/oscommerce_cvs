@@ -6,7 +6,7 @@
     } else {
       $connection = 'normal';
     }
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=checkout_address&connection=' . $connection, 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
     tep_exit();
   }
 ?>
@@ -163,7 +163,7 @@
     } else {
       $connection = 'normal';
     }
-    echo '                <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=checkout_address&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_add_entry.gif', '113', '24', '0', IMAGE_ADD_ENTRY) . '</a>&nbsp;</font></td>' . "\n";
+    echo '                <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_add_entry.gif', '113', '24', '0', IMAGE_ADD_ENTRY) . '</a>&nbsp;</font></td>' . "\n";
   } else {
     echo '                <td valign="top" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</font></td>' . "\n";
   }

@@ -111,7 +111,7 @@
       } else {
         $connection_type = 'NONSSL';
       }
-      header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'] . '.php', '', $connection_type));
+      header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
       tep_exit();
     } else {
       header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
@@ -509,7 +509,7 @@ function check_form() {
         } else {
           $connection_type = 'NONSSL';
         }
-        echo '<a href="' . tep_href_link($HTTP_GET_VARS['origin'] . '.php', '', $connection_type) . '">';
+        echo '<a href="' . tep_href_link($HTTP_GET_VARS['origin'], '', $connection_type) . '">';
       } else {
         echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '">';
       }
