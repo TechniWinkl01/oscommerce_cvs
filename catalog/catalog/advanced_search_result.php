@@ -168,9 +168,9 @@
 
   $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
 
-  $from_str = "from manufacturers m, products_to_manufacturers p2m, products p";
+  $from_str = "from manufacturers m, products p";
 
-  $where_str = " left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id ";
+  $where_str = " left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id ";
 
   if ($HTTP_GET_VARS['categories_id']) {
     $from_str .= ", products_to_categories p2c ";
