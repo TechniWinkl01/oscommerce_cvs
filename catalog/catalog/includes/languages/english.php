@@ -90,6 +90,12 @@ define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'View All Contents');
 define('BOX_HEADING_BESTSELLERS', 'Bestsellers');
 define('BOX_HEADING_BESTSELLERS_IN', 'Bestsellers in<br>&nbsp;&nbsp;');
 
+// languages box test in includes/boxes/languages.php
+define('BOX_HEADING_LANGUAGES', 'Languages');
+define('BOX_LANGUAGES_ENGLISH', 'English');
+define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
+define('BOX_LANGUAGES_ESPANOL', 'Espanol');
+
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cart contents');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'delivery address');
@@ -99,7 +105,9 @@ define('CHECKOUT_BAR_FINISHED', 'finished!');
 
 // pull down default text
 define('PULL_DOWN_DEFAULT', 'Please Select');
-define('TYPE_BELOW', 'Type Below');
+define('TYPE_BELOW', 'Type Below');
+
+
 
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');

@@ -90,9 +90,15 @@ define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Ver Contenido');
 define('BOX_HEADING_BESTSELLERS', 'Los Mas Vendidos');
 define('BOX_HEADING_BESTSELLERS_IN', 'Los Mas Vendidos en <br>&nbsp;&nbsp;');
 
+// languages box test in includes/boxes/languages.php
+define('BOX_HEADING_LANGUAGES', 'Lenguajes');
+define('BOX_LANGUAGES_ENGLISH', 'English');
+define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
+define('BOX_LANGUAGES_ESPANOL', 'Espanol');
+
 // pull down default text
 define('PULL_DOWN_DEFAULT', 'Seleccionar');
-define('TYPE_BELOW', 'Escriba Debajo');
+define('TYPE_BELOW', 'Escriba Debajo');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
