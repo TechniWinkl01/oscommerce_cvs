@@ -27,7 +27,7 @@
       $error = 0;
       if (tep_db_query("insert into " . TABLE_MANUFACTURERS . " (manufacturers_name) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "')")) {
         $manufacturers_id = tep_db_insert_id();
-        if ($manufacturers_image != 'none') {
+        if ( ($manufacturers_image != 'none') && ($manufacturers_image != '') ) {
           if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = 'images/" . $manufacturers_image_name . "' where manufacturers_id = '" . $manufacturers_id . "'")) {
             $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
             if (file_exists($image_location)) @unlink($image_location);
@@ -181,7 +181,7 @@
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
   $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->name . '</b>&nbsp;');
+  $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . @$mInfo->name . '</b>&nbsp;');
 ?>
               <tr class="boxHeading">
                 <td><? new infoBoxHeading($info_box_contents); ?></td>
