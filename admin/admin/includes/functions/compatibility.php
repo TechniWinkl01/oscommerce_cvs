@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.4 2002/03/27 11:13:40 dgw_ Exp $
+  $Id: compatibility.php,v 1.5 2002/08/17 12:54:04 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -42,6 +42,24 @@
   if (!function_exists('is_numeric')) {
     function is_numeric($param) {
       return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+    }
+  }
+
+  if (!function_exists('is_uploaded_file')) {
+    function is_uploaded_file($filename) {
+      if (!$tmp_file = get_cfg_var('upload_tmp_dir')) {
+        $tmp_file = dirname(tempnam('', ''));
+      }
+      $tmp_file .= '/' . basename($filename);
+
+// User might have trailing slash in php.ini
+      return (ereg_replace('/+', '/', $tmp_file) == $filename);
+    }
+  }
+
+  if (!function_exists('move_uploaded_file')) {
+    function move_uploaded_file($file, $target) {
+      return copy($file, $target);
     }
   }
 ?>
