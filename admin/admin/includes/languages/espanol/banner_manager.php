@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.21 2003/07/07 09:23:06 dgw_ Exp $
+  $Id: banner_manager.php,v 1.22 2004/08/15 18:18:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,4 +64,20 @@ define('ERROR_UNKNOWN_STATUS_FLAG', 'Error: Estado desconocido.');
 
 define('ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de gr&aacute;ficos. Por favor cree un directorio llamado \'graphs\' dentro de \'images\'.');
 define('ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE', 'Error: No se puede escribir en el directorio de gr&aacute;ficos.');
+
+define('TABLE_HEADING_SOURCE', 'Fecha');
+define('TABLE_HEADING_VIEWS', 'Vistas');
+define('TABLE_HEADING_CLICKS', 'Clicks');
+
+define('TEXT_BANNERS_DAILY_STATISTICS', '%s Estadisticas Diarias de %s %s');
+define('TEXT_BANNERS_MONTHLY_STATISTICS', '%s Estadisticas Mensuales de %s');
+define('TEXT_BANNERS_YEARLY_STATISTICS', '%s Estadisticas Anuales');
+
+define('STATISTICS_TYPE_DAILY', 'Diarias');
+define('STATISTICS_TYPE_MONTHLY', 'Mensuales');
+define('STATISTICS_TYPE_YEARLY', 'Anuales');
+
+define('TITLE_TYPE', 'Tipo:');
+define('TITLE_YEAR', 'A&ntilde;o:');
+define('TITLE_MONTH', 'Mes:');
 ?>

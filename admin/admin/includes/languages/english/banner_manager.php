@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.17 2002/08/18 18:54:47 hpdl Exp $
+  $Id: banner_manager.php,v 1.18 2004/08/15 18:18:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,4 +64,20 @@ define('ERROR_UNKNOWN_STATUS_FLAG', 'Error: Unknown status flag.');
 
 define('ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST', 'Error: Graphs directory does not exist. Please create a \'graphs\' directory inside \'images\'.');
 define('ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE', 'Error: Graphs directory is not writeable.');
+
+define('TABLE_HEADING_SOURCE', 'Source');
+define('TABLE_HEADING_VIEWS', 'Views');
+define('TABLE_HEADING_CLICKS', 'Clicks');
+
+define('TEXT_BANNERS_DAILY_STATISTICS', '%s Daily Statistics For %s %s');
+define('TEXT_BANNERS_MONTHLY_STATISTICS', '%s Monthly Statistics For %s');
+define('TEXT_BANNERS_YEARLY_STATISTICS', '%s Yearly Statistics');
+
+define('STATISTICS_TYPE_DAILY', 'Daily');
+define('STATISTICS_TYPE_MONTHLY', 'Monthly');
+define('STATISTICS_TYPE_YEARLY', 'Yearly');
+
+define('TITLE_TYPE', 'Type:');
+define('TITLE_YEAR', 'Year:');
+define('TITLE_MONTH', 'Month:');
 ?>

@@ -1,47 +1,41 @@
 <?php
 /*
-  $Id: banner_infobox.php,v 1.4 2003/07/30 18:07:14 dgw_ Exp $
+  $Id: banner_infobox.php,v 1.5 2004/08/15 18:18:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  include(DIR_WS_CLASSES . 'phplot.php');
+  require('external/panachart/panachart.php');
 
-  $stats = array();
-  $banner_stats_query = tep_db_query("select dayofmonth(banners_history_date) as name, banners_shown as value, banners_clicked as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' and to_days(now()) - to_days(banners_history_date) < " . $days . " order by banners_history_date");
+  $views = array(0, 0, 0);
+  $clicks = array(0, 0, 0);
+  $vLabels = array(0, 0, 0);
+
+  $index = 2;
+
+  $banner_stats_query = tep_db_query("select date_format(banners_history_date, '%e-%b') as name, banners_shown as value, banners_clicked as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' order by banners_history_date desc limit " . $days);
   while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
-    $stats[] = array($banner_stats['name'], $banner_stats['value'], $banner_stats['dvalue']);
+    $views[$index] = $banner_stats['value'];
+    $clicks[$index] = $banner_stats['dvalue'];
+    $vLabels[$index] = $banner_stats['name'];
+
+    $index--;
   }
 
-  if (sizeof($stats) < 1) $stats = array(array(date('j'), 0, 0));
-
-  $graph = new PHPlot(200, 220, 'images/graphs/banner_infobox-' . $banner_id . '.' . $banner_extension);
-
-  $graph->SetFileFormat($banner_extension);
-  $graph->SetIsInline(1);
-  $graph->SetPrintImage(0);
-
-  $graph->draw_vert_ticks = 0;
-  $graph->SetSkipBottomTick(1);
-  $graph->SetDrawXDataLabels(0);
-  $graph->SetDrawYGrid(0);
-  $graph->SetPlotType('bars');
-  $graph->SetDrawDataLabels(1);
-  $graph->SetLabelScalePosition(1);
-  $graph->SetMarginsPixels(15,15,15,30);
-
-  $graph->SetTitleFontSize('4');
-  $graph->SetTitle(TEXT_BANNERS_LAST_3_DAYS);
-
-  $graph->SetDataValues($stats);
-  $graph->SetDataColors(array('blue','red'),array('blue', 'red'));
-
-  $graph->DrawGraph();
-
-  $graph->PrintImage();
+  $ochart = new chart(200, 220, 5, '#eeeeee');
+  $ochart->setTitle(TEXT_BANNERS_LAST_3_DAYS, '#000000', 2);
+  $ochart->setPlotArea(SOLID, '#444444', '#dddddd');
+  $ochart->setFormat(0, ',', '.');
+  $ochart->setXAxis('#000000', SOLID, 1, '');
+  $ochart->setYAxis('#000000', SOLID, 2, '');
+  $ochart->setLabels($vLabels, '#000000', 1, VERTICAL);
+  $ochart->setGrid('#bbbbbb', DASHED, '#bbbbbb', DOTTED);
+  $ochart->addSeries($views, 'area', 'Series1', SOLID, '#000000', '#0000ff');
+  $ochart->addSeries($clicks, 'area', 'Series1', SOLID, '#000000', '#ff0000');
+  $ochart->plot('images/graphs/banner_infobox-' . $banner_id . '.' . $image_extension);
 ?>
