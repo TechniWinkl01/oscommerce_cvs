@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.3 2001/09/19 11:13:00 mbs Exp $
+  $Id: languages.php,v 1.4 2001/11/30 16:31:51 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -23,6 +23,11 @@ define('TEXT_INFO_LANGUAGE_NAME', 'Nombre:');
 define('TEXT_INFO_LANGUAGE_CODE', 'Codigo:');
 define('TEXT_INFO_LANGUAGE_IMAGE', 'Imagen:');
 define('TEXT_INFO_LANGUAGE_DIRECTORY', 'Directorio:');
+define('TEXT_INFO_LANGUAGE_CHARSET', 'Juego de Carácteres:');
+define('TEXT_INFO_LANGUAGE_DIRECTION', 'Dirección:');
+define('TEXT_INFO_LANGUAGE_DIRECTION_DEFAULT', 'Predeterminado');
+define('TEXT_INFO_LANGUAGE_DIRECTION_LEFT_TO_RIGHT', 'Izquierda a Derecha');
+define('TEXT_INFO_LANGUAGE_DIRECTION_RIGHT_TO_LEFT', 'Derecha a Izquierda');
 define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Orden:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca los datos del nuevo idioma');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este idioma?');
