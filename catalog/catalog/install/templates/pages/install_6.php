@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_6.php,v 1.3 2004/02/16 06:59:43 hpdl Exp $
+  $Id: install_6.php,v 1.4 2004/02/28 12:50:59 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,7 +48,7 @@
   <tr>
     <td width="30%" valign="top"><?php echo CONFIG_DATABASE_NAME; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo tep_draw_input_field('DB_DATABASE', (isset($_POST['DB_SERVER_PASSWORD']) ? $_POST['DB_SERVER_PASSWORD'] : '')); ?>
+      <?php echo tep_draw_input_field('DB_DATABASE', (isset($_POST['DB_DATABASE']) ? $_POST['DB_DATABASE'] : '')); ?>
       <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbName');"><br>
       <div id="dbNameSD"><?php echo CONFIG_DATABASE_NAME_DESCRIPTION; ?></div>
       <div id="dbName" class="longDescription"><?php echo CONFIG_DATABASE_NAME_DESCRIPTION_LONG; ?></div>
