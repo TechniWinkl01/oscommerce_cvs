@@ -1,7 +1,5 @@
-12/02/2001
-----------
-
-The Exchange Project Preview Release 2.1 -
+xx/02/2001 The Exchange Project Preview Release 2.1
+---------------------------------------------------
 
  * Payment methods are now modules, which makes it easier
    to implement other payment methods. Supported methods
@@ -15,135 +13,71 @@ The Exchange Project Preview Release 2.1 -
  * Db query clean up a few AS clauses were added for earlier MySQL
    versions. Error checking added for when no records exist.
 
-01/12/2000
-----------
+13/12/2000 The Exchange Project Preview Release 2.0a
+----------------------------------------------------
 
-The Exchange Project Preview Release 2.0 -
+ * Added FedEx shipping module
+ * Bugfixes
 
- * PHP3 / PHP4 compatible out of the box
+02/12/2000 The Exchange Project Preview Release 2.0
+---------------------------------------------------
 
- * Administration Tool has been majorly rewritten, and
-   has also been given a new friendlier GUI
-
- * Tax calculated by zones
-
- * Objects - In a start to sort out and organize the code,
-   various classes have been implemented to take care of
-   certain functions/features
-
- * Some application configuration parameters are now
-   in the database. Two advantages are
-     (i) no conflicts can be made by developers
-    (ii) each parameter can be given description,
-         and can be easily modified over the web
-
- * New category structure
-
- * Manufacturers are now linked to each product, the
-   function to obtain the manufactures name and the
-   products name together has been removed - this
-   improves the applications performance.
-
- * The status to orders can be modified
-
- * Three standard languages are included in the 
-   download packge - English, German, and Spanish.
-
- * Advanced Search
-
- * New modules/templates
-
- * BestSellers list
- * MAnufacturers box
- * This customer also purchased..
-
- * Send Order Confirmation E-Mails to multiple people
-
- * Address Formating
-
- * PayPal Payments
-
- * Currency format
+ * Manufacturers pull-down select box
+ * Number of products in each category displayed
+ * Bestsellers box
+ * See what other customers have brought (linked to current product displayed)
+ * Administration Tool now user-friendlier via new layout
+ * Categories-to-Categories structure
+ * Spanish added to the official languages supported
+ * Dynamic product attributes
+ * Tax zones, classes, and rates
+ * Now PHP3/PHP4 compatible
+ * Some configuration parameters now in database
+ * Manufacturers now directly linked to products
+ * Status of orders can now be modified
+ * New advanced search page
+ * Order confirmation emails can now be sent to multiple addresses
+ * Address formating function implemented
+ * PayPal payments implemented
+ * Currencies are now formated to the selected locale
 
 
-14/05/2000
-----------
+14/05/2000 The Exchange Project Preview Release 1.1
+---------------------------------------------------
 
-The Exchange Project Preview Release 1.1 -
+ * Customization variables and constants
+ * English and German localization
+ * New products and upcoming products modularized
+ * Added custom tep_db_* database functions
+ * Added custom tep_session_* session functions
+ * Added tep_href_link function
+ * Added tep_image function
+ * Added tep_image_submit function
+ * Added tep_black_line function
+ * Added tep_break_string function
+ * Added tep_products_in_cart function
+ * Added tep_exit function
+ * Added tep_number_format function
+ * Reviews-Box now displays a random review
+ * account_edit_process.php updated
+ * Review-Box: text now broken to avoid exceeding box width
+ * address_book_add.php updated, also combined with address_book_add_process.php
+ * login.php updated, also combined with login_process.php
+ * login_forgotten.php and login_forgotten_process.php now combined to password_forgotten.php
+ * Added products image to reviews info
+ * products_reviews_write.php and products_reviews_write_process.php combined
+ * shopping_cart.php updates
+ * shopping_cart.php now displays proper price on special for nonsess cart
+ * Fixed misalignment of checkout information
+ * New directory structure for includes
+ * application_top.php and application_bottom.php implemented for application wide parameters
+ * column_left.php and column_right.php structure implemented
+ * Display parse time of pages
+ * SQL queries optimized
+ * tep_number_format function implemented, but not in use
+ * Fixed add a quickie bug - when product did not exist in catalog, it inserted a null entry in the cart
 
- * Customization: variables + constants
- * Localization: English + German
- * Modulization: new products + upcoming products
+12/03/2000 The Exchange Project Preview Release 1.0
+---------------------------------------------------
 
- * New functions:
-   - tep_db_* - custom database fuctions
-   - tep_session_* - custom session functions
-   - tep_href_link - custom html href tag
-   - tep_image - custom html image tag
-   - tep_image_submit - custom html submit(image) tag
-   - tep_black_line - display a black line image
-   - tep_break_string - split words longer than specifed
-     length with a '-' character
-   - tep_products_in_cart - checks to see if a product
-     is in the shopping cart
-   - tep_exit - custom exit function
-   - tep_number_format - custom currency formatting
-
- * Bugfixes / Updates
-   - reviews box now displays a random new review
-   - account_edit_process.php updated
-   - review box - text is now broken to avoid the text
-     exceeding the box width
-   - address_book_add.php updated
-       - also combined this page together with
-         address_book_add_process.php
-   - login.php updated
-       - also combined this page together with
-         login_process.php
-   - login_forgotten.php and login_forgotten_process.php
-     now combined to password_forgotten.php
-   - added product image to reviews_info.php
-   - product_reviews_write.php combined with
-     products_reviews_write_process.php
-   - shopping_cart.php updated
-   - shopping_cart.php now displays correct products
-     price on special when customer adds the product to
-     their nonsess cart
-   - fixed misalignment of table data on checkout when
-     viewing the checkout information
-   - new directory structure for includes
-   - application_top.php and application_bottom.php
-     implemented for application settings
-   - column_left.php and column_right.php implemented to
-     easily modify the boxes for navigation
-   - display the time it takes to parse the pages
-   - sql queries are now tighten - quotes are around
-     the variables
-   - tep_number_format function implemented but is not
-     in use
-   - fixed add a quickie bug, when the product did not
-     exist it inserted a null entry in the cart
-
-
-01/04/2000
----------- 
-
-Patch 1 for Administration Tool - This adds Order+Status support
-
-
-27/03/2000
-----------
-
-Final Administration Tool for Preview Release 1 is complete.
-
-
-20/03/2000
-----------
-
-WWW based administration tool is released in alpha for Preview Release 1.
-
-
-12/03/2000
-----------
-
-Preview Release 1 has been made public.
+ * Initial Release
