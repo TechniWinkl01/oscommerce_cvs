@@ -127,7 +127,7 @@
   define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
   define('MAX_DISPLAY_PAGE_LINKS', 5); // how many page numbers to link for page-sets
   define('IMAGE_REQUIRED', 1); // require product images? 1 = yes
-  define('TAX_VALUE', 16); // propducts tax
+  define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // Display format for tax rate
   define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
