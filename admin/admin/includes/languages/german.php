@@ -4,7 +4,7 @@
 
   German Text for The Exchange Project Administration Tool
 
-  $Id: german.php,v 1.38 2001/08/19 18:15:15 mbs Exp $
+  $Id: german.php,v 1.39 2001/09/14 22:43:02 dwatkins Exp $
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -206,7 +206,7 @@ define('IMAGE_SAVE', 'speichern');
 define('IMAGE_SEARCH', 'suchen');
 define('IMAGE_SELECT', 'auswählen');
 define('IMAGE_UPDATE', 'aktualisieren');
-define('IMAGE_UPDATE_CURRENCY', 'Wechselkurs aktualisieren');
+define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
 define('IMAGE_ICON_INFO', 'Information');
 
 // constants for use in tep_prev_next_display function

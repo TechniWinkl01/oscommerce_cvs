@@ -2,14 +2,21 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into " . TABLE_CURRENCIES . " (title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places) values ('" . $HTTP_POST_VARS['currency_title'] . "', '" . $HTTP_POST_VARS['currency_code'] . "', '" . $HTTP_POST_VARS['symbol_left'] . "', '" . $HTTP_POST_VARS['symbol_right'] . "', '" . $HTTP_POST_VARS['decimal_point'] . "', '" . $HTTP_POST_VARS['thousands_point'] . "', '" . $HTTP_POST_VARS['decimal_places'] . "')");
+      tep_db_query("insert into " . TABLE_CURRENCIES . " (title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value) values ('" . $HTTP_POST_VARS['currency_title'] . "', '" . $HTTP_POST_VARS['currency_code'] . "', '" . $HTTP_POST_VARS['symbol_left'] . "', '" . $HTTP_POST_VARS['symbol_right'] . "', '" . $HTTP_POST_VARS['decimal_point'] . "', '" . $HTTP_POST_VARS['thousands_point'] . "', '" . $HTTP_POST_VARS['decimal_places'] . "', '" . $HTTP_POST_VARS['value'] . "')");
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update " . TABLE_CURRENCIES . " set title = '" . $HTTP_POST_VARS['currency_title'] . "', code = '" . $HTTP_POST_VARS['currency_code'] . "', symbol_left = '" . $HTTP_POST_VARS['symbol_left'] . "', symbol_right = '" . $HTTP_POST_VARS['symbol_right'] . "', decimal_point = '" . $HTTP_POST_VARS['decimal_point'] . "', thousands_point = '" . $HTTP_POST_VARS['thousands_point'] . "', decimal_places = '" . $HTTP_POST_VARS['decimal_places'] . "' where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
+      tep_db_query("update " . TABLE_CURRENCIES . " set title = '" . $HTTP_POST_VARS['currency_title'] . "', code = '" . $HTTP_POST_VARS['currency_code'] . "', symbol_left = '" . $HTTP_POST_VARS['symbol_left'] . "', symbol_right = '" . $HTTP_POST_VARS['symbol_right'] . "', decimal_point = '" . $HTTP_POST_VARS['decimal_point'] . "', thousands_point = '" . $HTTP_POST_VARS['thousands_point'] . "', decimal_places = '" . $HTTP_POST_VARS['decimal_places'] . "', value = '" . $HTTP_POST_VARS['value'] . "' where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       tep_db_query("delete from " . TABLE_CURRENCIES . " where currencies_id = '" . $HTTP_POST_VARS['currencies_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL')); tep_exit();
+    } elseif ($HTTP_GET_VARS['action'] == 'update') {
+      $currencies_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
+      while ($currencies_values = tep_db_fetch_array($currencies_query)) {
+        tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . quotecurrency($currencies_values['code']) . "' where currencies_id = '" . $currencies_values['currencies_id'] . "'");
+      }
+      Header('Location: ' . tep_href_link(FILENAME_CURRENCIES));
+      tep_exit();
     }
   }
 ?>
@@ -64,13 +71,14 @@
                 <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CURRENCY_ID; ?>&nbsp;</td>
                 <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CURRENCY_NAME; ?>&nbsp;</td>
                 <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CURRENCY_CODES; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_CURRENCY_VALUE; ?>&nbsp;</td>
                 <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><? echo tep_black_line(); ?></td>
+                <td colspan="5"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from " . TABLE_CURRENCIES . " order by title";
+  $currencies_query_raw = "select currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " order by title";
   $currencies_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $currencies_query_raw, $currencies_query_numrows);
   $currencies_query = tep_db_query($currencies_query_raw);
 
@@ -91,6 +99,7 @@
                 <td class="smallText">&nbsp;<? echo $currencies['currencies_id']; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<? echo $currencies['title']; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<? echo $currencies['code']; ?>&nbsp;</td>
+                <td class="smallText" align="right">&nbsp;<? echo number_format($currencies['value'], 4); ?>&nbsp;</td>
 <?
     if ($currencies['currencies_id'] == @$cInfo->id) {
 ?>
@@ -107,14 +116,24 @@
   }
 ?>
               <tr>
-                <td colspan="4"><? echo tep_black_line(); ?></td>
+                <td colspan="5"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td valign="top" class="smallText">&nbsp;<? echo $currencies_split->display_count($currencies_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_CURRENCIES); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $currencies_split->display_links($currencies_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<? if (!$HTTP_GET_VARS['action']) echo '<br><br>&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_currency.gif', IMAGE_NEW_CURRENCY) . '</a>&nbsp;'; ?></td>
+                    <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $currencies_split->display_links($currencies_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
                   </tr>
+<? 
+  if (!$HTTP_GET_VARS['action']) {
+?>
+                 <tr>
+                    <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')) . 'action=update', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_update_currencies.gif', IMAGE_UPDATE_CURRENCIES); ?></a></td>
+                    <td class="main" align="right"><a href="<? echo tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_new_currency.gif', IMAGE_NEW_CURRENCY); ?></a>&nbsp;&nbsp;</td>
+                  </tr>
+<?
+  }
+?>
                 </table></td>
               </tr>
             </table></td>
@@ -144,6 +163,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br><input type="text" name="decimal_point"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br><input type="text" name="thousands_point"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br><input type="text" name="decimal_places"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_VALUE . '<br><input type="text" name="value"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="currencies" action="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="currencies_id" value="' . $cInfo->id . '">'  ."\n";
@@ -157,6 +177,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br><input type="text" name="decimal_point" value="' . $cInfo->decimal_point . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br><input type="text" name="thousands_point" value="' . $cInfo->thousands_point . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br><input type="text" name="decimal_places" value="' . $cInfo->decimal_places . '"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_CURRENCY_VALUE . '<br><input type="text" name="value" value="' . $cInfo->value . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="currencies" action="' . tep_href_link(FILENAME_CURRENCIES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="currencies_id" value="' . $cInfo->id . '">'  ."\n";
@@ -175,7 +196,8 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_DECIMAL_POINT . '&nbsp;' . $cInfo->decimal_point);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '&nbsp;' . $cInfo->thousands_point);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '&nbsp;' . $cInfo->decimal_places);
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>&nbsp;' . tep_currency_format('30', false, CURRENCY_VALUE) . ' = ' . tep_currency_format('30', true, $cInfo->code));
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_VALUE . '&nbsp;' . number_format($cInfo->value, 4));
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>&nbsp;' . tep_currency_format('30', true, CURRENCY_VALUE) . ' = ' . tep_currency_format('30', true, $cInfo->code));
   }
 ?>
               <tr><? echo $form; ?>

@@ -22,6 +22,7 @@ define('TEXT_INFO_CURRENCY_SYMBOL_RIGHT', 'Symbol Right:');
 define('TEXT_INFO_CURRENCY_DECIMAL_POINT', 'Decimal Point:');
 define('TEXT_INFO_CURRENCY_THOUSANDS_POINT', 'Thousands Point:');
 define('TEXT_INFO_CURRENCY_DECIMAL_PLACES', 'Decimal Places:');
+define('TEXT_INFO_CURRENCY_VALUE', 'Value:');
 define('TEXT_INFO_CURRENCY_EXAMPLE', 'Example Output:');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new currency with its related data');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this currency?');
