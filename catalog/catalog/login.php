@@ -155,6 +155,27 @@ function session_win() {
             <td align="right" colspan="4" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<a href="<?=tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL');?>"><?=TEXT_PASSWORD_FORGOTTEN;?></a>&nbsp;</font></td>
           </tr>
 <?
+   $origin = '';
+   if ($HTTP_GET_VARS['products_id']) {
+     $origin = 'products_id=' . $HTTP_GET_VARS['products_id'];
+   }
+   if ($HTTP_GET_VARS['origin']) {
+     if ($origin != '') {
+       $origin = $origin . '?';
+     }
+     $origin = $origin . 'origin=' . $HTTP_GET_VARS['origin'];
+   }
+   if ($HTTP_GET_VARS['connection']) {
+     if ($origin != '') {
+       $origin = $origin . '?';
+     }
+     $origin = $origin . 'connection=' . $HTTP_GET_VARS['connection'];
+   }
+?>
+          <tr>
+            <td align="right" colspan="4" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<a href="<?=tep_href_link(FILENAME_CREATE_ACCOUNT, $origin, 'NONSSL');?>"><?=TEXT_CREATE_ACCOUNT;?></a>&nbsp;</font></td>
+          </tr>
+<?
   if ($nonsess_cart) {
 ?>
           <tr>

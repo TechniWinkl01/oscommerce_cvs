@@ -12,6 +12,7 @@ define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_PASSWORD', 'Password:');
 define('TEXT_COOKIE', 'Save login information in a cookie?');
 define('TEXT_PASSWORD_FORGOTTEN', 'Password forgotten? Click here to get it sent to you.');
+define('TEXT_CREATE_ACCOUNT', 'No account with us? Click here to create one.');
 define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. <a href="javascript:session_win();">[More Info]</a>');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
 
