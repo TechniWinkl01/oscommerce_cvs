@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.49 2002/06/02 19:08:26 hpdl Exp $
+# $Id: oscommerce.sql,v 1.50 2002/06/03 12:26:27 project3000 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -485,7 +485,7 @@ CREATE TABLE specials (
   specials_last_modified datetime,
   expires_date datetime,
   date_status_change datetime,
-  status int(1) DEFAULT '1',
+  status int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (specials_id)
 );
 

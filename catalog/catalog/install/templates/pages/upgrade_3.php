@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.32 2002/06/02 19:08:27 hpdl Exp $
+  $Id: upgrade_3.php,v 1.33 2002/06/03 12:26:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -691,7 +691,7 @@ changeText('statusText', 'Updating Specials');
   osc_db_query("alter table specials add specials_last_modified datetime");
   osc_db_query("alter table specials add expires_date datetime");
   osc_db_query("alter table specials add date_status_change datetime");
-  osc_db_query("alter table specials add status int(1) default '1'");
+  osc_db_query("alter table specials add status int(1) NOT NuLL default '1'");
 ?>
 
 <script language="javascript"><!--
