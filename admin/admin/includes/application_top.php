@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.86 2001/11/17 03:36:12 hpdl Exp $
+  $Id: application_top.php,v 1.87 2001/11/18 13:42:58 mabosch Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,6 @@
 
 // define the database table names used in the project
   define('TABLE_ADDRESS_BOOK', 'address_book');
-  define('TABLE_ADDRESS_BOOK_TO_CUSTOMERS', 'address_book_to_customers');
   define('TABLE_ADDRESS_FORMAT', 'address_format');
   define('TABLE_BANNERS', 'banners');
   define('TABLE_BANNERS_HISTORY', 'banners_history');
