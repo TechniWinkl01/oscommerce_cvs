@@ -49,7 +49,7 @@
       </tr>
 <?
   if (@$HTTP_GET_VARS['orders_id']) {
-    $orders = tep_db_query("select customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $orders = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $orders_values = tep_db_fetch_array($orders);
     $sold_to = tep_db_query("select customers_name as name, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_country as country, customers_address_format_id as format_id from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $sold_to_values = tep_db_fetch_array($sold_to);
