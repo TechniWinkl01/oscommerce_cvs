@@ -94,7 +94,7 @@
 
   if ($dir) {
     while ($file = readdir($dir)) {
-      if (!is_dir($file) && eregi('.php[34]?$', $file)) {
+      if (!is_dir($file)) {
         $directory_array[] = $file;
       }
     }
@@ -106,48 +106,50 @@
       $check = 0;
       include($module_directory . $entry);
       $class = substr($entry, 0, strrpos($entry, '.'));
-      $module = new $class;
-      $check = $module->check();
-      if ($check == '1') {
-        $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
-      }
+      if (class_exists($class)) {
+        $module = new $class;
+        $check = $module->check();
+        if ($check == '1') {
+          $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
+        }
 
-      if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$mInfo)) {
-        $module_info = array('code' => $module->code);
-        $mInfo_array = tep_array_merge($module_info, $module->keys());
-        $mInfo = new moduleInfo($mInfo_array);
-      }
+        if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$mInfo)) {
+          $module_info = array('code' => $module->code);
+          $mInfo_array = tep_array_merge($module_info, $module->keys());
+          $mInfo = new moduleInfo($mInfo_array);
+        }
 
-      if ($class == $mInfo->code) {
-        echo '              <tr bgcolor="#b0c8df">' . "\n";
-      } else {
-        echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
-      }
+        if ($class == $mInfo->code) {
+          echo '              <tr bgcolor="#b0c8df">' . "\n";
+        } else {
+          echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
+        }
 ?>
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $entry; ?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;
 <?
-      if ($module->check() == '1') {
-        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', '10', '10', '0', 'Active') . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', '10', '10', '0', 'Set Inactive') . '</a>';
-      } else {
-        echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', '10', '10', '0', 'Set Active') . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', '10', '10', '0', 'Inactive');
-      }
+        if ($module->check() == '1') {
+          echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', '10', '10', '0', 'Active') . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', '10', '10', '0', 'Set Inactive') . '</a>';
+        } else {
+          echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', '10', '10', '0', 'Set Active') . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', '10', '10', '0', 'Inactive');
+        }
 ?>&nbsp;</font></td>
 <?
-      if ($class == $mInfo->code) {
+        if ($class == $mInfo->code) {
 ?>
                     <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
 <?
-      } else {
+        } else {
 ?>
                     <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
 <?
-      }
+        }
 ?>
 
                 <td></td>
               </tr>
 <?
+      }
     }
   }
   closedir($dir);
