@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.132 2002/05/16 15:32:21 hpdl Exp $
+  $Id: categories.php,v 1.133 2002/06/09 15:32:43 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -230,10 +230,10 @@
             }
           }
 
-        if (USE_CACHE == 'true') {
-          tep_reset_cache_block('categories');
-          tep_reset_cache_block('also_purchased');
-        }
+          if (USE_CACHE == 'true') {
+            tep_reset_cache_block('categories');
+            tep_reset_cache_block('also_purchased');
+          }
 
           tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $products_id));
         }
