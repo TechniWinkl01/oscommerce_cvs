@@ -34,6 +34,7 @@ GetOptions(\%opts, "help|?", "debug|d:i",
            "host|h=s",   "user|u=s",   "password|p:s",
            "host1|h1=s", "user1|u1=s", "password1|p1:s",
            "host2|h2=s", "user2|u2=s", "password2|p2:s",
+           "tolerant|i"
           );
 
 if (@ARGV != 2 or $opts{help}) {
@@ -70,6 +71,7 @@ Options:
   -o,  --only-both        only output changes for tables in both databases
   -n,  --no-old-defs      suppress comments describing old definitions
   -t,  --table-re=REGEXP  restrict comparisons to tables matching REGEXP
+  -i,  --tolerant         ignore DEFAULT and formatting changes
 
   -h,  --host=...         connect to host
   -u,  --user=...         user for login if not current user
@@ -169,13 +171,21 @@ sub diff_fields {
   my @changes = ();
   
   foreach my $field (keys %fields1) {
-    if ($fields2{$field}) {
-      if ($fields1{$field} ne $fields2{$field}) {
-        debug(4, "      field `$field' changed\n");
-        my $change = "ALTER TABLE $name1 CHANGE COLUMN $field $field $fields2{$field};";
-        $change .= " # was $fields1{$field}" unless $opts{'no-old-defs'};
-        $change .= "\n";
-        push @changes, $change;
+    my $f1 = $fields1{$field};
+    if (my $f2 = $fields2{$field}) {
+      if ($f1 ne $f2) {
+        if (not $opts{tolerant} or (($f1 !~ m/$f2\(\d+,\d+\)/)         and
+                                    ($f1 ne "$f2 DEFAULT '' NOT NULL") and
+                                    ($f1 ne "$f2 NOT NULL")
+                                   ))
+        {
+          debug(4, "      field `$field' changed\n");
+
+          my $change = "ALTER TABLE $name1 CHANGE COLUMN $field $field $f2;";
+          $change .= " # was $f1" unless $opts{'no-old-defs'};
+          $change .= "\n";
+          push @changes, $change;
+        }
       }
     }
     else {
@@ -309,9 +319,11 @@ sub parse_arg {
 
   debug(1, "parsing arg $num: `$arg'\n");
 
+  my $authnum = $num + 1;
+  
   my %auth = ();
   for my $auth (qw/host user password/) {
-    $auth{$auth} = $opts{"$auth$num"} || $opts{$auth};
+    $auth{$auth} = $opts{"$auth$authnum"} || $opts{$auth};
     delete $auth{$auth} unless $auth{$auth};
   }
 
@@ -319,7 +331,10 @@ sub parse_arg {
     return new MySQL::Database(db => $1, %auth);
   }
 
-  if ($opts{"host$num"} || $opts{"user$num"} || $opts{"password$num"}) {
+  if ($opts{"host$authnum"} ||
+      $opts{"user$authnum"} ||
+      $opts{"password$authnum"})
+  {
     return new MySQL::Database(db => $arg, %auth);
   }
 
