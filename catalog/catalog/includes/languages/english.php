@@ -61,7 +61,7 @@ define('BOX_HEADING_MANUFACTURERS', 'Manufacturers');
 define('BOX_MANUFACTURERS_SELECT_ONE', 'Select one:');
 
 // whats_new box text in includes/boxes/whats_new.php
-define('BOX_HEADING_WHATS_NEW', 'Whats New?');
+define('BOX_HEADING_WHATS_NEW', 'What\'s New?');
 
 // quick_find box text in includes/boxes/quick_find.php
 define('BOX_HEADING_SEARCH', 'Quick Find');
