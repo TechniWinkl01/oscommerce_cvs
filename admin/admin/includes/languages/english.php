@@ -20,7 +20,7 @@ define('CURRENCY_BEFORE', '$'); // currency character(s) before value
 define('CURRENCY_AFTER', ''); // currency character(s) after value
 define('CURRENCY_DECIMAL', '.'); // currency decimal point character
 define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
-define('CURRENCY_VALUE', 0.9551); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
+define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
 // for example:
 // products_price = 30.00 (in Euro)
 // currency_value = 0.9551 (US to Euro)
@@ -47,11 +47,8 @@ define('BOX_HEADING_SEARCH', 'Quick Find');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalog');
-define('BOX_CATALOG_CATEGORIES', 'Categories');
-define('BOX_CATALOG_INDEXES', 'Indexes');
-define('BOX_CATALOG_SUBCATEGORIES', 'Subcategories');
+define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categories / Products');
 define('BOX_CATALOG_MANUFACTURERS', 'Manufacturers');
-define('BOX_CATALOG_PRODUCTS', 'Products');
 define('BOX_CATALOG_REVIEWS', 'Reviews');
 define('BOX_CATALOG_SPECIALS', 'Specials');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Products Expected');
@@ -159,10 +156,12 @@ define('IMAGE_CANCEL', 'Cancel');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_DELETE', 'Delete');
 define('IMAGE_EDIT', 'Edit');
-define('IMAGE_GREEN_DOT', 'Green Dot');
 define('IMAGE_INSERT', 'Insert');
 define('IMAGE_MODIFY', 'Modify');
-define('IMAGE_RED_DOT', 'Red Dot');
+define('IMAGE_MOVE', 'Move');
+define('IMAGE_NEW_CATEGORY', 'New Category');
+define('IMAGE_NEW_PRODUCT', 'New Product');
+define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_SAVE', 'Save');
 define('IMAGE_UPDATE', 'Update');
 
