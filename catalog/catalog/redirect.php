@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: redirect.php,v 1.6 2001/12/14 12:55:48 hpdl Exp $
+  $Id: redirect.php,v 1.7 2002/06/16 20:09:49 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
