@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Administration Tool Preview Release 2.2
+Last Update: 19/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('TOP_BAR_TITLE', 'Bestellungen');
@@ -20,6 +20,7 @@ define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_QUANTITY', 'Anzahl');
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
+define('TABLE_HEADING_TAX', 'MwSt.');
 define('TABLE_HEADING_TOTAL', 'Gesamtsumme');
 define('TABLE_HEADING_STATUS', 'Status');
 
