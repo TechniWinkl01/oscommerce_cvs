@@ -212,13 +212,13 @@ function session_win() {
    }
    if ($HTTP_GET_VARS['origin']) {
      if ($origin != '') {
-       $origin = $origin . '?';
+       $origin = $origin . '&';
      }
      $origin = $origin . 'origin=' . $HTTP_GET_VARS['origin'];
    }
    if ($HTTP_GET_VARS['connection']) {
      if ($origin != '') {
-       $origin = $origin . '?';
+       $origin = $origin . '&';
      }
      $origin = $origin . 'connection=' . $HTTP_GET_VARS['connection'];
    }
