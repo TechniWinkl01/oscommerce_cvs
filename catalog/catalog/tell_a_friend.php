@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.20 2001/12/20 14:36:50 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.21 2002/01/08 22:46:12 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -61,7 +61,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo sprintf(HEADING_TITLE, $product_info_values['products_name']); ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', sprintf(HEADING_TITLE, $product_info_values['products_name']), HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -90,7 +90,7 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><?php echo sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, $HTTP_POST_VARS['products_name'], $HTTP_POST_VARS['friendemail']); ?></td>
+            <td class="main"><?php echo sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, stripslashes($HTTP_POST_VARS['products_name']), $HTTP_POST_VARS['friendemail']); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -106,8 +106,8 @@
       $your_name_prompt = $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'];
       $your_email_address_prompt = $account_values['customers_email_address'];
     } else {
-      $your_name_prompt = '<input type="text" name="yourname" value="' . $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname'] . '">';
-      $your_email_address_prompt = '<input type="text" name="from" value="' . $account_values['customers_email_address'] . '">';
+      $your_name_prompt = tep_draw_input_field('yourname', $account_values['customers_firstname'] . ' ' . $account_values['customers_lastname']);
+      $your_email_address_prompt = tep_draw_input_field('from', $account_values['customers_email_address']);
     }
 ?>
       <form <?php echo 'action="' . tep_href_link(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '"'; ?> method="post"><input type="hidden" name="products_name" value="<?php echo $product_info_values['products_name']; ?>">
@@ -141,11 +141,11 @@
                 <td class="main"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main">&nbsp;<?php echo FORM_FIELD_FRIEND_NAME; ?>&nbsp;</td>
-                    <td class="main">&nbsp;<input type="text" name="friendname"></td>
+                    <td class="main">&nbsp;<?php echo tep_draw_input_field('friendname');?></td>
                   </tr>
                   <tr>
                     <td class="main">&nbsp;<?php echo FORM_FIELD_FRIEND_EMAIL; ?>&nbsp;</td>
-                    <td class="main">&nbsp;<input type="text" name="friendemail" value="<?php echo $HTTP_GET_VARS['send_to']; ?>">&nbsp;</td>
+                    <td class="main">&nbsp;<?php echo tep_draw_input_field('friendemail', $HTTP_GET_VARS['send_to']);?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -159,7 +159,7 @@
               <tr>
                 <td class="main"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="main">&nbsp;<textarea cols="40" rows="8" name="yourmessage"></textarea>&nbsp;</td>
+                    <td class="main">&nbsp;<?php echo tep_draw_textarea_field('yourmessage', 'soft', 40, 8);?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
