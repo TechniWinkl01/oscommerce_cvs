@@ -72,7 +72,6 @@
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
   define('FILENAME_PRODUCT_REVIEWS_WRITE', 'product_reviews_write.php');
   define('FILENAME_REVIEWS', 'reviews.php');
-  define('FILENAME_SEARCH', 'search.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
