@@ -1,21 +1,21 @@
 <?php
 /*
-  $Id: default.php,v 1.15 2002/01/14 10:34:18 jan0815 Exp $
+  $Id: default.php,v 1.16 2003/01/31 01:01:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TEXT_MAIN', 'Este es un catalogo de demostracion, <b>cualquier producto comprado aqui NO sera enviado ni cobrado</b>. Cualquier informacion de estos productos debe ser tratada como ficticia.<br><br>Si desea descargar este catalogo de demostracion, o desea contribuir al proyecto, por favor visite <a href="http://oscommerce.com"><u>la pagina de soporte</u></a>. Esta tienda esta basada en <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.');
+define('TEXT_MAIN', 'This is a default setup of the osCommerce project, products shown are for demonstrational purposes, <b>any products purchased will not be delivered nor will the customer be billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download the solution powering this shop, or if you wish to contribute to the osCommerce project, please visit the <a href="http://oscommerce.com"><u>support site of osCommerce</u></a>. This shop is running on osCommerce version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>The text shown here can be modified in the following file, on each language basis: [path&nbsp;to&nbsp;catalog]/includes/languages/[language]/default.php.<br><br>That can be edited manually, or via the Administration Tool with the Languages->[language]->Define option, or by using the Tools->File Manager feature.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Nuevos Productos En %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Proximamente');
 define('TABLE_HEADING_DATE_EXPECTED', 'Lanzamiento');
 
-if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
+if ( ($category_depth == 'products') || ($HTTP_GET_VARS['manufacturers_id']) ) {
   define('HEADING_TITLE', 'A ver que tenemos aqui');
   define('TABLE_HEADING_IMAGE', '');
   define('TABLE_HEADING_MODEL', 'Modelo');
