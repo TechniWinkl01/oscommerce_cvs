@@ -1,17 +1,17 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.7 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: stats_customers.php,v 1.8 2002/01/17 11:41:26 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('TOP_BAR_TITLE', 'Bericht');
-define('HEADING_TITLE', 'Kunden, die am häufigsten Bestellen');
+define('HEADING_TITLE', 'Kunden mit den h&ouml;chsten Ums&auml;tzen');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');

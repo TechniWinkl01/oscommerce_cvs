@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.13 2002/01/13 11:00:09 jan0815 Exp $
+  $Id: currencies.php,v 1.14 2002/01/17 11:41:26 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,16 +23,16 @@ define('TEXT_INFO_CURRENCY_CODE', 'K&uuml;rzel:');
 define('TEXT_INFO_CURRENCY_SYMBOL_LEFT', 'Symbol Links:');
 define('TEXT_INFO_CURRENCY_SYMBOL_RIGHT', 'Symbol Rechts:');
 define('TEXT_INFO_CURRENCY_DECIMAL_POINT', 'Dezimalkomma:');
-define('TEXT_INFO_CURRENCY_THOUSANDS_POINT', 'Tausendepunkt:');
+define('TEXT_INFO_CURRENCY_THOUSANDS_POINT', 'Tausenderpunkt:');
 define('TEXT_INFO_CURRENCY_DECIMAL_PLACES', 'Dezimalstellen:');
 define('TEXT_INFO_CURRENCY_LAST_UPDATED', 'letzte &Auml;nderung:');
 define('TEXT_INFO_CURRENCY_VALUE', 'Wert:');
 define('TEXT_INFO_CURRENCY_EXAMPLE', 'Beispiel:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte f&uuml;llen Sie die folgenden Daten f&uuml;r die neue Wahrung aus:');
+define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue W&auml;hrung mit allen relevanten Daten ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese W&auml;hrung l&ouml;schen m&ouml;chten?');
 define('TEXT_INFO_HEADING_NEW_CURRENCY', 'neue W&auml;hrung');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'W&auml;hrung bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'W&auml;hrung l&ouml;schen');
-define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (manuelles Aktualisieren der W&auml;hrungskurse erforderlich.)');
-define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardw&auml;hrung darf nicht gel&ouml;scht werden. Bitte eine neu Standardw&auml;hrung definieren und den Vorgang wiederholen.');
+define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (manuelles Aktualisieren der Wechselkurse erforderlich.)');
+define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardw&auml;hrung darf nicht gel&ouml;scht werden. Bitte definieren Sie eine neue Standardw&auml;hrung und wiederholen Sie den Vorgang.');
 ?>

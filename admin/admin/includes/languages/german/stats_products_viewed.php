@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: stats_products_viewed.php,v 1.4 2001/09/19 11:13:15 mbs Exp $
+  $Id: stats_products_viewed.php,v 1.5 2002/01/17 11:41:26 jan0815 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
