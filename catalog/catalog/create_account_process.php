@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.50 2001/06/27 14:58:12 kwiltner Exp $
+  $Id: create_account_process.php,v 1.51 2001/07/20 07:00:33 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -26,6 +26,15 @@
     } else {
       $error = 1;
       $entry_gender_error = true;
+    }
+  }
+
+  if (ACCOUNT_COMPANY) {
+    if (strlen(trim($HTTP_POST_VARS['company'])) < ENTRY_COMPANY_MIN_LENGTH) {
+      $error = true;
+      $entry_company_error = true;
+    } else {
+      $entry_company_error = false;
     }
   }
 
@@ -229,8 +238,10 @@
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 0, 2) . substr($HTTP_POST_VARS['dob'], 2, 2);
 // Crypted passwords mods
     $crypted_password = crypt_password($HTTP_POST_VARS['password']);
-    tep_db_query("insert into " . TABLE_CUSTOMERS . " values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "', '" . $HTTP_POST_VARS['newsletter'] . "')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS . " values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" .  $HTTP_POST_VARS['newsletter'] . "')");
     $insert_id = tep_db_insert_id();
+    tep_db_query("insert into " . TABLE_ADDRESS_BOOK . " values ('" . $insert_id . "', '0', '" . $HTTP_POST_VARS['gender'] .  "', '" . $HTTP_POST_VARS['company'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" .  $HTTP_POST_VARS['country'] . "', '0')");
+
     tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
 
     $customer_id = $insert_id;
@@ -260,7 +271,7 @@
 
     $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
     tep_mail($name, $email_address, EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
-    
+
     if ($HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['connection'] == 'SSL') {
         $connection_type = 'SSL';

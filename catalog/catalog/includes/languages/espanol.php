@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.52 2001/06/16 11:49:03 dwatkins Exp $
+  $Id: espanol.php,v 1.53 2001/07/20 07:00:35 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -158,11 +158,15 @@ define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
 define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmacion\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
+define('CATEGORY_COMPANY', 'Company');
 define('CATEGORY_PERSONAL', 'Personal');
 define('CATEGORY_ADDRESS', 'Direccion');
 define('CATEGORY_CONTACT', 'Contacto');
 define('CATEGORY_OPTIONS', 'Opciones');
 define('CATEGORY_PASSWORD', 'Contraseña');
+define('ENTRY_COMPANY', 'Company:');
+define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
+define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
@@ -217,8 +221,8 @@ define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">obligatorio</f
 define('PASSWORD_HIDDEN', '--OCULTO--');
 
 // constants for use in tep_prev_next_display function
-define('TEXT_RESULT_PAGE', 'Paginas de Resultados:'); 
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)'); 
+define('TEXT_RESULT_PAGE', 'Paginas de Resultados:');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
 

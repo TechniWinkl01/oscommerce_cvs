@@ -1,7 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
 
     if ($HTTP_POST_VARS['user'] == 'new') {
       if (!tep_db_num_rows($check_customer_query)) {
@@ -36,8 +36,10 @@
         } else {
 
           $customer_id = $check_customer['customers_id'];
+          $customer_default_address_id = $check_customer['customers_default_address_id'];
           $customer_first_name = $check_customer['customers_firstname'];
           tep_session_register('customer_id');
+          tep_session_register('customer_default_address_id');
           tep_session_register('customer_first_name');
 
           if ($HTTP_POST_VARS['setcookie'] == '1') {

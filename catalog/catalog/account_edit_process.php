@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.37 2001/06/26 08:25:19 kwiltner Exp $
+  $Id: account_edit_process.php,v 1.38 2001/07/20 07:00:32 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -229,36 +229,48 @@
 <?php
   } else {
     $date_now = date('Ymd');
-
-    $update_query = 'update ' . TABLE_CUSTOMERS . ' set ';
+//Update the customers table
+    $update_query_customers = 'update ' . TABLE_CUSTOMERS . ' set ';
     if (ACCOUNT_GENDER) {
-       $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+       $update_query_customers = $update_query_customers . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
-    $update_query = $update_query . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
+    $update_query_customers = $update_query_customers . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
     if (ACCOUNT_DOB) {
-       $update_query = $update_query . "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
+       $update_query_customers = $update_query_customers . "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
     }
-    $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_SUBURB) {
-       $update_query = $update_query . "customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
-    }
-    $update_query = $update_query . "customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', ";
-    if (ACCOUNT_STATE) {
-       if ($HTTP_POST_VARS['zone_id'] > 0) {
-           $update_query = $update_query . "customers_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', customers_state = '', ";
-       } else {
-           $update_query = $update_query . "customers_zone_id = '0', customers_state = '" . $state . "', ";
-       }
-    }
+    $update_query_customers = $update_query_customers . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
     // Encrypted password mods
     // Encrypt the plaintext password
     if ($passlen > 0) {
        $cryptpass = crypt_password($HTTP_POST_VARS['password']);
-       $update_query = $update_query . "customers_password = '" . $cryptpass . "', ";
+       $update_query_customers = $update_query_customers . "customers_password = '" . $cryptpass . "', ";
     }
-    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
+    $update_query_customers = $update_query_customers . " customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
+// Update the address_book table
+    $update_query_address = 'update ' . TABLE_ADDRESS_BOOK . ' set ';
+    if (ACCOUNT_GENDER) {
+       $update_query_address = $update_query_address . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    }
+    $update_query_address = $update_query_address . "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
+    $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
+    if (ACCOUNT_COMPANY) {
+       $update_query_address = $update_query_address . "entry_company = '". $HTTP_POST_VARS['company'] . "', ";
+    }
+    if (ACCOUNT_SUBURB) {
+       $update_query_address = $update_query_address . "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
+    }
+    $update_query_address = $update_query_address . "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_STATE) {
+       if ($HTTP_POST_VARS['zone_id'] > 0) {
+           $update_query_address = $update_query_address . "entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', entry_state = '', ";
+       } else {
+           $update_query_address = $update_query_address . "entry_zone_id = '0', entry_state = '" . $state . "', ";
+       }
+    }
+    $update_query_address = $update_query_address . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $customer_id . "' and address_book_id = '". $customers_default_address_id . "'";
 
-    tep_db_query($update_query);
+    tep_db_query($update_query_customers);
+    tep_db_query($update_query_address);
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
 
     header('Location: ' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));

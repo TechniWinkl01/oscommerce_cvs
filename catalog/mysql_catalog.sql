@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.115 2001/07/18 11:26:19 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.116 2001/07/20 07:00:28 jwildeboer Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -11,25 +11,20 @@
 #         directory of the 'catalog' module.
 
 CREATE TABLE address_book (
-  address_book_id int(5) NOT NULL auto_increment,
-  entry_gender char(1) NOT NULL,
-  entry_firstname varchar(32) NOT NULL,
-  entry_lastname varchar(32) NOT NULL,
-  entry_street_address varchar(64) NOT NULL,
-  entry_suburb varchar(32),
-  entry_postcode varchar(10) NOT NULL,
-  entry_city varchar(32) NOT NULL,
-  entry_state varchar(32),
-  entry_country_id int(5) NOT NULL,
-  entry_zone_id int(5) NOT NULL,
-  PRIMARY KEY (address_book_id)
-);
-
-CREATE TABLE address_book_to_customers (
-  address_book_to_customers_id int(5) NOT NULL auto_increment,
-  address_book_id int(5) NOT NULL,
-  customers_id int(5) NOT NULL,
-  PRIMARY KEY (address_book_to_customers_id)
+   customers_id int(5) DEFAULT '0' NOT NULL,
+   address_book_id int(5) DEFAULT '0' NOT NULL,
+   entry_gender char(1) NOT NULL,
+   entry_company varchar(32),
+   entry_firstname varchar(32) NOT NULL,
+   entry_lastname varchar(32) NOT NULL,
+   entry_street_address varchar(64) NOT NULL,
+   entry_suburb varchar(32),
+   entry_postcode varchar(10) NOT NULL,
+   entry_city varchar(32) NOT NULL,
+   entry_state varchar(32),
+   entry_country_id int(5) DEFAULT '0' NOT NULL,
+   entry_zone_id int(5) DEFAULT '0' NOT NULL,
+   PRIMARY KEY (address_book_id, customers_id)
 );
 
 CREATE TABLE address_format (
@@ -135,24 +130,18 @@ CREATE TABLE currencies (
 );
 
 CREATE TABLE customers (
-  customers_id int(5) NOT NULL auto_increment,
-  customers_gender char(1) NOT NULL,
-  customers_firstname varchar(32) NOT NULL,
-  customers_lastname varchar(32) NOT NULL,
-  customers_dob datetime NOT NULL,
-  customers_email_address varchar(96) NOT NULL,
-  customers_street_address varchar(64) NOT NULL,
-  customers_suburb varchar(32),
-  customers_postcode varchar(10) NOT NULL,
-  customers_city varchar(32) NOT NULL,
-  customers_state varchar(32),
-  customers_telephone varchar(32) NOT NULL,
-  customers_fax varchar(32),
-  customers_password varchar(40) NOT NULL,
-  customers_country_id int(5) NOT NULL,
-  customers_zone_id int(5) NOT NULL,
-  customers_newsletter char(1),
-  PRIMARY KEY (customers_id)
+   customers_id int(5) NOT NULL auto_increment,
+   customers_gender char(1) NOT NULL,
+   customers_firstname varchar(32) NOT NULL,
+   customers_lastname varchar(32) NOT NULL,
+   customers_dob datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+   customers_email_address varchar(96) NOT NULL,
+   customers_default_address_id int(5) DEFAULT '0' NOT NULL,
+   customers_telephone varchar(32) NOT NULL,
+   customers_fax varchar(32),
+   customers_password varchar(40) NOT NULL,
+   customers_newsletter char(1),
+   PRIMARY KEY (customers_id)
 );
 
 CREATE TABLE customers_basket (
@@ -316,14 +305,14 @@ CREATE TABLE products_options (
   language_id int(5) NOT NULL default '1',
   products_options_name varchar(32) NOT NULL default '',
   PRIMARY KEY  (products_options_id,language_id)
-);  
+);
 
 CREATE TABLE products_options_values (
   products_options_values_id int(5) NOT NULL default '0',
   language_id int(5) NOT NULL default '1',
   products_options_values_name varchar(64) NOT NULL default '',
   PRIMARY KEY  (products_options_values_id,language_id)
-); 
+);
 
 CREATE TABLE products_options_values_to_products_options (
   products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
@@ -411,6 +400,8 @@ CREATE TABLE zones (
 );
 
 # data
+
+INSERT INTO address_book VALUES ( '1', '0', 'm', 'ACME Inc.', 'John', 'Doe', '1 Way Strees', '', '12345', 'NeverNever', '', '223', '12');
 
 # 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany
 INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
@@ -517,14 +508,15 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Date of Birth', 'ENTRY_DOB_MIN_LENGTH', '10', 'Minimum length of date of birth', '2', '3', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail Address', 'ENTRY_EMAIL_ADDRESS_MIN_LENGTH', '6', 'Minimum length of e-mail address', '2', '4', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Street Address', 'ENTRY_STREET_ADDRESS_MIN_LENGTH', '5', 'Minimum length of street address', '2', '5', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Post Code', 'ENTRY_POSTCODE_MIN_LENGTH', '4', 'Minimum length of post code', '2', '6', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('City', 'ENTRY_CITY_MIN_LENGTH', '4', 'Minimum length of city', '2', '7', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('State', 'ENTRY_STATE_MIN_LENGTH', '4', 'Minimum length of state', '2', '7', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Telephone Number', 'ENTRY_TELEPHONE_MIN_LENGTH', '3', 'Minimum length of telephone number', '2', '8', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Password', 'ENTRY_PASSWORD_MIN_LENGTH', '5', 'Minimum length of password', '2', '9', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card Owner Name', 'CC_OWNER_MIN_LENGTH', '3', 'Minimum length of credit card owner name', '2', '10', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card Number', 'CC_NUMBER_MIN_LENGTH', '10', 'Minimum length of credit card number', '2', '11', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Review Text', 'REVIEW_TEXT_MIN_LENGTH', '50', 'Minimum length of review text', '2', '13', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Company', 'ENTRY_COMPANY_LENGTH', '2', 'Minimum length of company name', '2', '6', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Post Code', 'ENTRY_POSTCODE_MIN_LENGTH', '4', 'Minimum length of post code', '2', '7', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('City', 'ENTRY_CITY_MIN_LENGTH', '4', 'Minimum length of city', '2', '8', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('State', 'ENTRY_STATE_MIN_LENGTH', '4', 'Minimum length of state', '2', '9', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Telephone Number', 'ENTRY_TELEPHONE_MIN_LENGTH', '3', 'Minimum length of telephone number', '2', '10', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Password', 'ENTRY_PASSWORD_MIN_LENGTH', '5', 'Minimum length of password', '2', '11', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card Owner Name', 'CC_OWNER_MIN_LENGTH', '3', 'Minimum length of credit card owner name', '2', '12', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card Number', 'CC_NUMBER_MIN_LENGTH', '10', 'Minimum length of credit card number', '2', '13', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Review Text', 'REVIEW_TEXT_MIN_LENGTH', '50', 'Minimum length of review text', '2', '14', now());
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Address Book Entries', 'MAX_ADDRESS_BOOK_ENTRIES', '5', 'Maximum address book entries a customer is allowed to have', '3', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Search Results', 'MAX_DISPLAY_SEARCH_RESULTS', '20', 'Amount of products to list', '3', '2', now());
@@ -586,7 +578,7 @@ INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum valu
 INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1');
 INSERT INTO configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', '6', '0');
 INSERT INTO configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1');
-INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8', '1');
+INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing    configuration options', '8', '1');
 INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1');
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
@@ -834,7 +826,7 @@ INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
 INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
 INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2');
 
-INSERT INTO customers VALUES("1","m","John","doe","20010101","root@localhost","1 Way Street","","12345","NeverNever","","12345","","d95e8fa7f20a009372eb3477473fcd34:1c","223","12","0");
+INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '0', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
 
 INSERT INTO customers_info VALUES("1","","0","20010615","");
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.34 2001/06/14 01:11:47 hpdl Exp $
+  $Id: account.php,v 1.35 2001/07/20 07:00:32 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -72,7 +72,7 @@
 <?php
   $is_read_only = true;
 
-  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_zone_id, customers_state, customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+  $account_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_zone_id, a.entry_state, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " a where c.customers_id = '" . $customer_id . "' and a.customers_id = c.customers_id and a.address_book_id = '" . $customers_default_address_id . "'");
   $account = tep_db_fetch_array($account_query);
 
   require(DIR_WS_MODULES . 'account_details.php');

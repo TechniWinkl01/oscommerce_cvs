@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.57 2001/07/11 13:16:29 mkowalkowski Exp $
+  $Id: german.php,v 1.58 2001/07/20 07:00:36 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -158,11 +158,15 @@ define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nliche Daten');
+define('CATEGORY_COMPANY', 'Firmendaten');
+define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');
 define('CATEGORY_ADDRESS', 'Ihre Adresse');
 define('CATEGORY_CONTACT', 'Ihre Kontaktinformation');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('CATEGORY_PASSWORD', 'Ihre Passwort');
+define('ENTRY_COMPANY', 'Firmenname:');
+define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
+define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER', 'Geschlecht:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');

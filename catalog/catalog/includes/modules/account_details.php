@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.4 2001/06/14 01:36:29 hpdl Exp $
+  $Id: account_details.php,v 1.5 2001/07/20 07:00:37 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,9 @@
 */
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  if (ACCOUNT_COMPANY) {
+?>
   <tr>
     <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
   </tr>
@@ -18,14 +21,17 @@
     <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+
+          <tr>
+            <td class="main">&nbsp;<?php echo ENTRY_FIRST_NAME; ?></td>
+            <td class="main">&nbsp;
+
 <?php
   if (ACCOUNT_GENDER) {
     $male = ($account['customers_gender'] == 'm') ? true : false;
     $female = ($account['customers_gender'] == 'f') ? true : false;
 ?>
-          <tr>
-            <td class="main">&nbsp;<?php echo ENTRY_GENDER; ?></td>
-            <td class="main">&nbsp;
+
 <?php
   if ($is_read_only) {
     echo ($account['customers_gender'] == 'm') ? MALE : FEMALE;
@@ -44,9 +50,7 @@
 <?php
   }
 ?>
-          <tr>
-            <td class="main">&nbsp;<?php echo ENTRY_FIRST_NAME; ?></td>
-            <td class="main">&nbsp;
+
 <?php
   if ($is_read_only) {
     echo $account['customers_firstname'];
@@ -127,6 +131,39 @@
     </table></td>
   </tr>
   <tr>
+    <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
+  </tr>
+  <tr>
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+      <tr>
+        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;<?php echo ENTRY_COMPANY; ?></td>
+            <td class="main">&nbsp;
+<?php
+  if ($is_read_only) {
+    echo $account['entry_company'];
+  } elseif ($error) {
+    if ($entry_company_error) {
+      echo tep_draw_input_field('company') . '&nbsp;' . ENTRY_COMPANY_ERROR;
+    } else {
+      echo $HTTP_POST_VARS['company'] . tep_draw_hidden_field('company');
+    }
+  } else {
+    echo tep_draw_input_field('company', $account['entry_company']) . '&nbsp;' . ENTRY_COMPANY_TEXT;
+  }
+?></td>
+          </tr>
+        </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+<?php
+}
+?>
+  <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_ADDRESS; ?></td>
   </tr>
   <tr>
@@ -138,7 +175,7 @@
             <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
-    echo $account['customers_street_address'];
+    echo $account['entry_street_address'];
   } elseif ($error) {
     if ($entry_street_address_error) {
       echo tep_draw_input_field('street_address') . '&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
@@ -146,7 +183,7 @@
       echo $HTTP_POST_VARS['street_address'] . tep_draw_hidden_field('street_address');
     }
   } else {
-    echo tep_draw_input_field('street_address', $account['customers_street_address']) . '&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
+    echo tep_draw_input_field('street_address', $account['entry_street_address']) . '&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
   }
 ?></td>
           </tr>
@@ -158,7 +195,7 @@
             <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
-    echo $account['customers_suburb'];
+    echo $account['entry_suburb'];
   } elseif ($error) {
     if ($entry_suburb_error) {
       echo tep_draw_input_field('suburb') . '&nbsp;' . ENTRY_SUBURB_ERROR;
@@ -166,7 +203,7 @@
       echo $HTTP_POST_VARS['suburb'] . tep_draw_hidden_field('suburb');
     }
   } else {
-    echo tep_draw_input_field('suburb', $account['customers_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
+    echo tep_draw_input_field('suburb', $account['entry_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
   }
 ?></td>
           </tr>
@@ -178,7 +215,7 @@
             <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
-    echo $account['customers_postcode'];
+    echo $account['entry_postcode'];
   } elseif ($error) {
     if ($entry_post_code_error) {
       echo tep_draw_input_field('postcode') . '&nbsp;' . ENTRY_POST_CODE_ERROR;
@@ -186,7 +223,7 @@
       echo $HTTP_POST_VARS['postcode'] . tep_draw_hidden_field('postcode');
     }
   } else {
-    echo tep_draw_input_field('postcode', $account['customers_postcode']) . '&nbsp;' . ENTRY_POST_CODE_TEXT;
+    echo tep_draw_input_field('postcode', $account['entry_postcode']) . '&nbsp;' . ENTRY_POST_CODE_TEXT;
   }
 ?></td>
           </tr>
@@ -195,7 +232,7 @@
             <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
-    echo $account['customers_city'];
+    echo $account['entry_city'];
   } elseif ($error) {
     if ($entry_city_error) {
       echo tep_draw_input_field('city') . '&nbsp;' . ENTRY_CITY_ERROR;
@@ -203,7 +240,7 @@
       echo $HTTP_POST_VARS['city'] . tep_draw_hidden_field('city');
     }
   } else {
-    echo tep_draw_input_field('city', $account['customers_city']) . '&nbsp;' . ENTRY_CITY_TEXT;
+    echo tep_draw_input_field('city', $account['entry_city']) . '&nbsp;' . ENTRY_CITY_TEXT;
   }
 ?></td>
           </tr>
@@ -212,7 +249,7 @@
             <td class="main">&nbsp;
 <?php
   if ($is_read_only) {
-    echo tep_get_country_name($account['customers_country_id']);
+    echo tep_get_country_name($account['entry_country_id']);
   } elseif ($error) {
     if ($entry_country_error) {
       tep_get_country_list('country', $HTTP_POST_VARS['country'], (ACCOUNT_STATE) ? 'onChange="update_zone(this.form);"' : '');
@@ -221,25 +258,25 @@
       echo tep_get_country_name($HTTP_POST_VARS['country']) . tep_draw_hidden_field('country');
     }
   } else {
-    tep_get_country_list('country', $account['customers_country_id'], (ACCOUNT_STATE) ? 'onChange="update_zone(this.form);"' : '');
+    tep_get_country_list('country', $account['entry_country_id'], (ACCOUNT_STATE) ? 'onChange="update_zone(this.form);"' : '');
     echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
   }
 ?></td>
           </tr>
 <?
   if (ACCOUNT_STATE) {
-    $customers_state = ($account['customers_state']) ? $account['customers_state'] : JS_STATE_SELECT;
+    $customers_state = ($account['entry_state']) ? $account['entry_state'] : JS_STATE_SELECT;
 ?>
           <tr>
             <td class="main">&nbsp;<?php echo ENTRY_STATE; ?></td>
             <td class="main">&nbsp;
 <?php
     if ($is_read_only) {
-      echo tep_get_zone_name($account['customers_country_id'], $account['customers_zone_id'], $account['customers_state']);
+      echo tep_get_zone_name($account['entry_country_id'], $account['entry_zone_id'], $account['entry_state']);
     } elseif ($processed) {
       echo tep_get_zone_name($HTTP_POST_VARS['country'], $HTTP_POST_VARS['zone_id'], $HTTP_POST_VARS['state']) . tep_draw_hidden_field('zone_id') . tep_draw_hidden_field('state');
     } else {
-      tep_get_zone_list('zone_id', $account['customers_country_id'], $account['customers_zone_id'], 'onChange="resetStateText(this.form);"');
+      tep_get_zone_list('zone_id', $account['entry_country_id'], $account['entry_zone_id'], 'onChange="resetStateText(this.form);"');
       echo '&nbsp;' . ENTRY_STATE_TEXT;
     }
 ?></td>

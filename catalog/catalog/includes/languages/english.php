@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.58 2001/06/15 23:49:00 hpdl Exp $
+  $Id: english.php,v 1.59 2001/07/20 07:00:35 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -158,11 +158,15 @@ define('JS_COUNTRY', '* The \'Country\' entry must be selected.');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match and have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
 
+define('CATEGORY_COMPANY', 'Company Details');
 define('CATEGORY_PERSONAL', 'Your Personal Details');
 define('CATEGORY_ADDRESS', 'Your Address');
 define('CATEGORY_CONTACT', 'Your Contact Information');
 define('CATEGORY_OPTIONS', 'Options');
 define('CATEGORY_PASSWORD', 'Your Password');
+define('ENTRY_COMPANY', 'Company Name:');
+define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
+define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_GENDER', 'Gender:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
