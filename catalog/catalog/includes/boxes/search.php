@@ -7,7 +7,7 @@
                                'text'  => BOX_HEADING_SEARCH
                               );
   new infoBoxHeading($info_box_contents);
-
+ 
   $info_box_contents = array();
   $info_box_contents[] = array('form' => '<form name="quick_find" method="get" action="' . tep_href_link(FILENAME_SEARCH, '', 'NONSSL') . '">',
                                'align' => 'left',
