@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.48 2002/03/16 00:20:38 hpdl Exp $
+  $Id: backup.php,v 1.49 2002/03/16 03:01:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,6 +16,7 @@
     switch ($HTTP_GET_VARS['action']) {
       case 'forget':
         tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
+        $messageStack->add_session(SUCCESS_LAST_RESTORE_CLEARED, 'success');
         tep_redirect(tep_href_link(FILENAME_BACKUP));
         break;
       case 'backupnow':
@@ -151,6 +152,7 @@
                 unlink($backup_file);
             }
           }
+          $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
           tep_redirect(tep_href_link(FILENAME_BACKUP));
         }
         break;
@@ -266,6 +268,8 @@
             unlink($restore_from);
           }
         }
+
+        $messageStack->add_session(SUCCESS_DATABASE_RESTORED, 'success');
         tep_redirect(tep_href_link(FILENAME_BACKUP));
         break;
       case 'download':

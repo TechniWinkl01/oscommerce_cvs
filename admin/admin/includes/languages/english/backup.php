@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.13 2002/01/09 07:57:44 hpdl Exp $
+  $Id: backup.php,v 1.14 2002/03/16 03:01:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,4 +39,8 @@ define('TEXT_FORGET', '(<u>forget</u>)');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: Backup directory does not exist. Please set this in configure.php.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not writeable.');
+
+define('SUCCESS_LAST_RESTORE_CLEARED', 'Success: The last restoration date has been cleared.');
+define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');
+define('SUCCESS_DATABASE_RESTORED', 'Success: The database has been restored.');
 ?>
