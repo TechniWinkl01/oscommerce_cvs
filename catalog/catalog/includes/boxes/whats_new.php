@@ -19,4 +19,4 @@
 ?>
             </td>
           </tr>
-<!-- whats_new //-->
+<!-- whats_new_eof //-->
