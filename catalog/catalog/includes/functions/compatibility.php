@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.7 2002/03/29 16:14:07 dgw_ Exp $
+  $Id: compatibility.php,v 1.8 2002/06/03 21:36:52 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -106,6 +106,12 @@
       if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
 
       return (array) $array_merged;
+    }
+  }
+
+  if (!function_exists('is_numeric')) {
+    function is_numeric($param) {
+      return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
     }
   }
 ?>
