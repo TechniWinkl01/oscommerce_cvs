@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.29 2003/02/11 21:13:39 dgw_ Exp $
+  $Id: order.php,v 1.30 2003/02/22 14:18:31 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -134,6 +134,8 @@
       global $customer_id, $sendto, $billto, $cart, $languages_id, $currency, $currencies, $shipping, $payment;
 
       $this->content_type = $cart->get_content_type();
+      if ($this->content_type == 'virtual') $tax_address_id = $billto;
+      else $tax_address_id = $sendto;
 
       $customer_address_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, co.countries_id, co.countries_name, co.countries_iso_code_2, co.countries_iso_code_3, co.address_format_id, ab.entry_state from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " co on (ab.entry_country_id = co.countries_id) where c.customers_id = '" . $customer_id . "' and ab.customers_id = '" . $customer_id . "' and c.customers_default_address_id = ab.address_book_id");
       $customer_address = tep_db_fetch_array($customer_address_query);
@@ -143,6 +145,9 @@
       
       $billing_address_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name, ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2, c.countries_iso_code_3, c.address_format_id, ab.entry_state from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) left join " . TABLE_COUNTRIES . " c on (ab.entry_country_id = c.countries_id) where ab.customers_id = '" . $customer_id . "' and ab.address_book_id = '" . $billto . "'");
       $billing_address = tep_db_fetch_array($billing_address_query);
+
+      $tax_address_query = tep_db_query("select ab.entry_country_id, ab.entry_zone_id from " . TABLE_ADDRESS_BOOK . " ab left join " . TABLE_ZONES . " z on (ab.entry_zone_id = z.zone_id) where ab.customers_id = '" . $customer_id . "' and ab.address_book_id = '" . $tax_address_id . "'");
+      $tax_address = tep_db_fetch_array($tax_address_query);
 
       $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
                           'currency' => $currency,
@@ -210,8 +215,8 @@
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
                                         'model' => $products[$i]['model'],
-                                        'tax' => tep_get_tax_rate($products[$i]['tax_class_id'], $shipping_address['entry_country_id'], $shipping_address['entry_zone_id']),
-                                        'tax_description' => tep_get_tax_description($products[$i]['tax_class_id'], $shipping_address['entry_country_id'], $shipping_address['entry_zone_id']),
+                                        'tax' => tep_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
+                                        'tax_description' => tep_get_tax_description($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'price' => $products[$i]['price'],
                                         'final_price' => $products[$i]['price'] + $cart->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
