@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.18 2003/06/26 22:26:39 hpdl Exp $
+  $Id: sessions.php,v 1.19 2003/07/02 22:10:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,10 +24,10 @@
     }
 
     function _sess_read($key) {
-      $qid = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "' and expiry > '" . time() . "'");
+      $value_query = tep_db_query("select value from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "' and expiry > '" . time() . "'");
+      $value = tep_db_fetch_array($value_query);
 
-      $value = tep_db_fetch_array($qid);
-      if ($value['value']) {
+      if (isset($value['value'])) {
         return $value['value'];
       }
 
@@ -40,10 +40,10 @@
       $expiry = time() + $SESS_LIFE;
       $value = $val;
 
-      $qid = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "'");
-      $total = tep_db_fetch_array($qid);
+      $check_query = tep_db_query("select count(*) as total from " . TABLE_SESSIONS . " where sesskey = '" . tep_db_input($key) . "'");
+      $check = tep_db_fetch_array($check_query);
 
-      if ($total['total'] > 0) {
+      if ($check['total'] > 0) {
         return tep_db_query("update " . TABLE_SESSIONS . " set expiry = '" . tep_db_input($expiry) . "', value = '" . tep_db_input($value) . "' where sesskey = '" . tep_db_input($key) . "'");
       } else {
         return tep_db_query("insert into " . TABLE_SESSIONS . " values ('" . tep_db_input($key) . "', '" . tep_db_input($expiry) . "', '" . tep_db_input($value) . "')");
@@ -102,7 +102,9 @@
   }
 
   function tep_session_close() {
-    if (function_exists('session_close')) {
+    if (PHP_VERSION >= '4.0.4') {
+      return session_write_close();
+    } elseif (function_exists('session_close')) {
       return session_close();
     }
   }
