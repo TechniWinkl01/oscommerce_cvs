@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.32 2001/12/26 21:53:50 hpdl Exp $
+  $Id: backup.php,v 1.33 2001/12/26 23:59:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,7 +32,7 @@
                   '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
         $tables_query = tep_db_query('show tables');
         while ($tables = tep_db_fetch_array($tables_query)) {
-          $table = $tables[0];
+          $table = $tables['Tables_in_' . DB_DATABASE];
           $schema .= 'drop table if exists ' . $table . ';' . "\n" .
                      'create table ' . $table . ' (' . "\n";
           $table_list = array();
@@ -251,7 +251,7 @@
 
           $tables_query = tep_db_query('show tables');
           while ($tables = tep_db_fetch_array($tables_query)) {
-            $table = $tables[0];
+            $table = $tables['Tables_in_' . DB_DATABASE];
             tep_db_query("drop table " . $table);
           }
 
