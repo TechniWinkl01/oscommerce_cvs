@@ -246,14 +246,14 @@ function check_form() {
 <?
   if (ACCOUNT_STATE) {
 ?>
-  if (document.address_book_process.zone_id.options.length == 0) {
-    if (document.address_book_process.state.value == "" || document.address_book_process.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+  if (document.add_entry.zone_id.options.length == 0) {
+    if (document.add_entry.state.value == "" || document.add_entry.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
     }
   } else {
-    document.create_acount.state.value = '';
-    if (document.address_book_process.zone_id.selectedIndex == 0) {
+    document.add_entry.state.value = '';
+    if (document.add_entry.zone_id.selectedIndex == 0) {
        error_message = error_message + "<? echo JS_ZONE; ?>";
        error = 1;
     }
@@ -262,7 +262,7 @@ function check_form() {
   }
 ?>
   
-  if (document.address_book_process.country.value == 0) {
+  if (document.add_entry.country.value == 0) {
     error_message = error_message + "<? echo JS_COUNTRY; ?>";
     error = 1;
   }
@@ -319,7 +319,7 @@ function check_form() {
     echo '            <td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</font></td>' . "\n";
   }
   echo '            <td align="right" nowrap>&nbsp;' . tep_image(DIR_IMAGES . 'table_background_address_book.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE) . '&nbsp;</td>' . "\n";
-   $rowspan = 5+ACCOUNT_GENDER;
+  $rowspan = 5+ACCOUNT_GENDER;
 ?>
           </tr>
         </table></td>
@@ -390,13 +390,15 @@ function check_form() {
       }
     } else {
       echo '<input type="text" name="lastname" value="' . @$lastname . '" maxlength="32">&nbsp;' . ENTRY_LAST_NAME_TEXT;
-    } ?></font></td>
+    }
+    $rowspan = 6+ACCOUNT_STATE+ACCOUNT_SUBURB; 
+    ?></font></td>
           </tr>
           <tr>
             <td colspan="2"><font face="Verdana, Arial" size="2">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_ADDRESS; ?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_ADDRESS; ?></font></td>
           </tr>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</font></td>
