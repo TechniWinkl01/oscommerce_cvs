@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.129 2002/07/01 18:44:44 hpdl Exp $
+  $Id: general.php,v 1.130 2002/07/09 18:17:44 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -81,15 +81,16 @@
   }
 
   function tep_date_long($raw_date) {
-    if (strlen($raw_date) == 19) {
-      $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 5, 2),substr($raw_date, 8, 2),substr($raw_date, 0, 4)));
-    } elseif (strlen($raw_date) == 14) {
-      $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
-    } else {
-      $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, -2),substr($raw_date, 0, 4)));
-    }
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
-    return $date_formated;
+    $year = (int)substr($raw_date, 0, 4);
+    $month = (int)substr($raw_date, 5, 2);
+    $day = (int)substr($raw_date, 8, 2);
+    $hour = (int)substr($raw_date, 11, 2);
+    $minute = (int)substr($raw_date, 14, 2);
+    $second = (int)substr($raw_date, 17, 2);
+
+    return strftime(DATE_FORMAT_LONG, mktime($hour, $minute, $second, $month, $day, $year));
   }
 
 ////
@@ -98,19 +99,27 @@
   function tep_date_short($raw_date) {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
-// remove the first digit if it is 0 - as php treats these as Octals
-    $year = substr($raw_date, 0, 4);
-    $month = substr($raw_date, 5, 2); if (substr($month, 0, 1) == '0') $month = substr($month, 1);
-    $day = substr($raw_date, 8, 2); if (substr($day, 0, 1) == '0') $day =  substr($day, 1);
-    $hour = substr($raw_date, 11, 2); if (substr($hour, 0, 1) == '0') $hour = substr($hour, 1);
-    $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
-    $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
+    $year = (int)substr($raw_date, 0, 4);
+    $month = (int)substr($raw_date, 5, 2);
+    $day = (int)substr($raw_date, 8, 2);
+    $hour = (int)substr($raw_date, 11, 2);
+    $minute = (int)substr($raw_date, 14, 2);
+    $second = (int)substr($raw_date, 17, 2);
 
     return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
   }
 
   function tep_datetime_short($raw_datetime) {
-    return strftime(DATE_TIME_FORMAT, mktime(substr($raw_datetime, 11, 2),substr($raw_datetime, 14, 2),substr($raw_datetime, 17, 2),substr($raw_datetime, 5, 2),substr($raw_datetime, 8, 2),substr($raw_datetime, 0, 4)));
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+
+    $year = (int)substr($raw_date, 0, 4);
+    $month = (int)substr($raw_date, 5, 2);
+    $day = (int)substr($raw_date, 8, 2);
+    $hour = (int)substr($raw_date, 11, 2);
+    $minute = (int)substr($raw_date, 14, 2);
+    $second = (int)substr($raw_date, 17, 2);
+
+    return strftime(DATE_TIME_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
   }
 
   function tep_array_merge($array1, $array2, $array3 = '') {
