@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.110 2002/07/15 17:32:29 project3000 Exp $
+  $Id: checkout_process.php,v 1.111 2002/07/31 09:55:27 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
                           'customers_city' => $order->customer['city'],
                           'customers_postcode' => $order->customer['postcode'], 
                           'customers_state' => $order->customer['state'], 
-                          'customers_country' => $order->customer['country'], 
+                          'customers_country' => $order->customer['country']['title'], 
                           'customers_telephone' => $order->customer['telephone'], 
                           'customers_email_address' => $order->customer['email_address'],
                           'customers_address_format_id' => $order->customer['format_id'], 
@@ -54,7 +54,7 @@
                           'delivery_city' => $order->delivery['city'], 
                           'delivery_postcode' => $order->delivery['postcode'], 
                           'delivery_state' => $order->delivery['state'], 
-                          'delivery_country' => $order->delivery['country'], 
+                          'delivery_country' => $order->delivery['country']['title'], 
                           'delivery_address_format_id' => $order->delivery['format_id'], 
                           'payment_method' => $order->info['payment_method'], 
                           'cc_type' => $order->info['cc_type'], 
