@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.88 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.89 2002/01/13 22:10:22 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -28,7 +28,7 @@
     for ($i=0; $i<sizeof($products); $i++) {
       $products_name = $products[$i]['name'];
       $products_id = $products[$i]['id'];
-      check_stock ($products[$i]['id'], $products[$i]['quantity']);
+      tep_check_stock ($products[$i]['id'], $products[$i]['quantity']);
     }
     if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock) ) {
       tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));

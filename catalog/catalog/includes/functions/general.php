@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.152 2002/01/12 14:58:58 dgw_ Exp $
+  $Id: general.php,v 1.153 2002/01/13 22:10:22 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -52,9 +52,9 @@
   }
 
 ////
-// Check product stock
-// TABLES: products
-  function check_stock($products_id, $products_quantity) {
+// Check if the required stock is available
+// If insufficent stock is available return an out of stock message
+  function tep_check_stock($products_id, $products_quantity) {
     global $qtd_stock, $any_out_of_stock;
 
     $products_id = tep_get_prid($products_id);

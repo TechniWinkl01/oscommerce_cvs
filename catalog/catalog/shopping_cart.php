@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.57 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.58 2002/01/13 22:10:22 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -82,7 +82,7 @@
       echo '            <td valign="top" class="main"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
       if (STOCK_CHECK == 'true') {
-        echo check_stock($products[$i]['id'], $products[$i]['quantity']);
+        echo tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
       }
 
 //------display customer choosen option --------
