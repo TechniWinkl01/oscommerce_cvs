@@ -1,17 +1,16 @@
 <?php
 /*
-  $Id: itransact.php,v 1.3 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: itransact.php,v 1.4 2002/03/30 15:15:49 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'iTransact Systemsteuerung');
-define('HEADING_TITLE', 'Öffnen Sie die Transaction Systemsteuerung');
+define('HEADING_TITLE', '&Ouml;ffnen Sie die Transaction Systemsteuerung');
 define('SUB_BAR_TITLE', 'Klicken Sie auf das Bild unten.  Sie ben&ouml;tigen Ihr Gateway ID und Passwort.');
 
 define('CPANEL_URL', 'https://secure.itransact.com/support/login.html');
