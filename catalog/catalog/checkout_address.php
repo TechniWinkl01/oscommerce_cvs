@@ -39,14 +39,14 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -94,10 +94,10 @@
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
                   </tr>
                 </table></td>
-                <td align="right" valign="middle"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</font></td>
+                <td align="right" valign="middle"><?php echo FONT_STYLE_MAIN; ?>&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>
@@ -150,12 +150,12 @@
               <tr>
 <?
   if ($row < 5) {
-    echo '                <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</font></td>' . "\n";
+    echo '                <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</font></td>' . "\n";
   } else {
     echo '                <td valign="top" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</font></td>' . "\n";
   }
 ?>
-                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</font></td>
+                <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>

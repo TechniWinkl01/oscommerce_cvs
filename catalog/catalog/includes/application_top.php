@@ -118,22 +118,7 @@
   define('BOX_CONTENT_FONT_SIZE', '1');
 
   define('TOP_BAR_BACKGROUND_COLOR', '#AABBDD');
-  define('TOP_BAR_FONT_FACE', 'Tahoma, Verdana, Arial');
-  define('TOP_BAR_FONT_COLOR', '#000000');
-  define('TOP_BAR_FONT_SIZE', '2');
-
-  define('HEADING_FONT_FACE', 'Verdana, Arial');
-  define('HEADING_FONT_SIZE', '4');
-  define('HEADING_FONT_COLOR', '#000000');
-
   define('SUB_BAR_BACKGROUND_COLOR', '#f4f7fd');
-  define('SUB_BAR_FONT_FACE', 'Verdana, Arial');
-  define('SUB_BAR_FONT_SIZE', '1');
-  define('SUB_BAR_FONT_COLOR', '#000000');
-
-  define('TEXT_FONT_FACE', 'Verdana, Arial');
-  define('TEXT_FONT_SIZE', '2');
-  define('TEXT_FONT_COLOR', '#000000');
 
   define('TABLE_HEADING_FONT_FACE', 'Verdana, Arial');
   define('TABLE_HEADING_FONT_SIZE', '2');

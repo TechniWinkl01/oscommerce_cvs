@@ -88,14 +88,14 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -134,8 +134,8 @@ function check_form() {
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection) . '">' . tep_image(DIR_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection) . '">' . tep_image(DIR_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
@@ -170,7 +170,7 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td nowrap colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+            <td nowrap colspan="2"><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -182,7 +182,7 @@ function check_form() {
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
+            <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS; ?> | <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>

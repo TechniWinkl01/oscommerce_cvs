@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
-<font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">
+<?php echo FONT_STYLE_MAIN; ?>
 <p><b><? echo HEADING_TITLE; ?></b><br><? echo tep_black_line(); ?></p>
 <p><b><i><? echo SUB_HEADING_TITLE_1; ?></i></b><br><? echo SUB_HEADING_TEXT_1; ?></p>
 <p><b><i><? echo SUB_HEADING_TITLE_2; ?></i></b><br><? echo SUB_HEADING_TEXT_2; ?></p>

@@ -25,16 +25,16 @@
 ?>
                 <table border="0" cellspacing="0" cellpadding="0" width="100%">
                   <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CREDIT_CARD_OWNER; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="cc_owner" value="<? echo $HTTP_POST_VARS['cc_owner']; ?>">&nbsp;</font></td>
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo TEXT_CREDIT_CARD_OWNER; ?>&nbsp;</font></td>
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<input type="text" name="cc_owner" value="<? echo $HTTP_POST_VARS['cc_owner']; ?>">&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CREDIT_CARD_NUMBER; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="cc_number">&nbsp;</font></td>
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo TEXT_CREDIT_CARD_NUMBER; ?>&nbsp;</font></td>
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<input type="text" name="cc_number">&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CREDIT_CARD_EXPIRES; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<select name="cc_expires_month">
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo TEXT_CREDIT_CARD_EXPIRES; ?>&nbsp;</font></td>
+                    <td nowrap><?php echo FONT_STYLE_MAIN; ?>&nbsp;<select name="cc_expires_month">
                       <? 
                       for ($i=1; $i <= 12; $i++) {
                         $selected = ($HTTP_POST_VARS['cc_expires_month']==$i) ? ' selected' : '';
@@ -61,24 +61,24 @@
     $cc_val = CCValidationSolution($cc_val);
 
     echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
     if ($cc_val == '1')
     {
       echo '          <tr>' . "\n";
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
       echo '          <tr>' . "\n";
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
     }
     echo '          <tr>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
     if ($cc_val != '1') 
     {
       echo '          <tr>' . "\n";
-      echo '            <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</font></td>' . "\n";
+      echo '            <td>' . FONT_STYLE_MAIN . '&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
     }
     if ($cc_val != '1') 

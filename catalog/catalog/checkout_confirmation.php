@@ -34,14 +34,14 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -80,8 +80,8 @@
     $products_weight = $products[$i]['weight'];
 
     echo '          <tr>' . "\n";
-    echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $products[$i]['quantity'] . '&nbsp;</font></td>' . "\n";
-    echo '            <td valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $products_name . '&nbsp;</b>';
+    echo '            <td align="center" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . $products[$i]['quantity'] . '&nbsp;</font></td>' . "\n";
+    echo '            <td valign="top" nowrap>' . FONT_STYLE_MAIN . '<b>&nbsp;' . $products_name . '&nbsp;</b>';
 //------display customer choosen option --------
     $attributes_exist = '0';
     if ($products[$i]['attributes']) {
@@ -95,8 +95,8 @@
     }
 //------display customer choosen option eof-----
     echo '</font></td>' . "\n";
-    echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</font></td>' . "\n";
-    echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
+    echo '            <td align="center" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</font></td>' . "\n";
+    echo '            <td align="right" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       reset($products[$i]['attributes']);
@@ -170,7 +170,7 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
@@ -188,16 +188,16 @@
   include(DIR_MODULES . 'payment.php');
 ?>
           <tr>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
+            <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
           </tr>
         <tr>
-          <td nowrap colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+          <td nowrap colspan="2"><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
         </tr>
         <tr>
           <td colspan="2"><? echo tep_black_line(); ?></td>
         </tr>
         <tr>
-          <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></font></td>
+          <td colspan="2"><?php echo FONT_STYLE_MAIN; ?><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></font></td>
         </tr>
         <tr>
           <td colspan="2"><? echo tep_black_line(); ?></td>

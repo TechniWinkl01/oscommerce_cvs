@@ -32,27 +32,27 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
-          <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
-          </tr>
-        </table></td>
-      </tr>
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
+          <tr>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+          </tr>
+        </table></td>
+      </tr>
 <? 
   if ($HTTP_GET_VARS['action'] == 'success') {
 ?>
-      <tr>
+      <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><? echo tep_image(DIR_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td valign="top"><div align="center"><br><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>"><? echo SUB_BAR_TITLE; ?>&nbsp;</font></div><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_SUCCESS; ?></font></td>
+            <td valign="top"><div align="center"><br><?php echo FONT_STYLE_HEADING; ?><? echo SUB_BAR_TITLE; ?>&nbsp;</font></div><br><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_SUCCESS; ?></font></td>
           </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
-      </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
+      </tr>
       <tr>
         <td><? echo tep_black_line(); ?></td>
       </tr>
@@ -65,7 +65,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -76,37 +76,37 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-            <td nowrap><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_SUB_BAR; ?>&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
         </td></table>
       </tr>
-      <tr>
-        <td><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
-      </tr>
+      <tr>
+        <td><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
+      </tr>
       <tr>
         <td><form action="<? echo tep_href_link(FILENAME_CONTACT_US, 'action=send', 'NONSSL'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="2"><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo ENTRY_NAME; ?></font></td>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><input name="name" maxlength="32"></font></td>
+            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo ENTRY_NAME; ?></font></td>
+            <td><?php echo FONT_STYLE_MAIN; ?><input name="name" maxlength="32"></font></td>
           </tr>
-          <tr>
-            <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo ENTRY_EMAIL; ?></font></td>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><input name="email" maxlength="96"></font></td>
-          </tr>
-          <tr>
-            <td valign="top" align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo ENTRY_ENQUIRY; ?></font></td>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><textarea name="enquiry" wrap="soft" cols="40" rows="15"></textarea></font></td>
-          </tr>
           <tr>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_process.gif', IMAGE_SUBMIT); ?>&nbsp;&nbsp;</font></td>
-          </tr>
+            <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo ENTRY_EMAIL; ?></font></td>
+            <td><?php echo FONT_STYLE_MAIN; ?><input name="email" maxlength="96"></font></td>
+          </tr>
+          <tr>
+            <td valign="top" align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo ENTRY_ENQUIRY; ?></font></td>
+            <td><?php echo FONT_STYLE_MAIN; ?><textarea name="enquiry" wrap="soft" cols="40" rows="15"></textarea></font></td>
+          </tr>
+          <tr>
+            <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
+            <td><?php echo FONT_STYLE_MAIN; ?><? echo tep_image_submit(DIR_IMAGES . 'button_process.gif', IMAGE_SUBMIT); ?>&nbsp;&nbsp;</font></td>
+          </tr>
         </table></form></td>
 <?
   }

@@ -1,5 +1,5 @@
 <?
-  /* $Id: flat.php,v 1.15 2001/03/02 13:19:03 tmoulton Exp $ */
+  /* $Id: flat.php,v 1.16 2001/03/04 14:04:50 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/flat.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -7,7 +7,7 @@
   if ($action == 'select') {
 ?>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SHIPPING_FLAT_NAME; ?></font></td>
+                <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo SHIPPING_FLAT_NAME; ?></font></td>
                 <td>&nbsp;</td>
                 <td align="right">&nbsp;<input type="checkbox" name="shipping_quote_flat" value="1"
 <?
@@ -38,9 +38,9 @@
   } elseif ($action == 'display') {
       if ($shipping_quote_flat == "1" || $shipping_quote_all == "1") {
         echo "              <tr>\n";
-        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . SHIPPING_FLAT_NAME . "</font></td>\n";
-        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_flat_method . "</font></td>\n";
-        echo '                <td align="right"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_flat_cost) . "</font></td>\n";
+        echo '                <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_FLAT_NAME . "</font></td>\n";
+        echo '                <td>' . FONT_STYLE_MAIN . $shipping_flat_method . "</font></td>\n";
+        echo '                <td align="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_flat_cost) . "</font></td>\n";
         echo '                <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="flat"';
         if ($shipping_cheapest == 'flat') echo ' CHECKED';
         echo ">&nbsp;</td>\n";

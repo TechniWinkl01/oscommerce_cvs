@@ -28,14 +28,14 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -88,8 +88,8 @@
       echo '          <tr>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top"><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $products[$i]['id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_small_delete.gif', 'Remove ' . $products_name . ' from Shopping Cart.') . '</a></td>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top" nowrap><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
-      if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
+      if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</font></td>' . "\n";
+      echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
 //------display customer choosen option --------
       $attributes_exist = '0';
@@ -105,7 +105,7 @@
       }
 //------display customer choosen option eof-----
       echo '</font></td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products[$i]['price']) . '</b>&nbsp;';
+      echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" nowrap>' . FONT_STYLE_MAIN . '&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products[$i]['price']) . '</b>&nbsp;';
 //------display customer choosen option --------
       if ($attributes_exist == '1') {
         reset($cart->contents[$products[$i]['id']]['attributes']);
@@ -139,13 +139,13 @@
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>" align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_checkout.gif', IMAGE_CHECKOUT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_all', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL); ?></a>&nbsp;&nbsp;</font></td>
+            <td colspan="<? echo $colspan; ?>" align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_checkout.gif', IMAGE_CHECKOUT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_all', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
 </form>
 <?
   } else {
     echo '          <tr>' . "\n";
-    echo '            <td colspan="' . $colspan . '" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_CART_EMPTY . '&nbsp;</font></td>' . "\n";
+    echo '            <td colspan="' . $colspan . '" nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . TEXT_CART_EMPTY . '&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
     echo '          <tr>' . "\n";
     echo '            <td colspan="' . $colspan . '">' . tep_black_line() . '</td>' . "\n";

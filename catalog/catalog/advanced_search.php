@@ -120,14 +120,14 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<?echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<?echo TOP_BAR_FONT_FACE; ?>" size="<?echo TOP_BAR_FONT_SIZE; ?>" color="<?echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<?echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+            <td bgcolor="<?echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<?echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<?echo HEADING_FONT_FACE; ?>" size="<?echo HEADING_FONT_SIZE; ?>" color="<?echo HEADING_FONT_COLOR; ?>">&nbsp;<?echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td nowrap><?php echo FONT_STYLE_HEADING; ?>&nbsp;<?echo HEADING_TITLE; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<?echo tep_image(DIR_IMAGES . 'table_background_browse.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
@@ -183,13 +183,13 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
         </table></td>
       </tr>
       <tr>
-        <td align="right" nowrap><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_done.gif', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
+        <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><? echo tep_image_submit(DIR_IMAGES . 'button_done.gif', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
       </tr>
       <tr>
         <td><?echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>">
+        <td><?php echo FONT_STYLE_MAIN; ?>
 <?
   if ($HTTP_GET_VARS['errorno']) {
     if (($HTTP_GET_VARS['errorno'] & 1) == 1) {

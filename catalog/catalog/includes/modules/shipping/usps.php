@@ -1,5 +1,5 @@
 <?
-  /* $Id: usps.php,v 1.8 2001/03/02 13:19:03 tmoulton Exp $ */
+  /* $Id: usps.php,v 1.9 2001/03/04 14:04:52 hpdl Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -7,7 +7,7 @@
   if ($action == 'select') {
 ?>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SHIPPING_USPS_NAME; ?></font></td>
+                <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo SHIPPING_USPS_NAME; ?></font></td>
                 <td align="right"><SELECT NAME="shipping_usps_prod">
                   <OPTION VALUE="Parcel"><? echo SHIPPING_USPS_OPT_PP; ?></OPTION>
                   <OPTION SELECTED VALUE="Priority"><? echo SHIPPING_USPS_OPT_PM; ?></OPTION>
@@ -71,9 +71,9 @@
   } elseif ($action == 'display') {
       if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
         echo "              <tr>\n";
-        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . SHIPPING_USPS_NAME . "</font></td>\n";
-        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_usps_method . "</font></td>\n";
-        echo '                <td align="right"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_usps_cost) . "</font></td>\n";
+        echo '                <td>' . FONT_STYLE_MAIN . '&nbsp;' . SHIPPING_USPS_NAME . "</font></td>\n";
+        echo '                <td>' . FONT_STYLE_MAIN . $shipping_usps_method . "</font></td>\n";
+        echo '                <td align="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_usps_cost) . "</font></td>\n";
         echo '                <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="usps"';
         if ($shipping_cheapest == 'usps') echo ' CHECKED';
         echo ">&nbsp;</td>\n";

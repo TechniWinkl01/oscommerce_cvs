@@ -1,5 +1,5 @@
 <?php
-	/* $Id: fedex.php,v 1.9 2001/03/02 13:19:02 tmoulton Exp $ */
+	/* $Id: fedex.php,v 1.10 2001/03/04 14:04:49 hpdl Exp $ */
         if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
 	  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
         }
@@ -9,7 +9,7 @@
 	$fedex_countries_nbr = array(38,138,223);
 	switch($action) {
 		case 'select' :
-			print "<TR><TD><FONT FACE=\"" . TEXT_FONT_FACE . "\" SIZE=\"" . TEXT_FONT_SIZE . "\" COLOR=\"" . TEXT_FONT_COLOR . "\">&nbsp;";
+			print "<TR><TD>" . FONT_STYLE_MAIN . "&nbsp;";
 			print htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>";
 			print "<TD>&nbsp;</TD>";
 			print "<TD ALIGN=\"right\">&nbsp;<INPUT TYPE=\"checkbox\" NAME=\"shipping_quote_fedex\" VALUE=\"1\"";
@@ -62,17 +62,17 @@
 				// check for errors
 				if($quote['ErrorNbr']) {
 					print "<TR>\n";
-					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
-					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '"><FONT COLOR="red">Error:</FONT> ' . htmlentities($quote['Error']) . "</FONT></TD>\n";
-					print '<TD ALIGN="right"><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . "\">&nbsp;</FONT></TD>\n";
+					print '<TD>' . FONT_STYLE_MAIN . '&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
+					print '<TD>' . FONT_STYLE_MAIN . '<FONT COLOR="red">Error:</FONT> ' . htmlentities($quote['Error']) . "</FONT></TD>\n";
+					print '<TD ALIGN="right">' . FONT_STYLE_MAIN . "&nbsp;</FONT></TD>\n";
 					print "<TD ALIGN=\"right\" NOWRAP>&nbsp;</TD>\n";
 					print "</TR>\n";
 				}
 				else {
 					print "<TR>\n";
-					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
-					print '<TD><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">' . $shipping_fedex_method . "</FONT></TD>\n";
-					print '<TD ALIGN="right"><FONT FACE="' . TEXT_FONT_FACE . '" SIZE="' . TEXT_FONT_SIZE . '" COLOR="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_fedex_cost) . "</FONT></TD>\n";
+					print '<TD>' . FONT_STYLE_MAIN . '&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>\n";
+					print '<TD>' . FONT_STYLE_MAIN . $shipping_fedex_method . "</FONT></TD>\n";
+					print '<TD ALIGN="right">' . FONT_STYLE_MAIN . tep_currency_format($shipping_fedex_cost) . "</FONT></TD>\n";
 					print '<TD ALIGN="right" NOWRAP>&nbsp;<INPUT TYPE="radio" NAME="shipping_selected" VALUE="fedex"';
 					if($shipping_cheapest == 'fedex') {
 						print ' CHECKED';
