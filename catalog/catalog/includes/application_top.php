@@ -244,7 +244,7 @@
     if ($HTTP_GET_VARS['action'] == 'remove_product') {
       // customer wants to remove a product from their shopping cart
       $cart->remove($HTTP_GET_VARS['products_id']);
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action', 'cPath', 'products_id')), 'NONSSL')); 
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
       // customer wants to update the product quantity in their shopping cart
@@ -258,7 +258,7 @@
           $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
         }
       }
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action', 'cPath', 'products_id')), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
       // customer wants to remove all products from their shopping cart
