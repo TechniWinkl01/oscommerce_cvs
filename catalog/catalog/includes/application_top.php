@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.127 2001/06/03 22:19:02 kwiltner Exp $
+  $Id: application_top.php,v 1.128 2001/06/04 15:52:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -274,15 +274,16 @@
   }
 
 // language
-  require(DIR_WS_FUNCTIONS . 'languages.php');
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
     if (!$language) {
       tep_session_register('language');
       tep_session_register('languages_id');
     }
 
-    $language = tep_get_languages_directory($HTTP_GET_VARS['language']);
-    if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
+    $language_code = ($HTTP_GET_VARS['language']) ? $HTTP_GET_VARS['language'] : DEFAULT_LANGUAGE;
+    $languages = tep_get_languages($language_code);
+    $language = $languages[0]['directory'];
+    $languages_id = $languages[0]['id'];
   }
 
 // include the currency rates, and the language translations
