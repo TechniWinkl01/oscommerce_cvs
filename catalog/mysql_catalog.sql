@@ -639,16 +639,6 @@ CREATE TABLE products_attributes_to_basket (
 # Dumping data for table 'products_attributes_to_basket'
 #
 
-INSERT INTO products_attributes_to_basket VALUES (11,6,9);
-INSERT INTO products_attributes_to_basket VALUES (10,6,6);
-INSERT INTO products_attributes_to_basket VALUES (8,4,5);
-INSERT INTO products_attributes_to_basket VALUES (7,4,2);
-INSERT INTO products_attributes_to_basket VALUES (12,7,11);
-INSERT INTO products_attributes_to_basket VALUES (13,8,6);
-INSERT INTO products_attributes_to_basket VALUES (14,8,9);
-INSERT INTO products_attributes_to_basket VALUES (15,9,11);
-INSERT INTO products_attributes_to_basket VALUES (16,10,1);
-INSERT INTO products_attributes_to_basket VALUES (17,10,5);
 
 #
 # Table structure for table 'products_expected'
