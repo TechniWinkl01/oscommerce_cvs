@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.153 2004/08/18 11:49:35 hpdl Exp $
+  $Id: categories.php,v 1.154 2004/08/24 14:27:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,8 +87,8 @@
         if ($error === false) {
           $osC_Database->commitTransaction();
 
-          osC_Cache::reset('categories');
-          osC_Cache::reset('also_purchased');
+          osC_Cache::clear('categories');
+          osC_Cache::clear('also_purchased');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
@@ -138,8 +138,8 @@
             tep_remove_product($key);
           }
 
-          osC_Cache::reset('categories');
-          osC_Cache::reset('also_purchased');
+          osC_Cache::clear('categories');
+          osC_Cache::clear('also_purchased');
 
           $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
         }
@@ -164,8 +164,8 @@
               tep_remove_product($_GET['pID']);
             }
 
-            osC_Cache::reset('categories');
-            osC_Cache::reset('also_purchased');
+            osC_Cache::clear('categories');
+            osC_Cache::clear('also_purchased');
 
             $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
           }
@@ -187,8 +187,8 @@
             $Qupdate->execute();
 
             if ($Qupdate->affectedRows()) {
-              osC_Cache::reset('categories');
-              osC_Cache::reset('also_purchased');
+              osC_Cache::clear('categories');
+              osC_Cache::clear('also_purchased');
 
               $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
@@ -216,8 +216,8 @@
             $Qupdate->execute();
 
             if ($Qupdate->affectedRows()) {
-              osC_Cache::reset('categories');
-              osC_Cache::reset('also_purchased');
+              osC_Cache::clear('categories');
+              osC_Cache::clear('also_purchased');
 
               $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
@@ -268,7 +268,7 @@
             } else {
               $products_id = $osC_Database->nextID();
 
-              $Qp2c = $osC_Database->query('insert into :table_products_to_categories (products_id, categories_id) values (:products_id, :categories_id');
+              $Qp2c = $osC_Database->query('insert into :table_products_to_categories (products_id, categories_id) values (:products_id, :categories_id)');
               $Qp2c->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
               $Qp2c->bindInt(':products_id', $products_id);
               $Qp2c->bindInt(':categories_id', $current_category_id);
@@ -320,8 +320,8 @@
           if ($error === false) {
             $osC_Database->commitTransaction();
 
-            osC_Cache::reset('categories');
-            osC_Cache::reset('also_purchased');
+            osC_Cache::clear('categories');
+            osC_Cache::clear('also_purchased');
 
             $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
           } else {
@@ -425,8 +425,8 @@
               if ($error === false) {
                 $osC_Database->commitTransaction();
 
-                osC_Cache::reset('categories');
-                osC_Cache::reset('also_purchased');
+                osC_Cache::clear('categories');
+                osC_Cache::clear('also_purchased');
 
                 $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
