@@ -7,9 +7,9 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('NAVBAR_TITLE', 'Mein Konto');
 define('TOP_BAR_TITLE', 'Mein Konto');
-define('HEADING_TITLE', 'Information &uuml;ber mein Konto');
+define('HEADING_TITLE', 'pers&ouml;nliche Daten :');
 
-define('IMAGE_EDIT_ACCOUNT', 'Konto &auml;ndern');
+define('IMAGE_EDIT_ACCOUNT', 'pers&ouml;nliche Daten &auml;ndern');
 define('IMAGE_ADDRESS_BOOK', 'Adre&szlig;buch');
-define('IMAGE_HISTORY', 'Vorherige Bestellung(en)');
+define('IMAGE_HISTORY', 'Bereits get&auml;tigte Bestellungen');
 ?>

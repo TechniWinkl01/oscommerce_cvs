@@ -7,8 +7,8 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('NAVBAR_TITLE_1', 'Kasse');
 define('NAVBAR_TITLE_2', 'Ihr Warenkorb');
-define('TOP_BAR_TITLE', 'Bestellungsassistent');
-define('HEADING_TITLE', 'Ich m&ouml;chte bestellen !');
+define('TOP_BAR_TITLE', 'Bestellassistent');
+define('HEADING_TITLE', 'Bestellung t&auml;tigen :');
 define('TABLE_HEADING_QUANTITY', 'Anzahl');
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_TOTAL', 'Summe');

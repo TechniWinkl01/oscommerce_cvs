@@ -7,8 +7,8 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('NAVBAR_TITLE_1', 'Kasse');
 define('NAVBAR_TITLE_2', 'Zahlungsweise');
-define('TOP_BAR_TITLE', 'Bestellungsassistent');
-define('HEADING_TITLE', 'Zahlungsweise');
+define('TOP_BAR_TITLE', 'Bestellassistent');
+define('HEADING_TITLE', 'Zahlungsweise :');
 define('TABLE_HEADING_METHODS', 'Zahlungsmethoden');
 define('TABLE_HEADING_SELECTION', 'Zahlungsweise');
 define('SUB_TITLE_CASH_ON_DELIVERY', 'Nachnahme');

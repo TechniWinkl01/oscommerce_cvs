@@ -23,21 +23,21 @@ define('CURRENCY_VALUE', 1);
 define('TITLE', 'The Exchange Project');
 
 // header text in includes/header.php
-define('HEADER_TITLE_CREATE_ACCOUNT', 'Konto Erstellen');
+define('HEADER_TITLE_CREATE_ACCOUNT', 'Neuer Zugang');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mein Konto');
-define('HEADER_TITLE_CART_CONTENTS', 'Einkaufswagen Inhalt');
+define('HEADER_TITLE_CART_CONTENTS', 'Warenkorb');
 define('HEADER_TITLE_CHECKOUT', 'Kasse');
-define('HEADER_TITLE_TOP', 'Top');
+define('HEADER_TITLE_TOP', 'Startseite');
 define('HEADER_TITLE_CATALOG', 'Katalog');
 define('HEADER_TITLE_LOGOFF', 'Abmelden');
 define('HEADER_TITLE_LOGIN', 'Anmelden');
 
 // footer text in includes/footer.php
-define('FOOTER_TEXT_REQUESTS_SINCE', 'hits seit');
+define('FOOTER_TEXT_REQUESTS_SINCE', 'Besucher seit');
 
 // text for gender
-define('MALE', 'Mann');
-define('FEMALE', 'Frau');
+define('MALE', 'm&auml;nnlich');
+define('FEMALE', 'weiblich');
 define('MALE_ADDRESS', 'Herr');
 define('FEMALE_ADDRESS', 'Frau');
 
@@ -52,43 +52,43 @@ define('BOX_HEADING_MANUFACTURERS', 'Hersteller');
 define('BOX_MANUFACTURERS_SELECT_ONE', 'Wählen Sie ein aus:');
 
 // whats_new box text in includes/boxes/whats_new.php
-define('BOX_HEADING_WHATS_NEW', 'Neuigkeiten');
+define('BOX_HEADING_WHATS_NEW', 'Neue Produkte');
 
 // quick_find box text in includes/boxes/quick_find.php
 define('BOX_HEADING_SEARCH', 'Schnellsuche');
-define('BOX_SEARCH_TEXT', 'Verwenden Sie keyworter, um Ihr Produkt zu finden.');
+define('BOX_SEARCH_TEXT', 'Verwenden Sie Schl&uuml;sselw&ouml;rter, um ein Produkt zu finden.');
 
 // add_a_quickie box text in includes/boxes/add_a_quickie.php
-define('BOX_HEADING_ADD_PRODUCT_ID', 'Schnelleinkauf!');
-define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe der gew&uuml;nschten Produkt-Nr.');
+define('BOX_HEADING_ADD_PRODUCT_ID', 'Schnelleinkauf');
+define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe der gew&uuml;nschten Produktnr.');
 
 // specials box text in includes/boxes/specials.php
 define('BOX_HEADING_SPECIALS', 'Angebote');
 define('BOX_SPECIALS_MORE', 'Mehr Angebote..');
 
 // reviews box text in includes/boxes/reviews.php
-define('BOX_HEADING_REVIEWS', 'Meinungen');
-define('BOX_REVIEWS_MORE', 'Mehr Meinungen..');
+define('BOX_HEADING_REVIEWS', 'Bewertungen');
+define('BOX_REVIEWS_MORE', 'Mehr Bewertungen..');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
-define('BOX_HEADING_SHOPPING_CART', 'Einkaufswagen');
-define('BOX_SHOPPING_CART_EMPTY', '..nix drin!');
+define('BOX_HEADING_SHOPPING_CART', 'Warenkorb');
+define('BOX_SHOPPING_CART_EMPTY', 'ist leer.');
 define('BOX_SHOPPING_CART_SUBTOTAL', 'Zwischensumme:');
-define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Inhalt sehen');
+define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Inhalt einsehen');
 
 // best_sellers box text in includes/boxes/best_sellers.php
-define('BOX_HEADING_BESTSELLERS', 'Verkaufsschlager');
-define('BOX_HEADING_BESTSELLERS_IN', 'Verkaufsschlager in<br>&nbsp;&nbsp;');
+define('BOX_HEADING_BESTSELLERS', 'Bestseller');
+define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller in<br>&nbsp;&nbsp;');
 
 // checkout procedure text
-define('CHECKOUT_BAR_CART_CONTENTS', 'einkaufswagen inhalt');
-define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'zustelleradresse');
-define('CHECKOUT_BAR_PAYMENT_METHOD', 'zahlungsart');
-define('CHECKOUT_BAR_CONFIRMATION', 'best&auml;tigung');
+define('CHECKOUT_BAR_CART_CONTENTS', 'Warenkorbinhalt');
+define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'Lieferanschrift');
+define('CHECKOUT_BAR_PAYMENT_METHOD', 'Zahlungsweise');
+define('CHECKOUT_BAR_CONFIRMATION', 'Best&auml;tigung');
 define('CHECKOUT_BAR_FINISHED', 'fertig');
 
 // javascript messages
-define('JS_ERROR', 'Gefragte Daten fehlen!\nBitte richtig ausfüllen.\n\n');
+define('JS_ERROR', 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n');
 
 define('JS_CC_OWNER', '* Der \'Name des Eigentümers\' muß mindestens aus ' . CC_OWNER_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_CC_NUMBER', '* Die \'Kredit Karten Nr.\' muß mindestens aus ' . CC_NUMBER_MIN_LENGTH . ' Zahlen bestehen.\n');
@@ -112,7 +112,7 @@ define('JS_COUNTRY', '* Der \'Land\' Eintrag muß ausgewählt werden.');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muß mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen enthalten.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' muß übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('CATEGORY_PERSONAL', '<b>[ Pers&ouml;nlich ]</b>');
+define('CATEGORY_PERSONAL', '<b>[ Pers&ouml;nliche Daten ]</b>');
 define('CATEGORY_ADDRESS', '<b>[ Adresse ]</b>');
 define('CATEGORY_CONTACT', '<b>[ Kontakt ]</b>');
 define('CATEGORY_PASSWORD', '<b>[ Passwort ]</b>');
@@ -166,7 +166,7 @@ define('PASSWORD_HIDDEN', '--VERSTECKT--');
 // constants for use in tep_prev_next_display function
 // 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Erste Seite');
-define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Vorige Seite');
+define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Vorherige Seite');
 define('PREVNEXT_TITLE_NEXT_PAGE', 'Folgende Seite');
 define('PREVNEXT_TITLE_LAST_PAGE', 'Letzte Seite');
 define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');

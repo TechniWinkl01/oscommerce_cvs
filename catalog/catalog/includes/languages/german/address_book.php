@@ -8,8 +8,8 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 define('NAVBAR_TITLE_1', 'Mein Konto');
 define('NAVBAR_TITLE_2', 'Adre&szlig;buch');
 define('TOP_BAR_TITLE', 'Vorhandene Eintr&auml;ge');
-define('HEADING_TITLE', 'Mein pers&ouml;nliches Adre&szlig;buch');
-define('TABLE_HEADING_NUMBER', 'Nr.');
+define('HEADING_TITLE', 'Folgende Eintr&auml;ge verbinden wir zur Zeit mit Ihrer Adresse :');
+define('TABLE_HEADING_NUMBER', 'Nummer');
 define('TABLE_HEADING_NAME', 'Name');
 define('TABLE_HEADING_CITY_COUNTRY', 'Wohnort');
 define('TEXT_NO_ENTRIES_IN_ADDRESS_BOOK', 'Sie haben noch keine Eintr&auml;ge in ihrem Adre&szlig;buch!');

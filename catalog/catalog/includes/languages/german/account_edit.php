@@ -6,9 +6,9 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
-define('NAVBAR_TITLE_2', 'Konto &auml;ndern');
+define('NAVBAR_TITLE_2', 'pers&ouml;nliche Daten &auml;ndern');
 define('TOP_BAR_TITLE', 'Mein Konto');
-define('HEADING_TITLE', 'Information &uuml;ber mein Konto');
+define('HEADING_TITLE', 'pers&ouml;nliche Daten &auml;ndern :');
 define('PLEASE_SELECT', '-- Bitte w&auml;hlen --');
 
 define('IMAGE_UPDATE', 'Aktualisieren');
