@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.2 2004/07/22 20:38:48 hpdl Exp $
+  $Id: install.php,v 1.3 2004/11/07 21:02:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -118,7 +118,7 @@
   define('CONFIG_WWW_HTTPS_COOKIE_PATH_DESCRIPTION', 'The secure path to store cookies under');
   define('CONFIG_WWW_HTTPS_COOKIE_PATH_DESCRIPTION_LONG', 'The web address of the secure server to limit the cookie to, for example <i>/my_name/catalog/</i>');
 
-  define('ERROR_CONFIG_FILE_NOT_WRITEABLE', '<p>The following error has occurred:</p><p><div class="boxMe"><b>The configuration files do not exist, or permission levels are not set.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd %sincludes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul><ul class="boxMe"><li>cd %sadmin/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p><p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i>.</p><p class="noteBox">If you are running this installation procedure under a Microsoft Windows environment, try renaming the existing configuration file so a new file can be created.</p>');
+  define('ERROR_CONFIG_FILE_NOT_WRITEABLE', '<p>The following error has occurred:</p><p><div class="boxMe"><b>The configuration file does not exist, or permission levels are not set.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd %sincludes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div></p><p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i>.</p><p class="noteBox">If you are running this installation procedure under a Microsoft Windows environment, try renaming the existing configuration file so a new file can be created.</p>');
 
   define('TEXT_SUCCESSFUL_CONFIGURATION', 'The configuration was successful!');
 ?>

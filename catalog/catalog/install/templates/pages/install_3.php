@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_3.php,v 1.10 2004/07/22 20:47:11 hpdl Exp $
+  $Id: install_3.php,v 1.11 2004/11/07 21:02:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,7 +68,7 @@
     if ($_POST['DB_DATABASE_CLASS'] == 'mysql_innodb') {
       $Qinno = $osC_Database->query('show variables like "have_innodb"');
       if (($Qinno->numberOfRows() === 1) && (strtolower($Qinno->value('Value')) == 'yes')) {
-        $database_tables = array('address_book', 'categories', 'categories_description', 'customers', 'customers_basket', 'customers_basket_attributes', 'customers_info', 'manufacturers', 'manufacturers_info', 'orders', 'orders_products', 'orders_status', 'orders_status_history', 'orders_products_attributes', 'orders_products_download', 'orders_total', 'products', 'products_attributes', 'products_attributes_download', 'products_description', 'products_options', 'products_options_values', 'products_options_values_to_products_options', 'products_to_categories', 'reviews', 'reviews_description', 'weight_classes', 'weight_classes_rules');
+        $database_tables = array('address_book', 'categories', 'categories_description', 'customers', 'customers_basket', 'customers_basket_attributes', 'customers_info', 'manufacturers', 'manufacturers_info', 'orders', 'orders_products', 'orders_status', 'orders_status_history', 'orders_products_attributes', 'orders_products_download', 'orders_total', 'products', 'products_attributes', 'products_attributes_download', 'products_description', 'products_options', 'products_options_values', 'products_options_values_to_products_options', 'products_to_categories', 'reviews', 'weight_classes', 'weight_classes_rules');
 
         foreach ($database_tables as $table) {
           $osC_Database->simpleQuery('alter table ' . $db['DB_TABLE_PREFIX'] . $table . ' type = innodb');

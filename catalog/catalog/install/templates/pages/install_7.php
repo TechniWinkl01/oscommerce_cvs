@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_7.php,v 1.3 2004/07/22 20:47:11 hpdl Exp $
+  $Id: install_7.php,v 1.4 2004/11/07 21:02:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,13 +83,13 @@
 </form>
 
 <?php
-  } elseif ( (file_exists($dir_fs_document_root . 'includes/configure.php') && !is_writeable($dir_fs_document_root . 'includes/configure.php')) || (file_exists($dir_fs_document_root . '/admin/includes/configure.php') && !is_writeable($dir_fs_document_root . '/admin/includes/configure.php')) ) {
+  } elseif (file_exists($dir_fs_document_root . 'includes/configure.php') && !is_writeable($dir_fs_document_root . 'includes/configure.php')) {
 ?>
 <form name="install" action="install.php?step=7" method="post">
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td><?php echo sprintf(ERROR_CONFIG_FILE_NOT_WRITEABLE, $dir_fs_document_root, $dir_fs_document_root); ?></td>
+    <td><?php echo sprintf(ERROR_CONFIG_FILE_NOT_WRITEABLE, $dir_fs_document_root); ?></td>
   </tr>
 </table>
 
@@ -193,6 +193,7 @@
                      '  define(\'DIR_FS_WORK\', \'' . $http_work_directory . '\');' . "\n" .
                      '  define(\'DIR_FS_DOWNLOAD\', DIR_FS_CATALOG . \'download/\');' . "\n" .
                      '  define(\'DIR_FS_DOWNLOAD_PUBLIC\', DIR_FS_CATALOG . \'pub/\');' . "\n" .
+                     '  define(\'DIR_FS_BACKUP\', \'' . $dir_fs_document_root . 'admin/backups/\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
                      '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
@@ -206,59 +207,6 @@
                      '?>';
 
     $fp = fopen($dir_fs_document_root . 'includes/configure.php', 'w');
-    fputs($fp, $file_contents);
-    fclose($fp);
-
-    $file_contents = '<?php' . "\n" .
-                     '/*' . "\n" .
-                     '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
-                     '  http://www.oscommerce.com' . "\n" .
-                     '' . "\n" .
-                     '  Copyright (c) 2004 osCommerce' . "\n" .
-                     '' . "\n" .
-                     '  Released under the GNU General Public License' . "\n" .
-                     '*/' . "\n" .
-                     '' . "\n" .
-                     '// Define the webserver and path parameters' . "\n" .
-                     '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
-                     '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
-                     '  define(\'HTTP_SERVER\', \'' . $http_server . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'HTTP_CATALOG_SERVER\', \'' . $http_server . '\');' . "\n" .
-                     '  define(\'HTTPS_CATALOG_SERVER\', \'' . $https_server . '\');' . "\n" .
-                     '  define(\'ENABLE_SSL_CATALOG\', \'' . $enable_ssl . '\'); // secure webserver for catalog module' . "\n" .
-                     '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $dir_fs_document_root . '\'); // where the pages are located on the server' . "\n" .
-                     '  define(\'DIR_WS_ADMIN\', \'' . $http_catalog . 'admin/\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_ADMIN\', \'' . $dir_fs_document_root . 'admin/\'); // absolute pate required' . "\n" .
-                     '  define(\'DIR_WS_CATALOG\', \'' . $http_catalog . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_FS_CATALOG\', \'' . $dir_fs_document_root . '\'); // absolute path required' . "\n" .
-                     '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
-                     '  define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
-                     '  define(\'DIR_WS_CATALOG_IMAGES\', DIR_WS_CATALOG . \'images/\');' . "\n" .
-                     '  define(\'DIR_WS_INCLUDES\', \'includes/\');' . "\n" .
-                     '  define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
-                     '  define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
-                     '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
-                     '  define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
-                     '  define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
-                     '  define(\'DIR_WS_CATALOG_LANGUAGES\', DIR_WS_CATALOG . \'includes/languages/\');' . "\n" .
-                     '  define(\'DIR_FS_CATALOG_LANGUAGES\', DIR_FS_CATALOG . \'includes/languages/\');' . "\n" .
-                     '  define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
-                     '  define(\'DIR_FS_CATALOG_MODULES\', DIR_FS_CATALOG . \'includes/modules/\');' . "\n" .
-                     '  define(\'DIR_FS_BACKUP\', DIR_FS_ADMIN . \'backups/\');' . "\n" .
-                     '  define(\'DIR_FS_WORK\', \'' . $http_work_directory . '\');' . "\n" .
-                     '' . "\n" .
-                     '// define our database connection' . "\n" .
-                     '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'DB_SERVER_USERNAME\', \'' . $_POST['DB_SERVER_USERNAME'] . '\');' . "\n" .
-                     '  define(\'DB_SERVER_PASSWORD\', \'' . $_POST['DB_SERVER_PASSWORD']. '\');' . "\n" .
-                     '  define(\'DB_DATABASE\', \'' . $_POST['DB_DATABASE']. '\');' . "\n" .
-                     '  define(\'DB_DATABASE_CLASS\', \'' . (($_POST['DB_DATABASE_CLASS'] == 'mysql_innodb') && ($db_has_innodb === true) ? 'mysql_innodb' : 'mysql') . '\');' . "\n" .
-                     '  define(\'DB_TABLE_PREFIX\', \'' . $_POST['DB_TABLE_PREFIX']. '\');' . "\n" .
-                     '  define(\'USE_PCONNECT\', \'' . (isset($_POST['USE_PCONNECT']) && $_POST['USE_PCONNECT'] == 'true' ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
-                     '  define(\'STORE_SESSIONS\', \'' . (($_POST['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
-                     '?>';
-
-    $fp = fopen($dir_fs_document_root . 'admin/includes/configure.php', 'w');
     fputs($fp, $file_contents);
     fclose($fp);
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.16 2004/07/22 16:59:04 hpdl Exp $
+  $Id: configure.php,v 1.17 2004/11/07 21:02:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,6 +36,7 @@
   define('DIR_FS_WORK', '/tmp/'); // the work directory should be outside the public html directory
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
   define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG . 'pub/');
+  define('DIR_FS_BACKUP', DIR_FS_CATALOG . 'admin/backups/');
 
 // define our database connection
   define('DB_SERVER', ''); // eg, localhost - should not be empty for productive servers
