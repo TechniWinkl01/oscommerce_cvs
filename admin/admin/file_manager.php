@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.23 2002/01/09 08:00:12 hpdl Exp $
+  $Id: file_manager.php,v 1.24 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -131,9 +131,6 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
-
-<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
-
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

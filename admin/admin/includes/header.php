@@ -1,3 +1,19 @@
+<?php
+/*
+  $Id: header.php,v 1.13 2002/01/11 02:20:56 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+
+  if ($errorStack->size > 0) {
+    echo $errorStack->output();
+  }
+?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr class="header">
     <td valign="middle"><?php echo tep_image(DIR_WS_IMAGES . 'header_exchange_logo.gif', STORE_NAME, '57', '50') . tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '6', '1') . tep_image(DIR_WS_IMAGES . 'header_exchange.gif', STORE_NAME, '351', '50'); ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.61 2002/01/09 07:57:44 hpdl Exp $
+  $Id: german.php,v 1.62 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -276,6 +276,7 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</spa
 
 define('ERROR_BANNER_TITLE', 'Error: Banner title required');
 define('ERROR_BANNER_GROUP', 'Error: Banner group required');
+define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
 
 define('TEXT_CACHE_CATEGORIES', 'Kategorien Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Hersteller Box');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.15 2002/01/09 09:19:06 hpdl Exp $
+  $Id: cache.php,v 1.16 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,9 +34,6 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
-
-<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
-
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

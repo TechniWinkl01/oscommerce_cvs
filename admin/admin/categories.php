@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.111 2002/01/09 17:18:24 hpdl Exp $
+  $Id: categories.php,v 1.112 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -276,9 +276,6 @@
 </head>
 <body onload="SetFocus();">
 <div id="spiffycalendar" class="text"></div>
-
-<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
-
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

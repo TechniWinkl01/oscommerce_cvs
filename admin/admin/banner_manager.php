@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.47 2002/01/09 09:14:51 hpdl Exp $
+  $Id: banner_manager.php,v 1.48 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -131,9 +131,6 @@ function popupImageWindow(url) {
 </head>
 <body>
 <div id="spiffycalendar" class="text"></div>
-
-<?php if ($errorStack->size > 0) echo $errorStack->output(); ?>
-
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

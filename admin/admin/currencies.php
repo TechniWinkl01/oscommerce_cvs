@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.28 2002/01/05 05:50:31 hpdl Exp $
+  $Id: currencies.php,v 1.29 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,7 +50,14 @@
       case 'deleteconfirm':
         $currencies_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
 
+        $currency_query = tep_db_query("select c.currencies_id from currencies c, configuration cfg where cfg.configuration_key = 'DEFAULT_CURRENCY' and cfg.configuration_value = c.code");
+        $currency = tep_db_fetch_array($currency_query);
+        if ($currency['currencies_id'] == $currencies_id) {
+          tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
+        }
+
         tep_db_query("delete from " . TABLE_CURRENCIES . " where currencies_id = '" . tep_db_input($currencies_id) . "'");
+
         tep_redirect(tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'update':
@@ -67,6 +74,19 @@
           }
         }
         tep_redirect(tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $HTTP_GET_VARS['cID']));
+        break;
+      case 'delete':
+        $currencies_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
+
+        $currency_query = tep_db_query("select code from currencies where currencies_id = '" . $currencies_id . "'");
+        $currency = tep_db_fetch_array($currency_query);
+
+        $remove_currency = true;
+        if ($currency['code'] == DEFAULT_CURRENCY) {
+          $remove_currency = false;
+          $errorStack->add(ERROR_REMOVE_DEFAULT_CURRENCY, 'error');
+        }
+        break;
     }
   }
 ?>
@@ -207,14 +227,14 @@
       $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br>' . tep_draw_input_field('thousands_point', $cInfo->thousands_point));
       $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br>' . tep_draw_input_field('decimal_places', $cInfo->decimal_places));
       $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_VALUE . '<br>' . tep_draw_input_field('value', $cInfo->value));
-      if (DEFAULT_CURRENCY != $cInfo->code) $info_box_contents[] = array('text' => '<br>' . tep_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      if (DEFAULT_CURRENCY != $cInfo->code) $info_box_contents[] = array('text' => '<br>' . tep_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT);
       $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . ' <a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     case 'delete':
-      $info_box_contents = array('form' => tep_draw_form('currencies', FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=deleteconfirm'));
+      $info_box_contents = array();
       $info_box_contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $info_box_contents[] = array('text' => '<br><b>' . $cInfo->title . '</b>');
-      $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . (($remove_currency) ? '<a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=deleteconfirm') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>' : '') . ' <a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
       $info_box_contents = array();

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.112 2002/01/08 18:26:42 hpdl Exp $
+  $Id: application_top.php,v 1.113 2002/01/11 02:20:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -244,4 +244,9 @@
                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
                        );
+
+// check if a default currency is set
+  if (!tep_not_null(DEFAULT_CURRENCY)) {
+    $errorStack->add(ERROR_NO_DEFAULT_CURRENCY_DEFINED, 'error');
+  }
 ?>
