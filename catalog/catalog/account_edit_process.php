@@ -47,13 +47,11 @@
     $email_address_error = 0;
   }
   
-  if (ENTRY_EMAIL_ADDRESS_CHECK == 1) {
-    if (!(tep_validate_email(trim($HTTP_POST_VARS['email_address'])))) {
-      $email_address_check_error = 1;
-      $error = 1;
-    } else {
-      $email_address_check_error = 0;
-    }
+  if (!(tep_validate_email(trim($HTTP_POST_VARS['email_address'])))) {
+    $email_address_check_error = 1;
+    $error = 1;
+  } else {
+    $email_address_check_error = 0;
   }
 
   if (strlen(trim($HTTP_POST_VARS['street_address'])) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
