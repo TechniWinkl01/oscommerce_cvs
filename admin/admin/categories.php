@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.120 2002/01/28 01:49:13 hpdl Exp $
+  $Id: categories.php,v 1.121 2002/02/07 10:18:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -714,8 +714,19 @@
 <?php
     }
 
-    $cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
+    if ($cPath) {
+      if (!ereg('_', $cPath)) $cPath_array = array($cPath);
+      $cPath_back = '';
+      for($i=0;$i<sizeof($cPath_array)-1;$i++) {
+        if ($cPath_back == '') {
+          $cPath_back .= $cPath_array[$i];
+        } else {
+          $cPath_back .= '_' . $cPath_array[$i];
+        }
+      }
+    }
 
+    $cPath_back = ($cPath_back) ? 'cPath=' . $cPath_back : '';
 ?>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
