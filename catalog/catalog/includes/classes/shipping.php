@@ -26,7 +26,9 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          echo $GLOBALS[$class]->select();
+          if ($GLOBALS[$class]->enabled) {
+            echo $GLOBALS[$class]->select();
+          }
         }
         echo '<input type="hidden" name="shipping_quote_all" value="0">';
       }
@@ -56,7 +58,9 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          $GLOBALS[$class]->quote();
+          if ($GLOBALS[$class]->enabled) {
+            $GLOBALS[$class]->quote();
+          }
         }
       }
     }
@@ -66,7 +70,9 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          echo $GLOBALS[$class]->cheapest();
+          if ($GLOBALS[$class]->enabled) {
+            echo $GLOBALS[$class]->cheapest();
+          }
         }
       }
     }
@@ -76,7 +82,9 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          echo $GLOBALS[$class]->display();
+          if ($GLOBALS[$class]->enabled) {
+            echo $GLOBALS[$class]->display();
+          }
         }
       }
     }
@@ -91,7 +99,9 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          $confirm_string .= $GLOBALS[$class]->confirm();
+          if ($GLOBALS[$class]->enabled) {
+            $confirm_string .= $GLOBALS[$class]->confirm();
+          }
         }
 
         return $confirm_string;
