@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.115 2001/07/13 10:34:51 jwildeboer Exp $
+  $Id: general.php,v 1.116 2001/07/23 10:17:56 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -403,11 +403,7 @@
 // Return a formatted address
 // TABLES: customers, address_book, address_format_it
   function tep_address_summary($customers_id, $address_id) {
-    if ($address_id) {
-      $address_query = tep_db_query("select entry_suburb as suburb, entry_city as city, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $address_id . "'");
-    } else {
-      $address_query = tep_db_query("select customers_suburb as suburb, customers_city as city, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from " . TABLE_CUSTOMERS . " where customers_id = '" . $customers_id . "'");
-    }
+    $address_query = tep_db_query("select entry_suburb as suburb, entry_city as city, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $address_id . "' and customers_id = '" . $customers_id . "'");
     $address = tep_db_fetch_array($address_query);
     $country_id = $address['country_id'];
     $suburb = addslashes($address['suburb']);
@@ -416,15 +412,12 @@
     $zone_id = $address['zone_id'];
     $country = tep_get_country_name($country_id);
     $state = tep_get_zone_code($country_id, $zone_id, $state);
-
     $format_id = tep_get_address_format_id($country_id);
     $address_format_query = tep_db_query("select address_summary as summary from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $format_id . "'");
     $address_format = tep_db_fetch_array($address_format_query);
-
     $fmt = $address_format['summary'];
     eval("\$address = \"$fmt\";");
     $address = stripslashes($address);
-
     return $address;
 }
 
@@ -623,7 +616,7 @@
 // Make sure the $tmpstring is empty
         $tmpstring = '';
 
-// Add this word to the $tmpstring, starting the $tmpstring 
+// Add this word to the $tmpstring, starting the $tmpstring
 
         $tmpstring .= trim(ereg_replace('"', ' ', $pieces[$k]));
 
@@ -976,13 +969,13 @@
     $body .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: 7bit\r\n\r\n";
     $body .= strip_tags($email_text);
 
-    //HTML version of message 
+    //HTML version of message
     $body .= "\r\n--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
     $body .= chunk_split(base64_encode($email_text));
 
     //Close the MultiPart
     $body .= "\r\n--$boundary--\r\n";
-    
+
     //send message
     $to_email_address = $to_name . " <" . $to_email_address . ">";
     mail($to_email_address, $email_subject, $body, $headers);
