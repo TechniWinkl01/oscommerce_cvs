@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.118 2004/11/03 08:59:38 mevans Exp $
+  $Id: espanol.php,v 1.119 2005/03/07 10:06:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -265,7 +265,7 @@ define('ICON_ORDERS', 'Orders');
 define('ICON_PRODUCTS', 'Products');
 
 // constants for use in tep_prev_next_display function
-define('TEXT_RESULT_PAGE', 'P&aacute;gina&nbsp;%s&nbsp;de %d');
+define('TEXT_RESULT_PAGE', 'P&aacute;gina&nbsp;%s&nbsp;de&nbsp;%d');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_CATEGORIES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> categories)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
