@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.33 2002/01/28 04:55:41 hpdl Exp $
+  $Id: update.php,v 1.34 2002/01/28 05:16:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -490,7 +490,7 @@ changeText('statusText', 'Updating Orders');
   tep_db_query("alter table orders change orders_date_finished orders_date_finished datetime");
   tep_db_query("alter table orders_products add column products_model varchar(12)");
 
-  tep_db_query("create table orders_status ( orders_status_id int(5) default '0' not null, language_id int(5) default '1' not null, orders_status_name varchar(32) not null, primary key (orders_status_id, language_id), key idx_orders_status_name (orders_status_name))");
+  tep_db_query("create table orders_status ( orders_status_id int(5) not null auto_increment, language_id int(5) default '1' not null, orders_status_name varchar(32) not null, primary key (orders_status_id, language_id), key idx_orders_status_name (orders_status_name))");
 
   for ($i=0; $i<sizeof($languages); $i++) {
     tep_db_query("insert into orders_status values ('1', '" . $languages[$i]['id'] . "', 'Pending')");
