@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.205 2002/01/02 23:01:54 hpdl Exp $
+  $Id: application_top.php,v 1.206 2002/01/02 23:05:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -337,7 +337,7 @@
 
 // check if the configure.php file is writeable
   if (WARN_CONFIG_WRITEABLE == 'true') {
-    if ( (file_exists('includes/configure.php')) && (is_writeable('includes/configure.php')) ) {
+    if ( (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) && (is_writeable(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) ) {
       new errorBox(array(array('text' => WARNING_CONFIG_FILE_WRITEABLE)));
     }
   }
