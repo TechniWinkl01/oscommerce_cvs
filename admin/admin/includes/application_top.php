@@ -135,10 +135,6 @@
   define('HEADING_IMAGE_HEIGHT', 60);
   define('EMAIL_FROM', 'The Exchange Project <root@localhost>');
 
-  define('TEXT_FONT_FACE', 'Verdana, Arial');
-  define('TEXT_FONT_SIZE', '2');
-  define('TEXT_FONT_COLOR', '#000000');
-
   define('TABLE_HEADING_FONT_FACE', 'Verdana, Arial');
   define('TABLE_HEADING_FONT_SIZE', '1');
   define('TABLE_HEADING_FONT_COLOR', '#000000');

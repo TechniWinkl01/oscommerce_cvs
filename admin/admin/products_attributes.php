@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.20 2001/06/29 22:08:35 dwatkins Exp $
+  $Id: products_attributes.php,v 1.21 2001/07/09 18:10:13 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -227,10 +227,10 @@ function checkFormAtrib() {
                     <td colspan="3"><? echo tep_black_line(); ?></td>
                   </tr>
                   <tr>
-                    <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_WARNING_OF_DELETE; ?></font></td>
+                    <td colspan="3" class="main"><br><? echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
+                    <td align="right" colspan="3" class="main"><br><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -238,10 +238,10 @@ function checkFormAtrib() {
     } else {
 ?>
               <tr>
-                <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_OK_TO_DELETE; ?></font></td>
+                <td class="main" colspan="3"><br><? echo TEXT_OK_TO_DELETE; ?></td>
               </tr>
               <tr>
-                <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $HTTP_GET_VARS['option_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', ' delete '); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
+                <td class="main" align="right" colspan="3"><br><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $HTTP_GET_VARS['option_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', ' delete '); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
               </tr>
 <?
     }
@@ -429,19 +429,19 @@ function checkFormAtrib() {
                     <td colspan="3"><? echo tep_black_line(); ?></td>
                   </tr>
                   <tr>
-                    <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_WARNING_OF_DELETE; ?></font></td>
+                    <td class="main" colspan="3"><br><? echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
+                    <td class="main" align="right" colspan="3"><br><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
                   </tr>
 <?
     } else {
 ?>
                   <tr>
-                    <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_OK_TO_DELETE; ?></font></td>
+                    <td class="main" colspan="3"><br><? echo TEXT_OK_TO_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_value&value_id=' . $HTTP_GET_VARS['value_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', ' delete '); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
+                    <td class="main" align="right" colspan="3"><br><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_value&value_id=' . $HTTP_GET_VARS['value_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', ' delete '); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', ' cancel '); ?></a>&nbsp;</td>
                   </tr>
 <?
     }

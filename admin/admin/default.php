@@ -50,7 +50,7 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_MAIN; ?></font></td>
+            <td class="main"><? echo TEXT_MAIN; ?></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

@@ -68,7 +68,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_PRODUCT; ?></b>&nbsp;<? echo $rInfo->products_name; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_FROM; ?></b>&nbsp;<? echo $rInfo->author; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_DATE; ?></b>&nbsp;<? echo tep_date_short($rInfo->date_added); ?>&nbsp;</font></td>
+            <td class="main">&nbsp;<b><? echo ENTRY_PRODUCT; ?></b>&nbsp;<? echo $rInfo->products_name; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_FROM; ?></b>&nbsp;<? echo $rInfo->author; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_DATE; ?></b>&nbsp;<? echo tep_date_short($rInfo->date_added); ?>&nbsp;</td>
             <td align="right"><br><? echo tep_image(DIR_WS_CATALOG . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
         </table>
@@ -76,7 +76,7 @@
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_REVIEW; ?></b><br>&nbsp;<br><textarea name="reviews_text" wrap="off" cols="60" rows="15"><? echo $rInfo->text; ?></textarea></font></td>
+            <td valign="top" class="main">&nbsp;<b><? echo ENTRY_REVIEW; ?></b><br>&nbsp;<br><textarea name="reviews_text" wrap="off" cols="60" rows="15"><? echo $rInfo->text; ?></textarea></td>
           </tr>
           <tr>
             <td align="right" class="smallText">&nbsp;<? echo ENTRY_REVIEW_TEXT; ?></td>
@@ -84,13 +84,13 @@
         </table></td>
       </tr>
       <tr>
-        <td><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_RATING; ?></b>&nbsp;&nbsp;<? echo TEXT_BAD; ?>&nbsp;<input type="radio" name="reviews_rating" value="1"<? if ($rInfo->rating == '1') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="2"<? if ($rInfo->rating == '2') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="3"<? if ($rInfo->rating == '3') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="4"<? if ($rInfo->rating == '4') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="5"<? if ($rInfo->rating == '5') { echo ' CHECKED'; } ?>>&nbsp;<? echo TEXT_GOOD; ?>&nbsp;</font></td>
+        <td class="main"><br>&nbsp;<b><? echo ENTRY_RATING; ?></b>&nbsp;&nbsp;<? echo TEXT_BAD; ?>&nbsp;<input type="radio" name="reviews_rating" value="1"<? if ($rInfo->rating == '1') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="2"<? if ($rInfo->rating == '2') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="3"<? if ($rInfo->rating == '3') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="4"<? if ($rInfo->rating == '4') { echo ' CHECKED'; } ?>>&nbsp;<input type="radio" name="reviews_rating" value="5"<? if ($rInfo->rating == '5') { echo ' CHECKED'; } ?>>&nbsp;<? echo TEXT_GOOD; ?>&nbsp;</td>
       </tr>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="hidden" name="date_added" value="<? echo $rInfo->date_added; ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID', 'info')) . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</font></td>
+        <td align="right" class="main"><br>&nbsp;<input type="hidden" name="date_added" value="<? echo $rInfo->date_added; ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID', 'info')) . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</td>
       <input type="hidden" name="reviews_id" value="<? echo $HTTP_GET_VARS['rID']; ?>"><input type="hidden" name="products_id" value="<? echo $rInfo->products_id; ?>"><input type="hidden" name="customers_id" value="<? echo $rInfo->customers_id; ?>"><input type="hidden" name="products_image" value="<? echo $rInfo->products_image; ?>"></form></tr>
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'preview') {
@@ -120,7 +120,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_PRODUCT; ?></b>&nbsp;<? echo $rInfo->products_name; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_FROM; ?></b>&nbsp;<? echo $rInfo->author; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_DATE; ?></b>&nbsp;<? echo tep_date_short($rInfo->date_added); ?>&nbsp;</font></td>
+            <td class="main">&nbsp;<b><? echo ENTRY_PRODUCT; ?></b>&nbsp;<? echo $rInfo->products_name; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_FROM; ?></b>&nbsp;<? echo $rInfo->author; ?>&nbsp;<br>&nbsp;<b><? echo ENTRY_DATE; ?></b>&nbsp;<? echo tep_date_short($rInfo->date_added); ?>&nbsp;</td>
             <td align="right"><br><? echo tep_image(DIR_WS_CATALOG . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
         </table>
@@ -128,12 +128,12 @@
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_REVIEW; ?></b><br>&nbsp;<br><? echo tep_break_string($rInfo->text, 15); ?></font></td>
+            <td valign="top" class="main">&nbsp;<b><? echo ENTRY_REVIEW; ?></b><br>&nbsp;<br><? echo tep_break_string($rInfo->text, 15); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo ENTRY_RATING; ?></b>&nbsp;&nbsp;<? echo tep_image(DIR_WS_CATALOG_IMAGES . 'stars_' . $rInfo->rating . '.gif', sprintf(TEXT_OF_5_STARS, $rInfo->rating)); ?>&nbsp;&nbsp;<small>[<? echo sprintf(TEXT_OF_5_STARS, $rInfo->rating); ?>]</small>&nbsp;</font></td>
+        <td class="main"><br>&nbsp;<b><? echo ENTRY_RATING; ?></b>&nbsp;&nbsp;<? echo tep_image(DIR_WS_CATALOG_IMAGES . 'stars_' . $rInfo->rating . '.gif', sprintf(TEXT_OF_5_STARS, $rInfo->rating)); ?>&nbsp;&nbsp;<small>[<? echo sprintf(TEXT_OF_5_STARS, $rInfo->rating); ?>]</small>&nbsp;</td>
       </tr>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
@@ -161,7 +161,7 @@
       }
 ?>
       <tr>
-        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link($back_url, $back_url_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>'; ?>&nbsp;</font></td>
+        <td align="right" class="main"><br><? echo '<a href="' . tep_href_link($back_url, $back_url_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>'; ?>&nbsp;</td>
       </tr>
 <?
     }

@@ -88,8 +88,8 @@ function alertBox() {
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_CUSTOMERS_INFO; ?>&nbsp;</b></font></td>
-            <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_DELIVERY_INFO; ?>&nbsp;</b></font></td>
+            <td class="main" valign="top"><b>&nbsp;<? echo TABLE_HEADING_CUSTOMERS_INFO; ?>&nbsp;</b></td>
+            <td class="main" valign="top"><b>&nbsp;<? echo TABLE_HEADING_DELIVERY_INFO; ?>&nbsp;</b></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -97,31 +97,27 @@ function alertBox() {
           <tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_CUSTOMER; ?>&nbsp;</font></td>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">
-                 <? echo tep_address_format($sold_to_values['format_id'], $sold_to_values, 1, '&nbsp;', '<br>'); ?>
-                </font></td>
+                <td class="main" valign="top">&nbsp;<? echo ENTRY_CUSTOMER; ?>&nbsp;</td>
+                <td class="main"><? echo tep_address_format($sold_to_values['format_id'], $sold_to_values, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_TELEPHONE; ?>&nbsp;</font></td>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $orders_values['customers_telephone']; ?>&nbsp;</font></td>
+                <td class="main">&nbsp;<? echo ENTRY_TELEPHONE; ?>&nbsp;</td>
+                <td class="main">&nbsp;<? echo $orders_values['customers_telephone']; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</font></td>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<a href="mailto:<? echo $orders_values['customers_email_address']; ?>"><u><? echo $orders_values['customers_email_address']; ?></u></a>&nbsp;</font></td>
+                <td class="main">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+                <td class="main">&nbsp;<a href="mailto:<? echo $orders_values['customers_email_address']; ?>"><u><? echo $orders_values['customers_email_address']; ?></u></a>&nbsp;</td>
               </tr>
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_DELIVERY_TO; ?>&nbsp;</font></td>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">
-                 <? echo tep_address_format($ship_to_values['format_id'], $ship_to_values, 1, '&nbsp;', '<br>'); ?>
-                </font></td>
+                <td class="main" valign="top">&nbsp;<? echo ENTRY_DELIVERY_TO; ?>&nbsp;</td>
+                <td class="main"><? echo tep_address_format($ship_to_values['format_id'], $ship_to_values, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_PAYMENT_INFORMATION; ?>&nbsp;</b></font></td>
+            <td class="main" colspan="2"><br><b>&nbsp;<? echo TABLE_HEADING_PAYMENT_INFORMATION; ?>&nbsp;</b></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -129,8 +125,8 @@ function alertBox() {
           <tr>
             <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_PAYMENT_METHOD; ?>&nbsp;</font></td>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</font></td>
+                <td class="main">&nbsp;<? echo ENTRY_PAYMENT_METHOD; ?>&nbsp;</td>
+                <td class="main">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</td>
               </tr>
 <?php
     if ($orders_values['cc_type'] || $orders_values['cc_owner'] || $orders_values['cc_number']) {
@@ -138,20 +134,20 @@ function alertBox() {
       print "<td colspan=\"2\">&nbsp;</td>\n";
       print "</tr>\n";
       print "<tr>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_TYPE) . "&nbsp;</font></td>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities($orders_values['cc_type']) . "&nbsp;</font></td>\n";
+      print "<td class=\"main\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_TYPE) . "&nbsp;</td>\n";
+      print "<td class=\"main\">&nbsp;" . htmlentities($orders_values['cc_type']) . "&nbsp;</td>\n";
       print "</tr>\n";
       print "<tr>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_OWNER) . "&nbsp;</font></td>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities($orders_values['cc_owner']) . "&nbsp;</font></td>\n";
+      print "<td class=\"main\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_OWNER) . "&nbsp;</td>\n";
+      print "<td class=\"main\">&nbsp;" . htmlentities($orders_values['cc_owner']) . "&nbsp;</td>\n";
       print "</tr>\n";
       print "<tr>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_NUMBER) . "&nbsp;</font></td>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . $orders_values['cc_number'] . "&nbsp;</font></td>\n";
+      print "<td class=\"main\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_NUMBER) . "&nbsp;</td>\n";
+      print "<td class=\"main\">&nbsp;" . $orders_values['cc_number'] . "&nbsp;</td>\n";
       print "</tr>\n";
       print "<tr>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_EXPIRES) . "&nbsp;</font></td>\n";
-      print "<td><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . $orders_values['cc_expires'] . "&nbsp;</font></td>\n";
+      print "<td class=\"main\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_EXPIRES) . "&nbsp;</td>\n";
+      print "<td class=\"main\">&nbsp;" . $orders_values['cc_expires'] . "&nbsp;</td>\n";
       print "</tr>\n";
     }
 ?>
@@ -184,8 +180,8 @@ function alertBox() {
     $final_price = $products_values['final_price'];
 
       echo '          <tr>' . "\n";
-      echo '            <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $products_values['products_quantity'] . '&nbsp;</font></td>' . "\n";
-      echo '            <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $products_values['products_name'] . '&nbsp;</b>' . "\n";
+      echo '            <td align="center" class="main">&nbsp;' . $products_values['products_quantity'] . '&nbsp;</td>' . "\n";
+      echo '            <td class="main"><b>&nbsp;' . $products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
       $attributes_exist = '0';
       $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['orders_products_id'] . "'");
@@ -196,9 +192,9 @@ function alertBox() {
         }
       }
 //------display customer choosen option eof-----
-	  echo '</font></td>' . "\n";
-      echo '            <td align="center" valign="top"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . number_format($products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</font></td>' . "\n";
-      echo '            <td align="right" valign="top"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($products_values['products_quantity'] * $products_values['products_price']) . '</b>&nbsp;';
+	    echo '            </td>' . "\n";
+      echo '            <td align="center" valign="top" class="main">&nbsp;' . number_format($products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
+      echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products_values['products_quantity'] * $products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
@@ -211,7 +207,7 @@ function alertBox() {
       }
     }
 //------display customer choosen option eof-----
-	echo '</font></td>' . "\n";
+	  echo '            </td>' . "\n";
     echo '          </tr>' . "\n";
 
     $cost = ($products_values['products_quantity'] * $final_price);
@@ -229,66 +225,66 @@ function alertBox() {
               <tr>
                 <td align="right" colspan="4"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_SUB_TOTAL; ?>&nbsp;</font></td>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost, 2); ?>&nbsp;</font></td>
+                    <td align="right" class="main">&nbsp;<? echo ENTRY_SUB_TOTAL; ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($total_cost, 2); ?>&nbsp;</td>
                   </tr>
                   <tr>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_TAX; ?>&nbsp;</font></td>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</font></td>
+                    <td align="right" class="main">&nbsp;<? echo ENTRY_TAX; ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
                   </tr>
 <?
   if ($shipping != 0) {
 ?>
                   <tr>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $shipping_method . " " . ENTRY_SHIPPING; ?>&nbsp;</font></td>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($shipping); ?>&nbsp;</font></td>
+                    <td align="right" class="main">&nbsp;<? echo $shipping_method . " " . ENTRY_SHIPPING; ?>&nbsp;</td>
+                    <td align="right" class="main">&nbsp;<? echo tep_currency_format($shipping); ?>&nbsp;</td>
                   </tr>
 <?
   }
 ?>
                   <tr>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_TOTAL; ?>&nbsp;</b></font></td>
-                    <td align="right"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<?
+                    <td align="right" class="main"><b>&nbsp;<? echo ENTRY_TOTAL; ?>&nbsp;</b></td>
+                    <td align="right" class="main"><b>&nbsp;<?
     if (TAX_INCLUDE == true) {
       echo tep_currency_format($total_cost + $shipping);
     } else {
       echo tep_currency_format($total_cost + $total_tax + $shipping);
-    } ?>&nbsp;</b></font></td>
+    } ?>&nbsp;</b></td>
                   </tr>
                 </table></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+            <td colspan="2" class="main"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
            </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <form name="status" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '"'; ?> method="get">
           <tr>
-	   <td colspan="2"><? echo "<textarea name=comments rows=5 cols=60>" . $info_values['comments'] . "</textarea>" ?></td>
+            <td colspan="2" class="main"><? echo "<textarea name=comments rows=5 cols=60>" . $info_values['comments'] . "</textarea>" ?></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</b></font></td>
+            <td colspan="2" class="main"><b>&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</b></td>
            </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_DATE_PURCHASED; ?></b> <? echo tep_date_long($info_values['date_purchased']); ?>&nbsp;</font></td>
+            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_DATE_PURCHASED; ?></b> <? echo tep_date_long($info_values['date_purchased']); ?>&nbsp;</td>
           </tr>
           <tr><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>">
-            <td colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</font></td>
+            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;</td>
           </tr></form>
 <?
     if ($date_updated != '') {
 ?>
           <tr>
-            <td colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_DATE_LAST_UPDATED; ?></b> <? echo tep_date_long($info_values['last_modified']); ?>&nbsp;</font></td>
+            <td colspan="2" class="main"><br><b>&nbsp;<? echo ENTRY_DATE_LAST_UPDATED; ?></b> <? echo tep_date_long($info_values['last_modified']); ?>&nbsp;</td>
           </tr>
 <?
     }
@@ -302,7 +298,7 @@ function alertBox() {
           </tr>
           </form>
           <tr>
-            <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
+            <td colspan="2" class="main">&nbsp;</td>
           </tr>
         </table></td>
       </tr>

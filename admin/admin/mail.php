@@ -77,13 +77,13 @@
     if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($customers_email_address == "") ) {
 ?>
               <tr>
-                <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b><? echo TEXT_NO_CUSTOMER_SELECTED; ?></b></td>
+                <td colspan="2" class="main"><b><? echo TEXT_NO_CUSTOMER_SELECTED; ?></b></td>
               </tr>
 <?
     } elseif ($HTTP_GET_VARS['mail_sent_to']) {
 ?>
               <tr>
-                <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b><? echo TEXT_EMAILSENT . ':' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
+                <td colspan="2" class="main"><b><? echo TEXT_EMAILSENT . ':' . $HTTP_GET_VARS['mail_sent_to']; ?></b></td>
               </tr>
 <?
     }
@@ -92,7 +92,7 @@
                 <td colspan="2">&nbsp;</td>
               </tr>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_CUSTOMER_NAME; ?></td>
+                <td class="main"><? echo TEXT_CUSTOMER_NAME; ?></td>
 <?
     $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname");
 ?>
@@ -105,15 +105,15 @@
                 </select></td>
               </tr>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_EMAIL_FROM; ?></td>
+                <td class="main"><? echo TEXT_EMAIL_FROM; ?></td>
                 <td><input type="text" size="28" name="from" value="<? echo TEXT_EMAILFROM; ?>"></td>
               </tr>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_SUBJECT; ?></td>
+                <td class="main"><? echo TEXT_SUBJECT; ?></td>
                 <td><input type="text" size="28" name="subject"></td>
               </tr>
               <tr>
-                <td valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_MESSAGE; ?></td>
+                <td valign="top" class="main"><? echo TEXT_MESSAGE; ?></td>
                 <td><textarea wrap="virtual" cols="42" rows="12" name="message"></textarea></td>
               </tr>
               <tr>
