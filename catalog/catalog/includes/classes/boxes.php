@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.17 2001/12/19 15:31:13 hpdl Exp $
+  $Id: boxes.php,v 1.18 2001/12/19 21:30:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -118,6 +118,41 @@
       $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => $left_corner),
                                    array('align' => 'left', 'params' => 'width="100%" height="14" class="infoBoxHeading"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
                                    array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => $right_corner));
+      $this->tableBox($info_box_contents, true);
+    }
+  }
+
+  class contentBox extends tableBox {
+    function contentBox($contents) {
+      $info_box_contents = array();
+      $info_box_contents[] = array('align' => 'left', 'text' => $this->contentBoxContents($contents));
+      $this->table_cellpadding = '1';
+      $this->table_parameters = 'class="infoBox"';
+      $this->tableBox($info_box_contents, true);
+    }
+
+    function contentBoxContents($contents) {
+      $this->table_cellpadding = '3';
+      $this->table_parameters = 'class="infoBoxContents"';
+      $info_box_contents = array();
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      for ($i=0; $i<sizeof($contents); $i++) {
+        $info_box_contents[] = $contents[$i];
+      }
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
+      return $this->tableBox($info_box_contents);
+    }
+  }
+
+  class contentBoxHeading extends tableBox {
+    function contentBoxHeading($contents) {
+      $this->table_width = '';
+      $this->table_cellpadding = '0';
+
+      $info_box_contents = array();
+      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_left.gif')),
+                                   array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
+                                   array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif')));
       $this->tableBox($info_box_contents, true);
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.60 2001/12/19 17:21:04 hpdl Exp $
+  $Id: default.php,v 1.61 2001/12/19 21:30:54 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -127,11 +127,9 @@
               </tr>
             </table></td>
           </tr>
-<?php
-// display new products page module
-    $new_products_category_id = $current_category_id;
-    include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS);
-?>
+          <tr>
+            <td><?php $new_products_category_id = $current_category_id; include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?></td>
+          </tr>
         </table></td>
       </tr>
     </table></td>
@@ -336,7 +334,7 @@
         </table></td>
       </tr>
       <tr>
-        <td height="20"><?php echo tep_black_line(); ?></td>
+        <td height="10"></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -346,9 +344,10 @@
           <tr>
             <td class="main"><br><?php echo TEXT_MAIN; ?></td>
           </tr>
+          <tr>
+            <td><br><?php include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?></td>
+          </tr>
 <?php
-    $new_products_category_id = '0';
-    include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS);
     include(DIR_WS_MODULES . FILENAME_UPCOMING_PRODUCTS);
 ?>
         </table></td>
