@@ -169,4 +169,3 @@ function IsLeapYear(intYear) {
 
   return false;
 }
-
