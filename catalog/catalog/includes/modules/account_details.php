@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.9 2001/09/20 19:27:12 mbs Exp $
+  $Id: account_details.php,v 1.10 2001/11/14 12:02:10 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -367,6 +367,7 @@
     } else {
       echo ENTRY_NEWSLETTER_NO;
     }
+    echo tep_draw_hidden_field('newsletter');  
   } else {
     echo tep_draw_pull_down_menu('newsletter', $newsletter_array, $account['customers_newsletter']) . '&nbsp;' . ENTRY_NEWSLETTER_TEXT;
   }
