@@ -80,6 +80,7 @@
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // customization for the design layout
+  define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('MAX_ADDRESS_BOOK_ENTRIES', 5);
@@ -196,6 +197,9 @@
   define('UPS_PICKUP', "CC");
   define('UPS_PACKAGE', "CP");
   define('UPS_RES', "RES");
+
+// Prodict listing control
+  define('PRODUCT_LIST_MODEL', 0); // Make true to display Model # before Product name
 
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {

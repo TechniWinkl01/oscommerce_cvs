@@ -46,13 +46,22 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
+<?
+   if (PRODUCT_LIST_MODEL) {
+     echo '<td nowrap><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE .'" color="' . TABLE_HEADING_FONT_COLOR . '"><b>&nbsp;' . TABLE_HEADING_MODEL . '&nbsp;</b></font></td>';
+   }
+?>
             <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_PRODUCTS;?>&nbsp;</b></font></td>
             <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_PRICE;?>&nbsp;</b></font></td>
           </tr>
           <tr>
-            <td colspan="2"><?=tep_black_line();?></td>
-          </tr>
 <?
+   if (PRODUCT_LIST_MODEL) {
+            echo '<td colspan="3">' . tep_black_line() . '</td>';
+   } else {
+            echo '<td colspan="2">' . tep_black_line() . '</td>';
+   }
+   echo '</tr>';
   $listby_query = tep_db_query("select sql_select from category_index where category_index_id = '" . $HTTP_GET_VARS['index_id'] . "'");
   $listby_values = tep_db_fetch_array($listby_query);
   $listby = $listby_values['sql_select'];
@@ -61,9 +70,9 @@
   $sort_location = tep_db_query("select manufacturers.manufacturers_location from products, manufacturers, products_to_manufacturers, products_to_subcategories where products_to_" . $listby . "." . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "' and products_to_subcategories.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by manufacturers.manufacturers_name, products.products_name");
   $sort_location_values = tep_db_fetch_array($sort_location);
   if ($sort_location_values['manufacturers_location'] == '0') { // the location of manufacturers name is to the left of the products name
-    $listing = tep_db_query("select products.products_id, products.products_name, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_price from products, manufacturers, products_to_manufacturers, products_to_subcategories where products.products_status='1' and products_to_" . $listby . "." . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "' and products_to_subcategories.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by manufacturers.manufacturers_name, products.products_name");
+    $listing = tep_db_query("select products.products_id, products.products_name, products.products_model, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_price from products, manufacturers, products_to_manufacturers, products_to_subcategories where products.products_status='1' and products_to_" . $listby . "." . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "' and products_to_subcategories.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by manufacturers.manufacturers_name, products.products_name");
   } else { // its to the right..
-    $listing = tep_db_query("select products.products_id, products.products_name, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_price from products, manufacturers, products_to_manufacturers, products_to_subcategories where products.products_status='1' and products_to_" . $listby . "." . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "' and products_to_subcategories.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by products.products_name, manufacturers.manufacturers_name");
+    $listing = tep_db_query("select products.products_id, products.products_name, products.products_model, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_price from products, manufacturers, products_to_manufacturers, products_to_subcategories where products.products_status='1' and products_to_" . $listby . "." . $listby . "_id = '" . $HTTP_GET_VARS['subcategory_id'] . "' and products_to_subcategories.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by products.products_name, manufacturers.manufacturers_name");
   }
   tep_db_free_result($sort_location); // lets free the result from memory..
   $number_of_products = '0';
@@ -75,7 +84,10 @@
       } else {
         echo '          <tr bgcolor="#f4f7fd">' . "\n";
       }
-      echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'category_id=' . $HTTP_GET_VARS['category_id'] . '&index_id=' . $HTTP_GET_VARS['index_id'] . '&subcategory_id=' . $HTTP_GET_VARS['subcategory_id'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">';
+      if (PRODUCT_LIST_MODEL) {
+         echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">' . $listing_values['products_model'] . '&nbsp;</font></td>';
+       }
+      echo '<td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'category_id=' . $HTTP_GET_VARS['category_id'] . '&index_id=' . $HTTP_GET_VARS['index_id'] . '&subcategory_id=' . $HTTP_GET_VARS['subcategory_id'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">';
       $products_name = tep_products_name($listing_values['manufacturers_location'], $listing_values['manufacturers_name'], $listing_values['products_name']);
       echo $products_name . '</a>&nbsp;</font></td>' . "\n";
       $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $listing_values['products_id'] . "'");

@@ -7,6 +7,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('TOP_BAR_TITLE', 'Online Produkte');
 define('HEADING_TITLE', 'Was haben wir den hier?');
+define('TABLE_HEADING_MODEL', 'Modell');
 define('TABLE_HEADING_PRODUCTS', 'Produkte');
 define('TABLE_HEADING_PRICE', 'Preis');
 define('TEXT_NO_PRODUCTS', 'Es gibt keine Produkte in diese Kategorie.');
