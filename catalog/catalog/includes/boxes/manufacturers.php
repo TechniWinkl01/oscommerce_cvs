@@ -1,4 +1,7 @@
 <!-- manufacturers //-->
+<?
+  if (DISPLAY_MANUFACTURERS_BOX) {
+?>
           <tr>
             <td>
 <?
@@ -43,4 +46,7 @@
 ?>
             </td>
           </tr>
+<?
+  }
+?>
 <!-- manufacturers_eof //-->
