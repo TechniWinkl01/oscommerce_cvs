@@ -174,9 +174,11 @@
 
     $get_url = '';
 
-    reset($HTTP_GET_VARS);
-    while (list($key, $value) = each($HTTP_GET_VARS)) {
-      if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . rawurlencode(StripSlashes($value)) . '&';
+    if (is_array($HTTP_GET_VARS)) {
+      reset($HTTP_GET_VARS);
+      while (list($key, $value) = each($HTTP_GET_VARS)) {
+        if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . rawurlencode(StripSlashes($value)) . '&';
+      }
     }
 
     return $get_url;
@@ -764,7 +766,7 @@ function tep_address_summary($customers_id, $address_id) {
     if ((sizeof($selected) > 1) || ($multiple == 1)) echo " multiple";
     echo "><option value=\"\"";
     if (tep_in_array(0, $selected)) echo " selected";
-    echo ">$blank_text\n";
+    echo ">$blank_text</option>\n";
 
     $output = '';
     tep_build_cat_options($output,$selected);
