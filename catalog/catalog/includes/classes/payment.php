@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.20 2001/08/25 19:58:36 hpdl Exp $
+  $Id: payment.php,v 1.21 2001/08/25 20:38:42 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -166,12 +166,18 @@
       global $payment;
 
       if (MODULE_PAYMENT_INSTALLED) {
+        $payment_module_selected = false;
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->code == $payment) {
+            $payment_module_selected = true;
             $GLOBALS[$class]->pre_confirmation_check();
           }
+        }
+        if (!$payment_module_selected) {
+          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=Please+select+a+payment+method', 'SSL'));
+          tep_exit();
         }
       }
     }

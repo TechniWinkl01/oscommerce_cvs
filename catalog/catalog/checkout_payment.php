@@ -98,7 +98,17 @@ function check_form() {
 <?
     echo $payment_modules->javascript_validation();
   }
+
+  if (tep_count_payment_modules() > 1) {
 ?>
+  if (payment_value == null) {
+    error_message = error_message + "<?php echo JS_ERROR_NO_PAYMENT_MODULE_SELECTED; ?>";
+    error = 1;
+  }
+<?php
+  }
+?>
+
   if (error == 1) {
     alert(error_message);
     return false;

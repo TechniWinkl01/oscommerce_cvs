@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.61 2001/08/21 17:51:48 hpdl Exp $
+  $Id: english.php,v 1.62 2001/08/25 20:38:44 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -157,6 +157,8 @@ define('JS_ZONE', '* The \'State\' entry must be selected from the list for this
 define('JS_COUNTRY', '* The \'Country\' entry must be selected.');
 define('JS_TELEPHONE', '* The \'Telephone Number\' entry must have atleast ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n');
 define('JS_PASSWORD', '* The \'Password\' and \'Confirmation\' entries must match and have atleast ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n');
+
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please select a payment method for your order.');
 
 define('CATEGORY_COMPANY', 'Company Details');
 define('CATEGORY_PERSONAL', 'Your Personal Details');
