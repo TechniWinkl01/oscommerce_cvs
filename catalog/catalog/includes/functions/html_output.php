@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.15 2001/09/08 02:15:32 hpdl Exp $
+  $Id: html_output.php,v 1.16 2001/10/30 17:04:12 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,7 @@
 
 ////
 // The HTML href link wrapper function
-  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true) {
+  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $convertable = true) {
 
     // build URL thats points to $page
     if ($page == '') {
@@ -51,7 +51,7 @@
     }
 
     // Substitute key symbols with slashes
-    if (SEARCH_ENGINE_FRIENDLY_URLS == true) {
+    if ( (SEARCH_ENGINE_FRIENDLY_URLS == true) && ($convertable == true) ) {
       while (strpos($link, '&&')) {
         $link = str_replace("&&", "&", $link);
       }

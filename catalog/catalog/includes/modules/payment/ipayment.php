@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.15 2001/09/14 22:52:17 dwatkins Exp $
+  $Id: ipayment.php,v 1.16 2001/10/30 17:04:13 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -69,7 +69,7 @@
 
       if ($cc_val != '1') {
         $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
 
