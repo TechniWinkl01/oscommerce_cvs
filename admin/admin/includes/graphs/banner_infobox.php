@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_infobox.php,v 1.3 2003/07/11 18:15:42 project3000 Exp $
+  $Id: banner_infobox.php,v 1.4 2003/07/30 18:07:14 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
   $graph->SetMarginsPixels(15,15,15,30);
 
   $graph->SetTitleFontSize('4');
-  $graph->SetTitle('TEXT_BANNERS_LAST_3_DAYS');
+  $graph->SetTitle(TEXT_BANNERS_LAST_3_DAYS);
 
   $graph->SetDataValues($stats);
   $graph->SetDataColors(array('blue','red'),array('blue', 'red'));
