@@ -1,5 +1,4 @@
-# The Exchange Project
-# Database Model for Preview Release 2.0
+# The Exchange Project Database Model for Preview Release 2.0
 #
 # NOTE: * Please make any modifications to this file by hand!
 #       * DO NOT use a mysqldump created file for new changes!
