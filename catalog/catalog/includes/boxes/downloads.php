@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: downloads.php,v 1.4 2002/06/25 21:25:41 clescuyer Exp $
+  $Id: downloads.php,v 1.5 2002/07/03 05:06:44 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,10 +26,10 @@
   $downloads_query_raw = "SELECT DATE_FORMAT(date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, op.products_name, opd.orders_products_download_id, opd.orders_products_filename, opd.download_count, opd.download_maxdays
                           FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd
                           WHERE customers_id = '" . $customer_id . "'
-                           AND o.orders_id = '" . $last_order . "'
-                           AND op.orders_id = '" . $last_order . "'
-                           AND opd.orders_products_id=op.orders_products_id
-                           AND opd.orders_products_filename<>''";
+                          AND o.orders_id = '" . $last_order . "'
+                          AND op.orders_id = '" . $last_order . "'
+                          AND opd.orders_products_id=op.orders_products_id
+                          AND opd.orders_products_filename<>''";
   $downloads_query = tep_db_query($downloads_query_raw);
 
 // Don't display if there is no downloadable product
@@ -54,14 +54,11 @@
 ?>
             <tr class="infoBoxContents">
 <!-- left box -->
-              <td width="30%" valign="top">
-                <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
 <?php
 // MySQL 3.22 does not have INTERVAL
     	list($dt_year, $dt_month, $dt_day) = explode('-', $downloads_values['date_purchased_day']);
     	$download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads_values['download_maxdays'], $dt_year);
-  	  $download_expiry = date('Y-m-d H:i:s', $download_timestamp);
+  	    $download_expiry = date('Y-m-d H:i:s', $download_timestamp);
 
 // The link will appear only if:
 // - Download remaining count is > 0, AND
@@ -77,31 +74,17 @@
         echo '            <td class="main">' . $downloads_values['products_name'] . '</td>' . "\n";
       }
 ?>
-                  </tr>
-                </table>
-              </td>
 <!-- right box -->
-              <td width="70%" valign="top">
-                <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
 <?php
       echo '            <td class="main">' . TABLE_HEADING_DOWNLOAD_DATE . tep_date_long($download_expiry) . '</td>' . "\n";
       echo '            <td class="main" align="right">' . $downloads_values['download_count'] . TABLE_HEADING_DOWNLOAD_COUNT . '</td>' . "\n";
       echo '          </tr>' . "\n";
     }
 ?>
-                  </tr>
-                  <tr>
-                    <td class="main">
-                    </td>
-                  </tr>
-                </table>
-              </td>
             </tr>
           </table>
         </td>
       </tr>
-
 <?php
     if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
 ?>
