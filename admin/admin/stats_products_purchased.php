@@ -53,7 +53,7 @@
           </tr>
 <?
   if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
-  $products_query_raw = "select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op where p.products_id = op.products_id group by p.products_name order by ordersum DESC, p.products_name";
+  $products_query_raw = "select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from products p, products_description pd, orders_products op where p.products_id = op.products_id and pd.products_id = op.products_id and pd.language_id = '" . $languages_id. "' group by pd.products_name order by ordersum DESC, pd.products_name";
   $products_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_query_raw, $products_query_numrows);
   $products_query = tep_db_query($products_query_raw);
   while ($products = tep_db_fetch_array($products_query)) {
