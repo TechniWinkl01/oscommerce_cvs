@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.73 2003/01/14 18:04:42 dgw_ Exp $
+  $Id: login.php,v 1.74 2003/02/10 16:02:32 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -142,7 +142,7 @@ function session_win() {
             </table></td>
             <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="1" class="infoBox">
               <tr>
-                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="infoBoxContents"
+                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2" class="infoBoxContents">
                   <tr>
                     <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
