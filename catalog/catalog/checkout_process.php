@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.75 2001/11/20 01:11:33 project3000 Exp $
+  $Id: checkout_process.php,v 1.76 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,7 +22,7 @@
   $payment_modules->before_process();
 
 // select the delivery address
-  $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $GLOBALS['sendto'] . "'");
+  $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $delivery_values = tep_db_fetch_array($delivery);
   $delivery_country = tep_get_countries($delivery_values['country_id']);
 // select the customer with the default address
@@ -124,7 +124,7 @@
     $email_order .= $currencies->format($cart->show_total() + $total_tax + $GLOBALS['shipping_cost']);
   }
   $email_order .= "\n\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
-  $email_order .= tep_address_label($customer_id, $GLOBALS['sendto'], 0, '', "\n") . "\n\n";
+  $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
   if (is_object($GLOBALS[$GLOBALS['payment']])) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
     $email_order .= $GLOBALS[$GLOBALS['payment']]->title . "\n\n";
@@ -140,6 +140,7 @@
   }
 
   $cart->reset(TRUE);
+  tep_session_unregister('sendto');
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();

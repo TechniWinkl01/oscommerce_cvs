@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.10 2001/10/30 17:04:13 dgw_ Exp $
+  $Id: itransact_split.php,v 1.11 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -72,7 +72,6 @@
 // setup passback variables
       $process_button_string = tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
                                tep_draw_hidden_field('passback[]', 'prod') .
-                               tep_draw_hidden_field('passback[]', 'sendto') .
                                tep_draw_hidden_field('passback[]', 'payment') .
                                tep_draw_hidden_field('passback[]', 'comments') .
                                tep_draw_hidden_field('passback[]', 'shipping_cost') .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.25 2001/10/30 17:04:12 dgw_ Exp $
+  $Id: authorizenet.php,v 1.26 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -93,11 +93,11 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id;
+      global $HTTP_POST_VARS, $HTTP_SERVER_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id, $sendto;
 
       $customer_query = tep_db_query("select c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " ab on c.customers_default_address_id = ab.address_book_id and c.customers_id = ab.customers_id where c.customers_id = '" . $customer_id . "'");
       $customer_values = tep_db_fetch_array($customer_query);
-      $delivery_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_ADDRESS_BOOK . " ab where ab.address_book_id = '" . $HTTP_POST_VARS['sendto'] . "' and ab.customers_id = '" . $customer_id . "'");
+      $delivery_query = tep_db_query("select ab.entry_firstname, ab.entry_lastname, ab.entry_street_address, ab.entry_city, ab.entry_country_id, ab.entry_zone_id, ab.entry_state, ab.entry_postcode from " . TABLE_ADDRESS_BOOK . " ab where ab.address_book_id = '" . $sendto . "' and ab.customers_id = '" . $customer_id . "'");
       $delivery_values = tep_db_fetch_array($delivery_query);
 
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .

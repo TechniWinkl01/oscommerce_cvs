@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.80 2001/11/20 01:11:33 project3000 Exp $
+  $Id: checkout_payment.php,v 1.81 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,12 +39,12 @@
   } // Stock Check IF
 // Stock Check
 
+  if (!tep_session_is_registered('sendto')) {
+    $sendto = '1';
+    tep_session_register('sendto');
+  }
   if ($HTTP_POST_VARS['sendto']) {
     $sendto = $HTTP_POST_VARS['sendto'];
-  } elseif ($HTTP_GET_VARS['sendto']) {
-    $sendto = $HTTP_GET_VARS['sendto'];
-  } else {
-    $sendto = '1';
   }
 
   if ($HTTP_POST_VARS['shipping_quote_all'] == '0') {
@@ -253,7 +253,7 @@ function check_form() {
           </tr>
         </table></td>
       </tr>
-    </table><input type="hidden" name="sendto" value="<?php echo $sendto; ?>">
+    </table>
     </form></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">

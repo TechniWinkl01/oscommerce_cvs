@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.22 2001/09/14 22:52:18 dwatkins Exp $
+  $Id: paypal.php,v 1.23 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,8 +43,8 @@
     function process_button() {
       global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currencies;
 
-      $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method) . '&comments=' . urlencode($comments);
-      $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&comments=' . urlencode($comments);
+      $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method) . '&comments=' . urlencode($comments);
+      $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected . '&comments=' . urlencode($comments);
 
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .

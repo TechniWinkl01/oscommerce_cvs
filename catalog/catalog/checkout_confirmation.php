@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.93 2001/11/20 01:11:33 project3000 Exp $
+  $Id: checkout_confirmation.php,v 1.94 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -104,7 +104,7 @@
             <td colspan="4"><?php echo tep_black_line(); ?></td>
           </tr>
 <?php
-  $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+  $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $address_values = tep_db_fetch_array($address);
   $total_cost = 0;
   $total_tax = 0;
@@ -222,7 +222,7 @@
             <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+            <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -312,7 +312,6 @@
             <td align="right" class="main"><br>
 <?php
   echo tep_draw_hidden_field('prod', $HTTP_POST_VARS['prod']) .
-       tep_draw_hidden_field('sendto', $HTTP_POST_VARS['sendto']) .
        tep_draw_hidden_field('payment', $HTTP_POST_VARS['payment']) .
        tep_draw_hidden_field('comments', $HTTP_POST_VARS['comments']) .
        tep_draw_hidden_field('shipping_cost', $shipping_cost) .

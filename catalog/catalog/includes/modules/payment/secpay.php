@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.13 2001/10/30 17:04:13 dgw_ Exp $
+  $Id: secpay.php,v 1.14 2001/11/22 20:02:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -47,9 +47,9 @@
                                tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
                                tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax + $shipping_cost) * $currencies->get_value(MODULE_PAYMENT_SECPAY_CURRENCY), 2)) .
                                tep_draw_hidden_field('currency', MODULE_PAYMENT_SECPAY_CURRENCY) .
-                               tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, 'sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method)), true) .
+                               tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, 'shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method)), true) .
                                tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
-                               tep_draw_hidden_field('options', 'test_status=' . MODULE_PAYMENT_SECPAY_TEST_STATUS . ',dups=false,cb_post=true,cb_flds=sendto:payment:shipping_cost:shipping_method:' . tep_session_name());
+                               tep_draw_hidden_field('options', 'test_status=' . MODULE_PAYMENT_SECPAY_TEST_STATUS . ',dups=false,cb_post=true,cb_flds=payment:shipping_cost:shipping_method:' . tep_session_name());
 
       return $process_button_string;
     }
