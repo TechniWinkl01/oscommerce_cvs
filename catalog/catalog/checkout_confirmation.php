@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.111 2002/03/31 20:10:42 clescuyer Exp $
+  $Id: checkout_confirmation.php,v 1.112 2002/04/03 00:47:53 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -121,10 +121,6 @@
     $products_tax = tep_get_tax_rate($address_values['country_id'], $address_values['zone_id'], $products[$i]['tax_class_id']);
     $products[$i]['tax'] = $products_tax;
     $products_weight = $products[$i]['weight'];
-
-    if (STOCK_CHECK == 'true') {
-      echo tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
-    }
 
 // Push all attributes information in an array
       if ($products[$i]['attributes']) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_details.php,v 1.1 2002/03/31 20:10:43 clescuyer Exp $
+  $Id: order_details.php,v 1.2 2002/04/03 00:47:53 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,10 +56,18 @@ for ($i=0; $i<sizeof($products); $i++) {
   
 // Product name, with or without link
   if (strstr($PHP_SELF, FILENAME_SHOPPING_CART)) {
-    echo '    <td valign="top" class="main"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products[$i]['name'] . '</b></a>' . "\n";
+    echo '    <td valign="top" class="main"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products[$i]['name'] . '</b></a>';
   } else {
-    echo '    <td valign="top" class="main"><b>' . $products[$i]['name'] . '</b>' . "\n";
+    echo '    <td valign="top" class="main"><b>' . $products[$i]['name'] . '</b>';
   }
+// Display marker if stock quantity insufficient
+  if (!strstr($PHP_SELF, FILENAME_ACCOUNT_HISTORY_INFO)) {
+    if (STOCK_CHECK == 'true') {
+      echo $stock_check = tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
+      if ($stock_check) $any_out_of_stock = 1;
+    }
+  }
+  echo "\n";
   
   
 // Product options names

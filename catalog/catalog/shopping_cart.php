@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.61 2002/03/31 20:10:42 clescuyer Exp $
+  $Id: shopping_cart.php,v 1.62 2002/04/03 00:47:53 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -60,10 +60,6 @@
     $any_out_of_stock = 0;
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
-      if (STOCK_CHECK == 'true') {
-        echo $stock_check = tep_check_stock($products[$i]['id'], $products[$i]['quantity']);
-        if ($stock_check) $any_out_of_stock = 1;
-      }
 
 // Push all attributes information in an array
       if ($products[$i]['attributes']) {
