@@ -28,6 +28,8 @@ define('TEXT_EXPIRES', 'Expires:');
 define('TEXT_VAL', 'Credit Card Error!');
 define('TEXT_PAYPAL', 'PayPal');
 
+define('TEXT_PAYMENT', 'Payment');
+
 define('IMAGE_PROCESS', 'Process');
 define('IMAGE_BACK', 'Back');
 ?>

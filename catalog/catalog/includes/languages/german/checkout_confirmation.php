@@ -26,5 +26,7 @@ define('TEXT_NUMBER', 'Nummer:');
 define('TEXT_EXPIRES', 'G&uuml;ltig bis:');
 define('TEXT_PAYPAL', 'PayPal');
 
+define('TEXT_PAYMENT', 'Payment');
+
 define('IMAGE_PROCESS', 'Best&auml;tigung');
 ?>

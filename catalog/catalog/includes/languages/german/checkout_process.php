@@ -19,8 +19,6 @@ define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Nachnahme');
 define('EMAIL_TEXT_CREDIT_CARD', 'Kreditkarte');
 define('EMAIL_TEXT_PAYPAL', 'PayPal');
 
-define('TEXT_PAYMENT', 'Payment');
-
 $email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n" . EMAIL_TEXT_PRODUCTS . "\n" . '------------------------------------------------------' . "\n" . $products_ordered . '------------------------------------------------------' . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($subtotal) . "\n" . EMAIL_TEXT_TAX . ' (' . TAX_VALUE . '%): ' . tep_currency_format($tax) . "\n";
 if (!SHIPPING_FREE) {
   $email_order.=EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($shipping_cost) . "     via " . $shipping_method . "\n";
