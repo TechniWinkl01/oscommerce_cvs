@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.85 2002/07/21 23:38:57 hpdl Exp $
+  $Id: product_info.php,v 1.86 2002/08/02 11:51:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -113,21 +113,17 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
       echo '<table border="0" cellpading="0" cellspacing"0">';
       while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
         $selected = 0;
+        $products_options_array = array();
+        echo '<tr><td class="main">' . $products_options_name_values['products_options_name'] . ':</td><td>' . "\n"; 
         $products_options = tep_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pa.options_id = '" . $products_options_name_values['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . $languages_id . "'");
-        echo '<tr><td class="main">' . $products_options_name_values['products_options_name'] . ':</td><td>' . "\n" . '<select name ="id[' . $products_options_name_values['products_options_id'] . ']">' . "\n"; 
         while ($products_options_values = tep_db_fetch_array($products_options)) {
-          echo "\n" . '<option value="' . $products_options_values['products_options_values_id'] . '"';
-          if ( ($products_options_values['options_values_price'] == 0 && $selected == 0) || ($cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name_values['products_options_id']] == $products_options_values['products_options_values_id'])) {
-            $selected = 1;
-            echo ' SELECTED';
-          }
-          echo '>' . $products_options_values['products_options_values_name'];
+          $products_options_array[] = array('id' => $products_options_values['products_options_values_id'], 'text' => $products_options_values['products_options_values_name']);
           if ($products_options_values['options_values_price'] != '0') {
-            echo ' (' . $products_options_values['price_prefix'] . $currencies->display_price($products_options_values['options_values_price'], tep_get_tax_rate($product_info_values['products_tax_class_id'])) .')&nbsp';
+            $products_options_array[sizeof($products_options_array)-1]['text'] .= ' (' . $products_options_values['price_prefix'] . $currencies->display_price($products_options_values['options_values_price'], tep_get_tax_rate($product_info_values['products_tax_class_id'])) .') ';
           }
-          echo  '</option>';
-        };
-        echo '</select></td></tr>';
+        }
+        echo tep_draw_pull_down_menu('id[' . $products_options_name_values['products_options_id'] . ']', $products_options_array, $cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name_values['products_options_id']]);
+        echo '</td></tr>';
       }
       echo '</table>';
     }
