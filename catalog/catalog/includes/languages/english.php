@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.68 2001/12/05 09:51:35 jan0815 Exp $
+  $Id: english.php,v 1.69 2001/12/05 10:01:34 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,7 +39,7 @@ define('LANGUAGE_CURRENCY', 'USD');
 define('CHARSET', 'iso-8859-1');
 
 // page title
-define('TITLE', 'The Exchange Project DEV');
+define('TITLE', 'The Exchange Project');
 
 // header text in includes/header.php
 define('HEADER_TITLE_CREATE_ACCOUNT', 'Create an Account');
@@ -169,17 +169,17 @@ define('CATEGORY_CONTACT', 'Your Contact Information');
 define('CATEGORY_OPTIONS', 'Options');
 define('CATEGORY_PASSWORD', 'Your Password');
 define('ENTRY_COMPANY', 'Company Name:');
-define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
-define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
+define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_GENDER', 'Gender:');
-define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
-define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
+define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_FIRST_NAME', 'First Name:');
 define('ENTRY_FIRST_NAME_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_FIRST_NAME_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_FIRST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_LAST_NAME', 'Last Name:');
 define('ENTRY_LAST_NAME_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_LAST_NAME_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
 define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(eg. 05/21/1970)</font></small>');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 05/21/1970) <font color="#AABBDD">required</font></small>');
@@ -187,28 +187,28 @@ define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' chars</font></small>');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<small><font color="#FF0000">You email address doesn\'t appear to be valid!</font></small>');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<small><font color="#FF0000">email address already exists!</font></small>');
-define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
 define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_SUBURB', 'Suburb:');
 define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Post Code:');
 define('ENTRY_POST_CODE_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_POSTCODE_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_POST_CODE_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_POST_CODE_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_CITY', 'City:');
 define('ENTRY_CITY_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_CITY_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_CITY_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_CITY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_STATE', 'State:');
 define('ENTRY_STATE_ERROR', '');
 define('ENTRY_STATE_TEXT', '');
 define('ENTRY_COUNTRY', 'Country:');
 define('ENTRY_COUNTRY_ERROR', '');
-define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_TELEPHONE_NUMBER', 'Telephone Number:');
 define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_TELEPHONE_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_FAX_NUMBER', 'Fax Number:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
@@ -219,9 +219,9 @@ define('ENTRY_NEWSLETTER_NO', 'Unsubscribed');
 define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Password:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
-define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_PASSWORD_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_PASSWORD_MIN_LENGTH . ' chars</font></small>');
-define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#FF0000"><b>*</b></font></small>');
+define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('PASSWORD_HIDDEN', '--HIDDEN--');
 
 // constants for use in tep_prev_next_display function
