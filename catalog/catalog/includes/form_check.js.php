@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: form_check.js.php,v 1.7 2002/11/01 02:06:17 hpdl Exp $
+  $Id: form_check.js.php,v 1.8 2003/02/10 22:30:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,11 +19,11 @@ function check_form() {
   var error = 0;
   var error_message = "<?php echo JS_ERROR; ?>";
 
-  if(submitted){ 
-    alert( "<?php echo JS_ERROR_SUBMITTED; ?>"); 
-    return false; 
+  if (submitted == true) {
+    alert("<?php echo JS_ERROR_SUBMITTED; ?>");
+    return false;
   }
-   
+
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
 
@@ -31,7 +31,7 @@ function check_form() {
    if (ACCOUNT_DOB == 'true') echo '  var dob = document.account_edit.dob.value;' . "\n";
 ?>
 
-  var email_address = document.account_edit.email_address.value;  
+  var email_address = document.account_edit.email_address.value;
   var street_address = document.account_edit.street_address.value;
   var postcode = document.account_edit.postcode.value;
   var city = document.account_edit.city.value;
@@ -142,12 +142,12 @@ function check_form() {
     }
   }
 
-  if (error == 1) { 
-    alert(error_message); 
-    return false; 
-  } else { 
-    submitted = true; 
-    return true; 
-  } 
+  if (error == 1) {
+    alert(error_message);
+    return false;
+  } else {
+    submitted = true;
+    return true;
+  }
 }
 //--></script>

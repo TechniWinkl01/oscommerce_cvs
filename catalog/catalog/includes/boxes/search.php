@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: search.php,v 1.21 2002/05/27 13:26:34 hpdl Exp $
+  $Id: search.php,v 1.22 2003/02/10 22:31:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,17 +15,15 @@
             <td>
 <?php
   $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left',
-                               'text'  => BOX_HEADING_SEARCH
-                              );
+  $info_box_contents[] = array('text' => BOX_HEADING_SEARCH);
+
   new infoBoxHeading($info_box_contents, false, false);
 
-  $hide = tep_hide_session_id();
   $info_box_contents = array();
-  $info_box_contents[] = array('form'  => '<form name="quick_find" method="get" action="' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false) . '">',
+  $info_box_contents[] = array('form' => tep_draw_form('quick_find', tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, '', 'NONSSL', false), 'get'),
                                'align' => 'center',
-                               'text'  => $hide . '<input type="text" name="keywords" size="10" maxlength="30" value="' . htmlspecialchars(StripSlashes(@$HTTP_GET_VARS["keywords"])) . '" style="width: ' . (BOX_WIDTH-30) . 'px">&nbsp;' . tep_image_submit('button_quick_find.gif', BOX_HEADING_SEARCH) . '<br>' . BOX_SEARCH_TEXT . '<br><a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH) . '"><b>' . BOX_SEARCH_ADVANCED_SEARCH . '</b></a>'
-                              );
+                               'text' => tep_draw_input_field('keywords', '', 'size="10" maxlength="30" style="width: ' . (BOX_WIDTH-30) . 'px"') . '&nbsp;' . tep_hide_session_id() . tep_image_submit('button_quick_find.gif', BOX_HEADING_SEARCH) . '<br>' . BOX_SEARCH_TEXT . '<br><a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH) . '"><b>' . BOX_SEARCH_ADVANCED_SEARCH . '</b></a>');
+
   new infoBox($info_box_contents);
 ?>
             </td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_bottom.php,v 1.13 2003/01/17 14:08:12 hpdl Exp $
+  $Id: application_bottom.php,v 1.14 2003/02/10 22:30:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,9 +14,8 @@
   tep_session_close();
 
   if (STORE_PAGE_PARSE_TIME == 'true') {
-    $parse_end_time = microtime();
     $time_start = explode(' ', PAGE_PARSE_START_TIME);
-    $time_end = explode(' ', $parse_end_time);
+    $time_end = explode(' ', microtime());
     $parse_time = number_format(($time_end[1] + $time_end[0] - ($time_start[1] + $time_start[0])), 3);
     error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . ' - ' . getenv('REQUEST_URI') . ' (' . $parse_time . 's)' . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
 

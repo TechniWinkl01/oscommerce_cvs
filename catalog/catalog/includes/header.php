@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: header.php,v 1.37 2003/01/09 15:20:48 hpdl Exp $
+  $Id: header.php,v 1.38 2003/02/10 22:30:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -61,7 +61,7 @@
   </tr>
 </table>
 <?php
-  if ($HTTP_GET_VARS['error_message'] != '') {
+  if (isset($HTTP_GET_VARS['error_message']) && tep_not_null($HTTP_GET_VARS['error_message'])) {
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerError">
@@ -71,7 +71,7 @@
 <?php
   }
 
-  if ($HTTP_GET_VARS['info_message'] != '') {
+  if (isset($HTTP_GET_VARS['info_message']) && tep_not_null($HTTP_GET_VARS['info_message'])) {
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerInfo">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: validations.php,v 1.9 2003/01/25 12:15:02 clescuyer Exp $
+  $Id: validations.php,v 1.10 2003/02/10 22:31:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,7 +82,7 @@
               if (eregi('^[a-z][a-z]$', $top_level_domain) != 1) {
                 $tld_pattern = '';
                 // Get authorized TLDs from text file
-                $tlds = file(DIR_WS_INCLUDES . FILENAME_TLD);
+                $tlds = file(DIR_WS_INCLUDES . 'tld.txt');
                 while (list(,$line) = each($tlds)) {
                   // Get rid of comments
                   $words = explode('#', $line);

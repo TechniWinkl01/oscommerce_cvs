@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.19 2002/10/11 11:50:25 project3000 Exp $
+  $Id: install_5.php,v 1.20 2003/02/10 22:31:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -75,7 +75,7 @@
                      '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
                      '  http://www.oscommerce.com' . "\n" .
                      '' . "\n" .
-                     '  Copyright (c) 2002 osCommerce' . "\n" .
+                     '  Copyright (c) 2003 osCommerce' . "\n" .
                      '' . "\n" .
                      '  Released under the GNU General Public License' . "\n" .
                      '*/' . "\n" .
@@ -83,13 +83,13 @@
                      '// Define the webserver and path parameters' . "\n" .
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
-                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
-                     '  define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
+                     '  define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
                      '  define(\'DIR_WS_CATALOG\', \'' . $HTTP_POST_VARS['DIR_WS_CATALOG'] . '\'); // absolute path required' . "\n" .
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
                      '  define(\'DIR_WS_ICONS\', DIR_WS_IMAGES . \'icons/\');' . "\n" .
-                     '  define(\'DIR_WS_INCLUDES\', \'includes/\'); // If "URL fopen wrappers" are enabled in PHP (which they are in the default configuration), this can be a URL instead of a local pathname' . "\n" .
+                     '  define(\'DIR_WS_INCLUDES\', \'includes/\');' . "\n" .
                      '  define(\'DIR_WS_BOXES\', DIR_WS_INCLUDES . \'boxes/\');' . "\n" .
                      '  define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
                      '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
@@ -103,7 +103,7 @@
                      '  define(\'DIR_FS_DOWNLOAD_PUBLIC\', DIR_FS_CATALOG . \'pub/\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
-                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
                      '  define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
                      '  define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
@@ -120,7 +120,7 @@
                      '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
                      '  http://www.oscommerce.com' . "\n" .
                      '' . "\n" .
-                     '  Copyright (c) 2002 osCommerce' . "\n" .
+                     '  Copyright (c) 2003 osCommerce' . "\n" .
                      '' . "\n" .
                      '  Released under the GNU General Public License' . "\n" .
                      '*/' . "\n" .
@@ -128,7 +128,7 @@
                      '// Define the webserver and path parameters' . "\n" .
                      '// * DIR_FS_* = Filesystem directories (local/physical)' . "\n" .
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
-                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost or - https://localhost should not be NULL for productive servers' . "\n" .
+                     '  define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost or - https://localhost should not be empty for productive servers' . "\n" .
                      '  define(\'HTTP_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\');' . "\n" .
                      '  define(\'HTTPS_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\');' . "\n" .
                      '  define(\'ENABLE_SSL_CATALOG\', \'' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '\'); // secure webserver for catalog module' . "\n" .
@@ -153,7 +153,7 @@
                      '  define(\'DIR_FS_BACKUP\', DIR_FS_ADMIN . \'backups/\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
-                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
+                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
                      '  define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
                      '  define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .

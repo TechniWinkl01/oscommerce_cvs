@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: languages.php,v 1.12 2002/08/08 21:52:17 hpdl Exp $
+  $Id: languages.php,v 1.13 2003/02/10 22:31:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -15,18 +15,16 @@
             <td>
 <?php
   $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left',
-                               'text'  => BOX_HEADING_LANGUAGES
-                              );
+  $info_box_contents[] = array('text' => BOX_HEADING_LANGUAGES);
+
   new infoBoxHeading($info_box_contents, false, false);
 
-  if (!is_object($lng)) {
+  if (!isset($lng) && !is_object($lng)) {
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language;
   }
 
-  if (getenv('HTTPS') == 'on') $connection = 'SSL';
-  else $connection = 'NONSSL';
+  $connection = ((getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL');
 
   $languages_string = '';
   reset($lng->catalog_languages);
@@ -36,8 +34,8 @@
 
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'center',
-                               'text'  => $languages_string
-                              );
+                               'text' => $languages_string);
+
   new infoBox($info_box_contents);
 ?>
             </td>
