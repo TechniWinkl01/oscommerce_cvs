@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.103 2002/01/04 03:05:45 hpdl Exp $
+  $Id: categories.php,v 1.104 2002/01/04 09:15:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -804,7 +804,8 @@
         if ($rows > 0) {
           if (is_object($cInfo)) { // category info box contents
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', IMAGE_MOVE) . '</a>');
-            $info_box_contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added) . '<br>' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->last_modified));
+            $info_box_contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . tep_date_short($cInfo->date_added));
+            if (tep_not_null($cInfo->last_modified)) $info_box_contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->last_modified));
             $info_box_contents[] = array('text' => '<br>' . tep_info_image($cInfo->categories_image, $cInfo->categories_name) . '<br>' . $cInfo->categories_image);
             $info_box_contents[] = array('text' => '<br>' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif (is_object($pInfo)) { // product info box contents
