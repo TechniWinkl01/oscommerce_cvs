@@ -158,9 +158,13 @@ define('IMAGE_BACK', 'Back');
 define('IMAGE_CANCEL', 'Cancel');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_DELETE', 'Delete');
+define('IMAGE_EDIT', 'Edit');
 define('IMAGE_GREEN_DOT', 'Green Dot');
 define('IMAGE_INSERT', 'Insert');
 define('IMAGE_MODIFY', 'Modify');
 define('IMAGE_RED_DOT', 'Red Dot');
+define('IMAGE_SAVE', 'Save');
 define('IMAGE_UPDATE', 'Update');
+
+define('IMAGE_ICON_INFO', 'Info');
 ?>

@@ -119,7 +119,8 @@ function checkForm() {
       }
       $categories_query = tep_db_query("select categories_name from categories where categories_id = '" . $cPath_array[$i] . "'");
       $categories = tep_db_fetch_array($categories_query);
-      echo ' -> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath_new, 'NONSSL') . '" class="blacklink">' . $categories['categories_name'] . '</a>';
+      $parent_categories_name = $categories['categories_name'];
+      echo ' -> <a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath_new, 'NONSSL') . '" class="blacklink">' . $parent_categories_name . '</a>';
     }
   }
 ?>
@@ -187,18 +188,7 @@ function checkForm() {
     }
 ?>
                 <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$categories['categories_id'];?>&nbsp;</font></td>
-
-<?
-    if ($category_childs['total'] > 0) {
-?>
                 <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link('categories.php', tep_get_path($categories['categories_id']), 'NONSSL') . '"><u>' . $categories['categories_name'] . '</u></a>';?>&nbsp;</font></td>
-<?
-    } else {
-?>
-                <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$categories['categories_name'];?>&nbsp;</font></td>
-<?
-    }
-?>
                 <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$categories['sort_order'];?>&nbsp;</font></td>
                 <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$categories['categories_image'];?>&nbsp;</font></td>
 <?
@@ -215,11 +205,13 @@ function checkForm() {
               </tr>
 <?
   }
+  if ($rows > 0) {
 ?>
               <tr>
                 <td colspan="5"><?=tep_black_line();?></td>
               </tr>
 <?
+  }
   if (floor($rows/2) == ($rows/2)) {
     echo '              <tr bgcolor="#f4f7fd">' . "\n";
   } else {
@@ -330,7 +322,7 @@ function checkForm() {
               <tr bgcolor="#b0c8df"><form name="categories" <?='action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=moveconfirm', 'NONSSL') . '"';?> method="post"><input type="hidden" name="categories_id" value="<?=$category_info->id;?>">
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=TEXT_MOVE_INTRO;?>&nbsp;</font></td>
+                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_MOVE_INTRO, $category_info->name);?>&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(TEXT_MOVE, $category_info->name);?><br>&nbsp;<select name="move_to_category_id" style="font-size:10px">
@@ -356,6 +348,9 @@ function checkForm() {
 ?>
               <tr bgcolor="#b0c8df">
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+    if ($rows > 0) {
+?>
                   <tr>
                     <td align="center"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a>';?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>';?> <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=move', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>';?></font></td>
                   </tr>
@@ -368,6 +363,15 @@ function checkForm() {
                   <tr>
                     <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_SUBCATEGORIES;?> <?=$category_info->childs_count;?><br>&nbsp;<?=TEXT_PRODUCTS;?> <?=$category_info->products_count;?>&nbsp;</font></td>
                   </tr>
+<?
+    } else {
+?>
+                  <tr>
+                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_NO_CHILD_CATEGORIES, $parent_categories_name);?></font></td>
+                  </tr>
+<?
+    }
+?>
                 </table></td>
               </tr>
 <?

@@ -38,7 +38,6 @@
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
-  define('FILENAME_INDEXES', 'indexes.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_ORDERS', 'orders.php');
   define('FILENAME_PRODUCTS', 'products.php');
@@ -48,7 +47,6 @@
   define('FILENAME_STATS_CUSTOMERS', 'stats_customers.php');
   define('FILENAME_STATS_PRODUCTS_PURCHASED', 'stats_products_purchased.php');
   define('FILENAME_STATS_PRODUCTS_VIEWED', 'stats_products_viewed.php');
-  define('FILENAME_SUBCATEGORIES', 'subcategories.php');
 
 // define our database connection
   define('DB_SERVER', $HTTP_ENV_VARS['HOSTNAME']);
