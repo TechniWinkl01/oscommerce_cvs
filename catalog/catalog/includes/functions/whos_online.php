@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.4 2001/09/25 18:02:39 dwatkins Exp $
+  $Id: whos_online.php,v 1.5 2001/10/25 09:45:22 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,7 @@
       $customer_query = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
       $customer = tep_db_fetch_array($customer_query);
 
-      $wo_full_name = $customer['customers_firstname'] . ' ' . $customer['customers_lastname'];
+      $wo_full_name = addslashes($customer['customers_firstname'] . ' ' . $customer['customers_lastname']);
     } else {
       $wo_customer_id = '';
       $wo_full_name = 'Guest';
