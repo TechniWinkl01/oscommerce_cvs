@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.1 2002/01/11 10:09:09 hpdl Exp $
+  $Id: index.php,v 1.2 2002/01/11 10:59:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,6 +54,13 @@
                      'children' => array(array('title' => 'Backup', 'link' => tep_href_link(FILENAME_BACKUP, 'selected_box=tools')),
                                          array('title' => 'Banners', 'link' => tep_href_link(FILENAME_BANNER_MANAGER, 'selected_box=tools')),
                                          array('title' => 'Files', 'link' => tep_href_link(FILENAME_FILE_MANAGER, 'selected_box=tools')))));
+
+  $languages = tep_get_languages();
+  $languages_array = array();
+  for ($i=0; $i<sizeof($languages); $i++) {
+    $languages_array[] = array('id' => $languages[$i]['code'],
+                               'text' => $languages[$i]['name']);
+  }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -113,7 +120,12 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                 </table></td>
                 <td width="460"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="heading" colspan="2">Choose an action..</td>
+                    <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                      <tr><?php echo tep_draw_form('languages', 'index.php', '', 'get'); ?>
+                        <td class="heading">Choose an action..</td>
+                        <td align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, $HTTP_GET_VARS['language'], 'onChange="this.form.submit();"'); ?></td>
+                      </form></tr>
+                    </table></td>
                   </tr>
 <?php
   $col = 2;
