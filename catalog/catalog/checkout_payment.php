@@ -229,7 +229,12 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image_button('button_shipping_options.gif', CHANGE_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image_button('button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<? echo tep_image_submit('button_next.gif', IMAGE_NEXT); ?>&nbsp;</td>
+            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image_button('button_shipping_options.gif', CHANGE_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image_button('button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a></td>
+                <td class="main" align="right"><? echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
+              </tr>
+            </table></td>
           </tr>
           <tr>
             <td align="right" class="smallText" nowrap><br>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
