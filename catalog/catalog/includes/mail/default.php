@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.1 2001/06/10 11:32:23 mbs Exp $
+  $Id: default.php,v 1.2 2001/06/10 20:19:40 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,7 +27,7 @@
     // If sending an html email, then these two variables ($text and $html) specify
     // the text and html versions of the mail. Don't have to be named as these are.
     // Just make sure the names tie in to the $mail->add_html() command further down.
-    $html = '<body><html>' . "\r\n" . '<body background="background.gif">' . "\r\n" .
+    $html = '<html>' . "\r\n" . '<body background="background.gif">' . "\r\n" .
             '<font face="Verdana, Arial" color="#0000000"><pre>' . "\r\n" .
             $email_text . "\r\n" .
             '</pre></font>' . "\r\n" .
