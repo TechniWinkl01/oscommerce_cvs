@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.12 2003/01/30 00:00:48 hpdl Exp $
+  $Id: ot_tax.php,v 1.13 2003/02/13 00:12:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ot_loworderfee.php,v 1.9 2003/02/06 01:18:59 hpdl Exp $
+  $Id: ot_loworderfee.php,v 1.10 2003/02/13 00:12:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -40,9 +40,10 @@
 
         if ( ($pass == true) && ( ($order->info['total'] - $order->info['shipping_cost']) <= MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
           $tax = tep_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $order->delivery['country']['id'], $order->delivery['zone_id']);
+          $tax_description = tep_get_tax_description(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $order->delivery['country']['id'], $order->delivery['zone_id']);
 
           $order->info['tax'] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
-          $order->info['tax_groups']["{$tax}"] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+          $order->info['tax_groups']["$tax_description"] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
           $order->info['total'] += MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
 
           $this->output[] = array('title' => $this->title . ':',

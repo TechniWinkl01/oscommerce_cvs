@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ot_subtotal.php,v 1.6 2002/12/09 19:07:16 dgw_ Exp $
+  $Id: ot_subtotal.php,v 1.7 2003/02/13 00:12:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
