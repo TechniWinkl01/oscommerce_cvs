@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.1 2002/06/01 18:26:30 dgw_ Exp $
+  $Id: address_book_details.php,v 1.2 2002/06/19 02:56:24 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,7 +29,7 @@
 <?php
     if ($process) {
       if ($gender_error) {
-        echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $femail) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
+        echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
       } else {
         echo ($gender == 'm') ? MALE : FEMALE;
         echo tep_draw_hidden_field('gender');
