@@ -422,6 +422,23 @@ CREATE TABLE customers_basket (
 #
 
 #
+# Table structure for table 'customers_basket_attributes'
+#
+
+CREATE TABLE customers_basket_attributes (
+  customers_basket_attributes_id int(5) NOT NULL auto_increment,
+  customers_id int(5) NOT NULL,
+  products_id int(5) NOT NULL,
+  products_options_id int(5) NOT NULL,
+  products_options_value_id int(5) NOT NULL,
+  PRIMARY KEY (customers_basket_attributes_id)
+);
+
+#
+# Dumping data for table 'customers_basket_attributes'
+#
+
+#
 # Table structure for table 'customers_info'
 #
 
@@ -629,21 +646,6 @@ INSERT INTO products_attributes VALUES (8,2,3,6,0.00,'+');
 INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
 INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
 INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
-
-#
-# Table structure for table 'products_attributes_to_basket'
-#
-
-CREATE TABLE products_attributes_to_basket (
-  products_attributes_to_basket_id int(5) NOT NULL auto_increment,
-  customers_basket_id int(5) NOT NULL,
-  products_attributes_id int(5) NOT NULL,
-  PRIMARY KEY (products_attributes_to_basket_id)
-);
-
-#
-# Dumping data for table 'products_attributes_to_basket'
-#
 
 #
 # Table structure for table 'products_expected'
