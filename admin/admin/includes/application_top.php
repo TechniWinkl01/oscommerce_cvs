@@ -12,7 +12,7 @@
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
   define('HTTP_SERVER', 'http://exchange');
-  define('DIR_FS_DOCUMENT_ROOT', '/usr/local/apache/htdocs'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
+  define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT . '/'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
   define('DIR_FS_LOGS', '/usr/local/apache/logs/');
   define('DIR_WS_ADMIN', '/admin/');
   define('DIR_WS_CATALOG', '/catalog/');
@@ -33,7 +33,7 @@
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
-  define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse the page
+  define('STORE_PAGE_PARSE_TIME', 0); // store the time it takes to parse the page
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
