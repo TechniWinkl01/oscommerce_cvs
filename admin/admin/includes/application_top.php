@@ -7,7 +7,7 @@
   }
 
 // for internal use until final v1.0 version is ready
-  define('PROJECT_VERSION', 'Preview Release 2.1');
+  define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
 
 // expert mode?
   define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure

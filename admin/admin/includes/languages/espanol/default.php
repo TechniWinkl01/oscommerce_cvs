@@ -7,7 +7,7 @@ Author(s): David Garcia Watkins (dgw@q-logic.org)
 
 define('TOP_BAR_TITLE', 'Informacion para el Administrador');
 define('HEADING_TITLE', '¿Para que sirve este boton?');
-define('SUB_BAR_TITLE', 'The Exchange Project: Herramienta de Administracion - Preview Release 2.0');
+define('SUB_BAR_TITLE', 'The Exchange Project: Herramienta de Administracion');
 define('TEXT_MAIN', 'Cualquier cambio efectuado con esta herramienta de administracion surtira efecto inmediatamente en la base de datos. Si no esta seguro de lo que esta herramienta de administracion puede hacer, le sugerimos que lea la <a href="http://theexchangeproject.org/documentation_dbmodel.php" target="_blank"><u>documentacion del modelo de base de datos</u></a>.');
 
 define('TABLE_HEADING_NEW_CUSTOMERS', 'Nuevos Clientes');
