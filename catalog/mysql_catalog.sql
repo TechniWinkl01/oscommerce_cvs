@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.96 2001/06/05 21:38:21 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.97 2001/06/06 21:20:53 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -327,17 +327,19 @@ CREATE TABLE products_to_categories (
 
 CREATE TABLE reviews (
   reviews_id int(5) NOT NULL auto_increment,
-  reviews_text text NOT NULL,
+  products_id int(5) NOT NULL,
+  customers_id int(5) NOT NULL,
   reviews_rating int(1),
+  date_added datetime,
+  reviews_read int(5),
   PRIMARY KEY (reviews_id)
 );
 
-CREATE TABLE reviews_extra (
+CREATE TABLE reviews_description (
   reviews_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
-  customers_id int(5) NOT NULL,
-  date_added char(8) NOT NULL,
-  reviews_read int(5)
+  languages_id int(5) NOT NULL,
+  reviews_text text NOT NULL,
+  PRIMARY KEY (reviews_id, languages_id)
 );
 
 CREATE TABLE sessions (
@@ -1024,9 +1026,9 @@ INSERT INTO products_to_categories VALUES (25,8);
 INSERT INTO products_to_categories VALUES (26,9);
 INSERT INTO products_to_categories VALUES (27,5);
 
-INSERT INTO reviews VALUES (1,'this has to be one of the funniest movies released for 1999!',5);
+INSERT INTO reviews VALUES (1,19,1,5, now(), 0);
 
-INSERT INTO reviews_extra VALUES (1,19,1,'20000312',56);
+INSERT INTO reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
 
 INSERT INTO specials VALUES (1,3,39.99,'20000114');
 INSERT INTO specials VALUES (2,5,30.00,'20000114');

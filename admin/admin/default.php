@@ -154,7 +154,7 @@
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS_EXTRA . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit 5");
+  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit 5");
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '\'">' . "\n";
     echo '                <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT, 'NONSSL') . '" class="blacklink">' . $reviews['products_name'] . '</a>&nbsp;</font></td>' . "\n";

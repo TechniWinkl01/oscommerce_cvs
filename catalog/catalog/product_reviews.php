@@ -71,7 +71,7 @@
             <td colspan="5"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $reviews = tep_db_query("select r.reviews_rating, r.reviews_id, re.customers_id, re.date_added, re.reviews_read from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re where re.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and re.reviews_id = r.reviews_id order by r.reviews_id DESC");
+  $reviews = tep_db_query("select reviews_rating, reviews_id, customers_id, date_added, reviews_read from " . TABLE_REVIEWS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "' order by reviews_id DESC");
   if (tep_db_num_rows($reviews)) {
     $row = 0;
     while ($reviews_values = tep_db_fetch_array($reviews)) {

@@ -7,9 +7,9 @@
 
   if (@$HTTP_GET_VARS['action'] == 'process') {
     $date_now = date('Ymd');
-    tep_db_query("insert into " . TABLE_REVIEWS . " values ('', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "', '" . $HTTP_POST_VARS['rating'] . "')");
+    tep_db_query("insert into " . TABLE_REVIEWS . " values ('', '" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', '" . $HTTP_POST_VARS['rating'] . "', now(), 0)");
     $insert_id = tep_db_insert_id();
-    tep_db_query("insert into " . TABLE_REVIEWS_EXTRA . " values ('" . $insert_id . "', '" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', '" . $date_now . "', 0)");
+    tep_db_query("insert into " . TABLE_REVIEWS_DESCRIPTION . " values ('" . $insert_id . "', '" . $languages_id . "', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "')");
 
     header('Location: ' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $HTTP_POST_VARS['get_params'], 'NONSSL'));
     tep_exit();

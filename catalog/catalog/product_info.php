@@ -124,7 +124,7 @@ function popupImageWindow(url) {
 		</td></tr></table></td>
       </tr>
 <?
-    $reviews = tep_db_query("select count(*) as count from " . TABLE_REVIEWS_EXTRA . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    $reviews = tep_db_query("select count(*) as count from " . TABLE_REVIEWS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $reviews_values = tep_db_fetch_array($reviews);
 
     if ($reviews_values['count'] > 0) {

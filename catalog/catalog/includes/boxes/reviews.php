@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.18 2001/06/06 11:16:41 hpdl Exp $
+  $Id: reviews.php,v 1.19 2001/06/06 21:20:59 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,9 +20,9 @@
   new infoBoxHeading($info_box_contents);
 
   if ($HTTP_GET_VARS['products_id']) {
-    $random_product = tep_random_select("select r.reviews_id, substring(r.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
+    $random_product = tep_random_select("select r.reviews_id, substring(rd.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and r.reviews_id = rd.reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
   } else {
-    $random_product = tep_random_select("select r.reviews_id, substring(r.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
+    $random_product = tep_random_select("select r.reviews_id, substring(rd.reviews_text, 1, 60) as reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and r.reviews_id = rd.reviews_id and r.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS);
   }
 
   if ($random_product) {

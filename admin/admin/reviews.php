@@ -2,11 +2,12 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'update_review') {
-      tep_db_query("update reviews set reviews_text = '" . htmlspecialchars($HTTP_POST_VARS['reviews_text']) . "', reviews_rating = '" . $HTTP_POST_VARS['reviews_rating'] . "' where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
+      tep_db_query("update reviews set reviews_rating = '" . $HTTP_POST_VARS['reviews_rating'] . "' where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
+      tep_db_query("update reviews_description set reviews_text = '" . htmlspecialchars($HTTP_POST_VARS['reviews_text']) . "' where reviews_id = '" . $HTTP_POST_VARS['reviews_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID')) . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_review') {
       tep_db_query("delete from reviews where reviews_id = '" . $HTTP_GET_VARS['rID'] . "'");
-      tep_db_query("delete from reviews_extra where reviews_id = '" . $HTTP_GET_VARS['rID'] . "'");
+      tep_db_query("delete from reviews_description where reviews_id = '" . $HTTP_GET_VARS['rID'] . "'");
       header('Location: ' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID', 'info')), 'NONSSL')); tep_exit();
     }
   }
@@ -45,7 +46,7 @@
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'edit') {
-    $reviews_query = tep_db_query("select re.products_id, re.customers_id, re.date_added, re.reviews_read, r.reviews_text, r.reviews_rating from reviews_extra re, reviews r where re.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = re.reviews_id");
+    $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.reviews_read, rd.reviews_text, r.reviews_rating from reviews r, reviews_description rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
     $reviews = tep_db_fetch_array($reviews_query);
     $products_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
     $products = tep_db_fetch_array($products_query);
@@ -96,7 +97,7 @@
     if ($HTTP_POST_VARS) {
       $rInfo = new reviewInfo($HTTP_POST_VARS);
     } else {
-      $reviews_query = tep_db_query("select re.products_id, re.customers_id, re.date_added, re.reviews_read, r.reviews_text, r.reviews_rating from reviews_extra re, reviews r where re.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = re.reviews_id");
+      $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.reviews_read, rd.reviews_text, r.reviews_rating from reviews r, reviews_description rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
       $reviews = tep_db_fetch_array($reviews_query);
       $products_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
       $products = tep_db_fetch_array($products_query);
@@ -191,21 +192,21 @@
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $reviews_query_raw = "select re.reviews_id, re.products_id, re.date_added, r.reviews_rating from reviews_extra re, reviews r where re.reviews_id = r.reviews_id order by re.date_added DESC";
+    $reviews_query_raw = "select reviews_id, products_id, date_added, reviews_rating from reviews order by date_added DESC";
     $reviews_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $reviews_query_raw, $reviews_query_numrows);
     $reviews_query = tep_db_query($reviews_query_raw);
     while ($reviews = tep_db_fetch_array($reviews_query)) {
       $rows++;
 
       if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $reviews['reviews_id'])) && (!$rInfo) ) {
-        $reviews_text_query = tep_db_query("select re.reviews_read, re.customers_id, length(r.reviews_text) as reviews_text_size from reviews r, reviews_extra re where re.reviews_id = '" . $reviews['reviews_id'] . "' and r.reviews_id = re.reviews_id");
+        $reviews_text_query = tep_db_query("select r.reviews_read, r.customers_id, length(rd.reviews_text) as reviews_text_size from reviews r, reviews_description rd where r.reviews_id = '" . $reviews['reviews_id'] . "' and r.reviews_id = rd.reviews_id");
         $reviews_text = tep_db_fetch_array($reviews_text_query);
 
         $products_image_query = tep_db_query("select products_image from products where products_id = '" . $reviews['products_id'] . "'");
         $products_image = tep_db_fetch_array($products_image_query);
 
 // find out the rating average from customer reviews
-        $reviews_average_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) as average_rating from reviews r, reviews_extra re where re.products_id = '" . $reviews['products_id'] . "' and re.reviews_id = r.reviews_id");
+        $reviews_average_query = tep_db_query("select (avg(reviews_rating) / 5 * 100) as average_rating from reviews where products_id = '" . $reviews['products_id'] . "'");
         $reviews_average = tep_db_fetch_array($reviews_average_query);
 
         $review_info = tep_array_merge($reviews_text, $reviews_average);
