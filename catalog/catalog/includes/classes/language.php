@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.7 2004/02/16 07:08:16 hpdl Exp $
+  $Id: language.php,v 1.8 2004/11/20 02:11:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -59,13 +59,15 @@
 
       $this->catalog_languages = array();
 
-      $Qlanguages = $osC_Database->query('select languages_id, name, code, image, directory from :table_languages order by sort_order');
-      $Qlanguages->bindRaw(':table_languages', TABLE_LANGUAGES);
+      $Qlanguages = $osC_Database->query('select * from :table_languages order by sort_order, name');
+      $Qlanguages->bindTable(':table_languages', TABLE_LANGUAGES);
+      $Qlanguages->setCache('languages');
       $Qlanguages->execute();
 
       while ($Qlanguages->next()) {
         $this->catalog_languages[$Qlanguages->value('code')] = array('id' => $Qlanguages->valueInt('languages_id'),
                                                                      'name' => $Qlanguages->value('name'),
+                                                                     'code' => $Qlanguages->value('code'),
                                                                      'image' => $Qlanguages->value('image'),
                                                                      'directory' => $Qlanguages->value('directory'));
       }
@@ -79,10 +81,21 @@
     }
 
     function set_language($language) {
-      if ( (tep_not_null($language)) && (isset($this->catalog_languages[$language])) ) {
-        $this->language = $this->catalog_languages[$language];
+      global $osC_Session;
+
+      if (empty($language) && $osC_Session->exists('language')) {
+        foreach ($this->catalog_languages as $l) {
+          if ($l['directory'] == $osC_Session->value('language')) {
+            $language = $l['code'];
+            break;
+          }
+        }
+      }
+
+      if (!empty($language) && $this->exists($language)) {
+        $this->language = $this->get($language);
       } else {
-        $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
+        $this->language = $this->get(DEFAULT_LANGUAGE);
       }
     }
 
@@ -98,6 +111,22 @@
           }
         }
       }
+    }
+
+    function get($language) {
+      return $this->catalog_languages[$language];
+    }
+
+    function getAll() {
+      return $this->catalog_languages;
+    }
+
+    function exists($language) {
+      if (isset($this->catalog_languages[$language])) {
+        return true;
+      }
+
+      return false;
     }
   }
 ?>
