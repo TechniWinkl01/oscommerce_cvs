@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.44 2001/06/18 10:31:57 dwatkins Exp $
+  $Id: create_account_process.php,v 1.45 2001/06/19 08:36:59 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,7 +43,7 @@
   }
 
   if (ACCOUNT_DOB) {
-    if (checkdate(tep_date_raw($HTTP_POST_VARS['dob'], true))) {
+    if (checkdate(substr(tep_date_raw($HTTP_POST_VARS['dob']), 4, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 6, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 0, 4))) {
       $entry_date_of_birth_error = false;
     } else {
       $error = true;
