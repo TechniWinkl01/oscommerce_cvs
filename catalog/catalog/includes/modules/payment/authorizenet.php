@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.47 2003/02/14 05:51:31 hpdl Exp $
+  $Id: authorizenet.php,v 1.48 2003/04/10 21:42:30 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -222,13 +222,13 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
                                tep_draw_hidden_field('x_Version', '3.0') .
                                tep_draw_hidden_field('x_Cust_ID', $customer_id) .
                                tep_draw_hidden_field('x_Email_Customer', ((MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER == 'True') ? 'TRUE': 'FALSE')) .
-                               tep_draw_hidden_field('x_first_name', $order->customer['firstname']) .
-                               tep_draw_hidden_field('x_last_name', $order->customer['lastname']) .
-                               tep_draw_hidden_field('x_address', $order->customer['street_address']) .
-                               tep_draw_hidden_field('x_city', $order->customer['city']) .
-                               tep_draw_hidden_field('x_state', $order->customer['state']) .
-                               tep_draw_hidden_field('x_zip', $order->customer['postcode']) .
-                               tep_draw_hidden_field('x_country', $order->customer['country']['title']) .
+                               tep_draw_hidden_field('x_first_name', $order->billing['firstname']) .
+                               tep_draw_hidden_field('x_last_name', $order->billing['lastname']) .
+                               tep_draw_hidden_field('x_address', $order->billing['street_address']) .
+                               tep_draw_hidden_field('x_city', $order->billing['city']) .
+                               tep_draw_hidden_field('x_state', $order->billing['state']) .
+                               tep_draw_hidden_field('x_zip', $order->billing['postcode']) .
+                               tep_draw_hidden_field('x_country', $order->billing['country']['title']) .
                                tep_draw_hidden_field('x_phone', $order->customer['telephone']) .
                                tep_draw_hidden_field('x_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('x_ship_to_first_name', $order->delivery['firstname']) .
