@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: form_check.js.php,v 1.8 2003/02/10 22:30:55 hpdl Exp $
+  $Id: form_check.js.php,v 1.9 2003/05/19 19:50:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,139 +10,120 @@
   Released under the GNU General Public License
 */
 ?>
-
 <script language="javascript"><!--
-
+var form = "";
 var submitted = false;
+var error = false;
+var error_message = "";
 
-function check_form() {
-  var error = 0;
-  var error_message = "<?php echo JS_ERROR; ?>";
+function check_input(field_name, field_size, message) {
+  if (form.elements[field_name] && (form.elements[field_name].type != "hidden")) {
+    var field_value = form.elements[field_name].value;
 
+    if (field_value == '' || field_value.length < field_size) {
+      error_message = error_message + "* " + message + "\n";
+      error = true;
+    }
+  }
+}
+
+function check_radio(field_name, message) {
+  var isChecked = false;
+
+  if (form.elements[field_name] && (form.elements[field_name].type != "hidden")) {
+    var radio = form.elements[field_name];
+
+    for (var i=0; i<radio.length; i++) {
+      if (radio[i].checked == true) {
+        isChecked = true;
+        break;
+      }
+    }
+
+    if (isChecked == false) {
+      error_message = error_message + "* " + message + "\n";
+      error = true;
+    }
+  }
+}
+
+function check_select(field_name, field_default, message) {
+  if (form.elements[field_name] && (form.elements[field_name].type != "hidden")) {
+    var field_value = form.elements[field_name].value;
+
+    if (field_value == field_default) {
+      error_message = error_message + "* " + message + "\n";
+      error = true;
+    }
+  }
+}
+
+function check_password(field_name_1, field_name_2, field_size, message_1, message_2) {
+  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {
+    var password = form.elements[field_name_1].value;
+    var confirmation = form.elements[field_name_2].value;
+
+    if (password == '' || password.length < field_size) {
+      error_message = error_message + "* " + message_1 + "\n";
+      error = true;
+    } else if (password != confirmation) {
+      error_message = error_message + "* " + message_2 + "\n";
+      error = true;
+    }
+  }
+}
+
+function check_password_new(field_name_1, field_name_2, field_name_3, field_size, message_1, message_2, message_3) {
+  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {
+    var password_current = form.elements[field_name_1].value;
+    var password_new = form.elements[field_name_2].value;
+    var password_confirmation = form.elements[field_name_3].value;
+
+    if (password_current == '' || password_current.length < field_size) {
+      error_message = error_message + "* " + message_1 + "\n";
+      error = true;
+    } else if (password_new == '' || password_new.length < field_size) {
+      error_message = error_message + "* " + message_2 + "\n";
+      error = true;
+    } else if (password_new != password_confirmation) {
+      error_message = error_message + "* " + message_3 + "\n";
+      error = true;
+    }
+  }
+}
+
+function check_form(form_name) {
   if (submitted == true) {
     alert("<?php echo JS_ERROR_SUBMITTED; ?>");
     return false;
   }
 
-  var first_name = document.account_edit.firstname.value;
-  var last_name = document.account_edit.lastname.value;
+  error = false;
+  form = form_name;
+  error_message = "<?php echo JS_ERROR; ?>";
 
-<?php
-   if (ACCOUNT_DOB == 'true') echo '  var dob = document.account_edit.dob.value;' . "\n";
-?>
+<?php if (ACCOUNT_GENDER == 'true') echo '  check_radio("gender", "' . ENTRY_GENDER_ERROR . '");' . "\n"; ?>
 
-  var email_address = document.account_edit.email_address.value;
-  var street_address = document.account_edit.street_address.value;
-  var postcode = document.account_edit.postcode.value;
-  var city = document.account_edit.city.value;
-  var telephone = document.account_edit.telephone.value;
-  var password = document.account_edit.password.value;
-  var confirmation = document.account_edit.confirmation.value;
+  check_input("firstname", <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>, "<?php echo ENTRY_FIRST_NAME_ERROR; ?>");
+  check_input("lastname", <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>, "<?php echo ENTRY_LAST_NAME_ERROR; ?>");
 
-<?php
-   if (ACCOUNT_GENDER == 'true') {
-?>
-  if (document.account_edit.elements['gender'].type != "hidden") {
-    if (document.account_edit.gender[0].checked || document.account_edit.gender[1].checked) {
-    } else {
-      error_message = error_message + "<?php echo JS_GENDER; ?>";
-      error = 1;
-    }
-  }
-<?php
-  }
-?>
+<?php if (ACCOUNT_DOB == 'true') echo '  check_input("dob", ' . ENTRY_DOB_MIN_LENGTH . ', "' . ENTRY_DATE_OF_BIRTH_ERROR . '");' . "\n"; ?>
 
-  if (document.account_edit.elements['firstname'].type != "hidden") {
-    if (first_name == '' || first_name.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
-      error = 1;
-    }
-  }
+  check_input("email_address", <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>, "<?php echo ENTRY_EMAIL_ADDRESS_ERROR; ?>");
+  check_input("street_address", <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>, "<?php echo ENTRY_STREET_ADDRESS_ERROR; ?>");
+  check_input("postcode", <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>, "<?php echo ENTRY_POST_CODE_ERROR; ?>");
+  check_input("city", <?php echo ENTRY_CITY_MIN_LENGTH; ?>, "<?php echo ENTRY_CITY_ERROR; ?>");
 
-  if (document.account_edit.elements['lastname'].type != "hidden") {
-    if (last_name == '' || last_name.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_LAST_NAME; ?>";
-      error = 1;
-    }
-  }
+<?php if (ACCOUNT_STATE == 'true') echo '  check_input("state", ' . ENTRY_STATE_MIN_LENGTH . ', "' . ENTRY_STATE_ERROR . '");' . "\n"; ?>
 
-<?php
-   if (ACCOUNT_DOB == 'true') {
-?>
-  if (document.account_edit.elements['dob'].type != "hidden") {
-    if (dob == '' || dob.length < <?php echo ENTRY_DOB_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_DOB; ?>";
-      error = 1;
-    }
-  }
-<?php
-  }
-?>
+  check_select("country", "", "<?php echo ENTRY_COUNTRY_ERROR; ?>");
 
-  if (document.account_edit.elements['email_address'].type != "hidden") {
-    if (email_address == '' || email_address.length < <?php echo ENTRY_EMAIL_ADDRESS_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_EMAIL_ADDRESS; ?>";
-      error = 1;
-    }
-  }
+  check_input("telephone", <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>, "<?php echo ENTRY_TELEPHONE_NUMBER_ERROR; ?>");
 
-  if (document.account_edit.elements['street_address'].type != "hidden") {
-    if (street_address == '' || street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_ADDRESS; ?>";
-      error = 1;
-    }
-  }
+  check_password("password", "confirmation", <?php echo ENTRY_PASSWORD_MIN_LENGTH; ?>, "<?php echo ENTRY_PASSWORD_ERROR; ?>", "<?php echo ENTRY_PASSWORD_ERROR_NOT_MATCHING; ?>");
+  check_password_new("password_current", "password_new", "password_confirmation", <?php echo ENTRY_PASSWORD_MIN_LENGTH; ?>, "<?php echo ENTRY_PASSWORD_ERROR; ?>", "<?php echo ENTRY_PASSWORD_NEW_ERROR; ?>", "<?php echo ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING; ?>");
 
-  if (document.account_edit.elements['postcode'].type != "hidden") {
-    if (postcode == '' || postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_POST_CODE; ?>";
-      error = 1;
-    }
-  }
-
-  if (document.account_edit.elements['city'].type != "hidden") {
-    if (city == '' || city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_CITY; ?>";
-      error = 1;
-    }
-  }
-
-<?php
-  if (ACCOUNT_STATE == 'true') {
-?>
-  if (document.account_edit.elements['state'].type != "hidden") {
-    if (document.account_edit.state.value == '' || document.account_edit.state.value.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-       error_message = error_message + "<?php echo JS_STATE; ?>";
-       error = 1;
-    }
-  }
-<?php
-  }
-?>
-
-  if (document.account_edit.elements['country'].type != "hidden") {
-    if (document.account_edit.country.value == 0) {
-      error_message = error_message + "<?php echo JS_COUNTRY; ?>";
-      error = 1;
-    }
-  }
-
-  if (document.account_edit.elements['telephone'].type != "hidden") {
-    if (telephone == '' || telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
-      error_message = error_message + "<?php echo JS_TELEPHONE; ?>";
-      error = 1;
-    }
-  }
-
-  if (document.account_edit.elements['password'].type != "hidden") {
-    if ((password != confirmation) || (password == '' || password.length < <?php echo ENTRY_PASSWORD_MIN_LENGTH; ?>)) {
-      error_message = error_message + "<?php echo JS_PASSWORD; ?>";
-      error = 1;
-    }
-  }
-
-  if (error == 1) {
+  if (error == true) {
     alert(error_message);
     return false;
   } else {
