@@ -1,5 +1,5 @@
 <?php
-	/* $Id: fedex.php,v 1.11 2001/03/05 22:26:08 hpdl Exp $ */
+	/* $Id: fedex.php,v 1.12 2001/03/09 03:57:57 tmoulton Exp $ */
         if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
 	  $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_WS_INCLUDES . 'include_once.php');
         }
@@ -12,11 +12,7 @@
 			print "<TR><TD>" . FONT_STYLE_MAIN . "&nbsp;";
 			print htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>";
 			print "<TD>&nbsp;</TD>";
-			print "<TD ALIGN=\"right\">&nbsp;<INPUT TYPE=\"checkbox\" NAME=\"shipping_quote_fedex\" VALUE=\"1\"";
-			// if(!$shipping_count) {
-				print ' CHECKED';
-			// }
-			print "></TD></TR>\n";
+			print "<TD ALIGN=\"right\">&nbsp;<INPUT TYPE=\"checkbox\" NAME=\"shipping_quote_fedex\" VALUE=\"1\" CHECKED></TD></TR>\n";
 			break;
 		case 'quote' :
 			if ($shipping_quote_fedex == "1" || $shipping_quote_all == '1') {
@@ -55,6 +51,7 @@
 						}
 					}
 				}
+				$shipping_count++;
 			}
 			break;
 		case 'display' :
@@ -101,5 +98,4 @@
 			tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_FEDEX_ENABLED'");
 			break;
 	}
-	$shipping_count++;
 ?>

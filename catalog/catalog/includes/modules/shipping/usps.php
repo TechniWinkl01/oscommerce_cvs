@@ -1,5 +1,5 @@
 <?
-  /* $Id: usps.php,v 1.10 2001/03/05 22:26:11 hpdl Exp $ */
+  /* $Id: usps.php,v 1.11 2001/03/09 03:57:58 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
@@ -14,11 +14,7 @@
                   <OPTION VALUE="Express"><? echo SHIPPING_USPS_OPT_EX; ?></OPTION>
                   </SELECT><br>
                 </td>
-                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_usps" value="1" CHECKED
-<?
-  // if ($shipping_count == 0) echo ' CHECKED';
-  echo "></td>\n";
-?>
+                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_usps" value="1" CHECKED></td>
              </tr>
 <?
   } elseif ($action == 'quote') {
@@ -67,6 +63,7 @@
           $shipping_cheapest_cost = $shipping_usps_cost;
         }
       }
+      $shipping_count++;
     }
   } elseif ($action == 'display') {
       if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
@@ -94,5 +91,4 @@
   } elseif ($action == 'remove') {
     tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_USPS_ENABLED'");
   }
-  $shipping_count = $shipping_count+1;
 ?>

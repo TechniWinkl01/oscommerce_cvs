@@ -1,5 +1,5 @@
 <?
-  /* $Id: ups.php,v 1.21 2001/03/05 22:26:10 hpdl Exp $ */
+  /* $Id: ups.php,v 1.22 2001/03/09 03:57:58 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/ups.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
@@ -21,11 +21,7 @@
                   <OPTION VALUE="XPD"><? echo SHIPPING_UPS_OPT_XPD; ?></OPTION>
                   </SELECT><br>
                 </td>
-                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1" CHECKED
-<?
-  // if ($shipping_count == 0) echo ' CHECKED';
-  echo "></td>\n";
-?>
+                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1" CHECKED></td>
              </tr>
 <?
   } elseif ($action == 'quote') {
@@ -64,6 +60,7 @@
           $shipping_cheapest_cost = $shipping_ups_cost;
         }
       }
+      $shipping_count++;
     }
   } elseif ($action == 'display') {
       if ($shipping_quote_ups == "1" || $shipping_quote_all == "1") {
@@ -91,5 +88,4 @@
   } elseif ($action == 'remove') {
     tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_UPS_ENABLED'");
   }
-  $shipping_count = $shipping_count+1;
 ?>

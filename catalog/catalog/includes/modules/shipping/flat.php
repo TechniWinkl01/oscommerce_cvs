@@ -1,5 +1,5 @@
 <?
-  /* $Id: flat.php,v 1.17 2001/03/05 22:26:08 hpdl Exp $ */
+  /* $Id: flat.php,v 1.18 2001/03/09 03:57:57 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/flat.php';include(DIR_WS_INCLUDES . 'include_once.php');
   }
@@ -9,12 +9,7 @@
               <tr>
                 <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;<? echo SHIPPING_FLAT_NAME; ?></font></td>
                 <td>&nbsp;</td>
-                <td align="right">&nbsp;<input type="checkbox" name="shipping_quote_flat" value="1"
-<?
-  // if ($shipping_count == 0)
-  echo ' CHECKED';
-  echo "></td>\n";
-?>
+                <td align="right">&nbsp;<input type="checkbox" name="shipping_quote_flat" value="1" CHECKED></td>
              </tr>
 <?
   } elseif ($action == 'quote') {
@@ -34,6 +29,7 @@
           $shipping_cheapest_cost = $shipping_flat_cost;
         }
       }
+      $shipping_count++;
     }
   } elseif ($action == 'display') {
       if ($shipping_quote_flat == "1" || $shipping_quote_all == "1") {
@@ -63,5 +59,4 @@
     tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_FLAT_ENABLED'");
     tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_FLAT_COST'");
   }
-  $shipping_count = $shipping_count+1;
 ?>
