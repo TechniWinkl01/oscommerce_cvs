@@ -183,16 +183,16 @@
 
     if ($HTTP_GET_VARS['manufacturers_id']) {
       if ($HTTP_GET_VARS['filter_id']) {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "'";
       } else {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'";
       }
       $filterlist_sql = "select distinct c.categories_id as id, c.categories_name as name from products p, products_to_categories p2c, categories c where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by c.categories_name";
     } else {
       if ($HTTP_GET_VARS['filter_id']) {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "'";
       } else {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p left join manufacturers m on p.manufacturers_id = m.manufacturers_id, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by ";
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p left join manufacturers m on p.manufacturers_id = m.manufacturers_id, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "'";
       }
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
@@ -201,7 +201,8 @@
       for ($col=0; $col<sizeof($column_list); $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col+1 . 'a';
-          $listing_sql .= "p.products_name";
+          $listing_sql .= " order by p.products_name";
+          break;
         }
       }
     }
@@ -210,6 +211,7 @@
       $sort_order = substr($HTTP_GET_VARS['sort'], 1);
 
       if ($sort_col <= sizeof($column_list)) {
+        $listing_sql .= ' order by ';
         switch ($column_list[$sort_col-1]) {
           case 'PRODUCT_LIST_MODEL':
             $listing_sql .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
@@ -238,7 +240,8 @@
         for ($col=0; $col<sizeof($column_list); $col++) {
           if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
             $HTTP_GET_VARS['sort'] = $col . 'a';
-            $listing_sql .= "p.products_name";
+            $listing_sql .= " order by p.products_name";
+            break;
           }
         }
       }
