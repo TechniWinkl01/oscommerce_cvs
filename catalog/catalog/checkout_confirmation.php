@@ -90,7 +90,6 @@
     $price = $products[$i]['price'];
     $total_price = $price;
     $check_weight = $products[$i]['weight'];
-    $total_weight = $total_weight + ($products[$i]['quantity'] * $check_weight);
     $products_name = $products[$i]['name'];
     echo '          <tr>' . "\n";
     echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $products[$i]['quantity'] . '&nbsp;</font></td>' . "\n";
@@ -120,14 +119,16 @@
         } else {
           echo "\n" . '<br>&nbsp;';
         }
-        $total_price += ($products[$i]['quantity'] * $attributes_values['options_values_price']);
+        $total_price += $attributes_values['options_values_price'];
       }
     }
 //------display customer choosen option eof-----
     echo '</font></td>' . "\n";
     echo '          </tr>' . "\n";
-    $cost = ($products[$i]['quantity'] * $final_price);
+    $cost = ($products[$i]['quantity'] * $total_price);
+    $total_weight = $total_weight + ($products[$i]['quantity'] * $check_weight);
     $total_tax += ($cost * tep_get_tax_rate($address_values['zone_id'], $products[$i]['tax_class_id'])/100);
+    $total_cost += $cost;
   }
 
   $country = tep_get_countries($address_values['country_id']);
