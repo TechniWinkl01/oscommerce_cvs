@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.49 2003/02/17 21:35:24 thomasamoulton Exp $
+  $Id: upgrade_3.php,v 1.50 2003/03/10 23:30:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -306,6 +306,10 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable GZip Compression', 'GZIP_COMPRESSION', 'false', 'Enable HTTP GZip compression.', '14', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Compression Level', 'GZIP_LEVEL', '5', 'Use this compression level 0-9 (0 = minimum, 9 = maximum).', '14', '2', now())");
 
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Session Directory', 'SESSION_WRITE_DIRECTORY', '/tmp', 'If sessions are file based, store them in this directory.', '15', '1', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Force Cookie Use', 'SESSION_FORCE_COOKIE_USE', 'False', 'Force the use of sessions when cookies are only enabled.', '15', '2', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Check SSL Session ID', 'SESSION_CHECK_SSL_SESSION_ID', 'False', 'Validate the SSL_SESSION_ID on every secure HTTPS page request.', '15', '3', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+
   osc_db_query("delete from configuration_group");
 
   osc_db_query("alter table configuration_group add visible int(1) default '1'");
@@ -324,6 +328,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration_group values ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1')");
   osc_db_query("insert into configuration_group values ('13', 'Download', 'Downloadable products options', '13', '1')");
   osc_db_query("insert into configuration_group values ('14', 'GZip Compression', 'GZip compression options', '14', '1')");
+  osc_db_query("insert into configuration_group values ('15', 'Sessions', 'Session options', '15', '1')");
 
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.265 2003/02/18 04:18:01 hpdl Exp $
+  $Id: application_top.php,v 1.266 2003/03/10 23:30:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,6 +58,7 @@
   define('FILENAME_CHECKOUT_SUCCESS', 'checkout_success.php');
   define('FILENAME_CONTACT_US', 'contact_us.php');
   define('FILENAME_CONDITIONS', 'conditions.php');
+  define('FILENAME_COOKIE_USAGE', 'cookie_usage.php');
   define('FILENAME_CREATE_ACCOUNT', 'create_account.php');
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
@@ -83,6 +84,7 @@
   define('FILENAME_SHIPPING', 'shipping.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
+  define('FILENAME_SSL_CHECK', 'ssl_check.php');
   define('FILENAME_TELL_A_FRIEND', 'tell_a_friend.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
 
@@ -136,18 +138,6 @@
 // customization for the design layout
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
-// check if sessions are supported, otherwise use the php3 compatible session class
-  if (!function_exists('session_start')) {
-    define('PHP_SESSION_NAME', 'sID');
-    define('PHP_SESSION_SAVE_PATH', '/tmp');
-
-    include(DIR_WS_CLASSES . 'sessions.php');
-  }
-
-// define how the session functions will be used
-  require(DIR_WS_FUNCTIONS . 'sessions.php');
-  tep_session_name('osCsid');
-
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
 
@@ -175,11 +165,13 @@
     }
   }
 
+  $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
+
 // set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
   if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
     if (strlen(getenv('PATH_INFO')) > 1) {
       $GET_arrays = array();
-      $PHP_SELF = str_replace(getenv('PATH_INFO'), '', $HTTP_SERVER_VARS['PHP_SELF']);
+      $PHP_SELF = str_replace(getenv('PATH_INFO'), '', $PHP_SELF);
       $vars = explode('/', substr(getenv('PATH_INFO'), 1));
       for ($i=0, $n=sizeof($vars); $i<$n; $i++) {
         if (strpos($vars[$i], '[]')) {
@@ -196,8 +188,6 @@
         }
       }
     }
-  } else {
-    $PHP_SELF = $HTTP_SERVER_VARS['PHP_SELF'];
   }
 
 // include cache functions if enabled
@@ -212,10 +202,23 @@
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
+// check if sessions are supported, otherwise use the php3 compatible session class
+  if (!function_exists('session_start')) {
+    define('PHP_SESSION_NAME', 'osCsid');
+    define('PHP_SESSION_SAVE_PATH', SESSION_WRITE_DIRECTORY);
+
+    include(DIR_WS_CLASSES . 'sessions.php');
+  }
+
+// define how the session functions will be used
+  require(DIR_WS_FUNCTIONS . 'sessions.php');
+  tep_session_name('osCsid');
+  tep_session_save_path(SESSION_WRITE_DIRECTORY);
+
 // lets start our session
    if (isset($HTTP_POST_VARS[tep_session_name()])) {
      tep_session_id($HTTP_POST_VARS[tep_session_name()]);
-   } elseif ( (getenv('HTTPS') == 'on') && isset($HTTP_GET_VARS[tep_session_name()]) ) {
+   } elseif ( ($request_type == 'SSL') && isset($HTTP_GET_VARS[tep_session_name()]) ) {
      tep_session_id($HTTP_GET_VARS[tep_session_name()]);
    }
 
@@ -223,7 +226,18 @@
     session_set_cookie_params(0, substr(DIR_WS_CATALOG, 0, -1));
   }
 
-  tep_session_start();
+  $session_started = false;
+  if (SESSION_FORCE_COOKIE_USE == 'True') {
+    setcookie('cookie_test', 'please_accept_for_session');
+
+    if (isset($HTTP_COOKIE_VARS['cookie_test'])) {
+      tep_session_start();
+      $session_started = true;
+    }
+  } else {
+    tep_session_start();
+    $session_started = true;
+  }
 
 // Create the cart & Fix the cart if necesary
   if (tep_session_is_registered('cart') && is_object($cart)) {
@@ -268,6 +282,19 @@
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
 
+  if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($session_started == true) ) {
+    if (!tep_session_is_registered('SSL_SESSION_ID')) {
+      if ($SSL_SESSION_ID = getenv('SSL_SESSION_ID')) {
+        tep_session_register('SSL_SESSION_ID');
+      }
+    } else {
+      if ($SSL_SESSION_ID != getenv('SSL_SESSION_ID')) {
+        tep_session_destroy();
+        tep_redirect(tep_href_link(FILENAME_SSL_CHECK));
+      }
+    }
+  }
+
 // currency
   if (!tep_session_is_registered('currency') || isset($HTTP_GET_VARS['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') && (LANGUAGE_CURRENCY != $currency) ) ) {
     if (!tep_session_is_registered('currency')) tep_session_register('currency');
@@ -294,6 +321,11 @@
 
 // Shopping cart actions
   if (isset($HTTP_GET_VARS['action'])) {
+// redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled
+    if ($session_started == false) {
+      tep_redirect(tep_href_link(FILENAME_COOKIE_USAGE));
+    }
+
     if (DISPLAY_CART == 'true') {
       $goto =  FILENAME_SHOPPING_CART;
       $parameters = array('action', 'cPath', 'products_id', 'pid');
