@@ -59,7 +59,7 @@ TD.infoBoxHeading {
 	font-size : 12px;
 }
 
-TD.infoBox {
+TD.infoBox, SPAN.infoBox {
 	font-family : Verdana, Arial, sans-serif;
 	font-size : 10px;
 }
@@ -154,4 +154,10 @@ TD.footer {
     font-family : Verdana, Arial, sans-serif;
     font-size : 10px;
     font-weight : bold;
+}
+
+SPAN.newItemInCart {
+	font-family : Verdana, Arial, sans-serif;
+	font-size : 10px;
+    color : #ff0000;
 }

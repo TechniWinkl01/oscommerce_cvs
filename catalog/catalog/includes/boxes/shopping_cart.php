@@ -13,23 +13,23 @@
     $cart_contents_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
     $products = $cart->get_products(); // $products[$i]['id'] .. $products[$i]['name'] .. $products[$i]['quantity']
     for ($i=0; $i<sizeof($products); $i++) {
-      $cart_contents_string .= '<tr><td align="right" valign="top">';
+      $cart_contents_string .= '<tr><td align="right" valign="top" class="infoBox">';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
-        $cart_contents_string .= FONT_STYLE_NEW_CART_ITEM; // highlight product quantity
+        $cart_contents_string .= '<span class="newItemInCart">'; // highlight product quantity
       } else {
-        $cart_contents_string .= FONT_STYLE_INFO_BOX_BODY;
+        $cart_contents_string .= '<span class="infoBox">';
       }
 
-      $cart_contents_string .= $products[$i]['quantity'] . 'x</font></td><td valign="top"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
+      $cart_contents_string .= $products[$i]['quantity'] . 'x</span></td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
-        $cart_contents_string .= FONT_STYLE_NEW_CART_ITEM; // highlight product name
+        $cart_contents_string .= '<span class="newItemInCart">'; // highlight product name
       } else {
-        $cart_contents_string .= FONT_STYLE_INFO_BOX_BODY;
+        $cart_contents_string .= '<span class="infoBox">';
       }
 
-      $cart_contents_string .= $products[$i]['name'] . '</font></a></td></tr>';
+      $cart_contents_string .= $products[$i]['name'] . '</span></a></td></tr>';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
         tep_session_unregister('new_products_id_in_cart');
