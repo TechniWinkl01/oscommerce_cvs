@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.29 2002/05/26 10:57:21 thomasamoulton Exp $
+  $Id: shopping_cart.php,v 1.30 2002/11/01 02:32:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   class shoppingCart {
-    var $contents, $total, $weight;
+    var $contents, $total, $weight, $cartID;
 
     function shoppingCart() {
       $this->reset();
@@ -68,6 +68,9 @@
         tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "'");
         tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "'");
       }
+
+      unset($this->cartID);
+      if (tep_session_is_registered('cartID')) tep_session_unregister('cartID');
     }
 
     function add_cart($products_id, $qty = '', $attributes = '', $notify = true) {
@@ -99,6 +102,9 @@
         }
       }
       $this->cleanup();
+
+// assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
+      $this->cartID = $this->generate_cart_id();
     }
 
     function update_quantity($products_id, $quantity = '', $attributes = '') {
@@ -172,6 +178,9 @@
         tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
         tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
       }
+
+// assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
+      $this->cartID = $this->generate_cart_id();
     }
 
     function remove_all() {
@@ -292,6 +301,10 @@
       $this->calculate();
 
       return $this->weight;
+    }
+
+    function generate_cart_id($length = 5) {
+      return tep_create_random_value($length, 'digits');
     }
 
     function unserialize($broken) {
