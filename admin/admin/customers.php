@@ -25,7 +25,7 @@
        $update_query = $update_query . "customers_state = '" . $state . "', ";
        $update_query = $update_query . "customers_zone_id = '" . $zone_id . "', ";
     }
-    $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
+    $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "', customers_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')) . 'info=' . $HTTP_POST_VARS['customers_id'], 'NONSSL')); tep_exit();
@@ -248,7 +248,7 @@ function check_form() {
     if (ACCOUNT_STATE) {
        $cust_query = $cust_query . "customers_state, customers_zone_id, ";
     }
-    $cust_query = $cust_query . "customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $HTTP_GET_VARS['cID'] . "'";
+    $cust_query = $cust_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from customers where customers_id = '" . $HTTP_GET_VARS['cID'] . "'";
     $customers_query = tep_db_query($cust_query);
     $customers = tep_db_fetch_array($customers_query);
     $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;
@@ -275,6 +275,7 @@ function check_form() {
     $country_id = $customers['customers_country_id'];
     $telephone = $customers['customers_telephone'];
     $fax = $customers['customers_fax'];
+    $newsletter = $customers['customers_newsletter'];
 ?>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -381,6 +382,16 @@ function check_form() {
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $fax; } else { echo '<input type="text" name="fax" maxlength="32" value="' . @$fax . '">&nbsp;' . ENTRY_FAX_NUMBER_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="2" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_OPTIONS; ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $newsletter; } else { echo '<select name="newsletter">'; if (@$newsletter=="1") { echo '<option selected value="1">'; } else { echo '<option value="1">'; } ?><?php echo ENTRY_NEWSLETTER_YES; ?></option><?php if (@$newsletter=="0") { echo '<option selected value="0">'; } else { echo '<option value="0">'; } ?><? echo ENTRY_NEWSLETTER_NO; ?></option><? } ?></font></td>
           </tr>
         </table></td>
       </tr>
