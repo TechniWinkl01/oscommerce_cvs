@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.67 2001/09/07 11:45:34 dwatkins Exp $
+  $Id: german.php,v 1.68 2001/09/08 08:40:54 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -51,7 +51,7 @@ define('HEADER_TITLE_LOGIN', 'Anmelden');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'Besucher seit');
-define('FOOTER_TEXT_BODY', 'Copyright © 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br>Running on <a href="http://theexchangeproject.org">The Exchange Project</a> ' . PROJECT_VERSION . '<br><br><a href="debug_phpinfo.php">Display my PHP parameters</a>');
+define('FOOTER_TEXT_BODY', 'Copyright © 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br>Powered von <a href="http://theexchangeproject.org">The Exchange Project</a> ' . PROJECT_VERSION . '<br><br><a href="debug_phpinfo.php">Zeige meine PHP Parameter</a>');
 
 // text for gender
 define('MALE', 'männlich');
@@ -144,7 +144,7 @@ define('JS_REVIEW_RATING', '* Geben Sie ihre Bewertung ein.\n');
 define('JS_GENDER', '* Anredeform festlegen.\n');
 define('JS_FIRST_NAME', '* Der \'Vornname\' muß mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_LAST_NAME', '* Der \'Nachname\' muß mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_DOB', '* Die \'Geburtsdaten\' im Format xx/xx/xxxx (Tag/Monat/Jahr) eingeben.\n');
+define('JS_DOB', '* Die \'Geburtsdaten\' im Format xx.xx.xxxx (Tag.Monat.Jahr) eingeben.\n');
 define('JS_EMAIL_ADDRESS', '* Die \'E-Mail Adresse\' muß mindestens aus ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muß mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muß mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
@@ -156,7 +156,7 @@ define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please select a payment method for your order.');
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
 
 define('CATEGORY_COMPANY', 'Firmendaten');
 define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');
@@ -260,7 +260,7 @@ define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
 define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span> M&ouml;chten Sie die <a href="%s"><u>neue Produkte</u></a> ansehen?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Wenn Sie nicht %s sind, melden Sie sich bitte <a href="%s"><u>hier</u></a> mit Ihrem Kundenkonto an.</small>');
-define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchtne Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?');
+define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchten Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?');
 
 define('TEXT_SORT_PRODUCTS', 'Sortierung der Artikel ist ');
 define('TEXT_DESCENDINGLY', 'absteigend');
