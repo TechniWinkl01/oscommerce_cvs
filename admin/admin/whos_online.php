@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.32 2003/06/29 22:50:52 hpdl Exp $
+  $Id: whos_online.php,v 1.33 2004/02/14 20:51:22 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -141,7 +141,7 @@
       }
 
       $session_data_id = substr($session_data, $start_id, (strpos($session_data, ';', $start_id) - $start_id + 1));
-      $session_data_cart = substr($session_data, $start_cart, $i);
+      $session_data_cart = substr($session_data, $start_cart, $i - $start_cart);
       $session_data_currency = substr($session_data, $start_currency, (strpos($session_data, ';', $start_currency) - $start_currency + 1));
       $session_data_country = substr($session_data, $start_country, (strpos($session_data, ';', $start_country) - $start_country + 1));
       $session_data_zone = substr($session_data, $start_zone, (strpos($session_data, ';', $start_zone) - $start_zone + 1));
