@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.10 2003/06/11 17:35:03 hpdl Exp $
+  $Id: whos_online.php,v 1.11 2003/06/20 00:12:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
 // remove entries that have expired
     tep_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
 
-    $stored_customer_query = tep_db_query("select count(*) as count from " . TABLE_WHOS_ONLINE . " where session_id = '" . (int)$wo_session_id . "'");
+    $stored_customer_query = tep_db_query("select count(*) as count from " . TABLE_WHOS_ONLINE . " where session_id = '" . tep_db_input($wo_session_id) . "'");
     $stored_customer = tep_db_fetch_array($stored_customer_query);
 
     if ($stored_customer['count'] > 0) {

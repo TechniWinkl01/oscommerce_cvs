@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.11 2003/06/09 21:16:43 hpdl Exp $
+  $Id: banner.php,v 1.12 2003/06/20 00:12:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,7 +46,7 @@
             tep_set_banner_status($banners['banners_id'], '0');
           }
         } elseif (tep_not_null($banners['expires_impressions'])) {
-          if ($banners['banners_shown'] >= $banners['expires_impressions']) {
+          if ( ($banners['expires_impressions'] > 0) && ($banners['banners_shown'] >= $banners['expires_impressions']) ) {
             tep_set_banner_status($banners['banners_id'], '0');
           }
         }
