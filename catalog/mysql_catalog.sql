@@ -320,7 +320,7 @@ INSERT INTO countries VALUES (184,'Saudi Arabia','SA','SAU','$firstname $lastnam
 INSERT INTO countries VALUES (185,'Senegal','SN','SEN','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');
 INSERT INTO countries VALUES (186,'Seychelles','SC','SYC','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');
 INSERT INTO countries VALUES (187,'Sierra Leone','SL','SLE','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');
-INSERT INTO countries VALUES (188,'Singapore','SG','SGP','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');
+INSERT INTO countries VALUES (188,'Singapore','SG','SGP','$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country','$city / $country');
 INSERT INTO countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');
 INSERT INTO countries VALUES (190,'Slovenia','SI','SVN','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');
 INSERT INTO countries VALUES (191,'Solomon Islands','SB','SLB','$firstname $lastname$cr$streets$cr$city, $postcode$cr$state, $country','$city / $country');

@@ -21,3 +21,7 @@ update countries set countries_address_summary='$city, $state / $country' where 
 # for Spain (195)
 update countries set countries_address_format='$firstname $lastname$cr$streets$cr$city$cr$postcode - $state, $country' where countries_id = '195';
 update countries set countries_address_summary='$city, $state / $country' where countries_id = '195';
+
+# for Singapore (188)
+update countries set countries_address_format='$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country' where countries_id = '188';
+update countries set countries_address_summary='$city / $country' where countries_id = '188';
