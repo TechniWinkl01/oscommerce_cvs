@@ -1387,28 +1387,6 @@ function tep_address_summary($customers_id, $address_id) {
     return $result;
   }
 
-////
-// If no parameter is passed, this function returns all languages and required information such as id, name, language path, etc
-// If the language code is given as a parameter, it returns the same information just for that one language
-// TABLES: languages
-  function tep_get_languages($language = '') {
-    if ($language != '') {
-      $languages_query = tep_db_query("select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " where code = '" . $language . "'");
-    } else {
-      $languages_query = tep_db_query("select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " order by sort_order");
-    }
-    while ($languages = tep_db_fetch_array($languages_query)) {
-      $languages_array[] = array('id' => $languages['languages_id'],
-                                 'name' => $languages['name'],
-                                 'code' => $languages['code'],
-                                 'image' => $languages['image'],
-                                 'directory' => $languages['directory']
-                                );
-    }
-
-    return $languages_array;
-  }
-
   function tep_currency_exists($code) {
     $currency_code = tep_db_query("select count(*) as count from " . TABLE_CURRENCIES . " where code = '" . $code . "'");
     if (tep_db_num_rows($currency_code)) {

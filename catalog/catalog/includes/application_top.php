@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.128 2001/06/04 15:52:13 hpdl Exp $
+  $Id: application_top.php,v 1.129 2001/06/04 16:05:55 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -272,6 +272,9 @@
     tep_session_register('cart');
     $cart = new shoppingCart;
   }
+
+// define our localization functions
+  require(DIR_WS_FUNCTIONS . 'localization.php');
 
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
