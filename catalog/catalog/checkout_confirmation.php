@@ -130,7 +130,7 @@
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
     $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
-    $total_cost += $total_products_price;
+    $total_cost += ($total_products_price * $products[$i]['quantity']);
   }
 
   $country = tep_get_countries($address_values['country_id']);
@@ -160,7 +160,7 @@
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($cart->show_total()); ?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</font></td>
               </tr>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</font></td>
@@ -178,7 +178,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo SUB_TITLE_TOTAL; ?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo tep_currency_format($cart->show_total() + $total_tax + $shipping_cost); ?></b>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping_cost); ?></b>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>
