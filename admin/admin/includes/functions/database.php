@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.20 2002/06/03 17:36:42 thomasamoulton Exp $
+  $Id: database.php,v 1.21 2002/06/05 11:16:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,24 +61,32 @@
       $query = substr($query, 0, -2) . ') values (';
       reset($data);
       while (list(, $value) = each($data)) {
-        if ($value == 'now()') {
-          $query .= 'now(), ';
-        } elseif ($value == 'null') {
-          $query .= 'null, ';
-        } else {
-          $query .= '\'' . tep_db_input($value) . '\', ';
+        switch ((string)$value) {
+          case 'now()':
+            $query .= 'now(), ';
+            break;
+          case 'null':
+            $query .= 'null, ';
+            break;
+          default:
+            $query .= '\'' . tep_db_input($value) . '\', ';
+            break;
         }
       }
       $query = substr($query, 0, -2) . ')';
     } elseif ($action == 'update') {
       $query = 'update ' . $table . ' set ';
       while (list($columns, $value) = each($data)) {
-        if ($value == 'now()') {
-          $query .= $columns . ' = now(), ';
-        } elseif ($value == 'null') {
-          $query .= $columns .= ' = null, ';
-        } else {
-          $query .= $columns . ' = \'' . tep_db_input($value) . '\', ';
+        switch ((string)$value) {
+          case 'now()':
+            $query .= $columns . ' = now(), ';
+            break;
+          case 'null':
+            $query .= $columns .= ' = null, ';
+            break;
+          default:
+            $query .= $columns . ' = \'' . tep_db_input($value) . '\', ';
+            break;
         }
       }
       $query = substr($query, 0, -2) . ' where ' . $parameters;
