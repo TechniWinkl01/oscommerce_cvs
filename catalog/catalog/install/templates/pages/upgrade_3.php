@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.5 2002/02/01 02:46:52 hpdl Exp $
+  $Id: upgrade_3.php,v 1.6 2002/02/02 18:18:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -420,6 +420,8 @@ changeText('statusText', 'Updating Orders');
   while ($orders_products = osc_db_fetch_array($orders_products_query)) {
     osc_db_query("update orders_products_attributes set orders_products_id = '" . $orders_products['orders_products_id'] . "' where orders_products_attributes_id = '" . $orders_products['orders_products_attributes_id'] . "' and orders_products_id = '" . $orders_products['products_id'] . "'");
   }
+
+  osc_db_query("create table orders_products_download ( orders_products_download_id int(5) not null auto_increment, orders_id int(5) not null default '0', orders_products_id int(5) not null default '0', orders_products_filename varchar(255) not null, download_maxdays int(2) not null default '0', download_count int(2) not null default '0', primary key (orders_products_download_id))");
 ?>
 
 <script language="javascript"><!--
@@ -483,6 +485,8 @@ changeText('statusText', 'Updating Products');
   }
 
   osc_db_query("alter table products_to_categories change products_id products_id int(5) not null");
+
+  osc_db_query("create table products_attributes_download ( products_attributes_id int(5) not null, products_attributes_filename varchar(255) not null, products_attributes_maxdays int(2) default '0', products_attributes_maxcount int(2) default '0', primary key (products_attributes_id))");
 ?>
 
 <script language="javascript"><!--
