@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.244 2005/02/25 01:56:52 hpdl Exp $
+  $Id: general.php,v 1.245 2005/03/29 22:55:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -146,8 +146,8 @@
     if (is_array($_GET) && (sizeof($_GET) > 0)) {
       reset($_GET);
       while (list($key, $value) = each($_GET)) {
-        if ( (is_string($value) && (strlen($value) > 0)) && ($key != $osC_Session->name) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
-          $get_url .= $key . '=' . rawurlencode($value) . '&';
+        if ( ($key != $osC_Session->name) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
+          $get_url .= $key . (empty($value) ? '&' : '=' . rawurlencode($value) . '&');
         }
       }
     }
