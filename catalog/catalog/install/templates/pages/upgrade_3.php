@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.56 2003/04/08 23:51:20 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.57 2003/04/30 10:18:28 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -356,6 +356,8 @@ changeText('statusText', 'Updating Currencies');
   osc_db_query("alter table currencies add last_updated datetime");
 
   osc_db_query("update currencies set value = '1'");
+
+  osc_db_query("delete from currencies where code = 'ESP' or code = 'DEM'");
 ?>
 
 <script language="javascript"><!--
