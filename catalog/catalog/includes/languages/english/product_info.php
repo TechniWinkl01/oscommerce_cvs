@@ -10,6 +10,7 @@ define('TEXT_PRODUCT_NOT_FOUND', 'Product not found!');
 define('TEXT_CURRENT_REVIEWS', 'Current Reviews:');
 define('TEXT_MORE_INFORMATION', 'For more information, please visit this products <a href="http://%s" target="blank"><u>webpage</u></a>.');
 define('TEXT_DATE_ADDED', 'This product was added to our catalog on %s.');
+define('TEXT_ALSO_PURCHASED_PRODUCTS', 'Customers who bought this product also purchased');
 
 define('IMAGE_MAIN_MENU', 'Main Menu');
 define('IMAGE_WRITE_A_REVIEW', 'Write a Review');

@@ -37,6 +37,7 @@
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
+  define('FILENAME_ALSO_PURCHASED_PRODUCTS', 'also_purchased_products.php'); // This is the bottom of product_info.php (found in modules)
   define('FILENAME_ACCOUNT', 'account.php');
   define('FILENAME_ACCOUNT_EDIT', 'account_edit.php');
   define('FILENAME_ACCOUNT_EDIT_PROCESS', 'account_edit_process.php');
@@ -216,6 +217,10 @@
 // Bestsellers Min/Max Controls 
   define('MIN_DISPLAY_BESTSELLERS', 1);    // Min no. of bestsellers to display
   define('MAX_DISPLAY_BESTSELLERS', 10);   // Max no. of bestsellers to display
+
+// Min/Max Controls for also_purchased_products.php : 'Customers who bought this product also purchased' module
+  define('MIN_DISPLAY_ALSO_PURCHASED', 1);   // Min no. of products in purchased list to qualify
+  define('MAX_DISPLAY_ALSO_PURCHASED', 5);   // Max no. of products to display
 
 // Prev/Next Navigation Bar location
   define('PREV_NEXT_BAR_LOCATION', 2) ;    // 1 - top, 2 - bottom, 3 - both

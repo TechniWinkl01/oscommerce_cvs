@@ -166,6 +166,7 @@
         </table></form></td>
       </tr>
 <?
+  $include_file = DIR_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS; include(DIR_INCLUDES . 'include_once.php');
   }
 ?>
     </table></td>
