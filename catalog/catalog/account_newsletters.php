@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_newsletters.php,v 1.5 2004/07/22 17:23:52 hpdl Exp $
+  $Id: account_newsletters.php,v 1.6 2005/02/23 15:24:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,8 +21,10 @@
 // needs to be included earlier to set the success message in the messageStack
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_NEWSLETTERS);
 
-  $newsletter_query = tep_db_query("select customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
-  $newsletter = tep_db_fetch_array($newsletter_query);
+  $Qnewsletter = $osC_Database->query('select customers_newsletter from :table_customers where customers_id = :customers_id');
+  $Qnewsletter->bindTable(':table_customers', TABLE_CUSTOMERS);
+  $Qnewsletter->bindInt(':customers_id', $osC_Customer->id);
+  $Qnewsletter->execute();
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
     if (isset($_POST['newsletter_general']) && is_numeric($_POST['newsletter_general'])) {
@@ -31,10 +33,18 @@
       $newsletter_general = '0';
     }
 
-    if ($newsletter_general != $newsletter['customers_newsletter']) {
-      $newsletter_general = (($newsletter['customers_newsletter'] == '1') ? '0' : '1');
+    if ($newsletter_general != $Qnewsletter->value('customers_newsletter')) {
+      $newsletter_general = (($Qnewsletter->value('customers_newsletter') == '1') ? '0' : '1');
 
-      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_newsletter = '" . (int)$newsletter_general . "' where customers_id = '" . (int)$osC_Customer->id . "'");
+      $Qupdate = $osC_Database->query('update :table_customers set customers_newsletter = :customers_newsletter where customers_id = :customers_id');
+      $Qupdate->bindTable(':table_customers', TABLE_CUSTOMERS);
+      $Qupdate->bindInt(':customers_newsletter', $newsletter_general);
+      $Qupdate->bindInt(':customers_id', $osC_Customer->id);
+      $Qupdate->execute();
+
+      if ($Qupdate->affectedRows() === 1) {
+        $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');
+      }
     }
 
     $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');
@@ -103,7 +113,7 @@ function checkBox(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="checkBox('newsletter_general')">
-                    <td class="main"><?php echo osc_draw_checkbox_field('newsletter_general', '1', $newsletter['customers_newsletter'], 'onclick="checkBox(\'newsletter_general\')"'); ?></td>
+                    <td class="main"><?php echo osc_draw_checkbox_field('newsletter_general', '1', $Qnewsletter->value('customers_newsletter'), 'onclick="checkBox(\'newsletter_general\')"'); ?></td>
                     <td class="main"><b><?php echo MY_NEWSLETTERS_GENERAL_NEWSLETTER; ?></b></td>
                   </tr>
                   <tr>
