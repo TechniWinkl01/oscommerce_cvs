@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.92 2002/04/06 19:35:45 hpdl Exp $
+  $Id: orders.php,v 1.93 2002/04/08 01:55:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -221,22 +221,14 @@
 ?>
           <tr>
             <td align="right" colspan="8"><table border="0" cellspacing="0" cellpadding="2">
-              <tr>
-                <td align="right" class="smallText"><?php echo ENTRY_SUB_TOTAL; ?></td>
-                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['subtotal'], true, $order->info['currency'], $order->info['currency_value']); ?></td>
-              </tr>
-              <tr>
-                <td align="right" class="smallText"><?php echo ENTRY_TAX; ?></td>
-                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['tax'], true, $order->info['currency'], $order->info['currency_value']); ?></td>
-              </tr>
-              <tr>
-                <td align="right" class="smallText"><?php echo $order->info['shipping_method'] . ' ' . ENTRY_SHIPPING; ?></td>
-                <td align="right" class="smallText"><?php echo tep_currency_format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']); ?></td>
-              </tr>
-              <tr>
-                <td align="right" class="smallText"><b><?php echo ENTRY_TOTAL; ?></b></td>
-                <td align="right" class="smallText"><b><?php echo tep_currency_format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']); ?></b></td>
-              </tr>
+<?php
+  for ($i=0; $i<sizeof($order->totals); $i++) {
+    echo '              <tr>' . "\n" .
+         '                <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
+         '                <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .
+         '              </tr>' . "\n";
+  }
+?>
             </table></td>
           </tr>
         </table></td>
