@@ -87,9 +87,9 @@
   function tep_image($src, $width, $height, $border, $alt) {
     global $image;
 
+    $image = '<!-- NO IMAGE DEFINED -->';
     if (!IMAGE_REQUIRED) {
       if($src == "" || $src == "images/transparent.gif" || $src == "none") {
-        $image = "<!-- NO IMAGE DEFINED -->";
         $src = '';
       }
     }
