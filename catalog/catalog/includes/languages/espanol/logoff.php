@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Log Off');
-define('NAVBAR_TITLE', 'Log Off');
-define('TEXT_MAIN', 'You have been logged off your account. It is now safe to leave the computer.<br><br>Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.');
+define('HEADING_TITLE', 'Salir');
+define('NAVBAR_TITLE', 'Salir');
+define('TEXT_MAIN', 'Ha solicitado salir de su cuenta. Ahora es seguro abandonar el ordenador.<br><br>Su carrito de la compra ha sido guardado y el contenido del mismo será restaurado cuando vuelva a entrar en su cuenta.');
 ?>
