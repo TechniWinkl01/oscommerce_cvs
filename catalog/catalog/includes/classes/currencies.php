@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: currencies.php,v 1.7 2001/11/21 12:48:01 dgw_ Exp $
+  $Id: currencies.php,v 1.8 2002/03/10 23:21:23 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -57,6 +57,26 @@
 
     function get_value($code) {
       return $this->currencies[$code]['value'];
+    }
+
+    function display_price($products_price, $tax_class_id) {
+      global $customer_country_id, $customer_zone_id;
+
+      if (!tep_session_is_registered('customer_id')) {
+      	if (DISPLAY_PRICE_WITH_TAX == 'true') {
+        $country_id = STORE_COUNTRY;
+        $zone_id = STORE_ZONE;
+        }
+      } elseif (DISPLAY_PRICE_WITH_TAX == 'true') {
+        $country_id = $customer_country_id;
+        $zone_id = $customer_zone_id;
+      } 
+      $products_tax = tep_get_tax_rate($country_id, $zone_id, $tax_class_id);
+      $products_price = ($products_price * (($products_tax/100)+1));
+
+      $price = $this->format($products_price);
+
+      return $price;
     }
 
   }

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.32 2002/01/15 20:19:52 dgw_ Exp $
+  $Id: product_listing.php,v 1.33 2002/03/10 23:30:37 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -137,9 +137,9 @@
           case 'PRODUCT_LIST_PRICE':
             $lc_align = 'right';
             if ($listing_values['specials_new_products_price']) {
-              $lc_text = '&nbsp;<s>' .  $currencies->format($listing_values['products_price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->format($listing_values['specials_new_products_price']) . '</span>&nbsp;';
+              $lc_text = '&nbsp;<s>' .  $currencies->display_price($listing_values['products_price'], $listing_values['products_tax_class_id']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing_values['specials_new_products_price'], $listing_values['products_tax_class_id']) . '</span>&nbsp;';
             } else {
-              $lc_text = '&nbsp;' . $currencies->format($listing_values['products_price']) . '&nbsp;';
+              $lc_text = '&nbsp;' . $currencies->display_price($listing_values['products_price'], $listing_values['products_tax_class_id']) . '&nbsp;';
             }
             break;
           case 'PRODUCT_LIST_QUANTITY':

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: products_new.php,v 1.6 2001/12/05 22:41:46 dgw_ Exp $
+  $Id: products_new.php,v 1.7 2002/03/10 23:33:25 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,9 +21,9 @@
   } else {
     for($i=0; $i<sizeof($products_new_array); $i++) {
       if ($products_new_array[$i]['specials_price']) {
-        $products_price = '<s>' .  $currencies->format($products_new_array[$i]['price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->format($products_new_array[$i]['specials_price']) . '</span>';
+        $products_price = '<s>' .  $currencies->display_price($products_new_array[$i]['price'], $products_new_array[$i]['tax_class_id']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($products_new_array[$i]['specials_price'], $products_new_array[$i]['tax_class_id']) . '</span>';
       } else {
-        $products_price = $currencies->format($products_new_array[$i]['price']);
+        $products_price = $currencies->display_price($products_new_array[$i]['price'], $products_new_array[$i]['tax_class_id']);
       }
 ?>
   <tr>
