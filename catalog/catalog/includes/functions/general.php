@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.105 2001/06/15 23:48:58 hpdl Exp $
+  $Id: general.php,v 1.106 2001/06/18 09:18:39 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -874,7 +874,7 @@
 // TABLES: categories
   function tep_get_parent_categories(&$categories, $categories_id) {
     $parent_categories_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . $categories_id . "'");
-    while ($parent_categories = tep_db_fetch_array($parent_categories_id)) {
+    while ($parent_categories = tep_db_fetch_array($parent_categories_query)) {
       if ($parent_categories['parent_id'] == 0) return true;
       $categories[sizeof($categories)] = $parent_categories['parent_id'];
       if ($parent_categories['parent_id'] != $categories_id) {
