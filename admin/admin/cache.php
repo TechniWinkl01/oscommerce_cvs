@@ -12,7 +12,7 @@
           if ($cache_blocks[$i]['multiple']) {
             if ($dir = @opendir(DIR_FS_CACHE)) {
               while ($cache_file = readdir($dir)) {
-                if (ereg($cache_blocks[$i]['file'], $cache_file)) {
+                if (ereg('^' . $cache_blocks[$i]['file'], $cache_file)) {
                   @unlink(DIR_FS_CACHE . $cache_file);
                 }
               }
@@ -85,10 +85,24 @@
               </tr>
 <?
   for ($i=0; $i<sizeof($cache_blocks); $i++) {
+    if (file_exists(DIR_FS_CACHE . $cache_blocks[$i]['file'])) {
+      $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_blocks[$i]['file']));
+    } else {
+      $cache_mtime = TEXT_FILE_DOES_NOT_EXIST;
+      if ($dir = @opendir(DIR_FS_CACHE)) {
+        while ($cache_file = readdir($dir)) {
+          if (ereg('^' . $cache_blocks[$i]['file'], $cache_file)) {
+            $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_file));
+            break;
+          }
+        }
+        closedir($dir);
+      }
+    }
 ?>
               <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
                 <td class="tableData">&nbsp;<? echo $cache_blocks[$i]['title']; ?>&nbsp;</td>
-                <td class="tableData" align="right">&nbsp;<? if (file_exists(DIR_FS_CACHE . $cache_blocks[$i]['file'])) { echo strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_blocks[$i]['file'])); } else { echo TEXT_FILE_DOES_NOT_EXIST; } ?>&nbsp;</td>
+                <td class="tableData" align="right">&nbsp;<? echo $cache_mtime; ?>&nbsp;</td>
                 <td class="tableData" align="right"><? echo '<a href="' . tep_href_link(FILENAME_CACHE, 'action=reset&block=' . $cache_blocks[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_reset.gif', 'Reset', 13, 13) . '</a>'; ?>&nbsp;</td>
               </tr>
 <?
