@@ -20,7 +20,7 @@
 
       $image_location = '';
       if ($banners_image != 'none') {
-        $image_location = (substr(DIR_WS_CATALOG_IMAGES, 0, 1) == '/') ? DIR_FS_DOCUMENT_ROOT . substr(DIR_WS_CATALOG_IMAGES, 1) : DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES;
+        $image_location = (substr(DIR_WS_CATALOG_IMAGES, 0, 1) == '/') ? DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES : DIR_FS_DOCUMENT_ROOT . '/' . DIR_WS_CATALOG_IMAGES;
         if ($HTTP_POST_VARS['banners_image_target'] != '') {
           $image_location .= $HTTP_POST_VARS['banners_image_target'];
         }
@@ -30,7 +30,7 @@
       }
 
       $db_image_location = ($HTTP_POST_VARS['banners_image_local'] != '') ? 'images/' . $HTTP_POST_VARS['banners_image_local'] : 'images/' . $banners_image_target . $banners_image_name;
-      tep_db_query("insert into " . TABLE_BANNERS . " ('', '" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', now(), '1')");
+      tep_db_query("insert into " . TABLE_BANNERS . " (banners_title,banners_url,banners_image,banners_group,date_added,status) values ('" . $banners_title . "', '" . $banners_url . "', '" . $db_image_location . "', '" . $banners_group . "', now(), '1')");
 
       header('Location: ' . tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL')); tep_exit();
     }
