@@ -5,6 +5,13 @@
     }
   }
 
+////
+// Redirect to another page or site
+  function tep_redirect($url) {
+    header('Location: ' . $url);
+    tep_exit();
+  }
+
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
     if ($page == '') {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
@@ -38,6 +45,9 @@
     }
     if ($height) {
       $image .= ' height="' . $height . '"';
+    }
+    if ($params) {
+      $image .= ' ' . $params;
     }
     $image .= '>';
 
@@ -257,13 +267,19 @@
     return $select_string;
   }
 
-  function tep_products_pull_down($parameters) {
+  function tep_draw_products_pull_down($name, $parameters = '', $exclude = array()) {
     global $languages_id;
 
-    $select_string = '<select ' . $parameters . '>';
-    $products_query = tep_db_query("select p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by products_name");
+    $select_string = '<select name="' . $name . '"';
+    if ($parameters) {
+      $select_string .= ' ' . $parameters;
+    }
+    $select_string .= '>';
+    $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
-      $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . '</option>';
+      if (!tep_in_array($products['products_id'], $exclude)) {
+        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . tep_currency_format($products['products_price']) . ')</option>';
+      }
     }
     $select_string .= '</select>';
 
@@ -764,10 +780,6 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     return $categories_count;
   }
 
-  function tep_redirect($destination, $parameters = '', $connection = 'NONSSL') {
-    header('Location: ' . tep_href_link($destination, $parameters, $connection));
-  }
-
 ////
 // Returns an array with countries
 // TABLES: countries
@@ -837,5 +849,36 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     if (!get_cfg_var('safe_mode')) { 
       set_time_limit(180); 
     } 
+  }
+
+////
+// Output a form hidden field
+  function tep_draw_hidden_field($name, $value = '') {
+    $field = '<input type="hidden" name="' . $name . '" value="';
+    if ($value != '') {
+      $field .= trim($value);
+    } else {
+      $field .= trim($GLOBALS[$name]);
+    }
+    $field .= '">';
+
+    return $field;
+  }
+
+////
+// Output a form input field
+  function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
+    $field = '<input type="' . $type . '" name="' . $name . '"';
+    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+      $field .= ' value="' . trim($GLOBALS[$name]) . '"';
+    } elseif ($value != '') {
+      $field .= ' value="' . trim($value) . '"';
+    }
+    if ($parameters != '') {
+      $field .= ' ' . $parameters;
+    }
+    $field .= '>';
+
+    return $field;
   }
 ?>
