@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.32 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: products_attributes.php,v 1.33 2001/12/29 20:14:06 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,13 +14,14 @@
   $languages = tep_get_languages();
 
   if ($HTTP_GET_VARS['action']) {
+    $page_info = 'option_page=' . $HTTP_GET_VARS['option_page'] . '&value_page=' . $HTTP_GET_VARS['value_page'] . '&attribute_page=' . $HTTP_GET_VARS['attribute_page'];
     switch($HTTP_GET_VARS['action']) {
       case 'add_product_options':
         for ($i = 0; $i < sizeof($languages); $i ++) {
           $option_name = $HTTP_POST_VARS['option_name'];
           tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS . " (products_options_id, products_options_name, language_id) values ('" . $HTTP_POST_VARS['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "')");
         }
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL')); 
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info)); 
         break;
       case 'add_product_option_values':
         for ($i = 0; $i < sizeof($languages); $i ++) {
@@ -28,19 +29,19 @@
           tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES . " (products_options_values_id, language_id, products_options_values_name) values ('" . $HTTP_POST_VARS['value_id'] . "', '" . $languages[$i]['id'] . "', '" . $value_name[$languages[$i]['id']] . "')");
         }
         tep_db_query("insert into " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " (products_options_id, products_options_values_id) values ('" . $HTTP_POST_VARS['option_id'] . "', '" . $HTTP_POST_VARS['value_id'] . "')");
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'add_product_attributes':
         tep_db_query("insert into " . TABLE_PRODUCTS_ATTRIBUTES . " values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['options_id'] . "', '" . $HTTP_POST_VARS['values_id'] . "', '" . $HTTP_POST_VARS['value_price'] . "', '" . $HTTP_POST_VARS['price_prefix'] . "')");
         $products_attributes_id = tep_db_insert_id();
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_option_name':
         for ($i = 0; $i < sizeof($languages); $i ++) {
           $option_name = $HTTP_POST_VARS['option_name'];
           tep_db_query("update " . TABLE_PRODUCTS_OPTIONS . " set products_options_name = '" . $option_name[$languages[$i]['id']] . "' where products_options_id = '" . $HTTP_POST_VARS['option_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
         }
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_value':
         for ($i = 0; $i < sizeof($languages); $i ++) {
@@ -48,25 +49,25 @@
           tep_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES . " set products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' where products_options_values_id = '" . $HTTP_POST_VARS['value_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
         }
         tep_db_query("update " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " set products_options_id = '" . $HTTP_POST_VARS['option_id'] . "', products_options_values_id = '" . $HTTP_POST_VARS['value_id'] . "'  where products_options_values_to_products_options_id = '" . $HTTP_POST_VARS['value_id'] . "'");
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'update_product_attribute':
         tep_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES . " set products_id = '" . $HTTP_POST_VARS['products_id'] . "', options_id = '" . $HTTP_POST_VARS['options_id'] . "', options_values_id = '" . $HTTP_POST_VARS['values_id'] . "', options_values_price = '" . $HTTP_POST_VARS['value_price'] . "', price_prefix = '" . $HTTP_POST_VARS['price_prefix'] . "' where products_attributes_id = '" . $HTTP_POST_VARS['attribute_id'] . "'");
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'delete_option':
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $HTTP_GET_VARS['option_id'] . "'");
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'delete_value':
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $HTTP_GET_VARS['value_id'] . "'");
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $HTTP_GET_VARS['value_id'] . "'");
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " where products_options_values_id = '" . $HTTP_GET_VARS['value_id'] . "'");
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
       case 'delete_attribute':
         tep_db_query("delete from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_attributes_id = '" . $HTTP_GET_VARS['attribute_id'] . "'");
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'option_page=' . $option_page . '&value_page=' . $value_page, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $page_info));
         break;
     }
   }
@@ -215,10 +216,6 @@ function go_option() {
     }
     $num_pages = (int) $num_pages;
 
-    if (($option_page > $num_pages) || ($option_page < 0)) {
-      die("You have specified an invalid page number");
-    }
-
     $options = $options . " LIMIT $option_page_start, $per_page";
 
     // Previous
@@ -241,7 +238,7 @@ function go_option() {
 ?>
                 </td>
               </tr>
-    	      <tr>
+              <tr>
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
@@ -414,10 +411,6 @@ function go_option() {
     }
     $num_pages = (int) $num_pages;
 
-    if (($value_page > $num_pages) || ($value_page < 0)) {
-      die("You have specified an invalid page number");
-    }
-
     $values = $values . " LIMIT $value_page_start, $per_page";
 
     // Previous
@@ -506,7 +499,7 @@ function go_option() {
                 <td colspan="4"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-    if ($HTTP_GET_VARS['action'] != 'update_value') {
+    if ($HTTP_GET_VARS['action'] != 'update_option_value') {
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
@@ -554,7 +547,14 @@ function go_option() {
         </table></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+    if ($HTTP_GET_VARS['action'] == 'update_attribute') {
+      $form_action = 'update_product_attribute';
+    } else {
+      $form_action = 'add_product_attributes';
+    }
+?>
+        <td><form name="attributes" action="<?php echo tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="7" class="smallText">
 <?php
@@ -579,10 +579,6 @@ function go_option() {
      $num_pages = ($num_rows / $per_page) + 1;
   }
   $num_pages = (int) $num_pages;
-
-  if (($attribute_page > $num_pages) || ($attribute_page < 0)) {
-    die("You have specified an invalid page number");
-  }
 
   $attributes = $attributes . " LIMIT $attribute_page_start, $per_page";
 
@@ -611,9 +607,9 @@ function go_option() {
           </tr>
           <tr>
             <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-            <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-            <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-            <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
             <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
             <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
             <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
@@ -633,10 +629,9 @@ function go_option() {
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?php
     if (($HTTP_GET_VARS['action'] == 'update_attribute') && ($HTTP_GET_VARS['attribute_id'] == $attributes_values['products_attributes_id'])) {
-      echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_product_attribute' . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '" method="post">';
 ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<select name="products_id">
+            <td class="smallText">&nbsp;<select name="products_id">
 <?php
       $products = tep_db_query("select p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "' order by pd.products_name");
       while($products_values = tep_db_fetch_array($products)) {
@@ -648,7 +643,7 @@ function go_option() {
       } 
 ?>
             </select>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<select name="options_id">
+            <td class="smallText">&nbsp;<select name="options_id">
 <?php
       $options = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS . " order by products_options_name");
       while($options_values = tep_db_fetch_array($options)) {
@@ -660,7 +655,7 @@ function go_option() {
       } 
 ?>
             </select>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<select name="values_id">
+            <td class="smallText">&nbsp;<select name="values_id">
 <?php
       $values = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS_VALUES . " order by products_options_values_name");
       while($values_values = tep_db_fetch_array($values)) {
@@ -676,23 +671,22 @@ function go_option() {
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_update_red.gif', IMAGE_UPDATE); ?>&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;</td>
 <?php
-      echo '</form>' . "\n";
     } elseif (($HTTP_GET_VARS['action'] == 'delete_product_attribute') && ($HTTP_GET_VARS['attribute_id'] == $attributes_values['products_attributes_id'])) {
 ?>
             <td class="smallText">&nbsp;<b><?php echo $attributes_values["products_attributes_id"]; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<b><?php echo $products_name_only; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<b><?php echo $options_name; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<b><?php echo $values_name; ?></b>&nbsp;</td>
+            <td class="smallText">&nbsp;<b><?php echo $products_name_only; ?></b>&nbsp;</td>
+            <td class="smallText">&nbsp;<b><?php echo $options_name; ?></b>&nbsp;</td>
+            <td class="smallText">&nbsp;<b><?php echo $values_name; ?></b>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_values_price"]; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values["price_prefix"]; ?></b>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<b><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_attribute&attribute_id=' . $HTTP_GET_VARS['attribute_id'], 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_confirm_red.gif', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;</b></td>
+            <td align="center" class="smallText">&nbsp;<b><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_attribute&attribute_id=' . $HTTP_GET_VARS['attribute_id']) . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_confirm_red.gif', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;</b></td>
 <?php
     } else {
 ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values["products_attributes_id"]; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo $products_name_only; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $products_name_only; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<?php echo $attributes_values["options_values_price"]; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values["price_prefix"]; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') , '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE); ?></a>&nbsp;</td>
@@ -705,19 +699,14 @@ function go_option() {
           </tr>
 <?php
   }
+  if ($HTTP_GET_VARS['action'] != 'update_attribute') {
 ?>
           <tr>
             <td colspan="7"><?php echo tep_black_line(); ?></td>
           </tr>
-<?php
-  if ($HTTP_GET_VARS['action'] != 'update_attribute') {
-?>
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
-<?php
-    echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_attributes', 'NONSSL') . '" method="post">';
-?>
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
-      	    <td align="center" class="smallText">&nbsp;<select name="products_id">
+      	    <td class="smallText">&nbsp;<select name="products_id">
 <?php
     $products = tep_db_query("select p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "' order by pd.products_name");
     while ($products_values = tep_db_fetch_array($products)) {
@@ -725,7 +714,7 @@ function go_option() {
     } 
 ?>
             </select>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<select name="options_id">
+            <td class="smallText">&nbsp;<select name="options_id">
 <?php
     $options = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS . " where language_id = '" . $languages_id . "' order by products_options_name");
     while ($options_values = tep_db_fetch_array($options)) {
@@ -733,7 +722,7 @@ function go_option() {
     } 
 ?>
             </select>&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<select name="values_id">
+            <td class="smallText">&nbsp;<select name="values_id">
 <?php
     $values = tep_db_query("select * from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where language_id = '" . $languages_id . "' order by products_options_values_name");
     while ($values_values = tep_db_fetch_array($values)) {
@@ -744,17 +733,14 @@ function go_option() {
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?>&nbsp;</td>
-<?php
-    echo '</form>';
-?>
-          </tr>
-          <tr>
-            <td colspan="7"><?php echo tep_black_line(); ?></td>
           </tr>
 <?php
   }
 ?>
-        </table></td>
+          <tr>
+            <td colspan="7"><?php echo tep_black_line(); ?></td>
+          </tr>
+        </table></form></td>
       </tr>
     </table></td>
 <!-- products_attributes_eof //-->
