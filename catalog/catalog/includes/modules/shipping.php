@@ -13,7 +13,7 @@
       $shipping_num_boxes = round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
       $shipping_weight = $total_weight/$shipping_num_boxes;
     }
-    if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) $shipping_weight = $shipping_weight+SHIPPING_BOX_PADDING;
+    if ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING) $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
     else $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
     $shipping_weight = round($shipping_weight+0.5);
   }
