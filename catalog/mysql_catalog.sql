@@ -1,8 +1,8 @@
-# MySQL dump 7.1
+# MySQL dump 8.10
 #
 # Host: localhost    Database: catalog
 #--------------------------------------------------------
-# Server version	3.22.32
+# Server version	3.23.25-beta
 
 #
 # Table structure for table 'address_book'
@@ -42,12 +42,13 @@ CREATE TABLE address_book_to_customers (
 # Dumping data for table 'address_book_to_customers'
 #
 
+
 #
 # Table structure for table 'categories'
 #
 
 CREATE TABLE categories (
-  categories_id int(5) DEFAULT '0' NOT NULL auto_increment,
+  categories_id int(5) NOT NULL auto_increment,
   categories_name varchar(32) DEFAULT '' NOT NULL,
   categories_image varchar(64),
   parent_id int(5),
@@ -108,12 +109,13 @@ CREATE TABLE counter_history (
 # Dumping data for table 'counter_history'
 #
 
+
 #
 # Table structure for table 'countries'
 #
 
 CREATE TABLE countries (
-  countries_id int(5) DEFAULT '0' NOT NULL auto_increment,
+  countries_id int(5) NOT NULL auto_increment,
   countries_name varchar(64) DEFAULT '' NOT NULL,
   countries_iso_code_2 char(2) DEFAULT '' NOT NULL,
   countries_iso_code_3 char(3) DEFAULT '' NOT NULL,
@@ -392,7 +394,7 @@ CREATE TABLE customers (
 # Dumping data for table 'customers'
 #
 
-INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca','81');
+INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca',81);
 
 #
 # Table structure for table 'customers_basket'
@@ -403,6 +405,7 @@ CREATE TABLE customers_basket (
   customers_id int(5) DEFAULT '0' NOT NULL,
   products_id int(5) DEFAULT '0' NOT NULL,
   customers_basket_quantity int(2) DEFAULT '0' NOT NULL,
+  final_price decimal(6,2) DEFAULT '0.00' NOT NULL,
   customers_basket_date_added char(8),
   PRIMARY KEY (customers_basket_id)
 );
@@ -486,7 +489,7 @@ CREATE TABLE orders (
   cc_number varchar(32),
   cc_expires varchar(4),
   date_purchased varchar(8),
-  products_tax decimal(6,4) DEFAULT '0.00' NOT NULL,
+  products_tax decimal(6,4) DEFAULT '0.0000' NOT NULL,
   shipping_cost decimal(8,2) DEFAULT '0.00' NOT NULL,
   shipping_method varchar(32),
   orders_status varchar(10) DEFAULT 'Pending' NOT NULL,
@@ -572,6 +575,52 @@ INSERT INTO products VALUES (26,'IntelliMouse Explorer PS2/USB','Microsoft intro
 INSERT INTO products VALUES (27,'LaserJet 1100Xi','HP has always set the pace in laser printing technology. The new generation HP LaserJet 1100 series sets another impressive pace, delivering a stunning 8 pages per minute print speed. The 600 dpi print resolution with HP\'s Resolution Enhancement technology (REt) makes every document more professional.<br><br>Enhanced print speed and laser quality results are just the beginning. With 2MB standard memory, HP LaserJet 1100xi users will be able to print increasingly complex pages. Memory can be increased to 18MB to tackle even more complex documents with ease. The HP LaserJet 1100xi supports key operating systems including Windows 3.1, 3.11, 95, 98, NT 4.0, OS/2 and DOS. Network compatibility available via the optional HP JetDirect External Print Servers.<br><br>HP LaserJet 1100xi also features The Document Builder for the Web Era from Trellix Corp. (featuring software to create Web documents).',8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif','www.pandi.hp.com/pandi-db/prodinfo.main?product=laserjet1100',499.99,'20000302',1574,45.00,1);
 
 #
+# Table structure for table 'products_attributes'
+#
+
+CREATE TABLE products_attributes (
+  products_attributes_id int(5) NOT NULL auto_increment,
+  products_id int(5) DEFAULT '0' NOT NULL,
+  options_id int(5) DEFAULT '0' NOT NULL,
+  options_values_id int(5) DEFAULT '0' NOT NULL,
+  options_values_price decimal(6,2) DEFAULT '0.00' NOT NULL,
+  price_prefix char(1) DEFAULT '+' NOT NULL,
+  PRIMARY KEY (products_attributes_id)
+);
+
+#
+# Dumping data for table 'products_attributes'
+#
+
+INSERT INTO products_attributes VALUES (1,1,4,1,0.00,'+');
+INSERT INTO products_attributes VALUES (2,1,4,2,50.00,'+');
+INSERT INTO products_attributes VALUES (3,1,4,3,70.00,'+');
+INSERT INTO products_attributes VALUES (4,1,3,5,0.00,'+');
+INSERT INTO products_attributes VALUES (5,1,3,6,100.00,'+');
+INSERT INTO products_attributes VALUES (6,2,4,3,10.00,'-');
+INSERT INTO products_attributes VALUES (7,2,4,4,0.00,'+');
+INSERT INTO products_attributes VALUES (8,2,3,6,0.00,'+');
+INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
+INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
+INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
+
+#
+# Table structure for table 'products_attributes_to_basket'
+#
+
+CREATE TABLE products_attributes_to_basket (
+  products_attributes_to_basket_id int(5) NOT NULL auto_increment,
+  customers_basket_id int(5) DEFAULT '0' NOT NULL,
+  products_attributes_id int(5) DEFAULT '0' NOT NULL,
+  PRIMARY KEY (products_attributes_to_basket_id)
+);
+
+#
+# Dumping data for table 'products_attributes_to_basket'
+#
+
+
+#
 # Table structure for table 'products_expected'
 #
 
@@ -591,11 +640,79 @@ INSERT INTO products_expected VALUES (2,'Alien Triology (Warner)','20000317');
 INSERT INTO products_expected VALUES (3,'American Pie (Warner)','20000317');
 
 #
+# Table structure for table 'products_options'
+#
+
+CREATE TABLE products_options (
+  products_options_id int(5) NOT NULL auto_increment,
+  products_options_name varchar(32) DEFAULT '' NOT NULL,
+  PRIMARY KEY (products_options_id)
+);
+
+#
+# Dumping data for table 'products_options'
+#
+
+INSERT INTO products_options VALUES (1,'Color');
+INSERT INTO products_options VALUES (2,'Size');
+INSERT INTO products_options VALUES (3,'Model');
+INSERT INTO products_options VALUES (4,'Memory');
+
+#
+# Table structure for table 'products_options_values'
+#
+
+CREATE TABLE products_options_values (
+  products_options_values_id int(5) NOT NULL auto_increment,
+  products_options_values_name varchar(64) DEFAULT '' NOT NULL,
+  PRIMARY KEY (products_options_values_id)
+);
+
+#
+# Dumping data for table 'products_options_values'
+#
+
+INSERT INTO products_options_values VALUES (1,'4 mb');
+INSERT INTO products_options_values VALUES (2,'8 mb');
+INSERT INTO products_options_values VALUES (3,'16 mb');
+INSERT INTO products_options_values VALUES (4,'32 mb');
+INSERT INTO products_options_values VALUES (5,'Value');
+INSERT INTO products_options_values VALUES (6,'Premium');
+INSERT INTO products_options_values VALUES (7,'Deluxe');
+INSERT INTO products_options_values VALUES (8,'PS/2');
+INSERT INTO products_options_values VALUES (9,'USB');
+
+#
+# Table structure for table 'products_options_values_to_products_options'
+#
+
+CREATE TABLE products_options_values_to_products_options (
+  products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
+  products_options_id int(5) DEFAULT '0' NOT NULL,
+  products_options_values_id int(5) DEFAULT '0' NOT NULL,
+  PRIMARY KEY (products_options_values_to_products_options_id)
+);
+
+#
+# Dumping data for table 'products_options_values_to_products_options'
+#
+
+INSERT INTO products_options_values_to_products_options VALUES (1,4,1);
+INSERT INTO products_options_values_to_products_options VALUES (2,4,2);
+INSERT INTO products_options_values_to_products_options VALUES (3,4,3);
+INSERT INTO products_options_values_to_products_options VALUES (4,4,4);
+INSERT INTO products_options_values_to_products_options VALUES (5,3,5);
+INSERT INTO products_options_values_to_products_options VALUES (6,3,6);
+INSERT INTO products_options_values_to_products_options VALUES (7,3,7);
+INSERT INTO products_options_values_to_products_options VALUES (8,3,8);
+INSERT INTO products_options_values_to_products_options VALUES (9,3,9);
+
+#
 # Table structure for table 'products_to_categories'
 #
 
 CREATE TABLE products_to_categories (
-  products_id int(5) DEFAULT '0' NOT NULL auto_increment,
+  products_id int(5) NOT NULL auto_increment,
   categories_id int(5) DEFAULT '0' NOT NULL,
   PRIMARY KEY (products_id,categories_id)
 );
@@ -730,3 +847,4 @@ INSERT INTO specials VALUES (1,3,39.99,'20000114');
 INSERT INTO specials VALUES (2,5,30.00,'20000114');
 INSERT INTO specials VALUES (3,6,30.00,'20000115');
 INSERT INTO specials VALUES (4,16,29.99,'20000217');
+
