@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.21 2001/09/19 08:37:40 mbs Exp $
+  $Id: modules.php,v 1.22 2001/09/19 11:51:57 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -190,7 +190,7 @@
   if ($mInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->title . '</b>&nbsp;');
 ?>
               <tr class="boxHeading">
-                <td><? new infoBoxHeading($info_box_contents); ?></td>
+                <td><?php new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr class="boxHeading">
                 <td><?php echo tep_black_line(); ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.13 2001/09/19 08:37:41 mbs Exp $
+  $Id: mail.php,v 1.14 2001/09/19 11:51:57 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -85,7 +85,7 @@
             <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><form action="<? echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="get"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0"><table border="0" width="100%" cellpadding="0" cellspacing="0">
+            <td><form action="<?php echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="get"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0"><table border="0" width="100%" cellpadding="0" cellspacing="0">
 <?php
     if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($customers_email_address == "") ) {
 ?>

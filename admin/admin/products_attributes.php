@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.25 2001/09/18 21:10:00 mbs Exp $
+  $Id: products_attributes.php,v 1.26 2001/09/19 11:51:56 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -77,12 +77,12 @@
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
 function checkFormOpt() {
-  var error_message = "<? echo JS_ERROR; ?>";
+  var error_message = "<?php echo JS_ERROR; ?>";
   var error = 0;
   var option_name = document.options.option_name.value;
   
   if (option_name.length < 1) {
-    error_message = error_message + "<? echo JS_OPTIONS_OPTION_NAME; ?>";
+    error_message = error_message + "<?php echo JS_OPTIONS_OPTION_NAME; ?>";
     error = 1;
   }
   
@@ -95,12 +95,12 @@ function checkFormOpt() {
 }
 
 function checkFormVal() {
-  var error_message = "<? echo JS_ERROR; ?>";
+  var error_message = "<?php echo JS_ERROR; ?>";
   var error = 0;
   var value_name = document.values.value_name.value;
   
   if (value_name.length < 1) {
-    error_message = error_message + "<? echo JS_OPTIONS_VALUE_NAME; ?>";
+    error_message = error_message + "<?php echo JS_OPTIONS_VALUE_NAME; ?>";
     error = 1;
   }
   
@@ -114,7 +114,7 @@ function checkFormVal() {
 
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
-    location = "<? echo FILENAME_PRODUCTS_ATTRIBUTES . '?option_page=';
+    location = "<?php echo FILENAME_PRODUCTS_ATTRIBUTES . '?option_page=';
 	if (!$HTTP_GET_VARS['option_page']) {
 	$option_page = 1;
 	} else {
@@ -125,17 +125,17 @@ function go_option() {
 }
 
 function checkFormAtrib() {
-  var error_message = "<? echo JS_ERROR; ?>";
+  var error_message = "<?php echo JS_ERROR; ?>";
   var error = 0;
   var price = document.attributes.value_price.value;
   var price_prefix = document.attributes.price_prefix.value;
   
   if (price.length < 1) {
-    error_message = error_message + "<? echo JS_OPTIONS_VALUE_PRICE; ?>";
+    error_message = error_message + "<?php echo JS_OPTIONS_VALUE_PRICE; ?>";
     error = 1;
   }
   if (price_prefix.length < 1) {
-    error_message = error_message + "<? echo JS_OPTIONS_VALUE_PRICE_PREFIX; ?>";
+    error_message = error_message + "<?php echo JS_OPTIONS_VALUE_PRICE_PREFIX; ?>";
     error = 1;
   }
   
@@ -190,14 +190,14 @@ function checkFormAtrib() {
                 <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <td class="pageHeading">&nbsp;<?php echo $options_values['products_options_name']; ?>&nbsp;</td>
-                    <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
+                    <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '1', '70'); ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
               <tr>
                 <td><table border="0" width="100% " cellspacing="0" cellpadding="2">
                   <tr>
-                    <td colspan="3"><? echo tep_black_line(); ?></td>
+                    <td colspan="3"><?php echo tep_black_line(); ?></td>
                   </tr>
 <?php
     $products = tep_db_query("select p.products_id, pd.products_name, pov.products_options_values_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov, " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pov.language_id = '" . $languages_id . "' and pd.language_id = '" . $languages_id . "' and pa.products_id = p.products_id and pa.options_id='" . $HTTP_GET_VARS['option_id'] . "' and pov.products_options_values_id = pa.options_values_id order by pd.products_name");

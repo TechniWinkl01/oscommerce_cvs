@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.52 2001/09/18 13:04:12 mbs Exp $
+  $Id: orders.php,v 1.53 2001/09/19 11:51:57 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,7 @@ function alertBox() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" class="smallText"><br><form name="orders" <?php echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<?php echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?>&nbsp;</form></td>
+            <td align="right" class="smallText"><br><form name="orders" <?php echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<?php echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?>&nbsp;</form></td>
           </tr>
         </table></td>
       </tr>
@@ -132,7 +132,7 @@ function alertBox() {
             <td class="main" colspan="2"><br><b>&nbsp;<?php echo TABLE_HEADING_PAYMENT_INFORMATION; ?>&nbsp;</b></td>
           </tr>
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">

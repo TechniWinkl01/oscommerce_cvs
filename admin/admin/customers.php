@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.41 2001/09/19 09:11:32 mbs Exp $
+  $Id: customers.php,v 1.42 2001/09/19 11:51:58 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -67,7 +67,7 @@ function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';
     if (theForm.zone_id.options.length > 1) {
-      theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
+      theForm.state.value = '<?php echo JS_STATE_SELECT; ?>';
     }
   }
 }

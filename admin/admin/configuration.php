@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.14 2001/09/19 10:14:23 mbs Exp $
+  $Id: configuration.php,v 1.15 2001/09/19 11:51:59 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -54,7 +54,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
             <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>

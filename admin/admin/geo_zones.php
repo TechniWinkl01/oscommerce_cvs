@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.4 2001/09/19 08:37:42 mbs Exp $
+  $Id: geo_zones.php,v 1.5 2001/09/19 11:51:58 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -212,7 +212,7 @@ function update_zone(theForm) {
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td valign="top" class="smallText">&nbsp;<?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ZONES); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <? echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?php
+                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?php
   if (!$HTTP_GET_VARS['action']) {
     echo '<br><br>&nbsp;';
     if ($HTTP_GET_VARS['zList']) echo '<a href="' . FILENAME_GEO_ZONES . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';

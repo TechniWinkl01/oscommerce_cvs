@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.22 2001/09/18 17:15:32 mbs Exp $
+  $Id: specials.php,v 1.23 2001/09/19 11:51:56 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -166,7 +166,7 @@
               <tr>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
                 <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_PRODUCTS_PRICE; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
