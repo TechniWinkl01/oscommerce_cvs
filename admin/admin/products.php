@@ -4,7 +4,7 @@
   if ($HTTP_GET_VARS['action']) {
     if (($HTTP_GET_VARS['action'] == 'add_product') && ($HTTP_POST_VARS['insert'] == '1')) {
       $date_now = date('Ymd');
-      tep_db_query("insert into products values ('', '" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $date_now . "', '0')");
+      tep_db_query("insert into products values ('', '" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $date_now . "', '0', '" . $HTTP_POST_VARS['products_weight'] . "')");
       $products_id = tep_db_insert_id();
       if (!empty($products_image)) {
       	tep_db_query("update products set products_image = 'images/" . $products_image_name . "' where products_id = '" . $products_id . "'");
@@ -18,7 +18,7 @@
       tep_db_query("insert into products_to_manufacturers values ('', '" . $products_id . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL')); tep_exit();
     } elseif (($HTTP_GET_VARS["action"] == "add_product") && ($HTTP_POST_VARS['update'] == '1')) {
-      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
 /* manufacturers */
       $manufacturers_id = $HTTP_POST_VARS['manufacturers_id'];
       $number_manufacturers = sizeof($manufacturers_id);
@@ -268,7 +268,7 @@ function go() {
     $update = 0;
     if ($HTTP_GET_VARS['action'] == 'update') {
       $update = 1;
-      $products = tep_db_query("select products_id, products_name, products_description, products_quantity, products_model, products_image, products_url, products_price from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+      $products = tep_db_query("select products_id, products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
       $products_values = tep_db_fetch_array($products);
     }
 ?>
@@ -409,6 +409,21 @@ function go() {
           <tr>
             <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_PRICE;?>&nbsp;</b></font></td>
             <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_price" value="<?=$products_values['products_price'];?>" size="10">&nbsp;<?=ENTRY_PRICE_TEXT;?></font></td>
+          </tr>
+<?
+    }
+    if ($update == 0) {
+?>
+          <tr>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_WEIGHT;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_weight" value="" size="10">&nbsp;<?=ENTRY_WEIGHT_TEXT;?></font></td>
+          </tr>
+<?
+    } else {
+?>
+          <tr>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_WEIGHT;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_weight" value="<?=$products_values['products_weight'];?>" size="10">&nbsp;<?=ENTRY_WEIGHT_TEXT;?></font></td>
           </tr>
 <?
     }

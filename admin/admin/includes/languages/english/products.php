@@ -21,6 +21,8 @@ define('ENTRY_SUBCATEGORIES_TEXT', '<small><font color="#FF0000"><b>NOTE:</b></f
 define('ENTRY_DESCRIPTION', 'Description:');
 define('ENTRY_PRICE', 'Price:');
 define('ENTRY_PRICE_TEXT', '<small>(eg, 45.95)</small>&nbsp;');
+define('ENTRY_WEIGHT', 'Weight:');
+define('ENTRY_WEIGHT_TEXT', '<small>(eg, 5.25, NOT 5 1/4)</small>&nbsp;');
 define('ENTRY_QUANTITY', 'Quantity:');
 define('ENTRY_MODEL', 'Model:');
 define('ENTRY_IMAGE', 'Image:');
