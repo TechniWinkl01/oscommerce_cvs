@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.73 2002/01/27 04:02:21 hpdl Exp $
+  $Id: orders.php,v 1.74 2002/01/27 04:37:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -325,7 +325,7 @@
       while ($orders_history = tep_db_fetch_array($orders_history_query)) {
         echo '          <tr>' . "\n" .
              '            <td class="smallText">' . $orders_status_array[$orders_history['new_value']] . '</td>' . "\n" .
-             '            <td class="smallText">' . $orders_status_array[$orders_history['old_value']] . '</td>' . "\n" .
+             '            <td class="smallText">' . (tep_not_null($orders_history['old_value']) ? $orders_status_array[$orders_history['old_value']] : '&nbsp;') . '</td>' . "\n" .
              '            <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
              '            <td class="smallText" align="center">';
         if ($orders_history['customer_notified'] == '1') {
