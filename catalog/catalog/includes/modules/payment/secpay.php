@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.32 2003/11/17 20:34:31 hpdl Exp $
+  $Id: secpay.php,v 1.33 2003/12/18 23:52:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,7 @@
     }
 
     function process_button() {
-      global $osC_Session, $order, $currencies;
+      global $osC_Session, $order, $osC_Currencies;
 
       switch (MODULE_PAYMENT_SECPAY_CURRENCY) {
         case 'Default Currency':
@@ -100,7 +100,7 @@
 
       $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
                                tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
-                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencies->get_value($sec_currency), $currencies->currencies[$sec_currency]['decimal_places'], '.', '')) .
+                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $osC_Currencies->value($sec_currency), $osC_Currencies->currencies[$sec_currency]['decimal_places'], '.', '')) .
                                tep_draw_hidden_field('bill_name', $order->billing['firstname'] . ' ' . $order->billing['lastname']) .
                                tep_draw_hidden_field('bill_addr_1', $order->billing['street_address']) .
                                tep_draw_hidden_field('bill_addr_2', $order->billing['suburb']) .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.73 2003/11/17 20:49:40 hpdl Exp $
+  $Id: advanced_search_result.php,v 1.74 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -276,8 +276,8 @@
   }
 
   if (tep_not_null($pfrom)) {
-    if ($currencies->is_set($osC_Session->value('currency'))) {
-      $rate = $currencies->get_value($osC_Session->value('currency'));
+    if ($osC_Currencies->exists($osC_Session->value('currency'))) {
+      $rate = $osC_Currencies->value($osC_Session->value('currency'));
 
       $pfrom = $pfrom / $rate;
     }

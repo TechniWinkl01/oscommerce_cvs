@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.74 2003/11/17 21:07:25 hpdl Exp $
+  $Id: shopping_cart.php,v 1.75 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -146,7 +146,7 @@
 
       $info_box_contents[$cur_row][] = array('align' => 'right',
                                              'params' => 'class="productListing-data" valign="top"',
-                                             'text' => '<b>' . $currencies->display_price($products[$i]['final_price'], $osC_Tax->getTaxRate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</b>');
+                                             'text' => '<b>' . $osC_Currencies->displayPrice($products[$i]['final_price'], $products[$i]['tax_class_id'], $products[$i]['quantity']) . '</b>');
     }
 
     new productListingBox($info_box_contents);
@@ -157,7 +157,7 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><b><?php echo SUB_TITLE_SUB_TOTAL; ?> <?php echo $currencies->format($cart->show_total()); ?></b></td>
+        <td align="right" class="main"><b><?php echo SUB_TITLE_SUB_TOTAL; ?> <?php echo $osC_Currencies->format($cart->show_total()); ?></b></td>
       </tr>
 <?php
     if ($any_out_of_stock == 1) {

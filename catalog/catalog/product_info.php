@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.99 2003/11/17 21:06:26 hpdl Exp $
+  $Id: product_info.php,v 1.100 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -75,9 +75,9 @@ function popupWindow(url) {
     tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$_GET['products_id'] . "' and language_id = '" . (int)$osC_Session->value('languages_id') . "'");
 
     if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
-      $products_price = '<s>' . $currencies->display_price($product_info['products_price'], $osC_Tax->getTaxRate($product_info['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, $osC_Tax->getTaxRate($product_info['products_tax_class_id'])) . '</span>';
+      $products_price = '<s>' . $osC_Currencies->displayPrice($product_info['products_price'], $product_info['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_price, $product_info['products_tax_class_id']) . '</span>';
     } else {
-      $products_price = $currencies->display_price($product_info['products_price'], $osC_Tax->getTaxRate($product_info['products_tax_class_id']));
+      $products_price = $osC_Currencies->displayPrice($product_info['products_price'], $product_info['products_tax_class_id']);
     }
 
     if (tep_not_null($product_info['products_model'])) {
@@ -135,7 +135,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         while ($products_options = tep_db_fetch_array($products_options_query)) {
           $products_options_array[] = array('id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']);
           if ($products_options['options_values_price'] != '0') {
-            $products_options_array[sizeof($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], $osC_Tax->getTaxRate($product_info['products_tax_class_id'])) .') ';
+            $products_options_array[sizeof($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $osC_Currencies->displayPrice($products_options['options_values_price'], $product_info['products_tax_class_id']) .') ';
           }
         }
 

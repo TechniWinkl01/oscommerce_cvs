@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.17 2003/11/17 19:15:06 hpdl Exp $
+  $Id: currencies.php,v 1.18 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,14 +10,11 @@
   Released under the GNU General Public License
 */
 
-////
-// Class to handle currencies
-// TABLES: currencies
-  class currencies {
+  class osC_Currencies {
     var $currencies;
 
 // class constructor
-    function currencies() {
+    function osC_Currencies() {
       $this->currencies = array();
       $currencies_query = tep_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
       while ($currencies = tep_db_fetch_array($currencies_query)) {
@@ -32,49 +29,51 @@
     }
 
 // class methods
-    function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
+    function format($number, $currency_code = '', $currency_value = '') {
       global $osC_Session;
 
-      if (empty($currency_type)) $currency_type = $osC_Session->value('currency');
-
-      if ($calculate_currency_value == true) {
-        $rate = (tep_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
-        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(tep_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
-// if the selected currency is in the european euro-conversion and the default currency is euro,
-// the currency will displayed in the national currency and euro currency
-        if ( (DEFAULT_CURRENCY == 'EUR') && ($currency_type == 'DEM' || $currency_type == 'BEF' || $currency_type == 'LUF' || $currency_type == 'ESP' || $currency_type == 'FRF' || $currency_type == 'IEP' || $currency_type == 'ITL' || $currency_type == 'NLG' || $currency_type == 'ATS' || $currency_type == 'PTE' || $currency_type == 'FIM' || $currency_type == 'GRD') ) {
-          $format_string .= ' <small>[' . $this->format($number, true, 'EUR') . ']</small>';
-        }
-      } else {
-        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(tep_round($number, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
+      if (empty($currency_code) || ($this->exists($currency_code) == false)) {
+        $currency_code = $osC_Session->value('currency');
       }
 
-      return $format_string;
-    }
-
-    function is_set($code) {
-      if (isset($this->currencies[$code]) && tep_not_null($this->currencies[$code])) {
-        return true;
-      } else {
-        return false;
+      if (empty($currency_value) || (is_numeric($currency_value) == false)) {
+        $currency_value = $this->currencies[$currency_code]['value'];
       }
+
+      return $this->currencies[$currency_code]['symbol_left'] . number_format(tep_round($number * $currency_value, $this->currencies[$currency_code]['decimal_places']), $this->currencies[$currency_code]['decimal_places'], $this->currencies[$currency_code]['decimal_point'], $this->currencies[$currency_code]['thousands_point']) . $this->currencies[$currency_code]['symbol_right'];
     }
 
-    function get_value($code) {
-      return $this->currencies[$code]['value'];
-    }
+    function displayPrice($price, $tax_class_id, $quantity = 1) {
+      global $osC_Tax;
 
-    function get_decimal_places($code) {
-      return $this->currencies[$code]['decimal_places'];
-    }
+      $price = tep_round($price, $this->currencies[DEFAULT_CURRENCY]['decimal_places']);
 
-    function display_price($products_price, $products_tax, $quantity = 1) {
-      return $this->format(tep_add_tax($products_price, $products_tax) * $quantity);
+      if ( (DISPLAY_PRICE_WITH_TAX == 'true') && ($tax_class_id > 0) ) {
+        $price += tep_round($price * ($osC_Tax->getTaxRate($tax_class_id) / 100), $this->currencies[DEFAULT_CURRENCY]['decimal_places']);
+      }
+
+      return $this->format($price * $quantity);
     }
 
     function exists($code) {
       if (isset($this->currencies[$code])) {
         return true;
+      }
+
+      return false;
+    }
+
+    function decimalPlaces($code) {
+      if ($this->exists($code)) {
+        return $this->currencies[$code]['decimal_places'];
+      }
+
+      return false;
+    }
+
+    function value($code) {
+      if ($this->exists($code)) {
+        return $this->currencies[$code]['value'];
       }
 
       return false;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.19 2003/11/17 20:05:25 hpdl Exp $
+  $Id: shopping_cart.php,v 1.20 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,7 +57,7 @@
   if ($cart->count_contents() > 0) {
     $info_box_contents[] = array('text' => tep_draw_separator());
     $info_box_contents[] = array('align' => 'right',
-                                 'text' => $currencies->format($cart->show_total()));
+                                 'text' => $osC_Currencies->format($cart->show_total()));
   }
 
   new infoBox($info_box_contents);

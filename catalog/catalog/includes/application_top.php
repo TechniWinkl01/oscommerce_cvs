@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.282 2003/11/17 21:39:36 hpdl Exp $
+  $Id: application_top.php,v 1.283 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -230,7 +230,7 @@
 
 // include currencies class and create an instance
   require(DIR_WS_CLASSES . 'currencies.php');
-  $currencies = new currencies();
+  $osC_Currencies = new osC_Currencies();
 
 // include the mail classes
   require(DIR_WS_CLASSES . 'mime.php');
@@ -256,7 +256,7 @@
 
 // currency
   if (($osC_Session->exists('currency') == false) || isset($_GET['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') && (LANGUAGE_CURRENCY != $osC_Session->value('currency')) ) ) {
-    if (isset($_GET['currency']) && $currencies->exists($_GET['currency'])) {
+    if (isset($_GET['currency']) && $osC_Currencies->exists($_GET['currency'])) {
       $currency = $_GET['currency'];
     } else {
       $currency = (USE_DEFAULT_LANGUAGE_CURRENCY == 'true') ? LANGUAGE_CURRENCY : DEFAULT_CURRENCY;

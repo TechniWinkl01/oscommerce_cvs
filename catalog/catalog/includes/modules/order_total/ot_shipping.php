@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.16 2003/11/17 20:27:59 hpdl Exp $
+  $Id: ot_shipping.php,v 1.17 2003/12/18 23:52:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
 
     function process() {
-      global $osC_Session, $osC_Tax, $order, $currencies;
+      global $osC_Session, $osC_Tax, $order, $osC_Currencies;
 
       if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -62,7 +62,7 @@
         }
 
         $this->output[] = array('title' => $order->info['shipping_method'] . ':',
-                                'text' => $currencies->format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']),
+                                'text' => $osC_Currencies->format($order->info['shipping_cost'], $order->info['currency'], $order->info['currency_value']),
                                 'value' => $order->info['shipping_cost']);
       }
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: new_products.php,v 1.36 2003/11/17 20:12:15 hpdl Exp $
+  $Id: new_products.php,v 1.37 2003/12/18 23:52:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,23 +20,23 @@
   }
 
   if (tep_db_num_rows($new_products_query) > 0) {
-
     $info_box_contents = array();
     $info_box_contents[] = array('text' => sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')));
 
     new contentBoxHeading($info_box_contents);
 
-
     $row = 0;
     $col = 0;
+
     $info_box_contents = array();
     while ($new_products = tep_db_fetch_array($new_products_query)) {
       $new_products['products_name'] = tep_get_products_name($new_products['products_id']);
       $info_box_contents[$row][$col] = array('align' => 'center',
                                              'params' => 'class="smallText" width="33%" valign="top"',
-                                             'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $new_products['products_image'], $new_products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . $new_products['products_name'] . '</a><br>' . $currencies->display_price($new_products['products_price'], $osC_Tax->getTaxRate($new_products['products_tax_class_id'])));
+                                             'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $new_products['products_image'], $new_products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . $new_products['products_name'] . '</a><br>' . $osC_Currencies->displayPrice($new_products['products_price'], $new_products['products_tax_class_id']));
 
       $col ++;
+
       if ($col > 2) {
         $col = 0;
         $row ++;

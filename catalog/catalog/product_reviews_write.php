@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.56 2003/11/17 21:06:26 hpdl Exp $
+  $Id: product_reviews_write.php,v 1.57 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,9 +56,9 @@
   }
 
   if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
-    $products_price = '<s>' . $currencies->display_price($product_info['products_price'], $osC_Tax->getTaxRate($product_info['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, $osC_Tax->getTaxRate($product_info['products_tax_class_id'])) . '</span>';
+    $products_price = '<s>' . $osC_Currencies->displayPrice($product_info['products_price'], $product_info['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_price, $product_info['products_tax_class_id']) . '</span>';
   } else {
-    $products_price = $currencies->display_price($product_info['products_price'], $osC_Tax->getTaxRate($product_info['products_tax_class_id']));
+    $products_price = $osC_Currencies->displayPrice($product_info['products_price'], $product_info['products_tax_class_id']);
   }
 
   if (tep_not_null($product_info['products_model'])) {

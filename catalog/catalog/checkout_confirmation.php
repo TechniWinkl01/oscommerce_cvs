@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.142 2003/12/04 14:12:16 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.143 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -200,7 +200,7 @@
 
     if (sizeof($order->info['tax_groups']) > 1) echo '            <td class="main" valign="top" align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
 
-    echo '            <td class="main" align="right" valign="top">' . $currencies->display_price($order->products[$i]['final_price'], $order->products[$i]['tax'], $order->products[$i]['qty']) . '</td>' . "\n" .
+    echo '            <td class="main" align="right" valign="top">' . $osC_Currencies->displayPrice($order->products[$i]['final_price'], $order->products[$i]['tax_class_id'], $order->products[$i]['qty']) . '</td>' . "\n" .
          '          </tr>' . "\n";
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.232 2003/11/17 18:55:17 hpdl Exp $
+  $Id: general.php,v 1.233 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -314,20 +314,20 @@
 ////
 // Add tax to a products price
   function tep_add_tax($price, $tax) {
-    global $currencies;
+    global $osC_Currencies;
 
     if ( (DISPLAY_PRICE_WITH_TAX == 'true') && ($tax > 0) ) {
-      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
+      return tep_round($price, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
     } else {
-      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+      return tep_round($price, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
   }
 
 // Calculates Tax rounding the result
   function tep_calculate_tax($price, $tax) {
-    global $currencies;
+    global $osC_Currencies;
 
-    return tep_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+    return tep_round($price * $tax / 100, $osC_Currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
   }
 
 ////

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.36 2003/12/04 23:14:00 hpdl Exp $
+  $Id: ipayment.php,v 1.37 2003/12/18 23:52:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -161,7 +161,7 @@
     }
 
     function process_button() {
-      global $osC_Session, $order, $currencies;
+      global $osC_Session, $order, $osC_Currencies;
 
       if (PHP_VERSION < 4.1) {
         global $_POST;
@@ -194,7 +194,7 @@
 
       $process_button_string = tep_draw_hidden_field('trxuser_id', MODULE_PAYMENT_IPAYMENT_USER_ID) .
                                tep_draw_hidden_field('trxpassword', MODULE_PAYMENT_IPAYMENT_PASSWORD) .
-                               tep_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $currencies->get_value($trx_currency), 0, '','')) .
+                               tep_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $osC_Currencies->value($trx_currency), 0, '','')) .
                                tep_draw_hidden_field('trx_currency', $trx_currency) .
                                tep_draw_hidden_field('trx_paymenttyp', 'cc') .
                                tep_draw_hidden_field('addr_name', $_POST['ipayment_cc_owner']) .
@@ -218,7 +218,7 @@
       }
 
       if (tep_not_null(MODULE_PAYMENT_IPAYMENT_SECURITY_KEY)) {
-        $process_button_string .= tep_draw_hidden_field('trx_securityhash', md5(MODULE_PAYMENT_IPAYMENT_USER_ID . number_format($order->info['total'] * 100 * $currencies->get_value($trx_currency), 0, '','') . $trx_currency . MODULE_PAYMENT_IPAYMENT_PASSWORD . MODULE_PAYMENT_IPAYMENT_SECURITY_KEY));
+        $process_button_string .= tep_draw_hidden_field('trx_securityhash', md5(MODULE_PAYMENT_IPAYMENT_USER_ID . number_format($order->info['total'] * 100 * $osC_Currencies->value($trx_currency), 0, '','') . $trx_currency . MODULE_PAYMENT_IPAYMENT_PASSWORD . MODULE_PAYMENT_IPAYMENT_SECURITY_KEY));
       }
 
       return $process_button_string;

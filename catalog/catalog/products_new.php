@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.29 2003/11/17 21:06:26 hpdl Exp $
+  $Id: products_new.php,v 1.30 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,9 +79,9 @@
     $products_new_query = tep_db_query($products_new_split->sql_query);
     while ($products_new = tep_db_fetch_array($products_new_query)) {
       if ($new_price = tep_get_products_special_price($products_new['products_id'])) {
-        $products_price = '<s>' . $currencies->display_price($products_new['products_price'], $osC_Tax->getTaxRate($products_new['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, $osC_Tax->getTaxRate($products_new['products_tax_class_id'])) . '</span>';
+        $products_price = '<s>' . $osC_Currencies->displayPrice($products_new['products_price'], $products_new['products_tax_class_id']) . '</s> <span class="productSpecialPrice">' . $osC_Currencies->displayPrice($new_price, $products_new['products_tax_class_id']) . '</span>';
       } else {
-        $products_price = $currencies->display_price($products_new['products_price'], $osC_Tax->getTaxRate($products_new['products_tax_class_id']));
+        $products_price = $osC_Currencies->displayPrice($products_new['products_price'], $products_new['products_tax_class_id']);
       }
 ?>
           <tr>

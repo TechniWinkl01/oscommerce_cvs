@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.17 2003/11/17 19:47:34 hpdl Exp $
+  $Id: currencies.php,v 1.18 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  if (isset($currencies) && is_object($currencies)) {
+  if (isset($osC_Currencies) && is_object($osC_Currencies)) {
 ?>
 <!-- currencies //-->
           <tr>
@@ -21,9 +21,9 @@
 
     new infoBoxHeading($info_box_contents, false, false);
 
-    reset($currencies->currencies);
+    reset($osC_Currencies->currencies);
     $currencies_array = array();
-    while (list($key, $value) = each($currencies->currencies)) {
+    while (list($key, $value) = each($osC_Currencies->currencies)) {
       $currencies_array[] = array('id' => $key, 'text' => $value['title']);
     }
 

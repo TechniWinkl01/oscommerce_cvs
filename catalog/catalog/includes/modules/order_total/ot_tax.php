@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.14 2003/02/14 05:58:35 hpdl Exp $
+  $Id: ot_tax.php,v 1.15 2003/12/18 23:52:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,13 +24,13 @@
     }
 
     function process() {
-      global $order, $currencies;
+      global $order, $osC_Currencies;
 
       reset($order->info['tax_groups']);
       while (list($key, $value) = each($order->info['tax_groups'])) {
         if ($value > 0) {
           $this->output[] = array('title' => $key . ':',
-                                  'text' => $currencies->format($value, true, $order->info['currency'], $order->info['currency_value']),
+                                  'text' => $osC_Currencies->format($value, $order->info['currency'], $order->info['currency_value']),
                                   'value' => $value);
         }
       }

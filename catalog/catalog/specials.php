@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.50 2003/11/17 21:07:53 hpdl Exp $
+  $Id: specials.php,v 1.51 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,7 +79,7 @@
     while ($specials = tep_db_fetch_array($specials_query)) {
       $row++;
 
-      echo '            <td align="center" width="33%" class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $specials['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $specials['products_image'], $specials['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $specials['products_id']) . '">' . $specials['products_name'] . '</a><br><s>' . $currencies->display_price($specials['products_price'], $osC_Tax->getTaxRate($specials['products_tax_class_id'])) . '</s><br><span class="productSpecialPrice">' . $currencies->display_price($specials['specials_new_products_price'], $osC_Tax->getTaxRate($specials['products_tax_class_id'])) . '</span></td>' . "\n";
+      echo '            <td align="center" width="33%" class="smallText"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $specials['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $specials['products_image'], $specials['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $specials['products_id']) . '">' . $specials['products_name'] . '</a><br><s>' . $osC_Currencies->displayPrice($specials['products_price'], $specials['products_tax_class_id']) . '</s><br><span class="productSpecialPrice">' . $osC_Currencies->displayPrice($specials['specials_new_products_price'], $specials['products_tax_class_id']) . '</span></td>' . "\n";
 
       if ((($row / 3) == floor($row / 3))) {
 ?>

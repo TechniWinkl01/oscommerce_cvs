@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.34 2003/11/17 19:29:44 hpdl Exp $
+  $Id: order.php,v 1.35 2003/12/18 23:52:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -131,7 +131,7 @@
     }
 
     function cart() {
-      global $osC_Session, $osC_Customer, $osC_Tax, $cart, $currencies;
+      global $osC_Session, $osC_Customer, $osC_Tax, $cart, $osC_Currencies;
 
       $this->content_type = $cart->get_content_type();
 
@@ -152,7 +152,7 @@
 
       $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
                           'currency' => $osC_Session->value('currency'),
-                          'currency_value' => $currencies->currencies[$osC_Session->value('currency')]['value'],
+                          'currency_value' => $osC_Currencies->currencies[$osC_Session->value('currency')]['value'],
                           'payment_method' => $payment,
                           'cc_type' => (isset($GLOBALS['cc_type']) ? $GLOBALS['cc_type'] : ''),
                           'cc_owner' => (isset($GLOBALS['cc_owner']) ? $GLOBALS['cc_owner'] : ''),
@@ -221,6 +221,7 @@
                                         'model' => $products[$i]['model'],
                                         'tax' => $osC_Tax->getTaxRate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'tax_description' => $osC_Tax->getTaxRateDescription($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
+                                        'tax_class_id' => $products[$i]['tax_class_id'],
                                         'price' => $products[$i]['price'],
                                         'final_price' => $products[$i]['price'] + $cart->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
