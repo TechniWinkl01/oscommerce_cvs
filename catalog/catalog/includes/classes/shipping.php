@@ -14,7 +14,7 @@
           $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $value; include(DIR_WS_INCLUDES . 'include_once.php');
           $include_file = DIR_WS_SHIPPING_MODULES . $value; include(DIR_WS_INCLUDES . 'include_once.php');
 
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class] = new $class;
         }
       }
@@ -25,7 +25,7 @@
       if (SHIPPING_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->select();
         }
       }
@@ -54,7 +54,7 @@
 
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class]->quote();
         }
       }
@@ -64,7 +64,7 @@
       if (SHIPPING_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->cheapest();
         }
       }
@@ -74,7 +74,7 @@
       if (SHIPPING_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->display();
         }
       }
@@ -89,7 +89,7 @@
 
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           $confirm_string .= $GLOBALS[$class]->confirm();
         }
 

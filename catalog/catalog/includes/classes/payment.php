@@ -14,7 +14,7 @@
           $include_file = DIR_WS_LANGUAGES . $language . '/modules/payment/' . $value; include(DIR_WS_INCLUDES . 'include_once.php');
           $include_file = DIR_WS_PAYMENT_MODULES . $value; include(DIR_WS_INCLUDES . 'include_once.php');
 
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class] = new $class;
         }
       }
@@ -25,7 +25,7 @@
       if (PAYMENT_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->javascript_validation();
         }
       }
@@ -36,9 +36,8 @@
         $rows = 0;
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
-
           $rows ++;
+          $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_enabled) {
             $selection_string .= '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n" .
                                  '                <td nowrap colspan="3">' . FONT_STYLE_MAIN . '&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</font></td>' . "\n" .
@@ -65,7 +64,7 @@
       if (PAYMENT_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_code == $HTTP_POST_VARS['payment']) {
             $confirmation_string = '          <tr>' . "\n" .
                                    '            <td nowrap>' . FONT_STYLE_MAIN . '&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</font></td>' . "\n" .
@@ -81,7 +80,7 @@
       if (PAYMENT_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->process_button();
         }
       }
@@ -91,7 +90,7 @@
       if (PAYMENT_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->before_process();
         }
       }
@@ -103,7 +102,7 @@
       if (PAYMENT_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_code == $payment) {
             $GLOBALS[$class]->after_process();
           }
@@ -117,7 +116,7 @@
       if (PAYMENT_MODULES) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $class = substr($value, 0, -4);
+          $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_code == $order_values['payment_method']) {
             $payment_text = $GLOBALS[$class]->payment_description;
           }
