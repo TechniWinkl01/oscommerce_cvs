@@ -1,7 +1,7 @@
 <?
 /*
-English Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
+English Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
