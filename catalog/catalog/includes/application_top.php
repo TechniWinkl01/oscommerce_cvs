@@ -221,10 +221,6 @@
 // lets start our session
   tep_session_start();
 
-// we have to pre-register variables for them to keep their value. Should be fixed in the session class (PHP3).
-  if ($cart) tep_session_register('cart');
-  if ($customer_id) tep_session_register('customer_id');
-
 // Fix the cart if necesary
   if (REPAIR_BROKEN_CART && is_object($cart) ) {
     $broken_cart = $cart;

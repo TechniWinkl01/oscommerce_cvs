@@ -301,6 +301,7 @@ function _php_decode($data)
         $name = trim($tmp[0]);
         $value = trim($tmp[1]);
         $GLOBALS[$name] = unserialize($value);
+        $session->vars[] = trim($name);
     }
 }
 
@@ -697,5 +698,5 @@ echo "foo: $foo";
  *
  */
  
-/* $Id: sessions.php,v 1.2 2000/12/01 22:00:19 dwatkins Exp $ */ 
+/* $Id: sessions.php,v 1.3 2000/12/06 20:59:12 dwatkins Exp $ */ 
 ?>
