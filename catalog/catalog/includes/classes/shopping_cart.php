@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.23 2001/10/31 15:20:35 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.24 2001/12/09 20:30:22 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -204,7 +204,7 @@
           $products_price = $product['products_price'];
           $products_weight = $product['products_weight'];
 
-          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "'");
+          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (tep_db_num_rows ($specials_query)) {
             $specials = tep_db_fetch_array($specials_query);
             $products_price = $specials['specials_new_products_price'];
@@ -259,7 +259,7 @@
           $prid = $products['products_id'];
           $products_price = $products['products_price'];
 
-          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "'");
+          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (tep_db_num_rows($specials_query)) {
             $specials = tep_db_fetch_array($specials_query);
             $products_price = $specials['specials_new_products_price'];

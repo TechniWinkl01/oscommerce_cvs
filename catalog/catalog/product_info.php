@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.73 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: product_info.php,v 1.74 2001/12/09 20:30:21 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -73,7 +73,7 @@ function popupImageWindow(url) {
     tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and language_id = '" . $languages_id . "'");
     $product_info_values = tep_db_fetch_array($product_info);
 
-    $check_special = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $product_info_values['products_id'] . "'");
+    $check_special = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $product_info_values['products_id'] . "' and status = '1'");
     if (tep_db_num_rows($check_special)) {
       $check_special_values = tep_db_fetch_array($check_special);
       $new_price = $check_special_values['specials_new_products_price'];
