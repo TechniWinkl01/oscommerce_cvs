@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.48 2001/11/19 11:39:24 hpdl Exp $
+  $Id: espanol.php,v 1.49 2001/11/19 12:12:01 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -190,6 +190,7 @@ define('IMAGE_COPY_TO', 'Copiar A');
 define('IMAGE_DEFINE', 'Define');
 define('IMAGE_DELETE', 'Eliminar');
 define('IMAGE_EDIT', 'Editar');
+define('IMAGE_EMAIL', 'Email');
 define('IMAGE_ICON_STATUS_GREEN', 'Active');
 define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'Set Active');
 define('IMAGE_ICON_STATUS_RED', 'Inactive');
