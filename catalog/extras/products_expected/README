@@ -1,0 +1,5 @@
+Adds sorting options to the admin configuration section.
+
+You can sort by date or product name, ascending or decending.
+
+If you do not have telnet access to your MySQL server, load the update.php file in this directory into your browser for a web-based automated SQL updating system :-)
