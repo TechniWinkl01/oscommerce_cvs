@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.169 2001/09/09 18:50:15 hpdl Exp $
+  $Id: application_top.php,v 1.170 2001/09/09 20:29:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -265,7 +265,6 @@
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
-  require(DIR_WS_FUNCTIONS . 'banner.php');
 
 // currency
   if ( (!$currency) || ($HTTP_GET_VARS['currency']) || ( (USE_DEFAULT_LANGUAGE_CURRENCY) && (LANGUAGE_CURRENCY != $currency) ) ) {
@@ -294,6 +293,10 @@
 
 // infobox
   require(DIR_WS_CLASSES . 'boxes.php');
+
+// auto expire banners
+  require(DIR_WS_FUNCTIONS . 'banner.php');
+  tep_expire_banners();
 
 // auto expire special products
   require(DIR_WS_FUNCTIONS . 'specials.php');

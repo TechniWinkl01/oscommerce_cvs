@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.5 2001/08/06 10:58:41 hpdl Exp $
+  $Id: banner.php,v 1.6 2001/09/09 20:29:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,26 +17,21 @@
   }
 
 ////
-// Check and expire a banner
-  function tep_expire_banner_check($banners_id) {
-    $banners_query = tep_db_query("select b.expires_date, b.expires_impressions, b.date_added, sum(bh.banners_shown) as banners_shown from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_HISTORY . " bh where b.banners_id = '" . $banners_id . "' and b.banners_id = bh.banners_id group by b.banners_id");
+// Auto expire banners
+  function tep_expire_banners() {
+    $banners_query = tep_db_query("select b.banners_id, b.expires_date, b.expires_impressions, sum(bh.banners_shown) as banners_shown from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_HISTORY . " bh where b.status = '1' and b.banners_id = bh.banners_id group by b.banners_id");
     if (tep_db_num_rows($banners_query)) {
-      $banners = tep_db_fetch_array($banners_query);
-      if ($banners['expires_date']) {
-        if (date('Y-m-d H:i:s') >= $banners['expires_date']) {
-          return tep_set_banner_status($banners_id, '0');
-        } else {
-          return false;
-        }
-      } elseif ($banners['expires_impressions']) {
-        if ($banners['banners_shown'] >= $banners['expires_impressions']) {
-          return tep_set_banner_status($banners_id, '0');
-        } else {
-          return false;
+      while ($banners = tep_db_fetch_array($banners_query)) {
+        if ($banners['expires_date']) {
+          if (date('Y-m-d H:i:s') >= $banners['expires_date']) {
+            tep_set_banner_status($banners['banners_id'], '0');
+          }
+        } elseif ($banners['expires_impressions']) {
+          if ($banners['banners_shown'] >= $banners['expires_impressions']) {
+            tep_set_banner_status($banners['banners_id'], '0');
+          }
         }
       }
-    } else {
-      return false;
     }
   }
 
@@ -72,8 +67,6 @@
     } else {
       tep_db_query("insert into " . TABLE_BANNERS_HISTORY . " (banners_id, banners_shown, banners_history_date) values ('" . $banner['banners_id'] . "', 1, now())");
     }
-
-    tep_expire_banner_check($banner['banners_id']);
 
     return $banner_string;
   }
