@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.136 2001/10/16 06:26:11 jan0815 Exp $
+  $Id: general.php,v 1.137 2001/10/21 16:20:35 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -998,7 +998,7 @@
       // strip all tags from the text
       $body .= "--$innerboundary\r\nContent-Type: text/plain;\r\n         charset=\"ISO-8859-1\"\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
       $body .= strip_tags($email_text);
-      $body .= "\r\n";
+      $body .= "\r\n\r\n";
 
       //HTML version of message
       $body .= "--$innerboundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
