@@ -218,7 +218,7 @@
   $payment_action = 'PM_PROCESS_BUTTON';
   include(DIR_MODULES . 'payment.php');
   if (!$checkout_form_submit) {
-    echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;' . "\n";
+    echo tep_image_submit(DIR_IMAGES . 'button_process.gif', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {
     echo $checkout_form_submit;
   }

@@ -182,7 +182,7 @@ function check_form() {
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', '50', '24', '0', IMAGE_NEXT); ?>&nbsp;</font></td>
+            <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_CART_CONTENTS; ?> | <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>

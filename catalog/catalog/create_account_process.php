@@ -348,7 +348,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', IMAGE_DONE); ?>&nbsp;&nbsp;</font></td>
+        <td align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_done.gif', IMAGE_DONE); ?>&nbsp;&nbsp;</font></td>
       </tr>
     </table><? if ($HTTP_POST_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_POST_VARS['origin'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->

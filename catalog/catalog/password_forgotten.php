@@ -73,7 +73,7 @@
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td align="right" valign="top" colspan="2" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_email_me.gif', '95', '24', '0', IMAGE_EMAIL_ME); ?>&nbsp;&nbsp;</td>
+            <td align="right" valign="top" colspan="2" nowrap><? echo tep_image_submit(DIR_IMAGES . 'button_email_me.gif', '0', '0', '0', IMAGE_EMAIL_ME); ?>&nbsp;&nbsp;</td>
           </tr>
 <?
   if ($HTTP_GET_VARS['email'] == 'nonexistent') {

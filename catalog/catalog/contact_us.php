@@ -105,7 +105,7 @@
           </tr>
           <tr>
             <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
-            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_process.gif', 78, 24, 0, IMAGE_SUBMIT); ?>&nbsp;&nbsp;</font></td>
+            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_process.gif', IMAGE_SUBMIT); ?>&nbsp;&nbsp;</font></td>
           </tr>
         </table></form></td>
 <?

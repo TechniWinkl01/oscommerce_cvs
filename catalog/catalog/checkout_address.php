@@ -155,7 +155,7 @@
     echo '                <td valign="top" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</font></td>' . "\n";
   }
 ?>
-                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', '50', '24', '0', IMAGE_NEXT); ?>&nbsp;&nbsp;</font></td>
+                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>

@@ -183,7 +183,7 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
         </table></td>
       </tr>
       <tr>
-        <td align="right" nowrap><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>"><?echo tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
+        <td align="right" nowrap><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_done.gif', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
       </tr>
       <tr>
         <td><?echo tep_black_line(); ?></td>

@@ -156,9 +156,9 @@
 
     echo '<td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">';
     if ($product_exists_in_cart == '1') {
-      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '116', '24', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>';
+      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '0', '0', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>';
     } else {
-      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
+      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '0', '0', '0', IMAGE_ADD_TO_CART);
     }
     $get_params_back = substr(tep_get_all_get_params(array('products_id','language','currency')), 0, -1);
     if ($get_params_back != '') {

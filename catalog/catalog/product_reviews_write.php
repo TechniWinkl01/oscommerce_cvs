@@ -135,7 +135,7 @@ function checkForm() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '70', '24', '0', IMAGE_INSERT); ?>&nbsp;<?
+        <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '0', '0', '0', IMAGE_INSERT); ?>&nbsp;<?
     $reviews = tep_db_query("select count(*) as count from reviews_extra where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $reviews_values = tep_db_fetch_array($reviews);
     if ($reviews_values['count'] == '0') {
