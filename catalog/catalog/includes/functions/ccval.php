@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: ccval.php,v 1.5 2002/01/17 19:17:25 project3000 Exp $
+  $Id: ccval.php,v 1.6 2002/01/17 20:44:47 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 
@@ -28,7 +28,7 @@
 */
 
   function CCValidationSolution($Number) {
-    global $CardName, $CardNumber, $language
+    global $CardName, $CardNumber, $language;
 
     require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CCVAL_FUNCTION); 
 
@@ -67,9 +67,6 @@
         $ShouldLength = 16;
       } elseif ($NumberLength < 14) {
         $ShouldLength = 13;
-      } else {
-      $cc_val = sprintf(TEXT_CCVAL_ERROR_VISA_14CHAR, $Number); 
-      return $cc_val;
       }
     } elseif ( ($NumberLeft >= 5100) && ($NumberLeft <= 5599) ) {
       $CardName = 'MasterCard';
@@ -89,9 +86,9 @@
     if ($NumberLength <> $ShouldLength) {
       $Missing = $NumberLength - $ShouldLength;
       if ($Missing < 0) {
-        $cc_val = sprintf(TEXT_CCVAL_ERROR_TOO_SHORT, $CardName, $Number, abs($Missing));
+        $cc_val = sprintf(TEXT_CCVAL_ERROR_INVALID_NUMBER, $CardName, $Number);
       } else {
-        $cc_val = sprintf(TEXT_CCVAL_ERROR_TOO_LONG, $CardName, $Number, $Missing);
+        $cc_val = sprintf(TEXT_CCVAL_ERROR_INVALID_NUMBER, $CardName, $Number);
       }
 
       return $cc_val;
