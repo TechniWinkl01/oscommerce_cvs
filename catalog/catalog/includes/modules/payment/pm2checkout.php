@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.19 2003/01/29 19:57:15 hpdl Exp $
+  $Id: pm2checkout.php,v 1.20 2003/07/19 20:27:18 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,7 +90,7 @@
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
                                                  'field' => tep_draw_pull_down_menu('pm_2checkout_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('pm_2checkout_cc_expires_year', $expires_year)),
                                            array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER,
-                                                 'field' => tep_draw_input_field('pm_2checkout_cc_cvv', '', 'size="4" maxlength="3"') . '&nbsp;<small>' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
+                                                 'field' => tep_draw_input_field('pm_2checkout_cc_cvv', '', 'size="4" maxlength="4"') . '&nbsp;<small>' . MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
 
       return $selection;
     }

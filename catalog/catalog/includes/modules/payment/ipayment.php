@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.32 2003/01/29 19:57:14 hpdl Exp $
+  $Id: ipayment.php,v 1.33 2003/07/19 20:27:18 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,7 +93,7 @@
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_EXPIRES,
                                                  'field' => tep_draw_pull_down_menu('ipayment_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('ipayment_cc_expires_year', $expires_year)),
                                            array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER,
-                                                 'field' => tep_draw_input_field('ipayment_cc_checkcode', '', 'size="4" maxlength="3"') . '&nbsp;<small>' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
+                                                 'field' => tep_draw_input_field('ipayment_cc_checkcode', '', 'size="4" maxlength="4"') . '&nbsp;<small>' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION . '</small>')));
 
       return $selection;
     }
