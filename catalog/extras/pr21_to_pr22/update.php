@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: update.php,v 1.28 2002/01/09 17:19:25 hpdl Exp $
+  $Id: update.php,v 1.29 2002/01/23 02:40:45 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,7 +14,7 @@
 ?>
 <html>
 <head>
-<title>The Exchange Project Preview Release 2.2 Database Update Script</title>
+<title>osCommerce 2.2 Database Update Script</title>
 <style type=text/css><!--
   TD, P, BODY {
     font-family: Verdana, Arial, sans-serif;
@@ -25,7 +25,7 @@
 </head>
 <body>
 <p>
-<b>The Exchange Project Preview Release 2.2 Database Update Script</b>
+<b>osCommerce 2.2 Database Update Script</b>
 <p>
 <form name="database" action="<?php echo basename($PHP_SELF); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
@@ -126,7 +126,7 @@ Note: The user must have create and drop privileges!
 ?>
 <html>
 <head>
-<title>The Exchange Project Preview Release 2.2 Database Update Script</title>
+<title>osCommerce 2.2 Database Update Script</title>
 <style type=text/css><!--
   TD, P, BODY {
     font-family: Verdana, Arial, sans-serif;
@@ -154,7 +154,7 @@ function changeText(where, what) {
 </head>
 <body>
 <p>
-<b>The Exchange Project Preview Release 2.2 Database Update Script</b>
+<b>osCommerce 2.2 Database Update Script</b>
 <p>
 <span id="addressBook"><span id="addressBookMarker">-</span> Address Book</span><br>
 <span id="banners"><span id="bannersMarker">-</span> Banners</span><br>
@@ -163,6 +163,7 @@ function changeText(where, what) {
 <span id="currencies"><span id="currenciesMarker">-</span> Currencies</span><br>
 <span id="customers"><span id="customersMarker">-</span> Customers</span><br>
 <span id="images"><span id="imagesMarker">-</span> Images</span><br>
+<span id="languages"><span id="languagesMarker">-</span> Languages</span><br>
 <span id="manufacturers"><span id="manufacturersMarker">-</span> Manufacturers</span><br>
 <span id="orders"><span id="ordersMarker">-</span> Orders</span><br>
 <span id="products"><span id="productsMarker">-</span> Products</span><br>
@@ -192,6 +193,11 @@ changeText('statusText', 'Updating Address Book');
   tep_db_query("alter table address_book add entry_company varchar(32) after entry_gender");
   tep_db_query("alter table address_book drop primary key");
 
+  $customer_query = tep_db_query("select customers_id, customers_gender, customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_zone_id from customers");
+  while ($customer = tep_db_fetch_array($customer_query)) {
+    tep_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $customer['customers_id'] . "', '1', '" . $customer['customers_gender'] . "', '', '" . addslashes($customer['customers_firstname']) . "', '" . addslashes($customer['customers_lastname']) . "', '" . addslashes($customer['customers_street_address']) . "', '" . addslashes($customer['customers_suburb']) . "', '" . addslashes($customer['customers_postcode']) . "', '" . addslashes($customer['customers_city']) . "', '" . addslashes($customer['customers_state']) . "', '" . $customer['customers_country_id'] . "', '" . $customer['customers_zone_id'] . "')");
+  }
+
   $entries_query = tep_db_query("select address_book_id, customers_id from address_book_to_customers order by customers_id, address_book_id DESC");
   $ab_id = '1'; // set new address_book_id
   $c_id = '-1'; // when customer_id does not equal $c_id, reset $ab_id
@@ -199,10 +205,6 @@ changeText('statusText', 'Updating Address Book');
     if ($entries['customers_id'] != $c_id) {
       $ab_id = '1';
       $c_id = $entries['customers_id'];
-
-      $customer_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_zone_id from customers where customers_id = '" . $c_id . "'");
-      $customer = tep_db_fetch_array($customer_query);
-      tep_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $c_id . "', '" . $ab_id . "', '" . $customer['customers_gender'] . "', '', '" . addslashes($customer['customers_firstname']) . "', '" . addslashes($customer['customers_lastname']) . "', '" . addslashes($customer['customers_street_address']) . "', '" . addslashes($customer['customers_suburb']) . "', '" . addslashes($customer['customers_postcode']) . "', '" . addslashes($customer['customers_city']) . "', '" . addslashes($customer['customers_state']) . "', '" . $customer['customers_country_id'] . "', '" . $customer['customers_zone_id'] . "')");
     }
     $ab_id++;
 
@@ -364,7 +366,7 @@ changeText('statusText', 'Updating Currencies');
 <?php
   flush();
 
-  tep_db_query("alter table currencies add value float");
+  tep_db_query("alter table currencies add value float(13,8)");
   tep_db_query("alter table currencies add last_updated datetime");
 
   tep_db_query("update currencies set value = '1'");
@@ -441,6 +443,22 @@ changeStyle('images', 'normal');
 changeText('imagesMarker', '*');
 changeText('statusText', 'Updating Images .. done!');
 
+changeStyle('languages', 'bold');
+changeText('languagesMarker', '?');
+changeText('statusText', 'Updating Languages');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("update languages set image = 'icon.gif'");
+?>
+
+<script language="javascript"><!--
+changeStyle('languages', 'normal');
+changeText('languagesMarker', '*');
+changeText('statusText', 'Updating Languages .. done!');
+
 changeStyle('manufacturers', 'bold');
 changeText('manufacturersMarker', '?');
 changeText('statusText', 'Updating Manufacturers');
@@ -451,7 +469,6 @@ changeText('statusText', 'Updating Manufacturers');
 
   tep_db_query("alter table manufacturers add date_added datetime null after manufacturers_image, add last_modified datetime null after date_added");
   tep_db_query("create table manufacturers_info (manufacturers_id int(5) not null, languages_id int(5) not null, manufacturers_url varchar(255) not null, url_clicked int(5) not null default '0', date_last_click datetime, primary key (manufacturers_id, languages_id))");
-
 ?>
 
 <script language="javascript"><!--
@@ -540,6 +557,8 @@ changeText('statusText', 'Updating Products');
       tep_db_query("replace into products_options_values (products_options_values_id, language_id, products_options_values_name) values ('" . $products['products_options_values_id'] . "', '" . $languages[$i]['id'] . "', '" . addslashes($products['products_options_values_name']) . "')");
     }
   }
+
+  tep_db_query("alter table products_to_categories change products_id products_id int(5) not null");
 ?>
 
 <script language="javascript"><!--
@@ -643,6 +662,8 @@ changeText('statusText', 'Updating Taxes');
 
   tep_db_query("create table geo_zones (geo_zone_id int(5) not null auto_increment, geo_zone_name varchar(32) not null, geo_zone_description varchar(255) not null, last_modified datetime, date_added datetime not null, primary key (geo_zone_id))");
   tep_db_query("create table zones_to_geo_zones (association_id int(5) not null auto_increment, zone_country_id int(5) not null, zone_id int(5), geo_zone_id int(5), last_modified datetime, date_added datetime not null, primary key (association_id))");
+
+  tep_db_query("alter table zones change zone_code zone_code varchar(32) not null");
 ?>
 
 <script language="javascript"><!--
