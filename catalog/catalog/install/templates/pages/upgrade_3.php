@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.22 2002/04/18 13:43:28 hpdl Exp $
+  $Id: upgrade_3.php,v 1.23 2002/04/24 17:18:20 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -550,7 +550,9 @@ changeText('statusText', 'Updating Products');
     }
   }
 
-  osc_db_query("alter table products change products_date_added products_date_added datetime");
+  osc_db_query("update products set products_date_added = now() where products_date_added is null");
+  osc_db_query("alter table products change products_date_added products_date_added datetime not null");
+  osc_db_query("alter table products add index products_date_added (products_date_added)");
 
   osc_db_query("alter table products drop index products_name");
 
@@ -563,6 +565,7 @@ changeText('statusText', 'Updating Products');
   osc_db_query("alter table products add products_last_modified datetime");
 
   osc_db_query("alter table products add products_ordered int default '0' not null");
+
   $products_query = osc_db_query("select products_id, sum(products_quantity) as products_ordered from orders_products group by products_id");
   while ($products = osc_db_fetch_array($products_query)) {
     osc_db_query("update products set products_ordered = '" . $products['products_ordered'] . "' where products_id = '" . $products['products_id'] . "'");

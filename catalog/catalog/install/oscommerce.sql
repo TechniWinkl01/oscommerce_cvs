@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.38 2002/04/21 16:41:26 hpdl Exp $
+# $Id: oscommerce.sql,v 1.39 2002/04/24 17:18:20 dgw_ Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -364,7 +364,7 @@ CREATE TABLE products (
   products_model varchar(12),
   products_image varchar(64),
   products_price decimal(8,2) NOT NULL,
-  products_date_added datetime,
+  products_date_added datetime NOT NULL,
   products_last_modified datetime,
   products_date_available datetime,
   products_weight decimal(5,2) NOT NULL,
@@ -372,7 +372,8 @@ CREATE TABLE products (
   products_tax_class_id int NOT NULL,
   manufacturers_id int NULL,
   products_ordered int NOT NULL default '0',
-  PRIMARY KEY (products_id)
+  PRIMARY KEY (products_id),
+  KEY products_date_added (products_date_added)
 );
 
 DROP TABLE IF EXISTS products_attributes;
