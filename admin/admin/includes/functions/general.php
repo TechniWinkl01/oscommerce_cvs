@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.151 2003/02/07 21:46:49 dgw_ Exp $
+  $Id: general.php,v 1.152 2003/03/15 14:38:38 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -256,17 +256,16 @@
     }
   }
 
-  function tep_get_zone_name($zone_id) {
-    $zone_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_id = '" . $zone_id . "'");
-
-    if (!tep_db_num_rows($zone_query)) {
-      return $zone_id;
-    } else {
+  function tep_get_zone_name($country_id, $zone_id, $default_zone) {
+    $zone_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_id . "' and zone_id = '" . $zone_id . "'");
+    if (tep_db_num_rows($zone_query)) {
       $zone = tep_db_fetch_array($zone_query);
       return $zone['zone_name'];
+    } else {
+      return $default_zone;
     }
   }
-
+    
   function tep_not_null($value) {
     if (is_array($value)) {
       if (sizeof($value) > 0) {
@@ -657,6 +656,17 @@
 // Function to read in text area in admin
  function tep_cfg_textarea($text) {
     return tep_draw_textarea_field('configuration_value', false, 35, 5, $text);
+  }
+
+  function tep_cfg_get_zone_name($zone_id) {
+    $zone_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_id = '" . $zone_id . "'");
+
+    if (!tep_db_num_rows($zone_query)) {
+      return $zone_id;
+    } else {
+      $zone = tep_db_fetch_array($zone_query);
+      return $zone['zone_name'];
+    }
   }
 
 ////

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.95 2003/02/16 01:33:14 harley_vb Exp $
+  $Id: german.php,v 1.96 2003/03/15 14:38:39 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -149,29 +149,38 @@ define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer %s existiert nicht!');
 define('CATEGORY_PERSONAL', 'Pers&ouml;nliche Daten');
 define('CATEGORY_ADDRESS', 'Adresse');
 define('CATEGORY_CONTACT', 'Kontakt');
-define('CATEGORY_PASSWORD', 'Passwort');
 define('CATEGORY_COMPANY', 'Firma');
 define('CATEGORY_OPTIONS', 'Optionen');
+
 define('ENTRY_GENDER', 'Anrede:');
+define('ENTRY_GENDER_ERROR', '&nbsp;<span class="errorText">notwendige Eingabe</span>');
 define('ENTRY_FIRST_NAME', 'Vorname:');
+define('ENTRY_FIRST_NAME_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben</span>');
 define('ENTRY_LAST_NAME', 'Nachname:');
+define('ENTRY_LAST_NAME_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben</span>');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
+define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<span class="errorText">(z.B. 21.05.1970)</span>');
 define('ENTRY_EMAIL_ADDRESS', 'eMail Adresse:');
+define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben</span>');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<span class="errorText">ung&uuml;ltige eMail-Adresse!</span>');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<span class="errorText">Diese eMail-Adresse existiert schon!</span>');
 define('ENTRY_COMPANY', 'Firmenname:');
 define('ENTRY_STREET_ADDRESS', 'Strasse:');
+define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben</span>');
 define('ENTRY_SUBURB', 'weitere Anschrift:');
 define('ENTRY_POST_CODE', 'Postleitzahl:');
+define('ENTRY_POST_CODE_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zahlen</span>');
 define('ENTRY_CITY', 'Stadt:');
+define('ENTRY_CITY_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben</span>');
 define('ENTRY_STATE', 'Bundesland:');
+define('ENTRY_STATE_ERROR', '&nbsp;<span class="errorText">notwendige Eingabe</font></small>');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
+define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<span class="errorText">mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen</span>');
 define('ENTRY_FAX_NUMBER', 'Telefaxnummer:');
 define('ENTRY_NEWSLETTER', 'Rundschreiben:');
 define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
-define('ENTRY_PASSWORD', 'Passwort:');
-define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbest&auml;tigung:');
-define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.101 2002/11/11 13:30:16 project3000 Exp $
+  $Id: english.php,v 1.102 2003/03/15 14:38:38 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -150,28 +150,42 @@ define('CATEGORY_PERSONAL', 'Personal');
 define('CATEGORY_ADDRESS', 'Address');
 define('CATEGORY_CONTACT', 'Contact');
 define('CATEGORY_COMPANY', 'Company');
-define('CATEGORY_PASSWORD', 'Password');
 define('CATEGORY_OPTIONS', 'Options');
+
 define('ENTRY_GENDER', 'Gender:');
+define('ENTRY_GENDER_ERROR', '&nbsp;<span class="errorText">required</span>');
 define('ENTRY_FIRST_NAME', 'First Name:');
+define('ENTRY_FIRST_NAME_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' chars</span>');
 define('ENTRY_LAST_NAME', 'Last Name:');
+define('ENTRY_LAST_NAME_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_LAST_NAME_MIN_LENGTH . ' chars</span>');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
+define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<span class="errorText">(eg. 05/21/1970)</span>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
+define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' chars</span>');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<span class="errorText">The email address doesn\'t appear to be valid!</span>');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<span class="errorText">This email address already exists!</span>');
 define('ENTRY_COMPANY', 'Company name:');
+define('ENTRY_COMPANY_ERROR', '');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
+define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' chars</span>');
 define('ENTRY_SUBURB', 'Suburb:');
+define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_POST_CODE', 'Post Code:');
+define('ENTRY_POST_CODE_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_POSTCODE_MIN_LENGTH . ' chars</span>');
 define('ENTRY_CITY', 'City:');
+define('ENTRY_CITY_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_CITY_MIN_LENGTH . ' chars</span>');
 define('ENTRY_STATE', 'State:');
+define('ENTRY_STATE_ERROR', '&nbsp;<span class="errorText">required</span>');
 define('ENTRY_COUNTRY', 'Country:');
+define('ENTRY_COUNTRY_ERROR', '');
 define('ENTRY_TELEPHONE_NUMBER', 'Telephone Number:');
+define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<span class="errorText">min ' . ENTRY_TELEPHONE_MIN_LENGTH . ' chars</span>');
 define('ENTRY_FAX_NUMBER', 'Fax Number:');
+define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
-define('ENTRY_NEWSLETTER_YES', 'subscribes');
-define('ENTRY_NEWSLETTER_NO', 'unsubscribes');
-define('ENTRY_PASSWORD', 'Password:');
-define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
-define('PASSWORD_HIDDEN', '--HIDDEN--');
+define('ENTRY_NEWSLETTER_YES', 'Subscribed');
+define('ENTRY_NEWSLETTER_NO', 'Unsubscribed');
+define('ENTRY_NEWSLETTER_ERROR', '');
 
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');

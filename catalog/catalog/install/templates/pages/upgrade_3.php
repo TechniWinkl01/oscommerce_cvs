@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.50 2003/03/10 23:30:34 hpdl Exp $
+  $Id: upgrade_3.php,v 1.51 2003/03/15 14:41:23 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,6 +199,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("update configuration set set_function = 'tep_cfg_pull_down_country_list(' where configuration_key = 'STORE_COUNTRY'");
   osc_db_query("update configuration set configuration_value = 'desc', configuration_description = 'This is the sort order used in the expected products box.', set_function = 'tep_cfg_select_option(array(\'asc\', \'desc\'), ' where configuration_key = 'EXPECTED_PRODUCTS_SORT'");
   osc_db_query("update configuration set configuration_value = 'date_expected', configuration_description = 'The column to sort by in the expected products box.', set_function = 'tep_cfg_select_option(array(\'products_name\', \'date_expected\'), ' where configuration_key = 'EXPECTED_PRODUCTS_FIELD'");
+  osc_db_query("update configuration set set_function = 'tep_cfg_get_zone_name' where configuration_key = 'STORE_ZONE'");
 
   $config_query = osc_db_query("select configuration_key, configuration_value from configuration where configuration_key = 'IMAGE_REQUIRED'");
   $config_value = osc_db_fetch_array($config_query);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.156 2003/02/18 04:19:54 hpdl Exp $
+  $Id: application_top.php,v 1.157 2003/03/15 14:38:38 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,6 +199,9 @@
 
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
+
+// Include validation functions (right now only email address)
+  require(DIR_WS_FUNCTIONS . 'validations.php');
 
 // setup our boxes
   require(DIR_WS_CLASSES . 'table_block.php');
