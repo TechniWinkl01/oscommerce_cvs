@@ -8,9 +8,9 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 define('TOP_BAR_TITLE', 'Currencies');
 define('HEADING_TITLE', 'Currencies');
 
-define('TABLE_HEADING_COUNTRY_ID', 'ID');
-define('TABLE_HEADING_COUNTRY_NAME', 'Currency');
-define('TABLE_HEADING_COUNTRY_CODES', 'Code');
+define('TABLE_HEADING_CURRENCY_ID', 'ID');
+define('TABLE_HEADING_CURRENCY_NAME', 'Currency');
+define('TABLE_HEADING_CURRENCY_CODES', 'Code');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
