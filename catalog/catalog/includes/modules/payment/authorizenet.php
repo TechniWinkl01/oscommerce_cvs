@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.17 2001/08/25 14:47:10 hpdl Exp $
+  $Id: authorizenet.php,v 1.18 2001/08/25 15:02:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -104,7 +104,7 @@
       global $HTTP_POST_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id;
 
       if ($this->enabled) {
-        $process_button_string = tep_draw_hidden_field('x_Login', 'testing') .
+        $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
                                  tep_draw_hidden_field('x_Card_Num', $CardNumber) .
                                  tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
                                  tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
@@ -122,13 +122,13 @@
     }
 
     function before_process() {
-      global $payment, $x_response_code;
+      global $payment, $HTTP_POST_VARS;
 
-      if ( ($payment == $this->code) && ($x_response_code != '1') ) {
-        Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
-        tep_exit();
+      if ($payment == $this->code) {
+        if ($HTTP_POST_VARS['x_response_code'] != '1') {
+          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
+        }
       }
-
     }
 
     function after_process() {
