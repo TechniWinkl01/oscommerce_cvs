@@ -11,6 +11,7 @@ define('TOP_BAR_TITLE', 'Checkout Procedure');
 define('HEADING_TITLE', 'I\'m Ready To Purchase!');
 define('TABLE_HEADING_QUANTITY', 'Qty.');
 define('TABLE_HEADING_PRODUCTS', 'Product(s)');
+define('TABLE_HEADING_TAX', 'Tax');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');

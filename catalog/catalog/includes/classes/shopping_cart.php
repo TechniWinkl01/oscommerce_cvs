@@ -314,7 +314,8 @@
                                   'quantity' => $this->contents[$products_id]['qty'],
                                   'weight' => $products['products_weight'],
                                   'final_price' => (($products_price * $this->contents[$products_id]['qty']) + $this->attributes_price($products_id)),
-                                  'tax_class_id' => $products['products_tax_class_id']);
+                                  'tax_class_id' => $products['products_tax_class_id'],
+                                  'attributes' => $this->contents[$products_id]['attributes']);
       }
 
       return $products_array;
