@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.93 2001/11/20 21:49:59 dgw_ Exp $
+  $Id: application_top.php,v 1.94 2001/11/29 16:38:50 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,7 +24,6 @@
 // WS = Webserver (virtual)
   define('HTTP_SERVER', '');
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
-  define('DIR_FS_LOGS', '/usr/local/apache/logs/');
   define('DIR_WS_ADMIN', '/admin/');
   define('DIR_WS_CATALOG', '/catalog/');
   define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);
