@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.17 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: orders.php,v 1.18 2002/04/25 12:44:55 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,6 +37,7 @@ define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Cliente Notificado');
 define('TABLE_HEADING_DATE_ADDED', 'Añadido el');
 
 define('ENTRY_CUSTOMER', 'Cliente:');
+define('ENTRY_SOLD_TO', Cliente:');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
 define('ENTRY_SUBURB', '');
 define('ENTRY_CITY', 'Poblacion:');
@@ -46,6 +47,7 @@ define('ENTRY_COUNTRY', 'Pais:');
 define('ENTRY_TELEPHONE', 'Telefono:');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('ENTRY_DELIVERY_TO', 'Enviar A:');
+define('ENTRY_SHIP_TO', 'Enviar A:');
 define('ENTRY_PAYMENT_METHOD', 'Metodo de Pago:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Tipo Tarjeta Credito:');
 define('ENTRY_CREDIT_CARD_OWNER', 'Titular Tarjeta Credito:');
@@ -59,6 +61,7 @@ define('ENTRY_DATE_PURCHASED', 'Fecha de Compra:');
 define('ENTRY_STATUS', 'Estado:');
 define('ENTRY_DATE_LAST_UPDATED', 'Ultima Modificacion:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Notificar Cliente:');
+define('ENTRY_PRINTABLE', 'Print Invoice');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Eliminar Pedido');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este pedido?');

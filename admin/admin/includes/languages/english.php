@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.94 2002/04/16 06:55:41 harley_vb Exp $
+  $Id: english.php,v 1.95 2002/04/25 12:44:54 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -208,6 +208,8 @@ define('IMAGE_NEW_TAX_RATE', 'New Tax Rate');
 define('IMAGE_NEW_TAX_ZONE', 'New Tax Zone');
 define('IMAGE_NEW_ZONE', 'New Zone');
 define('IMAGE_ORDERS', 'Orders');
+define('IMAGE_ORDERS_INVOICE', 'Invoice');
+define('IMAGE_ORDERS_PACKINGSLIP', 'Packing Slip');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_RESTORE', 'Restore');
 define('IMAGE_RESET', 'Reset');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.19 2002/01/28 09:24:11 harley_vb Exp $
+  $Id: orders.php,v 1.20 2002/04/25 12:44:55 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,6 +37,7 @@ define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Kunde benachrichtigt');
 define('TABLE_HEADING_DATE_ADDED', 'hinzugef&uuml;gt am:');
 
 define('ENTRY_CUSTOMER', 'Kunde:');
+define('ENTRY_SOLD_TO', 'Kunde:');
 define('ENTRY_STREET_ADDRESS', 'Strasse:');
 define('ENTRY_SUBURB', 'zus. Anschrift:');
 define('ENTRY_CITY', 'Stadt:');
@@ -46,6 +47,7 @@ define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE', 'Telefon:');
 define('ENTRY_EMAIL_ADDRESS', 'eMail Adresse:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
+define('ENTRY_SHIP_TO', 'Lieferanschrift:');
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Kreditkartentyp:');
 define('ENTRY_CREDIT_CARD_OWNER', 'Kreditkarteninhaber:');
@@ -59,6 +61,7 @@ define('ENTRY_DATE_PURCHASED', 'Bestelldatum:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
+define('ENTRY_PRINTABLE', 'Print Invoice');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung l&ouml;schen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, das Sie diese Bestellung l&ouml;schen m&ouml;chten?');
