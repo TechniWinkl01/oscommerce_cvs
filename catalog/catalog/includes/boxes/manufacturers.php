@@ -1,14 +1,10 @@
 <!-- manufacturers //-->
-<?
-  if (DISPLAY_MANUFACTURERS_BOX) {
-?>
           <tr>
             <td>
 <?
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
-                               'text'  => BOX_HEADING_MANUFACTURERS
-                              );
+                               'text'  => BOX_HEADING_MANUFACTURERS);
   new infoBoxHeading($info_box_contents);
 
   $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
@@ -22,8 +18,7 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => $manufacturers_list
-                                );
+                                 'text'  => $manufacturers_list);
   } else {
 // Display a drop-down
     $select_box = '<select name="manufacturers_id" onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '">';
@@ -41,15 +36,11 @@
     $info_box_contents = array();
     $info_box_contents[] = array('form' => '<form name="manufacturers" method="get" action="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">',
                                  'align' => 'left',
-                                 'text'  => $select_box
-                                );
+                                 'text'  => $select_box);
   }
 
   new infoBox($info_box_contents);
 ?>
             </td>
           </tr>
-<?
-  }
-?>
 <!-- manufacturers_eof //-->

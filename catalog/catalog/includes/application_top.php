@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.134 2001/06/05 21:25:28 hpdl Exp $
+  $Id: application_top.php,v 1.135 2001/06/06 10:08:41 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -199,7 +199,6 @@
   define('PREV_NEXT_BAR_LOCATION', 2) ;    // 1 - top, 2 - bottom, 3 - both
 
 // Manufacturers box
-  define('DISPLAY_MANUFACTURERS_BOX', 1); // Manufacturers Box: 0=disable; 1=enable
   define('DISPLAY_EMPTY_MANUFACTURERS', 1); // Display Manufacturers with no products: 0=disable; 1=enable
 
 // Rollover Effect
