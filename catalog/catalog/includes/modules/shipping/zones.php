@@ -145,18 +145,14 @@
         }
         $shipping = -1;
         $zones_cost = tep_constant('MODULE_SHIPPING_ZONES_COST_' . $i);
-        $zones_table = split("[-:,]" , $zones_cost);
-        $n=1;
-        $y=2;
-        for ($i = 0; $i < count($zones_table); $i ++) {
-          if ( ($shipping_weight >= $zones_table[$i]) && ($shipping_weight <= $zones_table[$n]) ) {
-            $shipping = $zones_table[$y];
+
+        $zones_table = split("[:,]" , $zones_cost);
+        for ($i = 0; $i < count($zones_table); $i+=2) {
+          if ($shipping_weight <= $zones_table[$i]) {
+            $shipping = $zones_table[$i+1];
             $shipping_zones_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . " : " . $shipping_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
             break;
           }
-          $i = $i + 2;
-          $n = $n + 3;
-          $y = $y + 3;
         }
         if ( $shipping == -1) {
           $shipping_zones_cost = 0;
@@ -237,7 +233,7 @@
           $default_countries = 'US,CA';
         }
         tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Countries', 'MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."', '" . $default_countries . "', 'Comma separated list of two character ISO country codes that are part of Zone " . $i . ".', '6', '0', now())");
-        tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Shipping Table', 'MODULE_SHIPPING_ZONES_COST_" . $i ."', '0-3:8.50,3-7:10.50,7-99:20.00', 'Shipping rates to Zone " . $i . " destinations based on a range of order weights. Example: 0-3:8.50,3-7:10.50,... Weights greater than 0 and less than or equal to 3 would cost 8.50 for Zone " . $i . " destinations.', '6', '0', now())");
+        tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Shipping Table', 'MODULE_SHIPPING_ZONES_COST_" . $i ."', '3:8.50,7:10.50,99:20.00', 'Shipping rates to Zone " . $i . " destinations based on a group of maximum order weights. Example: 3:8.50,7:10.50,... Weights less than or equal to 3 would cost 8.50 for Zone " . $i . " destinations.', '6', '0', now())");
       }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.17 2002/01/24 14:28:04 hpdl Exp $
+  $Id: table.php,v 1.18 2002/02/02 21:17:36 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,19 +45,14 @@
         } else {
           $order_total = $cart->show_weight();
         }
-        $table_cost = MODULE_SHIPPING_TABLE_COST;
-        $high = split('[-,]' , $table_cost);
-        $n = 1;
-        $y = 2;
-        for ($i=0; $i<count($high); $i++) {
-          if ( ($order_total >= $high[$i]) && ($order_total <= $high[$n]) ) {
-            $shipping = $high[$y];
+
+        $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
+        for ($i = 0; $i < count($table_cost); $i+=2) {
+          if ($order_total <= $table_cost[$i]) {
+            $shipping = $table_cost[$i+1];
             $shipping_table_method = MODULE_SHIPPING_TABLE_TEXT_WAY;
             break;
           }
-          $i = $i + 2;
-          $n = $n + 3;
-          $y = $y + 3;
         }
         $shipping_table_cost = ($shipping + MODULE_SHIPPING_TABLE_HANDLING);
       }
@@ -126,7 +121,7 @@
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable Table Method', 'MODULE_SHIPPING_TABLE_STATUS', '1', 'Do you want to offer table rate shipping?', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Shipping Table', 'MODULE_SHIPPING_TABLE_COST', '1-25,8.50,25-50,5.50,50-10000,0.00', 'Shipping based on the total cost of items. Example: 1-25,8.50,25-50,5.50,etc.. From 1 to 25 charge 8.50, from 25 to 50 charge 5.50, etc', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Shipping Table', 'MODULE_SHIPPING_TABLE_COST', '25:8.50,50:5.50,10000:0.00', 'Shipping based on the total cost of items. Example: 25:8.50,50:5.50,etc.. Up to 25 charge 8.50, from there to 50 charge 5.50, etc', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Handling Fee', 'MODULE_SHIPPING_TABLE_HANDLING', '5', 'Handling Fee for this shipping method', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Table Method', 'MODULE_SHIPPING_TABLE_MODE', 'weight', 'Is the shipping table based on total Weight or Total amount of order.', '6', '0', 'tep_cfg_select_option(array(\'weight\', \'price\'), ', now())");
     }
