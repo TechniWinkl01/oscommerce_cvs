@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.39 2003/11/17 20:04:22 hpdl Exp $
+  $Id: reviews.php,v 1.40 2003/11/17 20:04:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,7 @@
 
   if ($random_product) {
 // display random review box
-    $review_box_query = tep_db_query("select substring(reviews_text, 1, 60) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . (int)$random_product['reviews_id'] . "' and languages_id = '" . (int)$languages_id . "'");
+    $review_box_query = tep_db_query("select substring(reviews_text, 1, 60) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . (int)$random_product['reviews_id'] . "' and languages_id = '" . (int)$osC_Session->value('languages_id') . "'");
     $review_box = tep_db_fetch_array($review_box_query);
 
     $review_box = tep_break_string(tep_output_string_protected($review_box['reviews_text']), 15, '-<br>');

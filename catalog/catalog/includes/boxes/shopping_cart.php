@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.18 2003/02/10 22:31:06 hpdl Exp $
+  $Id: shopping_cart.php,v 1.19 2003/11/17 20:05:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
     for ($i=0, $n=sizeof($products); $i<$n; $i++) {
       $cart_contents_string .= '<tr><td align="right" valign="top" class="infoBoxContents">';
 
-      if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
+      if (($osC_Session->exists('new_products_id_in_cart')) && ($osC_Session->value('new_products_id_in_cart') == $products[$i]['id'])) {
         $cart_contents_string .= '<span class="newItemInCart">';
       } else {
         $cart_contents_string .= '<span class="infoBoxContents">';
@@ -34,7 +34,7 @@
 
       $cart_contents_string .= $products[$i]['quantity'] . '&nbsp;x&nbsp;</span></td><td valign="top" class="infoBoxContents"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id']) . '">';
 
-      if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
+      if (($osC_Session->exists('new_products_id_in_cart')) && ($osC_Session->value('new_products_id_in_cart') == $products[$i]['id'])) {
         $cart_contents_string .= '<span class="newItemInCart">';
       } else {
         $cart_contents_string .= '<span class="infoBoxContents">';
@@ -42,8 +42,8 @@
 
       $cart_contents_string .= $products[$i]['name'] . '</span></a></td></tr>';
 
-      if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
-        tep_session_unregister('new_products_id_in_cart');
+      if (($osC_Session->exists('new_products_id_in_cart')) && ($osC_Session->value('new_products_id_in_cart') == $products[$i]['id'])) {
+        $osC_Session->remove('new_products_id_in_cart');
       }
     }
     $cart_contents_string .= '</table>';
