@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.271 2003/03/19 17:11:55 hpdl Exp $
+  $Id: application_top.php,v 1.272 2003/03/31 17:25:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -85,7 +85,7 @@
         } else {
           $HTTP_GET_VARS[$vars[$i]] = $vars[$i+1];
         }
-        $i++; 
+        $i++;
       }
 
       if (sizeof($GET_array) > 0) {
@@ -187,15 +187,43 @@
 
 // verify the ssl_session_id if the feature is enabled
   if ( ($request_type == 'SSL') && (SESSION_CHECK_SSL_SESSION_ID == 'True') && (ENABLE_SSL == true) && ($session_started == true) ) {
+    $ssl_session_id = getenv('SSL_SESSION_ID');
     if (!tep_session_is_registered('SSL_SESSION_ID')) {
-      if ($SSL_SESSION_ID = getenv('SSL_SESSION_ID')) {
-        tep_session_register('SSL_SESSION_ID');
-      }
-    } else {
-      if ($SSL_SESSION_ID != getenv('SSL_SESSION_ID')) {
-        tep_session_destroy();
-        tep_redirect(tep_href_link(FILENAME_SSL_CHECK));
-      }
+      $SESSION_SSL_ID = $ssl_session_id;
+      tep_session_register('SESSION_SSL_ID');
+    }
+
+    if ($SESSION_SSL_ID != $ssl_session_id) {
+      tep_session_destroy();
+      tep_redirect(tep_href_link(FILENAME_SSL_CHECK));
+    }
+  }
+
+// verify the browser user agent if the feature is enabled
+  if (SESSION_CHECK_USER_AGENT == 'True') {
+    $http_user_agent = getenv('HTTP_USER_AGENT');
+    if (!tep_session_is_registered('SESSION_USER_AGENT')) {
+      $SESSION_USER_AGENT = $http_user_agent;
+      tep_session_register('SESSION_USER_AGENT');
+    }
+
+    if ($SESSION_USER_AGENT != $http_user_agent) {
+      tep_session_destroy();
+      tep_redirect(tep_href_link(FILENAME_LOGIN));
+    }
+  }
+
+// verify the IP address if the feature is enabled
+  if (SESSION_CHECK_IP_ADDRESS == 'True') {
+    $ip_address = tep_get_ip_address();
+    if (!tep_session_is_registered('SESSION_IP_ADDRESS')) {
+      $SESSION_IP_ADDRESS = $ip_address;
+      tep_session_register('SESSION_IP_ADDRESS');
+    }
+
+    if ($SESSION_IP_ADDRESS != $ip_address) {
+      tep_session_destroy();
+      tep_redirect(tep_href_link(FILENAME_LOGIN));
     }
   }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.216 2003/03/24 20:34:08 hpdl Exp $
+  $Id: general.php,v 1.217 2003/03/31 17:25:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1201,5 +1201,27 @@
 
   function tep_setcookie($name, $value = '', $expire = 0, $path = '/', $domain = '', $secure = 0) {
     setcookie($name, $value, $expire, $path, (tep_not_null($domain) ? $domain : ''), $secure);
+  }
+
+  function tep_get_ip_address() {
+    if (isset($_SERVER)) {
+      if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+      } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+      } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+      }
+    } else {
+      if (getenv('HTTP_X_FORWARDED_FOR')) {
+        $ip = getenv('HTTP_X_FORWARDED_FOR');
+      } elseif (getenv('HTTP_CLIENT_IP')) {
+        $ip = getenv('HTTP_CLIENT_IP');
+      } else {
+        $ip = getenv('REMOTE_ADDR');
+      }
+    }
+
+    return $ip;
   }
 ?>
