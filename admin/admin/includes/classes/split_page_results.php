@@ -42,11 +42,6 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
 
 /* class functions */
 
-/*                 max_page_link       maximum number of page link to display
-                 cur_page_num        current page number
-                 page                filename of the page to be displayed
-                 parameters          optional string of parameters to appended to the URL */
-
 // display split-page-number-links
     function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
       global $PHP_SELF;
