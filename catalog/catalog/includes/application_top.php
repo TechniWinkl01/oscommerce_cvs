@@ -37,6 +37,7 @@
   define('STORE_DB_TRANSACTIONS', 0);
 
   define('SESSION_OBJECTS_ALLOWED', 1);
+  define('REPAIR_BROKEN_CART', 0);
 
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
@@ -200,6 +201,12 @@
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
+// include the database functions
+  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
+
+// make a connection to the database... now
+  tep_db_connect() or die('Unable to connect to database server!');
+
 // include shopping cart class
   $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
 
@@ -214,20 +221,25 @@
 // lets start our session
   tep_session_start();
 
-  if (SESSION_OBJECTS_ALLOWED) {
-    tep_session_register('cart');
-    if (!$cart) {
-      $cart = new shoppingCart;
+// we have to pre-register variables for them to keep their value. Should be fixed in the session class (PHP3).
+  if ($cart) tep_session_register('cart');
+  if ($customer_id) tep_session_register('customer_id');
+
+// Fix the object if necesary
+  if (REPAIR_BROKEN_CART && SESSION_OBJECTS_ALLOWED && is_object($cart) ) {
+    $broken_cart = $cart;
+    $cart = new shoppingCart;
+    $cart->unserialize($broken_cart);
+  } else {
+    if (SESSION_OBJECTS_ALLOWED) {
+      if (!$cart) {
+        tep_session_register('cart');
+        $cart = new shoppingCart;
+      }
+    } else {
+      $cart = new shoppingCart($cart_contents);
     }
-  } else {
-    $cart = new shoppingCart($cart_contents);
   }
-
-// include the database functions
-  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
-
-// make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
 
 // set the application parameters (can be modified through the administration tool)
   $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration');
