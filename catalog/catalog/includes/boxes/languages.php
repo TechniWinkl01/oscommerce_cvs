@@ -1,4 +1,4 @@
-<!-- search //-->
+<!-- languages //-->
           <tr>
             <td>
 <?
@@ -16,4 +16,4 @@
 ?>
             </td>
           </tr>
-<!-- search_eof //-->
+<!-- languages_eof //-->
