@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.27 2002/01/15 20:17:43 dgw_ Exp $
+  $Id: payment.php,v 1.28 2002/01/22 21:14:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -80,14 +80,14 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      global $payment;
 
       if (MODULE_PAYMENT_INSTALLED) {
         $payment_module_selected = false;
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->code == $HTTP_POST_VARS['payment']) && ($GLOBALS[$class]->enabled) ) {
+          if ( ($GLOBALS[$class]->code == $payment) && ($GLOBALS[$class]->enabled) ) {
             $payment_module_selected = true;
             $GLOBALS[$class]->pre_confirmation_check();
           }
@@ -100,14 +100,14 @@
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS;
+      global $payment;
 
       $confirmation_string = '';
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->code == $HTTP_POST_VARS['payment']) && ($GLOBALS[$class]->enabled) ) {
+          if ( ($GLOBALS[$class]->code == $payment) && ($GLOBALS[$class]->enabled) ) {
             $confirmation_string .= '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                                     '  <tr>' . "\n" .
                                     '    <td class="main">' . $GLOBALS[$class]->title . '</td>' . "\n" .
@@ -122,14 +122,14 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS;
+      global $payment;
 
       $process_button_string = '';
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->code == $HTTP_POST_VARS['payment']) && ($GLOBALS[$class]->enabled) ) {
+          if ( ($GLOBALS[$class]->code == $payment) && ($GLOBALS[$class]->enabled) ) {
             $process_button_string .= $GLOBALS[$class]->process_button();
           }
         }
@@ -139,11 +139,13 @@
     }
 
     function before_process() {
+      global $payment;
+
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->code == $GLOBALS['payment']) && ($GLOBALS[$class]->enabled) ) {
+          if ( ($GLOBALS[$class]->code == $payment) && ($GLOBALS[$class]->enabled) ) {
             $GLOBALS[$class]->before_process();
           }
         }
@@ -151,11 +153,13 @@
     }
 
     function after_process() {
+      global $payment;
+
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->code == $GLOBALS['payment']) && ($GLOBALS[$class]->enabled) ) {
+          if ( ($GLOBALS[$class]->code == $payment) && ($GLOBALS[$class]->enabled) ) {
             $GLOBALS[$class]->after_process();
           }
         }

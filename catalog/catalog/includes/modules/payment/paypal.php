@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.25 2002/01/20 16:07:40 hpdl Exp $
+  $Id: paypal.php,v 1.26 2002/01/22 21:14:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,8 +43,8 @@
     function process_button() {
       global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $total_cost, $total_tax, $currencies;
 
-      $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method);
-      $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected;
+      $paypal_return = 'shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method);
+      $paypal_cancel_return = 'shipping_selected=' . $shipping_selected;
 
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.29 2002/01/20 16:07:40 hpdl Exp $
+  $Id: authorizenet.php,v 1.30 2002/01/22 21:14:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -58,7 +58,7 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      global $payment;
 
       include(DIR_WS_FUNCTIONS . 'ccval.php');
 
@@ -67,7 +67,7 @@
       if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $payment . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }

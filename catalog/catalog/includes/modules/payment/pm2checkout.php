@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.3 2002/01/20 16:07:40 hpdl Exp $
+  $Id: pm2checkout.php,v 1.4 2002/01/22 21:14:47 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,7 +58,7 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      global $payment, $HTTP_POST_VARS;
 
       include(DIR_WS_FUNCTIONS . 'ccval.php');
 
@@ -67,7 +67,7 @@
       if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['pm_2checkout_cc_expires_month'], $HTTP_POST_VARS['pm_2checkout_cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&pm_2checkout_cc_expires_month=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . '&pm_2checkout_cc_expires_year=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $payment . '&pm_2checkout_cc_expires_month=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . '&pm_2checkout_cc_expires_year=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
@@ -133,7 +133,7 @@
       global $HTTP_POST_VARS;
 
       if ($HTTP_POST_VARS['x_response_code'] != '1') {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL', true, false));
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE), 'SSL', true, false));
       }
     }
 
@@ -146,7 +146,7 @@
 
       $output_error_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                              '  <tr>' . "\n" .
-                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;<font color="#FF0000"><b>' . MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR . '</b></font><br>&nbsp;' . stripslashes($HTTP_GET_VARS['cc_val']) . '&nbsp;</td>' . "\n" .
                              '  </tr>' . "\n" .
                              '</table>' . "\n";
 

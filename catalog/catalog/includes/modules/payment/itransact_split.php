@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.14 2002/01/20 16:07:40 hpdl Exp $
+  $Id: itransact_split.php,v 1.15 2002/01/22 21:14:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -209,9 +209,9 @@
   3.  Die - Something bad happened.  (internal error)
 */
     function before_process() {
-      global $HTTP_POST_VARS;
+      global $payment;
 
-      if ( ($HTTP_POST_VARS['payment'] == $this->code) && (($HTTP_POST_VARS['die'] == '1') || ($HTTP_POST_VARS['err'])) ) {
+      if ( ($payment == $this->code) && (($HTTP_POST_VARS['die'] == '1') || ($HTTP_POST_VARS['err'])) ) {
         if ($HTTP_POST_VARS['die'] == '1') {
           tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_ITRANSACT_SPLIT_TEXT_DIE_MESSAGE), 'SSL', true, false));
         }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.18 2002/01/20 16:07:40 hpdl Exp $
+  $Id: ipayment.php,v 1.19 2002/01/22 21:14:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -59,7 +59,7 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      global $payment, $HTTP_POST_VARS;
 
       include(DIR_WS_FUNCTIONS . 'ccval.php');
 
@@ -68,7 +68,7 @@
       if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
@@ -80,7 +80,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currencies;
+      global $payment, $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currencies;
 
       $customer_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
       $customer_email_values = tep_db_fetch_array($customer_email);
@@ -98,7 +98,7 @@
                                tep_draw_hidden_field('redirect_action', 'GET') .
                                tep_draw_hidden_field('cc_currency', MODULE_PAYMENT_IPAYMENT_CURRENCY) .
                                tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
-                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $HTTP_POST_VARS['payment'] . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']), 'SSL', true));
+                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']), 'SSL', true));
 
       return $process_button_string;
     }
