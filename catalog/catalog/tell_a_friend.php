@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.2 2001/06/12 22:54:04 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.3 2001/06/13 15:19:51 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,7 @@
 <?php
   if ($HTTP_GET_VARS['action'] == 'process') {
     $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $HTTP_POST_VARS['yourname'], STORE_NAME);
-    $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['yourname'], $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
+    $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['friendname'], $HTTP_POST_VARS['yourname'], $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
     if ($HTTP_POST_VARS['yourmessage'] != '') {
       $email_body .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
     }
@@ -134,6 +134,10 @@
             <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
               <tr>
                 <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="main">&nbsp;<?php echo FORM_FIELD_FRIEND_NAME; ?>&nbsp;</td>
+                    <td class="main">&nbsp;<input type="text" name="friendname"></td>
+                  </tr>
                   <tr>
                     <td class="main">&nbsp;<?php echo FORM_FIELD_FRIEND_EMAIL; ?>&nbsp;</td>
                     <td class="main">&nbsp;<input type="text" name="friendemail" value="<?php echo $HTTP_GET_VARS['send_to']; ?>">&nbsp;</td>
