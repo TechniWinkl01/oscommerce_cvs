@@ -142,9 +142,6 @@
   define('FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">');
   define('FONT_STYLE_NAVIGATION_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">');
 
-// Shipping Options
-  define('SHIPPING_FREE', 1);
-
 // minimum length of text field values accepted
   define('ENTRY_FIRST_NAME_MIN_LENGTH', 3);
   define('ENTRY_LAST_NAME_MIN_LENGTH', 3);

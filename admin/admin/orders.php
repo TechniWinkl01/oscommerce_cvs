@@ -125,49 +125,30 @@ function alertBox() {
             <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_PAYMENT_METHOD; ?>&nbsp;</font></td>
-<?php
-	print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;";
-	switch($orders_values['payment_method']) {
-		case 'cc' : // Credit Card
-			print htmlentities(TEXT_CREDIT_CARD);
-			break;
-		case 'cod' : // Cash On Delivery
-			print htmlentities(TEXT_CASH_ON_DELIVERY);
-			break;
-		case 'paypal' : // PayPal
-			print htmlentities(TEXT_PAYPAL);
-			break;
-		default :
-			print htmlentities(TEXT_UNKNOWN);
-			break;
-	}
-	print "&nbsp;</font></td>\n";
-?>
+                <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</font></td>
               </tr>
 <?php
-	switch($orders_values['payment_method']) {
-		case 'cc' : // Credit Card
-			print "<tr>\n";
-			print "<td colspan=\"2\">&nbsp;</td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_TYPE) . "&nbsp;</font></td>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities($orders_values['cc_type']) . "&nbsp;</font></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_OWNER) . "&nbsp;</font></td>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities($orders_values['cc_owner']) . "&nbsp;</font></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_NUMBER) . "&nbsp;</font></td>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . $orders_values['cc_number'] . "&nbsp;</font></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_EXPIRES) . "&nbsp;</font></td>\n";
-			print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . $orders_values['cc_expires'] . "&nbsp;</font></td>\n";
-			print "</tr>\n";
-			break;
-	}
+    if ($orders_values['cc_type'] || $orders_values['cc_owner'] || $orders_values['cc_number']) {
+      print "<tr>\n";
+      print "<td colspan=\"2\">&nbsp;</td>\n";
+      print "</tr>\n";
+      print "<tr>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_TYPE) . "&nbsp;</font></td>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities($orders_values['cc_type']) . "&nbsp;</font></td>\n";
+      print "</tr>\n";
+      print "<tr>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_OWNER) . "&nbsp;</font></td>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities($orders_values['cc_owner']) . "&nbsp;</font></td>\n";
+      print "</tr>\n";
+      print "<tr>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_NUMBER) . "&nbsp;</font></td>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . $orders_values['cc_number'] . "&nbsp;</font></td>\n";
+      print "</tr>\n";
+      print "<tr>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . htmlentities(ENTRY_CREDIT_CARD_EXPIRES) . "&nbsp;</font></td>\n";
+      print "<td nowrap><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . $orders_values['cc_expires'] . "&nbsp;</font></td>\n";
+      print "</tr>\n";
+    }
 ?>
             </table></td>
           </tr>
@@ -244,7 +225,7 @@ function alertBox() {
                     <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</font></td>
                   </tr>
 <?
-  if (!SHIPPING_FREE || $shipping != 0) {
+  if ($shipping != 0) {
 ?>
                   <tr>
                     <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $shipping_method . " " . ENTRY_SHIPPING; ?>&nbsp;</font></td>
@@ -327,26 +308,12 @@ function alertBox() {
         $total = $total + $subtotal + $tax;
       }
       $total = $total + $orders_values['shipping_cost'];
-		switch($orders_values['payment_method']) {
-			case 'cc' : // Credit Card
-				$payment = htmlentities(TEXT_CREDIT_CARD);
-				break;
-			case 'cod' : // Cash On Delivery
-				$payment = htmlentities(TEXT_CASH_ON_DELIVERY);
-				break;
-			case 'paypal' : // PayPal
-				$payment = htmlentities(TEXT_PAYPAL);
-				break;
-			default :
-				$payment = htmlentities(TEXT_UNKNOWN);
-				break;
-		}
       $date_formatted = substr($orders_values['date_purchased'], 6, 2) . '/' . substr($orders_values['date_purchased'], 4, 2) . '/' . substr($orders_values['date_purchased'], 0, 4);
 ?>
           <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999';this.style.cursor='hand'" onmouseout="this.style.background='#d8e1eb'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
             <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><? echo $orders_values['customers_name']; ?></a>&nbsp;</font></td>
             <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total, 2); ?>&nbsp;</font></td>
-            <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment; ?>&nbsp;</font></td>
+            <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $orders_values['payment_method']; ?>&nbsp;</font></td>
             <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $date_formatted; ?>&nbsp;</font></td>
             <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $orders_values['orders_status']; ?>&nbsp;</font></td>
           </tr>
