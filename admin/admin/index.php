@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.3 2002/01/11 11:14:42 hpdl Exp $
+  $Id: index.php,v 1.4 2002/01/13 16:45:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,6 +68,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <style type="text/css"><!--
+a { color:#080381; text-decoration:none; }
+a:hover { color:#aabbdd; text-decoration:underline; }
 a.text:link, a.text:visited { color: #000000; text-decoration: none; }
 a:text:hover { color: #000000; text-decoration: underline; }
 a.main:link, a.main:visited { color: #ffffff; text-decoration: none; }
@@ -78,8 +80,9 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 .main { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 17px; font-weight: bold; line-height: 1.5; color: #ffffff; }
 .sub { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.5; color: #dddddd; }
 .text { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; line-height: 1.5; color: #000000; }
+.menuBoxHeading { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #ffffff; font-weight: bold; background-color: #7187bb; border-color: #7187bb; border-style: solid; border-width: 1px; }
+.infoBox { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; color: #080381; background-color: #f2f4ff; border-color: #7187bb; border-style: solid; border-width: 1px; }
 //--></style>
-<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 
@@ -90,7 +93,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="0">
           <tr bgcolor="#ffffff" height="50">
             <td height="50"><?php echo tep_image(DIR_WS_IMAGES . 'oscommerce.gif', 'osCommerce', '204', '50'); ?></td>
-            <td align="right" class="text" nowrap><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">Administration Tool</a> | <a href="' . DIR_WS_CATALOG . '">Catalog</a> | <a href="http://www.oscommerce.com" target="_blank">Support Site</a>'; ?>&nbsp;&nbsp;</td>
+            <td align="right" class="text" nowrap><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">Administration Tool</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . DIR_WS_CATALOG . '">Catalog</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.oscommerce.com" target="_blank">Support Site</a>'; ?>&nbsp;&nbsp;</td>
           </tr>
           <tr bgcolor="#080381">
             <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
@@ -110,7 +113,53 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                                  '<a href="http://www.oscommerce.com/community.php/mlists" target="_blank">Mailing Lists</a><br>' .
                                  '<a href="http://www.oscommerce.com/community.php/bugs" target="_blank">Bug Reports</a><br>' .
                                  '<a href="http://www.oscommerce.com/community.php/faq" target="_blank">FAQ</a><br>' .
-                                 '<a href="http://www.oscommerce.com/community.php/irc" target="_blank">Live Discussions</a>');
+                                 '<a href="http://www.oscommerce.com/community.php/irc" target="_blank">Live Discussions</a><br>' .
+                                 '<a href="http://www.oscommerce.com/community.php/cvs" target="_blank">CVS Repository</a><br>' .
+                                 '<a href="http://www.oscommerce.com/about.php/portal" target="_blank">Information Portal</a>');
+
+  $box = new box;
+  echo $box->menuBox($heading, $contents);
+
+  echo '<br>';
+
+  $orders_contents = '';
+  $orders_status_query = tep_db_query("select orders_status_name, orders_status_id from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "'");
+  while ($orders_status = tep_db_fetch_array($orders_status_query)) {
+    $orders_pending_query = tep_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . $orders_status['orders_status_id'] . "'");
+    $orders_pending = tep_db_fetch_array($orders_pending_query);
+    $orders_contents .= $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . '<br>';
+  }
+  $orders_contents = substr($orders_contents, 0, -4);
+
+  $heading = array();
+  $contents = array();
+
+  $heading[] = array('params' => 'class="menuBoxHeading"',
+                     'text'  => 'Orders');
+
+  $contents[] = array('text'  => $orders_contents);
+
+  $box = new box;
+  echo $box->menuBox($heading, $contents);
+
+  echo '<br>';
+
+  $customers_query = tep_db_query("select count(*) as count from " . TABLE_CUSTOMERS);
+  $customers = tep_db_fetch_array($customers_query);
+  $products_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS . " where products_status = '1'");
+  $products = tep_db_fetch_array($products_query);
+  $reviews_query = tep_db_query("select count(*) as count from " . TABLE_REVIEWS);
+  $reviews = tep_db_fetch_array($reviews_query);
+
+  $heading = array();
+  $contents = array();
+
+  $heading[] = array('params' => 'class="menuBoxHeading"',
+                     'text'  => 'Statistics');
+
+  $contents[] = array('text'  => 'Customers: ' . $customers['count'] . '<br>' .
+                                 'Products: ' . $products['count'] . '<br>' .
+                                 'Reviews: ' . $reviews['count']);
 
   $box = new box;
   echo $box->menuBox($heading, $contents);
@@ -141,7 +190,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
          '                        <td><a href="' . $cat[$i]['href'] . '">' . tep_image(DIR_WS_IMAGES . 'categories/' . $cat[$i]['image'], $cat[$i]['title'], '32', '32') . '</a></td>' . "\n" .
          '                        <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
          '                          <tr>' . "\n" .
-         '                            <td" class="main"><a href="' . $cat[$i]['href'] . '" class="main">' . $cat[$i]['title'] . '</a></td>' . "\n" .
+         '                            <td class="main"><a href="' . $cat[$i]['href'] . '" class="main">' . $cat[$i]['title'] . '</a></td>' . "\n" .
          '                          </tr>' . "\n" .
          '                          <tr>' . "\n" .
          '                            <td class="sub">';
