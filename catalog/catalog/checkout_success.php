@@ -29,14 +29,14 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="5">
           <tr>
-            <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
+            <td><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
             <td class="main"><div align="center" class="pageHeading"><br><? echo HEADING_TITLE; ?>&nbsp;</div><br><? echo TEXT_SUCCESS; ?></td>
           </tr>
         </table></td>
@@ -48,7 +48,7 @@
         <td align="right" class="main"><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a>&nbsp;&nbsp;</td>
       </tr>
       <tr>
-        <td align="right" class="smallText" nowrap><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | ' . CHECKOUT_BAR_CONFIRMATION . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_FINISHED . '</font> ]</font>&nbsp;'; ?></td>
+        <td align="right" class="smallText"><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | ' . CHECKOUT_BAR_CONFIRMATION . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_FINISHED . '</font> ]</font>&nbsp;'; ?></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

@@ -61,15 +61,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -80,10 +80,10 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
-            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -107,8 +107,8 @@
     $products_weight = $products[$i]['weight'];
 
     echo '          <tr>' . "\n";
-    echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . $products[$i]['quantity'] . '&nbsp;</td>' . "\n";
-    echo '            <td valign="top" class="main" nowrap><b>&nbsp;' . $products_name . '&nbsp;</b>';
+    echo '            <td align="center" valign="top" class="main">&nbsp;' . $products[$i]['quantity'] . '&nbsp;</td>' . "\n";
+    echo '            <td valign="top" class="main"><b>&nbsp;' . $products_name . '&nbsp;</b>';
 
       if (STOCK_CHECK) {
       echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
@@ -127,8 +127,8 @@
     }
 //------display customer choosen option eof-----
     echo '</td>' . "\n";
-    echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
-    echo '            <td align="right" valign="top" class="main" nowrap>&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
+    echo '            <td align="center" valign="top" class="main">&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
+    echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       reset($products[$i]['attributes']);
@@ -167,15 +167,15 @@
           <tr>
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</td>
               </tr>
 <?
   if ($total_tax > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
               </tr>
 
 <?
@@ -183,15 +183,15 @@
   if (MODULE_SHIPPING_INSTALLED) {
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($shipping_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($shipping_cost); ?>&nbsp;</td>
               </tr>
 <?
   }
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<?
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?
     if (TAX_INCLUDE == true) {
       echo tep_currency_format($total_cost + $shipping_cost);
     } else {
@@ -205,13 +205,13 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main" nowrap><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+            <td class="main"><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -221,7 +221,7 @@
    if (MODULE_PAYMENT_INSTALLED) {
 ?>
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -241,7 +241,7 @@
             <td class="main">&nbsp;</td>
           </tr>
           <tr>
-            <td class="main" nowrap><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td class="main"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -258,13 +258,13 @@
             <td class="main">&nbsp;</td>
           </tr>
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TEXT_STOCK_WARNING; ?></td>
+            <td class="tableHeading">&nbsp;<? echo TEXT_STOCK_WARNING; ?></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr class="payment-odd">
-            <td class="main" nowrap>&nbsp;<? echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked>&nbsp;&nbsp;<? echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
+            <td class="main">&nbsp;<? echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked>&nbsp;&nbsp;<? echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
           </tr>
           <tr>
             <td class="infoBox"><br><? echo TEXT_STOCK_WARNING_DESC; ?></td>
@@ -318,7 +318,7 @@
         </table></td>
       </tr>
       <tr>
-        <td align="right" class="smallText" nowrap><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></td>
+        <td align="right" class="smallText"><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

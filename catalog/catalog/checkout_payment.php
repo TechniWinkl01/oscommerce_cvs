@@ -130,15 +130,15 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -153,8 +153,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -175,13 +175,13 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td class="main" nowrap><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+                <td class="main"><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -191,8 +191,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td colspan="2" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
-                <td colspan=2 align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
+                <td colspan="2" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
+                <td colspan=2 align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -217,7 +217,7 @@ function check_form() {
             <td class="main">&nbsp;</td>
           </tr>
           <tr>
-            <td class="main" nowrap><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td class="main"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -237,7 +237,7 @@ function check_form() {
             </table></td>
           </tr>
           <tr>
-            <td align="right" class="smallText" nowrap><br>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
+            <td align="right" class="smallText"><br>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
