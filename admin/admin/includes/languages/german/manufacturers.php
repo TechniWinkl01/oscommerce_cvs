@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.15 2004/02/14 23:01:49 mevans Exp $
+  $Id: manufacturers.php,v 1.16 2004/02/15 15:15:21 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,5 +39,5 @@ define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNUNG:</b> Es existieren noch %s Ar
 
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
-define('ERROR_MANUFACTUER_NAME', 'Error: Manufacturers name cannot be blank');
+define('ERROR_MANUFACTURER_NAME', 'Error: Manufacturers name cannot be blank');
 ?>

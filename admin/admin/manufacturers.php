@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.56 2004/02/14 23:01:47 mevans Exp $
+  $Id: manufacturers.php,v 1.57 2004/02/15 15:15:19 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -69,7 +69,7 @@
           }
           tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, (isset($HTTP_GET_VARS['page']) ? 'page=' . $HTTP_GET_VARS['page'] . '&' : '') . 'mID=' . $manufacturers_id));
         } else {
-          $messageStack->add_session(ERROR_MANUFACTUER_NAME, 'error');
+          $messageStack->add_session(ERROR_MANUFACTURER_NAME, 'error');
           tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page']));
         }
 

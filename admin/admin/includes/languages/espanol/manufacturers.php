@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.15 2004/02/14 23:01:49 mevans Exp $
+  $Id: manufacturers.php,v 1.16 2004/02/15 15:15:20 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,5 +39,5 @@ define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Todavia hay producto
 
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: No puedo escribir en este directorio. Asigner permisos de escritura en: %s');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio: %s');
-define('ERROR_MANUFACTUER_NAME', 'Error: Manufacturers name cannot be blank');
+define('ERROR_MANUFACTURER_NAME', 'Error: Manufacturers name cannot be blank');
 ?>
