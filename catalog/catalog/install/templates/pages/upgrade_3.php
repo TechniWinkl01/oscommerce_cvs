@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.21 2002/04/18 13:18:34 hpdl Exp $
+  $Id: upgrade_3.php,v 1.22 2002/04/18 13:43:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -426,6 +426,7 @@ changeText('statusText', 'Updating Orders');
 <?php
   flush();
 
+  osc_db_query("alter table orders change payment_method payment_method varchar(32) not null");
   osc_db_query("alter table orders change date_purchased date_purchased datetime");
   osc_db_query("alter table orders change last_modified last_modified datetime");
   osc_db_query("alter table orders change orders_date_finished orders_date_finished datetime");

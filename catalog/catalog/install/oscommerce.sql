@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.36 2002/04/18 13:18:34 hpdl Exp $
+# $Id: oscommerce.sql,v 1.37 2002/04/18 13:43:27 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -272,7 +272,7 @@ CREATE TABLE orders (
   delivery_state varchar(32),
   delivery_country varchar(32) NOT NULL,
   delivery_address_format_id int(5) NOT NULL,
-  payment_method varchar(12) NOT NULL,
+  payment_method varchar(32) NOT NULL,
   cc_type varchar(20),
   cc_owner varchar(64),
   cc_number varchar(32),

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.7 2002/04/12 22:33:26 hpdl Exp $
+  $Id: order.php,v 1.8 2002/04/18 13:43:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,6 +114,10 @@
                           'shipping_method' => $GLOBALS['shipping_method'],
                           'shipping_cost' => $GLOBALS['shipping_cost'],
                           'comments' => $GLOBALS['comments']);
+
+    if (is_object($GLOBALS[$payment])) {
+      $this->info['payment_method'] = $GLOBALS[$payment]->title;
+    }
 
       $this->customer = array('firstname' => $customer_address['customers_firstname'],
                               'lastname' => $customer_address['customers_lastname'],
