@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.135 2003/02/14 20:28:46 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.136 2003/03/17 01:31:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -279,7 +279,7 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-  if ($order->info['comments'] != '') {
+  if (tep_not_null($order->info['comments'])) {
 ?>
       <tr>
         <td class="main"><?php echo '<b>' . HEADING_ORDER_COMMENTS . '</b> <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
@@ -292,7 +292,7 @@
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><?php echo nl2br($order->info['comments']) . tep_draw_hidden_field('comments', $order->info['comments']); ?></td>
+                <td class="main"><?php echo nl2br(htmlspecialchars($order->info['comments'])) . tep_draw_hidden_field('comments', $order->info['comments']); ?></td>
               </tr>
             </table></td>
           </tr>
