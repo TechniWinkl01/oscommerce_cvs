@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.75 2001/12/19 12:39:17 hpdl Exp $
+  $Id: german.php,v 1.76 2001/12/19 13:29:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -97,9 +97,7 @@ define('BOX_REVIEWS_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
 define('BOX_HEADING_SHOPPING_CART', 'Warenkorb');
-define('BOX_SHOPPING_CART_EMPTY', 'ist leer.');
-define('BOX_SHOPPING_CART_SUBTOTAL', 'Zwischensumme:');
-define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Inhalt einsehen');
+define('BOX_SHOPPING_CART_EMPTY', '0 Produkte');
 
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Bestseller');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.14 2001/12/19 12:17:45 hpdl Exp $
+  $Id: boxes.php,v 1.15 2001/12/19 13:29:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,7 @@
   }
 
   class infoBox extends tableBox {
-    function infoBox($contents) {
+    function infoBox($contents, $we = false) {
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => $this->infoBoxContents($contents));
       $this->table_cellpadding = '1';
@@ -86,7 +86,9 @@
       $this->table_parameters = 'bgcolor="#f8f8f9"';
       $info_box_contents = array();
       $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
-      $info_box_contents[] = array(array('align' => $contents[0]['align'], 'form' => $contents[0]['form'], 'params' => 'class="boxText"', 'text' => $contents[0]['text']));
+      for ($i=0; $i<sizeof($contents); $i++) {
+        $info_box_contents[] = array(array('align' => $contents[$i]['align'], 'form' => $contents[$i]['form'], 'params' => 'class="boxText"', 'text' => $contents[$i]['text']));
+      }
       $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="5"', 'text' => ' '));
       return $this->tableBox($info_box_contents);
     }

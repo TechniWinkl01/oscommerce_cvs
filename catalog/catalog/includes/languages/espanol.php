@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.67 2001/12/19 12:39:17 hpdl Exp $
+  $Id: espanol.php,v 1.68 2001/12/19 13:29:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,10 +96,8 @@ define('BOX_REVIEWS_WRITE_REVIEW', 'Escriba un comentario para este producto');
 define('BOX_REVIEWS_NO_REVIEWS', 'En este momento, no hay ningun comentario');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
-define('BOX_HEADING_SHOPPING_CART', 'Cesta de la Compra');
-define('BOX_SHOPPING_CART_EMPTY', '..esta vacia!');
-define('BOX_SHOPPING_CART_SUBTOTAL', 'Subtotal:');
-define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Ver Contenido');
+define('BOX_HEADING_SHOPPING_CART', 'Compras');
+define('BOX_SHOPPING_CART_EMPTY', '0 productos');
 
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Los Mas Vendidos');

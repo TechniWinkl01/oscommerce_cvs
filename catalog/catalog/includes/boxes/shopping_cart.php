@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.12 2001/12/19 12:17:45 hpdl Exp $
+  $Id: shopping_cart.php,v 1.13 2001/12/19 13:29:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,7 @@
         $cart_contents_string .= '<span class="infoBox">';
       }
 
-      $cart_contents_string .= $products[$i]['quantity'] . 'x</span></td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
+      $cart_contents_string .= $products[$i]['quantity'] . '&nbsp;x&nbsp;</span></td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
         $cart_contents_string .= '<span class="newItemInCart">'; // highlight product name
@@ -63,11 +63,11 @@
                                  'text' => tep_black_line()
                            );
     $info_box_contents[] = array('align' => 'right',
-                                 'text'  => BOX_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total())
+                                 'text'  => $currencies->format($cart->show_total())
                                 );
   }
 
-  new infoBox($info_box_contents);
+  new infoBox($info_box_contents, true);
 ?>
             </td>
           </tr>
