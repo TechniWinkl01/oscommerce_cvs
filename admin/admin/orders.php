@@ -206,6 +206,8 @@
     $taxed = 0;
     $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
+    $shipping = $info_values['shipping_cost'];
+    $shipping_method = $info_values['shipping_method'];
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], -2),substr($info_values['date_purchased'], 0, 4)));
     $products = tep_db_query("select orders_products_id, products_id, products_name, products_price, products_quantity, final_price, products_tax from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     while ($products_values = tep_db_fetch_array($products)) {
