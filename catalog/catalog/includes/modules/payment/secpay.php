@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.20 2002/05/30 15:36:36 dgw_ Exp $
+  $Id: secpay.php,v 1.21 2002/05/31 18:17:43 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $order, $currencies;
+      global $order, $currencies;
 
       $process_button_string = tep_draw_hidden_field('merchant', MODULE_PAYMENT_SECPAY_MERCHANT_ID) .
                                tep_draw_hidden_field('trans_id', STORE_NAME . date('Ymdhis')) .
@@ -73,12 +73,17 @@
     function before_process() {
       global $HTTP_POST_VARS;
 
-      $remote_host = getenv('REMOTE_HOST');
-      if ( ($remote_host != 'secpay.com') && ($HTTP_POST_VARS['valid'] == 'true') ) {
-        $remote_host = gethostbyaddr($remote_host);
-      }
-      if ( ($remote_host != 'secpay.com') || ($HTTP_POST_VARS['valid'] != 'true') ) {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS['session'] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL', true, false));
+      if ($HTTP_POST_VARS['valid'] == 'true') {
+        if ($remote_host = getenv('REMOTE_HOST')) {
+          if ($remote_host != 'secpay.com') {
+            $remote_host = gethostbyaddr($remote_host);
+          }
+          if ($remote_host != 'secpay.com') {
+            tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS[tep_session_name()] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL', false, false));
+          }
+        } else {
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS[tep_session_name()] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL', false, false));
+        }
       }
     }
 
