@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.53 2002/01/15 11:45:44 hpdl Exp $
+  $Id: banner_manager.php,v 1.54 2002/01/15 12:01:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -291,7 +291,7 @@ function popupImageWindow(url) {
       $banners_clicked = ($info['banners_clicked'] != '') ? $info['banners_clicked'] : '0';
 
       if ( (is_object($bInfo)) && ($banners['banners_id'] == $bInfo->banners_id) ) {
-        echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['path'] . '&bID=' . $banners['banners_id'] . '&action=new') . '\'">' . "\n";
+        echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['path'] . '&bID=' . $bInfo->banners_id . '&action=new') . '\'">' . "\n";
       } else {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $HTTP_GET_VARS['path'] . '&bID=' . $banners['banners_id']) . '\'">' . "\n";
       }
