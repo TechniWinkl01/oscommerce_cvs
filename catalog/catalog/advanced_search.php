@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.40 2002/01/01 19:11:26 dgw_ Exp $
+  $Id: advanced_search.php,v 1.41 2002/01/07 22:58:20 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -153,9 +153,9 @@ function check_form() {
             <td align="left" colspan="3" class="fieldValue">
 <?php
   $selected[0] = ($HTTP_GET_VARS['categories_id']) ? $HTTP_GET_VARS['categories_id'] : '0';
-  echo tep_display_cat_select('categories_id', $selected, 1, 0, TEXT_ALL_CATEGORIES);
+  echo tep_display_cat_select('categories_id', $selected, 1, 0, TEXT_ALL_CATEGORIES) . ' ' .
+  tep_draw_checkbox_field('inc_subcat', '1', false). ' ' . ENTRY_INCLUDES_SUBCATEGORIES . '</td>';
 ?>
-            <input type="checkbox"  name="inc_subcat" value="1"> <?php echo ENTRY_INCLUDES_SUBCATEGORIES; ?></td>
           </tr>
           <tr>
             <td align="left" width="20%" class="fieldKey"><?php echo ENTRY_MANUFACTURER; ?></td>
@@ -173,23 +173,23 @@ function check_form() {
           </tr>
           <tr>
             <td align="left" class="fieldKey"><?php echo ENTRY_KEYWORDS; ?></td>
-            <td align="left" colspan="3" class="fieldValue"><input type="text" name="keywords" size="40" value="<?php if ($HTTP_GET_VARS['keywords']) echo htmlspecialchars(StripSlashes($HTTP_GET_VARS['keywords']));?>"><?php echo ENTRY_KEYWORDS_TEXT; ?></td>
+            <td align="left" colspan="3" class="fieldValue"><?php echo tep_draw_input_field('keywords', '' , 'maxlength="40"', true) . ' ' . ENTRY_KEYWORDS_TEXT;?></td>
           </tr>
           <tr>
             <td class="fieldValue">&nbsp;</td>
-            <td class="fieldValue"><input type="checkbox" name="search_in_description" value="1"> <?php echo TEXT_SEARCH_IN_DESCRIPTION; ?></td>
+            <td colspan="3" class="fieldValue"><?php echo tep_draw_checkbox_field('search_in_description', '1', false) . ' ' . TEXT_SEARCH_IN_DESCRIPTION; ?></td>
           </tr>
           <tr>
             <td align="left" class="fieldKey"><?php echo ENTRY_DATE_ADDED_FROM; ?></td>
-            <td align="left" class="fieldValue"><input type="text" name="dfrom" value="<?php if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?php echo DOB_FORMAT_STRING; ?>');"></td>
+            <td align="left" class="fieldValue"><?php echo tep_draw_input_field('dfrom', '' . DOB_FORMAT_STRING . '' , 'size="11" maxlength="10" onFocus="RemoveFormatString(this, \'' . DOB_FORMAT_STRING . '\')"', true);?></td>
             <td align="left" class="fieldKey"><?php echo ENTRY_TO; ?></td>
-            <td align="left" class="fieldValue"><input type="text" name="dto" value="<?php if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?php echo DOB_FORMAT_STRING; ?>');"><?php echo ENTRY_DATE_ADDED_TEXT; ?></td>
+            <td align="left" class="fieldValue"><?php echo tep_draw_input_field('dto', '' . DOB_FORMAT_STRING . '' , 'size="11" maxlength="10" onFocus="RemoveFormatString(this, \'' . DOB_FORMAT_STRING . '\')"', true) . ' ' . ENTRY_DATE_ADDED_TEXT; ?></td>
           </tr>
           <tr>
             <td align="left" class="fieldKey"><?php echo ENTRY_PRICE_FROM; ?></td>
-            <td align="left" class="fieldValue"><input type="text" name="pfrom" size="9" maxlength="9" value="<?php if ($HTTP_GET_VARS['pfrom']) echo $HTTP_GET_VARS['pfrom'];?>"></td>
+            <td align="left" class="fieldValue"><?php echo tep_draw_input_field('pfrom', '' , 'size="11" maxlength="9"', true);?></td>
             <td align="left" class="fieldKey"><?php echo ENTRY_TO; ?></td>
-            <td align="left" class="fieldValue"><input type="text" name="pto" size="9" maxlength="9" value="<?php if ($HTTP_GET_VARS['pfrom']) echo $HTTP_GET_VARS['pfrom'];?>"></td>
+            <td align="left" class="fieldValue"><?php echo tep_draw_input_field('pto', '' , 'size="11" maxlength="9"', true);?></td>
           </tr>
         </table></td>
       </tr>
