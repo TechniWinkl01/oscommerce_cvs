@@ -21,11 +21,13 @@ define('TEXT_PRODUCTS_TAX_CLASS', 'Tipo Impuesto:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'Evaluacion Media:');
 define('TEXT_PRODUCTS_QUANTITY_INFO', 'Cantidad:');
 define('TEXT_DATE_ADDED', 'Añadido el:');
+define('TEXT_DATE_AVAILABLE', 'Fecha disponible:');
 define('TEXT_LAST_MODIFIED', 'Modificado el:');
 define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
 define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Inserte una nueva categoria o producto en<br>&nbsp;<br><b>%s</b>');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'Si quiere mas informacion, visite la <a href="http://%s" target="blank"><u>pagina</u></a> de este producto.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Este producto fue añadido el %s.');
+define('TEXT_PRODUCT_DATE_AVAILABLE', 'Este producto estará en terraja en %s.');
 
 define('TEXT_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_EDIT_CATEGORIES_ID', 'ID Categoria:');
@@ -54,6 +56,7 @@ define('TEXT_CATEGORIES_IMAGE', 'Imagen Categoria:');
 define('TEXT_SORT_ORDER', 'Orden:');
 
 define('TEXT_PRODUCTS_STATUS', 'Estatus De los Productos:');
+define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Fecha disponible:');
 define('TEXT_PRODUCT_AVAILABLE', 'En Terraja');
 define('TEXT_PRODUCT_NOT_AVAILABLE', 'Fuera de terraja');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Fabricante del producto:');
