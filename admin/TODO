@@ -8,10 +8,10 @@ Key: * To-Do
 Administration Tool Module
 --------------------------
 - Products Expected in new GUI
-- Customers in new GUI
+* Customers in new GUI
 * Orders in new GUI
 * All Statistics in new GUI
-* Add 'Copy To' image button to products info box -> products in multiple categories
+- Add 'Copy To' image button to products info box -> products in multiple categories
 * Add 'Add Manufacturer' image button to products info box -> products with multiple manufacturers
 * New Products Search page
 * Left hand navigation boxes to be processed by the infoBox class
@@ -21,7 +21,7 @@ Administration Tool Module
 * Add customers orders total to customers info box
 * Add 'Reset Password' option for Customers
 * Further beginner / expert mode text
-* When deleting a product, and it is in more than one category, only remove the product_to_category link, and not the product itself
+- When deleting a product, and it is in more than one category, only remove the product_to_category link, and not the product itself
 
 General
 -------
