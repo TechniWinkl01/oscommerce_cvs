@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.122 2001/05/29 15:26:39 dwatkins Exp $
+  $Id: application_top.php,v 1.123 2001/06/02 19:11:07 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -234,14 +234,8 @@
     $cart = new shoppingCart;
   }
 
-// define our general functions used application-wide
-  require(DIR_WS_FUNCTIONS . 'general.php');
-
-// include the who's online functions
-  require(DIR_WS_FUNCTIONS . 'whos_online.php');
-  tep_update_whos_online();
-
 // language
+  require(DIR_WS_FUNCTIONS . 'languages.php');
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
     if (!$language) {
       tep_session_register('language');
@@ -252,6 +246,13 @@
     if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
   }
 
+// include the currency rates, and the language translations
+  require(DIR_WS_INCLUDES . 'data/rates.php');
+  require(DIR_WS_LANGUAGES . $language . '.php');
+
+// define our general functions used application-wide
+  require(DIR_WS_FUNCTIONS . 'general.php');
+
 // currency
   if ( (!$currency) || ($HTTP_GET_VARS['currency']) ) {
     if (!$currency) tep_session_register('currency');
@@ -260,9 +261,9 @@
     if (!$currency) $currency = DEFAULT_CURRENCY;
   }
 
-// include the currency rates, and the language translations
-  require(DIR_WS_INCLUDES . 'data/rates.php');
-  require(DIR_WS_LANGUAGES . $language . '.php');
+// include the who's online functions
+  require(DIR_WS_FUNCTIONS . 'whos_online.php');
+  tep_update_whos_online();
 
 // Include the password crypto functions
   require(DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT);

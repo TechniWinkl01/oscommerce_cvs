@@ -1389,19 +1389,6 @@ function tep_address_summary($customers_id, $address_id) {
     return $languages_array;
   }
 
-  function tep_get_languages_directory($code) {
-    global $languages_id;
-
-    $language_query = tep_db_query("select languages_id, directory from languages where code = '" . $code . "'");
-    if (tep_db_num_rows($language_query)) {
-      $language = tep_db_fetch_array($language_query);
-      $languages_id = $language['languages_id'];
-      return $language['directory'];
-    } else {
-      return false;
-    }
-  }
-
   function tep_currency_exists($code) {
     $currency_code = tep_db_query("select count(*) as count from currencies where code = '" . $code . "'");
     if (tep_db_num_rows($currency_code)) {
@@ -1499,10 +1486,10 @@ function tep_address_summary($customers_id, $address_id) {
     if ($first_name) {
       $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $first_name);
       if (!$customer_id) {
-        $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name);
+        $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name, tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
       }
     } else {
-      $greeting_string = TEXT_GREETING_GUEST;
+      $greeting_string = sprintf(TEXT_GREETING_GUEST, tep_href_link(FILENAME_LOGIN, '', 'NONSSL'), tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
     }
 
     return $greeting_string;
