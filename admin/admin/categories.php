@@ -85,7 +85,13 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert_product') {
-      if (tep_db_query("insert into products (products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')")) {
+      $products_date_available = $HTTP_POST_VARS['year'];
+      $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
+      $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
+
+      $products_date_available = (date('Ymd') < $products_date_available) ? $products_date_available : '';
+
+      if (tep_db_query("insert into products (products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $products_date_available . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')")) {
         $new_products_id = tep_db_insert_id();
         tep_db_query("insert into products_to_categories (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
         header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
@@ -95,7 +101,13 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
-      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+      $products_date_available = $HTTP_POST_VARS['year'];
+      $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
+      $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
+
+      $products_date_available = (date('Ymd') < $products_date_available) ? $products_date_available : '';
+
+      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_date_available = '" . $products_date_available . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'copy_to_confirm') {
@@ -141,8 +153,26 @@ function checkForm() {
   }
 }
 //--></script>
+<?
+  if ($HTTP_GET_VARS['action'] == 'new_product') {
+?>
+<script language="JavaScript" src="includes/javascript/dynapi/dynlayer.js"></script>
+<script language="JavaScript" src="includes/javascript/dynapi/calendar.js"></script>
+<style type="text/css">
+.cal { font-family: Tahoma, Verdana; font-size: 9pt; color: #000000; }
+.calDay { font-family: Tahoma, Verdana; font-size: 9pt; color: #000000; font-weight: bold; }
+.calNormal { font-family: Tahoma, Verdana; font-size: 9pt; color: #000000; }
+.calShaded { font-family: Tahoma, Verdana; font-size: 9pt; color: #B0B0B0; }
+.calHighlighted { font-family: Tahoma, Verdana; font-size: 9pt; color: #ffffff; background-color: #000000; a: #d9d9d9; font-weight: bold }
+</style>
 </head>
-<body onload="SetFocus();" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<?
+    $body_onload = "SetFocus(); init();";
+  } else {
+    $body_onload = "SetFocus();";
+  }
+?>
+<body onload="<? echo $body_onload; ?>" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -190,7 +220,7 @@ function checkForm() {
 <?
   if ($HTTP_GET_VARS['action'] == 'new_product') {
     if ($HTTP_GET_VARS['pID']) {
-      $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added, products_status, products_tax_class_id, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+      $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added, products_date_available, products_status, products_tax_class_id, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo = new productInfo($product);
@@ -216,11 +246,33 @@ function checkForm() {
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><br><table border="0" cellspacing="0" cellpadding="2">
+        <td>
+<script language="JavaScript"><!--
+function init() {
+  mycalendar.activate()
+}
+
+mycalendar = new Calendar(560,190,27,18)
+mycalendar.build(<? if ($pInfo) { echo $pInfo->date_available_caljs_year; } else { echo date('Y'); }?>, <? if ($pInfo) { echo $pInfo->date_available_caljs_month; } else { echo date('m') - 1; } ?>, <? if ($pInfo) { echo $pInfo->date_available_caljs_day; } else { echo date('d'); }?>)
+mycalendar.onChange = updateDisplay
+
+function updateDisplay() {
+  document.new_product.year.value = this.year
+  document.new_product.month.value = this.month
+  document.new_product.day.value = this.day
+}
+
+function changeCalendar() {
+  mycalendar.setDate(document.new_product.year.value, document.new_product.month.value, document.new_product.day.value)
+}
+
+writeCSS(mycalendar.css)
+
+document.write(mycalendar.div)
+//--></script><br><table border="0" cellspacing="0" cellpadding="2">
 	  <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_STATUS; ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;
-            <input type="radio" name="products_status" value="1" 
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="products_status" value="1" 
 <?
 	  if (@$pInfo->status == '1' && $product['products_status'] == '1') {  
 	    echo ' CHECKED';
@@ -230,6 +282,10 @@ function checkForm() {
 	    echo ' CHECKED';
 	  } ?>>&nbsp;<? echo TEXT_PRODUCT_NOT_AVAILABLE; ?>&nbsp;
 	    </font></td>
+          </tr>
+          <tr>
+            <td nowrap valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_DATE_AVAILABLE; ?>&nbsp;</font></td>
+            <td nowrap valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="day" value="<? echo $pInfo->date_available_caljs_day; ?>" size="2" maxlength="2" onChange="changeCalendar()"><select name="month" onChange="changeCalendar()"><option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5">June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option></select><input type="text" name="year" value="<? echo $pInfo->date_available_caljs_year; ?>" size="4" maxlength="4" onChange="changeCalendar()"><br>&nbsp;<a href="javascript:mycalendar.setDate()"><u>reset calendar to today</u></a>&nbsp;</font></td>
           </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_MANUFACTURER; ?>&nbsp;</font></td>
@@ -291,6 +347,8 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
+      $HTTP_POST_VARS['month'] += 1; // due to calendar
+
       $pInfo_array = tep_array_merge((array)$HTTP_POST_VARS, (array)$manufacturer);
       $pInfo = new productInfo($pInfo_array);
 
@@ -305,7 +363,7 @@ function checkForm() {
       }
 
     } else {
-      $product_query = tep_db_query("select p.products_name, p.products_description, p.products_quantity, p.products_model, p.products_image, p.products_url, p.products_price, p.products_weight, p.products_date_added, p.products_status, p.manufacturers_id, m.manufacturers_name, m.manufacturers_image from products p, manufacturers m where p.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p.manufacturers_id = m.manufacturers_id");
+      $product_query = tep_db_query("select p.products_name, p.products_description, p.products_quantity, p.products_model, p.products_image, p.products_url, p.products_price, p.products_weight, p.products_date_added, p.products_date_available, p.products_status, p.manufacturers_id, m.manufacturers_name, m.manufacturers_image from products p left join manufacturers m on p.manufacturers_id = m.manufacturers_id where p.products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
 
       $pInfo = new productInfo($product);
@@ -337,10 +395,21 @@ function checkForm() {
       </tr>
 <?
     }
+
+    if ($pInfo->date_available > date('Ymd')) {
+?>
+      <tr>
+        <td align="center" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, tep_date_long($pInfo->date_available)); ?></font></td>
+      </tr>
+<?
+    } else {
 ?>
       <tr>
         <td align="center" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->date_added)); ?></font></td>
       </tr>
+<?
+    }
+?>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
@@ -449,7 +518,7 @@ function checkForm() {
 
     $products_count = 0;
 //  $rows = 0; // this shouldnt be reset
-    $products_query = tep_db_query("select p.products_id, p.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_status from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by products_name");
+    $products_query = tep_db_query("select p.products_id, p.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_date_available, p.products_status from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $products_count++;
       $rows++;
@@ -634,8 +703,10 @@ function checkForm() {
           } elseif ($pInfo) { // product info box contents
             $info_box_contents = array();
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
-            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
-	    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_STATUS . ' ' . $pInfo->status);
+            $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added));
+            if (date('Ymd') < $pInfo->date_available) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_DATE_AVAILABLE . ' ' . tep_date_short($pInfo->date_available) . '<br>');
+            $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_LAST_MODIFIED);
+	        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_STATUS . ' ' . $pInfo->status);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, $pInfo->name) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) . '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');

@@ -21,11 +21,13 @@ define('TEXT_PRODUCTS_TAX_CLASS', 'Tax Class:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'Average Rating:');
 define('TEXT_PRODUCTS_QUANTITY_INFO', 'Quantity:');
 define('TEXT_DATE_ADDED', 'Date Added:');
+define('TEXT_DATE_AVAILABLE', 'Date Available:');
 define('TEXT_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Please insert a new category or product in<br>&nbsp;<br><b>%s</b>');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'For more information, please visit this products <a href="http://%s" target="blank"><u>webpage</u></a>.');
 define('TEXT_PRODUCT_DATE_ADDED', 'This product was added to our catalog on %s.');
+define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
 
 define('TEXT_EDIT_INTRO', 'Please make any necessary changes');
 define('TEXT_EDIT_CATEGORIES_ID', 'Category ID:');
@@ -54,6 +56,7 @@ define('TEXT_CATEGORIES_IMAGE', 'Category Image:');
 define('TEXT_SORT_ORDER', 'Sort Order:');
 
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
+define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Date Available:');
 define('TEXT_PRODUCT_AVAILABLE', 'In Stock');
 define('TEXT_PRODUCT_NOT_AVAILABLE', 'Out of Stock');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Products Manufacturer:');

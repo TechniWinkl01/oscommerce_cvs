@@ -1,9 +1,15 @@
 <?
   class productInfo {
-    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $status, $tax_class, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating;
+    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $date_available, $date_available_caljs_year, $date_available_caljs_month, $date_available_caljs_day, $status, $tax_class, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating;
 
 // class constructor
     function productInfo($pInfo_array) {
+      if ($pInfo_array['year'] && $pInfo_array['month'] && $pInfo_array['day']) {
+        $pInfo_array['products_date_available'] = $pInfo_array['year'];
+        $pInfo_array['products_date_available'] .= (strlen($pInfo_array['month']) == 1) ? '0' . $pInfo_array['month'] : $pInfo_array['month'];
+        $pInfo_array['products_date_available'] .= (strlen($pInfo_array['day']) == 1) ? '0' . $pInfo_array['day'] : $pInfo_array['day'];
+      }
+
       $this->id = $pInfo_array['products_id'];
       $this->name = $pInfo_array['products_name'];
       $this->image = $pInfo_array['products_image'];
@@ -13,6 +19,17 @@
       $this->url = $pInfo_array['products_url'];
       $this->price = $pInfo_array['products_price'];
       $this->date_added = $pInfo_array['products_date_added'];
+
+      if (strlen($pInfo_array['products_date_available']) < 8) {
+        $this->date_available = date('Ymd');
+      } else {
+        $this->date_available = $pInfo_array['products_date_available'];
+      }
+
+      $this->date_available_caljs_year = substr($this->date_available, 0, 4);
+      $this->date_available_caljs_month = (substr($this->date_available, 4, 1) == '0') ? substr($this->date_available, 5, 1) - 1 : substr($this->date_available, 4, 2) - 1;
+      $this->date_available_caljs_day = (substr($this->date_available, 6, 1) == '0') ? substr($this->date_available, 7, 1) : substr($this->date_available, 6, 2);
+
       $this->weight = $pInfo_array['products_weight'];
       $this->tax_class = $pInfo_array['products_tax_class_id'];
       $this->status = $pInfo_array['products_status'];
