@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.58 2003/11/17 18:50:25 hpdl Exp $
+  $Id: html_output.php,v 1.59 2003/12/17 15:30:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,7 +63,7 @@
     }
 
     if (isset($_sid)) {
-      $link .= $separator . $_sid;
+      $link .= $separator . tep_output_string($_sid);
     }
 
     return $link;
