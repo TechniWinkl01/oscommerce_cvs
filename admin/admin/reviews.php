@@ -160,9 +160,16 @@
       </form></tr>
 <?
     } else {
+      if ($HTTP_GET_VARS['origin']) {
+        $back_url = $HTTP_GET_VARS['origin'];
+        $back_url_params = '';
+      } else {
+        $back_url = FILENAME_REVIEWS;
+        $back_url_params = tep_get_all_get_params('action', 'rID') . 'info=' . $HTTP_GET_VARS['rID'];
+      }
 ?>
       <tr>
-        <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params('action', 'rID') . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>';?>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link($back_url, $back_url_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>';?>&nbsp;</font></td>
       </tr>
 <?
     }
