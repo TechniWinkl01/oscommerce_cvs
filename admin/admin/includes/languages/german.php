@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.86 2002/04/09 19:14:58 harley_vb Exp $
+  $Id: german.php,v 1.87 2002/04/16 06:55:41 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -237,7 +237,6 @@ define('ICON_WARNING', 'Warnung');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite %s von %d');
-define('TEXT_RESULT_PAGE', 'Seite:');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bannern)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> L&auml;ndern)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');

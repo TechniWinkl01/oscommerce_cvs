@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.93 2002/04/03 23:25:41 hpdl Exp $
+  $Id: english.php,v 1.94 2002/04/16 06:55:41 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -153,7 +153,6 @@ define('CATEGORY_COMPANY', 'Company');
 define('CATEGORY_PASSWORD', 'Password');
 define('CATEGORY_OPTIONS', 'Options');
 define('ENTRY_GENDER', 'Gender:');
-define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_FIRST_NAME', 'First Name:');
 define('ENTRY_LAST_NAME', 'Last Name:');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
