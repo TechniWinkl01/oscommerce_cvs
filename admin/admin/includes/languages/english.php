@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.80 2002/01/26 00:46:31 harley_vb Exp $
+  $Id: english.php,v 1.81 2002/01/26 00:54:58 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -157,7 +157,6 @@ define('ENTRY_LAST_NAME', 'Last Name:');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_COMPANY', 'Company name:');
-define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
 define('ENTRY_SUBURB', 'Suburb:');
 define('ENTRY_POST_CODE', 'Post Code:');
