@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.25 2002/03/08 18:43:18 hpdl Exp $
+# $Id: oscommerce.sql,v 1.26 2002/03/08 21:17:02 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -246,6 +246,7 @@ CREATE TABLE newsletters (
   date_added datetime NOT NULL,
   date_sent datetime,
   status int(1),
+  locked int(1) DEFAULT '0',
   PRIMARY KEY (newsletters_id)
 );
 

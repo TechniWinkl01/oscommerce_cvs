@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.11 2002/03/08 18:45:20 hpdl Exp $
+  $Id: upgrade_3.php,v 1.12 2002/03/08 21:17:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -327,7 +327,7 @@ changeText('statusText', 'Updating Customers');
   osc_db_query("alter table customers_info change customers_info_date_of_last_logon customers_info_date_of_last_logon datetime");
   osc_db_query("alter table customers_info change customers_info_date_account_last_modified customers_info_date_account_last_modified datetime");
 
-  osc_db_query("create table newsletters ( newsletters_id int(5) not null auto_increment, title varchar(255) not null, content text not null, module varchar(255) not null, date_added datetime not null, date_sent datetime, status int(1), primary key (newsletters_id))");
+  osc_db_query("create table newsletters ( newsletters_id int(5) not null auto_increment, title varchar(255) not null, content text not null, module varchar(255) not null, date_added datetime not null, date_sent datetime, status int(1), locked int(1) default '0', primary key (newsletters_id))");
 ?>
 
 <script language="javascript"><!--
