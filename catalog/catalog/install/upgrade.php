@@ -1,29 +1,28 @@
 <?php
 /*
-  $Id: upgrade.php,v 1.1 2002/01/29 11:48:51 hpdl Exp $
+  $Id: upgrade.php,v 1.2 2004/02/16 06:59:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application.php');
 
-  $page_file = 'upgrade.php';
-  $page_title = 'Upgrade';
+  $page_contents = 'upgrade.php';
 
-  switch ($HTTP_GET_VARS['step']) {
-    case '2':
-      $page_contents = 'upgrade_2.php';
-      break;
-    case '3':
-      $page_contents = 'upgrade_3.php';
-      break;
-    default:
-      $page_contents = 'upgrade.php';
+  if (isset($_GET['step'])) {
+    switch ($_GET['step']) {
+      case '2':
+        $page_contents = 'upgrade_2.php';
+        break;
+      case '3':
+        $page_contents = 'upgrade_3.php';
+        break;
+    }
   }
 
   require('templates/main_page.php');

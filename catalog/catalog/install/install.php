@@ -1,71 +1,58 @@
 <?php
 /*
-  $Id: install.php,v 1.3 2003/07/09 01:11:04 hpdl Exp $
+  $Id: install.php,v 1.4 2004/02/16 06:59:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application.php');
 
-  $page_file = 'install.php';
-  $page_title = 'Installation';
+  $page_contents = 'install.php';
 
-  switch ($HTTP_GET_VARS['step']) {
-    case '2':
-      if (osc_in_array('database', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_2.php';
-      } elseif (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_4.php';
-      } else {
-        $page_contents = 'install.php';
-      }
-      break;
-    case '3':
-      if (osc_in_array('database', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_3.php';
-      } else {
-        $page_contents = 'install.php';
-      }
-      break;
-    case '4':
-      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_4.php';
-      } else {
-        $page_contents = 'install.php';
-      }
-      break;
-    case '5':
-      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
-        if (isset($HTTP_POST_VARS['ENABLE_SSL']) && ($HTTP_POST_VARS['ENABLE_SSL'] == 'true')) {
-          $page_contents = 'install_5.php';
-        } else {
+  if (isset($_GET['step']) && isset($_POST['install']) && is_array($_POST['install'])) {
+    switch ($_GET['step']) {
+      case '2':
+        if (in_array('database', $_POST['install'])) {
+          $page_contents = 'install_2.php';
+        } elseif (in_array('configure', $_POST['install'])) {
+          $page_contents = 'install_4.php';
+        }
+        break;
+      case '3':
+        if (in_array('database', $_POST['install'])) {
+          $page_contents = 'install_3.php';
+        }
+        break;
+      case '4':
+        if (in_array('configure', $_POST['install'])) {
+          $page_contents = 'install_4.php';
+        }
+        break;
+      case '5':
+        if (in_array('configure', $_POST['install'])) {
+          if (isset($_POST['ENABLE_SSL']) && ($_POST['ENABLE_SSL'] == 'true')) {
+            $page_contents = 'install_5.php';
+          } else {
+            $page_contents = 'install_6.php';
+          }
+        }
+        break;
+      case '6':
+        if (in_array('configure', $_POST['install'])) {
           $page_contents = 'install_6.php';
         }
-      } else {
-        $page_contents = 'install.php';
-      }
-      break;
-    case '6':
-      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_6.php';
-      } else {
-        $page_contents = 'install.php';
-      }
-      break;
-    case '7':
-      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
-        $page_contents = 'install_7.php';
-      } else {
-        $page_contents = 'install.php';
-      }
-      break;
-    default:
-      $page_contents = 'install.php';
+        break;
+      case '7':
+        if (in_array('configure', $_POST['install'])) {
+          $page_contents = 'install_7.php';
+        }
+        break;
+    }
   }
 
   require('templates/main_page.php');

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: install_3.php,v 1.8 2003/07/11 14:59:01 hpdl Exp $
+  $Id: install_3.php,v 1.9 2004/02/16 06:59:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -26,49 +26,63 @@
   $dir_fs_www_root = implode('/', $dir_fs_www_root) . '/';
 ?>
 
-<p class="pageTitle">New Installation</p>
+<p class="pageTitle"><?php echo PAGE_TITLE_INSTALLATION; ?></p>
 
-<p><b>Database Import</b></p>
+<p class="pageSubTitle"><?php echo PAGE_SUBTITLE_DATABASE_IMPORT; ?></p>
 
 <?php
-  if (osc_in_array('database', $HTTP_POST_VARS['install'])) {
-    $db = array();
-    $db['DB_SERVER'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER']));
-    $db['DB_SERVER_USERNAME'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_USERNAME']));
-    $db['DB_SERVER_PASSWORD'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_PASSWORD']));
-    $db['DB_DATABASE'] = trim(stripslashes($HTTP_POST_VARS['DB_DATABASE']));
+  if (in_array('database', $_POST['install'])) {
+    $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
+                'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
+                'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
+                'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])),
+                'DB_TABLE_PREFIX' => trim(stripslashes($_POST['DB_TABLE_PREFIX'])));
 
-    osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+    $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
-    $db_error = false;
-    $sql_file = $dir_fs_www_root . 'install/oscommerce.sql';
+    if ($osC_Database->isError() === false) {
+      $osC_Database->setErrorReporting(false);
 
-    osc_set_time_limit(0);
-    osc_db_install($db['DB_DATABASE'], $sql_file);
+      if ($osC_Database->selectDatabase($db['DB_DATABASE']) === false) {
+        $osC_Database->setErrorReporting(true);
 
-    if ($db_error != false) {
+        $osC_Database->query('create database ' . $db['DB_DATABASE']);
+      }
+
+      $osC_Database->setErrorReporting(true);
+    }
+
+    if ($osC_Database->isError() === false) {
+      $sql_file = $dir_fs_www_root . 'install/oscommerce.sql';
+
+      $osC_Database->importSQL($sql_file, $db['DB_DATABASE'], $db['DB_TABLE_PREFIX']);
+    }
+
+    if (($osC_Database->isError() === false) && isset($_POST['DB_INSERT_SAMPLE_DATA']) && ($_POST['DB_INSERT_SAMPLE_DATA'] == 'true')) {
+      $sql_file = $dir_fs_www_root . 'install/oscommerce_sample_data.sql';
+
+      $osC_Database->importSQL($sql_file, $db['DB_DATABASE'], $db['DB_TABLE_PREFIX']);
+    }
+
+    if ($osC_Database->isError()) {
 ?>
 <form name="install" action="install.php?step=3" method="post">
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>
-      <p>The following error has occurred:</p>
-       <p class="boxme"><?php echo $db_error; ?></p>
-    </td>
+    <td><?php echo sprintf(ERROR_UNSUCCESSFUL_DATABASE_IMPORT, $osC_Database->getError()); ?></td>
   </tr>
 </table>
 
 <?php
-      reset($HTTP_POST_VARS);
-      while (list($key, $value) = each($HTTP_POST_VARS)) {
+      foreach ($_POST as $key => $value) {
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
-            for ($i=0; $i<sizeof($value); $i++) {
-              echo osc_draw_hidden_field($key . '[]', $value[$i]);
+            for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+              echo tep_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo osc_draw_hidden_field($key, $value);
+            echo tep_draw_hidden_field($key, $value);
           }
         }
       }
@@ -76,10 +90,9 @@
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_retry.gif" border="0" alt="Retry"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/retry.gif" border="0" alt="<?php echo IMAGE_BUTTON_RETRY; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
@@ -93,21 +106,20 @@
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
     <td>
-      <p>The database import was <b>successful!</b></p>
+      <p><?php echo TEXT_SUCCESSFUL_DATABASE_IMPORT; ?></p>
     </td>
   </tr>
 </table>
 
 <?php
-      reset($HTTP_POST_VARS);
-      while (list($key, $value) = each($HTTP_POST_VARS)) {
+      foreach ($_POST as $key => $value) {
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
-            for ($i=0; $i<sizeof($value); $i++) {
-              echo osc_draw_hidden_field($key . '[]', $value[$i]);
+            for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+              echo tep_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo osc_draw_hidden_field($key, $value);
+            echo tep_draw_hidden_field($key, $value);
           }
         }
       }
@@ -115,16 +127,16 @@
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
 <?php
-      if (osc_in_array('configure', $HTTP_POST_VARS['install'])) {
+      if (in_array('configure', $_POST['install'])) {
 ?>
-    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/continue.gif" border="0" alt="<?php echo IMAGE_BUTTON_CONTINUE; ?>"></td>
 <?php
       } else {
 ?>
-    <td align="center"><a href="index.php"><img src="images/button_continue.gif" border="0" alt="Continue"></a></td>
+    <td align="right"><a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/continue.gif" border="0" alt="<?php echo IMAGE_BUTTON_CONTINUE; ?>"></a></td>
 <?php
       }
 ?>

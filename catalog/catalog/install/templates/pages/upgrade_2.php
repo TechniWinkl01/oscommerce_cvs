@@ -1,68 +1,58 @@
 <?php
 /*
-  $Id: upgrade_2.php,v 1.2 2003/07/09 01:11:06 hpdl Exp $
+  $Id: upgrade_2.php,v 1.3 2004/02/16 06:59:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 ?>
 
-<p class="pageTitle">Upgrade</p>
+<p class="pageTitle"><?php echo PAGE_TITLE_UPGRADE; ?></p>
 
 <?php
-  $db = array();
-  $db['DB_SERVER'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER']));
-  $db['DB_SERVER_USERNAME'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_USERNAME']));
-  $db['DB_SERVER_PASSWORD'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_PASSWORD']));
-  $db['DB_DATABASE'] = trim(stripslashes($HTTP_POST_VARS['DB_DATABASE']));
+  $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
+              'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
+              'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
+              'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])));
 
-  $db_error = false;
-  osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+  $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
-  if ($db_error == false) {
-    osc_db_test_create_db_permission($db['DB_DATABASE']);
+  if ($osC_Database->isError() === false) {
+    $osC_Database->selectDatabase($db['DB_DATABASE']);
   }
 
-  if ($db_error != false) {
+  if ($osC_Database->isError()) {
 ?>
 
 <form name="upgrade" action="upgrade.php" method="post">
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>
-      <p>A test connection made to the database was <b>NOT</b> successful.</p>
-      <p>The error message returned is:</p>
-      <p class="boxme"><?php echo $db_error; ?></p>
-      <p>Please click on the <i>Back</i> button below to review your database server settings.</p>
-      <p>If you require help with your database server settings, please consult your hosting company.</p>
-    </td>
+    <td><?php echo sprintf(ERROR_UNSUCCESSFUL_DATABASE_CONNECTION, $osC_Database->getError()); ?></td>
   </tr>
 </table>
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/back.gif" border="0" alt="<?php echo IMAGE_BUTTON_BACK; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
 <?php
-    reset($HTTP_POST_VARS);
-    while (list($key, $value) = each($HTTP_POST_VARS)) {
+    foreach ($_POST as $key => $value) {
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
-          for ($i=0; $i<sizeof($value); $i++) {
-            echo osc_draw_hidden_field($key . '[]', $value[$i]);
+          for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+            echo tep_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo osc_draw_hidden_field($key, $value);
+          echo tep_draw_hidden_field($key, $value);
         }
       }
     }
@@ -78,33 +68,27 @@
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>
-      <p>A test connection made to the database was <b>successful</b>.</p>
-      <p>Please continue the upgrade process to execute the database upgrade procedure.</p>
-      <p>It is important this procedure is not interrupted, otherwise the database may end up corrupt.</p>
-    </td>
+    <td><?php echo TEXT_SUCCESSFUL_DATABASE_CONNECTION; ?></td>
   </tr>
 </table>
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/continue.gif" border="0" alt="<?php echo IMAGE_BUTTON_CONTINUE; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
 <?php
-    reset($HTTP_POST_VARS);
-    while (list($key, $value) = each($HTTP_POST_VARS)) {
+    foreach ($_POST as $key => $value) {
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
-          for ($i=0; $i<sizeof($value); $i++) {
-            echo osc_draw_hidden_field($key . '[]', $value[$i]);
+          for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+            echo tep_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo osc_draw_hidden_field($key, $value);
+          echo tep_draw_hidden_field($key, $value);
         }
       }
     }

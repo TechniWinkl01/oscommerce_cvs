@@ -1,16 +1,16 @@
 <?php
 /*
-  $Id: install_7.php,v 1.1 2003/07/09 01:11:06 hpdl Exp $
+  $Id: install_7.php,v 1.2 2004/02/16 06:59:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  $dir_fs_document_root = $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'];
+  $dir_fs_document_root = $_POST['DIR_FS_DOCUMENT_ROOT'];
   if ((substr($dir_fs_document_root, -1) != '/') && (substr($dir_fs_document_root, -1) != '/')) {
     $where = strrpos($dir_fs_document_root, '\\');
     if (is_string($where) && !$where) {
@@ -21,59 +21,50 @@
   }
 ?>
 
-<p class="pageTitle">New Installation</p>
+<p class="pageTitle"><?php echo PAGE_TITLE_INSTALLATION; ?></p>
 
-<p><b>osCommerce Configuration</b></p>
+<p class="pageSubTitle"><?php echo PAGE_SUBTITLE_OSCOMMERCE_CONFIGURATION; ?></p>
 
 <?php
-  $db = array();
-  $db['DB_SERVER'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER']));
-  $db['DB_SERVER_USERNAME'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_USERNAME']));
-  $db['DB_SERVER_PASSWORD'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_PASSWORD']));
-  $db['DB_DATABASE'] = trim(stripslashes($HTTP_POST_VARS['DB_DATABASE']));
+  $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
+              'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
+              'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
+              'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])),
+              'DB_TABLE_PREFIX' => trim(stripslashes($_POST['DB_TABLE_PREFIX'])));
 
-  $db_error = false;
-  osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+  $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
-  if ($db_error == false) {
-    osc_db_test_connection($db['DB_DATABASE']);
+  if ($osC_Database->isError() === false) {
+    $osC_Database->selectDatabase($db['DB_DATABASE']);
   }
 
-  if ($db_error != false) {
+  if ($osC_Database->isError()) {
 ?>
 <form name="install" action="install.php?step=6" method="post">
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>
-      <p>A test connection made to the database was <b>NOT</b> successful.</p>
-      <p>The error message returned is:</p>
-      <p class="boxme"><?php echo $db_error; ?></p>
-      <p>Please click on the <i>Back</i> button below to review your database server settings.</p>
-      <p>If you require help with your database server settings, please consult your hosting company.</p>
-    </td>
+    <td><?php echo sprintf(ERROR_UNSUCCESSFUL_DATABASE_CONNECTION, $osC_Database->getError()); ?></td>
   </tr>
 </table>
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/back.gif" border="0" alt="<?php echo IMAGE_BUTTON_BACK; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
 <?php
-    reset($HTTP_POST_VARS);
-    while (list($key, $value) = each($HTTP_POST_VARS)) {
+    foreach ($_POST as $key => $value) {
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
-          for ($i=0; $i<sizeof($value); $i++) {
-            echo osc_draw_hidden_field($key . '[]', $value[$i]);
+          for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+            echo tep_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo osc_draw_hidden_field($key, $value);
+          echo tep_draw_hidden_field($key, $value);
         }
       }
     }
@@ -82,43 +73,33 @@
 </form>
 
 <?php
-  } elseif ( ( (file_exists($dir_fs_document_root . 'includes/configure.php')) && (!is_writeable($dir_fs_document_root . 'includes/configure.php')) ) || ( (file_exists($dir_fs_document_root . '/admin/includes/configure.php')) && (!is_writeable($dir_fs_document_root . '/admin/includes/configure.php')) ) ) {
+  } elseif ( (file_exists($dir_fs_document_root . 'includes/configure.php') && !is_writeable($dir_fs_document_root . 'includes/configure.php')) || (file_exists($dir_fs_document_root . '/admin/includes/configure.php') && !is_writeable($dir_fs_document_root . '/admin/includes/configure.php')) ) {
 ?>
 <form name="install" action="install.php?step=7" method="post">
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>
-      <p>The following error has occurred:</p>
-      <p><div class="boxMe"><b>The configuration files do not exist, or permission levels are not set.</b><br><br>Please perform the following actions:
-        <ul class="boxMe"><li>cd <?php echo $dir_fs_document_root; ?>includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul>
-        <ul class="boxMe"><li>cd <?php echo $dir_fs_document_root; ?>admin/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div>
-      </p>
-      <p class="noteBox">If <i>chmod 706</i> does not work, please try <i>chmod 777</i>.</p>
-      <p class="noteBox">If you are running this installation procedure under a Microsoft Windows environment, try renaming the existing configuration file so a new file can be created.</p>
-    </td>
+    <td><?php echo sprintf(ERROR_CONFIG_FILE_NOT_WRITEABLE, $dir_fs_document_root, $dir_fs_document_root); ?></td>
   </tr>
 </table>
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_retry.gif" border="0" alt="Retry"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/retry.gif" border="0" alt="<?php echo IMAGE_BUTTON_RETRY; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
 <?php
-    reset($HTTP_POST_VARS);
-    while (list($key, $value) = each($HTTP_POST_VARS)) {
+    foreach ($_POST as $key => $value) {
       if ($key != 'x' && $key != 'y') {
         if (is_array($value)) {
-          for ($i=0; $i<sizeof($value); $i++) {
-            echo osc_draw_hidden_field($key . '[]', $value[$i]);
+          for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+            echo tep_draw_hidden_field($key . '[]', $value[$i]);
           }
         } else {
-          echo osc_draw_hidden_field($key, $value);
+          echo tep_draw_hidden_field($key, $value);
         }
       }
     }
@@ -128,7 +109,7 @@
 
 <?php
   } else {
-    $http_url = parse_url($HTTP_POST_VARS['HTTP_WWW_ADDRESS']);
+    $http_url = parse_url($_POST['HTTP_WWW_ADDRESS']);
     $http_server = $http_url['scheme'] . '://' . $http_url['host'];
     $http_catalog = $http_url['path'];
     if (isset($http_url['port']) && !empty($http_url['port'])) {
@@ -141,8 +122,8 @@
 
     $https_server = '';
     $https_catalog = '';
-    if (isset($HTTP_POST_VARS['HTTPS_WWW_ADDRESS']) && !empty($HTTP_POST_VARS['HTTPS_WWW_ADDRESS'])) {
-      $https_url = parse_url($HTTP_POST_VARS['HTTPS_WWW_ADDRESS']);
+    if (isset($_POST['HTTPS_WWW_ADDRESS']) && !empty($_POST['HTTPS_WWW_ADDRESS'])) {
+      $https_url = parse_url($_POST['HTTPS_WWW_ADDRESS']);
       $https_server = $https_url['scheme'] . '://' . $https_url['host'];
       $https_catalog = $https_url['path'];
 
@@ -155,18 +136,23 @@
       }
     }
 
-    $enable_ssl = (isset($HTTP_POST_VARS['ENABLE_SSL']) && ($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false');
-    $http_cookie_domain = $HTTP_POST_VARS['HTTP_COOKIE_DOMAIN'];
-    $https_cookie_domain = (isset($HTTP_POST_VARS['HTTPS_COOKIE_DOMAIN']) ? $HTTP_POST_VARS['HTTPS_COOKIE_DOMAIN'] : '');
-    $http_cookie_path = $HTTP_POST_VARS['HTTP_COOKIE_PATH'];
-    $https_cookie_path = (isset($HTTP_POST_VARS['HTTPS_COOKIE_PATH']) ? $HTTP_POST_VARS['HTTPS_COOKIE_PATH'] : '');
+    $enable_ssl = (isset($_POST['ENABLE_SSL']) && ($_POST['ENABLE_SSL'] == 'true') ? 'true' : 'false');
+    $http_cookie_domain = $_POST['HTTP_COOKIE_DOMAIN'];
+    $https_cookie_domain = (isset($_POST['HTTPS_COOKIE_DOMAIN']) ? $_POST['HTTPS_COOKIE_DOMAIN'] : '');
+    $http_cookie_path = $_POST['HTTP_COOKIE_PATH'];
+    $https_cookie_path = (isset($_POST['HTTPS_COOKIE_PATH']) ? $_POST['HTTPS_COOKIE_PATH'] : '');
+
+    $http_work_directory = $_POST['HTTP_WORK_DIRECTORY'];
+    if (substr($http_work_directory, -1) != '/') {
+      $http_work_directory .= '/';
+    }
 
     $file_contents = '<?php' . "\n" .
                      '/*' . "\n" .
                      '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
                      '  http://www.oscommerce.com' . "\n" .
                      '' . "\n" .
-                     '  Copyright (c) 2003 osCommerce' . "\n" .
+                     '  Copyright (c) 2004 osCommerce' . "\n" .
                      '' . "\n" .
                      '  Released under the GNU General Public License' . "\n" .
                      '*/' . "\n" .
@@ -194,16 +180,18 @@
                      '' . "\n" .
                      '  define(\'DIR_WS_DOWNLOAD_PUBLIC\', \'pub/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG\', \'' . $dir_fs_document_root . '\');' . "\n" .
+                     '  define(\'DIR_FS_WORK\', \'' . $http_work_directory . '\');' . "\n" .
                      '  define(\'DIR_FS_DOWNLOAD\', DIR_FS_CATALOG . \'download/\');' . "\n" .
                      '  define(\'DIR_FS_DOWNLOAD_PUBLIC\', DIR_FS_CATALOG . \'pub/\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
-                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
-                     '  define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
-                     '  define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
-                     '  define(\'USE_PCONNECT\', \'' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
-                     '  define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
+                     '  define(\'DB_SERVER_USERNAME\', \'' . $_POST['DB_SERVER_USERNAME'] . '\');' . "\n" .
+                     '  define(\'DB_SERVER_PASSWORD\', \'' . $_POST['DB_SERVER_PASSWORD']. '\');' . "\n" .
+                     '  define(\'DB_DATABASE\', \'' . $_POST['DB_DATABASE']. '\');' . "\n" .
+                     '  define(\'DB_TABLE_PREFIX\', \'' . $_POST['DB_TABLE_PREFIX']. '\');' . "\n" .
+                     '  define(\'USE_PCONNECT\', \'' . (isset($_POST['USE_PCONNECT']) && $_POST['USE_PCONNECT'] == 'true' ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
+                     '  define(\'STORE_SESSIONS\', \'' . (($_POST['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
     $fp = fopen($dir_fs_document_root . 'includes/configure.php', 'w');
@@ -215,7 +203,7 @@
                      '  osCommerce, Open Source E-Commerce Solutions' . "\n" .
                      '  http://www.oscommerce.com' . "\n" .
                      '' . "\n" .
-                     '  Copyright (c) 2003 osCommerce' . "\n" .
+                     '  Copyright (c) 2004 osCommerce' . "\n" .
                      '' . "\n" .
                      '  Released under the GNU General Public License' . "\n" .
                      '*/' . "\n" .
@@ -246,14 +234,16 @@
                      '  define(\'DIR_FS_CATALOG_IMAGES\', DIR_FS_CATALOG . \'images/\');' . "\n" .
                      '  define(\'DIR_FS_CATALOG_MODULES\', DIR_FS_CATALOG . \'includes/modules/\');' . "\n" .
                      '  define(\'DIR_FS_BACKUP\', DIR_FS_ADMIN . \'backups/\');' . "\n" .
+                     '  define(\'DIR_FS_WORK\', \'' . $http_work_directory . '\');' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
-                     '  define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
-                     '  define(\'DB_SERVER_USERNAME\', \'' . $HTTP_POST_VARS['DB_SERVER_USERNAME'] . '\');' . "\n" .
-                     '  define(\'DB_SERVER_PASSWORD\', \'' . $HTTP_POST_VARS['DB_SERVER_PASSWORD']. '\');' . "\n" .
-                     '  define(\'DB_DATABASE\', \'' . $HTTP_POST_VARS['DB_DATABASE']. '\');' . "\n" .
-                     '  define(\'USE_PCONNECT\', \'' . (($HTTP_POST_VARS['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '\'); // use persisstent connections?' . "\n" .
-                     '  define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
+                     '  define(\'DB_SERVER_USERNAME\', \'' . $_POST['DB_SERVER_USERNAME'] . '\');' . "\n" .
+                     '  define(\'DB_SERVER_PASSWORD\', \'' . $_POST['DB_SERVER_PASSWORD']. '\');' . "\n" .
+                     '  define(\'DB_DATABASE\', \'' . $_POST['DB_DATABASE']. '\');' . "\n" .
+                     '  define(\'DB_TABLE_PREFIX\', \'' . $_POST['DB_TABLE_PREFIX']. '\');' . "\n" .
+                     '  define(\'USE_PCONNECT\', \'' . (isset($_POST['USE_PCONNECT']) && $_POST['USE_PCONNECT'] == 'true' ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
+                     '  define(\'STORE_SESSIONS\', \'' . (($_POST['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
     $fp = fopen($dir_fs_document_root . 'admin/includes/configure.php', 'w');
@@ -263,7 +253,7 @@
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>The configuration was successful!</td>
+    <td><?php echo TEXT_SUCCESSFUL_CONFIGURATION; ?></td>
  </tr>
 </table>
 

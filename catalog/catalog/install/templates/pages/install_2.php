@@ -1,61 +1,53 @@
 <?php
 /*
-  $Id: install_2.php,v 1.7 2003/07/12 08:10:08 hpdl Exp $
+  $Id: install_2.php,v 1.8 2004/02/16 06:59:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 ?>
 
-<p class="pageTitle">New Installation</p>
+<p class="pageTitle"><?php echo PAGE_TITLE_INSTALLATION; ?></p>
 
-<p><b>Database Import</b></p>
+<p class="pageSubTitle"><?php echo PAGE_SUBTITLE_DATABASE_IMPORT; ?></p>
 
 <?php
-  if (isset($HTTP_POST_VARS['DB_SERVER']) && !empty($HTTP_POST_VARS['DB_SERVER']) && isset($HTTP_POST_VARS['DB_TEST_CONNECTION']) && ($HTTP_POST_VARS['DB_TEST_CONNECTION'] == 'true')) {
-    $db = array();
-    $db['DB_SERVER'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER']));
-    $db['DB_SERVER_USERNAME'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_USERNAME']));
-    $db['DB_SERVER_PASSWORD'] = trim(stripslashes($HTTP_POST_VARS['DB_SERVER_PASSWORD']));
-    $db['DB_DATABASE'] = trim(stripslashes($HTTP_POST_VARS['DB_DATABASE']));
+  if (isset($_POST['DB_TEST_CONNECTION']) && ($_POST['DB_TEST_CONNECTION'] == 'true')) {
+    $db = array('DB_SERVER' => trim(stripslashes($_POST['DB_SERVER'])),
+                'DB_SERVER_USERNAME' => trim(stripslashes($_POST['DB_SERVER_USERNAME'])),
+                'DB_SERVER_PASSWORD' => trim(stripslashes($_POST['DB_SERVER_PASSWORD'])),
+                'DB_DATABASE' => trim(stripslashes($_POST['DB_DATABASE'])),
+                'DB_TABLE_PREFIX' => trim(stripslashes($_POST['DB_TABLE_PREFIX'])));
 
-    $db_error = false;
-    osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+    $osC_Database = osC_Database::connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
 
-    if ($db_error == false) {
-      osc_db_test_create_db_permission($db['DB_DATABASE']);
+    if ($osC_Database->isError() === false) {
+      $osC_Database->hasCreatePermission($db['DB_DATABASE']);
     }
 
-    if ($db_error != false) {
+    if ($osC_Database->isError()) {
 ?>
 <form name="install" action="install.php?step=2" method="post">
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td>
-      <p>A test connection made to the database was <b>NOT</b> successful.</p>
-      <p>The error message returned is:</p>
-      <p class="boxme"><?php echo $db_error; ?></p>
-      <p>Please click on the <i>Back</i> button below to review your database server settings.</p>
-      <p>If you require help with your database server settings, please consult your hosting company.</p>
-    </td>
+    <td><?php echo sprintf(ERROR_UNSUCCESSFUL_DATABASE_CONNECTION, $osC_Database->getError()); ?></td>
   </tr>
 </table>
 
 <?php
-      reset($HTTP_POST_VARS);
-      while (list($key, $value) = each($HTTP_POST_VARS)) {
+      foreach($_POST as $key => $value) {
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
-            for ($i=0; $i<sizeof($value); $i++) {
-              echo osc_draw_hidden_field($key . '[]', $value[$i]);
+            for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+              echo tep_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo osc_draw_hidden_field($key, $value);
+            echo tep_draw_hidden_field($key, $value);
           }
         }
       }
@@ -63,10 +55,9 @@
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_back.gif" border="0" alt="Back"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/back.gif" border="0" alt="<?php echo IMAGE_BUTTON_BACK; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
@@ -95,25 +86,28 @@
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
     <td>
-      <p>A test connection made to the database was <b>successful</b>.</p>
-      <p>Please continue the installation process to execute the database import procedure.</p>
-      <p>It is important this procedure is not interrupted, otherwise the database may end up corrupt.</p>
-      <p>The file to import must be located and named at:</p>
-      <p><?php echo $dir_fs_www_root . 'install/oscommerce.sql'; ?></p>
+<?php
+      echo TEXT_SUCCESSFUL_DATABASE_CONNECTION;
+
+      echo sprintf(TEXT_IMPORT_SQL, $dir_fs_www_root . 'install/oscommerce.sql');
+
+      if (isset($_POST['DB_INSERT_SAMPLE_DATA']) && ($_POST['DB_INSERT_SAMPLE_DATA'] == 'true')) {
+        echo sprintf(TEXT_IMPORT_DATA_SAMPLE_SQL, $dir_fs_www_root . 'install/oscommerce_sample_data.sql');
+      }
+?>
     </td>
   </tr>
 </table>
 
 <?php
-      reset($HTTP_POST_VARS);
-      while (list($key, $value) = each($HTTP_POST_VARS)) {
+      foreach ($_POST as $key => $value) {
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
-            for ($i=0; $i<sizeof($value); $i++) {
-              echo osc_draw_hidden_field($key . '[]', $value[$i]);
+            for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+              echo tep_draw_hidden_field($key . '[]', $value[$i]);
             }
           } else {
-            echo osc_draw_hidden_field($key, $value);
+            echo tep_draw_hidden_field($key, $value);
           }
         }
       }
@@ -121,10 +115,9 @@
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/continue.gif" border="0" alt="<?php echo IMAGE_BUTTON_CONTINUE; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
@@ -137,89 +130,111 @@
 
 <form name="install" action="install.php?step=2" method="post">
 
-<p><b>Please enter the database server information:</b></p>
+<p><?php echo TEXT_ENTER_DATABASE_INFORMATION; ?></p>
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td width="30%" valign="top">Database Server:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_DATABASE_SERVER; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('DB_SERVER'); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbHost');"><br>
-      <div id="dbHostSD">Hostame or IP-address of the database server</div>
-      <div id="dbHost" class="longDescription">The database server can be in the form of a hostname, such as db1.myserver.com, or as an IP-address, such as 192.168.0.1</div>
+      <?php echo tep_draw_input_field('DB_SERVER'); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbHost');"><br>
+      <div id="dbHostSD"><?php echo CONFIG_DATABASE_SERVER_DESCRIPTION; ?></div>
+      <div id="dbHost" class="longDescription"><?php echo CONFIG_DATABASE_SERVER_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Username:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_DATABASE_USERNAME; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('DB_SERVER_USERNAME'); ?>
-      <img src="images/layout/help_icon.gif"  onClick="toggleBox('dbUser');"><br>
-      <div id="dbUserSD">Database username</div>
-      <div id="dbUser" class="longDescription">The username used to connect to the database server. An example username is 'mysql_10'.<br><br>Note: Create and Drop permissions <b>are required</b> at this point of the installation procedure.</div>
+      <?php echo tep_draw_input_field('DB_SERVER_USERNAME'); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif"  onClick="toggleBox('dbUser');"><br>
+      <div id="dbUserSD"><?php echo CONFIG_DATABASE_USERNAME_DESCRIPTION; ?></div>
+      <div id="dbUser" class="longDescription"><?php echo CONFIG_DATABASE_USERNAME_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Password:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_DATABASE_PASSWORD; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_password_field('DB_SERVER_PASSWORD'); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbPass');"><br>
-      <div id="dbPassSD">Database password</div>
-      <div id="dbPass" class="longDescription">The password is used together with the username, which forms the database user account.</div>
+      <?php echo tep_draw_password_field('DB_SERVER_PASSWORD'); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbPass');"><br>
+      <div id="dbPassSD"><?php echo CONFIG_DATABASE_PASSWORD_DESCRIPTION; ?></div>
+      <div id="dbPass" class="longDescription"><?php echo CONFIG_DATABASE_PASSWORD_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Database Name:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_DATABASE_NAME; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('DB_DATABASE'); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbName');"><br>
-      <div id="dbNameSD">Database Name</div>
-      <div id="dbName" class="longDescription">The database used to hold the data. An example database name is 'osCommerce'.</div>
+      <?php echo tep_draw_input_field('DB_DATABASE'); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbName');"><br>
+      <div id="dbNameSD"><?php echo CONFIG_DATABASE_NAME_DESCRIPTION; ?></div>
+      <div id="dbName" class="longDescription"><?php echo CONFIG_DATABASE_NAME_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Persistent Connections:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_DATABASE_TABLE_PREFIX; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_checkbox_field('USE_PCONNECT', 'true'); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbConn');"><br>
-      <div id="dbConnSD"></div>
-      <div id="dbConn" class="longDescription">Enable persistent database connections.<br><br>Note: Persistent connections should be disabled for shared servers.</div>
+      <?php echo tep_draw_input_field('DB_TABLE_PREFIX', 'osc_'); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbNamePrefix');"><br>
+      <div id="dbNamePrefixSD"><?php echo CONFIG_DATABASE_TABLE_PREFIX_DESCRIPTION; ?></div>
+      <div id="dbNamePrefix" class="longDescription"><?php echo CONFIG_DATABASE_TABLE_PREFIX_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Session Storage:</td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top"><?php echo CONFIG_DATABASE_PERSISTENT_CONNECTIONS; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_radio_field('STORE_SESSIONS', 'files', true); ?>&nbsp;Files&nbsp;&nbsp;<?php echo osc_draw_radio_field('STORE_SESSIONS', 'mysql'); ?>&nbsp;Database&nbsp;&nbsp;
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbSess');"><br>
-      <div id="dbSessSD"></div>
-      <div id="dbSess" class="longDescription">Store user session data as files on the server, or in the database.<br><br>Note: Due to security related issues, database session storage is recommended for shared servers.</td></div>
+      <?php echo tep_draw_checkbox_field('USE_PCONNECT', 'true'); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbConn');"><br>
+      <div id="dbConnSD"><?php echo CONFIG_DATABASE_PERSISTENT_CONNECTIONS_DESCRIPTION; ?></div>
+      <div id="dbConn" class="longDescription"><?php echo CONFIG_DATABASE_PERSISTENT_CONNECTIONS_DESCRIPTION_LONG; ?></div>
+    </td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top"><?php echo CONFIG_SESSION_STORAGE; ?></td>
+    <td width="70%" class="smallDesc">
+      <?php echo tep_draw_radio_field('STORE_SESSIONS', 'files', true); ?>&nbsp;<?php echo CONFIG_SESSION_STORAGE_FILES; ?>&nbsp;&nbsp;<?php echo tep_draw_radio_field('STORE_SESSIONS', 'mysql'); ?>&nbsp;<?php echo CONFIG_SESSION_STORAGE_DATABASE; ?>&nbsp;&nbsp;
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbSess');"><br>
+      <div id="dbSessSD"><?php echo CONFIG_SESSION_STORAGE_DESCRIPTION; ?></div>
+      <div id="dbSess" class="longDescription"><?php echo CONFIG_SESSION_STORAGE_DESCRIPTION_LONG; ?></div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30%" valign="top"><?php echo CONFIG_IMPORT_SAMPLE_DATA; ?></td>
+    <td width="70%" class="smallDesc">
+      <?php echo tep_draw_checkbox_field('DB_INSERT_SAMPLE_DATA', 'true', (!isset($_POST['DB_SERVER']) || (isset($_POST['DB_INSERT_SAMPLE_DATA']) && ($_POST['DB_INSERT_SAMPLE_DATA'] == 'true')) ? true : false)); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('dbSample');"><br>
+      <div id="dbSampleSD"><?php echo CONFIG_IMPORT_SAMPLE_DATA_DESCRIPTION; ?></div>
+      <div id="dbSample" class="longDescription"><?php echo CONFIG_IMPORT_SAMPLE_DATA_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
 </table>
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/continue.gif" border="0" alt="<?php echo IMAGE_BUTTON_CONTINUE; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
 <?php
-  reset($HTTP_POST_VARS);
-  while (list($key, $value) = each($HTTP_POST_VARS)) {
-    if (($key != 'x') && ($key != 'y') && ($key != 'DB_SERVER') && ($key != 'DB_SERVER_USERNAME') && ($key != 'DB_SERVER_PASSWORD') && ($key != 'DB_DATABASE') && ($key != 'USE_PCONNECT') && ($key != 'STORE_SESSIONS') && ($key != 'DB_TEST_CONNECTION')) {
+  foreach ($_POST as $key => $value) {
+    if (($key != 'x') && ($key != 'y') && ($key != 'DB_SERVER') && ($key != 'DB_SERVER_USERNAME') && ($key != 'DB_SERVER_PASSWORD') && ($key != 'DB_DATABASE') && ($key != 'DB_TABLE_PREFIX') && ($key != 'USE_PCONNECT') && ($key != 'STORE_SESSIONS') && ($key != 'DB_INSERT_SAMPLE_DATA') && ($key != 'DB_TEST_CONNECTION')) {
       if (is_array($value)) {
-        for ($i=0; $i<sizeof($value); $i++) {
-          echo osc_draw_hidden_field($key . '[]', $value[$i]);
+        for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+          echo tep_draw_hidden_field($key . '[]', $value[$i]);
         }
       } else {
-        echo osc_draw_hidden_field($key, $value);
+        echo tep_draw_hidden_field($key, $value);
       }
     }
   }
 
-  echo osc_draw_hidden_field('DB_TEST_CONNECTION', 'true');
+  echo tep_draw_hidden_field('DB_TEST_CONNECTION', 'true');
 ?>
 
 </form>

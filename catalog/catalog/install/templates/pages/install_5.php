@@ -1,75 +1,73 @@
 <?php
 /*
-  $Id: install_5.php,v 1.22 2003/07/09 01:11:06 hpdl Exp $
+  $Id: install_5.php,v 1.23 2004/02/16 06:59:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-  $https_www_address = str_replace('http://', 'https://', $HTTP_POST_VARS['HTTP_WWW_ADDRESS']);
+  $https_www_address = str_replace('http://', 'https://', $_POST['HTTP_WWW_ADDRESS']);
 ?>
 
-<p class="pageTitle">New Installation</p>
+<p class="pageTitle"><?php echo PAGE_TITLE_INSTALLATION; ?></p>
 
-<p><b>osCommerce Configuration</b></p>
+<p class="pageSubTitle"><?php echo PAGE_SUBTITLE_OSCOMMERCE_CONFIGURATION; ?></p>
 
 <form name="install" action="install.php?step=6" method="post">
 
-<p><b>Please enter the secure web server information:</b></p>
+<p><?php echo TEXT_ENTER_SECURE_WEBSERVER_INFORMATION; ?></p>
 
 <table width="95%" border="0" cellpadding="2" class="formPage">
   <tr>
-    <td width="30%" valign="top">Secure WWW Address:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTPS_ADDRESS; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('HTTPS_WWW_ADDRESS', $https_www_address); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('httpsWWW');"><br>
-      <div id="httpsWWWSD">The full website address to the online store on the secure server</div>
-      <div id="httpsWWW" class="longDescription">The secure web address to the online store, for example <i>https://ssl.my-hosting-company.com/my_name/catalog/</i></div>
+      <?php echo tep_draw_input_field('HTTPS_WWW_ADDRESS', $https_www_address); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpsWWW');"><br>
+      <div id="httpsWWWSD"><?php echo CONFIG_WWW_HTTPS_ADDRESS_DESCRIPTION; ?></div>
+      <div id="httpsWWW" class="longDescription"><?php echo CONFIG_WWW_HTTPS_ADDRESS_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Secure Cookie Domain:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTPS_COOKIE_DOMAIN; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('HTTPS_COOKIE_DOMAIN', $HTTP_POST_VARS['HTTP_COOKIE_DOMAIN']); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('httpsCookieD');"><br>
-      <div id="httpsCookieDSD">The secure domain to store cookies in</div>
-      <div id="httpsCookieD" class="longDescription">The full or top-level domain of the secure server to store the cookies in, for example <i>ssl.my-hosting-company.com</i></div>
+      <?php echo tep_draw_input_field('HTTPS_COOKIE_DOMAIN', $_POST['HTTP_COOKIE_DOMAIN']); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpsCookieD');"><br>
+      <div id="httpsCookieDSD"><?php echo CONFIG_WWW_HTTPS_COOKIE_DOMAIN_DESCRIPTION; ?></div>
+      <div id="httpsCookieD" class="longDescription"><?php echo CONFIG_WWW_HTTPS_COOKIE_DOMAIN_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
   <tr>
-    <td width="30%" valign="top">Secure Cookie Path:</td>
+    <td width="30%" valign="top"><?php echo CONFIG_WWW_HTTPS_COOKIE_PATH; ?></td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('HTTPS_COOKIE_PATH', $HTTP_POST_VARS['HTTP_COOKIE_PATH']); ?>
-      <img src="images/layout/help_icon.gif" onClick="toggleBox('dbCookieP');"><br>
-      <div id="dbCookiePSD">The secure path to store cookies under</div>
-      <div id="dbCookieP" class="longDescription">The web address of the secure server to limit the cookie to, for example <i>/my_name/catalog/</i></div>
+      <?php echo tep_draw_input_field('HTTPS_COOKIE_PATH', $_POST['HTTP_COOKIE_PATH']); ?>
+      <img src="templates/<?php echo $template; ?>/images/help_icon.gif" onClick="toggleBox('httpsCookieP');"><br>
+      <div id="httpsCookiePSD"><?php echo CONFIG_WWW_HTTPS_COOKIE_PATH_DESCRIPTION; ?></div>
+      <div id="httpsCookieP" class="longDescription"><?php echo CONFIG_WWW_HTTPS_COOKIE_PATH_DESCRIPTION_LONG; ?></div>
     </td>
   </tr>
 </table>
 
 <p>&nbsp;</p>
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<table width="95%" border="0" cellspacing="2">
   <tr>
-    <td align="center"><a href="index.php"><img src="images/button_cancel.gif" border="0" alt="Cancel"></a></td>
-    <td align="center"><input type="image" src="images/button_continue.gif" border="0" alt="Continue"></td>
+    <td align="right"><input type="image" src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/continue.gif" border="0" alt="<?php echo IMAGE_BUTTON_CONTINUE; ?>">&nbsp;&nbsp;<a href="index.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/buttons/cancel.gif" border="0" alt="<?php echo IMAGE_BUTTON_CANCEL; ?>"></a></td>
   </tr>
 </table>
 
 <?php
-  reset($HTTP_POST_VARS);
-  while (list($key, $value) = each($HTTP_POST_VARS)) {
+  foreach ($_POST as $key => $value) {
     if (($key != 'x') && ($key != 'y')) {
       if (is_array($value)) {
-        for ($i=0; $i<sizeof($value); $i++) {
-          echo osc_draw_hidden_field($key . '[]', $value[$i]);
+        for ($i=0, $n=sizeof($value); $i<$n; $i++) {
+          echo tep_draw_hidden_field($key . '[]', $value[$i]);
         }
       } else {
-        echo osc_draw_hidden_field($key, $value);
+        echo tep_draw_hidden_field($key, $value);
       }
     }
   }

@@ -1,33 +1,35 @@
 <?php
 /*
-  $Id: index.php,v 1.3 2003/07/09 01:11:06 hpdl Exp $
+  $Id: index.php,v 1.4 2004/02/16 06:59:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
+
+  $languages_array = array(array('id' => 'english', 'text' => 'English'),
+                           array('id' => 'german', 'text' => 'Deutsch'),
+                           array('id' => 'espanol', 'text' => 'Espanol'));
 ?>
 
-<p class="pageTitle">Welcome to osCommerce!</p>
+<p class="pageTitle"><?php echo PAGE_TITLE_WELCOME; ?></p>
+
+<form action="index.php" method="get"><p align="right"><?php echo tep_draw_pull_down_menu('language', $languages_array, $language, 'onChange="this.form.submit();"'); ?></p></form>
 
 <table width="95%" class="formPage" cellpadding="2">
   <tr>
-    <td>
-      <p>osCommerce is an open source e-commerce solution under on going development by the open source community. Its feature packed out-of-the-box installation allows store owners to setup, run, and maintain their online stores with minimum effort and with no costs involved.</p>
-      <p>osCommerce combines open source solutions to provide a free and open development platform, which includes the <i>powerful</i> PHP web scripting language, the <i>stable</i> Apache web server, and the <i>fast</i> MySQL database server.</p>
-      <p>With no restrictions or special requirements, osCommerce can be installed on any PHP3 or PHP4 enabled web server, on any environment that PHP and MySQL supports, which includes Linux, Solaris, BSD, and Microsoft Windows environments.</p>
-    </td>
+    <td><?php echo TEXT_WELCOME; ?></td>
   </tr>
 </table>
 
-<p>Please choose the installation method to continue.</p>
+<p><?php echo TEXT_CHOOSE_INSTALLATION_TYPE; ?></p>
 
 <table border="0" width="95%" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="50%" align="center"><a href="install.php"><img src="images/install.gif" border="0" alt="New Install"></a></td>
-    <td width="50%" align="center"><a href="upgrade.php"><img src="images/upgrade.gif" border="0" alt="Upgrade"></a></td>
+    <td width="50%" align="center"><a href="install.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/install.gif" border="0" alt="<?php echo IMAGE_INSTALL; ?>"></a></td>
+    <td width="50%" align="center"><a href="upgrade.php"><img src="templates/<?php echo $template; ?>/languages/<?php echo $language; ?>/images/upgrade.gif" border="0" alt="<?php echo IMAGE_UPGRADE; ?>"></a></td>
   </tr>
 </table>
