@@ -70,14 +70,16 @@
                 <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
-            <tr>
-              <td><? echo tep_black_line(); ?></td>
-            </tr>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
             <td><?php echo $shipping_modules->selection(); ?></td>
           </tr>
 <?
     }
 ?>
+          <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_MY_ADDRESS; ?>&nbsp;</td>
