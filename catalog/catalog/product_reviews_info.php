@@ -10,6 +10,11 @@
 <head>
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
+<script language="javascript"><!--
+function popupImageWindow(url) {
+  window.open(url,'popupImageWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=100,height=100,screenX=150,screenY=150,top=150,left=150')
+}
+//--></script>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
@@ -46,7 +51,7 @@
   $reviews_text = htmlspecialchars($reviews_values['reviews_text']);
   $reviews_text = tep_break_string($reviews_text, 15);
 
-  $product = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $reviews_values['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '". $languages_id . "'");
+  $product = tep_db_query("select p.products_id, pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $reviews_values['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '". $languages_id . "'");
   $product_values = tep_db_fetch_array($product);
 
   $customer = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $reviews_values['customers_id'] . "'");
@@ -77,7 +82,7 @@
                 <td class="main">&nbsp;<b><? echo SUB_TITLE_DATE; ?></b>&nbsp;<? echo tep_date_long($reviews_values['date_added']); ?>&nbsp;</td>
               </tr>
             </table></td>
-            <td align="right"><br><? echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
+            <td class="main" align="right"><br><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_values['products_image']; ?>&alt=<? echo rawurlencode(addslashes($product_values['products_name'])); ?>')"><? echo tep_image($product_values['products_image'], $product_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT); ?><br><?php echo TEXT_CLICK_TO_ENLARGE; ?></a>&nbsp;</td>
           </tr>
         </table>
       </tr>
@@ -94,7 +99,12 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?>&nbsp;&nbsp;</td>
+        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?>&nbsp;&nbsp;</td>
+            <td align="right" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, 'action=add_a_quickie&products_id=' . $product_values['products_id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></a>&nbsp;&nbsp;</td>
+          </tr>
+        </table></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

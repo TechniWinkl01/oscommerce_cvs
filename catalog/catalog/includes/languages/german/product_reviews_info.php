@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.4 2001/05/26 16:49:41 hpdl Exp $
+  $Id: product_reviews_info.php,v 1.5 2001/06/17 10:37:09 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,4 +19,5 @@ define('SUB_TITLE_DATE', 'Datum:');
 define('SUB_TITLE_REVIEW', 'Meinung:');
 define('SUB_TITLE_RATING', 'Bewertung:');
 define('TEXT_OF_5_STARS', '%s von 5 Sternen!');
+define('TEXT_CLICK_TO_ENLARGE', 'Abbildung vergrössern');
 ?>
