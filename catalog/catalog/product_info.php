@@ -24,15 +24,6 @@
       </tr>
     </table></td>
 <!-- body_text //-->
-<?
-  if (@$HTTP_GET_VARS['category_id']) {
-    $category_id = $HTTP_GET_VARS['category_id'];
-  } else {
-    $category = tep_db_query("select subcategories_to_category.category_top_id from subcategories_to_category, products_to_subcategories where products_to_subcategories.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_to_subcategories.subcategories_id = subcategories_to_category.subcategories_id");
-    $category_values = tep_db_fetch_array($category);
-    $category_id = $category_values['category_top_id'];
-  }
-?>
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
