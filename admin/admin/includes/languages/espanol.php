@@ -82,9 +82,6 @@ define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
 
-define('JS_REVIEW_TEXT', '* El texto de un \'Comentario\' debe tener al menos ' . REVIEW_TEXT_MIN_LENGTH . ' letras.\n');
-define('JS_REVIEW_RATING', '* Debe evaluar el producto.\n');
-
 define('JS_CATEGORIES_NAME', '* La categoria necesita un nombre\n');
 define('JS_SORT_ORDER', '* Se necesita un orden numerico para la categoria\n');
 define('JS_CATEGORIES_IMAGE', '* Se necesita una imagen para la categoria\n');

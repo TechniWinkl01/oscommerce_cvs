@@ -82,9 +82,6 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 // javascript messages
 define('JS_ERROR', 'Während der Eingabe sind Fehler aufgetreten!\nBitte korrigieren Sie folgendes:\n\n');
 
-define('JS_REVIEW_TEXT', '* Der \'Bericht\' muss mindestens ' . REVIEW_TEXT_MIN_LENGTH . ' Zeichen lang sein.\n');
-define('JS_REVIEW_RATING', '* Sie müssen das Produkte benoten.\n');
-
 define('JS_CATEGORIES_NAME', '* Die neue Kategorie muss einen Namen haben\n');
 define('JS_SORT_ORDER', '* Eine numerische Sortierreihenfolge wird für diese Kategorie benötigt\n');
 define('JS_CATEGORIES_IMAGE', '* Ein Bild wird für diese Kategorie benötigt\n');

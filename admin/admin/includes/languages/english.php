@@ -82,9 +82,6 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
 // javascript messages
 define('JS_ERROR', 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n');
 
-define('JS_REVIEW_TEXT', '* The \'Review Text\' must have atleast ' . REVIEW_TEXT_MIN_LENGTH . ' characters.\n');
-define('JS_REVIEW_RATING', '* You must rate the product for your review.\n');
-
 define('JS_CATEGORIES_NAME', '* The new category needs a name\n');
 define('JS_SORT_ORDER', '* A numeric sort order is needed for the new category\n');
 define('JS_CATEGORIES_IMAGE', '* An image is required for the new category\n');
@@ -172,6 +169,7 @@ define('IMAGE_CANCEL', 'Cancel');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_COPY', 'Copy');
 define('IMAGE_COPY_TO', 'Copy To');
+define('IMAGE_DEFINE', 'Define');
 define('IMAGE_DELETE', 'Delete');
 define('IMAGE_EDIT', 'Edit');
 define('IMAGE_INSERT', 'Insert');
