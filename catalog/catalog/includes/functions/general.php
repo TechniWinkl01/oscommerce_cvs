@@ -86,14 +86,6 @@ return $any_out_of_stock;
 }
 // End Check Stock
 
-
-
-
-
-
-
-
-
 // $currency is in the session variable
   function tep_currency_format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
     global $currency_rates, $currency;
@@ -116,7 +108,13 @@ return $any_out_of_stock;
         $rate = $currency_value;
       }
 
-      $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
+// If the selected currency is in the european euro-conversion, the currency will displayed in the national and euro currency.
+      if ($currency=='DEM' || $currency=='BEF' || $currency=='LUF' || $currency=='ESP' || $currency=='FRF' || $currency=='IEP' || $currency=='ITL' || $currency=='NLG' || $currency=='ATS' || $currency=='PTE' || $currency=='FIM' || $currency=='GRD') {
+        $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'] . ' [€ ' . number_format($number,2) . ']';
+      } else {
+        $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
+      }
+
     } else {
       $number2currency = $currencies['symbol_left'] . number_format($number, $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
     }
