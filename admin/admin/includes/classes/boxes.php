@@ -67,12 +67,11 @@
 
   class infoBoxHeading extends tableBox {
     function infoBoxHeading($contents) {
-      $this->table_parameters = 'class="infoBoxHeading"';
       $this->table_data_parameters = 'class="infoBoxHeading"';
       if ($contents[0]['link']) {
         $contents[0]['text'] = '&nbsp;<a class="blacklink" href="' . $contents[0]['link'] . '">' . $contents[0]['text'] . '</a>&nbsp;';
       } else {
-        $contents[0]['text'] = '&nbsp;' . $contents[0]['text'];
+        $contents[0]['text'] = '&nbsp;' . $contents[0]['text'] . '&nbsp;';
       }
       $this->tableBox($contents);
     }
