@@ -57,4 +57,18 @@
     }
 
   }
+
+  class navigationBoxHeading extends tableBox {
+
+// class constructor
+    function navigationBoxHeading($contents) {
+      $this->table_data_parameters = 'bgcolor="' . BOX_HEADING_BACKGROUND_COLOR . '" class="boxborder" nowrap';
+      $this->font_style = FONT_STYLE_NAVIGATION_BOX_HEADING;
+
+      $contents[0]['text'] = '&nbsp;' . $contents[0]['text'];
+
+      $this->tableBox($contents);
+    }
+
+  }
 ?>
