@@ -52,7 +52,7 @@ function popupImageWindow(url) {
       </tr>
 <?
   } else {
-    tep_db_query("update products set products_viewed = products_viewed+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    tep_db_query("update products_description set products_viewed = products_viewed+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and language_id = '" . $languages_id . "'");
     $product_info_values = tep_db_fetch_array($product_info);
 
     $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $product_info_values['manufacturers_id'] . "'");
