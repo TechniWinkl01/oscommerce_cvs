@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.135 2001/09/11 12:38:51 jwildeboer Exp $
+  $Id: general.php,v 1.136 2001/10/16 06:26:11 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -988,22 +988,24 @@
       $boundary = uniqid("TheExchangeProject");
 
       // tell e-mail client this e-mail contains alternate versions
-      $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
+      $headers .= "Content-Type: multipart/related;\r\n        type=\"multipart/alternative\";\r\n        boundary = $boundary\r\n\r\n";
 
       // message to people with clients who don't understand MIME
-      $body .= "This is a MIME encoded message. Please use a MIME compliant mail reading  program.\r\n\r\n";
-
+      $body .= "This is a multi-part message in MIME-format.\r\n\r\n";
+      $innerboundary = uniqid("innerpart");
+      $body .= "--$boundary\r\nContent-Type: multipart/alternative;\r\n        boundary=\"$innerboundary\"\r\n\r\n";
       // plain text version of message
       // strip all tags from the text
-      $body .= "--$boundary\r\nContent-Type: text/plain; charset=ISO-8859-1\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
+      $body .= "--$innerboundary\r\nContent-Type: text/plain;\r\n         charset=\"ISO-8859-1\"\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
       $body .= strip_tags($email_text);
       $body .= "\r\n";
 
       //HTML version of message
-      $body .= "--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+      $body .= "--$innerboundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
       $body .= chunk_split(base64_encode($email_text));
 
       //Close the MultiPart
+      $body .= "\r\n--$innerboundary--\r\n";
       $body .= "\r\n--$boundary--\r\n";
 
     } else {
