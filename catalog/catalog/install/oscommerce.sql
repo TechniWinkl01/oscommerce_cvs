@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.81 2003/04/10 21:22:30 project3000 Exp $
+# $Id: oscommerce.sql,v 1.82 2003/04/30 09:50:45 dgw_ Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -1075,9 +1075,7 @@ INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
 INSERT INTO currencies VALUES (1,'US Dollar','USD','$','','.',',','2','1.0000', now());
-INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2','2.1585', now());
-INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0','183.624', now());
-INSERT INTO currencies VALUES (4,'Euro','EUR','','EUR','.',',','2','1.1036', now());
+INSERT INTO currencies VALUES (2,'Euro','EUR','','EUR','.',',','2','1.1036', now());
 
 INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '1', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
 
