@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.59 2002/11/12 01:54:24 hpdl Exp $
+# $Id: oscommerce.sql,v 1.60 2002/11/14 19:41:04 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS banners;
 CREATE TABLE banners (
   banners_id int NOT NULL auto_increment,
   banners_title varchar(64) NOT NULL,
-  banners_url varchar(64) NOT NULL,
+  banners_url varchar(255) NOT NULL,
   banners_image varchar(64) NOT NULL,
   banners_group varchar(10) NOT NULL,
   banners_html_text text,
