@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.229 2002/05/20 14:43:02 dgw_ Exp $
+  $Id: application_top.php,v 1.230 2002/05/22 06:32:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -406,6 +406,7 @@
   define('WARN_INSTALL_EXISTENCE', 'true');
   define('WARN_CONFIG_WRITEABLE', 'true');
   define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
+  define('WARN_SESSION_AUTO_START', 'true');
 
 // check if the 'install' directory exists, and warn of its existence
   if (WARN_INSTALL_EXISTENCE == 'true') {
@@ -429,6 +430,12 @@
       } elseif (!is_writeable(tep_session_save_path())) {
         tep_output_warning(WARNING_SESSION_DIRECTORY_NOT_WRITEABLE);
       }
+    }
+  }
+
+  if ( (function_exists('ini_get')) && (WARN_SESSION_AUTO_START == 'true') ) {
+    if (ini_get('session.auto_start') == '1') {
+      tep_output_warning(WARNING_SESSION_AUTO_START);
     }
   }
 ?>
