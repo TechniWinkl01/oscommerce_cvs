@@ -1,6 +1,6 @@
 <?
   class specialPriceInfo {
-    var $id, $products_id, $products_price, $products_image, $products_name, $specials_price, $percentage, $date_added;
+    var $id, $products_id, $products_price, $products_image, $products_name, $specials_price, $percentage, $date_added, $last_modified;
 
 // class constructor
     function specialPriceInfo($sInfo_array) {
@@ -12,6 +12,7 @@
       $this->specials_price = $sInfo_array['specials_new_products_price'];
       $this->percentage = (100 - (($this->specials_price / $this->products_price) * 100));
       $this->date_added = $sInfo_array['specials_date_added'];
+      $this->last_modified = $sInfo_array['specials_last_modified'];
     }
   }
 ?>

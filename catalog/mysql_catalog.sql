@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.98 2001/06/06 23:12:52 mbs Exp $
+# $Id: mysql_catalog.sql,v 1.99 2001/06/07 07:53:41 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -354,7 +354,8 @@ CREATE TABLE specials (
   specials_id int(5) NOT NULL auto_increment,
   products_id int(5) NOT NULL,
   specials_new_products_price decimal(8,2) NOT NULL,
-  specials_date_added char(8),
+  specials_date_added datetime,
+  specials_last_modified datetime,
   PRIMARY KEY (specials_id)
 );
 
@@ -1031,10 +1032,10 @@ INSERT INTO reviews VALUES (1,19,1,5, now(), 0);
 
 INSERT INTO reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
 
-INSERT INTO specials VALUES (1,3,39.99,'20000114');
-INSERT INTO specials VALUES (2,5,30.00,'20000114');
-INSERT INTO specials VALUES (3,6,30.00,'20000115');
-INSERT INTO specials VALUES (4,16,29.99,'20000217');
+INSERT INTO specials VALUES (1,3,39.99,'2001-06-07 00:02:20','');
+INSERT INTO specials VALUES (2,5,30.00,'2001-06-07 00:02:20','');
+INSERT INTO specials VALUES (3,6,30.00,'2001-06-07 00:02:20','');
+INSERT INTO specials VALUES (4,16,29.99,'2001-06-07 00:02:20','');
 
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
 

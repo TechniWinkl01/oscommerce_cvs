@@ -2,10 +2,10 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'insert') {
-      tep_db_query("insert into " . TABLE_SPECIALS . " values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['specials_new_products_price'] . "', '" . date('Ymd') . "')");
+      tep_db_query("insert into " . TABLE_SPECIALS . " values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['specials_new_products_price'] . "', now(), '')");
       header('Location: ' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update " . TABLE_SPECIALS . " set specials_new_products_price = '" . $HTTP_POST_VARS['specials_price'] . "' where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
+      tep_db_query("update " . TABLE_SPECIALS . " set specials_new_products_price = '" . $HTTP_POST_VARS['specials_price'] . "', specials_last_modified = now() where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       tep_db_query("delete from " . TABLE_SPECIALS . " where specials_id = '" . $HTTP_POST_VARS['specials_id'] . "'");
@@ -71,7 +71,7 @@
               </tr>
 <?
   $rows = 0;
-  $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by s.specials_date_added DESC";
+  $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added, s.specials_last_modified from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by s.specials_date_added DESC";
   $specials_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $specials_query_raw, $specials_query_numrows);
   $specials_query = tep_db_query($specials_query_raw);
   while ($specials = tep_db_fetch_array($specials_query)) {
@@ -189,7 +189,6 @@
     $form = '<form name="specials_new" action="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $sInfo->products_id . '"><input type="hidden" name="specials_new_products_price" value="' . $sInfo->specials_price . '">'  ."\n";
 
     $info_box_contents = array();
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short(date('Ymd')));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
@@ -198,7 +197,7 @@
   } else { // default info box
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($sInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($sInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($sInfo->last_modified));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
