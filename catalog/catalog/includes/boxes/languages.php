@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.11 2002/05/11 13:18:01 thomasamoulton Exp $
+  $Id: languages.php,v 1.12 2002/08/08 21:52:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,8 +20,10 @@
                               );
   new infoBoxHeading($info_box_contents, false, false);
 
-  if (!class_exists('language')) include(DIR_WS_CLASSES . 'language.php');
-  if (!is_object($lng)) $lng = new language;
+  if (!is_object($lng)) {
+    include(DIR_WS_CLASSES . 'language.php');
+    $lng = new language;
+  }
 
   if (getenv('HTTPS') == 'on') $connection = 'SSL';
   else $connection = 'NONSSL';
