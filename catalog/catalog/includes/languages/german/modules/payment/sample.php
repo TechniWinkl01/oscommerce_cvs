@@ -1,6 +1,6 @@
-<?<?php
+<?php
 /*
-  $Id: sample.php,v 1.7 2001/09/20 19:41:21 mbs Exp $
+  $Id: sample.php,v 1.8 2001/09/21 14:21:56 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
