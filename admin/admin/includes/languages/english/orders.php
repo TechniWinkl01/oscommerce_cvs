@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.12 2002/01/21 21:47:47 hpdl Exp $
+  $Id: orders.php,v 1.13 2002/01/27 03:15:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,10 +16,7 @@ define('HEADING_TITLE_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Comments');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
-define('TABLE_HEADING_CUSTOMERS_INFO', 'Customers Info');
-define('TABLE_HEADING_DELIVERY_INFO', 'Delivery Info');
 define('TABLE_HEADING_ORDER_TOTAL', 'Order Total');
-define('TABLE_HEADING_PAYMENT_INFORMATION', 'Payment Information');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
 define('TABLE_HEADING_DATE_PURCHASED', 'Date Purchased');
 define('TABLE_HEADING_STATUS', 'Status');
@@ -29,6 +26,11 @@ define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_TAX', 'Tax');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_STATUS', 'Status');
+
+define('TABLE_HEADING_NEW_VALUE', 'New Value');
+define('TABLE_HEADING_OLD_VALUE', 'Old Value');
+define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Customer Notified');
+define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 
 define('ENTRY_CUSTOMER', 'Customer:');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
@@ -52,6 +54,15 @@ define('ENTRY_TOTAL', 'Total:');
 define('ENTRY_DATE_PURCHASED', 'Date Purchased:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'Date Last Updated:');
+define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
 
 define('TEXT_ALL_ORDERS', 'All Orders');
+define('TEXT_NO_ORDER_HISTORY', 'No Order History Available');
+
+define('EMAIL_SEPARATOR', '------------------------------------------------------');
+define('EMAIL_TEXT_SUBJECT', 'Order Update');
+define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
+define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
+define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
+define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following status.' . "\n\n" . 'New status: %s' . "\n\n" . 'Please reply to this email if you have any questions.' . "\n");
 ?>

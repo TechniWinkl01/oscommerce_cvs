@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.123 2002/01/26 17:15:43 hpdl Exp $
+  $Id: application_top.php,v 1.124 2002/01/27 03:15:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,7 @@
   define('EXIT_AFTER_REDIRECT', 1);
 
 // define the filenames used in the project
+  define('FILENAME_CATALOG_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
   define('FILENAME_BACKUP', 'backup.php');
   define('FILENAME_BANNER_MANAGER', 'banner_manager.php');
   define('FILENAME_CACHE', 'cache.php');
@@ -87,6 +88,7 @@
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
   define('TABLE_ORDERS_STATUS', 'orders_status');
+  define('TABLE_ORDERS_STATUS_HISTORY', 'orders_status_history');
   define('TABLE_PRODUCTS', 'products');
   define('TABLE_PRODUCTS_ATTRIBUTES', 'products_attributes');
   define('TABLE_PRODUCTS_DESCRIPTION', 'products_description');

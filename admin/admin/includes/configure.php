@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.4 2002/01/05 12:19:48 hpdl Exp $
+  $Id: configure.php,v 1.5 2002/01/27 03:15:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,6 +14,7 @@
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
   define('HTTP_SERVER', '');
+  define('HTTP_CATALOG_SERVER', '');
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
   define('DIR_WS_ADMIN', '/admin/');
   define('DIR_WS_CATALOG', '/catalog/');

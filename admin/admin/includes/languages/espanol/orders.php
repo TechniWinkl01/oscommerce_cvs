@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.10 2002/01/21 21:47:47 hpdl Exp $
+  $Id: orders.php,v 1.11 2002/01/27 03:15:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,10 +16,7 @@ define('HEADING_TITLE_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Comentarios');
 define('TABLE_HEADING_CUSTOMERS', 'Clientes');
-define('TABLE_HEADING_CUSTOMERS_INFO', 'Informacion Cliente');
-define('TABLE_HEADING_DELIVERY_INFO', 'Informacion Entrega');
 define('TABLE_HEADING_ORDER_TOTAL', 'Total Pedido');
-define('TABLE_HEADING_PAYMENT_INFORMATION', 'Informacion sobre el Pago');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Metodo de Pago');
 define('TABLE_HEADING_DATE_PURCHASED', 'Fecha de Compra');
 define('TABLE_HEADING_STATUS', 'Estado');
@@ -29,6 +26,11 @@ define('TABLE_HEADING_PRODUCTS', 'Productos');
 define('TABLE_HEADING_TAX', 'Impuesto');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_STATUS', 'Estado');
+
+define('TABLE_HEADING_NEW_VALUE', 'New Value');
+define('TABLE_HEADING_OLD_VALUE', 'Old Value');
+define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Customer Notified');
+define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 
 define('ENTRY_CUSTOMER', 'Cliente:');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
@@ -52,6 +54,15 @@ define('ENTRY_TOTAL', 'Total:');
 define('ENTRY_DATE_PURCHASED', 'Fecha de Compra:');
 define('ENTRY_STATUS', 'Estado:');
 define('ENTRY_DATE_LAST_UPDATED', 'Ultima Modificacion:');
+define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
 
 define('TEXT_ALL_ORDERS', 'All Orders');
+define('TEXT_NO_ORDER_HISTORY', 'No Order History Available');
+
+define('EMAIL_SEPARATOR', '------------------------------------------------------');
+define('EMAIL_TEXT_SUBJECT', 'Order Update');
+define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
+define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
+define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
+define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following status.' . "\n\n" . 'New status: %s' . "\n\n" . 'Please reply to this email if you have any questions.' . "\n");
 ?>

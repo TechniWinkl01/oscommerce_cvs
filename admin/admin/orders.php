@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.70 2002/01/26 19:34:11 hpdl Exp $
+  $Id: orders.php,v 1.71 2002/01/27 03:15:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,13 +12,36 @@
 
   require('includes/application_top.php');
 
+  $orders_statuses = array();
+  $orders_status_array = array();
+  $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "'");
+  while ($orders_status = tep_db_fetch_array($orders_status_query)) {
+    $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
+                               'text' => $orders_status['orders_status_name']);
+    $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
+  }
+
   switch ($HTTP_GET_VARS['action']) {
     case 'update_order':
       $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
       $status = tep_db_prepare_input($HTTP_POST_VARS['status']);
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
 
-      tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . tep_db_input($status) . "', last_modified = now() where orders_id = '" . tep_db_input($oID) . "'");
+      $check_status_query = tep_db_query("select customers_name, customers_email_address, orders_status, date_purchased from orders where orders_id = '" . tep_db_input($oID) . "'");
+      $check_status = tep_db_fetch_array($check_status_query);
+      if ($check_status['orders_status'] != $status) {
+        tep_db_query("update " . TABLE_ORDERS . " set orders_status = '" . tep_db_input($status) . "', last_modified = now() where orders_id = '" . tep_db_input($oID) . "'");
+
+        $customer_notified = '0';
+        if ($HTTP_POST_VARS['notify'] == 'on') {
+          $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . tep_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . tep_date_long($check_status['date_purchased']) . "\n\n" . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
+          tep_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+          $customer_notified = '1';
+        }
+
+        tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, old_value, date_added, customer_notified) values ('" . tep_db_input($oID) . "', '" . tep_db_input($status) . "', '" . $check_status['orders_status'] . "', now(), '" . $customer_notified . "')");
+      }
+
       if (tep_not_null($comments)) tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comments) . "' where orders_id = '" . tep_db_input($oID) . "'");
 
       tep_redirect(tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID']));
@@ -29,6 +52,7 @@
       tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
       tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($oID) . "'");
       tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "'");
+      tep_db_query("delete from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "'");
 
       tep_redirect(tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']));
       break;
@@ -43,13 +67,6 @@
       $order_exists = false;
       $messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
     }
-  }
-
-  $orders_status_array = array();
-  $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . $languages_id . "'");
-  while ($orders_status = tep_db_fetch_array($orders_status_query)) {
-    $orders_status_array[] = array('id' => $orders_status['orders_status_id'],
-                                   'text' => $orders_status['orders_status_name']);
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -84,7 +101,7 @@
                 <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"'); ?></td>
               </form></tr>
               <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', tep_array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_status_array), '', 'onChange="this.form.submit();"'); ?></td>
+                <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', tep_array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
               </form></tr>            
             </table></td>
           </tr>
@@ -105,91 +122,86 @@
             <td colspan="2"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td class="main" valign="top"><b><?php echo TABLE_HEADING_CUSTOMERS_INFO; ?></b></td>
-            <td class="main" valign="top"><b><?php echo TABLE_HEADING_DELIVERY_INFO; ?></b></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top"><?php echo ENTRY_CUSTOMER; ?></td>
+                <td class="main" valign="top"><b><?php echo ENTRY_CUSTOMER; ?></b></td>
                 <td class="main"><?php echo tep_address_format($sold_to['format_id'], $sold_to, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo ENTRY_TELEPHONE; ?></td>
+                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
+              </tr>
+              <tr>
+                <td class="main"><b><?php echo ENTRY_TELEPHONE; ?></b></td>
                 <td class="main"><?php echo $orders['customers_telephone']; ?></td>
               </tr>
               <tr>
-                <td class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
+                <td class="main"><b><?php echo ENTRY_EMAIL_ADDRESS; ?></b></td>
                 <td class="main"><?php echo '<a href="mailto:' . $orders['customers_email_address'] . '"><u>' . $orders['customers_email_address'] . '</u></a>'; ?></td>
               </tr>
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top"><?php echo ENTRY_DELIVERY_TO; ?></td>
+                <td class="main" valign="top"><b><?php echo ENTRY_DELIVERY_TO; ?></b></td>
                 <td class="main"><?php echo tep_address_format($ship_to['format_id'], $ship_to, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+            <td class="main"><b><?php echo ENTRY_PAYMENT_METHOD; ?></b></td>
+            <td class="main"><?php echo $orders['payment_method']; ?></td>
           </tr>
-          <tr>
-            <td class="main" colspan="2"><b><?php echo TABLE_HEADING_PAYMENT_INFORMATION; ?></b></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><table border="0" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><?php echo ENTRY_PAYMENT_METHOD; ?></td>
-                <td class="main"><?php echo $orders['payment_method']; ?></td>
-              </tr>
 <?php
     if ( ($orders['cc_type']) || ($orders['cc_owner']) || ($orders['cc_number']) ) {
 ?>
-              <tr>
-                <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-              </tr>
-              <tr>
-                <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
-                <td class="main"><?php echo $orders['cc_type']; ?></td>
-              </tr>
-              <tr>
-                <td class="main"><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
-                <td class="main"><?php echo $orders['cc_owner']; ?></td>
-              </tr>
-              <tr>
-                <td class="main"><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
-                <td class="main"><?php echo $orders['cc_number']; ?></td>
-              </tr>
-              <tr>
-                <td class="main"><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
-                <td class="main"><?php echo $orders['cc_expires']; ?></td>
-              </tr>
-<?php
-    }
-?>
-            </table></td>
-          </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_QUANTITY; ?></td>
-                <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-                <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_TAX; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL; ?></td>
-              </tr>
-              <tr>
-                <td colspan="5"><?php echo tep_draw_separator(); ?></td>
-              </tr>
+            <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
+            <td class="main"><?php echo $orders['cc_type']; ?></td>
+          </tr>
+          <tr>
+            <td class="main"><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
+            <td class="main"><?php echo $orders['cc_owner']; ?></td>
+          </tr>
+          <tr>
+            <td class="main"><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
+            <td class="main"><?php echo $orders['cc_number']; ?></td>
+          </tr>
+          <tr>
+            <td class="main"><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
+            <td class="main"><?php echo $orders['cc_expires']; ?></td>
+          </tr>
+<?php
+    }
+?>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="tableHeading"><?php echo TABLE_HEADING_QUANTITY; ?></td>
+            <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+            <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
+            <td class="tableHeading" align="right">Price (ex)</td>
+            <td class="tableHeading" align="right">Price (inc)</td>
+            <td class="tableHeading" align="right">Total (ex)</td>
+            <td class="tableHeading" align="right">Total (inc)</td>
+          </tr>
+          <tr>
+            <td colspan="8"><?php echo tep_draw_separator(); ?></td>
+          </tr>
 <?php
     $info_query = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
     $info = tep_db_fetch_array($info_query);
@@ -201,124 +213,122 @@
     while ($products = tep_db_fetch_array($products_query)) {
       $final_price = $products['final_price'];
 
-      echo '          <tr>' . "\n" .
-           '            <td class="main">' . $products['products_quantity'] . '</td>' . "\n" .
-           '            <td class="main">' . $products['products_model'] . '</td>' . "\n" .
-           '            <td class="main">' . $products['products_name'];
+      echo '      <tr>' . "\n" .
+           '        <td class="main" valign="top">' . $products['products_quantity'] . '</td>' . "\n" .
+           '        <td class="main" valign="top">' . $products['products_name'];
 
       $attributes_exist = false;
-      $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
+      $attributes_query = tep_db_query("select products_options, products_options_values, options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
       if (tep_db_num_rows($attributes_query)) {
         $attributes_exist = true;
         while ($attributes = tep_db_fetch_array($attributes_query)) {
-	  	    echo '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . '&nbsp;:&nbsp;' . $attributes['products_options_values'] . '</i></small>';
+	  	    echo '<br><small><i>&nbsp;-&nbsp;' . $attributes['products_options'] . ':&nbsp;' . $attributes['products_options_values'];
+            if ($attributes['options_values_price'] != '0') echo '&nbsp;(' . $attributes['price_prefix'] . tep_currency_format($attributes['options_values_price']) . ')';
+            echo '</i></small>';
         }
       }
       echo '</td>' . "\n" .
-           '            <td class="main" align="center" valign="top">' . tep_display_tax_value($products['products_tax']) . '%</td>' . "\n" .
-           '            <td class="main" align="right" valign="top"><b>' . tep_currency_format($products['products_quantity'] * $products['products_price']) . '</b>';
+           '        <td class="main" valign="top">' . $products['products_model'] . '</td>' . "\n" .
+           '        <td class="main" align="right" valign="top">' . tep_display_tax_value($products['products_tax']) . '%</td>' . "\n" .
+           '        <td class="main" align="right" valign="top">' . tep_currency_format($products['final_price']) . '</td>' . "\n" .
+           '        <td class="main" align="right" valign="top">' . tep_currency_format(($products['final_price'] * $products['products_tax']/100) + $products['final_price']) . '</td>' . "\n" .
+           '        <td class="main" align="right" valign="top"><b>' . tep_currency_format($products['final_price'] * $products['products_quantity']) . '</b></td>' . "\n" .
+           '        <td class="main" align="right" valign="top"><b>' . tep_currency_format((($products['final_price'] * $products['products_quantity']) * $products['products_tax']/100) + ($products['final_price'] * $products['products_quantity'])) . '</b></td>' . "\n" .
+           '      </tr>' . "\n";
 
-      if ($attributes_exist) {
-        $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
-        while ($attributes = tep_db_fetch_array($attributes_query)) {
-          if ($attributes['options_values_price'] != '0') {
-            echo '<br><small><i>' . $attributes['price_prefix'] . tep_currency_format($products['products_quantity'] * $attributes['options_values_price']) . '</i></small>';
-          } else {
-            echo '<br>&nbsp;';
-          }
-        }
-      }
-      echo '</td>' . "\n" .
-           '          </tr>' . "\n";
+      $cost = $products['final_price'] * $products['products_quantity'];
 
-      $cost = $products['products_quantity'] * $final_price;
-      if (TAX_INCLUDE == 'true') {
-        $total_tax += (($products['products_quantity'] * $final_price) - (($products['products_quantity'] * $final_price) / (($products['products_tax']/100)+1)));
-      } else {
-        $total_tax += ($cost * $products['products_tax']/100);
-      }
+      $total_tax += $cost * $products['products_tax']/100;
       $total_cost += $cost;
     }
 ?>
+          <tr>
+            <td colspan="8"><?php echo tep_draw_separator(); ?></td>
+          </tr>
+          <tr>
+            <td align="right" colspan="8"><table border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="5"><?php echo tep_draw_separator(); ?></td>
+                <td align="right" class="main"><?php echo ENTRY_SUB_TOTAL; ?></td>
+                <td align="right" class="main"><?php echo tep_currency_format($total_cost); ?></td>
               </tr>
               <tr>
-                <td align="right" colspan="5"><table border="0" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td align="right" class="main"><?php echo ENTRY_SUB_TOTAL; ?></td>
-                    <td align="right" class="main"><?php echo tep_currency_format($total_cost); ?></td>
-                  </tr>
-                  <tr>
-                    <td align="right" class="main"><?php echo ENTRY_TAX; ?></td>
-                    <td align="right" class="main"><?php echo tep_currency_format($total_tax); ?></td>
-                  </tr>
+                <td align="right" class="main"><?php echo ENTRY_TAX; ?></td>
+                <td align="right" class="main"><?php echo tep_currency_format($total_tax); ?></td>
+              </tr>
 <?php
   if ($shipping != 0) {
 ?>
-                  <tr>
-                    <td align="right" class="main"><?php echo $shipping_method . ' ' . ENTRY_SHIPPING; ?></td>
-                    <td align="right" class="main"><?php echo tep_currency_format($shipping); ?></td>
-                  </tr>
+              <tr>
+                <td align="right" class="main"><?php echo $shipping_method . ' ' . ENTRY_SHIPPING; ?></td>
+                <td align="right" class="main"><?php echo tep_currency_format($shipping); ?></td>
+              </tr>
 <?php
   }
 ?>
-                  <tr>
-                    <td align="right" class="main"><b><?php echo ENTRY_TOTAL; ?></b></td>
-                    <td align="right" class="main"><b><?php if (TAX_INCLUDE == 'true') { echo tep_currency_format($total_cost + $shipping); } else { echo tep_currency_format($total_cost + $total_tax + $shipping); } ?></b></td>
-                  </tr>
-                </table></td>
+              <tr>
+                <td align="right" class="main"><b><?php echo ENTRY_TOTAL; ?></b></td>
+                <td align="right" class="main"><b><?php echo tep_currency_format($total_cost + $total_tax + $shipping); ?></b></td>
               </tr>
             </table></td>
           </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
+      </tr>
+      <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=update_order'); ?>
+        <td class="main"><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5', $info['comments']); ?></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2" class="main"><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+            <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $info['orders_status']) . ' ' . tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
+            <td align="right"><?php echo tep_draw_form('delete', FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=delete_order', 'post', 'onsubmit="return confirm(\'' . IMAGE_CONFIRM . '\')"'); echo tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></form></td>
           </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
+      </form></tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><table border="1" cellspacing="0" cellpadding="5">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=update_order'); ?>
-            <td colspan="2" class="main"><?php echo tep_draw_textarea_field('comments', 'soft', '60', '5', $info['comments']); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="main"><b><?php echo TABLE_HEADING_STATUS; ?></b></td>
-           </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="main"><b><?php echo ENTRY_DATE_PURCHASED; ?></b> <?php echo tep_date_long($info['date_purchased']); ?></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_NEW_VALUE; ?></b></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_OLD_VALUE; ?></b></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_DATE_ADDED; ?></b></td>
+            <td class="smallText" align="center"><b><?php echo TABLE_HEADING_CUSTOMER_NOTIFIED; ?></b></td>
           </tr>
 <?php
-    if ($info['last_modified']) {
-?>
-          <tr>
-            <td colspan="2" class="main"><b><?php echo ENTRY_DATE_LAST_UPDATED; ?></b> <?php echo tep_date_long($info['last_modified']); ?></td>
-          </tr>
-<?php
+    $orders_history_query = tep_db_query("select new_value, old_value, date_added, customer_notified from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "' order by orders_status_history_id desc");
+    if (tep_db_num_rows($orders_history_query)) {
+      while ($orders_history = tep_db_fetch_array($orders_history_query)) {
+        echo '          <tr>' . "\n" .
+             '            <td class="smallText">' . $orders_status_array[$orders_history['new_value']] . '</td>' . "\n" .
+             '            <td class="smallText">' . $orders_status_array[$orders_history['old_value']] . '</td>' . "\n" .
+             '            <td class="smallText" align="center">' . tep_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
+             '            <td class="smallText" align="center">';
+        if ($orders_history['customer_notified'] == '1') {
+          echo tep_image(DIR_WS_ICONS . 'tick.gif', ICON_TICK);
+        } else {
+          echo tep_image(DIR_WS_ICONS . 'cross.gif', ICON_CROSS);
+        }
+        echo '          </tr>' . "\n";
+      }
+    } else {
+        echo '          <tr>' . "\n" .
+             '            <td class="smallText" colspan="4">' . TEXT_NO_ORDER_HISTORY . '</td>' . "\n" .
+             '          </tr>' . "\n";
     }
 ?>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_status_array, $info['orders_status']) . ' ' . tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
-          </form></tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr><?php echo tep_draw_form('delete', FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=delete_order', 'post', 'onsubmit="return confirm(\'' . IMAGE_CONFIRM . '\')"'); ?>
-            <td colspan="2" align="right"><?php echo tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
-          </form></tr>
         </table></td>
       </tr>
 <?php
