@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.132 2001/09/10 09:18:51 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.133 2001/09/13 21:25:05 dwatkins Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -131,6 +131,7 @@ CREATE TABLE currencies (
   decimal_point char(1),
   thousands_point char(1),
   decimal_places char(1),
+  value float,
   PRIMARY KEY (currencies_id)
 );
 
@@ -860,10 +861,10 @@ INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
-INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2');
-INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
-INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
-INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2');
+INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2','1.0000');
+INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2','2.1585');
+INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0','183.624');
+INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2','1.1036');
 
 INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '1', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
 
