@@ -29,8 +29,10 @@
     }
   }
 
+  $select_box .= $hidden_get_variables;
+
   $info_box_contents = array();
-  $info_box_contents[] = array('form' => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL', false) . '">' . $hidden_get_variables,
+  $info_box_contents[] = array('form' => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL', false) . '">',
                                'align' => 'left',
                                'text'  => $select_box
                               );
