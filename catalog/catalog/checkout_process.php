@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.102 2002/04/08 02:40:48 hpdl Exp $
+  $Id: checkout_process.php,v 1.103 2002/04/09 10:26:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,7 +122,7 @@
     }
 //------insert customer choosen option eof ----
     $total_weight += ($order->products[$i]['qty'] * $order->products[$i]['weight']);
-    $total_tax += ((($total_products_price * $products[$i]['quantity']) * (($products_tax/100)+1)) - ($total_products_price * $products[$i]['quantity']));
+    $total_tax += ((($total_products_price * $order->products[$i]['qty']) * (($products_tax/100)+1)) - ($total_products_price * $orders->products[$i]['qty']));
     $total_cost += $total_products_price;
 
     $products_ordered .= $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . ' (' . $order->products[$i]['model'] . ') = ' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty']) . $products_ordered_attributes . "\n";
