@@ -22,7 +22,7 @@
                          '<option value="STD">' . MODULE_SHIPPING_UPS_TEXT_OPT_STD . '</option>' .
                          '<option value="XPR">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPR . '</option>' .
                          '<option value="XDM">' . MODULE_SHIPPING_UPS_TEXT_OPT_XDM . '</option>' .
-                         '<option value="XPD">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPD . '>/option>' .
+                         '<option value="XPD">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPD . '</option>' .
                        '</select></td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_ups" value="1" CHECKED></td></tr>' . "\n";
 
