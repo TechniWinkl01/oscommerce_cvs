@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.65 2003/01/23 18:33:56 hpdl Exp $
+# $Id: oscommerce.sql,v 1.66 2003/02/03 16:56:43 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -1348,8 +1348,8 @@ INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of produc
 
 # USA/Florida
 INSERT INTO tax_rates VALUES (1, 1, 1, 1, 7.0, 'FL TAX 7.0%', now(), now());
-INSERT INTO geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,date_added) VALUES (1,"Florida","Florida local sales tax zone",now());
-INSERT INTO zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now());
+INSERT INTO geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,date_added) VALUES (1,"Florida","Florida local sales tax zone",now());
+INSERT INTO zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now());
 
 # USA
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
