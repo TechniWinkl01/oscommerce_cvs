@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.7 2002/02/03 01:53:34 clescuyer Exp $
+  $Id: upgrade_3.php,v 1.8 2002/02/11 06:52:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -257,7 +257,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into products_attributes values (26, 22, 5, 10, '0.00', '+')");
   osc_db_query("insert into products_attributes values (27, 22, 5, 13, '0.00', '+')");
 
-  osc_db_query("insert into products_attributes_download values (26, 'unreal.zip', 7, 3)")");
+  osc_db_query("insert into products_attributes_download values (26, 'unreal.zip', 7, 3)");
   osc_db_query("insert into products_options values (5, 1, 'Version')");
   osc_db_query("insert into products_options values (5, 2, 'Version')");
   osc_db_query("insert into products_options values (5, 3, 'Versión')");
