@@ -1510,17 +1510,7 @@ function tep_address_summary($customers_id, $address_id) {
   
   function tep_mail($to, $subject, $message, $additional_headers = '') {
 
-    if (SMTP_SERVER) {
-      $include_file = DIR_WS_CLASSES . 'smtp_mail.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-      $mail = new smtp_mail;
-      $headers = "To: $to\n";
-      $headers .= "Subject: $subject\n";
-      $headers .= $additional_headers;
-      $headers = trim($headers);
-      $mail->send_mail(SMTP_SERVER, STORE_OWNER_EMAIL_ADDRESS, $to, $headers . "\n\n" . $message);
-    } else {
-      $return = mail($to, $subject, $message, $additional_headers);
-    }
+    $return = mail($to, $subject, $message, $additional_headers);
 
     return $return;
   }
