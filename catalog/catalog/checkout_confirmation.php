@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.112 2002/04/03 00:47:53 clescuyer Exp $
+  $Id: checkout_confirmation.php,v 1.113 2002/04/03 23:10:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,6 +65,15 @@
   if (MODULE_PAYMENT_INSTALLED) {
     $payment_modules->pre_confirmation_check();
   }
+
+  if (MODULE_SHIPPING_INSTALLED) {
+    $shipping_modules->confirm();
+  }
+
+  require(DIR_WS_CLASSES . 'order_total.php');
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
+  $order_total_modules = new order_total;
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -104,97 +113,55 @@
       <tr>
         <td>
           <table border="0" width="100%" cellspacing="0" cellpadding="2">
-
+          <tr>
+            <td class="tableHeading" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
+            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL; ?></td>
+          </tr>
+          <tr>
+            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+          </tr>
 <?php
-  $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
-  $address_values = tep_db_fetch_array($address);
-  $total_cost = 0;
-  $total_tax = 0;
-  $total_taxes = array();
-  $total_weight = 0;
-  $products = $cart->get_products();
-  for ($i=0; $i<sizeof($products); $i++) {
-    $products_name = $products[$i]['name'];
-    $products_price = $products[$i]['price'];
-    $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
-// proving the country_id from the customers
-    $products_tax = tep_get_tax_rate($address_values['country_id'], $address_values['zone_id'], $products[$i]['tax_class_id']);
-    $products[$i]['tax'] = $products_tax;
-    $products_weight = $products[$i]['weight'];
+  for ($i=0; $i<sizeof($order->products); $i++) {
+      echo '          <tr>' . "\n" .
+           '            <td class="main" valign="top" align="right" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+           '            <td class="main" valign="top">' . $order->products[$i]['name'];
 
-// Push all attributes information in an array
-      if ($products[$i]['attributes']) {
-        reset($products[$i]['attributes']);
-        while (list($option, $value) = each($products[$i]['attributes'])) {
-          $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix
-                                      from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa 
-                                      where pa.products_id = '" . $products[$i]['id'] . "'
-                                       and pa.options_id = '" . $option . "' 
-                                       and pa.options_id = popt.products_options_id 
-                                       and pa.options_values_id = '" . $value . "' 
-                                       and pa.options_values_id = poval.products_options_values_id 
-                                       and popt.language_id = '" . $languages_id . "' 
-                                       and poval.language_id = '" . $languages_id . "'");
-          $attributes_values = tep_db_fetch_array($attributes);
-          
-          $products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
-          $products[$i][$option]['options_values_id'] = $value;
-          $products[$i][$option]['products_options_values_name'] = $attributes_values['products_options_values_name'];
-          $products[$i][$option]['options_values_price'] = $attributes_values['options_values_price'];
-          $products[$i][$option]['price_prefix'] = $attributes_values['price_prefix'];
+      if (STOCK_CHECK == 'true') {
+        echo tep_check_stock($order->products[$i]['id'], $order->products[$i]['qty']);
+      }
+
+      if (sizeof($order->products[$i]['attributes']) > 0) {
+        for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+          echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
+          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price']) . ')';
+          echo '</i></small></nobr>';
         }
       }
-    $total_weight += ($products[$i]['quantity'] * $products_weight);
-      $total_taxes[number_format($products_tax, TAX_DECIMAL_PLACES)] += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
-    if (DISPLAY_PRICE_WITH_TAX == true) {
-      $total_cost += ($total_products_price * $products[$i]['quantity'] * (1 + $products_tax/100));
-    } else {
-    $total_cost += ($total_products_price * $products[$i]['quantity']);
-    }
-  }
-  require(DIR_WS_MODULES. 'order_details.php');
 
-  $country = tep_get_countries($address_values['country_id']);
-  $shipping_cost = 0;
-?>
-          <tr>
-            <td colspan="4"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-          </tr>
-          <tr>
-            <td align="right" class="tableHeading" colspan="3"><?php echo SUB_TITLE_SUB_TOTAL; ?></td>
-            <td align="right" class="tableHeading"><?php echo $currencies->format($total_cost); ?></td>
-          </tr>
-<?php
-  reset($total_taxes);
-  while (list($percentage, $tax) = each($total_taxes)) {
-    $total_tax += $tax;
-?>
-          <tr>
-            <td align="right" class="tableHeading" colspan="3"><?php echo sprintf(SUB_TITLE_TAX, number_format($percentage, TAX_DECIMAL_PLACES)); ?></td>
-            <td align="right" class="tableHeading"><?php echo $currencies->format($tax); ?></td>
-          </tr>
-<?php
-  }
-  if (MODULE_SHIPPING_INSTALLED) {
-    $shipping_modules->confirm();
-?>
-          <tr>
-            <td align="right" class="tableHeading" colspan="3"><?php echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?></td>
-            <td align="right" class="tableHeading"><?php echo $currencies->format($shipping_cost); ?></td>
-          </tr>
-<?php
+      echo '</td>' . "\n" .
+           '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
+
+      if (DISPLAY_PRICE_WITH_TAX == true) {
+        echo '            <td class="main" align="right" valign="top">' . $currencies->format((($order->products[$i]['final_price'] * $order->products[$i]['qty']) * $order->products[$i]['tax']/100) + ($order->products[$i]['final_price'] * $order->products[$i]['qty'])) . '</td>' . "\n";
+      } else {
+        echo '            <td class="main" align="right" valign="top">' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty']) . '</td>' . "\n";
+      }
+      echo '          </tr>' . "\n";
   }
 ?>
           <tr>
-            <td align="right" class="tableHeading" colspan="3"><?php echo SUB_TITLE_TOTAL; ?></td>
-            <td align="right" class="tableHeading">
+            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+          </tr>
+          <tr>
+            <td colspan="4" align="right"><table border="0" cellspacing="0" cellpadding="1">
 <?php
-  if (DISPLAY_PRICE_WITH_TAX == true) {
-    echo $currencies->format($total_cost + $shipping_cost);
-  } else {
-    echo $currencies->format($total_cost + $total_tax + $shipping_cost);
-  } 
-?></td>
+  if (MODULE_ORDER_TOTAL_INSTALLED) {
+    $order_total_modules->process();
+    echo $order_total_modules->output();
+  }
+?>
+            </table></td>
           </tr>
         </table></td>
       </tr>
@@ -207,7 +174,7 @@
             <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, ' ', '<br>'); ?></td>
+            <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>'); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -234,7 +201,7 @@
 
   echo '<form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '">';
 
-  if ($comments) {
+  if ($order->info['comments']) {
 ?>
           <tr>
             <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
@@ -243,7 +210,7 @@
             <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
-            <td class="main"><?php echo nl2br($comments); ?></td>
+            <td class="main"><?php echo nl2br($order->info['comments']); ?></td>
           </tr>
 <?php
   }
