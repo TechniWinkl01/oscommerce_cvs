@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.7 2002/02/02 16:32:08 clescuyer Exp $
+  $Id: checkout_success.php,v 1.8 2002/03/13 13:07:06 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,7 +13,11 @@
 define('NAVBAR_TITLE_1', 'Pedido');
 define('NAVBAR_TITLE_2', 'Realizado con Exito');
 define('HEADING_TITLE', 'Su Pedido ha sido Procesado!');
-define('TEXT_SUCCESS', 'Su pedido ha sido realizado con exito! Sus productos llegaran a su destino de 2 a 5 dias laborales.<br><br>Puede ver su historial de pedidos su pagina de <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">\'Mi Cuenta\'</a> y haciendo click en su <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">\'Historial\'</a>.<br><br>Cualquier pregunta que tenga sobre el pedido puede hacerlas por Email al <a href="' . tep_href_link(FILENAME_CONTACT_US) . '">encargado</a>.<br><br><font size="3">Gracias por comprar con nosotros!</font>');
+define('TEXT_SUCCESS', 'Su pedido ha sido realizado con exito! Sus productos llegaran a su destino de 2 a 5 dias laborales.');
+define('TEXT_NOTIFY_PRODUCTS', 'Please notify me of updates to the products I have selected below:');
+define('TEXT_SEE_ORDERS', 'You can view your order history by going to the <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">\'My Account\'</a> page and by clicking on <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">\'History\'</a>.');
+define('TEXT_CONTACT_STORE_OWNER', 'Please direct any questions you have to the <a href="' . tep_href_link(FILENAME_CONTACT_US) . '">store owner</a>.');
+define('TEXT_THANKS_FOR_SHOPPING', 'Thanks for shopping with us online!');
 define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry Date');
 define('TABLE_HEADING_DOWNLOAD_COUNT', 'Max # downloads');
 define('HEADING_DOWNLOAD', 'Download your products here:');

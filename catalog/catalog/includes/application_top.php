@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.218 2002/03/10 23:04:33 harley_vb Exp $
+  $Id: application_top.php,v 1.219 2002/03/13 13:07:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -318,10 +318,19 @@
                               }
                               break;
       case 'notify' :         if (tep_session_is_registered('customer_id')) {
-                                $check_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and customers_id = '" . $customer_id . "'");
-                                $check = tep_db_fetch_array($check_query);
-                                if ($check['count'] < 1) {
-                                  tep_db_query("insert into " . TABLE_PRODUCTS_NOTIFICATIONS . " (products_id, customers_id, date_added) values ('" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', now())");
+                                if ($HTTP_GET_VARS['products_id']) {
+                                  $notify = array($HTTP_GET_VARS['products_id']);
+                                } elseif ($HTTP_POST_VARS['notify']) {
+                                  $notify = $HTTP_POST_VARS['notify'];
+                                } else {
+                                  tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL'));
+                                }
+                                for ($i=0; $i<sizeof($notify); $i++) {
+                                  $check_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $notify[$i] . "' and customers_id = '" . $customer_id . "'");
+                                  $check = tep_db_fetch_array($check_query);
+                                  if ($check['count'] < 1) {
+                                    tep_db_query("insert into " . TABLE_PRODUCTS_NOTIFICATIONS . " (products_id, customers_id, date_added) values ('" . $notify[$i] . "', '" . $customer_id . "', now())");
+                                  }
                                 }
                                 tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL'));
                               } else {
