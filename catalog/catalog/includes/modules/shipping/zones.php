@@ -253,8 +253,8 @@
     function keys() {
       $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_HANDLING');
       for ($i = 1; $i <= $this->num_zones; $i ++) {
-        array_push($keys, 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
-        array_push($keys, 'MODULE_SHIPPING_ZONES_COST_' . $i);
+        $keys[count($keys)] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
+        $keys[count($keys)] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
       }
       return $keys;
     }
