@@ -35,6 +35,8 @@
           }
         } else {
 
+	// $customer_id made global for use in itransact module...maybe others.
+          GLOBAL $customer_id;
           $customer_id = $check_customer['customers_id'];
           $customer_default_address_id = $check_customer['customers_default_address_id'];
           $customer_first_name = $check_customer['customers_firstname'];
