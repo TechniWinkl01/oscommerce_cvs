@@ -23,4 +23,3 @@ define('EMAIL_TEXT_AUTHORIZENET', 'AuthorizeNet');
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
 define('TEXT_EMAIL_VIA', 'via');
 ?>
-
