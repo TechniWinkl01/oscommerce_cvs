@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.70 2002/03/07 19:58:10 hpdl Exp $
+  $Id: account_history_info.php,v 1.71 2002/03/07 20:22:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,10 +19,8 @@
       tep_redirect(tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
     }
   } else {
-    if (!tep_session_is_registered('customer_id')) {
-      $navigation->set_snapshot();
-      tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
-    }
+    $navigation->set_snapshot();
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY_INFO);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.54 2002/01/12 19:19:37 dgw_ Exp $
+  $Id: account_edit_process.php,v 1.55 2002/03/07 20:22:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,12 @@
 
   require('includes/application_top.php');
 
-  if (!@$HTTP_POST_VARS['action']) {
+  if (!tep_session_is_registered('customer_id')) {
+    $navigation->set_snapshot(array('mode' => 'SSL', 'page' => FILENAME_ACCOUNT_EDIT));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
+  }
+
+  if (!$HTTP_POST_VARS['action']) {
     tep_redirect(tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
   }
 
