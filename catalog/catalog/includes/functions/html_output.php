@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.6 2001/07/16 17:35:17 dwatkins Exp $
+  $Id: html_output.php,v 1.7 2001/08/09 19:23:27 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -256,7 +256,7 @@
 ////
 // Output a form password field
   function tep_draw_password_field($name, $value = '') {
-    $field = tep_draw_input_field($name, $value, '', 'password', false);
+    $field = tep_draw_input_field($name, $value, 'maxlength="40"', 'password', false);
 
     return $field;
   }
