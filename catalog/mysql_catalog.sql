@@ -1,3 +1,5 @@
+# $Id: mysql_catalog.sql,v 1.71 2001/03/15 21:54:40 hpdl Exp $
+#
 # The Exchange Project Database Model for Preview Release 2.1
 #
 # NOTE: * Please make any modifications to this file by hand!
@@ -332,6 +334,16 @@ CREATE TABLE tax_rates (
   last_modified timestamp(14) NULL,
   date_added timestamp(14) NOT NULL,
   PRIMARY KEY (tax_rates_id)
+);
+
+CREATE TABLE whos_online (
+  customer_id int(5),
+  full_name varchar(64) NOT NULL,
+  session_id varchar(128) NOT NULL,
+  ip_address varchar(15) NOT NULL,
+  time_entry varchar(14) NOT NULL,
+  time_last_click varchar(14) NOT NULL,
+  last_page_url varchar(64) NOT NULL
 );
 
 CREATE TABLE zones (
