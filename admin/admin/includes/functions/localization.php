@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: localization.php,v 1.9 2001/12/04 13:48:16 dgw_ Exp $
+  $Id: localization.php,v 1.10 2001/12/31 14:17:31 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,7 @@
   function quote_oanda_currency($code, $base = DEFAULT_CURRENCY) {
     $err_num = '';
     $err_msg = '';
-    $s = fsockopen('www.oan1da.com', 5011, $err_num, $err_msg, 5);
+    $s = fsockopen('www.oanda.com', 5011, $err_num, $err_msg, 5);
     if (!$s) {
       $resp = 'na';  // prevent breaking script
     } else {
