@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: server_info.php,v 1.2 2002/01/13 11:00:10 jan0815 Exp $
+  $Id: server_info.php,v 1.3 2002/03/30 15:05:47 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@ define('TITLE_SERVER_UP_TIME', 'Server Up Time:');
 define('TITLE_HTTP_SERVER', 'HTTP Server:');
 define('TITLE_PHP_VERSION', 'PHP Version:');
 define('TITLE_ZEND_VERSION', 'Zend:');
-define('TITLE_DATABASE_HOST', 'Database Host:');
-define('TITLE_DATABASE', 'Database:');
-define('TITLE_DATABASE_DATE', 'Datebase Datum:');
+define('TITLE_DATABASE_HOST', 'Databank Host:');
+define('TITLE_DATABASE', 'Databank:');
+define('TITLE_DATABASE_DATE', 'Datebank Datum:');
 ?>
