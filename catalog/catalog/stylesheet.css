@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.39 2002/01/03 16:25:25 dgw_ Exp $
+  $Id: stylesheet.css,v 1.40 2002/01/11 22:36:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,7 @@
 
 .boxText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 .errorBox { font-family : Verdana, Arial, sans-serif; font-size : 10px; background-color: #ffb3b5; font-weight: bold; }
+.stockWarning { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: crimson; }
 
 BODY {
   background-color: #ffffff;
@@ -202,7 +203,13 @@ SPAN.newItemInCart {
   color : #ff0000;
 }
 
-CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA {
+CHECKBOX, INPUT, RADIO, SELECT {
+  font-family : Verdana, Arial, sans-serif;
+  font-size : 11px;
+}
+
+TEXTAREA {
+  width: 100%;
   font-family : Verdana, Arial, sans-serif;
   font-size : 11px;
 }
