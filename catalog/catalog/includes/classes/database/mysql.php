@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mysql.php,v 1.4 2004/07/22 16:22:13 hpdl Exp $
+  $Id: mysql.php,v 1.5 2004/10/26 20:04:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -220,12 +220,12 @@
       return $sql_query . ' limit ' . $from . ', ' . $maximum_rows;
     }
 
-    function batchSize($sql_query) {
+    function batchSize($sql_query, $select_field = '*') {
       if (strpos($sql_query, 'SQL_CALC_FOUND_ROWS') !== false) {
         $bb = $this->query('select found_rows() as total');
       } else {
         $total_query = substr($sql_query, 0, strpos($sql_query, ' limit'));
-        $bb = $this->query('select count(*) as total ' . substr($total_query, strpos($sql_query, 'from ')));
+        $bb = $this->query('select count(' . $select_field . ') as total ' . substr($total_query, strpos($sql_query, 'from ')));
       }
 
       return $bb->value('total');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.5 2004/08/27 22:02:26 hpdl Exp $
+  $Id: database.php,v 1.6 2004/10/26 20:04:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -282,7 +282,8 @@
         $batch_rows,
         $batch_size,
         $batch_to,
-        $batch_from;
+        $batch_from,
+        $batch_select_field;
 
     function osC_Database_Result(&$db_class) {
       $this->db_class =& $db_class;
@@ -516,10 +517,11 @@
       return $this->result;
     }
 
-    function setBatchLimit($batch_number, $maximum_rows) {
+    function setBatchLimit($batch_number, $maximum_rows, $select_field = '') {
       $this->batch_query = true;
       $this->batch_number = $batch_number;
       $this->batch_rows = $maximum_rows;
+      $this->batch_select_field = (empty($select_field) ? '*' : $select_field);
 
       $from = ($batch_number * $maximum_rows) - $maximum_rows;
 
@@ -533,7 +535,7 @@
       if (!isset($this->batch_size)) {
 
 
-        $this->batch_size = $this->db_class->batchSize($this->sql_query);
+        $this->batch_size = $this->db_class->batchSize($this->sql_query, $this->batch_select_field);
       }
 
       return $this->batch_size;
