@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.13 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: default.php,v 1.14 2002/01/01 17:26:00 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,9 +34,7 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TEXT_ALL', 'All');
 } elseif ($category_depth == 'top') {
   define('HEADING_TITLE', '¿Que hay de nuevo por aqui?');
-  define('SUB_BAR_TITLE', strftime(DATE_FORMAT_LONG));
 } elseif ($category_depth == 'nested') {
-  define('HEADING_TITLE', '¿Que hay de nuevo por aqui?');
-  define('SUB_BAR_TITLE', 'Categorias');
+  define('HEADING_TITLE', 'Categorias');
 }
 ?>

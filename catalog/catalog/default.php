@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.62 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: default.php,v 1.63 2002/01/01 17:26:00 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -71,16 +71,10 @@
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr class="subBar">
-            <td class="subBar">&nbsp;<?php echo SUB_BAR_TITLE; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
@@ -240,7 +234,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <form>
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
 <?php
 // optional Product List Filter
     if (PRODUCT_LIST_FILTER) {
@@ -287,13 +281,13 @@
       $image = $image['categories_image'];
     }
 ?>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . $image, HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . $image, HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
           </form>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><?php include(DIR_WS_MODULES . FILENAME_PRODUCT_LISTING); ?></td>
@@ -312,7 +306,7 @@
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">

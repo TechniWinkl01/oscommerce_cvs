@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.22 2001/12/20 14:52:56 dgw_ Exp $
+  $Id: html_output.php,v 1.23 2002/01/01 17:26:00 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -131,7 +131,13 @@
 ////
 // Draw a 1 pixel black line
   function tep_black_line() {
-    return tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '100%', '10');
+    return tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
+  }
+
+////
+// Output a separator either through whitespace, or with an image
+  function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
+    return tep_image(DIR_WS_IMAGES . $image, '', $width, $height);
   }
 
 ////
