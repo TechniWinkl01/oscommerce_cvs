@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.43 2002/05/13 13:33:13 dgw_ Exp $
+# $Id: oscommerce.sql,v 1.44 2002/05/16 19:02:01 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -177,7 +177,7 @@ CREATE TABLE customers_basket (
   customers_id int NOT NULL,
   products_id tinytext NOT NULL,
   customers_basket_quantity int(2) NOT NULL,
-  final_price decimal(6,2) NOT NULL,
+  final_price decimal(15,4) NOT NULL,
   customers_basket_date_added char(8),
   PRIMARY KEY (customers_basket_id)
 );
@@ -294,8 +294,8 @@ CREATE TABLE orders_products (
   products_id int NOT NULL,
   products_model varchar(12),
   products_name varchar(64) NOT NULL,
-  products_price decimal(8,2) NOT NULL,
-  final_price decimal(8,2) NOT NULL,
+  products_price decimal(15,4) NOT NULL,
+  final_price decimal(15,4) NOT NULL,
   products_tax decimal(7,4) NOT NULL,
   products_quantity int(2) NOT NULL,
   PRIMARY KEY (orders_products_id)
@@ -328,7 +328,7 @@ CREATE TABLE orders_products_attributes (
   orders_products_id int NOT NULL,
   products_options varchar(32) NOT NULL,
   products_options_values varchar(32) NOT NULL,
-  options_values_price decimal(8,2) NOT NULL,
+  options_values_price decimal(15,4) NOT NULL,
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (orders_products_attributes_id)
 );
@@ -350,7 +350,7 @@ CREATE TABLE orders_total (
   orders_id int NOT NULL,
   title varchar(255) NOT NULL,
   text varchar(255) NOT NULL,
-  value decimal(8,2) NOT NULL,
+  value decimal(15,4) NOT NULL,
   class varchar(32) NOT NULL,
   sort_order int NOT NULL,
   PRIMARY KEY (orders_total_id),
@@ -363,7 +363,7 @@ CREATE TABLE products (
   products_quantity int(4) NOT NULL,
   products_model varchar(12),
   products_image varchar(64),
-  products_price decimal(8,2) NOT NULL,
+  products_price decimal(15,4) NOT NULL,
   products_date_added datetime NOT NULL,
   products_last_modified datetime,
   products_date_available datetime,
@@ -382,7 +382,7 @@ CREATE TABLE products_attributes (
   products_id int NOT NULL,
   options_id int NOT NULL,
   options_values_id int NOT NULL,
-  options_values_price decimal(8,2) NOT NULL,
+  options_values_price decimal(15,4) NOT NULL,
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (products_attributes_id)
 );
@@ -480,7 +480,7 @@ DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
   specials_id int NOT NULL auto_increment,
   products_id int NOT NULL,
-  specials_new_products_price decimal(8,2) NOT NULL,
+  specials_new_products_price decimal(15,4) NOT NULL,
   specials_date_added datetime,
   specials_last_modified datetime,
   expires_date datetime,
