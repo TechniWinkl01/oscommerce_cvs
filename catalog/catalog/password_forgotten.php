@@ -2,13 +2,13 @@
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_PASSWORD_FORGOTTEN; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $check_customer = tep_db_query("select customers_password, customers_id from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    $check_customer = tep_db_query("select customers_password, customers_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
       // Crypted password mods - create a new password, update the database and mail it to them
       $newpass = random_password(ENTRY_PASSWORD_MIN_LENGTH);
       $crpted_password = crypt_password($newpass);
-      $sql = sprintf("UPDATE customers SET customers_password = '%s' WHERE customers_id = %d", $crpted_password, $check_customer_values['customers_id']);
+      $sql = sprintf("UPDATE " . TABLE_CUSTOMERS . " SET customers_password = '%s' WHERE customers_id = %d", $crpted_password, $check_customer_values['customers_id']);
       tep_db_query($sql);
       
       tep_mail($HTTP_POST_VARS['email_address'], EMAIL_PASSWORD_REMINDER_SUBJECT, sprintf(EMAIL_PASSWORD_REMINDER_BODY, $newpass), 'From: ' . EMAIL_FROM);

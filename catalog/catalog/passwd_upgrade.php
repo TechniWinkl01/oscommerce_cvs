@@ -9,7 +9,7 @@
 *   	If any of the passwords contain the ':' character
 *   	it is assummed that the database already uses encrypted
 *   	passwords.
-
+*
 *	Copyright (C) 2000 Darren McClelland. All rights reserved. 
 *   	This program is free software licensed under the 
 *   	GNU General Public License (GPL).
@@ -31,6 +31,9 @@
 *    USA
 *   
 *   $Log: passwd_upgrade.php,v $
+*   Revision 1.2  2001/06/03 23:07:38  mbs
+*   Changed: table names now stored in application_top.php.
+*
 *   Revision 1.1  2000/10/18 05:03:40  dmcclelland
 *   Initial Entry into CVS.
 *
@@ -45,7 +48,7 @@
 *
 *    
 *
-*   $Id: passwd_upgrade.php,v 1.1 2000/10/18 05:03:40 dmcclelland Exp $ 
+*   $Id: passwd_upgrade.php,v 1.2 2001/06/03 23:07:38 mbs Exp $ 
 *********************************************************************/
 include('includes/application_top.php'); 
 
@@ -76,11 +79,11 @@ the this <a href="passwd_upgrade.php?continue_confirm=1">link</a> to begin the p
     
     // Alter the database
     printf("<p>Changing password field to varchar(40) .....\n");
-    tep_db_query("ALTER TABLE customers modify  customers_password varchar(40)");    
+    tep_db_query("ALTER TABLE " . TABLE_CUSTOMERS . " modify customers_password varchar(40)");    
     printf(" Done!</P><br>\n");
     
     // Select all the users and grab their old passwords
-    $passwords = tep_db_query("SELECT customers_id, customers_password, customers_firstname, customers_lastname FROM customers ORDER BY customers_lastname");
+    $passwords = tep_db_query("SELECT customers_id, customers_password, customers_firstname, customers_lastname FROM " . TABLE_CUSTOMERS . " ORDER BY customers_lastname");
 ?>
 <P>
 Changing passwords....
@@ -108,7 +111,7 @@ Changing passwords....
 	    $password_vals['customers_firstname'],
 	    $password_vals['customers_lastname'],
 	    $oldpass, $newpass);
-	$sql = sprintf("UPDATE customers SET customers_password = '%s' WHERE customers_id = %d",
+	$sql = sprintf("UPDATE " . TABLE_CUSTOMERS . " SET customers_password = '%s' WHERE customers_id = %d",
 	    $newpass,
 	    $password_vals['customers_id']);
 	

@@ -44,7 +44,7 @@
         </table></td>
       </tr>
 <?
-  $product = tep_db_query("select products_name from products_description where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  $product = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   $product_values = tep_db_fetch_array($product);
 ?>
       <tr>
@@ -71,11 +71,11 @@
             <td colspan="5"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $reviews = tep_db_query("select reviews.reviews_rating, reviews.reviews_id, reviews_extra.customers_id, reviews_extra.date_added, reviews_extra.reviews_read from reviews, reviews_extra where reviews_extra.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and reviews_extra.reviews_id = reviews.reviews_id order by reviews.reviews_id DESC");
+  $reviews = tep_db_query("select r.reviews_rating, r.reviews_id, re.customers_id, re.date_added, re.reviews_read from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re where re.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and re.reviews_id = r.reviews_id order by r.reviews_id DESC");
   if (tep_db_num_rows($reviews)) {
     $row = 0;
     while ($reviews_values = tep_db_fetch_array($reviews)) {
-      $customers_name = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $reviews_values['customers_id'] . "'");
+      $customers_name = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $reviews_values['customers_id'] . "'");
       $customers_name_values = tep_db_fetch_array($customers_name);
       $row++;
       if (strlen($row) < 2) {

@@ -38,19 +38,18 @@
         </table></td>
       </tr>
 <?
-  tep_db_query("update reviews_extra set reviews_read = reviews_read+1 where reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "'");
+  tep_db_query("update " . TABLE_REVIEWS_EXTRA . " set reviews_read = reviews_read+1 where reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "'");
 
-  $reviews = tep_db_query("select reviews.reviews_text, reviews.reviews_rating, reviews.reviews_id, reviews_extra.products_id, reviews_extra.customers_id, reviews_extra.date_added, reviews_extra.reviews_read from reviews, reviews_extra where reviews.reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "' and reviews_extra.reviews_id = reviews.reviews_id");
+  $reviews = tep_db_query("select r.reviews_text, r.reviews_rating, r.reviews_id, re.products_id, re.customers_id, re.date_added, re.reviews_read from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re where r.reviews_id = '" . $HTTP_GET_VARS['reviews_id'] . "' and re.reviews_id = r.reviews_id");
   $reviews_values = tep_db_fetch_array($reviews);
 
   $reviews_text = htmlspecialchars($reviews_values['reviews_text']);
   $reviews_text = tep_break_string($reviews_text, 15);
 
-
-  $product = tep_db_query("select pd.products_name, p.products_image from products p, products_description pd where p.products_id = '" . $reviews_values['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '". $languages_id . "'");
+  $product = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $reviews_values['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '". $languages_id . "'");
   $product_values = tep_db_fetch_array($product);
 
-  $customer = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $reviews_values['customers_id'] . "'");
+  $customer = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $reviews_values['customers_id'] . "'");
   $customer_values = tep_db_fetch_array($customer);
 ?>
       <tr>

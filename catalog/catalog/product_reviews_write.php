@@ -7,9 +7,9 @@
 
   if (@$HTTP_GET_VARS['action'] == 'process') {
     $date_now = date('Ymd');
-    tep_db_query("insert into reviews values ('', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "', '" . $HTTP_POST_VARS['rating'] . "')");
+    tep_db_query("insert into " . TABLE_REVIEWS . " values ('', '" . htmlspecialchars($HTTP_POST_VARS['review']) . "', '" . $HTTP_POST_VARS['rating'] . "')");
     $insert_id = tep_db_insert_id();
-    tep_db_query("insert into reviews_extra values ('" . $insert_id . "', '" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', '" . $date_now . "', 0)");
+    tep_db_query("insert into " . TABLE_REVIEWS_EXTRA . " values ('" . $insert_id . "', '" . $HTTP_GET_VARS['products_id'] . "', '" . $customer_id . "', '" . $date_now . "', 0)");
 
     header('Location: ' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $HTTP_POST_VARS['get_params'], 'NONSSL'));
     tep_exit();
@@ -81,10 +81,10 @@ function checkForm() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
 <?
-  $product = tep_db_query("select pd.products_name, p.products_image from products p, products_description pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
+  $product = tep_db_query("select pd.products_name, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
   $product_values = tep_db_fetch_array($product);
 
-  $customer = tep_db_query("select customers_firstname, customers_lastname from customers where customers_id = '" . $customer_id . "'");
+  $customer = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
   $customer_values = tep_db_fetch_array($customer);
 ?>
             <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo sprintf(TOP_BAR_TITLE, $product_values['products_name']); ?>&nbsp;</td>

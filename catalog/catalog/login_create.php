@@ -1,8 +1,8 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.14 2001/05/26 17:08:40 hpdl Exp $
+  // $Id: login_create.php,v 1.15 2001/06/03 23:07:38 mbs Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
+    $check_customer = tep_db_query("select customers_id, customers_password from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
       // Check that password is good
@@ -38,7 +38,7 @@
       }
 
       $date_now = date('Ymd');
-      tep_db_query("update customers_info set customers_info_date_of_last_logon = '" . $date_now . "', customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
+      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = '" . $date_now . "', customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
 
 // restore cart contents
       $cart->restore_contents();

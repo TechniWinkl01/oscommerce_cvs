@@ -47,7 +47,7 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
 <?
-  $new = tep_db_query("select r.reviews_id, r.reviews_text, r.reviews_rating, re.date_added, p.products_id, pd.products_name, p.products_image, c.customers_firstname, c.customers_lastname from reviews r, reviews_extra re, products p, products_description pd, customers c where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and re.customers_id = c.customers_id order by r.reviews_id DESC limit " . MAX_DISPLAY_NEW_REVIEWS);
+  $new = tep_db_query("select r.reviews_id, r.reviews_text, r.reviews_rating, re.date_added, p.products_id, pd.products_name, p.products_image, c.customers_firstname, c.customers_lastname from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_EXTRA . " re, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CUSTOMERS . " c where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and re.customers_id = c.customers_id order by r.reviews_id DESC limit " . MAX_DISPLAY_NEW_REVIEWS);
   $row = 0;
   while ($new_values = tep_db_fetch_array($new)) {
     $row++;
