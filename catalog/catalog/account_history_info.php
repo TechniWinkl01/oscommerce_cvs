@@ -188,7 +188,7 @@
 <?
      $boln = '<tr>' . "\n" . '            <td class="main">&nbsp;';
      $eoln = "&nbsp;</td>\n              </tr>\n";
-     echo tep_address_format($order_values['format_id'], $order_values, 1, $boln, $eoln);
+     echo tep_address_format($order_values['format_id'], $order_values, true, $boln, $eoln);
 ?>
         </table></td>
       </tr>

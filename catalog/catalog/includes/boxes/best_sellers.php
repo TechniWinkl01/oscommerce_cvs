@@ -24,7 +24,7 @@
       $info_box_contents[] = array(
                                    array('align' => 'center',
                                          'params' => 'valign="top" class="infoBox"',
-                                         'text'  => tep_row_number_format($rows)
+                                         'text'  => tep_row_number_format($rows) . '.'
                                         ),
                                    array('align' => 'left',
                                          'params' => 'valign="top" class="infoBox"',

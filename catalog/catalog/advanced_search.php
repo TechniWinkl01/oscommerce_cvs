@@ -141,12 +141,9 @@ function check_form() {
           <tr>
             <td align="left" width="20%" class="fieldKey">&nbsp;<?echo ENTRY_CATEGORIES; ?>&nbsp;</td>
             <td align="left" colspan="3" class="fieldValue">
-<?
-if ($HTTP_GET_VARS['categories_id'])
-  $selected[0] = $HTTP_GET_VARS['categories_id'];
-else
-  $selected[0] = 0;
-tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
+<?php
+  $selected[0] = ($HTTP_GET_VARS['categories_id']) ? $HTTP_GET_VARS['categories_id'] : '0';
+  echo tep_display_cat_select('categories_id', $selected, 1, 0, TEXT_ALL_CATEGORIES);
 ?>
             &nbsp;&nbsp;(&nbsp;<input type="checkbox"  name="inc_subcat" value="1">&nbsp;<?echo ENTRY_INCLUDES_SUBCATEGORIES; ?>&nbsp;)&nbsp;</td>
           </tr>

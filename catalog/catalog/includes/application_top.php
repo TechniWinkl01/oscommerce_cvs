@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.149 2001/06/15 19:37:46 hpdl Exp $
+  $Id: application_top.php,v 1.150 2001/06/15 23:48:56 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -165,6 +165,7 @@
   define('STOCK_CHECK', 1);
   define('STOCK_LIMITED', 1); // Subtract product in stock by product orders
   define('STOCK_ALLOW_CHECKOUT', 1); 
+  define('STOCK_MARK_PRODUCT_OUT_OF_STOCK', '***');
 
 // set to "1" if extended email check function should be used
 // If you're testing locally and your webserver has no possibility to query

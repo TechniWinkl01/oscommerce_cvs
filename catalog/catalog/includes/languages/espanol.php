@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.50 2001/06/15 19:34:52 hpdl Exp $
+  $Id: espanol.php,v 1.51 2001/06/15 23:49:00 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,6 @@ function tep_date_raw($date, $reverse = false) {
     return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
   }
 }
-
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'ESP');
@@ -268,6 +267,8 @@ define('TEXT_REVIEW_WORD_COUNT', '%s palabras');
 define('TEXT_REVIEW_RATING', 'Evaluacion: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Fecha Alta: %s');
 define('TEXT_NO_REVIEWS', 'En este momento, no hay ningun comentario.');
+
+define('TEXT_UNKNOWN_TAX_RATE', 'Unknown tax rate');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 ?>

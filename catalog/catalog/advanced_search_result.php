@@ -177,11 +177,11 @@
     $from_str .= ", " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c ";
 
     if ($HTTP_GET_VARS['inc_subcat'] == "1") {
-      $categories = array();
-      tep_get_subcategories($categories, $HTTP_GET_VARS['categories_id']);
+      $subcategories_array = array();
+      tep_get_subcategories($subcategories_array, $HTTP_GET_VARS['categories_id']);
       $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and (p2c.categories_id = '" . $HTTP_GET_VARS['categories_id'] . "'";
-      for ($i=0; $i<sizeof($categories); $i++ ) {
-        $where_str .= " or p2c.categories_id = '" . $categories[$i] . "'";
+      for ($i=0; $i<sizeof($subcategories_array); $i++ ) {
+        $where_str .= " or p2c.categories_id = '" . $subcategories_array[$i] . "'";
       }
       $where_str .= ")";
     }
