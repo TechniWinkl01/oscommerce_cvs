@@ -8,6 +8,8 @@
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center" nowrap><font face="Verdana, Arial" size="1">&copy; 2000 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a> @ <a href="http://www.xcom.de" target="_blank">XCOM AG - The Solution People</a></font></td>
+    <td align="center" nowrap>
+      <font face="Verdana, Arial" size="1"><a href="debug_phpinfo.php">&copy; 2000</a> <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a> @ <a href="http://www.xcom.de" target="_blank">XCOM AG - The Solution People</a>
+      </font></td>
   </tr>
 </table>
