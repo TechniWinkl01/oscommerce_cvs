@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.96 2003/06/09 23:03:55 hpdl Exp $
+  $Id: product_info.php,v 1.97 2003/07/01 14:34:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -223,7 +223,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
       <tr>
         <td>
 <?php
-    if ( (USE_CACHE == 'true') && !defined('SID')) {
+    if ((USE_CACHE == 'true') && empty($SID)) {
       echo tep_cache_also_purchased(3600);
     } else {
       include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.10 2003/02/11 01:31:01 hpdl Exp $
+  $Id: cache.php,v 1.11 2003/07/01 14:34:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,7 +98,7 @@
 //! Cache the categories box
 // Cache the categories box
   function tep_cache_categories_box($auto_expire = false, $refresh = false) {
-    global $cPath, $foo, $language, $languages_id, $id, $categories_string;
+    global $cPath, $language, $languages_id, $tree, $cPath_array, $categories_string;
 
     if (($refresh == true) || !read_cache($cache_output, 'categories_box-' . $language . '.cache' . $cPath, $auto_expire)) {
       ob_start();
@@ -117,12 +117,17 @@
   function tep_cache_manufacturers_box($auto_expire = false, $refresh = false) {
     global $HTTP_GET_VARS, $language;
 
-    if (($refresh == true) || !read_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $HTTP_GET_VARS['manufacturers_id'], $auto_expire)) {
+    $manufacturers_id = '';
+    if (isset($HTTP_GET_VARS['manufactuers_id']) && tep_not_null($HTTP_GET_VARS['manufacturers_id'])) {
+      $manufacturers_id = $HTTP_GET_VARS['manufacturers_id'];
+    }
+
+    if (($refresh == true) || !read_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $manufacturers_id, $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'manufacturers.php');
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $HTTP_GET_VARS['manufacturers_id']);
+      write_cache($cache_output, 'manufacturers_box-' . $language . '.cache' . $manufacturers_id);
     }
 
     return $cache_output;

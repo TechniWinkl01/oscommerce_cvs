@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.276 2003/06/17 17:25:06 dgw_ Exp $
+  $Id: application_top.php,v 1.277 2003/07/01 14:34:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -483,6 +483,9 @@
 // initialize the message stack for output messages
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
+
+// set SID once, even if empty
+  $SID = (defined('SID') ? SID : '');
 
 // set which precautions should be checked
   define('WARN_INSTALL_EXISTENCE', 'true');

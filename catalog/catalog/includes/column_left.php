@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_left.php,v 1.14 2003/02/10 22:30:50 hpdl Exp $
+  $Id: column_left.php,v 1.15 2003/07/01 14:34:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,13 +10,13 @@
   Released under the GNU General Public License
 */
 
-  if ( (USE_CACHE == 'true') && !defined('SID')) {
+  if ((USE_CACHE == 'true') && empty($SID)) {
     echo tep_cache_categories_box();
   } else {
     include(DIR_WS_BOXES . 'categories.php');
   }
 
-  if ( (USE_CACHE == 'true') && !defined('SID')) {
+  if ((USE_CACHE == 'true') && empty($SID)) {
     echo tep_cache_manufacturers_box();
   } else {
     include(DIR_WS_BOXES . 'manufacturers.php');
