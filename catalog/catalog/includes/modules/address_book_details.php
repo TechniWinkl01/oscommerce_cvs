@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.4 2002/09/22 17:54:34 project3000 Exp $
+  $Id: address_book_details.php,v 1.5 2002/09/26 13:40:57 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -219,7 +219,7 @@
       echo tep_get_country_name($country) . tep_draw_hidden_field('country');
     }
   } else {
-    echo tep_get_country_list("country", $entry['entry_country_id']) . '&nbsp;' . ENTRY_COUNTRY_TEXT;
+    echo tep_get_country_list('country', $entry['entry_country_id']) . '&nbsp;' . ENTRY_COUNTRY_TEXT;
   }
 ?></td>
           </tr>
