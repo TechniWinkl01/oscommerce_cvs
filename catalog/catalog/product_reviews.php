@@ -81,7 +81,7 @@
       if (strlen($row) < 2) {
         $row = '0' . $row;
       }
-      $date_added = strftime(DATE_FORMAT_SHORT, mktime(0, 0, 0, substr($reviews_values['date_added'], 4, 2), substr($reviews_values['date_added'], 6, 2), substr($reviews_values['date_added'], 0, 4)));
+      $date_added = tep_date_short($reviews_values['date_added']);
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
       } else {
