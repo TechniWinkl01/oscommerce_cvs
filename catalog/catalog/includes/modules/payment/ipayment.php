@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.20 2002/04/05 00:41:59 hpdl Exp $
+  $Id: ipayment.php,v 1.21 2002/04/19 14:28:25 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,19 +39,19 @@
       $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_input_field('cc_owner') . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_input_field('ipayment_cc_owner') . '&nbsp;</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_input_field('cc_number') . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_input_field('ipayment_cc_number') . '&nbsp;</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CHECKNUMBER . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_input_field('cc_checknumber') . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_input_field('ipayment_cc_checknumber') . '&nbsp;</td>' . "\n" .
                           '  </tr>' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('cc_expires_year', $expires_year) . '</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('ipayment_cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('ipayment_cc_expires_year', $expires_year) . '</td>' . "\n" .
                            '  </tr>' . "\n" .
                            '</table>' . "\n";
 
@@ -63,12 +63,12 @@
 
       include(DIR_WS_FUNCTIONS . 'ccval.php');
 
-      $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
+      $cc_val = OnlyNumericSolution($HTTP_POST_VARS['ipayment_cc_number']);
       $cc_val = CCValidationSolution($cc_val);
-      if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
+      if ($cc_val == '1') $cc_val = ValidateExpiry($HTTP_POST_VARS['ipayment_cc_expires_month'], $HTTP_POST_VARS['ipayment_cc_expires_year']);
 
       if ($cc_val != '1') {
-        $payment_error_return = 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
+        $payment_error_return = 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['ipayment_cc_owner']) . '&cc_checknumber=' . $HTTP_POST_VARS['ipayment_cc_checknumber'] . '&cc_expires_month=' . $HTTP_POST_VARS['ipayment_cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['ipayment_cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val);
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
     }
@@ -86,16 +86,16 @@
                                tep_draw_hidden_field('cc_userid', MODULE_PAYMENT_IPAYMENT_USER_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
                                tep_draw_hidden_field('cc_amount', number_format($order->info['total'] * 100 * $currencies->get_value(MODULE_PAYMENT_IPAYMENT_CURRENCY), 0, '','')) .
-                               tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['cc_expires_month']) .
-                               tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['cc_expires_year']) .
-                               tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['cc_number']) .
-                               tep_draw_hidden_field('cc_checknumber', $HTTP_POST_VARS['cc_checknumber']) .
-                               tep_draw_hidden_field('cc_name', $HTTP_POST_VARS['cc_owner']) .
+                               tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['ipayment_cc_expires_month']) .
+                               tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['ipayment_cc_expires_year']) .
+                               tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['ipayment_cc_number']) .
+                               tep_draw_hidden_field('cc_checknumber', $HTTP_POST_VARS['ipayment_cc_checknumber']) .
+                               tep_draw_hidden_field('cc_name', $HTTP_POST_VARS['ipayment_cc_owner']) .
                                tep_draw_hidden_field('cc_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('redirect_action', 'GET') .
                                tep_draw_hidden_field('cc_currency', MODULE_PAYMENT_IPAYMENT_CURRENCY) .
                                tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
-                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']), 'SSL', true));
+                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $payment . '&cc_owner=' . urlencode($HTTP_POST_VARS['ipayment_cc_owner']), 'SSL', true));
 
       return $process_button_string;
     }
