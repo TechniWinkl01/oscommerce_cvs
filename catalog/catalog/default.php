@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.66 2002/01/09 17:19:24 hpdl Exp $
+  $Id: default.php,v 1.67 2002/01/15 20:09:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -109,7 +109,7 @@
             </table></td>
           </tr>
           <tr>
-            <td><?php $new_products_category_id = $current_category_id; include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?></td>
+            <td><br><?php $new_products_category_id = $current_category_id; include(DIR_WS_MODULES . FILENAME_NEW_PRODUCTS); ?></td>
           </tr>
         </table></td>
       </tr>
