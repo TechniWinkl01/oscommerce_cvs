@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: validations.php,v 1.8 2003/01/25 10:38:51 clescuyer Exp $
+  $Id: validations.php,v 1.9 2003/01/25 12:15:02 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,7 +79,7 @@
             } else {
               $top_level_domain = strtolower($domain_components[sizeof($domain_components)-1]);
               // Allow all 2-letter TLDs (ccTLDs)
-              if (preg_match('/^[a-z]{2}$/', $top_level_domain) != 1) {
+              if (eregi('^[a-z][a-z]$', $top_level_domain) != 1) {
                 $tld_pattern = '';
                 // Get authorized TLDs from text file
                 $tlds = file(DIR_WS_INCLUDES . FILENAME_TLD);
@@ -88,13 +88,13 @@
                   $words = explode('#', $line);
                   $tld = trim($words[0]);
                   // TLDs should be 3 letters or more
-                  if (preg_match('/^[a-z]{3,}$/', $tld) == 1) {
+                  if (eregi('^[a-z]{3,}$', $tld) == 1) {
                     $tld_pattern .= '^' . $tld . '$|';
                   }
                 }
                 // Remove last '|'
                 $tld_pattern = substr($tld_pattern, 0, -1);
-                if (preg_match("/$tld_pattern/", $top_level_domain) == 0) {
+                if (eregi("$tld_pattern", $top_level_domain) == 0) {
                     $valid_address = false;
                 }
               }
