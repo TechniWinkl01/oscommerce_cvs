@@ -22,8 +22,8 @@
       } else {
         echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '                <td>' . FONT_STYLE_SMALL_TEXT . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id'], 'NONSSL') . '">' . $expected['products_name'] . '</a>&nbsp;</font></td>' . "\n";
-      echo '                <td align="right">' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected['date_expected']) . '&nbsp;</font></td>' . "\n";
+      echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id'], 'NONSSL') . '">' . $expected['products_name'] . '</a>&nbsp;</td>' . "\n";
+      echo '                <td align="right" class="smallText">&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected['date_expected']) . '&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>

@@ -121,3 +121,8 @@ TD.main, P.main {
     font-family : Verdana, Arial, sans-serif;
     font-size : 12px;
 }
+
+TD.smallText, SPAN.smallText {
+    font-family : Verdana, Arial, sans-serif;
+    font-size : 10px;
+}

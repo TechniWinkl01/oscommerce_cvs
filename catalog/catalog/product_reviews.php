@@ -87,17 +87,17 @@
       } else {
         echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '            <td nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $row . '.&nbsp;</font></td>' . "\n";
-      echo '            <td nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="center" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '&nbsp;</font></td>' . "\n";
-      echo '            <td align="center" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $reviews_values['reviews_read'] . '&nbsp;</font></td>' . "\n";
-      echo '            <td align="right" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $date_added . '&nbsp;</font></td>' . "\n";
+      echo '            <td class="smallText" nowrap>&nbsp;' . $row . '.&nbsp;</td>' . "\n";
+      echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . tep_image(DIR_WS_IMAGES . 'stars_' . $reviews_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $reviews_values['reviews_rating'])) . '&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . $reviews_values['reviews_read'] . '&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText" nowrap>&nbsp;' . $date_added . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   } else {
 ?>
           <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
-            <td colspan="5"><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_NO_REVIEWS; ?>&nbsp;</font></td>
+            <td colspan="5" class="smallText">&nbsp;<? echo TEXT_NO_REVIEWS; ?>&nbsp;</td>
           </tr>
 <?
   }

@@ -194,7 +194,7 @@ function check_form() {
             <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_shipping_options.gif', CHANGE_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_change_address.gif', CHANGE_DELIVERY_ADDRESS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
+            <td align="right" class="smallText" nowrap><br>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

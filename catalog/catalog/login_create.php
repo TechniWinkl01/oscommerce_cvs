@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.6 2001/04/27 20:45:38 hpdl Exp $
+  // $Id: login_create.php,v 1.7 2001/04/27 21:23:45 hpdl Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
@@ -294,11 +294,11 @@ function check_form() {
             <td colspan="2"><br><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td valign="top" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</font></td>
+            <td valign="top" class="smallText" nowrap>&nbsp;<label for="setcookie"><input type="checkbox" name="setcookie" value="1" id="setcookie" <? if (($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password'])) { echo 'CHECKED'; } ?>>&nbsp;<? echo TEXT_COOKIE; ?></label>&nbsp;</td>
             <td align="right" valign="top" nowrap><? echo tep_image_submit(DIR_WS_IMAGES . 'button_log_in.gif', IMAGE_LOGIN); ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" colspan="2" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</font></td>
+            <td align="right" colspan="2" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'NONSSL'); ?>"><? echo TEXT_PASSWORD_FORGOTTEN; ?></a>&nbsp;</td>
           </tr>
 <?
    $origin = '';
@@ -323,14 +323,14 @@ function check_form() {
   if ($nonsess_cart) {
 ?>
           <tr>
-            <td colspan="2"><?php echo FONT_STYLE_SMALL_TEXT; ?><br><? echo TEXT_VISITORS_CART; ?></font></td>
+            <td colspan="2" class="smallText"><br><? echo TEXT_VISITORS_CART; ?></td>
           </tr>
 <?
   }
   if ($HTTP_GET_VARS['login'] == 'fail') {
 ?>
           <tr>
-            <td colspan="2" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo TEXT_LOGIN_ERROR; ?></font></td>
+            <td colspan="2" class="smallText" nowrap><? echo TEXT_LOGIN_ERROR; ?></td>
           </tr>
 <?
   }

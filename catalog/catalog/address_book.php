@@ -64,7 +64,7 @@
   if (!tep_db_num_rows($address_book)) {
 ?>
           <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
-            <td colspan="3" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</font></td>
+            <td colspan="3" class="smallText" nowrap>&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
           </tr>
 <?
   } else {
@@ -77,9 +77,9 @@
       } else {
         echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '            <td align="center" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;0' . $row . '.&nbsp;</font></td>' . "\n";
-      echo '            <td nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="center" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="center" class="smallText" nowrap>&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
+      echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }
@@ -91,15 +91,15 @@
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
           <tr>
-            <td colspan="2" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_MAXIMUM_ENTRIES; ?>&nbsp;</font></td>
-            <td align="right" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
+            <td colspan="2" class="smallText" nowrap>&nbsp;<? echo TEXT_MAXIMUM_ENTRIES; ?>&nbsp;</td>
+            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
 <?
   } else {
 ?>
           <tr>
-            <td colspan="2" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_MAXIMUM_ENTRIES_REACHED; ?>&nbsp;</font></td>
-            <td align="right" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
+            <td colspan="2" class="smallText" nowrap>&nbsp;<? echo TEXT_MAXIMUM_ENTRIES_REACHED; ?>&nbsp;</td>
+            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
 <?
   }

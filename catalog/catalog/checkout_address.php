@@ -120,7 +120,7 @@
   if (!@tep_db_num_rows($address_book)) {
 ?>
           <tr>
-            <td nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?>&nbsp;</font></td>
+            <td class="smallText" nowrap>&nbsp;<? echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?>&nbsp;</td>
           </tr>
 <?
   } else {
@@ -129,14 +129,14 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
     $row = 0;
-    $boln = '<td nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;';
-    $eoln = '&nbsp;</font></td>' . "\n";
+    $boln = '<td class="smallText" nowrap>&nbsp;';
+    $eoln = '&nbsp;</td>' . "\n";
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
       echo '              <tr>' . "\n";
-      echo '                <td nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;0' . $row . '.&nbsp;</font></td>' . "\n";
+      echo '                <td class="smallText" nowrap>&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
       echo tep_address_label($customer_id, $address_book_values['address_book_id'], 1, $boln, $eoln);
-      echo '                <td nowrap align="right">' . FONT_STYLE_SMALL_TEXT . '&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</font></td>' . "\n";
+      echo '                <td align="right" class="smallText" nowrap>&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>
@@ -155,7 +155,7 @@
   if ($row < 5) {
     echo '                <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</td>' . "\n";
   } else {
-    echo '                <td valign="top" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</font></td>' . "\n";
+    echo '                <td valign="top" class="smallText" nowrap>&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";
   }
 ?>
                 <td align="right" class="main" nowrap>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</td>
@@ -163,7 +163,7 @@
             </table></td>
           </tr>
           <tr>
-            <td align="right"><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></font> | <? echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</font></td>
+            <td align="right" class="smallText"><br>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?></font> | <? echo CHECKOUT_BAR_PAYMENT_METHOD; ?> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

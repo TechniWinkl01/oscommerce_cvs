@@ -67,7 +67,7 @@
   if (@!tep_db_num_rows($history)) {
 ?>
           <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
-            <td colspan="4" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_NO_PURCHASES; ?>&nbsp;</font></td>
+            <td colspan="4" class="smallText" nowrap>&nbsp;<? echo TEXT_NO_PURCHASES; ?>&nbsp;</td>
           </tr>
 <?
   } else {
@@ -87,10 +87,10 @@
       } else {
         echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
-      echo '            <td align="center" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $history_values['orders_id'] . '&nbsp;</font></td>' . "\n";
-      echo '            <td nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="right" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . tep_currency_format($total_cost, true, $history_values['currency'], $history_values['currency_value']) . '&nbsp;</font></td>' . "\n";
-      echo '            <td align="right" nowrap>' . FONT_STYLE_SMALL_TEXT . '&nbsp;' . $history_values['orders_status'] . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . $history_values['orders_id'] . '&nbsp;</td>' . "\n";
+      echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText" nowrap>&nbsp;' . tep_currency_format($total_cost, true, $history_values['currency'], $history_values['currency_value']) . '&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText" nowrap>&nbsp;' . $history_values['orders_status'] . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }
@@ -101,8 +101,8 @@
           <tr>
             <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>&nbsp;<br>&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</font></td>
-                <td align="right" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;<br><? echo TABLE_TEXT; ?></font></td>
+                <td class="smallText" nowrap>&nbsp;<? echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>&nbsp;<br>&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+                <td align="right" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;<br><? echo TABLE_TEXT; ?></td>
               </tr>
             </table></td>
           </tr>

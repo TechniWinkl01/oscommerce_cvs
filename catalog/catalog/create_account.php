@@ -196,7 +196,7 @@ function check_form() {
   if ($HTTP_GET_VARS['origin']) {
 ?>
       <tr>
-        <td nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?>&nbsp;<? echo TEXT_ORIGIN_LOGIN; ?>&nbsp;</font></td>
+        <td class="smallText" nowrap><br>&nbsp;<? echo TEXT_ORIGIN_LOGIN; ?>&nbsp;</td>
       </tr>
 <?
   }

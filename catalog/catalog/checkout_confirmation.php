@@ -242,7 +242,7 @@
         </table></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></font></td>
+        <td align="right" class="smallText" nowrap><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

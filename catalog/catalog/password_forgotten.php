@@ -78,7 +78,7 @@
 <?
   if ($HTTP_GET_VARS['email'] == 'nonexistent') {
     echo '          <tr>' . "\n";
-    echo '            <td colspan="2">' . FONT_STYLE_SMALL_TEXT .  TEXT_NO_EMAIL_ADDRESS_FOUND . '</font></td>' . "\n";
+    echo '            <td colspan="2" class="smallText">' .  TEXT_NO_EMAIL_ADDRESS_FOUND . '</td>' . "\n";
     echo '          </tr>' . "\n";
   }
 ?>

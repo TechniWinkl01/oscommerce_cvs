@@ -148,13 +148,13 @@ function popupImageWindow(url) {
     if ($product_info_values['products_date_available'] > date('Ymd')) {
 ?>
       <tr>
-        <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></font></td>
+        <td align="center" class="smallText" nowrap><? echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></td>
       </tr>
 <?
     } else {
 ?>
       <tr>
-        <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?><? echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info_values['products_date_added'])); ?></font></td>
+        <td align="center" class="smallText" nowrap><? echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info_values['products_date_added'])); ?></td>
       </tr>
 <?
     }
