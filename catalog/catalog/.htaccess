@@ -1,4 +1,4 @@
-# $Id: .htaccess,v 1.2 2003/06/05 23:23:51 hpdl Exp $
+# $Id: .htaccess,v 1.3 2003/06/12 10:53:20 hpdl Exp $
 #
 # This is used with Apache WebServers
 #
@@ -26,8 +26,10 @@
 </IfModule>
 
 # Fix certain PHP values
+# (commented out by default to prevent errors occuring on certain
+# servers)
 
-<IfModule mod_php4.c>
-  php_value session.use_trans_sid 0
-  php_value register_globals 1
-</IfModule>
+#<IfModule mod_php4.c>
+#  php_value session.use_trans_sid 0
+#  php_value register_globals 1
+#</IfModule>
