@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.98 2001/06/06 18:03:02 dwatkins Exp $
+  $Id: general.php,v 1.99 2001/06/08 19:56:26 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1186,6 +1186,19 @@ function tep_address_summary($customers_id, $address_id) {
       return true;
     } else {
       return tep_error_message(ERROR_TEP_MAIL);
+    }
+  }
+
+////
+// Check if product has attributes
+  function tep_has_product_attributes($products_id) {
+    $attributes_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . $products_id . "'");
+    $attributes = tep_db_fetch_array($attributes_query);
+
+    if ($attributes['count'] > 0) {
+      return true;
+    } else {
+      return false;
     }
   }
 ?>
