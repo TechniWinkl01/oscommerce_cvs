@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upcoming_products.php,v 1.28 2004/03/14 13:55:39 mevans Exp $
+  $Id: upcoming_products.php,v 1.29 2004/04/08 03:53:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,9 +10,10 @@
   Released under the GNU General Public License
 */
 
-  $Qupcoming = $osC_Database->query('select p.products_id, pd.products_name, p.products_date_available as date_expected, p.products_status from :table_products p, :table_products_description pd where p.products_status = '1' and to_days(p.products_date_available) >= to_days(now()) and p.products_id = pd.products_id and pd.language_id = :language_id order by :expected_products_field :expected_products_sort limit :max_display_upcoming_products');
+  $Qupcoming = $osC_Database->query('select p.products_id, pd.products_name, p.products_date_available as date_expected from :table_products p, :table_products_description pd where to_days(p.products_date_available) >= to_days(now()) and p.products_status = :products_status and p.products_id = pd.products_id and pd.language_id = :language_id order by :expected_products_field :expected_products_sort limit :max_display_upcoming_products');
   $Qupcoming->bindRaw(':table_products', TABLE_PRODUCTS);
   $Qupcoming->bindRaw(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
+  $Qupcoming->bindInt(':products_status', 1);
   $Qupcoming->bindInt(':language_id', $osC_Session->value('languages_id'));
   $Qupcoming->bindRaw(':expected_products_field', EXPECTED_PRODUCTS_FIELD);
   $Qupcoming->bindRaw(':expected_products_sort', EXPECTED_PRODUCTS_SORT);
