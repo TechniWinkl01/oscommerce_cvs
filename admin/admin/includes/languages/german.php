@@ -4,7 +4,7 @@
 
   German Text for The Exchange Project Administration Tool
 
-  $Id: german.php,v 1.36 2001/08/18 15:39:43 mbs Exp $
+  $Id: german.php,v 1.37 2001/08/18 15:58:23 mbs Exp $
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -173,6 +173,7 @@ define('IMAGE_CANCEL', 'Abbruch');
 define('IMAGE_CONFIRM', 'Bestätigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
+define('IMAGE_DEFINE', 'Definieren');
 define('IMAGE_DELETE', 'Löschen');
 define('IMAGE_EDIT', 'Editieren');
 define('IMAGE_INSERT', 'Einfügen');
@@ -180,19 +181,19 @@ define('IMAGE_MODIFY', 'Ändern');
 define('IMAGE_MOVE', 'Verschieben');
 define('IMAGE_NEW_BANNER', 'neuen Banner aufnehmen');
 define('IMAGE_NEW_CATEGORY', 'neue Kategorie erstellen');
+define('IMAGE_NEW_COUNTRY', 'neues Land aufnehmen');
+define('IMAGE_NEW_CURRENCY', 'neue Währung einfügen');
 define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
 define('IMAGE_NEW_PRODUCT', 'neuen Artikel/Produkt aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'neuen Steuer-Klasse erstellen');
 define('IMAGE_NEW_ZONE', 'neues Bundesland einfügen');
-define('IMAGE_NEW_COUNTRY', 'neues Land aufnehmen');
-define('IMAGE_NEW_CURRENCY', 'neue Währung einfügen');
 define('IMAGE_ORDERS', 'Bestellungen');
 define('IMAGE_PREVIEW', 'Vorschau');
 define('IMAGE_SAVE', 'speichern');
 define('IMAGE_SEARCH', 'suchen');
 define('IMAGE_SELECT', 'auswählen');
 define('IMAGE_UPDATE', 'aktualisieren');
-
+define('IMAGE_UPDATE_CURRENCY', 'Wechselkurs aktualisieren');
 define('IMAGE_ICON_INFO', 'Information');
 
 // constants for use in tep_prev_next_display function

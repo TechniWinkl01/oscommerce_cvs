@@ -1,8 +1,10 @@
-<?
+<?php
 /*
-English Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+  The Exchange Project - Community Made Shopping!
+
+  German Text for The Exchange Project Administration Tool
+
+  $Id: english.php,v 1.49 2001/08/18 15:58:23 mbs Exp $
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -60,7 +62,7 @@ define('BOX_TAXES_GEO_ZONES', 'Tax Zones');
 define('BOX_TAXES_TAX_CLASSES', 'Tax Classes');
 define('BOX_TAXES_TAX_RATES', 'Tax Rates');
 
-// statistics box text in includes/boxes/reports.php
+// reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Reports');
 define('BOX_REPORTS_PRODUCTS_VIEWED', 'Products Viewed');
 define('BOX_REPORTS_PRODUCTS_PURCHASED', 'Products Purchased');
@@ -86,7 +88,6 @@ define('BOX_MAIL_MAIL', 'Send eMail(s)');
 define('BOX_HEADING_BANNERS', 'Banners');
 define('BOX_BANNERS_MANAGER', 'Banner Manager');
 
-// Added a new box called "Payment Gateway" for links to outside resources related to selected gateway.
 // gateway box text in includes/boxes/gateway.php
 define('BOX_HEADING_GATEWAY', 'Payment Gateway');
 define('BOX_GATEWAY_ITRANSACT', 'iTransact.com');
@@ -186,7 +187,6 @@ define('IMAGE_NEW_BANNER', 'New Banner');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_COUNTRY', 'New Country');
 define('IMAGE_NEW_CURRENCY', 'New Currency');
-define('IMAGE_UPDATE_CURRENCY', 'Update Exchange Rate');
 define('IMAGE_NEW_LANGUAGE', 'New Language');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
@@ -197,7 +197,7 @@ define('IMAGE_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
 define('IMAGE_UPDATE', 'Update');
-
+define('IMAGE_UPDATE_CURRENCY', 'Update Exchange Rate');
 define('IMAGE_ICON_INFO', 'Info');
 
 // constants for use in tep_prev_next_display function

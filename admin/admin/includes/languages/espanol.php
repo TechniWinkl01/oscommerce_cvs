@@ -1,8 +1,10 @@
-<?
+<?php
 /*
-Spanish Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): David Garcia Watkins (dgw@q-logic.org)
+  The Exchange Project - Community Made Shopping!
+
+  German Text for The Exchange Project Administration Tool
+
+  $Id: espanol.php,v 1.41 2001/08/18 15:58:23 mbs Exp $
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -47,7 +49,7 @@ define('BOX_CATALOG_REVIEWS', 'Comentarios');
 define('BOX_CATALOG_SPECIALS', 'Ofertas');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Proximamente');
 
-// categories box text in includes/boxes/customers.php
+// customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Clientes');
 define('BOX_CUSTOMERS_CUSTOMERS', 'Clientes');
 define('BOX_CUSTOMERS_ORDERS', 'Pedidos');
@@ -60,23 +62,23 @@ define('BOX_TAXES_GEO_ZONES', 'Zonas de Impuestos');
 define('BOX_TAXES_TAX_CLASSES', 'Tipos de Impuesto');
 define('BOX_TAXES_TAX_RATES', 'Porcentajes');
 
-// whats_new box text in includes/boxes/reports.php
+// reports box text in includes/boxes/reports.php
 define('BOX_HEADING_REPORTS', 'Informes');
 define('BOX_REPORTS_PRODUCTS_VIEWED', 'Productos Mas Vistos');
 define('BOX_REPORTS_PRODUCTS_PURCHASED', 'Productos Mas Comprados');
 define('BOX_REPORTS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
-
-// localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
-define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
-define('BOX_LOCALIZATION_LANGUAGES', 'Idiomas');
-define('BOX_LOCALIZATION_ORDERS_STATUS', 'Estado Pedidos');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Herramientas');
 define('BOX_TOOLS_BACKUP', 'Copia de seguridad');
 define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 define('BOX_TOOLS_CACHE', 'Cache Control');
+
+// localizaion box text in includes/boxes/localization.php
+define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
+define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
+define('BOX_LOCALIZATION_LANGUAGES', 'Idiomas');
+define('BOX_LOCALIZATION_ORDERS_STATUS', 'Estado Pedidos');
 
 // mail box text in includes/boxes/mail.php
 define('BOX_HEADING_MAIL', 'Mail');
@@ -175,6 +177,7 @@ define('IMAGE_CANCEL', 'Cancelar');
 define('IMAGE_CONFIRM', 'Confirmar');
 define('IMAGE_COPY', 'Copiar');
 define('IMAGE_COPY_TO', 'Copiar A');
+define('IMAGE_DEFINE', 'Define');
 define('IMAGE_DELETE', 'Eliminar');
 define('IMAGE_EDIT', 'Editar');
 define('IMAGE_INSERT', 'Insertar');
@@ -182,40 +185,39 @@ define('IMAGE_MODIFY', 'Modificar');
 define('IMAGE_MOVE', 'Mover');
 define('IMAGE_NEW_BANNER', 'New Banner');
 define('IMAGE_NEW_CATEGORY', 'Nueva Categoria');
+define('IMAGE_NEW_COUNTRY', 'Nuevo Pais');
+define('IMAGE_NEW_CURRENCY', 'Nueva Moneda');
 define('IMAGE_NEW_LANGUAGE', 'Nueva Idioma');
 define('IMAGE_NEW_PRODUCT', 'Nuevo Producto');
 define('IMAGE_NEW_TAX_CLASS', 'Nuevo Tipo de Impuesto');
 define('IMAGE_NEW_ZONE', 'Nueva Zona');
-define('IMAGE_NEW_COUNTRY', 'Nuevo Pais');
-define('IMAGE_NEW_CURRENCY', 'Nueva Moneda');
-define('IMAGE_UPDATE_CURRENCY', 'Actualizar Cambio de Moneda');
 define('IMAGE_ORDERS', 'Pedidos');
 define('IMAGE_PREVIEW', 'Ver');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
 define('IMAGE_SELECT', 'Seleccionar');
 define('IMAGE_UPDATE', 'Actualizar');
-
+define('IMAGE_UPDATE_CURRENCY', 'Actualizar Cambio de Moneda');
 define('IMAGE_ICON_INFO', 'Info');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Paginas:');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
+define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
+define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> monedas)');
+define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> fabricantes)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> ofertas)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos estado)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos esperados)');
-define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
-define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> ofertas)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas de impuestos)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos estado)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> porcentajes de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
-define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
-define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> monedas)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
