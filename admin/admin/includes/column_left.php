@@ -1,12 +1,6 @@
-<!-- catalog //-->
-<? include('includes/boxes/configuration.php'); ?>
-<!-- catalog_eof //-->
-<!-- catalog //-->
-<? include('includes/boxes/catalog.php'); ?>
-<!-- catalog_eof //-->
-<!-- customers //-->
-<? include('includes/boxes/customers.php'); ?>
-<!-- customers_eof //-->
-<!-- statistics //-->
-<? include('includes/boxes/statistics.php'); ?>
-<!-- statistics_eof //-->
+<?
+  include('includes/boxes/configuration.php');
+  include('includes/boxes/catalog.php');
+  include('includes/boxes/customers.php');
+  include('includes/boxes/statistics.php');
+?>

@@ -1,6 +1,20 @@
+<!-- customers //-->
           <tr>
-            <td bgcolor="<? echo BOX_HEADING_BACKGROUND_COLOR; ?>" class="boxborder" nowrap><font face="<? echo BOX_HEADING_FONT_FACE; ?>" color="<? echo BOX_HEADING_FONT_COLOR; ?>" size="<? echo BOX_HEADING_FONT_SIZE; ?>">&nbsp;<? echo BOX_HEADING_CUSTOMERS; ?>&nbsp;</font></td>
+            <td>
+<?
+  $info_box_contents = array();
+  $info_box_contents[] = array('align' => 'left',
+                               'text'  => BOX_HEADING_CUSTOMERS
+                              );
+  new navigationBoxHeading($info_box_contents);
+
+  $info_box_contents = array();
+  $info_box_contents[] = array('align' => 'left',
+                               'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . BOX_CUSTOMERS_CUSTOMERS . '</a><br>' .
+                                          '&nbsp;<a href="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '">' . BOX_CUSTOMERS_ORDERS . '</a>'
+                              );
+  new infoBox($info_box_contents);
+?>
+            </td>
           </tr>
-          <tr>
-            <td bgcolor="<? echo BOX_CONTENT_BACKGROUND_COLOR; ?>" nowrap><font face="<? echo BOX_CONTENT_FONT_FACE; ?>" color="<? echo BOX_CONTENT_FONT_COLOR; ?>" size="<? echo BOX_CONTENT_FONT_SIZE; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . BOX_CUSTOMERS_CUSTOMERS . '</a>'; ?>&nbsp;<br>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '">' . BOX_CUSTOMERS_ORDERS . '</a>'; ?>&nbsp;<br></font></td>
-          </tr>
+<!-- customers_eof //-->

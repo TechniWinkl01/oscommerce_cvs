@@ -38,6 +38,7 @@
 
 // class constructor
     function infoBox($contents) {
+      $this->table_data_parameters = 'nowrap';
       $this->font_style = FONT_STYLE_INFO_BOX_BODY;
 
       $this->tableBox($contents);
