@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Administration Tool Preview Release 2.0
-Last Update: 02/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Administration Tool Preview Release 2.2
+Last Update: 19/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 // look in your $PATH_LOCALE/locale directory for available locales..
@@ -38,16 +38,16 @@ define('DOB_FORMAT_STRING', 'tt/mm/jjjj');
 define('BOX_HEADING_CONFIGURATION', 'Konfiguration');
 
 // modules box text in includes/boxes/modules.php
-define('BOX_HEADING_MODULES', 'Modules');
-define('BOX_MODULES_PAYMENT', 'Payment');
-define('BOX_MODULES_SHIPPING', 'Shipping');
+define('BOX_HEADING_MODULES', 'Module');
+define('BOX_MODULES_PAYMENT', 'Zahlungsweise');
+define('BOX_MODULES_SHIPPING', 'Versandart');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Katalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Produktmerkmale');
 define('BOX_CATALOG_MANUFACTURERS', 'Hersteller');
-define('BOX_CATALOG_REVIEWS', 'Berichte');
+define('BOX_CATALOG_REVIEWS', 'Produktbewertungen');
 define('BOX_CATALOG_SPECIALS', 'Sonderangebote');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'erwartete Artikel');
 
@@ -59,7 +59,7 @@ define('BOX_CUSTOMERS_ORDERS', 'Bestellungen');
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Land / Steuer');
 define('BOX_TAXES_COUNTRIES', 'Land');
-define('BOX_TAXES_ZONES', 'Zonen');
+define('BOX_TAXES_ZONES', 'Bundesländer');
 define('BOX_TAXES_TAX_CLASSES', 'Steuerklassen');
 define('BOX_TAXES_TAX_RATES', 'Steuers&auml;tze');
 
@@ -75,7 +75,7 @@ define('BOX_TOOLS_BACKUP', 'Datensicherung');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'Lokalisation');
+define('BOX_HEADING_LOCALIZATION', 'Sprachen / Währungen');
 define('BOX_LOCALIZATION_CURRENCIES', 'W&auml;hrungen');
 define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 
@@ -112,7 +112,7 @@ define('JS_PRODUCTS_QUANTITY', '* Sie müssen dem neuen Artikel eine verfügbare A
 define('JS_PRODUCTS_MODEL', '* Sie müssen dem neuen Artikel eine Modellvariante zuordnen\n');
 define('JS_PRODUCTS_IMAGE', '* Sie müssen dem Artikel ein Bild zuordnen\n');
 
-define('JS_PRODUCTS_EXPECTED_NAME', '* Der \'Product\'-Eintrag muss ausgefüllt werden\n');
+define('JS_PRODUCTS_EXPECTED_NAME', '* Der \'Produkt\'-Eintrag muss ausgefüllt werden\n');
 define('JS_PRODUCTS_EXPECTED_DATE', '* Das Datum des Eintreffens muss in diesem Format sein : xx/xx/xxxx (Tag/Monat/Jahr).\n');
 
 define('JS_SPECIALS_PRODUCTS_PRICE', '* Es muss ein neuer Preis für diesen Artikel festgelegt werden\n');
@@ -176,47 +176,48 @@ define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">erforderlich</
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // images
-define('IMAGE_BACK', 'Zur&uuml;ck');
+define('IMAGE_BACK', 'Zurück');
 define('IMAGE_CANCEL', 'Abbruch');
-define('IMAGE_CONFIRM', 'Best&auml;tigen');
+define('IMAGE_CONFIRM', 'Bestätigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
-define('IMAGE_DELETE', 'L&ouml;schen');
+define('IMAGE_DELETE', 'Löschen');
 define('IMAGE_EDIT', 'Editieren');
-define('IMAGE_INSERT', 'Einf&uuml;gen');
-define('IMAGE_MODIFY', '&Auml;ndern');
+define('IMAGE_INSERT', 'Einfügen');
+define('IMAGE_MODIFY', 'Ändern');
 define('IMAGE_MOVE', 'Verschieben');
-define('IMAGE_NEW_BANNER', 'Neuer Banner');
-define('IMAGE_NEW_CATEGORY', 'Neue Kategorie');
-define('IMAGE_NEW_LANGUAGE', 'Neue Sprache');
-define('IMAGE_NEW_PRODUCT', 'Neuer Artikel');
-define('IMAGE_NEW_TAX_CLASS', 'Neue Steuer-Klasse');
-define('IMAGE_NEW_ZONE', 'Neue Zone');
-define('IMAGE_NEW_COUNTRY', 'Neue Land');
-define('IMAGE_NEW_CURRENCY', 'Neue Währung');
+define('IMAGE_NEW_BANNER', 'neuen Banner aufnehmen');
+define('IMAGE_NEW_CATEGORY', 'neue Kategorie erstellen');
+define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
+define('IMAGE_NEW_PRODUCT', 'neuen Artikel/Produkt aufnehmen');
+define('IMAGE_NEW_TAX_CLASS', 'neuen Steuer-Klasse erstellen');
+define('IMAGE_NEW_ZONE', 'neues Bundesland einfügen');
+define('IMAGE_NEW_COUNTRY', 'neues Land aufnehmen');
+define('IMAGE_NEW_CURRENCY', 'neue Währung einfügen');
 define('IMAGE_PREVIEW', 'Vorschau');
-define('IMAGE_SAVE', 'Speichern');
-define('IMAGE_SEARCH', 'Suchen');
-define('IMAGE_SELECT', 'Ausw&auml;hlen');
-define('IMAGE_UPDATE', 'Aktualisieren');
+define('IMAGE_SAVE', 'speichern');
+define('IMAGE_SEARCH', 'suchen');
+define('IMAGE_SELECT', 'auswählen');
+define('IMAGE_UPDATE', 'aktualisieren');
 
 define('IMAGE_ICON_INFO', 'Information');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seite:');
 define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Banner)');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Berichten)');
+define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Land)');
+define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
+define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Währungen)');
+define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sonderartikeln)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellungen)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Artikeln)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> erwarteten Artikeln)');
-define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
-define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellungen)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Berichten)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sonderartikeln)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerklassen)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuers&auml;tzen)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Steuerzonen)');
-define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Land)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');
