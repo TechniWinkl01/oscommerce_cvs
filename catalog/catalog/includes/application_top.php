@@ -46,9 +46,6 @@
   }
   define('STORE_DB_TRANSACTIONS', 0);
 
-// enable this under PHP3
-  define('REPAIR_BROKEN_CART', 0);
-
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
@@ -187,16 +184,16 @@
     session_set_cookie_params(0, DIR_WS_CATALOG);
   }
 
-// Fix the cart if necesary
-  if (REPAIR_BROKEN_CART && is_object($cart) ) {
-    $broken_cart = $cart;
-    $cart = new shoppingCart;
-    $cart->unserialize($broken_cart);
-  } else {
-    if (!$cart) {
-      tep_session_register('cart');
+// Create the cart Fix the cart if necesary
+  if (is_object($cart)) {
+    if (gettype($cart->count_contents) == 'integer') {
+      $broken_cart = $cart;
       $cart = new shoppingCart;
+      $cart->unserialize($broken_cart);
     }
+  } else {
+    tep_session_register('cart');
+    $cart = new shoppingCart;
   }
 
 // set the application parameters (can be modified through the administration tool)

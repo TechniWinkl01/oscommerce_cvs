@@ -119,11 +119,7 @@
     }
 
     function count_contents() {
-      $count = 0;
-      for ($i=0; $i<sizeof($this->contents); $i++) {
-        $count++;
-      }
-      return $count;
+      return sizeof($this->contents);
     }
 
     function get_quantity($products_id) {
@@ -274,7 +270,7 @@
         $key=$kv[key]; 
         if (gettype($this->$key)!="user function") 
         $this->$key=$kv[value]; 
-      } 
+      }
     }
 
   }
