@@ -7,7 +7,7 @@
       $this->code = $mInfo_array['code'];
       $this->status = $mInfo_array['status'];
 
-      for ($i=0; $i<sizeof($mInfo_array)-1; $i++) { // minus 1 due to 'code'
+      for ($i=0; $i<sizeof($mInfo_array)-2; $i++) { // minus 2 due to 'code' and 'status'
         $key_value_query = tep_db_query("select configuration_title, configuration_value, configuration_description from " . TABLE_CONFIGURATION . " where configuration_key = '" . $mInfo_array[$i] . "'");
         $key_value = tep_db_fetch_array($key_value_query);
 
