@@ -36,9 +36,9 @@
         $rows = 0;
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $rows ++;
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_enabled) {
+            $rows ++;
             $selection_string .= '              <tr class="payment-odd">' . "\n" .
                                  '                <td colspan="3" class="main" nowrap>&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</td>' . "\n" .
                                  '                <td align="right" class="main" nowrap>&nbsp;<input type="radio" name="payment" value="' . $GLOBALS[$class]->payment_code . '"';
