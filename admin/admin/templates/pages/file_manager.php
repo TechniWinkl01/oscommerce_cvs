@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.1 2004/08/15 18:16:09 hpdl Exp $
+  $Id: file_manager.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,7 +48,7 @@
 <?php
   if ($current_path != OSC_ADMIN_FILE_MANAGER_ROOT_PATH) {
     echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);">' . "\n" .
-         '        <td colspan="8"><a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $goto_array[sizeof($goto_array)-2]['id']) . '">' . tep_image('templates/' . $template . '/images/icons/16x16/previous_level.gif') . '&nbsp;--Parent--</a></td>' . "\n" .
+         '        <td colspan="8"><a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $goto_array[sizeof($goto_array)-2]['id']) . '">' . tep_image('templates/' . $template . '/images/icons/16x16/2uparrow.png', '', '16', '16') . '&nbsp;--Parent--</a></td>' . "\n" .
          '      </tr>' . "\n";
   }
 

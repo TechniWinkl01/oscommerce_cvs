@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.1 2004/08/15 18:13:22 hpdl Exp $
+  $Id: whos_online.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,9 +58,12 @@
 
   while ($Qwho->next()) {
     if (STORE_SESSIONS == 'mysql') {
-      $session_data = tep_db_query("select value from " . TABLE_SESSIONS . " WHERE sesskey = '" . $Qwho->value('session_id') . "'");
-      $session_data = tep_db_fetch_array($session_data);
-      $session_data = trim($session_data['value']);
+      $Qsession = $osC_Database->query('select value from :table_sessions where sesskey = :sesskey');
+      $Qsession->bindTable(':table_sessions', TABLE_SESSIONS);
+      $Qsession->bindValue(':sesskey', $Qwho->value('session_id'));
+      $Qsession->execute();
+
+      $session_data = trim($Qsession->value('value'));
     } else {
       if ( (file_exists(tep_session_save_path() . '/sess_' . $Qwho->value('session_id'))) && (filesize(tep_session_save_path() . '/sess_' . $Qwho->value('session_id')) > 0) ) {
         $session_data = trim(file_get_contents(tep_session_save_path() . '/sess_' . $Qwho->value('session_id')));

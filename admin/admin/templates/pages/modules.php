@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.1 2004/07/22 23:29:31 hpdl Exp $
+  $Id: modules.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,20 +10,10 @@
   Released under the GNU General Public License
 */
 
-  $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
-
-  $directory_array = array();
-  if ($dir = @dir('../includes/modules/' . $module_type)) {
-    while ($file = $dir->read()) {
-      if (!is_dir('../includes/modules/' . $module_type . '/' . $file)) {
-        if (substr($file, strrpos($file, '.')) == $file_extension) {
-          $directory_array[] = $file;
-        }
-      }
-    }
-    sort($directory_array);
-    $dir->close();
-  }
+  require('includes/classes/directory_listing.php');
+  $osC_DirectoryListing = new osC_DirectoryListing('../includes/modules/' . $module_type);
+  $osC_DirectoryListing->setIncludeDirectories(false);
+  $files = $osC_DirectoryListing->getFiles();
 ?>
 
 <h1><?php echo HEADING_TITLE; ?></h1>
@@ -41,18 +31,18 @@
     <tbody>
 <?php
   $installed_modules = array();
-  foreach ($directory_array as $file) {
-    include('../includes/languages/' . $osC_Session->value('language') . '/modules/' . $module_type . '/' . $file);
-    include('../includes/modules/' . $module_type . '/' . $file);
+  foreach ($files as $file) {
+    include('../includes/languages/' . $osC_Session->value('language') . '/modules/' . $module_type . '/' . $file['name']);
+    include('../includes/modules/' . $module_type . '/' . $file['name']);
 
-    $class = substr($file, 0, strrpos($file, '.'));
+    $class = substr($file['name'], 0, strrpos($file['name'], '.'));
     if (class_exists($class)) {
       $module = new $class;
       if ($module->check() > 0) {
         if (($module->sort_order > 0) && !isset($installed_modules[$module->sort_order])) {
-          $installed_modules[$module->sort_order] = $file;
+          $installed_modules[$module->sort_order] = $file['name'];
         } else {
-          $installed_modules[] = $file;
+          $installed_modules[] = $file['name'];
         }
       }
 
@@ -67,14 +57,16 @@
 
         $keys_extra = array();
         foreach ($module_keys as $key) {
-          $key_value_query = tep_db_query("select configuration_title, configuration_value, configuration_description, use_function, set_function from " . TABLE_CONFIGURATION . " where configuration_key = '" . $key . "'");
-          $key_value = tep_db_fetch_array($key_value_query);
+          $Qkeys = $osC_Database->query('select configuration_title, configuration_value, configuration_description, use_function, set_function from :table_configuration where configuration_key = :configuration_key');
+          $Qkeys->bindTable(':table_configuration', TABLE_CONFIGURATION);
+          $Qkeys->bindValue(':configuration_key', $key);
+          $Qkeys->execute();
 
-          $keys_extra[$key]['title'] = $key_value['configuration_title'];
-          $keys_extra[$key]['value'] = $key_value['configuration_value'];
-          $keys_extra[$key]['description'] = $key_value['configuration_description'];
-          $keys_extra[$key]['use_function'] = $key_value['use_function'];
-          $keys_extra[$key]['set_function'] = $key_value['set_function'];
+          $keys_extra[$key]['title'] = $Qkeys->value('configuration_title');
+          $keys_extra[$key]['value'] = $Qkeys->value('configuration_value');
+          $keys_extra[$key]['description'] = $Qkeys->value('configuration_description');
+          $keys_extra[$key]['use_function'] = $Qkeys->value('use_function');
+          $keys_extra[$key]['set_function'] = $Qkeys->value('set_function');
         }
 
         $module_info['keys'] = $keys_extra;

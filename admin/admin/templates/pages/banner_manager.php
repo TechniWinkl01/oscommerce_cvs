@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.1 2004/08/15 18:18:34 hpdl Exp $
+  $Id: banner_manager.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -66,12 +66,18 @@
       echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $Qbanners->valueInt('banners_id')) . '\';">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_POPUP_IMAGE, 'banner=' . $Qbanners->valueInt('banners_id')) . '" target="_blank">' . tep_image('templates/' . $template . '/images/icons/16x16/windows.png', 'View Banner', '16', '16') . '&nbsp;' . $Qbanners->valueProtected('banners_title') . '</a>'; ?></td>
+        <td><?php echo $Qbanners->valueProtected('banners_title'); ?></td>
         <td><?php echo $Qbanners->valueProtected('banners_group'); ?></td>
         <td><?php echo $Qstats->valueInt('banners_shown') . ' / ' . $Qstats->valueInt('banners_clicked'); ?></td>
         <td align="center"><?php echo tep_image('templates/' . $template . '/images/icons/' . (($Qbanners->valueInt('status') === 1) ? 'checkbox_ticked.gif' : 'checkbox_crossed.gif')); ?></td>
         <td align="right">
 <?php
+    if (isset($bInfo) && ($Qbanners->valueInt('banners_id') == $bInfo->banners_id)) {
+      echo '<a href="#" onClick="toggleInfoBox(\'bPreview\');">' . tep_image('templates/' . $template . '/images/icons/16x16/windows.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;';
+    } else {
+      echo '<a href="' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $Qbanners->valueInt('banners_id') . '&action=bPreview') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/windows.png', IMAGE_EDIT, '16', '16') . '</a>&nbsp;';
+    }
+
     echo '<a href="#" onClick="document.location.href=\'' . tep_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $Qbanners->valueInt('banners_id') . '&action=statistics') . '\';">' . tep_image('templates/' . $template . '/images/icons/16x16/graph.png', ICON_STATISTICS, '16', '16') . '</a>&nbsp;';
 
     if (isset($bInfo) && ($Qbanners->valueInt('banners_id') == $bInfo->banners_id)) {
@@ -157,6 +163,22 @@
 <?php
   if (isset($bInfo)) {
 ?>
+
+<div id="infoBox_bPreview" <?php if ($action != 'bPreview') { echo 'style="display: none;"'; } ?>>
+  <div class="infoBoxHeading"><?php echo tep_image('templates/' . $template . '/images/icons/16x16/trash.png', IMAGE_DELETE, '16', '16') . ' ' . $bInfo->banners_title; ?></div>
+  <div class="infoBoxContent">
+
+<?php
+    if (!empty($bInfo->banners_html_text)) {
+      echo $bInfo->banners_html_text;
+    } else {
+      echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $bInfo->banners_image, $bInfo->banners_title);
+    }
+?>
+
+    <p align="center"><?php echo '<input type="button" value="' . IMAGE_BACK . '" onClick="toggleInfoBox(\'bDefault\');" class="operationButton">'; ?></p>
+  </div>
+</div>
 
 <div id="infoBox_bDelete" <?php if ($action != 'bDelete') { echo 'style="display: none;"'; } ?>>
   <div class="infoBoxHeading"><?php echo tep_image('templates/' . $template . '/images/icons/16x16/trash.png', IMAGE_DELETE, '16', '16') . ' ' . $bInfo->banners_title; ?></div>

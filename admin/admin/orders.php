@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.115 2004/07/22 23:29:47 hpdl Exp $
+  $Id: orders.php,v 1.116 2004/08/25 19:57:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,11 +23,15 @@
 
   $orders_statuses = array();
   $orders_status_array = array();
-  $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '" . (int)$languages_id . "'");
-  while ($orders_status = tep_db_fetch_array($orders_status_query)) {
-    $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
-                               'text' => $orders_status['orders_status_name']);
-    $orders_status_array[$orders_status['orders_status_id']] = $orders_status['orders_status_name'];
+  $Qstatuses = $osC_Database->query('select orders_status_id, orders_status_name from :table_orders_status where language_id = :language_id');
+  $Qstatuses->bindTable(':table_orders_status', TABLE_ORDERS_STATUS);
+  $Qstatuses->bindInt(':language_id', $osC_Session->value('languages_id'));
+  $Qstatuses->execute();
+
+  while ($Qstatuses->next()) {
+    $orders_statuses[] = array('id' => $Qstatuses->valueInt('orders_status_id'),
+                               'text' => $Qstatuses->value('orders_status_name'));
+    $orders_status_array[$Qstatuses->valueInt('orders_status_id')] = $Qstatuses->value('orders_status_name');
   }
 
   if (!empty($action)) {
