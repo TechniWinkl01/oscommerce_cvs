@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.46 2002/06/11 16:30:21 dgw_ Exp $
+  $Id: products_attributes.php,v 1.47 2002/10/15 15:12:35 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -560,7 +560,7 @@ function go_option() {
             <td colspan="7" class="smallText">
 <?php
   $per_page = MAX_ROW_LISTS_OPTIONS;
-  $attributes = ("select * from " . TABLE_PRODUCTS_ATTRIBUTES . " order by products_attributes_id");
+  $attributes = "select pa.* from " . TABLE_PRODUCTS_ATTRIBUTES . " pa left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on pa.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by pd.products_name";
   if (!$attribute_page) {
     $attribute_page = 1;
   }
