@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.17 2002/03/16 03:14:38 hpdl Exp $
+  $Id: backup.php,v 1.18 2002/03/16 21:30:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,6 +39,7 @@ define('TEXT_FORGET', '(<u> vergessen</u>)');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Sicherungsverzeichnis ist nicht vorhanden.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Sicherungsverzeichnis ist schreibgesch&uuml;tzt.');
+define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error: Download link not acceptable.');
 
 define('SUCCESS_LAST_RESTORE_CLEARED', 'Success: The last restoration date has been cleared.');
 define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');
