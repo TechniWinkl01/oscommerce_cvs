@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.20 2002/01/05 05:32:57 hpdl Exp $
+  $Id: categories.php,v 1.21 2002/01/09 10:22:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,6 +44,14 @@ define('TEXT_EDIT_SORT_ORDER', 'Sort Order:');
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Please choose a new category you wish to copy this product to');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Current Categories:');
+
+define('TEXT_INFO_HEADING_NEW_CATEGORY', 'New Category');
+define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Edit Category');
+define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Delete Category');
+define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Move Category');
+define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Delete Product');
+define('TEXT_INFO_HEADING_MOVE_PRODUCT', 'Move Product');
+define('TEXT_INFO_HEADING_COPY_TO', 'Copy To');
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Are you sure you want to delete this category?');
 define('TEXT_DELETE_PRODUCT_INTRO', 'Are you sure you want to permanently delete this product?');
