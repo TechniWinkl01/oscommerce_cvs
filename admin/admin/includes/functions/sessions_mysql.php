@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions_mysql.php,v 1.6 2001/09/30 16:22:15 mbs Exp $
+  $Id: sessions_mysql.php,v 1.7 2001/12/28 13:57:35 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -40,8 +40,8 @@
     $qry = "SELECT value FROM " . TABLE_SESSIONS . " WHERE sesskey = '$key' AND expiry > " . time();
     $qid = tep_db_query($qry);
 
-    if (list($value) = tep_db_fetch_array($qid)) {
-      return $value;
+    if ($value = tep_db_fetch_array($qid)) {
+      return $value['value'];
     }
 
     return false;
@@ -55,9 +55,9 @@
 
     $qry = "SELECT count(*) as total FROM " . TABLE_SESSIONS . " WHERE sesskey = '$key'";
     $qid = tep_db_query($qry);
-    list($total) = tep_db_fetch_array($qid);
+    $total = tep_db_fetch_array($qid);
 
-    if ($total > 0) {
+    if ($total['total'] > 0) {
       $qry = "UPDATE " . TABLE_SESSIONS . " SET expiry = $expiry, value = '$value' WHERE sesskey = '$key'";
     } else {
       $qry = "INSERT INTO " . TABLE_SESSIONS . " VALUES ('$key', $expiry, '$value')";
