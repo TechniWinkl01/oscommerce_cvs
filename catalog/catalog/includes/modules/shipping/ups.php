@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.47 2002/12/09 19:07:17 dgw_ Exp $
+  $Id: ups.php,v 1.48 2003/01/06 15:52:55 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,6 +33,7 @@
                            '2DA' => '2nd Day Air',
                            '2DAL' => '2nd Day Air Letter',
                            '3DS' => '3 Day Select',
+                           'GND' => 'Ground',
                            'GNDCOM' => 'Ground Commercial',
                            'GNDRES' => 'Ground Residential',
                            'STD' => 'Canada Standard',
@@ -74,7 +75,6 @@
         $qsize = sizeof($upsQuote);
         for ($i=0; $i<$qsize; $i++) {
           list($type, $cost) = each($upsQuote[$i]);
-
           $methods[] = array('id' => $type,
                              'title' => $this->types[$type],
                              'cost' => (SHIPPING_HANDLING + $cost) * $shipping_num_boxes);
@@ -83,7 +83,7 @@
         $this->quotes['methods'] = $methods;
       } else {
         $this->quotes = array('module' => $this->title,
-                              'error' => 'An error occured with the UPS shipping calculations.<br>If you prefer to use UPS as your shipping method, please contact the store owner.');
+                              'error' => 'An error occured with the UPS shipping calculations.<br>' . $upsQuote . '<br>If you prefer to use UPS as your shipping method, please contact the store owner.');
       }
 
       if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);
@@ -107,7 +107,15 @@
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
+      $keys = '';
+      $keys_array = $this->keys();
+      $keys_size = sizeof($keys_array);
+      for ($i=0; $i<$keys_size; $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
@@ -214,7 +222,6 @@
                                  '47_rate_chart=' . $this->_upsRateCode,
                                  '48_container=' . $this->_upsContainerCode,
                                  '49_residential=' . $this->_upsResComCode));
-
       $http = new httpClient();
       if ($http->Connect('www.ups.com', 80)) {
         $http->addHeader('Host', 'www.ups.com');
@@ -231,6 +238,7 @@
       $body_array = explode("\n", $body);
 
       $returnval = array();
+      $errorret = 'error'; // only return error if NO rates returned
 
       $n = sizeof($body_array);
       for ($i=0; $i<$n; $i++) {
@@ -244,15 +252,14 @@
             if (is_array($returnval)) $returnval[] = array($result[1] => $result[8]);
             break;
           case 5:
-            $returnval = $result[1];
+            $errorret = $result[1];
             break;
           case 6:
-            $returnval = $result[1];
+            $errorret = $result[1];
             break;
         }
       }
-
-      if (empty($returnval)) $returnval = 'error';
+      if (empty($returnval)) $returnval = $errorret;
 
       return $returnval;
     }
