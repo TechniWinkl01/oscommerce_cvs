@@ -1,13 +1,12 @@
 <?php
 /*
-  $Id: download.php,v 1.1 2002/02/02 16:32:08 clescuyer Exp $
+  $Id: download.php,v 1.2 2002/11/19 01:48:08 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2002 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
-
 ?>

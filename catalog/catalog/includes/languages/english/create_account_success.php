@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: create_account_success.php,v 1.8 2002/01/01 18:58:33 dgw_ Exp $
+  $Id: create_account_success.php,v 1.9 2002/11/19 01:48:08 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

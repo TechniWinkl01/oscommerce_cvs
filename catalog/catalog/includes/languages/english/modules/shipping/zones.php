@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: zones.php,v 1.2 2001/10/15 07:07:45 mabosch Exp $
+  $Id: zones.php,v 1.3 2002/11/19 01:48:08 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
