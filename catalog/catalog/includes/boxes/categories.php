@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.25 2003/07/09 01:13:58 hpdl Exp $
+  $Id: categories.php,v 1.26 2003/11/17 19:46:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,7 +70,7 @@
   $categories_string = '';
   $tree = array();
 
-  $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '0' and c.categories_id = cd.categories_id and cd.language_id='" . (int)$languages_id ."' order by sort_order, cd.categories_name");
+  $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '0' and c.categories_id = cd.categories_id and cd.language_id='" . (int)$osC_Session->value('languages_id') ."' order by sort_order, cd.categories_name");
   while ($categories = tep_db_fetch_array($categories_query))  {
     $tree[$categories['categories_id']] = array('name' => $categories['categories_name'],
                                                 'parent' => $categories['parent_id'],
@@ -96,7 +96,7 @@
     while (list($key, $value) = each($cPath_array)) {
       unset($parent_id);
       unset($first_id);
-      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . (int)$value . "' and c.categories_id = cd.categories_id and cd.language_id='" . (int)$languages_id ."' order by sort_order, cd.categories_name");
+      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . (int)$value . "' and c.categories_id = cd.categories_id and cd.language_id='" . (int)$osC_Session->value('languages_id') ."' order by sort_order, cd.categories_name");
       if (tep_db_num_rows($categories_query)) {
         $new_path .= $value;
         while ($row = tep_db_fetch_array($categories_query)) {
@@ -126,7 +126,7 @@
       }
     }
   }
-  tep_show_category($first_element); 
+  tep_show_category($first_element);
 
   $info_box_contents = array();
   $info_box_contents[] = array('text' => $categories_string);
