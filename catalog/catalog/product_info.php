@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.79 2002/03/10 22:39:17 harley_vb Exp $
+  $Id: product_info.php,v 1.80 2002/03/31 12:12:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -116,7 +116,7 @@ function popupImageWindow(url) {
         $products_options = tep_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pa.options_id = '" . $products_options_name_values['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . $languages_id . "'");
         echo '<tr><td class="main">' . $products_options_name_values['products_options_name'] . ':</td><td>' . "\n" . '<select name ="id[' . $products_options_name_values['products_options_id'] . ']">' . "\n"; 
         while ($products_options_values = tep_db_fetch_array($products_options)) {
-          echo "\n" . '<option name="' . $products_options_name_values['products_options_name'] . '" value="' . $products_options_values['products_options_values_id'] . '"';
+          echo "\n" . '<option value="' . $products_options_values['products_options_values_id'] . '"';
           if ( ($products_options_values['options_values_price'] == 0 && $selected == 0) || ($cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name_values['products_options_id']] == $products_options_values['products_options_values_id'])) {
             $selected = 1;
             echo ' SELECTED';
