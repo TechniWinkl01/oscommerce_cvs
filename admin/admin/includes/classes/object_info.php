@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: object_info.php,v 1.3 2002/01/29 18:00:28 hpdl Exp $
+  $Id: object_info.php,v 1.4 2002/01/29 20:08:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,13 +15,7 @@
 // class constructor
     function objectInfo($object_array) {
       while (list($key, $value) = each($object_array)) {
-        if (is_array($value)) {
-          $this->$key = $value;
-        } elseif (is_int($value)) {
-          $this->$key = $value;
-        } else {
-          $this->$key = tep_db_prepare_input($value);
-        }
+        $this->$key = tep_db_prepare_input($value);
       }
     }
   }
