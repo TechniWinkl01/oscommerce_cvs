@@ -10,7 +10,7 @@
     $HTTP_COOKIE_VARS = array();
   }
 
-// handle magic_quotes_gpc turned off.
+// handle magic_quotes_gpc turned off.
   if (!get_magic_quotes_gpc()) { 
     if (is_array($HTTP_GET_VARS)) {
       while (list($var, $val) = each($HTTP_GET_VARS)) {
