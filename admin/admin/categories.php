@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.94 2001/12/30 03:42:35 hpdl Exp $
+  $Id: categories.php,v 1.95 2001/12/30 03:51:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -238,7 +238,7 @@
     }
   }
 
-// check if the product image directory exists
+// check if the catalog image directory exists
   $error = array();
   if (is_dir(DIR_FS_CATALOG_IMAGES)) {
     if (!is_writeable(DIR_FS_CATALOG_IMAGES)) $error[] = array('text' => ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE);

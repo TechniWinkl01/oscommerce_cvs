@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.90 2001/12/30 02:26:37 hpdl Exp $
+  $Id: general.php,v 1.91 2001/12/30 03:51:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -786,6 +786,12 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   }
 
   function tep_remove_category($category_id) {
+    $category_image_query = tep_db_query("select categories_image from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
+    $category_image = tep_db_fetch_array($category_image_query);
+    if (file_exists(DIR_FS_CATALOG_IMAGES . $category_image['categories_image'])) {
+      @unlink(DIR_FS_CATALOG_IMAGES . $category_image['categories_image']);
+    }
+
     tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
     tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . tep_db_input($category_id) . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
@@ -799,9 +805,10 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   function tep_remove_product($product_id) {
     $product_image_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($product_id) . "'");
     $product_image = tep_db_fetch_array($product_image_query);
-    if (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $product_image['products_image'])) {
-      @unlink(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $product_image['products_image']);
+    if (file_exists(DIR_FS_CATALOG_IMAGES . $product_image['products_image'])) {
+      @unlink(DIR_FS_CATALOG_IMAGES . $product_image['products_image']);
     }
+
     tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . tep_db_input($product_id) . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($product_id) . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($product_id) . "'");
