@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.12 2004/07/22 23:10:14 hpdl Exp $
+  $Id: compatibility.php,v 1.13 2004/08/25 13:11:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -118,6 +118,18 @@
       eval("\$temp=$constant;");
 
       return $temp;
+    }
+  }
+
+  if (!function_exists('posix_getpwuid')) {
+    function posix_getpwuid($id) {
+      return '-?-';
+    }
+  }
+
+  if (!function_exists('posix_getgrgid')) {
+    function posix_getgrgid($id) {
+      return '-?-';
     }
   }
 ?>
