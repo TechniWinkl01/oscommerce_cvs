@@ -72,6 +72,10 @@ define('BOX_SHOPPING_CART_EMPTY', '..nix drin!');
 define('BOX_SHOPPING_CART_SUBTOTAL', 'Zwischensumme:');
 define('BOX_SHOPPING_CART_VIEW_CONTENTS', 'Inhalt sehen');
 
+// best_sellers box text in includes/boxes/best_sellers.php
+define('BOX_HEADING_BESTSELLERS', 'Verkaufsschlager');
+define('BOX_HEADING_BESTSELLERS_IN', 'Verkaufsschlager in<br>&nbsp;&nbsp;');
+
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'einkaufswagen inhalt');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'zustelleradresse');

@@ -120,6 +120,7 @@
   define('BOX_HEADING_FONT_COLOR', '#000000');
   define('BOX_HEADING_FONT_SIZE', '2');
   define('BOX_CONTENT_BACKGROUND_COLOR', '#FFFFFF');
+  define('BOX_CONTENT_HIGHLIGHT_COLOR', '#FFFF33');     // use in best_sellers.php
   define('BOX_CONTENT_FONT_FACE', 'Verdana, Arial');
   define('BOX_CONTENT_FONT_COLOR', '#000000');
   define('BOX_CONTENT_FONT_SIZE', '1');
@@ -211,6 +212,10 @@
 
 // Prodict listing control
   define('PRODUCT_LIST_MODEL', 0); // Make true to display Model # before Product name
+
+// Bestsellers Min/Max Controls 
+  define('MIN_DISPLAY_BESTSELLERS', 1);    // Min no. of bestsellers to display
+  define('MAX_DISPLAY_BESTSELLERS', 10);   // Max no. of bestsellers to display
 
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
