@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.20 2003/07/19 20:27:18 project3000 Exp $
+  $Id: pm2checkout.php,v 1.21 2003/11/17 20:34:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,12 +96,14 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       include(DIR_WS_CLASSES . 'cc_validation.php');
 
       $cc_validation = new cc_validation();
-      $result = $cc_validation->validate($HTTP_POST_VARS['pm_2checkout_cc_number'], $HTTP_POST_VARS['pm_2checkout_cc_expires_month'], $HTTP_POST_VARS['pm_2checkout_cc_expires_year']);
+      $result = $cc_validation->validate($_POST['pm_2checkout_cc_number'], $_POST['pm_2checkout_cc_expires_month'], $_POST['pm_2checkout_cc_expires_year']);
 
       $error = '';
       switch ($result) {
@@ -119,7 +121,7 @@
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&pm_2checkout_cc_owner_firstname=' . urlencode($HTTP_POST_VARS['pm_2checkout_cc_owner_firstname']) . '&pm_2checkout_cc_owner_lastname=' . urlencode($HTTP_POST_VARS['pm_2checkout_cc_owner_lastname']) . '&pm_2checkout_cc_expires_month=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_month'] . '&pm_2checkout_cc_expires_year=' . $HTTP_POST_VARS['pm_2checkout_cc_expires_year'];
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&pm_2checkout_cc_owner_firstname=' . urlencode($_POST['pm_2checkout_cc_owner_firstname']) . '&pm_2checkout_cc_owner_lastname=' . urlencode($_POST['pm_2checkout_cc_owner_lastname']) . '&pm_2checkout_cc_expires_month=' . $_POST['pm_2checkout_cc_expires_month'] . '&pm_2checkout_cc_expires_year=' . $_POST['pm_2checkout_cc_expires_year'];
 
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
@@ -131,31 +133,37 @@
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                             'fields' => array(array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_OWNER,
-                                                    'field' => $HTTP_POST_VARS['pm_2checkout_cc_owner_firstname'] . ' ' . $HTTP_POST_VARS['pm_2checkout_cc_owner_lastname']),
+                                                    'field' => $_POST['pm_2checkout_cc_owner_firstname'] . ' ' . $_POST['pm_2checkout_cc_owner_lastname']),
                                               array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_NUMBER,
                                                     'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                               array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_CREDIT_CARD_EXPIRES,
-                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['pm_2checkout_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['pm_2checkout_cc_expires_year'])))));
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['pm_2checkout_cc_expires_month'], 1, '20' . $_POST['pm_2checkout_cc_expires_year'])))));
 
       return $confirmation;
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $order;
+      global $order;
+
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       $process_button_string = tep_draw_hidden_field('x_login', MODULE_PAYMENT_2CHECKOUT_LOGIN) .
                                tep_draw_hidden_field('x_amount', number_format($order->info['total'], 2)) .
                                tep_draw_hidden_field('x_invoice_num', date('YmdHis')) .
                                tep_draw_hidden_field('x_test_request', ((MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') ? 'Y' : 'N')) .
                                tep_draw_hidden_field('x_card_num', $this->cc_card_number) .
-                               tep_draw_hidden_field('cvv', $HTTP_POST_VARS['pm_2checkout_cc_cvv']) .
+                               tep_draw_hidden_field('cvv', $_POST['pm_2checkout_cc_cvv']) .
                                tep_draw_hidden_field('x_exp_date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
-                               tep_draw_hidden_field('x_first_name', $HTTP_POST_VARS['pm_2checkout_cc_owner_firstname']) .
-                               tep_draw_hidden_field('x_last_name', $HTTP_POST_VARS['pm_2checkout_cc_owner_lastname']) .
+                               tep_draw_hidden_field('x_first_name', $_POST['pm_2checkout_cc_owner_firstname']) .
+                               tep_draw_hidden_field('x_last_name', $_POST['pm_2checkout_cc_owner_lastname']) .
                                tep_draw_hidden_field('x_address', $order->customer['street_address']) .
                                tep_draw_hidden_field('x_city', $order->customer['city']) .
                                tep_draw_hidden_field('x_state', $order->customer['state']) .
@@ -177,9 +185,11 @@
     }
 
     function before_process() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
-      if ($HTTP_POST_VARS['x_response_code'] != '1') {
+      if ($_POST['x_response_code'] != '1') {
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_MESSAGE), 'SSL', true, false));
       }
     }
@@ -189,10 +199,12 @@
     }
 
     function get_error() {
-      global $HTTP_GET_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
 
       $error = array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
+                     'error' => stripslashes(urldecode($_GET['error'])));
 
       return $error;
     }

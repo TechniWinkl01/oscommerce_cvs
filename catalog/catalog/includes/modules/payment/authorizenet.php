@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.48 2003/04/10 21:42:30 project3000 Exp $
+  $Id: authorizenet.php,v 1.49 2003/11/17 20:34:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,7 +34,7 @@
 
 // Authorize.net utility functions
 // DISCLAIMER:
-//     This code is distributed in the hope that it will be useful, but without any warranty; 
+//     This code is distributed in the hope that it will be useful, but without any warranty;
 //     without even the implied warranty of merchantability or fitness for a particular purpose.
 
 // Main Interfaces:
@@ -50,8 +50,8 @@
 
 // Thanks is lance from http://www.php.net/manual/en/function.mhash.php
 //lance_rushing at hot* spamfree *mail dot com
-//27-Nov-2002 09:36 
-// 
+//27-Nov-2002 09:36
+//
 //Want to Create a md5 HMAC, but don't have hmash installed?
 //
 //Use this:
@@ -145,7 +145,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
         $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
       }
 
-      $today = getdate(); 
+      $today = getdate();
       for ($i=$today['year']; $i < $today['year']+10; $i++) {
         $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
       }
@@ -162,12 +162,14 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       include(DIR_WS_CLASSES . 'cc_validation.php');
 
       $cc_validation = new cc_validation();
-      $result = $cc_validation->validate($HTTP_POST_VARS['authorizenet_cc_number'], $HTTP_POST_VARS['authorizenet_cc_expires_month'], $HTTP_POST_VARS['authorizenet_cc_expires_year']);
+      $result = $cc_validation->validate($_POST['authorizenet_cc_number'], $_POST['authorizenet_cc_expires_month'], $_POST['authorizenet_cc_expires_year']);
       $error = '';
       switch ($result) {
         case -1:
@@ -184,7 +186,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($HTTP_POST_VARS['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $HTTP_POST_VARS['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $HTTP_POST_VARS['authorizenet_cc_expires_year'];
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($_POST['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $_POST['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $_POST['authorizenet_cc_expires_year'];
 
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
@@ -196,21 +198,23 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                             'fields' => array(array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_OWNER,
-                                                    'field' => $HTTP_POST_VARS['authorizenet_cc_owner']),
+                                                    'field' => $_POST['authorizenet_cc_owner']),
                                               array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER,
                                                     'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                               array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
-                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['authorizenet_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['authorizenet_cc_expires_year'])))));
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['authorizenet_cc_expires_month'], 1, '20' . $_POST['authorizenet_cc_expires_year'])))));
 
       return $confirmation;
     }
 
     function process_button() {
-      global $HTTP_SERVER_VARS, $order, $customer_id;
+      global $osC_Session, $osC_Customer, $order;
 
       $sequence = rand(1, 1000);
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
@@ -220,7 +224,7 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
                                tep_draw_hidden_field('x_Relay_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
                                tep_draw_hidden_field('x_Method', ((MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') ? 'CC' : 'ECHECK')) .
                                tep_draw_hidden_field('x_Version', '3.0') .
-                               tep_draw_hidden_field('x_Cust_ID', $customer_id) .
+                               tep_draw_hidden_field('x_Cust_ID', $osC_Customer->id) .
                                tep_draw_hidden_field('x_Email_Customer', ((MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER == 'True') ? 'TRUE': 'FALSE')) .
                                tep_draw_hidden_field('x_first_name', $order->billing['firstname']) .
                                tep_draw_hidden_field('x_last_name', $order->billing['lastname']) .
@@ -238,20 +242,22 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
                                tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
                                tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
                                tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']['title']) .
-                               tep_draw_hidden_field('x_Customer_IP', $HTTP_SERVER_VARS['REMOTE_ADDR']) .
+                               tep_draw_hidden_field('x_Customer_IP', tep_get_ip_address()) .
                                $this->InsertFP(MODULE_PAYMENT_AUTHORIZENET_LOGIN, MODULE_PAYMENT_AUTHORIZENET_TXNKEY, number_format($order->info['total'], 2), $sequence);
       if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == 'Test') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
 
-      $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
+      $process_button_string .= tep_draw_hidden_field($osC_Session->name, $osC_Session->id);
 
       return $process_button_string;
     }
 
     function before_process() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
-      if ($HTTP_POST_VARS['x_response_code'] == '1') return;
-      if ($HTTP_POST_VARS['x_response_code'] == '2') {
+      if ($_POST['x_response_code'] == '1') return;
+      if ($_POST['x_response_code'] == '2') {
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_DECLINED_MESSAGE), 'SSL', true, false));
       }
       // Code 3 is an error - but anything else is an error too (IMHO)
@@ -263,10 +269,12 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
     }
 
     function get_error() {
-      global $HTTP_GET_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
 
       $error = array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
+                     'error' => stripslashes(urldecode($_GET['error'])));
 
       return $error;
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.53 2003/02/04 09:55:01 project3000 Exp $
+  $Id: cc.php,v 1.54 2003/11/17 20:34:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,12 +95,14 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       include(DIR_WS_CLASSES . 'cc_validation.php');
 
       $cc_validation = new cc_validation();
-      $result = $cc_validation->validate($HTTP_POST_VARS['cc_number'], $HTTP_POST_VARS['cc_expires_month'], $HTTP_POST_VARS['cc_expires_year']);
+      $result = $cc_validation->validate($_POST['cc_number'], $_POST['cc_expires_month'], $_POST['cc_expires_year']);
 
       $error = '';
       switch ($result) {
@@ -118,7 +120,7 @@
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']) . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'];
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&cc_owner=' . urlencode($_POST['cc_owner']) . '&cc_expires_month=' . $_POST['cc_expires_month'] . '&cc_expires_year=' . $_POST['cc_expires_year'];
 
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
@@ -128,24 +130,28 @@
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                             'fields' => array(array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER,
-                                                    'field' => $HTTP_POST_VARS['cc_owner']),
+                                                    'field' => $_POST['cc_owner']),
                                               array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER,
                                                     'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                               array('title' => MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES,
-                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])))));
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['cc_expires_month'], 1, '20' . $_POST['cc_expires_year'])))));
 
       return $confirmation;
     }
 
     function process_button() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
-      $process_button_string = tep_draw_hidden_field('cc_owner', $HTTP_POST_VARS['cc_owner']) .
-                               tep_draw_hidden_field('cc_expires', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
+      $process_button_string = tep_draw_hidden_field('cc_owner', $_POST['cc_owner']) .
+                               tep_draw_hidden_field('cc_expires', $_POST['cc_expires_month'] . $_POST['cc_expires_year']) .
                                tep_draw_hidden_field('cc_type', $this->cc_card_type) .
                                tep_draw_hidden_field('cc_number', $this->cc_card_number);
 
@@ -153,13 +159,17 @@
     }
 
     function before_process() {
-      global $HTTP_POST_VARS, $order;
+      global $order;
+
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (tep_validate_email(MODULE_PAYMENT_CC_EMAIL)) ) {
-        $len = strlen($HTTP_POST_VARS['cc_number']);
+        $len = strlen($_POST['cc_number']);
 
-        $this->cc_middle = substr($HTTP_POST_VARS['cc_number'], 4, ($len-8));
-        $order->info['cc_number'] = substr($HTTP_POST_VARS['cc_number'], 0, 4) . str_repeat('X', (strlen($HTTP_POST_VARS['cc_number']) - 8)) . substr($HTTP_POST_VARS['cc_number'], -4);
+        $this->cc_middle = substr($_POST['cc_number'], 4, ($len-8));
+        $order->info['cc_number'] = substr($_POST['cc_number'], 0, 4) . str_repeat('X', (strlen($_POST['cc_number']) - 8)) . substr($_POST['cc_number'], -4);
       }
     }
 
@@ -174,10 +184,12 @@
     }
 
     function get_error() {
-      global $HTTP_GET_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
 
       $error = array('title' => MODULE_PAYMENT_CC_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
+                     'error' => stripslashes(urldecode($_GET['error'])));
 
       return $error;
     }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.39 2003/01/29 19:57:15 hpdl Exp $
+  $Id: paypal.php,v 1.40 2003/11/17 20:34:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,10 +73,10 @@
     }
 
     function process_button() {
-      global $order, $currencies, $currency;
+      global $osC_Session, $order, $currencies;
 
       if (MODULE_PAYMENT_PAYPAL_CURRENCY == 'Selected Currency') {
-        $my_currency = $currency;
+        $my_currency = $osC_Session->value('currency');
       } else {
         $my_currency = substr(MODULE_PAYMENT_PAYPAL_CURRENCY, 5);
       }

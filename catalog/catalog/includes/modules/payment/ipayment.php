@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.33 2003/07/19 20:27:18 project3000 Exp $
+  $Id: ipayment.php,v 1.34 2003/11/17 20:34:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,12 +99,14 @@
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       include(DIR_WS_CLASSES . 'cc_validation.php');
 
       $cc_validation = new cc_validation();
-      $result = $cc_validation->validate($HTTP_POST_VARS['ipayment_cc_number'], $HTTP_POST_VARS['ipayment_cc_expires_month'], $HTTP_POST_VARS['ipayment_cc_expires_year']);
+      $result = $cc_validation->validate($_POST['ipayment_cc_number'], $_POST['ipayment_cc_expires_month'], $_POST['ipayment_cc_expires_year']);
 
       $error = '';
       switch ($result) {
@@ -122,7 +124,7 @@
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&ipayment_cc_owner=' . urlencode($HTTP_POST_VARS['ipayment_cc_owner']) . '&ipayment_cc_expires_month=' . $HTTP_POST_VARS['ipayment_cc_expires_month'] . '&ipayment_cc_expires_year=' . $HTTP_POST_VARS['ipayment_cc_expires_year'] . '&ipayment_cc_checkcode=' . $HTTP_POST_VARS['ipayment_cc_checkcode'];
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']) . '&ipayment_cc_expires_month=' . $_POST['ipayment_cc_expires_month'] . '&ipayment_cc_expires_year=' . $_POST['ipayment_cc_expires_year'] . '&ipayment_cc_checkcode=' . $_POST['ipayment_cc_checkcode'];
 
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
       }
@@ -134,26 +136,32 @@
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                             'fields' => array(array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_OWNER,
-                                                    'field' => $HTTP_POST_VARS['ipayment_cc_owner']),
+                                                    'field' => $_POST['ipayment_cc_owner']),
                                               array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_NUMBER,
                                                     'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                               array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_EXPIRES,
-                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['ipayment_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['ipayment_cc_expires_year'])))));
+                                                    'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['ipayment_cc_expires_month'], 1, '20' . $_POST['ipayment_cc_expires_year'])))));
 
-      if (tep_not_null($HTTP_POST_VARS['ipayment_cc_checkcode'])) {
+      if (tep_not_null($_POST['ipayment_cc_checkcode'])) {
         $confirmation['fields'][] = array('title' => MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER,
-                                          'field' => $HTTP_POST_VARS['ipayment_cc_checkcode']);
+                                          'field' => $_POST['ipayment_cc_checkcode']);
       }
 
       return $confirmation;
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $order, $currencies, $currency;
+      global $osC_Session, $order, $currencies;
+
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       switch (MODULE_PAYMENT_IPAYMENT_CURRENCY) {
         case 'Always EUR':
@@ -163,15 +171,15 @@
           $trx_currency = 'USD';
           break;
         case 'Either EUR or USD, else EUR':
-          if ( ($currency == 'EUR') || ($currency == 'USD') ) {
-            $trx_currency = $currency;
+          if ( ($osC_Session->value('currency') == 'EUR') || ($osC_Session->value('currency') == 'USD') ) {
+            $trx_currency = $osC_Session->value('currency');
           } else {
             $trx_currency = 'EUR';
           }
           break;
         case 'Either EUR or USD, else USD':
-          if ( ($currency == 'EUR') || ($currency == 'USD') ) {
-            $trx_currency = $currency;
+          if ( ($osC_Session->value('currency') == 'EUR') || ($osC_Session->value('currency') == 'USD') ) {
+            $trx_currency = $osC_Session->value('currency');
           } else {
             $trx_currency = 'USD';
           }
@@ -185,14 +193,14 @@
                                tep_draw_hidden_field('item_name', STORE_NAME) .
                                tep_draw_hidden_field('trx_currency', $trx_currency) .
                                tep_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $currencies->get_value($trx_currency), 0, '','')) .
-                               tep_draw_hidden_field('cc_expdate_month', $HTTP_POST_VARS['ipayment_cc_expires_month']) .
-                               tep_draw_hidden_field('cc_expdate_year', $HTTP_POST_VARS['ipayment_cc_expires_year']) .
-                               tep_draw_hidden_field('cc_number', $HTTP_POST_VARS['ipayment_cc_number']) .
-                               tep_draw_hidden_field('cc_checkcode', $HTTP_POST_VARS['ipayment_cc_checkcode']) .
-                               tep_draw_hidden_field('addr_name', $HTTP_POST_VARS['ipayment_cc_owner']) .
+                               tep_draw_hidden_field('cc_expdate_month', $_POST'ipayment_cc_expires_month']) .
+                               tep_draw_hidden_field('cc_expdate_year', $_POST['ipayment_cc_expires_year']) .
+                               tep_draw_hidden_field('cc_number', $_POST['ipayment_cc_number']) .
+                               tep_draw_hidden_field('cc_checkcode', $_POST['ipayment_cc_checkcode']) .
+                               tep_draw_hidden_field('addr_name', $_POST['ipayment_cc_owner']) .
                                tep_draw_hidden_field('addr_email', $order->customer['email_address']) .
                                tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
-                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . '&ipayment_cc_owner=' . urlencode($HTTP_POST_VARS['ipayment_cc_owner']), 'SSL', true));
+                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . '&ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']), 'SSL', true));
 
       return $process_button_string;
     }
@@ -206,10 +214,12 @@
     }
 
     function get_error() {
-      global $HTTP_GET_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
 
       $error = array('title' => IPAYMENT_ERROR_HEADING,
-                     'error' => ((isset($HTTP_GET_VARS['error'])) ? stripslashes(urldecode($HTTP_GET_VARS['error'])) : IPAYMENT_ERROR_MESSAGE));
+                     'error' => ((isset($_GET['error'])) ? stripslashes(urldecode($_GET['error'])) : IPAYMENT_ERROR_MESSAGE));
 
       return $error;
     }

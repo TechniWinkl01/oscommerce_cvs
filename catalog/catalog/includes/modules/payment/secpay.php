@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.31 2003/01/29 19:57:15 hpdl Exp $
+  $Id: secpay.php,v 1.32 2003/11/17 20:34:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,7 @@
     }
 
     function process_button() {
-      global $order, $currencies, $currency;
+      global $osC_Session, $order, $currencies;
 
       switch (MODULE_PAYMENT_SECPAY_CURRENCY) {
         case 'Default Currency':
@@ -81,7 +81,7 @@
           break;
         case 'Any Currency':
         default:
-          $sec_currency = $currency;
+          $sec_currency = $osC_Session->value('currency');
           break;
       }
 
@@ -119,25 +119,29 @@
                                tep_draw_hidden_field('ship_country', $order->delivery['country']['title']) .
                                tep_draw_hidden_field('currency', $sec_currency) .
                                tep_draw_hidden_field('callback', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false) . ';' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'SSL', false)) .
-                               tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
-                               tep_draw_hidden_field('options', 'test_status=' . $test_status . ',dups=false,cb_post=true,cb_flds=' . tep_session_name());
+                               tep_draw_hidden_field($osC_Session->name, $osC_Session->id) .
+                               tep_draw_hidden_field('options', 'test_status=' . $test_status . ',dups=false,cb_post=true,cb_flds=' . $osC_Session->name);
 
       return $process_button_string;
     }
 
     function before_process() {
-      global $HTTP_POST_VARS;
+      global $osC_Session;
 
-      if ($HTTP_POST_VARS['valid'] == 'true') {
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
+
+      if ($_POST['valid'] == 'true') {
         if ($remote_host = getenv('REMOTE_HOST')) {
           if ($remote_host != 'secpay.com') {
             $remote_host = gethostbyaddr($remote_host);
           }
           if ($remote_host != 'secpay.com') {
-            tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS[tep_session_name()] . '&payment_error=' . $this->code, 'SSL', false, false));
+            tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $osC_Session->name . '=' . $_POST[$osC_Session->name] . '&payment_error=' . $this->code, 'SSL', false, false));
           }
         } else {
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS[tep_session_name()] . '&payment_error=' . $this->code, 'SSL', false, false));
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $osC_Session->name . '=' . $_POST[$osC_Session->name] . '&payment_error=' . $this->code, 'SSL', false, false));
         }
       }
     }
@@ -147,10 +151,12 @@
     }
 
     function get_error() {
-      global $HTTP_GET_VARS;
+      if (PHP_VERSION < 4.1) {
+        global $_GET;
+      }
 
-      if (isset($HTTP_GET_VARS['message']) && (strlen($HTTP_GET_VARS['message']) > 0)) {
-        $error = stripslashes(urldecode($HTTP_GET_VARS['message']));
+      if (isset($_GET['message']) && (strlen($_GET['message']) > 0)) {
+        $error = stripslashes(urldecode($_GET['message']));
       } else {
         $error = MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE;
       }
