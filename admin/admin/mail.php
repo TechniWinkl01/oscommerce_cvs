@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.14 2001/09/19 11:51:57 mbs Exp $
+  $Id: mail.php,v 1.15 2001/11/10 17:55:56 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,20 +12,17 @@
 
   require('includes/application_top.php');
 
-  if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($customers_email_address != "") ) {
-    if ($from=="") {
-      $from = TEXT_EMAILFROM;
-    }
-    if ($customers_email_address=="***") {
+  if ( ($HTTP_POST_VARS['action'] == 'send_email_to_user') && ($HTTP_POST_VARS['customers_email_address']) ) {
+    if ($HTTP_POST_VARS['customers_email_address'] == '***') {
       $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS);
       $mail_sent_to = TEXT_ALLCUSTOMERS;
     } elseif ($customers_email_address=="**D") {
       $mail_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_newsletter='1'");
       $mail_sent_to = TEXT_NEWSLETTERCUSTOMERS;
     } else {
-      $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $customers_email_address . "'";
+      $mail_query_raw = "select customers_email_address, customers_lastname, customers_firstname from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['customers_email_address'] . "'";
       $mail_query = tep_db_query($mail_query_raw);
-      $mail_sent_to = $customers_email_address;
+      $mail_sent_to = $HTTP_POST_VARS['customers_email_address'];
     }
     $nb_emails = tep_db_num_rows($mail_query);
     while (list ($customers_email_address, $customers_lastname, $customers_firstname) = tep_db_fetch_array($mail_query)) {
@@ -85,9 +82,9 @@
             <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><form action="<?php echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="get"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0"><table border="0" width="100%" cellpadding="0" cellspacing="0">
+            <td><form action="<?php echo tep_href_link(FILENAME_MAIL, '', 'NONSSL'); ?>" method="post"><input type="hidden" name="action" value="send_email_to_user"><input type="hidden" name="all" value="0"><table border="0" width="100%" cellpadding="0" cellspacing="0">
 <?php
-    if ( ($HTTP_GET_VARS['action'] == 'send_email_to_user') && ($customers_email_address == "") ) {
+    if ( ($HTTP_POST_VARS['action'] == 'send_email_to_user') && (!$HTTP_POST_VARS['customers_email_address']) ) {
 ?>
               <tr>
                 <td colspan="2" class="main"><b><?php echo TEXT_NO_CUSTOMER_SELECTED; ?></b></td>
@@ -109,7 +106,7 @@
 <?php
     $mail_query = tep_db_query("select customers_email_address, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " order by customers_lastname");
 ?>
-                <td><select class="textbox" name="customers_email_address"><option value=""><?php echo TEXT_SELECTCUSTOMER; ?></option><option value="***"><?php echo TEXT_ALLCUSTOMERS; ?></option><option value="**D"><?php echo TEXT_NEWSLETTERCUSTOMERS; ?></option>
+                <td><select name="customers_email_address"><option value=""><?php echo TEXT_SELECTCUSTOMER; ?></option><option value="***"><?php echo TEXT_ALLCUSTOMERS; ?></option><option value="**D"><?php echo TEXT_NEWSLETTERCUSTOMERS; ?></option>
 <?php
     while(list($customers_email_address, $customers_firstname, $customers_lastname) = tep_db_fetch_array($mail_query)) {
       echo '<option value="' . $customers_email_address . '">' . $customers_lastname . ', ' . $customers_firstname . ' - (' . $customers_email_address . ')</option>';
