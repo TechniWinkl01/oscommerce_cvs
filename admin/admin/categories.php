@@ -87,7 +87,7 @@
   }
 
   class Product_Info {
-    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $weight, $manufacturer, $manufacturers_id, $manufacturers_image;
+    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating;
   }
 ?>
 <html>
@@ -407,8 +407,13 @@ function checkForm() {
       $rows++;
 
       if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $products['products_id'])) && (!$pInfo) && (!$cInfo) && (substr($HTTP_GET_VARS['action'], 0, 4) != 'new_') ) {
+// find out the rating average from customer reviews
+        $reviews_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) average_rating from reviews r, reviews_extra re where re.products_id = '" . $products['products_id'] . "' and re.reviews_id = r.reviews_id");
+        $reviews = tep_db_fetch_array($reviews_query);
+
         $pInfo = new Product_Info();
-        tep_set_product_info($products);
+        $pInfo_array = tep_array_merge($products, $reviews);
+        tep_set_product_info($pInfo_array);
       }
 
       if ($products['products_id'] == $pInfo->id) {
@@ -569,6 +574,7 @@ function checkForm() {
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, tep_products_name($pInfo->id)) . '<br>&nbsp;' . $pInfo->image);
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) , '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
+          $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
 ?>
                 <td><? new infoBox($info_box_contents); ?></td>
 <?

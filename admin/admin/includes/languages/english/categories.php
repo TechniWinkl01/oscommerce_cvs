@@ -17,6 +17,7 @@ define('TEXT_CATEGORIES', 'Categories:');
 define('TEXT_SUBCATEGORIES', 'Subcategories:');
 define('TEXT_PRODUCTS', 'Products:');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
+define('TEXT_PRODUCTS_AVERAGE_RATING', 'Average Rating:');
 define('TEXT_PRODUCTS_QUANTITY_INFO', 'Quantity:');
 define('TEXT_DATE_ADDED', 'Date Added:');
 define('TEXT_LAST_MODIFIED', 'Last Modified:');
