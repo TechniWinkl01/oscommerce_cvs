@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.9 2001/09/19 09:11:33 mbs Exp $
+  $Id: backup.php,v 1.10 2001/11/19 13:12:45 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,78 +16,77 @@
     // increase timeout to 3 minutes
     tep_set_time_limit(180);
     // Force download
-    Header("Content-disposition: filename=backup.sql");
-    Header("Content-type: application/octetstream");
-    // Loop trough tables
-    $tables = tep_db_query('show tables');
-    while ($table = tep_db_fetch_array($tables)) {
-      $table = $table[0];
-      // Schema for creating the table
-      if ($HTTP_GET_VARS['drop'] == 'yes')
-        $schema = "drop table if exists $table;\n";
-      $schema = "create table $table (\n";
+    header('Content-disposition: filename=db_backup-' . date('Ymd') . '.sql');
+    header('Content-type: application/octetstream');
+    $tables_query = tep_db_query('show tables');
+    while ($tables = tep_db_fetch_array($tables_query)) {
+      $table = $tables[0];
+      if ($HTTP_GET_VARS['drop'] == 'yes') $schema = 'drop table if exists ' . $table . ';' . "\n";
+      $schema .= 'create table ' . $table . '(' . "\n";
       $table_list = array();
-      $fields = tep_db_query("show fields from $table");
-      while ($field = tep_db_fetch_array($fields)) {
-        $schema .= '  ' . $field['Field'] . ' ' . $field['Type'];
-        if (strlen($field['Default']) > 0) {
-          $schema .= ' default \'' . $field['Default'] . '\'';
+      $fields_query = tep_db_query("show fields from " . $table);
+      while ($fields = tep_db_fetch_array($fields_query)) {
+        $table_list[] = $fields['Field'];
+
+        $schema .= '  ' . $fields['Field'] . ' ' . $fields['Type'];
+        if (strlen($fields['Default']) > 0) {
+          $schema .= ' default \'' . $fields['Default'] . '\'';
         }
-        if ($field['Null'] != 'YES') {
+        if ($fields['Null'] != 'YES') {
           $schema .= ' not null';
         }
-        if (isset($field['Extra'])) {
-          $schema .= ' ' . $field['Extra'];
+        if (isset($fields['Extra'])) {
+          $schema .= ' ' . $fields['Extra'];
         }
-        $schema .= ",\n";
-        $table_list[] = $field['Field'];
+        $schema .= ',' . "\n";
       }
-      $schema = ereg_replace(",\n$", "", $schema);
+      $schema = ereg_replace(",\n$", '', $schema);
       // Add the keys
       $index = array();
-      $keys = tep_db_query("show keys from $table");
-      while ($key = tep_db_fetch_array($keys)) {
-        $kname = $key['Key_name'];
-        if(($kname != "PRIMARY") && ($key['Non_unique'] == 0)) {
-          $kname = "UNIQUE|$kname";
+      $keys_query = tep_db_query("show keys from " . $table);
+      while ($keys = tep_db_fetch_array($keys_query)) {
+        $kname = $keys['Key_name'];
+        if (($kname != 'PRIMARY') && ($keys['Non_unique'] == 0)) {
+          $kname = 'UNIQUE|' . $kname;
         }
         if(!isset($index[$kname])) {
           $index[$kname] = array();
         }
-        $index[$kname][] = $key['Column_name'];
+        $index[$kname][] = $keys['Column_name'];
       }
       while (list($x, $columns) = @each($index)) {
-        $schema .= ",\n";
-        if($x == "PRIMARY") {
-          $schema .= "  PRIMARY KEY (" . implode($columns, ", ") . ")";
-        } elseif (substr($x, 0, 6) == "UNIQUE") {
-          $schema .= "  UNIQUE ".substr($x,7)." (" . implode($columns, ", ") . ")";
+        $schema .= ',' . "\n";
+        if ($x == 'PRIMARY') {
+          $schema .= '  PRIMARY KEY (' . implode($columns, ', ') . ')';
+        } elseif (substr($x, 0, 6) == 'UNIQUE') {
+          $schema .= '  UNIQUE ' . substr($x, 7) . ' (' . implode($columns, ', ') . ')';
         } else {
-          $schema .= "  KEY $x (" . implode($columns, ", ") . ")";
+          $schema .= '  KEY ' . $x . ' (' . implode($columns, ', ') . ')';
         }
       }
-      $schema .= "\n);";
-      echo "$schema\n";
+      $schema .= "\n" . ');' . "\n\n";
+      echo $schema;
+
       // Dump the data
-      $rows = tep_db_query("select " . implode(',', $table_list) . " from $table");
-      while ($row = tep_db_fetch_array($rows)) {
-        $schema_insert = "INSERT INTO $table (" . implode(',', $table_list) . ") VALUES (";
+      $rows_query = tep_db_query("select " . implode(',', $table_list) . " from " . $table);
+      while ($rows = tep_db_fetch_array($rows_query)) {
+        $schema_insert = 'insert into ' . $table . ' (' . implode(',', $table_list) . ') values (';
         $num_fields = sizeof($table_list);
-        for ($i = 0; $i < $num_fields; $i ++) {
-          if (!isset($row[$i]))
-            $schema_insert .= " NULL,";
-          elseif($row[$i] != "")
-            $schema_insert .= " '".addslashes($row[$i])."',";
-          else
-            $schema_insert .= " '',";
+        for ($i=0; $i<$num_fields; $i++) {
+          if (!isset($rows[$i])) {
+            $schema_insert .= ' NULL,';
+          } elseif ($rows[$i] != '') {
+            $schema_insert .= ' \'' . addslashes($rows[$i]) . '\',';
+          } else {
+            $schema_insert .= ' \'\',';
+          }
         }
-        $schema_insert = ereg_replace(",$", "", $schema_insert);
-        $schema_insert .= ")";
-        echo trim($schema_insert) . ";\n";
+        $schema_insert = ereg_replace(',$', '', $schema_insert);
+        $schema_insert .= ')';
+        echo trim($schema_insert) . ';' . "\n";
       }
       echo "\n";
     }
-
   } else {
 ?>
 <html>
