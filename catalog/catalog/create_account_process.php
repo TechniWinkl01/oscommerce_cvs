@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.47 2001/06/20 15:01:06 dwatkins Exp $
+  $Id: create_account_process.php,v 1.48 2001/06/21 08:55:37 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -123,7 +123,7 @@
     $entry_password_error = true;
   }
 
-  $check_email = tep_db_query("select customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "' and customers_id <> '" . $customer_id . "'");
+  $check_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "' and customers_id <> '" . $customer_id . "'");
   if (tep_db_num_rows($check_email)) {
     $error = true;
     $entry_email_address_exists = true;
