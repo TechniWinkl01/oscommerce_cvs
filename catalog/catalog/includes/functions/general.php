@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.210 2003/02/15 18:20:49 dgw_ Exp $
+  $Id: general.php,v 1.211 2003/02/15 18:28:55 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -711,7 +711,10 @@
 
     $keyword_count = 0;
     $operator_count = 0;
+    $balance = 0;
     for($i=0; $i<count($objects); $i++) {
+      if ($objects[$i] == '(') $balance --;
+      if ($objects[$i] == ')') $balance ++;
       if ( ($objects[$i] == 'and') || ($objects[$i] == 'or') ) {
         $operator_count ++;
       } elseif ( ($objects[$i]) && ($objects[$i] != '(') && ($objects[$i] != ')') ) {
@@ -719,7 +722,7 @@
       }
     }
 
-    if ($operator_count < $keyword_count) {
+    if ( ($operator_count < $keyword_count) && ($balance == 0) ) {
       return true;
     } else {
       return false;
