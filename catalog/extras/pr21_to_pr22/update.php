@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.1 2001/10/25 05:20:21 hpdl Exp $
+  $Id: update.php,v 1.2 2001/10/25 06:50:40 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -102,8 +102,25 @@ Note: The user must have create and drop privileges!
     return $result;
   }
 
+  function tep_get_languages() {
+    $languages_query = tep_db_query("select languages_id, name, code, image, directory from languages order by sort_order");
+    while ($languages = tep_db_fetch_array($languages_query)) {
+      $languages_array[] = array('id' => $languages['languages_id'],
+                                 'name' => $languages['name'],
+                                 'code' => $languages['code'],
+                                 'image' => $languages['image'],
+                                 'directory' => $languages['directory']
+                                );
+    }
+
+    return $languages_array;
+  }
+
   tep_db_connect() or die('Unable to connect to database server!');
 
+  $languages = tep_get_languages();
+
+// send data to the browser, so the flushing works with IE
   for ($i=0; $i<300; $i++) print(' ');
   print ("\n");
 ?>
@@ -127,7 +144,11 @@ function changeStyle(what, how) {
 }
 
 function changeText(where, what) {
+  if (document.getElementById) {
     document.getElementById(where).innerText = what;
+  } else if (document.all) {
+    document.all[where].innerText = what;
+  }
 }
 //--></script>
 </head>
@@ -137,6 +158,7 @@ function changeText(where, what) {
 <p>
 <span id="addressBook"><span id="addressBookMarker">-</span> Address Book</span><br>
 <span id="banners"><span id="bannersMarker">-</span> Banners</span><br>
+<span id="categories"><span id="categoriesMarker">-</span> Categories</span><br>
 <p>
 Status: <span id="statusText">Preparing</span>
 </body>
@@ -150,9 +172,9 @@ changeText('addressBookMarker', '?');
 changeText('statusText', 'Updating Address Book');
 //--></script>
 
-<?php flush(); ?>
-
 <?php
+  flush();
+
   tep_db_query("alter table address_book change address_book_id address_book_id int(5) not null default '1'");
   tep_db_query("alter table address_book add customers_id int(5) not null default '0' first");
   tep_db_query("alter table address_book add entry_company varchar(32) after entry_gender");
@@ -190,13 +212,13 @@ changeText('addressBookMarker', '*');
 changeText('statusText', 'Updating Address Book .. done!');
 
 changeStyle('banners', 'bold');
-changeText('bannerskMarker', '?');
+changeText('bannersMarker', '?');
 changeText('statusText', 'Updating Banners');
 //--></script>
 
-<?php flush(); ?>
-
 <?php
+  flush();
+
   tep_db_query("create table banners ( banners_id int(5) not null auto_increment, banners_title varchar(64) not null, banners_url varchar(64) not null, banners_image varchar(64) not null, banners_group varchar(10) not null, banners_html_text text, expires_impressions int(7), expires_date datetime, date_scheduled datetime, date_added datetime not null, date_status_change datetime, status int(1) default '1', primary key (banners_id) )");
   tep_db_query("create table banners_history ( banners_history_id int(5) not null auto_increment, banners_id int(5) not null, banners_shown int(5) not null default '0', banners_clicked int(5) not null default '0', banners_history_date datetime not null, primary key (banners_history_id) )");
 ?>
@@ -204,6 +226,35 @@ changeText('statusText', 'Updating Banners');
 changeStyle('banners', 'normal');
 changeText('bannersMarker', '*');
 changeText('statusText', 'Updating Banners .. done!');
+
+changeStyle('categories', 'bold');
+changeText('categoriesMarker', '?');
+changeText('statusText', 'Updating Categories');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("create table categories_description ( categories_id int(5) default '0' not null, language_id int(5) default '1' not null, categories_name varchar(32) not null, primary key (categories_id, language_id), key idx_categories_name (categories_name) )");
+
+  $categories_query = tep_db_query("select categories_id, categories_name from categories order by categories_id");
+  while ($categories = tep_db_fetch_array($categories_query)) {
+    for ($i=0; $i<sizeof($languages); $i++) {
+      tep_db_query("insert into categories_description (categories_id, language_id, categories_name) values ('" . $categories['categories_id'] . "', '" . $languages[$i]['id'] . "', '" . $categories['categories_name'] . "')");
+    }
+  }
+
+  tep_db_query("alter table categories drop index IDX_CATEGORIES_NAME");
+  tep_db_query("alter table categories drop categories_name");
+  tep_db_query("alter table categories change parent_id parent_id int(5) not null default '0'");
+  tep_db_query("alter table categories add date_added datetime after sort_order");
+  tep_db_query("alter table categories add last_modified datetime after date_added");
+  tep_db_query("alter table categories add index idx_categories_parent_id (parent_id)");
+?>
+<script language="javascript"><!--
+changeStyle('categories', 'normal');
+changeText('categoriesMarker', '*');
+changeText('statusText', 'Updating Categories .. done!');
 
 changeStyle('statusText', 'bold');
 changeText('statusText', 'Update Complete!');
