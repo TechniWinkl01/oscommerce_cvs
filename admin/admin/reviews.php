@@ -219,7 +219,7 @@
         echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('info', 'action', 'rID')) . 'info=' . $reviews['reviews_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info', 'rID')) . 'action=preview&rID=' . $reviews['reviews_id'], 'NONSSL') . '" class="blacklink"><u>' . tep_products_name($reviews['products_id']) . '</u></a>'; ?>&nbsp;</font></td>
+                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'info', 'rID')) . 'action=preview&rID=' . $reviews['reviews_id'], 'NONSSL') . '" class="blacklink"><u>' . tep_get_products_name($reviews['products_id']) . '</u></a>'; ?>&nbsp;</font></td>
                 <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $reviews['reviews_rating'] . ' / 5'; ?>&nbsp;</font></td>
                 <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_date_short($reviews['date_added']); ?>&nbsp;</font></td>
 <?

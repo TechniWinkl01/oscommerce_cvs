@@ -6,7 +6,7 @@
     function reviewInfo($rInfo_array) {
       $this->id = $rInfo_array['reviews_id'];
       $this->products_id = $rInfo_array['products_id'];
-      $this->products_name = tep_products_name($this->products_id);
+      $this->products_name = tep_get_products_name($this->products_id);
       $this->products_image = $rInfo_array['products_image'];
       $this->customers_id = $rInfo_array['customers_id'];
       $this->author = tep_customers_name($rInfo_array['customers_id']);

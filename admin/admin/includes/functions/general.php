@@ -234,8 +234,10 @@
   }
 
   function tep_products_pull_down($parameters) {
+    global $languages_id;
+
     $select_string = '<select ' . $parameters . '>';
-    $products_query = tep_db_query("select products_id, products_name from products order by products_name");
+    $products_query = tep_db_query("select p.products_id, pd.products_name from products p, products_description pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . '</option>';
     }
@@ -255,15 +257,6 @@
     $select_string .= '</select>';
 
     return $select_string;
-  }
-
-  function tep_products_name($products_id) {
-    $products_query = tep_db_query("select products_name from products where products_id = '" . $products_id . "'");
-    $products = tep_db_fetch_array($products_query);
-
-    $products_name = $products['products_name'];
-
-    return $products_name;
   }
 
   function tep_options_name($options_id) {
@@ -623,7 +616,10 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     return $category['categories_name'];
   }
 
-  function tep_get_products_name($product_id, $language_id) {
+  function tep_get_products_name($product_id, $language_id = 0) {
+    global $languages_id;
+
+    if ($language_id == 0) $language_id = $languages_id;
     $product_query = tep_db_query("select products_name from products_description where products_id = '" . $product_id . "' and language_id = '" . $language_id . "'");
     $product = tep_db_fetch_array($product_query);
 

@@ -71,7 +71,7 @@
               </tr>
 <?
   $rows = 0;
-  $specials_query_raw = "select p.products_id, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added from products p, specials s where p.products_id = s.products_id order by s.specials_date_added DESC";
+  $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added from products p, specials s, products_description pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by s.specials_date_added DESC";
   $specials_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $specials_query_raw, $specials_query_numrows);
   $specials_query = tep_db_query($specials_query_raw);
   while ($specials = tep_db_fetch_array($specials_query)) {
@@ -91,7 +91,7 @@
       echo '                  <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $specials['specials_id'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
-                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_products_name($specials['products_id']); ?>&nbsp;</font></td>
+                <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $specials['products_name']; ?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<s><? echo tep_currency_format($specials['products_price']); ?></s> <font color="<? echo SPECIALS_PRICE_COLOR; ?>"><? echo tep_currency_format($specials['specials_new_products_price']); ?></font>&nbsp;</font></td>
                 <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_date_short($specials['specials_date_added']); ?>&nbsp;</font></td>
 <?
@@ -124,8 +124,8 @@
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?
   $info_box_contents = array();
-  if ($sInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . tep_products_name($sInfo->products_id) . '</b>&nbsp;');
-  if ((!$sInfo) && ($HTTP_POST_VARS['products_id'])) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . tep_products_name($HTTP_POST_VARS['products_id']) . '</b>&nbsp;');
+  if ($sInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $sInfo->products_name . '</b>&nbsp;');
+  if ((!$sInfo) && ($HTTP_POST_VARS['products_id'])) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . tep_get_products_name($HTTP_POST_VARS['products_id']) . '</b>&nbsp;');
   if ((!$sInfo) && (!$HTTP_POST_VARS['products_id'])) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . TEXT_INFO_HEADING_NEW_PRODUCT . '</b>&nbsp;');
 ?>
               <tr bgcolor="#81a2b6">
@@ -162,7 +162,7 @@
       $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_select.gif', '66', '20', '0', IMAGE_SELECT) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
     } else {
 // product has been chosen, its time to specify the new price
-      $product_query = tep_db_query("select products_price from products where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+      $product_query = tep_db_query("select pd.products_name, p.products_price from products p, products_description pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' and p.products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
       $product = tep_db_fetch_array($product_query);
 
       $sInfo_array = tep_array_merge($HTTP_POST_VARS, $product);
@@ -172,13 +172,13 @@
 
       $info_box_contents = array();
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_INSERT_INTRO . '<br>&nbsp;');
-      $info_box_contents[] = array('align' => 'left', 'text' => '<b>' . tep_products_name($sInfo->products_id) . '</b><br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price) . '<br>&nbsp;');
+      $info_box_contents[] = array('align' => 'left', 'text' => '<b>' . $sInfo->products_name . '</b><br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price) . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_EDIT_SPECIALS_PRICE . '<br>&nbsp;<input type="text" name="specials_new_products_price" size="8"><br>' . TEXT_INFO_SPECIAL_PRICE_TIP . '<br>&nbsp;');
       if (!EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_NEW_PRICE_NOTE . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', '66', '20', '0', IMAGE_PREVIEW) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
     }
   } elseif ($HTTP_GET_VARS['action'] == 'new_preview') {
-    $product_query = tep_db_query("select products_price, products_image from products where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+    $product_query = tep_db_query("select p.products_price, p.products_image, pd.products_name from products p, products_description pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' and p.products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
     $product = tep_db_fetch_array($product_query);
 
     if (substr($HTTP_POST_VARS['specials_new_products_price'], -1) == '%') $HTTP_POST_VARS['specials_new_products_price'] = ($product['products_price'] - (($HTTP_POST_VARS['specials_new_products_price'] / 100) * $product['products_price']));
@@ -190,7 +190,7 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short(date('Ymd')));
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, tep_products_name($sInfo->products_id)));
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_PERCENTAGE . ' ' . number_format($sInfo->percentage, 2) . '%<br>&nbsp;<br>');
@@ -199,7 +199,7 @@
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($sInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, tep_products_name($sInfo->products_id)));
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_price));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_PERCENTAGE . ' ' . number_format($sInfo->percentage, 2) . '%');
