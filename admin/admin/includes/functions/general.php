@@ -156,6 +156,8 @@
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
   function tep_date_short($raw_date) {
+    if ($raw_date == '0000-00-00 00:00:00') return false;
+
 // remove the first digit if it is 0 - as php treats these as Octals
     $year = substr($raw_date, 0, 4);
     $month = substr($raw_date, 5, 2); if (substr($month, 0, 1) == '0') $month = substr($month, 1);
@@ -164,7 +166,7 @@
     $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
     $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
 
-    return date(DATE_FORMAT, mktime($hour,$minute,$second,$month,$day,$year));
+    return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
   }
 
   function tep_datetime_short($raw_datetime) {
