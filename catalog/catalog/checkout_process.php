@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.111 2002/07/31 09:55:27 project3000 Exp $
+  $Id: checkout_process.php,v 1.112 2002/08/19 11:06:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,6 +20,10 @@
   if (!tep_session_is_registered('sendto')) {
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
   }
+
+  if ( (tep_not_null(MODULE_PAYMENT_INSTALLED)) && (!tep_session_is_registered('payment')) ) {
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+ }
 
   include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS);
 
