@@ -69,6 +69,10 @@ define('BOX_STATISTICS_PRODUCTS_VIEWED', 'Products Viewed');
 define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'Products Purchased');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Customer Orders-Total');
 
+// tools text in includes/boxes/tools.php
+define('BOX_HEADING_TOOLS', 'Tools');
+define('BOX_TOOLS_BACKUP', 'Backup');
+
 // localizaion box text in includes/boxes/localization.php
 define('BOX_HEADING_LOCALIZATION', 'Localization');
 define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');

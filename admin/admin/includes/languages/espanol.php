@@ -73,6 +73,10 @@ define('BOX_STATISTICS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
 define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
 
+// tools text in includes/boxes/tools.php
+define('BOX_HEADING_TOOLS', 'Herramientas');
+define('BOX_TOOLS_BACKUP', 'Copia de seguridad');
+
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
 

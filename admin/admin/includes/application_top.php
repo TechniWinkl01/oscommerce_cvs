@@ -29,7 +29,7 @@
   define('STORE_NAME', 'The Exchange Project');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
-  define('EXIT_AFTER_REDIRECT', 0); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
+  define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
   define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse the page
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_LOGS . 'exchange/parse_time_log');
 
@@ -40,6 +40,7 @@
   define('STORE_DB_TRANSACTIONS', 0);
 
 // define the filenames used in the project
+  define('FILENAME_BACKUP', 'backup.php');
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CONFIGURATION', 'configuration.php');
   define('FILENAME_PAYMENT_MODULES', 'payment_modules.php');

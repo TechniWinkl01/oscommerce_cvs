@@ -6,4 +6,5 @@
   include('includes/boxes/taxes.php');
   include('includes/boxes/localization.php');
   include('includes/boxes/statistics.php');
+  include('includes/boxes/tools.php');
 ?>
