@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: boxes.php,v 1.24 2002/01/11 20:52:03 dgw_ Exp $
+  $Id: boxes.php,v 1.25 2002/04/19 09:34:47 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -85,11 +85,11 @@
       $this->table_cellpadding = '3';
       $this->table_parameters = 'class="infoBoxContents"';
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
+      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
       for ($i=0; $i<sizeof($contents); $i++) {
         $info_box_contents[] = array(array('align' => $contents[$i]['align'], 'form' => $contents[$i]['form'], 'params' => 'class="boxText"', 'text' => $contents[$i]['text']));
       }
-      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
+      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
       return $this->tableBox($info_box_contents);
     }
   }
@@ -111,7 +111,7 @@
       if ($right_corner) {
         $right_corner = $right_arrow . tep_image(DIR_WS_IMAGES . 'infobox/corner_right.gif');
       } else {
-        $right_corner = $right_arrow . tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '11', '14');
+        $right_corner = $right_arrow . tep_draw_separator('pixel_trans.gif', '11', '14');
       }
 
       $info_box_contents = array();
