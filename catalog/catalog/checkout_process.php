@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.114 2002/11/03 23:46:25 hpdl Exp $
+  $Id: checkout_process.php,v 1.115 2002/11/17 14:09:24 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,12 +39,13 @@
   require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment($payment);
 
+  require(DIR_WS_CLASSES . 'order.php');
+  $order = new order;
+
 // load the before_process function from the payment modules
   $payment_modules->before_process();
 
-  require(DIR_WS_CLASSES . 'order.php');
   require(DIR_WS_CLASSES . 'order_total.php');
-  $order = new order;
   $order_total_modules = new order_total;
 
   $order_totals = $order_total_modules->process();
