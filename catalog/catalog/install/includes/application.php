@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application.php,v 1.6 2004/02/16 06:59:34 hpdl Exp $
+  $Id: application.php,v 1.7 2004/05/20 23:44:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,6 +13,8 @@
 // Set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
 
+  require('../includes/functions/compatibility.php');
+
   if (isset($_GET['language'])) {
     setcookie('osC_Language', $_GET['language']);
 
@@ -24,9 +26,8 @@
   }
 
   require('languages/' . $language . '.php');
-  require('languages/' . $language . '/' . basename($PHP_SELF));
+  require('languages/' . $language . '/' . basename($_SERVER['PHP_SELF']));
 
-  require('../includes/functions/compatibility.php');
   require('../includes/functions/general.php');
   require('functions/general.php');
   require('../includes/functions/html_output.php');
