@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.1 2004/08/24 11:06:04 hpdl Exp $
+  $Id: products.php,v 1.2 2004/10/30 22:13:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
 
     function osC_Summary_products() {
       $this->_title = MODULE_SUMMARY_PRODUCTS_TITLE;
-      $this->_title_link = tep_href_link(FILENAME_CATEGORIES);
+      $this->_title_link = tep_href_link(FILENAME_PRODUCTS);
 
       $this->_setData();
     }
@@ -61,7 +61,7 @@
 
       while ($Qproducts->next()) {
         $this->_data .= '    <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);">' .
-                        '      <td><a href="' . tep_href_link(FILENAME_CATEGORIES, 'pID=' . $Qproducts->valueInt('products_id') . '&action=new_product') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/products.png', ICON_PREVIEW, '16', '16') . '&nbsp;' . $Qproducts->value('products_name') . '</a></td>' .
+                        '      <td><a href="' . tep_href_link(FILENAME_PRODUCTS, 'pID=' . $Qproducts->valueInt('products_id') . '&action=new_product') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/products.png', ICON_PREVIEW, '16', '16') . '&nbsp;' . $Qproducts->value('products_name') . '</a></td>' .
                         '      <td>' . $osC_Currencies->format($Qproducts->value('products_price')) . '</td>' .
                         '      <td>' . $Qproducts->value('date_last_modified') . '</td>' .
                         '      <td align="center">' . tep_image('templates/' . $template . '/images/icons/' . (($Qproducts->valueInt('products_status') === 1) ? 'checkbox_ticked.gif' : 'checkbox_crossed.gif')) . '</td>' .
