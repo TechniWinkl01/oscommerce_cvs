@@ -1,4 +1,4 @@
-$Id: CHANGELOG,v 1.21 2003/06/11 17:56:52 hpdl Exp $
+$Id: CHANGELOG,v 1.22 2003/07/11 08:00:04 hpdl Exp $
 
 osCommerce Changelog
 Copyright (c) 2003 osCommerce
@@ -6,6 +6,11 @@ Copyright (c) 2003 osCommerce
 ------------------------------------------------------------------------------
 xx/xx/2003 osCommerce 2.2 Milestone 2
 ------------------------------------------------------------------------------
+
+ * Shared SSL servers are now properly supported with cookie parameters
+   existing for both normal and secure servers.
+
+ * The installation/upgrade procedure was simplified with a new layout.
 
  * Internally set PHPs error reporting to E_ALL to remove all notice messages
    on the Catalog module.
