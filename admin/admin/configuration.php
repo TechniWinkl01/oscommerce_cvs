@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.18 2001/11/19 11:14:37 hpdl Exp $
+  $Id: configuration.php,v 1.19 2001/11/19 11:22:57 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,6 +18,9 @@
       header('Location: ' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . '&gID=' . $HTTP_GET_VARS['gID'], 'NONSSL')); tep_exit();
     }
   }
+
+  $cfg_group_query = tep_db_query("select configuration_group_title from configuration_group where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "'");
+  $cfg_group = tep_db_fetch_array($cfg_group_query);
 ?>
 <html>
 <head>
@@ -54,7 +57,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo $cfg_group['configuration_group_title']; ?>&nbsp;</td>
             <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>

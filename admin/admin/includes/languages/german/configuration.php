@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.6 2001/11/19 11:14:37 hpdl Exp $
+  $Id: configuration.php,v 1.7 2001/11/19 11:22:57 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('TOP_BAR_TITLE', 'Konfigurationsparameter');
-define('HEADING_TITLE', 'Konfigurationsparameter');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Name');
 define('TABLE_HEADING_CONFIGURATION_VALUE', 'Wert');
