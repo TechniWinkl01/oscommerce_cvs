@@ -17,7 +17,7 @@
   define('DIR_INCLUDES', 'includes/');
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
-  define('DIR_CLASSES', DIR_INCLUDES . '/classes/');
+  define('DIR_CLASSES', DIR_INCLUDES . 'classes/');
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
