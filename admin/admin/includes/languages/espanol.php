@@ -69,6 +69,10 @@ define('BOX_STATISTICS_PRODUCTS_VIEWED', 'Productos Mas Vistos');
 define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'Productos Mas Comprados');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 
+// localizaion box text in includes/boxes/localization.php
+define('BOX_HEADING_LOCALIZATION', 'Localization');
+define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
+
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
 
@@ -173,6 +177,7 @@ define('IMAGE_NEW_PRODUCT', 'Nuevo Producto');
 define('IMAGE_NEW_TAX_CLASS', 'Nuevo Tipo de Impuesto');
 define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_NEW_COUNTRY', 'Nuevo Pais');
+define('IMAGE_NEW_CURRENCY', 'New Currency');
 define('IMAGE_PREVIEW', 'Ver');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
