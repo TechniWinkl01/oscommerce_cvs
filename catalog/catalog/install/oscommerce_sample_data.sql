@@ -1,4 +1,4 @@
-# $Id: oscommerce_sample_data.sql,v 1.4 2004/04/15 16:05:41 mevans Exp $
+# $Id: oscommerce_sample_data.sql,v 1.5 2004/07/22 21:03:35 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -19,7 +19,7 @@
 #       * Comments should be like these, full line comments.
 #         (don't use inline comments)
 
-INSERT INTO osc_address_book VALUES ( '1', '1', 'm', 'ACME Inc.', 'John', 'Doe', '1 Way Street', '', '12345', 'NeverNever', '', '223', '12');
+INSERT INTO osc_address_book VALUES ( '1', '1', 'm', 'ACME Inc.', 'John', 'Doe', '1 Way Street', '', '12345', 'NeverNever', '', '223', '12', '12345', '');
 
 INSERT INTO osc_banners VALUES (1, 'osCommerce', 'http://www.oscommerce.com', 'banners/oscommerce.gif', '468x50', '', 0, null, null, now(), null, 1);
 
