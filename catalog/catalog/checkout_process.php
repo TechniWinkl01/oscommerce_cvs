@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.94 2002/03/10 22:27:39 harley_vb Exp $
+  $Id: checkout_process.php,v 1.95 2002/03/15 20:03:34 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -168,7 +168,11 @@
   if ($GLOBALS['shipping_cost'] > 0) {
     $email_order .= EMAIL_TEXT_SHIPPING . ' ' . $currencies->format($GLOBALS['shipping_cost']) . ' ' . TEXT_EMAIL_VIA . ' ' . $GLOBALS['shipping_method'] . "\n";
   }
+  if (DISPLAY_PRICE_WITH_TAX == true) {
+    $email_order .= EMAIL_TEXT_TOTAL . ' ' . $currencies->format($cart->show_total() + $GLOBALS['shipping_cost']) . "\n\n";
+  } else {
     $email_order .= EMAIL_TEXT_TOTAL . ' ' . $currencies->format($cart->show_total() + $total_tax + $GLOBALS['shipping_cost']) . "\n\n";
+  }
   $email_order .= EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
                   EMAIL_SEPARATOR . "\n" .
                   tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
