@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.8 2001/06/10 15:38:41 mbs Exp $
+  $Id: create_account_process.php,v 1.9 2001/06/10 15:43:39 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,7 +17,7 @@ define('HEADING_TITLE', 'Meine Zugangsinformation');
 define('TEXT_ORIGIN_LOGIN', '<font color="#FF0000"><small><b>ACHTUNG:</b></font></small> Wenn Sie schon einen Zugang bei uns besitzen, dann klicken Sie bitte zu der <a href="' . tep_href_link(FILENAME_LOGIN, 'origin=checkout_address', 'NONSSL') . '"><u>Anmeldeseite</u></a>.');
 
 define('EMAIL_SUBJECT', 'Willkommen zu ' . STORE_NAME);
-define('EMAIL_GREET_MR', 'Sehr geehrte Herr ' . $lastname . ',' . "\n\n");
+define('EMAIL_GREET_MR', 'Sehr geehrter Herr ' . $lastname . ',' . "\n\n");
 define('EMAIL_GREET_MS', 'Sehr geehrte Frau ' .$lastname . ',' . "\n\n");
 define('EMAIL_GREET_NONE', 'Sehr geehrte ' . $lastname . ',' . "\n\n");
 define('EMAIL_WELCOME', 'willkommen zu <b>' . STORE_NAME . '</b>.' . "\n\n");
