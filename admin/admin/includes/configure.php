@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.13 2002/07/20 09:08:31 project3000 Exp $
+  $Id: configure.php,v 1.14 2003/02/21 16:55:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,7 @@
   define('DB_SERVER', '');
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
-  define('DB_DATABASE', 'catalog');
+  define('DB_DATABASE', 'osCommerce');
   define('USE_PCONNECT', 'false');
   define('STORE_SESSIONS', '');
 ?>
