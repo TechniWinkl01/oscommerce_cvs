@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.54 2003/05/27 17:06:42 hpdl Exp $
+  $Id: stylesheet.css,v 1.55 2003/06/29 12:25:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -273,7 +273,7 @@ SPAN.errorText {
 }
 
 .moduleRow { }
-.moduleRowOver { background-color: #D7E9F7; cursor: hand; }
+.moduleRowOver { background-color: #D7E9F7; cursor: pointer; }
 .moduleRowSelected { background-color: #E9F4FC; }
 
 .checkoutBarFrom, .checkoutBarTo { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #8c8c8c; }
