@@ -96,7 +96,7 @@ function check_form() {
     payment_value = document.payment.payment.value;
   }
 <?
-    $payment_modules->javascript_validation();
+    echo $payment_modules->javascript_validation();
   }
 ?>
   if (error == 1) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.15 2001/08/25 11:03:24 hpdl Exp $
+  $Id: payment.php,v 1.16 2001/08/25 11:07:14 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -33,13 +33,16 @@
 
 // class methods
     function javascript_validation() {
+      $javascript_validation_string = '';
       if (MODULE_PAYMENT_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
-          echo $GLOBALS[$class]->javascript_validation();
+          $javascript_validation_string .= $GLOBALS[$class]->javascript_validation();
         }
       }
+
+      return $javascript_validation_string;
     }
 
     function selection() {
