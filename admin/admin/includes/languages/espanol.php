@@ -65,8 +65,8 @@ define('BOX_CUSTOMERS_ORDERS', 'Pedidos');
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Zonas / Impuestos');
 define('BOX_TAXES_ZONES', 'Zonas');
-define('BOX_TAXES_TAX_CLASSES', 'Tax Classes');
-define('BOX_TAXES_TAX_RATES', 'Tax Rates');
+define('BOX_TAXES_TAX_CLASSES', 'Tipos de Impuesto');
+define('BOX_TAXES_TAX_RATES', 'Porcentajes');
 
 // whats_new box text in includes/boxes/statistics.php
 define('BOX_HEADING_STATISTICS', 'Estadisticas');
@@ -194,7 +194,7 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos esperados)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
-define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> tax rates)');
+define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> porcentajes de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 
