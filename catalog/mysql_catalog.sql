@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.164 2001/12/19 17:01:48 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.165 2001/12/20 22:23:35 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -55,7 +55,7 @@ CREATE TABLE banners (
   expires_date datetime DEFAULT NULL,
   date_scheduled datetime DEFAULT NULL,
   date_added datetime NOT NULL,
-  date_status_change datetime,
+  date_status_change datetime DEFAULT NULL,
   status int(1) DEFAULT '1',
   PRIMARY KEY  (banners_id)
 );
@@ -499,7 +499,7 @@ INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$c
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
-INSERT INTO banners VALUES (1, 'osCommerce', 'http://www.oscommerce.com', 'banners/oscommerce.gif', '468x50', '', 0, null, null, now(), '', 1);
+INSERT INTO banners VALUES (1, 'osCommerce', 'http://www.oscommerce.com', 'banners/oscommerce.gif', '468x50', '', 0, null, null, now(), null, 1);
 
 INSERT INTO categories VALUES ( '1', 'category_hardware.gif', '0', '1', now(), '');
 INSERT INTO categories VALUES ( '2', 'category_software.gif', '0', '2', now(), '');
