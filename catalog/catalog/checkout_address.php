@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.56 2001/11/08 22:44:23 dgw_ Exp $
+  $Id: checkout_address.php,v 1.57 2001/11/09 19:16:44 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,7 +18,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
+  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
   include(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;
@@ -29,7 +29,7 @@
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

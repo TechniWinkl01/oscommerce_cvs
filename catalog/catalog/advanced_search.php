@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.32 2001/09/20 19:47:05 mbs Exp $
+  $Id: advanced_search.php,v 1.33 2001/11/09 19:16:44 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>
@@ -114,7 +114,7 @@ function check_form() {
 }
 //--></script>
 </head>
-<body onload="SetFocus('advanced_search');" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body onload="SetFocus('advanced_search');" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

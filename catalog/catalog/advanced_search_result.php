@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.35 2001/10/11 09:26:32 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.36 2001/11/09 19:16:44 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -93,7 +93,7 @@
     tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH, tep_get_all_get_params(array('x', 'y')) . '&errorno=' . $errorno, 'NONSSL'));
   } else {
 
-    $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE1 . '</a> : ' . NAVBAR_TITLE2;
+    $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE1 . '</a> : ' . NAVBAR_TITLE2;
 ?>
 <html>
 <head>
@@ -101,7 +101,7 @@
 <title><?php TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

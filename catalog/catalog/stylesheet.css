@@ -1,5 +1,13 @@
-A { color:#000000; text-decoration:none; }
-A.whitelink { color:#FFFFFF; text-decoration:none; }
+BODY {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+A { 
+  color: #000000; 
+  text-decoration: none; 
+}
+
 .blacklink { color:#000000; text-decoration:none; }
 .bluelink { color:#0000FF; text-decoration:none; }
 A:hover { color:#AABBDD; text-decoration:underline; }
@@ -20,6 +28,10 @@ TD.headerNavigation {
   background-color: #000000;
   color: #ffffff;
   font-weight : bold;
+}
+
+A.headerNavigationLink { 
+  color: #FFFFFF; 
 }
 
 TR.headerError {

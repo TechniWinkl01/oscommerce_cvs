@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.49 2001/11/05 19:39:12 dgw_ Exp $
+  $Id: login.php,v 1.50 2001/11/09 19:16:44 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -95,7 +95,7 @@
     }
   } else {
    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
-   $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
+   $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>
@@ -108,7 +108,7 @@ function session_win() {
 }
 //--></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.68 2001/10/30 18:52:18 dgw_ Exp $
+  $Id: product_info.php,v 1.69 2001/11/09 19:16:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,7 +27,7 @@ function popupImageWindow(url) {
 }
 //--></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

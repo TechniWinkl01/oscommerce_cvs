@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.13 2001/10/02 12:07:47 dwatkins Exp $
+  $Id: tell_a_friend.php,v 1.14 2001/11/09 19:16:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_TELL_A_FRIEND);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_TELL_A_FRIEND, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_TELL_A_FRIEND, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
 
   if (tep_session_is_registered('customer_id')) {
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
@@ -36,7 +36,7 @@
 <base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->

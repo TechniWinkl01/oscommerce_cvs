@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.32 2001/09/20 09:52:11 mbs Exp $
+  $Id: product_reviews_write.php,v 1.33 2001/11/09 19:16:45 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -38,7 +38,7 @@
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_REVIEWS_WRITE);
-  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>
@@ -72,7 +72,7 @@ function checkForm() {
 }
 //--></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
