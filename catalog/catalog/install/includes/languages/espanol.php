@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.1 2004/02/16 06:59:35 hpdl Exp $
+  $Id: espanol.php,v 1.2 2004/04/16 05:31:35 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,6 +9,9 @@
 
   Released under the GNU General Public License
 */
+
+  define('NUMERIC_DECIMAL_SEPARATOR', '.');
+  define('NUMERIC_THOUSANDS_SEPARATOR', ',');
 
   define('ERROR_DB_NO_SERVER_SELECTED', 'No server selected.');
   define('ERROR_DB_NO_DATABASE_SELECTED', 'No database selected.');

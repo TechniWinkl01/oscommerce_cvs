@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.19 2004/02/16 07:08:16 hpdl Exp $
+  $Id: currencies.php,v 1.20 2004/04/16 05:31:32 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,7 @@
 
       $this->currencies = array();
 
-      $Qcurrencies = $osC_Database->query('select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from :table_currencies');
+      $Qcurrencies = $osC_Database->query('select code, title, symbol_left, symbol_right, decimal_places, value from :table_currencies');
       $Qcurrencies->bindRaw(':table_currencies', TABLE_CURRENCIES);
       $Qcurrencies->execute();
 
@@ -27,8 +27,6 @@
         $this->currencies[$Qcurrencies->value('code')] = array('title' => $Qcurrencies->value('title'),
                                                                'symbol_left' => $Qcurrencies->value('symbol_left'),
                                                                'symbol_right' => $Qcurrencies->value('symbol_right'),
-                                                               'decimal_point' => $Qcurrencies->value('decimal_point'),
-                                                               'thousands_point' => $Qcurrencies->value('thousands_point'),
                                                                'decimal_places' => $Qcurrencies->valueInt('decimal_places'),
                                                                'value' => $Qcurrencies->valueDecimal('value'));
       }
@@ -46,7 +44,7 @@
         $currency_value = $this->currencies[$currency_code]['value'];
       }
 
-      return $this->currencies[$currency_code]['symbol_left'] . number_format(tep_round($number * $currency_value, $this->currencies[$currency_code]['decimal_places']), $this->currencies[$currency_code]['decimal_places'], $this->currencies[$currency_code]['decimal_point'], $this->currencies[$currency_code]['thousands_point']) . $this->currencies[$currency_code]['symbol_right'];
+      return $this->currencies[$currency_code]['symbol_left'] . number_format(tep_round($number * $currency_value, $this->currencies[$currency_code]['decimal_places']), $this->currencies[$currency_code]['decimal_places'], NUMERIC_DECIMAL_SEPARATOR, NUMERIC_THOUSANDS_SEPARATOR) . $this->currencies[$currency_code]['symbol_right'];
     }
 
     function displayPrice($price, $tax_class_id, $quantity = 1) {

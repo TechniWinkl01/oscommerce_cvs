@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.129 2004/04/14 23:22:53 hpdl Exp $
+  $Id: german.php,v 1.130 2004/04/16 05:31:33 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,6 +37,8 @@ function tep_date_raw($date, $reverse = false) {
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'EUR');
+define('NUMERIC_DECIMAL_SEPARATOR', ',');
+define('NUMERIC_THOUSANDS_SEPARATOR', '.');
 
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="LTR" lang="de"');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.68 2004/04/14 23:22:59 hpdl Exp $
+  $Id: upgrade_3.php,v 1.69 2004/04/16 05:31:35 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -342,6 +342,7 @@ changeText('statusText', '<?php echo sprintf(TEXT_UPDATING, TEXT_CURRENCIES); ?>
 
   $osC_Database->simpleQuery("alter table currencies add value float(13,8)");
   $osC_Database->simpleQuery("alter table currencies add last_updated datetime");
+  $osC_Database->simpleQuery("alter table currencies drop decimal_point, drop thousands_point");
 
   $osC_Database->simpleQuery("update currencies set value = '1'");
 ?>

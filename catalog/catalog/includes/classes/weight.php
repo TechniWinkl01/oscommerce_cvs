@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: weight.php,v 1.1 2004/04/15 16:05:36 mevans Exp $
+  $Id: weight.php,v 1.2 2004/04/16 05:31:32 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,14 +12,10 @@
 
   class osC_Weight {
     var $weight_classes = array(),
-        $decimal_point,
-        $thousands_point,
         $precision;
 
 // class constructor
-    function osC_Weight($decimal_point = '.', $thousands_point = '', $precision = '2') {
-      $this->decimal_point = $decimal_point;
-      $this->thousands_point = $thousands_point;
+    function osC_Weight($precision = '2') {
       $this->precision = $precision;
 
       $this->prepareRules();
@@ -55,14 +51,14 @@
 
     function convert($value, $unit_from, $unit_to) {
       if ($unit_from == $unit_to) {
-        return number_format($value, (int)$this->precision, $this->decimal_point, $this->thousands_point);
+        return number_format($value, (int)$this->precision, NUMERIC_DECIMAL_SEPARATOR, NUMERIC_THOUSANDS_SEPARATOR);
       } else {
-        return number_format($value * $this->weight_classes[(int)$unit_from][(int)$unit_to], (int)$this->precision, $this->decimal_point, $this->thousands_point);
+        return number_format($value * $this->weight_classes[(int)$unit_from][(int)$unit_to], (int)$this->precision, NUMERIC_DECIMAL_SEPARATOR, NUMERIC_THOUSANDS_SEPARATOR);
       }
     }
 
     function display($value, $class) {
-      return number_format($value, (int)$this->precision, $this->decimal_point, $this->thousands_point) . $this->weight_classes[$class]['key'];
+      return number_format($value, (int)$this->precision, NUMERIC_DECIMAL_SEPARATOR, NUMERIC_THOUSANDS_SEPARATOR) . $this->weight_classes[$class]['key'];
     }
   }
 ?>

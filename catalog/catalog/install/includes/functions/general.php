@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.5 2004/02/16 06:59:35 hpdl Exp $
+  $Id: general.php,v 1.6 2004/04/16 05:31:34 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
   }
 
   function tep_currency_format($number, $calculate_currency_value = true, $currency_code = 'USD', $value = '') {
-    $Qcurrencies = $osC_Database->query('select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from currencies where code = :code');
+    $Qcurrencies = $osC_Database->query('select symbol_left, symbol_right, decimal_places, value from currencies where code = :code');
     $Qcurrencies->bindValue(':code', $currency_code);
     $Qcurrencies->execute();
 
@@ -42,9 +42,9 @@
       } else {
         $rate = 1;
       }
-      $number2currency = $Qcurrencies->value('symbol_left') . number_format(($number * $rate), $Qcurrencies->value('decimal_places'), $Qcurrencies->value('decimal_point'), $Qcurrencies->value('thousands_point')) . $Qcurrencies->value('symbol_right');
+      $number2currency = $Qcurrencies->value('symbol_left') . number_format(($number * $rate), $Qcurrencies->value('decimal_places'), NUMERIC_DECIMAL_SEPARATOR, NUMERIC_THOUSANDS_SEPARATOR) . $Qcurrencies->value('symbol_right');
     } else {
-      $number2currency = $Qcurrencies->value('symbol_left') . number_format($number, $Qcurrencies->value('decimal_places'), $Qcurrencies->value('decimal_point'), $Qcurrencies->value('thousands_point')) . $Qcurrencies->value('symbol_right');
+      $number2currency = $Qcurrencies->value('symbol_left') . number_format($number, $Qcurrencies->value('decimal_places'), NUMERIC_DECIMAL_SEPARATOR, NUMERIC_THOUSANDS_SEPARATOR) . $Qcurrencies->value('symbol_right');
     }
 
     $Qcurrencies->freeResult();

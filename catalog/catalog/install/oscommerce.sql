@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.96 2004/04/15 16:05:41 mevans Exp $
+# $Id: oscommerce.sql,v 1.97 2004/04/16 05:31:34 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -150,8 +150,6 @@ CREATE TABLE osc_currencies (
   code char(3) NOT NULL,
   symbol_left varchar(12),
   symbol_right varchar(12),
-  decimal_point char(1),
-  thousands_point char(1),
   decimal_places char(1),
   value float(13,8),
   last_updated datetime NULL,
@@ -1004,8 +1002,8 @@ INSERT INTO osc_countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO osc_countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO osc_countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
-INSERT INTO osc_currencies VALUES (1,'US Dollar','USD','$','','.',',','2','1.0000', now());
-INSERT INTO osc_currencies VALUES (2,'Euro','EUR','','EUR','.',',','2','1.1036', now());
+INSERT INTO osc_currencies VALUES (1,'US Dollar','USD','$','','2','1.0000', now());
+INSERT INTO osc_currencies VALUES (2,'Euro','EUR','','EUR','2','1.1036', now());
 
 INSERT INTO osc_languages VALUES (1,'English','en','icon.gif','english',1);
 INSERT INTO osc_languages VALUES (2,'Deutsch','de','icon.gif','german',2);
