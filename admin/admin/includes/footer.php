@@ -1,6 +1,6 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr bgcolor="#000000" height="19">
-    <td align="left"><font face="<? echo FOOTER_BAR_FONT_FACE; ?>" color="<? echo FOOTER_BAR_FONT_COLOR; ?>" size="<? echo FOOTER_BAR_FONT_SIZE; ?>"><b>&nbsp;&nbsp;<? echo date('l, jS F, Y'); ?></b></font></td>
+    <td align="left"><font face="<? echo FOOTER_BAR_FONT_FACE; ?>" color="<? echo FOOTER_BAR_FONT_COLOR; ?>" size="<? echo FOOTER_BAR_FONT_SIZE; ?>"><b>&nbsp;&nbsp;<? echo strftime(DATE_FORMAT_LONG); ?></b></font></td>
   </tr>
 </table>
 <br>
