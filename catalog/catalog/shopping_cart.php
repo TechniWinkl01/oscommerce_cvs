@@ -22,6 +22,20 @@
 // customer wants to remove all products from their shopping cart
       $cart->reset(TRUE);
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
+    } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
+// customer wants to add a quickie to the cart (called from a box)
+      $quickie_query = tep_db_query("select products_id from products where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
+      if (tep_db_num_rows($quickie_query) == 0) {
+        $quickie_query = tep_db_query("select products_id from products where products_model LIKE '" . $HTTP_POST_VARS['quickie'] . "%'");
+      }
+      if (tep_db_num_rows($quickie_query) == 0 ||tep_db_num_rows($quickie_query) > 1) {
+        Header( 'Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
+        tep_exit();
+      }
+      $quickie_values = tep_db_fetch_array($quickie_query);
+      $cart->add_cart($quickie_values['products_id'], 1, '');
+      header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); 
+      tep_exit();
     }
   }
 ?>
