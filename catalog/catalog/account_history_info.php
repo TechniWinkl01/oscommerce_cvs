@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.60 2001/12/01 19:36:44 dgw_ Exp $
+  $Id: account_history_info.php,v 1.61 2001/12/07 18:28:11 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -104,7 +104,7 @@
     echo '            <td valign="top" class="main"><b>&nbsp;' . $orders_products['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
     $attributes_exist = '0';
-    $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['products_id'] . "'");
+    $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
     if (@tep_db_num_rows($attributes_query)) {
       $attributes_exist = '1';
       while ($attributes = tep_db_fetch_array($attributes_query)) {
@@ -117,7 +117,7 @@
     echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
-      $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['products_id'] . "'");
+      $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
       while ($attributes = tep_db_fetch_array($attributes_query)) {
         if ($attributes['options_values_price'] != '0') {
           echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>&nbsp;';
