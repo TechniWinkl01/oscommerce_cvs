@@ -27,7 +27,8 @@
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
       if (tep_db_query("insert into manufacturers (manufacturers_name, manufacturers_image, manufacturers_location) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "', '" . $HTTP_POST_VARS['manufacturers_image'] . "', '" . $HTTP_POST_VARS['manufacturers_location'] . "')")) {
-        header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+        $manufacturers_id = tep_db_insert_id();
+        header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action', 'info') . 'info=' . $manufacturers_id, 'NONSSL'));
         tep_exit();
       } else {
         header('Location: ' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action', 'info') . 'error=INSERT', 'NONSSL'));
@@ -133,26 +134,19 @@ function checkForm() {
   while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
     $rows++;
 
-    if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $manufacturers['manufacturers_id'])) && (!$manufacturer_info)) {
+    if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $manufacturers['manufacturers_id'])) && (!$mInfo)) {
       $manufacturer_products_query = tep_db_query("select count(*) as total from products_to_manufacturers where manufacturers_id = '" . $manufacturers['manufacturers_id'] . "'");
       $manufacturer_products = tep_db_fetch_array($manufacturer_products_query);
 
-      $manufacturer_info = new Manufacturer_Info();
-      $manufacturer_info->id = $manufacturers['manufacturers_id'];
-      $manufacturer_info->name = $manufacturers['manufacturers_name'];
-      $manufacturer_info->image = $manufacturers['manufacturers_image'];
-      $manufacturer_info->location = $manufacturers['manufacturers_location'];
-      $manufacturer_info->products_count = $manufacturer_products['total'];
+      $mInfo = new Manufacturer_Info();
+      $mInfo_array = tep_array_merge($manufacturers, $manufacturer_products);
+      tep_set_manufacturer_info($mInfo_array);
     }
 
-    if ($manufacturers['manufacturers_id'] == $manufacturer_info->id) {
+    if ($manufacturers['manufacturers_id'] == $mInfo->id) {
       echo '              <tr bgcolor="#b0c8df">' . "\n";
     } else {
-      if (floor($rows/2) == ($rows/2)) {
-        echo '              <tr bgcolor="#ffffff">' . "\n";
-      } else {
-        echo '              <tr bgcolor="#f4f7fd">' . "\n";
-      }
+      echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('info', 'action') . 'info=' . $manufacturers['manufacturers_id'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
                 <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$manufacturers['manufacturers_id'];?>&nbsp;</font></td>
@@ -160,7 +154,7 @@ function checkForm() {
                 <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$manufacturers['manufacturers_location'];?>&nbsp;</font></td>
                 <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$manufacturers['manufacturers_image'];?>&nbsp;</font></td>
 <?
-    if ($manufacturers['manufacturers_id'] == $manufacturer_info->id) {
+    if ($manufacturers['manufacturers_id'] == $mInfo->id) {
 ?>
                 <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image(DIR_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, '');?>&nbsp;</font></td>
 <?
@@ -178,13 +172,9 @@ function checkForm() {
                 <td colspan="5"><?=tep_black_line();?></td>
               </tr>
 <?
-  if (floor($rows/2) == ($rows/2)) {
-    echo '              <tr bgcolor="#f4f7fd">' . "\n";
-  } else {
-    echo '              <tr bgcolor="#ffffff">' . "\n";
-  }
+  if (!$HTTP_GET_VARS['action']) {
 ?>
-              <form name="manufacturers" <?='action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=insert', 'NONSSL') . '"';?> method="post" onSubmit="return checkForm();">
+              <tr><form name="manufacturers" <?='action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=insert', 'NONSSL') . '"';?> method="post" onSubmit="return checkForm();">
                 <td align="center"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;</font></td>
                 <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="manufacturers_name">&nbsp;</font></td>
                 <td align="center"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="manufacturers_location" size="2">&nbsp;</font></td>
@@ -194,6 +184,9 @@ function checkForm() {
               <tr>
                 <td colspan="5"><?=tep_black_line();?></td>
               </tr>
+<?
+  }
+?>
               <tr>
                 <td colspan="5"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_MANUFACTURERS;?> <?=$rows;?>&nbsp;</font></td>
               </tr>
@@ -208,80 +201,48 @@ function checkForm() {
 ?>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+  $info_box_contents = array();
+  $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->name . '</b>&nbsp;');
+?>
               <tr bgcolor="#81a2b6">
-                <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="#ffffff">&nbsp;<b><?=$manufacturer_info->name;?></b>&nbsp;</font></td>
+                <td><? new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr bgcolor="#81a2b6">
                 <td><?=tep_black_line();?></td>
               </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'edit') {
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>&nbsp;');
+    if (EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_ID . '<br>&nbsp;<input type="text" name="manufacturers_id" value="' . $mInfo->id . '" size="2"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_MANUFACTURERS_NAME . '<br>&nbsp;<input type="text" name="manufacturers_name" value="' . $mInfo->name . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_IMAGE . '<br>&nbsp;<input type="text" name="manufacturers_image" value="' . $mInfo->image . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_LOCATION . '<br>&nbsp;<input type="text" name="manufacturers_location" size="2" value="' . $mInfo->location . '"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 ?>
-              <tr bgcolor="#b0c8df"><form name="manufacturers" <?='action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=save', 'NONSSL') . '"';?> method="post"><input type="hidden" name="original_manufacturers_id" value="<?=$manufacturer_info->id;?>">
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=TEXT_EDIT_INTRO;?><br>&nbsp;</font></td>
-                  </tr>
-<?
-    if (EXPERT_MODE) {
-?>
-                  <tr>
-                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_EDIT_MANUFACTURERS_ID;?><br>&nbsp;<input type="text" name="manufacturers_id" value="<?=$manufacturer_info->id;?>" size="2"><br>&nbsp;</font></td>
-                  </tr>
-<?
-    }
-?>
-                  <tr>
-                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_EDIT_MANUFACTURERS_NAME;?><br>&nbsp;<input type="text" name="manufacturers_name" value="<?=$manufacturer_info->name;?>"><br>&nbsp;<br>&nbsp;<?=TEXT_EDIT_MANUFACTURERS_IMAGE;?><br>&nbsp;<input type="text" name="manufacturers_image" value="<?=$manufacturer_info->image;?>"><br>&nbsp;<br>&nbsp;<?=TEXT_EDIT_MANUFACTURERS_LOCATION;?><br>&nbsp;<input type="text" name="manufacturers_location" size="2" value="<?=$manufacturer_info->location;?>"><br>&nbsp;</font></td>
-                  </tr>
-                  <tr>
-                    <td align="center"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE);?> <?='<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?></font></td>
-                  </tr>
-                </table></td>
+              <tr bgcolor="#b0c8df"><form name="manufacturers" <?='action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=save', 'NONSSL') . '"';?> method="post"><input type="hidden" name="original_manufacturers_id" value="<?=$mInfo->id;?>">
+                <td><? new infoBox($info_box_contents); ?></td>
               </form></tr>
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_INTRO . '<br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->name . '</b>');
+    if ($mInfo->products_count > 0) $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $mInfo->products_count));
+    $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 ?>
-              <tr bgcolor="#b0c8df"><form name="manufacturers" <?='action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=deleteconfirm', 'NONSSL') . '"';?> method="post"><input type="hidden" name="manufacturers_id" value="<?=$manufacturer_info->id;?>">
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=TEXT_DELETE_INTRO;?>&nbsp;</font></td>
-                  </tr>
-                  <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?=$manufacturer_info->name;?></b>&nbsp;</font></td>
-                  </tr>
-<?
-    if ($manufacturer_info->products_count > 0) {
-?>
-                  <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_DELETE_WARNING_PRODUCTS, $manufacturer_info->products_count);?>&nbsp;</font></td>
-                  </tr>
-<?
-    }
-?>
-                  <tr>
-                    <td align="center"><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE);?> <?='<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?></font></td>
-                  </tr>
-                </table></td>
+              <tr bgcolor="#b0c8df"><form name="manufacturers" <?='action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=deleteconfirm', 'NONSSL') . '"';?> method="post"><input type="hidden" name="manufacturers_id" value="<?=$mInfo->id;?>">
+                <td><? new infoBox($info_box_contents); ?></td>
               </form></tr>
 <?
   } else {
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . '&nbsp;<br>&nbsp;' . TEXT_LAST_MODIFIED);
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($mInfo->image, $mInfo->name));
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $mInfo->products_count);
 ?>
               <tr bgcolor="#b0c8df">
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td align="center"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a>';?> <?='<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params('action') . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a>';?></font></td>
-                  </tr>
-                  <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_DATE_ADDED;?>&nbsp;<br>&nbsp;<?=TEXT_LAST_MODIFIED;?>&nbsp;</font></td>
-                  </tr>
-                  <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<? $image_size = @getimagesize(DIR_SERVER_ROOT . DIR_CATALOG . $manufacturer_info->image); if ($image_size) { echo tep_image(DIR_CATALOG . $manufacturer_info->image, $image_size[0], $image_size[1], 0, $manufacturer_info->name); } else { echo TEXT_IMAGE_NONEXISTENT; } ?>&nbsp;</font></td>
-                  </tr>
-                  <tr>
-                    <td><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS;?> <?=$manufacturer_info->products_count;?>&nbsp;</font></td>
-                  </tr>
-                </table></td>
+                <td><? new infoBox($info_box_contents); ?></td>
               </tr>
 <?
   }
