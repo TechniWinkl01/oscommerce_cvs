@@ -48,11 +48,11 @@
   $row = 0;
   $per_page = MAX_ROW_LISTS;
   $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
-  $search_query = "select manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from category_top, subcategories_to_category, subcategories, products_to_subcategories, manufacturers, products_to_manufacturers, products where products.products_status='1' and category_top.category_top_id = subcategories_to_category.category_top_id and subcategories_to_category.subcategories_id = subcategories.subcategories_id and products_to_subcategories.products_id = products.products_id and products_to_subcategories.subcategories_id = subcategories.subcategories_id and products_to_manufacturers.products_id = products.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and ";
+  $search_query = "select m.manufacturers_name, m.manufacturers_location, p.products_id, p.products_name, p.products_price from manufacturers m, products_to_manufacturers p2m, products p where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
   for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
-    $search_query .= "(category_top.category_top_name like '%" . $search_keywords[$i] . "%' or subcategories.subcategories_name like '%" . $search_keywords[$i] . "%' or products.products_name like '%" . $search_keywords[$i] . "%' or manufacturers.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
+    $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
   }
-  $search_query .= "(category_top.category_top_name like '%" . $search_keywords[$i] . "%' or subcategories.subcategories_name like '%" . $search_keywords[$i] . "%' or products.products_name like '%" . $search_keywords[$i] . "%' or manufacturers.manufacturers_name like '%" . $search_keywords[$i] . "%') order by products.products_name";
+  $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') order by p.products_name";
   $search = tep_db_query($search_query);
             if (!$page) 
             { 
