@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.29 2003/06/25 20:32:44 hpdl Exp $
+  $Id: html_output.php,v 1.30 2004/02/14 21:12:37 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -244,7 +244,7 @@
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
       $field .= stripslashes($GLOBALS[$name]);
     } elseif (tep_not_null($text)) {
-      $field .= $text;
+      $field .= stripslashes($text);
     }
 
     $field .= '</textarea>';
