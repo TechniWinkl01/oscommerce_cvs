@@ -2,7 +2,7 @@
           <tr>
             <td>
 <?
-  if (tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, p.products_name, p.products_image from reviews r, reviews_extra re, products p where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS)) {
+  if (tep_random_select("select r.reviews_id, r.reviews_text, r.reviews_rating, p.products_id, pd.products_name, p.products_image from reviews r, reviews_extra re, products p, products_description pd where p.products_status = '1' and r.reviews_id = re.reviews_id and re.products_id = p.products_id and re.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by r.reviews_id DESC limit " . MAX_RANDOM_SELECT_REVIEWS)) {
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
@@ -23,3 +23,4 @@
             </td>
           </tr>
 <!-- reviews_eof //-->
+

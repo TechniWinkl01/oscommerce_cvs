@@ -162,7 +162,7 @@
           $select_column_list .= 'p.products_model';
           break;
         case 'PRODUCT_LIST_NAME':
-          $select_column_list .= 'p.products_name';
+          $select_column_list .= 'pd.products_name';
           break;
         case 'PRODUCT_LIST_MANUFACTURER':
           $select_column_list .= 'm.manufacturers_name';
@@ -180,20 +180,27 @@
     }
     if ($select_column_list != '')
       $select_column_list .= ', ';
-
+// show the products of a specified manufacturer
     if ($HTTP_GET_VARS['manufacturers_id']) {
       if ($HTTP_GET_VARS['filter_id']) {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "'";
+// We are asked to show only a specific category
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, products_description pd, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $HTTP_GET_VARS['filter_id'] . "'";
       } else {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'";
+// We show them all
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, products_description pd, manufacturers m left join specials s on p.products_id = s.products_id where p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'";
       }
+// We build the categories-dropdown
       $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from products p, products_to_categories p2c, categories c, categories_description cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
     } else {
+// show the products in a given categorie
       if ($HTTP_GET_VARS['filter_id']) {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "'";
+// We are asked to show only specific catgeory
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, products_description pd, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $current_category_id . "'";
       } else {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p left join manufacturers m on p.manufacturers_id = m.manufacturers_id, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "'";
+// We show them all
+        $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products_description pd, products p left join manufacturers m on p.manufacturers_id = m.manufacturers_id, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $current_category_id . "'";
       }
+// We build the manufacturers Dropdown
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
@@ -201,7 +208,7 @@
       for ($col=0; $col<sizeof($column_list); $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col+1 . 'a';
-          $listing_sql .= " order by p.products_name";
+          $listing_sql .= " order by pd.products_name";
           break;
         }
       }
@@ -217,7 +224,7 @@
             $listing_sql .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
             break;
           case 'PRODUCT_LIST_NAME':
-            $listing_sql .= "p.products_name " . ($sort_order == 'd' ? "desc" : "");
+            $listing_sql .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
             break;
           case 'PRODUCT_LIST_MANUFACTURER':
             $listing_sql .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
@@ -226,7 +233,7 @@
             $listing_sql .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
             break;
           case 'PRODUCT_LIST_IMAGE':
-            $listing_sql .= "p.products_name";
+            $listing_sql .= "pd.products_name";
             break;
           case 'PRODUCT_LIST_WEIGHT':
             $listing_sql .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
@@ -240,7 +247,7 @@
         for ($col=0; $col<sizeof($column_list); $col++) {
           if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
             $HTTP_GET_VARS['sort'] = $col . 'a';
-            $listing_sql .= " order by p.products_name";
+            $listing_sql .= " order by pd.products_name";
             break;
           }
         }
@@ -382,7 +389,4 @@
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-
-
-
 

@@ -75,7 +75,7 @@
   }
 
 // path to writable file
-  $ratesfile = '/usr/local/apache/htdocs/catalog/includes/data/rates.php';
+  $ratesfile = '/usr/local/apache/htdocs/devtep/catalog/catalog/includes/data/rates.php';
 
 // get list of available currencies and store as array
   $currencies = split("\n", querycurrencies());

@@ -1,6 +1,6 @@
 <!-- upcoming_products //-->
 <?
-  $expected_query = tep_db_query("select products_id, products_name, unix_timestamp(products_date_available) as date_expected from products where products_date_available != '' and products_date_available > now() order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
+  $expected_query = tep_db_query("select p.products_id, pd.products_name, unix_timestamp(products_date_available) as date_expected from products p, products_description pd where products_date_available != '' and products_date_available > now() and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
   if (tep_db_num_rows($expected_query) > 0) {
 ?>
           <tr>
@@ -36,3 +36,4 @@
     }
 ?>
 <!-- upcoming_products_eof //-->
+

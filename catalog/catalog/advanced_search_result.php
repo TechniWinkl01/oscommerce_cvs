@@ -166,11 +166,11 @@
   if ($select_column_list != '')
     $select_column_list .= ', ';
 
-  $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
+  $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
 
-  $from_str = "from manufacturers m, products p";
+  $from_str = "from manufacturers m, products p, products_description pd";
 
-  $where_str = " left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id ";
+  $where_str = " left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.manufacturers_id = m.manufacturers_id ";
 
   if ($HTTP_GET_VARS['categories_id']) {
     $from_str .= ", products_to_categories p2c ";
@@ -178,14 +178,14 @@
     if ($HTTP_GET_VARS['inc_subcat'] == "1") {
       $categories = array();
       tep_get_subcategories($categories, $HTTP_GET_VARS['categories_id']);
-      $where_str .= " and p2c.products_id = p.products_id and (p2c.categories_id = '" . $HTTP_GET_VARS['categories_id'] . "'";
+      $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and (p2c.categories_id = '" . $HTTP_GET_VARS['categories_id'] . "'";
       for ($i=0; $i<sizeof($categories); $i++ ) {
         $where_str .= " or p2c.categories_id = '" . $categories[$i] . "'";
       }
       $where_str .= ")";
     }
     else {
-      $where_str .= " and p2c.products_id = p.products_id and p2c.categories_id = '" . $HTTP_GET_VARS['categories_id'] . "'";
+      $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $HTTP_GET_VARS['categories_id'] . "'";
     }
   }
   if ($HTTP_GET_VARS['manufacturers_id']) {
@@ -203,7 +203,7 @@
             $where_str .= " " . $search_keywords[$i] . " ";
             break;
           default:
-            $where_str .= "(p.products_name like '%" . AddSlashes($search_keywords[$i]) . "%' or p.products_model like '%" . AddSlashes($search_keywords[$i]) . "%' or m.manufacturers_name like '%" . AddSlashes($search_keywords[$i]) . "%')";
+            $where_str .= "(pd.products_name like '%" . AddSlashes($search_keywords[$i]) . "%' or p.products_model like '%" . AddSlashes($search_keywords[$i]) . "%' or m.manufacturers_name like '%" . AddSlashes($search_keywords[$i]) . "%')";
             if ($HTTP_GET_VARS['search_in_description']) $where_str .= " or p.products_description like '%" . AddSlashes($search_keywords[$i]) . "%'";
             break;
         }
@@ -234,7 +234,7 @@
     for ($col=0; $col<sizeof($column_list); $col++) {
       if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
         $HTTP_GET_VARS['sort'] = $col+1 . 'a';
-        $order_str .= "p.products_name";
+        $order_str .= "pd.products_name";
       }
     }
   } else {
@@ -247,7 +247,7 @@
           $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
           break;
         case 'PRODUCT_LIST_NAME':
-          $order_str .= "p.products_name " . ($sort_order == 'd' ? "desc" : "");
+          $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
           break;
         case 'PRODUCT_LIST_MANUFACTURER':
           $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
@@ -256,7 +256,7 @@
           $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
           break;
         case 'PRODUCT_LIST_IMAGE':
-          $order_str .= "p.products_name";
+          $order_str .= "pd.products_name";
           break;
         case 'PRODUCT_LIST_WEIGHT':
           $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", p.products_name";
@@ -269,7 +269,7 @@
       for ($col=0; $col<sizeof($column_list); $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col . 'a';
-          $order_str .= "p.products_name";
+          $order_str .= "pd.products_name";
         }
       }
     }
@@ -305,3 +305,4 @@
   }
 ?>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+

@@ -80,7 +80,7 @@
   }
 
   if ($HTTP_GET_VARS['action'] == 'where') {
-    $product_info = tep_db_query("select products_id, products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, products_date_available, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    $product_info = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from products p, products_description pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
     $product_info_values = tep_db_fetch_array($product_info);
 ?>
       <form action="<? echo tep_href_link(FILENAME_EMAILPRODUCT, 'action=process', 'NONSSL'); ?>" method="post"><input type="hidden" name="products_id" value="<? echo $product_info_values['products_id']; ?>"><input type="hidden" name="products_name" value="<? echo $product_info_values['products_name']; ?>">

@@ -1,6 +1,6 @@
 <?
   if ($HTTP_GET_VARS['products_id']) {
-    $orders_query = tep_db_query("select distinct p.products_id, p.products_name from orders_products op1, orders_products op2, orders o, products p where op1.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and op1.orders_id = op2.orders_id and op2.products_id <> '" . $HTTP_GET_VARS['products_id'] . "' and op2.products_id = p.products_id and op2.orders_id = o.orders_id order by p.products_name");
+    $orders_query = tep_db_query("select distinct p.products_id, pd.products_name from orders_products op1, orders_products op2, orders o, products p, products_description pd where op1.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and op1.orders_id = op2.orders_id and op2.products_id <> '" . $HTTP_GET_VARS['products_id'] . "' and op2.products_id = p.products_id and op2.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and op2.orders_id = o.orders_id order by pd.products_name");
     $num_products_ordered = tep_db_num_rows($orders_query);
     if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
 ?>

@@ -47,7 +47,7 @@
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
 <?
-    $new = tep_db_query("select p.products_id, p.products_name, p.products_price, p.products_image, s.specials_new_products_price from products p, specials s where  p.products_status = '1' and s.products_id = p.products_id order by s.specials_date_added DESC limit " . MAX_DISPLAY_SPECIAL_PRODUCTS);
+    $new = tep_db_query("select p.products_id, pd.products_name, p.products_price, p.products_image, s.specials_new_products_price from products p, products_description pd, specials s where  p.products_status = '1' and s.products_id = p.products_id and s.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by s.specials_date_added DESC limit " . MAX_DISPLAY_SPECIAL_PRODUCTS);
     $row = 0;
     while ($new_values = tep_db_fetch_array($new)) {
       $row++;
@@ -92,3 +92,4 @@
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+

@@ -2,7 +2,7 @@
           <tr>
             <td>
 <?
-  if (tep_random_select("select p.products_id, p.products_name, p.products_image from products p where p.products_status='1' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
+  if (tep_random_select("select p.products_id, pd.products_name, p.products_image from products p, products_description pd where p.products_status='1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
@@ -20,3 +20,4 @@
             </td>
           </tr>
 <!-- whats_new //-->
+
