@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.52 2001/07/20 08:03:27 jwildeboer Exp $
+  $Id: create_account_process.php,v 1.53 2001/07/25 06:19:56 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -242,7 +242,7 @@
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into " . TABLE_ADDRESS_BOOK . " values ('" . $insert_id . "', '0', '" . $HTTP_POST_VARS['gender'] .  "', '" . $HTTP_POST_VARS['company'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" .  $HTTP_POST_VARS['country'] . "', '0')");
 
-    tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', now(), '')");
 
     $customer_id = $insert_id;
     $customer_first_name = $HTTP_POST_VARS['firstname'];
