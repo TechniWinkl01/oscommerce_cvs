@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.18 2002/11/23 02:29:39 thomasamoulton Exp $
+  $Id: shipping.php,v 1.19 2003/01/11 13:24:41 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,8 +57,7 @@
           $shipping_weight = $total_weight/$shipping_num_boxes;
         }
 
-        if ((SHIPPING_BOX_PADDING <= 0) ||
-            ($shipping_weight < SHIPPING_BOX_WEIGHT*SHIPPING_BOX_PADDING/100)) {
+        if (SHIPPING_BOX_WEIGHT >= $shipping_weight*SHIPPING_BOX_PADDING/100) {
           $shipping_weight = $shipping_weight+SHIPPING_BOX_WEIGHT;
         } else {
           $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
