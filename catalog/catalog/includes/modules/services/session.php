@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.1 2004/04/13 08:02:18 hpdl Exp $
+  $Id: session.php,v 1.2 2004/06/13 17:27:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -110,28 +110,28 @@
 
 // create an instance of the shopping cart
       if ($osC_Session->exists('cart')) {
-        $cart =& $osC_Session->value('cart');
+        $GLOBALS['cart'] =& $osC_Session->value('cart');
       } else {
-        $cart = new shoppingCart;
-        $osC_Session->set('cart', $cart);
+        $GLOBALS['cart'] = new shoppingCart;
+        $osC_Session->set('cart', $GLOBALS['cart']);
       }
 
 // create an instance of the customer class
       if ($osC_Session->exists('osC_Customer')) {
-        $osC_Customer =& $osC_Session->value('osC_Customer');
+        $GLOBALS['osC_Customer'] =& $osC_Session->value('osC_Customer');
       } else {
-        $osC_Customer = new osC_Customer;
-        $osC_Session->set('osC_Customer', $osC_Customer);
+        $GLOBALS['osC_Customer'] = new osC_Customer;
+        $osC_Session->set('osC_Customer', $GLOBALS['osC_Customer']);
       }
 
 // navigation history
       if ($osC_Session->exists('navigation')) {
-        $navigation =& $osC_Session->value('navigation');
+        $GLOBALS['navigation'] =& $osC_Session->value('navigation');
       } else {
-        $navigation = new navigationHistory;
-        $osC_Session->set('navigation', $navigation);
+        $GLOBALS['navigation'] = new navigationHistory;
+        $osC_Session->set('navigation', $GLOBALS['navigation']);
       }
-      $navigation->add_current_page();
+      $GLOBALS['navigation']->add_current_page();
 
 // add messages in the session to the message stack
       $messageStack->loadFromSession();
