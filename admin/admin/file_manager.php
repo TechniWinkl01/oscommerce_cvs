@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.8 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: file_manager.php,v 1.9 2001/12/14 14:36:07 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -58,6 +58,12 @@
           copy($filename, $current_path . '/' . $filename_name);
         }
         tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+        break;
+      case 'download':
+        header('Content-type: application/x-octet-stream');
+        header('Content-disposition: attachment; filename=' . urldecode($HTTP_GET_VARS['filename']));
+        readfile($current_path . '/' . urldecode($HTTP_GET_VARS['filename']));
+        exit;
         break;
     }
   }
@@ -205,19 +211,19 @@
 <?
     } else {
 ?>
-              <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<? echo tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $key); ?>'">
+              <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $key); ?>'">
 <?
     }
     if ($file['is_dir']) {
       $icon = ($key == $HTTP_GET_VARS['info'] ? 'icon_current_folder.gif' : 'icon_folder.gif');
 ?>          
                 <td class="main"><?php echo tep_image(DIR_WS_IMAGES . $icon); ?></td>
-                <td class="main"><a href="<? echo tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $file['name']); ?>"><?php echo $file['name']; ?></a></td>
+                <td class="main"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $file['name']); ?>"><?php echo $file['name']; ?></a></td>
 <?
     } else {
 ?>          
                 <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'icon_file.gif'); ?></td>
-                <td class="main"><?php echo $file['name']; ?></td>
+                <td class="main"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=download&filename=' . urlencode($file['name'])); ?>"><?php echo $file['name']; ?></a></td>
 <?
     }
 ?>
@@ -229,7 +235,7 @@
 <?php
     } else {
 ?>
-                <td align="center" class="main"><a href="<? echo tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $key); ?>"><? echo tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO); ?></a>&nbsp;</td>
+                <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $key); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO); ?></a>&nbsp;</td>
 <?php
     }
 ?>
