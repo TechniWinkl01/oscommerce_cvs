@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: server_info.php,v 1.5 2004/08/15 22:59:25 hpdl Exp $
+  $Id: server_info.php,v 1.6 2004/08/17 23:56:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,6 +22,7 @@
   define('TITLE_DATABASE_HOST', 'Datenbank Host:');
   define('TITLE_DATABASE', 'Datenbank:');
   define('TITLE_DATABASE_DATE', 'Datenbank Datum:');
+  define('TITLE_DATABASE_UP_TIME', 'Datenbank Up Time:');
 
   define('TEXT_MORE_INFORMATION', 'mehr info');
 ?>

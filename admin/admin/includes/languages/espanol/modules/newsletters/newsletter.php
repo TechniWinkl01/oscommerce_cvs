@@ -1,14 +1,16 @@
 <?php
 /*
-  $Id: newsletter.php,v 1.2 2003/07/06 20:33:02 dgw_ Exp $
+  $Id: newsletter.php,v 1.3 2004/08/17 23:56:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TEXT_COUNT_CUSTOMERS', 'Clientes que recibir&aacute;n el bolet&iacute;n: %s');
+  define('MODULE_NEWSLETTER_NEWSLETTER_TITLE', 'Newsletter');
+
+  define('MODULE_NEWSLETTER_NEWSLETTER_TEXT_TOTAL_RECIPIENTS', 'Clientes que recibir&aacute;n el bolet&iacute;n: %s');
 ?>

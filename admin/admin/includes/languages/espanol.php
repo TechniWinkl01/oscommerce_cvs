@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.111 2004/08/15 18:19:07 hpdl Exp $
+  $Id: espanol.php,v 1.112 2004/08/17 23:56:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,7 +108,6 @@ define('BOX_TOOLS_BANNER_MANAGER', 'Banners');
 define('BOX_TOOLS_CACHE', 'Control de Cach&eacute;');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Definir Idiomas');
 define('BOX_TOOLS_FILE_MANAGER', 'Archivos');
-define('BOX_TOOLS_MAIL', 'Enviar Email');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Boletines');
 define('BOX_TOOLS_SERVER_INFO', 'Informaci&oacute;n');
 define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
@@ -246,6 +245,14 @@ define('ICON_SUCCESS', 'Exito');
 define('ICON_TICK', 'Verdadero');
 define('ICON_UNLOCKED', 'Desbloqueado');
 define('ICON_WARNING', 'Advertencia');
+
+define('BUTTON_CANCEL', 'Cancelar');
+define('BUTTON_BACK', 'Volver');
+define('BUTTON_DELETE', 'Eliminar');
+define('BUTTON_INSERT', 'Insertar');
+define('BUTTON_OK', 'OK');
+define('BUTTON_SAVE', 'Grabar');
+define('BUTTON_SEND', 'Send');
 
 define('ICON_FILES', 'Files');
 define('ICON_ORDERS', 'Orders');

@@ -1,24 +1,25 @@
 <?php
 /*
-  $Id: product_notification.php,v 1.2 2002/03/11 14:15:44 harley_vb Exp $
+  $Id: product_notification.php,v 1.3 2004/08/17 23:56:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TEXT_COUNT_CUSTOMERS', 'Anzahl der Kunden, welche das Rundschreiben erhalten: %s');
-define('TEXT_PRODUCTS', 'Produkte');
-define('TEXT_SELECTED_PRODUCTS', 'ausgew&auml;hlte Produkte');
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TITLE', 'Produktbenachrichtung');
 
-define('JS_PLEASE_SELECT_PRODUCTS', 'Bitte wählen Sie zumindest ein Produkt aus!');
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TEXT_TOTAL_RECIPIENTS', 'Anzahl der Kunden, welche das Produktbenachrichtung erhalten: %s');
 
-define('BUTTON_GLOBAL', 'Global');
-define('BUTTON_SELECT', '>>>');
-define('BUTTON_UNSELECT', '<<<');
-define('BUTTON_SUBMIT', 'Weiter');
-define('BUTTON_CANCEL', 'Abbrechen');
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TABLE_HEADING_PRODUCTS', 'Produkte');
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_TABLE_HEADING_SELECTED_PRODUCTS', 'Ausgew&auml;hlte Produkte');
+
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_JS_PLEASE_SELECT_PRODUCTS', 'Bitte w&auml;len Sie zumindest ein Produkt aus!');
+
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_BUTTON_GLOBAL', 'Global');
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_BUTTON_SELECT', '>>>');
+  define('MODULE_NEWSLETTER_PRODUCT_NOTIFICATION_BUTTON_UNSELECT', '<<<');
 ?>
