@@ -1390,4 +1390,42 @@ function tep_address_summary($customers_id, $address_id) {
 
     return $pieces[0];
   }
+
+  function tep_display_banner($action, $identifier) {
+    if ($action == 'dynamic') {
+      $banners_query = tep_db_query("select count(*) as count from banners where banners_group = '" . $identifier . "'");
+      $banners = tep_db_fetch_array($banners_query);
+      if ($banners['count'] > 0) {
+        $banner = tep_random_select("select banners_id, banners_title, banners_image from banners where status = '1' and banners_group = '" . $identifier . "'");
+      } else {
+        return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> No banners with group \'' . $identifier . '\' found!</b>';
+      }
+    } elseif ($action == 'static') {
+      $banner_query = tep_db_query("select banners_id, banners_title, banners_image from banners where status = '1' and banners_id = '" . $identifier . "'");
+      if (tep_db_num_rows($banner_query)) {
+        $banner = tep_db_fetch_array($banner_query);
+      } else {
+        return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Banner with ID \'' . $identifier . '\' not found, or status inactive</b>';
+      }
+    } else {
+      return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
+    }
+
+    $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank"><img src="' . $banner['banners_image'] . '" border="0" alt="' . $banner['banners_title'] . '"></a>';
+
+    $banner_check_query = tep_db_query("select count(*) as count from banners_history where banners_id = '" . $banner['banners_id'] . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+    $banner_check = tep_db_fetch_array($banner_check_query);
+
+    if ($banner_check['count'] > 0) {
+      tep_db_query("update banners_history set banners_shown = banners_shown + 1 where banners_id = '" . $banner['banners_id'] . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+    } else {
+      tep_db_query("insert into banners_history (banners_id, banners_shown, banners_history_date) values ('" . $banner['banners_id'] . "', 1, now())");
+    }
+
+    return $banner_string;
+  }
+
+  function tep_update_banner_count($banner_id) {
+    tep_db_query("update banners_history set banners_clicked = banners_clicked + 1 where banners_id = '" . $banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
+  }
 ?>

@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.79 2001/04/28 23:59:26 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.80 2001/04/29 22:16:32 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -37,6 +37,26 @@ CREATE TABLE address_format (
   address_format varchar(128) NOT NULL,
   address_summary varchar(48) NOT NULL,
   PRIMARY KEY (address_format_id)
+);
+
+CREATE TABLE banners (
+  banners_id int(5) NOT NULL auto_increment,
+  banners_title varchar(64) NOT NULL,
+  banners_url varchar(64) NOT NULL,
+  banners_image varchar(64) NOT NULL,
+  banners_group varchar(10) NOT NULL,
+  date_added timestamp(14) NOT NULL,
+  status int(1) DEFAULT '1',
+  PRIMARY KEY  (banners_id)
+);
+
+CREATE TABLE banners_history (
+  banners_history_id int(5) NOT NULL auto_increment,
+  banners_id int(5) NOT NULL,
+  banners_shown int(5) NOT NULL DEFAULT '0',
+  banners_clicked int(5) NOT NULL DEFAULT '0',
+  banners_history_date timestamp(14) NOT NULL,
+  PRIMARY KEY  (banners_history_id)
 );
 
 CREATE TABLE categories (
@@ -363,6 +383,8 @@ INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, 
 INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
 INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$city / $country');
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
+
+INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
 
 INSERT INTO categories VALUES (1,'Hardware','images/category_hardware.gif',0,1);
 INSERT INTO categories VALUES (2,'Software','images/category_software.gif',0,2);

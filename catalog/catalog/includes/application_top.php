@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.112 2001/04/28 14:31:36 hpdl Exp $
+  $Id: application_top.php,v 1.113 2001/04/29 22:16:34 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -95,6 +95,7 @@
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
   define('FILENAME_PRODUCT_REVIEWS_WRITE', 'product_reviews_write.php');
+  define('FILENAME_REDIRECT', 'redirect.php');
   define('FILENAME_REVIEWS', 'reviews.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
