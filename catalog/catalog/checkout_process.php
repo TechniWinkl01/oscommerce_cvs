@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.106 2002/04/26 20:57:33 dgw_ Exp $
+  $Id: checkout_process.php,v 1.107 2002/05/30 15:28:18 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -174,6 +174,9 @@
   tep_session_unregister('sendto');
   tep_session_unregister('comments');
   tep_session_unregister('payment');
+  tep_session_unregister('shipping_selected');
+  tep_session_unregister('shipping_cost');
+  tep_session_unregister('shipping_method');
 
   tep_redirect(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.115 2002/04/26 22:33:14 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.116 2002/05/30 15:28:18 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,15 +40,27 @@
 // Register checkout variables
   if ($HTTP_POST_VARS['comments']) {
     $comments = stripslashes($HTTP_POST_VARS['comments']);
-    if (!tep_session_is_registered('comments')) {
-      tep_session_register('comments');
-    }
   }
   if ($HTTP_POST_VARS['payment']) {
-    $payment = $HTTP_POST_VARS['payment'];
-    if (!tep_session_is_registered('payment')) {
-      tep_session_register('payment');
-    }
+    $payment = stripslashes($HTTP_POST_VARS['payment']);
+  }
+  if ($HTTP_POST_VARS['shipping_selected']) {
+    $shipping_selected = stripslashes($HTTP_POST_VARS['shipping_selected']);
+  }
+  if (!tep_session_is_registered('comments')) {
+    tep_session_register('comments');
+  }
+  if (!tep_session_is_registered('payment')) {
+    tep_session_register('payment');
+  }
+  if (!tep_session_is_registered('shipping_selected')) {
+    tep_session_register('shipping_selected');
+  }
+  if (!tep_session_is_registered('shipping_cost')) {
+    tep_session_register('shipping_cost');
+  }
+  if (!tep_session_is_registered('shipping_method')) {
+    tep_session_register('shipping_method');
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION);
@@ -242,8 +254,6 @@
             <td align="right" class="main"><br>
 <?php
   echo tep_draw_hidden_field('prod', $HTTP_POST_VARS['prod']) .
-       tep_draw_hidden_field('shipping_cost', $shipping_cost) .
-       tep_draw_hidden_field('shipping_method', $shipping_method) .
        $payment_modules->process_button();
 
   if (!$checkout_form_submit) {
