@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.11 2003/05/02 13:01:25 dgw_ Exp $
+  $Id: checkout_shipping_address.php,v 1.12 2003/05/02 14:20:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -224,6 +224,9 @@
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'));
+
+  $addresses_count_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id != '" . $sendto . "'");
+  $addresses_count = tep_db_fetch_array($addresses_count_query);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -266,6 +269,9 @@ function rowOutEffect(object) {
 
 function check_form() {
   var error = 0;
+<?php
+  if ($addresses_count['total'] > MAX_ADDRESS_BOOK_ENTRIES) {
+?>
   var error_message = "<?php echo JS_ERROR; ?>";
 
   var firstname = document.checkout_address.firstname.value;
@@ -279,7 +285,7 @@ function check_form() {
   }
 
 <?php
-  if (ACCOUNT_GENDER == 'true') {
+    if (ACCOUNT_GENDER == 'true') {
 ?>
   if (document.checkout_address.elements['gender'].type != "hidden") {
     if (document.checkout_address.gender[0].checked || document.checkout_address.gender[1].checked) {
@@ -289,7 +295,7 @@ function check_form() {
     }
   }
 <?php
-  }
+    }
 ?>
   if (firstname == "" || firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
     error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
@@ -316,20 +322,22 @@ function check_form() {
     error = 1;
   }
 <?php
-  if (ACCOUNT_STATE == 'true') {
+    if (ACCOUNT_STATE == 'true') {
 ?>
   if (document.checkout_address.state.value == "" || document.checkout_address.state.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
      error_message = error_message + "<?php echo JS_STATE; ?>";
      error = 1;
   }
 <?php
-  }
+    }
 ?>
-
   if (document.checkout_address.country.value == 0) {
     error_message = error_message + "<?php echo JS_COUNTRY; ?>";
     error = 1;
   }
+<?php
+  }
+?>
 
   if (error == 1) {
     alert(error_message);
@@ -428,9 +436,6 @@ function check_form() {
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
 <?php
-    $addresses_count_query = tep_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id != '" . $sendto . "'");
-    $addresses_count = tep_db_fetch_array($addresses_count_query);
-
     if ($addresses_count['total'] > 0) {
 ?>
       <tr>
