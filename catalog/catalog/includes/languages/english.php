@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.66 2001/12/01 19:36:45 dgw_ Exp $
+  $Id: english.php,v 1.67 2001/12/04 15:44:16 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -214,8 +214,8 @@ define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
 define('ENTRY_NEWSLETTER_TEXT', '');
-define('ENTRY_NEWSLETTER_YES', 'subscribes');
-define('ENTRY_NEWSLETTER_NO', 'unsubscribes');
+define('ENTRY_NEWSLETTER_YES', 'Subscribed');
+define('ENTRY_NEWSLETTER_NO', 'Unsubscribed');
 define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Password:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
