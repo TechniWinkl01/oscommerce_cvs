@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.198 2001/12/15 13:11:02 hpdl Exp $
+  $Id: application_top.php,v 1.199 2001/12/18 07:11:02 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
 // For security reasons, the configure.php file should be located outside the webserver directory
   if (function_exists('ini_set')) {
     ini_set('session.use_trans_sid', 0);
-    ini_set('include_path', ini_get('include_path') . ':includes/');
+    ini_set('include_path', ini_get('include_path') . ';includes/');
     include('configure.php');
   } else {
     include('includes/configure.php');
