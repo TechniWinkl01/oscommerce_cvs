@@ -94,7 +94,7 @@
 
   if ($dir) {
     while ($file = readdir($dir)) {
-      if (!is_dir($file)) {
+      if (!is_dir($file) && eregi('.php[34]?$', $file)) {
         $directory_array[] = $file;
       }
     }
