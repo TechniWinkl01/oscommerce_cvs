@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.26 2002/01/02 16:25:33 dgw_ Exp $
+  $Id: payment.php,v 1.27 2002/01/15 20:17:43 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -56,8 +56,8 @@
           if ($GLOBALS[$class]->enabled) {
             $selection_string .= '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                                  '  <tr class="payment-odd">' . "\n" .
-                                 '    <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
-                                 '    <td align="right" class="main">&nbsp;';
+                                 '    <td class="main">' . $GLOBALS[$class]->title . '</td>' . "\n" .
+                                 '    <td align="right" class="main">';
 // display radio button option if more than 1 payment module is installed
             if (tep_count_payment_modules() > 1) {
               $selection_string .= tep_draw_radio_field('payment', $GLOBALS[$class]->code);
@@ -110,7 +110,7 @@
           if ( ($GLOBALS[$class]->code == $HTTP_POST_VARS['payment']) && ($GLOBALS[$class]->enabled) ) {
             $confirmation_string .= '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                                     '  <tr>' . "\n" .
-                                    '    <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
+                                    '    <td class="main">' . $GLOBALS[$class]->title . '</td>' . "\n" .
                                     '  </tr>' . "\n" .
                                     '</table>' . "\n";
             $confirmation_string .= $GLOBALS[$class]->confirmation();
