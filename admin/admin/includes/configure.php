@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.11 2002/04/13 15:58:22 hpdl Exp $
+  $Id: configure.php,v 1.12 2002/07/19 17:02:36 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,7 @@
 // define our webserver variables
 // FS = Filesystem (physical)
 // WS = Webserver (virtual)
-  define('HTTP_SERVER', ''); // eg, http://localhost - should not be NULL for productive servers
-  define('HTTPS_SERVER', ''); // eg, https://localhost - should not be NULL for productive servers
+  define('HTTP_SERVER', ''); // eg, http://localhost or - https://localhost should not be NULL for productive servers
   define('HTTP_CATALOG_SERVER', '');
   define('HTTPS_CATALOG_SERVER', '');
   define('ENABLE_SSL', 'false'); // secure webserver for administration tool
