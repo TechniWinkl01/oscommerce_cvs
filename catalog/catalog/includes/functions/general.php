@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.233 2003/12/18 23:52:14 hpdl Exp $
+  $Id: general.php,v 1.234 2003/12/28 22:29:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -873,10 +873,27 @@
 ////
 // Return a product ID with attributes
   function tep_get_uprid($prid, $params) {
-    $uprid = $prid;
-    if ( (is_array($params)) && (!strstr($prid, '{')) ) {
-      while (list($option, $value) = each($params)) {
-        $uprid = $uprid . '{' . $option . '}' . $value;
+    if (is_numeric($prid)) {
+      $uprid = $prid;
+
+      if (is_array($params)) {
+        reset($params);
+        while (list($option, $value) = each($params)) {
+          $uprid .= '{' . (int)$option . '}' . (int)$value;
+        }
+      }
+    } else {
+      $uprid = tep_get_prid($prid);
+
+      if (strpos($prid, '{') !== false) {
+// strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
+        $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
+
+        for ($i=0, $n=sizeof($attributes); $i<$n; $i++) {
+          $pair = explode('}', $attributes[$i]);
+
+          $uprid .= '{' . (int)$pair[0] . '}' . (int)$pair[1];
+        }
       }
     }
 
@@ -888,7 +905,7 @@
   function tep_get_prid($uprid) {
     $pieces = explode('{', $uprid);
 
-    return $pieces[0];
+    return (int)$pieces[0];
   }
 
 ////
