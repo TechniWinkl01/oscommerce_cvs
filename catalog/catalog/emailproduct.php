@@ -2,14 +2,10 @@
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_EMAILPRODUCT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <?
   if (tep_session_is_registered('customer_id')) {
-    $account_query = 'select ';
-    $account_query = $account_query . 'customers_firstname, customers_lastname, ';
-    $account_query = $account_query . 'customers_email_address, customers_street_address, ';
-    $account_query = $account_query . "customers_country_id from customers where customers_id = '" . $customer_id . "'";
-    $account = tep_db_query($account_query);
+    $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from customers where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
-  } elseif (!EMAILPRODUCT_GUEST) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_EDIT, 'NONSSL'));
+  } elseif (EMAILPRODUCT_GUEST == false) {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_EMAILPRODUCT, 'NONSSL'));
     tep_exit();
   }
 ?>
@@ -58,7 +54,7 @@
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    mail($friendemail, $email_subject, $email_taf, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
+    mail($friendemail, $email_subject, $email_taf, 'From: ' . $from);
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
