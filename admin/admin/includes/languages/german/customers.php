@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.7 2001/09/19 11:13:31 mbs Exp $
+  $Id: customers.php,v 1.8 2001/11/25 14:09:17 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,4 +28,6 @@ define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Anzahl der Produktbewertungen:');
 define('TEXT_DELETE_INTRO', 'Wollen Sie diesen Kunden wirklich l&ouml;schen?');
 define('TEXT_DELETE_REVIEWS', 'Delete %s review(s)');
+define('TYPE_BELOW', 'Type below');
+define('PLEASE_SELECT', 'Select One');
 ?>
