@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.33 2002/06/03 12:26:28 project3000 Exp $
+  $Id: upgrade_3.php,v 1.34 2002/08/15 17:36:18 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,7 @@
     return $number2currency;
   }
 
-  set_time_limit(0);
+  osc_set_time_limit(0);
 
   $languages = osc_get_languages();
 

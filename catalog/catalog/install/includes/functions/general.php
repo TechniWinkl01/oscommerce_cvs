@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.1 2002/01/02 13:02:38 hpdl Exp $
+  $Id: general.php,v 1.2 2002/08/15 17:36:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,5 +37,14 @@
     }
 
     return false;
+  }
+
+////
+// Sets timeout for the current script.
+// Cant be used in safe mode.
+  function osc_set_time_limit($limit) {
+    if (!get_cfg_var('safe_mode')) {
+      set_time_limit(180);
+    }
   }
 ?>
