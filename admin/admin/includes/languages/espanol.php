@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: espanol.php,v 1.59 2001/12/24 00:27:30 hpdl Exp $
+  $Id: espanol.php,v 1.60 2001/12/24 00:34:31 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */

@@ -1,3 +1,14 @@
+/*
+  $Id: stylesheet.css,v 1.16 2001/12/24 00:34:31 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+
 A { color:#000000; text-decoration:none; }
 A.whitelink { color:#FFFFFF; text-decoration:none; }
 .blacklink { color:#000000; text-decoration:none; }
