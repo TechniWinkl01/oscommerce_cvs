@@ -72,7 +72,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $product_info_values['products_name'] . ' @ ' . $products_price; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $product_info_values['products_name'] . '<br>&nbsp;' . $products_price; ?>&nbsp;</font></td>
             <td align="right" nowrap>&nbsp;<? echo tep_image($product_info_values['manufacturers_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $product_info_values['manufacturers_name']); ?>&nbsp;</td>
           </tr>
 <?
