@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.13 2003/02/13 00:12:04 hpdl Exp $
+  $Id: ot_tax.php,v 1.14 2003/02/14 05:58:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,13 +46,12 @@
     }
 
     function keys() {
-      return array('MODULE_ORDER_TOTAL_TAX_STATUS', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', 'MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS');
+      return array('MODULE_ORDER_TOTAL_TAX_STATUS', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER');
     }
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Display Tax', 'MODULE_ORDER_TOTAL_TAX_STATUS', 'true', 'Do you want to display the order tax value?', '6', '1','tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_ORDER_TOTAL_TAX_SORT_ORDER', '3', 'Sort order of display.', '6', '2', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Display Tax Groups', 'MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS', 'false', 'Do you want to display tax groups?', '6', '3', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
     }
 
     function remove() {
