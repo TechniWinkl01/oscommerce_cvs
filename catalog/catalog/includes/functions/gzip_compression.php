@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: gzip_compression.php,v 1.1 2003/01/17 14:00:27 hpdl Exp $
+  $Id: gzip_compression.php,v 1.2 2003/01/17 14:08:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

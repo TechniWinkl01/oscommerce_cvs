@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.40 2003/01/17 14:00:37 hpdl Exp $
+  $Id: upgrade_3.php,v 1.41 2003/01/17 14:08:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
