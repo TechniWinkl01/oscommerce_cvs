@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.19 2001/08/23 21:35:25 hpdl Exp $
+  $Id: paypal.php,v 1.20 2001/08/25 16:35:21 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -36,39 +36,40 @@
 
     function confirmation() {
 	  global $checkout_form_action;
+
       if ($this->enabled) {
         $checkout_form_action = 'https://secure.paypal.com/cgi-bin/webscr';
       }
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
-	  if ($this-->enabled) {
-        $paypal_return = $HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . $shipping_method . '|' . $comments . '&' . SID;
-?>
-    <input type="hidden" name="cmd" value="_xclick">
-	  <input type="hidden" name="business" value="<? echo MODULE_PAYMENT_PAYPAL_ID; ?>">
-	  <input type="hidden" name="item_name" value="<? echo STORE_NAME; ?>">
-	  <input type="hidden" name="amount" value="<? echo number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2); ?>">
-	  <input type="hidden" name="shipping" value="<? echo number_format($shipping_cost * $currency_rates['USD'], 2); ?>">
-	  <input type="hidden" name="return" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return; ?>">
-	  <input type="hidden" name="cancel_return" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?paypal_return=' . $paypal_return; ?>">
-<?
+      global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
+
+	  if ($this->enabled) {
+        $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method) . '&comments=' . urlencode($comments);
+        $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&comments=' . urlencode($comments);
+
+        $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
+                                 tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
+                                 tep_draw_hidden_field('item_name', STORE_NAME) .
+                                 tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2)) .
+                                 tep_draw_hidden_field('shipping', number_format($shipping_cost * $currency_rates['USD'], 2)) .
+                                 tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, $paypal_return, 'SSL')) .
+                                 tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $paypal_cancel_return, 'SSL'));
       }
-      return false;
+
+      return $process_button_string;
     }
 
     function before_process() {
       global $HTTP_GET_VARS, $payment, $sendto, $shipping_cost, $shipping_method, $comments;
 
-      if ( ($HTTP_GET_VARS['paypal_return']) && ($this->enabled) ) {
-        $arg = $HTTP_GET_VARS['paypal_return'];
-        $args = explode('|', $arg);
-        $payment = $args[0];
-        $sendto = $args[1];
-        $shipping_cost = $args[2];
-        $shipping_method = $args[3];
-        $comments = $args[4];
+      if ($this->enabled) {
+        $payment = $HTTP_GET_VARS['payment'];
+        $sendto = $HTTP_GET_VARS['sendto'];
+        $shipping_cost = $HTTP_GET_VARS['shipping_cost'];
+        $shipping_method = urldecode($HTTP_GET_VARS['shipping_method']);
+        $comments = urldecode($HTTP_GET_VARS['comments']);
       }
     }
 
