@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.52 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: address_book_process.php,v 1.53 2001/11/24 16:34:24 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -553,7 +553,7 @@ function check_form() {
     if (@$process == 1) {
       echo tep_get_zone_name($country, $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
     } else {
-      tep_get_zone_list("zone_id", $country, $zone_id, "onChange=\"resetStateText(this.form)\";");
+      echo tep_get_zone_list("zone_id", $country, $zone_id, "onChange=\"resetStateText(this.form)\";");
       echo '&nbsp;' . ENTRY_STATE_TEXT;
     } ?></td>
           </tr>

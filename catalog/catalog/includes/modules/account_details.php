@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.10 2001/11/14 12:02:10 dgw_ Exp $
+  $Id: account_details.php,v 1.11 2001/11/24 16:34:24 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -274,7 +274,7 @@
     } elseif ($processed) {
       echo tep_get_zone_name($HTTP_POST_VARS['country'], $HTTP_POST_VARS['zone_id'], $HTTP_POST_VARS['state']) . tep_draw_hidden_field('zone_id') . tep_draw_hidden_field('state');
     } else {
-      tep_get_zone_list('zone_id', $account['entry_country_id'], $account['entry_zone_id'], 'onChange="resetStateText(this.form);"');
+      echo tep_get_zone_list('zone_id', $account['entry_country_id'], $account['entry_zone_id'], 'onChange="resetStateText(this.form);"');
       echo '&nbsp;' . ENTRY_STATE_TEXT;
     }
 ?></td>
