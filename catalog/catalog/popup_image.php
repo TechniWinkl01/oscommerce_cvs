@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.12 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: popup_image.php,v 1.13 2002/08/24 11:08:39 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -25,6 +25,7 @@ var i=0;
 function resize() {
   if (navigator.appName == 'Netscape') i=40;
   if (document.images[0]) window.resizeTo(document.images[0].width +30, document.images[0].height+60-i);
+  self.focus();
 }
 //--></script>
 </head>
