@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: email.php,v 1.5 2002/02/08 17:07:12 hpdl Exp $
+  $Id: email.php,v 1.6 2002/03/07 20:53:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -352,7 +352,7 @@ class email {
         break;
 
       case $html AND !$attachments AND !$html_images:
-        if(!tep_is_null($this->html_text)) {
+        if(!is_null($this->html_text)) {
           $message =& $this->add_alternative_part($null);
           $this->add_text_part($message, $this->html_text);
           $this->add_html_part($message);
@@ -362,7 +362,7 @@ class email {
         break;
 
       case $html AND !$attachments AND $html_images:
-        if(!tep_is_null($this->html_text)) {
+        if(!is_null($this->html_text)) {
           $message =& $this->add_alternative_part($null);
           $this->add_text_part($message, $this->html_text);
           $related =& $this->add_related_part($message);
@@ -377,7 +377,7 @@ class email {
 
       case $html AND $attachments AND !$html_images:
         $message =& $this->add_mixed_part();
-        if(!tep_is_null($this->html_text)) {
+        if(!is_null($this->html_text)) {
           $alt =& $this->add_alternative_part($message);
           $this->add_text_part($alt, $this->html_text);
           $this->add_html_part($alt);
@@ -390,7 +390,7 @@ class email {
 
       case $html AND $attachments AND $html_images:
         $message =& $this->add_mixed_part();
-        if(!tep_is_null($this->html_text)) {
+        if(!is_null($this->html_text)) {
           $alt =& $this->add_alternative_part($message);
           $this->add_text_part($alt, $this->html_text);
           $rel =& $this->add_related_part($alt);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.215 2002/03/07 19:58:11 hpdl Exp $
+  $Id: application_top.php,v 1.216 2002/03/07 20:53:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -221,7 +221,7 @@
 // include the mail classes
   require(DIR_WS_CLASSES . 'mime.php');
   require(DIR_WS_CLASSES . 'email.php');
-  
+
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
     if (!$language) {
@@ -279,7 +279,7 @@
     switch ($HTTP_GET_VARS['action']) {
       // customer wants to update the product quantity in their shopping cart
       case 'update_product' : for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
-                                if (tep_in_array($HTTP_POST_VARS['products_id'][$i], (is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array()))) {
+                                if (in_array($HTTP_POST_VARS['products_id'][$i], (is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array()))) {
                                   $cart->remove($HTTP_POST_VARS['products_id'][$i]);
                                 } else { // if PHP3, make correction for lack of multidimensional array in PHP3
                                   if (ereg('^3\.', phpversion())) {

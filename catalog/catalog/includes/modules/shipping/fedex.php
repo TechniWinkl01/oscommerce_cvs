@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.28 2002/01/20 16:07:40 hpdl Exp $
+  $Id: fedex.php,v 1.29 2002/03/07 20:53:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,7 +45,7 @@
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
         $shipping_quoted = 'fedex';
 // only calculate if FedEx ships there.
-        if (tep_in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
+        if (in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
           include(DIR_WS_CLASSES . '_fedex.php');
           $rate = new _FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
           $rate->SetDest($address_values['postcode'], $this->fedex_countries[$address_values['country_id']]);
@@ -70,7 +70,7 @@
 
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
 // only calculate if FedEx ships there.
-        if ( (tep_in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
+        if ( (in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
           if ($shipping_count == 0) {
             $shipping_cheapest = 'fedex';
             $shipping_cheapest_cost = $shipping_fedex_cost;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.69 2002/02/20 15:45:39 dgw_ Exp $
+  $Id: default.php,v 1.70 2002/03/07 20:53:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,7 @@
 <?php
     if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
 // check to see if there are deeper categories within the current category
-      $category_links = tep_array_reverse($cPath_array);
+      $category_links = array_reverse($cPath_array);
       for($i=0; $i<sizeof($category_links); $i++) {
         $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.status = '1' and c.parent_id = '" . $category_links[$i] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
         if (tep_db_num_rows($categories_query) < 1) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.5 2002/03/07 19:58:11 hpdl Exp $
+  $Id: compatibility.php,v 1.6 2002/03/07 20:53:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -49,6 +49,51 @@
           $new_array[$i] = $array[$i];
         }
         $array = $new_array;
+      }
+    }
+  }
+
+  if (!function_exists('in_array')) {
+    function in_array($lookup_value, $lookup_array) {
+      reset($lookup_array);
+      while (list($key, $value) = each($lookup_array)) {
+        if ($value == $lookup_value) return true;
+      }
+
+      return false;
+    }
+  }
+
+  if (!function_exists('array_reverse')) {
+    function array_reverse($array) {
+      for ($i=0; $i<sizeof($array); $i++) $array_reversed[$i] = $array[(sizeof($array)-$i-1)];
+
+      return $array_reversed;
+    }
+  }
+
+  if (!function_exists('constant')) {
+    function constant($constant) {
+      eval("\$temp=$constant;");
+
+      return $temp;
+    }
+  }
+
+  if (!function_exists('is_null')) {
+    function is_null($value) {
+      if (is_array($value)) {
+        if (sizeof($value) > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+          return false;
+        } else {
+          return true;
+        }
       }
     }
   }

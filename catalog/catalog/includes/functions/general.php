@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.160 2002/03/07 19:58:11 hpdl Exp $
+  $Id: general.php,v 1.161 2002/03/07 20:53:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,22 +96,6 @@
   }
 
 ////
-// wrapper to in_array() for PHP3 compatibility
-// Checks if the lookup value exists in the lookup array
-  function tep_in_array($lookup_value, $lookup_array) {
-    if (function_exists('in_array')) {
-      if (in_array($lookup_value, $lookup_array)) return true;
-    } else {
-      reset($lookup_array);
-      while (list($key, $value) = each($lookup_array)) {
-        if ($value == $lookup_value) return true;
-      }
-    }
-
-    return false;
-  }
-
-////
 // Return all HTTP GET variables, except those passed as a parameter
   function tep_get_all_get_params($exclude_array = '') {
     global $HTTP_GET_VARS;
@@ -122,7 +106,7 @@
     if (is_array($HTTP_GET_VARS)) {
       reset($HTTP_GET_VARS);
       while (list($key, $value) = each($HTTP_GET_VARS)) {
-        if ((strlen($value) > 0) && ($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) {
+        if ((strlen($value) > 0) && ($key != session_name()) && ($key != 'error') && (!in_array($key, $exclude_array))) {
           $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
         }
       }
@@ -197,18 +181,6 @@
     }
 
     return 'cPath=' . $cPath_new;
-  }
-
-////
-// wrapper to array_reverse for PHP3 compatibility
-  function tep_array_reverse($array) {
-    if (function_exists('array_reverse')) {
-      $array_reversed = array_reverse($array);
-    } else {
-      for ($i=0; $i<sizeof($array); $i++) $array_reversed[$i] = $array[(sizeof($array)-$i-1)];
-    }
-
-    return $array_reversed;
   }
 
 ////
@@ -452,7 +424,7 @@
     $select_string = '<select name="' . $select_name . '" size="' . $size . '"';
     if ( (sizeof($selected) > 1) || ($multiple == 1) ) $select_string .= ' MULTIPLE';
     $select_string .= '><option value=""';
-    if (tep_in_array(0, $selected)) $select_string .= ' SELECTED';
+    if (in_array(0, $selected)) $select_string .= ' SELECTED';
     $select_string .= '>' . $blank_text . '</option>';
 
     $output = '';
@@ -470,7 +442,7 @@
     $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.status = '1' and parent_id = '" . $parent_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
       $output .= '<option value="' . $categories['categories_id'] . '"';
-      if (tep_in_array($categories['categories_id'], $preselected)) $output .= ' SELECTED';
+      if (in_array($categories['categories_id'], $preselected)) $output .= ' SELECTED';
       $output .= '>' . $indent . $categories['categories_name'] . '</option>';
 
       if ($categories['categories_id'] != $parent_id) {
@@ -1000,43 +972,13 @@
     new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
   }
 
-////
-// Wrapper for constant() function
-// Needed because its only available in PHP 4.0.4 and higher.
-  function tep_constant($constant) {
-    if (function_exists('constant')) {
-      $temp = constant($constant);
-    } else {
-      eval("\$temp=$constant;");
-    }
-    return $temp;
-  }
-
-////
-// Wrapper for is_null() for php3 compatibility
-  function tep_is_null($value) {
-    if (is_array($value)) {
-      if (sizeof($value) > 0) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
-
   function tep_array_to_string($array, $exclude = '', $equals = '=', $separator = '&') {
     if ($exclude == '') $exclude = array();
 
     $get_string = '';
     if (sizeof($array) > 0) {
       while (list($key, $value) = each($array)) {
-        if ( (!tep_in_array($key, $exclude)) || ($key != 'x') || ($key != 'y') ) {
+        if ( (!in_array($key, $exclude)) || ($key != 'x') || ($key != 'y') ) {
           $get_string .= $key . $equals . $value . $separator;
         }
       }

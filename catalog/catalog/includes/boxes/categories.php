@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.16 2002/01/09 17:19:25 hpdl Exp $
+  $Id: categories.php,v 1.17 2002/03/07 20:53:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,14 +28,14 @@
     $categories_string .= tep_href_link(FILENAME_DEFAULT, $cPath_new);
     $categories_string .= '">';
 
-    if ( ($id) && (tep_in_array($counter, $id)) ) {
+    if ( ($id) && (in_array($counter, $id)) ) {
       $categories_string .= '<b>';
     }
 
 // display category name
     $categories_string .= $foo[$counter]['name'];
 
-    if ( ($id) && (tep_in_array($counter, $id)) ) {
+    if ( ($id) && (in_array($counter, $id)) ) {
       $categories_string .= '</b>';
     }
 
