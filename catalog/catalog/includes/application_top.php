@@ -96,6 +96,9 @@
 // Include the password crypto functions
  $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
 
+// Include validation functions (right now only email address)
+ $include_file = DIR_FUNCTIONS . 'validations.php'; include(DIR_INCLUDES . 'include_once.php'); 
+
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
@@ -192,6 +195,11 @@
   define('ENTRY_CITY_MIN_LENGTH', 4);
   define('ENTRY_TELEPHONE_MIN_LENGTH', 3);
   define('ENTRY_PASSWORD_MIN_LENGTH', 5);
+
+// set to "1" if extended email check function should be used
+// If you're testing locally and your webserver has no possibility to query 
+// a dns server you should set this to "0" !
+  define('ENTRY_EMAIL_ADDRESS_CHECK', 1); 
 
   define('ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH', 3);
   define('ADDRESS_BOOK_LAST_NAME_MIN_LENGTH', 3);
