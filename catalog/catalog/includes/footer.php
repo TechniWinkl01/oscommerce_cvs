@@ -1,6 +1,6 @@
 <? $include_file = DIR_WS_INCLUDES . 'counter.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr bgcolor="<? echo FOOTER_BAR_BACKGROUND_COLOR; ?>" height="19">
+  <tr class="footer" height="19">
     <td class="footer" nowrap>&nbsp;&nbsp;<? echo strftime(DATE_FORMAT_LONG); ?>&nbsp;&nbsp;</td>
     <td align="right" class="footer" nowrap>&nbsp;&nbsp;<? echo $counter_now . ' ' . FOOTER_TEXT_REQUESTS_SINCE . ' ' . $counter_startdate_formatted; ?>&nbsp;&nbsp;</font></td>
   </tr>

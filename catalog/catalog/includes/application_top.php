@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.111 2001/04/27 21:23:19 hpdl Exp $
+  $Id: application_top.php,v 1.112 2001/04/28 14:31:36 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -115,18 +115,6 @@
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('EMAILPRODUCT_GUEST', false); // Can guests use the tell a friend email form?
-
-  define('HEADER_NAVIGATION_BAR_FONT_ERROR_COLOR', '#FFFFFF');
-  define('HEADER_NAVIGATION_BAR_FONT_INFO_COLOR', '#000000');
-
-  define('FOOTER_BAR_BACKGROUND_COLOR', '#000000');
-
-  define('BOX_CONTENT_BACKGROUND_COLOR', '#FFFFFF');
-  define('BOX_CONTENT_HIGHLIGHT_COLOR', '#FFFF33');     // use in best_sellers.php
-
-  define('SUB_BAR_BACKGROUND_COLOR', '#f4f7fd');
-  define('TABLE_ROW_BACKGROUND_COLOR', '#ffffff');
-  define('TABLE_ALT_BACKGROUND_COLOR', '#f4f7fd');
 
   define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
 

@@ -48,6 +48,17 @@ TD.headerInfo {
 	text-align : center;
 }
 
+TR.footer {
+    background-color : #000000;
+}
+
+TD.footer {
+    font-family : Tahoma, Verdana, Arial, sans-serif;
+    font-size : 12px;
+    color : #ffffff;
+    font-weight : bold;
+}
+
 TABLE.infoBoxHeading {
 	background-color : #aabbdd;
 	border-color : #000000;
@@ -76,12 +87,12 @@ TD.topBarTitle {
 	font-size : 12px;
 }
 
-TR.productListing-odd {
-	background-color : #ffffff;
+TR.accountHistory-odd, TR.addressBook-odd, TR.alsoPurchased-odd, TR.payment-odd, TR.productListing-odd, TR.productReviews-odd, TR.upcomingProducts-odd {
+	background-color : #f4f7fd;
 }
 
-TR.productListing-even {
-	background-color : #f4f7fd;
+TR.accountHistory-even, TR.addressBook-even, TR.alsoPurchased-even, TR.payment-even, TR.productListing-even, TR.productReviews-even, TR.upcomingProducts-even {
+	background-color : #ffffff;
 }
 
 TR.productListing-heading {
@@ -147,12 +158,6 @@ TD.fieldValue {
 TD.tableHeading {
     font-family : Verdana, Arial, sans-serif;
     font-size : 12px;
-    font-weight : bold;
-}
-
-TD.footer {
-    font-family : Verdana, Arial, sans-serif;
-    font-size : 10px;
     font-weight : bold;
 }
 

@@ -63,7 +63,7 @@
   $address_book = tep_db_query("select address_book.address_book_id, address_book.entry_firstname, address_book.entry_lastname, address_book.entry_city, address_book.entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id order by address_book.address_book_id");
   if (!tep_db_num_rows($address_book)) {
 ?>
-          <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
+          <tr class="addressBook-odd">
             <td colspan="3" class="smallText" nowrap>&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
           </tr>
 <?
@@ -73,9 +73,9 @@
       $row++;
       $entry_country = tep_get_countries($address_book_values['entry_country_id']);
       if (($row / 2) == floor($row / 2)) {
-        echo '          <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
+        echo '          <tr class="addressBook-even">' . "\n";
       } else {
-        echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
+        echo '          <tr class="addressBook-odd">' . "\n";
       }
       echo '            <td align="center" class="smallText" nowrap>&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
       echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";

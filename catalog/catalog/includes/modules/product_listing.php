@@ -164,7 +164,7 @@
     echo '  </tr>' . "\n";
   } else {
 ?>
-  <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
+  <tr class="productListing-odd">
     <td colspan="<? echo $colspan; ?>" class="smallText" nowrap>&nbsp;<? echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
   </tr>
 <?

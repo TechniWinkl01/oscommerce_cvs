@@ -18,9 +18,9 @@
     while ($expected = tep_db_fetch_array($expected_query)) {
       $row++;
       if (($row / 2) == floor($row / 2)) {
-        echo '              <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
+        echo '              <tr class="upcomingProducts-even">' . "\n";
       } else {
-        echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
+        echo '              <tr class="upcomingProducts-odd">' . "\n";
       }
       echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id'], 'NONSSL') . '">' . $expected['products_name'] . '</a>&nbsp;</td>' . "\n";
       echo '                <td align="right" class="smallText">&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected['date_expected']) . '&nbsp;</td>' . "\n";

@@ -30,9 +30,9 @@
       tep_db_data_seek($orders_query, $rows_to_display[$i]);
       $orders_values = tep_db_fetch_array($orders_query);
       if ((($i + 1) / 2) == floor(($i + 1) / 2)) {
-        echo '              <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
+        echo '              <tr class="alsoPurchased-even">' . "\n";
       } else {
-        echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
+        echo '              <tr class="alsoPurchased-odd">' . "\n";
       }
       echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $orders_values['products_id'], 'NONSSL') . '">' . $orders_values['products_name'] . '</a>&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";

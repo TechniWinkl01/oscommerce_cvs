@@ -83,9 +83,9 @@
       }
       $date_added = tep_date_short($reviews_values['date_added']);
       if (($row / 2) == floor($row / 2)) {
-        echo '          <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
+        echo '          <tr class="productReviews-even">' . "\n";
       } else {
-        echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
+        echo '          <tr class="productReviews-odd">' . "\n";
       }
       echo '            <td class="smallText" nowrap>&nbsp;' . $row . '.&nbsp;</td>' . "\n";
       echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</td>' . "\n";
@@ -96,7 +96,7 @@
     }
   } else {
 ?>
-          <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
+          <tr class="productReviews-odd">
             <td colspan="5" class="smallText">&nbsp;<? echo TEXT_NO_REVIEWS; ?>&nbsp;</td>
           </tr>
 <?

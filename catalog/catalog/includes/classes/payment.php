@@ -39,7 +39,7 @@
           $rows ++;
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->payment_enabled) {
-            $selection_string .= '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n" .
+            $selection_string .= '              <tr class="payment-odd">' . "\n" .
                                  '                <td colspan="3" class="main" nowrap>&nbsp;' . $GLOBALS[$class]->payment_description . '&nbsp;</td>' . "\n" .
                                  '                <td align="right" class="main" nowrap>&nbsp;<input type="radio" name="payment" value="' . $GLOBALS[$class]->payment_code . '"';
             if ( (!$payment && $rows == 1) || ($payment == $GLOBALS[$class]->payment_code)) {
@@ -47,7 +47,7 @@
             }
             $selection_string .= '>&nbsp;</td>' . "\n" .
                                  '              </tr>' . "\n" .
-                                 '              <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n" .
+                                 '              <tr class="payment-even">' . "\n" .
                                  '                <td colspan="2">';
             $selection_string .= $GLOBALS[$class]->selection();
             $selection_string .= '</td>' . "\n" .

@@ -66,7 +66,7 @@
   $history = tep_db_query($history_sql);
   if (@!tep_db_num_rows($history)) {
 ?>
-          <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
+          <tr class="accountHistory-odd">
             <td colspan="4" class="smallText" nowrap>&nbsp;<? echo TEXT_NO_PURCHASES; ?>&nbsp;</td>
           </tr>
 <?
@@ -83,9 +83,9 @@
       $total_cost += $history_values['shipping_cost'];
 
       if (($row / 2) == floor($row / 2)) {
-        echo '          <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
+        echo '          <tr class="accountHistory-even">' . "\n";
       } else {
-        echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
+        echo '          <tr class="accountHistory-odd">' . "\n";
       }
       echo '            <td align="center" class="smallText" nowrap>&nbsp;' . $history_values['orders_id'] . '&nbsp;</td>' . "\n";
       echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</td>' . "\n";
