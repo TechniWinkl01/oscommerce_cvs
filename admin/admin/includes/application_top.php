@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: application_top.php,v 1.97 2001/12/13 11:31:11 dgw_ Exp $
+  $Id: application_top.php,v 1.98 2001/12/21 02:02:51 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
