@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.5 2001/11/24 16:30:29 dgw_ Exp $
+  $Id: html_output.php,v 1.6 2001/12/22 21:38:56 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
     if ($page == '') {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
+      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
     }
     if ($connection == 'NONSSL') {
       $link = HTTP_SERVER . DIR_WS_ADMIN;
@@ -25,7 +25,7 @@
         $link = HTTP_SERVER . DIR_WS_ADMIN;
       }
     } else {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
+      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
     }
     if ($parameters == '') {
       $link = $link . $page . '?' . SID;
