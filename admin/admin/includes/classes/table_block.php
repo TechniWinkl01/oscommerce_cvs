@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table_block.php,v 1.4 2003/06/02 16:17:05 dgw_ Exp $
+  $Id: table_block.php,v 1.5 2003/06/02 16:21:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,9 +20,7 @@
     var $table_data_parameters = '';
 
     function tableBlock($contents) {
-      $tableBox_string = '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-      if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
-      $tableBox_string .= '>' . "\n";
+      $tableBox_string = '';
 
       $form_set = false;
       if ($contents['form']) {
@@ -30,6 +28,10 @@
         $form_set = true;
         tep_array_shift($contents);
       }
+
+      $tableBox_string .= '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
+      if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
+      $tableBox_string .= '>' . "\n";
 
       for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
         $tableBox_string .= '  <tr';
@@ -68,9 +70,9 @@
         $tableBox_string .= '  </tr>' . "\n";
       }
 
-      if ($form_set) $tableBox_string .= '</form>' . "\n";
-
       $tableBox_string .= '</table>' . "\n";
+
+      if ($form_set) $tableBox_string .= '</form>' . "\n";
 
       return $tableBox_string;
     }

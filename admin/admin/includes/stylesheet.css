@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.23 2003/03/15 14:38:38 project3000 Exp $
+  $Id: stylesheet.css,v 1.24 2003/06/02 16:21:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -66,6 +66,7 @@ body { background-color: #ffffff; color: #000000; margin: 0px; }
 
 /* forms */
 CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA, FILE { font-family: Verdana, Arial, sans-serif; font-size: 11px; }
+FORM { display: inline; }
 
 /* account */
 .formArea { background-color: #f1f9fe; border-color: #7b9ebd; border-style: solid; border-width: 1px; }
