@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.5 2003/02/11 01:31:02 hpdl Exp $
+  $Id: specials.php,v 1.6 2003/06/09 21:25:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 ////
 // Sets the status of a special product
   function tep_set_specials_status($specials_id, $status) {
-    return tep_db_query("update " . TABLE_SPECIALS . " set status = '" . $status . "', date_status_change = now() where specials_id = '" . $specials_id . "'");
+    return tep_db_query("update " . TABLE_SPECIALS . " set status = '" . $status . "', date_status_change = now() where specials_id = '" . (int)$specials_id . "'");
   }
 
 ////
