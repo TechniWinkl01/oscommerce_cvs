@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: footer.php,v 1.23 2001/12/17 17:36:30 hpdl Exp $
+  $Id: footer.php,v 1.24 2001/12/19 15:02:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require(DIR_WS_INCLUDES . 'counter.php');
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
+<table border="0" width="100%" cellspacing="0" cellpadding="1">
   <tr class="footer">
     <td class="footer">&nbsp;&nbsp;<?php echo strftime(DATE_FORMAT_LONG); ?>&nbsp;&nbsp;</td>
     <td align="right" class="footer">&nbsp;&nbsp;<?php echo $counter_now . ' ' . FOOTER_TEXT_REQUESTS_SINCE . ' ' . $counter_startdate_formatted; ?>&nbsp;&nbsp;</td>
