@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.88 2001/12/29 23:26:38 hpdl Exp $
+  $Id: categories.php,v 1.89 2001/12/29 23:41:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -644,7 +644,7 @@
         $category_inputs_string = '';
         $languages = tep_get_languages();
         for ($i=0; $i<sizeof($languages); $i++) {
-          $category_inputs_string .= '<br>' . tep_image(DIR_WS_CATALOG_IMAGES . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_name[' . $languages[$i]['id'] . ']', tep_get_category_name($cInfo->categories_id, $languages[$i]['id']));
+          $category_inputs_string .= '<br>' . tep_image(DIR_WS_CATALOG_IMAGES . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . tep_draw_input_field('categories_name[' . $languages[$i]['id'] . ']');
         }
 
         $info_box_contents[] = array('text' => '<br>' . TEXT_CATEGORIES_NAME . $category_inputs_string);
