@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.7 2001/09/01 00:20:27 hpdl Exp $
+  $Id: shipping.php,v 1.8 2001/09/08 19:00:22 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -57,7 +57,7 @@
         $shipping_weight = $total_weight;
 
         if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-          $shipping_num_boxes = @round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
+          $shipping_num_boxes = ceil($total_weight/SHIPPING_MAX_WEIGHT);
           $shipping_weight = $total_weight/$shipping_num_boxes;
         }
 
@@ -66,8 +66,6 @@
         } else {
           $shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
         }
-
-        $shipping_weight = round($shipping_weight+0.5);
 
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
