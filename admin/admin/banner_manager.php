@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.29 2001/12/21 02:05:35 hpdl Exp $
+  $Id: banner_manager.php,v 1.30 2001/12/21 18:03:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,14 +24,13 @@
         default :  tep_direct(tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL'));
                    break;
       }
-    } elseif ($HTTP_GET_VARS['action'] == 'update') {
+    } elseif ( ($HTTP_GET_VARS['action'] == 'insert') || ($HTTP_GET_VARS['action'] == 'update') ) {
       $banners_id = tep_db_prepare_input($HTTP_POST_VARS['banners_id']);
       $banners_title = tep_db_prepare_input($HTTP_POST_VARS['banners_title']);
       $banners_url = tep_db_prepare_input($HTTP_POST_VARS['banners_url']);
       $new_banners_group = tep_db_prepare_input($HTTP_POST_VARS['new_banners_group']);
       $banners_group = (empty($new_banners_group)) ? tep_db_prepare_input($HTTP_POST_VARS['banners_group']) : $new_banners_group;
       $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
-
       $html_text = tep_db_prepare_input($HTTP_POST_VARS['html_text']);
       $banners_image_local = tep_db_prepare_input($HTTP_POST_VARS['banners_image_local']);
       $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
@@ -51,64 +50,21 @@
           $db_image_location = (!empty($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image_name;
         }
 
-        tep_db_query("update " . TABLE_BANNERS . " set banners_title = '" . tep_db_input($banners_title) . "', banners_url = '" . tep_db_input($banners_url) . "', banners_image = '" . tep_db_input($db_image_location) . "', banners_group = '" . tep_db_input($banners_group) . "', banners_html_text = '" . tep_db_input($html_text) . "' where banners_id = '" . $banners_id . "'");
+        $sql_data_array = array('banners_title' => $banners_title,
+                                'banners_url' => $banners_url,
+                                'banners_image' => $db_image_location,
+                                'banners_group' => $banners_group,
+                                'banners_html_text' => $html_text);
 
-        if ( ($HTTP_POST_VARS['day']) && ($HTTP_POST_VARS['month']) && ($HTTP_POST_VARS['year']) ) {
-          $day = tep_db_prepare_input($HTTP_POST_VARS['day']);
-          $month = tep_db_prepare_input($HTTP_POST_VARS['month']);
-          $year = tep_db_prepare_input($HTTP_POST_VARS['year']);
-
-          $expires_date = $year;
-          $expires_date .= (strlen($month) == 1) ? '0' . $month : $month;
-          $expires_date .= (strlen($day) == 1) ? '0' . $day : $day;
-
-          tep_db_query("update " . TABLE_BANNERS . " set expires_date = '" . tep_db_input($expires_date) . "' where banners_id = '" . $banners_id . "'");
-        } elseif ($HTTP_POST_VARS['impressions']) {
-          $impressions = tep_db_prepare_input($HTTP_POST_VARS['impressions']);
-          tep_db_query("update " . TABLE_BANNERS . " set expires_impressions = '" . tep_db_input($impressions) . "' where banners_id = '" . $banners_id . "'");
+        if ($HTTP_GET_VARS['action'] == 'insert') {
+          $insert_sql_data = array('date_added' => 'now()',
+                                    'status' => '1');
+          $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+          tep_db_perform(TABLE_BANNERS, $sql_data_array);
+          $banners_id = tep_db_insert_id();
+        } elseif ($HTTP_GET_VARS['action'] == 'update') {
+          tep_db_perform(TABLE_BANNERS, $sql_data_array, 'update', 'banners_id = \'' . $banners_id . '\'');
         }
-
-        if ( ($HTTP_POST_VARS['sday']) && ($HTTP_POST_VARS['smonth']) && ($HTTP_POST_VARS['syear']) ) {
-          $sday = tep_db_prepare_input($HTTP_POST_VARS['sday']);
-          $smonth = tep_db_prepare_input($HTTP_POST_VARS['smonth']);
-          $syear = tep_db_prepare_input($HTTP_POST_VARS['syear']);
-
-          $date_scheduled = $syear;
-          $date_scheduled .= (strlen($smonth) == 1) ? '0' . $smonth : $smonth;
-          $date_scheduled .= (strlen($sday) == 1) ? '0' . $sday : $sday;
-
-          tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . tep_db_input($date_scheduled) . "' where banners_id = '" . $banners_id . "'");
-        }
-
-        tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, '', 'NONSSL'));
-      }
-    } elseif ($HTTP_GET_VARS['action'] == 'insert') {
-      $banners_title = tep_db_prepare_input($HTTP_POST_VARS['banners_title']);
-      $banners_url = tep_db_prepare_input($HTTP_POST_VARS['banners_url']);
-      $new_banners_group = tep_db_prepare_input($HTTP_POST_VARS['new_banners_group']);
-      $banners_group = (empty($new_banners_group)) ? tep_db_prepare_input($HTTP_POST_VARS['banners_group']) : $new_banners_group;
-      $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
-      $html_text = tep_db_prepare_input($HTTP_POST_VARS['html_text']);
-      $banners_image_local = tep_db_prepare_input($HTTP_POST_VARS['banners_image_local']);
-      $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
-      $db_image_location = '';
-
-      if ( (empty($banners_title)) || (empty($banners_group)) ) {
-// skip the insert procedure as there are missing fields -> display the new banner form again
-        $HTTP_GET_VARS['action'] = 'new';
-      } else {
-// being the banner insert procedure
-        if (empty($html_text)) {
-          if ($banners_image != 'none') {
-            $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $banners_image_target . $banners_image_name;
-            copy($banners_image, $image_location);
-          }
-
-          $db_image_location = (!empty($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image_name;
-        }
-
-        tep_db_query("insert into " . TABLE_BANNERS . " (banners_title, banners_url, banners_image, banners_group, banners_html_text, date_added, status) values ('" . tep_db_input($banners_title) . "', '" . tep_db_input($banners_url) . "', '" . tep_db_input($db_image_location) . "', '" . tep_db_input($banners_group) . "', '" . tep_db_input($html_text) . "', now(), '1')");
-        $banners_id = tep_db_insert_id();
 
         if ( ($HTTP_POST_VARS['day']) && ($HTTP_POST_VARS['month']) && ($HTTP_POST_VARS['year']) ) {
           $day = tep_db_prepare_input($HTTP_POST_VARS['day']);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.9 2001/12/21 02:02:00 hpdl Exp $
+  $Id: database.php,v 1.10 2001/12/21 18:03:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,6 +48,37 @@
     }
 
     return $result;
+  }
+
+  function tep_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db_link') {
+    if ($action == 'insert') {
+      $query = 'insert into ' . $table . ' (';
+      while (list($columns, ) = each($data)) {
+        $query .= $columns . ', ';
+      }
+      $query = substr($query, 0, -2) . ') values (';
+      reset($data);
+      while (list(, $value) = each($data)) {
+        if ($value == 'now()') {
+          $query .= 'now(), ';
+        } else {
+          $query .= '\'' . tep_db_input($value) . '\', ';
+        }
+      }
+      $query = substr($query, 0, -2) . ')';
+    } elseif ($action == 'update') {
+      $query = 'update ' . $table . ' set ';
+      while (list($columns, $value) = each($data)) {
+        if ($value == 'now()') {
+          $query .= $columns . ' = now(), ';
+        } else {
+          $query .= $columns . ' = \'' . tep_db_input($value) . '\', ';
+        }
+      }
+      $query = substr($query, 0, -2) . ' where ' . $parameters;
+    }
+
+    return tep_db_query($query, $link);
   }
 
   function tep_db_fetch_array($db_query) {
