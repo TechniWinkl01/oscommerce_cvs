@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.35 2002/01/05 10:39:24 hpdl Exp $
+  $Id: default.php,v 1.36 2002/01/05 10:53:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,12 +12,20 @@
 
   require('includes/application_top.php');
 
-  $limits = array(array('id' => '5', 'text' => '5'),
-                  array('id' => '10', 'text' => '10'),
-                  array('id' => '20', 'text' => '20'),
-                  array('id' => '30', 'text' => '30'));
+  $limits_array = array('5', '10', '20', '30');
 
-  if (!$HTTP_GET_VARS['limit']) $limit = 10;
+  $limits = array();
+  for ($i=0; $i<sizeof($limits_array); $i++) {
+    $limits[] = array('id' => $limits_array[$i], 'text' => $limits_array[$i]);
+  }
+
+  if (!$HTTP_GET_VARS['limit']) {
+    $limit = 10;
+  } else {
+    $limit = tep_db_prepare_input($HTTP_GET_VARS['limit']);
+  }
+
+  if (!tep_in_array($limit, $limits_array)) $limit = 10;
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -64,7 +72,7 @@
                 <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit " . $limit);
+  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from " . TABLE_CUSTOMERS . " c, " . TABLE_CUSTOMERS_INFO . " i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit " . tep_db_input($limit));
   $rows = 0;
   while ($customers = tep_db_fetch_array($customers_query)) {
     $rows++;
@@ -103,7 +111,7 @@
                 <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit " . $limit);
+  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit " . tep_db_input($limit));
   $rows = 0;
   while ($orders = tep_db_fetch_array($orders_query)) {
     $rows++;
@@ -150,7 +158,7 @@
                 <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by p.products_id DESC limit " . $limit);
+  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_date_added from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '$languages_id' order by p.products_id DESC limit " . tep_db_input($limit));
   $rows = 0;
   while ($products = tep_db_fetch_array($products_query)) {
     $rows++;
@@ -183,7 +191,7 @@
                 <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
-  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit " . $limit);
+  $reviews_query = tep_db_query("select r.reviews_id, pd.products_name, r.date_added from " . TABLE_REVIEWS . " r, " . TABLE_PRODUCTS_DESCRIPTION . " pd where r.products_id = pd.products_id and pd.language_id='$languages_id' order by reviews_id DESC limit " . tep_db_input($limit));
   $rows = 0;
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     $rows++;
