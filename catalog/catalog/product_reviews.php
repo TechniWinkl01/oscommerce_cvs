@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.44 2002/06/16 19:49:22 harley_vb Exp $
+  $Id: product_reviews.php,v 1.45 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     $get_params_back = $get_params;
   }
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL'));
 
   $product = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   $product_info_values = tep_db_fetch_array($product);

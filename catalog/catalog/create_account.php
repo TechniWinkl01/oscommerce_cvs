@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.55 2002/06/16 16:09:35 harley_vb Exp $
+  $Id: create_account.php,v 1.56 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT);
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

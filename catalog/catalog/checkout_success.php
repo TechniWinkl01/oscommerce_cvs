@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.34 2002/07/11 17:13:14 dgw_ Exp $
+  $Id: checkout_success.php,v 1.35 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,8 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SUCCESS);
 
-  $location = ' &raquo; ' . NAVBAR_TITLE_1 . ' &raquo; ' . NAVBAR_TITLE_2;
+  $breadcrumb->add(NAVBAR_TITLE_1);
+  $breadcrumb->add(NAVBAR_TITLE_2);
 
   $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customer_id . "'");
   $global = tep_db_fetch_array($global_query);

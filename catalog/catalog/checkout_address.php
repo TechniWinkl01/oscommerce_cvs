@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.70 2002/06/16 14:19:34 harley_vb Exp $
+  $Id: checkout_address.php,v 1.71 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,8 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS);
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; ' . NAVBAR_TITLE_2;
+  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_2);
 
   include(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;

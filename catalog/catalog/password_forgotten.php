@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.43 2002/06/27 14:41:32 dgw_ Exp $
+  $Id: password_forgotten.php,v 1.44 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,7 +31,8 @@
     }
   } else {
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_LOGIN, '', 'SSL') . '" class="headerNavigation"> ' . NAVBAR_TITLE_1 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
+  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_LOGIN, '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL'));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

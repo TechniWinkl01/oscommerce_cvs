@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.84 2002/06/10 16:46:54 dgw_ Exp $
+  $Id: product_info.php,v 1.85 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,6 @@
   require('includes/application_top.php');
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_INFO);
-
-  $location = '';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.43 2002/06/16 20:23:00 harley_vb Exp $
+  $Id: reviews.php,v 1.44 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_REVIEWS);
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_REVIEWS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_REVIEWS, '', 'NONSSL'));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

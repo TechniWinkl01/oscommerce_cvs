@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.70 2002/07/04 16:13:25 dgw_ Exp $
+  $Id: address_book_process.php,v 1.71 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -188,11 +188,13 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK_PROCESS);
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
-  if ( ( ($HTTP_GET_VARS['action'] == 'modify') || ($HTTP_POST_VARS['action'] == 'update') ) && ($HTTP_POST_VARS['entry_id']) ) {
-    $location .= ' &raquo; <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $HTTP_GET_VARS['entry_id'], 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_MODIFY_ENTRY . '</a>';
+  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
+
+  if ( ($HTTP_GET_VARS['action'] == 'modify') || ( ($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']) ) ) {
+    $breadcrumb->add(NAVBAR_TITLE_MODIFY_ENTRY, tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . ((isset($HTTP_GET_VARS['entry_id'])) ? $HTTP_GET_VARS['entry_id'] : $HTTP_POST_VARS['entry_id']), 'SSL'));
   } else {
-    $location .= ' &raquo; <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_ADD_ENTRY . '</a>';
+    $breadcrumb->add(NAVBAR_TITLE_ADD_ENTRY, tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL'));
   }
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">

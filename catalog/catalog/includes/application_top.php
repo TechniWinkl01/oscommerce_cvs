@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.238 2002/07/11 17:20:07 dgw_ Exp $
+  $Id: application_top.php,v 1.239 2002/07/21 23:38:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -411,6 +411,30 @@
     $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
   } else {
     $current_category_id = 0;
+  }
+
+  require(DIR_WS_CLASSES . 'breadcrumb.php');
+  $breadcrumb = new breadcrumb;
+
+  $breadcrumb->add(HEADER_TITLE_TOP, HTTP_SERVER);
+  $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
+
+  if (isset($cPath_array)) {
+    for($i=0; $i<sizeof($cPath_array); $i++) {
+      $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
+      $categories = tep_db_fetch_array($categories_query);
+      $breadcrumb->add($categories['categories_name'], tep_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
+    }
+  } elseif ($HTTP_GET_VARS['manufacturers_id']) {
+    $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
+    $manufacturers = tep_db_fetch_array($manufacturers_query);
+    $breadcrumb->add($manufacturers['manufacturers_name'], tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id']));
+  }
+
+  if ($HTTP_GET_VARS['products_id']) {
+    $model_query = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+    $model = tep_db_fetch_array($model_query);
+    $breadcrumb->add($model['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $HTTP_GET_VARS['products_id']));
   }
 
 // set which precautions should be checked

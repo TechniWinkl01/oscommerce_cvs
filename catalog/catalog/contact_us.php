@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.34 2002/06/16 15:40:34 harley_vb Exp $
+  $Id: contact_us.php,v 1.35 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@
     }
   }
 
-  $location = ' &raquo; ' . NAVBAR_TITLE; 
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_CONTACT_US));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

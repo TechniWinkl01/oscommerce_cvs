@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.8 2002/06/03 21:36:52 hpdl Exp $
+  $Id: compatibility.php,v 1.9 2002/07/21 23:38:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -112,6 +112,20 @@
   if (!function_exists('is_numeric')) {
     function is_numeric($param) {
       return ereg("^[0-9]{1,50}.?[0-9]{0,50}$", $param);
+    }
+  }
+
+  if (!function_exists('array_slice')) {
+    function array_slice($array, $offset, $length = 0) {
+      if ($offset < 0 ) {
+        $offset = sizeof($array) + $offset;
+      }
+      $length = ((!$length) ? sizeof($array) : (($length < 0) ? sizeof($array) - $length : $length + $offset));
+      for ($i = $offset; $i<$length; $i++) {
+        $tmp[] = $array[$i];
+      }
+
+      return $tmp;
     }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.76 2002/06/24 20:33:09 harley_vb Exp $
+  $Id: default.php,v 1.77 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,8 +31,6 @@
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_DEFAULT);
-
-  $location = '';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

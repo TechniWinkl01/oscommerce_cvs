@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_success.php,v 1.27 2002/05/21 06:07:31 hpdl Exp $
+  $Id: create_account_success.php,v 1.28 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,8 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_SUCCESS);
 
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; ' . NAVBAR_TITLE_2;
+  $breadcrumb->add(NAVBAR_TITLE_1);
+  $breadcrumb->add(NAVBAR_TITLE_2);
 
   if (sizeof($navigation->snapshot) > 0) {
     $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array(tep_session_name())), $navigation->snapshot['mode']);

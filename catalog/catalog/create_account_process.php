@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.79 2002/06/18 14:09:33 dgw_ Exp $
+  $Id: create_account_process.php,v 1.80 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -177,7 +177,8 @@
   if ($error == true) {
     $processed = true;
 
-    $location = ' &raquo; <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; ' . NAVBAR_TITLE_2;
+    $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
+    $breadcrumb->add(NAVBAR_TITLE_2);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

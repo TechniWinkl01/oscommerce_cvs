@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.68 2002/06/27 14:41:32 dgw_ Exp $
+  $Id: login.php,v 1.69 2002/07/21 23:38:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,7 +61,8 @@
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
-  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_LOGIN, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+
+  $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_LOGIN, '', 'SSL'));
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
