@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.185 2002/08/08 22:01:05 hpdl Exp $
+  $Id: general.php,v 1.186 2002/08/11 22:50:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -303,22 +303,22 @@
 
 ////
 // Add tax to a products price
-    function tep_add_tax($price, $tax) {
-      global $currencies;
+  function tep_add_tax($price, $tax) {
+    global $currencies;
 
-      if (DISPLAY_PRICE_WITH_TAX == true) {
-        return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
-      } else {
-        return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
-      }
+    if (DISPLAY_PRICE_WITH_TAX == true) {
+      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
+    } else {
+      return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
+  }
 
 // Calculates Tax rounding the result
-    function tep_calculate_tax($price, $tax) {
-      global $currencies;
+  function tep_calculate_tax($price, $tax) {
+    global $currencies;
 
-      return tep_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
-    }
+    return tep_round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+  }
 
 ////
 // Return the number of products in a category
