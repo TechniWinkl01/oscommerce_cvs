@@ -81,7 +81,7 @@
 
 // send emails to other people
   if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
-    mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $message, 'From: ' . EMAIL_FROM);
+    mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
   }
 
   $cart->reset(TRUE);
