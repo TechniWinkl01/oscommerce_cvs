@@ -27,7 +27,7 @@
   define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, root <root@localhost>');
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-  define('STORE_PAGE_PARSE_TIME', 0);
+  define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse a page
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_LOGS . 'exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
@@ -225,12 +225,14 @@
   if ($cart) tep_session_register('cart');
   if ($customer_id) tep_session_register('customer_id');
 
-// Fix the object if necesary
+// Fix the object if necesary
+
   if (REPAIR_BROKEN_CART && SESSION_OBJECTS_ALLOWED && is_object($cart) ) {
     $broken_cart = $cart;
     $cart = new shoppingCart;
     $cart->unserialize($broken_cart);
-  } else {
+  } else {
+
     if (SESSION_OBJECTS_ALLOWED) {
       if (!$cart) {
         tep_session_register('cart');
