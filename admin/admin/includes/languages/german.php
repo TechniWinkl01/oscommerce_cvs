@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.68 2002/01/26 00:32:36 harley_vb Exp $
+  $Id: german.php,v 1.69 2002/01/26 00:55:42 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -157,7 +157,6 @@ define('ENTRY_LAST_NAME', 'Nachname:');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_COMPANY', 'Firmenname:');
-define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_STREET_ADDRESS', 'Strasse:');
 define('ENTRY_SUBURB', 'weitere Anschrift:');
 define('ENTRY_POST_CODE', 'Postleitzahl:');
@@ -166,7 +165,6 @@ define('ENTRY_STATE', 'Bundesland:');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
 define('ENTRY_FAX_NUMBER', 'Faxnummer:');
-define('ENTRY_FAX_NUMBER_TEXT', '');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
 define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');
