@@ -285,7 +285,7 @@ function popupImageWindow(url) {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('info', 'action')) . 'info=' . $banners['banners_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td class="tableData">&nbsp;<? echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?image=' . DIR_WS_CATALOG_IMAGES . $banners['banners_image'] . '&alt=' . urlencode($banners['banners_title']) . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?>&nbsp;</td>
+                <td class="tableData">&nbsp;<? echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?action=banner&id=' . $banners['banners_id'] . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?>&nbsp;</td>
                 <td class="tableData" align="right">&nbsp;<? echo $banners['banners_group']; ?>&nbsp;</td>
                 <td class="tableData" align="right">&nbsp;<? echo $banners_shown . ' / ' . $banners_clicked; ?>&nbsp;</td>
                 <td class="tableData" align="right">
