@@ -142,7 +142,7 @@ function check_form() {
       </tr>
 <?
   }
-  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT+DOB;
+  $rowspan = 5+ACCOUNT_GENDER+ACCOUNT_DOB;
 ?>
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
