@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.11 2001/12/24 01:59:45 hpdl Exp $
+  $Id: banner_manager.php,v 1.12 2002/01/05 05:32:57 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

@@ -1,20 +1,18 @@
 <?php
 /*
-  $Id: customers.php,v 1.6 2001/11/25 14:09:17 dgw_ Exp $
+  $Id: customers.php,v 1.7 2002/01/05 05:32:57 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Clientes');
 define('HEADING_TITLE', 'Clientes');
-define('HEADING_TITLE_SEARCH', 'Busqueda por palabra clave (Nombre / Apellido):');
+define('HEADING_TITLE_SEARCH', 'Buscar:');
 
-define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_FIRSTNAME', 'Nombre');
 define('TABLE_HEADING_LASTNAME', 'Apellido');
 define('TABLE_HEADING_ACCOUNT_CREATED', 'Cuenta Creada');

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.13 2002/01/04 03:05:46 hpdl Exp $
+  $Id: categories.php,v 1.14 2002/01/05 05:32:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
