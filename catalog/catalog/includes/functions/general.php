@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.142 2001/11/17 00:15:14 hpdl Exp $
+  $Id: general.php,v 1.143 2001/11/23 14:57:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -81,7 +81,7 @@
 
 ////
 // Break a word in a string if it is longer than a specified length ($len)
-  function tep_break_string($string, $len) {
+  function tep_break_string($string, $len, $break_char = '-') {
     $l = 0;
     $output = '';
     for ($i=0; $i<strlen($string); $i++) {
@@ -91,9 +91,9 @@
       } else {
         $l = 0;
       }
-      if ($l == $len) {
-        $l = 0;
-        $output .= '- ';
+      if ($l > $len) {
+        $l = 1;
+        $output .= $break_char;
       }
       $output .= $char;
     }
