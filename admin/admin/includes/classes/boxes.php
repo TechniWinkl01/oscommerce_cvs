@@ -23,6 +23,7 @@
         echo '    <td';
         if ($contents[$i]['align'] != 'left') echo ' align="' . $contents[$i]['align'] . '"';
         if ($this->table_data_parameters != '') echo ' ' . $this->table_data_parameters;
+        if ($contents[$i]['params']) echo ' ' . $contents[$i]['params'];
         echo '>' . $this->font_style . $contents[$i]['text'] . '</font></td>' . "\n";
 
         echo '  </tr>' . "\n";
