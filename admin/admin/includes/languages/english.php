@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.81 2002/01/26 00:54:58 harley_vb Exp $
+  $Id: english.php,v 1.82 2002/01/27 03:20:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -214,6 +214,7 @@ define('IMAGE_UPDATE', 'Update');
 define('IMAGE_UPDATE_CURRENCIES', 'Update Exchange Rate');
 define('IMAGE_UPLOAD', 'Upload');
 
+define('ICON_CROSS', 'False');
 define('ICON_CURRENT_FOLDER', 'Current Folder');
 define('ICON_DELETE', 'Delete');
 define('ICON_ERROR', 'Error');
@@ -222,6 +223,7 @@ define('ICON_FILE_DOWNLOAD', 'Download');
 define('ICON_FOLDER', 'Folder');
 define('ICON_PREVIOUS_LEVEL', 'Previous Level');
 define('ICON_PREVIEW', 'Preview');
+define('ICON_TICK', 'True');
 define('ICON_WARNING', 'Warning');
 
 // constants for use in tep_prev_next_display function
