@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.3 2001/06/05 15:04:02 hpdl Exp $
+  $Id: cache.php,v 1.4 2001/06/06 21:30:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -243,7 +243,7 @@
         $cache_absfile = null;
       } else {
         @touch($cache_absfile);
-//        $this->cache_lock($cache_absfile, true);
+        $this->cache_lock($cache_absfile, true);
       }
       umask($oldum);
       $cache_data['expire'] = $curtime + $cachetime;
@@ -307,7 +307,7 @@
         $datas = serialize($cache_data);
         $this->cache_write($cache_absfile, $datas);
       }
-//      $this->cache_lock($cache_absfile, false);
+      $this->cache_lock($cache_absfile, false);
       $this->cache_reset();
     }
 
