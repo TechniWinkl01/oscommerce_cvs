@@ -177,4 +177,4 @@
 <br>
 </body>
 </html>
-<? include('includes/application_bottom.php'); ?>
+<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
