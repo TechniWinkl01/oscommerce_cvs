@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade.php,v 1.1 2002/01/29 11:48:51 hpdl Exp $
+  $Id: upgrade.php,v 1.2 2002/01/29 11:57:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,7 +16,7 @@
 
 <p>This upgrade procedure will upgrade previous 2.1 database structures to the 2.2 database structure.</p>
 
-<p>It is recommended to perforum this upgrade procedure on an up-to-date backup of your 2.1 database.</p>
+<p>It is recommended to perform this upgrade procedure on an up-to-date backup of your 2.1 database.</p>
 
 <form name="upgrade" action="upgrade.php?step=2" method="post">
 
@@ -26,7 +26,7 @@
 The database server can be in the form of a hostname, such as <i>db1.myserver.com</i>, or as an IP address, such as <i>192.168.0.1</i>.</p>
 
 <p><b>Username</b><br><?php echo osc_draw_input_field('DB_SERVER_USERNAME'); ?><br>
-The username is used to connect to the database server. An example username is <i>mysql_10</i>.<br><br>Note: The account used to connect to the database server needs to have Create permission.</p>
+The username is used to connect to the database server. An example username is <i>mysql_10</i>.<br><br>Note: The account used to connect to the database server needs to have Create and Drop permissions.</p>
 
 <p><b>Password</b><br><?php echo osc_draw_input_field('DB_SERVER_PASSWORD'); ?><br>
 The password is used together with the username, which forms the database user account.</p>
