@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: general.php,v 1.240 2004/05/12 19:34:34 mevans Exp $
+  $Id: general.php,v 1.241 2004/07/22 16:53:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -179,7 +179,7 @@
       reset($_GET);
       while (list($key, $value) = each($_GET)) {
         if ( (is_string($value) && (strlen($value) > 0)) && ($key != $osC_Session->name) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
-          $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
+          $get_url .= $key . '=' . rawurlencode($value) . '&';
         }
       }
     }
@@ -1288,11 +1288,11 @@
         // validate domain
         if (eregi($ip_domain_pat, $domain, $ip_components)) {
           // this is an IP address
-      	  for ($i=1;$i<=4;$i++) {
-      	    if ($ip_components[$i] > 255) {
-      	      $valid_address = false;
-      	      break;
-      	    }
+          for ($i=1;$i<=4;$i++) {
+            if ($ip_components[$i] > 255) {
+              $valid_address = false;
+              break;
+            }
           }
         }
         else {
@@ -1329,9 +1329,9 @@
             }
           }
           else {
-      	    $valid_address = false;
-      	  }
-      	}
+            $valid_address = false;
+          }
+        }
       }
       else {
         $valid_address = false;
@@ -1372,5 +1372,18 @@
 
 // If the total has no remainder it's OK
     return ($numSum % 10 == 0);
+  }
+
+////
+// Creates a pull-down list of countries
+  function tep_get_country_list($name, $selected = '', $parameters = '', $required = false) {
+    $countries_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT));
+    $countries = tep_get_countries();
+
+    for ($i=0, $n=sizeof($countries); $i<$n; $i++) {
+      $countries_array[] = array('id' => $countries[$i]['countries_id'], 'text' => $countries[$i]['countries_name']);
+    }
+
+    return osc_draw_pull_down_menu($name, $countries_array, $selected, $parameters, $required);
   }
 ?>
