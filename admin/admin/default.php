@@ -1,8 +1,7 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_DEFAULT; include(DIR_INCLUDES . 'include_once.php'); ?>
 <html>
 <head>
-<title><?=TITLE;?></title>
+<title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -13,7 +12,7 @@
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
@@ -27,34 +26,34 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<?=TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?=TOP_BAR_FONT_FACE;?>" size="<?=TOP_BAR_FONT_SIZE;?>" color="<?=TOP_BAR_FONT_COLOR;?>">&nbsp;<?=TOP_BAR_TITLE;?>&nbsp;</font></td>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'table_background_button.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'table_background_button.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td><?=tep_black_line();?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
-          <tr bgcolor="<?=SUB_BAR_BACKGROUND_COLOR;?>">
-            <td nowrap><font face="<?=SUB_BAR_FONT_FACE;?>" size="<?=SUB_BAR_FONT_SIZE;?>" color="<?=SUB_BAR_FONT_COLOR;?>">&nbsp;<?=SUB_BAR_TITLE;?>&nbsp;</font></td>
-          </tr>
-          <tr>
-            <td><?=tep_black_line();?></td>
+          <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
+            <td nowrap><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=TEXT_MAIN;?></font></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><?=tep_black_line();?></td>
+            <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_MAIN; ?></font></td>
+          </tr>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -63,13 +62,13 @@
           <tr>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<?=SUB_BAR_BACKGROUND_COLOR;?>">
-                <td colspan="2" nowrap><font face="<?=SUB_BAR_FONT_FACE;?>" size="<?=SUB_BAR_FONT_SIZE;?>" color="<?=SUB_BAR_FONT_COLOR;?>">&nbsp;<?=TABLE_HEADING_NEW_CUSTOMERS;?>&nbsp;</font></td>
+              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
+                <td colspan="2" nowrap><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_NEW_CUSTOMERS; ?>&nbsp;</font></td>
               </tr>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
   $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from customers c, customers_info i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit 5");
@@ -81,18 +80,18 @@
   }
 ?>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="3"><?=tep_black_line();?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<?=SUB_BAR_BACKGROUND_COLOR;?>">
-                <td colspan="3" nowrap><font face="<?=SUB_BAR_FONT_FACE;?>" size="<?=SUB_BAR_FONT_SIZE;?>" color="<?=SUB_BAR_FONT_COLOR;?>">&nbsp;<?=TABLE_HEADING_LAST_ORDERS;?>&nbsp;</font></td>
+              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
+                <td colspan="3" nowrap><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_LAST_ORDERS; ?>&nbsp;</font></td>
               </tr>
               <tr>
-                <td colspan="3"><?=tep_black_line();?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
   $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status from orders order by orders_id DESC limit 5");
@@ -111,20 +110,20 @@
   }
 ?>
               <tr>
-                <td colspan="3"><?=tep_black_line();?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<?=SUB_BAR_BACKGROUND_COLOR;?>">
-                <td colspan="2" nowrap><font face="<?=SUB_BAR_FONT_FACE;?>" size="<?=SUB_BAR_FONT_SIZE;?>" color="<?=SUB_BAR_FONT_COLOR;?>">&nbsp;<?=TABLE_HEADING_NEW_PRODUCTS;?>&nbsp;</font></td>
+              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
+                <td colspan="2" nowrap><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_NEW_PRODUCTS; ?>&nbsp;</font></td>
               </tr>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
   $products_query = tep_db_query("select products_id, products_name, products_date_added from products order by products_id DESC limit 5");
@@ -136,18 +135,18 @@
   }
 ?>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
             <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<?=SUB_BAR_BACKGROUND_COLOR;?>">
-                <td colspan="2" nowrap><font face="<?=SUB_BAR_FONT_FACE;?>" size="<?=SUB_BAR_FONT_SIZE;?>" color="<?=SUB_BAR_FONT_COLOR;?>">&nbsp;<?=TABLE_HEADING_NEW_REVIEWS;?>&nbsp;</font></td>
+              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
+                <td colspan="2" nowrap><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_NEW_REVIEWS; ?>&nbsp;</font></td>
               </tr>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
 <?
   $reviews_query = tep_db_query("select reviews_id, products_id, date_added from reviews_extra order by reviews_id DESC limit 5");
@@ -159,7 +158,7 @@
   }
 ?>
               <tr>
-                <td colspan="2"><?=tep_black_line();?></td>
+                <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>

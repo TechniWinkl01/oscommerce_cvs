@@ -1,5 +1,4 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CATEGORIES; include(DIR_INCLUDES . 'include_once.php'); ?>
 <?
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
@@ -11,19 +10,19 @@
         $new_categories_id = $HTTP_POST_VARS['original_categories_id'];
       }
       if (tep_db_query("update categories set " . $update_query . " where categories_id = '" . $HTTP_POST_VARS['original_categories_id'] . "'")) {
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'info=' . $new_categories_id, 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'info=' . $new_categories_id, 'NONSSL'));
         tep_exit();
       } else {
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'error=SAVE', 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'error=SAVE', 'NONSSL'));
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       if ($HTTP_POST_VARS['categories_id']) {
         if (tep_db_query("delete from categories where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'")) {
-          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
           tep_exit();
         } else {
-          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'error=DELETE', 'NONSSL'));
+          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'error=DELETE', 'NONSSL'));
           tep_exit();
         }
       } elseif ($HTTP_POST_VARS['products_id']) {
@@ -36,29 +35,29 @@
           tep_db_query("update products set products_status = '0' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
           tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
         }
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'moveconfirm') {
       if ($HTTP_POST_VARS['categories_id']) {
         if (tep_db_query("update categories set parent_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'")) {
-          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
           tep_exit();
         } else {
-          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'error=MOVE', 'NONSSL'));
+          header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'error=MOVE', 'NONSSL'));
           tep_exit();
         }
       } elseif ($HTTP_POST_VARS['products_id']) {
         tep_db_query("update products_to_categories set categories_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert_category') {
       if (tep_db_query("insert into categories (categories_name, categories_image, parent_id, sort_order) values ('" . $HTTP_POST_VARS['categories_name'] . "', '" . $HTTP_POST_VARS['categories_image'] . "', '" . $current_category_id . "', '" . $HTTP_POST_VARS['sort_order'] . "')")) {
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
       } else {
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'error=INSERT', 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'error=INSERT', 'NONSSL'));
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert_product') {
@@ -66,10 +65,10 @@
         $new_products_id = tep_db_insert_id();
         tep_db_query("insert into products_to_categories (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
         if ($HTTP_POST_VARS['manufacturers_id']) tep_db_query("insert into products_to_manufacturers (products_id, manufacturers_id) values ('" . $new_products_id . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info'), 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
       } else {
-        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'error=INSERT', 'NONSSL'));
+        header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'error=INSERT', 'NONSSL'));
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
@@ -85,11 +84,11 @@
       } else {
         tep_db_query("delete from products_to_manufacturers where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       }
-      header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID'), 'NONSSL'));
+      header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'copy_to_confirm') {
       tep_db_query("insert into products_to_categories (products_id, categories_id) values ('" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['categories_id'] . "')");
-      header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL'));
+      header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL'));
       tep_exit();
     }
   }
@@ -104,28 +103,28 @@
 ?>
 <html>
 <head>
-<title><?=TITLE;?></title>
+<title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
 function checkForm() {
-  var error_message = "<?=JS_ERROR;?>";
+  var error_message = "<? echo JS_ERROR; ?>";
   var error = 0;
   var categories_name = document.categories.categories_name.value;
   var sort_order = document.categories.sort_order.value;
   var categories_image = document.categories.categories_image.value;
   
   if (categories_name.length < 1) {
-    error_message = error_message + "<?=JS_CATEGORIES_NAME;?>";
+    error_message = error_message + "<? echo JS_CATEGORIES_NAME; ?>";
     error = 1;
   }
   
   if (sort_order = "" || sort_order.length < 1) {
-    error_message = error_message + "<?=JS_SORT_ORDER;?>";
+    error_message = error_message + "<? echo JS_SORT_ORDER; ?>";
     error = 1;
   }
   
   if (categories_image.length < 1) {
-    error_message = error_message + "<?=JS_CATEGORIES_IMAGE;?>";
+    error_message = error_message + "<? echo JS_CATEGORIES_IMAGE; ?>";
     error = 1;
   }
 
@@ -146,7 +145,7 @@ function checkForm() {
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
@@ -160,7 +159,7 @@ function checkForm() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
           <tr>
-            <td bgcolor="<?=TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?=TOP_BAR_FONT_FACE;?>" size="<?=TOP_BAR_FONT_SIZE;?>" color="<?=TOP_BAR_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '" class="blacklink">' . TOP_BAR_TITLE . '</a>';?>
+            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><font face="<? echo TOP_BAR_FONT_FACE; ?>" size="<? echo TOP_BAR_FONT_SIZE; ?>" color="<? echo TOP_BAR_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL') . '" class="blacklink">' . TOP_BAR_TITLE . '</a>'; ?>
 <?
   if ($cPath) {
     if (!ereg('_', $cPath)) $cPath_array = array($cPath);
@@ -191,12 +190,12 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select manufacturers_id from products_to_manufacturers where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo = new Product_Info();
+      $pInfo = new Product_Info;
       $pInfo_array = tep_array_merge($product, $manufacturer);
       tep_set_product_info($pInfo_array);
     } elseif ($HTTP_POST_VARS) {
 /* not in use at the moment! this should be used when the user presses 'BACK' on the products preview page.. */
-      $pInfo = new Product_Info();
+      $pInfo = new Product_Info;
       tep_set_product_info($HTTP_POST_VARS);
     }
 
@@ -204,68 +203,68 @@ function checkForm() {
 
     if ($parent_categories_name == '') $parent_categories_name = 'Top Level Categories';
 ?>
-      <tr><form name="new_product" <?='action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'action=new_product_preview', 'NONSSL') . '"';?> method="post">
+      <tr><form name="new_product" <? echo 'action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'action=new_product_preview', 'NONSSL') . '"'; ?> method="post">
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=sprintf(TEXT_NEW_PRODUCT, $parent_categories_name);?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_CATALOG . 'images/pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', '');?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo sprintf(TEXT_NEW_PRODUCT, $parent_categories_name); ?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_CATALOG . 'images/pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td><br><table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_MANUFACTURER;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<select name="manufacturers_id"><option value=""></option><? while ($manufacturers = tep_db_fetch_array($manufacturers_query)) { echo '<option value="' . $manufacturers['manufacturers_id'] . '"'; if ($pInfo->manufacturers_id == $manufacturers['manufacturers_id']) echo ' SELECTED'; echo '>' . $manufacturers['manufacturers_name'] . '</option>'; } ?></select>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_MANUFACTURER; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<select name="manufacturers_id"><option value=""></option><? while ($manufacturers = tep_db_fetch_array($manufacturers_query)) { echo '<option value="' . $manufacturers['manufacturers_id'] . '"'; if (@$pInfo->manufacturers_id == $manufacturers['manufacturers_id']) echo ' SELECTED'; echo '>' . $manufacturers['manufacturers_name'] . '</option>'; } ?></select>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_NAME;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_name" value="<?=$pInfo->name;?>">&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_NAME; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_name" value="<? echo @$pInfo->name; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;</font></td>
+            <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap valign="top"><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_DESCRIPTION;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<textarea name="products_description" cols="50" rows="10"><?=$pInfo->description;?></textarea>&nbsp;</font></td>
+            <td nowrap valign="top"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_DESCRIPTION; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<textarea name="products_description" cols="50" rows="10"><? echo @$pInfo->description; ?></textarea>&nbsp;</font></td>
           </tr>
           <tr>
-            <td colspan="2"><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;</font></td>
+            <td colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_QUANTITY;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_quantity" value="<?=$pInfo->quantity;?>">&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_QUANTITY; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_quantity" value="<? echo @$pInfo->quantity; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_MODEL;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_model" value="<?=$pInfo->model;?>">&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_MODEL; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_model" value="<? echo @$pInfo->model; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_IMAGE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_image" value="<? if ($pInfo->image) { echo $pInfo->image; } else { echo 'images/'; } ;?>">&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_IMAGE; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_image" value="<? if (@$pInfo->image) { echo $pInfo->image; } else { echo 'images/'; } ; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_URL;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_url" value="<?=$pInfo->url;?>">&nbsp;<?=TEXT_PRODUCTS_URL_WITHOUT_HTTP;?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_URL; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_url" value="<? echo @$pInfo->url; ?>">&nbsp;<? echo TEXT_PRODUCTS_URL_WITHOUT_HTTP; ?>&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_PRICE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_price" value="<?=$pInfo->price;?>">&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_PRICE; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_price" value="<? echo @$pInfo->price; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_PRODUCTS_WEIGHT;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="products_weight" value="<?=$pInfo->weight;?>">&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_WEIGHT; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="products_weight" value="<? echo @$pInfo->weight; ?>">&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><br><?=tep_black_line();?></td>
+        <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td nowrap align="right"><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<input type="hidden" name="products_date_added" value="<? if ($pInfo->date_added) { echo $pInfo->date_added; } else { echo date('Ymd'); } ?>"><?=tep_image_submit(DIR_IMAGES . 'button_preview.gif', '66', '20', '0', IMAGE_PREVIEW);?>&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID', 'info') . 'info=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?>&nbsp;</font></td>
+        <td nowrap align="right"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="hidden" name="products_date_added" value="<? if (@$pInfo->date_added) { echo $pInfo->date_added; } else { echo date('Ymd'); } ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_preview.gif', '66', '20', '0', IMAGE_PREVIEW); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'info')) . 'info=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</font></td>
       </form></tr>
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'new_product_preview') {
@@ -273,8 +272,8 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select manufacturers_name, manufacturers_image from manufacturers where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo = new Product_Info();
-      $pInfo_array = tep_array_merge($HTTP_POST_VARS, $manufacturer);
+      $pInfo = new Product_Info;
+      $pInfo_array = tep_array_merge((array)$HTTP_POST_VARS, (array)$manufacturer);
       tep_set_product_info($pInfo_array);
     } else {
       $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
@@ -282,7 +281,7 @@ function checkForm() {
       $manufacturer_query = tep_db_query("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image from manufacturers m, products_to_manufacturers p2m where p2m.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p2m.manufacturers_id = m.manufacturers_id");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
 
-      $pInfo = new Product_Info();
+      $pInfo = new Product_Info;
       $pInfo_array = tep_array_merge($product, $manufacturer);
       tep_set_product_info($pInfo_array);
     }
@@ -290,34 +289,34 @@ function checkForm() {
     $form_action = 'insert_product';
     if ($HTTP_GET_VARS['pID']) $form_action = 'update_product';
 ?>
-      <tr><form name="<?=$form_action;?>" <?='action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=' . $form_action, 'NONSSL') . '"';?> method="post">
+      <tr><form name="<? echo $form_action; ?>" <? echo 'action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post">
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=tep_products_name('', $pInfo->manufacturers_id, $pInfo->name) . ' @ ' . tep_currency_format($pInfo->price);?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_CATALOG . $pInfo->manufacturers_image, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $pInfo->manufacturer);?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo tep_products_name('', $pInfo->manufacturers_id, $pInfo->name) . ' @ ' . tep_currency_format($pInfo->price); ?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_CATALOG . $pInfo->manufacturers_image, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $pInfo->manufacturer); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?=tep_black_line();?></td>
+        <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td wrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image(DIR_CATALOG . $pInfo->image, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', tep_products_name('', $pInfo->manufacturers_id, $pInfo->name));?><?=$pInfo->description;?></font></td>
+        <td wrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image(DIR_CATALOG . $pInfo->image, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', tep_products_name('', $pInfo->manufacturers_id, $pInfo->name)); ?><? echo $pInfo->description; ?></font></td>
       </tr>
 <?
     if ($pInfo->url) {
 ?>
       <tr>
-        <td nowrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_PRODUCT_MORE_INFORMATION, $pInfo->url);?></font></td>
+        <td nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $pInfo->url); ?></font></td>
       </tr>
 <?
     }
 ?>
       <tr>
-        <td align="center" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?=sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->date_added));?></font></td>
+        <td align="center" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo sprintf(TEXT_PRODUCT_DATE_ADDED, tep_date_long($pInfo->date_added)); ?></font></td>
       </tr>
       <tr>
-        <td><br><?=tep_black_line();?></td>
+        <td><br><? echo tep_black_line(); ?></td>
       </tr>
 <?
     if ($HTTP_GET_VARS['read'] == 'only') {
@@ -326,22 +325,23 @@ function checkForm() {
         $back_url_params = '';
       } else {
         $back_url = FILENAME_CATEGORIES;
-        $back_url_params = tep_get_all_get_params('action', 'pID', 'read', 'info') . 'info=' . $HTTP_GET_VARS['pID'];
+        $back_url_params = tep_get_all_get_params(array('action', 'pID', 'read', 'info')) . 'info=' . $HTTP_GET_VARS['pID'];
       }
 ?>
       <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><?='<a href="' . tep_href_link($back_url, $back_url_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>';?>&nbsp;</font></td>
+        <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link($back_url, $back_url_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>'; ?>&nbsp;</font></td>
       </tr>
 <?
     } else {
 ?>
       <tr>
-        <td align="right" nowrap><br><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
+        <td align="right" nowrap><br><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">
 <?
 /* Re-Post all POST'ed variables */
-      foreach($HTTP_POST_VARS as $key => $value) echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($value) . '">';
+      reset($HTTP_POST_VARS);
+      while (list($key, $value) = each($HTTP_POST_VARS)) echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($value) . '">';
 ?>
-        <?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>';?>&nbsp;<? if ($HTTP_GET_VARS['pID']) { echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); } else { echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); } ?>&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID') . 'info=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>';?>&nbsp;</font></td>
+        <? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>'; ?>&nbsp;<? if ($HTTP_GET_VARS['pID']) { echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); } else { echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); } ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'info=' . $HTTP_GET_VARS['pID'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</font></td>
       </form></tr>
 <?
     }
@@ -350,25 +350,25 @@ function checkForm() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', '');?>&nbsp;</td>
+            <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?=tep_black_line();?></td>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td width="10%" align="center" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_ID;?>&nbsp;</b></font></td>
-                <td width="80%" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_CATEGORIES_PRODUCTS;?>&nbsp;</b></font></td>
-                <td width="10%" align="center" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_ACTION;?>&nbsp;</b></font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</b></font></td>
+                <td width="80%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?>&nbsp;</b></font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
               </tr>
               <tr>
-                <td colspan="3"><?=tep_black_line();?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
     $categories_count = 0;
@@ -387,27 +387,27 @@ function checkForm() {
         $category_products_query = tep_db_query("select count(*) as products_count from products_to_categories where categories_id = '" . $categories['categories_id'] . "'");
         $category_products = tep_db_fetch_array($category_products_query);
 
-        $cInfo = new Category_Info();
+        $cInfo = new Category_Info;
         $cInfo_array = tep_array_merge($categories, $category_childs, $category_products);
         tep_set_category_info($cInfo_array);
       }
 
-      if ($categories['categories_id'] == $cInfo->id) {
+      if ($categories['categories_id'] == @$cInfo->id) {
         echo '              <tr bgcolor="#b0c8df" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '\'">' . "\n";
       } else {
-        echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('info', 'action') . 'info=' . $categories['categories_id'], 'NONSSL') . '\'">' . "\n";
+        echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $categories['categories_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td width="10%" align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$categories['categories_id'];?>&nbsp;</font></td>
-                <td width="80%" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<b><?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '" class="blacklink"><u>' . $categories['categories_name'] . '</u></a>';?></b>&nbsp;</font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $categories['categories_id']; ?>&nbsp;</font></td>
+                <td width="80%" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '" class="blacklink"><u>' . $categories['categories_name'] . '</u></a>'; ?></b>&nbsp;</font></td>
 <?
-      if ($categories['categories_id'] == $cInfo->id) {
+      if ($categories['categories_id'] == @$cInfo->id) {
 ?>
-                <td width="10%" align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image(DIR_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, '');?>&nbsp;</font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
 <?
       } else {
 ?>
-                <td width="10%" align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('info', 'action') . 'info=' . $categories['categories_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>';?>&nbsp;</font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $categories['categories_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
 <?
       }
 ?>
@@ -427,27 +427,27 @@ function checkForm() {
         $reviews_query = tep_db_query("select (avg(r.reviews_rating) / 5 * 100) average_rating from reviews r, reviews_extra re where re.products_id = '" . $products['products_id'] . "' and re.reviews_id = r.reviews_id");
         $reviews = tep_db_fetch_array($reviews_query);
 
-        $pInfo = new Product_Info();
+        $pInfo = new Product_Info;
         $pInfo_array = tep_array_merge($products, $reviews);
         tep_set_product_info($pInfo_array);
       }
 
-      if ($products['products_id'] == $pInfo->id) {
-        echo '              <tr bgcolor="#b0c8df" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID') . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '\'">' . "\n";
+      if ($products['products_id'] == @$pInfo->id) {
+        echo '              <tr bgcolor="#b0c8df" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '\'">' . "\n";
       } else {
-        echo '              <tr bgcolor="#e9e9e9" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#e9e9e9\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('info', 'action') . 'info=' . $products['products_id'], 'NONSSL') . '\'">' . "\n";
+        echo '              <tr bgcolor="#e9e9e9" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#e9e9e9\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $products['products_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td width="10%" align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$products['products_id'];?>&nbsp;</font></td>
-                <td width="80%" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'pID') . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '" class="blacklink"><u>' . tep_products_name($products['products_id']) . '</u></a>';?>&nbsp;</font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $products['products_id']; ?>&nbsp;</font></td>
+                <td width="80%" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'info')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '" class="blacklink"><u>' . tep_products_name($products['products_id']) . '</u></a>'; ?>&nbsp;</font></td>
 <?
-      if ($products['products_id'] == $pInfo->id) {
+      if ($products['products_id'] == @$pInfo->id) {
 ?>
-                <td width="10%" align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=tep_image(DIR_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, '');?>&nbsp;</font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
 <?
       } else {
 ?>
-                <td width="10%" align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('info', 'action') . 'info=' . $products['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>';?>&nbsp;</font></td>
+                <td width="10%" align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $products['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
 <?
       }
 ?>
@@ -458,7 +458,7 @@ function checkForm() {
     if ($rows > 0) {
 ?>
               <tr>
-                <td colspan="3"><?=tep_black_line();?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
     }
@@ -471,8 +471,8 @@ function checkForm() {
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=TEXT_CATEGORIES;?> <?=$categories_count;?>&nbsp;<br>&nbsp;Products: <?=$products_count;?>&nbsp;</font></td>
-                    <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<? if ($cPath) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, $cPath_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>&nbsp;';?><?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'action=new_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_new_category.gif', '103', '20', '0', IMAGE_NEW_CATEGORY) . '</a>';?>&nbsp;<?='<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_new_product.gif', '103', '20', '0', IMAGE_NEW_PRODUCT) . '</a>';?>&nbsp;</font></td>
+                    <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CATEGORIES; ?> <? echo $categories_count; ?>&nbsp;<br>&nbsp;Products: <? echo $products_count; ?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? if ($cPath) echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, $cPath_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK) . '</a>&nbsp;'; ?><? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'action=new_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_new_category.gif', '103', '20', '0', IMAGE_NEW_CATEGORY) . '</a>'; ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'action=new_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_new_product.gif', '103', '20', '0', IMAGE_NEW_PRODUCT) . '</a>'; ?>&nbsp;</font></td>
                   </tr>
                 </table></td>
               </tr>
@@ -480,10 +480,10 @@ function checkForm() {
     if ($HTTP_GET_VARS['error']) {
 ?>
               <tr>
-                <td colspan="3"><?=tep_black_line();?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="3"><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="#ff0000">&nbsp;<?=ERROR_ACTION;?>&nbsp;</font></td>
+                <td colspan="3"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="#ff0000">&nbsp;<? echo ERROR_ACTION; ?>&nbsp;</font></td>
               </tr>
 <?
     }
@@ -502,90 +502,90 @@ function checkForm() {
                 </td>
               </tr>
               <tr bgcolor="#81a2b6">
-                <td><?=tep_black_line();?></td>
+                <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
 /* here we display the appropiate info box on the right of the main table */
     switch ($HTTP_GET_VARS['action']) {
 /* edit category box contents */
       case 'edit_category':
-        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="original_categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="original_categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_EDIT_INTRO . '<br>&nbsp;');
         if (EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_CATEGORIES_ID . '<br>&nbsp;<input type="text" name="categories_id" value="' . $cInfo->id . '" size="2"><br>&nbsp;');
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_CATEGORIES_NAME . '<br>&nbsp;<input type="text" name="categories_name" value="' . $cInfo->name . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_CATEGORIES_IMAGE . '<br>&nbsp;<input type="text" name="categories_image" value="' . $cInfo->image . '"><br>&nbsp;<br>&nbsp;' . TEXT_EDIT_SORT_ORDER . '<br>&nbsp;<input type="text" name="sort_order" size="2" value="' . $cInfo->sort_order . '"><br>&nbsp;');
         if (EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_EDIT_PARENT_ID . '<br>&nbsp;<input type="text" name="parent_id" value="' . $cInfo->parent_id . '"><br>&nbsp;');
-        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* delete category box contents */
       case 'delete_category':
-        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_CATEGORY_INTRO);
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<b>' . $cInfo->name . '</b>');
         if ($cInfo->childs_count > 0) $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_CHILDS, $cInfo->childs_count));
         if ($cInfo->products_count > 0) $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* delete product box contents */
       case 'delete_product':
-        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
+        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_PRODUCT_INTRO);
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<b>' . tep_products_name($pInfo->id) . '</b>');
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* move category box contents */
       case 'move_category':
-        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->name));
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_MOVE, $cInfo->name) . '<br>&nbsp;' . tep_categories_pull_down('name="move_to_category_id" style="font-size:10px"', $cInfo->id));
         if (!EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<br>' . TEXT_MOVE_NOTE);
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* move product box contents */
       case 'move_product':
         $products_categories_array = tep_products_categories_array($pInfo->id, true);
 
-        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
+        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, tep_products_name($pInfo->id)));
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_MOVE, tep_products_name($pInfo->id)) . '<br>&nbsp;' . tep_categories_pull_down('name="move_to_category_id" style="font-size:10px"', $products_categories_array));
         if (!EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;<br>' . TEXT_MOVE_NOTE);
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* new category box contents */
       case 'new_category':
-        $form = '<form name="insert_category" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=insert_category', 'NONSSL') . '" method="post">' . "\n";
+        $form = '<form name="insert_category" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=insert_category', 'NONSSL') . '" method="post">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_NEW_CATEGORY_INTRO . '<br>&nbsp;');
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_CATEGORIES_NAME . '<br>&nbsp;<input type="text" name="categories_name"><br>&nbsp;<br>&nbsp;' . TEXT_CATEGORIES_IMAGE . '<br>&nbsp;<input type="text" name="categories_image"><br>&nbsp;<br>&nbsp;' . TEXT_SORT_ORDER . '<br>&nbsp;<input type="text" name="sort_order" size="2"><br>&nbsp;');
-        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_save.gif', '66', '20', '0', IMAGE_SAVE) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* display copy_to info box */
       case 'copy_to':
         $products_categories_array = tep_products_categories_array($pInfo->id, true);
 
-        $form = '<form name="copy_to" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=copy_to_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
+        $form = '<form name="copy_to" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=copy_to_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COPY_TO_INTRO . '<br>&nbsp;');
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENT_CATEGORIES . '<br>&nbsp;' . tep_products_categories_info_box($pInfo->id));
         $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_CATEGORIES . '<br>&nbsp;' . tep_categories_pull_down('name="categories_id" style="font-size:10px"', $products_categories_array) . '<br>&nbsp;');
-        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_copy.gif', '66', '20', '0', IMAGE_COPY) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action'), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_IMAGES . 'button_copy.gif', '66', '20', '0', IMAGE_COPY) . ' <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '66', '20', '0', IMAGE_CANCEL) . '</a>');
 
         break;
 /* display default info boxes */
@@ -593,18 +593,18 @@ function checkForm() {
         if ($rows > 0) {
           if ($cInfo) { // category info box contents
             $info_box_contents = array();
-            $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=edit_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=delete_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=move_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
+            $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=edit_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_category', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . '&nbsp;<br>&nbsp;' . TEXT_LAST_MODIFIED);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($cInfo->image, $cInfo->name) . '<br>&nbsp;' . $cInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif ($pInfo) { // product info box contents
             $info_box_contents = array();
-            $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action', 'info') . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
+            $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, tep_products_name($pInfo->id)) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) , '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
-            $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params('action') . 'action=copy_to', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_copy_to.gif', '66', '20', '0', IMAGE_COPY_TO) . '</a>');
+            $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=copy_to', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_copy_to.gif', '66', '20', '0', IMAGE_COPY_TO) . '</a>');
           }
         } else { // create-category-or-product box contents
           $info_box_contents = array();
@@ -613,13 +613,13 @@ function checkForm() {
     } // end switch
 // display box contents by creating an instance of "infoBox" (down a couple of lines)
 ?>
-              <tr bgcolor="#b0c8df"><?=$form;?>
+              <tr bgcolor="#b0c8df"><? echo $form; ?>
                 <td>
                   <? new infoBox($info_box_contents); ?>
                 </td>
-              <? if ($form) echo '</form>';?></tr>
+              <? if ($form) echo '</form>'; ?></tr>
               <tr bgcolor="#b0c8df">
-                <td><?=tep_black_line();?></td>
+                <td><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
