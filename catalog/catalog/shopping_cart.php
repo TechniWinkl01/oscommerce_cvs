@@ -111,7 +111,7 @@
       }
 //------display customer choosen option eof-----
       echo '</td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products[$i]['price']) . '</b>&nbsp;';
+      echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" class="main">&nbsp;<b>' . $currencies->format($products[$i]['quantity'] * $products[$i]['price']) . '</b>&nbsp;';
 //------display customer choosen option --------
       if ($attributes_exist == '1') {
         reset($cart->contents[$products[$i]['id']]['attributes']);
@@ -119,7 +119,7 @@
           $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_values_id = '" . $value . "'");
           $attributes_values = tep_db_fetch_array($attributes);
           if ($attributes_values['options_values_price'] != '0') {
-            echo "\n" . '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
+            echo "\n" . '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
           } else {
             echo "\n" . '<br>&nbsp;';
           }
@@ -145,7 +145,7 @@
             <td colspan="<? echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
                 <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($cart->show_total()); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($cart->show_total()); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

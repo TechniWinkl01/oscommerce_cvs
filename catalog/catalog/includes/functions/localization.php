@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: localization.php,v 1.3 2001/09/04 19:22:58 dwatkins Exp $
+  $Id: localization.php,v 1.4 2001/09/12 21:33:04 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,14 +30,6 @@
     }
 
     return $languages_array;
-  }
-
-////
-// Format a number to the selected currency
-  function tep_currency_format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
-    global $currencies;
-
-    return $currencies->format($number, $calculate_currency_value, $currency_type, $currency_value);
   }
 
 ////

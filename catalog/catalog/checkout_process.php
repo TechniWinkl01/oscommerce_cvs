@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.68 2001/09/04 06:28:10 mbs Exp $
+  $Id: checkout_process.php,v 1.69 2001/09/12 21:32:41 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -103,7 +103,7 @@
     }
     $total_cost += $total_products_price;
 
-    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . tep_currency_format(($total_products_price * $products[$i]['quantity'])) . $products_ordered_attributes . "\n";
+    $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . $currencies->format($total_products_price * $products[$i]['quantity'])) . $products_ordered_attributes . "\n";
   }
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
@@ -113,15 +113,15 @@
   if ($comments != '') {
     $email_order .= $comments . "\n\n";
   }
-  $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . EMAIL_SEPARATOR . "\n" . $products_ordered . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($cart->show_total()) . "\n" . EMAIL_TEXT_TAX . tep_currency_format($total_tax) . "\n";
+  $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . EMAIL_SEPARATOR . "\n" . $products_ordered . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . $currencies->format($cart->show_total()) . "\n" . EMAIL_TEXT_TAX . $currencies->format($total_tax) . "\n";
   if ($GLOBALS['shipping_cost'] > 0) {
-    $email_order .= EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($GLOBALS['shipping_cost']) . ' ' . TEXT_EMAIL_VIA . ' ' . $GLOBALS['shipping_method'] . "\n";
+    $email_order .= EMAIL_TEXT_SHIPPING . ' ' . $currencies->format($GLOBALS['shipping_cost']) . ' ' . TEXT_EMAIL_VIA . ' ' . $GLOBALS['shipping_method'] . "\n";
   }
   $email_order .= EMAIL_TEXT_TOTAL . ' ';
   if (TAX_INCLUDE == true) {
-    $email_order .= tep_currency_format($cart->show_total() + $GLOBALS['shipping_cost']);
+    $email_order .= $currencies->format($cart->show_total() + $GLOBALS['shipping_cost']);
   } else {
-    $email_order .= tep_currency_format($cart->show_total() + $total_tax + $GLOBALS['shipping_cost']);
+    $email_order .= $currencies->format($cart->show_total() + $total_tax + $GLOBALS['shipping_cost']);
   }
   $email_order .= "\n\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
   $email_order .= tep_address_label($customer_id, $GLOBALS['sendto'], 0, '', "\n") . "\n\n";

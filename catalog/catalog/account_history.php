@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.35 2001/09/01 15:50:34 hpdl Exp $
+  $Id: account_history.php,v 1.36 2001/09/12 21:32:38 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -107,7 +107,7 @@
       }
       echo '            <td align="center" class="smallText">&nbsp;' . $history['orders_id'] . '&nbsp;</td>' . "\n";
       echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history['orders_id'], 'NONSSL') . '">' . tep_date_long($history['date_purchased']) . '</a>&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText">&nbsp;' . tep_currency_format($total_cost, true, $history['currency'], $history['currency_value']) . '&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText">&nbsp;' . $currencies->format($total_cost, true, $history['currency'], $history['currency_value']) . '&nbsp;</td>' . "\n";
       echo '            <td align="right" class="smallText">&nbsp;' . tep_get_orders_status_name($history['orders_status'], $languages_id) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }

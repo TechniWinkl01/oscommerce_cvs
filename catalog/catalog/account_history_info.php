@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.54 2001/09/10 11:12:40 dwatkins Exp $
+  $Id: account_history_info.php,v 1.55 2001/09/12 21:32:39 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -112,13 +112,13 @@
 //------display customer choosen option eof-----
 	echo '</td>' . "\n";
     echo '            <td align="center" valign="top" class="main">&nbsp;' . number_format($orders_products['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
-    echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($orders_products['products_quantity'] * $orders_products['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
+    echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
       while ($attributes = tep_db_fetch_array($attributes_query)) {
         if ($attributes['options_values_price'] != '0') {
-          echo '<br><small><i>' . $attributes['price_prefix'] . tep_currency_format($orders_products['products_quantity'] * $attributes['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>&nbsp;';
+          echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>&nbsp;';
         } else {
           echo '<br>&nbsp;';
         }
@@ -144,7 +144,7 @@
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
                 <td align="right" width="100%" class="main">&nbsp;<?php echo TABLE_SUBHEADING_SUBTOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="main">&nbsp;<?php echo tep_currency_format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<?php echo $currencies->format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
   $order_query = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
@@ -154,7 +154,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" class="main">&nbsp;<?php echo TABLE_SUBHEADING_TAX; ?>:&nbsp;</td>
-                <td align="right" width="100%" class="main">&nbsp;<?php echo tep_currency_format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<?php echo $currencies->format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
   }
@@ -164,7 +164,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" class="main">&nbsp;<?php echo $order['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?>&nbsp;</td>
-                <td align="right" width="100%" class="main">&nbsp;<?php echo tep_currency_format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<?php echo $currencies->format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
   }
@@ -174,11 +174,11 @@
 <?
   if (TAX_INCLUDE) {
 ?>
-              <td align="right" width="100%" class="main">&nbsp;<b><?php echo tep_currency_format($total_cost + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
+              <td align="right" width="100%" class="main">&nbsp;<b><?php echo $currencies->format($total_cost + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
 <?
   } else {
 ?>
-              <td align="right" width="100%" class="main">&nbsp;<b><?php echo tep_currency_format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
+              <td align="right" width="100%" class="main">&nbsp;<b><?php echo $currencies->format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
 <?
   }
 ?>

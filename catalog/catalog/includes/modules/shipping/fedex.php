@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.24 2001/09/01 00:20:28 hpdl Exp $
+  $Id: fedex.php,v 1.25 2001/09/12 21:33:12 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -84,7 +84,7 @@
     }
 
     function display() {
-      global $HTTP_GET_VARS, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest, $shipping_selected;
+      global $HTTP_GET_VARS, $currencies, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
@@ -103,7 +103,7 @@
           $display_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
                              '  <tr>' . "\n" .
                              '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . ' <small><i>(' . $shipping_fedex_method . ')</i></small>&nbsp;</td>' . "\n" .
-                             '    <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_fedex_cost);
+                             '    <td align="right" class="main">&nbsp;' . $currencies->format($shipping_fedex_cost);
           if (tep_count_shipping_modules() > 1) {
             $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'fedex') .
                                                 tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) . 

@@ -126,9 +126,9 @@
           case 'PRODUCT_LIST_PRICE':
             $lc_align = 'right';
             if ($listing_values['specials_new_products_price']) {
-              $lc_text = '&nbsp;<s>' .  tep_currency_format($listing_values['products_price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . tep_currency_format($listing_values['specials_new_products_price']) . '</span>&nbsp;';
+              $lc_text = '&nbsp;<s>' .  $currencies->format($listing_values['products_price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->format($listing_values['specials_new_products_price']) . '</span>&nbsp;';
             } else {
-              $lc_text = '&nbsp;' . tep_currency_format($listing_values['products_price']) . '&nbsp;';
+              $lc_text = '&nbsp;' . $currencies->format($listing_values['products_price']) . '&nbsp;';
             }
             break;
           case 'PRODUCT_LIST_QUANTITY':

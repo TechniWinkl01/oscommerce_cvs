@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.36 2001/09/01 00:20:29 hpdl Exp $
+  $Id: ups.php,v 1.37 2001/09/12 21:33:16 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -92,7 +92,7 @@
     }
 
     function display() {
-      global $HTTP_GET_VARS, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest, $shipping_selected;
+      global $HTTP_GET_VARS, $currencies, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
@@ -101,7 +101,7 @@
         $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
                           '  <tr>' . "\n" .
                           '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . ' <small><i>(' . $shipping_ups_method . ')</i></small>&nbsp;</td>' . "\n" .
-                          '    <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_ups_cost);
+                          '    <td align="right" class="main">&nbsp;' . $currencies->format($shipping_ups_cost);
         if (tep_count_shipping_modules() > 1) {
           $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'ups') .
                                               tep_draw_hidden_field('shipping_ups_cost', $shipping_ups_cost) .

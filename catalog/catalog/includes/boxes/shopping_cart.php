@@ -51,7 +51,7 @@
                                  'text' => tep_black_line()
                            );
     $info_box_contents[] = array('align' => 'right',
-                                 'text'  => BOX_SHOPPING_CART_SUBTOTAL . ' ' . tep_currency_format($cart->show_total())
+                                 'text'  => BOX_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total())
                                 );
   }
 

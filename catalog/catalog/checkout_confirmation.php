@@ -127,7 +127,7 @@
 //------display customer choosen option eof-----
     echo '</td>' . "\n";
     echo '            <td align="center" valign="top" class="main">&nbsp;' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
-    echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
+    echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . $currencies->format($products[$i]['quantity'] * $products_price) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       reset($products[$i]['attributes']);
@@ -135,7 +135,7 @@
         $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_values_id = '" . $value . "'");
         $attributes_values = tep_db_fetch_array($attributes);
         if ($attributes_values['options_values_price'] != '0') {
-          echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
+          echo '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
         } else {
           echo '<br>&nbsp;';
         }
@@ -168,14 +168,14 @@
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
                 <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($total_cost); ?>&nbsp;</td>
               </tr>
 <?
   if ($total_tax > 0) {
 ?>
               <tr>
                 <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($total_tax); ?>&nbsp;</td>
               </tr>
 
 <?
@@ -184,7 +184,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($shipping_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($shipping_cost); ?>&nbsp;</td>
               </tr>
 <?
   }
@@ -193,9 +193,9 @@
                 <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
                 <td align="right" width="100%" class="tableHeading">&nbsp;<?
     if (TAX_INCLUDE == true) {
-      echo tep_currency_format($total_cost + $shipping_cost);
+      echo $currencies->format($total_cost + $shipping_cost);
     } else {
-      echo tep_currency_format($total_cost + $total_tax + $shipping_cost);
+      echo $currencies->format($total_cost + $total_tax + $shipping_cost);
     } ?>&nbsp;</td>
               </tr>
             </table></td>

@@ -62,9 +62,9 @@ function popupImageWindow(url) {
       $new_price = $check_special_values['specials_new_products_price'];
     }
     if ($new_price) {
-      $products_price = '<s>' . tep_currency_format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . tep_currency_format($new_price) . '</span>';
+      $products_price = '<s>' . $currencies->format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->format($new_price) . '</span>';
     } else {
-      $products_price = tep_currency_format($product_info_values['products_price']);
+      $products_price = $currencies->format($product_info_values['products_price']);
     }
     $products_attributes = tep_db_query("select popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
     if (tep_db_num_rows($products_attributes)) {
@@ -121,7 +121,7 @@ function popupImageWindow(url) {
           }
           echo '>' . $products_options_values['products_options_values_name'];
           if ($products_options_values['options_values_price'] != '0') {
-            echo '&nbsp;(' . $products_options_values['price_prefix'] . tep_currency_format($products_options_values['options_values_price']) .')&nbsp';
+            echo '&nbsp;(' . $products_options_values['price_prefix'] . $currencies->format($products_options_values['options_values_price']) .')&nbsp';
           }
           echo  '</option>';
         };
