@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.3 2004/08/25 20:05:16 hpdl Exp $
+  $Id: header.php,v 1.4 2004/08/27 22:13:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,7 +50,8 @@
        '    ],' . "\n" .
        '    _cmSplit,' . "\n" .
        '    [null, \'' . addslashes(BOX_HEADING_CATALOG) . '\', null, null, null,' . "\n" .
-       '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png') . '\', \'' . addslashes(BOX_CATALOG_CATEGORIES_PRODUCTS) . '\', \'' . tep_href_link(FILENAME_CATEGORIES) . '\', null, null],' . "\n" .
+       '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/folder_red.png') . '\', \'' . addslashes(BOX_CATALOG_CATEGORIES) . '\', \'' . tep_href_link(FILENAME_CATEGORIES) . '\', null, null],' . "\n" .
+       '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/products.png') . '\', \'' . addslashes(BOX_CATALOG_PRODUCTS) . '\', \'' . tep_href_link(FILENAME_PRODUCTS) . '\', null, null],' . "\n" .
        '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/attributes.png') . '\', \'' . addslashes(BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES) . '\', \'' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES) . '\', \'\', null],' . "\n" .
        '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/run.png') . '\', \'' . addslashes(BOX_CATALOG_MANUFACTURERS) . '\', \'' . tep_href_link(FILENAME_MANUFACTURERS) . '\', null, null],' . "\n" .
        '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/write.png') . '\', \'' . addslashes(BOX_CATALOG_REVIEWS) . '\', \'' . tep_href_link(FILENAME_REVIEWS) . '\', null, null],' . "\n" .

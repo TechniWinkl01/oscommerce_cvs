@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.8 2004/08/25 20:00:30 hpdl Exp $
+  $Id: filenames.php,v 1.9 2004/08/27 22:13:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,6 +33,7 @@
   define('FILENAME_ORDERS_INVOICE', 'invoice.php');
   define('FILENAME_ORDERS_PACKINGSLIP', 'packingslip.php');
   define('FILENAME_ORDERS_STATUS', 'orders_status.php');
+  define('FILENAME_PRODUCTS', 'products.php');
   define('FILENAME_PRODUCTS_ATTRIBUTES', 'products_attributes.php');
   define('FILENAME_PRODUCTS_EXPECTED', 'products_expected.php');
   define('FILENAME_REVIEWS', 'reviews.php');

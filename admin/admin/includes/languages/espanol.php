@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.114 2004/08/24 11:05:51 hpdl Exp $
+  $Id: espanol.php,v 1.115 2004/08/27 22:13:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -81,7 +81,8 @@ define('BOX_MODULES_ORDER_TOTAL', 'Totalizaci&oacute;n');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Cat&aacute;logo');
-define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categorias/Productos');
+define('BOX_CATALOG_CATEGORIES', 'Categorias');
+define('BOX_CATALOG_PRODUCTS', 'Productos');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Atributos');
 define('BOX_CATALOG_MANUFACTURERS', 'Fabricantes');
 define('BOX_CATALOG_REVIEWS', 'Comentarios');
