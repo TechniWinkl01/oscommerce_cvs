@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: redirect.php,v 1.2 2001/06/03 20:12:13 kwiltner Exp $
+  $Id: redirect.php,v 1.3 2001/06/13 12:14:59 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,6 +18,13 @@
                      $banner = tep_db_fetch_array($banner_query);
                      tep_update_banner_count($HTTP_GET_VARS['goto']);
                      header('Location: ' . $banner['banners_url']); tep_exit();
+                   } else {
+                     header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL')); tep_exit();
+                   }
+                   break;
+
+    case 'url':    if ($HTTP_GET_VARS['goto']) {
+                     header('Location: http://' . $HTTP_GET_VARS['goto']); tep_exit();
                    } else {
                      header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL')); tep_exit();
                    }
