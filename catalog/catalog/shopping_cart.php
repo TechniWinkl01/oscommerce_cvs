@@ -152,7 +152,13 @@
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td colspan="<? echo $colspan; ?>" align="right" class="main" nowrap><br>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update_cart.gif', IMAGE_UPDATE_CART); ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_checkout.gif', IMAGE_CHECKOUT); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_all', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_remove_all.gif', IMAGE_REMOVE_ALL); ?></a>&nbsp;&nbsp;</td>
+            <td colspan="<? echo $colspan; ?>">
+              <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td class="main">&nbsp;&nbsp;<? echo tep_image_submit('button_update_cart.gif', IMAGE_UPDATE_CART); ?></td>
+                  <td align="right" class="main"><a href="<? echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><? echo tep_image_button('button_checkout.gif', IMAGE_CHECKOUT); ?></a>&nbsp;&nbsp;</td>
+                </tr>
+              </table></td>
           </tr>
 </form>
 <?
@@ -164,7 +170,7 @@
     echo '            <td colspan="' . $colspan . '">' . tep_black_line() . '</td>' . "\n";
     echo '          </tr>' . "\n";
     echo '          <tr>' . "\n";
-    echo '            <td colspan="' . $colspan . '" align="right" class="tableHeading" nowrap><br>&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_main_menu.gif', IMAGE_MAIN_MENU) . '</a>&nbsp;&nbsp;</td>' . "\n";
+    echo '            <td colspan="' . $colspan . '" align="right" class="tableHeading" nowrap><br>&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_CONTINUE) . '</a>&nbsp;&nbsp;</td>' . "\n";
     echo '          </tr>' . "\n";
   }
 ?>
