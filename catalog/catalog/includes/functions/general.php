@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.147 2001/12/17 20:09:38 dgw_ Exp $
+  $Id: general.php,v 1.148 2002/01/03 19:11:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -711,27 +711,17 @@
     $temp[sizeof($temp)] = $objects[$i];
     $objects = $temp;
 
-// validate search string
-    $test_str = 'select ';
+    $keyword_count = 0;
+    $operator_count = 0;
     for($i=0; $i<count($objects); $i++) {
-      switch ($objects[$i]) {
-        case 'and':
-          $test_str .= ' && ';
-          break;
-        case 'or':
-          $test_str .= ' || ';
-          break;
-        case '(':
-        case ')':
-          $test_str .= $objects[$i];
-          break;
-        default:
-          $test_str .= '1';
-          break;
+      if ( ($objects[$i] == 'and') || ($objects[$i] == 'or') ) {
+        $operator_count ++;
+      } elseif ( ($objects[$i]) && ($objects[$i] != '(') && ($objects[$i] != ')') ) {
+        $keyword_count ++;
       }
     }
 
-    if (tep_db_query($test_str)) {
+    if ($operator_count < $keyword_count) {
       return true;
     } else {
       return false;
