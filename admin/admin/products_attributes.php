@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.42 2002/03/17 01:58:53 hpdl Exp $
+  $Id: products_attributes.php,v 1.43 2002/03/17 03:31:58 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,7 +98,7 @@ function go_option() {
 }
 //--></script>
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
