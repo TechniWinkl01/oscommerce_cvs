@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.13 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: manufacturers.php,v 1.14 2003/07/07 09:23:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 define('HEADING_TITLE', 'Fabricantes');
 
 define('TABLE_HEADING_MANUFACTURERS', 'Fabricantes');
-define('TABLE_HEADING_ACTION', 'Accion');
+define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 
 define('TEXT_HEADING_NEW_MANUFACTURER', 'Nuevo Fabricante');
 define('TEXT_HEADING_EDIT_MANUFACTURER', 'Editar Fabricante');

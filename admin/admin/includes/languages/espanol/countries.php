@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: countries.php,v 1.6 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: countries.php,v 1.7 2003/07/07 09:23:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,8 +18,8 @@ define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 
 define('TEXT_INFO_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_INFO_COUNTRY_NAME', 'Nombre:');
-define('TEXT_INFO_COUNTRY_CODE_2', 'Codigo ISO (2):');
-define('TEXT_INFO_COUNTRY_CODE_3', 'Codigo ISO (3):');
+define('TEXT_INFO_COUNTRY_CODE_2', 'C&oacute;digo ISO (2):');
+define('TEXT_INFO_COUNTRY_CODE_3', 'C&oacute;digo ISO (3):');
 define('TEXT_INFO_ADDRESS_FORMAT', 'Formato de Direcci&oacute;n:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca el nuevo pa&iacute;s con sus datos');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este pa&iacute;s?');

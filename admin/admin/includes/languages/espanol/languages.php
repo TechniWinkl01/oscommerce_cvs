@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.8 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: languages.php,v 1.9 2003/07/07 09:23:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@ define('HEADING_TITLE', 'Idiomas');
 
 define('TABLE_HEADING_LANGUAGE_NAME', 'Idioma');
 define('TABLE_HEADING_LANGUAGE_CODE', 'C&oacute;digo');
-define('TABLE_HEADING_ACTION', 'Accion');
+define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 
 define('TEXT_INFO_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_INFO_LANGUAGE_NAME', 'Nombre:');

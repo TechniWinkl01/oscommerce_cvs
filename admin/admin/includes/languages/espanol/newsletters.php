@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.7 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: newsletters.php,v 1.8 2003/07/07 09:23:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 define('HEADING_TITLE', 'Administrador de Boletines');
 
 define('TABLE_HEADING_NEWSLETTERS', 'Boletines');
-define('TABLE_HEADING_SIZE', 'Tamaño');
+define('TABLE_HEADING_SIZE', 'Tama&ntilde;o');
 define('TABLE_HEADING_MODULE', 'Modulo');
 define('TABLE_HEADING_SENT', 'Enviado');
 define('TABLE_HEADING_STATUS', 'Estado');

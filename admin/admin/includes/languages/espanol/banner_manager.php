@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.20 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: banner_manager.php,v 1.21 2003/07/07 09:23:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,7 +54,7 @@ define('SUCCESS_BANNER_UPDATED', 'Exito: Se ha actualizado el banner.');
 define('SUCCESS_BANNER_REMOVED', 'Exito: Se ha eliminado el banner.');
 define('SUCCESS_BANNER_STATUS_UPDATED', 'Exito: El estado del banner se ha actualizado.');
 
-define('ERROR_BANNER_TITLE_REQUIRED', 'Error: Es necesario el titulo del banner.');
+define('ERROR_BANNER_TITLE_REQUIRED', 'Error: Es necesario el t&iacute;tulo del banner.');
 define('ERROR_BANNER_GROUP_REQUIRED', 'Error: Es necesario el grupo del banner.');
 define('ERROR_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio destino: %s');
 define('ERROR_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: No se puede escribir en el directorio destino: %s');

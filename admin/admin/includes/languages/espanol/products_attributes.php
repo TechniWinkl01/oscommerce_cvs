@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.8 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: products_attributes.php,v 1.9 2003/07/07 09:23:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@ define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 define('TABLE_HEADING_DOWNLOAD', 'Productos descargables:');
 define('TABLE_TEXT_FILENAME', 'Nombre del Fichero:');
 define('TABLE_TEXT_MAX_DAYS', 'Dias de caducidad:');
-define('TABLE_TEXT_MAX_COUNT', 'Numero m&aacute;ximo de descargas:');
+define('TABLE_TEXT_MAX_COUNT', 'N&uacute;mero m&aacute;ximo de descargas:');
 
 define('MAX_ROW_LISTS_OPTIONS', 10);
 
