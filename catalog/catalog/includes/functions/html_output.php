@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.42 2002/08/02 11:13:06 hpdl Exp $
+  $Id: html_output.php,v 1.43 2002/08/02 13:03:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,10 +68,12 @@
       return false;
     }
 
-    $image = '<img src="' . $src . '" border="0"';
+// alt is added to the img tag even if it is null to prevent browsers from outputting
+// the image filename as default
+    $image = '<img src="' . $src . '" border="0" alt="' . htmlspecialchars($alt) . '"';
 
     if (tep_not_null($alt)) {
-      $image .= ' alt="' . htmlspecialchars($alt) . '" title=" ' . htmlspecialchars($alt) . ' "';
+      $image .= ' title=" ' . htmlspecialchars($alt) . ' "';
     }
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
@@ -108,11 +110,11 @@
   function tep_image_submit($image, $alt) {
     global $language;
 
-    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0"';
+    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . htmlspecialchars($alt) . '"';
 
-    if (tep_not_null($alt)) {
-      $image_submit .= ' alt="' . htmlspecialchars($alt) . '" title=" ' . htmlspecialchars($alt) . ' ">';
-    }
+    if (tep_not_null($alt)) $image_submit .= ' title=" ' . htmlspecialchars($alt) . ' "';
+
+    $image_submit .= '>';
 
     return $image_submit;
   }
