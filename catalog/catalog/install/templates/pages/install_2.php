@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_2.php,v 1.5 2003/07/09 01:11:06 hpdl Exp $
+  $Id: install_2.php,v 1.6 2003/07/11 14:59:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,9 +74,12 @@
 
 <?php
     } else {
-      if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
+      $script_filename = getenv('PATH_TRANSLATED');
+      if (empty($script_filename)) {
         $script_filename = getenv('SCRIPT_FILENAME');
       }
+
+      $script_filename = str_replace('\\', '/', $script_filename);
       $script_filename = str_replace('//', '/', $script_filename);
 
       $dir_fs_www_root_array = explode('/', dirname($script_filename));

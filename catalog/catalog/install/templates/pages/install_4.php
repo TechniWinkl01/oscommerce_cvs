@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.10 2003/07/09 01:11:06 hpdl Exp $
+  $Id: install_4.php,v 1.11 2003/07/11 14:59:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,9 +15,12 @@
   $www_location = 'http://' . getenv('HTTP_HOST') . getenv('SCRIPT_NAME');
   $www_location = substr($www_location, 0, strpos($www_location, 'install'));
 
-  if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
+  $script_filename = getenv('PATH_TRANSLATED');
+  if (empty($script_filename)) {
     $script_filename = getenv('SCRIPT_FILENAME');
   }
+
+  $script_filename = str_replace('\\', '/', $script_filename);
   $script_filename = str_replace('//', '/', $script_filename);
 
   $dir_fs_www_root_array = explode('/', dirname($script_filename));

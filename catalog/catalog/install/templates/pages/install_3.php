@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_3.php,v 1.7 2003/07/09 01:11:06 hpdl Exp $
+  $Id: install_3.php,v 1.8 2003/07/11 14:59:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,9 +10,12 @@
   Released under the GNU General Public License
 */
 
-  if (!$script_filename = str_replace('\\', '/', getenv('PATH_TRANSLATED'))) {
+  $script_filename = getenv('PATH_TRANSLATED');
+  if (empty($script_filename)) {
     $script_filename = getenv('SCRIPT_FILENAME');
   }
+
+  $script_filename = str_replace('\\', '/', $script_filename);
   $script_filename = str_replace('//', '/', $script_filename);
 
   $dir_fs_www_root_array = explode('/', dirname($script_filename));
