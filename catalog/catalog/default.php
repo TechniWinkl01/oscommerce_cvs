@@ -93,14 +93,14 @@
         }
       }
     } else {
-      $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
+      $categories = tep_db_query("select categories_id, categories_name, categories_image, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
     }
 
     $rows = 0;
     while ($categories_values = tep_db_fetch_array($categories)) {
       $rows++;
       $cPath_new = tep_get_path($categories_values['categories_id']);
-      echo '                <td>' . FONT_STYLE_GENERAL . '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
+      echo '                <td align="center">' . FONT_STYLE_GENERAL . tep_image($categories_values['categories_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $categories_values['categories_name']) . '<br><a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a></font></td>' . "\n";
       if ((($rows / MAX_DISPLAY_CATEGORIES_PER_ROW) == floor($rows / MAX_DISPLAY_CATEGORIES_PER_ROW)) && ($rows != tep_db_num_rows($categories))) {
         echo '              </tr>' . "\n";
         echo '              <tr>' . "\n";
@@ -145,34 +145,34 @@
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_manufacturers p2m, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
-  if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
+    if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
       $HTTP_GET_VARS['sort'] = '2a';
   
-  switch ($HTTP_GET_VARS['sort']) {
-    case '1a':
-      $listing_sql .= "p.products_model, p.products_name";
-      break;
-    case '1d':
-      $listing_sql .= "p.products_model desc, p.products_name";
-      break;
-    case '2a':
-      $listing_sql .= "p.products_name";
-      break;
-    case '2d':
-      $listing_sql .= "p.products_name desc";
-      break;
-    case '3a':
-      $listing_sql .= "m.manufacturers_name, p.products_name";
-      break;
-    case '3d':
-      $listing_sql .= "m.manufacturers_name desc, p.products_name";
-      break;
-    case '4a':
-      $listing_sql .= "final_price, p.products_name";
-      break;
-    case '4d':
-      $listing_sql .= "final_price desc, p.products_name";
-      break;
+    switch ($HTTP_GET_VARS['sort']) {
+      case '1a':
+        $listing_sql .= "p.products_model, p.products_name";
+        break;
+      case '1d':
+        $listing_sql .= "p.products_model desc, p.products_name";
+        break;
+      case '2a':
+        $listing_sql .= "p.products_name";
+        break;
+      case '2d':
+        $listing_sql .= "p.products_name desc";
+        break;
+      case '3a':
+        $listing_sql .= "m.manufacturers_name, p.products_name";
+        break;
+      case '3d':
+        $listing_sql .= "m.manufacturers_name desc, p.products_name";
+        break;
+      case '4a':
+        $listing_sql .= "final_price, p.products_name";
+        break;
+      case '4d':
+        $listing_sql .= "final_price desc, p.products_name";
+        break;
   }
 ?>
       <tr>
