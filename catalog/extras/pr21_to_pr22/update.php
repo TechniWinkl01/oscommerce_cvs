@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.4 2001/10/25 11:26:30 hpdl Exp $
+  $Id: update.php,v 1.5 2001/10/26 13:13:56 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -161,6 +161,10 @@ function changeText(where, what) {
 <span id="categories"><span id="categoriesMarker">-</span> Categories</span><br>
 <span id="configuration"><span id="configurationMarker">-</span> Configuration</span><br>
 <span id="currencies"><span id="currenciesMarker">-</span> Currencies</span><br>
+<span id="customers"><span id="customersMarker">-</span> Customers</span><br>
+<span id="manufacturers"><span id="manufacturersMarker">-</span> Manufacturers</span><br>
+<span id="orders"><span id="ordersMarker">-</span> Orders</span><br>
+<span id="products"><span id="productsMarker">-</span> Products</span><br>
 <p>
 Status: <span id="statusText">Preparing</span>
 </body>
@@ -192,7 +196,7 @@ changeText('statusText', 'Updating Address Book');
 
       $customer_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_zone_id from customers where customers_id = '" . $c_id . "'");
       $customer = tep_db_fetch_array($customer_query);
-      tep_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $c_id . "', '" . $ab_id . "', '" . $customer['customers_gender'] . "', '', '" . $customer['customers_firstname'] . "', '" . $customer['customers_lastname'] . "', '" . $customer['customers_street_address']. "', '" . $customer['customers_suburb']. "', '" . $customer['customers_postcode'] . "', '" . $customer['customers_city'] . "', '" . $customer['customers_state'] . "', '" . $customer['customers_country_id'] . "', '" . $customer['customers_zone_id'] . "')");
+      tep_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $c_id . "', '" . $ab_id . "', '" . $customer['customers_gender'] . "', '', '" . addslashes($customer['customers_firstname']) . "', '" . addslashes($customer['customers_lastname']) . "', '" . addslashes($customer['customers_street_address']) . "', '" . addslashes($customer['customers_suburb']) . "', '" . addslashes($customer['customers_postcode']) . "', '" . addslashes($customer['customers_city']) . "', '" . addslashes($customer['customers_state']) . "', '" . $customer['customers_country_id'] . "', '" . $customer['customers_zone_id'] . "')");
     }
     $ab_id++;
 
@@ -200,9 +204,7 @@ changeText('statusText', 'Updating Address Book');
     $ab = tep_db_fetch_array($ab_query);
 
     tep_db_query("delete from address_book where address_book_id = '" . $entries['address_book_id'] . "' and customers_id = ''");
-    tep_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $c_id . "', '" . $ab_id . "', '" . $ab['entry_gender'] . "', '', '" . $ab['entry_firstname'] . "', '" . $ab['entry_lastname'] . "', '" . $ab['entry_street_address'] . "', '" . $ab['entry_suburb']. "', '" . $ab['entry_postcode']. "', '" . $ab['entry_city'] . "', '" . $ab['entry_state']. "', '" . $ab['entry_country_id'] . "', '" . $ab['entry_zone_id'] . "')");
-
-//    tep_db_query("update address_book set customers_id = '" . $c_id . "', address_book_id = '" . $ab_id . "' where address_book_id = '" . $entries['address_book_id'] . "'");
+    tep_db_query("insert into address_book (customers_id, address_book_id, entry_gender, entry_company, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('" . $c_id . "', '" . $ab_id . "', '" . $ab['entry_gender'] . "', '', '" . addslashes($ab['entry_firstname']) . "', '" . addslashes($ab['entry_lastname']) . "', '" . addslashes($ab['entry_street_address']) . "', '" . addslashes($ab['entry_suburb']) . "', '" . addslashes($ab['entry_postcode']) . "', '" . addslashes($ab['entry_city']) . "', '" . addslashes($ab['entry_state']) . "', '" . $ab['entry_country_id'] . "', '" . $ab['entry_zone_id'] . "')");
   }
 
   tep_db_query("alter table address_book add primary key (address_book_id, customers_id)");
@@ -242,7 +244,7 @@ changeText('statusText', 'Updating Categories');
   $categories_query = tep_db_query("select categories_id, categories_name from categories order by categories_id");
   while ($categories = tep_db_fetch_array($categories_query)) {
     for ($i=0; $i<sizeof($languages); $i++) {
-      tep_db_query("insert into categories_description (categories_id, language_id, categories_name) values ('" . $categories['categories_id'] . "', '" . $languages[$i]['id'] . "', '" . $categories['categories_name'] . "')");
+      tep_db_query("insert into categories_description (categories_id, language_id, categories_name) values ('" . $categories['categories_id'] . "', '" . $languages[$i]['id'] . "', '" . addslashes($categories['categories_name']) . "')");
     }
   }
 
@@ -311,8 +313,6 @@ changeStyle('configuration', 'normal');
 changeText('configurationMarker', '*');
 changeText('statusText', 'Updating Configuration .. done!');
 
-//changeStyle('statusText', 'bold');
-//changeText('statusText', 'Update Complete!');
 changeStyle('currencies', 'bold');
 changeText('currenciesMarker', '?');
 changeText('statusText', 'Updating Currencies');
@@ -331,6 +331,143 @@ changeText('statusText', 'Updating Currencies');
 changeStyle('currencies', 'normal');
 changeText('currenciesMarker', '*');
 changeText('statusText', 'Updating Currencies .. done!');
+
+changeStyle('customers', 'bold');
+changeText('customersMarker', '?');
+changeText('statusText', 'Updating Customers');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("alter table customers drop customers_street_address");
+  tep_db_query("alter table customers drop customers_suburb");
+  tep_db_query("alter table customers drop customers_postcode");
+  tep_db_query("alter table customers drop customers_city");
+  tep_db_query("alter table customers drop customers_state");
+  tep_db_query("alter table customers drop customers_zone_id");
+  tep_db_query("alter table customers drop customers_country_id");
+  tep_db_query("alter table customers change customers_dob customers_dob datetime not null default '0000-00-00 00:00:00'");
+  tep_db_query("alter table customers add customers_newsletter char(1)");
+  tep_db_query("alter table customers add customers_default_address_id int(5) not null default '1' after customers_email_address");
+
+  tep_db_query("alter table customers_basket change products_id products_id tinytext not null");
+  tep_db_query("alter table customers_basket change customers_basket_date_added customers_basket_date_added varchar(8)");
+
+  tep_db_query("alter table customers_basket_attributes change products_id products_id tinytext not null");
+
+  tep_db_query("alter table customers_info change customers_info_date_account_created customers_info_date_account_created datetime");
+  tep_db_query("alter table customers_info change customers_info_date_of_last_logon customers_info_date_of_last_logon datetime");
+  tep_db_query("alter table customers_info change customers_info_date_account_last_modified customers_info_date_account_last_modified datetime");
+?>
+
+<script language="javascript"><!--
+changeStyle('customers', 'normal');
+changeText('customersMarker', '*');
+changeText('statusText', 'Updating Customers .. done!');
+
+changeStyle('manufacturers', 'bold');
+changeText('manufacturersMarker', '?');
+changeText('statusText', 'Updating Manufacturers');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("create table manufacturers_info (manufacturers_id int(5) not null, languages_id int(5) not null, manufacturers_url varchar(255) not null, url_clicked int(5), date_last_click datetime, date_added datetime, primary key (manufacturers_id, languages_id))");
+?>
+
+<script language="javascript"><!--
+changeStyle('manufacturers', 'normal');
+changeText('manufacturersMarker', '*');
+changeText('statusText', 'Updating Manufacturers .. done!');
+
+changeStyle('orders', 'bold');
+changeText('ordersMarker', '?');
+changeText('statusText', 'Updating Orders');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("alter table orders change date_purchased date_purchased datetime");
+  tep_db_query("alter table orders change last_modified last_modified datetime");
+  tep_db_query("alter table orders change orders_date_finished orders_date_finished datetime");
+
+  tep_db_query("create table orders_status ( orders_status_id int(5) default '0' not null, language_id int(5) default '1' not null, orders_status_name varchar(32) not null, primary key (orders_status_id, language_id), key idx_orders_status_name (orders_status_name))");
+
+  for ($i=0; $i<sizeof($languages); $i++) {
+    tep_db_query("insert into orders_status values ('1', '" . $languages[$i]['id'] . "', 'Pending')");
+    tep_db_query("insert into orders_status values ('2', '" . $languages[$i]['id'] . "', 'Processing')");
+    tep_db_query("insert into orders_status values ('3', '" . $languages[$i]['id'] . "', 'Delivered')");
+  }
+?>
+
+<script language="javascript"><!--
+changeStyle('orders', 'normal');
+changeText('ordersMarker', '*');
+changeText('statusText', 'Updating Orders .. done!');
+
+changeStyle('products', 'bold');
+changeText('productsMarker', '?');
+changeText('statusText', 'Updating Products');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("create table products_description ( products_id int(5) not null auto_increment, language_id int(5) not null default '1', products_name varchar(64) not null default '',  products_description text, products_url varchar(255), products_viewed int(5) default '0', primary key (products_id, language_id), key products_name (products_name))");
+
+  $products_query = tep_db_query("select products_id, products_name, products_description, products_url, products_viewed from products order by products_id");
+  while ($products = tep_db_fetch_array($products_query)) {
+    for ($i=0; $i<sizeof($languages); $i++) {
+      tep_db_query("insert into products_description (products_id, language_id, products_name, products_description, products_url, products_viewed) values ('" . $products['products_id'] . "', '" . $languages[$i]['id'] . "', '" . addslashes($products['products_name']) . "', '" . addslashes($products['products_description']) . "', '" . addslashes($products['products_url']) . "', '" . $products['products_viewed'] . "')");
+    }
+  }
+
+  tep_db_query("alter table products change products_date_added products_date_added datetime");
+
+  tep_db_query("alter table products drop index products_name");
+
+  tep_db_query("alter table products drop products_url");
+  tep_db_query("alter table products drop products_name");
+  tep_db_query("alter table products drop products_description");
+  tep_db_query("alter table products drop products_viewed");
+
+  tep_db_query("alter table products add products_date_available datetime");
+  tep_db_query("alter table products add products_last_modified datetime");
+
+  tep_db_query("drop table products_expected");
+
+  tep_db_query("alter table products_options change products_options_id products_options_id int(5) not null default '0'");
+  tep_db_query("alter table products_options add language_id int(5) not null default '1' after products_options_id");
+  tep_db_query("alter table products_options drop primary key");
+  tep_db_query("alter table products_options add primary key (products_options_id, language_id)");
+
+  $products_query = tep_db_query("select products_options_id, language_id, products_options_name from products_options order by products_options_id");
+  while ($products = tep_db_fetch_array($products_query)) {
+    for ($i=0; $i<sizeof($languages); $i++) {
+      tep_db_query("replace into products_options (products_options_id, language_id, products_options_name) values ('" . $products['products_options_id'] . "', '" . $languages[$i]['id'] . "', '" . addslashes($products['products_options_name']) . "')");
+    }
+  }
+
+  tep_db_query("alter table products_options_values change products_options_values_id products_options_values_id int(5) not null default '0'");
+  tep_db_query("alter table products_options_values add language_id int(5) not null default '1' after products_options_values_id");
+  tep_db_query("alter table products_options_values drop primary key");
+  tep_db_query("alter table products_options_values add primary key (products_options_values_id, language_id)");
+
+  $products_query = tep_db_query("select products_options_values_id, language_id, products_options_values_name from products_options_values order by products_options_values_id");
+  while ($products = tep_db_fetch_array($products_query)) {
+    for ($i=0; $i<sizeof($languages); $i++) {
+      tep_db_query("replace into products_options_values (products_options_values_id, language_id, products_options_values_name) values ('" . $products['products_options_values_id'] . "', '" . $languages[$i]['id'] . "', '" . addslashes($products['products_options_values_name']) . "')");
+    }
+  }
+?>
+
+<script language="javascript"><!--
+changeStyle('products', 'normal');
+changeText('productsMarker', '*');
+changeText('statusText', 'Updating Products .. done!');
 
 changeStyle('statusText', 'bold');
 changeText('statusText', 'Update Complete!');
