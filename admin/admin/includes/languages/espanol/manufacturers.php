@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.12 2002/08/19 01:58:58 hpdl Exp $
+  $Id: manufacturers.php,v 1.13 2003/07/06 20:33:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,8 +20,8 @@ define('TEXT_HEADING_EDIT_MANUFACTURER', 'Editar Fabricante');
 define('TEXT_HEADING_DELETE_MANUFACTURER', 'Eliminar Fabricante');
 
 define('TEXT_MANUFACTURERS', 'Fabricantes:');
-define('TEXT_DATE_ADDED', 'Añadido el:');
-define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
+define('TEXT_DATE_ADDED', 'A&ntilde;adido el:');
+define('TEXT_LAST_MODIFIED', 'Ultima Modificaci&oacute;n:');
 define('TEXT_PRODUCTS', 'Productos:');
 define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
 
@@ -37,6 +37,6 @@ define('TEXT_DELETE_IMAGE', 'Eliminar imagen del fabricante?');
 define('TEXT_DELETE_PRODUCTS', 'Quiere borrar tambien todos los productos de este fabricante? (incluyendo comentarios, ofertas y los productos proximamente disponibles)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Todavia hay productos que pertenecen a este fabricante!');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions on: %s');
-define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: No puedo escribir en este directorio. Asigner permisos de escritura en: %s');
+define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio: %s');
 ?>

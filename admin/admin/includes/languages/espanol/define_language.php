@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: define_language.php,v 1.4 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: define_language.php,v 1.5 2003/07/06 20:33:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

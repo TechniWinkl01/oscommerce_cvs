@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: mail.php,v 1.9 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: mail.php,v 1.10 2003/07/06 20:33:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

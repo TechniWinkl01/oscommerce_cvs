@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: tax_classes.php,v 1.4 2002/01/28 00:49:14 harley_vb Exp $
+  $Id: tax_classes.php,v 1.5 2003/07/06 20:33:02 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,11 +13,11 @@
 define('HEADING_TITLE', 'Tipos de Impuesto');
 
 define('TABLE_HEADING_TAX_CLASSES', 'Tipos de Impuesto');
-define('TABLE_HEADING_ACTION', 'Accion');
+define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 
 define('TEXT_INFO_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_INFO_CLASS_TITLE', 'Nombre del Impuesto:');
-define('TEXT_INFO_CLASS_DESCRIPTION', 'Descripcion:');
+define('TEXT_INFO_CLASS_DESCRIPTION', 'Descripci&oacute;n:');
 define('TEXT_INFO_DATE_ADDED', 'Creado:');
 define('TEXT_INFO_LAST_MODIFIED', 'Modificado:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca los datos del nuevo tipo de impuesto');
