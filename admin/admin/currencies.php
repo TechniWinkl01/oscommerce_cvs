@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.47 2003/06/20 00:32:06 hpdl Exp $
+  $Id: currencies.php,v 1.48 2003/06/25 20:36:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,22 +68,28 @@
         tep_redirect(tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'update':
+        $server_used = CURRENCY_SERVER_PRIMARY;
+
         $currency_query = tep_db_query("select currencies_id, code, title from " . TABLE_CURRENCIES);
         while ($currency = tep_db_fetch_array($currency_query)) {
           $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
           $rate = $quote_function($currency['code']);
 
           if (empty($rate) && (tep_not_null(CURRENCY_SERVER_BACKUP))) {
+            $messageStack->add_session(sprintf(WARNING_PRIMARY_SERVER_FAILED, CURRENCY_SERVER_PRIMARY, $currency['title'], $currency['code']), 'warning');
+
             $quote_function = 'quote_' . CURRENCY_SERVER_BACKUP . '_currency';
             $rate = $quote_function($currency['code']);
+
+            $server_used = CURRENCY_SERVER_BACKUP;
           }
 
           if (tep_not_null($rate)) {
             tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . $rate . "', last_updated = now() where currencies_id = '" . (int)$currency['currencies_id'] . "'");
 
-            $messageStack->add_session(sprintf(TEXT_INFO_CURRENCY_UPDATED, $currency['title'], $currency['code']), 'success');
+            $messageStack->add_session(sprintf(TEXT_INFO_CURRENCY_UPDATED, $currency['title'], $currency['code'], $server_used), 'success');
           } else {
-            $messageStack->add_session(sprintf(ERROR_CURRENCY_INVALID, $currency['title'], $currency['code']), 'error');
+            $messageStack->add_session(sprintf(ERROR_CURRENCY_INVALID, $currency['title'], $currency['code'], $server_used), 'error');
           }
         }
 

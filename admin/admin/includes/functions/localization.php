@@ -1,53 +1,40 @@
 <?php
 /*
-  $Id: localization.php,v 1.11 2002/11/22 19:07:05 dgw_ Exp $
+  $Id: localization.php,v 1.12 2003/06/25 20:36:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
   function quote_oanda_currency($code, $base = DEFAULT_CURRENCY) {
-    $err_num = '';
-    $err_msg = '';
-    $s = fsockopen('www.oanda.com', 5011, $err_num, $err_msg, 5);
-    if (!$s) {
-      $resp = 'na';  // prevent breaking script
+    $page = file('http://www.oanda.com/convert/fxdaily?value=1&redirected=1&exch=' . $code .  '&format=CSV&dest=Get+Table&sel_list=' . $base);
+
+    $match = array();
+
+    preg_match('/(.+),(\w{3}),([0-9.]+),([0-9.]+)/i', implode('', $page), $match);
+
+    if (sizeof($match) > 0) {
+      return $match[3];
     } else {
-      fputs($s, "fxp/1.1\r\nbasecurrency: $code\r\nquotecurrency: $base\r\n\r\n");
-      $resp = fgets($s, 128);
-      if (trim($resp) == "fxp/1.1 200 ok") {
-        while ($resp != "\r\n") {
-          $resp = fgets($s, 128);
-        }
-        if (!$resp = fgets($s, 128)) { // timeout? then skip
-          $resp = 'na';
-        }
-      } else {
-        $resp = 'na';
-      }
-      fclose($s);
-    }
-    if ($resp == 'na') {
       return false;
     }
-    return trim($resp);
   }
-  
+
   function quote_xe_currency($to, $from = DEFAULT_CURRENCY) {
-    $regex = "/[0-9.]+\s*$from\s*=\s*([0-9.]+)\s*$to/";
-    $return = file('http://www.xe.net/ucc/convert.cgi?Amount=1&From=' . $from . '&To=' . $to);
-    while (list(, $line) = each($return)) {
-      if (preg_match($regex, $line, $match)) {
-        break;
-      }
-    }
-    if (!isset($match)) {
+    $page = file('http://www.xe.net/ucc/convert.cgi?Amount=1&From=' . $from . '&To=' . $to);
+
+    $match = array();
+
+    preg_match('/[0-9.]+\s*' . $from . '\s*=\s*([0-9.]+)\s*' . $to . '/', implode('', $page), $match);
+
+    if (sizeof($match) > 0) {
+      return $match[1];
+    } else {
       return false;
     }
-    return $match[1];
   }
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: currencies.php,v 1.11 2003/05/02 12:36:31 dgw_ Exp $
+  $Id: currencies.php,v 1.12 2003/06/25 20:36:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -34,8 +34,9 @@ define('TEXT_INFO_HEADING_NEW_CURRENCY', 'New Currency');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'Edit Currency');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'Delete Currency');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (requires a manual update of currency values)');
-define('TEXT_INFO_CURRENCY_UPDATED', 'The exchange rate for %s (%s) was updated successfully');
+define('TEXT_INFO_CURRENCY_UPDATED', 'The exchange rate for %s (%s) was updated successfully via %s.');
 
 define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Error: The default currency can not be removed. Please set another currency as default, and try again.');
-define('ERROR_CURRENCY_INVALID', 'Error: The exchange rate for %s (%s) was not updated. Is it a valid currency code?');
+define('ERROR_CURRENCY_INVALID', 'Error: The exchange rate for %s (%s) was not updated via %s. Is it a valid currency code?');
+define('WARNING_PRIMARY_SERVER_FAILED', 'Warning: The primary exchange rate server (%s) failed for %s (%s) - trying the secondary exchange rate server.');
 ?>
