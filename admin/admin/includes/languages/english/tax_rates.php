@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_rates.php,v 1.6 2002/01/28 00:38:42 harley_vb Exp $
+  $Id: tax_rates.php,v 1.7 2003/03/13 03:14:01 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@ define('TEXT_INFO_CLASS_TITLE', 'Tax Class Title:');
 define('TEXT_INFO_COUNTRY_NAME', 'Country:');
 define('TEXT_INFO_ZONE_NAME', 'Zone:');
 define('TEXT_INFO_TAX_RATE', 'Tax Rate (%):');
-define('TEXT_INFO_TAX_RATE_PRIORITY', 'Priority:');
+define('TEXT_INFO_TAX_RATE_PRIORITY', 'Tax rates at the same priority are added, others are compounded.<br><br>Priority:');
 define('TEXT_INFO_RATE_DESCRIPTION', 'Description:');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new tax class with its related data');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this tax rate?');

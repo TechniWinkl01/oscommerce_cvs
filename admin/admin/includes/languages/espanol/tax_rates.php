@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_rates.php,v 1.8 2002/01/28 00:37:32 harley_vb Exp $
+  $Id: tax_rates.php,v 1.9 2003/03/13 03:14:01 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@ define('TEXT_INFO_CLASS_TITLE', 'Nombre del Porcentaje:');
 define('TEXT_INFO_COUNTRY_NAME', 'Pais:');
 define('TEXT_INFO_ZONE_NAME', 'Zona:');
 define('TEXT_INFO_TAX_RATE', 'Porcentaje (%):');
-define('TEXT_INFO_TAX_RATE_PRIORITY', 'Prioridad:');
+define('TEXT_INFO_TAX_RATE_PRIORITY', 'Tax rates at the same priority are added, others are compounded.<br><br>Prioridad:');
 define('TEXT_INFO_RATE_DESCRIPTION', 'Descripcion:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca un nombre y los datos del nuevo porcentaje');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este porcentaje?');
