@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.29 2001/11/19 10:27:55 hpdl Exp $
+  $Id: default.php,v 1.30 2001/11/19 10:45:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -142,14 +142,20 @@
               <tr>
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
+<?php
+  $orders_status_query = tep_db_query("select orders_status_name from orders_status where orders_status_id = '1' and language_id = '" . $languages_id . "'");
+  $orders_status = tep_db_fetch_array($orders_status_query);
+  $orders_pending_query = tep_db_query("select count(*) as count from orders where orders_status = '1'");
+  $orders_pending = tep_db_fetch_array($orders_pending_query);
+?>
               <tr class="subBar">
-                <td colspan="3" class="subBar">&nbsp;<?php echo TABLE_HEADING_LAST_ORDERS; ?>&nbsp;</td>
+                <td colspan="3" class="subBar">&nbsp;<?php echo TABLE_HEADING_LAST_ORDERS . ' (' . $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . ')'; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
-  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit 5");
+  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, shipping_cost from " . TABLE_ORDERS . " order by orders_id DESC limit 5");
   while ($orders = tep_db_fetch_array($orders_query)) {
     $total_cost = 0;
     $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $orders['orders_id'] . "'");
