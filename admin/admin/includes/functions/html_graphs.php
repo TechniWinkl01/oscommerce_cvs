@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_graphs.php,v 1.2 2001/07/27 23:40:17 hpdl Exp $
+  $Id: html_graphs.php,v 1.3 2001/09/30 16:20:10 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -384,8 +384,8 @@
       $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
     }
 
-    $graph_vals = @array('vlabel'=>'D<br>a<br>t<br>a',
-                        'hlabel'=>'Last 3 Days',
+    $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
+                        'hlabel'=>TEXT_BANNERS_LAST_3_DAYS,
                         'type'=>'3',
                         'cellpadding'=>'',
                         'cellspacing'=>'1',

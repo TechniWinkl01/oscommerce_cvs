@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.10 2001/09/19 11:13:07 mbs Exp $
+  $Id: banner_manager.php,v 1.11 2001/09/30 16:20:30 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,6 +41,11 @@ define('TEXT_BANNERS_SCHEDULED_AT_DATE', 'Programado el: <b>%s</b>');
 define('TEXT_BANNERS_EXPIRES_AT_DATE', 'Caduca el: <b>%s</b>');
 define('TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS', 'Caduca tras: <b>%s</b> vistas');
 define('TEXT_BANNERS_STATUS_CHANGE', 'Cambio Estado: %s');
+
+define('TEXT_BANNERS_DATA', 'D<br>A<br>T<br>A');
+define('TEXT_BANNERS_LAST_3_DAYS', 'Last 3 Days');
+define('TEXT_BANNERS_BANNER_VIEWS', 'Banner Views');
+define('TEXT_BANNERS_BANNER_CLICKS', 'Banner Clicks');
 
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este banner?');
 ?>
