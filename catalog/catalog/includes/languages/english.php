@@ -43,7 +43,7 @@ define('MALE_ADDRESS', 'Mr.');
 define('FEMALE_ADDRESS', 'Ms.');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
+define('DOB_FORMAT_STRING', 'dd/mm/yyyy');
 
 // categories box text in includes/boxes/categories.php
 define('BOX_HEADING_CATEGORIES', 'Categories');
