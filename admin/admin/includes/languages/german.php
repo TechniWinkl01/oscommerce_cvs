@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.85 2002/04/03 23:25:41 hpdl Exp $
+  $Id: german.php,v 1.86 2002/04/09 19:14:58 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,7 @@ define('BOX_HEADING_CONFIGURATION', 'Konfiguration');
 define('BOX_HEADING_MODULES', 'Module');
 define('BOX_MODULES_PAYMENT', 'Zahlungsweise');
 define('BOX_MODULES_SHIPPING', 'Versandart');
-define('BOX_MODULES_ORDER_TOTAL', 'Order Total');
+define('BOX_MODULES_ORDER_TOTAL', 'Zusammenfassung');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Katalog');
@@ -153,7 +153,6 @@ define('CATEGORY_PASSWORD', 'Passwort');
 define('CATEGORY_COMPANY', 'Firma');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('ENTRY_GENDER', 'Anrede:');
-define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">erforderlich</font></small>');
 define('ENTRY_FIRST_NAME', 'Vorname:');
 define('ENTRY_LAST_NAME', 'Nachname:');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
