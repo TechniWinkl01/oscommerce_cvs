@@ -1,9 +1,16 @@
 <?
+  if (file_exists('includes/local/configure.php')) {
+    include('includes/local/configure.php');
+  }
+  if (CONFIGURE_STATUS != 'COMPLETED') { // File not read properly
+     die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.<br>The configuration file in catalog/includes/local/configure.php was not properly formatted or did not exist.');
+  }
 // define our webserver variables
   define('HTTP_SERVER', 'http://exchange');
   define('HTTPS_SERVER', 'https://exchange');
   define('ENABLE_SSL', 1); // ssl server enable(1)/disable(0)
   define('DIR_SERVER_ROOT', '/usr/local/apache/');
+  define('DIR_LOGS', DIR_SERVER_ROOT . 'logs/');
   define('DIR_CATALOG', '/catalog/');
   define('DIR_IMAGES', '/catalog/images/');
   define('DIR_INCLUDES', 'includes/');
@@ -15,7 +22,7 @@
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
   define('STORE_PAGE_PARSE_TIME', 0);
-  define('STORE_PAGE_PARSE_TIME_LOG', DIR_SERVER_ROOT . 'logs/exchange/parse_time_log');
+  define('STORE_PAGE_PARSE_TIME_LOG', DIR_LOGS . 'exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
   if (STORE_PAGE_PARSE_TIME == '1') {
