@@ -97,6 +97,7 @@ function checkForm(form) {
     var error = 0;
     var products_description = document.products.products_description.value;
     var products_price = document.products.products_price.value;
+    var products_weight = document.products.products_weight.value;
     var products_quantity = document.products.products_quantity.value;
     var products_model = document.products.products_model.value;
     var products_image = document.products.products_image.value;
@@ -108,6 +109,11 @@ function checkForm(form) {
 
     if (products_price.length < 1) {
       error_message = error_message + "<?=JS_PRODUCTS_PRICE;?>";
+      error = 1;
+    }
+
+    if (products_weight.length < 1) {
+      error_message = error_message + "<?=JS_PRODUCTS_WEIGHT;?>";
       error = 1;
     }
 

@@ -91,6 +91,7 @@ define('JS_MANUFACTURERS_DELETE_CONFIRM', '*** WARNING ***\n\nDo you really want
 define('JS_PRODUCTS_NAME', '* The new product needs a name\n');
 define('JS_PRODUCTS_DESCRIPTION', '* The new product needs a description\n');
 define('JS_PRODUCTS_PRICE', '* The new product needs a price value\n');
+define('JS_PRODUCTS_WEIGHT', '* The new product needs a weight value\n');
 define('JS_PRODUCTS_QUANTITY', '* The new product needs a quantity value\n');
 define('JS_PRODUCTS_MODEL', '* The new product needs a model value\n');
 define('JS_PRODUCTS_IMAGE', '* The new product needs an image value\n');
