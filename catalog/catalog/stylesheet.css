@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.32 2001/12/19 15:31:13 hpdl Exp $
+  $Id: stylesheet.css,v 1.33 2001/12/19 17:13:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -153,7 +153,9 @@ A:hover.pageResults {
 
 TD.pageHeading, DIV.pageHeading {
   font-family : Verdana, Arial, sans-serif;
-  font-size : 18px;
+  font-size : 20px;
+  font-weight : bold;
+  color: #9a9a9a;
 }
 
 TR.subBar {
@@ -168,7 +170,8 @@ TD.subBar {
 
 TD.main, P.main {
   font-family : Verdana, Arial, sans-serif;
-  font-size : 12px;
+  font-size : 11px;
+  line-height : 1-5;
 }
 
 TD.smallText, SPAN.smallText {
