@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.219 2003/05/14 17:04:54 dgw_ Exp $
+  $Id: general.php,v 1.220 2003/05/14 17:12:20 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -704,17 +704,17 @@
 // add default logical operators if needed
     $temp = array();
     for($i=0; $i<(count($objects)-1); $i++) {
-      $temp[sizeof($temp)] = $objects[$i];
+      $temp[] = $objects[$i];
       if ( ($objects[$i] != 'and') &&
            ($objects[$i] != 'or') &&
            ($objects[$i] != '(') &&
            ($objects[$i+1] != 'and') &&
            ($objects[$i+1] != 'or') &&
            ($objects[$i+1] != ')') ) {
-        $temp[sizeof($temp)] = ADVANCED_SEARCH_DEFAULT_OPERATOR;
+        $temp[] = ADVANCED_SEARCH_DEFAULT_OPERATOR;
       }
     }
-    $temp[sizeof($temp)] = $objects[$i];
+    $temp[] = $objects[$i];
     $objects = $temp;
 
     $keyword_count = 0;
