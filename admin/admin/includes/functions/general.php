@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.118 2002/03/15 02:40:38 hpdl Exp $
+  $Id: general.php,v 1.119 2002/03/28 15:28:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -345,53 +345,56 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
-function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
-  $format = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $format_id . "'");
-  $format_values = tep_db_fetch_array($format);
-  $firstname = addslashes($delivery_values['firstname']);
-  $lastname = addslashes($delivery_values['lastname']);
-  $street = addslashes($delivery_values['street_address']);
-  $suburb = addslashes($delivery_values['suburb']);
-  $city = addslashes($delivery_values['city']);
-  $state = addslashes($delivery_values['state']);
-  $country_id = $delivery_values['country_id'];
-  $zone_id = $delivery_values['zone_id'];
-  $postcode = addslashes($delivery_values['postcode']);
-  $zip = $postcode;
-  $country = tep_get_country_name($country_id);
-  $state = tep_get_zone_code($country_id, $zone_id, $state);
+  function tep_address_format($address_format_id, $address, $html, $boln, $eoln) {
+    $address_format_query = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $address_format_id . "'");
+    $address_format = tep_db_fetch_array($address_format_query);
 
-  $statecomma = '';
-  $streets = $street;
-  if ($suburb != '') $streets = $street . $cr . $suburb;
-  if ($firstname == '') $firstname = addslashes($delivery_values['name']);
-  if ($country == '') $country = addslashes($delivery_values['country']);
-  if ($state != '') $statecomma = $state . ', ';
-  if ($html == 0) { // Text Mode
-    $CR = $eoln;
-    $cr = $CR;
-    $HR = '----------------------------------------';
-    $hr = '----------------------------------------';
-  } else {
-    if ($html == 1) { // HTML Mode
-      $HR = '<HR>';
+    $firstname = addslashes($address['firstname']);
+    $lastname = addslashes($address['lastname']);
+    $street = addslashes($address['street_address']);
+    $suburb = addslashes($address['suburb']);
+    $city = addslashes($address['city']);
+    $state = addslashes($address['state']);
+    $country_id = $address['country_id'];
+    $zone_id = $address['zone_id'];
+    $postcode = addslashes($address['postcode']);
+    $zip = $postcode;
+    $country = tep_get_country_name($country_id);
+    $state = tep_get_zone_code($country_id, $zone_id, $state);
+
+    if ($html) {
+// HTML Mode
+      $HR = '<hr>';
       $hr = '<hr>';
-      if ($boln == '' && $eoln == "\n") { // Valu not specified, use rational defaults
-        $CR = '<BR>';
+      if ( ($boln == '') && ($eoln == "\n") ) { // Values not specified, use rational defaults
+        $CR = '<br>';
         $cr = '<br>';
         $eoln = $cr;
       } else { // Use values supplied
         $CR = $eoln . $boln;
         $cr = $CR;
       }
+    } else {
+// Text Mode
+      $CR = $eoln;
+      $cr = $CR;
+      $HR = '----------------------------------------';
+      $hr = '----------------------------------------';
     }
-  }
 
-  $fmt = $format_values['format'];
-  eval("\$address = \"$fmt\";");
-  $address = stripslashes($address);
-  return $boln . $address . $eoln;
-}
+    $statecomma = '';
+    $streets = $street;
+    if ($suburb != '') $streets = $street . $cr . $suburb;
+    if ($firstname == '') $firstname = addslashes($address['name']);
+    if ($country == '') $country = addslashes($address['country']);
+    if ($state != '') $statecomma = $state . ', ';
+
+    $fmt = $address_format['format'];
+    eval("\$address = \"$fmt\";");
+    $address = stripslashes($address);
+
+    return $boln . $address . $eoln;
+  }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //
