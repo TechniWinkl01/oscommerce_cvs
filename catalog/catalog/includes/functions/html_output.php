@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.21 2001/12/03 22:02:54 project3000 Exp $
+  $Id: html_output.php,v 1.22 2001/12/20 14:52:56 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -131,11 +131,7 @@
 ////
 // Draw a 1 pixel black line
   function tep_black_line() {
-    global $black_line;
-
-    $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
-
-    return $black_line;
+    return tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '100%', '10');
   }
 
 ////
