@@ -60,7 +60,7 @@
             <td colspan="3"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $address_book = tep_db_query("select address_book.address_book_id, address_book.entry_firstname, address_book.entry_lastname, address_book.entry_city, address_book.entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id order by address_book.address_book_id");
+  $address_book = tep_db_query("select ab.address_book_id, ab.entry_firstname, ab.entry_lastname, ab.entry_city, ab.entry_country_id from " . TABLE_ADDRESS_BOOK . " ab, " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " abtc where abtc.customers_id = '" . $customer_id . "' and abtc.address_book_id = ab.address_book_id order by ab.address_book_id");
   if (!tep_db_num_rows($address_book)) {
 ?>
           <tr class="addressBook-odd">

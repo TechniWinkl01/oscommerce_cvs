@@ -156,7 +156,7 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
               <select name="manufacturers_id">
                 <option value="" selected><? echo TEXT_ALL_MANUFACTURERS; ?>
 <?  
-  $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from manufacturers order by manufacturers_name");
+  $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
   while ($manufacturers_values = tep_db_fetch_array($manufacturers_query)) {
     echo '<option value="' . $manufacturers_values['manufacturers_id'] . '">' . $manufacturers_values['manufacturers_name'] . "\n";
   }

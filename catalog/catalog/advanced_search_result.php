@@ -129,7 +129,7 @@
         <td>
 <?
   // create column list
-  $configuration_query = tep_db_query("select c.configuration_key from configuration_group cg, configuration c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION') order by c.configuration_value");
+  $configuration_query = tep_db_query("select c.configuration_key from " . TABLE_CONFIGURATION_GROUP . " cg, " . TABLE_CONFIGURATION . " c where cg.configuration_group_title = 'Product Listing' and cg.configuration_group_id = c.configuration_group_id and c.configuration_value != '0' and c.configuration_key not in ('PRODUCT_LIST_FILTER', 'PREV_NEXT_BAR_LOCATION') order by c.configuration_value");
 
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     $column_list[] = $configuration['configuration_key'];
@@ -168,12 +168,12 @@
 
   $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price ";
 
-  $from_str = "from manufacturers m, products p, products_description pd";
+  $from_str = "from " . TABLE_MANUFACTURERS . " m, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTIONS . " pd";
 
-  $where_str = " left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.manufacturers_id = m.manufacturers_id ";
+  $where_str = " left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.manufacturers_id = m.manufacturers_id ";
 
   if ($HTTP_GET_VARS['categories_id']) {
-    $from_str .= ", products_to_categories p2c ";
+    $from_str .= ", " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c ";
 
     if ($HTTP_GET_VARS['inc_subcat'] == "1") {
       $categories = array();

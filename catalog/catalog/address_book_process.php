@@ -1,8 +1,8 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ((@$HTTP_GET_VARS['action'] == 'remove') && (@$HTTP_GET_VARS['entry_id'])) {
-    tep_db_query("delete from address_book where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
-    tep_db_query("delete from address_book_to_customers where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
+    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
+    tep_db_query("delete from " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     tep_exit();
   }
@@ -64,7 +64,7 @@
   }
 
   if ((@$process == 1) && (@$error == 0) && (@$HTTP_POST_VARS['action'] == 'update')) {
-    $update_query = 'update address_book set ';
+    $update_query = 'update ' . TABLE_ADDRESS_BOOK . ' set ';
     if (ACCOUNT_GENDER) {
        $update_query = $update_query . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
@@ -100,10 +100,10 @@
        $zone_id = $HTTP_POST_VARS['zone_id'];
        if ($zone_id != 0) $state = '';
     }
-    $update_query = "insert into address_book values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
+    $update_query = "insert into " . TABLE_ADDRESS_BOOK . " values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
     tep_db_query($update_query);
     $insert_id = tep_db_insert_id();
-    tep_db_query("insert into address_book_to_customers values ('', '" . $insert_id . "', '" . $customer_id . "')");
+    tep_db_query("insert into " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " values ('', '" . $insert_id . "', '" . $customer_id . "')");
 
     if (@$HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['origin_connection'] == 'SSL') {
@@ -133,7 +133,7 @@
       if (ACCOUNT_STATE) {
          $entry_query = $entry_query . "entry_state, entry_zone_id, ";
       }
-      $entry_query = $entry_query . "entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id and address_book.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
+      $entry_query = $entry_query . "entry_country_id from " . TABLE_ADDRESS_BOOK . " ab, " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " abtc where abtc.customers_id = '" . $customer_id . "' and abtc.address_book_id = ab.address_book_id and ab.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
       $entry = tep_db_query($entry_query);
       $entry_values = tep_db_fetch_array($entry);
       if (ACCOUNT_GENDER) {
