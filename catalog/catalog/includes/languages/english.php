@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.39 2001/06/02 19:00:31 dwatkins Exp $
+  $Id: english.php,v 1.40 2001/06/02 19:27:56 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -232,4 +232,9 @@ define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Review');
 define('TEXT_GREETING_PERSONAL', 'Welcome back <span class="greetUser">%s!</span> Would you like to see which new products are available to purchase?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>If you are not %s, please <a href="%s"><u>log yourself in</u></a> with your account information.</small>');
 define('TEXT_GREETING_GUEST', 'Welcome <span class="greetUser">Guest!</span> Would you like to <a href="%s"><u>log yourself in</u></a>? Or would you prefer to <a href="%s"><u>create an account</u></a>?');
+
+define('TEXT_SORT_PRODUCTS', 'Sort products ');
+define('TEXT_DESCENDINGLY', 'descendingly');
+define('TEXT_ASCENDINGLY', 'ascendingly');
+define('TEXT_BY', ' by ');
 ?>

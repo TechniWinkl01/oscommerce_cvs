@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.13 2001/06/02 19:00:38 dwatkins Exp $
+  $Id: default.php,v 1.14 2001/06/02 19:27:59 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,10 +30,6 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TEXT_NO_PRODUCTS2', 'There is no product available from this manufacturer.');
   define('TEXT_NUMBER_OF_PRODUCTS', 'Number of Products: ');
   define('TEXT_SHOW', '<b>Show:</b>');
-  define('TEXT_SORT_PRODUCTS', 'Sort products ');
-  define('TEXT_DESCENDINGLY', 'descendingly');
-  define('TEXT_ASCENDINGLY', 'ascendingly');
-  define('TEXT_BY', ' by ');
   define('TEXT_BUY', 'Buy 1 \'');
   define('TEXT_NOW', '\' now');
 } elseif ($category_depth == 'top') {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.38 2001/06/02 19:00:33 dwatkins Exp $
+  $Id: german.php,v 1.39 2001/06/02 19:27:57 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -232,4 +232,9 @@ define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span>');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Wenn Sie nicht %s sind, melden Sie sich bitte <a href="%s"><u>hier</u></a> mit Ihrem Kundenkonto an.</small>');
 define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchtne Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?');
+
+define('TEXT_SORT_PRODUCTS', 'Sortierung der Artikel ist ');
+define('TEXT_DESCENDINGLY', 'absteigend');
+define('TEXT_ASCENDINGLY', 'aufsteigend');
+define('TEXT_BY', ' durch ');
 ?>

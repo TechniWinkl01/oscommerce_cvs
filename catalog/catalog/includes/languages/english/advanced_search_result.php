@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.6 2001/05/26 16:45:11 hpdl Exp $
+  $Id: advanced_search_result.php,v 1.7 2001/06/02 19:27:59 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,10 +24,6 @@ define('TABLE_HEADING_WEIGHT', 'Weight');
 define('TABLE_HEADING_BUY_NOW', 'Buy Now');
 define('TEXT_NO_PRODUCTS', 'There is no product that matches the search criteria.');
 define('TEXT_NO_PRODUCTS2', 'There is no product that matches the search criteria.');
-define('TEXT_SORT_PRODUCTS', 'Sort products ');
-define('TEXT_DESCENDINGLY', 'descendingly');
-define('TEXT_ASCENDINGLY', 'ascendingly');
-define('TEXT_BY', ' by ');
 define('TEXT_BUY', 'Buy 1 \'');
 define('TEXT_NOW', '\' now');
 ?>
