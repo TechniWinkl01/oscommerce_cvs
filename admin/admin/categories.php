@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.136 2002/08/17 09:43:31 project3000 Exp $
+  $Id: categories.php,v 1.137 2002/08/19 02:08:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,10 +65,12 @@
           }
         }
 
-        if ( ($categories_image != 'none') && ($categories_image != '') ) {
-          tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image_name . "' where categories_id = '" . tep_db_input($categories_id) . "'");
-          $image_location = DIR_FS_CATALOG_IMAGES . $categories_image_name;
-          copy($categories_image, $image_location);
+        $categories_image = tep_get_uploaded_file('categories_image');
+        $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES);
+
+        if (is_uploaded_file($categories_image['tmp_name'])) {
+          tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image['name'] . "' where categories_id = '" . tep_db_input($categories_id) . "'");
+          tep_copy_uploaded_file($categories_image, $image_directory);
         }
 
         if (USE_CACHE == 'true') {
@@ -486,10 +488,12 @@
       $products_url = $HTTP_POST_VARS['products_url'];
 
 // copy image only if modified
-      if ( ($products_image != 'none') && ($products_image != '') ) {
-        $image_location = DIR_FS_CATALOG_IMAGES . $products_image_name;
-        if (file_exists($image_location)) @unlink($image_location);
-        copy($products_image, $image_location);
+      $products_image = tep_get_uploaded_file('products_image');
+      $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES);
+
+      if (is_uploaded_file($products_image['tmp_name'])) {
+        tep_copy_uploaded_file($products_image, $image_directory);
+        $products_image_name = $products_image['name'];
       } else {
         $products_image_name = $HTTP_POST_VARS['products_previous_image'];
       }
