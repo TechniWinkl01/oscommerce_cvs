@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.118 2001/05/17 16:44:21 jcorreia Exp $
+  $Id: application_top.php,v 1.119 2001/05/20 16:14:41 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -242,7 +242,10 @@
 
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
-    if (!$language) tep_session_register('language');
+    if (!$language) {
+      tep_session_register('language');
+      tep_session_register('languages_id');
+    }
 
     $language = tep_get_languages_directory($HTTP_GET_VARS['language']);
     if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
