@@ -42,6 +42,8 @@ xx/02/2001 The Exchange Project Preview Release 2.1
 
  * The 'Search' box and the 'Advanced Search' now use the same engine.
 
+ * Backup in the admin tool.
+
  * Numerous bugs fixed.
 
  * Categories box has been updated to display path taken in bold, and
