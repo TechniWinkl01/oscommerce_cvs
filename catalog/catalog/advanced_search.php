@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.39 2002/01/01 19:08:57 dgw_ Exp $
+  $Id: advanced_search.php,v 1.40 2002/01/01 19:11:26 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -228,7 +228,7 @@ function check_form() {
       echo nl2br(JS_INVALID_KEYWORDS);
     }
   } else {
-    new infoBoxHeading(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS_HEADING)), false, false);
+    new infoBoxHeading(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS_HEADING)), true, false);
     new infoBox(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS)));
   }
 ?>
