@@ -654,7 +654,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     $products_count += $products['total'];
 
-    $childs_query = tep_db_query("select categories_id from " . TABLE_CATGEORIES . " where parent_id = '" . $categories_id . "'");
+    $childs_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . $categories_id . "'");
     if (tep_db_num_rows($childs_query)) {
       while ($childs = tep_db_fetch_array($childs_query)) {
         $products_count += tep_products_in_category_count($childs['categories_id'], $include_deactivated);
@@ -670,7 +670,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   function tep_childs_in_category_count($categories_id) {
     $categories_count = 0;
 
-    $categories_query = tep_db_query("select categories_id from " . TABLE_CATGEORIES . " where parent_id = '" . $categories_id . "'");
+    $categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . $categories_id . "'");
     while ($categories = tep_db_fetch_array($categories_query)) {
       $categories_count++;
       $categories_count += tep_childs_in_category_count($categories['categories_id']);
