@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.80 2001/12/26 23:45:13 hpdl Exp $
+  $Id: general.php,v 1.81 2001/12/28 13:37:32 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,7 +98,7 @@
 
   function tep_date_long($raw_date) {
     if (strlen($raw_date) == 19) {
-      $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 5, 2),substr($raw_date, 8, 2),substr($raw_date, 0, 4)));
+      $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 5, 2),substr($raw_date, 8, 2),substr($raw_date, 0, 4)));
     } elseif (strlen($raw_date) == 14) {
       $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
     } else {
@@ -713,7 +713,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   function tep_get_system_information() {
     global $HTTP_SERVER_VARS;
 
-    $db_query = tep_db_query("select date_format(now(), '%b %d %H:%i:%s %Y') as datetime");
+    $db_query = tep_db_query("select now() as datetime");
     $db = tep_db_fetch_array($db_query);
 
     list($system, $host, $kernel) = preg_split('/[\s,]+/', @exec('uname -a'), 5);
@@ -730,7 +730,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
                  'db_server' => DB_SERVER,
                  'db_ip' => gethostbyname(DB_SERVER),
                  'db_version' => 'MySQL ' . (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''),
-                 'db_date' => $db['datetime']);
+                 'db_date' => tep_date_long($db['datetime']));
   }
 
 ////
