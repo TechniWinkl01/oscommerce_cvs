@@ -62,7 +62,6 @@ mail($friendemail, $subject, $email_taf, 'Content-Type: text/plain; charset="iso
       <tr>
         <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
       </tr>
-    </table></td>
 <?
 }
 
@@ -110,11 +109,11 @@ $product_info_values = tep_db_fetch_array($product_info);
             <td align="right" nowrap><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info_values['products_id'], 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
         </table></td>
-      </tr>
-    </table></form></td>
+      </tr></form>
 <?
 }
 ?>
+    </table></td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
