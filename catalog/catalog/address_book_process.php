@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.74 2003/04/13 11:52:47 project3000 Exp $
+  $Id: address_book_process.php,v 1.75 2003/05/14 17:50:58 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,10 +23,10 @@
 
   if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'remove') && tep_not_null($HTTP_GET_VARS['entry_id']) ) {
     $entry_id = tep_db_prepare_input($HTTP_GET_VARS['entry_id']);
-
-    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . tep_db_input($entry_id) . "' and customers_id = '" . $customer_id . "'");
-    tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id - 1 where address_book_id > " . tep_db_input($entry_id)  . " and customers_id = '" . $customer_id . "'");
-
+    if ($entry_id > 1) {
+      tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . tep_db_input($entry_id) . "' and customers_id = '" . $customer_id . "'");
+      tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id - 1 where address_book_id > " . tep_db_input($entry_id)  . " and customers_id = '" . $customer_id . "'");
+    }
     tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
   }
 
