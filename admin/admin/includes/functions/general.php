@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: general.php,v 1.96 2002/01/05 12:19:49 hpdl Exp $
+  $Id: general.php,v 1.97 2002/01/08 02:41:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -278,10 +278,18 @@
   }
 
   function tep_not_null($value) {
-    if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
-      return true;
+    if (is_array($value)) {
+      if (sizeof($value) > 0) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -933,10 +941,22 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   }
 
   function tep_output_warning($warning) {
-    new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
+    if (is_array($warning)) {
+      for ($i=0; $i<sizeof($warning); $i++) {
+        new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning[$i]['text'])));
+      }
+    } else {
+      new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
+    }
   }
 
   function tep_output_error($error) {
-    new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error)));
+    if (is_array($error)) {
+      for ($i=0; $i<sizeof($error); $i++) {
+        new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error[$i]['text'])));
+      }
+    } else {
+      new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error)));
+    }
   }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.37 2002/01/05 05:59:21 hpdl Exp $
+  $Id: backup.php,v 1.38 2002/01/08 02:41:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -314,10 +314,10 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  if (isset($error)) {
+  if (tep_not_null($error)) {
 ?>
       <tr>
-        <td><?php new errorBox($error); ?></td>
+        <td><?php tep_output_error($error); ?></td>
       </tr>
 <?php
   }

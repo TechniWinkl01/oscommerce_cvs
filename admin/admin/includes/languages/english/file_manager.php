@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.7 2002/01/07 15:32:25 hpdl Exp $
+  $Id: file_manager.php,v 1.8 2002/01/08 02:41:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,4 +27,6 @@ define('TEXT_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_NEW_FOLDER', 'New Folder');
 define('TEXT_NEW_FOLDER_INTRO', 'Enter the name for the new folder:');
 define('TEXT_DELETE_INTRO', 'Are you want to delete this file?');
+
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions.');
 ?>

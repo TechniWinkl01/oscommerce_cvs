@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.17 2002/01/08 02:02:28 hpdl Exp $
+  $Id: file_manager.php,v 1.18 2002/01/08 02:41:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,7 +199,20 @@
       return strcmp( ($a['is_dir'] ? 'D' : 'F') . $a['name'], ($b['is_dir'] ? 'D' : 'F') . $b['name']);
     }
     usort($contents, 'tep_cmp');
+
+    if ($HTTP_GET_VARS['action'] == 'upload') {
+      $directory_writeable = true;
+      if (!is_writeable($current_path)) {
+        $directory_writeable = false;
+        echo '      <tr>' . "\n" .
+             '        <td>';
+        tep_output_error(ERROR_DIRECTORY_NOT_WRITEABLE);
+        echo '</td>' . "\n" .
+             '      </tr>' . "\n";
+      }
+    }
 ?>
+
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -300,7 +313,7 @@
         $info_box_contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
         for ($i=1; $i<6; $i++) $file_upload .= tep_draw_file_field('file_' . $i) . '<br>';
         $info_box_contents[] = array('text' => '<br>' . $file_upload);
-        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+        $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . (($directory_writeable) ? tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD) : '') . ' <a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_GET_VARS['info']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
         break;
       default:
         $info_box_contents = array();
