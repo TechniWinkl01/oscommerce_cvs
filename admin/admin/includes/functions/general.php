@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.138 2002/08/17 11:00:40 project3000 Exp $
+  $Id: general.php,v 1.139 2002/08/17 12:56:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -750,19 +750,50 @@
                  'db_date' => tep_datetime_short($db['datetime']));
   }
 
-////
-// Check if a file has been truely uploaded
-  function tep_is_uploaded_file($filename) {
-    if (function_exists('is_uploaded_file')) {
-      return is_uploaded_file($filename);
+  function tep_get_uploaded_file($filename) {
+    if (isset($_FILES[$filename])) {
+      $uploaded_file = array('name' => $_FILES[$filename]['name'],
+                             'type' => $_FILES[$filename]['type'],
+                             'size' => $_FILES[$filename]['size'],
+                             'tmp_name' => $_FILES[$filename]['tmp_name']);
+    } elseif (isset($GLOBALS['HTTP_POST_FILES'][$filename])) {
+      global $HTTP_POST_FILES;
+
+      $uploaded_file = array('name' => $HTTP_POST_FILES[$filename]['name'],
+                             'type' => $HTTP_POST_FILES[$filename]['type'],
+                             'size' => $HTTP_POST_FILES[$filename]['size'],
+                             'tmp_name' => $HTTP_POST_FILES[$filename]['tmp_name']);
     } else {
-      if (!$tmp_file = get_cfg_var('upload_tmp_dir')) {
-        $tmp_file = dirname(tempnam('', ''));
-      }
-      $tmp_file .= '/' . basename($filename);
-// User might have trailing slash in php.ini
-      return (ereg_replace('/+', '/', $tmp_file) == $filename);
+      $uploaded_file = array('name' => $GLOBALS[$filename . '_name'],
+                             'type' => $GLOBALS[$filename . '_type'],
+                             'size' => $GLOBALS[$filename . '_size'],
+                             'tmp_name' => $GLOBALS[$filename]);
     }
+
+    return $uploaded_file;
+  }
+
+// the $filename parameter is an array with the following elements:
+// name, type, size, tmp_name
+  function tep_copy_uploaded_file($filename, $target) {
+    if (strstr(PHP_OS, 'WIN')) {
+      if (substr($target, -1) != '\\') $target .= '\\';
+    } else {
+      if (substr($target, -1) != '/') $target .= '/';
+    }
+
+    $target .= $filename['name'];
+
+    move_uploaded_file($filename['tmp_name'], $target);
+  }
+
+// return a local directory path (without trailing slash)
+  function tep_get_local_path($path) {
+    if (substr($path, -1) == '/') $path = substr($path, 0, -1);
+
+    if (strstr(PHP_OS, 'WIN')) $path = str_replace('/', '\\', $path);
+
+    return $path;
   }
 
   function tep_array_shift(&$array) {
