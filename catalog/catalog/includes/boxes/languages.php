@@ -7,10 +7,17 @@
                                'text'  => BOX_HEADING_LANGUAGES
                               );
   new infoBoxHeading($info_box_contents);
- 
+
+  $languages = tep_get_languages();
+
+  $languages_string = '';
+  for ($i=0; $i<sizeof($languages); $i++) {
+    $languages_string .= '&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('language')) . 'language=' . $languages[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . $languages[$i]['image'], $languages[$i]['name']) . '</a>&nbsp;';
+  }
+
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'center',
-                               'text'  => '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params() . 'language=english', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'flag_en.gif', BOX_LANGUAGES_ENGLISH) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params() . 'language=german', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'flag_de.gif', BOX_LANGUAGES_DEUTSCH) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params() . 'language=espanol', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'flag_es.gif', BOX_LANGUAGES_ESPANOL) . '</a>'
+                               'text'  => $languages_string
                               );
   new infoBox($info_box_contents);
 ?>

@@ -149,6 +149,18 @@ CREATE TABLE customers_info (
   PRIMARY KEY (customers_info_id)
 );
 
+CREATE TABLE languages (
+  languages_id int(5) NOT NULL auto_increment,
+  name varchar(32)  NOT NULL,
+  code char(2) NOT NULL,
+  image varchar(64),
+  directory varchar(32),
+  sort_order int(3),
+  PRIMARY KEY (languages_id),
+  KEY IDX_LANGUAGES_NAME (name)
+);
+
+
 CREATE TABLE manufacturers (
   manufacturers_id int(5) NOT NULL auto_increment,
   manufacturers_name varchar(32) NOT NULL,
@@ -723,6 +735,10 @@ INSERT INTO currencies VALUES (4,'Euro','EUR','€','','.',',','2');
 INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca',81, 0);
 
 INSERT INTO customers_info VALUES (1,'20001028',19,'20000312','20000514');
+
+INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
+INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
+INSERT INTO languages VALUES (3,'Espãnol','es','flag_es.gif','espanol',3);
 
 INSERT INTO manufacturers VALUES (1,'Matrox',0,'images/manufacturer_matrox.gif');
 INSERT INTO manufacturers VALUES (2,'Microsoft',0,'images/manufacturer_microsoft.gif');

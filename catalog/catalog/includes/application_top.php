@@ -25,6 +25,9 @@
   define('DIR_PAYMENT_MODULES', DIR_MODULES . 'payment/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
+// default values
+  define('DEFAULT_LANGUAGE', 'en');
+
 // who to send order confirmation emails to.. there is always one being sent to the customer, so there
 // is no need to add their address to the following constant..
 // use comma's to separate email addresses (as in the example)
@@ -199,28 +202,22 @@
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
 
-// languages - this should be removed when the proper functions are implemented!
-  if (@!$language) {
-    tep_session_register('language');
-    $language = 'english';
-  }
-  if ($HTTP_GET_VARS['language']) {
-    $language = 'english';
-    if ($HTTP_GET_VARS['language'] == 'english') {
-      $language = 'english';
-    } elseif ($HTTP_GET_VARS['language'] == 'german') {
-      $language = 'german';
-    } elseif ($HTTP_GET_VARS['language'] == 'espanol') {
-      $language = 'espanol';
+// define our general functions used application-wide
+  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// languages
+  if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
+    if (!$language) tep_session_register('language');
+
+    $language = tep_get_languages_directory($HTTP_GET_VARS['language']);
+    if (!$language) {
+      $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
     }
   }
 
 // include the currency rates, and the language translations
   $include_file = DIR_INCLUDES . 'data/rates.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
-
-// define our general functions used application-wide
-  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // Include the password crypto functions
  $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
