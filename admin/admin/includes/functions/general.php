@@ -371,4 +371,130 @@
       default: return false;
     }
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //   tep_browser_detect - what broser is the customer using?
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+  function tep_browser_detect($component) { 
+    global $HTTP_USER_AGENT; 
+    $result = stristr($HTTP_USER_AGENT,$component); 
+    return $result; 
+  } 
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //   tep_get_zone_list
+  //
+  //   - make a popup list of states and provinces
+  //
+  //   Written By: Kenneth Cheng
+  //
+  //   parameters
+  //   ----------
+  //
+  //   popup_name:     the name attribute you want for the <SELECT> tag
+  //
+  //   country_code:   the default selected value [optional]
+  //
+  //   selected:       the default selected value [optional]
+  //
+  //   javascript:     javascript for the <SELECT> tag, i.e.
+  //                   onChange="this.form.submit()" [optional]
+  //
+  //   size:           size [optional]
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_get_zone_list ($popup_name, $country_code="", $selected="", $javascript="", $size=1) {
+
+    // start building the popup menu
+    $result = "<select name=\"$popup_name\"";
+    
+    if ($size != 1)
+      $result .= " size=\"$size\"";
+      
+    if ($javascript)
+      $result .= " " . $javascript;
+    
+    $result .= ">\n";
+    
+    $result .= "<option value=\"\">" . PLEASE_SELECT . "\n";
+
+    // Preset the width of the drop-down for Netscape
+    //
+    // 53 "&nbsp;" would provide the width for my longer state/province name
+    // this number should be customized for your need
+    // 
+    if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) {
+      for ($i=0; $i<53; $i++)
+        $result .= "&nbsp;";
+    }
+
+    $state_prov_result = tep_db_query("select zone_id, zone_name from zones where zone_country_id = '" . $country_code . "' order by zone_name");
+      
+    $populated = 0;
+    while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
+      $populated++;
+      // printed SELECTED if an item was previously selected
+      // so we maintain the state
+      if ($selected == $state_prov_values[zone_id]) {
+        $result .= "<option value=\"$state_prov_values[zone_id]\" SELECTED>$state_prov_values[zone_name]\n";
+      } else {
+        $result .= "<option value=\"$state_prov_values[zone_id]\">$state_prov_values[zone_name]\n";
+      }
+    }
+
+    // Create dummy options for Netscape to preset the height of the drop-down
+    if ($populated == 0) {
+      if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) { 
+        for ($i=0; $i<9; $i++) {
+          $result .= "\n<option value=\"\">";
+        }
+      }
+    }
+
+    // finish the popup menu
+    $result .= "\n</select>\n";
+    
+    echo $result;
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_js_zone_list
+  //
+  // Arguments   : SelectedCountryVar        string that contains the SelectedCountry variable
+  //                                         name
+  //               FormName                  string that contains the form object name
+  //
+  // Return      : none
+  //
+  // Description : Function used to construct part of the JavaScript code for dynamically
+  //               updating the State/Province Drop-Down list
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_js_zone_list($SelectedCountryVar, $FormName) {
+    $country_query = tep_db_query("select distinct zone_country_id from zones order by zone_country_id");
+    $NumCountry=1;
+    while ($country_values = tep_db_fetch_array($country_query)) {
+      if ($NumCountry == 1)
+        print ("  if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
+      else 
+        print ("  else if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
+  
+      $state_query = tep_db_query("select zones.zone_name, zones.zone_id from zones where zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by zones.zone_name");
+      
+      $NumState = 1;
+      while ($state_values = tep_db_fetch_array($state_query)) {
+        if ($NumState == 1)
+          print ("    " . $FormName . ".zone_id.options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
+        print ("    " . $FormName . ".zone_id.options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
+        $NumState++;
+      }
+      $NumCountry++;
+      print ("  }\n");
+    }
+  }
+
 ?>

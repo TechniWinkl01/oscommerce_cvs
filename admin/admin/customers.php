@@ -19,7 +19,11 @@
     }
     $update_query = $update_query . "customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', ";
     if (ACCOUNT_STATE) {
-       $update_query = $update_query . "customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
+       $state = $HTTP_POST_VARS['state'];
+       $zone_id = $HTTP_POST_VARS['zone_id'];
+       if ($zone_id != '0') $state = '';
+       $update_query = $update_query . "customers_state = '" . $state . "', ";
+       $update_query = $update_query . "customers_zone_id = '" . $zone_id . "', ";
     }
     $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
@@ -36,6 +40,38 @@
   if ($HTTP_GET_VARS['action'] == 'edit') {
 ?>
 <script language="javascript"><!--
+function resetStateText(theForm) {
+  theForm.state.value = '';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<? echo JS_STATE_SELECT;?>';
+  }
+}
+
+function resetZoneSelected(theForm) {
+  if (theForm.state.value != '') {
+    theForm.zone_id.selectedIndex = '0';
+    if (theForm.zone_id.options.length > 0) {
+      theForm.state.value = '<? echo JS_STATE_SELECT;?>';
+    }
+  }
+}
+
+function update_zone(theForm) {
+   
+  var NumState = theForm.zone_id.options.length;
+  
+  while(NumState > 0) {
+    NumState--;
+    theForm.zone_id.options[NumState] = null;
+  }         
+
+  var SelectedCountry = "";
+
+  SelectedCountry = theForm.countries_id.options[theForm.countries_id.selectedIndex].value;
+
+<? tep_js_zone_list("SelectedCountry", "theForm"); ?>
+  resetStateText(theForm);
+}
 function check_form() {
   var error = 0;
   var error_message = "<? echo JS_ERROR; ?>";
@@ -105,6 +141,30 @@ function check_form() {
 
   if (city = "" || city.length < 4) {
     error_message = error_message + "<? echo JS_CITY; ?>";
+    error = 1;
+  }
+
+<?
+  if (ACCOUNT_STATE) {
+?>
+  if (document.customers.zone_id.options.length == 0) {
+    if (document.customers.state.value == "" || document.customers.state.length < <? echo ENTRY_STATE_MIN_LENGTH;?> ) {
+       error_message = error_message + "<? echo JS_STATE;?>";
+       error = 1;
+    }
+  } else {
+    document.create_acount.state.value = '';
+    if (document.customers.zone_id.selectedIndex == 0) {
+       error_message = error_message + "<? echo JS_ZONE;?>";
+       error = 1;
+    }
+  }
+<?
+  }
+?>
+
+  if (document.customers.country.value == 0) {
+    error_message = error_message + "<? echo JS_COUNTRY;?>";
     error = 1;
   }
 
@@ -181,11 +241,12 @@ function check_form() {
     }
     $cust_query = $cust_query . "customers_postcode, customers_city, ";
     if (ACCOUNT_STATE) {
-       $cust_query = $cust_query . "customers_state, ";
+       $cust_query = $cust_query . "customers_state, customers_zone_id, ";
     }
     $cust_query = $cust_query . "customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $HTTP_GET_VARS['cID'] . "'";
     $customers_query = tep_db_query($cust_query);
     $customers = tep_db_fetch_array($customers_query);
+    $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;
 
     if (ACCOUNT_GENDER) {
      $gender = $customers['customers_gender'];
@@ -204,14 +265,15 @@ function check_form() {
     $city = $customers['customers_city'];
     if (ACCOUNT_STATE) {
        $state = $customers['customers_state'];
+       $zone_id = $customers['customers_zone_id'];
     }
-    $country = $customers['customers_country_id'];
+    $country_id = $customers['customers_country_id'];
     $telephone = $customers['customers_telephone'];
     $fax = $customers['customers_fax'];
 ?>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_PERSONAL; ?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_PERSONAL; ?></font></td>
           </tr>
 <?
     if (ACCOUNT_GENDER) {
@@ -249,6 +311,7 @@ function check_form() {
           </tr>
 <?
     }
+    $rowspan=5+ACCOUNT_SUBURB+ACCOUNT_STATE+ACCOUNT_STATE;
 ?>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;&nbsp;</font></td>
@@ -258,7 +321,7 @@ function check_form() {
             <td colspan="2"><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_ADDRESS; ?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" nowrap><font face="<? echo CATEGORY_FONT_FACE; ?>" size="<? echo CATEGORY_FONT_SIZE; ?>" color="<? echo CATEGORY_FONT_COLOR; ?>"><? echo CATEGORY_ADDRESS; ?></font></td>
           </tr>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;&nbsp;</font></td>
@@ -282,20 +345,24 @@ function check_form() {
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_CITY; ?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $city; } else { echo '<input type="text" name="city" maxlength="32" value="' . @$city . '">&nbsp;' . ENTRY_CITY_TEXT; } ?></font></td>
           </tr>
+          <tr>
+            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_SIZE; ?>">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_SIZE; ?>">&nbsp;&nbsp;<? echo tep_countries_pull_down('name="countries_id" onChange="update_zone(this.form);"', $country_id); ?></font></td>
+          </tr>
 <?
     if (ACCOUNT_STATE) {
 ?>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;&nbsp;<? echo ENTRY_STATE; ?>&nbsp;&nbsp;</font></td>
-            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $state; } else { echo '<input type="text" name="state" maxlength="32" value="' . @$state . '">&nbsp;' . ENTRY_STATE_TEXT; } ?></font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE;?>" size="<? echo VALUE_FONT_SIZE;?>" color="<? echo VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<?tep_get_zone_list("zone_id", $country_id, $zone_id, "onChange=\"resetStateText(this.form)\";");?>&nbsp;<? echo ENTRY_STATE_TEXT;?></font></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $state; } else { echo '<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="' . @$state . '">&nbsp;' . ENTRY_STATE_TEXT; } ?></font></td>
           </tr>
 <?
     }
 ?>
-          <tr>
-            <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_SIZE; ?>">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;&nbsp;</font></td>
-            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_SIZE; ?>">&nbsp;&nbsp;<? echo tep_countries_pull_down('name="countries_id" style="font-size:10px"', $country); ?></font></td>
-          </tr>
           <tr>
             <td colspan="2"><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;</font></td>
           </tr>
