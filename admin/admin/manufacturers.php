@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.42 2002/01/24 21:57:31 harley_vb Exp $
+  $Id: manufacturers.php,v 1.43 2002/03/10 23:34:47 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,7 +74,7 @@
       $manufacturers_id = tep_db_prepare_input($HTTP_GET_VARS['mID']);
 
       if ($HTTP_POST_VARS['delete_image'] == 'on') {
-        $manufacturer_query = tep_db_query("select manufacturers_image from manufacturers where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
+        $manufacturer_query = tep_db_query("select manufacturers_image from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
         $manufacturer = tep_db_fetch_array($manufacturer_query);
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturer['manufacturers_image'];
         if (file_exists($image_location)) @unlink($image_location);
