@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.45 2002/05/27 13:53:29 hpdl Exp $
+  $Id: advanced_search.php,v 1.46 2002/05/27 18:11:29 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -109,7 +109,7 @@ function check_form() {
 }
 
 function popupWindow(url) {
-  window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,copyhistory=no,width=450,height=280,screenX=150,screenY=150,top=150,left=150')
+  window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=450,height=280,screenX=150,screenY=150,top=150,left=150')
 }
 //--></script>
 </head>
