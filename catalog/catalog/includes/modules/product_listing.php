@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.44 2003/06/09 22:49:59 hpdl Exp $
+  $Id: product_listing.php,v 1.45 2003/11/17 20:22:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,7 @@
     }
 
     if ( ($column_list[$col] != 'PRODUCT_LIST_BUY_NOW') && ($column_list[$col] != 'PRODUCT_LIST_IMAGE') ) {
-      $lc_text = tep_create_sort_heading($HTTP_GET_VARS['sort'], $col+1, $lc_text);
+      $lc_text = tep_create_sort_heading($_GET['sort'], $col+1, $lc_text);
     }
 
     $list_box_contents[0][] = array('align' => $lc_align,
@@ -94,8 +94,8 @@
             break;
           case 'PRODUCT_LIST_NAME':
             $lc_align = '';
-            if (isset($HTTP_GET_VARS['manufacturers_id'])) {
-              $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
+            if (isset($_GET['manufacturers_id'])) {
+              $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
             } else {
               $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
             }
@@ -107,9 +107,9 @@
           case 'PRODUCT_LIST_PRICE':
             $lc_align = 'right';
             if (tep_not_null($listing['specials_new_products_price'])) {
-              $lc_text = '&nbsp;<s>' .  $currencies->display_price($listing['products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing['specials_new_products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '</span>&nbsp;';
+              $lc_text = '&nbsp;<s>' .  $currencies->display_price($listing['products_price'], $osC_Tax->getTaxRate($listing['products_tax_class_id'])) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing['specials_new_products_price'], $osC_Tax->getTaxRate($listing['products_tax_class_id'])) . '</span>&nbsp;';
             } else {
-              $lc_text = '&nbsp;' . $currencies->display_price($listing['products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '&nbsp;';
+              $lc_text = '&nbsp;' . $currencies->display_price($listing['products_price'], $osC_Tax->getTaxRate($listing['products_tax_class_id'])) . '&nbsp;';
             }
             break;
           case 'PRODUCT_LIST_QUANTITY':
@@ -122,8 +122,8 @@
             break;
           case 'PRODUCT_LIST_IMAGE':
             $lc_align = 'center';
-            if (isset($HTTP_GET_VARS['manufacturers_id'])) {
-              $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $listing['products_image'], $listing['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>';
+            if (isset($_GET['manufacturers_id'])) {
+              $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $listing['products_image'], $listing['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>';
             } else {
               $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $listing['products_image'], $listing['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>&nbsp;';
             }
