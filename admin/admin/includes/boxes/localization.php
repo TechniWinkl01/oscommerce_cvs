@@ -11,7 +11,8 @@
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'params' => 'nowrap',
-                               'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, '', 'NONSSL') . '">' . BOX_LOCALIZATION_CURRENCIES . '</a>'
+                               'text'  => '&nbsp;<a href="' . tep_href_link(FILENAME_CURRENCIES, '', 'NONSSL') . '">' . BOX_LOCALIZATION_CURRENCIES . '</a><br>' .
+                                          '&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, '', 'NONSSL') . '">' . BOX_LOCALIZATION_LANGUAGES . '</a>'
                               );
   new infoBox($info_box_contents);
 ?>

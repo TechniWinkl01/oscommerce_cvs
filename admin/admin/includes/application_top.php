@@ -25,6 +25,7 @@
   define('DIR_CLASSES', DIR_INCLUDES . 'classes/');
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
+  define('DIR_CATALOG_LANGUAGES', DIR_CATALOG . 'includes/languages/');
 
   define('STORE_NAME', 'The Exchange Project');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
@@ -61,6 +62,7 @@
   define('FILENAME_TAX_RATES', 'tax_rates.php');
   define('FILENAME_ZONES', 'zones.php');
   define('FILENAME_CURRENCIES', 'currencies.php');
+  define('FILENAME_LANGUAGES', 'languages.php');
 
 // define our database connection
   define('DB_SERVER', $HTTP_ENV_VARS['HOSTNAME']);
@@ -221,6 +223,7 @@
   $include_file = DIR_CLASSES . 'countries_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'currencies_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'customer_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_CLASSES . 'languages_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'manufacturer_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'product_expected_info.php'; include(DIR_INCLUDES . 'include_once.php');
   $include_file = DIR_CLASSES . 'product_info.php'; include(DIR_INCLUDES . 'include_once.php');
