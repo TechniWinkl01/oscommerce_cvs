@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_rates.php,v 1.27 2002/06/07 01:17:46 hpdl Exp $
+  $Id: tax_rates.php,v 1.28 2003/03/12 19:54:30 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,9 +19,10 @@
         $tax_class_id = tep_db_prepare_input($HTTP_POST_VARS['tax_class_id']);
         $tax_rate = tep_db_prepare_input($HTTP_POST_VARS['tax_rate']);
         $tax_description = tep_db_prepare_input($HTTP_POST_VARS['tax_description']);
+        $tax_priority = tep_db_prepare_input($HTTP_POST_VARS['tax_priority']);
         $date_added = tep_db_prepare_input($HTTP_POST_VARS['date_added']);
 
-        tep_db_query("insert into " . TABLE_TAX_RATES . " (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) values ('" . tep_db_input($tax_zone_id) . "', '" . tep_db_input($tax_class_id) . "', '" . tep_db_input($tax_rate) . "', '" . tep_db_input($tax_description) . "', now())");
+        tep_db_query("insert into " . TABLE_TAX_RATES . " (tax_zone_id, tax_class_id, tax_rate, tax_description, tax_priority, date_added) values ('" . tep_db_input($tax_zone_id) . "', '" . tep_db_input($tax_class_id) . "', '" . tep_db_input($tax_rate) . "', '" . tep_db_input($tax_description) . "', '" . tep_db_input($tax_priority) . "', now())");
         tep_redirect(tep_href_link(FILENAME_TAX_RATES));
         break;
       case 'save':
@@ -142,6 +143,7 @@
       $contents[] = array('text' => '<br>' . TEXT_INFO_ZONE_NAME . '<br>' . tep_geo_zones_pull_down('name="tax_zone_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE . '<br>' . tep_draw_input_field('tax_rate'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . tep_draw_input_field('tax_description'));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE_PRIORITY . '<br>' . tep_draw_input_field('tax_priority'));
       $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_TAX_RATES, 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     case 'edit':
