@@ -1,5 +1,6 @@
 <?
 // here you could insert the page_close() function for phplib..
+  tep_session_close();
 
   if (STORE_PAGE_PARSE_TIME == '1') {
     $parse_end_time = microtime();

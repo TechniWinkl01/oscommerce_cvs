@@ -23,6 +23,12 @@
 
   }
 
+  function tep_session_close() {
+
+    return session_close();
+
+  }
+
   function tep_session_destroy() {
 
     return session_destroy();
