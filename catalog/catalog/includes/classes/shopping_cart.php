@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.32 2003/02/11 00:04:53 hpdl Exp $
+  $Id: shopping_cart.php,v 1.33 2003/06/05 23:17:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -268,7 +268,7 @@
       $products_array = array();
       reset($this->contents);
       while (list($products_id, ) = each($this->contents)) {
-        $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_model, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id='" . tep_get_prid($products_id) . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
+        $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id='" . tep_get_prid($products_id) . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
         if ($products = tep_db_fetch_array($products_query)) {
           $prid = $products['products_id'];
           $products_price = $products['products_price'];
@@ -282,6 +282,7 @@
           $products_array[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
                                     'model' => $products['products_model'],
+                                    'image' => $products['products_image'],
                                     'price' => $products_price,
                                     'quantity' => $this->contents[$products_id]['qty'],
                                     'weight' => $products['products_weight'],
