@@ -179,12 +179,14 @@
   }
 
   function tep_categories_name_with_parent($categories_id) {
-    $categories_query = tep_db_query("select categories_name, parent_id from categories where categories_id = '" . $categories_id . "'");
+    global $languages_id;
+
+    $categories_query = tep_db_query("select cd.categories_name, c.parent_id from categories c, categories_description cd where c.categories_id = '" . $categories_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
     $categories = tep_db_fetch_array($categories_query);
-    
-    $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories['parent_id'] . "'");
+
+    $categories_parent_query = tep_db_query("select categories_name from categories_description where categories_id = '" . $categories['parent_id'] . "' and language_id = '" . $languages_id . "'");
     $categories_parent = tep_db_fetch_array($categories_parent_query);
-    
+
     $categories_name = $categories['categories_name'];
     if (tep_db_num_rows($categories_parent_query) > 0) $categories_name .= ' (' . $categories_parent['categories_name'] . ')';
 
@@ -213,11 +215,13 @@
   }
 
   function tep_categories_pull_down($parameters, $exclude = '') {
+    global $languages_id;
+
     $select_string = '<select ' . $parameters . '>';
-    $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
+    $categories_all_query = tep_db_query("select c.categories_id, cd.categories_name, c.parent_id from categories c, categories_description cd where c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by cd.categories_name");
     while ($categories_all = tep_db_fetch_array($categories_all_query)) {
       if (!tep_in_array($categories_all['categories_id'], (array)$exclude)) {
-        $categories_parent_query = tep_db_query("select categories_name from categories where categories_id = '" . $categories_all['parent_id'] . "'");
+        $categories_parent_query = tep_db_query("select categories_name from categories_description where categories_id = '" . $categories_all['parent_id'] . "' and language_id = '" . $languages_id . "'");
         $categories_parent = tep_db_fetch_array($categories_parent_query);
         $select_string .= '<option value="' . $categories_all['categories_id'] . '">' . $categories_all['categories_name'];
         if (tep_db_num_rows($categories_parent_query) > 0) $select_string .= ' (' . $categories_parent['categories_name'] . ')';
@@ -585,6 +589,20 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     return $pieces[0];
   }
 
+  function tep_get_languages() {
+    $languages_query = tep_db_query("select languages_id, name, code, image, directory from languages order by sort_order");
+    while ($languages = tep_db_fetch_array($languages_query)) {
+      $languages_array[] = array('id' => $languages['languages_id'],
+                                 'name' => $languages['name'],
+                                 'code' => $languages['code'],
+                                 'image' => $languages['image'],
+                                 'directory' => $languages['directory']
+                                );
+    }
+
+    return $languages_array;
+  }
+
   function tep_get_languages_directory($code) {
     global $languages_id;
 
@@ -596,5 +614,12 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     } else {
       return false;
     }
+  }
+
+  function tep_get_category_name($category_id, $language_id) {
+    $category_query = tep_db_query("select categories_name from categories_description where categories_id = '" . $category_id . "' and language_id = '" . $language_id . "'");
+    $category = tep_db_fetch_array($category_query);
+
+    return $category['categories_name'];
   }
 ?>
