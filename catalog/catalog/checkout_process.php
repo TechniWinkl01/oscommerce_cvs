@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.67 2001/09/01 15:50:37 hpdl Exp $
+  $Id: checkout_process.php,v 1.68 2001/09/04 06:28:10 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -128,6 +128,9 @@
   if (is_object($GLOBALS[$GLOBALS['payment']])) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
     $email_order .= $GLOBALS[$GLOBALS['payment']]->title . "\n\n";
+    if ($GLOBALS[$GLOBALS['payment']]->email_footer) { 
+      $email_order .= $GLOBALS[$GLOBALS['payment']]->email_footer . "\n\n";
+    }
   }
   tep_mail($customer_name, $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
