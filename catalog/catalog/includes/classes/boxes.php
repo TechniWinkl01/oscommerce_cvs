@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.26 2002/04/19 10:22:40 harley_vb Exp $
+  $Id: boxes.php,v 1.27 2002/05/27 13:15:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
           for ($x=0; $x<sizeof($contents[$i]); $x++) {
             if ($contents[$i][$x]['text']) {
               $tableBox_string .= '    <td';
-              if ($contents[$i][$x]['align'] != 'left') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
+              if ($contents[$i][$x]['align'] != '') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
               if ($contents[$i][$x]['params']) {
                 $tableBox_string .= ' ' . $contents[$i][$x]['params'];
               } elseif ($this->table_data_parameters != '') {
@@ -51,7 +51,7 @@
           }
         } else {
           $tableBox_string .= '    <td';
-          if ($contents[$i]['align'] != 'left') $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
+          if ($contents[$i]['align'] != '') $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
           if ($contents[$i]['params']) {
             $tableBox_string .= ' ' . $contents[$i]['params'];
           } elseif ($this->table_data_parameters != '') {
@@ -75,7 +75,7 @@
   class infoBox extends tableBox {
     function infoBox($contents) {
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'left', 'text' => $this->infoBoxContents($contents));
+      $info_box_contents[] = array('text' => $this->infoBoxContents($contents));
       $this->table_cellpadding = '1';
       $this->table_parameters = 'class="infoBox"';
       $this->tableBox($info_box_contents, true);
@@ -85,11 +85,11 @@
       $this->table_cellpadding = '3';
       $this->table_parameters = 'class="infoBoxContents"';
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
+      $info_box_contents[] = array(array('text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
       for ($i=0; $i<sizeof($contents); $i++) {
         $info_box_contents[] = array(array('align' => $contents[$i]['align'], 'form' => $contents[$i]['form'], 'params' => 'class="boxText"', 'text' => $contents[$i]['text']));
       }
-      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
+      $info_box_contents[] = array(array('text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
       return $this->tableBox($info_box_contents);
     }
   }
@@ -115,9 +115,9 @@
       }
 
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => $left_corner),
-                                   array('align' => 'left', 'params' => 'width="100%" height="14" class="infoBoxHeading"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
-                                   array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => $right_corner));
+      $info_box_contents[] = array(array('params' => 'height="14" class="infoBoxHeading"', 'text' => $left_corner),
+                                   array('params' => 'width="100%" height="14" class="infoBoxHeading"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
+                                   array('params' => 'height="14" class="infoBoxHeading"', 'text' => $right_corner));
       $this->tableBox($info_box_contents, true);
     }
   }
@@ -125,7 +125,7 @@
   class contentBox extends tableBox {
     function contentBox($contents) {
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'left', 'text' => $this->contentBoxContents($contents));
+      $info_box_contents[] = array('text' => $this->contentBoxContents($contents));
       $this->table_cellpadding = '1';
       $this->table_parameters = 'class="infoBox"';
       $this->tableBox($info_box_contents, true);
@@ -144,9 +144,9 @@
       $this->table_cellpadding = '0';
 
       $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_left.gif')),
-                                   array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading" width="100%"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
-                                   array('align' => 'left', 'params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif')));
+      $info_box_contents[] = array(array('params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_left.gif')),
+                                   array('params' => 'height="14" class="infoBoxHeading" width="100%"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
+                                   array('params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif')));
       $this->tableBox($info_box_contents, true);
     }
   }
