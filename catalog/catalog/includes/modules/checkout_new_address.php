@@ -1,14 +1,16 @@
 <?php
 /*
-  $Id: checkout_new_address.php,v 1.1 2002/11/01 03:48:24 hpdl Exp $
+  $Id: checkout_new_address.php,v 1.2 2003/02/12 23:55:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
+
+  if (!isset($process)) $process = false;
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
@@ -166,7 +168,7 @@
     if ($process == true) {
       $state = tep_get_zone_name($country, $zone_id, $state);
       if ($entry_state_error == true) {
-        if ($entry_state_has_zones) {
+        if ($entry_state_has_zones == true) {
           $zones_array = array();
           $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' order by zone_name");
           while ($zones_values = tep_db_fetch_array($zones_query)) {

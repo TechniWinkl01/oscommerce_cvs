@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: upcoming_products.php,v 1.22 2002/11/23 16:33:59 dgw_ Exp $
+  $Id: upcoming_products.php,v 1.23 2003/02/12 23:55:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -33,9 +33,10 @@
       } else {
         echo '              <tr class="upcomingProducts-odd">' . "\n";
       }
-      echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id'], 'NONSSL') . '">' . $expected['products_name'] . '</a>&nbsp;</td>' . "\n";
-      echo '                <td align="right" class="smallText">&nbsp;' . tep_date_short($expected['date_expected']) . '&nbsp;</td>' . "\n";
-      echo '              </tr>' . "\n";
+
+      echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id']) . '">' . $expected['products_name'] . '</a>&nbsp;</td>' . "\n" .
+           '                <td align="right" class="smallText">&nbsp;' . tep_date_short($expected['date_expected']) . '&nbsp;</td>' . "\n" .
+           '              </tr>' . "\n";
     }
 ?>
               <tr>
@@ -43,7 +44,7 @@
               </tr>
             </table></td>
           </tr>
-<?php
-    }
-?>
 <!-- upcoming_products_eof //-->
+<?php
+  }
+?>

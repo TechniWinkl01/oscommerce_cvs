@@ -1,14 +1,16 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.5 2002/09/26 13:40:57 project3000 Exp $
+  $Id: address_book_details.php,v 1.6 2003/02/12 23:55:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
+
+  if (!isset($process)) $process = false;
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr>
@@ -27,8 +29,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_GENDER; ?></td>
             <td class="main">&nbsp;
 <?php
-    if ($process) {
-      if ($gender_error) {
+    if ($process == true) {
+      if ($gender_error == true) {
         echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
       } else {
         echo ($gender == 'm') ? MALE : FEMALE;
@@ -46,8 +48,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_FIRST_NAME; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($process) {
-    if ($firstname_error) {
+  if ($process == true) {
+    if ($firstname_error == true) {
       echo tep_draw_input_field('firstname') . '&nbsp;' . ENTRY_FIRST_NAME_ERROR;
     } else {
       echo $firstname . tep_draw_hidden_field('firstname');
@@ -61,8 +63,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_LAST_NAME; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($process) {
-    if ($lastname_error) {
+  if ($process == true) {
+    if ($lastname_error == true) {
       echo tep_draw_input_field('lastname') . '&nbsp;' . ENTRY_LAST_NAME_ERROR;
     } else {
       echo $lastname . tep_draw_hidden_field('lastname');
@@ -90,8 +92,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_COMPANY; ?></td>
             <td class="main">&nbsp;
 <?php
-    if ($process) {
-      if ($company_error) {
+    if ($process == true) {
+      if ($company_error == true) {
         echo tep_draw_input_field('company') . '&nbsp;' . ENTRY_COMPANY_ERROR;
       } else {
         echo $company . tep_draw_hidden_field('company');
@@ -119,8 +121,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_STREET_ADDRESS; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($process) {
-    if ($street_address_error) {
+  if ($process == true) {
+    if ($street_address_error == true) {
       echo tep_draw_input_field('street_address') . '&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
     } else {
       echo $street_address . tep_draw_hidden_field('street_address');
@@ -137,7 +139,7 @@
             <td class="main">&nbsp;<?php echo ENTRY_SUBURB; ?></td>
             <td class="main">&nbsp;
 <?php
-    if ($process) {
+    if ($process == true) {
       echo $suburb . tep_draw_hidden_field('suburb');
     } else {
       echo tep_draw_input_field('suburb', $entry['entry_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
@@ -151,8 +153,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_POST_CODE; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($process) {
-    if ($postcode_error) {
+  if ($process == true) {
+    if ($postcode_error == true) {
       echo tep_draw_input_field('postcode') . '&nbsp;' . ENTRY_POST_CODE_ERROR;
     } else {
       echo $postcode . tep_draw_hidden_field('postcode');
@@ -166,8 +168,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_CITY; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($process) {
-    if ($city_error) {
+  if ($process == true) {
+    if ($city_error == true) {
       echo tep_draw_input_field('city') . '&nbsp;' . ENTRY_CITY_ERROR;
     } else {
       echo $city . tep_draw_hidden_field('city');
@@ -185,9 +187,9 @@
             <td class="main">&nbsp;
 <?php
     $state = tep_get_zone_name($country, $zone_id, $state);
-    if ($process) {
-      if ($entry_state_error) {
-        if ($entry_state_has_zones) {
+    if ($process == true) {
+      if ($entry_state_error == true) {
+        if ($entry_state_has_zones == true) {
           $zones_array = array();
           $zones_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' order by zone_name");
           while ($zones_values = tep_db_fetch_array($zones_query)) {
@@ -212,8 +214,8 @@
             <td class="main">&nbsp;<?php echo ENTRY_COUNTRY; ?></td>
             <td class="main">&nbsp;
 <?php
-  if ($process) {
-    if ($country_error) {
+  if ($process == true) {
+    if ($country_error == true) {
       echo tep_get_country_list('country') . '&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {
       echo tep_get_country_name($country) . tep_draw_hidden_field('country');
