@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.166 2001/12/23 20:13:11 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.167 2001/12/24 18:01:40 dgw_ Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -376,7 +376,7 @@ CREATE TABLE products_options_values_to_products_options (
 
 DROP TABLE IF EXISTS products_to_categories;
 CREATE TABLE products_to_categories (
-  products_id int(5) NOT NULL auto_increment,
+  products_id int(5) NOT NULL,
   categories_id int(5) NOT NULL,
   PRIMARY KEY (products_id,categories_id)
 );
