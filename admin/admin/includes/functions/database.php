@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.10 2001/12/21 18:03:09 hpdl Exp $
+  $Id: database.php,v 1.11 2001/12/26 22:33:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,7 +82,7 @@
   }
 
   function tep_db_fetch_array($db_query) {
-    return mysql_fetch_array($db_query);
+    return mysql_fetch_array($db_query, MYSQL_ASSOC);
   }
 
   function tep_db_result($result, $row, $field = '') {
