@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.100 2001/12/24 01:44:13 hpdl Exp $
+  $Id: application_top.php,v 1.101 2001/12/24 01:59:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -238,4 +238,11 @@
   } elseif ($HTTP_GET_VARS['selected_box']) {
     $selected_box = $HTTP_GET_VARS['selected_box'];
   }
+
+// the following cache blocks are used in the Tools->Cache section
+// ('language' in the filename is automatically replaced by available languages)
+  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box-language.cache', 'multiple' => true),
+                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
+                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
+                       );
 ?>

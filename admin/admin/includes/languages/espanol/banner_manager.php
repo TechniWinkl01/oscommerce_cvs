@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.11 2001/09/30 16:20:30 mbs Exp $
+  $Id: banner_manager.php,v 1.12 2001/12/24 01:59:45 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,7 +10,6 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Administrador de Banners');
 define('HEADING_TITLE', 'Administrador de Banners');
 
 define('TABLE_HEADING_BANNERS', 'Banners');

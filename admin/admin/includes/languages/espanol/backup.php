@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.13 2001/12/13 14:15:01 dgw_ Exp $
+  $Id: backup.php,v 1.14 2001/12/24 01:59:45 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,7 +10,6 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Copia de Seguridad de la Base de Datos');
 define('HEADING_TITLE', 'Copia de Seguridad de la Base de Datos');
 
 define('TABLE_HEADING_TITLE', 'Título');
