@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.90 2001/12/30 01:53:48 hpdl Exp $
+  $Id: categories.php,v 1.91 2001/12/30 02:05:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -194,7 +194,12 @@
         if ( (tep_not_null($HTTP_POST_VARS['products_id'])) && (tep_not_null($HTTP_POST_VARS['categories_id'])) && ($HTTP_POST_VARS['categories_id'] != $current_category_id) ) {
           $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
           $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
-          tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . tep_db_input($products_id) . "', '" . tep_db_input($categories_id) . "')");
+
+          $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . tep_db_input($categories_id) . "'");
+          $check = tep_db_fetch_array($check_query);
+          if ($check['total'] < '1') {
+            tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . tep_db_input($products_id) . "', '" . tep_db_input($categories_id) . "')");
+          }
         }
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $categories_id . '&pID=' . $products_id));
     }
