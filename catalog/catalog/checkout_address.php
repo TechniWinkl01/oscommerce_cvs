@@ -57,7 +57,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?
-   if (!SHIPPING_FREE) {
+   if (SHIPPING_MODULES != '') {
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">

@@ -16,22 +16,24 @@
              </tr>
 <?
   } elseif ($action == 'quote') {
-    if ($HTTP_POST_VARS['shipping_quote_flat'] == "1") {
+    if ($shipping_quote_flat == "1") {
       $shipping_flat_cost = SHIPPING_HANDLING + SHIPPING_FLAT_COST;
       $shipping_flat_method = SHIPPING_FLAT_WAY;
     }
   } elseif ($action == 'cheapest') {
-    if ($shipping_count == 0) {
-       $shipping_cheapest = 'flat';
-       $shipping_cheapest_cost = $shipping_flat_cost;
-    } else {
-      if ($shipping_flat_cost < $shipping_cheapest_cost) {
+    if ($shipping_quote_flat == "1") {
+      if ($shipping_count == 0) {
         $shipping_cheapest = 'flat';
         $shipping_cheapest_cost = $shipping_flat_cost;
+      } else {
+        if ($shipping_flat_cost < $shipping_cheapest_cost) {
+          $shipping_cheapest = 'flat';
+          $shipping_cheapest_cost = $shipping_flat_cost;
+        }
       }
     }
   } elseif ($action == 'display') {
-      if ($HTTP_POST_VARS['shipping_quote_flat'] == "1") {
+      if ($shipping_quote_flat == "1") {
         echo "              <tr>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp' . SHIPPING_FLAT_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_flat_method . "</font></td>\n";

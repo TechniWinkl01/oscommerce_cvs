@@ -21,17 +21,19 @@
       $shipping_item_method = SHIPPING_ITEM_WAY;
     }
   } elseif ($action == 'cheapest') {
-    if ($shipping_count == 0) {
-       $shipping_cheapest = 'item';
-       $shipping_cheapest_cost = $shipping_item_cost;
-    } else {
-      if ($shipping_item_cost < $shipping_cheapest_cost) {
+    if ($shipping_quote_item == "1") {
+      if ($shipping_count == 0) {
         $shipping_cheapest = 'item';
         $shipping_cheapest_cost = $shipping_item_cost;
+      } else {
+        if ($shipping_item_cost < $shipping_cheapest_cost) {
+          $shipping_cheapest = 'item';
+          $shipping_cheapest_cost = $shipping_item_cost;
+        }
       }
     }
   } elseif ($action == 'display') {
-      if ($HTTP_POST_VARS['shipping_quote_item'] == "1") {
+      if ($shipping_quote_item == "1") {
         echo "              <tr>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp' . SHIPPING_ITEM_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_item_method . "</font></td>\n";

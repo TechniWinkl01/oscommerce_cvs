@@ -26,7 +26,7 @@
              </tr>
 <?
   } elseif ($action == 'quote') {
-      if ($HTTP_POST_VARS['shipping_quote_ups'] == "1") {
+      if ($shipping_quote_ups == "1") {
         include('includes/ups.php');
         $rate = new Ups;
         $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
@@ -41,17 +41,19 @@
         $shipping_ups_method = "UPS " . $HTTP_POST_VARS['shipping_ups_prod'];
       }
   } elseif ($action == 'cheapest') {
-    if ($shipping_count == 0) {
-       $shipping_cheapest = 'ups';
-       $shipping_cheapest_cost = $shipping_ups_cost;
-    } else {
-      if ($shipping_ups_cost < $shipping_cheapest_cost) {
+    if ($shipping_quote_ups == "1") {
+      if ($shipping_count == 0) {
         $shipping_cheapest = 'ups';
         $shipping_cheapest_cost = $shipping_ups_cost;
+      } else {
+        if ($shipping_ups_cost < $shipping_cheapest_cost) {
+          $shipping_cheapest = 'ups';
+          $shipping_cheapest_cost = $shipping_ups_cost;
+        }
       }
     }
   } elseif ($action == 'display') {
-      if ($HTTP_POST_VARS['shipping_quote_ups'] == "1") {
+      if ($shipping_quote_ups == "1") {
         echo "              <tr>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp' . SHIPPING_UPS_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_ups_method . "</font></td>\n";

@@ -137,7 +137,7 @@
 <?
   }
   $shipping = $order_values['shipping_cost'];
-  if(!SHIPPING_FREE || $shipping > 0) {
+  if(SHIPPING_MODULES != '' || $shipping > 0) {
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $order_values['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?>&nbsp;</font></td>

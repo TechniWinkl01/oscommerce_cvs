@@ -122,6 +122,9 @@ function check_form() {
 ?>
             </table></td>
           </tr>
+<?
+   if (SHIPPING_MODULES != '') {
+?>
           <tr>          
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
@@ -153,6 +156,9 @@ function check_form() {
 ?>          
             </table></td>
           </tr>
+<?
+  }
+?>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>

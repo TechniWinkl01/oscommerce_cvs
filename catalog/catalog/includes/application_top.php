@@ -167,12 +167,6 @@
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
 
-// Shipping Options
-  define('SHIPPING_FREE', 1);
-  define('SHIPPING_MODEL', 0);
-  define('SHIPPING_NONE', 0); // Shipping Models
-  define('SHIPPING_UPS', 1);
-
 // Vars for UPS Shipping Model (Only really useful for USA Stores)
   define('UPS_SPEED', "GND");
   define('UPS_ORIGIN_ZIP', "34685");

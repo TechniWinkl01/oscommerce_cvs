@@ -126,7 +126,7 @@
 
   $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0.0;
-  if (!SHIPPING_FREE) {
+  if (SHIPPING_MODULES != '') {
       $action = 'confirm';
       include(DIR_MODULES . 'shipping.php');
   }
@@ -149,7 +149,7 @@
               </tr>
 <?
   }
-  if (!SHIPPING_FREE) {
+  if (SHIPPING_MODULES != '') {
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</font></td>
