@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.5 2002/03/08 21:34:58 hpdl Exp $
+  $Id: newsletters.php,v 1.6 2002/03/08 22:10:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -66,6 +66,26 @@
         tep_db_query("delete from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($newsletter_id) . "'");
 
         tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page']));
+        break;
+      case 'delete':
+      case 'new':
+      case 'send':
+      case 'confirm_send':
+        $newsletter_id = tep_db_prepare_input($HTTP_GET_VARS['nID']);
+
+        $check_query = tep_db_query("select locked from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+        $check = tep_db_fetch_array($check_query);
+
+        if ($check['locked'] < 1) {
+          switch ($HTTP_GET_VARS['action']) {
+            case 'delete': $error = ERROR_REMOVE_UNLOCKED_NEWSLETTER; break;
+            case 'new': $error = ERROR_EDIT_UNLOCKED_NEWSLETTER; break;
+            case 'send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
+            case 'confirm_send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
+          }
+          $messageStack->add_session($error, 'error');
+          tep_redirect(tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']));
+        }
         break;
     }
   }
@@ -314,7 +334,7 @@
       $contents = array('form' => tep_draw_form('newsletters', FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm'));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $nInfo->title . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $HTTP_GET_VARS['nID']) . '">' . tep_image_button('button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
       if (is_object($nInfo)) {

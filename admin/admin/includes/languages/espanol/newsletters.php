@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.4 2002/03/08 21:34:58 hpdl Exp $
+  $Id: newsletters.php,v 1.5 2002/03/08 22:10:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,4 +30,10 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this newslette
 
 define('TEXT_PLEASE_WAIT', 'Please wait .. sending emails ..<br><br>Please do not interrupt this process!');
 define('TEXT_FINISHED_SENDING_EMAILS', 'Finished sending e-mails!');
+
+define('ERROR_NEWSLETTER_TITLE', 'Error: Newsletter title required');
+define('ERROR_NEWSLETTER_MODULE', 'Error: Newsletter module required');
+define('ERROR_REMOVE_UNLOCKED_NEWSLETTER', 'Error: Please lock the newsletter before deleting it.');
+define('ERROR_EDIT_UNLOCKED_NEWSLETTER', 'Error: Please lock the newsletter before editing it.');
+define('ERROR_SEND_UNLOCKED_NEWSLETTER', 'Error: Please lock the newsletter before sending it.');
 ?>
