@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.23 2002/04/24 17:18:20 dgw_ Exp $
+  $Id: upgrade_3.php,v 1.24 2002/04/24 18:23:09 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -552,7 +552,7 @@ changeText('statusText', 'Updating Products');
 
   osc_db_query("update products set products_date_added = now() where products_date_added is null");
   osc_db_query("alter table products change products_date_added products_date_added datetime not null");
-  osc_db_query("alter table products add index products_date_added (products_date_added)");
+  osc_db_query("alter table products add index idx_products_date_added (products_date_added)");
 
   osc_db_query("alter table products drop index products_name");
 
