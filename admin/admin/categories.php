@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.149 2004/04/15 16:06:39 mevans Exp $
+  $Id: categories.php,v 1.150 2004/06/13 17:53:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -372,7 +372,7 @@
                        'products_last_modified' => '',
                        'products_date_available' => '',
                        'products_status' => '',
-                           'products_tax_class_id' => '',
+                       'products_tax_class_id' => '',
                        'manufacturers_id' => '');
 
     $pInfo = new objectInfo($parameters);
