@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.134 2001/09/11 05:16:16 tlambert Exp $
+  $Id: general.php,v 1.135 2001/09/11 12:38:51 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -956,34 +956,51 @@
   }
 
 ////
-// Send email (text/html)
+//! Send email (text/html) using MIME
+// This is the central mail function. The SMTP Server should be configured
+// correct in php.ini
+// Parameters:
+// $to_name           The name of the recipient, e.g. "Jan Wildeboer"
+// $to_email_address  The eMail address of the recipient, 
+//                    e.g. jan.wildeboer@gmx.de 
+// $email_subject     The subject of the eMail
+// $email_text        The text of the eMail, may contain HTML entities
+// $from_email_name   The name of the sender, e.g. Shop Administration
+// $from_email_adress The eMail address of the sender, 
+//                    e.g. info@mytepshop.com
+
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
     if (!SEND_EMAILS) return true;
 
-      // Build all required headers
-      // add From: header
-      $headers = "From: $from_email_name <$from_email_address>\r\n";
+    // Build all required headers
+    // add From: header
+    $headers = "From: $from_email_name <$from_email_address>\r\n";
+    $headers .= "To: $to_name <$to_email_address>\r\n";
 
+    // Global check:
     // should we use HTML or not?
     if (EMAIL_USE_HTML) {
+
       // specify MIME version 1.0
       $headers .= "MIME-Version: 1.0\r\n";
 
       // generate the unique boundary
       $boundary = uniqid("TheExchangeProject");
 
-      // tell e-mail client this e-mail contains//alternate versions
+      // tell e-mail client this e-mail contains alternate versions
       $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
 
       // message to people with clients who don't understand MIME
-      $body .= "This is a MIME encoded message. Please use a MIME compliant program.\r\n\r\n";
+      $body .= "This is a MIME encoded message. Please use a MIME compliant mail reading  program.\r\n\r\n";
 
-      //plain text version of message
+      // plain text version of message
+      // strip all tags from the text
       $body .= "--$boundary\r\nContent-Type: text/plain; charset=ISO-8859-1\r\nContent-Transfer-Encoding: 7bit\r\n\r\n";
       $body .= strip_tags($email_text);
+      $body .= "\r\n";
 
       //HTML version of message
-      $body .= "\r\n--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+      $body .= "--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
       $body .= chunk_split(base64_encode($email_text));
 
       //Close the MultiPart
@@ -993,9 +1010,8 @@
       // send the text-only version
       $body = strip_tags($email_text);
     }
-      //send message
-      $to_email_address = $to_name . " <" . $to_email_address . ">";
-      mail($to_email_address, $email_subject, $body, $headers);
+    //send message
+    mail($to_email_address, $email_subject, $body, $headers);
 
   }
 
