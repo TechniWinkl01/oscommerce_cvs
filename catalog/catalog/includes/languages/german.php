@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.62 2001/08/21 17:51:48 hpdl Exp $
+  $Id: german.php,v 1.63 2001/08/21 18:17:16 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,7 +53,7 @@ define('HEADER_TITLE_LOGIN', 'Anmelden');
 define('FOOTER_TEXT_REQUESTS_SINCE', 'Besucher seit');
 
 // text for gender
-define('MALE', 'm&auml;nnlich');
+define('MALE', 'männlich');
 define('FEMALE', 'weiblich');
 define('MALE_ADDRESS', 'Herr');
 define('FEMALE_ADDRESS', 'Frau');
@@ -225,7 +225,7 @@ define('TEXT_RESULT_PAGE', 'Seiten:');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'angezeigte Artikel: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'angezeigte Bestellungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'angezeigte Meinungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> new products)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'angezeigte neue Artikel: <b>%d</b> to <b>%d</b> (von <b>%d</b> insgesamt)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');
@@ -273,7 +273,7 @@ define('TEXT_REVIEW_RATING', 'Bewertung: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Datum hinzugefügt: %s');
 define('TEXT_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 
-define('TEXT_NO_NEW_PRODUCTS', 'There are currently no products.');
+define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neuen Artikel.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
