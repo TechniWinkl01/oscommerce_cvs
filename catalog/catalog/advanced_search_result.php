@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.58 2002/08/09 10:34:55 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.59 2002/08/09 11:04:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -215,7 +215,7 @@
           default:
             $where_str .= "(pd.products_name like '%" . AddSlashes($search_keywords[$i]) . "%' or p.products_model like '%" . AddSlashes($search_keywords[$i]) . "%' or m.manufacturers_name like '%" . AddSlashes($search_keywords[$i]) . "%'";
             if ($HTTP_GET_VARS['search_in_description']) $where_str .= " or pd.products_description like '%" . AddSlashes($search_keywords[$i]) . "%'";
-	    $where_str .= ')';
+              $where_str .= ')';
             break;
         }
       }
