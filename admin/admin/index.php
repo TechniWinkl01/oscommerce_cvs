@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.14 2002/09/29 14:14:27 project3000 Exp $
+  $Id: index.php,v 1.15 2002/10/29 22:31:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -82,6 +82,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 .text { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; line-height: 1.5; color: #000000; }
 .menuBoxHeading { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #ffffff; font-weight: bold; background-color: #7187bb; border-color: #7187bb; border-style: solid; border-width: 1px; }
 .infoBox { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; color: #080381; background-color: #f2f4ff; border-color: #7187bb; border-style: solid; border-width: 1px; }
+.smallText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 //--></style>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
@@ -239,7 +240,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         </table></td>
       </tr>
       <tr>
-        <td align="center" class="text">Copyright (c) 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a></td>
+        <td><?php require(DIR_WS_INCLUDES . 'footer.php'); ?></td>
       </tr>
     </table></td>
   </tr>
