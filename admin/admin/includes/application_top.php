@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.126 2002/01/28 03:52:49 hpdl Exp $
+  $Id: application_top.php,v 1.127 2002/01/28 03:57:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,7 +108,6 @@
   define('TABLE_ZONES', 'zones');
 
 // customization for the design layout
-  define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // Pad the tax value this amount of decimal places
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
