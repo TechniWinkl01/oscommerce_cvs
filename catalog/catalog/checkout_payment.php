@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.112 2003/06/17 16:59:12 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.113 2003/06/29 23:03:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -295,12 +295,12 @@ function rowOutEffect(object) {
                   </tr>
 <?php
     }
-    $radio_buttons++;
 ?>
                 </table></td>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
+    $radio_buttons++;
   }
 ?>
             </table></td>
