@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.94 2002/03/16 01:22:49 harley_vb Exp $
+  $Id: german.php,v 1.95 2002/04/17 20:52:29 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@ define('CHARSET', 'iso-8859-1');
 define('TITLE', 'osCommerce');
 
 // header text in includes/header.php
-define('HEADER_TITLE_CREATE_ACCOUNT', 'Neuer Zugang');
+define('HEADER_TITLE_CREATE_ACCOUNT', 'Neues Konto');
 define('HEADER_TITLE_MY_ACCOUNT', 'Mein Konto');
 define('HEADER_TITLE_CART_CONTENTS', 'Warenkorb');
 define('HEADER_TITLE_CHECKOUT', 'Kasse');
@@ -56,8 +56,8 @@ define('HEADER_TITLE_LOGOFF', 'Abmelden');
 define('HEADER_TITLE_LOGIN', 'Anmelden');
 
 // footer text in includes/footer.php
-define('FOOTER_TEXT_REQUESTS_SINCE', 'Besucher seit');
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2001 <a href="http://www.oscommerce.com">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a><br>Powered by <a href="http://www.oscommerce.com">osCommerce</a>');
+define('FOOTER_TEXT_REQUESTS_SINCE', 'Zugriffe seit');
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2001 - 2002 <a href="http://www.oscommerce.com">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a><br>Powered by <a href="http://www.oscommerce.com">osCommerce</a>');
 
 // text for gender
 define('MALE', 'Herr');
@@ -104,8 +104,8 @@ define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller<br>&nbsp;&nbsp;');
 
 // notifications box text in includes/boxes/products_notifications.php
 define('BOX_HEADING_NOTIFICATIONS', 'Benachrichtigungen');
-define('BOX_NOTIFICATIONS_NOTIFY', 'Benachrichtigen Sie mich &uuml;ber Updates zum Artikel <b>%s</b>');
-define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Benachrichtigen Sie mich nicht &uuml;ber Updates zum Artikel <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY', 'Benachrichtigen Sie mich &uuml;ber Aktuelles zum Artikel <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Benachrichtigen Sie mich nicht mehr zum Artikel <b>%s</b>');
 
 // manufacturer box text
 define('BOX_HEADING_MANUFACTURER_INFO', 'Hersteller Info');
@@ -119,9 +119,9 @@ define('BOX_HEADING_LANGUAGES', 'Sprachen');
 define('BOX_HEADING_CURRENCIES', 'W&auml;hrungen');
 
 // information box text in includes/boxes/information.php
-define('BOX_HEADING_INFORMATION', 'Information');
+define('BOX_HEADING_INFORMATION', 'Informationen');
 define('BOX_INFORMATION_PRIVACY', 'Privatsph&auml;re<br>&nbsp;und Datenschutz');
-define('BOX_INFORMATION_CONDITIONS', 'Unsere AGBs');
+define('BOX_INFORMATION_CONDITIONS', 'Unsere AGB\'s');
 define('BOX_INFORMATION_SHIPPING', 'Liefer- und<br>&nbsp;Versandkosten');
 define('BOX_INFORMATION_CONTACT', 'Kontakt');
 
@@ -143,26 +143,26 @@ define('TYPE_BELOW', 'bitte unten eingeben');
 // javascript messages
 define('JS_ERROR', 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n');
 
-define('JS_REVIEW_TEXT', '* Der Text muß mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_REVIEW_RATING', '* Geben Sie ihre Bewertung ein.\n');
+define('JS_REVIEW_TEXT', '* Der Text muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_REVIEW_RATING', '* Geben Sie Ihre Bewertung ein.\n');
 
 define('JS_GENDER', '* Anredeform festlegen.\n');
-define('JS_FIRST_NAME', '* Der \'Vornname\' muß mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_LAST_NAME', '* Der \'Nachname\' muß mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_FIRST_NAME', '* Der \'Vornname\' muss mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_LAST_NAME', '* Der \'Nachname\' muss mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_DOB', '* Die \'Geburtsdaten\' im Format xx.xx.xxxx (Tag.Monat.Jahr) eingeben.\n');
-define('JS_EMAIL_ADDRESS', '* Die \'E-Mail Adresse\' muß mindestens aus ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muß mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_POST_CODE', '* Die \'Postleitzahl\' muß mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_CITY', '* Die \'Stadt\' muß mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_EMAIL_ADDRESS', '* Die \'eMail-Adresse\' muss mindestens aus ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muss mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_POST_CODE', '* Die \'Postleitzahl\' muss mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_CITY', '* Die \'Stadt\' muss mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
-define('JS_STATE_SELECT', '-- wählen sie oberhalb aus --');
+define('JS_STATE_SELECT', '-wählen sie oberhalb-');
 define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.\n');
 define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.\n');
-define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie eine Zahlungsweise für Ihre Bestellung.\n');
+define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie eine Zahlungsweise für Ihre Bestellung.');
 
 define('CATEGORY_COMPANY', 'Firmendaten');
 define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');
@@ -171,10 +171,10 @@ define('CATEGORY_CONTACT', 'Ihre Kontaktinformation');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('CATEGORY_PASSWORD', 'Ihr Passwort');
 define('ENTRY_COMPANY', 'Firmenname:');
-define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
+define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#FF0000">notwendige Eingabe</font></small>');
 define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER', 'Anrede:');
-define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
+define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#FF0000">notwendige Eingabe</font></small>');
 define('ENTRY_GENDER_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_FIRST_NAME', 'Vorname:');
 define('ENTRY_FIRST_NAME_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben</font></small>');
@@ -185,10 +185,10 @@ define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Ei
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
 define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(z.B. 21.05.1970)</font></small>');
 define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(z.B. 21.05.1970) <font color="#AABBDD">notwendige Eingabe</font></small>');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
+define('ENTRY_EMAIL_ADDRESS', 'eMail-Adresse:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben</font></small>');
-define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<small><font color="#FF0000">Ung&uuml;ltige E-Mail Adresse!</font></small>');
-define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<small><font color="#FF0000">Diese E-Mail Adresse existiert schon!</font></small>');
+define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<small><font color="#FF0000">ung&uuml;ltige eMail-Adresse!</font></small>');
+define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', '&nbsp;<small><font color="#FF0000">Diese eMail-Adresse existiert schon!</font></small>');
 define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_STREET_ADDRESS', 'Strasse/Nr.:');
 define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben</font></small>');
@@ -197,7 +197,7 @@ define('ENTRY_SUBURB', 'Stadtteil:');
 define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Postleitzahl:');
-define('ENTRY_POST_CODE_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben</font></small>');
+define('ENTRY_POST_CODE_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zahlen</font></small>');
 define('ENTRY_POST_CODE_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_CITY', 'Ort:');
 define('ENTRY_CITY_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben</font></small>');
@@ -222,7 +222,7 @@ define('ENTRY_NEWSLETTER_ERROR', '');
 define('ENTRY_PASSWORD', 'Passwort:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Best&auml;tigung:');
 define('ENTRY_PASSWORD_CONFIRMATION_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
-define('ENTRY_PASSWORD_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben</font></small>');
+define('ENTRY_PASSWORD_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen</font></small>');
 define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
@@ -276,7 +276,7 @@ define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!
 define('TEXT_SORT_PRODUCTS', 'Sortierung der Artikel ist ');
 define('TEXT_DESCENDINGLY', 'absteigend');
 define('TEXT_ASCENDINGLY', 'aufsteigend');
-define('TEXT_BY', ' durch ');
+define('TEXT_BY', ' nach ');
 
 define('TEXT_REVIEW_BY', 'von %s');
 define('TEXT_REVIEW_WORD_COUNT', '%s Worte');
@@ -284,7 +284,7 @@ define('TEXT_REVIEW_RATING', 'Bewertung: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Datum hinzugef&uuml;gt: %s');
 define('TEXT_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 
-define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neue Produkte.');
+define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neuen Produkte.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
