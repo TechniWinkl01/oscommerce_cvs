@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.11 2002/06/03 13:19:42 hpdl Exp $
+  $Id: login.php,v 1.12 2002/06/17 23:10:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,11 +22,11 @@ if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
 
 define('HEADING_NEW_CUSTOMER', 'Neuer Kunde');
 define('TEXT_NEW_CUSTOMER', 'Ich bin ein neuer Kunde.');
-define('TEXT_NEW_CUSTOMER_INTRODUCTION', 'By creating an account at ' . STORE_NAME . ' you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.');
+define('TEXT_NEW_CUSTOMER_INTRODUCTION', 'Durch Ihre Anmeldung bei ' . STORE_NAME . ' sind Sie in der Lage schneller zu bestellen, kennen jederzeit den Status Ihrer Bestellungen und haben immer eine aktuelle &Uuml;bersicht &uuml;ber Ihre bisherigen Bestellungen.');
 
 define('HEADING_RETURNING_CUSTOMER', 'Bereits Kunde');
 define('TEXT_RETURNING_CUSTOMER', 'Ich bin bereits Kunde.');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
+define('ENTRY_EMAIL_ADDRESS', 'eMail Adresse:');
 define('ENTRY_PASSWORD', 'Passwort:');
 
 define('TEXT_PASSWORD_FORGOTTEN', 'Sie haben Ihr Passwort vergessen? Dann klicken Sie <u>hier</u>');
