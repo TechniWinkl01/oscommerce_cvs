@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.34 2004/02/15 12:53:18 mevans Exp $
+  $Id: secpay.php,v 1.35 2004/02/16 08:27:28 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,7 +133,7 @@
       }
 
       if ($_POST['valid'] == 'true') {
-        if (MODULE_PAYMENT_SECPAY_ENHANCED_CHECK == 'true')) {
+        if (MODULE_PAYMENT_SECPAY_ENHANCED_CHECK == 'true') {
           if ($remote_host = getenv('REMOTE_HOST')) {
             if ($remote_host != 'secpay.com') {
               $remote_host = gethostbyaddr($remote_host);
