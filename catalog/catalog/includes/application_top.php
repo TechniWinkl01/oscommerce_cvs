@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.231 2002/05/26 10:57:21 thomasamoulton Exp $
+  $Id: application_top.php,v 1.232 2002/05/27 13:08:05 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -277,7 +277,8 @@
       $parameters = array('action', 'cPath', 'products_id', 'pid');
     } else {
       $goto = basename($PHP_SELF);
-      $parameters = array('action', 'pid');
+      if ($HTTP_GET_VARS['action'] == 'buy_now') $parameters = array('action', 'pid', 'products_id');
+      else $parameters = array('action', 'pid');
     }
     switch ($HTTP_GET_VARS['action']) {
       // customer wants to update the product quantity in their shopping cart
