@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.11 2002/04/29 14:43:41 dgw_ Exp $
+  $Id: manufacturers.php,v 1.12 2002/08/19 01:58:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,4 +36,7 @@ define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fabricante?');
 define('TEXT_DELETE_IMAGE', 'Eliminar imagen del fabricante?');
 define('TEXT_DELETE_PRODUCTS', 'Quiere borrar tambien todos los productos de este fabricante? (incluyendo comentarios, ofertas y los productos proximamente disponibles)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Todavia hay productos que pertenecen a este fabricante!');
+
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions on: %s');
+define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
 ?>
