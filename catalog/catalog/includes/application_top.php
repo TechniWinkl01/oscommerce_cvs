@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.250 2002/11/01 04:34:03 hpdl Exp $
+  $Id: application_top.php,v 1.251 2002/11/03 23:38:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -140,7 +140,7 @@
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 'true');
   define('ACCOUNT_DOB', 'true');
-  define('ACCOUNT_COMPANY', 'false');
+  define('ACCOUNT_COMPANY', 'true');
   define('ACCOUNT_SUBURB', 'true');
   define('ACCOUNT_STATE', 'true');
 
