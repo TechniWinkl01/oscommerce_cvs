@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.3 2003/02/11 00:04:51 hpdl Exp $
+  $Id: language.php,v 1.4 2003/02/11 01:28:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,7 +73,7 @@
       $this->browser_languages = '';
       $this->language = '';
 
-      if ( (tep_not_null($lng)) && (isset($this->catalog_languages[$lng])) ) {
+      if ( (!empty($lng)) && (isset($this->catalog_languages[$lng])) ) {
         $this->language = $this->catalog_languages[$lng];
       } else {
         $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
