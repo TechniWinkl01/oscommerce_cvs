@@ -5,11 +5,8 @@ Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
-if ($HTTP_GET_VARS['action'] == 'success') {
-  define('SUB_BAR_TITLE', 'Consulta Enviada');
-} else {
-  define('SUB_BAR_TITLE', 'Tiene alguna pregunta que hacer?');
-}
+define('SUB_BAR_TITLE', 'Tiene alguna pregunta que hacer?');
+define('SUB_BAR_TITLE_SENT', 'Consulta Enviada');
 define('TOP_BAR_TITLE', 'Contactenos');
 define('HEADING_TITLE', 'Contactenos');
 define('NAVBAR_TITLE', 'Contactenos');

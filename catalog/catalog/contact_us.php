@@ -46,7 +46,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td nowrap><? echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td valign="top" class="main"><div align="center" class="pageHeading"><br><? echo SUB_BAR_TITLE; ?>&nbsp;</div><br><? echo TEXT_SUCCESS; ?></td>
+            <td valign="top" class="main"><div align="center" class="pageHeading"><br><? echo ($HTTP_GET_VARS['action'] == 'success') ? SUB_BAR_TITLE_SENT : SUB_BAR_TITLE; ?>&nbsp;</div><br><? echo TEXT_SUCCESS; ?></td>
           </tr>
         </table></td>
       </tr>
