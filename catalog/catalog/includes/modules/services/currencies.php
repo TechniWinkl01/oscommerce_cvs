@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.1 2004/04/13 08:02:18 hpdl Exp $
+  $Id: currencies.php,v 1.2 2004/11/28 18:39:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,11 +45,15 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Use Default Language Currency', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 'Automatically use the currency set with the language (eg, German->Euro).', '6', '0', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+      global $osC_Database;
+
+      $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Use Default Language Currency', 'USE_DEFAULT_LANGUAGE_CURRENCY', 'false', 'Automatically use the currency set with the language (eg, German->Euro).', '6', '0', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
+      global $osC_Database;
+
+      $osC_Database->simpleQuery("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
     function keys() {

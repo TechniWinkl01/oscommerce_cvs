@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.1 2004/04/13 08:02:18 hpdl Exp $
+  $Id: whos_online.php,v 1.2 2004/11/28 18:39:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -100,11 +100,15 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Detect Search Engine Spider Robots', 'SERVICE_WHOS_ONLINE_SPIDER_DETECTION', 'True', 'Detect search engine spider robots (GoogleBot, Yahoo, etc).', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      global $osC_Database;
+
+      $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Detect Search Engine Spider Robots', 'SERVICE_WHOS_ONLINE_SPIDER_DETECTION', 'True', 'Detect search engine spider robots (GoogleBot, Yahoo, etc).', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
+      global $osC_Database;
+
+      $osC_Database->simpleQuery("delete from " . TABLE_CONFIGURATION . " where configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
     function keys() {
