@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.36 2002/01/26 17:15:43 hpdl Exp $
+  $Id: currencies.php,v 1.37 2002/03/10 20:23:59 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,7 +50,7 @@
       case 'deleteconfirm':
         $currencies_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
 
-        $currency_query = tep_db_query("select c.currencies_id from currencies c, configuration cfg where cfg.configuration_key = 'DEFAULT_CURRENCY' and cfg.configuration_value = c.code");
+        $currency_query = tep_db_query("select c.currencies_id from " . TABLE_CURRENCIES . " c, configuration cfg where cfg.configuration_key = 'DEFAULT_CURRENCY' and cfg.configuration_value = c.code");
         $currency = tep_db_fetch_array($currency_query);
         if ($currency['currencies_id'] == $currencies_id) {
           tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
@@ -78,7 +78,7 @@
       case 'delete':
         $currencies_id = tep_db_prepare_input($HTTP_GET_VARS['cID']);
 
-        $currency_query = tep_db_query("select code from currencies where currencies_id = '" . tep_db_input($currencies_id) . "'");
+        $currency_query = tep_db_query("select code from " . TABLE_CURRENCIES . " where currencies_id = '" . tep_db_input($currencies_id) . "'");
         $currency = tep_db_fetch_array($currency_query);
 
         $remove_currency = true;
