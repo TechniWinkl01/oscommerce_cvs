@@ -5,7 +5,7 @@
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from customers where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
   } elseif (EMAILPRODUCT_GUEST == false) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_EMAILPRODUCT . '&emailproduct=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_EMAILPRODUCT . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'NONSSL'));
     tep_exit();
   }
 ?>
@@ -96,7 +96,7 @@
               </tr>
               <tr>
                 <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
-                <td><input type="text" name="friendemail" value="<?php echo $HTTP_POST_VARS['send_to']; ?>"></td>
+                <td><input type="text" name="friendemail" value="<?php echo $HTTP_GET_VARS['send_to']; ?>"></td>
               </tr>
               <tr>
                 <td colspan="2" class="main"><br><? echo TEXT_EMAILPRODUCT_MESSAGE; ?>&nbsp;<br><textarea cols="40" rows="8" name="yourmessage"></textarea></td>

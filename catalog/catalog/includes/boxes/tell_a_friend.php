@@ -8,8 +8,11 @@
                               );
   new infoBoxHeading($info_box_contents);
 
+  $hide = '<input type="hidden" name="products_id" value="' . $HTTP_GET_VARS['products_id'] . '">';
+  if (SID) $hide .= tep_hide_fields(array(tep_session_name()));
+
   $info_box_contents = array();
-  $info_box_contents[] = array('form' => '<form name="tell_a_friend" method="post" action="' . tep_href_link(FILENAME_EMAILPRODUCT, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '">',
+  $info_box_contents[] = array('form' => '<form name="tell_a_friend" method="get" action="' . tep_href_link(FILENAME_EMAILPRODUCT, '', 'NONSSL') . '">' . $hide,
                                'align' => 'left',
                                'text'  => '<div align="center"><input type="text" name="send_to" size="10">&nbsp;' . tep_image_submit('button_tell_a_friend.gif', BOX_HEADING_TELL_A_FRIEND) . '</div>' . BOX_TELL_A_FRIEND_TEXT
                               );
