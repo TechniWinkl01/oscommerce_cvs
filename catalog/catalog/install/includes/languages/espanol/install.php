@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.1 2004/02/16 06:59:36 hpdl Exp $
+  $Id: install.php,v 1.2 2004/07/22 20:38:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,10 +9,6 @@
 
   Released under the GNU General Public License
 */
-
-  define('PAGE_TITLE_WELCOME', 'Welcome to osCommerce!');
-  define('TEXT_WELCOME', '<p>osCommerce is an open source e-commerce solution under on going development by the open source community. Its feature packed out-of-the-box installation allows store owners to setup, run, and maintain their online stores with minimum effort and with no costs involved.</p><p>osCommerce combines open source solutions to provide a free and open development platform, which includes the <i>powerful</i> PHP web scripting language, the <i>stable</i> Apache web server, and the <i>fast</i> MySQL database server.</p><p>With no restrictions or special requirements, osCommerce can be installed on any PHP3 or PHP4 enabled web server, on any environment that PHP and MySQL supports, which includes Linux, Solaris, BSD, and Microsoft Windows environments.</p>');
-  define('TEXT_CHOOSE_INSTALLATION_TYPE', 'Please choose the installation method to continue.');
 
   define('PAGE_TITLE_INSTALLATION', 'New Installation');
   define('TEXT_CUSTOMIZE_INSTALLATION', 'Please customize the new installation with the following options:');
@@ -53,6 +49,10 @@
   define('CONFIG_DATABASE_PERSISTENT_CONNECTIONS_DESCRIPTION', '');
   define('CONFIG_DATABASE_PERSISTENT_CONNECTIONS_DESCRIPTION_LONG', 'Enable persistent database connections.<br><br>Note: Persistent connections should be disabled for shared servers.');
 
+  define('CONFIG_DATABASE_TABLE_TYPE', 'Database Table Type:');
+  define('CONFIG_DATABASE_TABLE_TYPE_DESCRIPTION', '');
+  define('CONFIG_DATABASE_TABLE_TYPE_DESCRIPTION_LONG', 'The database table type to use.<br><br>The "InnoDB" table type is recommended for transaction-safe queries, however it will only be used if the database server supports this table type.');
+
   define('CONFIG_SESSION_STORAGE', 'Session Storage:');
   define('CONFIG_SESSION_STORAGE_FILES', 'Files');
   define('CONFIG_SESSION_STORAGE_DATABASE', 'Database');
@@ -63,6 +63,7 @@
   define('CONFIG_IMPORT_SAMPLE_DATA_DESCRIPTION', '');
   define('CONFIG_IMPORT_SAMPLE_DATA_DESCRIPTION_LONG', 'Insert sample data into the database (recommended for first time installations).');
 
+  define('ERROR_UNSUCCESSFUL_DATABASE_TYPE', '<p>The selected database table type of %s is not supported by the database server. The database table type will be set back to the default value of MyISAM.</p>');
   define('ERROR_UNSUCCESSFUL_DATABASE_CONNECTION', '<p>A test connection made to the database was <b><u>NOT</u></b> successful.</p><p>The error message returned is:</p><p class="boxme">%s</p><p>Please click on the <i>Back</i> button below to review your database server settings.</p><p>If you require help with your database server settings, please consult your hosting company.</p>');
 
   define('TEXT_SUCCESSFUL_DATABASE_CONNECTION', '<p>A test connection made to the database was <b><u>successful</u></b>.</p><p>Please continue the installation process to perform the database import procedure.</p><p>It is important this procedure is not interrupted, otherwise the database may end up corrupt.</p>');
