@@ -149,7 +149,7 @@
         $n=1;
         $y=2;
         for ($i = 0; $i < count($zones_table); $i ++) {
-          if ( ($shipping_weight > $zones_table[$i]) && ($shipping_weight <= $zones_table[$n]) ) {
+          if ( ($shipping_weight >= $zones_table[$i]) && ($shipping_weight <= $zones_table[$n]) ) {
             $shipping = $zones_table[$y];
             $shipping_zones_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . " : " . $shipping_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
             break;
