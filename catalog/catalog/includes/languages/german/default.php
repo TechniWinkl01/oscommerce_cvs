@@ -10,13 +10,21 @@ define('TABLE_HEADING_NEW_PRODUCTS', 'Neue Produkte im %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Wann kommt was..');
 define('TABLE_HEADING_DATE_EXPECTED', 'Datum');
 
-if (@$HTTP_GET_VARS['category_id']) {
-  define('TOP_BAR_TITLE', 'Neue Produkte in dieser Kategorie');
-  define('HEADING_TITLE', 'Was Ist Neu?');
-  define('SUB_BAR_TITLE', 'Kategorien');
-} else {
+if ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Willkommen zu dem \'' . STORE_NAME . '\'!');
   define('HEADING_TITLE', 'Was Ist Neu?');
   define('SUB_BAR_TITLE', strftime(DATE_FORMAT_LONG, mktime(0,0,0,2,6,2000)));
+} elseif ($category_depth == 'nested') {
+  define('TOP_BAR_TITLE', 'Neue Produkte in dieser Kategorie');
+  define('HEADING_TITLE', 'Was Ist Neu?');
+  define('SUB_BAR_TITLE', 'Kategorien');
+} elseif ($category_depth == 'products') {
+  define('TOP_BAR_TITLE', 'Online Produkte');
+  define('HEADING_TITLE', 'Was haben wir den hier?');
+  define('TABLE_HEADING_MODEL', 'Modell');
+  define('TABLE_HEADING_PRODUCTS', 'Produkte');
+  define('TABLE_HEADING_PRICE', 'Preis');
+  define('TEXT_NO_PRODUCTS', 'Es gibt keine Produkte in diese Kategorie.');
+  define('TEXT_NUMBER_OF_PRODUCTS', 'Artikel: ');
 }
 ?>
