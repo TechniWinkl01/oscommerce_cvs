@@ -1,5 +1,4 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr>
 <?
   // create column list
   $define_list = array(
