@@ -47,7 +47,8 @@ TD.menuBoxHeading {
 
 TD.infoBoxHeading {
 	font-family : Tahoma, Verdana, Arial, sans-serif;
-	font-size : 12px;
+	font-size : 10px;
+    font-weight: bold;
 }
 
 A.infoBoxHeading:hover {
