@@ -34,8 +34,8 @@
 	  <input type="hidden" name="merchant" value="<? echo MODULE_PAYMENT_SECPAY_ID; ?>">
 	  <input type="hidden" name="trans_id" value="<? echo STORE_NAME; ?>">
 	  <input type="hidden" name="amount" value="<? echo $total_cost + $total_tax + $shipping_cost; ?>">
-	  <input type="hidden" name="callback" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?' . 'PHPSESSID=' . $SID . '&customer_id=' . $customer_id . '&sendto=' . $sendto . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . $shipping_method; ?>">
-	  <input type="hidden" name="cb_flds" value="customer_id:sendto:payment:shipping_cost:shipping_method:PHPSESSID">
+	  <input type="hidden" name="callback" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?' . tep_session_name() . '=' . $SID . '&customer_id=' . $customer_id . '&sendto=' . $sendto . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . $shipping_method; ?>">
+	  <input type="hidden" name="cb_flds" value="customer_id:sendto:payment:shipping_cost:shipping_method:<? echo tep_session_name(); ?>">
 	  <input type="hidden" name="session" value="<? echo $SID;?>">
 	  <input type="hidden" name="options" value="test_status=false,dups=false,cb_post=true">
 <?
@@ -48,7 +48,7 @@
       $remote_host = getenv ("REMOTE_HOST"); // get the ip number of the user
       if ($payment == $this->code) { 
         if ( ($remote_host != "secpay.com") OR ($HTTP_POST_VARS['valid'] != "true") ) {
-          Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'PHPSESSID=' . $HTTP_POST_VARS['session'] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL'));
+          Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_POST_VARS['session'] . '&error_message=' . urlencode(MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE), 'SSL'));
           tep_exit();
         }
         elseif ( ($remote_host = "secpay.com") && ($HTTP_POST_VARS['valid'] = "true") ) {
@@ -70,8 +70,8 @@
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Secpay', 'MODULE_PAYMENT_SECPAY_STATUS', '1', 'Do you want to accept Worldpay payments?', '6', '5', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Secpay ID', 'MODULE_PAYMENT_SECPAY_ID', 'test', 'Your Merchant ID from Secpay.', '6', '6', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Secpay', 'MODULE_PAYMENT_SECPAY_STATUS', '1', 'Do you want to accept SECPay payments?', '6', '5', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Secpay ID', 'MODULE_PAYMENT_SECPAY_ID', 'test', 'Your Merchant ID from SECPay.', '6', '6', now())");
     }
 
     function remove() {
