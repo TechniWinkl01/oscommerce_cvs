@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.8 2002/08/14 13:30:45 hpdl Exp $
+  $Id: install_4.php,v 1.9 2002/08/19 01:18:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,7 @@
 
 <form name="install" action="install.php?step=5" method="post">
 
-<p>The following configuration values will be written to:<br><br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG']; ?>includes/configure.php<br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN']; ?>/includes/configure.php</p>
+<p>The following configuration values will be written to:<br><br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG']; ?>includes/configure.php<br><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN']; ?>includes/configure.php</p>
 
 <p><b>1. Please enter your web server information:</b></p>
 
