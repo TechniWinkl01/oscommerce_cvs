@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.13 2001/11/19 16:52:47 hpdl Exp $
+  $Id: backup.php,v 1.14 2001/11/20 17:30:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -184,10 +184,11 @@
       $check = 0;
 
       if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $entry)) && (!$buInfo) && (!$HTTP_GET_VARS['action'])) {
-        $buInfo = new backupInfo(array('entry' => $entry));
+        $entry_array = array('entry' => $entry);
+        $buInfo = new backupInfo($entry_array);
       }
 
-      if ($entry == $buInfo->file) {
+      if ($entry == @$buInfo->file) {
         echo '              <tr class="selectedRow">' . "\n";
       } else {
         echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('info', 'action')) . 'info=' . $entry, 'NONSSL') . '\'">' . "\n";
@@ -197,7 +198,7 @@
                 <td align="center" class="smallText">&nbsp;<?php echo date(PHP_DATE_TIME_FORMAT, filemtime(DIR_FS_BACKUP . $entry)); ?>&nbsp;</td>
                 <td align="right" class="smallText">&nbsp;<?php echo number_format(filesize(DIR_FS_BACKUP . $entry)); ?> bytes&nbsp;</td>
 <?php
-      if ($entry == $buInfo->file) {
+      if ($entry == @$buInfo->file) {
 ?>
                 <td align="right" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
 <?php
