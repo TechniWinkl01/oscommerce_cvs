@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.155 2003/02/17 16:54:11 hpdl Exp $
+  $Id: application_top.php,v 1.156 2003/02/18 04:19:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,7 +34,7 @@
   require('includes/configure.php');
 
 // Define the project version
-  define('PROJECT_VERSION', 'Preview Release 2.2-MS1');
+  define('PROJECT_VERSION', 'osCommerce 2.2-MS2-CVS');
 
 // Used in the "Backup Manager" to compress backups
   define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
