@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.46 2001/09/13 20:53:53 dwatkins Exp $
+  $Id: account_edit.php,v 1.47 2001/09/20 15:06:41 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -114,7 +114,7 @@ function update_zone(theForm) {
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: address_book_process.php,v 1.49 2001/09/20 15:06:40 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
 /* addres_book_process.php
 
    Default action: add an entry to the address book of the customer
@@ -194,9 +206,9 @@
       }
       $country = $entry_values['entry_country_id'];
     }
-?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK_PROCESS; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<?
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK_PROCESS);
+
   $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_2 . '</a>';
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
     $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_MODIFY_ENTRY . '</a>';
@@ -206,20 +218,20 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
   if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
+    theForm.state.value = '<?php echo JS_STATE_SELECT; ?>';
   }
 }
 
 function resetZoneSelected(theForm) {
   if (theForm.zone_id.options.length > 1) {
-    theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
+    theForm.state.value = '<?php echo JS_STATE_SELECT; ?>';
   }
 }
 function update_zone(theForm) {
@@ -241,7 +253,7 @@ function update_zone(theForm) {
 
 function check_form() {
   var error = 0;
-  var error_message = "<? echo JS_ERROR; ?>";
+  var error_message = "<?php echo JS_ERROR; ?>";
 
   var firstname = document.add_entry.firstname.value;
   var lastname = document.add_entry.lastname.value;
@@ -254,57 +266,57 @@ function check_form() {
 ?>
   if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
   } else {
-    error_message = error_message + "<? echo JS_GENDER; ?>";
+    error_message = error_message + "<?php echo JS_GENDER; ?>";
     error = 1;
   }
 <?
  }
 ?>
-  if (firstname == "" || firstname.length < <? echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<? echo JS_FIRST_NAME; ?>";
+  if (firstname == "" || firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
+    error_message = error_message + "<?php echo JS_FIRST_NAME; ?>";
     error = 1;
   }
 
-  if (lastname == "" || lastname.length < <? echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
-    error_message = error_message + "<? echo JS_LAST_NAME; ?>";
+  if (lastname == "" || lastname.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
+    error_message = error_message + "<?php echo JS_LAST_NAME; ?>";
     error = 1;
   }
 
-  if (street_address == "" || street_address.length < <? echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
-    error_message = error_message + "<? echo JS_ADDRESS; ?>";
+  if (street_address == "" || street_address.length < <?php echo ENTRY_STREET_ADDRESS_MIN_LENGTH; ?>) {
+    error_message = error_message + "<?php echo JS_ADDRESS; ?>";
     error = 1;
   }
 
-  if (postcode == "" || postcode.length < <? echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<? echo JS_POST_CODE; ?>";
+  if (postcode == "" || postcode.length < <?php echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
+    error_message = error_message + "<?php echo JS_POST_CODE; ?>";
     error = 1;
   }
 
-  if (city == "" || city.length < <? echo ENTRY_CITY_MIN_LENGTH; ?>) {
-    error_message = error_message + "<? echo JS_CITY; ?>";
+  if (city == "" || city.length < <?php echo ENTRY_CITY_MIN_LENGTH; ?>) {
+    error_message = error_message + "<?php echo JS_CITY; ?>";
     error = 1;
   }
-<?
+<?php
   if (ACCOUNT_STATE) {
 ?>
   if (document.add_entry.zone_id.options.length <= 1) {
-    if (document.add_entry.state.value == "" || document.add_entry.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
-       error_message = error_message + "<? echo JS_STATE; ?>";
+    if (document.add_entry.state.value == "" || document.add_entry.state.length < <?php echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+       error_message = error_message + "<?php echo JS_STATE; ?>";
        error = 1;
     }
   } else {
     document.add_entry.state.value = '';
     if (document.add_entry.zone_id.selectedIndex == 0) {
-       error_message = error_message + "<? echo JS_ZONE; ?>";
+       error_message = error_message + "<?php echo JS_ZONE; ?>";
        error = 1;
     }
   }
-<?
+<?php
   }
 ?>
 
   if (document.add_entry.country.value == 0) {
-    error_message = error_message + "<? echo JS_COUNTRY; ?>";
+    error_message = error_message + "<?php echo JS_COUNTRY; ?>";
     error = 1;
   }
 
@@ -319,27 +331,27 @@ function check_form() {
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="add_entry" method="post" action="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="add_entry" method="post" action="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-<?
+<?php
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
     echo '            <td width="100%" class="topBarTitle">&nbsp;' . TOP_BAR_TITLE_MODIFY_ENTRY . '&nbsp;</td>' . "\n";
   } else {
@@ -352,7 +364,7 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-<?
+<?php
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
     echo '            <td class="pageHeading">&nbsp;' . HEADING_TITLE_MODIFY_ENTRY . '&nbsp;</td>' . "\n";
     echo '            <td class="pageHeading"><br>' . tep_address_label($customer_id, $HTTP_GET_VARS['entry_id'], 1, '&nbsp;', '<br>') . '&nbsp;</td>' . "\n";
@@ -366,19 +378,19 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" rowspan="<?php echo $rowspan; ?>" class="accountCategory"><?php echo CATEGORY_PERSONAL; ?></td>
           </tr>
-<?
+<?php
    if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_GENDER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$gender_error == '1') {
         echo '<input type="radio" name="gender" value="m">&nbsp;' . MALE . '&nbsp;<input type="radio" name="gender" value="f">&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
@@ -401,17 +413,16 @@ function check_form() {
       echo '>&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
     } ?></td>
           </tr>
-<?
+<?php
   }
    if (ACCOUNT_COMPANY) {
 ?>
-
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_COMPANY; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_COMPANY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$company_error == '1') {
         echo '<input type="text" name="company" maxlength="32" value="' . $HTTP_POST_VARS['company'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
@@ -422,15 +433,15 @@ function check_form() {
       echo '<input type="text" name="company" value="' . @$company . '" maxlength="32">&nbsp;' . ENTRY_COMPANY_TEXT;
     } ?></td>
       </tr>
-<?
+<?php
   }
 ?>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$firstname_error == '1') {
         echo '<input type="text" name="firstname" maxlength="32" value="' . $HTTP_POST_VARS['firstname'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
@@ -442,8 +453,8 @@ function check_form() {
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_LAST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$lastname_error == '1') {
         echo '<input type="text" name="lastname" maxlength="32" value="' . $HTTP_POST_VARS['lastname'] . '">&nbsp;' . ENTRY_LAST_NAME_ERROR;
@@ -460,11 +471,11 @@ function check_form() {
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
+            <td align="right" rowspan="<?php echo $rowspan; ?>" class="accountCategory"><?php echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$street_address_error == '1') {
         echo '<input type="text" name="street_address" maxlength="64" value="' . $HTTP_POST_VARS['street_address'] . '">&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
@@ -475,24 +486,24 @@ function check_form() {
       echo '<input type="text" name="street_address" value="' . @$street_address . '" maxlength="64">&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
     } ?></td>
           </tr>
-<?
+<?php
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_SUBURB; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       $HTTP_POST_VARS['suburb'] . '<input type="hidden" name="suburb" value="' . $HTTP_POST_VARS['suburb'] . '">';
     } else {
       echo '<input type="text" name="suburb" value="' . @$suburb . '" maxlength="32">&nbsp;' . ENTRY_SUBURB_TEXT;
     } ?></td>
           </tr>
-<?
+<?php
   }
 ?>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_POST_CODE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$postcode_error == '1') {
         echo '<input type="text" name="postcode" maxlength="8" value="' . $HTTP_POST_VARS['postcode'] . '">&nbsp;' . ENTRY_POST_CODE_ERROR;
@@ -504,8 +515,8 @@ function check_form() {
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_CITY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$city_error == '1') {
         echo '<input type="text" name="city" maxlength="32" value="' . $HTTP_POST_VARS['city'] . '">&nbsp;' . ENTRY_CITY_ERROR;
@@ -517,8 +528,8 @@ function check_form() {
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_COUNTRY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       if (@$country_error == '1') {
         tep_get_country_list("country", STORE_COUNTRY, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":"");
@@ -533,12 +544,12 @@ function check_form() {
       echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
     } ?></td>
           </tr>
-<?
+<?php
    if (ACCOUNT_STATE) {
 ?>
           <tr>
-            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
-            <td class="fieldValue">&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<?php echo ENTRY_STATE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?php
     if (@$process == 1) {
       echo tep_get_zone_name($country, $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
     } else {
@@ -548,55 +559,55 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" class="fieldKey">&nbsp;</td>
-            <td class="fieldValue">&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $state; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
+            <td class="fieldValue">&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<?php echo $state; ?>">&nbsp;<?php echo ENTRY_STATE_TEXT; ?></td>
           </tr>
-<?
+<?php
    }
 ?>
         </table></td>
       </tr>
       <tr>
-        <td><br><? echo tep_black_line(); ?></td>
+        <td><br><?php echo tep_black_line(); ?></td>
       </tr>
       <tr>
-<?
+<?php
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
 ?>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<? echo $HTTP_GET_VARS['entry_id']; ?>"><a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td class="main" align="right"><a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL'); ?>"><? echo tep_image_button('button_delete.gif', IMAGE_BUTTON_DELETE); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main" align="right"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=remove&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL'); ?>"><?php echo tep_image_button('button_delete.gif', IMAGE_BUTTON_DELETE); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
-<?
+<?php
     } elseif ((@$HTTP_POST_VARS['action'] == 'update') && (@$HTTP_POST_VARS['entry_id'])) {
 ?>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<? echo $HTTP_POST_VARS['entry_id']; ?>"><a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td class="main" align="right"><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+            <td class="main">&nbsp;&nbsp;<input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="<?php echo $HTTP_POST_VARS['entry_id']; ?>"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></td>
-<?
+<?php
     } else {
 ?>
         <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', (($HTTP_GET_VARS['connection'] == 'SSL') ? 'SSL' : 'NONSSL')); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
-            <td align="right" class="main"><br><input type="hidden" name="entry_id" value="<? echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="<? echo @$HTTP_GET_VARS['connection']; ?>"><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td class="main">&nbsp;&nbsp;<a href="<?php echo tep_href_link((($HTTP_GET_VARS['origin']) ? $HTTP_GET_VARS['origin'] : FILENAME_ADDRESS_BOOK), '', (($HTTP_GET_VARS['connection'] == 'SSL') ? 'SSL' : 'NONSSL')); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a></td>
+            <td align="right" class="main"><br><input type="hidden" name="entry_id" value="<?php echo $HTTP_GET_VARS['entry_id'] ?>"><input type="hidden" name="action" value="process"><input type="hidden" name="origin_connection" value="<?php echo @$HTTP_GET_VARS['connection']; ?>"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
-<?
+<?php
     }
 ?>
       </tr>
-    </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?></form></td>
+    </table><?php if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -606,12 +617,13 @@ function check_form() {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
 <?
   }
+
+  require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
