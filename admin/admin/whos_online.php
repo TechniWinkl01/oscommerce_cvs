@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.25 2002/05/20 11:42:00 dgw_ Exp $
+  $Id: whos_online.php,v 1.26 2002/08/09 15:16:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -97,15 +97,46 @@
   if ($info) {
     $heading[] = array('text' => '<b>' . TABLE_HEADING_SHOPPING_CART . '</b>');
 
-    $session_data = tep_db_query("select value from " . TABLE_SESSIONS . " WHERE sesskey = '" . $info . "'");
-    if (tep_db_num_rows($session_data)) {
+    if (STORE_SESSIONS == 'mysql') {
+      $session_data = tep_db_query("select value from " . TABLE_SESSIONS . " WHERE sesskey = '" . $info . "'");
       $session_data = tep_db_fetch_array($session_data);
       $session_data = trim($session_data['value']);
     } else {
       $session_data = @file(tep_session_save_path() . '/sess_' . $info);
-      $session_data = trim($session_data[0]);
+      $session_data = trim(implode('', $session_data));
     }
+
+    if (eregi('^3\.', phpversion())) {
+      $start = strpos($session_data, 'cart[==]o');
+    } else {
+      $start = strpos($session_data, 'cart|O');
+    }
+
+    $length = strlen($session_data);
+
+    for ($i=$start; $i<$length; $i++) {
+      if ($session_data[$i] == '{') {
+        if (isset($tag)) {
+          $tag++;
+        } else {
+          $tag = 1;
+        }
+      } elseif ($session_data[$i] == '}') {
+        $tag--;
+      } elseif ( (isset($tag)) && ($tag < 1) ) {
+        break;
+      }
+    }
+
+    $session_data = substr($session_data, $start, $i);
+
     session_decode($session_data);
+
+    if (eregi('^3\.', phpversion())) {
+      $broken_cart = $cart;
+      $cart = new shoppingCart;
+      $cart->unserialize($broken_cart);
+    }
 
     if (is_object($cart)) {
       $products = $cart->get_products();
