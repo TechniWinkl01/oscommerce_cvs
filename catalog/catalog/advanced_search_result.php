@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.34 2001/10/10 18:36:47 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.35 2001/10/11 09:26:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -255,7 +255,7 @@
     for ($col=0; $col<sizeof($column_list); $col++) {
       if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
         $HTTP_GET_VARS['sort'] = $col+1 . 'a';
-        $order_str .= " order by pd.products_name";
+        $order_str = ' order by pd.products_name';
       }
     }
   } else {
@@ -291,7 +291,7 @@
       for ($col=0; $col<sizeof($column_list); $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col . 'a';
-          $order_str .= " order by pd.products_name";
+          $order_str = ' order by pd.products_name';
         }
       }
     }
