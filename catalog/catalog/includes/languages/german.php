@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.123 2003/07/09 18:13:39 dgw_ Exp $
+  $Id: german.php,v 1.124 2003/07/11 09:03:49 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -105,8 +105,8 @@ define('BOX_HEADING_BESTSELLERS_IN', 'Bestseller<br>&nbsp;&nbsp;');
 
 // notifications box text in includes/boxes/products_notifications.php
 define('BOX_HEADING_NOTIFICATIONS', 'Benachrichtigungen');
-define('BOX_NOTIFICATIONS_NOTIFY', 'Benachrichtigen Sie mich &uuml;ber Aktuelles zum Artikel <b>%s</b>');
-define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Benachrichtigen Sie mich nicht mehr zum Artikel <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY', 'Benachrichtigen Sie mich &uuml;ber Aktuelles zu diesem Artikel <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Benachrichtigen Sie mich nicht mehr zu diesem Artikel <b>%s</b>');
 
 // manufacturer box text
 define('BOX_HEADING_MANUFACTURER_INFO', 'Hersteller Info');
@@ -137,11 +137,11 @@ define('CHECKOUT_BAR_CONFIRMATION', 'Best&auml;tigung');
 define('CHECKOUT_BAR_FINISHED', 'Fertig!');
 
 // pull down default text
-define('PULL_DOWN_DEFAULT', 'Bitte wählen');
+define('PULL_DOWN_DEFAULT', 'Bitte w&auml;hlen');
 define('TYPE_BELOW', 'bitte unten eingeben');
 
 // javascript messages
-define('JS_ERROR', 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n');
+define('JS_ERROR', 'Notwendige Angaben fehlen!\nBitte richtig ausf&uml;llen.\n\n');
 
 define('JS_REVIEW_TEXT', '* Der Text muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_REVIEW_RATING', '* Geben Sie Ihre Bewertung ein.\n');
