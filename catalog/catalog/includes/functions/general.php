@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.228 2003/06/09 21:56:23 hpdl Exp $
+  $Id: general.php,v 1.229 2003/06/17 17:33:16 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -923,7 +923,7 @@
 ////
 // Return a product ID from a product ID with attributes
   function tep_get_prid($uprid) {
-    $pieces = split('[{]', $uprid, 2);
+    $pieces = explode('{', $uprid);
 
     return $pieces[0];
   }
