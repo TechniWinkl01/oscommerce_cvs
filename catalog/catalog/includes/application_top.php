@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.201 2001/12/18 11:47:26 hpdl Exp $
+  $Id: application_top.php,v 1.202 2001/12/18 11:58:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -241,31 +241,6 @@
     }
   }
 
-// include the who's online functions
-  require(DIR_WS_FUNCTIONS . 'whos_online.php');
-  tep_update_whos_online();
-
-// Include the password crypto functions
-  require(DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT);
-
-// Include validation functions (right now only email address)
-  require(DIR_WS_FUNCTIONS . 'validations.php');
-
-// split-page-results
-  require(DIR_WS_CLASSES . 'split_page_results.php');
-
-// infobox
-  require(DIR_WS_CLASSES . 'boxes.php');
-
-// auto activate and expire banners
-  require(DIR_WS_FUNCTIONS . 'banner.php');
-  tep_activate_banners();
-  tep_expire_banners();
-
-// auto expire special products
-  require(DIR_WS_FUNCTIONS . 'specials.php');
-  tep_expire_specials();
-
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
     if (DISPLAY_CART == 'true') {
@@ -333,6 +308,31 @@
                               break;
     }
   }
+
+// include the who's online functions
+  require(DIR_WS_FUNCTIONS . 'whos_online.php');
+  tep_update_whos_online();
+
+// Include the password crypto functions
+  require(DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT);
+
+// Include validation functions (right now only email address)
+  require(DIR_WS_FUNCTIONS . 'validations.php');
+
+// split-page-results
+  require(DIR_WS_CLASSES . 'split_page_results.php');
+
+// infobox
+  require(DIR_WS_CLASSES . 'boxes.php');
+
+// auto activate and expire banners
+  require(DIR_WS_FUNCTIONS . 'banner.php');
+  tep_activate_banners();
+  tep_expire_banners();
+
+// auto expire special products
+  require(DIR_WS_FUNCTIONS . 'specials.php');
+  tep_expire_specials();
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
