@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.41 2002/01/07 22:58:20 project3000 Exp $
+  $Id: advanced_search.php,v 1.42 2002/01/07 23:17:08 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -154,7 +154,7 @@ function check_form() {
 <?php
   $selected[0] = ($HTTP_GET_VARS['categories_id']) ? $HTTP_GET_VARS['categories_id'] : '0';
   echo tep_display_cat_select('categories_id', $selected, 1, 0, TEXT_ALL_CATEGORIES) . ' ' .
-  tep_draw_checkbox_field('inc_subcat', '1', false). ' ' . ENTRY_INCLUDES_SUBCATEGORIES . '</td>';
+  tep_draw_selection_field('inc_subcat', 'checkbox', '1', false). ' ' . ENTRY_INCLUDES_SUBCATEGORIES . '</td>';
 ?>
           </tr>
           <tr>
@@ -177,7 +177,7 @@ function check_form() {
           </tr>
           <tr>
             <td class="fieldValue">&nbsp;</td>
-            <td colspan="3" class="fieldValue"><?php echo tep_draw_checkbox_field('search_in_description', '1', false) . ' ' . TEXT_SEARCH_IN_DESCRIPTION; ?></td>
+            <td colspan="3" class="fieldValue"><?php echo tep_draw_selection_field('search_in_description', 'checkbox', '1', false) . ' ' . TEXT_SEARCH_IN_DESCRIPTION; ?></td>
           </tr>
           <tr>
             <td align="left" class="fieldKey"><?php echo ENTRY_DATE_ADDED_FROM; ?></td>
