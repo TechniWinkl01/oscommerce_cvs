@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.56 2002/03/23 11:17:02 project3000 Exp $
+  $Id: account_edit_process.php,v 1.57 2002/04/02 22:44:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -250,6 +250,14 @@
     tep_db_query($update_query_customers);
     tep_db_query($update_query_address);
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . $customer_id . "'");
+
+    $customer_first_name = $HTTP_POST_VARS['firstname'];
+    $customer_country_id = $HTTP_POST_VARS['country'];
+    if ($HTTP_POST_VARS['zone_id'] > 0) {
+      $customer_zone_id = $HTTP_POST_VARS['zone_id'];
+    } else {
+      $customer_zone_id = '0';
+    }
 
     tep_redirect(tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   }
