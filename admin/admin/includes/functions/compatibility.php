@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.13 2004/08/25 13:11:09 hpdl Exp $
+  $Id: compatibility.php,v 1.14 2004/11/20 02:12:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,7 +19,24 @@
     if (isset($HTTP_ENV_VARS)) $_ENV =& $HTTP_ENV_VARS;
   }
 
-// Recursively handle magic_quotes_gpc turned off.
+// unset variables in the global scope if register_globals is enabled
+  if (ini_get('register_globals')) {
+    $superglobals = array($_SERVER, $_ENV, $_FILES, $_COOKIE, $_POST, $_GET);
+
+    if (isset($_SESSION)) {
+      array_unshift($superglobals, $_SESSION);
+    }
+
+    foreach ($superglobals as $superglobal) {
+      foreach ($superglobal as $name => $global) {
+        unset($GLOBALS[$name]);
+      }
+    }
+
+    ini_set('register_globals', false);
+  }
+
+// remove slashes from variables if magic_quotes is enabled
   function osc_remove_magic_quotes(&$array) {
     if (!is_array($array) || (sizeof($array) < 1)) {
       return false;
@@ -34,7 +51,6 @@
     }
   }
 
-// handle magic_quotes_gpc turned off.
   if (get_magic_quotes_gpc() > 0) {
     if (isset($_GET)) {
       osc_remove_magic_quotes($_GET);
