@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upload.php,v 1.1 2003/03/22 02:44:57 hpdl Exp $
+  $Id: upload.php,v 1.2 2003/06/20 00:18:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,7 +11,7 @@
 */
 
   class upload {
-    var $file, $filename, $destination, $permissions, $extensions, $tmp_filename;
+    var $file, $filename, $destination, $permissions, $extensions, $tmp_filename, $message_location;
 
     function upload($file = '', $destination = '', $permissions = '777', $extensions = '') {
       $this->set_file($file);
@@ -19,7 +19,11 @@
       $this->set_permissions($permissions);
       $this->set_extensions($extensions);
 
+      $this->set_output_messages('direct');
+
       if (tep_not_null($this->file) && tep_not_null($this->destination)) {
+        $this->set_output_messages('session');
+
         if ( ($this->parse() == true) && ($this->save() == true) ) {
           return true;
         } else {
@@ -47,16 +51,20 @@
                       'size' => $HTTP_POST_FILES[$this->file]['size'],
                       'tmp_name' => $HTTP_POST_FILES[$this->file]['tmp_name']);
       } else {
-        $file = array('name' => $GLOBALS[$this->file . '_name'],
-                      'type' => $GLOBALS[$this->file . '_type'],
-                      'size' => $GLOBALS[$this->file . '_size'],
-                      'tmp_name' => $GLOBALS[$this->file]);
+        $file = array('name' => (isset($GLOBALS[$this->file . '_name']) ? $GLOBALS[$this->file . '_name'] : ''),
+                      'type' => (isset($GLOBALS[$this->file . '_type']) ? $GLOBALS[$this->file . '_type'] : ''),
+                      'size' => (isset($GLOBALS[$this->file . '_size']) ? $GLOBALS[$this->file . '_size'] : ''),
+                      'tmp_name' => (isset($GLOBALS[$this->file]) ? $GLOBALS[$this->file] : ''));
       }
 
       if ( tep_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name']) ) {
         if (sizeof($this->extensions) > 0) {
           if (!in_array(strtolower(substr($file['name'], strrpos($file['name'], '.')+1)), $this->extensions)) {
-            $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+            if ($this->message_location == 'direct') {
+              $messageStack->add(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+            } else {
+              $messageStack->add_session(ERROR_FILETYPE_NOT_ALLOWED, 'error');
+            }
 
             return false;
           }
@@ -68,7 +76,11 @@
 
         return $this->check_destination();
       } else {
-        $messageStack->add_session(WARNING_NO_FILE_UPLOADED, 'warning');
+        if ($this->message_location == 'direct') {
+          $messageStack->add(WARNING_NO_FILE_UPLOADED, 'warning');
+        } else {
+          $messageStack->add_session(WARNING_NO_FILE_UPLOADED, 'warning');
+        }
 
         return false;
       }
@@ -82,11 +94,19 @@
       if (move_uploaded_file($this->file['tmp_name'], $this->destination . $this->filename)) {
         chmod($this->destination . $this->filename, $this->permissions);
 
-        $messageStack->add_session(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
+        if ($this->message_location == 'direct') {
+          $messageStack->add(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
+        } else {
+          $messageStack->add_session(SUCCESS_FILE_SAVED_SUCCESSFULLY, 'success');
+        }
 
         return true;
       } else {
-        $messageStack->add_session(ERROR_FILE_NOT_SAVED, 'error');
+        if ($this->message_location == 'direct') {
+          $messageStack->add(ERROR_FILE_NOT_SAVED, 'error');
+        } else {
+          $messageStack->add_session(ERROR_FILE_NOT_SAVED, 'error');
+        }
 
         return false;
       }
@@ -129,14 +149,34 @@
 
       if (!is_writeable($this->destination)) {
         if (is_dir($this->destination)) {
-          $messageStack->add_session(sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
+          if ($this->message_location == 'direct') {
+            $messageStack->add(sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
+          } else {
+            $messageStack->add_session(sprintf(ERROR_DESTINATION_NOT_WRITEABLE, $this->destination), 'error');
+          }
         } else {
-          $messageStack->add_session(sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
+          if ($this->message_location == 'direct') {
+            $messageStack->add(sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
+          } else {
+            $messageStack->add_session(sprintf(ERROR_DESTINATION_DOES_NOT_EXIST, $this->destination), 'error');
+          }
         }
 
         return false;
       } else {
         return true;
+      }
+    }
+
+    function set_output_messages($location) {
+      switch ($location) {
+        case 'session':
+          $this->message_location = 'session';
+          break;
+        case 'direct':
+        default:
+          $this->message_location = 'direct';
+          break;
       }
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.26 2002/08/06 14:48:54 hpdl Exp $
+  $Id: html_output.php,v 1.27 2003/06/20 00:18:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -163,18 +163,19 @@
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
-    $field = '<input type="' . $type . '" name="' . $name . '"';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
-      $field .= ' value="' . htmlspecialchars(trim($GLOBALS[$name])) . '"';
-    } elseif ($value != '') {
-      $field .= ' value="' . htmlspecialchars(trim($value)) . '"';
+    $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+
+    if (isset($GLOBALS[$name]) && ($reinsert_value == true) && is_string($GLOBALS[$name])) {
+      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
+    } elseif (tep_not_null($value)) {
+      $field .= ' value="' . tep_output_string($value) . '"';
     }
-    if ($parameters != '') {
-      $field .= ' ' . $parameters;
-    }
+
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+
     $field .= '>';
 
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
+    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
   }
@@ -198,13 +199,14 @@
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
   function tep_draw_selection_field($name, $type, $value = '', $checked = false, $compare = '') {
-    $selection = '<input type="' . $type . '" name="' . $name . '"';
-    if ($value != '') {
-      $selection .= ' value="' . $value . '"';
-    }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
+    $selection = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+
+    if (tep_not_null($value)) $selection .= ' value="' . tep_output_string($value) . '"';
+
+    if ( ($checked == true) || (isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ($GLOBALS[$name] == 'on')) || (isset($value) && isset($GLOBALS[$name]) && (stripslashes($GLOBALS[$name]) == $value)) || (isset($value) && $value == $compare) ) {
       $selection .= ' CHECKED';
     }
+
     $selection .= '>';
 
     return $selection;
@@ -226,13 +228,17 @@
 // Output a form textarea field
   function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true) {
     $field = '<textarea name="' . $name . '" wrap="' . $wrap . '" cols="' . $width . '" rows="' . $height . '"';
-    if ($params) $field .= ' ' . $params;
+
+    if (tep_not_null($params)) $field .= ' ' . $params;
+
     $field .= '>';
-    if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
+
+    if (isset($GLOBALS[$name]) && ($reinsert_value == true)) {
       $field .= $GLOBALS[$name];
-    } elseif ($text != '') {
+    } elseif (tep_not_null($text)) {
       $field .= $text;
     }
+
     $field .= '</textarea>';
 
     return $field;
@@ -240,14 +246,18 @@
 
 ////
 // Output a form hidden field
-  function tep_draw_hidden_field($name, $value = '') {
-    $field = '<input type="hidden" name="' . $name . '" value="';
-    if ($value != '') {
-      $field .= trim($value);
-    } else {
-      $field .= trim($GLOBALS[$name]);
+  function tep_draw_hidden_field($name, $value = '', $parameters = '') {
+    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
+
+    if (tep_not_null($value)) {
+      $field .= ' value="' . tep_output_string($value) . '"';
+    } elseif (isset($GLOBALS[$name]) && is_string($GLOBALS[$name])) {
+      $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
     }
-    $field .= '">';
+
+    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
+
+    $field .= '>';
 
     return $field;
   }
@@ -256,15 +266,21 @@
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = false) {
     $field = '<select name="' . $name . '"';
-    if ($params) $field .= ' ' . $params;
+
+    if (tep_not_null($params)) $field .= ' ' . $params;
+
     $field .= '>';
+
     for ($i=0; $i<sizeof($values); $i++) {
       $field .= '<option value="' . $values[$i]['id'] . '"';
-      if ( ((strlen($values[$i]['id']) > 0) && ($GLOBALS[$name] == $values[$i]['id'])) || ($default == $values[$i]['id']) ) {
+
+      if ( ((strlen($values[$i]['id']) > 0) && (isset($GLOBALS[$name]) && ($GLOBALS[$name] == $values[$i]['id']))) || ($default == $values[$i]['id']) ) {
         $field .= ' SELECTED';
       }
+
       $field .= '>' . $values[$i]['text'] . '</option>';
     }
+
     $field .= '</select>';
 
     if ($required) $field .= TEXT_FIELD_REQUIRED;

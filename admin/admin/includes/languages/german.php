@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.99 2003/05/28 14:07:35 hpdl Exp $
+  $Id: german.php,v 1.100 2003/06/20 00:18:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -292,4 +292,5 @@ define('ERROR_FILE_NOT_SAVED', 'Error: File upload not saved.');
 define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: File upload type not allowed.');
 define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Success: File upload saved successfully.');
 define('WARNING_NO_FILE_UPLOADED', 'Warning: No file uploaded.');
+define('WARNING_FILE_UPLOADS_DISABLED', 'Warning: File uploads are disabled in the php.ini configuration file.');
 ?>

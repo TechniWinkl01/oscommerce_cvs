@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.7 2002/05/16 15:32:22 hpdl Exp $
+  $Id: shopping_cart.php,v 1.8 2003/06/20 00:18:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -216,7 +216,7 @@
         }
 
 // attributes price
-        if ($this->contents[$products_id]['attributes']) {
+        if (isset($this->contents[$products_id]['attributes'])) {
           reset($this->contents[$products_id]['attributes']);
           while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
             $attribute_price_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . $prid . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
@@ -232,7 +232,9 @@
     }
 
     function attributes_price($products_id) {
-      if ($this->contents[$products_id]['attributes']) {
+      $attributes_price = 0;
+
+      if (isset($this->contents[$products_id]['attributes'])) {
         reset($this->contents[$products_id]['attributes']);
         while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
           $attribute_price_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . $products_id . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
@@ -274,7 +276,7 @@
                                     'weight' => $products['products_weight'],
                                     'final_price' => ($products_price + $this->attributes_price($products_id)),
                                     'tax_class_id' => $products['products_tax_class_id'],
-                                    'attributes' => $this->contents[$products_id]['attributes']);
+                                    'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''));
         }
       }
       return $products_array;

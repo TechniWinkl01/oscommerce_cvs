@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_graphs.php,v 1.6 2002/11/25 10:56:23 dgw_ Exp $
+  $Id: html_graphs.php,v 1.7 2003/06/20 00:18:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -365,6 +365,10 @@
 ////
 // draws a double vertical bar graph for the banner views vs clicks statistics
   function tep_banner_graph_infoBox($banner_id, $days) {
+    $names = array();
+    $values = array();
+    $dvalues = array();
+
     $banner_stats_query = tep_db_query("select dayofmonth(banners_history_date) as name, banners_shown as value, banners_clicked as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' and to_days(now()) - to_days(banners_history_date) < " . $days . " order by banners_history_date");
     while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
       $names[] = $banner_stats['name'];
@@ -510,8 +514,8 @@
   function tep_banner_graph_daily($banner_id) {
     global $banner, $HTTP_GET_VARS;
 
-    $year = (($HTTP_GET_VARS['year']) ? $HTTP_GET_VARS['year'] : date('Y'));
-    $month = (($HTTP_GET_VARS['month']) ? $HTTP_GET_VARS['month'] : date('n'));
+    $year = (isset($HTTP_GET_VARS['year']) ? $HTTP_GET_VARS['year'] : date('Y'));
+    $month = (isset($HTTP_GET_VARS['month']) ? $HTTP_GET_VARS['month'] : date('n'));
 
     $days = (date('t', mktime(0,0,0,$month))+1);
     $stats = array();

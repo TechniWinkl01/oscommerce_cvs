@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.156 2003/05/29 12:15:06 hpdl Exp $
+  $Id: general.php,v 1.157 2003/06/20 00:18:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,34 @@
     }
 
     exit;
+  }
+
+////
+// Parse the data used in the html tags to ensure the tags will not break
+  function tep_parse_input_field_data($data, $parse) {
+    return strtr(trim($data), $parse);
+  }
+
+  function tep_output_string($string, $translate = false, $protected = false) {
+    if ($protected == true) {
+      return htmlspecialchars($string);
+    } else {
+      if ($translate == false) {
+        return tep_parse_input_field_data($string, array('"' => '&quot;'));
+      } else {
+        return tep_parse_input_field_data($string, $translate);
+      }
+    }
+  }
+
+  function tep_output_string_protected($string) {
+    return tep_output_string($string, false, true);
+  }
+
+  function tep_sanitize_string($string) {
+    $string = ereg_replace(' +', ' ', $string);
+
+    return preg_replace("/[<>]/", '_', $string);
   }
 
   function tep_customers_name($customers_id) {
@@ -265,7 +293,7 @@
       return $default_zone;
     }
   }
-    
+
   function tep_not_null($value) {
     if (is_array($value)) {
       if (sizeof($value) > 0) {
@@ -274,7 +302,7 @@
         return false;
       }
     } else {
-      if (($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+      if (is_string($value) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
         return true;
       } else {
         return false;
@@ -328,22 +356,37 @@
   }
 
   function tep_address_format($address_format_id, $address, $html, $boln, $eoln) {
-    $address_format_query = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $address_format_id . "'");
+    $address_format_query = tep_db_query("select address_format as format from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . (int)$address_format_id . "'");
     $address_format = tep_db_fetch_array($address_format_query);
 
-    $company = addslashes($address['company']);
-    $firstname = addslashes($address['firstname']);
-    $lastname = addslashes($address['lastname']);
-    $street = addslashes($address['street_address']);
-    $suburb = addslashes($address['suburb']);
-    $city = addslashes($address['city']);
-    $state = addslashes($address['state']);
-    $country_id = $address['country_id'];
-    $zone_id = $address['zone_id'];
-    $postcode = addslashes($address['postcode']);
+    $company = tep_output_string_protected($address['company']);
+    if (isset($address['firstname']) && tep_not_null($address['firstname'])) {
+      $firstname = tep_output_string_protected($address['firstname']);
+      $lastname = tep_output_string_protected($address['lastname']);
+    } elseif (isset($address['name']) && tep_not_null($address['name'])) {
+      $firstname = tep_output_string_protected($address['name']);
+      $lastname = '';
+    } else {
+      $firstname = '';
+      $lastname = '';
+    }
+    $street = tep_output_string_protected($address['street_address']);
+    $suburb = tep_output_string_protected($address['suburb']);
+    $city = tep_output_string_protected($address['city']);
+    $state = tep_output_string_protected($address['state']);
+    if (isset($address['country_id']) && tep_not_null($address['country_id'])) {
+      $country = tep_get_country_name($address['country_id']);
+
+      if (isset($address['zone_id']) && tep_not_null($address['zone_id'])) {
+        $state = tep_get_zone_code($address['country_id'], $address['zone_id'], $state);
+      }
+    } elseif (isset($address['country']) && tep_not_null($address['country'])) {
+      $country = tep_output_string_protected($address['country']);
+    } else {
+      $country = '';
+    }
+    $postcode = tep_output_string_protected($address['postcode']);
     $zip = $postcode;
-    $country = tep_get_country_name($country_id);
-    $state = tep_get_zone_code($country_id, $zone_id, $state);
 
     if ($html) {
 // HTML Mode
@@ -368,13 +411,11 @@
     $statecomma = '';
     $streets = $street;
     if ($suburb != '') $streets = $street . $cr . $suburb;
-    if ($firstname == '') $firstname = addslashes($address['name']);
-    if ($country == '') $country = addslashes($address['country']);
+    if ($country == '') $country = tep_output_string_protected($address['country']);
     if ($state != '') $statecomma = $state . ', ';
 
     $fmt = $address_format['format'];
     eval("\$address = \"$fmt\";");
-    $address = stripslashes($address);
 
     if ( (ACCOUNT_COMPANY == 'true') && (tep_not_null($company)) ) {
       $address = $company . $cr . $address;
@@ -715,10 +756,15 @@
 ////
 // Alias function for Store configuration values in the Administration Tool
   function tep_cfg_select_option($select_array, $key_value, $key = '') {
-    for ($i = 0, $n = sizeof($select_array); $i < $n; $i++) {
-      $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+    $string = '';
+
+    for ($i=0, $n=sizeof($select_array); $i<$n; $i++) {
+      $name = ((tep_not_null($key)) ? 'configuration[' . $key . ']' : 'configuration_value');
+
       $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
+
       if ($key_value == $select_array[$i]) $string .= ' CHECKED';
+
       $string .= '> ' . $select_array[$i];
     }
 
@@ -829,8 +875,8 @@
   function tep_output_generated_category_path($id, $from = 'category') {
     $calculated_category_path_string = '';
     $calculated_category_path = tep_generate_category_path($id, $from);
-    for ($i = 0, $n = sizeof($calculated_category_path); $i < $n; $i++) {
-      for ($j = 0, $k = sizeof($calculated_category_path[$i]); $j < $k; $j++) {
+    for ($i=0, $n=sizeof($calculated_category_path); $i<$n; $i++) {
+      for ($j=0, $k=sizeof($calculated_category_path[$i]); $j<$k; $j++) {
         $calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
       }
       $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
@@ -1195,6 +1241,22 @@
     }
   }
 
+////
+// Returns the tax rate for a tax class
+// TABLES: tax_rates
+  function tep_get_tax_rate_value($class_id) {
+    $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " where tax_class_id = '" . $class_id . "' group by tax_priority");
+    if (tep_db_num_rows($tax_query)) {
+      $tax_multiplier = 0;
+      while ($tax = tep_db_fetch_array($tax_query)) {
+        $tax_multiplier += $tax['tax_rate'];
+      }
+      return $tax_multiplier;
+    } else {
+      return 0;
+    }
+  }
+
   function tep_call_function($function, $parameter, $object = '') {
     if ($object == '') {
       return call_user_func($function, $parameter);
@@ -1285,5 +1347,27 @@
     } else {
       return str_replace($from, $to, $string);
     }
+  }
+
+  function tep_string_to_int($string) {
+    return (int)$string;
+  }
+
+////
+// Parse and secure the cPath parameter values
+  function tep_parse_category_path($cPath) {
+// make sure the category IDs are integers
+    $cPath_array = array_map('tep_string_to_int', explode('_', $cPath));
+
+// make sure no duplicate category IDs exist which could lock the server in a loop
+    $tmp_array = array();
+    $n = sizeof($cPath_array);
+    for ($i=0; $i<$n; $i++) {
+      if (!in_array($cPath_array[$i], $tmp_array)) {
+        $tmp_array[] = $cPath_array[$i];
+      }
+    }
+
+    return $tmp_array;
   }
 ?>

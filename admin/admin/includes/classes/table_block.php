@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table_block.php,v 1.5 2003/06/02 16:21:48 dgw_ Exp $
+  $Id: table_block.php,v 1.6 2003/06/20 00:18:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,45 +23,45 @@
       $tableBox_string = '';
 
       $form_set = false;
-      if ($contents['form']) {
+      if (isset($contents['form'])) {
         $tableBox_string .= $contents['form'] . "\n";
         $form_set = true;
         tep_array_shift($contents);
       }
 
       $tableBox_string .= '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-      if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
+      if (tep_not_null($this->table_parameters)) $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
 
-      for ($i = 0, $n = sizeof($contents); $i < $n; $i++) {
+      for ($i=0, $n=sizeof($contents); $i<$n; $i++) {
         $tableBox_string .= '  <tr';
-        if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
-        if ($contents[$i]['params']) $tableBox_string .= ' ' . $contents[$i]['params'];
+        if (tep_not_null($this->table_row_parameters)) $tableBox_string .= ' ' . $this->table_row_parameters;
+        if (isset($contents[$i]['params']) && tep_not_null($contents[$i]['params'])) $tableBox_string .= ' ' . $contents[$i]['params'];
         $tableBox_string .= '>' . "\n";
 
-        if (is_array($contents[$i][0])) {
-          for ($x = 0, $y = sizeof($contents[$i]); $x < $y; $x++) {
-            if ($contents[$i][$x]['text']) {
+        if (isset($contents[$i][0]) && is_array($contents[$i][0])) {
+          for ($x=0, $y=sizeof($contents[$i]); $x<$y; $x++) {
+            if (isset($contents[$i][$x]['text']) && tep_not_null(isset($contents[$i][$x]['text']))) {
               $tableBox_string .= '    <td';
-              if ($contents[$i][$x]['align'] != '') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
-              if ($contents[$i][$x]['params']) {
+              if (isset($contents[$i][$x]['align']) && tep_not_null($contents[$i][$x]['align'])) $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
+              if (isset($contents[$i][$x]['params']) && tep_not_null(isset($contents[$i][$x]['params']))) {
                 $tableBox_string .= ' ' . $contents[$i][$x]['params'];
-              } elseif ($this->table_data_parameters != '') {
+              } elseif (tep_not_null($this->table_data_parameters)) {
                 $tableBox_string .= ' ' . $this->table_data_parameters;
               }
               $tableBox_string .= '>';
-              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'];
+              if (isset($contents[$i][$x]['form']) && tep_not_null($contents[$i][$x]['form'])) $tableBox_string .= $contents[$i][$x]['form'];
               $tableBox_string .= $contents[$i][$x]['text'];
-              if ($contents[$i][$x]['form']) $tableBox_string .= '</form>';
+              if (isset($contents[$i][$x]['form']) && tep_not_null($contents[$i][$x]['form'])) $tableBox_string .= '</form>';
               $tableBox_string .= '</td>' . "\n";
             }
           }
         } else {
           $tableBox_string .= '    <td';
-          if ($contents[$i]['align'] != '') $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
-          if ($contents[$i]['params']) {
+          if (isset($contents[$i]['align']) && tep_not_null($contents[$i]['align'])) $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
+          if (isset($contents[$i]['params']) && tep_not_null($contents[$i]['params'])) {
             $tableBox_string .= ' ' . $contents[$i]['params'];
-          } elseif ($this->table_data_parameters != '') {
+          } elseif (tep_not_null($this->table_data_parameters)) {
             $tableBox_string .= ' ' . $this->table_data_parameters;
           }
           $tableBox_string .= '>' . $contents[$i]['text'] . '</td>' . "\n";
@@ -72,7 +72,7 @@
 
       $tableBox_string .= '</table>' . "\n";
 
-      if ($form_set) $tableBox_string .= '</form>' . "\n";
+      if ($form_set == true) $tableBox_string .= '</form>' . "\n";
 
       return $tableBox_string;
     }

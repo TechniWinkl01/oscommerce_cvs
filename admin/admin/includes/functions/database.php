@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: database.php,v 1.22 2003/03/22 12:46:16 dgw_ Exp $
+  $Id: database.php,v 1.23 2003/06/20 00:18:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -37,14 +37,14 @@
   function tep_db_query($query, $link = 'db_link') {
     global $$link, $logger;
 
-    if (STORE_DB_TRANSACTIONS == 'true') {
+    if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
       if (!is_object($logger)) $logger = new logger;
       $logger->write($query, 'QUERY');
     }
 
     $result = mysql_query($query, $$link) or tep_db_error($query, mysql_errno(), mysql_error());
 
-    if (STORE_DB_TRANSACTIONS == 'true') {
+    if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
       if (mysql_error()) $logger->write(mysql_error(), 'ERROR');
     }
 
