@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.109 2004/08/03 11:00:29 hpdl Exp $
+  $Id: german.php,v 1.110 2004/08/15 18:19:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -247,6 +247,7 @@ define('ICON_TICK', 'Wahr');
 define('ICON_UNLOCKED', 'Entsperrt');
 define('ICON_WARNING', 'Warnung');
 
+define('ICON_FILES', 'Files');
 define('ICON_ORDERS', 'Orders');
 define('ICON_PRODUCTS', 'Products');
 
@@ -276,7 +277,6 @@ define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
 define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 
 define('TEXT_DEFAULT', 'Standard');
-define('TEXT_IP_ADDRESS', 'IP Address:');
 define('TEXT_SET_DEFAULT', 'als Standard definieren');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* erforderlich</span>');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
