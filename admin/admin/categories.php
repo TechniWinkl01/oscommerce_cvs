@@ -313,6 +313,7 @@ function checkForm() {
 
       $pInfo_array = tep_array_merge($product, $manufacturer);
       $pInfo = new productInfo($pInfo_array);
+      $products_image_name = $pInfo->image;
     }
 
     $form_action = 'insert_product';
