@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.225 2003/05/29 12:14:45 hpdl Exp $
+  $Id: general.php,v 1.226 2003/06/09 21:15:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,6 +29,34 @@
     header('Location: ' . $url);
 
     tep_exit();
+  }
+
+////
+// Parse the data used in the html tags to ensure the tags will not break
+  function tep_parse_input_field_data($data, $parse) {
+    return strtr(trim($data), $parse);
+  }
+
+  function tep_output_string($string, $translate = false, $protected = false) {
+    if ($protected == true) {
+      return htmlspecialchars($string);
+    } else {
+      if ($translate == false) {
+        return tep_parse_input_field_data($string, array('"' => '&quot;'));
+      } else {
+        return tep_parse_input_field_data($string, $translate);
+      }
+    }
+  }
+
+  function tep_output_string_protected($string) {
+    return tep_output_string($string, false, true);
+  }
+
+  function tep_sanitize_string($string) {
+    $string = ereg_replace(' +', ' ', $string);
+
+    return preg_replace("/[<>]/", '_', $string);
   }
 
 ////
