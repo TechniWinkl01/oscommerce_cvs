@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.1 2002/03/01 01:08:19 hpdl Exp $
+  $Id: psigate.php,v 1.2 2002/11/12 12:51:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,7 +16,6 @@
   define('MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER', 'Credit Card Number:');
   define('MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES', 'Credit Card Expiry Date:');
   define('MODULE_PAYMENT_PSIGATE_TEXT_TYPE', 'Type:');
-  define('MODULE_PAYMENT_PSIGATE_TEXT_JS_CC_OWNER', '* The credit card owner must be at least ' . CC_OWNER_MIN_LENGTH . ' characters.\n');
   define('MODULE_PAYMENT_PSIGATE_TEXT_JS_CC_NUMBER', '* The credit card number must be at least ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
   define('MODULE_PAYMENT_PSIGATE_TEXT_ERROR_MESSAGE', 'There has been an error processing you credit card, please try again.');
   define('MODULE_PAYMENT_PSIGATE_TEXT_ERROR', 'Credit Card Error!');
