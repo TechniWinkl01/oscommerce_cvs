@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.14 2003/02/14 20:28:47 dgw_ Exp $
+  $Id: checkout_shipping.php,v 1.15 2003/04/08 22:44:00 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -253,7 +253,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-    if (sizeof($quotes) > 1) {
+    if (sizeof($quotes) > 1 && sizeof($quotes[0]) > 1) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -317,7 +317,7 @@ function rowOutEffect(object) {
 // set the radio button to be checked if it is the method chosen
             $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
 
-            if ( ($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) || (tep_count_shipping_modules() == (int)1) ) {
+            if ( ($checked == true) || ($n == 1 && $n2 == 1) ) {
               echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
             } else {
               echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
