@@ -1,6 +1,19 @@
-<? include('includes/application_top.php'); ?>
-<?
-  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_WS_INCLUDES . 'include_once.php');
+<?php
+/*
+  $Id: checkout_process.php,v 1.65 2001/08/26 21:52:49 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  include('includes/application_top.php');
+
+  include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS);
+
 // load payment modules as objects
   include(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
@@ -9,7 +22,7 @@
   $payment_modules->before_process();
 
 // select the delivery address
-  $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
+  $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   $delivery_values = tep_db_fetch_array($delivery);
   $delivery_country = tep_get_countries($delivery_values['country_id']);
 // select the customer with the default address
@@ -19,12 +32,11 @@
 
   $date_now = date('Ymd');
 
-  // Ugly fix, will be addressed properly later on
-  while (list($key) = each($delivery_values))
-    $delivery_values[$key] = addslashes($delivery_values[$key]);
-  while (list($key) = each($customer_values))
-    $customer_values[$key] = addslashes($customer_values[$key]);
-  $comments = urldecode($comments);
+// Ugly fix, will be addressed properly later on
+  while (list($key) = each($delivery_values)) $delivery_values[$key] = addslashes($delivery_values[$key]);
+  while (list($key) = each($customer_values)) $customer_values[$key] = addslashes($customer_values[$key]);
+
+  $comments = urldecode($HTTP_POST_VARS['comments']);
 
   $delivery_name = $delivery_values['firstname'] . ' ' . $delivery_values['lastname'];
   $customer_name = $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];
@@ -34,7 +46,7 @@
   $del_state = tep_get_zone_name($delivery_values['country_id'], $delivery_values['zone_id'], $delivery_values['state']);
   $del_fmt_id = tep_get_address_format_id($delivery_values['country_id']);
 
-  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $cust_state . "', '" . $customers_country['countries_name'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $cust_fmt_id . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $del_state . "', '" . $delivery_country['countries_name'] . "', '" . $del_fmt_id . "', '" . $payment . "', '" . $cc_type . "', '" . $cc_owner . "', '" . $cc_number . "', '" . $cc_expires . "', now(), '" . $shipping_cost . "', '" . $shipping_method . "', '1', '" . addslashes($comments) . "', '" . $currency . "', '" . $currency_rates[$currency] . "')");
+  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, shipping_cost, shipping_method, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $cust_state . "', '" . $customers_country['countries_name'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $cust_fmt_id . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $del_state . "', '" . $delivery_country['countries_name'] . "', '" . $del_fmt_id . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', now(), '" . $HTTP_POST_VARS['shipping_cost'] . "', '" . $HTTP_POST_VARS['shipping_method'] . "', '1', '" . addslashes($comments) . "', '" . $currency . "', '" . $currency_rates[$currency] . "')");
   $insert_id = tep_db_insert_id();
 
   $products_ordered = ''; // initialized for the email confirmation
@@ -102,17 +114,17 @@
     $email_order .= $comments . "\n\n";
   }
   $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . EMAIL_SEPARATOR . "\n" . $products_ordered . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($cart->show_total()) . "\n" . EMAIL_TEXT_TAX . tep_currency_format($total_tax) . "\n";
-  if ($shipping_cost > 0) {
-    $email_order .= EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($shipping_cost) . ' ' . TEXT_EMAIL_VIA . ' ' . $shipping_method . "\n";
+  if ($HTTP_POST_VARS['shipping_cost'] > 0) {
+    $email_order .= EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($HTTP_POST_VARS['shipping_cost']) . ' ' . TEXT_EMAIL_VIA . ' ' . $HTTP_POST_VARS['shipping_method'] . "\n";
   }
   $email_order .= EMAIL_TEXT_TOTAL . ' ';
   if (TAX_INCLUDE == true) {
-    $email_order .= tep_currency_format($cart->show_total() + $shipping_cost);
+    $email_order .= tep_currency_format($cart->show_total() + $HTTP_POST_VARS['shipping_cost']);
   } else {
-    $email_order .= tep_currency_format($cart->show_total() + $total_tax + $shipping_cost);
+    $email_order .= tep_currency_format($cart->show_total() + $total_tax + $HTTP_POST_VARS['shipping_cost']);
   }
   $email_order .= "\n\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
-  $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
+  $email_order .= tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 0, '', "\n") . "\n\n";
   if (is_object($GLOBALS[$payment])) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
     $email_order .= $GLOBALS[$payment]->title . "\n\n";
