@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_left.php,v 1.8 2001/06/05 15:03:59 hpdl Exp $
+  $Id: column_left.php,v 1.9 2001/06/05 18:53:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,15 @@
     include(DIR_WS_BOXES . 'categories.php');
   }
 
-  require(DIR_WS_BOXES . 'manufacturers.php');
+  if (CACHE_ON) {
+    if (!$cache->cache(3600, $cache->cache_default_object(), $HTTP_GET_VARS['manufacturers_id'])) {
+      include(DIR_WS_BOXES . 'manufacturers.php');
+      $cache->endcache();
+    }
+  } else {
+    include(DIR_WS_BOXES . 'manufacturers.php');
+  }
+
   require(DIR_WS_BOXES . 'whats_new.php');
   require(DIR_WS_BOXES . 'search.php');
   require(DIR_WS_BOXES . 'add_a_quickie.php');
