@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.80 2001/12/28 15:55:43 dgw_ Exp $
+  $Id: checkout_process.php,v 1.81 2001/12/28 15:56:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -140,6 +140,7 @@
 
   $cart->reset(TRUE);
   tep_session_unregister('sendto');
+  tep_session_unregister('comments');
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
