@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.5 2001/09/09 17:18:22 hpdl Exp $
+  $Id: specials.php,v 1.6 2001/09/09 18:52:42 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,6 +15,7 @@ define('HEADING_TITLE', 'Specials');
 
 define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_PRODUCTS_PRICE', 'Products Price');
+define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_SPECIALS_PRODUCT', 'Product:');
@@ -28,6 +29,7 @@ define('TEXT_INFO_NEW_PRICE', 'New Price:');
 define('TEXT_INFO_ORIGINAL_PRICE', 'Original Price:');
 define('TEXT_INFO_PERCENTAGE', 'Percentage:');
 define('TEXT_INFO_EXPIRES_AT', 'Expires At: <b>%s</b>');
+define('TEXT_INFO_STATUS_CHANGE', 'Status Change: %s');
 
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete the special products price?');
 ?>

@@ -143,7 +143,7 @@ function popupImageWindow(url) {
     if ($HTTP_GET_VARS['bID']) {
 	  $form_action = 'update';
 
-      $banner_query = tep_db_query("select banners_title, banners_url, banners_image, banners_group, status, expires_date, expires_impressions, date_status_change, date_expires from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['bID'] . "'");
+      $banner_query = tep_db_query("select banners_title, banners_url, banners_image, banners_group, status, expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . $HTTP_GET_VARS['bID'] . "'");
       $banner = tep_db_fetch_array($banner_query);
 
       $bInfo = new bannerInfo($banner);

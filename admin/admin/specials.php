@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.20 2001/09/09 17:18:01 hpdl Exp $
+  $Id: specials.php,v 1.21 2001/09/09 18:52:36 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,6 +13,10 @@
   require('includes/application_top.php');
 
   switch ($HTTP_GET_VARS['action']) {
+    case 'setflag':
+      tep_set_specials_status($HTTP_GET_VARS['id'], $HTTP_GET_VARS['flag']);
+      tep_redirect(tep_href_link(FILENAME_SPECIALS, '', 'NONSSL'));
+      break;
     case 'insert':
 // insert a product on special
       if (substr($HTTP_POST_VARS['specials_price'], -1) == '%') $HTTP_POST_VARS['specials_price'] = ($HTTP_POST_VARS['products_price'] - (($HTTP_POST_VARS['specials_price'] / 100) * $HTTP_POST_VARS['products_price']));
@@ -24,7 +28,7 @@
         $expires_date .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
       }
 
-      tep_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_new_products_price, specials_date_added, expires_date) values ('" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['specials_price'] . "', now(), '" . $expires_date . "')");
+      tep_db_query("insert into " . TABLE_SPECIALS . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) values ('" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['specials_price'] . "', now(), '" . $expires_date . "', '1')");
       tep_redirect(tep_href_link(FILENAME_SPECIALS, '', 'NONSSL'));
       break;
     case 'update':
@@ -162,6 +166,7 @@
               <tr>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
                 <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_PRODUCTS_PRICE; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
@@ -169,7 +174,7 @@
               </tr>
 <?php
     $rows = 0;
-    $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added, s.specials_last_modified, s.expires_date from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by pd.products_name";
+    $specials_query_raw = "select p.products_id, pd.products_name, p.products_price, s.specials_id, s.specials_new_products_price, s.specials_date_added, s.specials_last_modified, s.expires_date, s.date_status_change, s.status from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = s.products_id order by pd.products_name";
     $specials_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $specials_query_raw, $specials_query_numrows);
     $specials_query = tep_db_query($specials_query_raw);
     while ($specials = tep_db_fetch_array($specials_query)) {
@@ -191,6 +196,14 @@
 ?>
                 <td class="smallText">&nbsp;<?php echo $specials['products_name']; ?>&nbsp;</td>
                 <td align="right" class="smallText">&nbsp;<span class="oldPrice"><?php echo tep_currency_format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo tep_currency_format($specials['specials_new_products_price']); ?></span>&nbsp;</td>
+                <td align="right" class="smallText">&nbsp;
+<?php
+      if ($specials['status'] == '1') {
+        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, 'action=setflag&flag=0&id=' . $specials['specials_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
+      } else {
+        echo '<a href="' . tep_href_link(FILENAME_SPECIALS, 'action=setflag&flag=1&id=' . $specials['specials_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
+      }
+?>&nbsp;</td>
 <?php
       if ($specials['specials_id'] == $sInfo->id) {
 ?>
@@ -248,6 +261,10 @@
 
       if ($sInfo->expires_date) {
         $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_INFO_EXPIRES_AT, tep_date_short($sInfo->expires_date)));
+      }
+
+      if ($sInfo->date_status_change) {
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . sprintf(TEXT_INFO_STATUS_CHANGE, tep_date_short($sInfo->date_status_change)));
       }
     }
 ?>

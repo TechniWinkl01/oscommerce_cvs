@@ -1,6 +1,6 @@
 <?
   class specialPriceInfo {
-    var $id, $products_id, $products_price, $products_image, $products_name, $specials_price, $percentage, $date_added, $last_modified, $expires_date, $expires_date_caljs_day, $expires_date_caljs_month, $expires_date_caljs_year;
+    var $id, $products_id, $products_price, $products_image, $products_name, $specials_price, $percentage, $date_added, $last_modified, $expires_date, $date_status_change, $status, $expires_date_caljs_day, $expires_date_caljs_month, $expires_date_caljs_year;
 
 // class constructor
     function specialPriceInfo($sInfo_array) {
@@ -14,6 +14,8 @@
       $this->date_added = $sInfo_array['specials_date_added'];
       $this->last_modified = $sInfo_array['specials_last_modified'];
       $this->expires_date = $sInfo_array['expires_date'];
+      $this->date_status_change = $sInfo_array['date_status_change'];
+      $this->status = $sInfo_array['status'];
 
       $this->expires_date_caljs_year = substr($this->expires_date, 0, 4);
       $this->expires_date_caljs_month = substr($this->expires_date, 5, 2);
