@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.79 2001/12/26 22:43:18 hpdl Exp $
+  $Id: general.php,v 1.80 2001/12/26 23:45:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -745,6 +745,27 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       $tmp_file .= '/' . basename($filename);
 // User might have trailing slash in php.ini
       return (ereg_replace('/+', '/', $tmp_file) == $filename);
+    }
+  }
+
+  function tep_array_shift(&$array) {
+    if (function_exists('array_shift')) {
+      return array_shift($array);
+    } else {
+      $i = 0;
+      $shifted_array = array();
+      reset($array);
+      while (list($key, $value) = each($array)) {
+        if ($i > 0) {
+          $shifted_array[$key] = $value;
+        } else {
+          $return = $array[$key];
+        }
+        $i++;
+      }
+      $array = $shifted_array;
+
+      return $return;
     }
   }
 ?>

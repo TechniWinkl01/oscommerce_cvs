@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.19 2001/12/24 01:32:52 hpdl Exp $
+  $Id: boxes.php,v 1.20 2001/12/26 23:45:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,12 @@
       if ($this->table_parameters != '') echo ' ' . $this->table_parameters;
       echo '>' . "\n";
 
-      if ($contents['form']) echo $contents['form'] . "\n";
+      $form_set = false;
+      if ($contents['form']) {
+        echo $contents['form'] . "\n";
+        $form_set = true;
+        tep_array_shift($contents);
+      }
 
       for ($i=0; $i<sizeof($contents); $i++) {
         echo '  <tr';
@@ -62,7 +67,7 @@
         echo '  </tr>' . "\n";
       }
 
-      if ($contents['form']) echo '</form>' . "\n";
+      if ($form_set) echo '</form>' . "\n";
 
       echo '</table>' . "\n";
     }
