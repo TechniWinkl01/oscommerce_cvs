@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.175 2004/10/28 13:46:44 hpdl Exp $
+  $Id: application_top.php,v 1.176 2004/10/28 15:19:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -74,9 +74,6 @@
 // define our general functions used application-wide
   require('includes/functions/general.php');
   require('includes/functions/html_output.php');
-
-// initialize the logger class
-  require('includes/classes/logger.php');
 
 // include session class
   if (PHP_VERSION < 4.1) {

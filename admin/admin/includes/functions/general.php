@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.170 2004/10/28 12:59:54 hpdl Exp $
+  $Id: general.php,v 1.171 2004/10/28 15:19:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,14 +13,7 @@
 ////
 // Redirect to another page or site
   function tep_redirect($url) {
-    global $logger;
-
     header('Location: ' . $url);
-
-    if (STORE_PAGE_PARSE_TIME == 'true') {
-      if (!is_object($logger)) $logger = new logger;
-      $logger->timer_stop();
-    }
 
     exit;
   }
