@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+German Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
@@ -22,7 +22,7 @@ define('TABLE_SUBHEADING_SHIPPING', 'Versandkosten:');
 define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
 define('TEXT_CC', 'Kreditkarte');
-define('TEXT_PAYPAL', 'PayPal.com Credit Card/eCheck Processing');
+define('TEXT_PAYPAL', 'PayPal.com Kredit Karte/eCheck Processing');
 
 define('IMAGE_BACK', 'Zur&uuml;ck');
 ?>

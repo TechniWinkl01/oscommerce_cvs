@@ -1,7 +1,7 @@
 <?
 /*
-English Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
+English Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
@@ -16,7 +16,6 @@ define('TABLE_HEADING_TAX', 'Tax');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
-define('SUB_TITLE_FINAL', 'Final Price:');
 define('TABLE_SUBHEADING_SUBTOTAL', 'Sub-Total:');
 define('TABLE_SUBHEADING_TAX', 'Tax');
 define('TABLE_SUBHEADING_SHIPPING', 'Shipping:');

@@ -1,7 +1,7 @@
 <?
 /*
 Spanish Text for The Exchange Project Preview Release 2.0
-Last Update: 11/11/2000
+Last Update: 01/12/2000
 Author(s): David Garcia Watkins (dgw@q-logic.org)
 */
 
@@ -13,7 +13,7 @@ define('TOP_BAR_TITLE_ADD_ENTRY', 'Añadir una nueva direccion de envio');
 define('TOP_BAR_TITLE_MODIFY_ENTRY', 'Modificar Direccion');
 define('HEADING_TITLE_ADD_ENTRY', 'Nueva Direccion');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Direccion');
-define('PLEASE_SELECT', '-- Seleccione --');
+define('PLEASE_SELECT', 'Seleccione');
 
 define('IMAGE_INSERT', 'Añadir');
 define('IMAGE_CANCEL', 'Cancelar');

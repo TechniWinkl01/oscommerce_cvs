@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 1.1
-Last Update: 14/05/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+German Text for The Exchange Project Preview Release 2.0
+Last Update: 01/12/2000
+Author(s): Mathias Kowalkowski (mathias@zoomed.de)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
@@ -13,7 +13,7 @@ define('TOP_BAR_TITLE_ADD_ENTRY', 'Neuer Adre&szlig;bucheintag :');
 define('TOP_BAR_TITLE_MODIFY_ENTRY', '&Auml;nderung des Eintrags');
 define('HEADING_TITLE_ADD_ENTRY', 'Neuer Adre&szlig;bucheintrag :');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Adre&szlig;bucheintrag :');
-define('PLEASE_SELECT', '-- Bitte w&auml;hlen --');
+define('PLEASE_SELECT', 'Bitte w&auml;hlen');
 
 define('IMAGE_INSERT', 'Einf&uuml;gen');
 define('IMAGE_CANCEL', 'Abbrechen');
