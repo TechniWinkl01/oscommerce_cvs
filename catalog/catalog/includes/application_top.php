@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.232 2002/05/27 13:08:05 thomasamoulton Exp $
+  $Id: application_top.php,v 1.233 2002/05/27 13:32:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,6 +61,7 @@
   define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
   define('FILENAME_PASSWORD_FORGOTTEN', 'password_forgotten.php');
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
+  define('FILENAME_POPUP_SEARCH_HELP', 'popup_search_help.php');
   define('FILENAME_PRIVACY', 'privacy.php');
   define('FILENAME_PRODUCT_INFO', 'product_info.php');
   define('FILENAME_PRODUCT_LISTING', 'product_listing.php');
