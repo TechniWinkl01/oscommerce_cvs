@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.109 2002/01/05 10:06:08 hpdl Exp $
+  $Id: application_top.php,v 1.110 2002/01/07 14:49:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,7 +199,6 @@
   require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // entry/item info classes
-  require(DIR_WS_CLASSES . 'file_manager_info.php');
   require(DIR_WS_CLASSES . 'languages_info.php');
   require(DIR_WS_CLASSES . 'manufacturer_info.php');
   require(DIR_WS_CLASSES . 'module_info.php');
