@@ -38,7 +38,7 @@ define('TEXT_INFO_COPY_TO_INTRO', 'Bitte w&auml;hlen Sie eine neue Kategorie in 
 define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Sind Sie sicher, dass sie diese Kategorie l&ouml;schen m&ouml;chten?');
-define('TEXT_DELETE_PRODUCT_INTRO', 'Sind Sie sicher, dass sie diesen Artikel deaktivieren m&ouml;chten?');
+define('TEXT_DELETE_PRODUCT_INTRO', 'Sind Sie Sie m&ouml;chten dieses Produkt permanent l&ouml;schen sicher?');
 
 define('TEXT_DELETE_WARNING_CHILDS', '<b>WARNUNG:</b> Es existieren noch %s (Unter-)Kategorien, die immer noch mit dieser Kategorie verbunden sind!');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNING:</b> Es existieren noch %s Artikel, die immer noch mit dieser Kategorie verbunden sind!');
@@ -53,6 +53,9 @@ define('TEXT_CATEGORIES_NAME', 'Kategorie Name:');
 define('TEXT_CATEGORIES_IMAGE', 'Kategorie Bild:');
 define('TEXT_SORT_ORDER', 'Sortierreihenfolge:');
 
+define('TEXT_PRODUCTS_STATUS', 'ProduktStatus:');
+define('TEXT_PRODUCT_AVAILABLE', 'Auf Lager');
+define('TEXT_PRODUCT_NOT_AVAILABLE', 'Nicht vorrätig');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Artikel-Hersteller:');
 define('TEXT_PRODUCTS_NAME', 'Artikelname:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Artikelbeschreibung:');

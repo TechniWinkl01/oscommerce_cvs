@@ -38,7 +38,7 @@ define('TEXT_INFO_COPY_TO_INTRO', 'Elija la categoria hacia donde quiera copiar 
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Categorias:');
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Seguro que desea eliminar esta categoria?');
-define('TEXT_DELETE_PRODUCT_INTRO', 'Seguro que quiere desactivar este producto?');
+define('TEXT_DELETE_PRODUCT_INTRO', 'Es usted seguro usted desea suprimir permanentemente este producto?');
 
 define('TEXT_DELETE_WARNING_CHILDS', '<b>ADVERTENCIA:</b> Hay %s categorias que pertenecen a esta categoria!');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>ADVERTENCIA:</b> Hay %s productos en esta categoria!');
@@ -53,6 +53,9 @@ define('TEXT_CATEGORIES_NAME', 'Nombre Categoria:');
 define('TEXT_CATEGORIES_IMAGE', 'Imagen Categoria:');
 define('TEXT_SORT_ORDER', 'Orden:');
 
+define('TEXT_PRODUCTS_STATUS', 'Estatus De los Productos:');
+define('TEXT_PRODUCT_AVAILABLE', 'En Terraja');
+define('TEXT_PRODUCT_NOT_AVAILABLE', 'Fuera de terraja');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Fabricante del producto:');
 define('TEXT_PRODUCTS_NAME', 'Nombre del Producto:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Descripcion del producto:');

@@ -41,8 +41,9 @@
         if ($products_categories['total'] > 1) {
           tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
         } else {
-          tep_db_query("update products set products_status = '0' where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+          tep_db_query("delete from products where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
           tep_db_query("delete from products_to_categories where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+	  tep_db_query("delete from products_to_manufacturers where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
         }
         header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')), 'NONSSL'));
         tep_exit();
@@ -85,7 +86,7 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert_product') {
-      if (tep_db_query("insert into products (products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_weight, products_status, products_tax_class_id) values ('" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $HTTP_POST_VARS['products_weight'] . "', '1', " . $HTTP_POST_VARS['products_tax_class_id'] . ")")) {
+      if (tep_db_query("insert into products (products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_weight, products_status, products_tax_class_id) values ('" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', " . $HTTP_POST_VARS['products_tax_class_id'] . ")")) {
         $new_products_id = tep_db_insert_id();
         tep_db_query("insert into products_to_categories (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
         if ($HTTP_POST_VARS['manufacturers_id']) tep_db_query("insert into products_to_manufacturers (products_id, manufacturers_id) values ('" . $new_products_id . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
@@ -96,7 +97,7 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
-      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       if ($HTTP_POST_VARS['manufacturers_id']) {
         $check_manufacturer_query = tep_db_query("select count(*) as total from products_to_manufacturers where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
         $check_manufacturer = tep_db_fetch_array($check_manufacturer_query);
@@ -129,17 +130,17 @@ function checkForm() {
   var categories_name = document.categories.categories_name.value;
   var sort_order = document.categories.sort_order.value;
   var categories_image = document.categories.categories_image.value;
-  
+
   if (categories_name.length < 1) {
     error_message = error_message + "<? echo JS_CATEGORIES_NAME; ?>";
     error = 1;
   }
-  
+
   if (sort_order = "" || sort_order.length < 1) {
     error_message = error_message + "<? echo JS_SORT_ORDER; ?>";
     error = 1;
   }
-  
+
   if (categories_image.length < 1) {
     error_message = error_message + "<? echo JS_CATEGORIES_IMAGE; ?>";
     error = 1;
@@ -232,6 +233,20 @@ function checkForm() {
       </tr>
       <tr>
         <td><br><table border="0" cellspacing="0" cellpadding="2">
+	  <tr>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_STATUS; ?>&nbsp;</font></td>
+            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;
+            <input type="radio" name="products_status" value="1" 
+<?
+	  if (@$pInfo->status == '1' && $product['products_status'] == '1') {  
+	    echo ' CHECKED';
+	  } ?>>&nbsp;<? echo TEXT_PRODUCT_AVAILABLE; ?>&nbsp;<input type="radio" name="products_status" value="0"
+<?
+	  if (@$pInfo->status == '0' && $product['products_status'] == '0') {  
+	    echo ' CHECKED';
+	  } ?>>&nbsp;<? echo TEXT_PRODUCT_NOT_AVAILABLE; ?>&nbsp;
+	    </font></td>
+          </tr>
           <tr>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_PRODUCTS_MANUFACTURER; ?>&nbsp;</font></td>
             <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<select name="manufacturers_id"><option value=""></option><? while ($manufacturers = tep_db_fetch_array($manufacturers_query)) { echo '<option value="' . $manufacturers['manufacturers_id'] . '"'; if (@$pInfo->manufacturers_id == $manufacturers['manufacturers_id']) echo ' SELECTED'; echo '>' . $manufacturers['manufacturers_name'] . '</option>'; } ?></select>&nbsp;</font></td>
@@ -302,11 +317,11 @@ function checkForm() {
         copy($products_image, $image_location);
         $products_image_name = 'images/' . $products_image_name;
       } else {
-	$products_image_name = $products_previous_image;
+        $products_image_name = $products_previous_image;
       }
 
     } else {
-      $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+      $product_query = tep_db_query("select products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_weight, products_date_added, products_status from products where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       $product = tep_db_fetch_array($product_query);
       $manufacturer_query = tep_db_query("select m.manufacturers_id, m.manufacturers_name, m.manufacturers_image from manufacturers m, products_to_manufacturers p2m where p2m.products_id = '" . $HTTP_GET_VARS['pID'] . "' and p2m.manufacturers_id = m.manufacturers_id");
       $manufacturer = tep_db_fetch_array($manufacturer_query);
@@ -453,7 +468,7 @@ function checkForm() {
 
     $products_count = 0;
 //  $rows = 0; // this shouldnt be reset
-    $products_query = tep_db_query("select p.products_id, p.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' and p.products_status = '1' order by products_name");
+    $products_query = tep_db_query("select p.products_id, p.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_status from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       $products_count++;
       $rows++;
@@ -635,6 +650,7 @@ function checkForm() {
             $info_box_contents = array();
             $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'info')) . 'action=new_product&pID=' . $pInfo->id, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_edit.gif', '66', '20', '0', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_move.gif', '66', '20', '0', IMAGE_MOVE) . '</a>');
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($pInfo->date_added) . '<br>&nbsp;' . TEXT_LAST_MODIFIED);
+	    $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_STATUS . ' ' . $pInfo->status);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($pInfo->image, $pInfo->name) . '<br>&nbsp;' . $pInfo->image);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_PRICE_INFO . ' ' . tep_currency_format($pInfo->price) . '<br>&nbsp;' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->quantity);
             $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
