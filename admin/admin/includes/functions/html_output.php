@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.4 2001/11/22 23:56:50 hpdl Exp $
+  $Id: html_output.php,v 1.5 2001/11/24 16:30:29 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -149,7 +149,7 @@
 
     $result .= '</select>';
 
-    echo $result;
+    return $result;
   }
 
 ////
