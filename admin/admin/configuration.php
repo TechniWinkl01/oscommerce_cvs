@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.37 2002/08/08 11:26:27 dgw_ Exp $
+  $Id: configuration.php,v 1.38 2002/08/10 16:05:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,7 +80,7 @@
         }
         $cfgValue = call_user_func(array(&${$class_method[0]}, $class_method[1]), $configuration['configuration_value']);
       } else {
-        $cfgValue = call_user_func($use_function, $value['value']);
+        $cfgValue = call_user_func($use_function, $configuration['configuration_value']);
       }
     } else {
       $cfgValue = $configuration['configuration_value'];
