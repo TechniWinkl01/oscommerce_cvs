@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: redirect.php,v 1.11 2003/11/17 21:06:56 hpdl Exp $
+  $Id: redirect.php,v 1.12 2004/01/10 20:18:01 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,7 @@
 
     case 'url':
       if (isset($_GET['goto']) && tep_not_null($_GET['goto'])) {
-        tep_redirect('http://' . $GET['goto']);
+        tep_redirect('http://' . $_GET['goto']);
       }
       break;
 
