@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_ordered.php,v 1.1 2002/04/05 10:37:10 dgw_ Exp $
+  $Id: products_ordered.php,v 1.2 2002/04/05 11:42:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,8 +93,7 @@
   tep_db_query("alter table products add products_ordered int default '0' not null");
   $products_query = tep_db_query("select products_id, sum(products_quantity) as products_ordered from orders_products group by products_id");
   while ($products = tep_db_fetch_array($products_query)) {
-    tep_db_query("update products set products_ordered = '" . $products['products_ordered'] . "' where products_id = '" . $products['products_
-id'] . "'");
+    tep_db_query("update products set products_ordered = '" . $products['products_ordered'] . "' where products_id = '" . $products['products_id'] . "'");
   }
 ?>
 
