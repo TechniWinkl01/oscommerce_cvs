@@ -226,7 +226,7 @@ function popupImageWindow(url) {
                 <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $stats_query = tep_db_query("select dayofmonth(banners_history_date) as name, banners_shown as value from banners_history where banners_id = '" . $bInfo->id . "' and to_days(now()) - to_days(banners_history_date) <= 7 order by banners_history_date");
+    $stats_query = tep_db_query("select dayofmonth(banners_history_date) as name, banners_shown as value from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $bInfo->id . "' and to_days(now()) - to_days(banners_history_date) <= 7 order by banners_history_date");
     $info_box_contents = array();
 //    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
     $info_box_contents[] = array('align' => 'center', 'text' => GraphResult($stats_query, 'Statistics'));
