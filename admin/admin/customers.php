@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.83 2003/08/30 12:42:26 project3000 Exp $
+  $Id: customers.php,v 1.84 2003/12/26 14:13:49 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,6 +41,14 @@
         $entry_company = tep_db_prepare_input($HTTP_POST_VARS['entry_company']);
         $entry_state = tep_db_prepare_input($HTTP_POST_VARS['entry_state']);
         if (isset($HTTP_POST_VARS['entry_zone_id'])) $entry_zone_id = tep_db_prepare_input($HTTP_POST_VARS['entry_zone_id']);
+
+        if (ACCOUNT_GENDER == 'true') {
+          if (($customers_gender != 'm') && ($customers_gender != 'f')) {
+            $error = true;
+            $entry_gender_error = true;
+          } else {
+            $entry_gender_error = false;
+        }
 
         if (strlen($customers_firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
           $error = true;
@@ -255,11 +263,13 @@ function check_form() {
   var customers_telephone = document.customers.customers_telephone.value;
 
 <?php if (ACCOUNT_GENDER == 'true') { ?>
-  if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked) {
-  } else {
-    error_message = error_message + "<?php echo JS_GENDER; ?>";
-    error = 1;
-  }
+    if (document.customers.elements['customers_gender'].type != "hidden") {
+      if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked) {
+      } else {
+        error_message = error_message + "<?php echo JS_GENDER; ?>";
+        error = 1;
+      }
+    }
 <?php } ?>
 
   if (customers_firstname == "" || customers_firstname.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) {
