@@ -13,6 +13,7 @@
   define('DIR_INCLUDES', 'includes/'); // NOTE! this is not interpreted with www/url path, instead it is a system path (eg, /usr/local/apache/htdocs/admin/includes/)
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
+  define('DIR_CLASSES', DIR_INCLUDES . 'classes/');
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
@@ -63,8 +64,15 @@
 // define our general functions used application-wide
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
 
+// setup our boxes
+  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// split-page-results
+  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // customization for the design layout
-  define('MAX_ROW_LISTS', 25); // how many rows for all list
+  define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
+  define('MAX_DISPLAY_PAGE_LINKS', 5); // how many page numbers to link for page-sets
   define('IMAGE_REQUIRED', 1); // require product images? 1 = yes
   define('TAX_VALUE', 16); // propducts tax
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
@@ -131,6 +139,11 @@
   define('VALUE_FONT_FACE', 'Verdana, Arial');
   define('VALUE_FONT_SIZE', 2);
   define('VALUE_FONT_COLOR', '#000000');
+
+// font styles
+  define('FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">');
+  define('FONT_STYLE_INFO_BOX_HEADING', '<font face="Verdana, Arial" size="1" color="#ffffff">');
+  define('FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">');
 
 // Shipping Options
   define('SHIPPING_FREE', 1);
