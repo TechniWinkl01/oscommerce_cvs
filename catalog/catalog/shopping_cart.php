@@ -7,7 +7,14 @@
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
 // customer wants to update the product quantity in their shopping cart
-      $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
+      if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
+        for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
+          $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
+          $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
+        }
+      } else {
+        $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
+      }
       header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
 // customer wants to remove all products from their shopping cart
@@ -104,7 +111,7 @@
       $products_name = $products[$i]['name'];
       echo '          <tr>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top"><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $products[$i]['id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_small_delete.gif', '50', '14', '0', 'Remove ' . $products_name . ' from Shopping Cart.') . '</a></td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top" nowrap><input type="text" name="cart_quantity" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
+      echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top" nowrap><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
       if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</font></td>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
@@ -117,6 +124,7 @@
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from products_options popt, products_options_values poval, products_attributes pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id");
           $attributes_values = tep_db_fetch_array($attributes);
           echo "\n" . '<br><small><i>&nbsp;-&nbsp;' . $attributes_values['products_options_name'] . '&nbsp;:&nbsp;' . $attributes_values['products_options_values_name'] . '</i></small>';
+          echo '<input type="hidden" name="id[' . $products[$i]['id'] . '][' . $option . ']" value="' . $value . '">';
         }
       }
 //------display customer choosen option eof-----
