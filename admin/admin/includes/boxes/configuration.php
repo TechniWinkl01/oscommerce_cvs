@@ -1,14 +1,25 @@
+<?php
+/*
+  $Id: configuration.php,v 1.15 2002/01/08 18:58:25 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- configuration //-->
           <tr>
             <td>
 <?php
-  $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left',
-                               'params' => 'class="menuBoxHeading"',
-                               'text'  => BOX_HEADING_CONFIGURATION,
-                               'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=configuration')
-                              );
-  new infoBoxHeading($info_box_contents);
+  $heading = array();
+  $contents = array();
+
+  $heading[] = array('params' => 'class="menuBoxHeading"',
+                     'text'  => BOX_HEADING_CONFIGURATION,
+                     'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=configuration'));
 
   if ($selected_box == 'configuration') {
     $cfg_groups = '';
@@ -16,12 +27,12 @@
     while ($configuration_groups = tep_db_fetch_array($configuration_groups_query)) {
       $cfg_groups .= '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '">' . $configuration_groups['cgTitle'] . '</a><br>';
     }
-    $info_box_contents = array();
-    $info_box_contents[] = array('align' => 'left',
-                                 'text'  => $cfg_groups
-                                );
-    new infoBox($info_box_contents);
+
+    $contents[] = array('text'  => $cfg_groups);
   }
+
+  $box = new box;
+  echo $box->menuBox($heading, $contents);
 ?>
             </td>
           </tr>

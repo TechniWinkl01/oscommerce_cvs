@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: box.php,v 1.2 2002/01/08 18:26:42 hpdl Exp $
+  $Id: box.php,v 1.3 2002/01/08 18:58:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,14 +43,14 @@
 
     function menuBox($heading, $contents) {
       $this->table_data_parameters = 'class="infoBoxHeading"';
+      if ($heading[0]['link']) {
+        $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="blacklink">' . $heading[0]['text'] . '</a>&nbsp;';
+      } else {
+        $heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
+      }
       $this->heading = $this->table($heading);
 
       $this->table_data_parameters = 'class="infoBox"';
-      if ($contents[0]['link']) {
-        $contents[0]['text'] = '&nbsp;<a href="' . $contents[0]['link'] . '" class="blacklink">' . $contents[0]['text'] . '</a>&nbsp;';
-      } else {
-        $contents[0]['text'] = '&nbsp;' . $contents[0]['text'] . '&nbsp;';
-      }
       $this->contents = $this->table($contents);
 
       return $this->heading . $this->contents;
