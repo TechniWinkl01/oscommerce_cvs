@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.119 2003/02/05 17:48:24 project3000 Exp $
+  $Id: checkout_process.php,v 1.120 2003/02/05 18:22:17 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -197,7 +197,7 @@
                                 'price_prefix' => $attributes_values['price_prefix']);
         tep_db_perform(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
 
-        if (DOWNLOAD_ENABLED == 'true' && isset($attributes_values['products_attributes_filename']) && tep_not_null($attributes_values['products_attributes_filename'])) {
+        if ((DOWNLOAD_ENABLED == 'true') && isset($attributes_values['products_attributes_filename']) && tep_not_null($attributes_values['products_attributes_filename'])) {
           $sql_data_array = array('orders_id' => $insert_id, 
                                   'orders_products_id' => $order_products_id, 
                                   'orders_products_filename' => $attributes_values['products_attributes_filename'], 
