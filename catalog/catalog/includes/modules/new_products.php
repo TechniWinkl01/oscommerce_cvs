@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: new_products.php,v 1.28 2002/03/10 23:28:05 harley_vb Exp $
+  $Id: new_products.php,v 1.29 2002/03/17 13:30:11 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
   while ($new_products = tep_db_fetch_array($new_products_query)) {
     $info_box_contents[$row][$col] = array('align' => 'center',
                                            'params' => 'class="smallText" width="33%" valign="top"',
-                                           'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $new_products['products_image'], $new_products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . $new_products['products_name'] . '</a><br>' . $currencies->display_price($new_products['products_price'], $random_product['products_tax_class_id']));
+                                           'text' => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $new_products['products_image'], $new_products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']) . '">' . $new_products['products_name'] . '</a><br>' . $currencies->display_price($new_products['products_price'], $new_products['products_tax_class_id']));
     $col ++;
     if ($col > 2) {
       $col = 0;
