@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.80 2002/03/09 22:53:02 harley_vb Exp $
+  $Id: espanol.php,v 1.81 2002/03/15 02:59:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -275,7 +275,6 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Obligatorio</
 define('ERROR_BANNER_TITLE', 'Error: Re requiere el titulo del banner');
 define('ERROR_BANNER_GROUP', 'Error: Se requiere un grupo para el banner');
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: No hay moneda predeterminada. Por favor establezca una en: Herramienta de Administracion->Localizacion->Monedas');
-define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Error: No hay idioma predeterminado. Por favor establezca uno en: Herramienta de Administracion->Localizacion->Idiomas');
 
 define('TEXT_CACHE_CATEGORIES', 'Categorias');
 define('TEXT_CACHE_MANUFACTURERS', 'Fabricantes');

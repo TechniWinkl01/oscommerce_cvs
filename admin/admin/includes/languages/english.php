@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.88 2002/03/09 22:38:42 harley_vb Exp $
+  $Id: english.php,v 1.89 2002/03/15 02:59:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -275,7 +275,6 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</spa
 define('ERROR_BANNER_TITLE', 'Error: Banner title required');
 define('ERROR_BANNER_GROUP', 'Error: Banner group required');
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
-define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Error: There is currently no default language set. Please set one at: Administration Tool->Localization->Languages');
 
 define('TEXT_CACHE_CATEGORIES', 'Categories Box');
 define('TEXT_CACHE_MANUFACTURERS', 'Manufacturers Box');

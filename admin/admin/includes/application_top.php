@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.139 2002/03/15 02:52:25 hpdl Exp $
+  $Id: application_top.php,v 1.140 2002/03/15 02:59:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,6 +12,14 @@
 
 // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
+
+// Set the level of error reporting
+  error_reporting(E_ALL & ~E_NOTICE);
+
+// Disable use_trans_sid as tep_href_link() does this manually
+  if (function_exists('ini_set')) {
+    ini_set('session.use_trans_sid', 0);
+  }
 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
@@ -241,12 +249,12 @@
                        );
 
 // check if a default currency is set
-  if (!tep_not_null(DEFAULT_CURRENCY)) {
+  if (!defined('DEFAULT_CURRENCY')) {
     $messageStack->add(ERROR_NO_DEFAULT_CURRENCY_DEFINED, 'error');
   }
 
 // check if a default language is set
-  if (!tep_not_null(DEFAULT_LANGUAGE)) {
-    $messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
+  if (!defined('DEFAULT_LANGUAGE')) {
+    $messageStack->add('Error: There is currently no default language set. Please set one at: Administration Tool->Localization->Languages', 'error');
   }
 ?>
