@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.41 2002/12/30 15:43:17 thomasamoulton Exp $
+  $Id: authorizenet.php,v 1.42 2003/01/03 17:25:44 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -219,9 +219,12 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
     function before_process() {
       global $HTTP_POST_VARS;
 
-      if ($HTTP_POST_VARS['x_response_code'] != '1') {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL', true, false));
+      if ($HTTP_POST_VARS['x_response_code'] == '1') return;
+      if ($HTTP_POST_VARS['x_response_code'] == '2') {
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_DECLINED_MESSAGE), 'SSL', true, false));
       }
+      // Code 3 is an error - but anything else is an error too (IMHO)
+      tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL', true, false));
     }
 
     function after_process() {
