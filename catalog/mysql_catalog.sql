@@ -153,6 +153,11 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Info-Box Headings', 'FONT_STYLE_INFO_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">', 'Font style for info-box headings', '5', '2', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Info-Box Contents', 'FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">', 'Font style for info-box contents', '5', '3', now());
 
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Cash On Delivery (COD)', 'PAYMENT_SUPPORT_COD', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '1', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Credit Card', 'PAYMENT_SUPPORT_CC', '1', 'Do you want to accept credit card payments?', '6', '2', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow PayPal', 'PAYMENT_SUPPORT_PAYPAL', '1', 'Do you want to accept PayPal payments?', '6', '3', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('PayPal ID', 'PAYPAL_ID', 'you@yourbuisness.com', 'Your buisness ID at PayPal.  Usually the email address you signed up with.  You can create a free PayPal account <A HREF=https://secure.paypal.com/refer/pal=pkellum%40lycosmail.com>here</A>.', '6', '4', now());
+
 #
 # Table structure for table 'configuration_group'
 #
@@ -174,6 +179,7 @@ INSERT INTO configuration_group (configuration_group_title, configuration_group_
 INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Maximum Values', 'The maximum values for functions / data', '3');
 INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Images', 'Image parameters', '4');
 INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Font Styles', 'Font stlyes used for text output', '5');
+INSERT INTO configuration_group (configuration_group_title, configuration_group_description, sort_order) VALUES ('Payment Options', 'Payment options available at my store', '6');
 
 #
 # Table structure for table 'counter'
