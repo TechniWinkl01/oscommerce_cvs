@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: nochex.php,v 1.1 2002/02/11 08:22:50 hpdl Exp $
+  $Id: nochex.php,v 1.2 2002/04/05 00:48:46 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 
@@ -44,14 +44,14 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $total_cost, $total_tax, $currencies, $customer_id;
+      global $HTTP_POST_VARS, $order, $shipping_selected, $currencies, $customer_id;
 
-      $nochex_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method);
+      $nochex_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $order->info['shipping_cost'] . '&shipping_method=' . urlencode($order->info['shipping_method']);
       $nochex_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&shipping_selected=' . $shipping_selected;
 
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('email', MODULE_PAYMENT_NOCHEX_ID) .
-                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax + $shipping_cost) * $currencies->currencies['GBP']['value'], 2)) .
+                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencies->currencies['GBP']['value'], 2)) .
                                tep_draw_hidden_field('ordernumber', $customer_id . '-' . date('Ymdhis')) .
                                tep_draw_hidden_field('returnurl', tep_href_link(FILENAME_CHECKOUT_PROCESS, $nochex_return, 'SSL')) .
                                tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $nochex_cancel_return, 'SSL'));
