@@ -1,16 +1,14 @@
 <?php
 /*
-  $Id: configuration.php,v 1.7 2001/11/19 11:22:57 hpdl Exp $
+  $Id: configuration.php,v 1.8 2002/01/04 03:51:40 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
-
-define('TOP_BAR_TITLE', 'Konfigurationsparameter');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Name');
 define('TABLE_HEADING_CONFIGURATION_VALUE', 'Wert');
