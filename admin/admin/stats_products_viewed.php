@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: stats_products_viewed.php,v 1.26 2003/01/12 20:07:18 thomasamoulton Exp $
+  $Id: stats_products_viewed.php,v 1.27 2003/01/29 23:22:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

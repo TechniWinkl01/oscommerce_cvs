@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.50 2003/01/14 17:19:11 dgw_ Exp $
+  $Id: manufacturers.php,v 1.51 2003/01/29 23:21:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
