@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.106 2001/06/18 09:18:39 hpdl Exp $
+  $Id: general.php,v 1.107 2001/06/26 13:24:58 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -956,35 +956,36 @@
 
 ////
 // Send email (text/html)
-  function tep_mail($to_firstname, $to_lastname, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
-    global $DOCUMENT_ROOT;
-    $mail = new html_mime_mail('X-Mailer: The Exchange Project Mailer');
-    if (EMAIL_USE_HTML) {
-      if (!$email_background) { $email_background="background.gif"; }
-      $filename = $DOCUMENT_ROOT . DIR_WS_CATALOG . DIR_WS_IMAGES . 'mail/' . $email_background;
-      $backgrnd = fread($fp = fopen($filename, 'r'), filesize($filename));
-      fclose($fp);
+  function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
+    // add From: header
+    $headers = "From: $from_email_name <$from_email_address>\r\n";
 
-      $html = '<html>' . "\r\n" . '<body background="background.gif">' . "\r\n" .
-              '<font face="Verdana, Arial" color="#0000000"><pre>' . "\r\n" .
-              $email_text . "\r\n" .
-              '</pre></font>' . "\r\n" .
-              '</body></html>';
+    // specify MIME version 1.0
+    $headers .= "MIME-Version: 1.0\r\n";
 
-      $mail->add_html_image($backgrnd, $email_background, 'image/gif');
-      $mail->add_html($html, strip_tags($email_text));
+    // unique boundary
+    $boundary = uniqid("TheExchangeProject");
+
+    // tell e-mail client this e-mail contains//alternate versions
+    $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
+
+    // message to people with clients who don't understand MIME
+    $headers .= "This is a MIME encoded message.\r\n\r\n";
+
+    //plain text version of message
+    $headers .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-15\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+    $headers .= chunk_split(base64_encode($email_text)); 
+
+    //HTML version of message 
+    $headers .= "--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-15\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+    $headers .= chunk_split(base64_encode($email_text));
+
+    //send message
+    $to_email_address = $to_name . " <" . $to_email_address . ">";
+    if (mail($to_email_address, $email_subject, "", $headers)) {
+      return true;
     } else {
-      $mail->set_body(strip_tags($email_text));
-    }
-
-    $mail->set_charset('iso-8859-15', TRUE);
-    $mail->build_message();
-    $mail->send($to_firstname . ' ' . $to_lastname,
-                $to_email_address,
-                $from_email_name,
-                $from_email_address,
-                $email_subject
-               );
+      return tep_error_message(ERROR_TEP_MAIL); 
   }
 
 ////
