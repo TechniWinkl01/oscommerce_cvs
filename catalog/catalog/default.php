@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.81 2003/02/13 04:23:23 hpdl Exp $
+  $Id: default.php,v 1.82 2003/04/30 09:43:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -178,8 +178,6 @@
 // We show them all
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_MANUFACTURERS . " m left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'";
       }
-// We build the categories-dropdown
-      $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
     } else {
 // show the products in a given categorie
       if (isset($HTTP_GET_VARS['filter_id'])) {
@@ -189,8 +187,6 @@
 // We show them all
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = '" . $current_category_id . "'";
       }
-// We build the manufacturers Dropdown
-      $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_MANUFACTURERS . " m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
     if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'],0,1) > sizeof($column_list)) ) {
@@ -233,40 +229,32 @@
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <form>
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
 <?php
 // optional Product List Filter
     if (PRODUCT_LIST_FILTER > 0) {
+      if (isset($HTTP_GET_VARS['manufacturers_id'])) {
+        $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
+      } else {
+        $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_MANUFACTURERS . " m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
+      }
       $filterlist_query = tep_db_query($filterlist_sql);
       if (tep_db_num_rows($filterlist_query) > 1) {
-        echo '            <td align="center" class="main">' . TEXT_SHOW . '<select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">';
+        echo '            <td align="center" class="main">' . tep_draw_form('filter', FILENAME_DEFAULT, 'GET') . TEXT_SHOW . '&nbsp;';
         if (isset($HTTP_GET_VARS['manufacturers_id'])) {
-          $arguments = 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'];
+          echo tep_draw_hidden_field('manufacturers_id', $HTTP_GET_VARS['manufacturers_id']);
+          $options = array(array('text' => TEXT_ALL_CATEGORIES));
         } else {
-          $arguments = 'cPath=' . $cPath;
+          echo tep_draw_hidden_field('cPath', $cPath);
+          $options = array(array('text' => TEXT_ALL_MANUFACTURERS));
         }
-        $arguments .= '&sort=' . $HTTP_GET_VARS['sort'];
-
-        $option_url = tep_href_link(FILENAME_DEFAULT, $arguments);
-
-        if (!isset($HTTP_GET_VARS['filter_id'])) {
-          echo '<option value="' . $option_url . '" SELECTED>' . TEXT_ALL . '</option>';
-        } else {
-          echo '<option value="' . $option_url . '">' . TEXT_ALL . '</option>';
-        }
-
-        echo '<option value="">---------------</option>';
+        echo tep_draw_hidden_field('sort', $HTTP_GET_VARS['sort']);
         while ($filterlist = tep_db_fetch_array($filterlist_query)) {
-          $option_url = tep_href_link(FILENAME_DEFAULT, $arguments . '&filter_id=' . $filterlist['id']);
-          if (isset($HTTP_GET_VARS['filter_id']) && ($HTTP_GET_VARS['filter_id'] == $filterlist['id'])) {
-            echo '<option value="' . $option_url . '" SELECTED>' . $filterlist['name'] . '</option>';
-          } else {
-            echo '<option value="' . $option_url . '">' . $filterlist['name'] . '</option>';
-          }
+          $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
         }
-        echo '</select></td>' . "\n";
+        echo tep_draw_pull_down_menu('filter_id', $options, $HTTP_GET_VARS['filter_id'], 'onchange="this.form.submit()"');
+        echo '</form></td>' . "\n";
       }
     }
 
@@ -284,7 +272,6 @@
 ?>
             <td align="right"><?php echo tep_image(DIR_WS_IMAGES . $image, HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
-          </form>
         </table></td>
       </tr>
       <tr>

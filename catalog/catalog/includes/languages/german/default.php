@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.22 2003/02/16 00:42:03 harley_vb Exp $
+  $Id: default.php,v 1.23 2003/04/30 09:43:18 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,7 +31,8 @@ if ( ($category_depth == 'products') || ($HTTP_GET_VARS['manufacturers_id']) ) {
   define('TEXT_SHOW', '<b>Darstellen:</b>');
   define('TEXT_BUY', '1 x \'');
   define('TEXT_NOW', '\' bestellen!');
-  define('TEXT_ALL', 'Alle');
+  define('TEXT_ALL_CATEGORIES', 'Alle Kategorien');
+  define('TEXT_ALL_MANUFACTURERS', 'Alle Hersteller');
 } elseif ($category_depth == 'top') {
   define('HEADING_TITLE', 'Unser Angebot');
 } elseif ($category_depth == 'nested') {
