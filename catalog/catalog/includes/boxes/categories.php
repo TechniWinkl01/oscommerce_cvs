@@ -1,3 +1,53 @@
+<?php
+  function tep_show_category($counter) {
+    global $foo, $categories_string, $id;
+
+    for ($a=0; $a<$foo[$counter]['level']; $a++) {
+      $categories_string .= "&nbsp;&nbsp;";
+    }
+
+    $categories_string .= '<a href="';
+
+    if ($foo[$counter]['parent'] == 0) {
+      $cPath_new = 'cPath=' . $counter;
+    } else {
+      $cPath_new = 'cPath=' . $foo[$counter]['path'];
+    }
+
+    $categories_string .= tep_href_link(FILENAME_DEFAULT, $cPath_new);
+    $categories_string .= '">';
+
+    if ( ($id) && (tep_in_array($counter, $id)) ) {
+      $categories_string .= '<b>';
+    }
+
+// display category name
+    $categories_string .= $foo[$counter]['name'];
+
+    if ( ($id) && (tep_in_array($counter, $id)) ) {
+      $categories_string .= '</b>';
+    }
+
+    if (tep_has_category_subcategories($counter)) {
+      $categories_string .= '->';
+    }
+
+    $categories_string .= '</a>';
+
+    if (SHOW_COUNTS) {
+      $products_in_category = tep_count_products_in_category($counter);
+      if ($products_in_category > 0) {
+        $categories_string .= ' (' . $products_in_category . ')';
+      }
+    }
+
+    $categories_string .= '<br>';
+
+    if ($foo[$counter]['next_id']) {
+      tep_show_category($foo[$counter]['next_id']);
+    }
+  }
+?>
 <!-- categories //-->
           <tr>
             <td>
@@ -9,41 +59,69 @@
   new infoBoxHeading($info_box_contents);
 
   $categories_string = '';
-  if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
-// check to see if there are deeper categories within the current category
-    $category_links = tep_array_reverse($cPath_array);
-    for($i=0;$i<sizeof($category_links);$i++) {
-      $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order, categories_name");
-      if (tep_db_num_rows($categories) < 1) {
-        // do nothing, go through the loop
-      } else {
-        break; // we've found the deepest category the customer is in
-      }
+
+  $categories_query = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '0' order by sort_order, categories_name");
+  while ($categories = tep_db_fetch_array($categories_query))  {
+    $foo[$categories['categories_id']] = array(
+                                        'name' => $categories['categories_name'],
+                                        'parent' => $categories['parent_id'],
+                                        'level' => 0,
+                                        'path' => $categories['categories_id'],
+                                        'next_id' => false
+                                       );
+
+    if (isset($prev_id)) {
+      $foo[$prev_id]['next_id'] = $categories['categories_id'];
     }
-  } else {
-    $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
+
+    $prev_id = $categories['categories_id'];
+
+    if (!isset($first_element)) {
+      $first_element = $categories['categories_id'];
+    }
   }
 
-  while ($categories_values = tep_db_fetch_array($categories)) {
-    $count_str = '';
-    if (SHOW_COUNTS) {
-      if (USE_RECURSIVE_COUNT) {  
-        $total_count = tep_count_products_in_category($categories_values['categories_id']);
-      } else {
-        if (@$HTTP_GET_VARS['cPath']) {
-          $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.categories_id = '" . $categories_values['categories_id'] . "'");
-        } else {
-          $total_products = tep_db_query("select count(*) as total from products p, products_to_categories p2c, categories c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = c.categories_id and c.parent_id = '" . $categories_values['categories_id'] . "'");
+  //------------------------
+  if ($cPath) {
+    $id = split('_', $cPath);
+    reset($id);
+    while (list($key, $value) = each($id)) {
+      $new_path .= $value;
+      unset($prev_id);
+      unset($first_id);
+      $categories_query = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $value . "' order by sort_order, categories_name");
+      $category_check = tep_db_num_rows($categories_query);
+      while ($row = tep_db_fetch_array($categories_query)) {
+        $foo[$row['categories_id']] = array(
+                                            'name' => $row['categories_name'],
+                                            'parent' => $row['parent_id'],
+                                            'level' => $key+1,
+                                            'path' => $new_path . '_' . $row['categories_id'],
+                                            'next_id' => false
+                                           );
+
+        if (isset($prev_id)) {
+          $foo[$prev_id]['next_id'] = $row['categories_id'];
         }
-        $total_products_values = tep_db_fetch_array($total_products);
-        $total_count = $total_products_values['total'];
-      }
-      if ($total_count > 0) $count_str = ' (' . $total_count . ')';
-    }
 
-    $cPath_new = tep_get_path($categories_values['categories_id']);
-    $categories_string .= '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a>' . $count_str . '<br>';
+        $prev_id = $row['categories_id'];
+
+        if (!isset($first_id)) {
+          $first_id = $row['categories_id'];
+        }
+
+        $last_id = $row['categories_id'];
+      }
+      if ($category_check != 0) {
+        $foo[$last_id]['next_id'] = $foo[$value]['next_id'];
+        $foo[$value]['next_id'] = $first_id;
+      }
+
+   	  $new_path .= '_';
+    }
   }
+
+  tep_show_category($first_element); 
 
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
