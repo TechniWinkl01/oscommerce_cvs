@@ -85,10 +85,9 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'insert_product') {
-      if (tep_db_query("insert into products (products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_weight, products_status, products_tax_class_id) values ('" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "')")) {
+      if (tep_db_query("insert into products (products_name, products_description, products_quantity, products_model, products_image, products_url, products_price, products_date_added, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_name'] . "', '" . $HTTP_POST_VARS['products_description'] . "', '" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_url'] . "', '" . $HTTP_POST_VARS['products_price'] . "', '" . $HTTP_POST_VARS['products_date_added'] . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')")) {
         $new_products_id = tep_db_insert_id();
         tep_db_query("insert into products_to_categories (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
-        if ($HTTP_POST_VARS['manufacturers_id']) tep_db_query("update products set manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $new_products_id . "')");
         header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
         tep_exit();
       } else {
@@ -96,12 +95,7 @@
         tep_exit();
       }
     } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
-      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
-      if ($HTTP_POST_VARS['manufacturers_id']) {
-        tep_db_query("update products set manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
-      } else {
-        tep_db_query("update products set manufacturers_id = '' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
-      }
+      tep_db_query("update products set products_name = '" . $HTTP_POST_VARS['products_name'] . "', products_description = '" . $HTTP_POST_VARS['products_description'] . "', products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_url = '" . $HTTP_POST_VARS['products_url'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
       header('Location: ' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'copy_to_confirm') {
