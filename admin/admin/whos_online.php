@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.23 2002/04/06 19:00:44 hpdl Exp $
+  $Id: whos_online.php,v 1.24 2002/05/16 15:32:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,9 +10,12 @@
   Released under the GNU General Public License
 */
 
+  $xx_mins_ago = (time() - 900);
+
   require('includes/application_top.php');
 
-  $xx_mins_ago = (time() - 900);
+  require(DIR_WS_CLASSES . 'currencies.php');
+  $currencies = new currencies();
 
 // remove entries that have expired
   tep_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
@@ -110,7 +113,7 @@
 
     if (sizeof($contents) > 0) {
       $contents[] = array('text' => tep_draw_separator('pixel_black.gif', '100%', '1'));
-      $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . tep_currency_format($cart->show_total(), true, $currency));
+      $contents[] = array('align' => 'right', 'text'  => TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($cart->show_total(), true, $currency));
     } else {
       $contents[] = array('text' => '');
     }

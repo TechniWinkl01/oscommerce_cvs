@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.37 2002/03/28 21:11:16 harley_vb Exp $
+  $Id: specials.php,v 1.38 2002/05/16 15:32:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,9 @@
 */
 
   require('includes/application_top.php');
+
+  require(DIR_WS_CLASSES . 'currencies.php');
+  $currencies = new currencies();
 
   switch ($HTTP_GET_VARS['action']) {
     case 'setflag':
@@ -125,7 +128,7 @@
         <td><br><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_PRODUCT; ?>&nbsp;</td>
-            <td class="main"><?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . tep_currency_format($sInfo->products_price) . ')</small>' : tep_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo tep_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
+            <td class="main"><?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . $currencies->format($sInfo->products_price) . ')</small>' : tep_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo tep_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
@@ -178,7 +181,7 @@
       }
 ?>
                 <td  class="dataTableContent"><?php echo $specials['products_name']; ?></td>
-                <td  class="dataTableContent" align="right"><span class="oldPrice"><?php echo tep_currency_format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo tep_currency_format($specials['specials_new_products_price']); ?></span></td>
+                <td  class="dataTableContent" align="right"><span class="oldPrice"><?php echo $currencies->format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
                 <td  class="dataTableContent" align="right">
 <?php
       if ($specials['status'] == '1') {
@@ -230,8 +233,8 @@
         $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($sInfo->specials_date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($sInfo->specials_last_modified));
         $contents[] = array('align' => 'center', 'text' => '<br>' . tep_info_image($sInfo->products_image, $sInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price));
-        $contents[] = array('text' => '' . TEXT_INFO_NEW_PRICE . ' ' . tep_currency_format($sInfo->specials_new_products_price));
+        $contents[] = array('text' => '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($sInfo->products_price));
+        $contents[] = array('text' => '' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($sInfo->specials_new_products_price));
         $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%');
 
         $contents[] = array('text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . tep_date_short($sInfo->expires_date) . '</b>');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.6 2002/04/20 16:49:31 harley_vb Exp $
+  $Id: shopping_cart.php,v 1.7 2002/05/16 15:32:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -70,7 +70,7 @@
       }
     }
 
-    function add_cart($products_id, $qty, $attributes = '') {
+    function add_cart($products_id, $qty = '', $attributes = '') {
       global $new_products_id_in_cart, $customer_id;
 
       $products_id = tep_get_uprid($products_id, $attributes);
@@ -78,10 +78,11 @@
       if ($this->in_cart($products_id)) {
         $this->update_quantity($products_id, $qty, $attributes);
       } else {
+        if ($qty == '') $qty = '1'; // if no quantity is supplied, then add '1' to the customers basket
+
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
 // insert into database
-
         if ($customer_id) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
 
         if (is_array($attributes)) {
@@ -98,14 +99,16 @@
       $this->cleanup();
     }
 
-    function update_quantity($products_id, $quantity, $attributes = '') {
+    function update_quantity($products_id, $quantity = '', $attributes = '') {
       global $customer_id;
+
+      if ($quantity == '') return true; // nothing needs to be updated if theres no quantity, so we return true..
 
       $this->contents[$products_id] = array('qty' => $quantity);
 // update database
       if ($customer_id) tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
 
-      if ($attributes != '') {
+      if (is_array($attributes)) {
         reset($attributes);
         while (list($option, $value) = each($attributes)) {
           $this->contents[$products_id]['attributes'][$option] = $value;
@@ -115,7 +118,7 @@
       }
     }
 
-	function cleanup() {
+    function cleanup() {
       global $customer_id;
 
       reset($this->contents);
@@ -131,8 +134,15 @@
       }
     }
 
-    function count_contents() {
-      return sizeof($this->contents);
+    function count_contents() {  // get total number of items in cart 
+        $total_items = 0;
+        if (is_array($this->contents)) {
+            reset($this->contents);
+            while (list($products_id, ) = each($this->contents)) {
+                $total_items += $this->get_quantity($products_id);
+            }
+        }
+        return $total_items;
     }
 
     function get_quantity($products_id) {
@@ -188,19 +198,20 @@
         $qty = $this->contents[$products_id]['qty'];
 
 // products price
-        $product_query = tep_db_query("select products_id, products_price, products_weight from " . TABLE_PRODUCTS . " where products_id='" . tep_get_prid($products_id) . "'");
+        $product_query = tep_db_query("select products_id, products_price, products_tax_class_id, products_weight from " . TABLE_PRODUCTS . " where products_id='" . tep_get_prid($products_id) . "'");
         if ($product = tep_db_fetch_array($product_query)) {
           $prid = $product['products_id'];
+          $products_tax = tep_get_tax_rate($product['products_tax_class_id']);
           $products_price = $product['products_price'];
           $products_weight = $product['products_weight'];
 
-          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "'");
+          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (tep_db_num_rows ($specials_query)) {
             $specials = tep_db_fetch_array($specials_query);
             $products_price = $specials['specials_new_products_price'];
           }
 
-          $this->total += ($qty * $products_price);
+          $this->total += tep_add_tax($products_price, $products_tax) * $qty;
           $this->weight += ($qty * $products_weight);
         }
 
@@ -211,9 +222,9 @@
             $attribute_price_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . $prid . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
             $attribute_price = tep_db_fetch_array($attribute_price_query);
             if ($attribute_price['price_prefix'] == '+') {
-              $this->total += $qty * $attribute_price['options_values_price'];
+              $this->total += $qty * tep_add_tax($attribute_price['options_values_price'], $products_tax);
             } else {
-              $this->total -= $qty * $attribute_price['options_values_price'];
+              $this->total -= $qty * tep_add_tax($attribute_price['options_values_price'], $products_tax);
             }
           }
         }
@@ -281,11 +292,11 @@
       return $this->weight;
     }
 
-    function unserialize($broken) { 
-      for(reset($broken);$kv=each($broken);) { 
-        $key=$kv['key']; 
-        if (gettype($this->$key)!="user function") 
-        $this->$key=$kv['value']; 
+    function unserialize($broken) {
+      for(reset($broken);$kv=each($broken);) {
+        $key=$kv['key'];
+        if (gettype($this->$key)!="user function")
+        $this->$key=$kv['value'];
       }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.28 2002/04/20 18:37:43 harley_vb Exp $
+  $Id: stats_customers.php,v 1.29 2002/05/16 15:32:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,9 @@
 */
 
   require('includes/application_top.php');
+
+  require(DIR_WS_CLASSES . 'currencies.php');
+  $currencies = new currencies();
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -70,7 +73,7 @@
               <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'], 'NONSSL'); ?>'">
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
                 <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'], 'NONSSL') . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
-                <td class="dataTableContent" align="right"><?php echo tep_currency_format($customers['ordersum']); ?>&nbsp;</td>
+                <td class="dataTableContent" align="right"><?php echo $currencies->format($customers['ordersum']); ?>&nbsp;</td>
               </tr>
 <?php
   }

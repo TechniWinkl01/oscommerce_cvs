@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.126 2002/05/09 14:09:38 hpdl Exp $
+  $Id: general.php,v 1.127 2002/05/16 15:32:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,28 +23,6 @@
     }
 
     exit;
-  }
-
-  function tep_currency_format($number, $calculate_currency_value = true, $currency_code = DEFAULT_CURRENCY, $value = '') {
-    $currency_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES . " where code = '" . $currency_code . "'");
-    $currency = tep_db_fetch_array($currency_query);
-
-    if ($calculate_currency_value == true) {
-      if (strlen($currency_code) == 3) {
-        if ($value) {
-          $rate = $value;
-        } else {
-          $rate = $currency['value'];
-        }
-      } else {
-        $rate = 1;
-      }
-      $number2currency = $currency['symbol_left'] . number_format(($number * $rate), $currency['decimal_places'], $currency['decimal_point'], $currency['thousands_point']) . $currency['symbol_right'];
-    } else {
-      $number2currency = $currency['symbol_left'] . number_format($number, $currency['decimal_places'], $currency['decimal_point'], $currency['thousands_point']) . $currency['symbol_right'];
-    }
-
-    return $number2currency;
   }
 
   function tep_customers_name($customers_id) {
@@ -183,7 +161,7 @@
   }
 
   function tep_draw_products_pull_down($name, $parameters = '', $exclude = '') {
-    global $languages_id;
+    global $currencies, $languages_id;
 
     if ($exclude == '') {
       $exclude = array();
@@ -196,7 +174,7 @@
     $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by products_name");
     while ($products = tep_db_fetch_array($products_query)) {
       if (!tep_in_array($products['products_id'], $exclude)) {
-        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . tep_currency_format($products['products_price']) . ')</option>';
+        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
       }
     }
     $select_string .= '</select>';
@@ -1152,6 +1130,53 @@
       return 'gif';
     } else {
       return false;
+    }
+  }
+
+////
+// Add tax to a products price
+  function tep_add_tax($price, $tax) {
+    global $currencies;
+
+    if (DISPLAY_PRICE_WITH_TAX) {
+      return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
+    } else {
+      return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+    }
+  }
+
+// Calculates Tax rounding the result
+  function tep_calculate_tax($price, $tax) {
+    global $currencies;
+
+    return round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+  }
+
+////
+// Returns the tax rate for a zone / class
+// TABLES: tax_rates, zones_to_geo_zones
+  function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
+    global $customer_zone_id, $customer_country_id;
+
+    if ( ($country_id == -1) && ($zone_id == -1) ) {
+      if (!tep_session_is_registered('customer_id')) {
+        $country_id = STORE_COUNTRY;
+        $zone_id = STORE_ZONE;
+      } else {
+        $country_id = $customer_country_id;
+        $zone_id = $customer_zone_id;
+      }
+    }
+
+    $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id = za.geo_zone_id left join " . TABLE_GEO_ZONES . " tz ON tz.geo_zone_id = tr.tax_zone_id WHERE (za.zone_country_id IS NULL OR za.zone_country_id = '0' OR za.zone_country_id = '" . $country_id . "') AND (za.zone_id IS NULL OR za.zone_id = '0' OR za.zone_id = '" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "' GROUP BY tr.tax_priority");
+    if (tep_db_num_rows($tax_query)) {
+      $tax_multiplier = 1.0;
+      while ($tax = tep_db_fetch_array($tax_query)) {
+        $tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);
+      }
+      return ($tax_multiplier - 1.0) * 100;
+    } else {
+      return 0;
     }
   }
 ?>
