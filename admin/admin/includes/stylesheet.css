@@ -131,7 +131,7 @@ TD.main, P.main {
   font-size : 12px;
 }
 
-CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA {
+CHECKBOX, INPUT, RADIO, SELECT, TEXTAREA, FILE {
   font-family : Verdana, Arial, sans-serif;
   font-size : 11px;
 }

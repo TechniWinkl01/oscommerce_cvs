@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.3 2001/11/19 13:55:37 hpdl Exp $
+  $Id: html_output.php,v 1.4 2001/11/22 23:56:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -225,6 +225,14 @@
 // Output a form password field
   function tep_draw_password_field($name, $value = '') {
     $field = tep_draw_input_field($name, $value, 'maxlength="40"', 'password', false);
+
+    return $field;
+  }
+
+////
+// Output a form filefield
+  function tep_draw_file_field($name) {
+    $field = tep_draw_input_field($name, '', '', 'file');
 
     return $field;
   }

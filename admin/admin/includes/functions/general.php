@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.73 2001/11/21 09:04:08 hpdl Exp $
+  $Id: general.php,v 1.74 2001/11/22 23:56:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -731,5 +731,20 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
                  'db_ip' => gethostbyname(DB_SERVER),
                  'db_version' => 'MySQL ' . (function_exists('mysql_get_server_info') ? mysql_get_server_info() : ''),
                  'db_date' => $db['datetime']);
+  }
+
+////
+// Check if a file has been truely uploaded
+  function tep_is_uploaded_file($filename) {
+    if (function_exists('is_uploaded_file')) {
+      return is_uploaded_file($filename);
+    } else {
+      if (!$tmp_file = get_cfg_var('upload_tmp_dir')) {
+        $tmp_file = dirname(tempnam('', ''));
+      }
+      $tmp_file .= '/' . basename($filename);
+// User might have trailing slash in php.ini
+      return (ereg_replace('/+', '/', $tmp_file) == $filename);
+    }
   }
 ?>
