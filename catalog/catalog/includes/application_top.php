@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.187 2001/11/19 19:33:40 dgw_ Exp $
+  $Id: application_top.php,v 1.188 2001/11/20 20:56:02 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,19 +10,19 @@
   Released under the GNU General Public License
 */
 
-// Set your local configuration parameters - mainly for developers
+// Start the clock for the page parse time log
+  define('PAGE_PARSE_START_TIME', microtime());
+
+// Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
 // Include application configuration parameters
   require('includes/configure.php');
 
 // Define the project version
-// * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
 
   define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-
-  if (STORE_PAGE_PARSE_TIME == 'true') define('PAGE_PARSE_START_TIME', microtime());
 
 // define the filenames used in the project
   define('FILENAME_ACCOUNT', 'account.php');
