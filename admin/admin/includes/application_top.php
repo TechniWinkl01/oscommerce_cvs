@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.181 2004/11/20 02:16:48 hpdl Exp $
+  $Id: application_top.php,v 1.182 2004/11/24 15:56:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,29 +92,22 @@
 
 // set the language
   require('../includes/classes/language.php');
-  $osC_Language = new language();
+  $osC_Language = new osC_Language();
 
   if (isset($_GET['language']) && !empty($_GET['language'])) {
-    $osC_Language->set_language($_GET['language']);
-  } elseif ($osC_Session->exists('language') == false) {
-    $osC_Language->get_browser_language();
-  }
-
-  if ( ($osC_Session->exists('language') == false) || ($osC_Session->value('language') != $osC_Language->language['directory']) ) {
-    $osC_Session->set('language', $osC_Language->language['directory']);
-    $osC_Session->set('languages_id', $osC_Language->language['id']);
+    $osC_Language->set($_GET['language']);
   }
 
   require('includes/languages/' . $osC_Session->value('language') . '.php');
+
+  header('Content-Type: text/html; charset=' . CHARSET);
+
+  setlocale(LC_TIME, LANGUAGE_LOCALE);
 
   $current_page = basename($PHP_SELF);
   if (file_exists('includes/languages/' . $osC_Session->value('language') . '/' . $current_page)) {
     include('includes/languages/' . $osC_Session->value('language') . '/' . $current_page);
   }
-
-  header('Content-Type: text/html; charset=' . CHARSET);
-
-  setlocale(LC_TIME, LANGUAGE_LOCALE);
 
 // define our localization functions
   require('includes/functions/localization.php');
