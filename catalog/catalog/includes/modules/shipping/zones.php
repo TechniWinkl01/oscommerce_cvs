@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.13 2002/10/15 14:18:34 thomasamoulton Exp $
+  $Id: zones.php,v 1.14 2002/11/01 04:54:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -110,111 +110,56 @@
     }
 
 // class methods
-    function selection() {
-      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_ZONES_TEXT_TITLE . '</td>' . "\n" .
-                          '    <td align="right" class="main">' . tep_draw_checkbox_field('shipping_quote_zones', '1', true) . '</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '</table>' . "\n";
+    function quote($method = '') {
+      global $order, $shipping_weight;
 
-      return $selection_string;
-    }
+      $dest_country = $order->delivery['country']['iso_code_2'];
+      $dest_zone = 0;
+      $error = false;
 
-
-    function quote() {
-      global $shipping_quote_zones, $shipping_quote_all, $address_values, $shipping_weight, $shipping_quoted, $shipping_zones_cost, $shipping_zones_method, $shipping_num_boxes;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_zones'] == '1') ) {
-        $shipping_quoted = 'zones';
-        
-        $destination = tep_get_countries($address_values['country_id'], '1');
-        $dest_country = $destination['countries_iso_code_2'];
-        $dest_zone = 0;
-        for ($i = 1; $i <= $this->num_zones; $i ++) {
-          $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
-          $country_zones = split("[,]", $countries_table);
-          if ( in_array($dest_country, $country_zones ) ) {
-            $dest_zone = $i;
-            break;
-          }
+      for ($i=1; $i<=$this->num_zones; $i++) {
+        $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
+        $country_zones = split("[,]", $countries_table);
+        if (in_array($dest_country, $country_zones)) {
+          $dest_zone = $i;
+          break;
         }
-        if ($dest_zone == 0) {
-          $shipping_zones_cost = 0;
-          $shipping_zones_method = MODULE_SHIPPING_ZONES_INVALID_ZONE;
-          return;
-        }
+      }
+
+      if ($dest_zone == 0) {
+        $error = true;
+      } else {
         $shipping = -1;
         $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $i);
 
         $zones_table = split("[:,]" , $zones_cost);
-        for ($i = 0; $i < count($zones_table); $i+=2) {
+        for ($i=0; $i<sizeof($zones_table); $i+=2) {
           if ($shipping_weight <= $zones_table[$i]) {
             $shipping = $zones_table[$i+1];
-            $shipping_zones_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . " : " . $total_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
+            $shipping_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
             break;
           }
         }
-        if ( $shipping == -1) {
-          $shipping_zones_cost = 0;
-          $shipping_zones_method = MODULE_SHIPPING_ZONES_UNDEFINED_RATE;
-        }
-        else {
-          $shipping_zones_cost = (($shipping*$shipping_num_boxes) + MODULE_SHIPPING_ZONES_HANDLING + SHIPPING_HANDLING);
-        }
-      }
-    }
 
-    function cheapest() {
-      global $shipping_count, $shipping_quote_zones, $shipping_quote_all, $shipping_cheapest, $shipping_cheapest_cost, $shipping_zones_cost;
-
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_zones) ) {
-        if ($shipping_count == 0) {
-          $shipping_cheapest = 'zones';
-          $shipping_cheapest_cost = $shipping_zones_cost;
+        if ($shipping == -1) {
+          $shipping_cost = 0;
+          $shipping_method = MODULE_SHIPPING_ZONES_UNDEFINED_RATE;
         } else {
-          if ($shipping_zones_cost < $shipping_cheapest_cost) {
-            $shipping_cheapest = 'zones';
-            $shipping_cheapest_cost = $shipping_zones_cost;
-          }
+          $shipping_cost = ($shipping + MODULE_SHIPPING_ZONES_HANDLING + SHIPPING_HANDLING);
         }
-        $shipping_count++;
-      }
-    }
-
-    function display() {
-      global $HTTP_GET_VARS, $currencies, $shipping_cheapest, $shipping_zones_method, $shipping_zones_cost, $shipping_selected;
-
-      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_zones'] == '1') ) {
-        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_ZONES_TEXT_TITLE . ' <small><i>(' . $shipping_zones_method . ')</i></small></td>' . "\n" .
-                          '    <td align="right" class="main">' . $currencies->format($shipping_zones_cost);
-        if (tep_count_shipping_modules() > 1) {
-          $display_string .= tep_draw_radio_field('shipping_selected', 'zones') .
-                             tep_draw_hidden_field('shipping_zones_cost', $shipping_zones_cost) .
-                             tep_draw_hidden_field('shipping_zones_method', $shipping_zones_method) . '</td>' . "\n";
-        } else {
-          $display_string .= tep_draw_hidden_field('shipping_selected', 'zones') .
-                             tep_draw_hidden_field('shipping_zones_cost', $shipping_zones_cost) .
-                             tep_draw_hidden_field('shipping_zones_method', $shipping_zones_method) . '</td>' . "\n";
-        }
-        $display_string .= '  </tr>' . "\n" .
-                           '</table>' . "\n";
       }
 
-      return $display_string;
-    }
+      $this->quotes = array('id' => $this->code,
+                            'module' => MODULE_SHIPPING_ZONES_TEXT_TITLE,
+                            'methods' => array(array('id' => $this->code,
+                                                     'title' => $shipping_method,
+                                                     'cost' => $shipping_cost)));
 
-    function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
+      if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);
 
-      if ($shipping_selected == 'zones') {
-        $shipping_cost = $HTTP_POST_VARS['shipping_zones_cost'];
-        $shipping_method = $HTTP_POST_VARS['shipping_zones_method'];
-      }
+      if ($error == true) $this->quotes['error'] = MODULE_SHIPPING_ZONES_INVALID_ZONE;
+
+      return $this->quotes;
     }
 
     function check() {
@@ -239,21 +184,24 @@
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_ZONES_STATUS'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_ZONES_HANDLING'");
-
-      for ($i = 1; $i <= $this->num_zones; $i ++) { 
-        tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."'");
-        tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_ZONES_COST_" . $i ."'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
       }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
       $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_HANDLING');
-      for ($i = 1; $i <= $this->num_zones; $i ++) {
-        $keys[count($keys)] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
-        $keys[count($keys)] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
+
+      for ($i=1; $i<=$this->num_zones; $i++) {
+        $keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
+        $keys[] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
       }
+
       return $keys;
     }
   }
