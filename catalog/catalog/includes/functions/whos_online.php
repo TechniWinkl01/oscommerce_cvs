@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.3 2001/09/20 19:27:06 mbs Exp $
+  $Id: whos_online.php,v 1.4 2001/09/25 18:02:39 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,7 +27,7 @@
 
     $wo_session_id = tep_session_id();
     $wo_ip_address = getenv('REMOTE_ADDR');
-    $wo_last_page_url = getenv('REQUEST_URI');
+    $wo_last_page_url = addslashes(getenv('REQUEST_URI'));
 
     $current_time = time();
     $xx_mins_ago = ($current_time - 900);
