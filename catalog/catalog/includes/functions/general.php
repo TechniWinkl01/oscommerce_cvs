@@ -1393,7 +1393,7 @@ function tep_address_summary($customers_id, $address_id) {
 
   function tep_display_banner($action, $identifier) {
     if ($action == 'dynamic') {
-      $banners_query = tep_db_query("select count(*) as count from banners where banners_group = '" . $identifier . "'");
+      $banners_query = tep_db_query("select count(*) as count from banners where status = '1' and banners_group = '" . $identifier . "'");
       $banners = tep_db_fetch_array($banners_query);
       if ($banners['count'] > 0) {
         $banner = tep_random_select("select banners_id, banners_title, banners_image from banners where status = '1' and banners_group = '" . $identifier . "'");
@@ -1423,6 +1423,27 @@ function tep_address_summary($customers_id, $address_id) {
     }
 
     return $banner_string;
+  }
+
+  function tep_banner_exists($action, $identifier) {
+    if ($action == 'dynamic') {
+      $banners_query = tep_db_query("select count(*) as count from banners where status = '1' and banners_group = '" . $identifier . "'");
+      $banners = tep_db_fetch_array($banners_query);
+      if ($banners['count'] > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } elseif ($action == 'static') {
+      $banner_query = tep_db_query("select banners_id from banners where status = '1' and banners_id = '" . $identifier . "'");
+      if (tep_db_num_rows($banner_query)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   function tep_update_banner_count($banner_id) {
