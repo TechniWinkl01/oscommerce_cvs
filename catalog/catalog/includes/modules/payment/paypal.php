@@ -30,12 +30,13 @@
 	  if ($this-->enabled) {
         $paypal_return = $HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . $shipping_method . '|' . $comments . '&' . SID;
 ?>
-      <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="cmd" value="_xclick">
 	  <input type="hidden" name="business" value="<? echo MODULE_PAYMENT_PAYPAL_ID; ?>">
 	  <input type="hidden" name="item_name" value="<? echo STORE_NAME; ?>">
 	  <input type="hidden" name="amount" value="<? echo number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2); ?>">
 	  <input type="hidden" name="shipping" value="<? echo number_format($shipping_cost * $currency_rates['USD'], 2); ?>">
 	  <input type="hidden" name="return" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return; ?>">
+	  <input type="hidden" name="cancel_return" value="<? echo HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PAYMENT . '?paypal_return=' . $paypal_return; ?>">
 <?
       }
       return false;
