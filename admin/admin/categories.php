@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.142 2003/06/20 15:32:13 hpdl Exp $
+  $Id: categories.php,v 1.143 2003/06/25 20:31:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -403,14 +403,6 @@
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script language="javascript"><!--
   var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
-//--></script>
-<script language="Javascript1.2" src="includes/external/htmlarea/htmlarea.js"></script>
-<script language="JavaScript1.2" defer><!--
-<?php
-    for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-      echo 'editor_generate(\'products_description[' . $languages[$i]['id'] . ']\');' . "\n";
-    }
-?>
 //--></script>
 <script language="javascript"><!--
 var tax_rates = new Array();
