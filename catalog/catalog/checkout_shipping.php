@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.8 2003/01/09 15:53:51 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.9 2003/02/05 22:34:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -63,23 +63,50 @@
   require(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;
 
+  if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+    switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
+      case 'national':
+        if ($order->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+      case 'international':
+        if ($order->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+      case 'both':
+        $pass = true; break;
+      default:
+        $pass = false; break;
+    }
+
+    $free_shipping = false;
+    if ( ($pass == true) && ($order->info['total'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+      $free_shipping = true;
+
+      include(DIR_WS_LANGUAGES . $language . '/modules/order_total/ot_shipping.php');
+    }
+  } else {
+    $free_shipping = false;
+  }
+
 // process the selected shipping method
   if ( isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process') ) {
     if (!tep_session_is_registered('shipping')) tep_session_register('shipping');
 
-    if (tep_count_shipping_modules() > 0) {
+    if ( (tep_count_shipping_modules() > 0) || ($free_shipping == true) ) {
       if ( (isset($HTTP_POST_VARS['shipping'])) && (strpos($HTTP_POST_VARS['shipping'], '_')) ) {
         $shipping = $HTTP_POST_VARS['shipping'];
 
         list($module, $method) = explode('_', $shipping);
-        if (is_object($$module)) {
-          $quote = $shipping_modules->quote($method, $module);
+        if ( is_object($$module) || ($shipping == 'free_free') ) {
+          if ($shipping == 'free_free') {
+            $quote[0]['methods'][0]['title'] = FREE_SHIPPING_TITLE;
+            $quote[0]['methods'][0]['cost'] = '0';
+          } else {
+            $quote = $shipping_modules->quote($method, $module);
+          }
           if (isset($quote['error'])) {
             tep_session_unregister('shipping');
           } else {
             if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
               $shipping = array('id' => $shipping,
-                                'title' => $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')',
+                                'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
                                 'cost' => $quote[0]['methods'][0]['cost']);
 
               tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
@@ -232,7 +259,7 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
-    } else {
+    } elseif ($free_shipping == false) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -242,8 +269,28 @@ function rowOutEffect(object) {
 <?php
     }
 
-    $radio_buttons = 0;
-    for ($i=0; $i<$quotes_size; $i++) {
+    if ($free_shipping == true) {
+?>
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td colspan="2" width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                    <td class="main" colspan="3"><b><?php echo FREE_SHIPPING_TITLE; ?></b>&nbsp;<?php echo $quotes[$i]['icon']; ?></td>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                  </tr>
+                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, 0)">
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                    <td class="main" width="100%"><?php echo sprintf(FREE_SHIPPING_DESCRIPTION, $currencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) . tep_draw_hidden_field('shipping', 'free_free'); ?></td>
+                    <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                  </tr>
+                </table></td>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
+              </tr>
+<?php
+    } else {
+      $radio_buttons = 0;
+      for ($i=0; $i<$quotes_size; $i++) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -254,7 +301,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-      if (isset($quotes[$i]['error'])) {
+        if (isset($quotes[$i]['error'])) {
 ?>
                   <tr>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -262,43 +309,44 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-      } else {
-        $size = sizeof($quotes[$i]['methods']);
-        for ($j=0, $n2=$size; $j<$n2; $j++) {
+        } else {
+          $size = sizeof($quotes[$i]['methods']);
+          for ($j=0, $n2=$size; $j<$n2; $j++) {
 // set the radio button to be checked if it is the method chosen
-          $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
+            $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
 
-          if ( ($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) || (tep_count_shipping_modules() == (int)1) ) {
-            echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
-          } else {
-            echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
-          }
+            if ( ($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) || (tep_count_shipping_modules() == (int)1) ) {
+              echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+            } else {
+              echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+            }
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" width="75%"><?php echo $quotes[$i]['methods'][$j]['title']; ?></td>
 <?php
-          if ( ($quotes_size > 1) || ($n2 > 1) ) {
+            if ( ($quotes_size > 1) || ($n2 > 1) ) {
 ?>
-                    <td class="main"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']); ?></td>
+                    <td class="main"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax'])); ?></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
 <?php
-          } else {
+            } else {
 ?>
-                    <td class="main" align="right" colspan="2"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
+                    <td class="main" align="right" colspan="2"><?php echo $currencies->format(tep_add_tax($quotes[$i]['methods'][$j]['cost'], $quotes[$i]['tax'])) . tep_draw_hidden_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id']); ?></td>
 <?php
-          }
+            }
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
-          $radio_buttons++;
+            $radio_buttons++;
+          }
         }
-      }
 ?>
                 </table></td>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td> 
               </tr>
 <?php
+      }
     }
 ?>
             </table></td>
