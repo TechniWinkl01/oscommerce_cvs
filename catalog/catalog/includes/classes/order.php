@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.4 2002/04/05 00:40:45 hpdl Exp $
+  $Id: order.php,v 1.5 2002/04/06 15:47:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -100,6 +100,7 @@
 //        $this->info['tax'] += $this->products[$index]['tax']/100 * $products_price;
         $this->info['subtotal'] += $this->products[$index]['final_price'] * $this->products[$index]['qty'];
         $this->info['tax'] += $this->products[$index]['tax']/100 * ($this->products[$index]['final_price'] * $this->products[$index]['qty']);
+        $this->info['tax_groups']["{$this->products[$index]['tax']}"] += $this->products[$index]['tax']/100 * ($this->products[$index]['final_price'] * $this->products[$index]['qty']);
 
         $index++;
       }
