@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.28 2003/02/11 19:24:24 dgw_ Exp $
+  $Id: order.php,v 1.29 2003/02/11 21:13:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,7 +32,7 @@
 
       $order_id = tep_db_prepare_input($order_id);
 
-      $order_query = tep_db_query("select customers_name, customers_company, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_company, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode, billing_state, billing_country, billing_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, currency, currency_value, date_purchased, orders_status, last_modified from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($order_id) . "'");
+      $order_query = tep_db_query("select customers_id, customers_name, customers_company, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_company, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode, billing_state, billing_country, billing_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, currency, currency_value, date_purchased, orders_status, last_modified from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($order_id) . "'");
       $order = tep_db_fetch_array($order_query);
 
       $totals_query = tep_db_query("select title, text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . tep_db_input($order_id) . "' order by sort_order");
@@ -63,7 +63,8 @@
                           'total' => strip_tags($order_total['text']),
                           'shipping_method' => ((substr($shipping_method['title'], -1) == ':') ? substr(strip_tags($shipping_method['title']), 0, -1) : strip_tags($shipping_method['title'])));
 
-      $this->customer = array('name' => $order['customers_name'],
+      $this->customer = array('id' => $order['customers_id'],
+                              'name' => $order['customers_name'],
                               'company' => $order['customers_company'],
                               'street_address' => $order['customers_street_address'],
                               'suburb' => $order['customers_suburb'],
