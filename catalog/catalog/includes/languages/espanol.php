@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.91 2002/09/29 15:09:37 project3000 Exp $
+  $Id: espanol.php,v 1.92 2002/10/29 22:50:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,7 +57,6 @@ define('HEADER_TITLE_LOGIN', 'Entrar');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'peticiones desde');
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2001 <a href="http://www.oscommerce.com">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a><br>Powered by <a href="http://www.oscommerce.com">osCommerce</a>');
 
 // text for gender
 define('MALE', 'Varon');
@@ -302,4 +301,22 @@ define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warning: The sessions director
 define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: I am not able to write to the sessions directory: ' . tep_session_save_path() . '. Sessions will not work until the right user permissions are set.');
 define('WARNING_SESSION_AUTO_START', 'Warning: session.auto_start is enabled - please disable this php feature in php.ini and restart the web server.');
 define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warning: The downloadable products directory does not exist: ' . DIR_FS_DOWNLOAD . '. Downloadable products will not work until this directory is valid.');
+
+/*
+  The following copyright announcement can only be
+  appropriately modified or removed if the layout of
+  the site theme has been modified to distinguish
+  itself from the default osCommerce-copyrighted
+  theme.
+
+  For more information please read the following
+  Frequently Asked Questions entry on the osCommerce
+  support site:
+
+  http://www.oscommerce.com/community.php/faq,26/q,50
+
+  Please leave this comment intact together with the
+  following copyright announcement.
+*/
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
 ?>

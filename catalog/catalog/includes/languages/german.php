@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.105 2002/09/29 15:09:37 project3000 Exp $
+  $Id: german.php,v 1.106 2002/10/29 22:50:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,7 +57,6 @@ define('HEADER_TITLE_LOGIN', 'Anmelden');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'Zugriffe seit');
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2001 - 2002 <a href="http://www.oscommerce.com">osCommerce</a> : <a href="mailto:hpdl@oscommerce.com">Harald Ponce de Leon</a><br>Powered by <a href="http://www.oscommerce.com">osCommerce</a>');
 
 // text for gender
 define('MALE', 'Herr');
@@ -302,4 +301,22 @@ define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis f&uum
 define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warnung: osC kann nicht in das Sessions Verzeichnis schreiben: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden.');
 define('WARNING_SESSION_AUTO_START', 'Warnung: session.auto_start ist enabled - Bitte disablen Sie diese PHP Feature in der php.ini und starten Sie den WEB-Server neu.');
 define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warning: The downloadable products directory does not exist: ' . DIR_FS_DOWNLOAD . '. Downloadable products will not work until this directory is valid.');
+
+/*
+  The following copyright announcement can only be
+  appropriately modified or removed if the layout of
+  the site theme has been modified to distinguish
+  itself from the default osCommerce-copyrighted
+  theme.
+
+  For more information please read the following
+  Frequently Asked Questions entry on the osCommerce
+  support site:
+
+  http://www.oscommerce.com/community.php/faq,26/q,50
+
+  Please leave this comment intact together with the
+  following copyright announcement.
+*/
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
 ?>
