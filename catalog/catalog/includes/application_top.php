@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.144 2001/06/09 18:49:34 hpdl Exp $
+  $Id: application_top.php,v 1.145 2001/06/10 10:37:11 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -379,4 +379,9 @@
   } else {
     $current_category_id = 0;
   }
+// mail class
+  require(DIR_WS_CLASSES . 'mail.php');
+
+// smtp class
+  require(DIR_WS_CLASSES . 'smtp.php');
 ?>
