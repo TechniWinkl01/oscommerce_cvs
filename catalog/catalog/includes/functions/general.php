@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.197 2002/11/18 22:50:24 project3000 Exp $
+  $Id: general.php,v 1.198 2002/11/19 00:28:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,12 +39,11 @@
 ////
 // Return a random row from a database query
   function tep_random_select($query) {
-    srand((double)microtime()*1000000); // seed the random number generator
     $random_product = '';
     $random_query = tep_db_query($query);
     $num_rows = tep_db_num_rows($random_query);
     if ($num_rows > 0) {
-      $random_row = @rand(0, ($num_rows - 1));
+      $random_row = tep_rand(0, ($num_rows - 1));
       tep_db_data_seek($random_query, $random_row);
       $random_product = tep_db_fetch_array($random_query);
     }
@@ -1001,12 +1000,11 @@
     if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
 
     $rand_value = '';
-    mt_srand((double) microtime() * 1000000);
     while (strlen($rand_value)<$length) {
       if ($type == 'digits') {
-        $char = mt_rand(0,9);
+        $char = tep_rand(0,9);
       } else {
-        $char = chr(mt_rand(0,255));
+        $char = chr(tep_rand(0,255));
       }
       if ($type == 'mixed') {
         if (eregi('^[a-z0-9]$', $char)) $rand_value .= $char;
@@ -1122,5 +1120,21 @@
     }
 
     return $tmp_array;
+  }
+
+////
+// Return a random value
+  function tep_rand($min = null, $max = null) {
+    static $seeded;
+
+    if (!$seeded) {
+      mt_srand((double)microtime()*1000000);
+      $seeded = true;
+    }
+    if (!isset($min) && !isset($max)) {
+      return mt_rand();
+    } else {
+      return mt_rand($min, $max);
+    }
   }
 ?>
