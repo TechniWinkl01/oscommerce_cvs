@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.22 2003/05/08 11:29:11 thomasamoulton Exp $
+  $Id: shipping.php,v 1.23 2003/06/29 11:22:05 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -95,9 +95,8 @@
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
-            $size = sizeof($quotes['methods']);
-            for ($i=0; $i<$size; $i++) {
-              if ($quotes['methods'][$i]['cost']) {
+            for ($i=0, $n=sizeof($quotes['methods']); $i<$n; $i++) {
+              if (isset($quotes['methods'][$i]['cost']) && tep_not_null($quotes['methods'][$i]['cost'])) {
                 $rates[] = array('id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
                                  'title' => $quotes['module'] . ' (' . $quotes['methods'][$i]['title'] . ')',
                                  'cost' => $quotes['methods'][$i]['cost']);
@@ -107,8 +106,7 @@
         }
 
         $cheapest = false;
-        $size = sizeof($rates);
-        for ($i=0; $i<$size; $i++) {
+        for ($i=0, $n=sizeof($rates); $i<$n; $i++) {
           if (is_array($cheapest)) {
             if ($rates[$i]['cost'] < $cheapest['cost']) {
               $cheapest = $rates[$i];
