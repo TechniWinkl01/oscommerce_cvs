@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.68 2002/05/15 11:02:42 thomasamoulton Exp $
+  $Id: checkout_address.php,v 1.69 2002/05/27 13:08:52 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -46,12 +46,12 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="checkout_address" method="post" action="<?php echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('checkout_address', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL')); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -61,13 +61,13 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-   if (MODULE_SHIPPING_INSTALLED) {
+  if (tep_not_null(MODULE_SHIPPING_INSTALLED)) {
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
-                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -77,14 +77,17 @@
           <tr>
             <td><?php echo $shipping_modules->selection(); ?></td>
           </tr>
+          <tr>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+          </tr>
 <?php
-    }
+  }
 ?>
           <tr>
-            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td class="tableHeading"><?php echo TABLE_HEADING_MY_ADDRESS; ?></td>
-                <td align="right" class="tableHeading"><?php echo TABLE_HEADING_DELIVER_TO; ?></td>
+                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_DELIVER_TO; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -94,12 +97,8 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td class="main"><?php echo tep_address_label($customer_id, 1, 1, ' ', '<br>'); ?></td>
-                  </tr>
-                </table></td>
-                <td align="right" valign="middle" class="main"><input type="radio" name="sendto" value="1"<?php if ($sendto == '1') echo ' checked'; ?>></td>
+                <td class="main"><?php echo tep_address_label($customer_id, 1, 1, ' ', '<br>'); ?></td>
+                <td class="main" align="right" valign="middle"><input type="radio" name="sendto" value="1"<?php if ($sendto == '1') echo ' checked'; ?>></td>
               </tr>
             </table></td>
           </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.63 2002/04/06 09:29:46 project3000 Exp $
+  $Id: address_book_process.php,v 1.64 2002/05/27 13:07:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,12 +21,10 @@
     $navigation->set_path_as_snapshot(1);
   }
 
-// are we asked to remove an entry?
-  if ((@$HTTP_GET_VARS['action'] == 'remove') && (@$HTTP_GET_VARS['entry_id'])) {
-    // delete the entry from the address_book
-    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "' and customers_id = '" . $customer_id . "'");
-    // make sure the list of ids is correct
-    tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id -1 where address_book_id > " . $HTTP_GET_VARS['entry_id']  . " and customers_id = '" . $customer_id . "'");
+  if ( ($HTTP_GET_VARS['action'] == 'remove') && (tep_not_null($HTTP_GET_VARS['entry_id'])) ) {
+    $entry_id = tep_db_prepare_input($HTTP_GET_VARS['entry_id']);
+    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . tep_db_input($entry_id) . "' and customers_id = '" . $customer_id . "'");
+    tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id - 1 where address_book_id > " . tep_db_input($entry_id)  . " and customers_id = '" . $customer_id . "'");
     // adjust the default_address_id when necessary
 //    if ($HTTP_GET_VARS['entry_id'] < $customer_default_address_id) {
 //      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = customers_default_address_id - 1 where customers_id = '" . $customer_id . "'")};
