@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.22 2002/01/03 00:19:56 dgw_ Exp $
+  $Id: boxes.php,v 1.23 2002/01/03 16:06:33 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,6 @@
         if (is_array($contents[$i][0])) {
           for ($x=0; $x<sizeof($contents[$i]); $x++) {
             if ($contents[$i][$x]['text']) {
-              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'] . "\n";
               $tableBox_string .= '    <td';
               if ($contents[$i][$x]['align'] != 'left') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
               if ($contents[$i][$x]['params']) {
@@ -43,8 +42,11 @@
               } elseif ($this->table_data_parameters != '') {
                 $tableBox_string .= ' ' . $this->table_data_parameters;
               }
-              $tableBox_string .= '>' . $contents[$i][$x]['text'] . '</td>' . "\n";
+              $tableBox_string .= '>';
+              if ($contents[$i][$x]['form']) $tableBox_string .= $contents[$i][$x]['form'];
+              $tableBox_string .= $contents[$i][$x]['text'];
               if ($contents[$i][$x]['form']) $tableBox_string .= '</form>';
+              $tableBox_string .= '</td>' . "\n";
             }
           }
         } else {
