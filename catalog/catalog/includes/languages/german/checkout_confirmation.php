@@ -34,6 +34,6 @@ define('TEXT_UNITS', 'Einheit(en) von');
 define('TEXT_IMEDIATE_DELIVER', 'Wir können Ihnen folgende Menge sofort liefern:'); 
 define('TEXT_STOCK_WARNING_DESC', 'Die mit <font color=crimson>***</font> markierten Produkte sind nicht in Ihrer gew&uuml;nschten Bestellmenge auf Lager. W&auml;hlen Sie <b>Teillieferung</b>, wenn Sie die verf&uuml;gbaren Produkte sofort erhalten möchten, die Restmenge wird Ihnen dann nachgeliefert oder <b>Gesamtlieferung</b>, die Lieferung wird erst ausgeliefert, wenn Ihre Bestellung bei uns komplett auf Lager ist.'); 
 
-define('IMAGE_PROCESS', 'Best&auml;tigung');
-define('IMAGE_BACK', 'Zur&uuml;ck');
+define('IMAGE_PROCESS', 'Bestätigen');
+define('IMAGE_BACK', 'Zurück');
 ?>

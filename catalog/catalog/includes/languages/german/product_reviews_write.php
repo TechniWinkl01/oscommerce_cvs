@@ -1,8 +1,8 @@
 <?
 /*
-German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+German Text for The Exchange Project Preview Release 2.2
+Last Update: 17/05/2001
+Author(s): Marcel Bossert-Schwab (webmaster@wernich.de)
 */
 
 define('NAVBAR_TITLE', 'Meinungen');
@@ -16,6 +16,6 @@ define('TEXT_NO_HTML', '<small><font color="#ff0000"><b>ACHTUNG:</b></font></sma
 define('TEXT_BAD', '<small><font color="#ff0000"><b>SCHLECHT</b></font></small>');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>SEHR GUT</b></font></small>');
 
-define('IMAGE_INSERT', 'Einf&uuml;gen');
+define('IMAGE_INSERT', 'Einfügen');
 define('IMAGE_CANCEL', 'Abbrechen');
 ?>
