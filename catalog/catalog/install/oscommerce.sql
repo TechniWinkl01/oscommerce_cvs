@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.100 2004/07/22 21:03:35 hpdl Exp $
+# $Id: oscommerce.sql,v 1.101 2004/08/06 10:59:11 tmoulton Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -594,7 +594,7 @@ CREATE TABLE osc_zones_to_geo_zones (
    PRIMARY KEY (association_id)
 );
 
-# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany
+# 1 - Default, 2 - USA, 3 - Spain, 12 - Singapore, 5 - Germany
 INSERT INTO osc_address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
 INSERT INTO osc_address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
 INSERT INTO osc_address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$state / $country');
@@ -606,6 +606,7 @@ INSERT INTO osc_address_format VALUES (8, '$firstname $lastname$cr$streets$cr$ci
 INSERT INTO osc_address_format VALUES (9, '$firstname $lastname$cr$streets$cr$postcode $city $state$cr$country','$city / $country');
 INSERT INTO osc_address_format VALUES (10, '$firstname $lastname$cr$streets$cr$city$cr$postcode $country','$city / $country');
 INSERT INTO osc_address_format VALUES (11, '$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country','$city / $country');
+INSERT INTO osc_address_format VALUES (12, '$firstname $lastname$cr$streets$cr$city$cr$country $postcode','$city / $country');
 
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'osCommerce', 'The name of my store', '1', '1', now());
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Owner', 'STORE_OWNER', 'Harald Ponce de Leon', 'The name of my store owner', '1', '2', now());
@@ -967,7 +968,7 @@ INSERT INTO osc_countries VALUES (184,'Saudi Arabia','SA','SAU','1');
 INSERT INTO osc_countries VALUES (185,'Senegal','SN','SEN','1');
 INSERT INTO osc_countries VALUES (186,'Seychelles','SC','SYC','1');
 INSERT INTO osc_countries VALUES (187,'Sierra Leone','SL','SLE','1');
-INSERT INTO osc_countries VALUES (188,'Singapore','SG','SGP', '8');
+INSERT INTO osc_countries VALUES (188,'Singapore','SG','SGP', '12');
 INSERT INTO osc_countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK','1');
 INSERT INTO osc_countries VALUES (190,'Slovenia','SI','SVN','1');
 INSERT INTO osc_countries VALUES (191,'Solomon Islands','SB','SLB','1');
