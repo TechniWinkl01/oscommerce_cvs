@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.4 2001/07/23 09:14:40 kwiltner Exp $
+  $Id: banner.php,v 1.5 2001/08/06 10:58:41 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -62,7 +62,7 @@
       return '<b>TEP ERROR! (tep_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
     }
 
-    $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank"><img src="' . $banner['banners_image'] . '" border="0" alt="' . $banner['banners_title'] . '"></a>';
+    $banner_string = '<a href="' . tep_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . tep_image(DIR_WS_IMAGES . $banner['banners_image'], $banner['banners_title']) . '</a>';
 
     $banner_check_query = tep_db_query("select count(*) as count from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner['banners_id'] . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
     $banner_check = tep_db_fetch_array($banner_check_query);
