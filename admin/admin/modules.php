@@ -4,11 +4,11 @@
   switch ($HTTP_GET_VARS['set']) {
     case 'payment'  : $module_directory = DIR_FS_PAYMENT_MODULES;
                       $module_key = 'MODULE_PAYMENT_INSTALLED';
-                      $heading_title = HEADING_TITLE_PAYMENT_MODULES;
+                      $heading_title = HEADING_TITLE_MODULES_PAYMENT;
                       break;
     case 'shipping' : $module_directory = DIR_FS_SHIPPING_MODULES;
                       $module_key = 'MODULE_SHIPPING_INSTALLED';
-                      $heading_title = HEADING_TITLE_SHIPPING_MODULES;
+                      $heading_title = HEADING_TITLE_MODULES_SHIPPING;
                       break;
   }
 
