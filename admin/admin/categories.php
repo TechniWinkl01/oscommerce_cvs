@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.65 2001/07/16 16:59:02 dwatkins Exp $
+  $Id: categories.php,v 1.66 2001/08/07 16:19:23 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,6 +45,11 @@
                                 if ($products_categories['total'] > 1) {
                                   tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
                                 } else {
+                                  $products_image = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
+                                  $products_image = tep_db_fetch_array($products_image);
+                                  if (file_exists(DIR_FS_CATALOG . $products_image['products_image'])) {
+                                    @unlink(DIR_FS_CATALOG . $products_image['products_image']);
+                                  }
                                   tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
                                   tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
                                   tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
