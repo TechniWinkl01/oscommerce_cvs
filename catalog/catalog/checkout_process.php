@@ -120,11 +120,11 @@
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
     $email_order .= $GLOBALS[$payment]->description . "\n\n";
   }
-  tep_mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
+  tep_mail($customers_values['customers_firstname'], $customers_values['customers_lastname'], $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, '', EMAIL_FROM, '');
 
 // send emails to other people
   if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
-    tep_mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $email_order, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
+    tep_mail('', '', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $email_order, '', EMAIL_FROM, '');
   }
 
   $cart->reset(TRUE);
