@@ -7,6 +7,7 @@
 ////
 // !Class constructor -> initialize class variables.
 // Sets the class code, description, and status.
+    function sample() {
       $this->code = 'sample';
       $this->description = MODULE_PAYMENT_SAMPLE_TEXT_DESCRIPTION;
       $this->enabled = MODULE_PAYMENT_SAMPLE_STATUS;
@@ -71,6 +72,7 @@
 
 ////
 // !Check if module is installed (Administration Tool)_
+// TABLES: configuration
     function check() {
       $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
       $check = tep_db_num_rows($check);
@@ -80,12 +82,14 @@
 
 ////
 // !Install the module (Administration Tool)_
+// TABLES: configuration
     function install() {
       tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Sample Payments', 'MODULE_PAYMENT_SAMPLE_STATUS', '0', 'Do you want to accept sample payments?', '6', '6', now())");
     }
 
 ////
 // !Remove the module (Administration Tool)_
+// TABLES: configuration
     function remove() {
       tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_SAMPLE_STATUS'");
     }
