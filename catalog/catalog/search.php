@@ -46,7 +46,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?
-  $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
+  $search_keywords = explode(' ', trim($HTTP_GET_VARS['query']));
   $search_query = "select m.manufacturers_name, m.manufacturers_location, p.products_id, p.products_name, p.products_price from manufacturers m, products_to_manufacturers p2m, products p where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
   for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
     $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
@@ -58,7 +58,7 @@
   //----------------------------------------------------------
   // Setup variables used in PREV and NEXT navigation bar
   //----------------------------------------------------------
-  tep_prev_next_setup($page, MAX_DISPLAY_SEARCH_RESULTS, $search_query, "search_numrows");
+  $search_numrows = tep_prev_next_setup($page, MAX_DISPLAY_SEARCH_RESULTS, $search_query);
 
   if (PREV_NEXT_BAR_LOCATION == 1 || PREV_NEXT_BAR_LOCATION == 3) {
     //----------------------------------------------------------
@@ -66,7 +66,7 @@
     //----------------------------------------------------------
     echo '<tr><td colspan="2" ><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_RESULT_PAGE . '&nbsp;' . "\n";
   
-    tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, "");
+    tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, FILENAME_SEARCH, "query=" . $HTTP_GET_VARS['query']);
   
     echo '</font></td></tr>' . "\n";
     echo '          <tr><td colspan="2">';
@@ -122,7 +122,7 @@
     //----------------------------------------------------------
     echo '<tr><td colspan="2" ><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_RESULT_PAGE . '&nbsp;' . "\n";
 
-    tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, "");
+    tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, FILENAME_SEARCH, "query=" . $HTTP_GET_VARS['query']);
 
     echo '</font></td></tr>' . "\n";
     echo '          <tr><td colspan="2">';

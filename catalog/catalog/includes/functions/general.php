@@ -206,58 +206,52 @@
   // Arguments   : cur_page_num        current page number        
   //               max_rows_per_page   maximum number of rows per page
   //               sql                 sql statement used to retrieve the data
-  //               var_to_store_num    session variable used to store the total number of rows 
-  //                                   that sql statement returns
   //
   // Return      : none
   //
   // Description : Function used to initialize variables for use in tep_prev_next_display
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_prev_next_setup(&$cur_page_num, $max_rows_per_page = 20, &$sql, $var_to_store_num) {
-    global $$var_to_store_num;
+  function tep_prev_next_setup(&$cur_page_num, $max_rows_per_page = 20, &$sql) {
+    //global $$var_to_store_num;
 
     if (empty($cur_page_num)) {
-    
-      tep_session_unregister($var_to_store_num);
-  
-      $sql = strtolower($sql);
-      $pos_from = strpos($sql, " from", 0);
-
-      $pos_to = strlen($sql);
-      $pos_group_by = strpos($sql, " group by", $pos_from);
-      if ($pos_group_by < $pos_to && !($pos_group_by == false))
-        $pos_to = $pos_group_by;
-        
-      $pos_having = strpos($sql, " having", $pos_from);
-      if ($pos_having < $pos_to && !($pos_having == false))
-        $pos_to = $pos_having;
-        
-      $pos_order_by = strpos($sql, " order by", $pos_from);
-      if ($pos_order_by < $pos_to && !($pos_order_by == false))
-        $pos_to = $pos_order_by;
-        
-      $pos_limit = strpos($sql, " limit", $pos_from);
-      if ($pos_limit < $pos_to && !($pos_limit == false))
-        $pos_to = $pos_limit;
-        
-      $pos_procedure = strpos($sql, " procedure", $pos_from);
-      if ($pos_procedure < $pos_to && !($pos_procedure == false))
-        $pos_to = $pos_procedure;
-
-      $count_query = tep_db_query("select count(*) as count " . substr($sql, $pos_from, $pos_to - $pos_from));
-      $count_values = tep_db_fetch_array($count_query);
-      
-      $$var_to_store_num = $count_values['count'];
-      tep_session_register($var_to_store_num);
-  
       $cur_page_num=1;
     }
+    
+    $sql = strtolower($sql);
+    $pos_from = strpos($sql, " from", 0);
 
+    $pos_to = strlen($sql);
+    $pos_group_by = strpos($sql, " group by", $pos_from);
+    if ($pos_group_by < $pos_to && !($pos_group_by == false))
+      $pos_to = $pos_group_by;
+      
+    $pos_having = strpos($sql, " having", $pos_from);
+    if ($pos_having < $pos_to && !($pos_having == false))
+      $pos_to = $pos_having;
+      
+    $pos_order_by = strpos($sql, " order by", $pos_from);
+    if ($pos_order_by < $pos_to && !($pos_order_by == false))
+      $pos_to = $pos_order_by;
+      
+    $pos_limit = strpos($sql, " limit", $pos_from);
+    if ($pos_limit < $pos_to && !($pos_limit == false))
+      $pos_to = $pos_limit;
+      
+    $pos_procedure = strpos($sql, " procedure", $pos_from);
+    if ($pos_procedure < $pos_to && !($pos_procedure == false))
+      $pos_to = $pos_procedure;
+
+    $count_query = tep_db_query("select count(*) as count " . substr($sql, $pos_from, $pos_to - $pos_from));
+    $count_values = tep_db_fetch_array($count_query);
+    
     $offset = ($max_rows_per_page * ($cur_page_num - 1));
-
     $sql .= " limit $offset, $max_rows_per_page";
+    
+    return $count_values['count'];
   }
+
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -270,6 +264,7 @@
   //                                   page link exceeds the maximum, previous and/or next 
   //                                   'window' links would be displayed
   //               cur_page_num        current page number
+  //               page                filename of the page to be displayed
   //               parameters          optional string of parameters to appended to the URL
   //
   // Return      : none
@@ -277,9 +272,11 @@
   // Description : Function to display the Prev/Next Navigation bar
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_prev_next_display($numrows, $max_row_per_page, $max_page_link, $cur_page_num, $parameters = "") {
+  function tep_prev_next_display($numrows, $max_row_per_page, $max_page_link, $cur_page_num, $page, $parameters = "") {
 
     $class = 'class="bluelink"';
+    if ($parameters)
+      $parameters .= '&';
 
     //-------------------------------------------------------------------------------
     // calculate number of pages needing links 
@@ -296,14 +293,14 @@
     // FIRST button
     //-------------------------------------------------------------------------------
     if ($cur_page_num > 1) {  // bypass FIRST link if we are in first page
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=1" ' . $class . ' title="' . PREVNEXT_TITLE_FIRST_PAGE . '">' . PREVNEXT_BUTTON_FIRST . '</a>' . "\n";
+      echo '<a href="' . $page . '?' . $parameters . 'page=1" ' . $class . ' title="' . PREVNEXT_TITLE_FIRST_PAGE . '">' . PREVNEXT_BUTTON_FIRST . '</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
     // PREV button
     //-------------------------------------------------------------------------------
     if ($cur_page_num > 1) {  // bypass PREV link if we are in first page
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . ($cur_page_num - 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_PREVIOUS_PAGE . '">' . PREVNEXT_BUTTON_PREV . '</a>' . "\n";
+      echo '<a href="' . $page . '?' . $parameters . 'page=' . ($cur_page_num - 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_PREVIOUS_PAGE . '">' . PREVNEXT_BUTTON_PREV . '</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
@@ -321,7 +318,7 @@
     // Previous window of pages
     //-------------------------------------------------------------------------------
     if ($cur_window_num > 1) {
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . (($cur_window_num - 1) * $max_page_link) . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_link) . '">&nbsp;...&nbsp;</a>' . "\n";
+      echo '<a href="' . $page . '?' . $parameters . 'page=' . (($cur_window_num - 1) * $max_page_link) . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_link) . '">&nbsp;...&nbsp;</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
@@ -332,7 +329,7 @@
         print "<b>[$jump_to_page]</b>\n";
       }
       else {
-        echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . $jump_to_page . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . '">&nbsp;' . $jump_to_page . '&nbsp;</a>' . "\n";
+        echo '<a href="' . $page . '?' . $parameters . 'page=' . $jump_to_page . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . '">&nbsp;' . $jump_to_page . '&nbsp;</a>' . "\n";
       }
     }
   
@@ -340,7 +337,7 @@
     // Next window of pages
     //-------------------------------------------------------------------------------
     if ($cur_window_num < $max_window_num) {
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . (($cur_window_num) * $max_page_link + 1) . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_link) . '">&nbsp;...&nbsp;</a>&nbsp;' . "\n";
+      echo '<a href="' . $page . '?' . $parameters . 'page=' . (($cur_window_num) * $max_page_link + 1) . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_link) . '">&nbsp;...&nbsp;</a>&nbsp;' . "\n";
     }
   
     //-------------------------------------------------------------------------------
@@ -349,7 +346,7 @@
     // check to see if last page 
     if ($cur_page_num<$num_pages && $num_pages!=1) {
       // not last page so give NEXT link 
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . ($cur_page_num + 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_NEXT_PAGE . '">' . PREVNEXT_BUTTON_NEXT . '</a>' . "\n";
+      echo '<a href="' . $page . '?' . $parameters . 'page=' . ($cur_page_num + 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_NEXT_PAGE . '">' . PREVNEXT_BUTTON_NEXT . '</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
@@ -358,7 +355,7 @@
     // check to see if last page 
     if ($cur_page_num<$num_pages && $num_pages!=1) {
       // not last page so give LAST link 
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . $num_pages . '" ' . $class . ' title="' . PREVNEXT_TITLE_LAST_PAGE . '">' . PREVNEXT_BUTTON_LAST . '</a>' . "\n";
+      echo '<a href="' . $page . '?' . $parameters . 'page=' . $num_pages . '" ' . $class . ' title="' . PREVNEXT_TITLE_LAST_PAGE . '">' . PREVNEXT_BUTTON_LAST . '</a>' . "\n";
     }
 
   }
