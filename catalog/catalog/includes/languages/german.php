@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.132 2004/07/22 21:17:43 hpdl Exp $
+  $Id: german.php,v 1.133 2005/02/23 15:20:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -202,7 +202,7 @@ define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Die Passwort-Best&aumll;tigung 
 define('FORM_REQUIRED_INFORMATION', '* Notwendige Eingabe');
 
 // constants for use in tep_prev_next_display function
-define('TEXT_RESULT_PAGE', 'Seiten:');
+define('TEXT_RESULT_PAGE', 'Seite&nbsp;%s&nbsp;von&nbsp;%d');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'angezeigte Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'angezeigte Bestellungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'angezeigte Meinungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');

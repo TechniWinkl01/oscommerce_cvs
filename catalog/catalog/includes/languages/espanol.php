@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.115 2004/07/22 21:17:43 hpdl Exp $
+  $Id: espanol.php,v 1.116 2005/02/23 15:20:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -202,7 +202,7 @@ define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'La confirmaci&oacute;n de su co
 define('FORM_REQUIRED_INFORMATION', '* Dato Obligatorio');
 
 // constants for use in tep_prev_next_display function
-define('TEXT_RESULT_PAGE', 'P&aacute;ginas de Resultados:');
+define('TEXT_RESULT_PAGE', 'P&aacute;gina&nbsp;%s&nbsp;de&nbsp;%d');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
