@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.1 2001/06/09 18:49:37 hpdl Exp $
+  $Id: banner.php,v 1.2 2001/06/09 18:52:18 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -70,7 +70,7 @@
   }
 
 ////
-// Update the banner shown statistics
+// Update the banner click statistics
   function tep_update_banner_count($banner_id) {
     tep_db_query("update " . TABLE_BANNERS_HISTORY . " set banners_clicked = banners_clicked + 1 where banners_id = '" . $banner_id . "' and date_format(banners_history_date, '%Y%m%d') = date_format(now(), '%Y%m%d')");
   }
