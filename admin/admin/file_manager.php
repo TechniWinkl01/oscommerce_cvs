@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.29 2002/01/15 12:15:07 hpdl Exp $
+  $Id: file_manager.php,v 1.30 2002/01/15 17:08:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,6 +53,8 @@
         tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         break;
       case 'deleteconfirm':
+        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+
         tep_remove($current_path . '/' . $HTTP_GET_VARS['info']);
         if (!$tep_remove_error) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         break;
@@ -104,11 +106,16 @@
         }
         break;
       case 'edit':
+        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+
         $file_writeable = true;
         if (!is_writeable($current_path . '/' . $HTTP_GET_VARS['info'])) {
           $file_writeable = false;
           $errorStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $current_path . '/' . $HTTP_GET_VARS['info']), 'error');
         }
+        break;
+      case 'delete':
+        if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         break;
     }
   }
@@ -156,6 +163,8 @@
       </tr>
 <?php
   if ( ($directory_writeable) && ($HTTP_GET_VARS['action'] == 'new_file') || ($HTTP_GET_VARS['action'] == 'edit') ) {
+    if (strstr($HTTP_GET_VARS['info'], '..')) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+
     if (!isset($file_writeable)) $file_writeable = true;
     $file_contents = '';
     if ($HTTP_GET_VARS['action'] == 'new_file') {
@@ -297,6 +306,8 @@
     $contents = array();
     switch ($HTTP_GET_VARS['action']) {
       case 'delete':
+        if ( (strstr($fInfo->name, '..')) || (!$fInfo->name) ) echo 'xxx';
+
         $heading[] = array('text' => '<b>' . $fInfo->name . '</b>');
 
         $contents = array('form' => tep_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=deleteconfirm'));
