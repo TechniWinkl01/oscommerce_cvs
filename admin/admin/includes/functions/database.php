@@ -27,7 +27,8 @@
     $result = mysql_query($db_query, $db_link);
 
     if (STORE_DB_TRANSACTIONS) {
-       error_log("RESULT " . $result . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+       $result_error = mysql_error();
+       error_log("RESULT " . $result . " " . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
     return $result;
