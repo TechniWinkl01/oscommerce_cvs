@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturer_info.php,v 1.1 2001/06/11 22:40:34 hpdl Exp $
+  $Id: manufacturer_info.php,v 1.2 2001/06/13 13:26:42 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,7 @@
     $manufacturer = tep_db_fetch_array($manufacturer_query);
 
     $manufacturer_info_string .= '<div align="center">' . tep_image($manufacturer['manufacturers_image'], $manufacturer['manufacturers_name']) . '</div>' .
-                                 '<table border="0" width="' . BOX_WIDTH . '" cellspacing="0" cellpadding="0"><tr><td valign="top" class="infoBox">-&nbsp;</td><td valign="top" class="infoBox"><a href="' . $manufacturer['manufacturers_url'] . '" target="_blank"><b>' . sprintf(BOX_MANUFACTURER_INFO_HOMEPAGE, $manufacturer['manufacturers_name']) . '</b></a></td></tr>' .
+                                 '<table border="0" width="' . BOX_WIDTH . '" cellspacing="0" cellpadding="0"><tr><td valign="top" class="infoBox">-&nbsp;</td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_REDIRECT, 'action=url&goto=' . $manufacturer['manufacturers_url']) . '" target="_blank"><b>' . sprintf(BOX_MANUFACTURER_INFO_HOMEPAGE, $manufacturer['manufacturers_name']) . '</b></a></td></tr>' .
                                  '<tr><td valign="top" class="infoBox">-&nbsp;</td><td valign="top" class="infoBox"><a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturer['manufacturers_id'], 'NONSSL') . '"><b>' . BOX_MANUFACTURER_INFO_OTHER_PRODUCTS . '</b></a></td></tr></table>';
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
