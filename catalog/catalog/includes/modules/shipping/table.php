@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.28 2003/11/17 20:36:50 hpdl Exp $
+  $Id: table.php,v 1.29 2004/04/15 16:05:40 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,12 +46,12 @@
 
 // class methods
     function quote($method = '') {
-      global $osC_Tax, $order, $cart, $shipping_weight, $shipping_num_boxes;
+      global $osC_Tax, $order, $cart, $shipping_weight, $shipping_num_boxes, $osC_Weight;
 
       if (MODULE_SHIPPING_TABLE_MODE == 'price') {
         $order_total = $cart->show_total();
       } else {
-        $order_total = $shipping_weight;
+        $order_total = $shipping_weight = $osC_Weight->convert($shipping_weight, SHIPPING_WEIGHT_UNIT, MODULE_SHIPPING_TABLE_WEIGHT_UNIT);
       }
 
       $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
@@ -99,6 +99,7 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Tax Class', 'MODULE_SHIPPING_TABLE_TAX_CLASS', '0', 'Use the following tax class on the shipping fee.', '6', '0', 'tep_get_tax_class_title', 'tep_cfg_pull_down_tax_classes(', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Shipping Zone', 'MODULE_SHIPPING_TABLE_ZONE', '0', 'If a zone is selected, only enable this shipping method for that zone.', '6', '0', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_SHIPPING_TABLE_SORT_ORDER', '0', 'Sort order of display.', '6', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Module weight Unit', 'MODULE_SHIPPING_TABLE_WEIGHT_UNIT', '2', 'What unit of weight does this shipping module use?.', '6', '0', 'tep_get_weight_class_title', 'tep_cfg_pull_down_weight_classes(', now())");
     }
 
     function remove() {
@@ -106,7 +107,7 @@
     }
 
     function keys() {
-      return array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_MODE', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_TAX_CLASS', 'MODULE_SHIPPING_TABLE_ZONE', 'MODULE_SHIPPING_TABLE_SORT_ORDER');
+      return array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_MODE', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_TAX_CLASS', 'MODULE_SHIPPING_TABLE_ZONE', 'MODULE_SHIPPING_TABLE_SORT_ORDER', 'MODULE_SHIPPING_TABLE_WEIGHT_UNIT');
     }
   }
 ?>

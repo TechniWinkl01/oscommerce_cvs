@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.47 2004/04/13 08:00:26 hpdl Exp $
+  $Id: product_listing.php,v 1.48 2004/04/15 16:05:39 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -118,7 +118,7 @@
             break;
           case 'PRODUCT_LIST_WEIGHT':
             $lc_align = 'right';
-            $lc_text = '&nbsp;' . $listing['products_weight'] . '&nbsp;';
+            $lc_text = '&nbsp;' . $osC_Weight->display($listing['products_weight'], $listing['products_weight_class']) . '&nbsp;';
             break;
           case 'PRODUCT_LIST_IMAGE':
             $lc_align = 'center';

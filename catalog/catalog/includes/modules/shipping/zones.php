@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.21 2003/11/17 20:36:50 hpdl Exp $
+  $Id: zones.php,v 1.22 2004/04/15 16:05:40 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -113,11 +113,13 @@
 
 // class methods
     function quote($method = '') {
-      global $osC_Tax, $order, $shipping_weight, $shipping_num_boxes;
+      global $osC_Tax, $order, $shipping_weight, $shipping_num_boxes, $osC_Weight;
 
       $dest_country = $order->delivery['country']['iso_code_2'];
       $dest_zone = 0;
       $error = false;
+
+      $shipping_weight = $osC_Weight->convert($shipping_weight, SHIPPING_WEIGHT_UNIT, MODULE_SHIPPING_ZONES_WEIGHT_UNIT);
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
@@ -139,7 +141,7 @@
         for ($i=0; $i<$size; $i+=2) {
           if ($shipping_weight <= $zones_table[$i]) {
             $shipping = $zones_table[$i+1];
-            $shipping_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
+            $shipping_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . ' : ' . $osC_Weight->display($shipping_weight, MODULE_SHIPPING_ZONES_WEIGHT_UNIT);
             break;
           }
         }
@@ -190,6 +192,7 @@
         tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Countries', 'MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."', '" . $default_countries . "', 'Comma separated list of two character ISO country codes that are part of Zone " . $i . ".', '6', '0', now())");
         tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Shipping Table', 'MODULE_SHIPPING_ZONES_COST_" . $i ."', '3:8.50,7:10.50,99:20.00', 'Shipping rates to Zone " . $i . " destinations based on a group of maximum order weights. Example: 3:8.50,7:10.50,... Weights less than or equal to 3 would cost 8.50 for Zone " . $i . " destinations.', '6', '0', now())");
         tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Zone " . $i ." Handling Fee', 'MODULE_SHIPPING_ZONES_HANDLING_" . $i."', '0', 'Handling Fee for this shipping zone', '6', '0', now())");
+        tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Module weight Unit', 'MODULE_SHIPPING_ZONES_WEIGHT_UNIT', '2', 'What unit of weight does this shipping module use?.', '6', '0', 'tep_get_weight_class_title', 'tep_cfg_pull_down_weight_classes(', now())");
       }
     }
 
@@ -198,7 +201,7 @@
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_TAX_CLASS', 'MODULE_SHIPPING_ZONES_SORT_ORDER');
+      $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_TAX_CLASS', 'MODULE_SHIPPING_ZONES_SORT_ORDER', 'MODULE_SHIPPING_ZONES_WEIGHT_UNIT');
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;

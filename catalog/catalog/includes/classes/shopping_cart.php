@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.37 2004/02/16 00:54:56 hpdl Exp $
+  $Id: shopping_cart.php,v 1.38 2004/04/15 16:05:36 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -212,7 +212,7 @@
     }
 
     function calculate() {
-      global $osC_Tax;
+      global $osC_Tax, $osC_Weight;
 
       $this->total = 0;
       $this->weight = 0;
@@ -223,12 +223,13 @@
         $qty = $this->contents[$products_id]['qty'];
 
 // products price
-        $product_query = tep_db_query("select products_id, products_price, products_tax_class_id, products_weight from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
+        $product_query = tep_db_query("select products_id, products_price, products_tax_class_id, products_weight, products_weight_class from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
         if ($product = tep_db_fetch_array($product_query)) {
           $prid = $product['products_id'];
           $products_tax = $osC_Tax->getTaxRate($product['products_tax_class_id']);
           $products_price = $product['products_price'];
-          $products_weight = $product['products_weight'];
+
+          $products_weight = $osC_Weight->convert($product['products_weight'], $product['products_weight_class'], SHIPPING_WEIGHT_UNIT);
 
           $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . (int)$prid . "' and status = '1'");
           if (tep_db_num_rows ($specials_query)) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.286 2004/04/13 08:07:09 hpdl Exp $
+  $Id: application_top.php,v 1.287 2004/04/15 16:05:35 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -216,6 +216,10 @@
                               break;
     }
   }
+
+// Weight class
+  require('includes/classes/weight.php');
+  $osC_Weight = new osC_Weight;
 
 // include the mail classes
   require('includes/classes/mime.php');

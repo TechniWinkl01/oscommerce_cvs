@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.95 2004/04/14 23:24:40 hpdl Exp $
+# $Id: oscommerce.sql,v 1.96 2004/04/15 16:05:41 mevans Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -383,6 +383,7 @@ CREATE TABLE osc_products (
   products_last_modified datetime,
   products_date_available datetime,
   products_weight decimal(5,2) NOT NULL,
+  products_weight_class int NOT NULL,
   products_status tinyint(1) NOT NULL,
   products_tax_class_id int NOT NULL,
   manufacturers_id int NULL,
@@ -537,6 +538,21 @@ CREATE TABLE osc_geo_zones (
   PRIMARY KEY (geo_zone_id)
 );
 
+DROP TABLE IF EXISTS osc_weight_classes;
+CREATE TABLE osc_weight_classes (
+  weight_class_id int NOT NULL default '0',
+  weight_class_key varchar(4) NOT NULL default '',
+  language_id int NOT NULL default '0',
+  weight_class_title varchar(32) NOT NULL default '',
+  PRIMARY KEY (weight_class_id, language_id)
+);
+
+DROP TABLE IF EXISTS osc_weight_classes_rules;
+CREATE TABLE osc_weight_classes_rules (
+  weight_class_from_id int(11) NOT NULL default '0',
+  weight_class_to_id int(11) NOT NULL default '0',
+  weight_class_rule decimal(15,4) NOT NULL default '0.0000'
+);
 DROP TABLE IF EXISTS osc_whos_online;
 CREATE TABLE osc_whos_online (
   customer_id int,
@@ -680,6 +696,7 @@ INSERT INTO osc_configuration (configuration_title, configuration_key, configura
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enter the Maximum Package Weight you will ship', 'SHIPPING_MAX_WEIGHT', '50', 'Carriers have a max weight limit for a single package. This is a common one for all.', '7', '3', now());
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Package Tare weight.', 'SHIPPING_BOX_WEIGHT', '3', 'What is the weight of typical packaging of small to medium packages?', '7', '4', now());
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Larger packages - percentage increase.', 'SHIPPING_BOX_PADDING', '10', 'For 10% enter 10', '7', '5', now());
+INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Default Shipping Unit', 'SHIPPING_WEIGHT_UNIT',2, 'Select the unit of weight to be used for shipping.', '7', '6', 'tep_get_weight_class_title', 'tep_cfg_pull_down_weight_classes(', now());
 
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Image', 'PRODUCT_LIST_IMAGE', '1', 'Do you want to display the Product Image?', '8', '1', now());
 INSERT INTO osc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Display Product Manufaturer Name','PRODUCT_LIST_MANUFACTURER', '0', 'Do you want to display the Product Manufacturer Name?', '8', '2', now());
@@ -1011,6 +1028,32 @@ INSERT INTO osc_tax_rates VALUES (1, 1, 1, 1, 7.0, 'FL TAX 7.0%', now(), now());
 INSERT INTO osc_geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,date_added) VALUES (1,"Florida","Florida local sales tax zone",now());
 INSERT INTO osc_zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now());
 
+# Weight Classes
+INSERT INTO osc_weight_classes VALUES (1, 'g', 1, 'Gram(s)');
+INSERT INTO osc_weight_classes VALUES (1, 'g', 2, 'Gram(s)');
+INSERT INTO osc_weight_classes VALUES (1, 'g', 3, 'Gram(s)');
+INSERT INTO osc_weight_classes VALUES (2, 'kg', 1, 'Kilogram(s)');
+INSERT INTO osc_weight_classes VALUES (2, 'kg', 2, 'Kilogram(s)');
+INSERT INTO osc_weight_classes VALUES (2, 'kg', 3, 'Kilogram(s)');
+INSERT INTO osc_weight_classes VALUES (3, 'oz', 1, 'Ounce(s)');
+INSERT INTO osc_weight_classes VALUES (3, 'oz', 2, 'Ounce(s)');
+INSERT INTO osc_weight_classes VALUES (3, 'oz', 3, 'Ounce(s)');
+INSERT INTO osc_weight_classes VALUES (4, 'lb', 1, 'Pound(s)');
+INSERT INTO osc_weight_classes VALUES (4, 'lb', 2, 'Pound(s)');
+INSERT INTO osc_weight_classes VALUES (4, 'lb', 3, 'Pound(s)');
+
+INSERT INTO osc_weight_classes_rules VALUES (1, 2, '0.0010');
+INSERT INTO osc_weight_classes_rules VALUES (1, 3, '0.0352');
+INSERT INTO osc_weight_classes_rules VALUES (1, 4, '0.0022');
+INSERT INTO osc_weight_classes_rules VALUES (2, 1, '1000.0000');
+INSERT INTO osc_weight_classes_rules VALUES (2, 3, '35.2739');
+INSERT INTO osc_weight_classes_rules VALUES (2, 4, '2.2046');
+INSERT INTO osc_weight_classes_rules VALUES (3, 1, '28.3495');
+INSERT INTO osc_weight_classes_rules VALUES (3, 2, '0.0283');
+INSERT INTO osc_weight_classes_rules VALUES (3, 4, '0.0625');
+INSERT INTO osc_weight_classes_rules VALUES (4, 1, '453.5923');
+INSERT INTO osc_weight_classes_rules VALUES (4, 2, '0.4535');
+INSERT INTO osc_weight_classes_rules VALUES (4, 3, '16.0000');
 # USA
 INSERT INTO osc_zones VALUES (1,223,'AL','Alabama');
 INSERT INTO osc_zones VALUES (2,223,'AK','Alaska');
