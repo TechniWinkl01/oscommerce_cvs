@@ -237,7 +237,7 @@ function alertBox() {
                 <td align="right" colspan="4"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_SUB_TOTAL; ?>&nbsp;</font></td>
-                    <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;$<? echo $total_cost; ?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost, 2); ?>&nbsp;</font></td>
                   </tr>
                   <tr>
                     <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_TAX; ?>&nbsp;</font></td>
@@ -345,7 +345,7 @@ function alertBox() {
 ?>
           <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999';this.style.cursor='hand'" onmouseout="this.style.background='#d8e1eb'" onclick="document.location.href='<? echo tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL'); ?>'">
             <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders_values['orders_id'], 'NONSSL') . '" class="blacklink">'; ?><? echo $orders_values['customers_name']; ?></a>&nbsp;</font></td>
-            <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;$<? echo number_format($total, 2); ?>&nbsp;</font></td>
+            <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total, 2); ?>&nbsp;</font></td>
             <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment; ?>&nbsp;</font></td>
             <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $date_formatted; ?>&nbsp;</font></td>
             <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $orders_values['orders_status']; ?>&nbsp;</font></td>
