@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.136 2003/03/17 01:31:35 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.137 2003/05/07 15:08:11 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -262,7 +262,7 @@
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td class="main"><?php echo $confirmation['fields'][$i]['title']; ?></td>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main"><?php echo $confirmation['fields'][$i]['field']; ?></td>
+                <td class="main"><?php echo stripslashes($confirmation['fields'][$i]['field']); ?></td>
               </tr>
 <?php
       }
