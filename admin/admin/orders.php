@@ -187,7 +187,7 @@
 <?
     $total = 0;
     $grandtotal = 0;
-    $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, products_tax from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, products_tax, shipping_cost from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], -2),substr($info_values['date_purchased'], 0, 4)));
     $products = tep_db_query("select products_name, products_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
@@ -202,8 +202,9 @@
               </tr>
 <?
     }
+    $shipping = $info_values['shipping_cost'];
     $taxed = number_format(($subtotal * ($info_values['products_tax']/100)), 2);
-    $grandtotal = number_format(($subtotal + $taxed), 2);
+    $grandtotal = number_format(($subtotal + $taxed + $shipping), 2);
 ?>
               <tr>
                 <td colspan="3"><?=tep_black_line();?></td>
@@ -218,6 +219,16 @@
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(ENTRY_TAX, $info_values['products_tax'] . '%');?>&nbsp;</font></td>
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=$taxed;?>&nbsp;</font></td>
                   </tr>
+<?
+  if (!SHIPPING_FREE || $shipping != 0) {
+?>
+                  <tr>
+                    <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=ENTRY_SHIPPING;?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=$shipping;?>&nbsp;</font></td>
+                  </tr>
+<?
+  }
+?>
                   <tr>
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;<?=ENTRY_TOTAL;?>&nbsp;</b></font></td>
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><b>&nbsp;$<?=$grandtotal;?>&nbsp;</b></font></td>

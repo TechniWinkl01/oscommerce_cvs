@@ -128,6 +128,9 @@
   define('VALUE_FONT_SIZE', 2);
   define('VALUE_FONT_COLOR', '#000000');
 
+// Shipping Options
+  define('SHIPPING_FREE', 1);
+
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
     $language = 'english';
