@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.33 2001/12/29 20:14:06 dgw_ Exp $
+  $Id: products_attributes.php,v 1.34 2002/01/02 13:21:24 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -390,7 +390,7 @@ function go_option() {
                 <td colspan="4" class="smallText">
 <?php
     $per_page = MAX_ROW_LISTS_OPTIONS;
-    $values = ("select * from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " order by products_options_values_id");
+    $values = "select pov.products_options_values_id, pov.products_options_values_name, pov2po.products_options_id from " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov left join " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " pov2po on pov.products_options_values_id = pov2po.products_options_values_id where pov.language_id = '" . $languages_id . "' order by pov.products_options_values_id";
     if (!$value_page) {
       $value_page = 1;
     }
@@ -450,7 +450,7 @@ function go_option() {
     $values = tep_db_query($values);
     while ($values_values = tep_db_fetch_array($values)) {
       $options_name = tep_options_name($values_values['products_options_id']);
-      $values_name = tep_values_name($values_values['products_options_values_id']);
+      $values_name = $values_values['products_options_values_name'];
       $rows++;
 ?>
               <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
@@ -483,7 +483,7 @@ function go_option() {
         echo '</form>';
       } else {
 ?>
-                <td align="center" class="smallText">&nbsp;<?php echo $values_values["products_options_values_to_products_options_id"]; ?>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo $values_values["products_options_values_id"]; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
                 <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_value&value_id=' . $values_values['products_options_values_id'] . '&value_page=' . $HTTP_GET_VARS['value_page'], 'NONSSL') . '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_update.gif', IMAGE_MODIFY); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') , '">'; ?><?php echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE); ?></a>&nbsp;</td>
