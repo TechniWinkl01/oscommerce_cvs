@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.20 2001/12/26 23:45:13 hpdl Exp $
+  $Id: boxes.php,v 1.21 2002/01/27 04:02:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -89,13 +89,6 @@
       } else {
         $contents[0]['text'] = '&nbsp;' . $contents[0]['text'] . '&nbsp;';
       }
-      $this->tableBox($contents);
-    }
-  }
-
-  class errorBox extends tableBox {
-    function errorBox($contents) {
-      $this->table_data_parameters = 'class="errorBox"';
       $this->tableBox($contents);
     }
   }

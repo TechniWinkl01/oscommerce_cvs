@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.110 2002/01/27 03:15:47 hpdl Exp $
+  $Id: general.php,v 1.111 2002/01/27 04:02:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -963,26 +963,6 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
            $owner['read'] . $owner['write'] . $owner['execute'] .
            $group['read'] . $group['write'] . $group['execute'] .
            $world['read'] . $world['write'] . $world['execute'];
-  }
-
-  function tep_output_warning($warning) {
-    if (is_array($warning)) {
-      for ($i=0; $i<sizeof($warning); $i++) {
-        new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning[$i]['text'])));
-      }
-    } else {
-      new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . ' ' . $warning)));
-    }
-  }
-
-  function tep_output_error($error) {
-    if (is_array($error)) {
-      for ($i=0; $i<sizeof($error); $i++) {
-        new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error[$i]['text'])));
-      }
-    } else {
-      new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error)));
-    }
   }
 
   function tep_array_slice($array, $offset, $length = '0') {

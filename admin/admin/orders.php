@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.72 2002/01/27 03:28:51 hpdl Exp $
+  $Id: orders.php,v 1.73 2002/01/27 04:02:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,6 +27,7 @@
       $status = tep_db_prepare_input($HTTP_POST_VARS['status']);
       $comments = tep_db_prepare_input($HTTP_POST_VARS['comments']);
 
+      $order_updated = false;
       $check_status_query = tep_db_query("select customers_name, customers_email_address, orders_status, date_purchased from orders where orders_id = '" . tep_db_input($oID) . "'");
       $check_status = tep_db_fetch_array($check_status_query);
       if ($check_status['orders_status'] != $status) {
@@ -40,9 +41,20 @@
         }
 
         tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, old_value, date_added, customer_notified) values ('" . tep_db_input($oID) . "', '" . tep_db_input($status) . "', '" . $check_status['orders_status'] . "', now(), '" . $customer_notified . "')");
+
+        $order_updated = true;
       }
 
-      if (tep_not_null($comments)) tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comments) . "' where orders_id = '" . tep_db_input($oID) . "'");
+      if (tep_not_null($comments)) {
+        tep_db_query("update " . TABLE_ORDERS . " set comments = '" . tep_db_input($comments) . "' where orders_id = '" . tep_db_input($oID) . "'");
+        $order_updated = true;
+      }
+
+      if ($order_updated) {
+        tep_session_register('messageToStack');
+        $messageToStack = array(array('text' => SUCCESS_ORDER_UPDATED,
+                                      'type' => 'success'));
+      }
 
       tep_redirect(tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID']));
       break;

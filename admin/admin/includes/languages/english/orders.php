@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.14 2002/01/27 03:28:51 hpdl Exp $
+  $Id: orders.php,v 1.15 2002/01/27 04:02:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -69,4 +69,6 @@ define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
 define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
 define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following status.' . "\n\n" . 'New status: %s' . "\n\n" . 'Please reply to this email if you have any questions.' . "\n");
+
+define('SUCCESS_ORDER_UPDATED', 'Success: Order has been successfully updated.');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.1 2002/01/26 17:15:43 hpdl Exp $
+  $Id: message_stack.php,v 1.2 2002/01/27 04:02:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,16 @@
     var $size = 0;
 
     function messageStack() {
+      global $messageToStack;
+
       $this->errors = array();
+
+      if (tep_session_is_registered('messageToStack')) {
+        for ($i=0; $i<sizeof($messageToStack); $i++) {
+          $this->add($messageToStack[$i]['text'], $messageToStack[$i]['type']);
+        }
+        tep_session_unregister('messageToStack');
+      }
     }
 
     function add($message, $type = 'error') {
@@ -29,6 +38,8 @@
         $this->errors[] = array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . '&nbsp;' . $message);
       } elseif ($type == 'warning') {
         $this->errors[] = array('text' => tep_image(DIR_WS_ICONS . 'warning.gif', ICON_WARNING) . '&nbsp;' . $message);
+      } elseif ($type == 'success') {
+        $this->errors[] = array('text' => tep_image(DIR_WS_ICONS . 'success.gif', ICON_SUCCESS) . '&nbsp;' . $message);
       } else {
         $this->errors[] = array('text' => $message);
       }
@@ -42,7 +53,7 @@
     }
 
     function output() {
-      $this->table_data_parameters = 'class="errorBox"';
+      $this->table_data_parameters = 'class="messageBox"';
       return $this->tableBlock($this->errors);
     }
   }
