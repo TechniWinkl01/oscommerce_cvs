@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.75 2002/01/27 04:44:26 hpdl Exp $
+  $Id: orders.php,v 1.76 2002/01/27 23:59:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,22 +106,6 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
-            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr><?php echo tep_draw_form('orders', FILENAME_ORDERS, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"'); ?></td>
-              </form></tr>
-              <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
-                <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', tep_array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
-              </form></tr>            
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
 <?php
   if ( ($HTTP_GET_VARS['oID']) && ($order_exists) ) {
     $orders_query = tep_db_query("select customers_telephone, customers_email_address, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
@@ -131,6 +115,15 @@
     $ship_to_query = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
     $ship_to = tep_db_fetch_array($ship_to_query);
 ?>
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+          </tr>
+        </table></td>
+      </tr>
       <tr>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -301,15 +294,19 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $info['orders_status']) . ' ' . tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
-            <td align="right"><?php echo tep_draw_form('delete', FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page'] . '&oID=' . $HTTP_GET_VARS['oID'] . '&action=delete_order', 'post', 'onsubmit="return confirm(\'' . IMAGE_CONFIRM . '\')"'); echo tep_image_submit('button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></form></td>
+            <td><table border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><b><?php echo ENTRY_STATUS; ?></b> <?php echo tep_draw_pull_down_menu('status', $orders_statuses, $info['orders_status']); ?></td>
+              </tr>
+              <tr>
+                <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
+              </tr>
+            </table></td>
+            <td valign="top"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
           </tr>
         </table></td>
-      </tr>
-      <tr>
-        <td class="main"><b><?php echo ENTRY_NOTIFY_CUSTOMER; ?></b> <?php echo tep_draw_checkbox_field('notify', '', true); ?></td>
       </form></tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
@@ -346,9 +343,28 @@
 ?>
         </table></td>
       </tr>
+      <tr>
+        <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, (($HTTP_GET_VARS['status']) ? 'status=' . $HTTP_GET_VARS['status'] . '&' : '') . 'page=' . $HTTP_GET_VARS['page']) . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+      </tr>
 <?php
   } else {
 ?>
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', 1, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+              <tr><?php echo tep_draw_form('orders', FILENAME_ORDERS, '', 'get'); ?>
+                <td class="smallText" align="right"><?php echo HEADING_TITLE_SEARCH . ' ' . tep_draw_input_field('oID', '', 'size="12"'); ?></td>
+              </form></tr>
+              <tr><?php echo tep_draw_form('status', FILENAME_ORDERS, '', 'get'); ?>
+                <td class="smallText" align="right"><?php echo HEADING_TITLE_STATUS . ' ' . tep_draw_pull_down_menu('status', tep_array_merge(array(array('id' => '', 'text' => TEXT_ALL_ORDERS)), $orders_statuses), '', 'onChange="this.form.submit();"'); ?></td>
+              </form></tr>            
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
