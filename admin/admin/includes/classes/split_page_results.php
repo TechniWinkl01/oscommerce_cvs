@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.9 2002/03/17 03:31:39 hpdl Exp $
+  $Id: split_page_results.php,v 1.10 2002/04/17 23:09:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,10 +40,10 @@
       $query_num_rows = $reviews_count['total'];
     }
 
-    function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
+    function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
       global $PHP_SELF;
 
-      if ($parameters != '') $parameters . '&';
+      if ($parameters != '') $parameters .= '&';
 
 // calculate number of pages needing links
       $num_pages = intval($query_numrows / $max_rows_per_page);
@@ -57,28 +57,32 @@
       }
 
       if ($num_pages > 1) {
-        $display_links = tep_draw_form('pages', basename($PHP_SELF), $parameters, 'get');
+        $display_links = tep_draw_form('pages', basename($PHP_SELF), '', 'get');
 
         if ($current_page_number > 1) {
-          $display_links .= '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . ($current_page_number - 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';
+          $display_links .= '<a href="' . tep_href_link(basename($PHP_SELF), $parameters . $page_name . '=' . ($current_page_number - 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;&nbsp;';
         } else {
           $display_links .= PREVNEXT_BUTTON_PREV . '&nbsp;&nbsp;';
         }
 
-        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu('page', $pages_array, '', 'onChange="this.form.submit();"'), $num_pages);
+        $display_links .= sprintf(TEXT_RESULT_PAGE, tep_draw_pull_down_menu($page_name, $pages_array, '', 'onChange="this.form.submit();"'), $num_pages);
 
         if (($current_page_number < $num_pages) && ($num_pages != 1)) {
-          $display_links .= '&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), $parameters . 'page=' . ($current_page_number + 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';
+          $display_links .= '&nbsp;&nbsp;<a href="' . tep_href_link(basename($PHP_SELF), $parameters . $page_name . '=' . ($current_page_number + 1), 'NONSSL') . '" class="splitPageLink">' . PREVNEXT_BUTTON_NEXT . '</a>';
         } else {
           $display_links .= '&nbsp;&nbsp;' . PREVNEXT_BUTTON_NEXT;
         }
 
-        if ($HTTP_POST_VARS) {
-          reset($HTTP_POST_VARS);
-          while (list($key, $value) = each($HTTP_POST_VARS)) {
-            $display_links .= tep_draw_hidden_field($key, $value);
+        if ($parameters != '') {
+          if (substr($parameters, -1) == '&') $parameters = substr($parameters, 0, -1);
+          $pairs = explode('&', $parameters);
+          while (list(, $pair) = each($pairs)) {
+            list($key,$value) = explode('=', $pair);
+            $display_links .= tep_draw_hidden_field(rawurldecode($key), rawurldecode($value));
           }
         }
+
+        if (SID) $display_links .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
         $display_links .= '</form>';
       } else {
