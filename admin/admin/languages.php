@@ -166,7 +166,7 @@
   } else {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-//    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_DEFINE_LANGUAGE, 'directory=' . $lInfo->directory, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_define.gif', IMAGE_DEFINE) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_DEFINE_LANGUAGE, 'directory=' . $lInfo->directory, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_define.gif', IMAGE_DEFINE) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_LANGUAGE_NAME . '&nbsp;' . $lInfo->name);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_LANGUAGE_CODE . '&nbsp;' . $lInfo->code);
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_image(DIR_WS_CATALOG_IMAGES . $lInfo->image, $lInfo->name) . '<br>' . DIR_WS_CATALOG_IMAGES . '<b>' . $lInfo->image . '</b>');
