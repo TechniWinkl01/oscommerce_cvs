@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.5 2002/08/17 12:54:04 hpdl Exp $
+  $Id: compatibility.php,v 1.6 2002/08/18 18:50:40 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -50,10 +50,14 @@
       if (!$tmp_file = get_cfg_var('upload_tmp_dir')) {
         $tmp_file = dirname(tempnam('', ''));
       }
-      $tmp_file .= '/' . basename($filename);
 
-// User might have trailing slash in php.ini
-      return (ereg_replace('/+', '/', $tmp_file) == $filename);
+      if (strchr($tmp_file, '/')) {
+        if (substr($tmp_file, -1) != '/') $tmp_file .= '/';
+      } elseif (strchr($tmp_file, '\\')) {
+        if (substr($tmp_file, -1) != '\\') $tmp_file .= '\\';
+      }
+
+      return file_exists($tmp_file . basename($filename));
     }
   }
 
