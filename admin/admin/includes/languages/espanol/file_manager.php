@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.15 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: file_manager.php,v 1.16 2003/07/21 13:28:27 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,6 +33,5 @@ define('TEXT_UPLOAD_INTRO', 'Seleccione los ficheros a subir.');
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: No puedo escribir en este directorio. Asigne los permisos adecuados a: %s');
 define('ERROR_FILE_NOT_WRITEABLE', 'Error: No puedo escribir en este fichero. Asigne los permisos adecuados a: %s');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: No puedo eliminar el directorio. Asigne los permisos adecuados a: %s');
-define('ERROR_FILE_NOT_REMOVEABLE', 'Error: No puedo eliminar este fichero. Asigne los permisos adecuados a: %s');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio: %s');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.106 2003/06/20 00:18:31 hpdl Exp $
+  $Id: english.php,v 1.107 2003/07/21 13:28:27 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -293,6 +293,7 @@ define('TEXT_TOP', 'Top');
 
 define('ERROR_DESTINATION_DOES_NOT_EXIST', 'Error: Destination does not exist.');
 define('ERROR_DESTINATION_NOT_WRITEABLE', 'Error: Destination not writeable.');
+define('ERROR_FILE_NOT_REMOVEABLE', 'Error: I can not remove this file. Please set the right user permissions on: %s');
 define('ERROR_FILE_NOT_SAVED', 'Error: File upload not saved.');
 define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: File upload type not allowed.');
 define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Success: File upload saved successfully.');

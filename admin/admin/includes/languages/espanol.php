@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.101 2003/07/07 09:23:06 dgw_ Exp $
+  $Id: espanol.php,v 1.102 2003/07/21 13:28:27 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -288,6 +288,7 @@ define('TEXT_TOP', 'Principio');
 
 define('ERROR_DESTINATION_DOES_NOT_EXIST', 'Error: Destino no existe.');
 define('ERROR_DESTINATION_NOT_WRITEABLE', 'Error: No se puede escribir en el destino.');
+define('ERROR_FILE_NOT_REMOVEABLE', 'Error: No puedo eliminar este fichero. Asigne los permisos adecuados a: %s');
 define('ERROR_FILE_NOT_SAVED', 'Error: El archivo subido no se ha guardado.');
 define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: Extension de fichero no permitida.');
 define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Exito: Fichero guardado con &eacute;xito.');

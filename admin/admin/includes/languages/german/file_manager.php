@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.17 2003/02/16 02:09:20 harley_vb Exp $
+  $Id: file_manager.php,v 1.18 2003/07/21 13:28:28 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,6 +33,5 @@ define('TEXT_UPLOAD_INTRO', 'Bitte die Dateien ausw&auml;hlen, welche hochgelade
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
 define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Fehler: Das Verzeichnis kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
-define('ERROR_FILE_NOT_REMOVEABLE', 'Fehler: Die Datei kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
 ?>
