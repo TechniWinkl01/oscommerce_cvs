@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.9 2002/04/03 22:03:43 hpdl Exp $
+  $Id: shipping.php,v 1.10 2002/04/03 22:13:22 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -108,9 +108,6 @@
       global $shipping_cost, $shipping_method;
 
       if (MODULE_SHIPPING_INSTALLED) {
-        $confirm_string .= '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' . 
-                           '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
-
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
