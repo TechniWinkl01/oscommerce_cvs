@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.63 2002/04/23 21:34:40 hpdl Exp $
+  $Id: shopping_cart.php,v 1.64 2002/06/04 10:55:11 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -135,7 +135,7 @@
       <tr>
         <td align="right" class="main"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
       </tr>
-<?
+<?php
   }
 ?>
     </table></td>
