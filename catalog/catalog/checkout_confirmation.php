@@ -94,6 +94,9 @@
   $total_cost = 0;
   $total_tax = 0;
   $total_weight = 0;
+ // $products made global for use in itransact module...maybe others.
+ // $attributes_for_itransact added to allow attributes to be passed to itransact for processing.
+  GLOBAL $products, $attributes_for_itransact;
   $products = $cart->get_products();
   for ($i=0; $i<sizeof($products); $i++) {
     $products_name = $products[$i]['name'];
@@ -115,9 +118,13 @@
     if ($products[$i]['attributes']) {
       $attributes_exist = '1';
       reset($products[$i]['attributes']);
+   $num = 0;
       while (list($option, $value) = each($products[$i]['attributes'])) {
         $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
         $attributes_values = tep_db_fetch_array($attributes);
+	$attributes_for_itransact['name'][$i . $num] .= $attributes_values['products_options_name'];
+	$attributes_for_itransact['value'][$i . $num] .= $attributes_values['products_options_values_name'];
+   $num++;
         echo '<br><small><i>&nbsp;-&nbsp;' . $attributes_values['products_options_name'] . '&nbsp;:&nbsp;' . $attributes_values['products_options_values_name'] . '</i></small>';
       }
     }
