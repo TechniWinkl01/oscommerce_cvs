@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.9 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: products_new.php,v 1.10 2002/11/25 23:50:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,7 @@
     <td align="right" valign="middle" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $products_new_array[$i]['id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART) . '</a>'; ?></td>
   </tr>
 <?php
-      if (($i+1) != $psize)) {
+      if (($i+1) != $psize) {
 ?>
   <tr>
     <td colspan="3" class="main">&nbsp;</td>
