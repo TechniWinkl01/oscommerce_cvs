@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.37 2002/03/16 01:12:30 hpdl Exp $
+  $Id: modules.php,v 1.38 2002/04/03 23:25:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,17 +13,24 @@
   require('includes/application_top.php');
 
   switch ($HTTP_GET_VARS['set']) {
-    case 'payment':
-      $module_type = 'payment';
-      $module_directory = DIR_FS_PAYMENT_MODULES;
-      $module_key = 'MODULE_PAYMENT_INSTALLED';
-      define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
-      break;
     case 'shipping':
       $module_type = 'shipping';
       $module_directory = DIR_FS_SHIPPING_MODULES;
       $module_key = 'MODULE_SHIPPING_INSTALLED';
       define('HEADING_TITLE', HEADING_TITLE_MODULES_SHIPPING);
+      break;
+    case 'ordertotal':
+      $module_type = 'order_total';
+      $module_directory = DIR_FS_ORDER_TOTAL_MODULES;
+      $module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
+      define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
+      break;
+    default:
+    case 'payment':
+      $module_type = 'payment';
+      $module_directory = DIR_FS_PAYMENT_MODULES;
+      $module_key = 'MODULE_PAYMENT_INSTALLED';
+      define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
       break;
   }
 
@@ -87,6 +94,7 @@
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_MODULES; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
@@ -105,7 +113,7 @@
     $dir->close();
   }
 
-  $installed_modules = '';
+  $installed_modules = array();
   for ($i=0; $i<sizeof($directory_array); $i++) {
     $file = $directory_array[$i];
 
@@ -116,7 +124,11 @@
     if (tep_class_exists($class)) {
       $module = new $class;
       if ($module->check() > 0) {
-        $installed_modules .= (tep_not_null($installed_modules)) ? ';' . $file : $file;
+        if ($module->sort_order > 0) {
+          $installed_modules[$module->sort_order] = $file;
+        } else {
+          $installed_modules[] = $file;
+        }
       }
 
       if (((!$HTTP_GET_VARS['module']) || ($HTTP_GET_VARS['module'] == $class)) && (!$mInfo)) {
@@ -155,6 +167,7 @@
       }
 ?>
                 <td class="dataTableContent"><?php echo $module->title; ?></td>
+                <td class="dataTableContent" align="right"><?php echo $module->sort_order; ?></td>
                 <td class="dataTableContent" align="right"><?php if ($module->check() > 0) { echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=remove') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>'; } else { echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=install') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10); } ?></td>
                 <td class="dataTableContent" align="right"><?php if ( (is_object($mInfo)) && ($class == $mInfo->code) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
@@ -162,18 +175,19 @@
     }
   }
 
+  ksort($installed_modules);
   $check_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_key . "'");
   if (tep_db_num_rows($check_query)) {
     $check = tep_db_fetch_array($check_query);
-    if ($check['configuration_value'] != $installed_modules) {
-      tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $installed_modules . "', last_modified = now() where configuration_key = '" . $module_key . "'");
+    if ($check['configuration_value'] != implode(';', $installed_modules)) {
+      tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . implode(';', $installed_modules) . "', last_modified = now() where configuration_key = '" . $module_key . "'");
     }
   } else {
-    tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Modules', '" . $module_key . "', '" . $installed_modules . "', 'This is automatically updated. No need to edit.', '6', '0', now())");
+    tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Installed Modules', '" . $module_key . "', '" . implode(';', $installed_modules) . "', 'This is automatically updated. No need to edit.', '6', '0', now())");
   }
 ?>
               <tr>
-                <td colspan="3" class="smallText"><?php echo TEXT_MODULE_DIRECTORY . ' ' . $module_directory; ?></td>
+                <td colspan="4" class="smallText"><?php echo TEXT_MODULE_DIRECTORY . ' ' . $module_directory; ?></td>
               </tr>
             </table></td>
 <?php

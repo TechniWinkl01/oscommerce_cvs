@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.92 2002/03/17 03:31:39 hpdl Exp $
+  $Id: english.php,v 1.93 2002/04/03 23:25:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,6 +62,7 @@ define('BOX_HEADING_CONFIGURATION', 'Configuration');
 define('BOX_HEADING_MODULES', 'Modules');
 define('BOX_MODULES_PAYMENT', 'Payment');
 define('BOX_MODULES_SHIPPING', 'Shipping');
+define('BOX_MODULES_ORDER_TOTAL', 'Order Total');
 
 // categories box text in includes/boxes/catalog.php
 define('BOX_HEADING_CATALOG', 'Catalog');
