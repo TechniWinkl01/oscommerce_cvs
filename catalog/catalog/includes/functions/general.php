@@ -294,7 +294,7 @@
     
     $result .= ">\n";
     
-    $result .= "<option value=\"\">" . PLEASE_SELECT . "\n";
+    $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
 
       // need to convert this to use tep_get_countries()
       $country_result = tep_db_query("select countries_name, countries_id from countries order by countries_name");
@@ -304,9 +304,9 @@
       // printed SELECTED if an item was previously selected
       // so we maintain the state
       if ($selected == $country_values[countries_id]) {
-        $result .= "<option value=\"$country_values[countries_id]\" SELECTED>$country_values[countries_name]\n";
+        $result .= "<option value=\"$country_values[countries_id]\" SELECTED>$country_values[countries_name]</option>\n";
       } else {
-        $result .= "<option value=\"$country_values[countries_id]\">$country_values[countries_name]\n";
+        $result .= "<option value=\"$country_values[countries_id]\">$country_values[countries_name]</option>\n";
       }
      }
     // finish the popup menu
@@ -383,7 +383,7 @@
     if ($populated == 0) {
       if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) { 
         for ($i=0; $i<9; $i++) {
-          $result .= "\n<option value=\"\">";
+          $result .= "\n<option value=\"\"></option>";
         }
       }
     }

@@ -119,7 +119,7 @@ function check_form() {
   if (ACCOUNT_STATE) {
 ?>
   if (document.account_edit.zone_id.options.length <= 1) {
-    if (document.account_edit.state.value == "" || document.account_edit.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+    if (document.account_edit.state.value == "" || document.account_edit.state.value.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
     }

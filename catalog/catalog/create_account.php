@@ -111,7 +111,7 @@ function check_form() {
   if (ACCOUNT_STATE) {
 ?>
   if (document.create_account.zone_id.options.length <= 1) {
-    if (document.create_account.state.value == "" || document.create_account.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
+    if (document.create_account.state.value == "" || document.create_account.state.value.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
     }
