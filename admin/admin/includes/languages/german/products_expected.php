@@ -1,16 +1,15 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.5 2001/12/23 16:46:04 dgw_ Exp $
+  $Id: products_expected.php,v 1.6 2002/01/30 01:23:42 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'erwartete Artikel');
 define('HEADING_TITLE', 'erwartete Artikel');
 
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
