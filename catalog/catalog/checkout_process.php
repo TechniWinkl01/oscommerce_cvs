@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.73 2001/10/10 18:43:56 dgw_ Exp $
+  $Id: checkout_process.php,v 1.74 2001/11/16 22:54:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -135,7 +135,7 @@
   tep_mail($customer_name, $customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
 // send emails to other people
-  if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
+  if (SEND_EXTRA_ORDER_EMAILS_TO != '') {
     tep_mail('', SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
   }
 

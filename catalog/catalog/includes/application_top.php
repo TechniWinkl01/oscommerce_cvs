@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.176 2001/11/15 01:57:19 hpdl Exp $
+  $Id: application_top.php,v 1.177 2001/11/16 22:54:12 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,9 +21,6 @@
 // Define the project version
 // * for internal use until a complete v1.0 version of this project is ready
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
-
-// Send order confirmation emails ALSO to these email addresses (separated by a comma)
-//  define('SEND_EXTRA_ORDER_EMAILS_TO', 'root <root@localhost>, someone else <someone@else.com>');
 
 // Use Search-engine Friendly URL's (only works in Apache)
   define('SEARCH_ENGINE_FRIENDLY_URLS', false);
