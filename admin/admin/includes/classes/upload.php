@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upload.php,v 1.2 2003/06/20 00:18:30 hpdl Exp $
+  $Id: upload.php,v 1.3 2004/07/22 23:08:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,7 +28,7 @@
           return true;
         } else {
 // self destruct
-          $this = null;
+          unset($this);
 
           return false;
         }
