@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.2 2001/09/13 11:08:37 hpdl Exp $
+  $Id: currencies.php,v 1.3 2001/09/14 21:12:44 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,10 +14,11 @@
 // Class to handle currencies
 // TABLES: currencies
   class currencies {
-    var $currencies = array();
+    var $currencies;
 
 // class constructor
     function currencies() {
+      $this->currencies = array();
       $currencies_query = tep_db_query("select code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from " . TABLE_CURRENCIES);
       while ($currencies = tep_db_fetch_array($currencies_query)) {
 	    $this->currencies[$currencies['code']] = array('symbol_left' => $currencies['symbol_left'],
