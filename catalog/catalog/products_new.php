@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.2 2001/08/21 22:16:15 hpdl Exp $
+  $Id: products_new.php,v 1.3 2001/08/22 11:23:32 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,7 @@
       <tr>
         <td><br>
 <?php
-  $products_new_query_raw = "select p.products_id, pd.products_name, p.products_image, IFNULL(s.specials_new_products_price,p.products_price) as products_price, p.products_date_added, m.manufacturers_name from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added DESC, pd.products_name";
+  $products_new_query_raw = "select p.products_id, pd.products_name, p.products_image, p.products_price, s.specials_new_products_price, p.products_date_added, m.manufacturers_name from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m on p.manufacturers_id = m.manufacturers_id, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added DESC, pd.products_name";
 
   $products_new_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_PRODUCTS_NEW, $products_new_query_raw, $products_new_numrows);
 
@@ -76,6 +76,7 @@
                                   'name' => $products_new['products_name'],
                                   'image' => $products_new['products_image'],
                                   'price' => $products_new['products_price'],
+                                  'specials_price' => $products_new['specials_new_products_price'],
                                   'date_added' => tep_date_long($products_new['products_date_added']),
                                   'manufacturer' => $products_new['manufacturers_name']);
   }
