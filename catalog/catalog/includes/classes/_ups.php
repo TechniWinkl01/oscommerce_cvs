@@ -125,7 +125,7 @@
                       "19_destPostal=$this->destPostalCode", 
                       "22_destCountry=$this->destCountryCode", 
                       "23_weight=$this->packageWeight", 
-                      "47_rateChart=$this->rateCode", 
+                      "47_rate_chart=$this->rateCode", 
                       "48_container=$this->containerCode", 
                       "49_residential=$this->resComCode" 
            ) 
