@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.9 2002/02/02 16:32:08 clescuyer Exp $
+  $Id: configure.php,v 1.10 2002/04/03 22:03:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,10 +24,8 @@
   define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
   define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
   define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
-  define('DIR_WS_PAYMENT_MODULES', DIR_WS_MODULES . 'payment/');
-  define('DIR_WS_SHIPPING_MODULES', DIR_WS_MODULES . 'shipping/');
   define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
-  
+
   define('DIR_WS_DOWNLOAD_PUBLIC', DIR_WS_CATALOG . 'pub/');
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
   define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);

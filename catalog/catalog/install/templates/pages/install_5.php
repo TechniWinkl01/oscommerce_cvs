@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.10 2002/03/31 16:47:46 hpdl Exp $
+  $Id: install_5.php,v 1.11 2002/04/03 22:03:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,8 +94,6 @@
                      '  define(\'DIR_WS_FUNCTIONS\', DIR_WS_INCLUDES . \'functions/\');' . "\n" .
                      '  define(\'DIR_WS_CLASSES\', DIR_WS_INCLUDES . \'classes/\');' . "\n" .
                      '  define(\'DIR_WS_MODULES\', DIR_WS_INCLUDES . \'modules/\');' . "\n" .
-                     '  define(\'DIR_WS_PAYMENT_MODULES\', DIR_WS_MODULES . \'payment/\');' . "\n" .
-                     '  define(\'DIR_WS_SHIPPING_MODULES\', DIR_WS_MODULES . \'shipping/\');' . "\n" .
                      '  define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
                      '' . "\n" .
                      '  define(\'DIR_WS_DOWNLOAD_PUBLIC\', DIR_WS_CATALOG . \'pub/\');' . "\n" .

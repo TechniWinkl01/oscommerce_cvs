@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.28 2002/01/22 21:14:46 dgw_ Exp $
+  $Id: payment.php,v 1.29 2002/04/03 22:03:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -23,7 +23,7 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) { // get module defines
           include(DIR_WS_LANGUAGES . $language . '/modules/payment/' . $value);
-          include(DIR_WS_PAYMENT_MODULES . $value);
+          include(DIR_WS_MODULES . 'payment/' . $value);
 
           $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class] = new $class;

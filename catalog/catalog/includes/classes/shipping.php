@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.8 2001/09/08 19:00:22 dwatkins Exp $
+  $Id: shipping.php,v 1.9 2002/04/03 22:03:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -23,7 +23,7 @@
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           include(DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $value);
-          include(DIR_WS_SHIPPING_MODULES . $value);
+          include(DIR_WS_MODULES . 'shipping/' . $value);
 
           $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class] = new $class;
