@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: geo_zones.php,v 1.4 2001/09/19 08:37:42 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if($HTTP_GET_VARS['zList']) {
     switch($HTTP_GET_VARS['action']) {
       case 'insert': tep_db_query("insert into " . TABLE_ZONES_TO_GEO_ZONES . " (zone_country_id,zone_id,geo_zone_id,date_added) values ('" . $HTTP_POST_VARS['zone_country_id'] . "', '" . $HTTP_POST_VARS['zone_id'] . "', '" . $HTTP_POST_VARS['geo_zone_id'] . "', now())");
@@ -29,7 +41,7 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
 <?
@@ -40,7 +52,7 @@ function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';
     if (theForm.zone_id.options.length > 0) {
-      theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
+      theForm.state.value = '<?php echo JS_STATE_SELECT; ?>';
     }
   }
 }
@@ -55,26 +67,26 @@ function update_zone(theForm) {
   }         
 
   SelectedCountry = theForm.zone_country_id.options[theForm.zone_country_id.selectedIndex].value;
-<? tep_js_zone_list('SelectedCountry', 'theForm', 'zone_id'); ?>
+<?php tep_js_zone_list('SelectedCountry', 'theForm', 'zone_id'); ?>
 }
 //--></script>
-<?  
+<?php  
 	}
 ?>
 </head>
 <body onload="SetFocus();">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -84,50 +96,50 @@ function update_zone(theForm) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?
+            <td class="pageHeading">&nbsp;<?php
   if ($HTTP_GET_VARS['zList']) {
     echo '<a href="' . FILENAME_GEO_ZONES . '">' . HEADING_TITLE . '</a> / ' . tep_get_geo_zone_name($HTTP_GET_VARS['zList']);
   } else {
     echo HEADING_TITLE;
   } ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-<?
+<?php
   if ($HTTP_GET_VARS['zList']) {
 ?>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_COUNTRY_NAME; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_COUNTRY_ZONE; ?>&nbsp;</td>
-                <td align = "center" class="tableHeading" width="10%">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-<?
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_COUNTRY_NAME; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_COUNTRY_ZONE; ?>&nbsp;</td>
+                <td align="center" class="tableHeading" width="10%">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+<?php
   } else {
 ?>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_GEO_ZONE_NAME; ?>&nbsp;</td>
-                <td align="center" class="tableHeading" width="10%">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-<?
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_GEO_ZONE_NAME; ?>&nbsp;</td>
+                <td align="center" class="tableHeading" width="10%">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+<?php
   }
 ?>
               </tr>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['zList']) {
     $rows = 0;
     $zones_query_raw = "select a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name from " . TABLE_COUNTRIES . " c, " . TABLE_ZONES_TO_GEO_ZONES . " a LEFT JOIN " . TABLE_ZONES . " z ON (z.zone_id = a.zone_id) where (a.zone_country_id = c.countries_id) AND (a.geo_zone_id = " . $HTTP_GET_VARS['zList'] . ") order by association_id";
@@ -144,21 +156,21 @@ function update_zone(theForm) {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $zones['association_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td class="smallText">&nbsp;<? echo $zones['countries_name']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? echo $zones['zone_id']?$zones['zone_name']:"*"; ?>&nbsp;</td>
-<?
+                <td class="smallText">&nbsp;<?php echo $zones['countries_name']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo $zones['zone_id']?$zones['zone_name']:"*"; ?>&nbsp;</td>
+<?php
       if ($zones['association_id'] == @$tzaInfo->id) {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
+<?php
       } else {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action', 'zList')) . 'info=' . $zones['geo_zone_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action', 'zList')) . 'info=' . $zones['geo_zone_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+<?php
       }
 ?>
               </tr>
-<?
+<?php
     }
   } else {
     $rows = 0;
@@ -176,31 +188,31 @@ function update_zone(theForm) {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $zones['geo_zone_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td class="smallText">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action')) . 'zList=' . $zones['geo_zone_id'], 'NONSSL') . '" class="blacklink"><u>' . $zones['geo_zone_name'] . '</u></a>'; ?></b>&nbsp;</td>
-<?
+                <td class="smallText">&nbsp;<b><?php echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action')) . 'zList=' . $zones['geo_zone_id'], 'NONSSL') . '" class="blacklink"><u>' . $zones['geo_zone_name'] . '</u></a>'; ?></b>&nbsp;</td>
+<?php
       if ($zones['geo_zone_id'] == @$tzInfo->id) {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
+<?php
       } else {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $zones['geo_zone_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $zones['geo_zone_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+<?php
       }
 ?>
               </tr>
-<?
+<?php
     }
   }
 ?>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td valign="top" class="smallText">&nbsp;<? echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ZONES); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?
+                    <td valign="top" class="smallText">&nbsp;<?php echo $zones_split->display_count($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ZONES); ?>&nbsp;</td>
+                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <? echo $zones_split->display_links($zones_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?php
   if (!$HTTP_GET_VARS['action']) {
     echo '<br><br>&nbsp;';
     if ($HTTP_GET_VARS['zList']) echo '<a href="' . FILENAME_GEO_ZONES . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';
@@ -212,19 +224,19 @@ function update_zone(theForm) {
               </tr>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?
+<?php
   $info_box_contents = array();
   if ($tzInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $tzInfo->title . '</b>&nbsp;');
   if ($tzaInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $tzaInfo->title . '</b>&nbsp;');
   if ((!$tzInfo) && (!$tzaInfo) && ($HTTP_GET_VARS['action'] == 'new')) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . TEXT_INFO_HEADING_NEW_GEO_ZONE . '</b>&nbsp;');
 ?>
               <tr class="boxHeading">
-                <td><? new infoBoxHeading($info_box_contents); ?></td>
+                <td><?php new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr class="boxHeading">
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['zList']) {
     if ($HTTP_GET_VARS['action'] == 'new') {
       $form = '<form name="rates" action="' . tep_href_link(FILENAME_GEO_ZONES, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post"><input type="hidden" name="association_id" value="' . $tzaInfo->id . '"><input type="hidden" name="geo_zone_id" value="' . $HTTP_GET_VARS['zList'] . '">'  ."\n";
@@ -280,11 +292,11 @@ function update_zone(theForm) {
     }
   }
 ?>
-              <tr><? echo $form; ?>
-                <td class="box"><? new infoBox($info_box_contents); ?></td>
-              <? if ($form) echo '</form>'; ?></tr>
+              <tr><?php echo $form; ?>
+                <td class="box"><?php new infoBox($info_box_contents); ?></td>
+              <?php if ($form) echo '</form>'; ?></tr>
               <tr>
-                <td class="box"><? echo tep_black_line(); ?></td>
+                <td class="box"><?php echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -297,8 +309,8 @@ function update_zone(theForm) {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

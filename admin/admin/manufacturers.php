@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: manufacturers.php,v 1.29 2001/09/19 08:37:41 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
       tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
@@ -59,23 +71,23 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>
 </head>
 <body onload="SetFocus();">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -85,34 +97,34 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_MANUFACTURERS; ?>&nbsp;</td>
-                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_MANUFACTURERS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   $rows = 0;
   $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image from " . TABLE_MANUFACTURERS . " order by manufacturers_name";
   $manufacturers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_query_raw, $manufacturers_query_numrows);
@@ -134,62 +146,62 @@
       echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $manufacturers['manufacturers_id'], 'NONSSL') . '\'">' . "\n";
     }
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo $manufacturers['manufacturers_id']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? echo $manufacturers['manufacturers_name']; ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo $manufacturers['manufacturers_id']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo $manufacturers['manufacturers_name']; ?>&nbsp;</td>
+<?php
     if ($manufacturers['manufacturers_id'] == @$mInfo->id) {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
+<?php
     } else {
 ?>
-                <td align="center" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $manufacturers['manufacturers_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
-<?
+                <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('info', 'action')) . 'info=' . $manufacturers['manufacturers_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+<?php
     }
 ?>
               </tr>
-<?
+<?php
   }
 ?>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
-                    <td class="smallText">&nbsp;<? echo $manufacturers_split->display_count($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS); ?>&nbsp;</td>
-                    <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $manufacturers_split->display_links($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
+                    <td class="smallText">&nbsp;<?php echo $manufacturers_split->display_count($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS); ?>&nbsp;</td>
+                    <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $manufacturers_split->display_links($manufacturers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td align="right" colspan="3" class="smallText"><a href="<? echo tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=new', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?></a>&nbsp;</td>
+                <td align="right" colspan="3" class="smallText"><a href="<?php echo tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=new', 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?></a>&nbsp;</td>
               </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['error']) {
 ?>
               <tr>
-                <td colspan="3" class="smallText">&nbsp;<? echo ERROR_ACTION; ?>&nbsp;</td>
+                <td colspan="3" class="smallText">&nbsp;<?php echo ERROR_ACTION; ?>&nbsp;</td>
               </tr>
-<?
+<?php
   }
 ?>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?
+<?php
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . @$mInfo->name . '</b>&nbsp;');
 ?>
               <tr class="boxHeading">
-                <td><? new infoBoxHeading($info_box_contents); ?></td>
+                <td><?php new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr class="boxHeading">
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['action'] == 'new') {
     $form = '<form name="manufacturers" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post">' . "\n";
 
@@ -232,11 +244,11 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $mInfo->products_count);
   }
 ?>
-              <tr><? echo $form; ?>
-                <td class="box"><? new infoBox($info_box_contents); ?></td>
-              <? if ($form) echo '</form>'; ?></tr>
+              <tr><?php echo $form; ?>
+                <td class="box"><?php new infoBox($info_box_contents); ?></td>
+              <?php if ($form) echo '</form>'; ?></tr>
               <tr>
-                <td class="box"><? echo tep_black_line(); ?></td>
+                <td class="box"><?php echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -249,8 +261,8 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

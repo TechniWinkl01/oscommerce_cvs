@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: modules.php,v 1.21 2001/09/19 08:37:40 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   require('includes/application_top.php');
 
   switch ($HTTP_GET_VARS['set']) {
@@ -38,22 +49,22 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -63,34 +74,34 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo $heading_title; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo $heading_title; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CONFIGURATION_TITLE; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_CONFIGURATION_TITLE; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   $installed_modules = '';
   $dir = opendir($module_directory);
 
@@ -128,24 +139,24 @@
           echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
         }
 ?>
-                <td class="smallText">&nbsp;<? echo $entry; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<?php echo $entry; ?>&nbsp;</td>
                 <td align="right" class="smallText">&nbsp;
-<?
+<?php
         if ($module->check() == '1') {
           echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
         } else {
           echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
         }
 ?>&nbsp;</td>
-<?
+<?php
         if ($mInfo && ($class == $mInfo->code)) {
 ?>
-                <td align="right" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
-<?
+                <td align="right" class="smallText">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); ?>&nbsp;</td>
+<?php
         } else {
 ?>
-                <td align="right" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
-<?
+                <td align="right" class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
+<?php
         }
 ?>
 
@@ -167,14 +178,14 @@
   }
 ?>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="3" class="smallText">Module Directory: <? echo $module_directory; ?></td>
+                <td colspan="3" class="smallText">Module Directory: <?php echo $module_directory; ?></td>
               </tr>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?
+<?php
   $info_box_contents = array();
   if ($mInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $mInfo->title . '</b>&nbsp;');
 ?>
@@ -182,9 +193,9 @@
                 <td><? new infoBoxHeading($info_box_contents); ?></td>
               </tr>
               <tr class="boxHeading">
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['action'] == 'edit') {
     $keys = '';
     reset($mInfo->keys);
@@ -232,11 +243,11 @@
     }
   }
 ?>
-              <tr><? echo $form; ?>
-                <td class="box"><? new infoBox($info_box_contents); ?></td>
-              <? if ($form) echo '</form>'; ?></tr>
+              <tr><?php echo $form; ?>
+                <td class="box"><?php new infoBox($info_box_contents); ?></td>
+              <?php if ($form) echo '</form>'; ?></tr>
               <tr>
-                <td class="box"><? echo tep_black_line(); ?></td>
+                <td class="box"><?php echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -249,8 +260,8 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
