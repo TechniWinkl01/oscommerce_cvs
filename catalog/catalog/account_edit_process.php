@@ -359,7 +359,10 @@
     if (ACCOUNT_STATE) {
        $update_query = $update_query . "customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
     }
-    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $customer_id . "'";
+    // Encrypted password mods
+    // Encrypt the plaintext password
+    $cryptpass = crypt_password($HTTP_POST_VARS['password']);
+    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $cryptpass . "' where customers_id = '" . $customer_id . "'";
 
     tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");

@@ -383,7 +383,7 @@ CREATE TABLE customers (
   customers_state varchar(32),
   customers_telephone varchar(32) DEFAULT '' NOT NULL,
   customers_fax varchar(32),
-  customers_password varchar(12) DEFAULT '' NOT NULL,
+  customers_password varchar(40) DEFAULT '' NOT NULL,
   customers_country_id int(5) DEFAULT '0' NOT NULL,
   PRIMARY KEY (customers_id)
 );
@@ -392,7 +392,7 @@ CREATE TABLE customers (
 # Dumping data for table 'customers'
 #
 
-INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','woooooo','81');
+INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca','81');
 
 #
 # Table structure for table 'customers_basket'
@@ -486,7 +486,7 @@ CREATE TABLE orders (
   cc_number varchar(32),
   cc_expires varchar(4),
   date_purchased varchar(8),
-  products_tax decimal(6,4) DEFAULT '0.00' NOT NULL,
+  products_tax decimal(4,2) DEFAULT '0.00' NOT NULL,
   shipping_cost decimal(8,2) DEFAULT '0.00' NOT NULL,
   shipping_method varchar(32),
   orders_status varchar(10) DEFAULT 'Pending' NOT NULL,

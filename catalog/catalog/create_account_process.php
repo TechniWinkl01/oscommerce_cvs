@@ -356,8 +356,9 @@
   } else {
     $date_now = date('Ymd');
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-
-    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "', '" . $HTTP_POST_VARS['country'] . "')");
+// Crypted passwords mods
+    $crypted_password = crypt_password($HTTP_POST_VARS['password']);
+    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "')");
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
 
@@ -376,6 +377,8 @@
             tep_db_query("update customers_basket set customers_basket_quantity = customers_basket_quantity+" . $product_info[1] . " where customers_id = '" . $customer_id . "' and products_id = '" . $product_info[0] . "'");
           } else {
             tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $product_info[0] . "', '" . $product_info[1] . "', '" . $date_now . "')");
+
+
           }
         }
       }

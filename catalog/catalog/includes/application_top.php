@@ -67,6 +67,7 @@
   define('FILENAME_SEARCH', 'search.php');
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
+  define('FILENAME_PASSWORD_CRYPT', 'password_funcs.php');
 
 // define our database connection
   define('DB_SERVER', 'exchange');
@@ -82,6 +83,8 @@
 
 // define our general functions used application-wide
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+// Include the password crypto functions
+ $include_file = DIR_INCLUDES . '/functions/' . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
 
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
@@ -153,7 +156,6 @@
   define('SMALL_TEXT_FONT_COLOR', '#000000');
 
   define('SPECIALS_PRICE_COLOR', '#FF0000'); // font color for the new price of products on special
-  define('NEW_CART_ITEM_COLOR', '#0000FF');  // font color for the new item in shopping cart box
 
   define('CHECKOUT_BAR_TEXT_COLOR', '#AABBDD');
   define('CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED', '#000000');

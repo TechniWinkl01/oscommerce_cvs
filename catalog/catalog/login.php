@@ -1,9 +1,26 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
-    $check_customer = tep_db_query("select customers_id from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "' and customers_password = '" . $HTTP_POST_VARS['password'] . "'");
+    $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
+      // Check that password is good
+      if(!validate_password($HTTP_POST_VARS['password'], $check_customer_values['customers_password'])){
+	  if (@$HTTP_POST_VARS['origin']) {
+            if (@$HTTP_POST_VARS['products_id']) {
+              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
+              tep_exit();
+            } else {
+              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
+              tep_exit();
+            }
+	  } else {
+            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
+            tep_exit();
+	  }
+	  tep_exit();
+      }
+      
       $customer_id = $check_customer_values['customers_id'];
       tep_session_register('customer_id');
 

@@ -140,7 +140,7 @@ function check_form() {
   if (ACCOUNT_STATE) {
     $account_query = $account_query . 'customers_state, ';
   }
-  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $customer_id . "'";
+  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax from customers where customers_id = '" . $customer_id . "'";
   $account = tep_db_query($account_query);
   $account_values = tep_db_fetch_array($account);
   $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;
@@ -283,11 +283,11 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_PASSWORD;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="password" name="password" maxlength="12" value="<?=$account_values['customers_password'];?>">&nbsp;<?=ENTRY_PASSWORD_TEXT;?></font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="password" name="password" maxlength="12" value="">&nbsp;<?=ENTRY_PASSWORD_TEXT;?></font></td>
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_PASSWORD_CONFIRMATION;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="password" name="confirmation" maxlength="12" value="<?=$account_values['customers_password'];?>">&nbsp;<?=ENTRY_PASSWORD_CONFIRMATION_TEXT;?></font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="password" name="confirmation" maxlength="12" value="">&nbsp;<?=ENTRY_PASSWORD_CONFIRMATION_TEXT;?></font></td>
           </tr>
         </table></td>
       </tr>
