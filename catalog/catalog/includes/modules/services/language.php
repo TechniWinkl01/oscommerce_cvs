@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.2 2004/04/14 23:22:56 hpdl Exp $
+  $Id: language.php,v 1.3 2004/11/24 15:53:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,20 +22,13 @@
         global $_GET;
       }
 
-      global $osC_Session, $lng;
+      global $osC_Session, $osC_Language;
 
-      if (($osC_Session->exists('language') == false) || isset($_GET['language'])) {
-        include('includes/classes/language.php');
-        $lng = new language;
+      require('includes/classes/language.php');
+      $osC_Language = new osC_Language();
 
-        if (isset($_GET['language']) && tep_not_null($_GET['language'])) {
-          $lng->set_language($_GET['language']);
-        } else {
-          $lng->get_browser_language();
-        }
-
-        $osC_Session->set('language', $lng->language['directory']);
-        $osC_Session->set('languages_id', $lng->language['id']);
+      if (isset($_GET['language']) && !empty($_GET['language'])) {
+        $osC_Language->set($_GET['language']);
       }
 
       require('includes/languages/' . $osC_Session->value('language') . '.php');
