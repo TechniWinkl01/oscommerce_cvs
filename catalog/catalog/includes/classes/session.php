@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.6 2004/11/24 15:51:38 hpdl Exp $
+  $Id: session.php,v 1.7 2004/11/24 16:43:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -203,7 +203,7 @@
         $this->_cookie_parameters = session_get_cookie_params();
       }
 
-      if (in_array($key, $this->_cookie_parameters)) {
+      if (isset($this->_cookie_parameters[$key])) {
         return $this->_cookie_parameters[$key];
       }
 
