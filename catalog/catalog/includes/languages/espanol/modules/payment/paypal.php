@@ -1,3 +1,3 @@
 <?
-  define('TEXT_PAYPAL', 'PayPal');
+  define('MODULE_PAYMENT_PAYPAL_TEXT_DESCRIPTION', 'PayPal');
 ?>

@@ -1,7 +1,7 @@
 <?
   /* $Id */
-  define('SHIPPING_USPS_NAME', 'United States Postal Service');
-  define('SHIPPING_USPS_OPT_PP', 'Parcel Post');
-  define('SHIPPING_USPS_OPT_PM', 'Priority Mail');
-  define('SHIPPING_USPS_OPT_EX', 'Express Mail');
+  define('MODULE_SHIPPING_USPS_TEXT_DESCRIPTION', 'United States Postal Service');
+  define('MODULE_SHIPPING_USPS_TEXT_OPT_PP', 'Parcel Post');
+  define('MODULE_SHIPPING_USPS_TEXT_OPT_PM', 'Priority Mail');
+  define('MODULE_SHIPPING_USPS_TEXT_OPT_EX', 'Express Mail');
 ?>

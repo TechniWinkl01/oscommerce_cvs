@@ -146,7 +146,7 @@
 <?
   }
   $shipping = $order_values['shipping_cost'];
-  if(SHIPPING_MODULES != '' || $shipping > 0) {
+  if ( (MODULE_SHIPPING_INSTALLED) || ($shipping > 0) ) {
 ?>
               <tr>
                 <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo $order_values['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?>&nbsp;</td>

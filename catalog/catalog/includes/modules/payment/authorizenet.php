@@ -1,21 +1,21 @@
 <?
   class authorizenet {
-    var $payment_code, $payment_description, $payment_enabled;
+    var $code, $description, $enabled;
 
 // class constructor
     function authorizenet() {
-      $this->payment_code = 'authorizenet';
-      $this->payment_description = TEXT_AUTHORIZENET;
-      $this->payment_enabled = PAYMENT_SUPPORT_AUTHORIZENET;
+      $this->code = 'authorizenet';
+      $this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_PAYMENT_AUTHORIZENET_STATUS;
     }
 
 // class methods
     function javascript_validation() {
-      if ($this->payment_enabled) {
-        $validation_string = 'if (payment_value == "' . $this->payment_code . '") {' . "\n" .
+      if ($this->enabled) {
+        $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
                              '  var cc_number = document.payment.cc_number.value;' . "\n" .
                              '  if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
-                             '    error_message = error_message + "' . JS_CC_NUMBER . '";' . "\n" .
+                             '    error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER . '";' . "\n" .
                              '    error = 1;' . "\n" .
                              '  }' . "\n" .
                              '}' . "\n";
@@ -26,14 +26,14 @@
     function selection() {
       global $HTTP_POST_VARS;
 
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
         $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
                             '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_number">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
                             '    <td class="main" nowrap>&nbsp;<select name="cc_expires_month">';
         for ($i=1; $i < 13; $i++) {
           $selected = ($HTTP_POST_VARS['cc_expires_month'] == $i) ? ' selected' : '';
@@ -55,7 +55,7 @@
     function confirmation() {
       global $HTTP_POST_VARS, $cc_val, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
 
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
         $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
         $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
@@ -94,7 +94,7 @@
     function process_button() {
       global $HTTP_POST_VARS, $CardNumber, $cc_val, $total_cost, $total_tax, $shipping_cost;
 
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
 
         if ($cc_val == '1') {
           $process_button_string = '<input type="hidden" name="x_Login" value="testing">' .
@@ -119,40 +119,40 @@
     function before_process() {
       global $payment, $x_response_code;
 
-      if ( ($payment == $this->payment_code) && ($x_response_code != "1") ) {
-        Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(TEXT_ERROR_MESSAGE), 'SSL'));
+      if ( ($payment == $this->code) && ($x_response_code != "1") ) {
+        Header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
         tep_exit();
       }
 
     }
 
     function after_process() {
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
         header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
       }
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from configuration where configuration_key = '" . PAYMENT_SUPPORT_AUTHORIZENET . "'");
-      $check = tep_db_num_rows($check) + 1;
+      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS'");
+      $check = tep_db_num_rows($check);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Authorize.net', 'PAYMENT_SUPPORT_AUTHORIZENET', '1', 'Do you want to accept Authorize.net payments?', '6', '0', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Login', 'PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'Login used for Authorize.net payments', '6', '0', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Test Mode', 'PAYMENT_AUTHORIZENET_TESTMODE', '1', 'Test mode for Authorize.net payments', '6', '0', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Authorize.net', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', '1', 'Do you want to accept Authorize.net payments?', '6', '0', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Login', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'Login used for Authorize.net payments', '6', '0', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Authorize.net Test Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', '1', 'Test mode for Authorize.net payments', '6', '0', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'PAYMENT_SUPPORT_AUTHORIZENET'");
-      tep_db_query("delete from configuration where configuration_key = 'PAYMENT_AUTHORIZENET_LOGIN'");
-      tep_db_query("delete from configuration where configuration_key = 'PAYMENT_AUTHORIZENET_TESTMODE'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_LOGIN'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE'");
     }
 
     function keys() {
-      $keys = array('PAYMENT_SUPPORT_AUTHORIZENET', 'PAYMENT_AUTHORIZENET_LOGIN', 'PAYMENT_AUTHORIZENET_TESTMODE');
+      $keys = array('MODULE_PAYMENT_AUTHORIZENET_STATUS', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE');
 
       return $keys;
     }

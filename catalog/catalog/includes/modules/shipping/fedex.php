@@ -1,9 +1,13 @@
 <?php
   class fedex {
-    var $fedex_countries, $fedex_countries_nbr;
+    var $code, $description, $enabled, $fedex_countries, $fedex_countries_nbr;
 
 // class constructor
     function fedex() {
+      $this->code = 'fedex';
+      $this->description = MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_SHIPPING_FEDEX_STATUS;
+
 // only these three are needed since FedEx only ships to them
 // convert TEP country id to ISO 3166 id
       $this->fedex_countries = array(38 => 'CA', 138 => 'MX', 223 => 'US');
@@ -12,7 +16,7 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_fedex" value="1" CHECKED></td></tr>' . "\n";
 
@@ -38,7 +42,7 @@
           $shipping_fedex_method .= ' ' . $shipping_num_boxes . ' x ' . $shipping_weight;
         } else {
           $quote['ErrorNbr'] = 1;
-          $quote['Error'] = SHIPPING_FEDEX_NOTAVAILABLE;
+          $quote['Error'] = MODULE_SHIPPING_FEDEX_TEXT_NOTAVAILABLE;
         }
       }
     }
@@ -72,14 +76,14 @@
 // check for errors
         if ($quote['ErrorNbr']) {
           $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</td>' . "\n" .
+                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' . "\n" .
                              '  <td class="main"><font color="#ff0000">Error:</font> ' . htmlentities($quote['Error']) . '</td>' . "\n" .
                              '  <td align="right" class="main">&nbsp;</td>' . "\n" .
                              '  <td align="right" nowrap>&nbsp;</td>' . "\n" .
                              '</tr>' . "\n";
         } else {
           $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . htmlentities(SHIPPING_FEDEX_NAME) . '</td>' . "\n" .
+                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' . "\n" .
                              '  <td class="main">' . $shipping_fedex_method . '</td>' . "\n" .
                              '  <td align="right" class="main">' . tep_currency_format($shipping_fedex_cost) . '</td>' . "\n" .
                              '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="fedex"';
@@ -106,18 +110,24 @@
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_FEDEX_ENABLED'");
-      $check = tep_db_num_rows($check) + 1;
+      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_SHIPPING_FEDEX_STATUS'");
+      $check = tep_db_num_rows($check);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable FedEx Shipping', 'SHIPPING_FEDEX_ENABLED', '1', 'Do you want to offer Federal Express (FedEx) shipping?', '7', '10', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable FedEx Shipping', 'MODULE_SHIPPING_FEDEX_STATUS', '1', 'Do you want to offer Federal Express (FedEx) shipping?', '6', '10', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'SHIPPING_FEDEX_ENABLED'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_FEDEX_STATUS'");
+    }
+
+    function keys() {
+      $keys = array('MODULE_SHIPPING_FEDEX_STATUS');
+
+      return $keys;
     }
   }
 ?>

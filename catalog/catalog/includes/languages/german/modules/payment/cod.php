@@ -1,3 +1,3 @@
 <?
-  define('TEXT_CASH_ON_DELIVERY', 'Nachnahme');
+  define('MODULE_PAYMENT_COD_TEXT_DESCRIPTION', 'Nachnahme');
 ?>

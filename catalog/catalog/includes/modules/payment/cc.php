@@ -1,26 +1,26 @@
 <?
   class cc {
-    var $payment_code, $payment_description, $payment_enabled;
+    var $code, $description, $enabled;
 
 // class constructor
     function cc() {
-      $this->payment_code = 'cc';
-      $this->payment_description = TEXT_CREDIT_CARD;
-      $this->payment_enabled = PAYMENT_SUPPORT_CC;
+      $this->code = 'cc';
+      $this->description = MODULE_PAYMENT_CC_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_PAYMENT_CC_STATUS;
     }
 
 // class methods
     function javascript_validation() {
-      if ($this->payment_enabled) {
-        $validation_string = 'if (payment_value == "' . $this->payment_code . '") {' . "\n" .
+      if ($this->enabled) {
+        $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
                              '  var cc_owner = document.payment.cc_owner.value;' . "\n" .
                              '  var cc_number = document.payment.cc_number.value;' . "\n" .
                              '  if (cc_owner == "" || cc_owner.length < ' . CC_OWNER_MIN_LENGTH . ') {' . "\n" .
-                             '    error_message = error_message + "' . JS_CC_OWNER . '";' . "\n" .
+                             '    error_message = error_message + "' . MODULE_PAYMENT_CC_TEXT_JS_CC_OWNER . '";' . "\n" .
                              '    error = 1;' . "\n" .
                              '  }' . "\n" .
                              '  if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
-                             '    error_message = error_message + "' . JS_CC_NUMBER . '";' . "\n" .
+                             '    error_message = error_message + "' . MODULE_PAYMENT_CC_TEXT_JS_CC_NUMBER . '";' . "\n" .
                              '    error = 1;' . "\n" .
                              '  }' . "\n" .
                              '}' . "\n";
@@ -31,18 +31,18 @@
     function selection() {
       global $HTTP_POST_VARS;
 
-        if ($this->payment_enabled) {
+        if ($this->enabled) {
         $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
                             '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
                             '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_number">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
+                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
                             '    <td class="main" nowrap>&nbsp;<select name="cc_expires_month">';
         for ($i=1; $i < 13; $i++) {
           $selected = ($HTTP_POST_VARS['cc_expires_month'] == $i) ? ' selected' : '';
@@ -64,7 +64,7 @@
     function confirmation() {
       global $HTTP_POST_VARS, $cc_val, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
 
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
         $include_file = DIR_WS_FUNCTIONS . 'ccval.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
         $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
@@ -105,7 +105,7 @@
     function process_button() {
       global $HTTP_POST_VARS, $CardName, $CardNumber, $cc_val;
 
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
         $process_button_string = '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
                                  '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">';
 
@@ -124,9 +124,9 @@
     function before_process() {
       global $HTTP_POST_VARS, $cc_number, $cc_middle;
 
-      if ($this->payment_enabled) {
+      if ($this->enabled) {
         $cc_number = $HTTP_POST_VARS['cc_number'];
-        if ( (defined('PAYMENT_EMAIL_CC')) && (PAYMENT_EMAIL_CC != 'NONE') ) {
+        if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (MODULE_PAYMENT_CC_EMAIL != 'NONE') ) {
           $len = strlen($cc_number);
           $new_cc = substr($cc_number, 0, 4) . substr('XXXXXXXXXXXXXXXX', 0, $len-8) . substr($cc_number, -4);
           $cc_middle = substr($cc_number, 4, $len-8);
@@ -137,34 +137,34 @@
 
     function after_process() {
       global $insert_id, $cc_middle, $message;
-      if ($this->payment_enabled) {
-        if ( (defined('PAYMENT_EMAIL_CC')) && (PAYMENT_EMAIL_CC != 'NONE') ) { // send emails to other people
+      if ($this->enabled) {
+        if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (MODULE_PAYMENT_CC_EMAIL != 'NONE') ) { // send emails to other people
           $message = "Order #" . $insert_id . "\nMiddle " . $cc_middle . "\n";
-          mail(PAYMENT_EMAIL_CC, "Extra Order Info", $message, 'From: ' . EMAIL_FROM);
+          mail(MODULE_PAYMENT_CC_EMAIL, "Extra Order Info", $message, 'From: ' . EMAIL_FROM);
         }
         header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
       }
     }
 
     function check() {
-      $check_query = tep_db_query("select configuration_value from configuration where configuration_key = 'PAYMENT_SUPPORT_CC'");
-      $check = tep_db_num_rows($check_query) + 1;
+      $check_query = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_PAYMENT_CC_STATUS'");
+      $check = tep_db_num_rows($check_query);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Credit Card', 'PAYMENT_SUPPORT_CC', '1', 'Do you want to accept credit card payments?', '6', '2', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Credit Card TP email address', 'PAYMENT_EMAIL_CC', 'NONE', 'If this email address is not NONE then the middle digits of any stored cc numbers will be X-ed out and emailed with the order id.', '6', '5', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Allow Credit Card', 'MODULE_PAYMENT_CC_STATUS', '1', 'Do you want to accept credit card payments?', '6', '2', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Credit Card TP email address', 'MODULE_PAYMENT_CC_EMAIL', 'NONE', 'If this email address is not NONE then the middle digits of any stored cc numbers will be X-ed out and emailed with the order id.', '6', '5', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'PAYMENT_SUPPORT_CC'");
-      tep_db_query("delete from configuration where configuration_key = 'PAYMENT_EMAIL_CC'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_CC_STATUS'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_PAYMENT_CC_EMAIL'");
     }
 
     function keys() {
-      $keys = array('PAYMENT_SUPPORT_CC', 'PAYMENT_EMAIL_CC');
+      $keys = array('MODULE_PAYMENT_CC_STATUS', 'MODULE_PAYMENT_CC_EMAIL');
 
       return $keys;
     }

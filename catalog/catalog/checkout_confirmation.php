@@ -131,7 +131,7 @@
 
   $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0.0;
-  if (SHIPPING_MODULES != '') {
+  if (MODULE_SHIPPING_INSTALLED) {
     $shipping_modules->confirm();
   }
 ?>
@@ -153,7 +153,7 @@
               </tr>
 <?
   }
-  if (SHIPPING_MODULES != '') {
+  if (MODULE_SHIPPING_INSTALLED) {
 ?>
               <tr>
                 <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>

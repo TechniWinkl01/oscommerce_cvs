@@ -34,7 +34,7 @@
   $shipping_modules = new shipping;
   $shipping_modules->quote();
 
-  if ( ($shipping_quoted == '') && (SHIPPING_MODULES != '') ) { // Null if no quotes selected
+  if ( ($shipping_quoted == '') && (MODULE_SHIPPING_INSTALLED) ) { // Null if no quotes selected
     header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection)); tep_exit();
   }
 
@@ -148,7 +148,7 @@ function check_form() {
         </table></td>
       </tr>
 <?
-   if (SHIPPING_MODULES != '') {
+   if (MODULE_SHIPPING_INSTALLED) {
 ?>
           <tr>          
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">

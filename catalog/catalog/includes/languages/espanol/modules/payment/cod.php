@@ -1,3 +1,3 @@
 <?
-  define('TEXT_CASH_ON_DELIVERY', 'Contra Reembolso');
+  define('MODULE_PAYMENT_COD_TEXT_DESCRIPTION', 'Contra Reembolso');
 ?>

@@ -1,5 +1,5 @@
 <?php
-	/* $Id: fedex.php,v 1.2 2001/02/07 21:04:31 pkellum Exp $ */
-	define('SHIPPING_FEDEX_NAME', 'Federal Express Ground'); // It's a trademark, can't translate
-	define('SHIPPING_FEDEX_NOTAVAILABLE', 'The requested service is unavailable between the selected locations.');
+	/* $Id: fedex.php,v 1.3 2001/05/13 18:56:28 hpdl Exp $ */
+	define('MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION', 'Federal Express Ground'); // It's a trademark, can't translate
+	define('MODULE_SHIPPING_FEDEX_TEXT_NOTAVAILABLE', 'The requested service is unavailable between the selected locations.');
 ?>

@@ -1,6 +1,5 @@
 <?
   /* $Id */
-  // define('SHIPPING_ITEM_COST', '2.50'); // In DB
-  define('SHIPPING_ITEM_NAME', 'Pro Stück');
-  define('SHIPPING_ITEM_WAY', 'Beste Weise');
+  define('MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION', 'Pro Stück');
+  define('MODULE_SHIPPING_ITEM_TEXT_WAY', 'Beste Weise');
 ?>

@@ -1,17 +1,21 @@
 <?
   class usps {
+    var $code, $description, $enabled;
 
 // class constructor
     function usps() {
+      $this->code = 'usps';
+      $this->description = MODULE_SHIPPING_USPS_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_SHIPPING_USPS_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_USPS_NAME . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_DESCRIPTION . '</td>' .
                        '<td><select name="shipping_usps_prod">' .
-                         '<option value="Parcel">' . SHIPPING_USPS_OPT_PP . '</option>' .
-                         '<option value="Priority" SELECTED>' . SHIPPING_USPS_OPT_PM . '</option>' .
-                         '<option value="Express">' . SHIPPING_USPS_OPT_EX . '</option>' .
+                         '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
+                         '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
+                         '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
                        '</select></td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_usps" value="1" CHECKED></td></tr>' . "\n";
 
@@ -73,7 +77,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . SHIPPING_USPS_NAME . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_usps_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_usps_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="usps"';
@@ -97,18 +101,24 @@
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_USPS_ENABLED'");
-      $check = tep_db_num_rows($check) + 1;
+      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_SHIPPING_USPS_STATUS'");
+      $check = tep_db_num_rows($check);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable USPS Shipping', 'SHIPPING_USPS_ENABLED', '1', 'Do you want to offer USPS shipping?', '7', '10', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable USPS Shipping', 'MODULE_SHIPPING_USPS_STATUS', '1', 'Do you want to offer USPS shipping?', '6', '10', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'SHIPPING_USPS_ENABLED'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_USPS_STATUS'");
+    }
+
+    function keys() {
+      $keys = array('MODULE_SHIPPING_USPS_STATUS');
+
+      return $keys;
     }
   }
 ?>

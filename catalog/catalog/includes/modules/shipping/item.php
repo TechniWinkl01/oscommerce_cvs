@@ -1,13 +1,17 @@
 <?
   class item {
+    var $code, $description, $enabled;
 
 // class constructor
     function item() {
+      $this->code = 'item';
+      $this->description = MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_SHIPPING_ITEM_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_ITEM_NAME . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_item" value="1" CHECKED></td></tr>' . "\n";
 
@@ -19,8 +23,8 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_item) ) {
         $shipping_quoted = 'item';
-        $shipping_item_cost = SHIPPING_HANDLING + (SHIPPING_ITEM_COST * $total_count);
-        $shipping_item_method = SHIPPING_ITEM_WAY;
+        $shipping_item_cost = SHIPPING_HANDLING + (MODULE_SHIPPING_ITEM_COST * $total_count);
+        $shipping_item_method = MODULE_SHIPPING_ITEM_TEXT_WAY;
       }
     }
 
@@ -46,7 +50,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_item) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . SHIPPING_ITEM_NAME . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_item_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_item_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="item"';
@@ -70,20 +74,26 @@
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_ITEM_ENABLED'");
-      $check = tep_db_num_rows($check) + 1;
+      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_SHIPPING_ITEM_STATUS'");
+      $check = tep_db_num_rows($check);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable Item Shipping', 'SHIPPING_ITEM_ENABLED', '1', 'Do you want to offer per item rate shipping?', '7', '7', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Per Item shipping cost', 'SHIPPING_ITEM_COST', '2.50', 'How much will be charged for each item ordered?', '7', '8', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable Item Shipping', 'MODULE_SHIPPING_ITEM_STATUS', '1', 'Do you want to offer per item rate shipping?', '6', '7', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Per Item shipping cost', 'MODULE_SHIPPING_ITEM_COST', '2.50', 'How much will be charged for each item ordered?', '6', '8', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'SHIPPING_ITEM_ENABLED'");
-      tep_db_query("delete from configuration WHERE configuration_key = 'SHIPPING_ITEM_COST'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_ITEM_STATUS'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_ITEM_COST'");
+    }
+
+    function keys() {
+      $keys = array('MODULE_SHIPPING_ITEM_STATUS', 'MODULE_SHIPPING_ITEM_COST');
+
+      return $keys;
     }
   }
 ?>

@@ -1,24 +1,28 @@
 <?php
   class ups {
+    var $code, $descrption, $enabled;
 
 // class constructor
     function ups() {
+      $this->code = 'ups';
+      $this->description = MODULE_SHIPPING_UPS_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_SHIPPING_UPS_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_UPS_NAME . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_DESCRIPTION . '</td>' .
                        '<td><select name="shipping_ups_prod">' .
-                         '<option value="GND" SELECTED>' . SHIPPING_UPS_OPT_GND . '</option>' .
-                         '<option value="1DM">' . SHIPPING_UPS_OPT_1DM . '</option>' .
-                         '<option value="1DA">' . SHIPPING_UPS_OPT_1DA . '</option>' .
-                         '<option value="1DP">' . SHIPPING_UPS_OPT_1DP . '</option>' .
-                         '<option value="2DM">' . SHIPPING_UPS_OPT_2DM . '</option>' .
-                         '<option value="3DS">' . SHIPPING_UPS_OPT_3DS . '</option>' .
-                         '<option value="STD">' . SHIPPING_UPS_OPT_STD . '</option>' .
-                         '<option value="XPR">' . SHIPPING_UPS_OPT_XPR . '</option>' .
-                         '<option value="XDM">' . SHIPPING_UPS_OPT_XDM . '</option>' .
-                         '<option value="XPD">' . SHIPPING_UPS_OPT_XPD . '>/option>' .
+                         '<option value="GND" SELECTED>' . MODULE_SHIPPING_UPS_TEXT_OPT_GND . '</option>' .
+                         '<option value="1DM">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DM . '</option>' .
+                         '<option value="1DA">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DA . '</option>' .
+                         '<option value="1DP">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DP . '</option>' .
+                         '<option value="2DM">' . MODULE_SHIPPING_UPS_TEXT_OPT_2DM . '</option>' .
+                         '<option value="3DS">' . MODULE_SHIPPING_UPS_TEXT_OPT_3DS . '</option>' .
+                         '<option value="STD">' . MODULE_SHIPPING_UPS_TEXT_OPT_STD . '</option>' .
+                         '<option value="XPR">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPR . '</option>' .
+                         '<option value="XDM">' . MODULE_SHIPPING_UPS_TEXT_OPT_XDM . '</option>' .
+                         '<option value="XPD">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPD . '>/option>' .
                        '</select></td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_ups" value="1" CHECKED></td></tr>' . "\n";
 
@@ -77,7 +81,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . SHIPPING_UPS_NAME . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_ups_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_ups_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="ups"';
@@ -101,18 +105,24 @@
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_UPS_ENABLED'");
-      $check = tep_db_num_rows($check) + 1;
+      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_SHIPPING_UPS_STATUS'");
+      $check = tep_db_num_rows($check);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable UPS Shipping', 'SHIPPING_UPS_ENABLED', '1', 'Do you want to offer UPS shipping?', '7', '9', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable UPS Shipping', 'MODULE_SHIPPING_UPS_STATUS', '1', 'Do you want to offer UPS shipping?', '6', '9', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'SHIPPING_UPS_ENABLED'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_UPS_STATUS'");
+    }
+
+    function keys() {
+      $keys = array('MODULE_SHIPPING_UPS_STATUS');
+
+      return $keys;
     }
   }
 ?>

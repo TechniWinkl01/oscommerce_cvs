@@ -61,7 +61,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?
-   if (SHIPPING_MODULES != '') {
+   if (MODULE_SHIPPING_INSTALLED) {
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">

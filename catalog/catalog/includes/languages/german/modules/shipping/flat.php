@@ -1,6 +1,5 @@
 <?
   /* $Id */
-  // define('SHIPPING_FLAT_COST', '5.00'); // This is in DB
-  define('SHIPPING_FLAT_NAME', 'Einzelne Kosten');
-  define('SHIPPING_FLAT_WAY', 'Beste Weise');
+  define('MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION', 'Einzelne Kosten');
+  define('MODULE_SHIPPING_FLAT_TEXT_WAY', 'Beste Weise');
 ?>

@@ -7,8 +7,8 @@
       global $shipping_count, $language;
 
       $shipping_count = 0;
-      if (SHIPPING_MODULES) {
-        $this->modules = explode(';', SHIPPING_MODULES); // get array of accepted modules
+      if (MODULE_SHIPPING_INSTALLED) {
+        $this->modules = explode(';', MODULE_SHIPPING_INSTALLED); // get array of accepted modules
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $value; include(DIR_WS_INCLUDES . 'include_once.php');
@@ -22,7 +22,7 @@
 
 // class methods
     function select() {
-      if (SHIPPING_MODULES) {
+      if (MODULE_SHIPPING_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
@@ -35,13 +35,13 @@
     function quote() {
       global $total_weight, $shipping_weight, $shipping_quoted, $shipping_num_boxes;
 
-      if (SHIPPING_MODULES) {
+      if (MODULE_SHIPPING_INSTALLED) {
         $shipping_quoted = '';
         $shipping_num_boxes = 1;
         $shipping_weight = $total_weight;
 
         if ($total_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-          $shipping_num_boxes = round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
+          $shipping_num_boxes = @round(($total_weight/SHIPPING_MAX_WEIGHT)+0.5);
           $shipping_weight = $total_weight/$shipping_num_boxes;
         }
 
@@ -62,7 +62,7 @@
     }
 
     function cheapest() {
-      if (SHIPPING_MODULES) {
+      if (MODULE_SHIPPING_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
@@ -72,7 +72,7 @@
     }
 
     function display() {
-      if (SHIPPING_MODULES) {
+      if (MODULE_SHIPPING_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
@@ -84,7 +84,7 @@
     function confirm() {
       global $shipping_cost, $shipping_method;
 
-      if (SHIPPING_MODULES) {
+      if (MODULE_SHIPPING_INSTALLED) {
         $confirm_string .= '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' . 
                            '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 

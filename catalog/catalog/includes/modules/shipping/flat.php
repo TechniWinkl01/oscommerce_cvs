@@ -1,13 +1,17 @@
 <?php
   class flat {
+    var $code, $description, $enabled;
 
 // class constructor
     function flat() {
+      $this->code = 'flat';
+      $this->description = MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION;
+      $this->enabled = MODULE_SHIPPING_FLAT_STATUS;
     }
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . SHIPPING_FLAT_NAME . '</td>' .
+      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION . '</td>' .
                        '<td>&nbsp;</td>' .
                        '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_flat" value="1" CHECKED></td></tr>' . "\n";
 
@@ -19,8 +23,8 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
         $shipping_quoted = 'flat';
-        $shipping_flat_cost = SHIPPING_HANDLING + SHIPPING_FLAT_COST;
-        $shipping_flat_method = SHIPPING_FLAT_WAY;
+        $shipping_flat_cost = SHIPPING_HANDLING + MODULE_SHIPPING_FLAT_COST;
+        $shipping_flat_method = MODULE_SHIPPING_FLAT_TEXT_WAY;
       }
     }
 
@@ -46,7 +50,7 @@
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . SHIPPING_FLAT_NAME . '</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_flat_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_flat_cost) . '</td>' . "\n" .
                           '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="flat"';
@@ -70,20 +74,26 @@
     }
 
     function check() {
-      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_FLAT_ENABLED'");
-      $check = tep_db_num_rows($check) + 1;
+      $check = tep_db_query("select configuration_value from configuration where configuration_key = 'MODULE_SHIPPING_FLAT_STATUS'");
+      $check = tep_db_num_rows($check);
 
       return $check;
     }
 
     function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable Flat Shipping', 'SHIPPING_FLAT_ENABLED', '1', 'Do you want to offer flat rate shipping?', '7', '5', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Flat Cost', 'SHIPPING_FLAT_COST', '5.00', 'What is the Shipping cost? The Handling fee will also be added.', '7', '6', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable Flat Shipping', 'MODULE_SHIPPING_FLAT_STATUS', '1', 'Do you want to offer flat rate shipping?', '6', '5', now())");
+      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Flat Cost', 'MODULE_SHIPPING_FLAT_COST', '5.00', 'What is the Shipping cost? The Handling fee will also be added.', '6', '6', now())");
     }
 
     function remove() {
-      tep_db_query("delete from configuration where configuration_key = 'SHIPPING_FLAT_ENABLED'");
-      tep_db_query("delete from configuration where configuration_key = 'SHIPPING_FLAT_COST'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_FLAT_STATUS'");
+      tep_db_query("delete from configuration where configuration_key = 'MODULE_SHIPPING_FLAT_COST'");
+    }
+
+    function keys() {
+      $keys = array('MODULE_SHIPPING_FLAT_STATUS', 'MODULE_SHIPPING_FLAT_COST');
+
+      return $keys;
     }
   }
 ?>
