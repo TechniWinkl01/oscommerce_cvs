@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whats_new.php,v 1.23 2001/12/19 01:37:55 hpdl Exp $
+  $Id: whats_new.php,v 1.24 2001/12/19 12:17:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,9 +18,9 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL') . '" class="infoBoxHeading">' . BOX_HEADING_WHATS_NEW . '</a>'
+                                 'text'  => BOX_HEADING_WHATS_NEW
                                 );
-    new infoBoxHeading($info_box_contents, false, false);
+    new infoBoxHeading($info_box_contents, false, false, tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL'));
 
     if ($random_product['specials_new_products_price']) {
       $whats_new_price =  '<s>' . $currencies->format($random_product['products_price']) . '</s><br>';

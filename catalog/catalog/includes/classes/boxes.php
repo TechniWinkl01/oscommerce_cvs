@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.13 2001/12/19 07:54:19 jan0815 Exp $
+  $Id: boxes.php,v 1.14 2001/12/19 12:17:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,7 +93,7 @@
   }
 
   class infoBoxHeading extends tableBox {
-    function infoBoxHeading($contents, $left_corner = true, $right_corner = true) {
+    function infoBoxHeading($contents, $left_corner = true, $right_corner = true, $right_arrow = false) {
       $this->table_cellpadding = '0';
       $this->table_row_parameters = 'valign="center" bgcolor="#bbc3d3"';
 
@@ -102,10 +102,15 @@
       } else {
         $left_corner = tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif');
       }
-      if ($right_corner) {
-        $right_corner = tep_image(DIR_WS_IMAGES . 'infobox/corner_right.gif');
+      if ($right_arrow) {
+        $right_arrow = '<a href="' . $right_arrow . '">' . tep_image(DIR_WS_IMAGES . 'infobox/arrow_right.gif') . '</a>';
       } else {
-        $right_corner = '';
+        $right_arrow = '';
+      }
+      if ($right_corner) {
+        $right_corner = $right_arrow . tep_image(DIR_WS_IMAGES . 'infobox/corner_right.gif');
+      } else {
+        $right_corner = $right_arrow . tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '11', '14');
       }
 
       $info_box_contents = array();

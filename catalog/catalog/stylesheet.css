@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.28 2001/12/19 11:23:23 hpdl Exp $
+  $Id: stylesheet.css,v 1.29 2001/12/19 12:17:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,14 +87,6 @@ TD.infoBoxHeading {
   font-family: Verdana, Arial, sans-serif;
   font-size: 10px;
   color: #ffffff;
-}
-
-A.infoBoxHeading { 
-  color: #000000; 
-}
-
-A:hover.infoBoxHeading { 
-  color: #000000; 
 }
 
 TD.infoBox, SPAN.infoBox {
