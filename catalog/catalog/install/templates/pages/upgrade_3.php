@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.48 2003/02/14 05:58:35 hpdl Exp $
+  $Id: upgrade_3.php,v 1.49 2003/02/17 21:35:24 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -191,8 +191,6 @@ changeText('statusText', 'Updating Configuration');
 <?php
   flush();
 
-  osc_db_query("insert into configuration_group values ('5', 'Customer Details', 'Customer account configuration', '5', '1')");
-
   osc_db_query("alter table configuration change last_modified last_modified datetime");
   osc_db_query("alter table configuration change date_added date_added datetime not null");
   osc_db_query("alter table configuration modify use_function varchar(255)");
@@ -317,6 +315,7 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration_group values ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1')");
   osc_db_query("insert into configuration_group values ('4', 'Images', 'Image parameters', '4', '1')");
   osc_db_query("insert into configuration_group values ('6', 'Module Options', 'Hidden from configuration', '6', '0')");
+  osc_db_query("insert into configuration_group values ('5', 'Customer Details', 'Customer account configuration', '5', '1')");
   osc_db_query("insert into configuration_group values ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1')");
   osc_db_query("insert into configuration_group values ('8', 'Product Listing', 'Product Listing    configuration options', '8', '1')");
   osc_db_query("insert into configuration_group values ('9', 'Stock', 'Stock configuration options', '9', '1')");
