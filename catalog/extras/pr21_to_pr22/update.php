@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.22 2001/12/09 18:20:20 dgw_ Exp $
+  $Id: update.php,v 1.23 2001/12/15 14:02:42 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -231,6 +231,7 @@ changeText('statusText', 'Updating Banners');
 
   tep_db_query("create table banners ( banners_id int(5) not null auto_increment, banners_title varchar(64) not null, banners_url varchar(64) not null, banners_image varchar(64) not null, banners_group varchar(10) not null, banners_html_text text, expires_impressions int(7), expires_date datetime, date_scheduled datetime, date_added datetime not null, date_status_change datetime, status int(1) default '1', primary key (banners_id) )");
   tep_db_query("create table banners_history ( banners_history_id int(5) not null auto_increment, banners_id int(5) not null, banners_shown int(5) not null default '0', banners_clicked int(5) not null default '0', banners_history_date datetime not null, primary key (banners_history_id) )");
+  tep_db_query("insert into banners values (1,'osCommerce','http://www.oscommerce.com','banners/oscommerce.gif','468x50','','', '', '', now(), '', 1)");
 ?>
 <script language="javascript"><!--
 changeStyle('banners', 'normal');

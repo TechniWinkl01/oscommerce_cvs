@@ -1,9 +1,9 @@
-# $Id: mysql_catalog.sql,v 1.161 2001/12/09 21:02:49 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.162 2001/12/15 14:02:42 hpdl Exp $
 #
-# The Exchange Project - Community Made Shopping!
-# http://www.theexchangeproject.org
+# osCommerce, Open Source E-Commerce Solutions
+# http://www.oscommerce.com
 #
-# Copyright (c) 2000,2001 The Exchange Project
+# Copyright (c) 2001 osCommerce
 #
 # Released under the GNU General Public License
 #
@@ -499,7 +499,7 @@ INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$c
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
-INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','banners/theexchangeproject.org.gif','468x50','','1000', '', '', now(), '', 1);
+INSERT INTO banners VALUES (1,'osCommerce','http://www.oscommerce.com','banners/oscommerce.gif','468x50','','', '', '', now(), '', 1);
 
 INSERT INTO categories VALUES ( '1', 'category_hardware.gif', '0', '1', now(), '');
 INSERT INTO categories VALUES ( '2', 'category_software.gif', '0', '2', now(), '');
