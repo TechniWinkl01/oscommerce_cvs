@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.35 2001/11/29 20:49:17 hpdl Exp $
+  $Id: manufacturers.php,v 1.36 2001/12/05 09:26:13 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'save') {
-      tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
+      tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_name = '" . $HTTP_POST_VARS['manufacturers_name'] . "', last_modified = now() where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
       if ( ($manufacturers_image != 'none') && ($manufacturers_image != '') ) {
         tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image_name . "' where manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "'");
         $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $manufacturers_image_name;
@@ -63,7 +63,7 @@
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'insert') {
       $error = 0;
-      if (tep_db_query("insert into " . TABLE_MANUFACTURERS . " (manufacturers_name) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "')")) {
+      if (tep_db_query("insert into " . TABLE_MANUFACTURERS . " (manufacturers_name, date_added) values ('" . $HTTP_POST_VARS['manufacturers_name'] . "', now())")) {
         $manufacturers_id = tep_db_insert_id();
         if ( ($manufacturers_image != 'none') && ($manufacturers_image != '') ) {
           if (tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image_name . "' where manufacturers_id = '" . $manufacturers_id . "'")) {
@@ -80,7 +80,7 @@
           $manufacturers_url_array = $HTTP_POST_VARS['manufacturers_url'];
           $language_id = $languages[$i]['id'];
           $manufacturers_url = $manufacturers_url_array[$language_id];
-          tep_db_query("insert into " . TABLE_MANUFACTURERS_INFO . " (manufacturers_id, languages_id, manufacturers_url, url_clicked, date_last_click, date_added) values ('" . $manufacturers_id . "', '" . $languages[$i]['id'] . "', '" . $manufacturers_url . "', '0', '', now())");
+          tep_db_query("insert into " . TABLE_MANUFACTURERS_INFO . " (manufacturers_id, languages_id, manufacturers_url, url_clicked, date_last_click) values ('" . $manufacturers_id . "', '" . $languages[$i]['id'] . "', '" . $manufacturers_url . "', '0', '')");
         }
       } else {
         $error = 1;
@@ -152,7 +152,7 @@
               </tr>
 <?php
   $rows = 0;
-  $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image from " . TABLE_MANUFACTURERS . " order by manufacturers_name";
+  $manufacturers_query_raw = "select manufacturers_id, manufacturers_name, manufacturers_image, date_added, last_modified from " . TABLE_MANUFACTURERS . " order by manufacturers_name";
   $manufacturers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $manufacturers_query_raw, $manufacturers_query_numrows);
   $manufacturers_query = tep_db_query($manufacturers_query_raw);
   while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
@@ -263,7 +263,7 @@
       $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . ' <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
     } else {
       $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-      $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . '&nbsp;<br>&nbsp;' . TEXT_LAST_MODIFIED);
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_DATE_ADDED . ' ' . tep_date_short($mInfo->added) . '&nbsp;<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . tep_date_short($mInfo->modified) . '&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_info_image($mInfo->image, $mInfo->name));
       $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_PRODUCTS . ' ' . $mInfo->products_count);
     }
