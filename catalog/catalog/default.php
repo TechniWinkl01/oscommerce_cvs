@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.67 2002/01/15 20:09:57 dgw_ Exp $
+  $Id: default.php,v 1.68 2002/01/23 14:17:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . $category['categories_image'], $category['categories_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . $category['categories_image'], $category['categories_name']); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -301,7 +301,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_default.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_default.gif', HEADING_TITLE); ?></td>
           </tr>
         </table></td>
       </tr>
