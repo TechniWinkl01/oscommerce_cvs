@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.160 2001/12/09 18:20:20 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.161 2001/12/09 21:02:49 dgw_ Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -1215,6 +1215,7 @@ INSERT INTO tax_rates VALUES (1, 1, 1, 1, 7.0, 'FL TAX 7.0%', now(), now());
 INSERT INTO geo_zones (geo_zone_id,geo_zone_name,geo_zone_description,date_added) VALUES (1,"Florida","Florida local sales tax zone",now());
 INSERT INTO zones_to_geo_zones (association_id,zone_country_id,zone_id,geo_zone_id,date_added) VALUES (1,223,18,1,now());
 
+# USA
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
 INSERT INTO zones VALUES (2,223,'AK','Alaska');
 INSERT INTO zones VALUES (3,223,'AS','American Samoa');
@@ -1280,6 +1281,8 @@ INSERT INTO zones VALUES (62,223,'WA','Washington');
 INSERT INTO zones VALUES (63,223,'WV','West Virginia');
 INSERT INTO zones VALUES (64,223,'WI','Wisconsin');
 INSERT INTO zones VALUES (65,223,'WY','Wyoming');
+
+# Canada
 INSERT INTO zones VALUES (66,38,'AB','Alberta');
 INSERT INTO zones VALUES (67,38,'BC','British Columbia');
 INSERT INTO zones VALUES (68,38,'MB','Manitoba');
@@ -1293,6 +1296,8 @@ INSERT INTO zones VALUES (75,38,'PE','Prince Edward Island');
 INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
+
+# Germany
 INSERT INTO zones VALUES (79,81,'NDS','Niedersachsen');
 INSERT INTO zones VALUES (80,81,'BAW','Baden-Württemberg');
 INSERT INTO zones VALUES (81,81,'BAY','Bayern');
@@ -1309,6 +1314,8 @@ INSERT INTO zones VALUES (91,81,'SAS','Sachsen');
 INSERT INTO zones VALUES (92,81,'SAC','Sachsen-Anhalt');
 INSERT INTO zones VALUES (93,81,'SCN','Schleswig-Holstein');
 INSERT INTO zones VALUES (94,81,'THE','Thüringen');
+
+# Austria
 INSERT INTO zones VALUES (95,14,'WI','Wien');
 INSERT INTO zones VALUES (96,14,'NO','Niederösterreich');
 INSERT INTO zones VALUES (97,14,'OO','Oberösterreich');
@@ -1318,6 +1325,8 @@ INSERT INTO zones VALUES (100,14,'ST','Steiermark');
 INSERT INTO zones VALUES (101,14,'TI','Tirol');
 INSERT INTO zones VALUES (102,14,'BL','Burgenland');
 INSERT INTO zones VALUES (103,14,'VB','Voralberg');
+
+# Swizterland
 INSERT INTO zones VALUES (104,204,'AG','Aargau');
 INSERT INTO zones VALUES (105,204,'AI','Appenzell Innerrhoden');
 INSERT INTO zones VALUES (106,204,'AR','Appenzell Ausserrhoden');
@@ -1345,6 +1354,7 @@ INSERT INTO zones VALUES (127,204,'VS','Wallis');
 INSERT INTO zones VALUES (128,204,'ZG','Zug');
 INSERT INTO zones VALUES (129,204,'ZH','Zürich');
 
+# Spain
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Alava','Alava');
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Malaga','Malaga');
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Segovia','Segovia');
