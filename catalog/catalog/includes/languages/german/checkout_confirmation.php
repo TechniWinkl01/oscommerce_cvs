@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.22 2002/11/01 04:17:48 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.23 2002/11/01 19:27:15 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,11 +15,11 @@ define('NAVBAR_TITLE_2', 'Best&auml;tigung');
 
 define('HEADING_TITLE', 'Bestellung aufgeben:');
 
-define('HEADING_DELIVERY_ADDRESS', 'Delivery Address');
-define('HEADING_SHIPPING_METHOD', 'Shipping Method');
-define('HEADING_PRODUCTS', 'Products');
-define('HEADING_BILLING_INFORMATION', 'Billing Information');
-define('HEADING_BILLING_ADDRESS', 'Billing Address');
-define('HEADING_PAYMENT_METHOD', 'Payment Method');
-define('HEADING_PAYMENT_INFORMATION', 'Payment Information');
+define('HEADING_DELIVERY_ADDRESS', 'Versandadresse');
+define('HEADING_SHIPPING_METHOD', 'Versandart');
+define('HEADING_PRODUCTS', 'Produkte');
+define('HEADING_BILLING_INFORMATION', 'Rechnungsinformationen');
+define('HEADING_BILLING_ADDRESS', 'Rechnungsadresse');
+define('HEADING_PAYMENT_METHOD', 'Zahlungsweise');
+define('HEADING_PAYMENT_INFORMATION', 'Zahlungsinformationen');
 ?>
