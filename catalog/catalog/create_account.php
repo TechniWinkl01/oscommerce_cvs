@@ -314,7 +314,7 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</font></td>
-            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<select name="newsletter"><option value="1"><?php echo ENTRY_NEWSLETTER_YES; ?></option><option selected value="0"><? echo ENTRY_NEWSLETTER_NO; ?></option></font></td>
+            <td nowrap><?php echo FONT_STYLE_FIELD_VALUE; ?>&nbsp;<select name="newsletter"><option value="1"><?php echo ENTRY_NEWSLETTER_YES; ?></option><option selected value="0"><? echo ENTRY_NEWSLETTER_NO; ?></option></select></font></td>
           </tr>
           <tr>
             <td colspan="2" nowrap><?php echo FONT_STYLE_FIELD_ENTRY; ?>&nbsp;</font></td>
