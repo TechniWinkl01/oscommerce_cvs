@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.36 2003/02/17 07:55:10 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.37 2003/03/23 20:05:15 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -155,7 +155,7 @@
         $your_email_address_prompt = $account_values['customers_email_address'];
       } else {
         $your_name_prompt = tep_draw_input_field('yourname', (($fromname_error == true) ? $HTTP_POST_VARS['yourname'] : $HTTP_GET_VARS['yourname']));
-        if ($fromname_error == true) $your_name_prompt .= '&nbsp;<span class="errorText">' . TEXT_REQUIRED . '</span>';
+        if ($fromname_error == true) $your_name_prompt .= '&nbsp;' . TEXT_REQUIRED;
         $your_email_address_prompt = tep_draw_input_field('from', (($fromemail_error == true) ? $HTTP_POST_VARS['from'] : $HTTP_GET_VARS['from']));
         if ($fromemail_error == true) $your_email_address_prompt .= ENTRY_EMAIL_ADDRESS_CHECK_ERROR;
       }
@@ -190,7 +190,7 @@
                 <td class="main"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_FRIEND_NAME; ?></td>
-                    <td class="main"><?php echo tep_draw_input_field('friendname', (($friendname_error == true) ? $HTTP_POST_VARS['friendname'] : $HTTP_GET_VARS['friendname'])); if ($friendname_error == true) echo '&nbsp;<span class="errorText">' . TEXT_REQUIRED . '</span>';?></td>
+                    <td class="main"><?php echo tep_draw_input_field('friendname', (($friendname_error == true) ? $HTTP_POST_VARS['friendname'] : $HTTP_GET_VARS['friendname'])); if ($friendname_error == true) echo '&nbsp;' . TEXT_REQUIRED;?></td>
                   </tr>
                   <tr>
                     <td class="main"><?php echo FORM_FIELD_FRIEND_EMAIL; ?></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.107 2003/02/17 11:49:25 hpdl Exp $
+  $Id: english.php,v 1.108 2003/03/23 20:05:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -290,7 +290,7 @@ define('TEXT_NO_NEW_PRODUCTS', 'There are currently no products.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unknown tax rate');
 
-define('TEXT_REQUIRED', 'Required');
+define('TEXT_REQUIRED', '<span class="errorText">Required</span>');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warning: Installation directory exists at: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Please remove this directory for security reasons.');
