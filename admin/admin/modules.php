@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.23 2001/09/30 10:10:51 mbs Exp $
+  $Id: modules.php,v 1.24 2001/11/25 22:57:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -202,8 +202,7 @@
     while (list($key, $value) = each($mInfo->keys)) {
       $keys .= '<b>' . $value['title'] . '</b><br>' . $value['description'] . '<br>';
       if ($value['set_function']) {
-        $set_function = $value['set_function'];
-        $keys .= $set_function($key, $value['value']);
+        eval('$keys .= ' . $value['set_function'] . "'" . $key . "', '" . $value['value'] . "');");
       } else {
         $keys .= '<input type="text" name="configuration[' . $key . ']" value="' . $value['value'] . '">';
       }

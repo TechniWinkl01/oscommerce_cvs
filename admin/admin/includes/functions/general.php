@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.75 2001/11/23 14:56:22 dgw_ Exp $
+  $Id: general.php,v 1.76 2001/11/25 22:57:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -703,6 +703,20 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       $string .= '<br><input type="radio" name="configuration_value" value="' . $select_array[$i] . '"';
       if ($key_value == $select_array[$i]) $string .= ' CHECKED';
       $string .= '> ' . $select_array[$i];
+    }
+
+    return $string;
+  }
+
+////
+// Alias function for module configuration keys
+  function tep_mod_select_option($select_array, $key_name, $key_value) {
+    reset($select_array);
+    while (list($key, $value) = each($select_array)) {
+      if (is_int($key)) $key = $value;
+      $string .= '<br><input type="radio" name="configuration[' . $key_name . ']" value="' . $key . '"';
+      if ($key_value == $key) $string .= ' CHECKED';
+      $string .= '> ' . $value;
     }
 
     return $string;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.12 2001/09/23 11:39:45 dwatkins Exp $
+  $Id: table.php,v 1.13 2001/11/25 22:57:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,7 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $table_shipping_options = array('0' => MODULE_SHIPPING_TABLE_TEXT_WEIGHT, '1' => MODULE_SHIPPING_TABLE_TEXT_AMOUNT);
+  $table_shipping_options = array('weight' => MODULE_SHIPPING_TABLE_TEXT_WEIGHT, 
+                                  'price' => MODULE_SHIPPING_TABLE_TEXT_AMOUNT
+                                 );
 
   function tep_get_shipping_modes($value) {
     global $table_shipping_options;
@@ -21,15 +23,7 @@
   function tep_set_shipping_modes($key, $value = '') {
     global $table_shipping_options;
 
-    $return = '<select name="configuration[' . $key . ']">';
-    reset($table_shipping_options);
-    while (list($k, $v) = each($table_shipping_options)) {
-      $selected = ($value == $k ? ' selected' : '');
-      $return .= '<option value="' . $k . '"' . $selected . '>' . $v . '</option>';
-    }
-    $return .= '</select>';
-
-    return $return;
+    return tep_mod_select_option($table_shipping_options, $key, $value);
   }
 
   class table {
@@ -62,7 +56,7 @@
       if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
         $shipping_quoted = 'table';
 
-        if (MODULE_SHIPPING_TABLE_MODE == 1) {
+        if (MODULE_SHIPPING_TABLE_MODE == 'price') {
           $order_total = $cart->show_total();
         } else {
           $order_total = $cart->show_weight();
@@ -149,7 +143,7 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable Table Method', 'MODULE_SHIPPING_TABLE_STATUS', '1', 'Do you want to offer table rate shipping?', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Shipping Table', 'MODULE_SHIPPING_TABLE_COST', '1-25,8.50,25-50,5.50,50-10000,0.00', 'Shipping based on the total cost of items. Example: 1-25,8.50,25-50,5.50,etc.. From 1 to 25 charge 8.50, from 25 to 50 charge 5.50, etc', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Handling Fee', 'MODULE_SHIPPING_TABLE_HANDLING', '5', 'Handling Fee for this shipping method', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Table Method', 'MODULE_SHIPPING_TABLE_MODE', '0', 'Is the shipping table based on total Weight or Total amount of order.', '6', '0', 'tep_get_shipping_modes', 'tep_set_shipping_modes', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Table Method', 'MODULE_SHIPPING_TABLE_MODE', 'weight', 'Is the shipping table based on total Weight or Total amount of order.', '6', '0', 'tep_get_shipping_modes', 'tep_set_shipping_modes(', now())");
     }
 
     function remove() {
