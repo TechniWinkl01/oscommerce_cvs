@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.39 2003/02/13 04:23:23 hpdl Exp $
+  $Id: header.php,v 1.40 2003/03/14 03:34:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -65,7 +65,7 @@
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerError">
-    <td class="headerError"><?php echo urldecode($HTTP_GET_VARS['error_message']); ?></td>
+    <td class="headerError"><?php echo htmlspecialchars(urldecode($HTTP_GET_VARS['error_message'])); ?></td>
   </tr>
 </table>
 <?php
@@ -75,7 +75,7 @@
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerInfo">
-    <td class="headerInfo"><?php echo $HTTP_GET_VARS['info_message']; ?></td>
+    <td class="headerInfo"><?php echo htmlspecialchars($HTTP_GET_VARS['info_message']); ?></td>
   </tr>
 </table>
 <?php

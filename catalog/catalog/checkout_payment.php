@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.109 2003/02/14 20:28:47 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.110 2003/03/14 03:34:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -154,7 +154,7 @@ function rowOutEffect(object) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><b><?php echo $error['title']; ?></b></td>
+            <td class="main"><b><?php echo htmlspecialchars($error['title']); ?></b></td>
           </tr>
         </table></td>
       </tr>
@@ -164,7 +164,7 @@ function rowOutEffect(object) {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main" width="100%" valign="top"><?php echo $error['error']; ?></td>
+                <td class="main" width="100%" valign="top"><?php echo htmlspecialchars($error['error']); ?></td>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>
