@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.67 2001/10/30 17:04:12 dgw_ Exp $
+  $Id: product_info.php,v 1.68 2001/10/30 18:52:18 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -162,7 +162,7 @@ function popupImageWindow(url) {
     if ($product_info_values['products_url']) {
 ?>
       <tr>
-        <td class="main"><?php echo sprintf(TEXT_MORE_INFORMATION, tep_href_link(FILENAME_REDIRECT, 'action=url&goto=' . urlencode($product_info_values['products_url']), 'NONSSL', false, false)); ?><br>&nbsp;</td>
+        <td class="main"><?php echo sprintf(TEXT_MORE_INFORMATION, tep_href_link(FILENAME_REDIRECT, 'action=url&goto=' . urlencode($product_info_values['products_url']), 'NONSSL', true, false)); ?><br>&nbsp;</td>
       </tr>
 <?php
     }
