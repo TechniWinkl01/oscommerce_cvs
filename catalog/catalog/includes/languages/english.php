@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.77 2002/01/02 23:05:08 hpdl Exp $
+  $Id: english.php,v 1.78 2002/01/03 19:27:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -278,4 +278,6 @@ define('TEXT_UNKNOWN_TAX_RATE', 'Unknown tax rate');
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warning: Installation directory exists at: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Please remove this for security reasons.');
 define('WARNING_CONFIG_FILE_WRITEABLE', 'Warning: I am able to write to: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. This is a potential security risk - please fix the user permissions.');
+define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warning: The sessions directory does not exist: ' . tep_session_save_path() . '. Sessions will not work until this directory exists.');
+define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warning: The sessions directory is not writeable: ' . tep_session_save_path() . '. Sessions will not work until the right user permissions are set.');
 ?>

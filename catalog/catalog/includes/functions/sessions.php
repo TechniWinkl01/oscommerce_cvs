@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.10 2001/10/24 11:32:01 dgw_ Exp $
+  $Id: sessions.php,v 1.11 2002/01/03 19:27:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -102,5 +102,13 @@
 
   function tep_session_destroy() {
     return session_destroy();
+  }
+
+  function tep_session_save_path($path = '') {
+    if ($path != '') {
+      return session_save_path($path);
+    } else {
+      return session_save_path();
+    }
   }
 ?>
