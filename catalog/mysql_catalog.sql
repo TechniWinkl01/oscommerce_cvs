@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.95 2001/06/05 15:08:17 mbs Exp $
+# $Id: mysql_catalog.sql,v 1.96 2001/06/05 21:38:21 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -488,8 +488,8 @@ INSERT INTO categories_description VALUES ( '20', '3', 'Estrategia');
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'The Exchange Project', 'The name of my store', '1', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Owner', 'STORE_OWNER', 'Harald Ponce de Leon', 'The name of my store owner', '1', '2', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail Address', 'STORE_OWNER_EMAIL_ADDRESS', 'hpdl@theexchangeproject.org', 'The e-mail address of my store owner', '1', '3', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail From', 'EMAIL_FROM', 'The Exchange Project <hpdl@theexchangeproject.org>', 'The e-mail address used in (sent) e-mails', '1', '4', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail Address', 'STORE_OWNER_EMAIL_ADDRESS', 'root@localhost', 'The e-mail address of my store owner', '1', '3', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail From', 'EMAIL_FROM', 'The Exchange Project <root@localhost>', 'The e-mail address used in (sent) e-mails', '1', '4', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, date_added) VALUES ('Country', 'STORE_COUNTRY', '81', 'The country my store is located in', '1', '5', 'tep_get_country_name', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Expected Sort Order', 'EXPECTED_PRODUCTS_SORT', 'DESC', 'This is the sort order used in the &quot;expected products&quot; box.  It can be either ASC (ascending) or DESC (descending, the default).', '1', '6', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Expected Sort Field', 'EXPECTED_PRODUCTS_FIELD', 'date_expected', 'The column to sort by in the &quot;expected products&quot; box.  Can be &quot;products_name&quot; or &quot;date_expected&quot; (the default)', '1', '7', now());
