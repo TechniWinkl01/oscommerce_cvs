@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.4 2004/07/22 16:59:03 hpdl Exp $
+  $Id: database.php,v 1.5 2004/08/27 22:02:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -377,7 +377,7 @@
         $length = strlen($place_holder);
         $character_after_place_holder = substr($this->sql_query, $pos+$length, 1);
 
-        if (($character_after_place_holder === false) || ereg('[ ,)]', $character_after_place_holder)) {
+        if (($character_after_place_holder === false) || ereg('[ ,)"]', $character_after_place_holder)) {
           $this->sql_query = substr_replace($this->sql_query, $value, $pos, $length);
         }
       }
