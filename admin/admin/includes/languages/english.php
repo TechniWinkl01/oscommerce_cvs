@@ -46,6 +46,7 @@ define('BOX_CATALOG_MANUFACTURERS', 'Manufacturers');
 define('BOX_CATALOG_REVIEWS', 'Reviews');
 define('BOX_CATALOG_SPECIALS', 'Specials');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Products Expected');
+define('BOX_CATALOG_ORDERS_STATUS', 'Orders Status');
 
 // customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Customers');
@@ -200,6 +201,7 @@ define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Displaying <b>%d</b> to <b>%d</b> (
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> languages)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> manufacturers)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders status)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products expected)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> product reviews)');

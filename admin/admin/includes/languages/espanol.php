@@ -46,6 +46,7 @@ define('BOX_CATALOG_MANUFACTURERS', 'Fabricantes');
 define('BOX_CATALOG_REVIEWS', 'Comentarios');
 define('BOX_CATALOG_SPECIALS', 'Ofertas');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Proximamente');
+define('BOX_CATALOG_ORDERS_STATUS', 'Pedidos Estado');
 
 // categories box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Clientes');
@@ -201,6 +202,7 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos estado)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> porcentajes de impuestos)');
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');

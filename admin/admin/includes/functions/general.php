@@ -622,6 +622,13 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     return $category['categories_name'];
   }
 
+  function tep_get_orders_status_name($orders_status_id, $language_id) {
+    $orders_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $orders_status_id . "' and language_id = '" . $language_id . "'");
+    $orders_status = tep_db_fetch_array($orders_status_query);
+
+    return $orders_status['orders_status_name'];
+  }
+
   function tep_get_products_name($product_id, $language_id = 0) {
     global $languages_id;
 

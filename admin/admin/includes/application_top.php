@@ -59,6 +59,7 @@
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
   define('FILENAME_MODULES', 'modules.php');
   define('FILENAME_ORDERS', 'orders.php');
+  define('FILENAME_ORDERS_STATUS', 'orders_status.php');
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
   define('FILENAME_PRODUCTS_ATTRIBUTES', 'products_attributes.php');
   define('FILENAME_PRODUCTS_EXPECTED', 'products_expected.php');
@@ -95,6 +96,7 @@
   define('TABLE_ORDERS', 'orders');
   define('TABLE_ORDERS_PRODUCTS', 'orders_products');
   define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
+  define('TABLE_ORDERS_STATUS', 'orders_status');
   define('TABLE_PRODUCTS', 'products');
   define('TABLE_PRODUCTS_ATTRIBUTES', 'products_attributes');
   define('TABLE_PRODUCTS_DESCRIPTION', 'products_description');
@@ -221,6 +223,7 @@
   require(DIR_WS_CLASSES . 'languages_info.php');
   require(DIR_WS_CLASSES . 'manufacturer_info.php');
   require(DIR_WS_CLASSES . 'module_info.php');
+  require(DIR_WS_CLASSES . 'ordersstatus_info.php');
   require(DIR_WS_CLASSES . 'product_expected_info.php');
   require(DIR_WS_CLASSES . 'product_info.php');
   require(DIR_WS_CLASSES . 'review_info.php');
