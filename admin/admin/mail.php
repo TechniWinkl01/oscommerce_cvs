@@ -114,7 +114,7 @@
               </tr>
               <tr>
                 <td valign="top" class="main"><? echo TEXT_MESSAGE; ?></td>
-                <td><textarea wrap="virtual" cols="42" rows="12" name="message"></textarea></td>
+                <td><textarea wrap="virtual" cols="60" rows="15" name="message"></textarea></td>
               </tr>
               <tr>
                 <td colspan="2" align="center"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_send_mail.gif', TEXT_SEND_EMAIL); ?></td>
