@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.10 2001/09/21 14:21:32 dwatkins Exp $
+  $Id: database.php,v 1.11 2001/11/17 00:37:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -38,13 +38,13 @@
   function tep_db_query($db_query) {
     global $db_link;
 
-    if (STORE_DB_TRANSACTIONS == true) {
+    if (STORE_DB_TRANSACTIONS == 'true') {
        error_log("QUERY " . $db_query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
     $result = mysql_query($db_query, $db_link) or tep_db_error($db_query, mysql_errno(), mysql_error());
 
-    if (STORE_DB_TRANSACTIONS == true) {
+    if (STORE_DB_TRANSACTIONS == 'true') {
        $result_error = mysql_error();
        error_log("RESULT " . $result . " " . $result_error . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }

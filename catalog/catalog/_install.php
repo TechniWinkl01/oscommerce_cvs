@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _install.php,v 1.1 2001/10/28 04:49:51 hpdl Exp $
+  $Id: _install.php,v 1.2 2001/11/17 00:37:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -38,7 +38,6 @@
                      'define(\'DIR_WS_PAYMENT_MODULES\', DIR_WS_MODULES . \'payment/\');' . "\n" .
                      'define(\'DIR_WS_SHIPPING_MODULES\', DIR_WS_MODULES . \'shipping/\');' . "\n" .
                      'define(\'DIR_WS_LANGUAGES\', DIR_WS_INCLUDES . \'languages/\');' . "\n" .
-                     'define(\'DIR_FS_LOGS\', \'' . $HTTP_POST_VARS['DIR_FS_LOGS'] . '\'); // logging directory' . "\n" .
                      '' . "\n" .
                      '// define our database connection' . "\n" .
                      'define(\'DB_SERVER\', \'' . $HTTP_POST_VARS['DB_SERVER'] . '\'); // eg, localhost - should not be NULL for productive servers' . "\n" .
@@ -121,10 +120,6 @@ After this file has been written to, reset the file permissions for security rea
   <tr>
     <td>Catalog Directory:<br><small>(Web Server path)</small></td>
     <td valign="top"><input type="text" name="DIR_WS_CATALOG" value="<?php echo dirname($HTTP_SERVER_VARS["REQUEST_URI"]); ?>/" size="45"> <small>(eg, /catalog/)</small></td>
-  </tr>
-  <tr>
-    <td>Logging Directory:<br><small>(File System path)</small></td>
-    <td valign="top"><input type="text" name="DIR_FS_LOGS" value="<?php echo dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]); ?>/logs/" size="45"> <small>(eg, /usr/local/apache/logs/tep/)</small></td>
   </tr>
   <tr>
     <td height="10" colspan="2">&nbsp;</td>

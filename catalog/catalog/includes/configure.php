@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.7 2001/10/28 04:49:52 hpdl Exp $
+  $Id: configure.php,v 1.8 2001/11/17 00:37:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,7 +27,6 @@
   define('DIR_WS_PAYMENT_MODULES', DIR_WS_MODULES . 'payment/');
   define('DIR_WS_SHIPPING_MODULES', DIR_WS_MODULES . 'shipping/');
   define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
-  define('DIR_FS_LOGS', '/usr/local/apache/logs/tep/'); // logging directory
 
 // define our database connection
   define('DB_SERVER', ''); // eg, localhost - should not be NULL for productive servers
