@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.74 2001/04/13 19:46:09 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.75 2001/04/13 23:55:38 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -260,13 +260,6 @@ CREATE TABLE products_attributes (
   options_values_price decimal(8,2) NOT NULL,
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (products_attributes_id)
-);
-
-CREATE TABLE products_expected (
-  products_expected_id int(5) NOT NULL auto_increment,
-  products_name varchar(255) NOT NULL,
-  date_expected varchar(8),
-  PRIMARY KEY (products_expected_id)
 );
 
 CREATE TABLE products_options (
@@ -796,10 +789,6 @@ INSERT INTO products_attributes VALUES (8,2,3,6,0.00,'+');
 INSERT INTO products_attributes VALUES (9,2,3,7,120.00,'+');
 INSERT INTO products_attributes VALUES (10,26,3,8,0.00,'+');
 INSERT INTO products_attributes VALUES (11,26,3,9,6.00,'+');
-
-INSERT INTO products_expected VALUES (1,'The Beach','20000320');
-INSERT INTO products_expected VALUES (2,'Alien Triology (Warner)','20000317');
-INSERT INTO products_expected VALUES (3,'American Pie (Warner)','20000317');
 
 INSERT INTO products_options VALUES (1,'Color');
 INSERT INTO products_options VALUES (2,'Size');

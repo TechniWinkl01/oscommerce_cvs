@@ -1,5 +1,5 @@
 <?php
-	/* $Id: backup.php,v 1.2 2001/03/05 19:29:57 hpdl Exp $
+	/* $Id: backup.php,v 1.3 2001/04/13 23:55:42 hpdl Exp $
 	 *
 	 * TEP Backup Script
 	 */
@@ -31,7 +31,6 @@
 		'orders_products_attributes',
 		'products',
 		'products_attributes',
-		'products_expected',
 		'products_options',
 		'products_options_values',
 		'products_options_values_to_products_options',
