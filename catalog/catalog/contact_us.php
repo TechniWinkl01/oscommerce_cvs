@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.25 2001/09/12 11:54:58 dwatkins Exp $
+  $Id: contact_us.php,v 1.26 2001/09/20 14:05:05 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,7 @@
 */
 
   require('includes/application_top.php');
+
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CONTACT_US);
 
   $error = false;
@@ -33,9 +34,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<?php
-  require(DIR_WS_INCLUDES . 'header.php'); 
-?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -45,9 +44,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_left.php'); 
-?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -136,9 +133,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<?php
-  require(DIR_WS_INCLUDES . 'column_right.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -148,13 +143,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<?php
-  require(DIR_WS_INCLUDES . 'footer.php');
-?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<?php 
-  require(DIR_WS_INCLUDES . 'application_bottom.php'); 
-?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.51 2001/09/13 20:54:03 dwatkins Exp $
+  $Id: default.php,v 1.52 2001/09/20 14:05:02 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -365,7 +365,7 @@
         </table></td>
       </tr>
     </table></td>
-<?
+<?php
   }
 ?>
 <!-- body_text_eof //-->
