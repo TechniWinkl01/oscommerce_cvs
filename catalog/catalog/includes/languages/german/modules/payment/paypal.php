@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.7 2002/04/17 20:31:18 harley_vb Exp $
+  $Id: paypal.php,v 1.8 2003/07/11 09:04:23 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com

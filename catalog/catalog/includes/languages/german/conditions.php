@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: conditions.php,v 1.4 2002/04/17 15:57:07 harley_vb Exp $
+  $Id: conditions.php,v 1.5 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,8 +10,8 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Allgemeine Geschäftsbedingungen');
-define('HEADING_TITLE', 'Allgemeine Geschäftsbedingungen');
+define('NAVBAR_TITLE', 'Allgemeine Gesch&auml;ftsbedingungen');
+define('HEADING_TITLE', 'Allgemeine Gesch&auml;ftsbedingungen');
 
-define('TEXT_INFORMATION', 'F&uuml;gen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.');
+define('TEXT_INFORMATION', 'F&uuml;gen Sie hier Ihre allgemeinen Gesch&auml;ftsbedingungen ein.');
 ?>

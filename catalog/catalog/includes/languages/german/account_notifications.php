@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_notifications.php,v 1.1 2003/05/19 19:55:47 hpdl Exp $
+  $Id: account_notifications.php,v 1.2 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,20 +10,20 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'My Account');
-define('NAVBAR_TITLE_2', 'Product Notifications');
+define('NAVBAR_TITLE_1', 'Ihr Konto');
+define('NAVBAR_TITLE_2', 'Produktbenachrichtungen');
 
-define('HEADING_TITLE', 'Product Notifications');
+define('HEADING_TITLE', 'Produktbenachrichtigungen');
 
-define('MY_NOTIFICATIONS_TITLE', 'My Product Notifications');
-define('MY_NOTIFICATIONS_DESCRIPTION', 'The product notification list allows you to stay up to date on products you find of interest.<br><br>To be up to date on all product changes, select <b>Global Product Notifications</b>.');
+define('MY_NOTIFICATIONS_TITLE', 'Meine Produktbenachrichtigungen');
+define('MY_NOTIFICATIONS_DESCRIPTION', 'Diese Benachrichtigungen erlabuben es Ihnen, &uuml;ber alle &Auml;nderungen an einem Produkt informiert zu werden.<br><br>Wenn Sie Benachrichtigungen f&uuml; unser komplettes Angebot erhalten wollen, sollte Sie die allgemeinen Benachrichtigungen aktivieren.');
 
-define('GLOBAL_NOTIFICATIONS_TITLE', 'Global Product Notifications');
-define('GLOBAL_NOTIFICATIONS_DESCRIPTION', 'Recieve notifications on all available products.');
+define('GLOBAL_NOTIFICATIONS_TITLE', 'Allgemeine Benachrichtungen');
+define('GLOBAL_NOTIFICATIONS_DESCRIPTION', '&Uuml;ber alle &Auml;nderungen informiert werden.');
 
-define('NOTIFICATIONS_TITLE', 'Product Notifications');
-define('NOTIFICATIONS_DESCRIPTION', 'To remove a product notification, clear the products checkbox and click on Continue.');
-define('NOTIFICATIONS_NON_EXISTING', 'There are currently no products marked to be notified on.<br><br>To add products to your product notification list, click on the notification link available on the detailed product information page.');
+define('NOTIFICATIONS_TITLE', 'Produktspezifische Benachrichtungen.');
+define('NOTIFICATIONS_DESCRIPTION', 'Um eine aktivierte Benachrichtigung zu entfernen, einfach die Checkbox deaktivieren und auf den <b>Weiter<b>-Button klicken.');
+define('NOTIFICATIONS_NON_EXISTING', 'Sie haben momentan keine Prouktbenachrichtigungen aktiviert.<br><br>Wenn Sie Produktbenachrichtigungen aktivieren wollen, k&ouml;nnen Sie dies direkt auf der Produktseite aktivieren.');
 
-define('SUCCESS_NOTIFICATIONS_UPDATED', 'Your product notifications have been successfully updated.');
+define('SUCCESS_NOTIFICATIONS_UPDATED', 'Ihre Produktbenachrichtigungen wurden erfolgreich aktualisiert!');
 ?>

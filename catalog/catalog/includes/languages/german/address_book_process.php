@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.14 2003/05/22 14:39:32 hpdl Exp $
+  $Id: address_book_process.php,v 1.15 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,21 +19,21 @@ define('NAVBAR_TITLE_DELETE_ENTRY', 'Delete Entry');
 
 define('HEADING_TITLE_ADD_ENTRY', 'Adressbuch: Neuer Eintrag');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Adressbuch: Eintrag &auml;ndern');
-define('HEADING_TITLE_DELETE_ENTRY', 'Delete Address Book Entry');
+define('HEADING_TITLE_DELETE_ENTRY', 'Adressbuch: Eintrag l&ouml;schen');
 
-define('DELETE_ADDRESS_TITLE', 'Delete Address');
-define('DELETE_ADDRESS_DESCRIPTION', 'Are you sure you would like to delete the selected address from your address book?');
+define('DELETE_ADDRESS_TITLE', 'Eintrag l&ouml;schen');
+define('DELETE_ADDRESS_DESCRIPTION', 'Wollen Sie diese Adresse unwiderruflich aus Ihrem Adressbuch entfernen?');
 
-define('NEW_ADDRESS_TITLE', 'New Address Book Entry');
+define('NEW_ADDRESS_TITLE', 'Adressbuch: Neuer Eintrag');
 
-define('SELECTED_ADDRESS', 'Selected Address');
-define('SET_AS_PRIMARY', 'Set as primary address.');
+define('SELECTED_ADDRESS', 'Standardadresse');
+define('SET_AS_PRIMARY', 'Als Standardadresse gesetzt.');
 
-define('SUCCESS_ADDRESS_BOOK_ENTRY_DELETED', 'The selected address has been successfully removed from your address book.');
-define('SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED', 'Your address book has been successfully updated.');
+define('SUCCESS_ADDRESS_BOOK_ENTRY_DELETED', 'Der ausgew&auml;hlte Eintrag wurde erflogreich gel&ouml;scht.');
+define('SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED', 'Ihr Adressbuch wurde erfolgreich aktualisiert!');
 
-define('WARNING_PRIMARY_ADDRESS_DELETION', 'The primary address cannot be deleted. Please set another address as the primary address and try again.');
+define('WARNING_PRIMARY_ADDRESS_DELETION', 'Die Standardadresse kann nicht gel&ouml;scht werden. Bitte erst eine andere Standardadresse w&auml;hlen. Danach kann der Eintrag gel&ouml;scht werden.');
 
-define('ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY', 'The address book entry does not exist.');
-define('ERROR_ADDRESS_BOOK_FULL', 'Your address book is full. Please delete an unneeded address to save a new one.');
+define('ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY', 'Dieser Adressbucheintrag ist nicht vorhanden.');
+define('ERROR_ADDRESS_BOOK_FULL', 'Ihr Adressbuch kann keine weiteren Adressen aufnehmen. Bitte l&ouml;schen Sie eine nicht mehr ben&ouml;tigte Adresse. Danach k&ouml;nnen Sie einen neuen Eintrag speichern.');
 ?>

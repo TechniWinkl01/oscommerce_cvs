@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.4 2002/11/01 22:19:27 harley_vb Exp $
+  $Id: pm2checkout.php,v 1.5 2003/07/11 09:04:23 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com

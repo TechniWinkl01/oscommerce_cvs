@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.20 2003/06/25 21:11:32 hpdl Exp $
+  $Id: advanced_search.php,v 1.21 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,11 +48,11 @@ define('TABLE_HEADING_BUY_NOW', 'jetzt bestellen');
 define('TEXT_NO_PRODUCTS', 'Es wurden keine Artikel gefunden, die den Suchkriterien entsprechen.');
 
 define('ERROR_AT_LEAST_ONE_INPUT', 'Wenigstens ein Feld des Suchformulars muss ausgefüllt werden.');
-define('ERROR_INVALID_FROM_DATE', 'Unzulässiges von Datum');
-define('ERROR_INVALID_TO_DATE', 'Unzulässiges bis jetzt');
-define('ERROR_TO_DATE_LESS_THAN_FROM_DATE', 'Das Datum von muss grösser oder gleich bis jetzt sein');
-define('ERROR_PRICE_FROM_MUST_BE_NUM', 'Preis ab, muss eine Zahl sein');
-define('ERROR_PRICE_TO_MUST_BE_NUM', 'Preis bis, muss eine Zahl sein');
-define('ERROR_PRICE_TO_LESS_THAN_PRICE_FROM', 'Preis bis muss größer oder gleich Preis ab sein.');
-define('ERROR_INVALID_KEYWORDS', 'Suchbegriff unzulässig');
+define('ERROR_INVALID_FROM_DATE', 'Unzul&auml;ssiges <b>von</b> Datum');
+define('ERROR_INVALID_TO_DATE', 'Unzul&auml;ssiges <b>bis jetzt</b> Datum');
+define('ERROR_TO_DATE_LESS_THAN_FROM_DATE', 'Das Datum <b>von</b> muss gr&ouml;sser oder gleich dem <b>bis jetzt</b> Datum sein');
+define('ERROR_PRICE_FROM_MUST_BE_NUM', '<b>Preis ab</b> muss eine Zahl sein');
+define('ERROR_PRICE_TO_MUST_BE_NUM', '<b>Preis bis</b> muss eine Zahl sein');
+define('ERROR_PRICE_TO_LESS_THAN_PRICE_FROM', '<b>Preis bis</b> muss gr&ouml;&szlig;er oder gleich <b>Preis ab</b> sein.');
+define('ERROR_INVALID_KEYWORDS', 'Suchbegriff unzul&aum&auml;ssig');
 ?>

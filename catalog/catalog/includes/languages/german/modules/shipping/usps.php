@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.10 2003/02/16 00:52:41 harley_vb Exp $
+  $Id: usps.php,v 1.11 2003/07/11 09:04:23 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com

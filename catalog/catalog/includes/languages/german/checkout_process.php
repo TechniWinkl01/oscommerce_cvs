@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.28 2003/02/16 00:42:03 harley_vb Exp $
+  $Id: checkout_process.php,v 1.29 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
 define('EMAIL_TEXT_SUBJECT', 'Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestellnummer:');
-define('EMAIL_TEXT_INVOICE_URL', 'Detailierte Bestellübersicht:');
+define('EMAIL_TEXT_INVOICE_URL', 'Detailierte Bestell&uuml;bersicht:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
 define('EMAIL_TEXT_PRODUCTS', 'Artikel');
 define('EMAIL_TEXT_SUBTOTAL', 'Zwischensumme:');

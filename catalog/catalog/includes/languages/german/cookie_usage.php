@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cookie_usage.php,v 1.1 2003/03/10 23:32:21 hpdl Exp $
+  $Id: cookie_usage.php,v 1.2 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,8 +13,8 @@
 define('NAVBAR_TITLE', 'Cookie Usage');
 define('HEADING_TITLE', 'Cookie Usage');
 
-define('TEXT_INFORMATION', 'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br><br>To continue shopping online, we encourage you to enable cookies on your browser.<br><br>For <b>Internet Explorer</b> browsers, please follow these instructions:<br><ol><li>Click on the Tools menubar, and select Internet Options</li><li>Select the Security tab, and reset the security level to Medium</li></ol>We have taken this measurement of security for your benefit, and apologize upfront if any inconveniences are caused.<br><br>Please contact the store owner if you have any questions relating to this requirement, or to continue purchasing products offline.');
+define('TEXT_INFORMATION', 'Ihr Browser erlaubt keine Cookies.<br><br>Damit Sie Ihren Einkauf fortsetzen k&ouml;nnen, sollten Sie es dieser Site erlauben, Cookies zu setzen.<br><br>F&uuml;r den <b>Internet Explorer</b> gehen Sie dazu bitte folgendermassen vor:<br><ol><li>Im Men&uuml; <b>Extras</b> w&auml;hlen Sie <b>Internetoptionen</b></li><li>Dort klicken Sie auf <b>Sicherheit-Stufe anpassen</b></li><li>Im unteren Bereich findet sich eine Drop-Down-Box, in der Sie <b>Mittel</b> w&auml;hlen.</li><li>Klicken Sie nun auf <b>Zur&uuml;cksetzen</b></li></ol>Diese Massnahme dient Ihrer Sicherheit. Sollten dadurch Probleme enstehen, bitten wir um Entschuldigung. Bitte setzen Sie sich mit uns in Verbindung, wenn Sie Fragen zu diesem Problem haben.');
 
-define('BOX_INFORMATION_HEADING', 'Cookie Privacy and Security');
-define('BOX_INFORMATION', 'Cookies must be enabled to purchase online on this store to embrace privacy and security related issues regarding your visit to this site.<br><br>By enabling cookie support on your browser, the communication between you and this site is strengthened to be certain it is you who are making transactions on your own behalf, and to prevent leakage of your privacy information.');
+define('BOX_INFORMATION_HEADING', 'Cookies und Ihre Privatsph&auml;re und Sicherheit');
+define('BOX_INFORMATION', 'Durch den Einsatz von Cookies wird die Sicherheit verbessert und Ihre Privatsph&auml;re besser gesch&uuml;tzt.<br><br>Im Cookie sind keine pers&ouml;nlichen Daten enthalten.');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.10 2003/06/10 18:20:41 hpdl Exp $
+  $Id: tell_a_friend.php,v 1.11 2003/07/11 09:04:23 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,8 +30,8 @@ define('TEXT_EMAIL_INTRO', 'Hallo %s!' . "\n\n" . 'Ihr Freund, %s, hat dieses Pr
 define('TEXT_EMAIL_LINK', 'Um das Produkt anzusehen, klicken Sie bitte auf den Link oder kopieren diesen und fügen Sie ihn in der Adress-Zeile Ihres Browsers ein:' . "\n\n" . '%s');
 define('TEXT_EMAIL_SIGNATURE', 'Mit freundlichen Grüssen,' . "\n\n" . '%s');
 
-define('ERROR_TO_NAME', 'Error: Your friends name must not be empty.');
-define('ERROR_TO_ADDRESS', 'Error: Your friends e-mail address must be a valid e-mail address.');
-define('ERROR_FROM_NAME', 'Error: Your name must not be empty.');
-define('ERROR_FROM_ADDRESS', 'Error: Your e-mail address must be a valid e-mail address.');
+define('ERROR_TO_NAME', 'Fehler: Der Empf&auml;ngername darf nicht leer sein.');
+define('ERROR_TO_ADDRESS', 'Fehler: Die Empf&auml;nger-Email-Adresse darf nicht leer sein.');
+define('ERROR_FROM_NAME', 'Fehler: Der Absendername (Ihr Name) muss angegeben werden.');
+define('ERROR_FROM_ADDRESS', 'Fehler: Die Absenderadresse muss eine g&uuml;ltige Mail-Adresse sein.');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.19 2003/05/19 20:17:51 hpdl Exp $
+  $Id: account_history_info.php,v 1.20 2003/07/11 09:04:22 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@ define('HEADING_ORDER_HISTORY', 'Bestellhistorie');
 define('HEADING_COMMENT', 'Kommentar');
 define('TEXT_NO_COMMENTS_AVAILABLE', 'Kein Kommentar vorhanden.');
 
-define('TABLE_HEADING_DOWNLOAD_DATE', 'herunterladen m&ouml;glich bis:');
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Herunterladen m&ouml;glich bis:');
 define('TABLE_HEADING_DOWNLOAD_COUNT', 'max. Anz. Downloads');
 define('HEADING_DOWNLOAD', 'Artikel herunterladen:');
 ?>
