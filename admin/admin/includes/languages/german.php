@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.72 2002/01/27 12:07:34 harley_vb Exp $
+  $Id: german.php,v 1.73 2002/03/08 18:38:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,6 +99,7 @@ define('BOX_TOOLS_CACHE', 'Cache Steuerung');
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
 define('BOX_TOOLS_FILE_MANAGER', 'Datei-Manager');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
+define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
 define('BOX_TOOLS_SERVER_INFO', 'Server Info');
 define('BOX_TOOLS_WHOS_ONLINE', 'Wer ist Online');
 
@@ -173,6 +174,7 @@ define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbest&auml;tigung:');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // images
+define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
 define('IMAGE_BACK', 'Zur&uuml;ck');
 define('IMAGE_BACKUP', 'Datensicherung');
 define('IMAGE_CANCEL', 'Abbruch');
@@ -199,6 +201,7 @@ define('IMAGE_NEW_CURRENCY', 'neue W&auml;hrung einf&uuml;gen');
 define('IMAGE_NEW_FILE', 'Neue Datei');
 define('IMAGE_NEW_FOLDER', 'Neues Verzeichnis');
 define('IMAGE_NEW_LANGUAGE', 'neue Sprache anlegen');
+define('IMAGE_NEW_NEWSLETTER', 'New Newsletter');
 define('IMAGE_NEW_PRODUCT', 'neuen Artikel aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'neue Steuerklasse erstellen');
 define('IMAGE_NEW_TAX_RATE', 'neuen Steuersatz anlegen');
@@ -210,6 +213,7 @@ define('IMAGE_RESTORE', 'Zur&uuml;cksichern');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Ausw&auml;hlen');
+define('IMAGE_SEND', 'Send');
 define('IMAGE_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurs aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
@@ -235,6 +239,7 @@ define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> W&auml;hrungen)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
+define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> newsletters)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellungen)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Bestellstatus)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Artikeln)');
@@ -264,6 +269,8 @@ define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* erforderlich<
 
 define('ERROR_BANNER_TITLE', 'Fehler: Banner Titel fehlt');
 define('ERROR_BANNER_GROUP', 'Fehler: Banner Gruppe fehlt');
+define('ERROR_NEWSLETTER_TITLE', 'Error: Newsletter title required');
+define('ERROR_NEWSLETTER_MODULE', 'Error: Newsletter module required');
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Fehler: Es wurde keine Standardw&auml;hrung definiert. Bitte definieren Sie unter Adminstration _> Sprachen/W&auml;hrungen -> W&auml;hrungen eine Standardw&auml;hrung.');
 define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Fehler: Es wurde keine Standardsprache definiert. Bitte definieren Sie unter Administration->Sprachen/W&auml;hrungen->Sprachen eine Standardsprache.');
 
