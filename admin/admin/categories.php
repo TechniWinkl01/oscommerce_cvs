@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.150 2004/06/13 17:53:18 hpdl Exp $
+  $Id: categories.php,v 1.151 2004/07/22 22:03:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -320,8 +320,8 @@
           } else {
             $products_image_name = (isset($HTTP_POST_VARS['products_previous_image']) ? $HTTP_POST_VARS['products_previous_image'] : '');
           }
-          break;
-      }
+        }
+        break;
     }
   }
 
