@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.3 2004/07/22 16:17:07 hpdl Exp $
+  $Id: database.php,v 1.4 2004/07/22 16:59:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,11 @@
         $number_of_queries = 0,
         $time_of_queries = 0;
 
-    function &connect($server, $username, $password, $type = 'mysql') {
+    function &connect($server, $username, $password, $type = '') {
+      if (empty($type)) {
+        $type = DB_DATABASE_CLASS;
+      }
+
       require('database/' . $type . '.php');
 
       $class = 'osC_Database_' . $type;
