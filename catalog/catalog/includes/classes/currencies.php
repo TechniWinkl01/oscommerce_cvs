@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.20 2004/04/16 05:31:32 mevans Exp $
+  $Id: currencies.php,v 1.21 2004/07/22 16:12:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,7 +37,7 @@
       global $osC_Session;
 
       if (empty($currency_code) || ($this->exists($currency_code) == false)) {
-        $currency_code = $osC_Session->value('currency');
+        $currency_code = ($osC_Session->exists('currency') ? $osC_Session->value('currency') : DEFAULT_CURRENCY);
       }
 
       if (empty($currency_value) || (is_numeric($currency_value) == false)) {
