@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.4 2004/02/16 07:08:16 hpdl Exp $
+  $Id: session.php,v 1.5 2004/10/28 12:36:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -144,6 +144,10 @@
       $_SESSION = $session_backup;
 
       unset($session_backup);
+    }
+
+    function getSavePath() {
+      return $this->save_path;
     }
 
     function setName($name) {
