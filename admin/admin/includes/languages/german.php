@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.88 2002/04/25 12:44:54 thomasamoulton Exp $
+  $Id: german.php,v 1.89 2002/04/29 15:58:08 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -123,9 +123,6 @@ define('JS_PRODUCTS_WEIGHT', '* Der neue Artikel muss eine Gewichtsangabe haben\
 define('JS_PRODUCTS_QUANTITY', '* Sie müssen dem neuen Artikel eine verfügbare Anzahl zuordnen\n');
 define('JS_PRODUCTS_MODEL', '* Sie müssen dem neuen Artikel eine Artikel-Nr. zuordnen\n');
 define('JS_PRODUCTS_IMAGE', '* Sie müssen dem Artikel ein Bild zuordnen\n');
-
-define('JS_PRODUCTS_EXPECTED_NAME', '* Der \'Artikel\'-Eintrag muss ausgefüllt werden\n');
-define('JS_PRODUCTS_EXPECTED_DATE', '* Das Datum des Eintreffens muss in diesem Format sein : xx.xx.xxxx (Tag/Monat/Jahr).\n');
 
 define('JS_SPECIALS_PRODUCTS_PRICE', '* Es muss ein neuer Preis f&uuml;r diesen Artikel festgelegt werden\n');
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.87 2002/04/25 12:44:54 thomasamoulton Exp $
+  $Id: espanol.php,v 1.88 2002/04/29 15:58:08 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -123,9 +123,6 @@ define('JS_PRODUCTS_WEIGHT', '* Debe especificar el peso del producto\n');
 define('JS_PRODUCTS_QUANTITY', '* Debe especificar la cantidad\n');
 define('JS_PRODUCTS_MODEL', '* Debe especificar el modelo\n');
 define('JS_PRODUCTS_IMAGE', '* Debe suministrar una imagen\n');
-
-define('JS_PRODUCTS_EXPECTED_NAME', '* El campo \'Producto\' debe tener un valor\n');
-define('JS_PRODUCTS_EXPECTED_DATE', '* La fecha debe estar en este formato: xx/xx/xxxx (dia/mes/año).\n');
 
 define('JS_SPECIALS_PRODUCTS_PRICE', '* Debe rellenar el precio\n');
 

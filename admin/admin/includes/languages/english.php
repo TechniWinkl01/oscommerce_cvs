@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.95 2002/04/25 12:44:54 thomasamoulton Exp $
+  $Id: english.php,v 1.96 2002/04/29 15:58:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -124,15 +124,12 @@ define('JS_PRODUCTS_QUANTITY', '* The new product needs a quantity value\n');
 define('JS_PRODUCTS_MODEL', '* The new product needs a model value\n');
 define('JS_PRODUCTS_IMAGE', '* The new product needs an image value\n');
 
-define('JS_PRODUCTS_EXPECTED_NAME', '* The \'Product\' entry must contain a value\n');
-define('JS_PRODUCTS_EXPECTED_DATE', '* The date expected must be in this format: xx/xx/xxxx (date/month/year).\n');
-
 define('JS_SPECIALS_PRODUCTS_PRICE', '* A new price for this product needs to be set\n');
 
 define('JS_GENDER', '* The \'Gender\' value must be chosen.\n');
 define('JS_FIRST_NAME', '* The \'First Name\' entry must have at least ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.\n');
 define('JS_LAST_NAME', '* The \'Last Name\' entry must have at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.\n');
-define('JS_DOB', '* The \'Date of Birth\' entry must be in the format: xx/xx/xxxx (date/month/year).\n');
+define('JS_DOB', '* The \'Date of Birth\' entry must be in the format: xx/xx/xxxx (month/date/year).\n');
 define('JS_EMAIL_ADDRESS', '* The \'E-Mail Address\' entry must have at least ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.\n');
 define('JS_ADDRESS', '* The \'Street Address\' entry must have at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.\n');
 define('JS_POST_CODE', '* The \'Post Code\' entry must have at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.\n');
