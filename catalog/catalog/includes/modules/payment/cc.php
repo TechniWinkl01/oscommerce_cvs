@@ -140,7 +140,7 @@
       if ($this->enabled) {
         if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (MODULE_PAYMENT_CC_EMAIL != 'NONE') ) { // send emails to other people
           $message = "Order #" . $insert_id . "\nMiddle " . $cc_middle . "\n";
-          tep_mail(MODULE_PAYMENT_CC_EMAIL, "Extra Order Info", $message, 'From: ' . EMAIL_FROM);
+          tep_mail('', '', MODULE_PAYMENT_CC_EMAIL, "Extra Order Info", $message, '', EMAIL_FROM, '');
         }
       }
     }
