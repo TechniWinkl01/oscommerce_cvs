@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.91 2001/12/30 03:51:31 hpdl Exp $
+  $Id: general.php,v 1.92 2001/12/30 08:18:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -756,8 +756,8 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
           $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $categories['categories_id'] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
           $category = tep_db_fetch_array($category_query);
           $categories_array[$index][] = array('id' => $categories['categories_id'], 'text' => $category['categories_name']);
-          if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
           $categories_array[$index] = tep_array_reverse($categories_array[$index]);
+          if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
         }
         $index++;
       }
@@ -765,15 +765,16 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
       $category = tep_db_fetch_array($category_query);
       $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
+      $categories_array[$index] = tep_array_reverse($categories_array[$index]);
       if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
     }
 
     return $categories_array;
   }
 
-  function tep_output_generated_category_path($products_id) {
+  function tep_output_generated_category_path($id, $from = 'category') {
     $calculated_category_path_string = '';
-    $calculated_category_path = tep_generate_category_path($products_id, 'product');
+    $calculated_category_path = tep_generate_category_path($id, $from);
     for ($i=0; $i<sizeof($calculated_category_path); $i++) {
       for ($j=0; $j<sizeof($calculated_category_path[$i]); $j++) {
         $calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
@@ -781,6 +782,8 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
     }
     $calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
+
+    if (strlen($calculated_category_path_string) < 1) $calculated_category_path_string = 'Top';
 
     return $calculated_category_path_string;
   }

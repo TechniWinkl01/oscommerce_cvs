@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.10 2001/12/28 23:03:32 hpdl Exp $
+  $Id: html_output.php,v 1.11 2001/12/30 08:18:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -59,12 +59,8 @@
 ////
 // The HTML form submit button wrapper function
 // Outputs a button in the selected language
-  function tep_image_submit($image, $alt) {
-    global $language;
-
-    $image_submit = '<input type="image" src="' . $image . '" border="0" alt="' . $alt . '">';
-
-    return $image_submit;
+  function tep_image_submit($image, $alt, $params = '') {
+    return '<input type="image" src="' . $image . '" border="0" alt="' . $alt . '"' . (($params) ? ' ' . $params : '') . '>';
   }
 
 ////
