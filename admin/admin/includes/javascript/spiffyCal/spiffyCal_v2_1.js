@@ -20,8 +20,8 @@ var scNN=((navigator.appName == "Netscape")&&(document.layers));
 var img_Del=new Image();
 var img_Close=new Image();
 
-img_Del.src= scImgPath +"btn_del_small_gif";
-img_Close.src= scImgPath +"btn_close_small_gif";
+img_Del.src= scImgPath +"btn_del_small.gif";
+img_Close.src= scImgPath +"btn_close_small.gif";
 
 var scBTNMODE_DEFAULT=0;
 var scBTNMODE_CUSTOMBLUE=1;
