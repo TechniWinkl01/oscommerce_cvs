@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.25 2001/11/18 18:45:54 dgw_ Exp $
+  $Id: payment.php,v 1.26 2002/01/02 16:25:33 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -175,7 +175,7 @@
           }
         }
         $show_info_string .= '          <tr>' . "\n" .
-                             '            <td class="main">&nbsp;' . $payment_text. '&nbsp;</td>' . "\n" .
+                             '            <td class="main">' . $payment_text. '</td>' . "\n" .
                              '          </tr>' . "\n";
       }
 
