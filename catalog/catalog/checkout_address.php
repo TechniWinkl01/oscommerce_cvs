@@ -1,12 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
-  if (getenv('HTTPS') == 'on') {
-    $connection = 'SSL';
-  } else {
-    $connection = 'NONSSL';
-  }
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
   }
 ?>
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
@@ -152,7 +147,7 @@
               <tr>
 <?
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
-    echo '                <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection . '&entry_id=' . ($row + 1), 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>&nbsp;</td>' . "\n";
+    echo '                <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL&entry_id=' . ($row + 1), 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>&nbsp;</td>' . "\n";
   } else {
     echo '                <td valign="top" class="smallText">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";
   }

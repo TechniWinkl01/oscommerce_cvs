@@ -16,7 +16,7 @@
     } else {
       if ($any_out_of_stock) {
         // Out of Stock
-        tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
+        tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
       }
     }
   }

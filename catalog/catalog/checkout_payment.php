@@ -1,12 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
-  if (ENABLE_SSL) {
-    $connection = 'SSL';
-  } else {
-    $connection = 'NONSSL';
-  }
   if (!tep_session_is_registered('customer_id')) {
-    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=' . $connection, 'NONSSL'));
+    tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=SSL', 'NONSSL'));
   }
   if ($cart->count_contents() == 0) {
     tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
@@ -28,7 +23,7 @@
 
   if ($any_out_of_stock) {
   // Out of Stock
-  tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
+  tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
           }
       } // Stock Allow Checkout
 
@@ -57,7 +52,7 @@
   $shipping_modules->quote();
 
   if ( ($shipping_quoted == '') && (MODULE_SHIPPING_INSTALLED) ) { // Null if no quotes selected
-    tep_redirect(tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection));
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , 'SSL'));
   }
 
   include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT);
@@ -237,7 +232,7 @@ function check_form() {
           <tr>
             <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', $connection); ?>"><? echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
+                <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><? echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><? echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
                 <td class="main" align="right"><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>

@@ -147,12 +147,8 @@
     tep_db_query($update_query);
 // Go back to where we came from
     if (@$HTTP_POST_VARS['origin']) {
-      if (@$HTTP_POST_VARS['origin_connection'] == 'SSL') {
-        $connection_type = 'SSL';
-      } else {
-        $connection_type = 'NONSSL';
-      }
-      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
+      $connection = ($HTTP_POST_VARS['origin_connection']) ? $HTTP_POST_VARS['origin_connection'] : 'NONSSL';
+      tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection));
     } else {
       tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     }

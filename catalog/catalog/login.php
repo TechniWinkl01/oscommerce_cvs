@@ -60,12 +60,8 @@
             } elseif (@$HTTP_POST_VARS['emailproduct']) {
               tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], 'action=where&products_id=' . $HTTP_POST_VARS['emailproduct'] . '&send_to=' . $HTTP_POST_VARS['send_to'], 'NONSSL'));
             } else {
-              if (@$HTTP_POST_VARS['connection'] == 'SSL') {
-                $connection_type = 'SSL';
-              } else {
-                $connection_type = 'NONSSL';
-              }
-              tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
+              $connection = ($HTTP_POST_VARS['connection']) ? $HTTP_POST_VARS['connection'] : 'NONSSL';
+              tep_redirect(tep_href_link($HTTP_POST_VARS['origin'], '', $connection));
             }
           } else {
             tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
