@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.15 2003/07/06 20:33:01 dgw_ Exp $
+  $Id: currencies.php,v 1.16 2004/04/16 05:37:24 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,8 +22,6 @@ define('TEXT_INFO_CURRENCY_TITLE', 'T&iacute;tulo:');
 define('TEXT_INFO_CURRENCY_CODE', 'C&oacute;digo:');
 define('TEXT_INFO_CURRENCY_SYMBOL_LEFT', 'S&iacute;mbolo a la izquierda:');
 define('TEXT_INFO_CURRENCY_SYMBOL_RIGHT', 'S&iacute;mbolo a la derecha:');
-define('TEXT_INFO_CURRENCY_DECIMAL_POINT', 'Punto decimal:');
-define('TEXT_INFO_CURRENCY_THOUSANDS_POINT', 'Separador de miles:');
 define('TEXT_INFO_CURRENCY_DECIMAL_PLACES', 'Lugares decimales:');
 define('TEXT_INFO_CURRENCY_LAST_UPDATED', 'Actualizado el:');
 define('TEXT_INFO_CURRENCY_VALUE', 'Valor:');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.111 2004/04/15 16:06:42 mevans Exp $
+  $Id: english.php,v 1.112 2004/04/16 05:37:23 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,9 @@ function tep_date_raw($date, $reverse = false) {
     return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
   }
 }
+
+define('NUMERIC_DECIMAL_SEPARATOR', '.');
+define('NUMERIC_THOUSANDS_SEPARATOR', ',');
 
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="ltr" lang="en"');
