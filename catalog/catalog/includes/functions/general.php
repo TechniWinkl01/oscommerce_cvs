@@ -856,7 +856,8 @@ function tep_address_summary($customers_id, $address_id) {
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_build_cat_options(&$output, $preselected, $parent_id=0, $indent="") {
-
+    global $languages_id;
+  
     $sql = tep_db_query("SELECT c.categories_id, cd.categories_name FROM categories c, categories_description cd WHERE parent_id = $parent_id and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
     while ($cat =  tep_db_fetch_array($sql)) {
       $selected = tep_in_array($cat[categories_id], $preselected) ? " selected"  :  "";
@@ -1508,8 +1509,19 @@ function tep_address_summary($customers_id, $address_id) {
   }
   
   function tep_mail($to, $subject, $message, $additional_headers = '') {
-    $return = mail($to, $subject, $message, $additional_headers);
-    
+
+    if (SMTP_SERVER) {
+      $include_file = DIR_WS_CLASSES . 'smtp_mail.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+      $mail = new smtp_mail;
+      $headers = "To: $to\n";
+      $headers .= "Subject: $subject\n";
+      $headers .= $additional_headers;
+      $headers = trim($headers);
+      $mail->send_mail(SMTP_SERVER, STORE_OWNER_EMAIL_ADDRESS, $to, $headers . "\n\n" . $message);
+    } else {
+      $return = mail($to, $subject, $message, $additional_headers);
+    }
+
     return $return;
   }
 ?>
