@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.8 2002/01/14 06:40:17 jan0815 Exp $
+  $Id: define_language.php,v 1.9 2002/01/15 11:35:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,24 +12,27 @@
 
   require('includes/application_top.php');
 
-// Save to file
-  if ( ($HTTP_GET_VARS['action'] == 'save') && ($HTTP_GET_VARS['lngdir']) && ($HTTP_GET_VARS['filename']) ) {
-    if ($HTTP_GET_VARS['filename'] == $language . '.php') {
-      $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['filename'];
-    } else {
-      $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['lngdir'] . '/' . $HTTP_GET_VARS['filename'];
-    }
-    if (file_exists($file)) {
-      if (file_exists($file . '.bak')) {
-        @unlink($file . '.bak');
+  switch ($HTTP_GET_VARS['action']) {
+    case 'save':
+      if ( ($HTTP_GET_VARS['lngdir']) && ($HTTP_GET_VARS['filename']) ) {
+        if ($HTTP_GET_VARS['filename'] == $language . '.php') {
+          $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['filename'];
+        } else {
+          $file = DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['lngdir'] . '/' . $HTTP_GET_VARS['filename'];
+        }
+        if (file_exists($file)) {
+          if (file_exists('bak' . $file)) {
+            @unlink('bak' . $file);
+          }
+          @rename($file, 'bak' . $file);
+          $new_file = fopen($file, 'w');
+          $file_contents = stripslashes($HTTP_POST_VARS['file_contents']);
+          fwrite($new_file, $file_contents, strlen($file_contents));
+          fclose($new_file);
+        }
+        tep_redirect(tep_href_link(FILENAME_DEFINE_LANGUAGE, 'lngdir=' . $HTTP_GET_VARS['lngdir']));
       }
-      @rename($file, $file . '.bak');
-      $new_file = fopen($file, 'w');
-      $file_contents = stripslashes($HTTP_POST_VARS['file_contents']);
-      fwrite($new_file, $file_contents, strlen($file_contents));
-      fclose($new_file);
-    }
-    tep_redirect(tep_href_link(FILENAME_DEFINE_LANGUAGE, 'lngdir=' . $HTTP_GET_VARS['lngdir']));
+      break;
   }
 
   if (!$HTTP_GET_VARS['lngdir']) $HTTP_GET_VARS['lngdir'] = $language;
@@ -52,7 +55,7 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -92,7 +95,9 @@
       $file_writeable = true;
       if (!is_writeable($file)) {
         $file_writeable = false;
-        tep_output_error(sprintf(ERROR_FILE_NOT_WRITEABLE, $file));
+        $errorStack->reset();
+        $errorStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $file), 'error');
+        echo $errorStack->output();
       }
 
 ?>
@@ -153,6 +158,18 @@
 ?>
               </tr>
             </table></td>
+          </tr>
+          <tr>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>
+          <tr>
+            <td><?php echo tep_draw_separator(); ?></td>
+          </tr>
+          <tr>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
+          </tr>
+          <tr>
+            <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'current_path=' . DIR_FS_CATALOG_LANGUAGES . $HTTP_GET_VARS['lngdir']) . '">' . tep_image_button('button_file_manager.gif', IMAGE_FILE_MANAGER) . '</a>'; ?></td>
           </tr>
 <?php
   }
