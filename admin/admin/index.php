@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.5 2002/01/13 17:26:47 hpdl Exp $
+  $Id: index.php,v 1.6 2002/01/14 11:59:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,7 +32,7 @@
                      'image' => 'location.gif',
                      'href' => tep_href_link(FILENAME_COUNTRIES, 'selected_box=taxes'),
                      'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => tep_href_link(FILENAME_COUNTRIES, 'selected_box=taxes')),
-                                         array('title' => BOX_TAXES_ZONES, 'link' => tep_href_link(FILENAME_GEO_ZONES, 'selected_box=taxes')))),
+                                         array('title' => BOX_TAXES_GEO_ZONES, 'link' => tep_href_link(FILENAME_GEO_ZONES, 'selected_box=taxes')))),
                array('title' => BOX_HEADING_CUSTOMERS,
                      'image' => 'customers.gif',
                      'href' => tep_href_link(FILENAME_CUSTOMERS, 'selected_box=customers'),
