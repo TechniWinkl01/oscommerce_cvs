@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.62 2004/07/22 16:46:28 hpdl Exp $
+  $Id: html_output.php,v 1.63 2005/03/29 22:56:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -189,8 +189,8 @@
     return $field;
   }
 
-  function osc_draw_password_field($name, $value = '', $parameters = '', $required = false) {
-    return osc_draw_input_field($name, $value, $parameters, $required, 'password', false);
+  function osc_draw_password_field($name, $parameters = '', $required = false) {
+    return osc_draw_input_field($name, '', $parameters, $required, 'password', false);
   }
 
   function osc_draw_selection_field($name, $type, $values, $default = '', $parameters = '', $required = false, $separator = '&nbsp;&nbsp;') {
