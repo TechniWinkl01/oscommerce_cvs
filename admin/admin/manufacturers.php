@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.41 2002/01/19 16:26:25 hpdl Exp $
+  $Id: manufacturers.php,v 1.42 2002/01/24 21:57:31 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,7 +27,7 @@
         $manufacturers_id = tep_db_insert_id();
       } elseif ($HTTP_GET_VARS['action'] == 'save') {
         $update_sql_data = array('last_modified' => 'now()');
-        $sql_data_array = tep_array_merge($sq_data_array, $update_sql_data);
+        $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
         tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
       }
 
