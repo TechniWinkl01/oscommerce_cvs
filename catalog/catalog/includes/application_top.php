@@ -288,4 +288,15 @@
   } else {
     $current_category_id = 0;
   }
+
+// calculate selected currency
+  if (!tep_session_is_registered('currency')) {
+    $currency = CURRENCY_VALUE;
+    tep_session_register('currency');
+  }
+
+  if (@$HTTP_GET_VARS['currency']) {
+    $currency = $HTTP_GET_VARS['currency'];
+    tep_session_register('currency');
+  }
 ?>

@@ -15,18 +15,9 @@ define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
-// the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
-// tep_currency_format() function..
-define('CURRENCY_BEFORE', '$'); // currency character(s) before value
-define('CURRENCY_AFTER', ' USD'); // currency character(s) after value
-define('CURRENCY_DECIMAL', '.'); // currency decimal point character
-define('CURRENCY_DECIMAL_PLACES', 2);
-define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
+// the CURRENCY_* constants will be used to format the currency to the selected locale..
+// this is used with the tep_currency_format() function..
 define('CURRENCY_VALUE', 'USD'); // currency value for exchange rate
-// for example:
-// products_price = 30.00
-// currency_value = 1.1036 (Euro)
-// products price with locale currency = CURRENCY_BEFORE . (currency_value * products_price) . CURRENCY_AFTER
 
 // page title
 define('TITLE', 'The Exchange Project');
@@ -96,6 +87,9 @@ define('BOX_HEADING_LANGUAGES', 'Languages');
 define('BOX_LANGUAGES_ENGLISH', 'English');
 define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
 define('BOX_LANGUAGES_ESPANOL', 'Español');
+
+// currencies box text in includes/boxes/currencies.php
+define('BOX_HEADING_CURRENCIES', 'Currencies');
 
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cart contents');

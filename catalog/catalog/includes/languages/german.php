@@ -15,18 +15,9 @@ define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
-// the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
-// tep_currency_format() function..
-define('CURRENCY_BEFORE', ''); // currency character(s) before value
-define('CURRENCY_AFTER', 'DM'); // currency character(s) after value
-define('CURRENCY_DECIMAL', ','); // currency decimal point character
-define('CURRENCY_DECIMAL_PLACES', 2);
-define('CURRENCY_THOUSANDS', '.'); // currency thousands separator character
+// the CURRENCY_* constants will be used to format the currency to the selected locale..
+// this is used with the tep_currency_format() function..
 define('CURRENCY_VALUE', 'DEM'); // currency value for exchange rate
-// for example:
-// products_price = 30.00
-// currency_value = 1.1036 (Euro)
-// products price with locale currency = CURRENCY_BEFORE . (currency_value * products_price) . CURRENCY_AFTER
 
 // page title
 define('TITLE', 'The Exchange Project');
