@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.16 2002/01/29 14:43:37 hpdl Exp $
+# $Id: oscommerce.sql,v 1.17 2002/01/31 16:22:18 jan0815 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -597,10 +597,9 @@ INSERT INTO categories_description VALUES ( '20', '3', 'Estrategia');
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Name', 'STORE_NAME', 'The Exchange Project', 'The name of my store', '1', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Store Owner', 'STORE_OWNER', 'Harald Ponce de Leon', 'The name of my store owner', '1', '2', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail Address', 'STORE_OWNER_EMAIL_ADDRESS', 'root@localhost', 'The e-mail address of my store owner', '1', '3', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('E-Mail From', 'EMAIL_FROM', 'The Exchange Project <root@localhost>', 'The e-mail address used in (sent) e-mails', '1', '4', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Use MIME HTML when sending emails', 'EMAIL_USE_HTML', 'false', 'Send Emails in HTML format', '1', '5', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Country', 'STORE_COUNTRY', '81', 'The country my store is located in', '1', '6', 'tep_get_country_name', 'tep_cfg_pull_down_country_list(', now());
+INSERT INTO configuration VALUES (3,'E-Mail Address','STORE_OWNER_EMAIL_ADDRESS','root@localhost','The e-mail address of my store owner',12,1,'2002-01-30 15:58:06','2002-01-30 12:21:25',NULL,NULL);
+INSERT INTO configuration VALUES (4,'E-Mail From','EMAIL_FROM','The Exchange Project <root@localhost>','The e-mail address used in (sent) e-mails',12,2,NULL,'2002-01-30 12:21:25',NULL,NULL);
+INSERT INTO configuration VALUES (5,'Use MIME HTML when sending emails','EMAIL_USE_HTML','false','Send Emails in HTML format',12,3,'2002-01-30 15:58:22','2002-01-30 12:21:26',NULL,'tep_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('Zone', 'STORE_ZONE', '88', 'The zone my store is located in', '1', '7', 'tep_get_zone_name', 'tep_cfg_pull_down_zone_list(', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Expected Sort Order', 'EXPECTED_PRODUCTS_SORT', 'desc', 'This is the sort order used in the expected products box.', '1', '8', 'tep_cfg_select_option(array(\'asc\', \'desc\'), ', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Expected Sort Field', 'EXPECTED_PRODUCTS_FIELD', 'date_expected', 'The column to sort by in the expected products box.', '1', '9', 'tep_cfg_select_option(array(\'products_name\', \'date_expected\'), ', now());
@@ -699,6 +698,8 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Use Cache', 'USE_CACHE', 'false', 'Use caching features', '11', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Cache Directory', 'DIR_FS_CACHE', '/tmp/', 'The directory where the cached files are saved', '11', '2', now());
+INSERT INTO configuration VALUES (95,'E-Mail transport method','EMAIL_TRANSPORT','smtp','Defines if this server uses a local connection to sendmail or uses an SMTP connection via TCP/IP. If your server is running under Windows or MacOS change this setting to SMTP.',12,4,'2002-01-31 16:42:18','2002-01-31 16:08:57',NULL,'tep_cfg_select_option(array(\'sendmail\', \'smtp\'),');
+INSERT INTO configuration VALUES (96,'E-Mail Linefeed settings','EMAIL_LINEFEED','\\r\\n','Defines the character sequence used to separate mail headers. Only touch this if you know hat you are doing.',12,5,'2002-01-31 16:42:52','2002-01-31 16:15:44',NULL,'tep_cfg_select_option(array(\'\\\\n\', \'\\\\r\\\\n\'),');
 
 INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1');
 INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1');
@@ -710,6 +711,7 @@ INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing
 INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1');
 INSERT INTO configuration_group VALUES ('10', 'Logging', 'Logging configuration options', '10', '1');
 INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', '11', '1');
+INSERT INTO configuration_group VALUES (12,'E-Mail Options','General setting for E-Mail transport and HTML E-Mails',12,1);
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1');
