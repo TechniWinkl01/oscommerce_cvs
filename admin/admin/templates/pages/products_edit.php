@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_edit.php,v 1.2 2004/08/29 22:17:21 hpdl Exp $
+  $Id: products_edit.php,v 1.3 2004/10/26 20:15:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -240,7 +240,7 @@
   //--></script>
 
 <?php
-  echo tep_draw_form('new_product', FILENAME_PRODUCTS, 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"');
+  echo tep_draw_form('new_product', FILENAME_PRODUCTS, 'cPath=' . $cPath . '&search=' . $_GET['search'] . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=new_product_preview', 'post', 'enctype="multipart/form-data"');
 ?>
 
   <div class="tab-page" id="tabDescription">
@@ -297,7 +297,7 @@
   </div>
 
   <div class="tab-page" id="tabData">
-    <h2 class="tab"><?php echo 'Data'; ?></h2>
+    <h2 class="tab"><?php echo TAB_DATA; ?></h2>
 
     <script type="text/javascript"><!--
       mainTabPane.addTabPage( document.getElementById( "tabData" ) );
@@ -378,11 +378,11 @@
     </table>
   </div>
 
-  <div class="tab-page" id="tabImage">
-    <h2 class="tab"><?php echo 'Image'; ?></h2>
+  <div class="tab-page" id="tabImages">
+    <h2 class="tab"><?php echo TAB_IMAGES; ?></h2>
 
     <script type="text/javascript"><!--
-      mainTabPane.addTabPage( document.getElementById( "tabImage" ) );
+      mainTabPane.addTabPage( document.getElementById( "tabImages" ) );
     //--></script>
 
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -523,7 +523,50 @@
     </table>
   </div>
 
-  <p align="right"><?php echo osc_draw_hidden_field('products_date_added', (isset($pInfo) && isset($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . '<input type="submit" value="' . IMAGE_PREVIEW . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS, 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '')) . '\';" class="operationButton">'; ?></p>
+  <div class="tab-page" id="tabCategories">
+    <h2 class="tab"><?php echo TAB_CATEGORIES; ?></h2>
+
+<script type="text/javascript">mainTabPane.addTabPage( document.getElementById( "tabCategories" ) );</script>
+
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
+        <td class="smallText"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="dataTable">
+          <thead>
+            <tr>
+              <th>Categories</th>
+              <th>Selected</th>
+            </tr>
+          </thead>
+          <tbody>
+<?php
+  $product_categories_array = array();
+
+  $Qcategories = $osC_Database->query('select categories_id from :table_products_to_categories where products_id = :products_id');
+  $Qcategories->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
+  $Qcategories->bindInt(':products_id', $_GET['pID']);
+  $Qcategories->execute();
+
+  while ($Qcategories->next()) {
+    $product_categories_array[] = $Qcategories->valueInt('categories_id');
+  }
+
+  $assignedCategoryTree = new osC_CategoryTree();
+  $assignedCategoryTree->setBreadcrumbUsage(false);
+  $assignedCategoryTree->setSpacerString('&nbsp;', 5);
+
+  foreach ($assignedCategoryTree->getTree() as $value) {
+    echo '          <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);">' . "\n" .
+         '            <td class="smallText"><a href="#" onClick="document.new_product.categories_' . $value['id'] . '.checked=!document.new_product.categories_' . $value['id'] . '.checked;">' . $value['title'] . '</a></td>' . "\n" .
+         '            <td class="smallText" align="right">' . osc_draw_checkbox_field('categories[]', $value['id'], in_array($value['id'], $product_categories_array), 'id="categories_' . $value['id'] . '"') . '</td>' . "\n" .
+         '          </tr>' . "\n";
+  }
+?>
+        </table></td>
+      </tr>
+    </table>
+  </div>
+
+  <p align="right"><?php echo osc_draw_hidden_field('products_date_added', (isset($pInfo) && isset($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . '<input type="submit" value="' . IMAGE_PREVIEW . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS, 'cPath=' . $cPath . '&search=' . $_GET['search'] . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '')) . '\';" class="operationButton">'; ?></p>
 
   </form>
 </div>

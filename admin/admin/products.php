@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.14 2004/08/29 22:17:19 hpdl Exp $
+  $Id: products.php,v 1.15 2004/10/26 20:15:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,23 +12,34 @@
 
   require('includes/application_top.php');
 
-  $selected_box = 'catalog';
-
 // calculate category path
   $cPath = (isset($_GET['cPath']) ? $_GET['cPath'] : '');
 
-  if (tep_not_null($cPath)) {
+  if (!empty($cPath)) {
     $cPath_array = tep_parse_category_path($cPath);
     $cPath = implode('_', $cPath_array);
-    $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
+    $current_category_id = end($cPath_array);
   } else {
     $current_category_id = 0;
+  }
+
+  require('../includes/classes/category_tree.php');
+  $osC_CategoryTree = new osC_CategoryTree();
+  $osC_CategoryTree->setSpacerString('&nbsp;', 2);
+
+  $categories_array = array();
+  foreach ($osC_CategoryTree->getTree() as $value) {
+    $categories_array[] = array('id' => $value['id'], 'text' => $value['title']);
   }
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!isset($_GET['page']) || (isset($_GET['page']) && !is_numeric($_GET['page']))) {
     $_GET['page'] = 1;
+  }
+
+  if (!isset($_GET['search'])) {
+    $_GET['search'] = '';
   }
 
   if (!empty($action)) {
@@ -52,44 +63,46 @@
             }
 
             osC_Cache::clear('categories');
+            osC_Cache::clear('category_tree');
             osC_Cache::clear('also_purchased');
 
             $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
           }
         }
 
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search']));
         break;
       case 'move_product_confirm':
         if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
           $Qcheck = $osC_Database->query('select count(*) as total from :table_products_to_categories where products_id = :products_id and categories_id = :categories_id');
           $Qcheck->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
           $Qcheck->bindInt(':products_id', $_GET['pID']);
-          $Qcheck->bindInt(':categories_id', $_POST['move_to_category_id']);
+          $Qcheck->bindInt(':categories_id', end(explode('_', $_POST['move_to_category_id'])));
           $Qcheck->execute();
 
           if ($Qcheck->valueInt('total') < 1) {
             $Qupdate = $osC_Database->query('update :table_products_to_categories set categories_id = :categories_id where products_id = :products_id and categories_id = :current_categories_id');
             $Qupdate->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
-            $Qupdate->bindInt(':categories_id', $_POST['move_to_category_id']);
+            $Qupdate->bindInt(':categories_id', end(explode('_', $_POST['move_to_category_id'])));
             $Qupdate->bindInt(':products_id', $_GET['pID']);
             $Qupdate->bindInt(':current_categories_id', $current_category_id);
             $Qupdate->execute();
 
             if ($Qupdate->affectedRows()) {
               osC_Cache::clear('categories');
+              osC_Cache::clear('category_tree');
               osC_Cache::clear('also_purchased');
 
               $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
-              tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['move_to_category_id'] . '&pID=' . $_GET['pID']));
+              tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['move_to_category_id'] . '&search=' . $_GET['search'] . '&pID=' . $_GET['pID']));
             } else {
               $messageStack->add_session(WARNING_DB_ROWS_NOT_UPDATED, 'warning');
             }
           }
         }
 
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&pID=' . $_GET['pID']));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&pID=' . $_GET['pID']));
         break;
       case 'save_product':
         if (isset($_POST['product_edit'])) {
@@ -128,15 +141,29 @@
               $products_id = $_GET['pID'];
             } else {
               $products_id = $osC_Database->nextID();
+            }
 
-              $Qp2c = $osC_Database->query('insert into :table_products_to_categories (products_id, categories_id) values (:products_id, :categories_id)');
-              $Qp2c->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
-              $Qp2c->bindInt(':products_id', $products_id);
-              $Qp2c->bindInt(':categories_id', $current_category_id);
-              $Qp2c->execute();
+            $Qcategories = $osC_Database->query('delete from :table_products_to_categories where products_id = :products_id');
+            $Qcategories->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
+            $Qcategories->bindInt(':products_id', $products_id);
+            $Qcategories->execute();
 
-              if ($osC_Database->isError()) {
-                $error = true;
+            if ($osC_Database->isError()) {
+              $error = true;
+            } else {
+              if (isset($_POST['categories']) && !empty($_POST['categories'])) {
+                foreach ($_POST['categories'] as $category_id) {
+                  $Qp2c = $osC_Database->query('insert into :table_products_to_categories (products_id, categories_id) values (:products_id, :categories_id)');
+                  $Qp2c->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
+                  $Qp2c->bindInt(':products_id', $products_id);
+                  $Qp2c->bindInt(':categories_id', $category_id);
+                  $Qp2c->execute();
+
+                  if ($osC_Database->isError()) {
+                    $error = true;
+                    break;
+                  }
+                }
               }
             }
           }
@@ -251,6 +278,7 @@
             $osC_Database->commitTransaction();
 
             osC_Cache::clear('categories');
+            osC_Cache::clear('category_tree');
             osC_Cache::clear('also_purchased');
 
             $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
@@ -260,30 +288,30 @@
             $messageStack->add_session(ERROR_DB_ROWS_NOT_UPDATED, 'error');
           }
 
-          tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&pID=' . $products_id));
+          tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&pID=' . $products_id));
         }
         break;
       case 'copy_to_confirm':
         if (isset($_GET['pID']) && isset($_POST['categories_id'])) {
           if ($_POST['copy_as'] == 'link') {
-            if ($_POST['categories_id'] != $current_category_id) {
+            if (end(explode('_', $_POST['categories_id'])) != $current_category_id) {
               $Qcheck = $osC_Database->query('select count(*) as total from :table_products_to_categories where products_id = :products_id and categories_id = :categories_id');
               $Qcheck->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
               $Qcheck->bindInt(':products_id', $_GET['pID']);
-              $Qcheck->bindInt(':categories_id', $_POST['categories_id']);
+              $Qcheck->bindInt(':categories_id', end(explode('_', $_POST['categories_id'])));
               $Qcheck->execute();
 
               if ($Qcheck->valueInt('total') < 1) {
                 $Qcat = $osC_Database->query('insert into :table_products_to_categories (products_id, categories_id) values (:products_id, :categories_id)');
                 $Qcat->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
                 $Qcat->bindInt(':products_id', $_GET['pID']);
-                $Qcat->bindInt(':categories_id', $_POST['categories_id']);
+                $Qcat->bindInt(':categories_id', end(explode('_', $_POST['categories_id'])));
                 $Qcat->execute();
 
                 if ($Qcat->affectedRows()) {
                   $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
-                  tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['categories_id'] . '&pID=' . $_GET['pID']));
+                  tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['categories_id'] . '&search=' . $_GET['search'] . '&pID=' . $_GET['pID']));
                 }
               }
             } else {
@@ -341,7 +369,7 @@
                   $Qp2c = $osC_Database->query('insert into :table_products_to_categories (products_id, categories_id) values (:products_id, :categories_id)');
                   $Qp2c->bindTable(':table_products_to_categories', TABLE_PRODUCTS_TO_CATEGORIES);
                   $Qp2c->bindInt(':products_id', $new_product_id);
-                  $Qp2c->bindInt(':categories_id', $_POST['categories_id']);
+                  $Qp2c->bindInt(':categories_id', end(explode('_', $_POST['categories_id'])));
                   $Qp2c->execute();
 
                   if ($osC_Database->isError()) {
@@ -356,11 +384,12 @@
                 $osC_Database->commitTransaction();
 
                 osC_Cache::clear('categories');
+                osC_Cache::clear('category_tree');
                 osC_Cache::clear('also_purchased');
 
                 $messageStack->add_session(SUCCESS_DB_ROWS_UPDATED, 'success');
 
-                tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['categories_id'] . '&pID=' . $new_product_id));
+                tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $_POST['categories_id'] . '&search=' . $_GET['search'] . '&pID=' . $new_product_id));
               } else {
                 $osC_Database->rollbackTransaction();
 
@@ -370,7 +399,7 @@
           }
         }
 
-        tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&pID=' . $_GET['pID']));
+        tep_redirect(tep_href_link(FILENAME_PRODUCTS, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&pID=' . $_GET['pID']));
         break;
     }
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_preview.php,v 1.2 2004/08/29 22:17:21 hpdl Exp $
+  $Id: products_preview.php,v 1.3 2004/10/26 20:15:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,7 +50,7 @@
 
   $languages = tep_get_languages();
 
-  echo tep_draw_form('save_product', FILENAME_PRODUCTS, 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=save_product', 'post', 'enctype="multipart/form-data"');
+  echo tep_draw_form('save_product', FILENAME_PRODUCTS, 'cPath=' . $cPath . '&search=' . $_GET['search'] . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=save_product', 'post', 'enctype="multipart/form-data"');
 ?>
 
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -109,7 +109,7 @@
 
     echo osc_draw_hidden_field('products_image', $products_image_name);
 
-    echo '<input type="submit" value="' . IMAGE_BACK . '" name="product_edit" class="operationButton"> <input type="submit" value="' . (isset($_GET['pID']) ? IMAGE_UPDATE : IMAGE_INSERT) . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS, 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '')) . '\';" class="operationButton">';
+    echo '<input type="submit" value="' . IMAGE_BACK . '" name="product_edit" class="operationButton"> <input type="submit" value="' . (isset($_GET['pID']) ? IMAGE_UPDATE : IMAGE_INSERT) . '" class="operationButton"> <input type="button" value="' . IMAGE_CANCEL . '" onClick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS, 'cPath=' . $cPath . '&search=' . $_GET['search'] . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '')) . '\';" class="operationButton">';
 
     echo '</p>';
   }

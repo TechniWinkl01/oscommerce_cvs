@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.7 2004/08/29 22:17:20 hpdl Exp $
+  $Id: products.php,v 1.8 2004/10/26 20:15:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,10 @@
   define('HEADING_TITLE_GOTO', 'Go To:');
 
   define('TAB_GENERAL', 'General');
+  define('TAB_DATA', 'Data');
+  define('TAB_IMAGES', 'Images');
   define('TAB_ATTRIBUTES', 'Attributes');
+  define('TAB_CATEGORIES', 'Categories');
 
   define('FIELDSET_ASSIGNED_ATTRIBUTES', 'Assigned Attributes');
 
