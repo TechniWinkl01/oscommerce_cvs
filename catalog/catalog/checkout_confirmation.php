@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.143 2003/12/18 23:52:14 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.144 2004/03/18 10:32:52 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,9 @@
   }
   $payment =& $osC_Session->value('payment');
 
-  if (tep_not_null($_POST['comments'])) {
+  if ( (isset($_POST['comments'])) && ($osC_Session->exists('comments')) && (empty($_POST['comments'])) ) {
+    $osC_Session->remove('comments');
+  } else if (tep_not_null($_POST['comments'])) {
     $osC_Session->set('comments', tep_db_prepare_input($_POST['comments']));
   }
 
