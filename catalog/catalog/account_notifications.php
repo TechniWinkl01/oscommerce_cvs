@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_notifications.php,v 1.2 2003/05/22 14:24:54 hpdl Exp $
+  $Id: account_notifications.php,v 1.3 2003/11/17 20:45:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,52 +12,52 @@
 
   require('includes/application_top.php');
 
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot();
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
 // needs to be included earlier to set the success message in the messageStack
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_NOTIFICATIONS);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_NOTIFICATIONS);
 
-  $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$customer_id . "'");
+  $global_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$osC_Customer->id . "'");
   $global = tep_db_fetch_array($global_query);
 
-  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
-    if (isset($HTTP_POST_VARS['product_global']) && is_numeric($HTTP_POST_VARS['product_global'])) {
-      $product_global = tep_db_prepare_input($HTTP_POST_VARS['product_global']);
+  if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
+    if (isset($_POST['product_global']) && is_numeric($_POST['product_global'])) {
+      $product_global = tep_db_prepare_input($_POST['product_global']);
     } else {
       $product_global = '0';
     }
 
-    (array)$products = $HTTP_POST_VARS['products'];
+    if (isset($_POST['products'])) {
+      (array)$products = $_POST['products'];
+    } else {
+      $products = array();
+    }
 
     if ($product_global != $global['global_product_notifications']) {
       $product_global = (($global['global_product_notifications'] == '1') ? '0' : '1');
 
-      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set global_product_notifications = '" . (int)$product_global . "' where customers_info_id = '" . (int)$customer_id . "'");
+      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set global_product_notifications = '" . (int)$product_global . "' where customers_info_id = '" . (int)$osC_Customer->id . "'");
     } elseif (sizeof($products) > 0) {
-      $products_parsed = array();
-      for ($i=0, $n=sizeof($products); $i<$n; $i++) {
-        if (is_numeric($products[$i])) {
-          $products_parsed[] = $products[$i];
-        }
-      }
+      $products_parsed = tep_array_filter($products, 'is_numeric');
 
       if (sizeof($products_parsed) > 0) {
-        $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$customer_id . "' and products_id not in (" . implode(',', $products_parsed) . ")");
+        $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$osC_Customer->id . "' and products_id not in (" . implode(',', $products_parsed) . ")");
         $check = tep_db_fetch_array($check_query);
 
         if ($check['total'] > 0) {
-          tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$customer_id . "' and products_id not in (" . implode(',', $products_parsed) . ")");
+          tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$osC_Customer->id . "' and products_id not in (" . implode(',', $products_parsed) . ")");
         }
       }
     } else {
-      $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$customer_id . "'");
+      $check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$osC_Customer->id . "'");
       $check = tep_db_fetch_array($check_query);
 
       if ($check['total'] > 0) {
-        tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$customer_id . "'");
+        tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$osC_Customer->id . "'");
       }
     }
 
@@ -177,7 +177,7 @@ function checkBox(object) {
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-    $products_check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$customer_id . "'");
+    $products_check_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$osC_Customer->id . "'");
     $products_check = tep_db_fetch_array($products_check_query);
     if ($products_check['total'] > 0) {
 ?>
@@ -186,7 +186,7 @@ function checkBox(object) {
                   </tr>
 <?php
       $counter = 0;
-      $products_query = tep_db_query("select pd.products_id, pd.products_name from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where pn.customers_id = '" . (int)$customer_id . "' and pn.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' order by pd.products_name");
+      $products_query = tep_db_query("select pd.products_id, pd.products_name from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where pn.customers_id = '" . (int)$osC_Customer->id . "' and pn.products_id = pd.products_id and pd.language_id = '" . (int)$osC_Session->value('languages_id') . "' order by pd.products_name");
       while ($products = tep_db_fetch_array($products_query)) {
 ?>
                   <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="checkBox('products[<?php echo $counter; ?>]')">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.58 2003/06/09 23:03:52 hpdl Exp $
+  $Id: address_book.php,v 1.59 2003/11/17 20:48:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,12 +12,13 @@
 
   require('includes/application_top.php');
 
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot();
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ADDRESS_BOOK);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
@@ -91,7 +92,7 @@ function rowOutEffect(object) {
                   <tr>
                     <td class="main" align="center" valign="top"><b><?php echo PRIMARY_ADDRESS_TITLE; ?></b><br><?php echo tep_image(DIR_WS_IMAGES . 'arrow_south_east.gif'); ?></td>
                     <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                    <td class="main" valign="top"><?php echo tep_address_label($customer_id, $customer_default_address_id, true, ' ', '<br>'); ?></td>
+                    <td class="main" valign="top"><?php echo tep_address_label($osC_Customer->id, $osC_Customer->default_address_id, true, ' ', '<br>'); ?></td>
                     <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
                 </table></td>
@@ -111,7 +112,7 @@ function rowOutEffect(object) {
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  $addresses_query = tep_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$customer_id . "' order by firstname, lastname");
+  $addresses_query = tep_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$osC_Customer->id . "' order by firstname, lastname");
   while ($addresses = tep_db_fetch_array($addresses_query)) {
     $format_id = tep_get_address_format_id($addresses['country_id']);
 ?>
@@ -119,7 +120,7 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onClick="document.location.href='<?php echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'edit=' . $addresses['address_book_id'], 'SSL'); ?>'">
-                    <td class="main"><b><?php echo tep_output_string_protected($addresses['firstname'] . ' ' . $addresses['lastname']); ?></b><?php if ($addresses['address_book_id'] == $customer_default_address_id) echo '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>'; ?></td>
+                    <td class="main"><b><?php echo tep_output_string_protected($addresses['firstname'] . ' ' . $addresses['lastname']); ?></b><?php if ($addresses['address_book_id'] == $osC_Customer->default_address_id) echo '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>'; ?></td>
                     <td class="main" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'edit=' . $addresses['address_book_id'], 'SSL') . '">' . tep_image_button('small_edit.gif', SMALL_IMAGE_BUTTON_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'delete=' . $addresses['address_book_id'], 'SSL') . '">' . tep_image_button('small_delete.gif', SMALL_IMAGE_BUTTON_DELETE) . '</a>'; ?></td>
                   </tr>
                   <tr>

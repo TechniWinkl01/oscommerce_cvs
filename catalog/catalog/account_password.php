@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_password.php,v 1.1 2003/05/19 19:55:45 hpdl Exp $
+  $Id: account_password.php,v 1.2 2003/11/17 20:45:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,18 +12,19 @@
 
   require('includes/application_top.php');
 
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot();
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
 // needs to be included earlier to set the success message in the messageStack
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_PASSWORD);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_PASSWORD);
 
-  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
-    $password_current = tep_db_prepare_input($HTTP_POST_VARS['password_current']);
-    $password_new = tep_db_prepare_input($HTTP_POST_VARS['password_new']);
-    $password_confirmation = tep_db_prepare_input($HTTP_POST_VARS['password_confirmation']);
+  if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
+    $password_current = tep_db_prepare_input($_POST['password_current']);
+    $password_new = tep_db_prepare_input($_POST['password_new']);
+    $password_confirmation = tep_db_prepare_input($_POST['password_confirmation']);
 
     $error = false;
 
@@ -42,13 +43,13 @@
     }
 
     if ($error == false) {
-      $check_customer_query = tep_db_query("select customers_password from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+      $check_customer_query = tep_db_query("select customers_password from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
       $check_customer = tep_db_fetch_array($check_customer_query);
 
       if (tep_validate_password($password_current, $check_customer['customers_password'])) {
-        tep_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . tep_encrypt_password($password_new) . "' where customers_id = '" . (int)$customer_id . "'");
+        tep_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . tep_encrypt_password($password_new) . "' where customers_id = '" . (int)$osC_Customer->id . "'");
 
-        tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$customer_id . "'");
+        tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$osC_Customer->id . "'");
 
         $messageStack->add_session('account', SUCCESS_PASSWORD_UPDATED, 'success');
 

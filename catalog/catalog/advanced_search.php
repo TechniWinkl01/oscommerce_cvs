@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.50 2003/06/05 23:25:46 hpdl Exp $
+  $Id: advanced_search.php,v 1.51 2003/11/17 20:49:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ADVANCED_SEARCH);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ADVANCED_SEARCH));
 ?>

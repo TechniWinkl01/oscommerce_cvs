@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_newsletters.php,v 1.3 2003/06/05 23:23:52 hpdl Exp $
+  $Id: account_newsletters.php,v 1.4 2003/11/17 20:45:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,20 +12,21 @@
 
   require('includes/application_top.php');
 
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot();
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
 // needs to be included earlier to set the success message in the messageStack
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_NEWSLETTERS);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_NEWSLETTERS);
 
-  $newsletter_query = tep_db_query("select customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+  $newsletter_query = tep_db_query("select customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
   $newsletter = tep_db_fetch_array($newsletter_query);
 
-  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
-    if (isset($HTTP_POST_VARS['newsletter_general']) && is_numeric($HTTP_POST_VARS['newsletter_general'])) {
-      $newsletter_general = tep_db_prepare_input($HTTP_POST_VARS['newsletter_general']);
+  if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
+    if (isset($_POST['newsletter_general']) && is_numeric($_POST['newsletter_general'])) {
+      $newsletter_general = tep_db_prepare_input($_POST['newsletter_general']);
     } else {
       $newsletter_general = '0';
     }
@@ -33,7 +34,7 @@
     if ($newsletter_general != $newsletter['customers_newsletter']) {
       $newsletter_general = (($newsletter['customers_newsletter'] == '1') ? '0' : '1');
 
-      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_newsletter = '" . (int)$newsletter_general . "' where customers_id = '" . (int)$customer_id . "'");
+      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_newsletter = '" . (int)$newsletter_general . "' where customers_id = '" . (int)$osC_Customer->id . "'");
     }
 
     $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');

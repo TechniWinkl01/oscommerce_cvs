@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.65 2003/06/09 23:03:52 hpdl Exp $
+  $Id: account_edit.php,v 1.66 2003/11/17 20:45:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,22 +12,23 @@
 
   require('includes/application_top.php');
 
-  if (!tep_session_is_registered('customer_id')) {
+  if ($osC_Customer->isLoggedOn() == false) {
     $navigation->set_snapshot();
+
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
 // needs to be included earlier to set the success message in the messageStack
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_EDIT);
+  require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ACCOUNT_EDIT);
 
-  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
-    if (ACCOUNT_GENDER == 'true') $gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
-    $firstname = tep_db_prepare_input($HTTP_POST_VARS['firstname']);
-    $lastname = tep_db_prepare_input($HTTP_POST_VARS['lastname']);
-    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($HTTP_POST_VARS['dob']);
-    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
-    $telephone = tep_db_prepare_input($HTTP_POST_VARS['telephone']);
-    $fax = tep_db_prepare_input($HTTP_POST_VARS['fax']);
+  if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
+    if (ACCOUNT_GENDER == 'true') $gender = tep_db_prepare_input($_POST['gender']);
+    $firstname = tep_db_prepare_input($_POST['firstname']);
+    $lastname = tep_db_prepare_input($_POST['lastname']);
+    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($_POST['dob']);
+    $email_address = tep_db_prepare_input($_POST['email_address']);
+    $telephone = tep_db_prepare_input($_POST['telephone']);
+    $fax = tep_db_prepare_input($_POST['fax']);
 
     $error = false;
 
@@ -71,7 +72,7 @@
       $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
     }
 
-    $check_email_query = tep_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id != '" . (int)$customer_id . "'");
+    $check_email_query = tep_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id != '" . (int)$osC_Customer->id . "'");
     $check_email = tep_db_fetch_array($check_email_query);
     if ($check_email['total'] > 0) {
       $error = true;
@@ -95,17 +96,21 @@
       if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
       if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = tep_date_raw($dob);
 
-      tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$customer_id . "'");
+      tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$osC_Customer->id . "'");
 
-      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$customer_id . "'");
+      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$osC_Customer->id . "'");
 
       $sql_data_array = array('entry_firstname' => $firstname,
                               'entry_lastname' => $lastname);
 
-      tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . (int)$customer_id . "' and address_book_id = '" . (int)$customer_default_address_id . "'");
+      tep_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . (int)$osC_Customer->id . "' and address_book_id = '" . (int)$osC_Customer->default_address_id . "'");
 
 // reset the session variables
-      $customer_first_name = $firstname;
+      if (ACCOUNT_GENDER == 'true') $osC_Customer->setGender($gender);
+      $osC_Customer->setFirstName($firstname);
+      $osC_Customer->setLastName($lastname);
+      $osC_Customer->setFullName();
+      $osC_Customer->setEmailAddress($email_address);
 
       $messageStack->add_session('account', SUCCESS_ACCOUNT_UPDATED, 'success');
 
@@ -113,7 +118,7 @@
     }
   }
 
-  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+  $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$osC_Customer->id . "'");
   $account = tep_db_fetch_array($account_query);
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
