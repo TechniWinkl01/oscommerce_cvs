@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.6 2002/02/02 18:18:06 hpdl Exp $
+  $Id: upgrade_3.php,v 1.7 2002/02/03 01:53:34 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -232,21 +232,45 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Verfiy E-Mail Addresses Through DNS', 'ENTRY_EMAIL_ADDRESS_CHECK', 'false', 'Verfiy e-mail address through a DNS server', '12', '4', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Send E-Mails', 'SEND_EMAILS', 'true', 'Send out e-mails', '12', '5', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
 
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('enable download', 'download_enabled', 'false', 'enable the products download functions.', '13', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('download by redirect', 'download_by_redirect', 'false', 'use browser redirection for download. disable on non-unix systems.', '13', '2', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('expiry delay (days)' ,'download_max_days', '7', 'set number of days before the download link expires. 0 means no limit.', '13', '3', '', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('maximum number of downloads' ,'download_max_count', '5', 'set the maximum number of downloads. 0 means no download authorized.', '13', '4', '', now())");
+
   osc_db_query("delete from configuration_group");
 
   osc_db_query("alter table configuration_group add visible int(1) default '1'");
 
-  osc_db_query("insert into configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1')");
-  osc_db_query("insert into configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1')");
-  osc_db_query("insert into configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1')");
-  osc_db_query("insert into configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1')");
-  osc_db_query("insert into configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', '6', '0')");
-  osc_db_query("insert into configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1')");
-  osc_db_query("insert into configuration_group VALUES ('8', 'Product Listing', 'Product Listing    configuration options', '8', '1')");
-  osc_db_query("insert into configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1')");
+  osc_db_query("insert into configuration_group values ('1', 'My Store', 'General information about my store', '1', '1')");
+  osc_db_query("insert into configuration_group values ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1')");
+  osc_db_query("insert into configuration_group values ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1')");
+  osc_db_query("insert into configuration_group values ('4', 'Images', 'Image parameters', '4', '1')");
+  osc_db_query("insert into configuration_group values ('6', 'Module Options', 'Hidden from configuration', '6', '0')");
+  osc_db_query("insert into configuration_group values ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1')");
+  osc_db_query("insert into configuration_group values ('8', 'Product Listing', 'Product Listing    configuration options', '8', '1')");
+  osc_db_query("insert into configuration_group values ('9', 'Stock', 'Stock configuration options', '9', '1')");
   osc_db_query("insert into configuration_group values ('10', 'Logging', 'Logging configuration options', '10', '1')");
   osc_db_query("insert into configuration_group values ('11', 'Cache', 'Caching configuration options', '11', '1')");
   osc_db_query("insert into configuration_group values ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1')");
+  osc_db_query("insert into configuration_group values ('13', 'Download', 'Downloadable products options', '13', '1')");
+
+  osc_db_query("insert into products_attributes values (26, 22, 5, 10, '0.00', '+')");
+  osc_db_query("insert into products_attributes values (27, 22, 5, 13, '0.00', '+')");
+
+  osc_db_query("insert into products_attributes_download values (26, 'unreal.zip', 7, 3)")");
+  osc_db_query("insert into products_options values (5, 1, 'Version')");
+  osc_db_query("insert into products_options values (5, 2, 'Version')");
+  osc_db_query("insert into products_options values (5, 3, 'Versión')");
+
+  osc_db_query("insert into products_options_values values (10, 1, 'Download: Windows - English')");
+  osc_db_query("insert into products_options_values values (10, 2, 'Download: Windows - Englisch')");
+  osc_db_query("insert into products_options_values values (10, 3, 'Download: Windows - Inglese')");
+  osc_db_query("insert into products_options_values values (13, 1, 'Box: Windows - English')");
+  osc_db_query("insert into products_options_values values (13, 2, 'Box: Windows - Englisch')");
+  osc_db_query("insert into products_options_values values (13, 3, 'Box: Windows - Inglese')");
+
+  osc_db_query("insert into products_options_values_to_products_options values (10, 5, 10)");
+  osc_db_query("insert into products_options_values_to_products_options values (13, 5, 13)");
 ?>
 
 <script language="javascript"><!--
