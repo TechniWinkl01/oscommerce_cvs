@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.106 2001/06/13 07:47:14 mbs Exp $
+# $Id: mysql_catalog.sql,v 1.107 2001/06/13 22:58:24 dwatkins Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -62,11 +62,12 @@ CREATE TABLE banners_history (
 CREATE TABLE categories (
    categories_id int(5) NOT NULL auto_increment,
    categories_image varchar(64),
-   parent_id int(5),
+   parent_id int(5) DEFAULT '0' NOT NULL,
    sort_order int(3),
    date_added datetime,
    last_modified datetime,
-   PRIMARY KEY (categories_id)
+   PRIMARY KEY (categories_id),
+   KEY idx_categories_parent_id (parent_id)
 );
 
 CREATE TABLE categories_description (
@@ -576,7 +577,7 @@ INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information ab
 INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1');
 INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1');
 INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1');
-INSERT INTO configuration_group VALUES ('6', 'Payment Options', 'Payment options available at my store', '6', '0');
+INSERT INTO configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', '6', '0');
 INSERT INTO configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1');
 INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8', '1');
 
@@ -823,7 +824,7 @@ INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2');
 INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
 INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
-INSERT INTO currencies VALUES (4,'Euro','EUR','','','.',',','2');
+INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2');
 
 INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
