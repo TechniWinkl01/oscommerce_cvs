@@ -1,3 +1,16 @@
+<?php
+/*
+  $Id: form_check.js.php,v 1.6 2002/07/01 18:00:48 project3000 Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
+
+  Released under the GNU General Public License
+*/
+?>
+
 <script language="javascript"><!--
 
 var submitted = false;
