@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.82 2002/01/04 10:45:18 hpdl Exp $
+  $Id: english.php,v 1.83 2002/01/08 21:40:24 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,6 +90,7 @@ define('BOX_HEADING_SPECIALS', 'Specials');
 define('BOX_HEADING_REVIEWS', 'Reviews');
 define('BOX_REVIEWS_WRITE_REVIEW', 'Write a review on this product!');
 define('BOX_REVIEWS_NO_REVIEWS', 'There are currently no product reviews');
+define('BOX_REVIEWS_TEXT_OF_5_STARS', '%s of 5 Stars!');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
 define('BOX_HEADING_SHOPPING_CART', 'Shopping Cart');
