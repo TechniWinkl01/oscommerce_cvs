@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.2 2004/11/03 08:59:50 mevans Exp $
+  $Id: reviews.php,v 1.3 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,7 +22,7 @@
         <th><?php echo TABLE_HEADING_RATING; ?></th>
         <th><?php echo TABLE_HEADING_DATE_ADDED; ?></th>
 <?php
-        if ( (defined('SERVICE_REVIEW_ENABLE_MODERATION')) && (SERVICE_REVIEW_ENABLE_MODERATION != -1) ) {      	
+        if ( (defined('SERVICE_REVIEW_ENABLE_MODERATION')) && (SERVICE_REVIEW_ENABLE_MODERATION != -1) ) {
 ?>
         <th><?php echo TABLE_HEADING_STATUS; ?></th>
 <?php
@@ -66,12 +66,12 @@
       echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'page=' . $_GET['page'] . '&rID=' . $Qreviews->valueInt('reviews_id')) . '\';">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $_GET['page'] . '&rID=' . $Qreviews->valueInt('reviews_id') . '&action=rPreview') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '&nbsp;' . $Qreviews->value('products_name') . '</a>'; ?></td>
-        <td align="center"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $Qreviews->value('languages_directory') . '/images/' . $Qreviews->value('languages_image'), $Qreviews->value('languages_name')); ?></td>
-        <td align="center"><?php echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . 'stars_' . $Qreviews->valueInt('reviews_rating') . '.gif', sprintf(TEXT_OF_5_STARS, $Qreviews->valueInt('reviews_rating'))); ?></td>
+        <td><?php echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $_GET['page'] . '&rID=' . $Qreviews->valueInt('reviews_id') . '&action=rPreview') . '">' . tep_image('images/icons/preview.gif', ICON_PREVIEW) . '&nbsp;' . $Qreviews->value('products_name') . '</a>'; ?></td>
+        <td align="center"><?php echo tep_image('../includes/languages/' . $Qreviews->value('languages_directory') . '/images/' . $Qreviews->value('languages_image'), $Qreviews->value('languages_name')); ?></td>
+        <td align="center"><?php echo tep_image('../images/stars_' . $Qreviews->valueInt('reviews_rating') . '.gif', sprintf(TEXT_OF_5_STARS, $Qreviews->valueInt('reviews_rating'))); ?></td>
         <td><?php echo tep_date_short($Qreviews->value('date_added')); ?></td>
 <?php
-        if ( (defined('SERVICE_REVIEW_ENABLE_MODERATION')) && (SERVICE_REVIEW_ENABLE_MODERATION != -1) ) {      	
+        if ( (defined('SERVICE_REVIEW_ENABLE_MODERATION')) && (SERVICE_REVIEW_ENABLE_MODERATION != -1) ) {
           switch ($Qreviews->valueInt('reviews_status')) {
             case 1: $status_image = 'checkbox_ticked.gif'; break;
             case 2: $status_image = 'checkbox_crossed.gif'; break;

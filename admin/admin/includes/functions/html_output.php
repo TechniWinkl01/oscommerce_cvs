@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.34 2004/11/02 00:59:12 hpdl Exp $
+  $Id: html_output.php,v 1.35 2004/11/07 21:00:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,53 +10,20 @@
   Released under the GNU General Public License
 */
 
-////
-// The HTML href link wrapper function
-  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    if ($page == '') {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
-    }
-    if ($connection == 'NONSSL') {
-      $link = HTTP_SERVER . DIR_WS_ADMIN;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'true') {
-        $link = HTTPS_SERVER . DIR_WS_ADMIN;
-      } else {
-        $link = HTTP_SERVER . DIR_WS_ADMIN;
-      }
-    } else {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
-    }
-    if ($parameters == '') {
+  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $administration = true) {
+    $path = ($administration === true) ? DIR_WS_CATALOG . 'admin/' : DIR_WS_CATALOG;
+
+    $link = ((($connection == 'SSL') && (ENABLE_SSL == 'true') ) ? HTTPS_SERVER : HTTP_SERVER) . $path;
+
+    if (empty($parameters)) {
       $link = $link . $page . '?' . SID;
     } else {
       $link = $link . $page . '?' . $parameters . '&' . SID;
     }
 
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
-
-    return $link;
-  }
-
-  function tep_catalog_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    if ($connection == 'NONSSL') {
-      $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL_CATALOG == 'true') {
-        $link = HTTPS_CATALOG_SERVER . DIR_WS_CATALOG;
-      } else {
-        $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG;
-      }
-    } else {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL<br><br>Function used:<br><br>tep_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
+    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) {
+      $link = substr($link, 0, -1);
     }
-    if ($parameters == '') {
-      $link .= $page;
-    } else {
-      $link .= $page . '?' . $parameters;
-    }
-
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
     return $link;
   }
@@ -94,7 +61,7 @@
   function tep_image_submit($image, $alt = '', $parameters = '') {
     global $language;
 
-    $image_submit = '<input type="image" src="' . tep_output_string(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
+    $image_submit = '<input type="image" src="' . tep_output_string('includes/languages/' . $language . '/images/buttons/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
 
     if (tep_not_null($alt)) $image_submit .= ' title=" ' . tep_output_string($alt) . ' "';
 
@@ -106,15 +73,9 @@
   }
 
 ////
-// Draw a 1 pixel black line
-  function tep_black_line() {
-    return tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
-  }
-
-////
 // Output a separator either through whitespace, or with an image
   function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
-    return tep_image(DIR_WS_IMAGES . $image, '', $width, $height);
+    return tep_image('images/' . $image, '', $width, $height);
   }
 
 ////
@@ -122,7 +83,7 @@
   function tep_image_button($image, $alt = '', $params = '') {
     global $language;
 
-    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $params);
+    return tep_image('includes/languages/' . $language . '/images/buttons/' . $image, $alt, '', '', $params);
   }
 
 ////

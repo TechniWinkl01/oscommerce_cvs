@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
+  $Id: banner_manager.php,v 1.3 2004/11/07 21:00:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -172,7 +172,7 @@
     if (!empty($bInfo->banners_html_text)) {
       echo $bInfo->banners_html_text;
     } else {
-      echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $bInfo->banners_image, $bInfo->banners_title);
+      echo tep_image('../images/' . $bInfo->banners_image, $bInfo->banners_title);
     }
 ?>
 

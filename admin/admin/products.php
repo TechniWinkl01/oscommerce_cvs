@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products.php,v 1.16 2004/10/28 18:59:50 hpdl Exp $
+  $Id: products.php,v 1.17 2004/11/07 21:00:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -408,8 +408,8 @@
   $osC_Currencies = new osC_Currencies();
 
 // check if the catalog image directory exists
-  if (is_dir(DIR_FS_CATALOG_IMAGES)) {
-    if (!is_writeable(DIR_FS_CATALOG_IMAGES)) {
+  if (is_dir(realpath('../images'))) {
+    if (!is_writeable(realpath('../images'))) {
       $osC_MessageStack->add('header', ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
     }
   } else {

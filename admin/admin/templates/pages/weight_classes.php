@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: weight_classes.php,v 1.1 2004/07/22 23:31:58 hpdl Exp $
+  $Id: weight_classes.php,v 1.2 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,7 +90,7 @@
 <?php
   $languages = tep_get_languages();
   foreach ($languages as $l_entry) {
-    echo tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $l_entry['id'] . ']') . osc_draw_input_field('weight_class_key[' . $l_entry['id'] . ']', '', 'size="4"') . '<br>';
+    echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $l_entry['id'] . ']') . osc_draw_input_field('weight_class_key[' . $l_entry['id'] . ']', '', 'size="4"') . '<br>';
   }
 ?>
         </td>
@@ -156,7 +156,7 @@
 
     $languages = tep_get_languages();
     foreach ($languages as $l_entry) {
-      echo tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $l_entry['id'] . ']', $class_name[$l_entry['id']]['title']) . osc_draw_input_field('weight_class_key[' . $l_entry['id'] . ']', $class_name[$l_entry['id']]['key'], 'size="4"') . '<br>';
+      echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('weight_class_title[' . $l_entry['id'] . ']', $class_name[$l_entry['id']]['title']) . osc_draw_input_field('weight_class_key[' . $l_entry['id'] . ']', $class_name[$l_entry['id']]['key'], 'size="4"') . '<br>';
     }
 ?>
         </td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.117 2004/10/28 18:59:50 hpdl Exp $
+  $Id: orders.php,v 1.118 2004/11/07 21:00:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,7 +53,7 @@
 
               if ($Qupdate->affectedRows()) {
                 if (isset($_POST['notify_customer']) && ($_POST['notify_customer'] == 'on')) {
-                  $email_body = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . tep_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . tep_date_long($Qorder->value('date_purchased')) . "\n\n";
+                  $email_body = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . tep_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id=' . $oID, 'SSL', false) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . tep_date_long($Qorder->value('date_purchased')) . "\n\n";
 
                   if (isset($_POST['append_comment']) && ($_POST['append_comment'] == 'on')) {
                     $email_body .= sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $_POST['comment']) . "\n\n";

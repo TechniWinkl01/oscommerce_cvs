@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.157 2004/10/28 18:59:48 hpdl Exp $
+  $Id: categories.php,v 1.158 2004/11/07 21:00:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -84,7 +84,7 @@
             }
           }
 
-          if (($error === false) && ($categories_image = new upload('categories_image', DIR_FS_CATALOG_IMAGES))) {
+          if (($error === false) && ($categories_image = new upload('categories_image', realpath('../images')))) {
             $Qcf = $osC_Database->query('update :table_categories set categories_image = :categories_image where categories_id = :categories_id');
             $Qcf->bindTable(':table_categories', TABLE_CATEGORIES);
             $Qcf->bindValue(':categories_image', $categories_image->filename);

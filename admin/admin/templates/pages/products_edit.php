@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_edit.php,v 1.3 2004/10/26 20:15:32 hpdl Exp $
+  $Id: products_edit.php,v 1.4 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -225,7 +225,7 @@
     var image = document.new_product.products_image.value;
     var preview = document.getElementById('previewImage');
 
-    preview.src = '<?php echo DIR_WS_CATALOG_IMAGES; ?>' + image;
+    preview.src = '../images/' + image;
   }
 //--></script>
 
@@ -260,7 +260,7 @@
 ?>
 
       <div class="tab-page" id="tabDescriptionLanguages_<?php echo $l_entry['code']; ?>">
-        <h2 class="tab"><?php echo tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . $l_entry['name']; ?></h2>
+        <h2 class="tab"><?php echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . $l_entry['name']; ?></h2>
 
         <script type="text/javascript"><!--
           descriptionTabPane.addTabPage( document.getElementById( "tabDescriptionLanguages_<?php echo $l_entry['code']; ?>" ) );
@@ -283,7 +283,7 @@
 
         <script type="text/javascript"><!--
           var fckpd_<?php echo $l_entry['code']; ?> = new FCKeditor('fckpd_<?php echo $l_entry['code']; ?>');
-          fckpd_<?php echo $l_entry['code']; ?>.BasePath = "<?php echo DIR_WS_ADMIN . 'external/FCKeditor/2.0b1/'; ?>";
+          fckpd_<?php echo $l_entry['code']; ?>.BasePath = "<?php echo DIR_WS_CATALOG . 'admin/external/FCKeditor/2.0b1/'; ?>";
           fckpd_<?php echo $l_entry['code']; ?>.Height = "400";
           fckpd_<?php echo $l_entry['code']; ?>.ReplaceTextarea();
         //--></script>
@@ -394,7 +394,7 @@
                 <fieldset style="height: 100%;">
                   <legend>Image Location</legend>
 
-                  <p><?php echo DIR_WS_CATALOG_IMAGES . osc_draw_input_field('products_image', (isset($pInfo) ? $pInfo->products_image : '')) . '&nbsp;<input type="button" value="Preview" onClick="reloadImage();" class="infoBoxButton">'; ?></p>
+                  <p><?php echo DIR_WS_CATALOG . 'images/' . osc_draw_input_field('products_image', (isset($pInfo) ? $pInfo->products_image : '')) . '&nbsp;<input type="button" value="Preview" onClick="reloadImage();" class="infoBoxButton">'; ?></p>
                 </fieldset>
               </td>
             </tr>
@@ -424,7 +424,7 @@
 
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td align="center"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $pInfo->products_image, '', '', '', 'id="previewImage"'); ?></td>
+                <td align="center"><?php echo tep_image('../images/' . $pInfo->products_image, '', '', '', 'id="previewImage"'); ?></td>
               </tr>
             </table>
           </fieldset>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_viewed.php,v 1.1 2004/07/22 23:14:43 hpdl Exp $
+  $Id: products_viewed.php,v 1.2 2004/11/07 21:00:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,7 +61,7 @@
 
       while ($this->_resultset->next()) {
         $this->_data[] = array('<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $this->_resultset->valueInt('products_id')) . '">' . $this->_icon . '&nbsp;' . $this->_resultset->value('products_name') . '</a>',
-                               tep_image(DIR_WS_CATALOG_LANGUAGES . $this->_resultset->value('directory') . '/images/' . $this->_resultset->value('image'), $this->_resultset->value('name')),
+                               tep_image('../includes/languages/' . $this->_resultset->value('directory') . '/images/' . $this->_resultset->value('image'), $this->_resultset->value('name')),
                                $this->_resultset->valueInt('products_viewed'));
       }
     }

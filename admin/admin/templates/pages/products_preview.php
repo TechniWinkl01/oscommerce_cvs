@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_preview.php,v 1.3 2004/10/26 20:15:33 hpdl Exp $
+  $Id: products_preview.php,v 1.4 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,8 +37,8 @@
     if (!isset($_GET['read'])) {
       $products_image_name = $_POST['products_image'];
 
-      $destination = realpath(DIR_FS_CATALOG_IMAGES . $_POST['products_image_location']);
-      if (substr($destination, 0, strlen(DIR_FS_CATALOG_IMAGES)) == DIR_FS_CATALOG_IMAGES) {
+      $destination = realpath('../images/' . $_POST['products_image_location']);
+      if (substr($destination, 0, strlen(realpath('../images'))) == realpath('../images')) {
         $products_image = new upload('products_image_new');
         $products_image->set_destination($destination);
         if ($products_image->parse() && $products_image->save()) {
@@ -58,7 +58,7 @@
     <td>
 <?php
   foreach ($languages as $l_entry) {
-    echo '<span id="lang_' . $l_entry['code'] . '"' . (($l_entry['directory'] == $osC_Session->value('language')) ? ' class="highlight"' : '') . '><a href="javascript:toggleDivBlocks(\'pName_\', \'pName_' . $l_entry['code'] . '\'); toggleClass(\'lang_\', \'lang_' . $l_entry['code'] . '\', \'highlight\', \'span\');">' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '</a></span>&nbsp;&nbsp;';
+    echo '<span id="lang_' . $l_entry['code'] . '"' . (($l_entry['directory'] == $osC_Session->value('language')) ? ' class="highlight"' : '') . '><a href="javascript:toggleDivBlocks(\'pName_\', \'pName_' . $l_entry['code'] . '\'); toggleClass(\'lang_\', \'lang_' . $l_entry['code'] . '\', \'highlight\', \'span\');">' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '</a></span>&nbsp;&nbsp;';
   }
 ?>
     </td>
@@ -77,7 +77,7 @@
     </tr>
   </table>
 
-  <p class="main"><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $products_image_name, $pInfo->products_name[$l_entry['id']], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . $pInfo->products_description[$l_entry['id']]; ?></p>
+  <p class="main"><?php echo tep_image('../images/' . $products_image_name, $pInfo->products_name[$l_entry['id']], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . $pInfo->products_description[$l_entry['id']]; ?></p>
 
 <?php
     if (!empty($pInfo->products_url[$l_entry['id']])) {

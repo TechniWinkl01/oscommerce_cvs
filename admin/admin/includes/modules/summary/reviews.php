@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.2 2004/11/03 08:59:47 mevans Exp $
+  $Id: reviews.php,v 1.3 2004/11/07 21:00:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,8 +54,8 @@
       while ($Qreviews->next()) {
         $this->_data .= '    <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);">' .
                         '      <td><a href="' . tep_href_link(FILENAME_REVIEWS, 'rID=' . $Qreviews->valueInt('reviews_id') . '&action=rEdit') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/write.png', ICON_PREVIEW, '16', '16') . '&nbsp;' . $Qreviews->value('products_name') . '</a></td>' .
-                        '      <td align="center">' . tep_image(DIR_WS_CATALOG_LANGUAGES . $Qreviews->value('languages_directory') . '/images/' . $Qreviews->value('languages_image'), $Qreviews->value('languages_name')) . '</td>' .
-                        '      <td align="center">' . tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . 'stars_' . $Qreviews->valueInt('reviews_rating') . '.gif', $Qreviews->valueInt('reviews_rating') . '/5') . '</td>' .
+                        '      <td align="center">' . tep_image('../includes/languages/' . $Qreviews->value('languages_directory') . '/images/' . $Qreviews->value('languages_image'), $Qreviews->value('languages_name')) . '</td>' .
+                        '      <td align="center">' . tep_image('../images/stars_' . $Qreviews->valueInt('reviews_rating') . '.gif', $Qreviews->valueInt('reviews_rating') . '/5') . '</td>' .
                         '      <td>' . $Qreviews->value('date_last_modified') . '</td>' .
                         '    </tr>';
       }

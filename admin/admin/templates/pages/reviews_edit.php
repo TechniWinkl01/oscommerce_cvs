@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews_edit.php,v 1.2 2004/11/03 08:59:50 mevans Exp $
+  $Id: reviews_edit.php,v 1.3 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@
 
 <?php echo tep_draw_form('review', FILENAME_REVIEWS, 'page=' . $_GET['page'] . '&rID=' . $_GET['rID'] . '&action=rPreview'); ?>
 
-<p class="main"><?php echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . '<b>' . ENTRY_PRODUCT . '</b> ' . $rInfo->products_name . '<br><b>' . ENTRY_FROM . '</b> ' . $rInfo->customers_name . '<br><br><b>' . ENTRY_DATE . '</b> ' . tep_date_short($rInfo->date_added); ?></p>
+<p class="main"><?php echo tep_image('../images/' . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"') . '<b>' . ENTRY_PRODUCT . '</b> ' . $rInfo->products_name . '<br><b>' . ENTRY_FROM . '</b> ' . $rInfo->customers_name . '<br><br><b>' . ENTRY_DATE . '</b> ' . tep_date_short($rInfo->date_added); ?></p>
 
 <p class="main"><?php echo '<b>' . ENTRY_REVIEW . '</b><br>' . tep_draw_textarea_field('reviews_text', 'soft', '60', '15', $rInfo->reviews_text, 'style="width: 100%;"') . '<br><span class="smallText">' . ENTRY_REVIEW_TEXT . '</span>'; ?></p>
 

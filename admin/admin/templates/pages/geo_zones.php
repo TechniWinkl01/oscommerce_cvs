@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.1 2004/07/22 23:28:50 hpdl Exp $
+  $Id: geo_zones.php,v 1.2 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@
       echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_GEO_ZONES, 'page=' . $_GET['page'] . '&zID=' . $Qzones->valueInt('geo_zone_id')) . '\';"  title="' . $Qzones->valueProtected('geo_zone_description') . '">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, 'page=' . $_GET['page'] . '&zID=' . $Qzones->valueInt('geo_zone_id') . '&action=list') . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '&nbsp;' . $Qzones->value('geo_zone_name') . '</a>'; ?></td>
+        <td><?php echo '<a href="' . tep_href_link(FILENAME_GEO_ZONES, 'page=' . $_GET['page'] . '&zID=' . $Qzones->valueInt('geo_zone_id') . '&action=list') . '">' . tep_image('images/icons/folder.gif', ICON_FOLDER) . '&nbsp;' . $Qzones->value('geo_zone_name') . '</a>'; ?></td>
         <td><?php echo $Qentries->valueInt('total_entries'); ?></td>
         <td align="right">
 <?php

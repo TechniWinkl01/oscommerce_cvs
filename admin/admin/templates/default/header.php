@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.6 2004/10/28 19:00:23 hpdl Exp $
+  $Id: header.php,v 1.7 2004/11/07 21:00:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -97,11 +97,11 @@
        '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/locale.png', '', '16', '16') . '\', \'' . addslashes(HEADER_TITLE_LANGUAGES) . '\', null, null, null,' . "\n";
 
   foreach ($languages as $l_entry) {
-    echo '            [\'' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/icon.gif') . '\', \'' . addslashes($l_entry['name']) . '\', \'' . tep_href_link(FILENAME_DEFAULT, 'language=' . $l_entry['code']) . '\', null, null],' . "\n";
+    echo '            [\'' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif') . '\', \'' . addslashes($l_entry['name']) . '\', \'' . tep_href_link(FILENAME_DEFAULT, 'language=' . $l_entry['code']) . '\', null, null],' . "\n";
   }
 
   echo '        ],' . "\n" .
-       '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/home.png', '', '16', '16') . '\', \'' . addslashes(HEADER_TITLE_ONLINE_CATALOG) . '\', \'' . tep_catalog_href_link() . '\', \'_blank\', null],' . "\n" .
+       '        [\'' . tep_image('templates/' . $template . '/images/icons/16x16/home.png', '', '16', '16') . '\', \'' . addslashes(HEADER_TITLE_ONLINE_CATALOG) . '\', \'' . tep_href_link('', '', 'NONSSL', false) . '\', \'_blank\', null],' . "\n" .
        '    ]' . "\n" .
        '];' . "\n";
 ?>
@@ -109,7 +109,7 @@
 
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image(DIR_WS_IMAGES . 'oscommerce.gif', 'osCommerce', '204', '50') . '</a>'; ?></td>
+    <td><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . tep_image('images/oscommerce.gif', 'osCommerce', '204', '50') . '</a>'; ?></td>
     <td width="150" align="right" class="smallText">
 <?php
   if ($request_type == 'SSL') {

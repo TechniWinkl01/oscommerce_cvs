@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.2 2004/08/04 16:53:50 hpdl Exp $
+  $Id: manufacturers.php,v 1.3 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,7 +94,7 @@
 
   $languages = tep_get_languages();
   foreach ($languages as $l_entry) {
-    echo '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('manufacturers_url[' . $l_entry['id'] . ']');
+    echo '<br>' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('manufacturers_url[' . $l_entry['id'] . ']');
   }
 ?>
     </p>
@@ -116,7 +116,7 @@
 
     <p><?php echo TEXT_EDIT_INTRO; ?></p>
     <p><?php echo TEXT_MANUFACTURERS_NAME . '<br>' . osc_draw_input_field('manufacturers_name', $mInfo->manufacturers_name); ?></p>
-    <p><?php echo tep_info_image($mInfo->manufacturers_image, $mInfo->manufacturers_name) . '<br>' . DIR_WS_CATALOG_IMAGES . '<br><b>' . $mInfo->manufacturers_image . '</b>'; ?></p>
+    <p><?php echo tep_image('../images/' . $mInfo->manufacturers_image, $mInfo->manufacturers_name) . '<br>' . DIR_WS_CATALOG . 'images/<br><b>' . $mInfo->manufacturers_image . '</b>'; ?></p>
     <p><?php echo TEXT_MANUFACTURERS_IMAGE . '<br>' . osc_draw_file_field('manufacturers_image'); ?></p>
     <p>
 <?php
@@ -124,7 +124,7 @@
 
     $languages = tep_get_languages();
     foreach ($languages as $l_entry) {
-      echo '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('manufacturers_url[' . $l_entry['id'] . ']', tep_get_manufacturer_url($mInfo->manufacturers_id, $l_entry['id']));
+      echo '<br>' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('manufacturers_url[' . $l_entry['id'] . ']', tep_get_manufacturer_url($mInfo->manufacturers_id, $l_entry['id']));
     }
 ?>
     </p>

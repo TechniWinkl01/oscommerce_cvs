@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.179 2004/11/02 00:59:11 hpdl Exp $
+  $Id: application_top.php,v 1.180 2004/11/07 21:00:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,10 +14,10 @@
   define('PAGE_PARSE_START_TIME', microtime());
 
 // set the local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+  if (file_exists('../includes/local/configure.php')) include('../includes/local/configure.php');
 
 // include server parameters
-  require('includes/configure.php');
+  require('../includes/configure.php');
 
 // set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
@@ -27,6 +27,12 @@
 
 // set the type of request (secure or not)
   $request_type = (isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on')) ? 'SSL' : 'NONSSL';
+
+  if ($request_type == 'NONSSL') {
+    define('DIR_WS_CATALOG', DIR_WS_HTTP_CATALOG);
+  } else {
+    define('DIR_WS_CATALOG', DIR_WS_HTTPS_CATALOG);
+  }
 
 // set php_self in the local scope
   if (!isset($PHP_SELF)) $PHP_SELF = (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);

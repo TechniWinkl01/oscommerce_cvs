@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.1 2004/08/29 22:19:04 hpdl Exp $
+  $Id: products_attributes.php,v 1.2 2004/11/07 21:00:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,7 @@
       echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'page=' . $_GET['page'] . '&paID=' . $Qgroups->valueInt('products_options_id')) . '\';">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'page=' . $_GET['page'] . '&paID=' . $Qgroups->valueInt('products_options_id') . '&action=list') . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '&nbsp;' . $Qgroups->value('products_options_name') . '</a>'; ?></td>
+        <td><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'page=' . $_GET['page'] . '&paID=' . $Qgroups->valueInt('products_options_id') . '&action=list') . '">' . tep_image('images/icons/folder.gif', ICON_FOLDER) . '&nbsp;' . $Qgroups->value('products_options_name') . '</a>'; ?></td>
         <td><?php echo $Qentries->valueInt('total_entries'); ?></td>
         <td align="right">
 <?php
@@ -130,7 +130,7 @@
         <td class="smallText" width="60%">
 <?php
   foreach ($languages as $l_entry) {
-    echo tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $l_entry['id'] . ']') . '<br>';
+    echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $l_entry['id'] . ']') . '<br>';
   }
 ?>
         </td>
@@ -170,7 +170,7 @@
     }
 
     foreach ($languages as $l_entry) {
-      echo tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $l_entry['id'] . ']', (isset($group_names[$l_entry['id']]) ? $group_names[$l_entry['id']] : '')) . '<br>';
+      echo tep_image('../includes/languages/' . $l_entry['directory'] . '/images/icon.gif', $l_entry['name']) . '&nbsp;' .  osc_draw_input_field('group_name[' . $l_entry['id'] . ']', (isset($group_names[$l_entry['id']]) ? $group_names[$l_entry['id']] : '')) . '<br>';
     }
 ?>
         </td>

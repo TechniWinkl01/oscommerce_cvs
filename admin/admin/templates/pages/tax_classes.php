@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tax_classes.php,v 1.1 2004/07/22 23:31:49 hpdl Exp $
+  $Id: tax_classes.php,v 1.2 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@
       echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tcID=' . $Qclasses->valueInt('tax_class_id')) . '\'" title="' . $Qclasses->valueProtected('tax_class_description') . '">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tcID=' . $Qclasses->valueInt('tax_class_id') . '&action=list') . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '&nbsp;' . $Qclasses->value('tax_class_title') . '</a>'; ?></td>
+        <td><?php echo '<a href="' . tep_href_link(FILENAME_TAX_CLASSES, 'page=' . $_GET['page'] . '&tcID=' . $Qclasses->valueInt('tax_class_id') . '&action=list') . '">' . tep_image('images/icons/folder.gif', ICON_FOLDER) . '&nbsp;' . $Qclasses->value('tax_class_title') . '</a>'; ?></td>
         <td><?php echo $Qrates->valueInt('total_tax_rates'); ?></td>
         <td align="right">
 <?php

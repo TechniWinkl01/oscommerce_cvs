@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.18 2004/08/15 18:17:01 hpdl Exp $
+  $Id: define_language.php,v 1.19 2004/11/07 21:00:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,9 +40,9 @@
     switch ($action) {
       case 'save':
         if (isset($_GET['file']) && !empty($_GET['file'])) {
-          $file = realpath(DIR_FS_CATALOG_LANGUAGES . $lng . '/' . $_GET['file']);
+          $file = realpath('../includes/languages/' . $lng . '/' . $_GET['file']);
 
-          if (substr($file, 0, strlen(DIR_FS_CATALOG_LANGUAGES)) != DIR_FS_CATALOG_LANGUAGES) {
+          if (substr($file, 0, strlen(realpath('../includes/languages'))) != realpath('../includes/languages')) {
             $file = false;
           }
 

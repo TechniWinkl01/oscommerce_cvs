@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
+  $Id: modules.php,v 1.3 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -91,7 +91,7 @@
              '<a href="#" onClick="toggleInfoBox(\'mEdit\');">' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . '</a>';
       } else {
         echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class . '&action=install') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/play.png', IMAGE_MODULE_INSTALL, '16', '16') . '</a>&nbsp;' .
-             tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '16', '16');
+             tep_image('images/pixel_trans.gif', '', '16', '16');
       }
     } else {
       if (($module->check() > 0) && $module->enabled === true) {
@@ -99,7 +99,7 @@
              '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class . '&action=mEdit') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . '</a>';
       } else {
         echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class . '&action=install') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/play.png', IMAGE_MODULE_INSTALL, '16', '16') . '</a>&nbsp;' .
-             tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '16', '16');
+             tep_image('images/pixel_trans.gif', '', '16', '16');
       }
     }
 ?>

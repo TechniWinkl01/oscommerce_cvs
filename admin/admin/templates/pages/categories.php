@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.4 2004/10/26 20:20:09 hpdl Exp $
+  $Id: categories.php,v 1.5 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,7 +71,7 @@
       echo '      <tr onMouseOver="rowOverEffect(this);" onMouseOut="rowOutEffect(this);" onClick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'page=' . $_GET['page'] . '&cPath=' . $cPath . '&search=' . $_GET['search'] . '&cID=' . $Qcategories->valueInt('categories_id')) . '\';">' . "\n";
     }
 ?>
-        <td><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $osC_CategoryTree->buildBreadcrumb($Qcategories->valueInt('categories_id'))) . '">' . tep_image(DIR_WS_ICONS . 'folder.gif', ICON_FOLDER) . '&nbsp;<b>' . $Qcategories->value('categories_name') . '</b></a>'; ?></td>
+        <td><?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $osC_CategoryTree->buildBreadcrumb($Qcategories->valueInt('categories_id'))) . '">' . tep_image('images/icons/folder.gif', ICON_FOLDER) . '&nbsp;<b>' . $Qcategories->value('categories_name') . '</b></a>'; ?></td>
         <td align="center"><?php echo tep_image('templates/' . $template . '/images/icons/checkbox_ticked.gif'); ?></td>
         <td align="right">
 <?php
@@ -125,7 +125,7 @@
 
   $languages = tep_get_languages();
   foreach ($languages as $l_entry) {
-    echo '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $l_entry['id'] . ']');
+    echo '<br>' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $l_entry['id'] . ']');
   }
 ?>
     </p>
@@ -195,11 +195,11 @@
 
     $languages = tep_get_languages();
     foreach ($languages as $l_entry) {
-      echo '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $l_entry['id'] . ']', (isset($categories_name[$l_entry['id']]) ? $categories_name[$l_entry['id']] : ''));
+      echo '<br>' . tep_image('../includes/languages/' . $l_entry['directory'] . '/images/' . $l_entry['image'], $l_entry['name']) . '&nbsp;' . osc_draw_input_field('categories_name[' . $l_entry['id'] . ']', (isset($categories_name[$l_entry['id']]) ? $categories_name[$l_entry['id']] : ''));
     }
 ?>
     </p>
-    <p><?php echo tep_image(DIR_WS_CATALOG_IMAGES . $cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . DIR_WS_CATALOG_IMAGES . '<br><b>' . $cInfo->categories_image . '</b>'; ?></p>
+    <p><?php echo tep_image('../images/' . $cInfo->categories_image, $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . DIR_WS_CATALOG . 'images/<br><b>' . $cInfo->categories_image . '</b>'; ?></p>
     <p><?php echo TEXT_EDIT_CATEGORIES_IMAGE . '<br>' . osc_draw_file_field('categories_image'); ?></p>
     <p><?php echo TEXT_EDIT_SORT_ORDER . '<br>' . osc_draw_input_field('sort_order', $cInfo->sort_order); ?></p>
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language_edit.php,v 1.2 2004/10/28 19:00:25 hpdl Exp $
+  $Id: define_language_edit.php,v 1.3 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,9 +14,9 @@
 <h1><?php echo HEADING_TITLE; ?></h1>
 
 <?php
-  $file = realpath(DIR_FS_CATALOG_LANGUAGES . $lng . '/' . $_GET['file']);
+  $file = realpath('../includes/languages/' . $lng . '/' . $_GET['file']);
 
-  if (substr($file, 0, strlen(DIR_FS_CATALOG_LANGUAGES)) != DIR_FS_CATALOG_LANGUAGES) {
+  if (substr($file, 0, strlen(realpath('../includes/languages'))) != realpath('../includes/languages')) {
     $file = false;
   }
 
@@ -35,7 +35,7 @@
 
 <?php echo tep_draw_form('language', FILENAME_DEFINE_LANGUAGE, 'lng=' . $lng . '&file=' . $_GET['file'] . '&action=save'); ?>
 
-<p><b><?php echo realpath(DIR_FS_CATALOG_LANGUAGES . $lng . '/' . $_GET['file']); ?></b></p>
+<p><b><?php echo realpath('../includes/languages/' . $lng . '/' . $_GET['file']); ?></b></p>
 
 <p><?php echo osc_draw_textarea_field('contents', $contents, '80', '20', 'off', 'style="width: 100%;"' . (($file_writeable) ? '' : ' readonly')); ?></p>
 

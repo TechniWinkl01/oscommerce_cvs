@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: services.php,v 1.1 2004/07/22 23:30:41 hpdl Exp $
+  $Id: services.php,v 1.2 2004/11/07 21:00:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -89,7 +89,7 @@
         echo '<a href="' . tep_href_link(FILENAME_SERVICES, 'service=' . $class_code . '&action=sDelete') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/stop.png', IMAGE_MODULE_REMOVE, '16', '16') . '</a>&nbsp;';
       }
     } else {
-      echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '16', '16') . '&nbsp;';
+      echo tep_image('images/pixel_trans.gif', '', '16', '16') . '&nbsp;';
     }
 
     if (is_array($module_keys) && (sizeof($module_keys) > 0)) {
@@ -99,7 +99,7 @@
         echo '<a href="' . tep_href_link(FILENAME_SERVICES, 'service=' . $class_code . '&action=sEdit') . '">' . tep_image('templates/' . $template . '/images/icons/16x16/configure.png', IMAGE_EDIT, '16', '16') . '</a>';
       }
     } else {
-      echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', '16', '16');
+      echo tep_image('images/pixel_trans.gif', '', '16', '16');
     }
 ?>
         </td>

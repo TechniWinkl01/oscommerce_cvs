@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.60 2004/10/28 18:59:50 hpdl Exp $
+  $Id: manufacturers.php,v 1.61 2004/11/07 21:00:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,7 +44,7 @@
             $manufacturers_id = $osC_Database->nextID();
           }
 
-          if ($manufacturers_image = new upload('manufacturers_image', DIR_FS_CATALOG_IMAGES)) {
+          if ($manufacturers_image = new upload('manufacturers_image', realpath('../images'))) {
             $Qimage = $osC_Database->query('update :table_manufacturers set manufacturers_image = :manufacturers_image where manufacturers_id = :manufacturers_id');
             $Qimage->bindTable(':table_manufacturers', TABLE_MANUFACTURERS);
             $Qimage->bindValue(':manufacturers_image', $manufacturers_image->filename);
@@ -101,10 +101,8 @@
             $Qimage->execute();
 
             if ($Qimage->numberOfRows() && tep_not_null($Qimage->value('manufacturers_image'))) {
-              $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $Qimage->value('manufacturers_image');
-
-              if (file_exists($image_location)) {
-                @unlink($image_location);
+              if (file_exists(realpath('../images/' . $Qimage->value('manufacturers_image')))) {
+                @unlink(realpath('../images/' . $Qimage->value('manufacturers_image')));
               }
             }
           }

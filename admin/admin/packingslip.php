@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: packingslip.php,v 1.8 2004/07/22 23:33:00 hpdl Exp $
+  $Id: packingslip.php,v 1.9 2004/11/07 21:00:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,7 +34,7 @@
     <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td class="pageHeading"><?php echo nl2br(STORE_NAME_ADDRESS); ?></td>
-        <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'oscommerce.gif', 'osCommerce', '204', '50'); ?></td>
+        <td class="pageHeading" align="right"><?php echo tep_image('images/oscommerce.gif', 'osCommerce', '204', '50'); ?></td>
       </tr>
     </table></td>
   </tr>
@@ -118,4 +118,4 @@
 <br>
 </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php require('includes/application_bottom.php'); ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager_statistics.php,v 1.1 2004/08/15 18:18:34 hpdl Exp $
+  $Id: banner_manager_statistics.php,v 1.2 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -73,17 +73,17 @@
   if (($dir_ok == true) && !empty($image_extension)) {
     switch ($type) {
       case 'yearly':
-        include(DIR_WS_INCLUDES . 'graphs/banner_yearly.php');
-        echo '<p align="center">' . tep_image(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $_GET['bID'] . '.' . $image_extension) . '</p>';
+        include('includes/graphs/banner_yearly.php');
+        echo '<p align="center">' . tep_image('images/graphs/banner_yearly-' . $_GET['bID'] . '.' . $image_extension) . '</p>';
         break;
       case 'monthly':
-        include(DIR_WS_INCLUDES . 'graphs/banner_monthly.php');
-        echo '<p align="center">' . tep_image(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $_GET['bID'] . '.' . $image_extension) . '</p>';
+        include('includes/graphs/banner_monthly.php');
+        echo '<p align="center">' . tep_image('images/graphs/banner_monthly-' . $_GET['bID'] . '.' . $image_extension) . '</p>';
         break;
       default:
       case 'daily':
-        include(DIR_WS_INCLUDES . 'graphs/banner_daily.php');
-        echo '<p align="center">' . tep_image(DIR_WS_IMAGES . 'graphs/banner_daily-' . $_GET['bID'] . '.' . $image_extension) . '</p>';
+        include('includes/graphs/banner_daily.php');
+        echo '<p align="center">' . tep_image('images/graphs/banner_daily-' . $_GET['bID'] . '.' . $image_extension) . '</p>';
         break;
     }
   }

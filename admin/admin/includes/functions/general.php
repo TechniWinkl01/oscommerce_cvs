@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.174 2004/11/02 00:59:12 hpdl Exp $
+  $Id: general.php,v 1.175 2004/11/07 21:00:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,16 +92,6 @@
     $second = (int)substr($raw_datetime, 17, 2);
 
     return strftime(DATE_TIME_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
-  }
-
-  function tep_info_image($image, $alt, $width = '', $height = '') {
-    if (tep_not_null($image) && (file_exists(DIR_FS_CATALOG_IMAGES . $image)) ) {
-      $image = tep_image(DIR_WS_CATALOG_IMAGES . $image, $alt, $width, $height);
-    } else {
-      $image = TEXT_IMAGE_NONEXISTENT;
-    }
-
-    return $image;
   }
 
   function tep_break_string($string, $len, $break_char = '-') {
@@ -757,8 +747,8 @@
             $Qcheck->execute();
 
             if ($Qcheck->numberOfRows() === 0) {
-              if (file_exists(DIR_FS_CATALOG_IMAGES . $Qimage->value('categories_image'))) {
-                @unlink(DIR_FS_CATALOG_IMAGES . $Qimage->value('categories_image'));
+              if (file_exists(realpath('../images/' . $Qimage->value('categories_image')))) {
+                @unlink(realpath('../images/' . $Qimage->value('categories_image')));
               }
             }
           }
@@ -885,8 +875,8 @@
         $Qcheck->execute();
 
         if ($Qcheck->numberOfRows() === 0) {
-          if (file_exists(DIR_FS_CATALOG_IMAGES . $Qimage->value('products_image'))) {
-            @unlink(DIR_FS_CATALOG_IMAGES . $Qimage->value('products_image'));
+          if (file_exists(realpath('../images/' . $Qimage->value('products_image')))) {
+            @unlink(realpath('../images/' . $Qimage->value('products_image')));
           }
         }
       }

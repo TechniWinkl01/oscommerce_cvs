@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.2 2004/08/25 19:57:29 hpdl Exp $
+  $Id: file_manager.php,v 1.3 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,8 +87,8 @@
       echo '<a href="#" onClick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'entry=' . $files[$i]['name'] . '&action=fmEdit') . '\';">' . tep_image('templates/' . $template . '/images/icons/16x16/edit.png', IMAGE_EDIT, '16', '16') . '</a>' . '&nbsp;' .
            '<a href="#" onClick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'entry=' . $files[$i]['name'] . '&action=download') . '\';">' . tep_image('templates/' . $template . '/images/icons/16x16/save.png', IMAGE_SAVE, '16', '16') . '</a>' . '&nbsp;';
     } else {
-      echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif') . '&nbsp;' .
-           tep_image(DIR_WS_IMAGES . 'pixel_trans.gif') . '&nbsp;';
+      echo tep_image('images/pixel_trans.gif') . '&nbsp;' .
+           tep_image('images/pixel_trans.gif') . '&nbsp;';
     }
 
     if (isset($fmInfo) && ($files[$i]['name'] == $fmInfo->name)) {

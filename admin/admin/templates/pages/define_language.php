@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.1 2004/08/15 18:17:04 hpdl Exp $
+  $Id: define_language.php,v 1.2 2004/11/07 21:00:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
   require('includes/classes/directory_listing.php');
 
-  $osC_DirectoryListing = new osC_DirectoryListing(DIR_FS_CATALOG_LANGUAGES . $lng);
+  $osC_DirectoryListing = new osC_DirectoryListing(realpath('../includes/languages/' . $lng));
   $osC_DirectoryListing->setRecursive(true);
   $osC_DirectoryListing->setAddDirectoryToFilename(true);
   $osC_DirectoryListing->setCheckExtension('php');
