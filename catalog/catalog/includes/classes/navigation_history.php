@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.7 2003/11/17 19:17:41 hpdl Exp $
+  $Id: navigation_history.php,v 1.8 2003/12/04 12:48:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,7 @@
 
       $set = 'true';
       for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
-        if ( ($this->path[$i]['page'] == basename($PHP_SELF)) ) {
+        if ($this->path[$i]['page'] == basename($PHP_SELF)) {
           if (isset($cPath)) {
             if (!isset($this->path[$i]['get']['cPath'])) {
               continue;
@@ -56,7 +56,7 @@
               }
             }
           } else {
-            array_splice($this->path, ($i));
+            array_splice($this->path, $i);
             $set = 'true';
             break;
           }
