@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.204 2003/01/23 19:11:10 hpdl Exp $
+  $Id: general.php,v 1.205 2003/02/05 22:36:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -311,7 +311,7 @@
   function tep_add_tax($price, $tax) {
     global $currencies;
 
-    if (DISPLAY_PRICE_WITH_TAX == true) {
+    if ( (DISPLAY_PRICE_WITH_TAX == true) && ($tax > 0) ) {
       return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
     } else {
       return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
