@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.11 2001/12/27 16:48:18 hpdl Exp $
+  $Id: cache.php,v 1.12 2001/12/30 02:26:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,33 +14,7 @@
 
   if ($HTTP_GET_VARS['action']) {
     if ($HTTP_GET_VARS['action'] == 'reset') {
-      for ($i=0; $i<sizeof($cache_blocks); $i++) {
-        if ($HTTP_GET_VARS['block'] == $cache_blocks[$i]['code']) {
-          if ($cache_blocks[$i]['multiple']) {
-            if ($dir = @opendir(DIR_FS_CACHE)) {
-              while ($cache_file = readdir($dir)) {
-                $cached_file = $cache_blocks[$i]['file'];
-                $languages = tep_get_languages();
-                for ($j=0; $j<sizeof($languages); $j++) {
-                  $cached_file_unlink = ereg_replace('-language', '-' . $languages[$j]['directory'], $cached_file);
-                  if (ereg('^' . $cached_file_unlink, $cache_file)) {
-                    @unlink(DIR_FS_CACHE . $cache_file);
-                  }
-                }
-              }
-              closedir($dir);
-            }
-          } else {
-            $cached_file = $cache_blocks[$i]['file'];
-            $languages = tep_get_languages();
-            for ($i=0; $i<sizeof($languages); $i++) {
-              $cached_file = ereg_replace('-language', '-' . $languages[$i]['directory'], $cached_file);
-              @unlink(DIR_FS_CACHE . $cached_file);
-            }
-          }
-          break;
-        }
-      }
+      tep_reset_cache_block($HTTP_GET_VARS['block']);
       tep_redirect(tep_href_link(FILENAME_CACHE));
     }
     tep_redirect(tep_href_link(FILENAME_CACHE));

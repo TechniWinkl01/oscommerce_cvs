@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.89 2001/12/30 01:53:48 hpdl Exp $
+  $Id: general.php,v 1.90 2001/12/30 02:26:37 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -789,6 +789,11 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
     tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
     tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . tep_db_input($category_id) . "'");
     tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
+
+    if (USE_CACHE == 'true') {
+      tep_reset_cache_block('categories');
+      tep_reset_cache_block('also_purchased');
+    }
   }
 
   function tep_remove_product($product_id) {
@@ -810,5 +815,42 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       tep_db_query("delete from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . $product_reviews['reviews_id'] . "'");
     }
     tep_db_query("delete from " . TABLE_REVIEWS . " where products_id = '" . tep_db_input($product_id) . "'");
+
+    if (USE_CACHE == 'true') {
+      tep_reset_cache_block('categories');
+      tep_reset_cache_block('also_purchased');
+    }
+  }
+
+  function tep_reset_cache_block($cache_block) {
+    global $cache_blocks;
+
+    for ($i=0; $i<sizeof($cache_blocks); $i++) {
+      if ($cache_blocks[$i]['code'] == $cache_block) {
+        if ($cache_blocks[$i]['multiple']) {
+          if ($dir = @opendir(DIR_FS_CACHE)) {
+            while ($cache_file = readdir($dir)) {
+              $cached_file = $cache_blocks[$i]['file'];
+              $languages = tep_get_languages();
+              for ($j=0; $j<sizeof($languages); $j++) {
+                $cached_file_unlink = ereg_replace('-language', '-' . $languages[$j]['directory'], $cached_file);
+                if (ereg('^' . $cached_file_unlink, $cache_file)) {
+                  @unlink(DIR_FS_CACHE . $cache_file);
+                }
+              }
+            }
+            closedir($dir);
+          }
+        } else {
+          $cached_file = $cache_blocks[$i]['file'];
+          $languages = tep_get_languages();
+          for ($i=0; $i<sizeof($languages); $i++) {
+            $cached_file = ereg_replace('-language', '-' . $languages[$i]['directory'], $cached_file);
+            @unlink(DIR_FS_CACHE . $cached_file);
+          }
+        }
+        break;
+      }
+    }
   }
 ?>
