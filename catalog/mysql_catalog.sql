@@ -1010,16 +1010,24 @@ CREATE TABLE zones (
 #
 # Table structure for table 'tax_class'
 #
+
 CREATE TABLE tax_class (
   tax_class_id int(5) NOT NULL auto_increment,
   tax_class_title varchar(32) NOT NULL,
   tax_class_description text NOT NULL,
+  last_modified timestamp(14) NULL,
+  date_added timestamp(14) NOT NULL,
   PRIMARY KEY (tax_class_id)
 );
 
 #
+# Dumping data for table 'tax_class'
+#
+
+#
 # Table structure for table 'tax_rates'
 #
+
 CREATE TABLE tax_rates (
   tax_zone_id int(5) NOT NULL,
   tax_class_id int(5) NOT NULL,

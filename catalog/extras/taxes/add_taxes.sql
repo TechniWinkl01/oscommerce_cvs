@@ -19,6 +19,8 @@ CREATE TABLE tax_class (
   tax_class_id int(5) DEFAULT '0' NOT NULL auto_increment,
   tax_class_title varchar(32) DEFAULT '' NOT NULL,
   tax_class_description text NOT NULL,
+  last_modified timestamp(14) NULL,
+  date_added timestamp(14) NOT NULL,
   PRIMARY KEY (tax_class_id)
 );
 
