@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: invoice.php,v 1.2 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: invoice.php,v 1.3 2003/01/30 09:28:30 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -105,7 +105,7 @@
            '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-      if ($k = sizeof($order->products[$i]['attributes']) > 0) {
+      if ( ($k = sizeof($order->products[$i]['attributes'])) > 0) {
         for ($j = 0; $j < $k; $j++) {
           echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
