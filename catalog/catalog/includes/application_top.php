@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.199 2001/12/18 07:11:02 jan0815 Exp $
+  $Id: application_top.php,v 1.200 2001/12/18 11:36:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,19 +16,16 @@
 // Set the level of error reporting
   error_reporting(E_ALL & ~E_NOTICE);
 
+// Disable use_trans_sid as tep_href_link() does this manually
+  if (function_exists('ini_set')) {
+    ini_set('session.use_trans_sid', 0);
+  }
+
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
-// Disable use_trans_sid as tep_href_link() does this manually
-// Add the 'includes' directory in the include_path, so we can include the configure.php file
-// For security reasons, the configure.php file should be located outside the webserver directory
-  if (function_exists('ini_set')) {
-    ini_set('session.use_trans_sid', 0);
-    ini_set('include_path', ini_get('include_path') . ';includes/');
-    include('configure.php');
-  } else {
-    include('includes/configure.php');
-  }
+// include server parameters
+  require('includes/configure.php');
 
 // Define the project version
   define('PROJECT_VERSION', 'Preview Release 2.2-CVS');
