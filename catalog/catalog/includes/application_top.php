@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.267 2003/03/14 02:10:57 hpdl Exp $
+  $Id: application_top.php,v 1.268 2003/03/14 03:35:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -140,7 +140,7 @@
   } elseif (function_exists('ini_set')) {
     ini_set('session.cookie_lifetime', '0');
     ini_set('session.cookie_path', '/');
-    ini_set('session.coomie_domain', (tep_not_null($current_domain) ? '.' . $current_domain : ''));
+    ini_set('session.cookie_domain', (tep_not_null($current_domain) ? '.' . $current_domain : ''));
   }
 
 // set the session ID if it exists
