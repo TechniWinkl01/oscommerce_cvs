@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.102 2001/04/14 23:45:09 hpdl Exp $
+  $Id: application_top.php,v 1.103 2001/04/15 16:26:38 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -104,7 +104,7 @@
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
   define('USE_PCONNECT', true); // use persisstent connections?
-  define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
+  define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
 
 // customization for the design layout
   define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
