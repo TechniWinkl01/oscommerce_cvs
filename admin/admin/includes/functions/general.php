@@ -246,6 +246,14 @@
     $sInfo->date_added = $sInfo_array['specials_date_added'];
   }
 
+  function tep_set_product_expected_info($peInfo_array) {
+    global $peInfo;
+
+    $peInfo->id = $peInfo_array['products_expected_id'];
+    $peInfo->products_name = $peInfo_array['products_name'];
+    $peInfo->date_expected = $peInfo_array['date_expected'];
+  }
+
   function tep_categories_pull_down($parameters, $exclude = '') {
     $select_string = '<select ' . $parameters . '>';
     $categories_all_query = tep_db_query("select categories_id, categories_name, parent_id from categories order by categories_name");
