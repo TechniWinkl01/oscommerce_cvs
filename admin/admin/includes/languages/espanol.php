@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.102 2003/07/21 13:28:27 project3000 Exp $
+  $Id: espanol.php,v 1.103 2003/09/13 10:46:02 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -276,6 +276,7 @@ define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 define('TEXT_DEFAULT', 'predeterminado/a');
 define('TEXT_SET_DEFAULT', 'Establecer como predeterminado/a');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Obligatorio</span>');
+define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
 
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: No hay moneda predeterminada. Por favor establezca una en: Herramientas de Administracion->Localizaci&oacute;n->Monedas');
 

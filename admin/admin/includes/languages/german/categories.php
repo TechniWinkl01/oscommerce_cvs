@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.24 2003/07/11 14:40:28 hpdl Exp $
+  $Id: categories.php,v 1.25 2003/09/13 10:46:02 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,6 @@ define('TEXT_PRODUCTS_QUANTITY_INFO', 'Anzahl:');
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung:');
-define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte f&uuml;gen Sie eine neue Kategorie oder einen Artikel ein.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'F&uuml;r weitere Informationen, besuchen Sie bitte die <a href="http://%s" target="blank"><u>Homepage</u></a> des Herstellers.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Katalog aufgenommen.');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.23 2003/07/21 14:00:07 dgw_ Exp $
+  $Id: categories.php,v 1.24 2003/09/13 10:46:02 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,6 @@ define('TEXT_PRODUCTS_QUANTITY_INFO', 'Cantidad:');
 define('TEXT_DATE_ADDED', 'A&ntilde;adido el:');
 define('TEXT_DATE_AVAILABLE', 'Fecha Disponibilidad:');
 define('TEXT_LAST_MODIFIED', 'Modificado el:');
-define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
 define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Inserte una nueva categoria o producto.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'Si quiere mas informaci&oacute;n, visite la <a href="http://%s" target="blank"><u>p&aacute;gina</u></a> de este producto.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Este producto fue a&ntilde;adido el %s.');

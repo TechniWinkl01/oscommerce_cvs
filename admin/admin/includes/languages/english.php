@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.107 2003/07/21 13:28:27 project3000 Exp $
+  $Id: english.php,v 1.108 2003/09/13 10:46:02 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -281,6 +281,7 @@ define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 define('TEXT_DEFAULT', 'default');
 define('TEXT_SET_DEFAULT', 'Set as default');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</span>');
+define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 
 define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
 
