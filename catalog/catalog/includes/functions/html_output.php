@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.35 2002/05/30 22:03:49 dgw_ Exp $
+  $Id: html_output.php,v 1.36 2002/06/01 17:24:58 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -143,12 +143,12 @@
 ////
 // Creates a pull-down list of countries
 // Parameters:
-// popup_name: the name of the pull-down list
+// name:       the name of the pull-down list
 // selected:   the default selected item
 // javascript: javascript for the pull-down list (ie, onChange="this.form.submit()")
 // size:       pull-down list size
-  function tep_get_country_list($popup_name, $selected = '', $javascript = '', $size = 1) {
-    $result = '<select name="' . $popup_name . '"';
+  function tep_get_country_list($name, $selected = '', $javascript = '', $size = 1) {
+    $result = '<select name="' . $name . '"';
 
     if ($size != 1) $result .= ' size="' . $size . '"';
 
@@ -164,7 +164,7 @@
      }
     $result .= '</select>';
 
-    echo $result;
+    return $result;
   }
 
 ////
