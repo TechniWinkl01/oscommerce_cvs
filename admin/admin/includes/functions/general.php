@@ -204,6 +204,7 @@
     $pInfo->manufacturer = $pInfo_array['manufacturers_name'];
     $pInfo->manufacturers_id = $pInfo_array['manufacturers_id'];
     $pInfo->manufacturers_image = $pInfo_array['manufacturers_image'];
+    $pInfo->average_rating = $pInfo_array['average_rating'];
   }
 
   function tep_set_manufacturer_info($mInfo_array) {
@@ -214,6 +215,22 @@
     $mInfo->image = $mInfo_array['manufacturers_image'];
     $mInfo->location = $mInfo_array['manufacturers_location'];
     $mInfo->products_count = $mInfo_array['total'];
+  }
+
+  function tep_set_review_info($rInfo_array) {
+    global $rInfo;
+
+    $rInfo->id = $rInfo_array['reviews_id'];
+    $rInfo->products_id = $rInfo_array['products_id'];
+    $rInfo->products_name = tep_products_name($rInfo->products_id);
+    $rInfo->products_image = $rInfo_array['products_image'];
+    $rInfo->customers_id = $rInfo_array['customers_id'];
+    $rInfo->author = tep_customers_name($rInfo_array['customers_id']);
+    $rInfo->date_added = $rInfo_array['date_added'];
+    $rInfo->read = $rInfo_array['reviews_read'];
+    $rInfo->text_size = $rInfo_array['reviews_text_size'];
+    $rInfo->rating = $rInfo_array['reviews_rating'];
+    $rInfo->average_rating = $rInfo_array['average_rating'];
   }
 
   function tep_categories_pull_down($parameters, $exclude = '') {
