@@ -217,6 +217,9 @@
   define('MIN_DISPLAY_BESTSELLERS', 1);    // Min no. of bestsellers to display
   define('MAX_DISPLAY_BESTSELLERS', 10);   // Max no. of bestsellers to display
 
+// Prev/Next Navigation Bar location
+  define('PREV_NEXT_BAR_LOCATION', 2) ;    // 1 - top, 2 - bottom, 3 - both
+
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
     $language = 'english';

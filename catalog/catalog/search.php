@@ -45,13 +45,6 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_PRODUCTS_NAME;?></b>&nbsp;</font></td>
-            <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_PRODUCTS_PRICE;?></b>&nbsp;</font></td>
-          </tr>
-          <tr>
-            <td colspan="2"><?=tep_black_line();?></td>
-          </tr>
 <?
   $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
   $search_query = "select m.manufacturers_name, m.manufacturers_location, p.products_id, p.products_name, p.products_price from manufacturers m, products_to_manufacturers p2m, products p where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
@@ -65,8 +58,31 @@
   //----------------------------------------------------------
   // Setup variables used in PREV and NEXT navigation bar
   //----------------------------------------------------------
-  tep_prev_next_setup($page, MAX_DISPLAY_SEARCH_RESULTS, $search_query, 'search_numrows');
+  tep_prev_next_setup($page, MAX_DISPLAY_SEARCH_RESULTS, $search_query, "search_numrows");
 
+  if (PREV_NEXT_BAR_LOCATION == 1 || PREV_NEXT_BAR_LOCATION == 3) {
+    //----------------------------------------------------------
+    // Display PREV and NEXT navigation bar
+    //----------------------------------------------------------
+    echo '<tr><td colspan="2" ><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_RESULT_PAGE . '&nbsp;' . "\n";
+  
+    tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, "");
+  
+    echo '</font></td></tr>' . "\n";
+    echo '          <tr><td colspan="2">';
+    echo tep_black_line();
+    echo '</td></tr>' . "\n";
+  }  
+    
+?>
+          <tr>
+            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_PRODUCTS_NAME;?></b>&nbsp;</font></td>
+            <td align="right" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>">&nbsp;<b><?=TABLE_HEADING_PRODUCTS_PRICE;?></b>&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><?=tep_black_line();?></td>
+          </tr>
+<?
   $row = 0;
 
   // here its tricky for the sort becuase of manufacturers_name / products_name via manufacturers_location.. now there is a sort-order on the products name until a good solution is found..
@@ -87,10 +103,10 @@
          }  
          echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;'; 
          if ($new_price) { 
-           echo '<s>' .  tep_currency_format($search_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>'; 
-           unset($new_price);
+           echo '<s>$' .  $search_values['products_price'] . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">$' . $new_price . '</font>'; 
+           unset($new_price); 
          } else { 
-           echo tep_currency_format($search_values['products_price']);
+           echo '$' . $search_values['products_price']; 
          } 
          echo '&nbsp;</font></td>' . "\n"; 
     echo '          </tr>' . "\n";
@@ -100,18 +116,20 @@
             <td colspan="2"><?=tep_black_line();?></td>
           </tr>
 <?
-  //----------------------------------------------------------
-  // Display PREV and NEXT navigation bar
-  //----------------------------------------------------------
-  echo '<tr><td colspan="2" ><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE . '" color="' . TABLE_HEADING_FONT_COLOR . '">&nbsp;' . TEXT_RESULT_PAGE . '&nbsp;' . "\n";
+  if (PREV_NEXT_BAR_LOCATION == 2 || PREV_NEXT_BAR_LOCATION == 3) {
+    //----------------------------------------------------------
+    // Display PREV and NEXT navigation bar
+    //----------------------------------------------------------
+    echo '<tr><td colspan="2" ><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . TEXT_RESULT_PAGE . '&nbsp;' . "\n";
 
-  tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, "");
+    tep_prev_next_display($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $page, "");
 
-  echo '</font></td></tr>' . "\n";
+    echo '</font></td></tr>' . "\n";
+    echo '          <tr><td colspan="2">';
+    echo tep_black_line();
+    echo '</td></tr>' . "\n";
+  }
 ?>
-          <tr>
-            <td colspan="2"><?=tep_black_line();?></td>
-          </tr>
           <tr>
             <td colspan="2" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?tep_prev_next_count($search_numrows, MAX_DISPLAY_SEARCH_RESULTS, $page, TEXT_PRODUCTS);?>&nbsp;</font></td>
           </tr>

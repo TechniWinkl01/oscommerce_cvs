@@ -254,9 +254,6 @@
   
       $cur_page_num=1;
     }
-    else {
-      $numrows = $$var_to_store_num;
-    }
 
     $offset = ($max_rows_per_page * ($cur_page_num - 1));
 
@@ -300,14 +297,14 @@
     // FIRST button
     //-------------------------------------------------------------------------------
     if ($cur_page_num > 1) {  // bypass FIRST link if we are in first page
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=1" ' . $class . ' title="' . PREVNEXT_TITLE_FIRST_PAGE . '">' . PREVNEXT_BUTTON_FIRST . '</a>&nbsp;' . "\n";
+      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=1" ' . $class . ' title="' . PREVNEXT_TITLE_FIRST_PAGE . '">' . PREVNEXT_BUTTON_FIRST . '</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
     // PREV button
     //-------------------------------------------------------------------------------
     if ($cur_page_num > 1) {  // bypass PREV link if we are in first page
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . ($cur_page_num - 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_PREVIOUS_PAGE . '">' . PREVNEXT_BUTTON_PREV . '</a>&nbsp;' . "\n";
+      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . ($cur_page_num - 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_PREVIOUS_PAGE . '">' . PREVNEXT_BUTTON_PREV . '</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
@@ -325,7 +322,7 @@
     // Previous window of pages
     //-------------------------------------------------------------------------------
     if ($cur_window_num > 1) {
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . (($cur_window_num - 1) * $max_page_link) . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_link) . '">&nbsp;...&nbsp;</a>&nbsp;' . "\n";
+      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . (($cur_window_num - 1) * $max_page_link) . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_link) . '">&nbsp;...&nbsp;</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------
@@ -333,10 +330,10 @@
     //-------------------------------------------------------------------------------
     for ($jump_to_page=1 + (($cur_window_num - 1) * $max_page_link); ($jump_to_page<=($cur_window_num * $max_page_link)) && ($jump_to_page<=$num_pages); $jump_to_page++) {  // loop thru
       if ( $jump_to_page == $cur_page_num ) {
-        print "<b>[$jump_to_page]</b>&nbsp;\n";
+        print "<b>[$jump_to_page]</b>\n";
       }
       else {
-        echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . $jump_to_page . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . '">&nbsp;' . $jump_to_page . '&nbsp;</a>&nbsp;' . "\n";
+        echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . $jump_to_page . '" ' . $class . ' title="' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . '">&nbsp;' . $jump_to_page . '&nbsp;</a>' . "\n";
       }
     }
   
@@ -353,7 +350,7 @@
     // check to see if last page 
     if ($cur_page_num<$num_pages && $num_pages!=1) {
       // not last page so give NEXT link 
-      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . ($cur_page_num + 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_NEXT_PAGE . '">' . PREVNEXT_BUTTON_NEXT . '</a>&nbsp;' . "\n";
+      echo '<a href="' . $PHP_SELF . '?' . $parameters . '&page=' . ($cur_page_num + 1) . '" ' . $class . ' title="' . PREVNEXT_TITLE_NEXT_PAGE . '">' . PREVNEXT_BUTTON_NEXT . '</a>' . "\n";
     }
   
     //-------------------------------------------------------------------------------

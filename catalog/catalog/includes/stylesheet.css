@@ -2,7 +2,7 @@ A { color:#000000; text-decoration:none; }
 .whitelink { color:#FFFFFF; text-decoration:none; }
 .blacklink { color:#000000; text-decoration:none; }
 .blacklinkwithrollover { color:#000000; text-decoration:none; }
-.bluelink { color:#000000; text-decoration:none; }
+.bluelink { color:#0000FF; text-decoration:none; }
 A:hover { color:#AABBDD; text-decoration:underline; }
 A:hover.blacklink { color:#000000; text-decoration:underline; }
 A:hover.blacklinkwithrollover { color:#0000FF; background-color: #FFFF33; text-decoration:underline; }
