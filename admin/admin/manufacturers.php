@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.49 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: manufacturers.php,v 1.50 2003/01/14 17:19:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,6 +64,10 @@
         }
       }
 
+      if (USE_CACHE == 'true') {
+        tep_reset_cache_block('manufacturers');
+      }
+
       tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page'] . '&mID=' . $manufacturers_id));
       break;
     case 'deleteconfirm':
@@ -86,6 +90,10 @@
         }
       } else {
         tep_db_query("update " . TABLE_PRODUCTS . " set manufacturers_id = '' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
+      }
+
+      if (USE_CACHE == 'true') {
+        tep_reset_cache_block('manufacturers');
       }
 
       tep_redirect(tep_href_link(FILENAME_MANUFACTURERS, 'page=' . $HTTP_GET_VARS['page']));
