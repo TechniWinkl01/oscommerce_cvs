@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.36 2001/12/23 23:14:58 hpdl Exp $
+  $Id: banner_manager.php,v 1.37 2001/12/24 00:27:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,11 +30,15 @@
       $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
       $db_image_location = '';
 
-      if ( (empty($banners_title)) || (empty($banners_group)) ) {
-// skip the update procedure as there are missing fields -> display the edit banner form again
-        $HTTP_GET_VARS['action'] = 'new';
-      } else {
-// begin the banner submit procedure
+      $error = array();
+      if (empty($banners_title)) {
+        $error[] = array('text' => ERROR_BANNER_TITLE);
+      }
+      if (empty($banners_group)) {
+        $error[]= array('text' => ERROR_BANNER_GROUP);
+      }
+
+      if (empty($error)) {
         if (empty($html_text)) {
           if ($banners_image != 'none') {
             $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $banners_image_target . $banners_image_name;
@@ -86,6 +90,8 @@
         }
 
         tep_redirect(tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'bID=' . $banners_id));
+      } else {
+        $HTTP_GET_VARS['action'] = 'new';
       }
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       $banners_id = tep_db_prepare_input($HTTP_GET_VARS['bID']);
@@ -124,6 +130,15 @@ function popupImageWindow(url) {
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  if ($error) {
+?>
+      <tr>
+        <td><?php new errorBox($error); ?></td>
+      </tr>
+<?php
+  }
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -171,7 +186,7 @@ function popupImageWindow(url) {
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_TITLE; ?></td>
-            <td class="main"><?php echo tep_draw_input_field('banners_title', $bInfo->banners_title); ?></td>
+            <td class="main"><?php echo tep_draw_input_field('banners_title', $bInfo->banners_title, '', true); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_URL; ?></td>
@@ -179,7 +194,7 @@ function popupImageWindow(url) {
           </tr>
           <tr>
             <td class="main" valign="top"><?php echo TEXT_BANNERS_GROUP; ?></td>
-            <td class="main"><?php echo tep_draw_pull_down_menu('banners_group', $groups_array, $bInfo->banners_group) . TEXT_BANNERS_NEW_GROUP . '<br>' . tep_draw_input_field('new_banners_group'); ?></td>
+            <td class="main"><?php echo tep_draw_pull_down_menu('banners_group', $groups_array, $bInfo->banners_group) . TEXT_BANNERS_NEW_GROUP . '<br>' . tep_draw_input_field('new_banners_group', '', '', ((sizeof($groups_array) > 0) ? false : true)); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>

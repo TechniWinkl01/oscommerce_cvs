@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.54 2001/12/14 13:19:17 jan0815 Exp $
+  $Id: german.php,v 1.55 2001/12/24 00:27:30 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -261,4 +261,8 @@ define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
 define('TEXT_DEFAULT', 'Standard');
 define('TEXT_SET_DEFAULT', 'als Standard setzen');
+define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</span>');
+
+define('ERROR_BANNER_TITLE', 'Error: Banner title required');
+define('ERROR_BANNER_GROUP', 'Error: Banner group required');
 ?>

@@ -156,3 +156,6 @@ TR.attributes-odd {
 TR.attributes-even {
   background-color : #ffffff;
 }
+
+.fieldRequired { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+

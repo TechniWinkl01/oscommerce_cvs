@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.7 2001/12/23 22:13:37 hpdl Exp $
+  $Id: html_output.php,v 1.8 2001/12/24 00:27:30 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -212,7 +212,7 @@
 
 ////
 // Output a form input field
-  function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
+  function tep_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true) {
     $field = '<input type="' . $type . '" name="' . $name . '"';
     if ( ($GLOBALS[$name]) && ($reinsert_value) ) {
       $field .= ' value="' . trim($GLOBALS[$name]) . '"';
@@ -224,21 +224,23 @@
     }
     $field .= '>';
 
+    if ($required) $field .= TEXT_FIELD_REQUIRED;
+
     return $field;
   }
 
 ////
 // Output a form password field
-  function tep_draw_password_field($name, $value = '') {
-    $field = tep_draw_input_field($name, $value, 'maxlength="40"', 'password', false);
+  function tep_draw_password_field($name, $value = '', $required = false) {
+    $field = tep_draw_input_field($name, $value, 'maxlength="40"', $required, 'password', false);
 
     return $field;
   }
 
 ////
 // Output a form filefield
-  function tep_draw_file_field($name) {
-    $field = tep_draw_input_field($name, '', '', 'file');
+  function tep_draw_file_field($name, $required = false) {
+    $field = tep_draw_input_field($name, '', '', $required, 'file');
 
     return $field;
   }
@@ -300,7 +302,7 @@
 
 ////
 // Output a form pull down menu
-  function tep_draw_pull_down_menu($name, $values, $default = '') {
+  function tep_draw_pull_down_menu($name, $values, $default = '', $required = false) {
     $field = '<select name="' . $name . '">';
     for ($i=0; $i<sizeof($values); $i++) {
       $field .= '<option value="' . $values[$i]['id'] . '"';
@@ -310,6 +312,8 @@
       $field .= '>' . $values[$i]['text'] . '</option>';
     }
     $field .= '</select>';
+
+    if ($required) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
   }
