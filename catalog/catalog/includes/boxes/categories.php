@@ -1,9 +1,14 @@
 <!-- categories //-->
           <tr>
-            <td bgcolor="<?=BOX_HEADING_BACKGROUND_COLOR;?>" class="boxborder" nowrap><font face="<?=BOX_HEADING_FONT_FACE;?>" color="<?=BOX_HEADING_FONT_COLOR;?>" size="<?=BOX_HEADING_FONT_SIZE;?>">&nbsp;<?=BOX_HEADING_CATEGORIES;?>&nbsp;</font></td>
-          </tr>
-          <tr>
+            <td>
 <?
+  $info_box_contents = array();
+  $info_box_contents[] = array('align' => 'left',
+                               'text'  => BOX_HEADING_CATEGORIES
+                              );
+  new infoBoxHeading($info_box_contents);
+
+  $categories_string = '';
   if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
 // check to see if there are deeper categories within the current category
     $category_links = tep_array_reverse($cPath_array);
@@ -18,7 +23,7 @@
   } else {
     $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order");
   }
-  echo '            <td bgcolor="' . BOX_CONTENT_BACKGROUND_COLOR . '" nowrap><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">';
+
   while ($categories_values = tep_db_fetch_array($categories)) {
     if (USE_RECURSIVE_COUNT) {  
       $total_count = tep_count_products_in_category($categories_values['categories_id']);
@@ -32,9 +37,15 @@
       $total_count = $total_products_values['total'];
     }
     $cPath_new = tep_get_path($categories_values['categories_id']);
-    echo '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a> (' . $total_count . ')<br>';
+    $categories_string .= '<a href="' . tep_href_link(FILENAME_DEFAULT, $cPath_new, 'NONSSL') . '">' . $categories_values['categories_name'] . '</a> (' . $total_count . ')<br>';
   }
-  echo '</font></td>' . "\n";
+
+  $info_box_contents = array();
+  $info_box_contents[] = array('align' => 'left',
+                               'text'  => $categories_string
+                              );
+  new infoBox($info_box_contents);
 ?>
+            </td>
           </tr>
 <!-- categories_eof //-->
