@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.189 2002/11/03 23:37:25 hpdl Exp $
+  $Id: general.php,v 1.190 2002/11/04 02:08:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -979,11 +979,23 @@
   }
 
   function tep_count_modules($modules = '') {
-    if (!$modules) return '0';
+    $count = 0;
+
+    if (!tep_not_null($modules)) return $count;
 
     $modules_array = split(';', $modules);
 
-    return sizeof($modules_array);
+    for ($i=0, $n=sizeof($modules_array); $i<$n; $i++) {
+      $class = substr($modules_array[$i], 0, strrpos($modules_array[$i], '.'));
+
+      if (is_object($GLOBALS[$class])) {
+        if ($GLOBALS[$class]->enabled) {
+          $count++;
+        }
+      }
+    }
+
+    return $count;
   }
 
   function tep_count_payment_modules() {
