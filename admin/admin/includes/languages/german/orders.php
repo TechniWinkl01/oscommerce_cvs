@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.20 2002/04/25 12:44:55 thomasamoulton Exp $
+  $Id: orders.php,v 1.21 2002/06/15 13:10:41 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,7 +61,7 @@ define('ENTRY_DATE_PURCHASED', 'Bestelldatum:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
-define('ENTRY_PRINTABLE', 'Print Invoice');
+define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung l&ouml;schen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, das Sie diese Bestellung l&ouml;schen m&ouml;chten?');
@@ -78,7 +78,7 @@ define('EMAIL_TEXT_SUBJECT', 'Statusänderung Ihrer Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
 define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüßen' . "\n");
+define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüssen' . "\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Fehler: Die Bestellung existiert nicht!.');
 define('SUCCESS_ORDER_UPDATED', 'Hinweis: Die Bestellung wurde erfolgreich aktualisiert.');
