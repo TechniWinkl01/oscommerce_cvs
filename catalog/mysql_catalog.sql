@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.78 2001/04/28 14:00:34 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.79 2001/04/28 23:59:26 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -244,7 +244,7 @@ CREATE TABLE products (
   products_price decimal(8,2) NOT NULL,
   products_date_added varchar(8),
   products_date_available varchar(8),
-  products_viewed int(5),
+  products_viewed int(5) DEFAULT '0',
   products_weight decimal(5,2) NOT NULL,
   products_status tinyint(1) NOT NULL,
   products_tax_class_id int(5) NOT NULL,
