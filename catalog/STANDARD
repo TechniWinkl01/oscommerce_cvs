@@ -1,59 +1,45 @@
-The Exchange Project Preview Release 2.1 Coding Standards Practice
-
-** THIS DOCUMENT IS A DRAFT **
+The Exchange Project Coding Standards
 
 In order to keep the source code sane, a standard has to be followed
-in the practice. Everyone has their own coding style, which has
-advantages and disadvantages to somebody elses style. This document
-will force a unified way to write code, while at the same time
-allow for modifications to be made, to provide an optimial standard.
+in the coding practice.
 
-A general note regarding PHP3 and PHP4 compatibilty, developers are
-requried to test their changes under both environments. Code may work
-in PHP4, but may not in PHP3, and vica-versa.
+* Files are to be saved under Unix format.
 
-Read the PHP installation guide, on how to install both PHP3 and PHP4
-together on the same server.
+* TABs should not be used. To indent, use 2 spaces.
 
-PHP3 Compatibility Issues
--------------------------
-* Something that will be done once the template structure has been
-  implemented, is to change all <? php start tags to <?php for proper
-  compatibility.
+* The start and end tags for PHP must be:
+  <?php ?>
 
-* It is best to define the constants early before 'includes' are made,
-  as these includes cannot access constants that are set after the
-  file has been 'included'. For example,
-  
-  define('TEXT', 'This text is shown in the include file');
-  include('include_file.php');
+* Define necessary constants before they are being called
+  (ie, in include files)
 
-* Classes that are called without parameters should be called as
+* All variables should be called within their scope:
+
+  $HTTP_GET_VARS['variable']
+  $HTTP_POST_VARS['variable']
+  $HTTP_COOKIE_VARS['variable']
+  $variable (either local, or session)
+
+* Instances of objects should be called as:
 
   new className;
   
-  and not as
+  and not:
   
   new className();
 
-* Do not use the short version of echo, this will not work under PHP3.
-  Please get in the habit of writing
-  
-  <?php echo $variable; ?>
+  When parameters are passed, then use:
 
-  instead of
-  
-  <?=$varaible;?>
+  new className($parameter1);
 
+* To echo out a string, use:
 
-General
--------
+  echo $variable;
 
-* TABs should not be used as a indentations. To indent, use 2 whitespaces
+  and not:
 
-
-Function Structure
-------------------
+  print $variable;
+  <?=$variable;?>
 
 * All custom functions should start with tep_
 
@@ -65,10 +51,7 @@ Function Structure
     return true;
   }
 
-
-Class Structure
----------------
-* Class names should be in this format -> myWorkingClass
+* Class names should be in this format: myWorkingClass
 
   class myWorkingClass {
     var $variable;
@@ -93,6 +76,46 @@ Class Structure
   $class = new myWorkingClass;
   $class->do_something();
 
+* Database queries should be done in this format:
+
+  $action_query = tep_db_query("select...");
+  while ($action = tep_db_fetch_array($action_query)) {
+    echo $action['column1'];
+  }
+
+* All functions should return strings, and not do any direct
+  echoing, for example:
+
+  function tep_my_function($string) {
+    return $string;
+  }
+
+  and not:
+
+  function tep_my_function($string) {
+    echo $string;
+  }
+
+* Simple boolean expressions can be written as:
+
+  $string = ($condition) ? 'true' : 'false';
+
+* IF statements with more than 3 conditions should use SWITCH/CASE:
+
+  switch ($string) {
+    case '1':
+      tep_do_something('1');
+      break;
+    case '2':
+      tep_do_something('2');
+      break;
+    case '3':
+      tep_do_something('3');
+      break;
+    default:
+      tep_do_something('default');
+      break;
+  }
 
 Function Comments
 -----------------
