@@ -197,6 +197,7 @@
   define('USE_ROLLOVER_EFFECT', 1); // Rollover Effect: 0=disable; 1=enable
 
 // Categories Box: recursive products count
+  define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
 // include shopping cart class
