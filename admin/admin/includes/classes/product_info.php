@@ -22,7 +22,7 @@
       $this->last_modified = $pInfo_array['products_last_modified'];
 
       if (strlen($pInfo_array['products_date_available']) < 8) {
-        $this->date_available = date('Ymd');
+        $this->date_available = date('Y-m-d');
       } else {
         $this->date_available = $pInfo_array['products_date_available'];
       }
