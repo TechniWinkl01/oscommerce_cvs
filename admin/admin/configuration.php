@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.19 2001/11/19 11:22:57 hpdl Exp $
+  $Id: configuration.php,v 1.20 2001/11/19 22:58:21 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -142,8 +142,8 @@
   if ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="configuration" action="' . tep_href_link(FILENAME_CONFIGURATION, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="configuration_id" value="' . $cfgInfo->id . '">' . "\n";
 
-    if (tep_not_null($cfgInfo->set_function)) {
-      $value_field = eval('return ' . $cfgInfo->set_function . '\'' . $cfgInfo->value . '\');');
+    if ($cfgInfo->set_function) {
+      eval('$value_field = ' . $cfgInfo->set_function . "'" . $cfgInfo->value . "');");
     } else {
       $value_field = '<input type="text" name="configuration_value" value="' . $cfgInfo->value . '">';
     }
