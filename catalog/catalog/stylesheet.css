@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.42 2002/01/29 12:21:15 jan0815 Exp $
+  $Id: stylesheet.css,v 1.43 2002/05/27 13:11:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -169,7 +169,7 @@ TD.main, P.main {
   line-height: 1.5;
 }
 
-TD.smallText, SPAN.smallText {
+TD.smallText, SPAN.smallText, P.smallText {
   font-family: Verdana, Arial, sans-serif;
   font-size: 10px;
 }
