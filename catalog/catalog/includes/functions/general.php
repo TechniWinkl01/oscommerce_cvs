@@ -1,6 +1,7 @@
 <?
   function tep_exit() {
     if (EXIT_AFTER_REDIRECT == 1) {
+     tep_session_close();
      return exit();
     }
   }
