@@ -5,12 +5,11 @@
 <head>
 <title><? echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-<?php if(PAYMENT_SUPPORT_CC) { ?>
 <script language="javascript"><!--
 function check_form() {
   var error = 0;
   var error_message = "<? echo JS_ERROR; ?>";
-
+<?php if(PAYMENT_SUPPORT_CC) { ?>
   var cc_owner = document.payment.cc_owner.value;
   var cc_number = document.payment.cc_number.value;
 
@@ -25,7 +24,7 @@ function check_form() {
       error = 1;
     }
   }
-
+<?php } /* cc */ ?>
   if (error == 1) {
     alert(error_message);
     return false;
@@ -34,7 +33,6 @@ function check_form() {
   }
 }
 //--></script>
-<?php } /* cc */ ?>
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
