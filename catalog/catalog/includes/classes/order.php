@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.27 2003/02/11 00:04:52 hpdl Exp $
+  $Id: order.php,v 1.28 2003/02/11 19:24:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -100,9 +100,10 @@
                              'format_id' => $order['billing_address_format_id']);
 
       $index = 0;
-      $orders_products_query = tep_db_query("select orders_products_id, products_name, products_model, products_price, products_tax, products_quantity, final_price from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($order_id) . "'");
+      $orders_products_query = tep_db_query("select orders_products_id, products_id, products_name, products_model, products_price, products_tax, products_quantity, final_price from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($order_id) . "'");
       while ($orders_products = tep_db_fetch_array($orders_products_query)) {
         $this->products[$index] = array('qty' => $orders_products['products_quantity'],
+	                                'id' => $orders_products['products_id'],
                                         'name' => $orders_products['products_name'],
                                         'model' => $orders_products['products_model'],
                                         'tax' => $orders_products['products_tax'],
