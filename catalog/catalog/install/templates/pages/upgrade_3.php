@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.2 2002/01/29 14:43:37 hpdl Exp $
+  $Id: upgrade_3.php,v 1.3 2002/02/01 01:13:43 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -226,6 +226,8 @@ changeText('statusText', 'Updating Configuration');
 
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Use Cache', 'USE_CACHE', 'false', 'Use caching features', '11', '1', 'tep_cfg_select_option(array(\'true\', \'false\'), ', now())");
   osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Cache Directory', 'DIR_FS_CACHE', '/tmp/', 'The directory where the cached files are saved', '11', '2', now())");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('E-Mail transport method','EMAIL_TRANSPORT','sendmail','Defines if this server uses a local connection to sendmail or uses an SMTP connection via TCP/IP. If your server is running under Windows or MacOS change this setting to SMTP.','12','4','tep_cfg_select_option(array(\'sendmail\', \'smtp\'), now()");
+  osc_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('E-Mail Linefeed settings','EMAIL_LINEFEED','LF','Defines the character sequence used to separate mail headers. When using sendmail use LF, when using smtp use CRLF. Only touch this if you know what you are doing.','12','5','tep_cfg_select_option(array(\'LF\', \'CRLF\'),now()");
 
   osc_db_query("delete from configuration_group");
 
@@ -241,6 +243,8 @@ changeText('statusText', 'Updating Configuration');
   osc_db_query("insert into configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1')");
   osc_db_query("insert into configuration_group values ('10', 'Logging', 'Logging configuration options', '10', '1')");
   osc_db_query("insert into configuration_group values ('11', 'Cache', 'Caching configuration options', '11', '1')");
+osc_db_query ("insert into configuration_group values (12,'E-Mail Options','General setting for E-Mail transport and HTML E-Mails','12','1')");
+
 ?>
 
 <script language="javascript"><!--
