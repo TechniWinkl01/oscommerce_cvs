@@ -10,7 +10,7 @@ define('NAVBAR_TITLE_2', 'Lieferanschrift');
 define('TOP_BAR_TITLE', 'Bestellassistent');
 define('HEADING_TITLE', 'M&ouml;gliche Lieferadressen :');
 define('TABLE_HEADING_MY_ADDRESS', 'Meine Adresse');
-define('TABLE_HEADING_DELIVER_TO', 'ausew&auml;hlte Adresse');
+define('TABLE_HEADING_DELIVER_TO', 'ausgew&auml;hlte Adresse');
 define('TABLE_HEADING_SHIPPING_INFO', 'Lieferung via');
 define('TABLE_HEADING_SHIPPING_QUOTE', 'Zeigen Sie Kosten');
 define('TABLE_HEADING_ADDRESS_BOOK', 'Adressbucheintr&auml;ge');
