@@ -32,3 +32,12 @@ a. This is (was?) PHP's fault :P In this project, there is a custom function bei
 q. An error is reported of not being able to write to the parse_time_log file.
 a. This file needs to have the correct write permissions for the apache user to be able to write
    to it. If you continue to get this error, create a 0 byte file with the right permissions.
+
+q. I get one of these errors:
+   Fatal error: Call to undefined function: count_contents()
+   Fatal error: Call to undefined function: restore_cart()
+   etc.
+a. PHP3 and some PHP4 betas dont unserialize objects properly. To get it to work, edit the file
+   application_top.php and enable the following setting:
+   
+   define('REPAIR_BROKEN_CART', '1');
