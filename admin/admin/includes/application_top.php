@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.95 2001/11/30 14:49:29 dgw_ Exp $
+  $Id: application_top.php,v 1.96 2001/12/04 13:48:16 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -142,6 +142,11 @@
   define('ACCOUNT_COMPANY', 0);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
+
+// Define how do we update currency exchange rates
+// Possible values are 'oanda' 'xe' or ''
+  define('CURRENCY_SERVER_PRIMARY', 'oanda');
+  define('CURRENCY_SERVER_BACKUP', 'xe');
 
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');

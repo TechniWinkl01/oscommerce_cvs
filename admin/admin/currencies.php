@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.21 2001/11/29 17:12:52 hpdl Exp $
+  $Id: currencies.php,v 1.22 2001/12/04 13:48:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,8 +31,13 @@
     } elseif ($HTTP_GET_VARS['action'] == 'update') {
       $currencies_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
       while ($currencies_values = tep_db_fetch_array($currencies_query)) {
-        $rate = quotecurrency($currencies_values['code']);
-        if ($rate <> 'na') {
+        $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
+        $rate = $quote_function($currencies_values['code']);
+        if ( (!$rate) && (CURRENCY_SERVER_BACKUP != '') ) {
+          $quote_function = 'quote_' . CURRENCY_SERVER_BACKUP . '_currency';
+          $rate = $quote_function($currencies_values['code']);
+        }
+        if ($rate) {
           tep_db_query("update " . TABLE_CURRENCIES . " set value = '" . $rate . "', last_updated = now() where currencies_id = '" . $currencies_values['currencies_id'] . "'");
         }
       }
@@ -122,7 +127,7 @@
     }
 ?>
                 <td class="smallText">&nbsp;<?php echo $currencies['code']; ?>&nbsp;</td>
-                <td class="smallText" align="right">&nbsp;<?php echo number_format($currencies['value'], 4); ?>&nbsp;</td>
+                <td class="smallText" align="right">&nbsp;<?php echo number_format($currencies['value'], 8); ?>&nbsp;</td>
 <?php
     if ($currencies['currencies_id'] == @$cInfo->id) {
 ?>
@@ -221,7 +226,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_THOUSANDS_POINT . '&nbsp;' . $cInfo->thousands_point);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_DECIMAL_PLACES . '&nbsp;' . $cInfo->decimal_places);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_LAST_UPDATED . '&nbsp;' . tep_date_short($cInfo->last_updated));
-    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_VALUE . '&nbsp;' . number_format($cInfo->value, 4));
+    $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_CURRENCY_VALUE . '&nbsp;' . number_format($cInfo->value, 8));
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>&nbsp;' . tep_currency_format(30) . ' = ' . tep_currency_format('30', true, $cInfo->code));
   }
 ?>
