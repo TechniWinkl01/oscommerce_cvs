@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.97 2001/12/13 13:50:06 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.98 2001/12/13 13:56:47 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -351,4 +351,4 @@
 <br>
 </body>
 </html>
-<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); var_dump($total_tax);?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
