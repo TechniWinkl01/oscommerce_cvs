@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.26 2002/01/22 21:14:46 dgw_ Exp $
+  $Id: paypal.php,v 1.27 2002/04/05 00:52:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,16 +41,16 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $total_cost, $total_tax, $currencies;
+      global $HTTP_POST_VARS, $order, $shipping_selected, $currencies;
 
-      $paypal_return = 'shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method);
+      $paypal_return = 'shipping_selected=' . $shipping_selected . '&shipping_cost=' . $order->info['shipping_cost'] . '&shipping_method=' . urlencode($order->info['shipping_method']);
       $paypal_cancel_return = 'shipping_selected=' . $shipping_selected;
 
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax) * $currencies->currencies['USD']['value'], 2)) .
-                               tep_draw_hidden_field('shipping', number_format($shipping_cost * $currencies->get_value('USD'), 2)) .
+                               tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencies->currencies['USD']['value'], 2)) .
+                               tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencies->get_value('USD'), 2)) .
                                tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, $paypal_return, 'SSL')) .
                                tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $paypal_cancel_return, 'SSL'));
 
