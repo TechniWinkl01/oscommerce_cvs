@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.140 2002/08/18 18:53:35 hpdl Exp $
+  $Id: general.php,v 1.141 2002/09/28 15:25:51 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -871,8 +871,14 @@
   function tep_remove_category($category_id) {
     $category_image_query = tep_db_query("select categories_image from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
     $category_image = tep_db_fetch_array($category_image_query);
-    if (file_exists(DIR_FS_CATALOG_IMAGES . $category_image['categories_image'])) {
-      @unlink(DIR_FS_CATALOG_IMAGES . $category_image['categories_image']);
+
+    $duplicate_image_query = tep_db_query("select count(*) as total from " . TABLE_CATEGORIES . " where categories_image = '" . tep_db_input($category_image['categories_image']) . "'");
+    $duplicate_image = tep_db_fetch_array($duplicate_image_query);
+
+    if ($duplicate_image['total'] < 2) {
+      if (file_exists(DIR_FS_CATALOG_IMAGES . $category_image['categories_image'])) {
+        @unlink(DIR_FS_CATALOG_IMAGES . $category_image['categories_image']);
+      }
     }
 
     tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($category_id) . "'");
@@ -888,8 +894,14 @@
   function tep_remove_product($product_id) {
     $product_image_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($product_id) . "'");
     $product_image = tep_db_fetch_array($product_image_query);
-    if (file_exists(DIR_FS_CATALOG_IMAGES . $product_image['products_image'])) {
-      @unlink(DIR_FS_CATALOG_IMAGES . $product_image['products_image']);
+
+    $duplicate_image_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS . " where products_image = '" . tep_db_input($product_image['products_image']) . "'");
+    $duplicate_image = tep_db_fetch_array($duplicate_image_query);
+
+    if ($duplicate_image['total'] < 2) {
+      if (file_exists(DIR_FS_CATALOG_IMAGES . $product_image['products_image'])) {
+        @unlink(DIR_FS_CATALOG_IMAGES . $product_image['products_image']);
+      }
     }
 
     tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . tep_db_input($product_id) . "'");
