@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.22 2002/08/17 09:43:33 project3000 Exp $
+  $Id: categories.php,v 1.23 2003/06/20 00:23:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,7 +31,7 @@ define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte f&uuml;gen Sie eine neue Kategorie oder einen Artikel in <br>&nbsp;<br><b>%s</b> ein.');
+define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte f&uuml;gen Sie eine neue Kategorie oder einen Artikel ein.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'F&uuml;r weitere Informationen, besuchen Sie bitte die <a href="http://%s" target="blank"><u>Homepage</u></a> des Herstellers.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Katalog aufgenommen.');
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erh&auml;ltlich ab %s.');
@@ -80,7 +80,8 @@ define('TEXT_PRODUCTS_MODEL', 'Artikel-Nr.:');
 define('TEXT_PRODUCTS_IMAGE', 'Artikelbild:');
 define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne f&uuml;hrendes http://)</small>');
-define('TEXT_PRODUCTS_PRICE', 'Artikelpreis:');
+define('TEXT_PRODUCTS_PRICE_NET', 'Artikelpreis (Netto):');
+define('TEXT_PRODUCTS_PRICE_GROSS', 'Artikelpreis (Brutto):');
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 
 define('EMPTY_CATEGORY', 'Leere Kategorie');
