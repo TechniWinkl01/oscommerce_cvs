@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.148 2002/06/05 18:09:15 dgw_ Exp $
+  $Id: application_top.php,v 1.149 2002/06/11 17:18:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -57,8 +57,8 @@
   define('FILENAME_MODULES', 'modules.php');
   define('FILENAME_NEWSLETTERS', 'newsletters.php');
   define('FILENAME_ORDERS', 'orders.php');
-  define('FILENAME_ORDERS_INVOICE', 'orders.php');
-  define('FILENAME_ORDERS_PACKINGSLIP', 'orders.php');
+  define('FILENAME_ORDERS_INVOICE', 'invoice.php');
+  define('FILENAME_ORDERS_PACKINGSLIP', 'packingslip.php');
   define('FILENAME_ORDERS_STATUS', 'orders_status.php');
   define('FILENAME_POPUP_IMAGE', 'popup_image.php');
   define('FILENAME_PRODUCTS_ATTRIBUTES', 'products_attributes.php');
