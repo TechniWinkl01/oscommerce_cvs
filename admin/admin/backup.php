@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.16 2001/11/20 21:41:26 dgw_ Exp $
+  $Id: backup.php,v 1.17 2001/11/20 22:44:20 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -42,22 +42,22 @@
       $keys_query = tep_db_query("show keys from " . $table);
       while ($keys = tep_db_fetch_array($keys_query)) {
         $kname = $keys['Key_name'];
-        if (($kname != 'PRIMARY') && ($keys['Non_unique'] == 0)) {
-          $kname = 'UNIQUE|' . $kname;
-        }
         if(!isset($index[$kname])) {
-          $index[$kname] = array();
+          $index[$kname] = array('unique' => !$keys['Non_unique'],
+                                 'columns' => array()
+                                );
         }
-        $index[$kname][] = $keys['Column_name'];
+        $index[$kname]['columns'][] = $keys['Column_name'];
       }
-      while (list($x, $columns) = each($index)) {
+      while (list($kname, $info) = each($index)) {
         $schema .= ',' . "\n";
-        if ($x == 'PRIMARY') {
-          $schema .= '  PRIMARY KEY (' . implode($columns, ', ') . ')';
-        } elseif (substr($x, 0, 6) == 'UNIQUE') {
-          $schema .= '  UNIQUE ' . substr($x, 7) . ' (' . implode($columns, ', ') . ')';
+        $columns = implode($info['columns'], ', ');
+        if ($kname == 'PRIMARY') {
+          $schema .= '  PRIMARY KEY (' . $columns . ')';
+        } elseif ($info['unique']) {
+          $schema .= '  UNIQUE ' . $kname . ' (' . $columns . ')';
         } else {
-          $schema .= '  KEY ' . $x . ' (' . implode($columns, ', ') . ')';
+          $schema .= '  KEY ' . $kname . ' (' . $columns . ')';
         }
       }
       $schema .= "\n" . ');' . "\n\n";
