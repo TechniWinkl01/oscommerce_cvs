@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: directory_listing.php,v 1.1 2004/08/15 18:05:44 hpdl Exp $
+  $Id: directory_listing.php,v 1.2 2004/08/29 22:15:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,6 +15,7 @@
 /* Private methods */
 
     var $_directory = '',
+        $_include_files = true,
         $_include_directories = true,
         $_exclude_entries = array('.', '..'),
         $_stats = false,
@@ -34,6 +35,14 @@
 
     function setDirectory($directory) {
       $this->_directory = $directory;
+    }
+
+    function setIncludeFiles($boolean) {
+      if ($boolean === true) {
+        $this->_include_files = true;
+      } else {
+        $this->_include_files = false;
+      }
     }
 
     function setIncludeDirectories($boolean) {
@@ -98,7 +107,7 @@
       if ($dir = dir($directory)) {
         while (($entry = $dir->read()) !== false) {
           if (in_array($entry, $this->_exclude_entries) === false) {
-            if (is_file($dir->path . '/' . $entry)) {
+            if (($this->_include_files === true) && is_file($dir->path . '/' . $entry)) {
               if (($this->_check_extension === false) || (substr($entry, strrpos($entry, '.')+1) == $this->_check_extension)) {
                 if ($this->_add_directory_to_filename === true) {
                   if ($dir->path != $this->_directory) {
@@ -119,7 +128,15 @@
               }
             } elseif (is_dir($dir->path . '/' . $entry)) {
               if ($this->_include_directories === true) {
-                $this->_listing[] = array('name' => $entry,
+                $entry_name= $entry;
+
+                if ($this->_add_directory_to_filename === true) {
+                  if ($dir->path != $this->_directory) {
+                    $entry_name = substr($dir->path, strlen($this->_directory)+1) . '/' . $entry;
+                  }
+                }
+
+                $this->_listing[] = array('name' => $entry_name,
                                           'is_directory' => true);
                 if ($this->_stats === true) {
                   $stats = array('size' => filesize($dir->path . '/' . $entry),
@@ -129,7 +146,9 @@
                                  'last_modified' => filemtime($dir->path . '/' . $entry));
                   $this->_listing[sizeof($this->_listing)-1] = array_merge($this->_listing[sizeof($this->_listing)-1], $stats);
                 }
-              } elseif ($this->_recursive === true) {
+              }
+
+              if ($this->_recursive === true) {
                 $this->read($dir->path . '/' . $entry);
               }
             }
