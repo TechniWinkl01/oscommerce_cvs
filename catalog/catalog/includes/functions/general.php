@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.113 2001/07/13 10:12:48 jwildeboer Exp $
+  $Id: general.php,v 1.114 2001/07/13 10:14:58 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -973,7 +973,7 @@
     $body .= "This is a MIME encoded message.\r\n\r\n";
 
     //plain text version of message
-    $body .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: 7bit\r\n";
+    $body .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: 7bit\r\n\r\n";
     $body .= $email_text;
 
     //HTML version of message 
