@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.23 2002/01/03 16:06:33 dgw_ Exp $
+  $Id: boxes.php,v 1.24 2002/01/11 20:52:03 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -132,15 +132,9 @@
     }
 
     function contentBoxContents($contents) {
-      $this->table_cellpadding = '3';
+      $this->table_cellpadding = '4';
       $this->table_parameters = 'class="infoBoxContents"';
-      $info_box_contents = array();
-      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
-      for ($i=0; $i<sizeof($contents); $i++) {
-        $info_box_contents[] = $contents[$i];
-      }
-      $info_box_contents[] = array(array('align' => 'left', 'text' => tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '1')));
-      return $this->tableBox($info_box_contents);
+      return $this->tableBox($contents);
     }
   }
 
