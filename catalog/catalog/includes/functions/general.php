@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.166 2002/04/09 10:30:06 dgw_ Exp $
+  $Id: general.php,v 1.167 2002/04/09 11:06:41 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -231,7 +231,7 @@
 // Returns the tax rate for a zone / class
 // TABLES: tax_rates, zones_to_geo_zones
   function tep_get_tax_rate($country_id, $zone_id, $class_id) {
-    $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id = za.geo_zone_id left join " . TABLE_GEO_ZONES . " tz ON tz.geo_zone_id = tr.tax_zone_id WHERE (za.zone_country_id = '0' OR za.zone_country_id = '" . $country_id . "') AND (za.zone_id = '0' OR za.zone_id = '" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "' GROUP BY tr.tax_priority");
+    $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id = za.geo_zone_id left join " . TABLE_GEO_ZONES . " tz ON tz.geo_zone_id = tr.tax_zone_id WHERE (za.zone_country_id IS NULL OR za.zone_country_id = '0' OR za.zone_country_id = '" . $country_id . "') AND (za.zone_id IS NULL OR za.zone_id = '0' OR za.zone_id = '" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "' GROUP BY tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
       $tax_multiplier=1.000;
       while($tax = tep_db_fetch_array($tax_query))
