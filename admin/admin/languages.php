@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.37 2004/10/28 18:59:49 hpdl Exp $
+  $Id: languages.php,v 1.38 2004/11/29 00:14:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,14 +46,12 @@
             $language_id = $_GET['lID'];
           } else {
             $language_id = $osC_Database->nextID();
-
-            include('../includes/classes/language.php');
-            $osC_Language = new language();
+            $default_language = $osC_Language->get(DEFAULT_LANGUAGE);
 
 // create additional categories_description records
             $Qcategories = $osC_Database->query('select categories_id, categories_name from :table_categories_description where language_id = :language_id');
             $Qcategories->bindTable(':table_categories_description', TABLE_CATEGORIES_DESCRIPTION);
-            $Qcategories->bindInt(':language_id', $osC_Language->catalog_languages[DEFAULT_LANGUAGE]['id']);
+            $Qcategories->bindInt(':language_id', $default_language['id']);
             $Qcategories->execute();
 
             while ($Qcategories->next()) {
@@ -74,7 +72,7 @@
 // create additional products_description records
               $Qproducts = $osC_Database->query('select products_id, products_name, products_description, products_url from :table_products_description where language_id = :language_id');
               $Qproducts->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
-              $Qproducts->bindInt(':language_id', $osC_Language->catalog_languages[DEFAULT_LANGUAGE]['id']);
+              $Qproducts->bindInt(':language_id', $default_language['id']);
               $Qproducts->execute();
 
               while ($Qproducts->next()) {
@@ -98,7 +96,7 @@
 // create additional products_options records
               $Qoptions = $osC_Database->query('select products_options_id, products_options_name from :table_products_options where language_id = :language_id');
               $Qoptions->bindTable(':table_products_options', TABLE_PRODUCTS_OPTIONS);
-              $Qoptions->bindInt(':language_id', $osC_Language->catalog_languages[DEFAULT_LANGUAGE]['id']);
+              $Qoptions->bindInt(':language_id', $default_language['id']);
               $Qoptions->execute();
 
               while ($Qoptions->next()) {
@@ -120,7 +118,7 @@
 // create additional products_options_values records
               $Qvalues = $osC_Database->query('select products_options_values_id, products_options_values_name from :table_products_options_values where language_id = :language_id');
               $Qvalues->bindTable(':table_products_options_values', TABLE_PRODUCTS_OPTIONS_VALUES);
-              $Qvalues->bindInt(':language_id', $osC_Language->catalog_languages[DEFAULT_LANGUAGE]['id']);
+              $Qvalues->bindInt(':language_id', $default_language['id']);
               $Qvalues->execute();
 
               while ($Qvalues->next()) {
@@ -142,7 +140,7 @@
 // create additional manufacturers_info records
               $Qmanufacturers = $osC_Database->query('select manufacturers_id, manufacturers_url from :table_manufacturers_info where languages_id = :languages_id');
               $Qmanufacturers->bindTable(':table_manufacturers_info', TABLE_MANUFACTURERS_INFO);
-              $Qmanufacturers->bindInt(':languages_id', $osC_Language->catalog_languages[DEFAULT_LANGUAGE]['id']);
+              $Qmanufacturers->bindInt(':languages_id', $default_language['id']);
               $Qmanufacturers->execute();
 
               while ($Qmanufacturers->next()) {
@@ -164,7 +162,7 @@
 // create additional orders_status records
               $Qstatus = $osC_Database->query('select orders_status_id, orders_status_name from :table_orders_status where language_id = :language_id');
               $Qstatus->bindTable(':table_orders_status', TABLE_ORDERS_STATUS);
-              $Qstatus->bindInt(':language_id', $osC_Language->catalog_languages[DEFAULT_LANGUAGE]['id']);
+              $Qstatus->bindInt(':language_id', $default_language['id']);
               $Qstatus->execute();
 
               while ($Qstatus->next()) {
@@ -206,6 +204,8 @@
 
         if ($error === false) {
           $osC_Database->commitTransaction();
+
+          osC_Cache::clear('languages');
 
           $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
         } else {
@@ -305,6 +305,8 @@
 
             if ($error === false) {
               $osC_Database->commitTransaction();
+
+              osC_Cache::clear('languages');
 
               $osC_MessageStack->add_session('header', SUCCESS_DB_ROWS_UPDATED, 'success');
             } else {
