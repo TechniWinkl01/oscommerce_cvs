@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.65 2001/08/25 20:38:44 hpdl Exp $
+  $Id: german.php,v 1.66 2001/08/29 21:22:35 mevans Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -51,6 +51,7 @@ define('HEADER_TITLE_LOGIN', 'Anmelden');
 
 // footer text in includes/footer.php
 define('FOOTER_TEXT_REQUESTS_SINCE', 'Besucher seit');
+define('FOOTER_TEXT_BODY', 'Copyright © 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br>Running on <a href="http://theexchangeproject.org">The Exchange Project</a> ' . PROJECT_VERSION . '<br><br><a href="debug_phpinfo.php">Display my PHP parameters</a>');
 
 // text for gender
 define('MALE', 'männlich');
