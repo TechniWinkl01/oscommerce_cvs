@@ -1,6 +1,11 @@
-# $Id: mysql_catalog.sql,v 1.135 2001/09/22 15:31:17 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.136 2001/09/22 15:36:28 hpdl Exp $
 #
-# The Exchange Project Database Model for Preview Release 2.2
+# The Exchange Project - Community Made Shopping!
+# http://www.theexchangeproject.org
+#
+# Copyright (c) 2000,2001 The Exchange Project
+#
+# Released under the GNU General Public License
 #
 # NOTE: * Please make any modifications to this file by hand!
 #       * DO NOT use a mysqldump created file for new changes!
