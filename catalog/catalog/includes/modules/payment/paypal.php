@@ -67,5 +67,11 @@
       tep_db_query("delete from configuration where configuration_key = 'PAYMENT_SUPPORT_PAYPAL'");
       tep_db_query("delete from configuration where configuration_key = 'PAYPAL_ID'");
     }
+
+    function keys() {
+      $keys = array('PAYMENT_SUPPORT_PAYPAL', 'PAYPAL_ID');
+
+      return $keys;
+    }
   }
 ?>

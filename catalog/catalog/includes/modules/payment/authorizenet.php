@@ -150,5 +150,11 @@
       tep_db_query("delete from configuration where configuration_key = 'PAYMENT_AUTHORIZENET_LOGIN'");
       tep_db_query("delete from configuration where configuration_key = 'PAYMENT_AUTHORIZENET_TESTMODE'");
     }
+
+    function keys() {
+      $keys = array('PAYMENT_SUPPORT_AUTHORIZENET', 'PAYMENT_AUTHORIZENET_LOGIN', 'PAYMENT_AUTHORIZENET_TESTMODE');
+
+      return $keys;
+    }
   }
 ?>

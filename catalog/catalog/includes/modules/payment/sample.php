@@ -108,5 +108,15 @@
 */
       tep_db_query("delete from configuration where configuration_key = 'PAYMENT_SUPPORT_SAMPLE'");
     }
+
+/*
+  Description: Retreive module configuration keys
+  Called from: payment_modules.php (admin)
+*/
+    function keys() {
+      $keys = array('PAYMENT_SUPPORT_SAMPLE');
+
+      return $keys;
+    }
   }
 ?>
