@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.162 2002/03/23 11:17:03 project3000 Exp $
+  $Id: general.php,v 1.163 2002/03/29 16:15:41 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -880,7 +880,7 @@
 // $from_email_adress The eMail address of the sender, 
 //                    e.g. info@mytepshop.com
 
-  function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
+  function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
     if (SEND_EMAILS != 'true') return false;
 
     // Instantiate a new mail object
