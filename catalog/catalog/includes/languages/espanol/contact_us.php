@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.4 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: contact_us.php,v 1.5 2002/01/01 18:41:54 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,8 +10,6 @@
   Released under the GNU General Public License
 */
 
-define('SUB_BAR_TITLE', 'Tiene alguna pregunta que hacer?');
-define('SUB_BAR_TITLE_SENT', 'Consulta Enviada');
 define('HEADING_TITLE', 'Contactenos');
 define('NAVBAR_TITLE', 'Contactenos');
 define('TEXT_SUCCESS', 'Su consulta ha sido enviada al encargado de la tienda.');

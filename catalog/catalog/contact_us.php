@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.30 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: contact_us.php,v 1.31 2002/01/01 18:41:53 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -53,75 +53,52 @@
     </table></td>
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
 <?php
   if ($HTTP_GET_VARS['action'] == 'success') {
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td><?php echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE); ?></td>
-            <td valign="top" class="main"><div align="center" class="pageHeading"><br><?php echo ($HTTP_GET_VARS['action'] == 'success') ? SUB_BAR_TITLE_SENT : SUB_BAR_TITLE; ?>&nbsp;</div><br><?php echo TEXT_SUCCESS; ?></td>
+            <td class="main"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_man_on_board.gif', HEADING_TITLE, '0', '0', 'align="left"') . TEXT_SUCCESS; ?></td>
+          </tr>
+          <tr>
+            <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
           </tr>
         </table></td>
-      </tr>
-      <tr>
-        <td class="main">&nbsp;</td>
-      </tr>
-      <tr>
-        <td><?php echo tep_black_line(); ?></td>
-      </tr>
-      <tr>
-        <td align="right"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?>&nbsp;&nbsp;</td>
       </tr>
 <?php
   } else {
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_contact_us.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><?php echo tep_black_line(); ?></td>
-      </tr>
-      <tr>
         <td><form action="<?php echo tep_href_link(FILENAME_CONTACT_US, 'action=send', 'NONSSL'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main">&nbsp;</td>
+            <td class="main"><?php echo ENTRY_NAME; ?><br><?php echo tep_draw_input_field('name', ($error ? $HTTP_POST_VARS['name'] : $first_name)); ?></td>
           </tr>
           <tr>
-            <td class="formAreaTitle"><?php echo SUB_BAR_TITLE; ?></td>
+            <td class="main"><?php echo ENTRY_EMAIL; ?><br><?php echo tep_draw_input_field('email', ($error ? $HTTP_POST_VARS['email'] : $email_address)); if ($error) echo ENTRY_EMAIL_ADDRESS_CHECK_ERROR; ?></td>
           </tr>
           <tr>
-            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
-              <tr>
-                <td class="main">&nbsp;<?php echo ENTRY_NAME; ?></td>
-                <td class="main">&nbsp;<?php echo tep_draw_input_field('name', $HTTP_POST_VARS['name']); ?></td>
-              </tr>
-              <tr>
-                <td class="main">&nbsp;<?php echo ENTRY_EMAIL; ?></td>
-                <td class="main">&nbsp;<?php echo tep_draw_input_field('email', $HTTP_POST_VARS['email']); if ($error) echo '&nbsp;' . ENTRY_EMAIL_ADDRESS_CHECK_ERROR; ?></td>
-              </tr>
-              <tr>
-                <td class="main" valign="top">&nbsp;<?php echo ENTRY_ENQUIRY; ?></td>
-                <td class="main">&nbsp;<?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15, $HTTP_POST_VARS['enquiry']); ?></td>
-              </tr>
-            </table></td>
+            <td class="main"><?php echo ENTRY_ENQUIRY; ?><br><?php echo tep_draw_textarea_field('enquiry', 'soft', 50, 15, $HTTP_POST_VARS['enquiry']); ?></td>
           </tr>
           <tr>
-            <td class="main">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+            <td class="main" align="right"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
           </tr>
         </table></form></td>
+      </tr>
 <?php
   }
 ?>
-      </tr>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
