@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.25 2003/06/29 22:50:52 hpdl Exp $
+  $Id: stylesheet.css,v 1.26 2003/06/30 20:03:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -51,7 +51,7 @@ body { background-color: #ffffff; color: #000000; margin: 0px; }
 .dataTableHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
 .dataTableRow { background-color: #F0F1F1; }
 .dataTableRowSelected { background-color: #DEE4E8; }
-.dataTableRowOver { background-color: #FFFFFF; cursor: pointer; }
+.dataTableRowOver { background-color: #FFFFFF; cursor: pointer; cursor: hand; }
 .dataTableContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; }
 
 /* info box */
