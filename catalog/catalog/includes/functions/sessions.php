@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.13 2003/02/11 01:31:02 hpdl Exp $
+  $Id: sessions.php,v 1.14 2003/03/19 21:40:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -68,7 +68,11 @@
   }
 
   function tep_session_register($variable) {
-    return session_register($variable);
+    global $session_started;
+
+    if ($session_started == true) {
+      return session_register($variable);
+    }
   }
 
   function tep_session_is_registered($variable) {
