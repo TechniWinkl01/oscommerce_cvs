@@ -134,7 +134,7 @@
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<b><?=ENTRY_REVIEW;?></b><br>&nbsp;<br><? if ($HTTP_GET_VARS['action'] == 'update') { echo '<textarea name="review" wrap="off" cols="60" rows="15">' . $reviews_values['reviews_text'] . '</textarea>'; } else { echo nl2br($rInfo->text); } ?></font></td>
+            <td valign="top"><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<b><?=ENTRY_REVIEW;?></b><br>&nbsp;<br><? if ($HTTP_GET_VARS['action'] == 'update') { echo '<textarea name="review" wrap="off" cols="60" rows="15">' . $reviews_values['reviews_text'] . '</textarea>'; } else { echo tep_break_string(htmlspecialchars($rInfo->text), 15); } ?></font></td>
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<? if ($HTTP_GET_VARS['action'] == 'update') echo ENTRY_REVIEW_TEXT; ?></font></td>
