@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.174 2002/05/23 21:44:20 hpdl Exp $
+  $Id: general.php,v 1.175 2002/05/23 22:56:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -427,23 +427,26 @@
 
 ////
 // Return a formatted address
-// TABLES: customers, address_book, address_format_it
+// TABLES: address_book, address_format
   function tep_address_summary($customers_id, $address_id) {
-    $address_query = tep_db_query("select entry_suburb as suburb, entry_city as city, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $address_id . "' and customers_id = '" . $customers_id . "'");
+    $customers_id = tep_db_prepare_input($customers_id);
+    $address_id = tep_db_prepare_input($address_id);
+
+    $address_query = tep_db_query("select ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_state, ab.entry_country_id, ab.entry_zone_id, c.countries_name, c.address_format_id from " . TABLE_ADDRESS_BOOK . " ab, " . TABLE_COUNTRIES . " c where ab.address_book_id = '" . tep_db_input($address_id) . "' and ab.customers_id = '" . tep_db_input($customers_id) . "' and ab.entry_country_id = c.countries_id");
     $address = tep_db_fetch_array($address_query);
-    $country_id = $address['country_id'];
-    $suburb = addslashes($address['suburb']);
-    $city = addslashes($address['city']);
-    $state = addslashes($address['state']);
-    $zone_id = $address['zone_id'];
-    $country = tep_get_country_name($country_id);
-    $state = tep_get_zone_code($country_id, $zone_id, $state);
-    $format_id = tep_get_address_format_id($country_id);
-    $address_format_query = tep_db_query("select address_summary as summary from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $format_id . "'");
+
+    $street_address = $address['entry_street_address'];
+    $suburb = $address['entry_suburb'];
+    $postcode = $address['entry_postcode'];
+    $city = $address['entry_city'];
+    $state = tep_get_zone_code($address['entry_country_id'], $address['entry_zone_id'], $address['entry_state']);
+    $country = $address['countries_name'];
+
+    $address_format_query = tep_db_query("select address_summary from " . TABLE_ADDRESS_FORMAT . " where address_format_id = '" . $address['address_format_id'] . "'");
     $address_format = tep_db_fetch_array($address_format_query);
-    $fmt = $address_format['summary'];
-    eval("\$address = \"$fmt\";");
-    $address = stripslashes($address);
+
+    eval("\$address = \"{$address_format['address_summary']}\";");
+
     return $address;
   }
 
