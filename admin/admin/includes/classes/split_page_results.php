@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.10 2002/04/17 23:09:03 hpdl Exp $
+  $Id: split_page_results.php,v 1.11 2002/11/11 21:12:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,7 +43,7 @@
     function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
       global $PHP_SELF;
 
-      if ($parameters != '') $parameters .= '&';
+      if ( tep_not_null($parameters) && (substr($parameters, -1) != '&') ) $parameters .= '&';
 
 // calculate number of pages needing links
       $num_pages = intval($query_numrows / $max_rows_per_page);
