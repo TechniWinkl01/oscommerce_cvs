@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.52 2003/12/18 23:52:14 hpdl Exp $
+  $Id: product_reviews_info.php,v 1.53 2004/02/15 12:33:41 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -117,7 +117,18 @@ function popupWindow(url) {
                     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
                       <tr>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+<?php
+    $back = sizeof($navigation->path)-2;
+    if (isset($navigation->path[$back])) {
+?>
+                        <td class="main"><?php echo '<a href="' . tep_href_link($navigation->path[$back]['page'], tep_array_to_string($navigation->path[$back]['get'], array('action')), $navigation->path[$back]['mode']) . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+<?php
+    } else {
+?>
                         <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, tep_get_all_get_params(array('reviews_id'))) . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+<?php
+    }
+?>
                         <td class="main" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, tep_get_all_get_params(array('reviews_id'))) . '">' . tep_image_button('button_write_review.gif', IMAGE_BUTTON_WRITE_REVIEW) . '</a>'; ?></td>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                       </tr>
