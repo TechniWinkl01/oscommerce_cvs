@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.71 2003/06/23 06:21:04 project3000 Exp $
+  $Id: advanced_search_result.php,v 1.72 2003/06/23 06:50:11 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -265,11 +265,11 @@
   }
 
   if (tep_not_null($dfrom)) {
-    $where_str .= " and p.products_date_added >= '" . tep_date_raw($dfrom_to_check) . "'";
+    $where_str .= " and p.products_date_added >= '" . tep_date_raw($dfrom) . "'";
   }
 
   if (tep_not_null($dto)) {
-    $where_str .= " and p.products_date_added <= '" . tep_date_raw($dto_to_check) . "'";
+    $where_str .= " and p.products_date_added <= '" . tep_date_raw($dto) . "'";
   }
 
   if (tep_not_null($pfrom)) {
