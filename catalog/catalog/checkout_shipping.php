@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.22 2004/07/22 17:23:53 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.23 2004/07/22 21:43:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,11 @@
 // if there is nothing in the customers cart, redirect them to the shopping cart page
   if ($cart->count_contents() < 1) {
     tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
+  }
+
+// redirect to the shipping address page when no default address exists
+  if ($osC_Customer->hasDefaultAddress() === false) {
+    tep_redirect(tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'));
   }
 
 // if no shipping destination address was selected, use the customers own address as default
