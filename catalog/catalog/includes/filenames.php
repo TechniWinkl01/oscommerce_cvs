@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: filenames.php,v 1.1 2003/03/14 02:10:58 hpdl Exp $
+  $Id: filenames.php,v 1.2 2003/05/19 19:55:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,9 +13,11 @@
 // define the filenames used in the project
   define('FILENAME_ACCOUNT', 'account.php');
   define('FILENAME_ACCOUNT_EDIT', 'account_edit.php');
-  define('FILENAME_ACCOUNT_EDIT_PROCESS', 'account_edit_process.php');
   define('FILENAME_ACCOUNT_HISTORY', 'account_history.php');
   define('FILENAME_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
+  define('FILENAME_ACCOUNT_NEWSLETTERS', 'account_newsletters.php');
+  define('FILENAME_ACCOUNT_NOTIFICATIONS', 'account_notifications.php');
+  define('FILENAME_ACCOUNT_PASSWORD', 'account_password.php');
   define('FILENAME_ADDRESS_BOOK', 'address_book.php');
   define('FILENAME_ADDRESS_BOOK_PROCESS', 'address_book_process.php');
   define('FILENAME_ADVANCED_SEARCH', 'advanced_search.php');
@@ -32,7 +34,6 @@
   define('FILENAME_CONDITIONS', 'conditions.php');
   define('FILENAME_COOKIE_USAGE', 'cookie_usage.php');
   define('FILENAME_CREATE_ACCOUNT', 'create_account.php');
-  define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
   define('FILENAME_CREATE_ACCOUNT_SUCCESS', 'create_account_success.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_DOWNLOAD', 'download.php');
