@@ -55,13 +55,13 @@
 <?
   if ($HTTP_GET_VARS['action'] == 'process') {
     $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $HTTP_POST_VARS['yourname'], STORE_NAME);
-    $email_taf = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['yourname'], $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
+    $email_body = sprintf(TEXT_EMAIL_INTRO, $HTTP_POST_VARS['yourname'], $HTTP_POST_VARS['products_name'], STORE_NAME) . "\n\n";
     if ($HTTP_POST_VARS['yourmessage'] != '') {
-      $email_taf .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
+      $email_body .= $HTTP_POST_VARS['yourmessage'] . "\n\n";
     }
-    $email_taf .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $products_id) . "\n\n";
-    $email_taf .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
-    tep_mail('', '', $HTTP_POST_VARS['friendemail'], $email_subject, $email_taf, '', $from, '');
+    $email_body .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $products_id) . "\n\n";
+    $email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
+    tep_mail('', '', $HTTP_POST_VARS['friendemail'], $email_subject, $email_body, '', $from, '');
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
