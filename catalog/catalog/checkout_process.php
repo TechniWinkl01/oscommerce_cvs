@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.71 2001/09/14 22:52:12 dwatkins Exp $
+  $Id: checkout_process.php,v 1.72 2001/09/20 19:06:31 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,7 +15,7 @@
   include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS);
 
 // load payment modules as objects
-  include(DIR_WS_CLASSES . 'payment.php');
+  require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
 
 // load the before_process function from the payment modules
@@ -144,5 +144,6 @@
 // load the after_process function from the payment modules
   $payment_modules->after_process();
   tep_redirect(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
+
+  require(DIR_WS_INCLUDES . 'application_bottom.php');
 ?>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

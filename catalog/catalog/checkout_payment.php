@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: checkout_payment.php,v 1.74 2001/09/20 19:06:32 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if (!tep_session_is_registered('customer_id')) {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=SSL', 'NONSSL'));
   }
@@ -8,29 +20,24 @@
   }
 
 // Stock Check !
-   if (STOCK_CHECK) {
-
+  if (STOCK_CHECK) {
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
     $products_name = $products[$i]['name'];
     $products_id = $products[$i]['id'];
     check_stock ($products[$i]['id'], $products[$i]['quantity']);
-                     }
+  }
 
-       if (STOCK_ALLOW_CHECKOUT) {
-
-       } else {
-
-  if ($any_out_of_stock) {
-  // Out of Stock
-  tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
-          }
-      } // Stock Allow Checkout
+  if (STOCK_ALLOW_CHECKOUT) {
+  } else {
+    if ($any_out_of_stock) {
+// Out of Stock
+      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
+      }
+    } // Stock Allow Checkout
 
   } // Stock Check IF
 // Stock Check
-
-
 
   $sendto = ($HTTP_POST_VARS['sendto']) ? $HTTP_POST_VARS['sendto'] : '1';
 
@@ -47,7 +54,7 @@
   $total_count = $cart->count_contents();
 
 // load shipping modules as objects
-  include(DIR_WS_CLASSES . 'shipping.php');
+  require(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;
   $shipping_modules->quote();
 
@@ -55,25 +62,24 @@
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , 'SSL'));
   }
 
-  include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT);
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT);
   $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
 // load payment modules as objects
-  include(DIR_WS_CLASSES . 'payment.php');
+  require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function check_form() {
   var error = 0;
-  var error_message = "<? echo JS_ERROR; ?>";
+  var error_message = "<?php echo JS_ERROR; ?>";
   var payment_value = null;
-
-<?
+<?php
 // load the javascript_validation function from the payment modules
   if (MODULE_PAYMENT_INSTALLED) {
 ?>
@@ -86,7 +92,7 @@ function check_form() {
   } else if (document.payment.payment.value) {
     payment_value = document.payment.payment.value;
   }
-<?
+<?php
     echo $payment_modules->javascript_validation();
   }
 
@@ -99,7 +105,6 @@ function check_form() {
 <?php
   }
 ?>
-
   if (error == 1) {
     alert(error_message);
     return false;
@@ -111,145 +116,145 @@ function check_form() {
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><form name="payment" method="post" action="<? echo tep_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'); ?>" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><form name="payment" method="post" action="<?php echo tep_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'); ?>" onsubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_payment.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
-<?
+<?php
   if ($HTTP_GET_VARS['payment_error']) {
 ?>
       <tr>
-        <td class="main"><? echo $payment_modules->output_error(); ?></td>
+        <td class="main"><?php echo $payment_modules->output_error(); ?></td>
       </tr>
-<?
+<?php
   }
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?
+<?php
    if (MODULE_PAYMENT_INSTALLED) {
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading">&nbsp;<? if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_METHODS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php if (tep_count_payment_modules() > 1) echo TABLE_HEADING_SELECTION; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td><?php echo $payment_modules->selection(); ?></td>
           </tr>
-<?
+<?php
   }
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td><? echo tep_black_line(); ?></td>
+                <td><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td class="main"><? echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+                <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
-<?
-   if (MODULE_SHIPPING_INSTALLED) {
+<?php
+  if (MODULE_SHIPPING_INSTALLED) {
     $shipping_modules->cheapest();
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td colspan="2" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
-                <td colspan=2 align="right" class="tableHeading">&nbsp;<? if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
+                <td colspan="2" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
+                <td colspan="2" align="right" class="tableHeading">&nbsp;<?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td><?php echo $shipping_modules->display(); ?></td>
           </tr>
-<?
+<?php
   }
 ?>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td class="main">&nbsp;</td>
           </tr>
           <tr>
-            <td class="main"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td class="main"><b>&nbsp;<?php echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td><?php echo tep_draw_textarea_field('comments', 'virtual', '60', '5'); ?></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main">&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><? echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><? echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
-                <td class="main" align="right"><? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+                <td class="main">&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
+                <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td align="right" class="smallText"><br>&nbsp;<font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <? echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<? echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><? echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <? echo CHECKOUT_BAR_CONFIRMATION; ?> | <? echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
+            <td align="right" class="smallText"><br>&nbsp;<font color="<?php echo CHECKOUT_BAR_TEXT_COLOR; ?>">[ <?php echo CHECKOUT_BAR_DELIVERY_ADDRESS; ?> | <font color="<?php echo CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED; ?>"><?php echo CHECKOUT_BAR_PAYMENT_METHOD; ?></font> | <?php echo CHECKOUT_BAR_CONFIRMATION; ?> | <?php echo CHECKOUT_BAR_FINISHED; ?> ]</font>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
-    </table><input type="hidden" name="sendto" value="<? echo $sendto; ?>">
+    </table><input type="hidden" name="sendto" value="<?php echo $sendto; ?>">
     </form></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -259,9 +264,9 @@ function check_form() {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

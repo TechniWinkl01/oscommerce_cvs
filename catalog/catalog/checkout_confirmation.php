@@ -1,5 +1,17 @@
-<? include('includes/application_top.php')?>
-<?
+<?php
+/*
+  $Id: checkout_confirmation.php,v 1.88 2001/09/20 19:06:32 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if (!tep_session_is_registered('customer_id')) {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
   }
@@ -21,15 +33,15 @@
     }
   }
 
-  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php');
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION);
   $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
 // load shipping modules as objects
-  include(DIR_WS_CLASSES . 'shipping.php');
+  require(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;
 
 // load payment modules as objects
-  include(DIR_WS_CLASSES . 'payment.php');
+  require(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
 
   if (MODULE_PAYMENT_INSTALLED) {
@@ -38,23 +50,23 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
-<base href="<? echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<title><?php echo TITLE; ?></title>
+<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -64,34 +76,34 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><? echo tep_black_line(); ?></td>
+        <td><?php echo tep_black_line(); ?></td>
       </tr>
     </table><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
-            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
-            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
-            <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="4"><? echo tep_black_line(); ?></td>
+            <td colspan="4"><?php echo tep_black_line(); ?></td>
           </tr>
-<?
+<?php
   $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   $address_values = tep_db_fetch_array($address);
   $total_cost = 0;
@@ -110,7 +122,7 @@
     echo '            <td valign="top" class="main"><b>&nbsp;' . $products_name . '&nbsp;</b>';
 
       if (STOCK_CHECK) {
-      echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
+        echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
       }
 
     //------display customer choosen option --------
@@ -162,36 +174,35 @@
   }
 ?>
           <tr>
-            <td colspan="4"><? echo tep_black_line(); ?></td>
+            <td colspan="4"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($total_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($total_cost); ?>&nbsp;</td>
               </tr>
-<?
+<?php
   if ($total_tax > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($total_tax); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TAX; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($total_tax); ?>&nbsp;</td>
               </tr>
-
-<?
+<?php
   }
   if (MODULE_SHIPPING_INSTALLED) {
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo $currencies->format($shipping_cost); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($shipping_cost); ?>&nbsp;</td>
               </tr>
-<?
+<?php
   }
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<?php
     if (TAX_INCLUDE == true) {
       echo $currencies->format($total_cost + $shipping_cost);
     } else {
@@ -205,31 +216,31 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><? echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+            <td class="main"><?php echo tep_address_label($customer_id, $HTTP_POST_VARS['sendto'], 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?
+<?php
    if (MODULE_PAYMENT_INSTALLED) {
 ?>
           <tr>
-            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td><?php echo $payment_modules->confirmation(); ?></td>
           </tr>
-<?
+<?php
   }
 
   if (!$checkout_form_action) {
@@ -244,15 +255,15 @@
             <td class="main">&nbsp;</td>
           </tr>
           <tr>
-            <td class="main"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td class="main"><b>&nbsp;<?php echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><? echo '&nbsp;' . nl2br(stripslashes($HTTP_POST_VARS['comments'])); ?></td>
+            <td class="main"><?php echo '&nbsp;' . nl2br(stripslashes($HTTP_POST_VARS['comments'])); ?></td>
           </tr>
-<?
+<?php
   }
 // Stock Options prompts user for sending when STOCK is available or send now !
   if (($any_out_of_stock) && (STOCK_ALLOW_CHECKOUT) && (MODULE_SHIPPING_INSTALLED)) {
@@ -261,20 +272,20 @@
             <td class="main">&nbsp;</td>
           </tr>
           <tr>
-            <td class="tableHeading">&nbsp;<? echo TEXT_STOCK_WARNING; ?></td>
+            <td class="tableHeading">&nbsp;<?php echo TEXT_STOCK_WARNING; ?></td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr class="payment-odd">
-            <td class="main">&nbsp;<? echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked>&nbsp;&nbsp;<? echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
+            <td class="main">&nbsp;<?php echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked>&nbsp;&nbsp;<?php echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
           </tr>
           <tr>
-            <td class="infoBox"><br><? echo TEXT_STOCK_WARNING_DESC; ?></td>
+            <td class="infoBox"><br><?php echo TEXT_STOCK_WARNING_DESC; ?></td>
           </tr>
           <tr>
-            <td class="infoBox"><b><? echo TEXT_IMEDIATE_DELIVER; ?></b><br><br>
-<?
+            <td class="infoBox"><b><?php echo TEXT_IMEDIATE_DELIVER; ?></b><br><br>
+<?php
     for ($i=0; $i<sizeof($products); $i++) {
       $products_name = $products[$i]['name'];
       $products_price = $products[$i]['price'];
@@ -291,11 +302,11 @@
 ?>
             </td>
           </tr>
-<?
+<?php
   }
 ?>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td align="right" class="main"><br>
@@ -318,15 +329,15 @@
         </table></td>
       </tr>
       <tr>
-        <td align="right" class="smallText"><br><? echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></td>
+        <td align="right" class="smallText"><br><?php echo '&nbsp;<font color="' . CHECKOUT_BAR_TEXT_COLOR . '">[ ' . CHECKOUT_BAR_DELIVERY_ADDRESS . ' | ' . CHECKOUT_BAR_PAYMENT_METHOD . ' | <font color="' . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . '">' . CHECKOUT_BAR_CONFIRMATION . '</font> | ' . CHECKOUT_BAR_FINISHED . ' ]</font>&nbsp;'; ?></td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_right.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_right.php'); ?>
 <!-- right_navigation_eof //-->
         </table></td>
       </tr>
@@ -336,10 +347,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
