@@ -10,4 +10,5 @@ define('HEADING_TITLE', 'Modulos de Pago');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Fichero');
 define('TABLE_HEADING_STATUS', 'Estado');
+define('TABLE_HEADING_ACTION', 'Accion');
 ?>

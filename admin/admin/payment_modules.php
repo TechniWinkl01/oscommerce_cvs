@@ -2,26 +2,24 @@
 <?
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
-      case 'save' : while (list($key, $value) = each($HTTP_POST_VARS['configuration'])) {
-                      tep_db_query("update configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
-                    }
-                    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, 'info=' . $HTTP_GET_VARS['info'], 'NONSSL')); tep_exit();
-                    break;
+      case 'save' :    while (list($key, $value) = each($HTTP_POST_VARS['configuration'])) {
+                         tep_db_query("update configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
+                       }
+                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, 'info=' . $HTTP_GET_VARS['info'], 'NONSSL')); tep_exit();
+                       break;
+      case 'install' : include(DIR_FS_PAYMENT_MODULES . $HTTP_GET_VARS['module']);
+                       $class = substr($HTTP_GET_VARS['module'], 0, strrpos($HTTP_GET_VARS['module'], '.'));
+                       $payment_module = new $class;
+                       $payment_module->install();
+                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
+                       break;
+      case 'remove' :  include(DIR_FS_PAYMENT_MODULES . $HTTP_GET_VARS['module']);
+                       $class = substr($HTTP_GET_VARS['module'], 0, strrpos($HTTP_GET_VARS['module'], '.'));
+                       $payment_module = new $class;
+                       $payment_module->remove();
+                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
+                       break;
     }
-  }
-
-  if ($HTTP_GET_VARS['install']) {
-    include(DIR_FS_PAYMENT_MODULES . $install);
-    $class = substr($install, 0, -4);
-    $payment_module = new $class;
-    $payment_module->install();
-    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
-  } elseif ($HTTP_GET_VARS['remove']) {
-    include(DIR_FS_PAYMENT_MODULES . $remove);
-    $class = substr($remove, 0, -4);
-    $payment_module = new $class;
-    $payment_module->remove();
-    header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
   }
 ?>
 <html>
@@ -73,9 +71,10 @@
               <tr>
                 <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_CONFIGURATION_TITLE; ?>&nbsp;</b></font></td>
                 <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</b></font></td>
+                <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</b></font></td>
               </tr>
               <tr>
-                <td colspan="2"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
 <?
   $installed_modules = '';
@@ -95,7 +94,7 @@
       if (eregi('.php[34]*$', $entry)) {
         $check = 0;
         include(DIR_FS_PAYMENT_MODULES . $entry);
-        $class = substr($entry, 0, -4);
+        $class = substr($entry, 0, strrpos($entry, '.'));
         $payment_module = new $class;
         $check = $payment_module->check();
         if ($check > 1) {
@@ -118,11 +117,24 @@
                 <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;
 <?
           if ($check != '1') {
-            echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', '10', '10', '0', 'Active') . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, 'remove=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', '10', '10', '0', 'Set Inactive') . '</a>';
+            echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', '10', '10', '0', 'Active') . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', '10', '10', '0', 'Set Inactive') . '</a>';
           } else {
-            echo '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, 'install=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', '10', '10', '0', 'Set Active') . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', '10', '10', '0', 'Inactive');
+            echo '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', '10', '10', '0', 'Set Active') . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', '10', '10', '0', 'Inactive');
           }
 ?>&nbsp;</font></td>
+<?
+          if ($class == $pmInfo->payment_code) {
+?>
+                    <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
+<?
+          } else {
+?>
+                    <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
+<?
+          }
+?>
+
+                <td></td>
               </tr>
 <?
         }
@@ -142,10 +154,10 @@
   }
 ?>
               <tr>
-                <td colspan="2"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="2"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">Module Directory: <? echo DIR_FS_PAYMENT_MODULES; ?></font></td>
+                <td colspan="3"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">Module Directory: <? echo DIR_FS_PAYMENT_MODULES; ?></font></td>
               </tr>
             </table></td>
             <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">

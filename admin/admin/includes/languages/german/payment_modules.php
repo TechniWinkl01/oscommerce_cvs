@@ -10,4 +10,5 @@ define('HEADING_TITLE', 'Payment Modules');
 
 define('TABLE_HEADING_CONFIGURATION_TITLE', 'Filename');
 define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_ACTION', 'Aktion');
 ?>
