@@ -20,7 +20,7 @@
     // delete the entry from the address_book
     tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "' and customers_id = '" . $customer_id . "'");
     // make sure the list of ids is correct
-    tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id -1 where address_book_id > " . $HTTP_GET_VARS['entry_id']  . "' and customers_id = '" . $customer_id . "'");
+    tep_db_query("update " . TABLE_ADDRESS_BOOK . " set address_book_id = address_book_id -1 where address_book_id > " . $HTTP_GET_VARS['entry_id']  . " and customers_id = '" . $customer_id . "'");
     // adjust the default_address_id when necessary
 //    if ($HTTP_GET_VARS['entry_id'] < $customer_default_address_id) {
 //      tep_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = customers_default_address_id - 1 where customers_id = '" . $customer_id . "'")};
