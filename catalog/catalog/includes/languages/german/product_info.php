@@ -18,7 +18,6 @@ define('IMAGE_MAIN_MENU', 'Startseite');
 define('IMAGE_WRITE_A_REVIEW', 'Meinung Erstellen');
 define('IMAGE_REVIEWS', 'Meinungen');
 define('IMAGE_UPDATE_CART', 'Einkaufswagen aktuallisieren');
-define('IMAGE_REMOVE_ALL', 'Alles löschen');
 define('IMAGE_ADD_TO_CART', 'In den Einkaufswagen');
 define('IMAGE_BACK', 'Zurück');
 define('IMAGE_TELLAFRIEND', 'Tell A Friend');

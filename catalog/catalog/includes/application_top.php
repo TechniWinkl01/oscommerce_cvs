@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.120 2001/05/21 07:20:32 mbs Exp $
+  $Id: application_top.php,v 1.121 2001/05/25 11:04:31 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -280,17 +280,16 @@
   if ($HTTP_GET_VARS['action']) {
     $goto = (CART_DISPLAY == true) ? FILENAME_SHOPPING_CART : basename($PHP_SELF);
     $parameters = (CART_DISPLAY == true) ? array('action', 'cPath', 'products_id') : array('action');
-    if ($HTTP_GET_VARS['action'] == 'remove_product') {
-      // customer wants to remove a product from their shopping cart
-      $cart->remove($HTTP_GET_VARS['products_id']);
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
-      tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
+    if ($HTTP_GET_VARS['action'] == 'add_update_product') {
       // customer wants to update the product quantity in their shopping cart
       if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
         for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
-          $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
-          $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
+          if ( tep_in_array($HTTP_POST_VARS['products_id'][$i], ( is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array() ) ) ) {
+            $cart->remove($HTTP_POST_VARS['products_id'][$i]);
+          } else {
+            $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
+            $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
+          }
         }
       } else {
         if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
@@ -298,11 +297,6 @@
         }
       }
       header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
-      tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
-      // customer wants to remove all products from their shopping cart
-      $cart->reset(TRUE);
-      header('Location: ' . tep_href_link($goto, '', 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
       // customer wants to add a quickie to the cart (called from a box)

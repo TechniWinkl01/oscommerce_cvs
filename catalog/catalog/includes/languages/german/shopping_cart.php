@@ -20,7 +20,6 @@ define('OUT_OF_STOCK_CANT_CHECKOUT', 'Die markierten Produkte mit \'***\', sind 
 define('OUT_OF_STOCK_CAN_CHECKOUT', 'Die markierten Produkte mit \'***\', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Die bestellte Menge wird kurzfristig von uns geliefert, wenn Sie w&uuml;nschen nehmen wir auch eine Teillieferung vor.');
 
 define('IMAGE_CHECKOUT', 'Kasse');
-define('IMAGE_REMOVE_ALL', 'Inhalt l&ouml;schen');
 define('IMAGE_MAIN_MENU', 'Startseite');
 define('IMAGE_UPDATE_CART', 'St&uuml;ckzahlen im Warenkorb aktualisieren');
 ?>

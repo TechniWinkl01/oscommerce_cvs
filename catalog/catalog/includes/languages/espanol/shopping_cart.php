@@ -17,7 +17,6 @@ define('SUB_TITLE_SUB_TOTAL', 'Subtotal:');
 define('SUB_TITLE_TOTAL', 'Total:');
 
 define('IMAGE_CHECKOUT', 'Realizar Pedido');
-define('IMAGE_REMOVE_ALL', 'Vaciar Cesta');
 define('IMAGE_MAIN_MENU', 'Menu Principal');
 define('IMAGE_UPDATE_CART', 'Actualizar la Cesta con las nuevas Cantidades');
 ?>

@@ -17,7 +17,6 @@ define('SUB_TITLE_SUB_TOTAL', 'Sub-Total:');
 define('SUB_TITLE_TOTAL', 'Total:');
 
 define('IMAGE_CHECKOUT', 'Checkout');
-define('IMAGE_REMOVE_ALL', 'Remove All');
 define('IMAGE_MAIN_MENU', 'Main Menu');
 define('IMAGE_UPDATE_CART', 'Update Cart with new Quantities');
 

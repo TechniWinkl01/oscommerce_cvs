@@ -19,7 +19,6 @@ define('IMAGE_MAIN_MENU', 'Main Menu');
 define('IMAGE_WRITE_A_REVIEW', 'Write a Review');
 define('IMAGE_REVIEWS', 'Reviews');
 define('IMAGE_UPDATE_CART', 'Update Cart');
-define('IMAGE_REMOVE_ALL', 'Remove All');
 define('IMAGE_ADD_TO_CART', 'Add to Cart');
 define('IMAGE_BACK', 'Back');
 define('IMAGE_TELLAFRIEND', 'Tell A Friend');
