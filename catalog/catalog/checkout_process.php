@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.83 2002/01/15 21:15:12 dgw_ Exp $
+  $Id: checkout_process.php,v 1.84 2002/01/17 14:39:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -104,7 +104,6 @@
 
     $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . $currencies->format($total_products_price * $products[$i]['quantity']) . $products_ordered_attributes . "\n";
   }
-  $cart->reset(TRUE);
 
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
@@ -141,6 +140,8 @@
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
+
+  $cart->reset(TRUE);
 
 // unregister session variables used during checkout
   tep_session_unregister('sendto');
