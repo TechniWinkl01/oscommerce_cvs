@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_tax.php,v 1.4 2002/05/10 18:34:25 hpdl Exp $
+  $Id: ot_tax.php,v 1.5 2002/08/08 22:41:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,9 +29,11 @@
       if (MODULE_ORDER_TOTAL_TAX_SHOW_GROUPS == 'true') {
         reset($order->info['tax_groups']);
         while (list($key, $value) = each($order->info['tax_groups'])) {
-          $this->output[] = array('title' => $this->title . ' (' . $key . '%):',
-                                  'text' => $currencies->format($value, true, $order->info['currency'], $order->info['currency_value']),
-                                  'value' => $value);
+          if ($key > 0) {
+            $this->output[] = array('title' => $this->title . ' (' . $key . '%):',
+                                    'text' => $currencies->format($value, true, $order->info['currency'], $order->info['currency_value']),
+                                    'value' => $value);
+          }
         }
       } else {
         $this->output[] = array('title' => $this->title . ':',
