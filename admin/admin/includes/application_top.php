@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.164 2004/04/08 05:46:31 hpdl Exp $
+  $Id: application_top.php,v 1.165 2004/04/09 01:54:20 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -159,6 +159,9 @@
 
 // file uploading class
   require(DIR_WS_CLASSES . 'upload.php');
+
+// caching class
+  require(DIR_FS_CATALOG . 'includes/classes/cache.php');
 
 // calculate category path
   if (isset($HTTP_GET_VARS['cPath'])) {
