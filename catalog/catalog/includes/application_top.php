@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.126 2001/06/03 20:50:55 kwiltner Exp $
+  $Id: application_top.php,v 1.127 2001/06/03 22:19:02 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -226,7 +226,7 @@
   tep_db_connect() or die('Unable to connect to database server!');
 
 // set the application parameters (can be modified through the administration tool)
-  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration');
+  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
