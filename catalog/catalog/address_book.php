@@ -1,21 +1,27 @@
 <?php
 /*
-  $Id: address_book.php,v 1.59 2003/11/17 20:48:43 hpdl Exp $
+  $Id: address_book.php,v 1.60 2004/07/22 21:39:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  if ($osC_Customer->isLoggedOn() == false) {
+  if ($osC_Customer->isLoggedOn() === false) {
     $navigation->set_snapshot();
 
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
+  }
+
+  if ($osC_Customer->hasDefaultAddress() === false) {
+    $navigation->set_snapshot(array('page' => FILENAME_ACCOUNT, 'mode' => 'SSL'));
+
+    tep_redirect(tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'SSL'));
   }
 
   require(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/' . FILENAME_ADDRESS_BOOK);
