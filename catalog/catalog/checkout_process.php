@@ -8,7 +8,6 @@
 // load the before_process function from the payment modules
   $payment_modules->before_process();
 
-  global $languages_id;
   if ($sendto == '0') {
     $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
   } else {
