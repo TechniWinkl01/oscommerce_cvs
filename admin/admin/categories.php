@@ -8,6 +8,7 @@ TODO
    + update tep_get_all_get_params function, to accept an array of exclusions (and not $exclude1 -> $exclude4)
    + more options when deleting products or categories
    + more expert options
+   + update database structure for date added and last modified entries in info box
 */
 ?>
 <? include('includes/application_top.php'); ?>
