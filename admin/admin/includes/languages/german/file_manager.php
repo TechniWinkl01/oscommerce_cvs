@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.16 2002/08/19 01:45:58 hpdl Exp $
+  $Id: file_manager.php,v 1.17 2003/02/16 02:09:20 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -30,9 +30,9 @@ define('TEXT_NEW_FOLDER_INTRO', 'Geben Sie den Namen f&uuml;r das neue Verzeichn
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Datei l&ouml;schen m&ouml;chten?');
 define('TEXT_UPLOAD_INTRO', 'Bitte die Dateien ausw&auml;hlen, welche hochgeladen werden sollen.');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
-define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
-define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Fehler: Das Verzeichnis kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
-define('ERROR_FILE_NOT_REMOVEABLE', 'Fehler: Die Datei kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s');
-define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
+define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
+define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Fehler: Das Verzeichnis kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
+define('ERROR_FILE_NOT_REMOVEABLE', 'Fehler: Die Datei kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
+define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
 ?>

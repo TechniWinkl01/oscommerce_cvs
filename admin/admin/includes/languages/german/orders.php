@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: orders.php,v 1.26 2003/02/09 13:15:23 thomasamoulton Exp $
+  $Id: orders.php,v 1.27 2003/02/16 02:09:20 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -47,8 +47,8 @@ define('ENTRY_TELEPHONE', 'Telefon:');
 define('ENTRY_EMAIL_ADDRESS', 'eMail Adresse:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
 define('ENTRY_SHIP_TO', 'Lieferanschrift:');
-define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
-define('ENTRY_BILLING_ADDRESS', 'Billing Address:');
+define('ENTRY_SHIPPING_ADDRESS', 'Versandadresse:');
+define('ENTRY_BILLING_ADDRESS', 'Rechnungsadresse:');
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Kreditkartentyp:');
 define('ENTRY_CREDIT_CARD_OWNER', 'Kreditkarteninhaber:');
@@ -62,7 +62,7 @@ define('ENTRY_DATE_PURCHASED', 'Bestelldatum:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
-define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
+define('ENTRY_NOTIFY_COMMENTS', 'Kommentare mitsenden:');
 define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung l&ouml;schen');
@@ -81,9 +81,9 @@ define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
 define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
 define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüssen' . "\n");
-define('EMAIL_TEXT_COMMENTS_UPDATE', 'The comments for your order are' . "\n\n%s\n\n");
+define('EMAIL_TEXT_COMMENTS_UPDATE', 'Anmerkungen und Kommentare zu Ihrer Bestellung:' . "\n\n%s\n\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Fehler: Die Bestellung existiert nicht!.');
 define('SUCCESS_ORDER_UPDATED', 'Hinweis: Die Bestellung wurde erfolgreich aktualisiert.');
-define('WARNING_ORDER_NOT_UPDATED', 'Warning: Nothing to change. The order was not updated.');
+define('WARNING_ORDER_NOT_UPDATED', 'Hinweis: Es wurde nichts ge&auml;ndert. Daher wurde diese Bestellung nicht aktualisiert.');
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.13 2002/08/19 01:58:58 hpdl Exp $
+  $Id: manufacturers.php,v 1.14 2003/02/16 02:09:20 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -37,6 +37,6 @@ define('TEXT_DELETE_IMAGE', 'Hersteller Image l&ouml;schen?');
 define('TEXT_DELETE_PRODUCTS', 'Alle Artikel von diesem Hersteller l&ouml;schen? (inkl. Bewertungen, Angebote und Neuerscheinungen)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNUNG:</b> Es existieren noch %s Artikel, welche mit diesem Hersteller verbunden sind!');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions on: %s');
-define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
+define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
 ?>
