@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.21 2004/04/13 08:10:15 hpdl Exp $
+  $Id: compatibility.php,v 1.22 2004/07/22 16:36:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,22 +20,33 @@
   }
 
 // Recursively handle magic_quotes_gpc turned off.
-  function do_magic_quotes_gpc(&$ar) {
-    if (!is_array($ar)) return false;
+  function osc_remove_magic_quotes(&$array) {
+    if (!is_array($array) || (sizeof($array) < 1)) {
+      return false;
+    }
 
-    while (list($key, $value) = each($ar)) {
+    foreach ($array as $key => $value) {
       if (is_array($value)) {
-        do_magic_quotes_gpc($value);
+        osc_remove_magic_quotes($array[$key]);
       } else {
-        $ar[$key] = addslashes($value);
+        $array[$key] = stripslashes($value);
       }
     }
   }
 
 // handle magic_quotes_gpc turned off.
-  if (!get_magic_quotes_gpc()) {
-    do_magic_quotes_gpc($_GET);
-    do_magic_quotes_gpc($_POST);
+  if (get_magic_quotes_gpc() > 0) {
+    if (isset($_GET)) {
+      osc_remove_magic_quotes($_GET);
+    }
+
+    if (isset($_POST)) {
+      osc_remove_magic_quotes($_POST);
+    }
+
+    if (isset($_COOKIE)) {
+      osc_remove_magic_quotes($_COOKIE);
+    }
   }
 
   if (!function_exists('constant')) {
