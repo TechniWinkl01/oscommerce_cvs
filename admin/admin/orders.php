@@ -186,26 +186,28 @@
               </tr>
 <?
     $total = 0;
+    $taxed = 0;
     $grandtotal = 0;
     $info = tep_db_query("select date_purchased, orders_status, orders_date_finished, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
     $date_purchased = date('l, jS F, Y', mktime(0,0,0,substr($info_values['date_purchased'], 4, 2),substr($info_values['date_purchased'], -2),substr($info_values['date_purchased'], 0, 4)));
-    $products = tep_db_query("select products_name, products_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $products = tep_db_query("select products_name, products_price, products_quantity, products_tax from orders_products where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     while ($products_values = tep_db_fetch_array($products)) {
       $total = $products_values['products_quantity'] * $products_values['products_price'];
+      $taxed = $taxed + ($total * ($products_values['products_tax']/100));
       $subtotal = $subtotal + $total;
 ?>
               <tr>
                 <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$products_values['products_quantity'];?>&nbsp;</font></td>
                 <td nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=$products_values['products_name'];?>&nbsp;</font></td>
-                <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=$total; ?>&nbsp;</font></td>
+                <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format($total, 2); ?>&nbsp;</font></td>
               </tr>
 <?
     }
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
-    $taxed = ($subtotal * ($info_values['products_tax']/100));
     $grandtotal = number_format(($subtotal + $taxed + $shipping), 2);
+    $subtotal = number_format($subtotal, 2);
     $taxed = number_format($taxed, 2);
 ?>
               <tr>
@@ -218,7 +220,7 @@
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=$subtotal;?>&nbsp;</font></td>
                   </tr>
                   <tr>
-                    <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=sprintf(ENTRY_TAX, $info_values['products_tax'] . '%');?>&nbsp;</font></td>
+                    <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=ENTRY_TAX;?>&nbsp;</font></td>
                     <td align="right" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=$taxed;?>&nbsp;</font></td>
                   </tr>
 <?
@@ -298,11 +300,13 @@
     while ($orders_values = tep_db_fetch_array($orders)) {
       $rows++;
       $total = 0;
-      $orders_products = tep_db_query("select products_price, products_quantity from orders_products where orders_id = '" . $orders_values['orders_id'] . "'");
+      $orders_products = tep_db_query("select products_price, final_price, products_quantity, products_tax from orders_products where orders_id = '" . $orders_values['orders_id'] . "'");
       while ($orders_products_values = tep_db_fetch_array($orders_products)) {
-        $total = $total + ($orders_products_values['products_price'] * $orders_products_values['products_quantity']);
+        $subtotal = ($orders_products_values['final_price'] * $orders_products_values['products_quantity']);
+        $tax = $subtotal * ($orders_products_values['products_tax']/100);
+        $total = $total + $subtotal + $tax;
       }
-      $total = $total + ($total*$orders_values['products_tax']/100) + $orders_values['shipping_cost'];
+      $total = $total + $orders_values['shipping_cost'];
       if (floor($rows/2) == ($rows/2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
       } else {

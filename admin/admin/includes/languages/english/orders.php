@@ -37,7 +37,7 @@ define('ENTRY_CREDIT_CARD_OWNER', 'Credit Card Owner:');
 define('ENTRY_CREDIT_CARD_NUMBER', 'Credit Card Number:');
 define('ENTRY_CREDIT_CARD_EXPIRES', 'Credit Card Expires:');
 define('ENTRY_SUB_TOTAL', 'Sub-Total:');
-define('ENTRY_TAX', 'Tax (%s):');
+define('ENTRY_TAX', 'Tax:');
 define('ENTRY_SHIPPING', 'Shipping:');
 define('ENTRY_TOTAL', 'Total:');
 define('ENTRY_DATE_PURCHASED', 'Date Purchased:');
