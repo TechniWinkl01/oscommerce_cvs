@@ -36,7 +36,7 @@
         echo '                <td>&nbsp' . SHIPPING_ITEM_NAME . "</td>\n";
         echo '                <td>' . $shipping_item_method . "</td>\n";
         echo '                <td align="right">' . tep_currency_format($shipping_item_cost) . "</td>\n";
-        echo '                <td>&nbsp<input type="radio" name="shipping_selected" value="item"';
+        echo '                <td align="right" nowrap>&nbsp<input type="radio" name="shipping_selected" value="item"';
         if ($shipping_cheapest == 'item') echo ' CHECKED';
         echo "></td>\n";
         echo "              </tr>\n";

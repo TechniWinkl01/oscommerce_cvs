@@ -11,6 +11,7 @@ define('TOP_BAR_TITLE', 'Realizar Pedido');
 define('HEADING_TITLE', 'Entrega del Producto');
 define('TABLE_HEADING_MY_ADDRESS', 'Mi Direccion');
 define('TABLE_HEADING_SHIPPING_INFO', 'Forma de Envio');
+define('TABLE_HEADING_SHIPPING_QUOTE', 'Cotización De la Tarifa');
 define('TABLE_HEADING_DELIVER_TO', 'Enviar A');
 define('TABLE_HEADING_ADDRESS_BOOK', 'Otras Direcciones');
 define('TEXT_ADDRESS_BOOK_NO_ENTRIES', 'No hay direcciones adicionales!');

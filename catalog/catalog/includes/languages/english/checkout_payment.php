@@ -11,6 +11,8 @@ define('TOP_BAR_TITLE', 'Checkout Procedure');
 define('HEADING_TITLE', 'Payment Method');
 define('TABLE_HEADING_METHODS', 'Methods');
 define('TABLE_HEADING_SELECTION', 'Selection');
+define('TABLE_HEADING_SHIPPING_INFO', 'Shipping Carrier');
+define('TABLE_HEADING_SHIPPING_QUOTE', 'Select Preferred Rate');
 
 define('IMAGE_NEXT', 'Next');
 ?>

@@ -11,6 +11,8 @@ define('TOP_BAR_TITLE', 'Realizar Pedido');
 define('HEADING_TITLE', 'Forma de Pago');
 define('TABLE_HEADING_METHODS', 'Formas');
 define('TABLE_HEADING_SELECTION', 'Seleccion');
+define('TABLE_HEADING_SHIPPING_INFO', 'Portador Del Envío');
+define('TABLE_HEADING_SHIPPING_QUOTE', 'Seleccione Preferida La Tarifa');
 
 define('IMAGE_NEXT', 'Siguiente');
 ?>

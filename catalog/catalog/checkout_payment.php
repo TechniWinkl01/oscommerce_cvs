@@ -103,7 +103,7 @@ function check_form() {
     if ($payment_enabled) {
 ?>
               <tr bgcolor="#f4f7fd">
-                <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_description; ?>&nbsp;</font></td>
+                <td nowrap colspan=3><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_description; ?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="<? echo $payment_code; ?>"
                 <? if ((!$payment && $rows == 1) || ($payment == $payment_code)) echo " checked"; ?>>&nbsp;</font></td>
               </tr>
@@ -120,12 +120,15 @@ function check_form() {
 <?
   }
 ?>
+          <tr>
+            <td colspan=4><br><? echo tep_black_line(); ?></td>
+          </tr>
               <tr>
-                <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
+                <td nowrap colspan=2><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
                 <td nowrap colspan=2 align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
               </tr>
           <tr>
-            <td colspan=4><? echo tep_black_line(); ?><br><br></td>
+            <td colspan=4><? echo tep_black_line(); ?><br></td>
           </tr>
 <?
       if ($HTTP_POST_VARS['sendto'] == '0') {
