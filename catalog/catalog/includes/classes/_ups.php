@@ -52,8 +52,10 @@
     } 
 
     function dest($postal, $country){ 
-      $this->destPostalCode = $postal; 
-          $this->destCountryCode = $country; 
+      $postal = str_replace(' ', '', $postal);
+      if ($country == 'US') $this->destPostalCode = substr($postal, 0, 5);
+      else $this->destPostalCode = $postal; 
+      $this->destCountryCode = $country; 
     } 
 
     function rate($foo){ 
