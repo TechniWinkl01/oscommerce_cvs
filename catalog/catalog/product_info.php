@@ -93,7 +93,16 @@ function popupImageWindow(url) {
     <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td><table border="0" width="100%"><tr><td class="main"><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_info_values['products_image']; ?>&alt=<? echo addslashes($product_info_values['products_name']); ?>')"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a><p><? echo stripslashes($product_info_values['products_description']); ?></p>
+        <td><table border="0" width="100%">
+          <tr>
+            <td class="main"><table border="0" cellspacing="0" cellpadding="2" align="right">
+              <tr>
+                <td class="main"><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_info_values['products_image']; ?>&alt=<? echo addslashes($product_info_values['products_name']); ?>')"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a></td>
+              </tr>
+              <tr>
+                <td align="center" class="smallText"><?php echo TEXT_CLICK_TO_ENLARGE; ?><br>&nbsp;</td>
+              </tr>
+            </table><p><? echo stripslashes($product_info_values['products_description']); ?></p>
 <?
     if ($products_attributes == '1') {
       $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
