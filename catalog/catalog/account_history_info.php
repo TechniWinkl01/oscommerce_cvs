@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.81 2002/05/23 01:24:16 hpdl Exp $
+  $Id: account_history_info.php,v 1.82 2002/05/23 21:48:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -76,22 +76,22 @@
           </tr>
 <?php
   for ($i=0; $i<sizeof($order->products); $i++) {
-      echo '          <tr>' . "\n" .
-           '            <td class="main" valign="top" align="right" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
-           '            <td class="main" valign="top">' . $order->products[$i]['name'];
+    echo '          <tr>' . "\n" .
+         '            <td class="main" valign="top" align="right" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+         '            <td class="main" valign="top">' . $order->products[$i]['name'];
 
-      if (sizeof($order->products[$i]['attributes']) > 0) {
-        for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
-          echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-          if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
-          echo '</i></small></nobr>';
-        }
+    if (sizeof($order->products[$i]['attributes']) > 0) {
+      for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+        echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
+        if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
+        echo '</i></small></nobr>';
       }
+    }
 
-      echo '</td>' . "\n" .
-           '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
-      echo '            <td class="main" align="right" valign="top">' . $currencies->format( tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n";
-      echo '          </tr>' . "\n";
+    echo '</td>' . "\n" .
+         '            <td class="main" align="right" valign="top">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
+         '            <td class="main" align="right" valign="top">' . $currencies->format( tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
+         '          </tr>' . "\n";
   }
 ?>
           <tr>
