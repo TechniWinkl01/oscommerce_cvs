@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.69 2004/03/18 09:56:48 mevans Exp $
+  $Id: create_account.php,v 1.70 2004/03/28 17:36:36 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -233,6 +233,8 @@
 
 // restore cart contents
       $cart->restore_contents();
+
+      $navigation->remove_current_page();
 
 // build the message content
       if (ACCOUNT_GENDER == 'true') {

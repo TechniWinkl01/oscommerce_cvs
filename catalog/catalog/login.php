@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.81 2003/11/17 21:04:11 hpdl Exp $
+  $Id: login.php,v 1.82 2004/03/28 17:36:36 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,6 +44,8 @@
 
 // restore cart contents
         $cart->restore_contents();
+
+        $navigation->remove_current_page();
 
         if (sizeof($navigation->snapshot) > 0) {
           $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array($osC_Session->name)), $navigation->snapshot['mode']);
