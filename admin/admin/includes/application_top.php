@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.163 2004/02/15 18:21:28 hpdl Exp $
+  $Id: application_top.php,v 1.164 2004/04/08 05:46:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,7 +83,7 @@
   if (!function_exists('session_start')) {
     define('PHP_SESSION_NAME', 'osCAdminID');
     define('PHP_SESSION_PATH', '/');
-    define('PHP_SESSION_SAVE_PATH', SESSION_WRITE_DIRECTORY);
+    define('PHP_SESSION_SAVE_PATH', DIR_FS_WORK);
 
     include(DIR_WS_CLASSES . 'sessions.php');
   }
@@ -93,7 +93,7 @@
 
 // set the session name and save path
   tep_session_name('osCAdminID');
-  tep_session_save_path(SESSION_WRITE_DIRECTORY);
+  tep_session_save_path(DIR_FS_WORK);
 
 // set the session cookie parameters
    if (function_exists('session_set_cookie_params')) {
@@ -187,7 +187,7 @@
 
 // the following cache blocks are used in the Tools->Cache section
 // ('language' in the filename is automatically replaced by available languages)
-  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box-language.cache', 'multiple' => true),
+  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'category_tree-language.cache', 'multiple' => false),
                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
                        );
