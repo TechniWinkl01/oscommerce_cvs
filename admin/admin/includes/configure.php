@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.15 2004/04/09 01:54:45 hpdl Exp $
+  $Id: configure.php,v 1.16 2004/07/22 23:39:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,6 +43,7 @@
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'osCommerce');
+  define('DB_DATABASE_CLASS', 'mysql');
   define('DB_TABLE_PREFIX', 'osc_');
   define('USE_PCONNECT', 'false');
   define('STORE_SESSIONS', '');
