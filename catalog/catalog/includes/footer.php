@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: footer.php,v 1.30 2004/11/24 15:55:04 hpdl Exp $
+  $Id: footer.php,v 1.31 2004/11/28 18:37:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,12 +43,12 @@
   </tr>
 </table>
 <?php
-  if ($osC_Services->isStarted('banner') && ($banner = tep_banner_exists('dynamic', '468x50'))) {
+  if ($osC_Services->isStarted('banner') && $osC_Banner->exists('468x50')) {
 ?>
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><?php echo tep_display_banner('dynamic', '468x50'); ?></td>
+    <td align="center"><?php echo $osC_Banner->display(); ?></td>
   </tr>
 </table>
 <?php
