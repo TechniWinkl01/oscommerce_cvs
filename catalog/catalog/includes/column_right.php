@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: column_right.php,v 1.11 2001/06/05 10:55:45 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   require(DIR_WS_BOXES . 'shopping_cart.php');
   require(DIR_WS_BOXES . 'best_sellers.php');
 
@@ -8,13 +19,10 @@
     include(DIR_WS_BOXES . 'specials.php');
   }
 
-  include(DIR_WS_BOXES . 'reviews.php');
+  require(DIR_WS_BOXES . 'reviews.php');
 
   if (substr(basename($PHP_SELF), 0, 8) != 'checkout') {
     include(DIR_WS_BOXES . 'languages.php');
-  }
-
-  if (substr(basename($PHP_SELF), 0, 8) != 'checkout') {
     include(DIR_WS_BOXES . 'currencies.php');
   }
 ?>
