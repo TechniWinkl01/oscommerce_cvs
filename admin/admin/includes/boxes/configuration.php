@@ -12,7 +12,7 @@
 
   if ($selected_box == 'configuration') {
     $cfg_groups = '';
-    $configuration_groups_query = tep_db_query("select configuration_group_id as cgID, configuration_group_title as cgTitle from configuration_group where visible = '1' order by sort_order");
+    $configuration_groups_query = tep_db_query("select configuration_group_id as cgID, configuration_group_title as cgTitle from " . TABLE_CONFIGURATION_GROUP . " where visible = '1' order by sort_order");
     while ($configuration_groups = tep_db_fetch_array($configuration_groups_query)) {
       $cfg_groups .= '&nbsp;<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $configuration_groups['cgID'], 'NONSSL') . '">' . $configuration_groups['cgTitle'] . '</a><br>';
     }
