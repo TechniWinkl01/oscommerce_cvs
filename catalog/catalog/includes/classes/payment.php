@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.17 2001/08/25 12:00:12 hpdl Exp $
+  $Id: payment.php,v 1.18 2001/08/25 14:47:29 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -92,9 +92,11 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->code == $HTTP_POST_VARS['payment']) {
-            $confirmation_string .= '          <tr>' . "\n" .
-                                    '            <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
-                                    '          </tr>' . "\n";
+            $confirmation_string .= '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                                    '  <tr>' . "\n" .
+                                    '    <td class="main">&nbsp;' . $GLOBALS[$class]->title . '&nbsp;</td>' . "\n" .
+                                    '  </tr>' . "\n" .
+                                    '</table>' . "\n";
             $confirmation_string .= $GLOBALS[$class]->confirmation();
           }
         }
