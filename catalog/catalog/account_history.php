@@ -54,14 +54,14 @@
           <tr>
             <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_ORDER_NUMBER;?>&nbsp;</b></font></td>
             <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_ORDER_DATE;?>&nbsp;</b></font></td>
-            <td align="center" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_ORDER_QUANTITY;?>&nbsp;</b></font></td>
             <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_ORDER_COST;?>&nbsp;</b></font></td>
+            <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE;?>" size="<? echo TABLE_HEADING_FONT_SIZE;?>" color="<? echo TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<? echo TABLE_HEADING_ORDER_STATUS;?>&nbsp;</b></font></td>
           </tr>
           <tr>
             <td colspan="4"><? echo tep_black_line();?></td>
           </tr>
 <?
-  $history = tep_db_query("select orders_id, date_purchased, shipping_cost from orders where customers_id = '" . $customer_id . "' order by orders_id DESC");
+  $history = tep_db_query("select orders_id, date_purchased, shipping_cost, orders_status from orders where customers_id = '" . $customer_id . "' order by orders_id DESC");
   if (@!tep_db_num_rows($history)) {
 ?>
           <tr bgcolor="#f4f7fd">
@@ -71,29 +71,24 @@
   } else {
     $row = 0;
     while ($history_values = tep_db_fetch_array($history)) {
-      $total_cost = 0;
-      $total_quantity = 0;
       $row++;
+      $total_cost = 0;
       $history_total = tep_db_query("select final_price, products_tax, products_quantity from orders_products where orders_id = '" . $history_values['orders_id'] . "'");
       while ($history_total_values = tep_db_fetch_array($history_total)) {
-        $cost = $history_total_values['final_price'];
+        $cost = ($history_total_values['final_price'] * $history_total_values['products_quantity']);
         $total_cost += $cost + ($cost * ($history_total_values['products_tax']/100));
-        $total_quantity += $history_total_values['products_quantity'];
       }
       $total_cost += $history_values['shipping_cost'];
-      $history_date = date('l, dS F, Y', mktime(0,0,0,substr($history_values['date_purchased'], 4, 2),substr($history_values['date_purchased'], -2),substr($history_values['date_purchased'], 0, 4)));
+
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
       } else {
         echo '          <tr bgcolor="#f4f7fd">' . "\n";
       }
-      if (strlen($row) == 1) {
-        $row = '0' . $row;
-      }
-      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $row . '.&nbsp;</font></td>' . "\n";
-      echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . $history_date . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $total_quantity . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_id'] . '&nbsp;</font></td>' . "\n";
+      echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</font></td>' . "\n";
       echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($total_cost) . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_status'] . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }
