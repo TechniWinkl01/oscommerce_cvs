@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.12 2003/02/06 17:38:16 thomasamoulton Exp $
+  $Id: account_history_info.php,v 1.13 2003/04/15 17:48:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,11 +31,11 @@ define('HEADING_BILLING_INFORMATION', 'Datos de Facturacion');
 define('HEADING_BILLING_ADDRESS', 'Direccion de Facturacion');
 define('HEADING_PAYMENT_METHOD', 'Forma de Pago');
 
-define('HEADING_ORDER_HISTORY', 'Order History');
+define('HEADING_ORDER_HISTORY', 'Mis Pedidos');
 define('HEADING_COMMENT', 'Comentario');
 define('TEXT_NO_COMMENTS_AVAILABLE', 'No hay comentarios.');
 
-define('TABLE_HEADING_DOWNLOAD_DATE', 'Fecha Caducidad');
-define('TABLE_HEADING_DOWNLOAD_COUNT', 'Descargas Maximas');
-define('HEADING_DOWNLOAD', 'Descarga tus productos aqui:');
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Fecha Caducidad: ');
+define('TABLE_HEADING_DOWNLOAD_COUNT', ' descargas restantes');
+define('HEADING_DOWNLOAD', 'Descarga tus productos aqui');
 ?>

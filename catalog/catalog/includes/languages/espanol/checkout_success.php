@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.10 2002/11/12 00:45:21 dgw_ Exp $
+  $Id: checkout_success.php,v 1.11 2003/04/15 17:48:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,8 +23,8 @@ define('TEXT_THANKS_FOR_SHOPPING', '¡Gracias por comprar con nosotros!');
 
 define('TABLE_HEADING_COMMENTS', 'Introduzca un comentario sobre su pedido');
 
-define('TABLE_HEADING_DOWNLOAD_DATE', 'Caducidad');
-define('TABLE_HEADING_DOWNLOAD_COUNT', 'Descargas Maximas');
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Fecha Caducidad: ');
+define('TABLE_HEADING_DOWNLOAD_COUNT', ' descargas restantes');
 define('HEADING_DOWNLOAD', 'Descargue sus productos aqui:');
 define('FOOTER_DOWNLOAD', 'Puede descargar sus productos mas tarde en \'%s\'');
 ?>

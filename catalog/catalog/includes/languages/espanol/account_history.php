@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.7 2002/11/12 00:45:21 dgw_ Exp $
+  $Id: account_history.php,v 1.8 2003/04/15 17:48:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,5 +23,5 @@ define('TEXT_ORDER_PRODUCTS', 'Productos:');
 define('TEXT_ORDER_COST', 'Precio:');
 define('TEXT_VIEW_ORDER', 'Ver Pedido');
 
-define('TEXT_NO_PURCHASES', 'No ha realizado ningun pedido aun...');
+define('TEXT_NO_PURCHASES', 'No ha realizado ningun pedido aun.');
 ?>

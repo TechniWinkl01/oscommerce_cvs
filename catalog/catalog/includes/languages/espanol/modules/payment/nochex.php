@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: nochex.php,v 1.2 2002/11/01 05:38:19 hpdl Exp $
+  $Id: nochex.php,v 1.3 2003/04/15 17:48:50 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,5 +11,5 @@
 */
 
   define('MODULE_PAYMENT_NOCHEX_TEXT_TITLE', 'NOCHEX');
-  define('MODULE_PAYMENT_NOCHEX_TEXT_DESCRIPTION', 'NOCHEX<br>Requires the GBP currency.');
+  define('MODULE_PAYMENT_NOCHEX_TEXT_DESCRIPTION', 'NOCHEX<br>Requiere la moneda GBP (Libras).');
 ?>
