@@ -206,14 +206,14 @@
 // define how the session functions will be used
   $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
-// define our general functions used application-wide
-  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
-
 // lets start our session
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
     session_set_cookie_params(0, DIR_WS_ADMIN);
   }
+
+// define our general functions used application-wide
+  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
