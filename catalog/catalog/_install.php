@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _install.php,v 1.5 2001/12/12 15:24:30 jan0815 Exp $
+  $Id: _install.php,v 1.6 2001/12/13 11:49:07 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -48,11 +48,11 @@
                      'define(\'STORE_SESSIONS\', \'' . $HTTP_POST_VARS['STORE_SESSIONS'] . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
-    if ($fp = fopen('includes/local/configure.php', 'w')) {
+    if ($fp = fopen('includes/configure.php', 'w')) {
       fputs($fp, $file_contents);
       fclose($fp);
     } else {
-      echo 'Could not write to <b>includes/local/configure.php</B>. Please check the file permissions.';
+      echo 'Could not write to <b>includes/configure.php</B>. Please check the file permissions.';
     }
     header('Location: ' . $HTTP_POST_VARS['HTTP_SERVER'] . $HTTP_POST_VARS['DIR_WS_CATALOG']);
     exit;
@@ -80,14 +80,14 @@
 <p>
 <b>The Exchange Project Preview Release 2.2 Automatic Installation Script</b>
 <p>
-This installation script will write the following information to <b>includes/local/configure.php</b>. The values in this file overwrite those in <i>includes/configure.php</i>.
+This installation script will write the following information to <b>includes/configure.php</b>. The values in this file overwrite those in <i>includes/configure.php</i>.
 <p>
-For this installation script to successfully write to <i>includes/local/configure.php</i>, the right user permissions on this file has to be set.
+For this installation script to successfully write to <i>includes/configure.php</i>, the right user permissions on this file has to be set.
 <?php
-  if ($fp = @fopen('includes/local/configure.php', 'w')) {
+  if ($fp = @fopen('includes/configure.php', 'w')) {
     echo '<p class="boxMe">Checking file permissions: <b>File exists, and I can write to it.</b></p>' .  "\n";
   } else {
-    echo '<div class="boxMe">Checking file permissions: <b>File does not exist, or I cannot write to it.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd ' . dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]) . '/includes/local</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div>' . "\n";
+    echo '<div class="boxMe">Checking file permissions: <b>File does not exist, or I cannot write to it.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd ' . dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]) . '/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div>' . "\n";
     echo '<p>' . "\n" . 'Please <a href="' . basename($PHP_SELF) . '">reload</a> this page once the above actions have been executed.' . "\n" .
          '</body>' . "\n" .
          '</html>';
@@ -96,7 +96,7 @@ For this installation script to successfully write to <i>includes/local/configur
 ?>
 <p>
 After this file has been written to, reset the file permissions for security reasons.
-<div class="boxMe"><ul class="boxMe"><li>cd <?php echo dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]); ?>/includes/local</li><li>chmod 704 configure.php</li></ul></div>
+<div class="boxMe"><ul class="boxMe"><li>cd <?php echo dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]); ?>/includes</li><li>chmod 704 configure.php</li></ul></div>
 <p>
 <font color="#ff0000"><b>It is important that this installation script <small>(_install.php)</small> is deleted after the configuration has been written.</b></font>
 <p>
