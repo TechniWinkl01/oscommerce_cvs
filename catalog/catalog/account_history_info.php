@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.53 2001/09/01 15:50:34 hpdl Exp $
+  $Id: account_history_info.php,v 1.54 2001/09/10 11:12:40 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -159,7 +159,7 @@
 <?
   }
 
-  $shipping = $order_values['shipping_cost'];
+  $shipping = $order['shipping_cost'];
   if ( (MODULE_SHIPPING_INSTALLED) || ($shipping > 0) ) {
 ?>
               <tr>
