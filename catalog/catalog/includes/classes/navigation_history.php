@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.1 2002/03/07 19:58:11 hpdl Exp $
+  $Id: navigation_history.php,v 1.2 2002/08/01 10:55:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,22 +23,22 @@
     }
 
     function add_current_page() {
-      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_SERVER_VARS;
+      global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_SERVER_VARS, $cPath;
 
       $set = 'true';
       for ($i=0; $i<sizeof($this->path); $i++) {
         if ( ($this->path[$i]['page'] == basename($PHP_SELF)) ) {
-          if ($HTTP_GET_VARS['cPath']) {
+          if ($cPath) {
             if (!$this->path[$i]['get']['cPath']) {
               continue;
             } else {
-              if ($this->path[$i]['get']['cPath'] == $HTTP_GET_VARS['cPath']) {
+              if ($this->path[$i]['get']['cPath'] == $cPath) {
                 array_splice($this->path, ($i+1));
                 $set = 'false';
                 break;
               } else {
                 $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
-                $new_cPath = explode('_', $HTTP_GET_VARS['cPath']);
+                $new_cPath = explode('_', $cPath);
 
                 for ($j=0; $j<sizeof($old_cPath); $j++) {
                   if ($old_cPath[$j] != $new_cPath[$j]) {

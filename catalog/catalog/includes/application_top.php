@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.241 2002/08/01 10:35:19 hpdl Exp $
+  $Id: application_top.php,v 1.242 2002/08/01 10:55:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -408,6 +408,7 @@
   }
   if (strlen($cPath) > 0) {
     $cPath_array = array_map('tep_string_to_int', explode('_', $cPath));
+    $cPath = implode('_', $cPath_array);
     $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
   } else {
     $current_category_id = 0;

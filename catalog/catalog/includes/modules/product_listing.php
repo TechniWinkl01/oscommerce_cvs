@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.37 2002/07/17 15:24:28 dgw_ Exp $
+  $Id: product_listing.php,v 1.38 2002/08/01 10:55:27 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,7 +114,7 @@
             if ($HTTP_GET_VARS['manufacturers_id']) {
               $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">' . $listing_values['products_name'] . '</a>';
             } else {
-              $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($HTTP_GET_VARS['cPath'] ? 'cPath=' . $HTTP_GET_VARS['cPath'] . '&' : '') . 'products_id=' . $listing_values['products_id']) . '">' . $listing_values['products_name'] . '</a>&nbsp;';
+              $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing_values['products_id']) . '">' . $listing_values['products_name'] . '</a>&nbsp;';
             }
             break;
           case 'PRODUCT_LIST_MANUFACTURER':
@@ -141,7 +141,7 @@
             if ($HTTP_GET_VARS['manufacturers_id']) {
               $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . $listing_values['products_image'], $listing_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>';
             } else {
-              $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($HTTP_GET_VARS['cPath'] ? 'cPath=' . $HTTP_GET_VARS['cPath'] . '&' : '') . 'products_id=' . $listing_values['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $listing_values['products_image'], $listing_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>&nbsp;';
+              $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing_values['products_id']) . '">' . tep_image(DIR_WS_IMAGES . $listing_values['products_image'], $listing_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>&nbsp;';
             }
             break;
           case 'PRODUCT_LIST_BUY_NOW':
