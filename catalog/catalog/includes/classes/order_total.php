@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_total.php,v 1.4 2003/02/11 00:04:53 hpdl Exp $
+  $Id: order_total.php,v 1.5 2003/11/17 19:30:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,14 +15,14 @@
 
 // class constructor
     function order_total() {
-      global $language;
+      global $osC_Session;
 
       if (defined('MODULE_ORDER_TOTAL_INSTALLED') && tep_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
         $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
 
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          include(DIR_WS_LANGUAGES . $language . '/modules/order_total/' . $value);
+          include(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/modules/order_total/' . $value);
           include(DIR_WS_MODULES . 'order_total/' . $value);
 
           $class = substr($value, 0, strrpos($value, '.'));

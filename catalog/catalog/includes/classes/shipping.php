@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.23 2003/06/29 11:22:05 hpdl Exp $
+  $Id: shipping.php,v 1.24 2003/11/17 19:35:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,7 @@
 
 // class constructor
     function shipping($module = '') {
-      global $language, $PHP_SELF;
+      global $osC_Session, $PHP_SELF;
 
       if (defined('MODULE_SHIPPING_INSTALLED') && tep_not_null(MODULE_SHIPPING_INSTALLED)) {
         $this->modules = explode(';', MODULE_SHIPPING_INSTALLED);
@@ -33,7 +33,7 @@
         }
 
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
-          include(DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $include_modules[$i]['file']);
+          include(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/modules/shipping/' . $include_modules[$i]['file']);
           include(DIR_WS_MODULES . 'shipping/' . $include_modules[$i]['file']);
 
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
