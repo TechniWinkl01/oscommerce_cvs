@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.28 2002/01/14 17:01:49 hpdl Exp $
+  $Id: file_manager.php,v 1.29 2002/01/15 12:15:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -130,7 +130,7 @@
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
-<body>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -247,7 +247,11 @@
     }
 
     if ( (is_object($fInfo)) && ($contents[$i]['name'] == $fInfo->name) ) {
-      echo '              <tr class="selectedRow">' . "\n";
+      if ($fInfo->is_dir) {
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'goto=' . $fInfo->name) . '\'">' . "\n";
+      } else {
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=edit') . '\'">' . "\n";
+      }
     } else {
       echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($contents[$i]['name'])) . '\'">' . "\n";
     }
