@@ -171,6 +171,7 @@ define('IMAGE_MODIFY', 'Modificar');
 define('IMAGE_MOVE', 'Mover');
 define('IMAGE_NEW_CATEGORY', 'Nueva Categoria');
 define('IMAGE_NEW_PRODUCT', 'Nuevo Producto');
+define('IMAGE_NEW_TAX_CLASS', 'Nuevo Tipo de Impuesto');
 define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_PREVIEW', 'Ver');
 define('IMAGE_SAVE', 'Grabar');
@@ -189,6 +190,7 @@ define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos esperados)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');

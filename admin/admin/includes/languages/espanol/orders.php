@@ -18,6 +18,7 @@ define('TABLE_HEADING_DATE_PURCHASED', 'Fecha de Compra');
 define('TABLE_HEADING_STATUS', 'Estado');
 define('TABLE_HEADING_QUANTITY', 'Cantidad');
 define('TABLE_HEADING_PRODUCTS', 'Productos');
+define('TABLE_HEADING_TAX', 'Impuesto');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_STATUS', 'Estado');
 
