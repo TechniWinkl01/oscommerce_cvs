@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.1 2001/10/21 16:07:31 dgw_ Exp $
+  $Id: file_manager.php,v 1.2 2001/11/18 12:39:46 mabosch Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,15 +10,15 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Current Path');
-define('HEADING_TITLE', 'File Manager');
+define('TOP_BAR_TITLE', 'Aktueller Pfad');
+define('HEADING_TITLE', 'Datei-Manager');
 
 define('TABLE_HEADING_FILENAME', 'Name');
-define('TABLE_HEADING_ACTION', 'Action');
+define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_FILE_NAME', 'Filename:');
-define('TEXT_LAST_MODIFIED', 'Last Modified:');
-define('TEXT_NEW_FOLDER', 'New Folder');
-define('TEXT_NEW_FOLDER_INTRO', 'Enter the name for the new folder:');
-define('TEXT_DELETE_INTRO', 'Are you want to delete this file?');
+define('TEXT_FILE_NAME', 'Dateiname:');
+define('TEXT_LAST_MODIFIED', 'letzte Änderung:');
+define('TEXT_NEW_FOLDER', 'Neues Verzeichnis');
+define('TEXT_NEW_FOLDER_INTRO', 'Geben Sie den Namen für das neue Verzeichnis ein:');
+define('TEXT_DELETE_INTRO', 'Sind Sie sicher, daß Sie diese Datei löschen möchten?');
 ?>
