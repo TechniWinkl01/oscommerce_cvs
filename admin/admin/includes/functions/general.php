@@ -639,4 +639,45 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     return $product['products_url'];
   }
+
+////
+// Count how many products exist in a category
+// TABLES: products, products_to_categories, categories
+  function tep_products_in_category_count($categories_id, $include_deactivated = false) {
+    $products_count = 0;
+
+    if ($include_deactivated) {
+      $products_query = tep_db_query("select count(*) as total from products p, products_to_categories p2c where p.products_id = p2c.products_id and p2c.categories_id = '" . $categories_id . "'");
+    } else {
+      $products_query = tep_db_query("select count(*) as total from products p, products_to_categories p2c where p.products_id = p2c.products_id and p.products_status = 1 and p2c.categories_id = '" . $categories_id . "'");
+    }
+
+    $products = tep_db_fetch_array($products_query);
+
+    $products_count += $products['total'];
+
+    $childs_query = tep_db_query("select categories_id from categories where parent_id = '" . $categories_id . "'");
+    if (tep_db_num_rows($childs_query)) {
+      while ($childs = tep_db_fetch_array($childs_query)) {
+        $products_count += tep_products_in_category_count($childs['categories_id'], $include_deactivated);
+      }
+    }
+
+    return $products_count;
+  }
+
+////
+// Count how many subcategories exist in a category
+// TABLES: categories
+  function tep_childs_in_category_count($categories_id) {
+    $categories_count = 0;
+
+    $categories_query = tep_db_query("select categories_id from categories where parent_id = '" . $categories_id . "'");
+    while ($categories = tep_db_fetch_array($categories_query)) {
+      $categories_count++;
+      $categories_count += tep_childs_in_category_count($categories['categories_id']);
+    }
+
+    return $categories_count;
+  }
 ?>
