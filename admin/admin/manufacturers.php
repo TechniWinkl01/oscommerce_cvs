@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.32 2001/09/23 15:32:38 hpdl Exp $
+  $Id: manufacturers.php,v 1.33 2001/09/27 10:15:39 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -226,7 +226,7 @@
               </tr>
 <?php
   $info_box_contents = array();
-  if ($mInfo) {
+  if ($mInfo || ($HTTP_GET_VARS['action'] == 'new') ) {
     if ($HTTP_GET_VARS['action'] == 'new') {
       $form = '<form name="manufacturers" enctype="multipart/form-data" action="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')) . 'action=insert', 'NONSSL') . '" method="post">' . "\n";
 
@@ -235,7 +235,7 @@
 
       $languages = tep_get_languages();
       for ($i=0; $i<sizeof($languages); $i++) {
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_EDIT_MANUFACTURERS_URL . ' (' . $languages[$i]['name'] . ')<br><input type="text" name="manufacturers_url[' . $languages[$i]['id'] . ']"><br>');
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_URL . ' (' . $languages[$i]['name'] . ')<br>&nbsp;<input type="text" name="manufacturers_url[' . $languages[$i]['id'] . ']"><br>');
       }
 
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
@@ -247,7 +247,7 @@
 
       $languages = tep_get_languages();
       for ($i=0; $i<sizeof($languages); $i++) {
-        $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_EDIT_MANUFACTURERS_URL . ' (' . $languages[$i]['name'] . ')<br><input type="text" name="manufacturers_url[' . $languages[$i]['id'] . ']" value="' . tep_get_manufacturer_url($mInfo->id, $languages[$i]['id']) . '"><br>');
+        $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_EDIT_MANUFACTURERS_URL . ' (' . $languages[$i]['name'] . ')<br>&nbsp;<input type="text" name="manufacturers_url[' . $languages[$i]['id'] . ']" value="' . tep_get_manufacturer_url($mInfo->id, $languages[$i]['id']) . '"><br>');
       }
 
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_save.gif', IMAGE_SAVE) . '<a href="' . tep_href_link(FILENAME_MANUFACTURERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
