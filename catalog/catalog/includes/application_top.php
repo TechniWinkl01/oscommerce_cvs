@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.104 2001/04/15 17:43:12 hpdl Exp $
+  $Id: application_top.php,v 1.105 2001/04/15 19:34:07 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -209,7 +209,9 @@
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
 // lets start our session
-  if ( (!SID) && ($HTTP_GET_VARS[tep_session_name()]) ) {
+  if ($HTTP_POST_VARS[tep_session_name()]) {
+    tep_session_id($HTTP_POST_VARS[tep_session_name()]);
+  } elseif ($HTTP_GET_VARS[tep_session_name()]) {
     tep_session_id($HTTP_GET_VARS[tep_session_name()]);
   }
   tep_session_start();

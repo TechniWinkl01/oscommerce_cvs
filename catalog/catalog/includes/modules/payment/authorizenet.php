@@ -100,14 +100,14 @@
           $process_button_string = '<input type="hidden" name="x_Login" value="testing">' .
                                    '<input type="hidden" name="x_Card_Num" value="' . $CardNumber . '">' .
                                    '<input type="hidden" name="x_Exp_Date" value="' . $HTTP_POST_VARS['cc_expires_month'] . '-' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                                   '<input type="hidden" name="x_Ammount" value="' . number_format($total_cost + $total_tax + $shipping_cost, 2) . '">' .
+                                   '<input type="hidden" name="x_Amount" value="' . number_format($total_cost + $total_tax + $shipping_cost, 2) . '">' .
                                    '<input type="hidden" name="x_ADC_Relay_Response" value="TRUE">' .
                                    '<input type="hidden" name="x_ADC_URL" value="' . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_CHECKOUT_PROCESS . '">' .
                                    '<input type="hidden" name="x_Version" value="3.0">' .
                                    '<input type="hidden" name="' . tep_session_name() . '" value="' . tep_session_id() . '">';
         } else {
           $process_button_string = '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                                   '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">';
+                                   '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
                                    '<input type="hidden" name="cc_expires_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
                                    '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">';
         }
