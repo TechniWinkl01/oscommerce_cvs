@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.105 2002/01/18 12:35:46 hpdl Exp $
+  $Id: general.php,v 1.106 2002/01/20 15:09:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -697,9 +697,10 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
 ////
 // Alias function for Store configuration values in the Administration Tool
-  function tep_cfg_select_option($select_array, $key_value) {
+  function tep_cfg_select_option($select_array, $key_value, $key = '') {
     for ($i=0; $i<sizeof($select_array); $i++) {
-      $string .= '<br><input type="radio" name="configuration_value" value="' . $select_array[$i] . '"';
+      $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
+      $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
       if ($key_value == $select_array[$i]) $string .= ' CHECKED';
       $string .= '> ' . $select_array[$i];
     }
