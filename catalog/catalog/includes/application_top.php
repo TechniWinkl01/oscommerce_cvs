@@ -9,6 +9,7 @@
   define('DIR_INCLUDES', 'includes/');
   define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
   define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
+  define('DIR_CLASSES', DIR_INCLUDES . '/classes/');
   define('DIR_MODULES', DIR_INCLUDES . 'modules/');
   define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
 
@@ -28,11 +29,19 @@
   }
   define('STORE_DB_TRANSACTIONS', 0);
 
+// include shopping cart class
+  $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // define how the session functions will be used
   $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
 
 // lets start our session
   tep_session_start();
+
+  tep_session_register('cart');
+  if (!$cart) {
+    $cart = new shoppingCart;
+  }
 
 // define the filenames used in the project
   define('FILENAME_NEW_PRODUCTS', 'new_products.php'); // This is the middle of default.php (found in modules)
@@ -83,6 +92,7 @@
 
 // define our general functions used application-wide
   $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // Include the password crypto functions
  $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
 
@@ -91,9 +101,8 @@
   define('TAX_VALUE', 16); // propducts tax
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
   define('MAX_ADDRESS_BOOK_ENTRIES', 5);
-  define('MAX_ROW_LISTS', 20); 
-  define('MAX_DISPLAY_SEARCH_RESULTS', 4);	// modified
-  define('MAX_DISPLAY_PAGE_LINKS', 3);		// used in search.php
+  define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
+  define('MAX_DISPLAY_PAGE_LINKS', 5); // how many page numbers to link for page-sets
   define('MAX_DISPLAY_SPECIAL_PRODUCTS', 9);
   define('MAX_DISPLAY_NEW_PRODUCTS', 9); // used when user has chosen a category, how many new products are shown
   define('MAX_DISPLAY_UPCOMING_PRODUCTS', 10); // how many upcoming products should be displayed on the main page
