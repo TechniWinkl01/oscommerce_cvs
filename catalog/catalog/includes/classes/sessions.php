@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.11 2002/08/08 16:43:58 dgw_ Exp $
+  $Id: sessions.php,v 1.12 2002/08/09 15:10:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -115,7 +115,7 @@
       global $session;
 
 // Open, read in, close file with session data
-      $file = $session->save_path . '/sess' . $sess_id;
+      $file = $session->save_path . '/sess_' . $sess_id;
       if (!file_exists($file)) {
 // Create it
         touch($file);
@@ -131,7 +131,7 @@
       global $session;
 
 // Open, write to, close file with session data
-      $file = $session->save_path . '/sess' . $sess_id;
+      $file = $session->save_path . '/sess_' . $sess_id;
       $fp = fopen($file, 'w') or die('Could not write session file (' . $file . ')');
       $val = fputs($fp, $val);
       fclose($fp);
@@ -142,7 +142,7 @@
     function destroy($sess_id) {
       global $session;
 
-      $file = $session->save_path . '/sess' . $sess_id;
+      $file = $session->save_path . '/sess_' . $sess_id;
       unlink($file);
 
       return true;
