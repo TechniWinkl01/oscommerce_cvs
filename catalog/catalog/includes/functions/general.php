@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.175 2002/05/23 22:56:20 hpdl Exp $
+  $Id: general.php,v 1.176 2002/05/27 13:17:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -456,54 +456,35 @@
     return $number;
   }
 
-////
-// Return a select pull down list of categories and subcategories
-// select_name =  value of the select's "name" attribute
-// selected = array of categories_ids of category to be selected
-//            (0=selects blank; when more than one ID is selected
-//            the "multiple" attribute will be included)
-// size = value of the select's "size" attribute
-// multiple = include/exclude select's "mutliple" attribute
-//            (0=exclude; 1=include)
-// blank_text = string for displaying in the first option
-//
-// Example:  To display a drop-down with categories_id '5' selected:
-// $selected[0] = 5;
-// display_cat_select("category",$selected);
-//
-// To display a list box with 10 rows with categories_id '5' and '11' selected:
-// $selected[0] = 5;
-// $selected[1] = 11;
-// display_cat_select("category",$selected, 10);
-  function tep_display_cat_select($select_name, $selected, $size = 1, $multiple = 0, $blank_text = '') {
-    $select_string = '<select name="' . $select_name . '" size="' . $size . '"';
-    if ( (sizeof($selected) > 1) || ($multiple == 1) ) $select_string .= ' MULTIPLE';
-    $select_string .= '><option value=""';
-    if (in_array(0, $selected)) $select_string .= ' SELECTED';
-    $select_string .= '>' . $blank_text . '</option>';
-
-    $output = '';
-    tep_build_cat_options($output, $selected);
-    $select_string .= $output . '</select>';
-
-    return $select_string;
-  }
-
-////
-// Recursively fo through the category tree and output each category in a select pull down option
-  function tep_build_cat_options(&$output, $preselected, $parent_id = 0, $indent = '') {
+  function tep_get_categories($categories_array = '', $parent_id = '0', $indent = '') {
     global $languages_id;
 
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where parent_id = '" . $parent_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
+    $parent_id = tep_db_prepare_input($parent_id);
+
+    if (!is_array($categories_array)) $categories_array = array();
+
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where parent_id = '" . tep_db_input($parent_id) . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
-      $output .= '<option value="' . $categories['categories_id'] . '"';
-      if (in_array($categories['categories_id'], $preselected)) $output .= ' SELECTED';
-      $output .= '>' . $indent . $categories['categories_name'] . '</option>';
+      $categories_array[] = array('id' => $categories['categories_id'],
+                                  'text' => $indent . $categories['categories_name']);
 
       if ($categories['categories_id'] != $parent_id) {
-        tep_build_cat_options($output, $preselected, $categories['categories_id'], $indent . '&nbsp;&nbsp;');
+        $categories_array = tep_get_categories($categories_array, $categories['categories_id'], $indent . '&nbsp;&nbsp;');
       }
     }
+
+    return $categories_array;
+  }
+
+  function tep_get_manufacturers($manufacturers_array = '') {
+    if (!is_array($manufacturers_array)) $manufacturers_array = array();
+
+    $manufacturers_query = tep_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS . " order by manufacturers_name");
+    while ($manufacturers = tep_db_fetch_array($manufacturers_query)) {
+      $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']);
+    }
+
+    return $manufacturers_array;
   }
 
 ////
