@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.7 2002/04/03 23:25:41 hpdl Exp $
+  $Id: modules.php,v 1.8 2002/04/09 18:12:41 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,10 +12,10 @@
 
 define('HEADING_TITLE_MODULES_PAYMENT', 'Zahlungsweisen');
 define('HEADING_TITLE_MODULES_SHIPPING', 'Versandarten');
-define('HEADING_TITLE_MODULES_ORDER_TOTAL', 'Order Total Modules');
+define('HEADING_TITLE_MODULES_ORDER_TOTAL', 'Modul Zusammenfassung einer Bestellung');
 
 define('TABLE_HEADING_MODULES', 'Module');
-define('TABLE_HEADING_SORT_ORDER', 'Sort Order');
+define('TABLE_HEADING_SORT_ORDER', 'Reihenfolge');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
