@@ -35,11 +35,14 @@
           if ($manufacturer_info[1] == 'none') { // the manufacturer has been updated to be deleted..
             tep_db_query("delete from products_to_manufacturers where products_to_manufacturers_id = '" . $manufacturer_info[0] . "'");
           } else { // the manufacturer has been updated to another manufacturer
-            tep_db_query("update products_to_manufacturers set manufacturers_id = '" . $manufacturer_info[1] . "' where products_to_manufacturers_id = '" . $manufacturer_info[0] . "'");
+            if ($manufacturer_info[1]) {
+              tep_db_query("update products_to_manufacturers set manufacturers_id = '" . $manufacturer_info[1] . "' where products_to_manufacturers_id = '" . $manufacturer_info[0] . "'");
+            } else {
+              if ($manufacturer_info[0] != 'none') { // insert new manufacturer
+                tep_db_query("insert into products_to_manufacturers values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $manufacturer_info[0] . "')");
+              }
+            }
           }
-        }
-        if (($manufacturer_info[0]) && (!$manufacturer_info[1])) { // insert a new manufacturer
-          tep_db_query("insert into products_to_manufacturers values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $manufacturer_info[0] . "')");
         }
       }
 /* subcategories */
@@ -58,11 +61,14 @@
           if ($subcategory_info[1] == 'none') { // the subcategory has been updated to be deleted..
             tep_db_query("delete from products_to_subcategories where products_to_subcategories_id = '" . $subcategory_info[0] . "'");
           } else { // the subcategory has been updated to another subcategory
-            tep_db_query("update products_to_subcategories set subcategories_id = '" . $subcategory_info[1] . "' where products_to_subcategories_id = '" . $subcategory_info[0] . "'");
+            if ($subcategory_info[1]) {
+              tep_db_query("update products_to_subcategories set subcategories_id = '" . $subcategory_info[1] . "' where products_to_subcategories_id = '" . $subcategory_info[0] . "'");
+            } else {
+              if ($subcategory_info[0] != 'none') { // insert a new subcategory
+                tep_db_query("insert into products_to_subcategories values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $subcategory_info[0] . "')");
+              }
+            }
           }
-        }
-        if (($subcategory_info[0]) && (!$subcategory_info[1])) { // insert a new subcategory
-          tep_db_query("insert into products_to_subcategories values ('', '" . $HTTP_POST_VARS['products_id'] . "', '" . $subcategory_info[0] . "')");
         }
       }
       header('Location: ' . tep_href_link(FILENAME_PRODUCTS, '', 'NONSSL')); tep_exit();
