@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.22 2001/07/16 16:59:05 dwatkins Exp $
+  $Id: products_attributes.php,v 1.23 2001/08/09 20:12:05 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -149,7 +149,7 @@ function checkFormAtrib() {
 
 //--></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body>
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -215,7 +215,7 @@ function checkFormAtrib() {
       while ($products_values = tep_db_fetch_array($products)) {
         $rows++;
 ?>
-                  <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+                  <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
                     <td align="center" class="smallText">&nbsp;<? echo $products_values['products_id']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<? echo $products_values['products_name']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<? echo $products_values['products_options_values_name']; ?>&nbsp;</td>
@@ -324,7 +324,7 @@ function checkFormAtrib() {
     while ($options_values = tep_db_fetch_array($options)) {
       $rows++;
 ?>
-              <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+              <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?
       if (($HTTP_GET_VARS['action'] == 'update_option') && ($HTTP_GET_VARS['option_id'] == $options_values['products_options_id'])) {
         echo '<form name="option" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_name', 'NONSSL') . '" method="post" onSubmit="return checkFormOption();">';
@@ -332,7 +332,7 @@ function checkFormAtrib() {
         for ($i = 0; $i < sizeof($languages); $i ++) {
           $option_name = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_values['products_options_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
           $option_name = tep_db_fetch_array($option_name);
-          $inputs .= '&nbsp;' . $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br>';
+          $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br>';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<? echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<? echo $options_values['products_options_id']; ?>">&nbsp;</td>
@@ -361,16 +361,16 @@ function checkFormAtrib() {
 <?
     if (!$HTTP_GET_VARS['action'] == 'update_option') {
 ?>
-              <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+              <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?
       echo '<form name="options" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_options', 'NONSSL') . '" method="post" onSubmit="return checkFormOpt();"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
       $inputs = '';
       for ($i = 0; $i < sizeof($languages); $i ++) {
-        $inputs .= '&nbsp;' . $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br>';
+        $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br>';
       }
 ?>
                 <td align="center" class="smallText">&nbsp;<? echo $next_id; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<? echo $inputs; ?></td>
+                <td class="smallText"><? echo $inputs; ?></td>
                 <td align="center" class="smallText">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?>&nbsp;</td>
 <?
         echo '</form>';
@@ -417,7 +417,7 @@ function checkFormAtrib() {
       while ($products_values = tep_db_fetch_array($products)) {
         $rows++;
 ?>
-                  <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+                  <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
                     <td align="center" class="smallText">&nbsp;<? echo $products_values['products_id']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<? echo $products_values['products_name']; ?>&nbsp;</td>
                     <td class="smallText">&nbsp;<? echo $products_values['products_options_name']; ?>&nbsp;</td>
@@ -525,7 +525,7 @@ function checkFormAtrib() {
       $values_name = tep_values_name($values_values['products_options_values_id']);
       $rows++;
 ?>
-              <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+              <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?
       if (($HTTP_GET_VARS['action'] == 'update_option_value') && ($HTTP_GET_VARS['value_id'] == $values_values['products_options_values_id'])) {
         echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_value', 'NONSSL') . '" method="post" onSubmit="return checkFormValue();">';
@@ -533,7 +533,7 @@ function checkFormAtrib() {
         for ($i = 0; $i < sizeof($languages); $i ++) {
           $value_name = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_values['products_options_values_id'] . "' and language_id = '" . $languages[$i]['id'] . "'");
           $value_name = tep_db_fetch_array($value_name);
-          $inputs .= '&nbsp;' . $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br>';
+          $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br>';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<? echo $values_values['products_options_values_id']; ?><input type="hidden" name="value_id" value="<? echo $values_values['products_options_values_id']; ?>">&nbsp;</td>
@@ -573,7 +573,7 @@ function checkFormAtrib() {
 <?
     if (!$HTTP_GET_VARS['action'] == 'update_value') {
 ?>
-              <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+              <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?
       echo '<form name="values" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_option_values', 'NONSSL') . '" method="post" onSubmit="return checkFormVal();">';
 ?>
@@ -587,11 +587,11 @@ function checkFormAtrib() {
 
       $inputs = '';
       for ($i = 0; $i < sizeof($languages); $i ++) {
-        $inputs .= '&nbsp;' . $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15">&nbsp;<br>';
+        $inputs .= $languages[$i]['code'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15">&nbsp;<br>';
       }
 ?>
                 </select>&nbsp;</td>
-                <td class="smallText">&nbsp;<input type="hidden" name="value_id" value="<? echo $next_id; ?>"><? echo $inputs; ?></td>
+                <td class="smallText"><input type="hidden" name="value_id" value="<? echo $next_id; ?>"><? echo $inputs; ?></td>
                 <td align="center" class="smallText">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT); ?>&nbsp;</td>
 <?
       echo '</form>';
@@ -695,7 +695,7 @@ function checkFormAtrib() {
     $values_name = tep_values_name($attributes_values['options_values_id']);
     $rows++;
 ?>
-          <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+          <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?
     if (($HTTP_GET_VARS['action'] == 'update_attribute') && ($HTTP_GET_VARS['attribute_id'] == $attributes_values['products_attributes_id'])) {
       echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_product_attribute' . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '" method="post" onSubmit="return checkFormAtrib();">';
@@ -777,7 +777,7 @@ function checkFormAtrib() {
 <?
   if (!$HTTP_GET_VARS['action'] == 'update_attribute') {
 ?>
-          <tr bgcolor="<? echo (floor($rows/2) == ($rows/2) ? '#ffffff' : '#f4f7fd'); ?>">
+          <tr class="<? echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
 <?
       echo '<form name="attributes" action="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=add_product_attributes', 'NONSSL') . '" method="post" onSubmit="return checkFormAtrib();">';
 ?>
@@ -829,7 +829,6 @@ function checkFormAtrib() {
 <!-- footer //-->
 <? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
-<br>
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
