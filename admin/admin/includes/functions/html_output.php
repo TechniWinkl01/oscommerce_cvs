@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.24 2002/04/23 21:00:43 jan0815 Exp $
+  $Id: html_output.php,v 1.25 2002/04/29 15:22:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -260,7 +260,7 @@
     $field .= '>';
     for ($i=0; $i<sizeof($values); $i++) {
       $field .= '<option value="' . $values[$i]['id'] . '"';
-      if ( ($GLOBALS[$name] == $values[$i]['id']) || ($default == $values[$i]['id']) ) {
+      if ( ((strlen($values[$i]['id']) > 0) && ($GLOBALS[$name] == $values[$i]['id'])) || ($default == $values[$i]['id']) ) {
         $field .= ' SELECTED';
       }
       $field .= '>' . $values[$i]['text'] . '</option>';
