@@ -1,6 +1,17 @@
 <?php
+/*
+  $Id: banner_info.php,v 1.6 2001/12/22 21:20:20 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+
   class bannerInfo {
-    var $id, $title, $url, $image, $group, $html_text, $expires_impressions, $expires_date, $date_scheduled, $date_added, $date_status_change, $status, $clicked, $shown, $expires_date_caljs_year, $expires_date_caljs_month, $expires_date_caljs_day, $scheduled_date_caljs_year, $scheduled_date_caljs_month, $scheduled_date_caljs_day;
+    var $id, $title, $url, $image, $group, $html_text, $expires_impressions, $expires_date, $date_scheduled, $date_added, $date_status_change, $status, $clicked, $shown;
 
 // class constructor
     function bannerInfo($bInfo_array) {
@@ -18,14 +29,6 @@
       $this->status = $bInfo_array['status'];
       $this->clicked = $bInfo_array['banners_clicked'];
       $this->shown = $bInfo_array['banners_shown'];
-
-      $this->expires_date_caljs_year = substr($this->expires_date, 0, 4);
-      $this->expires_date_caljs_month = substr($this->expires_date, 5, 2);
-      $this->expires_date_caljs_day = substr($this->expires_date, 8, 2);
-
-      $this->scheduled_date_caljs_year = substr($this->date_scheduled, 0, 4);
-      $this->scheduled_date_caljs_month = substr($this->date_scheduled, 5, 2);
-      $this->scheduled_date_caljs_day = substr($this->date_scheduled, 8, 2);
     }
   }
 ?>
