@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.152 2001/06/29 07:22:09 mbs Exp $
+  $Id: application_top.php,v 1.153 2001/07/17 22:37:36 mevans Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -160,12 +160,6 @@
 
   define('CHECKOUT_BAR_TEXT_COLOR', '#AABBDD');
   define('CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED', '#000000');
-
-// Stock Check & Update
-  define('STOCK_CHECK', 1);
-  define('STOCK_LIMITED', 1); // Subtract product in stock by product orders
-  define('STOCK_ALLOW_CHECKOUT', 1); 
-  define('STOCK_MARK_PRODUCT_OUT_OF_STOCK', '***');
 
 // set to "1" if extended email check function should be used
 // If you're testing locally and your webserver has no possibility to query
