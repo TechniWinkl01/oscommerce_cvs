@@ -73,6 +73,9 @@
             <td colspan="4"><? echo tep_black_line(); ?></td>
           </tr>
 <?
+  $order_currency_query = tep_db_query("select currency, currency_value from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order_currency = tep_db_fetch_array($order_currency_query);
+
   $orders_products = tep_db_query("select products_id, products_name, products_price, final_price, products_tax, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $total_cost = 0;
   $total_tax = 0;
@@ -94,13 +97,13 @@
 //------display customer choosen option eof-----
 	echo '</font></td>' . "\n";
     echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . number_format($orders_products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</font></td>' . "\n";
-    echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price']) . '</b>&nbsp;';
+    echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['products_id'] . "'");
       while ($attributes_values = tep_db_fetch_array($attributes)) {
         if ($attributes_values['options_values_price'] != '0') {
-          echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($orders_products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
+          echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($orders_products_values['products_quantity'] * $attributes_values['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>&nbsp;';
         } else {
           echo '<br>&nbsp;';
         }
@@ -122,7 +125,7 @@
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TABLE_SUBHEADING_SUBTOTAL; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</font></td>
               </tr>
 <?
   $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
@@ -132,7 +135,7 @@
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TABLE_SUBHEADING_TAX; ?>:&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</font></td>
               </tr>
 <?
   }
@@ -141,14 +144,14 @@
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $order_values['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($shipping); ?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</font></td>
               </tr>
 <?
   }
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_SUBHEADING_TOTAL; ?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping); ?></b>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>

@@ -54,22 +54,27 @@
   }
 
 // $currency is in the session variable
-  function tep_currency_format($number, $calculate_currency_value = true, $currency_value = '') {
+  function tep_currency_format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
     global $currency_rates, $currency;
 
-    if ($currency_value == '') {
-      $currency_value = $currency;
+    if ($currency_type == '') {
+      $currency_type = $currency;
     }
 
-    $currencies_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from currencies where code = '" . $currency_value . "'");
+    $currencies_query = tep_db_query("select symbol_left, symbol_right, decimal_point, thousands_point, decimal_places from currencies where code = '" . $currency_type . "'");
     $currencies = tep_db_fetch_array($currencies_query);
 
     if ($calculate_currency_value == true) {
-      if (strlen($currency_value) == 3) {
-        $rate = $currency_rates[$currency_value]; // read from catalog/includes/data/rates.php - the value is in /catalog/includes/languages/<language>.php
+      if (strlen($currency_type) == 3) {
+        $rate = $currency_rates[$currency_type]; // read from catalog/includes/data/rates.php - the value is in /catalog/includes/languages/<language>.php
       } else {
         $rate = 1;
       }
+
+      if ($currency_value != '') {
+        $rate = $currency_value;
+      }
+
       $number2currency = $currencies['symbol_left'] . number_format(($number * $rate), $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];
     } else {
       $number2currency = $currencies['symbol_left'] . number_format($number, $currencies['decimal_places'], $currencies['decimal_point'], $currencies['thousands_point']) . $currencies['symbol_right'];

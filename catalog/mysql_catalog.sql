@@ -191,6 +191,8 @@ CREATE TABLE orders (
   orders_status varchar(10) NOT NULL,
   orders_date_finished timestamp(14),
   comments text,
+  currency char(3),
+  currency_value decimal(14,6),
   PRIMARY KEY (orders_id)
 );
 

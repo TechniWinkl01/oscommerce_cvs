@@ -61,7 +61,7 @@
             <td colspan="4"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $history_sql = "select orders_id, date_purchased, shipping_cost, orders_status from orders where customers_id = '" . $customer_id . "' order by orders_id DESC";
+  $history_sql = "select orders_id, date_purchased, shipping_cost, orders_status, currency, currency_value from orders where customers_id = '" . $customer_id . "' order by orders_id DESC";
   $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $history_sql, $history_numrows);
   $history = tep_db_query($history_sql);
   if (@!tep_db_num_rows($history)) {
@@ -89,7 +89,7 @@
       }
       echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_id'] . '&nbsp;</font></td>' . "\n";
       echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</font></td>' . "\n";
-      echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($total_cost) . '&nbsp;</font></td>' . "\n";
+      echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($total_cost, true, $history_values['currency'], $history_values['currency_value']) . '&nbsp;</font></td>' . "\n";
       echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_status'] . '&nbsp;</font></td>' . "\n";
       echo '          </tr>' . "\n";
     }
