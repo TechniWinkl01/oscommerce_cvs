@@ -13,11 +13,11 @@ setlocale('LC_TIME', 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
-define('CURRENCY_BEFORE', 'DM ');
-define('CURRENCY_AFTER', '');
+define('CURRENCY_BEFORE', '');
+define('CURRENCY_AFTER', 'DM');
 define('CURRENCY_DECIMAL', ',');
 define('CURRENCY_THOUSANDS', '.');
-define('CURRENCY_VALUE', 1.9558);
+define('CURRENCY_VALUE', 1);
 
 // page title
 define('TITLE', 'The Exchange Project');

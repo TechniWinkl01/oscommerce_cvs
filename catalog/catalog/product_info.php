@@ -59,9 +59,9 @@
     }
     $products_name = tep_products_name($product_info_values['manufacturers_location'], $product_info_values['manufacturers_name'], $product_info_values['products_name']);
     if ($new_price) {
-      $products_price = '<s>$' . $product_info_values['products_price'] . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">$' . $new_price . '</font>';
+      $products_price = '<s>' . tep_currency_format($product_info_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>';
     } else {
-       $products_price = ' $' . $product_info_values['products_price'];
+       $products_price = tep_currency_format($product_info_values['products_price']);
     }
 ?>
       <tr>

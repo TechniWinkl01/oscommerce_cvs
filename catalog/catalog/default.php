@@ -154,10 +154,10 @@
         }
         echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;';
         if ($new_price) {
-          echo '<s>$' .  $listing_values['products_price'] . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">$' . $new_price . '</font>';
+          echo '<s>' .  tep_currency_format($listing_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>';
           unset($new_price);
         } else {
-          echo '$' . $listing_values['products_price'];
+          echo tep_currency_format($listing_values['products_price']);
         }
         echo '&nbsp;</font></td>' . "\n";
         echo '          </tr>' . "\n";

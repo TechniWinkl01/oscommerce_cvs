@@ -119,19 +119,19 @@
       echo '          <tr bgcolor="#f4f7fd">' . "\n";
     }
     echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $search_values['products_id'], 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
-    $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $search_values['products_id'] . "'"); 
-         if (tep_db_num_rows($check_special)) { 
-           $check_special_values = tep_db_fetch_array($check_special); 
-           $new_price = $check_special_values['specials_new_products_price']; 
-         }  
-         echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;'; 
-         if ($new_price) { 
-           echo '<s>$' .  $search_values['products_price'] . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">$' . $new_price . '</font>'; 
-           unset($new_price); 
-         } else { 
-           echo '$' . $search_values['products_price']; 
-         } 
-         echo '&nbsp;</font></td>' . "\n"; 
+    $check_special = tep_db_query("select specials.specials_new_products_price from specials where products_id = '" . $search_values['products_id'] . "'");
+         if (tep_db_num_rows($check_special)) {
+           $check_special_values = tep_db_fetch_array($check_special);
+           $new_price = $check_special_values['specials_new_products_price'];
+         }
+         echo '            <td align="right" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;';
+         if ($new_price) {
+           echo '<s>' .  tep_currency_format($search_values['products_price']) . '</s>&nbsp;&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_price) . '</font>'; 
+           unset($new_price);
+         } else {
+           echo tep_currency_format($search_values['products_price']);
+         }
+         echo '&nbsp;</font></td>' . "\n";
     echo '          </tr>' . "\n";
   }
 ?>

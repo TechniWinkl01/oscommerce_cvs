@@ -15,12 +15,12 @@ define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 
 // the CURRENCY_* constants will be used to format the currency to the selected locale.. this will be used with the 
-// tep_number_format() function.. although the function is here, it is not in use yet..
+// tep_currency_format() function.. although the function is here, it is not in use yet..
 define('CURRENCY_BEFORE', '$'); // currency character(s) before value
 define('CURRENCY_AFTER', ''); // currency character(s) after value
 define('CURRENCY_DECIMAL', '.'); // currency decimal point character
 define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
-define('CURRENCY_VALUE', 0.9551); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
+define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
 // for example:
 // products_price = 30.00 (in Euro)
 // currency_value = 0.9551 (US to Euro)

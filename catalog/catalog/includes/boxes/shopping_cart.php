@@ -61,7 +61,7 @@
   if (!$cart_empty == 1) {
 ?>
           <tr>
-            <td align="right" bgcolor="<?=BOX_CONTENT_BACKGROUND_COLOR;?>"><font face="<?=BOX_CONTENT_FONT_FACE;?>" color="<?=BOX_CONTENT_FONT_COLOR;?>" size="<?=BOX_CONTENT_FONT_SIZE;?>"><?=BOX_SHOPPING_CART_SUBTOTAL . ' $' . number_format($total_cost,2);?></font></td>
+            <td align="right" bgcolor="<?=BOX_CONTENT_BACKGROUND_COLOR;?>"><font face="<?=BOX_CONTENT_FONT_FACE;?>" color="<?=BOX_CONTENT_FONT_COLOR;?>" size="<?=BOX_CONTENT_FONT_SIZE;?>"><?=BOX_SHOPPING_CART_SUBTOTAL . ' ' . tep_currency_format($total_cost);?></font></td>
           </tr>
           <tr>
             <td align="right" bgcolor="<?=BOX_CONTENT_BACKGROUND_COLOR;?>"><font face="<?=BOX_CONTENT_FONT_FACE;?>" color="<?=BOX_CONTENT_FONT_COLOR;?>" size="<?=BOX_CONTENT_FONT_SIZE;?>"><a href="<?=tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL');?>"><?=BOX_SHOPPING_CART_VIEW_CONTENTS;?></a></font></td>

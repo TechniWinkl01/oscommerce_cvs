@@ -35,7 +35,7 @@
     $products_name = tep_products_name($cart_values['manufacturers_location'], $cart_values['manufacturers_name'], $cart_values['products_name']);
     tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . $cart_values['products_id'] . "', '" . addslashes($products_name) . "', '" . $price . "', '" . $cart_values['customers_basket_quantity'] . "')");
 
-    $products_ordered.="$cart_values[customers_basket_quantity] x $products_name = $" . number_format($price * $cart_values[customers_basket_quantity],2) . "\n";
+    $products_ordered.= $cart_values['customers_basket_quantity'] . ' x ' . $products_name . '= ' . tep_currency_format($price * $cart_values['customers_basket_quantity']) . "\n";
     $subtotal = $subtotal + ($cart_values['customers_basket_quantity'] * $price);
   }
 

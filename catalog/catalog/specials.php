@@ -52,7 +52,7 @@
     while ($new_values = tep_db_fetch_array($new)) {
       $row++;
       $products_name = tep_products_name($new_values['manufacturers_location'], $new_values['manufacturers_name'], $new_values['products_name']);
-      echo '            <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image($new_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0', $products_name) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $products_name . '</a><br><s>$' . $new_values['products_price'] . '</s>&nbsp;<font color="<?=SPECIALS_PRICE_COLOR;?>">$' . $new_values['specials_new_products_price'] . '</font></font></td>' . "\n";
+      echo '            <td align="center"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . tep_image($new_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0', $products_name) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_values['products_id'], 'NONSSL') . '">' . $products_name . '</a><br><s>' . tep_currency_format($new_values['products_price']) . '</s>&nbsp;<font color="' . SPECIALS_PRICE_COLOR . '">' . tep_currency_format($new_values['specials_new_products_price']) . '</font></font></td>' . "\n";
       if ((($row / 3) == floor($row / 3)) && ($row != 9)) {
         echo '          </tr>' . "\n";
         echo '          <tr>' . "\n";

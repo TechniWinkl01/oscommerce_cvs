@@ -43,12 +43,11 @@
     return $link;
   }
 
-  function tep_number_format($number) {
-    global $f_number;
+  function tep_currency_format($number) {
 
-    $f_number = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+    $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
 
-    return $f_number;
+    return $number2currency;
   }
 
   function tep_products_name($manufacturers_location, $manufacturers_name, $products_name) {
