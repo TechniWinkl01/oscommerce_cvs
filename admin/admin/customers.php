@@ -30,6 +30,7 @@
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')) . 'info=' . $HTTP_POST_VARS['customers_id'], 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
+    tep_db_query("delete from " . TABLE_REVIEWS . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     tep_db_query("delete from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     tep_db_query("delete from " . TABLE_CUSTOMERS . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action','info')), 'NONSSL')); 
