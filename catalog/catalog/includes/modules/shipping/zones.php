@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id $
+  $Id: zones.php,v 1.11 2002/07/01 18:01:50 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
