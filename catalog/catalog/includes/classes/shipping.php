@@ -28,6 +28,7 @@
           $class = substr($value, 0, strrpos($value, '.'));
           echo $GLOBALS[$class]->select();
         }
+        echo '<input type="hidden" name="shipping_quote_all" value="0">';
       }
     }
 

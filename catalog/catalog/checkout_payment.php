@@ -16,6 +16,8 @@
   $sendto = $HTTP_POST_VARS['sendto'];
   if ($sendto == '') {
     $sendto = '0';
+  }
+  if (!tep_in_array('shipping_quote_all', $HTTP_POST_VARS)) {
     $shipping_quote_all = '1';
   }
   if ($sendto == '0') {
