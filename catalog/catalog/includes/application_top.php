@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.196 2001/12/15 12:48:53 hpdl Exp $
+  $Id: application_top.php,v 1.197 2001/12/15 13:06:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,20 +13,20 @@
 // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
+// Set the level of error reporting
+  error_reporting(E_ALL & ~E_NOTICE);
+
+// Set the local configuration parameters - mainly for developers
+  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+
 // Disable use_trans_sid as tep_href_link() does this manually
 // Add the 'includes' directory in the include_path, so we can include the configure.php file
 // For security reasons, the configure.php file should be located outside the webserver directory
   if (function_exists('ini_set')) {
     ini_set('session.use_trans_sid', 0);
     ini_set('include_path', ini_get('include_path') . ':includes/');
-  }
-
-// Set the local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
-
-// Include application configuration parameters
-// First look in include_path set above, if not found look in 'includes/'
-  if (!@include('configure.php')) {
+    include('configure.php');
+  } else {
     include('includes/configure.php');
   }
 
