@@ -43,8 +43,8 @@
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
-          <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-            <td><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
+          <tr class="subBar">
+            <td class="subBar">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -64,8 +64,8 @@
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-                <td colspan="2"><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_NEW_CUSTOMERS; ?>&nbsp;</font></td>
+              <tr class="subBar">
+                <td colspan="2" class="subBar">&nbsp;<? echo TABLE_HEADING_NEW_CUSTOMERS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -87,8 +87,8 @@
               <tr>
                 <td colspan="3"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-                <td colspan="3"><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_LAST_ORDERS; ?>&nbsp;</font></td>
+              <tr class="subBar">
+                <td colspan="3" class="subBar">&nbsp;<? echo TABLE_HEADING_LAST_ORDERS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="3"><? echo tep_black_line(); ?></td>
@@ -124,8 +124,8 @@
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-                <td colspan="2"><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_NEW_PRODUCTS; ?>&nbsp;</font></td>
+              <tr class="subBar">
+                <td colspan="2" class="subBar">&nbsp;<? echo TABLE_HEADING_NEW_PRODUCTS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
@@ -147,8 +147,8 @@
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>
               </tr>
-              <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-                <td colspan="2"><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo TABLE_HEADING_NEW_REVIEWS; ?>&nbsp;</font></td>
+              <tr class="subBar">
+                <td colspan="2" class="subBar">&nbsp;<? echo TABLE_HEADING_NEW_REVIEWS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td colspan="2"><? echo tep_black_line(); ?></td>

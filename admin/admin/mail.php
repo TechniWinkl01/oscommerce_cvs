@@ -65,8 +65,8 @@
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
-          <tr bgcolor="<? echo SUB_BAR_BACKGROUND_COLOR; ?>">
-            <td><font face="<? echo SUB_BAR_FONT_FACE; ?>" size="<? echo SUB_BAR_FONT_SIZE; ?>" color="<? echo SUB_BAR_FONT_COLOR; ?>">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</font></td>
+          <tr class="subBar">
+            <td class="subBar">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
