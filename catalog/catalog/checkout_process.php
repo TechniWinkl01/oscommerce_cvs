@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.124 2003/02/14 04:01:15 thomasamoulton Exp $
+  $Id: checkout_process.php,v 1.125 2003/02/16 13:21:43 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -107,7 +107,7 @@
 
   $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
   $sql_data_array = array('orders_id' => $insert_id, 
-                          'orders_status_id' => DEFAULT_ORDERS_STATUS_ID, 
+                          'orders_status_id' => $order->info['order_status'], 
                           'date_added' => 'now()', 
                           'customer_notified' => $customer_notification,
                           'comments' => $order->info['comments']);
