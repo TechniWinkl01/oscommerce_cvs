@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.37 2002/06/03 14:33:08 project3000 Exp $
+  $Id: html_output.php,v 1.38 2002/06/04 09:57:08 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,7 +83,7 @@
     }
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
-      if ($image_size = @getimagesize(DIR_FS_CATALOG . $src)) {
+      if ($image_size = @getimagesize($src)) {
         if ( (!$width) && ($height) ) {
           $ratio = $height / $image_size[1];
           $width = $image_size[0] * $ratio;
