@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.59 2001/09/01 18:13:30 dwatkins Exp $
+  $Id: espanol.php,v 1.60 2001/09/07 11:45:33 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -108,9 +108,6 @@ define('BOX_MANUFACTURER_INFO_OTHER_PRODUCTS', 'Other products');
 
 // languages box text in includes/boxes/languages.php
 define('BOX_HEADING_LANGUAGES', 'Idiomas');
-define('BOX_LANGUAGES_ENGLISH', 'English');
-define('BOX_LANGUAGES_DEUTSCH', 'Deutsch');
-define('BOX_LANGUAGES_ESPANOL', 'Español');
 
 // currencies box text in includes/boxes/currencies.php
 define('BOX_HEADING_CURRENCIES', 'Monedas');
