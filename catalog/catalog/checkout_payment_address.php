@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.9 2003/04/10 09:27:24 project3000 Exp $
+  $Id: checkout_payment_address.php,v 1.10 2003/05/02 13:01:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -491,6 +491,8 @@ function check_form() {
 <?php
     }
   }
+
+  if ($addresses_count['total'] < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -525,6 +527,9 @@ function check_form() {
           </tr>
         </table></td>
       </tr>
+<?php
+  }
+?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>

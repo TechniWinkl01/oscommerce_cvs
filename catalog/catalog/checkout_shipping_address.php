@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.10 2003/04/10 09:27:24 project3000 Exp $
+  $Id: checkout_shipping_address.php,v 1.11 2003/05/02 13:01:25 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -500,6 +500,7 @@ function check_form() {
 <?php
     }
   }
+
   if ($addresses_count['total'] < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
       <tr>
