@@ -11,13 +11,13 @@
                        $class = substr($HTTP_GET_VARS['module'], 0, strrpos($HTTP_GET_VARS['module'], '.'));
                        $payment_module = new $class;
                        $payment_module->install();
-                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
+                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, 'info=' . substr($HTTP_GET_VARS['module'], 0, strrpos($HTTP_GET_VARS['module'], '.')), 'NONSSL')); tep_exit();
                        break;
       case 'remove' :  include(DIR_FS_PAYMENT_MODULES . $HTTP_GET_VARS['module']);
                        $class = substr($HTTP_GET_VARS['module'], 0, strrpos($HTTP_GET_VARS['module'], '.'));
                        $payment_module = new $class;
                        $payment_module->remove();
-                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); tep_exit();
+                       header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, 'info=' . substr($HTTP_GET_VARS['module'], 0, strrpos($HTTP_GET_VARS['module'], '.')), 'NONSSL')); tep_exit();
                        break;
     }
   }
@@ -91,53 +91,51 @@
     for ($files=0; $files<sizeof($directory_array); $files++) {
       $entry = $directory_array[$files];
 
-      if (eregi('.php[34]*$', $entry)) {
-        $check = 0;
-        include(DIR_FS_PAYMENT_MODULES . $entry);
-        $class = substr($entry, 0, strrpos($entry, '.'));
-        $payment_module = new $class;
-        $check = $payment_module->check();
-        if ($check > 1) {
-          $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
+      $check = 0;
+      include(DIR_FS_PAYMENT_MODULES . $entry);
+      $class = substr($entry, 0, strrpos($entry, '.'));
+      $payment_module = new $class;
+      $check = $payment_module->check();
+      if ($check > 1) {
+        $installed_modules .= ($installed_modules) ? ';' . $entry : $entry;
+      }
+      if ($check) {
+        if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$pmInfo)) {
+          $payment_module_info = array('payment_code' => $payment_module->payment_code);
+          $pmInfo_array = tep_array_merge($payment_module_info, $payment_module->keys());
+          $pmInfo = new paymentModuleInfo($pmInfo_array);
         }
-        if ($check) {
-          if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $class)) && (!$pmInfo)) {
-            $payment_module_info = array('payment_code' => $payment_module->payment_code);
-            $pmInfo_array = tep_array_merge($payment_module_info, $payment_module->keys());
-            $pmInfo = new paymentModuleInfo($pmInfo_array);
-          }
 
-          if ($class == $pmInfo->payment_code) {
-            echo '              <tr bgcolor="#b0c8df">' . "\n";
-          } else {
-            echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
-          }
+        if ($class == $pmInfo->payment_code) {
+          echo '              <tr bgcolor="#b0c8df">' . "\n";
+        } else {
+          echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '\'">' . "\n";
+        }
 ?>
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $entry; ?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;
 <?
-          if ($check != '1') {
-            echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', '10', '10', '0', 'Active') . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', '10', '10', '0', 'Set Inactive') . '</a>';
-          } else {
-            echo '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', '10', '10', '0', 'Set Active') . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', '10', '10', '0', 'Inactive');
-          }
+        if ($check != '1') {
+          echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', '10', '10', '0', 'Active') . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=remove&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', '10', '10', '0', 'Set Inactive') . '</a>';
+        } else {
+          echo '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('action', 'module')) . 'action=install&module=' . $entry, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', '10', '10', '0', 'Set Active') . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', '10', '10', '0', 'Inactive');
+        }
 ?>&nbsp;</font></td>
 <?
-          if ($class == $pmInfo->payment_code) {
+        if ($class == $pmInfo->payment_code) {
 ?>
                     <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', 13, 13, 0, ''); ?>&nbsp;</font></td>
 <?
-          } else {
+        } else {
 ?>
                     <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PAYMENT_MODULES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $class, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</font></td>
 <?
-          }
+        }
 ?>
 
                 <td></td>
               </tr>
 <?
-        }
       }
     }
   }
