@@ -15,11 +15,19 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('HEADING_TITLE', 'A ver que tenemos aqui');
   define('TABLE_HEADING_MODEL', 'Modelo');
   define('TABLE_HEADING_PRODUCTS', 'Productos');
+  define('TABLE_HEADING_MANUFACTURER', 'Fabricante');
   define('TABLE_HEADING_PRICE', 'Precio');
+  define('TABLE_HEADING_BUY_NOW', 'Compre Ahora');
   define('TEXT_NO_PRODUCTS', 'No hay productos en esta categoria.');
   define('TEXT_NO_PRODUCTS2', 'No hay productos de este fabricante.');
   define('TEXT_NUMBER_OF_PRODUCTS', 'Numero de Productos: ');
   define('TEXT_SHOW', '<b>Mostrar:</b>');
+  define('TEXT_SORT_PRODUCTS', 'Productos de la clase ');
+  define('TEXT_DESCENDINGLY', 'descendingly');
+  define('TEXT_ASCENDINGLY', 'ascendingly');
+  define('TEXT_BY', ' por ');
+  define('TEXT_BUY', 'Compran 1 \'');
+  define('TEXT_NOW', '\' ahora');
 } elseif ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Bienvenido a \'' . STORE_NAME . '\'!');
   define('HEADING_TITLE', '¿Que hay de nuevo por aqui?');

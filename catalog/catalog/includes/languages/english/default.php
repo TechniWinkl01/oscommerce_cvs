@@ -14,12 +14,20 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TOP_BAR_TITLE', 'Online Products');
   define('HEADING_TITLE', 'Lets See What We\'ve Got Here');
   define('TABLE_HEADING_MODEL', 'Model');
-  define('TABLE_HEADING_PRODUCTS', 'Products');
+  define('TABLE_HEADING_PRODUCTS', 'Product Name');
+  define('TABLE_HEADING_MANUFACTURER', 'Manufacturer');
   define('TABLE_HEADING_PRICE', 'Price');
+  define('TABLE_HEADING_BUY_NOW', 'Buy Now');
   define('TEXT_NO_PRODUCTS', 'There are no products to list in this category.');
   define('TEXT_NO_PRODUCTS2', 'There is no product available from this manufacturer.');
   define('TEXT_NUMBER_OF_PRODUCTS', 'Number of Products: ');
   define('TEXT_SHOW', '<b>Show:</b>');
+  define('TEXT_SORT_PRODUCTS', 'Sort products ');
+  define('TEXT_DESCENDINGLY', 'descendingly');
+  define('TEXT_ASCENDINGLY', 'ascendingly');
+  define('TEXT_BY', ' by ');
+  define('TEXT_BUY', 'Buy 1 \'');
+  define('TEXT_NOW', '\' now');
 } elseif ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Welcome To \'' . STORE_NAME . '\'!');
   define('HEADING_TITLE', 'Whats New Here?');

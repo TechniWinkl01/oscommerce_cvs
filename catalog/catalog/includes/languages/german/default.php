@@ -15,11 +15,19 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('HEADING_TITLE', 'Was haben wir den hier?');
   define('TABLE_HEADING_MODEL', 'Modell');
   define('TABLE_HEADING_PRODUCTS', 'Produkte');
+  define('TABLE_HEADING_MANUFACTURER', 'Hersteller');
   define('TABLE_HEADING_PRICE', 'Preis');
+  define('TABLE_HEADING_BUY_NOW', 'Kaufen Sie Jetzt');
   define('TEXT_NO_PRODUCTS', 'Es gibt keine Produkte in diese Kategorie.');
   define('TEXT_NO_PRODUCTS2', 'Es gibt kein Produkt, das von diesem Hersteller vorhanden ist.');
   define('TEXT_NUMBER_OF_PRODUCTS', 'Artikel: ');
   define('TEXT_SHOW', '<b>Darstellen:</b>');
+  define('TEXT_SORT_PRODUCTS', 'Sortierung produkte ');
+  define('TEXT_DESCENDINGLY', 'descendingly');
+  define('TEXT_ASCENDINGLY', 'ascendingly');
+  define('TEXT_BY', ' durch ');
+  define('TEXT_BUY', 'Kaufen 1 \'');
+  define('TEXT_NOW', '\' jetzt');
 } elseif ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Willkommen zu dem \'' . STORE_NAME . '\'!');
   define('HEADING_TITLE', 'Was Ist Neu?');
