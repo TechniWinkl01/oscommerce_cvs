@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.59 2002/01/27 18:11:27 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.60 2002/03/10 22:49:23 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -101,7 +101,8 @@
       }
 //------display customer choosen option eof-----
       echo '</td>' . "\n";
-      echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['quantity'] * $products[$i]['price']) . '</b>';
+      $products[$i]['price'] = $products[$i]['quantity'] * $products[$i]['price'];
+      echo '            <td align="right" valign="top" class="main"><b>' . $currencies->display_price($products[$i]['price'], $products[$i]['tax_class_id']) . '</b>';
 //------display customer choosen option --------
       if ($attributes_exist == '1') {
         reset($cart->contents[$products[$i]['id']]['attributes']);
@@ -109,7 +110,8 @@
           $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_values_id = '" . $value . "'");
           $attributes_values = tep_db_fetch_array($attributes);
           if ($attributes_values['options_values_price'] != '0') {
-            echo "\n" . '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>';
+            $attributes_values['options_values_price'] = $products[$i]['quantity'] * $attributes_values['options_values_price'];
+            echo "\n" . '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->display_price($attributes_values['options_values_price'], $products[$i]['tax_class_id']) . '</i></small>';
           }
         }
       }
