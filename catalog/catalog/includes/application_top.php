@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.186 2001/11/18 13:42:58 mabosch Exp $
+  $Id: application_top.php,v 1.187 2001/11/19 19:33:40 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -151,8 +151,6 @@
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
-  if (USE_CACHE == 'true') include(DIR_WS_FUNCTIONS . 'cache.php');
-
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
 
@@ -164,6 +162,9 @@
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
+
+// include cache functions if enabled
+  if (USE_CACHE == 'true') include(DIR_WS_FUNCTIONS . 'cache.php');
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
