@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.40 2001/06/05 21:25:33 hpdl Exp $
+  $Id: espanol.php,v 1.41 2001/06/06 10:25:21 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -222,6 +222,7 @@ define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Cambiar Dirección');
 define('IMAGE_BUTTON_CHECKOUT', 'Realizar Pedido');
 define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirmar Pedido');
 define('IMAGE_BUTTON_CONTINUE', 'Continuar');
+define('IMAGE_BUTTON_DELETE', 'Eliminar');
 define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Editar Cuenta');
 define('IMAGE_BUTTON_HISTORY', 'Historial de Pedidos');
 define('IMAGE_BUTTON_IN_CART', 'Añadir a la Cesta');
