@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.112 2001/07/11 10:03:18 jwildeboer Exp $
+  $Id: general.php,v 1.113 2001/07/13 10:12:48 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -961,29 +961,31 @@
     $headers = "From: $from_email_name <$from_email_address>\n";
 
     // specify MIME version 1.0
-    $headers .= "MIME-Version: 1.0\n";
+    $headers .= "MIME-Version: 1.0\r\n";
 
     // unique boundary
     $boundary = uniqid("TheExchangeProject");
 
     // tell e-mail client this e-mail contains//alternate versions
-    $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\n\n";
+    $headers .= "Content-Type: multipart/alternative" . "; boundary = $boundary\r\n\r\n";
 
     // message to people with clients who don't understand MIME
-    $headers .= "This is a MIME encoded message.\n\n";
+    $body .= "This is a MIME encoded message.\r\n\r\n";
 
     //plain text version of message
-    $headers .= "--$boundary\n" . "Content-Type: text/plain; charset=ISO-8859-15\n" . "Content-Transfer-Encoding: base64\n\n";
-    $headers .= chunk_split(base64_encode($email_text)); 
+    $body .= "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: 7bit\r\n";
+    $body .= $email_text;
 
     //HTML version of message 
-    $headers .= "--$boundary\n" . "Content-Type: text/html; charset=ISO-8859-15\n" . "Content-Transfer-Encoding: base64\n\n";
-    $headers .= chunk_split(base64_encode($email_text));
-    $headers .= "--$boundary--\n";
+    $body .= "\r\n--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+    $body .= chunk_split(base64_encode($email_text));
+
+    //Close the MultiPart
+    $body .= "\r\n--$boundary--\r\n";
     
     //send message
     $to_email_address = $to_name . " <" . $to_email_address . ">";
-    mail($to_email_address, $email_subject, "", $headers);
+    mail($to_email_address, $email_subject, $body, $headers);
   }
 
 ////
