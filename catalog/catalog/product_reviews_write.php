@@ -16,15 +16,12 @@
   }
 
 // lets retrieve all $HTTP_GET_VARS keys and values..
-  $keys = array_keys($HTTP_GET_VARS);
-  $values = array_values($HTTP_GET_VARS);
-
   $get_params = '';
   $get_params_back = ''; // for back button
-  for ($i=0;$i<sizeof($keys);$i++) {
-    $get_params.=$keys[$i] . '=' . $values[$i] . '&';
-    if ($keys[$i] != 'reviews_id') {
-      $get_params_back.=$keys[$i] . '=' . $values[$i] . '&';
+  for (reset($HTTP_GET_VARS);$kv=each($HTTP_GET_VARS);) {
+    $get_params.=$kv[key] . '=' . $kv[value] . '&';
+    if (($kv[key] != 'reviews_id')&&($kv[key] != 'PHPSESSID')) {
+      $get_params_back.=$kv[key] . '=' . $kv[value] . '&';
     }
   }
   $get_params = substr($get_params, 0, -1); //remove trailing &
