@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.217 2003/03/31 17:25:38 hpdl Exp $
+  $Id: general.php,v 1.218 2003/05/07 15:22:33 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -451,11 +451,12 @@
 
     $fmt = $address_format['format'];
     eval("\$address = \"$fmt\";");
-    $address = stripslashes($address);
 
     if ( (ACCOUNT_COMPANY == 'true') && (tep_not_null($company)) ) {
       $address = $company . $cr . $address;
     }
+
+    $address = stripslashes($address);
 
     return $boln . $address . $eoln;
   }
@@ -955,12 +956,12 @@
 // correct in php.ini
 // Parameters:
 // $to_name           The name of the recipient, e.g. "Jan Wildeboer"
-// $to_email_address  The eMail address of the recipient, 
-//                    e.g. jan.wildeboer@gmx.de 
+// $to_email_address  The eMail address of the recipient,
+//                    e.g. jan.wildeboer@gmx.de
 // $email_subject     The subject of the eMail
 // $email_text        The text of the eMail, may contain HTML entities
 // $from_email_name   The name of the sender, e.g. Shop Administration
-// $from_email_adress The eMail address of the sender, 
+// $from_email_adress The eMail address of the sender,
 //                    e.g. info@mytepshop.com
 
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
