@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.39 2002/08/01 12:47:54 hpdl Exp $
+  $Id: html_output.php,v 1.40 2002/08/01 17:37:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,16 +12,15 @@
 
 ////
 // The HTML href link wrapper function
-  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $convertable = true) {
-
-    // build URL thats points to $page
-    if ($page == '') {
+  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true) {
+    if (!tep_not_null($page)) {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
     }
+
     if ($connection == 'NONSSL') {
       $link = HTTP_SERVER . DIR_WS_CATALOG;
     } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL) {
+      if (ENABLE_SSL == true) {
         $link = HTTPS_SERVER . DIR_WS_CATALOG;
       } else {
         $link = HTTP_SERVER . DIR_WS_CATALOG;
@@ -29,43 +28,35 @@
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
     }
-    if ($parameters == '') {
-      $link = $link . $page;
-      $separator = '?';
-    } else {
-      $link = $link . $page . '?' . $parameters;
+
+    if (tep_not_null($parameters)) {
+      $link .= $page . '?' . $parameters;
       $separator = '&';
+    } else {
+      $link .= $page;
+      $separator = '?';
     }
+
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
-    // find out the session id based on the constant SID
-    // There is a special case when these are true: 
-    //   1) using cookies to propagate the session id 
-    //   2) changing servers (ie from nonSSL to SSL)
-    // We then put session id manually in the URL to keep propagating it across servers
-    $sess = '';
-    if ( (ENABLE_SSL) && ($connection == 'SSL') && ($add_session_id) ) {
-      $sess = tep_session_name() . '=' . tep_session_id();
-    } elseif ($add_session_id) {
-      $sess = SID;
+// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+    if ( (ENABLE_SSL == true ) && ($connection == 'SSL') && ($add_session_id == true) ) {
+      $sid = tep_session_name() . '=' . tep_session_id();
+    } elseif ( ($add_session_id == true) && (tep_not_null(SID)) ) {
+      $sid = SID;
     }
 
-    // Substitute key symbols with slashes
-    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($convertable == true) ) {
-      while (strpos($link, '&&')) {
-        $link = str_replace("&&", "&", $link);
-      }
-      $link = str_replace("?", "/", $link);
-      $link = str_replace("&", "/", $link);
-      $link = str_replace("=", "/", $link);
-      $separator = '?';
+    if (isset($sid)) {
+      $link .= $separator . $sid;
     }
 
-    // Append the session id string to the URL
-    if ($sess) {
-      $sess = $separator . $sess;
+    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
+      while (strstr($link, '&&')) $link = str_replace('&&', '&', $link);
+
+      $link = str_replace('?', '/', $link);
+      $link = str_replace('&', '/', $link);
+      $link = str_replace('=', '/', $link);
     }
-    $link .= $sess;
 
     return $link;
   }
