@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.75 2003/02/13 01:58:23 hpdl Exp $
+  $Id: account_edit_process.php,v 1.76 2003/04/10 09:27:23 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -117,7 +117,7 @@
   }
 
   if (ACCOUNT_STATE == 'true') {
-    if ($entry_country_error) {
+    if ($entry_country_error == true) {
       $entry_state_error = true;
     } else {
       $zone_id = 0;

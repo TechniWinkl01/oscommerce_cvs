@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.8 2003/04/10 08:33:06 project3000 Exp $
+  $Id: checkout_payment_address.php,v 1.9 2003/04/10 09:27:24 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -103,7 +103,7 @@
       }
 
       if (ACCOUNT_STATE == 'true') {
-        if ($entry_country_error) {
+        if ($entry_country_error == true) {
           $entry_state_error = true;
         } else {
           $zone_id = 0;
