@@ -82,7 +82,7 @@ if (!@tep_db_num_rows($address_book)) {
         echo '          <tr class="addressBook-odd">' . "\n";
       }
       echo '            <td align="center" class="smallText">&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
-      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . ($address_book_values['address_book_id']+1), 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
       echo '            <td align="center" class="smallText">&nbsp;' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
