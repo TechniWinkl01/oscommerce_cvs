@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.9 2001/06/08 22:40:25 hpdl Exp $
+  $Id: sessions.php,v 1.10 2001/10/24 11:32:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -56,7 +56,7 @@
     function _sess_gc($maxlifetime) {
       tep_db_query("delete from " . TABLE_SESSIONS . " where expiry < '" . time() . "'");
 
-      return mysql_affected_rows();
+      return true;
     }
 
     session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
