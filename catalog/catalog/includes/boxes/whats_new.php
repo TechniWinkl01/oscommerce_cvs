@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whats_new.php,v 1.27 2002/04/04 20:27:10 dgw_ Exp $
+  $Id: whats_new.php,v 1.28 2002/04/23 10:28:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,9 @@
           <tr>
             <td>
 <?php
-  if ($random_product = tep_random_select("select p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_price, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id where p.products_status='1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
+  if ($random_product = tep_random_select("select products_id, products_image, products_tax_class_id, products_price from " . TABLE_PRODUCTS . " where products_status='1' order by products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
+    $random_product['products_name'] = tep_get_products_name($random_product['products_id']);
+    $random_product['specials_new_products_price'] = tep_get_products_special_price($random_product['products_id']);
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
