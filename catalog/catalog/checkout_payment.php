@@ -112,34 +112,9 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
-  $rows = 0;
-  $modules = array();
-  if (defined('PAYMENT_MODULES'))
-    $modules = explode(';', PAYMENT_MODULES);
-  while (list(,$value) = each($modules)) {
-    $rows ++;
-    // Get id and description from payment modules
-    $payment_action = '';
-    include(DIR_PAYMENT_MODULES . $value);
-    if ($payment_enabled) {
-?>
-              <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
-                <td nowrap colspan=3><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_description; ?>&nbsp;</font></td>
-                <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="<? echo $payment_code; ?>"
-                <? if ((!$payment && $rows == 1) || ($payment == $payment_code)) echo " checked"; ?>>&nbsp;</font></td>
-              </tr>
-              <tr bgcolor="<? echo TABLE_ROW_BACKGROUND_COLOR; ?>">
-                <td colspan="2">
-<? 
-      // Display extra fields for each payment
-      $payment_action = 'PM_SELECTION'; 
-      include(DIR_PAYMENT_MODULES . $value); 
-    }
-?>
-                </td>
-              </tr>
-<?
-  }
+// list payment options
+  $payment_action = 'PM_SELECTION';
+  include(DIR_MODULES . 'payment.php');
 ?>
             </table></td>
           </tr>
@@ -147,7 +122,7 @@ function check_form() {
    if (SHIPPING_MODULES != '') {
 ?>
           <tr>          
-            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td nowrap colspan=2><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
                 <td nowrap colspan=2 align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
@@ -158,7 +133,7 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
       $action = 'cheapest'; 
       include(DIR_MODULES . 'shipping.php');

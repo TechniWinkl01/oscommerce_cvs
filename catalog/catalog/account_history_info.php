@@ -178,20 +178,9 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $modules = explode(';', PAYMENT_MODULES);
-  $payment_text = 'Unkown';
-  while (list(,$payment_file) = each($modules)) {
-    $payment_action = '';
-    include(DIR_PAYMENT_MODULES . $payment_file);
-    if ($payment_code == $order_values['payment_method']) {
-      $payment_text = $payment_description;
-      break;
-    }
-  }
+  $payment_action = 'PM_SHOW_INFO';
+  include(DIR_MODULES . 'payment.php');
 ?>
-          <tr>
-            <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_text; ?>&nbsp;</font></td>
-          </tr>
         </table></font></td>
       </tr>
       <tr>

@@ -1,6 +1,4 @@
 <?
-  $include_file = DIR_LANGUAGES . $language . '/modules/payment/sample.php'; include(DIR_INCLUDES . 'include_once.php');
-
   $payment_code = 'sample';
   $payment_description = TEXT_SAMPLE; 
   $payment_enabled = PAYMENT_SUPPORT_SAMPLE;

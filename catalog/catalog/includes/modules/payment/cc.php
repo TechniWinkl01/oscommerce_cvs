@@ -1,6 +1,4 @@
 <?
-  $include_file = DIR_LANGUAGES . $language . '/modules/payment/cc.php'; include(DIR_INCLUDES . 'include_once.php');
-
   $payment_code = 'cc';
   $payment_description = TEXT_CREDIT_CARD;
   $payment_enabled = PAYMENT_SUPPORT_CC;

@@ -1,10 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
-  $modules = explode(';', PAYMENT_MODULES);
-  while (list(,$payment_file) = each($modules)) {
-    $payment_action = 'PM_BEFORE_PROCESS';
-    include(DIR_PAYMENT_MODULES . $payment_file);
-  }
+  $payment_action = 'PM_BEFORE_PROCESS';
+  include(DIR_MODULES . 'payment.php');
 
   if ($sendto == '0') {
     $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
@@ -78,15 +75,7 @@
 
   $cart->reset(TRUE);
 
-  $modules = explode(';', PAYMENT_MODULES);
-  while (list(,$payment_file) = each($modules)) {
-    $payment_action = '';
-    include(DIR_PAYMENT_MODULES . $payment_file);
-    if ($payment_code == $payment) {
-      $payment_action = 'PM_AFTER_PROCESS';
-      include(DIR_PAYMENT_MODULES . $payment_file);
-      break;
-    }
-  }
+  $payment_action = 'PM_AFTER_PROCESS';
+  include(DIR_MODULES . 'payment.php');
 ?>
 <? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>

@@ -184,19 +184,8 @@
           </tr>
 <?
 // Validate payment data again
-  $modules = explode(';', PAYMENT_MODULES);
-  while (list(,$payment_file) = each($modules)) {
-    $payment_action = '';
-    include(DIR_PAYMENT_MODULES . $payment_file);
-    if ($payment_code == $HTTP_POST_VARS['payment']) {
-      echo '          <tr>' . "\n";
-      echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $payment_description . '&nbsp;</font></td>' . "\n";
-      echo '          </tr>' . "\n";
-      $payment_action = 'PM_CONFIRMATION';
-      include(DIR_PAYMENT_MODULES . $payment_file);
-      break;
-    }
-  }
+  $payment_action = 'PM_CONFIRMATION';
+  include(DIR_MODULES . 'payment.php');
 ?>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -213,8 +202,8 @@
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 // Draw the checkout process button
-  $payment_action = 'PM_PROCESS_BUTTON';
-  include(DIR_PAYMENT_MODULES . $payment_file);
+  $payment_action = 'PM_PROCESS_BUTTON';
+  include(DIR_MODULES . 'payment.php');
   if (!$checkout_form_submit) {
     echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {

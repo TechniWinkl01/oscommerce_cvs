@@ -1,6 +1,4 @@
 <?
-  $include_file = DIR_LANGUAGES . $language . '/modules/payment/cod.php'; include(DIR_INCLUDES . 'include_once.php');
-
   $payment_code = 'cod';
   $payment_description = TEXT_CASH_ON_DELIVERY;
   $payment_enabled = PAYMENT_SUPPORT_COD;
