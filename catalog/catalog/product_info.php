@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.86 2002/08/02 11:51:26 hpdl Exp $
+  $Id: product_info.php,v 1.87 2002/08/24 10:36:31 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -166,7 +166,7 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="main"><a href="<? echo tep_href_link(FILENAME_PRODUCT_REVIEWS, substr(tep_get_all_get_params(), 0, -1)); ?>"><?php echo tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS); ?></a></td>
+            <td class="main"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_REVIEWS, substr(tep_get_all_get_params(), 0, -1)); ?>"><?php echo tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS); ?></a></td>
             <td align="right" class="main"><input type="hidden" name="products_id" value="<?php echo $product_info_values['products_id']; ?>"><?php echo tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
           </tr>
         </table></td>
