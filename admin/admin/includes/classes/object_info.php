@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: object_info.php,v 1.5 2002/01/30 01:14:20 hpdl Exp $
+  $Id: object_info.php,v 1.6 2003/06/20 16:23:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

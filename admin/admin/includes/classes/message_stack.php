@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: message_stack.php,v 1.5 2002/11/22 18:45:46 dgw_ Exp $
+  $Id: message_stack.php,v 1.6 2003/06/20 16:23:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: sessions.php,v 1.10 2002/11/22 18:46:38 dgw_ Exp $
+  $Id: sessions.php,v 1.11 2003/06/20 16:23:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 
