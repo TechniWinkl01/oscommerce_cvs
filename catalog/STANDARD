@@ -1,4 +1,4 @@
-$Id: STANDARD,v 1.10 2003/01/10 13:09:56 dgw_ Exp $
+$Id: STANDARD,v 1.11 2003/03/26 14:54:39 thomasamoulton Exp $
 
 osCommerce Coding Standards
 
@@ -465,4 +465,27 @@ for loops should be written as:
   for ($i=0, $n=sizeof($array); $i<$n; $i++) {
     ....
   }
+
+Mixing HTML and PHP
+-------------------
+If you start an html tag in php it must be finished in php,
+and if you start it in html it must be finished in html.
+
+Wrong:
+<td><?php echo "Hello</td>"; ?>
+
+Right
+<td><?php echo "Hello"; ?></td>
+
+Right:
+<?php 
+  echo '<td>Hello</td>'; 
+?>
+
+Same goes for all tags, <a> <p> <table> ... whatever.
+...
+
+The exception to this rule --as usual there is an exception :-)
+<?php echo tep_draw_form(); ?></form>
+
 ?>
