@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.54 2001/06/14 23:20:28 hpdl Exp $
+  $Id: german.php,v 1.55 2001/06/15 19:34:52 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,12 +13,25 @@
 // look in your $PATH_LOCALE/locale directory for available locales..
 // on RedHat try 'de_DE'
 // on FreeBSD try 'de_DE.ISO_8859-1'
-// on Windows try 'de'
+// on Windows try 'de' or 'German'
 setlocale(LC_TIME, 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+
+////
+// Return date in raw format
+// $date should be in format mm/dd/yyyy
+// raw date is in format YYYYMMDD, or DDMMYYYY
+function tep_date_raw($date, $reverse = false) {
+  if ($reverse) {
+    return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+  } else {
+    return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+  }
+}
+
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'DEM');
@@ -161,8 +174,8 @@ define('ENTRY_LAST_NAME', 'Nachname:');
 define('ENTRY_LAST_NAME_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
-define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(z.B. 21/05/1970)</font></small>');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(z.B. 21/05/1970) <font color="#AABBDD">notwendige Eingabe</font></small>');
+define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(z.B. 21.05.1970)</font></small>');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(z.B. 21.05.1970) <font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<small><font color="#FF0000">Ung&uuml;ltige E-Mail Adresse!</font></small>');

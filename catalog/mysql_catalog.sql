@@ -1,6 +1,6 @@
-# $Id: mysql_catalog.sql,v 1.109 2001/06/15 16:39:19 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.110 2001/06/15 19:34:43 hpdl Exp $
 #
-# The Exchange Project Database Model for Preview Release 2.1
+# The Exchange Project Database Model for Preview Release 2.2
 #
 # NOTE: * Please make any modifications to this file by hand!
 #       * DO NOT use a mysqldump created file for new changes!
@@ -138,7 +138,7 @@ CREATE TABLE customers (
   customers_gender char(1) NOT NULL,
   customers_firstname varchar(32) NOT NULL,
   customers_lastname varchar(32) NOT NULL,
-  customers_dob varchar(8) NOT NULL,
+  customers_dob datetime NOT NULL,
   customers_email_address varchar(96) NOT NULL,
   customers_street_address varchar(64) NOT NULL,
   customers_suburb varchar(32),

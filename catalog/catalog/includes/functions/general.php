@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.103 2001/06/14 23:03:26 hpdl Exp $
+  $Id: general.php,v 1.104 2001/06/15 19:34:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -668,16 +668,34 @@ function tep_address_summary($customers_id, $address_id) {
     return sprintf ("%04d%02d%02d", $year, $month, $day);
   }
 
+////
+// Output a raw date string in the selected locale date format
+// $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
   function tep_date_long($raw_date) {
-    $date_formated = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
+// remove the first digit if it is 0 - as php treats these as Octals
+    $year = substr($raw_date, 0, 4);
+    $month = substr($raw_date, 5, 2); if (substr($month, 0, 1) == '0') $month = substr($month, 1);
+    $day = substr($raw_date, 8, 2); if (substr($day, 0, 1) == '0') $day =  substr($day, 1);
+    $hour = substr($raw_date, 11, 2); if (substr($hour, 0, 1) == '0') $hour = substr($hour, 1);
+    $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
+    $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
 
-    return $date_formated;
+    return strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year));
   }
 
+////
+// Output a raw date string in the selected locale date format
+// $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
   function tep_date_short($raw_date) {
-    $date_formated = strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($raw_date, 4, 2),substr($raw_date, 6, 2),substr($raw_date, 0, 4)));
+// remove the first digit if it is 0 - as php treats these as Octals
+    $year = substr($raw_date, 0, 4);
+    $month = substr($raw_date, 5, 2); if (substr($month, 0, 1) == '0') $month = substr($month, 1);
+    $day = substr($raw_date, 8, 2); if (substr($day, 0, 1) == '0') $day =  substr($day, 1);
+    $hour = substr($raw_date, 11, 2); if (substr($hour, 0, 1) == '0') $hour = substr($hour, 1);
+    $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
+    $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
 
-    return $date_formated;
+    return strftime(DATE_FORMAT_SHORT, mktime($hour,$minute,$second,$month,$day,$year));
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////

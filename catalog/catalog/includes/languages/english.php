@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.56 2001/06/14 23:20:27 hpdl Exp $
+  $Id: english.php,v 1.57 2001/06/15 19:34:51 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,12 +13,24 @@
 // look in your $PATH_LOCALE/locale directory for available locales..
 // on RedHat try 'en_US'
 // on FreeBSD try 'en_US.ISO_8859-1'
-// on Windows try 'en'
+// on Windows try 'en', or 'English'
 setlocale(LC_TIME, 'en_US.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
+
+////
+// Return date in raw format
+// $date should be in format mm/dd/yyyy
+// raw date is in format YYYYMMDD, or DDMMYYYY
+function tep_date_raw($date, $reverse = false) {
+  if ($reverse) {
+    return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+  } else {
+    return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+  }
+}
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
 define('LANGUAGE_CURRENCY', 'USD');
@@ -161,8 +173,8 @@ define('ENTRY_LAST_NAME', 'Last Name:');
 define('ENTRY_LAST_NAME_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_LAST_NAME_MIN_LENGTH . ' chars</font></small>');
 define('ENTRY_LAST_NAME_TEXT', '&nbsp;<small><font color="#AABBDD">required</font></small>');
 define('ENTRY_DATE_OF_BIRTH', 'Date of Birth:');
-define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(eg. 21/05/1970)</font></small>');
-define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 21/05/1970) <font color="#AABBDD">required</font></small>');
+define('ENTRY_DATE_OF_BIRTH_ERROR', '&nbsp;<small><font color="#FF0000">(eg. 05/21/1970)</font></small>');
+define('ENTRY_DATE_OF_BIRTH_TEXT', '&nbsp;<small>(eg. 05/21/1970) <font color="#AABBDD">required</font></small>');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
 define('ENTRY_EMAIL_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">min ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' chars</font></small>');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', '&nbsp;<small><font color="#FF0000">You email address doesn\'t appear to be valid!</font></small>');

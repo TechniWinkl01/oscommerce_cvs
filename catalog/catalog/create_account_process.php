@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.42 2001/06/14 01:36:26 hpdl Exp $
+  $Id: create_account_process.php,v 1.43 2001/06/15 19:34:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,7 +43,7 @@
   }
 
   if (ACCOUNT_DOB) {
-    if (checkdate(substr($HTTP_POST_VARS['dob'], 0, 2), substr($HTTP_POST_VARS['dob'], 3, 2),substr($HTTP_POST_VARS['dob'], -4))) {
+    if (checkdate(tep_date_raw($HTTP_POST_VARS['dob'], true)) {
       $entry_date_of_birth_error = false;
     } else {
       $error = true;
@@ -230,7 +230,7 @@
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 0, 2) . substr($HTTP_POST_VARS['dob'], 2, 2);
 // Crypted passwords mods
     $crypted_password = crypt_password($HTTP_POST_VARS['password']);
-    tep_db_query("insert into " . TABLE_CUSTOMERS . " values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "', '" . $HTTP_POST_VARS['newsletter'] . "')");
+    tep_db_query("insert into " . TABLE_CUSTOMERS . " values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "', '" . $HTTP_POST_VARS['newsletter'] . "')");
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
 

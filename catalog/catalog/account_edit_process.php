@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.35 2001/06/14 00:39:03 hpdl Exp $
+  $Id: account_edit_process.php,v 1.36 2001/06/15 19:34:47 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -43,7 +43,7 @@
   }
 
   if (ACCOUNT_DOB) {
-    if (checkdate(substr($HTTP_POST_VARS['dob'], 0, 2), substr($HTTP_POST_VARS['dob'], 3, 2),substr($HTTP_POST_VARS['dob'], -4))) {
+    if (checkdate(substr(tep_date_raw($HTTP_POST_VARS['dob']), 4, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 6, 2), substr(tep_date_raw($HTTP_POST_VARS['dob']), 0, 4))) {
       $entry_date_of_birth_error = false;
     } else {
       $error = true;
@@ -229,9 +229,6 @@
 <?php
   } else {
     $date_now = date('Ymd');
-    if (ACCOUNT_DOB) {
-       $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 0, 2) . substr($HTTP_POST_VARS['dob'], 3, 2);
-    }
 
     $update_query = 'update ' . TABLE_CUSTOMERS . ' set ';
     if (ACCOUNT_GENDER) {
@@ -239,7 +236,7 @@
     }
     $update_query = $update_query . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
     if (ACCOUNT_DOB) {
-       $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
+       $update_query = $update_query . "customers_dob = '" . tep_date_raw($HTTP_POST_VARS['dob']) . "', ";
     }
     $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
     if (ACCOUNT_SUBURB) {
