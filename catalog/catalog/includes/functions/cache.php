@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.7 2002/03/20 12:40:53 dgw_ Exp $
+  $Id: cache.php,v 1.8 2002/06/05 21:03:46 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -97,14 +97,14 @@
 //! Cache the categories box
 // Cache the categories box
   function tep_cache_categories_box($auto_expire = false, $refresh = false) {
-    global $HTTP_GET_VARS, $foo, $language, $languages_id, $id, $categories_string;
+    global $cPath, $foo, $language, $languages_id, $id, $categories_string;
 
-    if ($refresh || !read_cache($cache_output, 'categories_box-' . $language . '.cache' . $HTTP_GET_VARS['cPath'], $auto_expire)) {
+    if ($refresh || !read_cache($cache_output, 'categories_box-' . $language . '.cache' . $cPath, $auto_expire)) {
       ob_start();
       include(DIR_WS_BOXES . 'categories.php');
       $cache_output = ob_get_contents();
       ob_end_clean();
-      write_cache($cache_output, 'categories_box-' . $language . '.cache' . $HTTP_GET_VARS['cPath']);
+      write_cache($cache_output, 'categories_box-' . $language . '.cache' . $cPath);
     }
 
     return $cache_output;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.31 2001/12/19 15:32:55 hpdl Exp $
+  $Id: header.php,v 1.32 2002/06/05 21:03:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,7 +45,7 @@
   if ($HTTP_GET_VARS['products_id']) {
     $model = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $model_values = tep_db_fetch_array($model);
-    echo ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="headerNavigation">' . $model_values['products_model'] . '</a>';
+    echo ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="headerNavigation">' . $model_values['products_model'] . '</a>';
   }
   if ($location) {
     echo $location;
