@@ -23,17 +23,17 @@
       $rows++;
       $info_box_contents[] = array(
                                    array('align' => 'center',
-                                         'params' => 'valign="top"',
+                                         'params' => 'valign="top" class="infoBox"',
                                          'text'  => tep_row_number_format($rows)
                                         ),
                                    array('align' => 'left',
-                                         'params' => 'valign="top"',
-                                         'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id'], 'NONSSL') . '" class="blacklinkwithrollover">' . $best_sellers['products_name'] . '</a>'
+                                         'params' => 'valign="top" class="infoBox"',
+                                         'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id'], 'NONSSL') . '">' . $best_sellers['products_name'] . '</a>'
                                         )
                                   );
     }
 
-    new infoBoxBestSellers($info_box_contents);
+    new infoBox($info_box_contents);
 ?>
             </td>
           </tr>

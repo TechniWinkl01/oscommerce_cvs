@@ -44,7 +44,7 @@
     <td nowrap>
 <?
   $list_box_contents = array();
-  $list_box_contents[] = array( );
+  $list_box_contents[] = array('params' => 'class="productListing-heading"');
   $cur_row = sizeof($list_box_contents) - 1;
 
   for ($col=0; $col<sizeof($column_list); $col++) {
@@ -88,7 +88,8 @@
       $lc_text = tep_create_sort_heading($HTTP_GET_VARS['sort'], $col+1, $lc_text);
 
     $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                           'text'  => "&nbsp;<B>$lc_text</B>&nbsp;");
+                                           'params' => 'class="productListing-heading"',
+                                           'text'  => "&nbsp;" . $lc_text . "&nbsp;");
   }
 
   if ($listing_numrows > 0) {
@@ -97,12 +98,16 @@
     while ($listing_values = tep_db_fetch_array($listing)) {
       $number_of_products++;
 
-      $list_box_contents[] = array();
+      if ( ($number_of_products/2) == floor($number_of_products/2) ) {
+        $list_box_contents[] = array('params' => 'class="productListing-even"');
+      } else {
+        $list_box_contents[] = array('params' => 'class="productListing-odd"');
+      }
+
       $cur_row = sizeof($list_box_contents) - 1;
       
       for ($col=0; $col<sizeof($column_list); $col++) {
         $lc_align = '';
-        $lc_params = 'nowrap';
         $lc_form = '';
 
         switch ($column_list[$col]) {
@@ -148,13 +153,13 @@
         }
 
         $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                               'params' => $lc_params,
+                                               'params' => 'class="productListing-data" nowrap',
                                                'form' => $lc_form,
                                                'text'  => $lc_text);
 
       }
     }
-    new listBox($list_box_contents);
+    new infoBox($list_box_contents);
 
     echo '    </td>' . "\n";
     echo '  </tr>' . "\n";

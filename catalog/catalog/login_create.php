@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.1 2001/03/21 17:30:53 tmoulton Exp $
+  // $Id: login_create.php,v 1.2 2001/04/14 23:45:07 hpdl Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
@@ -261,9 +261,9 @@ function check_form() {
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td bgcolor="<? echo TOP_BAR_BACKGROUND_COLOR; ?>" width="100%" nowrap><?php echo FONT_STYLE_TOP_BAR; ?>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</font></td>
+            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.101 2001/04/14 22:20:02 dwatkins Exp $
+  $Id: application_top.php,v 1.102 2001/04/14 23:45:09 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -121,12 +121,9 @@
 
   define('FOOTER_BAR_BACKGROUND_COLOR', '#000000');
 
-  define('BOX_HEADING_BACKGROUND_COLOR', '#AABBDD');
-
   define('BOX_CONTENT_BACKGROUND_COLOR', '#FFFFFF');
   define('BOX_CONTENT_HIGHLIGHT_COLOR', '#FFFF33');     // use in best_sellers.php
 
-  define('TOP_BAR_BACKGROUND_COLOR', '#AABBDD');
   define('SUB_BAR_BACKGROUND_COLOR', '#f4f7fd');
   define('TABLE_ROW_BACKGROUND_COLOR', '#ffffff');
   define('TABLE_ALT_BACKGROUND_COLOR', '#f4f7fd');

@@ -295,13 +295,13 @@ function check_form() {
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="add_entry" method="post" action="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>" onSubmit="return check_form();"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
 <?
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
-    echo '            <td bgcolor="' . TOP_BAR_BACKGROUND_COLOR . '" width="100%" nowrap>' . FONT_STYLE_TOP_BAR . '&nbsp;' . TOP_BAR_TITLE_MODIFY_ENTRY . '&nbsp;</font></td>' . "\n";
+    echo '            <td width="100%" class="topBarTitle" nowrap>&nbsp;' . TOP_BAR_TITLE_MODIFY_ENTRY . '&nbsp;</td>' . "\n";
   } else {
-    echo '            <td bgcolor="' . TOP_BAR_BACKGROUND_COLOR . '" width="100%" nowrap>' . FONT_STYLE_TOP_BAR . '&nbsp;' . TOP_BAR_TITLE_ADD_ENTRY . '&nbsp;</font></td>' . "\n";
+    echo '            <td width="100%" class="topBarTitle" nowrap>&nbsp;' . TOP_BAR_TITLE_ADD_ENTRY . '&nbsp;</td>' . "\n";
   }
 ?>
           </tr>
