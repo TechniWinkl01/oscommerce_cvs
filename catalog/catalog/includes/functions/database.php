@@ -75,4 +75,10 @@
 
     return $result;
   }
+
+  function tep_db_fetch_fields($db_query) {
+    $result = mysql_fetch_field($db_query);
+
+    return $result;
+  }
 ?>

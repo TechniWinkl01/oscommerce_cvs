@@ -181,23 +181,18 @@ return $any_out_of_stock;
     return $image;
   }
 
-  function tep_image_submit($src, $alt) {
-    global $image_submit;
+  function tep_image_submit($image, $alt) {
+    global $language;
 
-    if ((CONFIG_CALCULATE_IMAGE_SIZE) && ($size = @GetImageSize($src))) {
-      $width = $size[0];
-      $height = $size[1];
-    }
-
-    $image_submit = '<input type="image" src="' . $src . '" border="0"';
-
-    if ($width)
-      $image_submit .= ' width="' . $width . '"';
-    if ($height)
-      $image_submit .= ' height="' . $height . '"';
-    $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' ">';
+    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '">';
 
     return $image_submit;
+  }
+
+  function tep_image_button($image, $alt = '', $params = '') {
+    global $language;
+
+    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $params);
   }
 
   function tep_black_line() {
