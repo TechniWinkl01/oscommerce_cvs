@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.36 2001/05/26 16:49:07 hpdl Exp $
+  $Id: german.php,v 1.37 2001/05/26 17:46:45 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -214,18 +214,18 @@ define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; vorherige]');
 define('PREVNEXT_BUTTON_NEXT', '[n&auml;chste &gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTE&gt;&gt;');
 
-define('IMAGE_BUTTON_ADD_ADDRESS', 'Add Address');
-define('IMAGE_BUTTON_ADD_QUICK', 'Add a Quickie!');
-define('IMAGE_BUTTON_BACK', 'Back');
-define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Change Address');
-define('IMAGE_BUTTON_CHECKOUT', 'Checkout');
-define('IMAGE_BUTTON_CONFIRM_ORDER', 'Confirm Order');
-define('IMAGE_BUTTON_CONTINUE', 'Continue');
-define('IMAGE_BUTTON_IN_CART', 'In Cart');
-define('IMAGE_BUTTON_QUICK_FIND', 'Quick Find');
-define('IMAGE_BUTTON_REVIEWS', 'Reviews');
-define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Shipping Options');
-define('IMAGE_BUTTON_TELL_A_FRIEND', 'Tell a Friend');
-define('IMAGE_BUTTON_UPDATE_CART', 'Update Cart');
-define('IMAGE_BUTTON_WRITE_REVIEW', 'Write Review');
+define('IMAGE_BUTTON_ADD_ADDRESS', 'Neue Adresse');
+define('IMAGE_BUTTON_ADD_QUICK', 'Schnelleinkauf');
+define('IMAGE_BUTTON_BACK', 'Zurück');
+define('IMAGE_BUTTON_CHANGE_ADDRESS', 'Adresse ändern');
+define('IMAGE_BUTTON_CHECKOUT', 'Kasse');
+define('IMAGE_BUTTON_CONFIRM_ORDER', 'Bestellung bestätigen');
+define('IMAGE_BUTTON_CONTINUE', 'Weiter');
+define('IMAGE_BUTTON_IN_CART', 'In den Warenkorb');
+define('IMAGE_BUTTON_QUICK_FIND', 'Schnellsuche');
+define('IMAGE_BUTTON_REVIEWS', 'Bewertungen');
+define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Versandoptionen');
+define('IMAGE_BUTTON_TELL_A_FRIEND', 'Weiterempfehlen');
+define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
+define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 ?>
