@@ -70,7 +70,7 @@ class session
 {
     // Public variables
     var $name = "PHPSESSID";    
-    var $auto_start = true;
+    var $auto_start = false;
     var $referer_check = false;  
 
     var $save_path = "/tmp";
@@ -698,5 +698,5 @@ echo "foo: $foo";
  *
  */
  
-/* $Id: sessions.php,v 1.4 2001/03/13 17:53:12 dwatkins Exp $ */ 
+/* $Id: sessions.php,v 1.5 2001/04/14 22:26:58 dwatkins Exp $ */ 
 ?>
