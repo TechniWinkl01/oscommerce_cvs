@@ -1,6 +1,8 @@
 <? include('includes/application_top.php'); ?>
 <?
   if ($HTTP_GET_VARS['action'] == 'backup') {
+    // increase timeout to 3 minutes
+    tep_set_time_limit(180);
     // Force download
     Header("Content-disposition: filename=backup.sql");
     Header("Content-type: application/octetstream");
@@ -12,11 +14,11 @@
       if ($HTTP_GET_VARS['drop'] == 'yes')
         $schema = "drop table if exists $table;\n";
       $schema = "create table $table (\n";
-      $table_list = '(';
+      $table_list = array();
       $fields = tep_db_query("show fields from $table");
       while ($field = tep_db_fetch_array($fields)) {
         $schema .= '  ' . $field['Field'] . ' ' . $field['Type'];
-        if ($field['Default']) {
+        if (strlen($field['Default']) > 0) {
           $schema .= ' default \'' . $field['Default'] . '\'';
         }
         if ($field['Null'] != 'YES') {
@@ -26,10 +28,9 @@
           $schema .= ' ' . $field['Extra'];
         }
         $schema .= ",\n";
-        $table_list .= $field['Field'] . ', ';
+        $table_list[] = $field['Field'];
       }
       $schema = ereg_replace(",\n$", "", $schema);
-      $table_list = ereg_replace(", $", "", $table_list) . ')';
       // Add the keys
       $index = array();
       $keys = tep_db_query("show keys from $table");
@@ -56,10 +57,10 @@
       $schema .= "\n);";
       echo "$schema\n";
       // Dump the data
-      $rows = tep_db_query("select * from $table");
+      $rows = tep_db_query("select " . implode(',', $table_list) . " from $table");
       while ($row = tep_db_fetch_array($rows)) {
-        $schema_insert = "INSERT INTO $table $table_list VALUES (";
-        $num_fields = sizeof($row) / 2;
+        $schema_insert = "INSERT INTO $table (" . implode(',', $table_list) . ") VALUES (";
+        $num_fields = sizeof($table_list);
         for ($i = 0; $i < $num_fields; $i ++) {
           if (!isset($row[$i]))
             $schema_insert .= " NULL,";
@@ -153,7 +154,7 @@
 <br>
 </body>
 </html>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <?
   }
 ?>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

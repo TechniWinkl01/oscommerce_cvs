@@ -824,4 +824,13 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
   function tep_set_banner_status($banners_id, $status) {
     return tep_db_query("update " . TABLE_BANNERS . " set status = '" . $status . "', date_status_change = now() where banners_id = '" . $banners_id . "'");
   }
+
+////
+// Sets timeout for the current script.
+// Cant be used in safe mode.
+  function tep_set_time_limit($limit) {
+    if (!get_cfg_var('safe_mode')) { 
+      set_time_limit(180); 
+    } 
+  }
 ?>
