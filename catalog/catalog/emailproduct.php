@@ -62,7 +62,7 @@ mail($friendemail, $subject, $email_taf, 'Content-Type: text/plain; charset="iso
       <tr>
         <td align="right" nowrap><br><?php echo FONT_STYLE_MAIN; ?><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
       </tr>
-    </table></form></td>
+    </table></td>
 <?
 }
 
