@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.123 2001/06/02 19:11:07 dwatkins Exp $
+  $Id: application_top.php,v 1.124 2001/06/02 21:38:07 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -104,6 +104,45 @@
   define('FILENAME_SHIPPING', 'shipping.php');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
   define('FILENAME_PRODUCT_LISTING', 'product_listing.php');
+
+// define the database table names used in the project
+  define('TABLE_ADDRESS_BOOK', 'address_book');
+  define('TABLE_ADDRESS_BOOK_TO_COSTUMERS', 'address_book_to_customers');
+  define('TABLE_ADDRESS_FORMAT', 'address_format');
+  define('TABLE_BANNERS', 'banners');
+  define('TABLE_BANNERS_HISTORY', 'banners_history');
+  define('TABLE_CATEGORIES', 'categories');
+  define('TABLE_CATEGORIES_DESCRIPTION', 'categories_description');
+  define('TABLE_CONFIGURATION', 'configuration');
+  define('TABLE_CONFIGURATION_GROUP', 'configuration_group');
+  define('TABLE_COUNTER', 'counter');
+  define('TABLE_COUNTER_HISTORY', 'counter_history');
+  define('TABLE_COUNTRIES', 'countries');
+  define('TABLE_CURRENCIES', 'currencies');
+  define('TABLE_COSTUMERS', 'customers');
+  define('TABLE_COSTUMERS_BASKET', 'customers_basket');
+  define('TABLE_COSTUMERS_BASKET_ATTRIBUTES', 'customers_basket_attributes');
+  define('TABLE_COSTUMERS_INFO', 'customers_info');
+  define('TABLE_LANGUAGES', 'languages');
+  define('TABLE_MANUFACTURERS', 'manufacturers');
+  define('TABLE_ORDERS', 'orders');
+  define('TABLE_ORDERS_PRODUCTS', 'orders_products');
+  define('TABLE_ORDERS_PRODUCTS_ATTRIBUTES', 'orders_products_attributes');
+  define('TABLE_PRODUCTS', 'products');
+  define('TABLE_PRODUCTS_ATTRIBUTES', 'products_attributes');
+  define('TABLE_PRODUCTS_DESCRIPTION', 'products_description');
+  define('TABLE_PRODUCTS_OPTIONS', 'products_options');
+  define('TABLE_PRODUCTS_OPTIONS_VALUES', 'products_options_values');
+  define('TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS', 'products_options_values_to_products_options');
+  define('TABLE_PRODUCTS_TO_CATEGORIES', 'products_to_categories');
+  define('TABLE_REVIEWS', 'reviews');
+  define('TABLE_REVIEWS_EXTRA', 'reviews_extra');
+  define('TABLE_SESSIONS', 'sessions');
+  define('TABLE_SPECIALS', 'specials');
+  define('TABLE_TAX_CLASS', 'tax_class');
+  define('TABLE_TAX_RATES', 'tax_rates');
+  define('TABLE_WHOS_ONLINE', 'whos_online');
+  define('TABLE_ZONES', 'zones');
 
 // define our database connection
   define('DB_SERVER', ''); // eg, localhost - should not be NULL for productive servers
