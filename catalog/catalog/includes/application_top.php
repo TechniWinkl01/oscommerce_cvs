@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.248 2002/09/20 20:47:35 project3000 Exp $
+  $Id: application_top.php,v 1.249 2002/11/01 03:39:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,10 +48,12 @@
   define('FILENAME_ADVANCED_SEARCH_RESULT', 'advanced_search_result.php');
   define('FILENAME_ALSO_PURCHASED_PRODUCTS', 'also_purchased_products.php'); // This is the bottom of product_info.php (found in modules)
   define('FILENAME_CCVAL_FUNCTION', 'ccval.php');
-  define('FILENAME_CHECKOUT_ADDRESS', 'checkout_address.php');
   define('FILENAME_CHECKOUT_CONFIRMATION', 'checkout_confirmation.php');
   define('FILENAME_CHECKOUT_PAYMENT', 'checkout_payment.php');
+  define('FILENAME_CHECKOUT_PAYMENT_ADDRESS', 'checkout_payment_address.php');
   define('FILENAME_CHECKOUT_PROCESS', 'checkout_process.php');
+  define('FILENAME_CHECKOUT_SHIPPING', 'checkout_shipping.php');
+  define('FILENAME_CHECKOUT_SHIPPING_ADDRESS', 'checkout_shipping_address.php');
   define('FILENAME_CHECKOUT_SUCCESS', 'checkout_success.php');
   define('FILENAME_CONTACT_US', 'contact_us.php');
   define('FILENAME_CONDITIONS', 'conditions.php');
@@ -333,12 +335,15 @@
                               break;
       case 'notify' :         if (tep_session_is_registered('customer_id')) {
                                 if ($HTTP_GET_VARS['products_id']) {
-                                  $notify = array($HTTP_GET_VARS['products_id']);
+                                  $notify = $HTTP_GET_VARS['products_id'];
+                                } elseif ($HTTP_GET_VARS['notify']) {
+                                  $notify = $HTTP_GET_VARS['notify'];
                                 } elseif ($HTTP_POST_VARS['notify']) {
                                   $notify = $HTTP_POST_VARS['notify'];
                                 } else {
-                                  tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL'));
+                                  tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'notify')), 'NONSSL'));
                                 }
+                                if (!is_array($notify)) $notify = array($notify);
                                 for ($i=0; $i<sizeof($notify); $i++) {
                                   $check_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $notify[$i] . "' and customers_id = '" . $customer_id . "'");
                                   $check = tep_db_fetch_array($check_query);
@@ -346,7 +351,7 @@
                                     tep_db_query("insert into " . TABLE_PRODUCTS_NOTIFICATIONS . " (products_id, customers_id, date_added) values ('" . $notify[$i] . "', '" . $customer_id . "', now())");
                                   }
                                 }
-                                tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')), 'NONSSL'));
+                                tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'notify')), 'NONSSL'));
                               } else {
                                 $navigation->set_snapshot();
                                 tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
