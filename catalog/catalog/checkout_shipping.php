@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.4 2002/11/04 01:19:35 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.5 2002/11/11 19:26:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -250,7 +250,7 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" width="75%"><?php echo $quotes[$i]['methods'][$j]['title']; ?></td>
 <?php
-        if ($quotes_size > 1) {
+        if ( ($quotes_size > 1) || ($n2 > 1) ) {
 ?>
                     <td class="main"><?php echo $currencies->format($quotes[$i]['methods'][$j]['cost']); ?></td>
                     <td class="main" align="right"><?php echo tep_draw_radio_field('shipping', $quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'], $checked); ?></td>
