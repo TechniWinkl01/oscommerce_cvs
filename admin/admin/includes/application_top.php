@@ -54,6 +54,7 @@
   define('FILENAME_CUSTOMERS', 'customers.php');
   define('FILENAME_DEFAULT', 'default.php');
   define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
+  define('FILENAME_GATEWAY_ITRANSACT', 'itransact.php');
   define('FILENAME_LANGUAGES', 'languages.php');
   define('FILENAME_MAIL', 'mail.php');
   define('FILENAME_MANUFACTURERS', 'manufacturers.php');
