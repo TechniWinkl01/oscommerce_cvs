@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.82 2001/12/27 17:58:52 hpdl Exp $
+  $Id: categories.php,v 1.83 2001/12/27 19:42:30 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,8 +20,8 @@
         }
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath']));
         break;
-      case 'insert_category': // insert category
-      case 'update_category': // update category
+      case 'insert_category':
+      case 'update_category':
         $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
         $sort_order = tep_db_prepare_input($HTTP_POST_VARS['sort_order']);
         $parent_id = tep_db_prepare_input($HTTP_POST_VARS['parent_id']);
@@ -64,87 +64,114 @@
 
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')) . 'info=' . $categories_id));
         break;
-// delete category
-      case 'deleteconfirm':   if ($HTTP_POST_VARS['categories_id']) {
-                                tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
-                                tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
-                              } elseif ($HTTP_POST_VARS['products_id']) {
-                                $products_categories_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
-                                $products_categories = tep_db_fetch_array($products_categories_query);
+      case 'delete_category_confirm':
+        if ($HTTP_POST_VARS['categories_id']) {
+          $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
+          tep_db_query("delete from " . TABLE_CATEGORIES . " where categories_id = '" . tep_db_input($categories_id) . "'");
+          tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . tep_db_input($categories_id) . "'");
+        }
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES));
+        break;
+      case 'delete_product_confirm':
+        if ($HTTP_POST_VARS['products_id']) {
+          $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
+          $products_categories_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "'");
+          $products_categories = tep_db_fetch_array($products_categories_query);
 
-                                if ($products_categories['total'] > 1) {
-                                  tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
-                                } else {
-                                  $products_image = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
-                                  $products_image = tep_db_fetch_array($products_image);
-                                  if (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image'])) {
-                                    @unlink(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image']);
-                                  }
-                                  tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
-                                  tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
-                                  tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
-                                  tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . $HTTP_POST_VARS['products_id'] . "'");
-                                }
-                              }
+          if ($products_categories['total'] > 1) {
+            tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
+          } else {
+            $products_image = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($products_id) . "'");
+            $products_image = tep_db_fetch_array($products_image);
+            if (file_exists(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image'])) {
+              @unlink(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $products_image['products_image']);
+            }
+            tep_db_query("delete from " . TABLE_SPECIALS . " where products_id = '" . tep_db_input($products_id) . "'");
+            tep_db_query("delete from " . TABLE_PRODUCTS . " where products_id = '" . tep_db_input($products_id) . "'");
+            tep_db_query("delete from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . tep_db_input($products_id) . "'");
+            tep_db_query("delete from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . tep_db_input($products_id) . "'");
+          }
+        }
 
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
-                              break;
-// move category
-      case 'moveconfirm':     if ($HTTP_POST_VARS['categories_id']) {
-                                tep_db_query("update " . TABLE_CATEGORIES . " set parent_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
-                              } elseif ($HTTP_POST_VARS['products_id']) {
-                                tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . $HTTP_POST_VARS['move_to_category_id'] . "' where products_id = '" . $HTTP_POST_VARS['products_id'] . "' and categories_id = '" . $current_category_id . "'");
-                              }
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES));
+        break;
+      case 'move_category_confirm':
+        if ($HTTP_POST_VARS['categories_id']) {
+          $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
+          $new_parent_id = tep_db_prepare_input($HTTP_POST_VARS['move_to_category_id']);
+          tep_db_query("update " . TABLE_CATEGORIES . " set parent_id = '" . tep_db_input($new_parent_id) . "', last_modified = now() where categories_id = '" . tep_db_input($categories_id) . "'");
+        }
 
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
-                              break;
-// insert product
-      case 'insert_product':  $products_date_available = $HTTP_POST_VARS['year'];
-                              $products_date_available .= '-';
-                              $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
-                              $products_date_available .= '-';
-                              $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES));
+        break;
+      case 'move_product_confirm':
+        if ($HTTP_POST_VARS['products_id']) {
+          $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
+          $new_parent_id = tep_db_prepare_input($HTTP_POST_VARS['move_to_category_id']);
+          tep_db_query("update " . TABLE_PRODUCTS_TO_CATEGORIES . " set categories_id = '" . tep_db_input($new_parent_id) . "' where products_id = '" . tep_db_input($products_id) . "' and categories_id = '" . $current_category_id . "'");
+        }
 
-                              $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES));
+        break;
+      case 'insert_product':
+      case 'update_product':
+        $products_date_available = $HTTP_POST_VARS['year'];
+        $products_date_available .= '-';
+        $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
+        $products_date_available .= '-';
+        $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
 
-                              tep_db_query("insert into " . TABLE_PRODUCTS . " (products_quantity, products_model, products_image, products_price, products_date_added, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id) values ('" . $HTTP_POST_VARS['products_quantity'] . "', '" . $HTTP_POST_VARS['products_model'] . "', '" . $HTTP_POST_VARS['products_image'] . "', '" . $HTTP_POST_VARS['products_price'] . "', now(), '" . $products_date_available . "', '" . $HTTP_POST_VARS['products_weight'] . "', '" . $HTTP_POST_VARS['products_status'] . "', '" . $HTTP_POST_VARS['products_tax_class_id'] . "', '" . $HTTP_POST_VARS['manufacturers_id'] . "')");
-                              $new_products_id = tep_db_insert_id();
-                              tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
+        $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
 
-                              $languages = tep_get_languages();
-                              for ($i=0; $i<sizeof($languages); $i++) {
-                                $language_id = $languages[$i]['id'];
-                                tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url) values ('" . $new_products_id . "', '" . $language_id . "' , '".$HTTP_POST_VARS['products_name'][$language_id]."' , '".$HTTP_POST_VARS['products_description'][$language_id]."' , '".$HTTP_POST_VARS['products_url'][$language_id]."')");
-                              }
+        $sql_data_array = array('products_quantity' => $HTTP_POST_VARS['products_quantity'],
+                                'products_model' => $HTTP_POST_VARS['products_model'],
+                                'products_image' => $HTTP_POST_VARS['products_image'],
+                                'products_price' => $HTTP_POST_VARS['products_price'],
+                                'products_date_available' => $products_date_available,
+                                'products_weight' => $HTTP_POST_VARS['products_weight'],
+                                'products_status' => $HTTP_POST_VARS['products_status'],
+                                'products_tax_class_id' => $HTTP_POST_VARS['products_tax_class_id'],
+                                'manufacturers_id' => $HTTP_POST_VARS['manufacturers_id']);
 
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pinfo', 'info')), 'NONSSL'));
-                              break;
-// update product
-      case 'update_product':  $products_date_available = $HTTP_POST_VARS['year'];
-                              $products_date_available .= '-';
-                              $products_date_available .= (strlen($HTTP_POST_VARS['month']) == 1) ? '0' . $HTTP_POST_VARS['month'] : $HTTP_POST_VARS['month'];
-                              $products_date_available .= '-';
-                              $products_date_available .= (strlen($HTTP_POST_VARS['day']) == 1) ? '0' . $HTTP_POST_VARS['day'] : $HTTP_POST_VARS['day'];
+        if ($HTTP_GET_VARS['action'] == 'insert_product') {
+          $insert_sql_data = array('products_date_added' => 'now()');
+          $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+          tep_db_perform(TABLE_PRODUCTS, $sql_data_array);
+          $new_products_id = tep_db_insert_id();
+          tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $new_products_id . "', '" . $current_category_id . "')");
+        } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
+          $update_sql_data = array('products_last_modified' => 'now()');
+          $sql_data_array = tep_array_merge($sql_data_array, $update_sql_data);
+          tep_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', 'products_id = \'' . $HTTP_GET_VARS['pID'] . '\'');
+        }
 
-                              $products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : '';
+        $languages = tep_get_languages();
+        for ($i=0; $i<sizeof($languages); $i++) {
+          $language_id = $languages[$i]['id'];
 
-                              tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . $HTTP_POST_VARS['products_quantity'] . "', products_model = '" . $HTTP_POST_VARS['products_model'] . "', products_image = '" . $HTTP_POST_VARS['products_image'] . "', products_price = '" . $HTTP_POST_VARS['products_price'] . "', products_last_modified = now(), products_date_available = '" . $products_date_available . "', products_weight = '" . $HTTP_POST_VARS['products_weight'] . "', products_tax_class_id = '" . $HTTP_POST_VARS['products_tax_class_id'] . "', products_status = '" . $HTTP_POST_VARS['products_status'] . "', manufacturers_id = '" . $HTTP_POST_VARS['manufacturers_id'] . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "'");
+          $sql_data_array = array('products_name' => $HTTP_POST_VARS['products_name'][$language_id],
+                                  'products_description' => $HTTP_POST_VARS['products_description'][$language_id],
+                                  'products_url' => $HTTP_POST_VARS['products_url'][$language_id]);
 
-                              $languages = tep_get_languages();
-                              for ($i=0; $i<sizeof($languages); $i++) {
-                                $language_id = $languages[$i]['id'];
-                                $products_name = $HTTP_POST_VARS['products_name'][$language_id];
-                                $products_description = $HTTP_POST_VARS['products_description'][$language_id];
-                                $products_url = $HTTP_POST_VARS['products_url'][$language_id];
-                                tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_name = '" . $products_name . "', products_description = '" . $products_description . "', products_url = '" . $products_url . "' where products_id = '" . $HTTP_GET_VARS['pID'] . "' and language_id = '". $language_id . "'");
-                              }
+          if ($HTTP_GET_VARS['action'] == 'insert_product') {
+            $insert_sql_data = array('products_id' => $new_products_id,
+                                     'language_id' => $language_id);
+            $sql_data_array = tep_array_merge($sql_data_array, $insert_sql_data);
+            tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array);
+          } elseif ($HTTP_GET_VARS['action'] == 'update_product') {
+            tep_db_perform(TABLE_PRODUCTS_DESCRIPTION, $sql_data_array, 'update', 'products_id = \'' . $HTTP_GET_VARS['pID'] . '\' and language_id = \'' . $language_id . '\'');
+          }
+        }
 
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pinfo=' . $HTTP_GET_VARS['pID'], 'NONSSL'));
-                              break;
-// copy product to another cateogry
-      case 'copy_to_confirm': tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $HTTP_POST_VARS['products_id'] . "', '" . $HTTP_POST_VARS['categories_id'] . "')");
-                              tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')), 'NONSSL'));
-                              break;
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pinfo=' . $HTTP_GET_VARS['pID']));
+        break;
+      case 'copy_to_confirm':
+        if ( ($HTTP_POST_VARS['products_id']) && ($HTTP_POST_VARS['categories_id']) ) {
+          $products_id = tep_db_prepare_input($HTTP_POST_VARS['products_id']);
+          $categories_id = tep_db_prepare_input($HTTP_POST_VARS['categories_id']);
+          tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . tep_db_input($products_id) . "', '" . tep_db_input($categories_id) . "')");
+        }
+        tep_redirect(tep_href_link(FILENAME_CATEGORIES));
     }
   }
 ?>
@@ -696,7 +723,7 @@
         break;
 /* delete category box contents */
       case 'delete_category':
-        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_category_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_CATEGORY_INTRO);
@@ -713,7 +740,7 @@
         break;
 /* delete product box contents */
       case 'delete_product':
-        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
+        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=delete_product_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_PRODUCT_INTRO);
@@ -723,7 +750,7 @@
         break;
 /* move category box contents */
       case 'move_category':
-        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
+        $form = '<form name="categories" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_category_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="categories_id" value="' . $cInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->name));
@@ -736,7 +763,7 @@
       case 'move_product':
         $products_categories_array = tep_products_categories_array($pInfo->id, true);
 
-        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=moveconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
+        $form = '<form name="products" action="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action')) . 'action=move_product_confirm', 'NONSSL') . '" method="post"><input type="hidden" name="products_id" value="' . $pInfo->id . '">' . "\n";
 
         $info_box_contents = array();
         $info_box_contents[] = array('align' => 'left', 'text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, $pInfo->name));
