@@ -116,7 +116,7 @@ define('JS_EMAIL_ADDRESS', '* Su \'E-Mail\' debe tener al menos ' . ENTRY_EMAIL_
 define('JS_ADDRESS', '* Su \'Direccion\' debe tener al menos ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' letras.\n');
 define('JS_POST_CODE', '* Su \'Codigo Postal\' debe tener al menos ' . ENTRY_POSTCODE_MIN_LENGTH . ' letras.\n');
 define('JS_CITY', '* La \'Poblacion\' debe tener al menos ' . ENTRY_CITY_MIN_LENGTH . ' letras.\n');
-define('JS_STATE', '* La \'Provincia\' debe tener al menos ' . ENTRY_STATE_MIN_LENGHT . ' letras.\n');
+define('JS_STATE', '* Debe indicar la \'Provincia\'.\n');
 define('JS_STATE_SELECT', '-- Seleccione Arriba --');
 define('JS_ZONE', '* La \'Provincia\' se debe seleccionar de la lista para este pais.');
 define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.');
