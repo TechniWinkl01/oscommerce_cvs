@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.182 2004/11/24 15:56:41 hpdl Exp $
+  $Id: application_top.php,v 1.183 2004/11/29 14:36:11 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -91,8 +91,8 @@
   $osC_Session->start();
 
 // set the language
-  require('../includes/classes/language.php');
-  $osC_Language = new osC_Language();
+  require('includes/classes/language.php');
+  $osC_Language = new osC_Language_Admin();
 
   if (isset($_GET['language']) && !empty($_GET['language'])) {
     $osC_Language->set($_GET['language']);
