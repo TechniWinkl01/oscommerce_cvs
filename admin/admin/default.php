@@ -109,7 +109,7 @@
 
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '\'">' . "\n";
     echo '                <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '" class="blacklink">' . $orders['customers_name'] . '</a>&nbsp;</td>' . "\n";
-    echo '                <td class="smallText">&nbsp;' . tep_currency_format($total_cost, false) . '&nbsp;</td>' . "\n";
+    echo '                <td class="smallText">&nbsp;' . tep_currency_format($total_cost) . '&nbsp;</td>' . "\n";
     echo '                <td align="right" class="smallText">&nbsp;' . tep_datetime_short($orders['date_purchased']) . '&nbsp;</td>' . "\n";
     echo '              </tr>' . "\n";
   }
