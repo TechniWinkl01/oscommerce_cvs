@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.168 2002/04/23 10:26:46 dgw_ Exp $
+  $Id: general.php,v 1.169 2002/04/23 21:33:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1000,7 +1000,7 @@
     $get_string = '';
     if (sizeof($array) > 0) {
       while (list($key, $value) = each($array)) {
-        if ( (!in_array($key, $exclude)) || ($key != 'x') || ($key != 'y') ) {
+        if ( (!in_array($key, $exclude)) && ($key != 'x') && ($key != 'y') ) {
           $get_string .= $key . $equals . $value . $separator;
         }
       }
