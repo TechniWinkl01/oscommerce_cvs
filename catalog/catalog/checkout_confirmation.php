@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.109 2002/03/07 19:58:10 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.110 2002/03/10 22:24:01 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,6 +31,7 @@
         $any_out_of_stock = 1;
       }
     }
+    // Out of Stock
     if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock) ) {
       tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
     }
@@ -123,6 +124,7 @@
     $products_name = $products[$i]['name'];
     $products_price = $products[$i]['price'];
     $total_products_price = ($products_price + $cart->attributes_price($products[$i]['id']));
+// proving the country_id from the customers
     $products_tax = tep_get_tax_rate($address_values['country_id'], $address_values['zone_id'], $products[$i]['tax_class_id']);
     $products_weight = $products[$i]['weight'];
 
@@ -148,7 +150,11 @@
 //------display customer choosen option eof-----
     echo '</td>' . "\n";
     echo '            <td align="center" valign="top" class="main">' . number_format($products_tax, TAX_DECIMAL_PLACES) . '%</td>' . "\n";
+    if (DISPLAY_PRICE_WITH_TAX == true) {
+    echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['quantity'] * $products_price * (1 + $products_tax/100)) . '</b>';
+    } else {
     echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($products[$i]['quantity'] * $products_price) . '</b>';
+    }
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       reset($products[$i]['attributes']);
@@ -156,21 +162,25 @@
         $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_values_id = '" . $value . "'");
         $attributes_values = tep_db_fetch_array($attributes);
         if ($attributes_values['options_values_price'] != '0') {
+          if (DISPLAY_PRICE_WITH_TAX == true) {
+            echo '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']* (1 + $products_tax/100)) . '</i></small>';
+          } else {
           echo '<br><small><i>' . $attributes_values['price_prefix'] . $currencies->format($products[$i]['quantity'] * $attributes_values['options_values_price']) . '</i></small>';
         }
       }
+    }
     }
 //------display customer choosen option eof-----
     echo '</td>' . "\n";
     echo '</tr>' . "\n";
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
-    if (TAX_INCLUDE == true) {
-      $total_taxes[number_format($products_tax, TAX_DECIMAL_PLACES)] += (($total_products_price * $products[$i]['quantity']) - (($total_products_price * $products[$i]['quantity']) / (($products_tax/100)+1)));
-    } else {
       $total_taxes[number_format($products_tax, TAX_DECIMAL_PLACES)] += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
-    }
+    if (DISPLAY_PRICE_WITH_TAX == true) {
+      $total_cost += ($total_products_price * $products[$i]['quantity'] * (1 + $products_tax/100));
+    } else {
     $total_cost += ($total_products_price * $products[$i]['quantity']);
+  }
   }
 
   $country = tep_get_countries($address_values['country_id']);
@@ -208,7 +218,7 @@
             <td align="right" class="tableHeading" colspan="3"><?php echo SUB_TITLE_TOTAL; ?></td>
             <td align="right" class="tableHeading">
 <?php
-  if (TAX_INCLUDE == true) {
+  if (DISPLAY_PRICE_WITH_TAX == true) {
     echo $currencies->format($total_cost + $shipping_cost);
   } else {
     echo $currencies->format($total_cost + $total_tax + $shipping_cost);

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.93 2002/03/07 19:58:10 hpdl Exp $
+  $Id: checkout_process.php,v 1.94 2002/03/10 22:27:39 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -140,11 +140,7 @@
     }
 //------insert customer choosen option eof ----
     $total_weight += ($products[$i]['quantity'] * $products_weight);
-    if (TAX_INCLUDE == true) {
-      $total_tax += (($total_products_price * $products[$i]['quantity']) - (($total_products_price * $products[$i]['quantity']) / (($products_tax/100)+1)));
-    } else {
-      $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
-    }
+    $total_tax += ((($total_products_price * $products[$i]['quantity']) * (($products_tax/100)+1)) - ($total_products_price * $products[$i]['quantity']));
     $total_cost += $total_products_price;
 
     $products_ordered .= $products[$i]['quantity'] . ' x ' . $products_name . ' (' . $products[$i]['model'] . ') = ' . $currencies->format($total_products_price * $products[$i]['quantity']) . $products_ordered_attributes . "\n";
@@ -162,17 +158,17 @@
   $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . 
                   EMAIL_SEPARATOR . "\n" . 
                   $products_ordered . 
-                  EMAIL_SEPARATOR . "\n" . 
-                  EMAIL_TEXT_SUBTOTAL . ' ' . $currencies->format($cart->show_total()) . "\n" . 
-                  EMAIL_TEXT_TAX . $currencies->format($total_tax) . "\n";
+                  EMAIL_SEPARATOR . "\n";
+  if (DISPLAY_PRICE_WITH_TAX == true) {
+    $email_order .= EMAIL_TEXT_SUBTOTAL . ' ' . $currencies->format($cart->show_total() - $total_tax) . "\n";
+  } else {
+    $email_order .= EMAIL_TEXT_SUBTOTAL . ' ' . $currencies->format($cart->show_total()) . "\n";
+  }
+  $email_order .= EMAIL_TEXT_TAX . ' ' . $currencies->format($total_tax) . "\n";
   if ($GLOBALS['shipping_cost'] > 0) {
     $email_order .= EMAIL_TEXT_SHIPPING . ' ' . $currencies->format($GLOBALS['shipping_cost']) . ' ' . TEXT_EMAIL_VIA . ' ' . $GLOBALS['shipping_method'] . "\n";
   }
-  if (TAX_INCLUDE == true) {
-    $email_order .= EMAIL_TEXT_TOTAL . ' ' . $currencies->format($cart->show_total() + $GLOBALS['shipping_cost']) . "\n\n";
-  } else {
     $email_order .= EMAIL_TEXT_TOTAL . ' ' . $currencies->format($cart->show_total() + $total_tax + $GLOBALS['shipping_cost']) . "\n\n";
-  }
   $email_order .= EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
                   EMAIL_SEPARATOR . "\n" .
                   tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";

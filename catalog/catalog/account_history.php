@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_history.php,v 1.48 2002/03/07 20:22:47 hpdl Exp $
+  $Id: account_history.php,v 1.49 2002/03/10 22:15:31 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -84,10 +84,10 @@
       $history_total_query = tep_db_query("select final_price, products_tax, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $history['orders_id'] . "'");
       while ($history_total = tep_db_fetch_array($history_total_query)) {
         $cost = ($history_total['final_price'] * $history_total['products_quantity']);
-        if (TAX_INCLUDE) {
-          $total_cost += $cost;
-        } else {
+        if (DISPLAY_PRICE_WITH_TAX) {
           $total_cost += $cost + ($cost * ($history_total['products_tax']/100));
+        } else {
+          $total_cost += $cost;
         }
       }
       $total_cost += $history['shipping_cost'];
@@ -111,8 +111,11 @@
           <tr>
             <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td valign="top" class="smallText"><?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?><br><?php echo TEXT_RESULT_PAGE; ?> <?php echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
-                <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a><br><br><?php echo TABLE_TEXT; ?></td>
+                <td valign="top" class="smallText"><?php echo $history_split->display_count($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></td>
+                <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE; ?><?php echo $history_split->display_links($history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
+              </tr>
+              <tr>
+                <td class="smallText"><br><a href="<?php echo tep_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>"><?php echo tep_image_button('button_back.gif', IMAGE_BUTTON_BACK); ?></a><br><br><?php echo TABLE_TEXT; ?></td>
               </tr>
             </table></td>
           </tr>

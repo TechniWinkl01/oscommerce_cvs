@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.71 2002/03/07 20:22:47 hpdl Exp $
+  $Id: account_history_info.php,v 1.72 2002/03/10 22:19:41 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -100,13 +100,21 @@
 //------display customer choosen option eof-----
 	echo '</td>' . "\n";
     echo '            <td align="center" valign="top" class="main">' . number_format($orders_products['products_tax'], TAX_DECIMAL_PLACES) . '%</td>' . "\n";
-    echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>';
+    if (DISPLAY_PRICE_WITH_TAX == true) {
+      echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'] * (($orders_products['products_tax']/100)+1), true, $order_currency['currency'], $order_currency['currency_value']) . '</b>';
+    } else {
+      echo '            <td align="right" valign="top" class="main"><b>' . $currencies->format($orders_products['products_quantity'] * $orders_products['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>';
+    }
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       $attributes_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products['orders_products_id'] . "'");
       while ($attributes = tep_db_fetch_array($attributes_query)) {
         if ($attributes['options_values_price'] != '0') {
-          echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>';
+          if (DISPLAY_PRICE_WITH_TAX == true) {
+            echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'] * (($orders_products['products_tax']/100)+1), true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>';
+          } else {
+            echo '<br><small><i>' . $attributes['price_prefix'] . $currencies->format($orders_products['products_quantity'] * $attributes['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>';
+          }
         }
       }
     }
@@ -115,8 +123,8 @@
     echo '          </tr>' . "\n";
 
     $cost = ($orders_products['products_quantity'] * $final_price);
-    if (TAX_INCLUDE == true) {
-      $total_tax += (($orders_products['products_quantity'] * $final_price) - (($orders_products['products_quantity'] * $final_price) / (($orders_products['products_tax']/100)+1)));
+    if (DISPLAY_PRICE_WITH_TAX == true) {
+      $total_tax += (($orders_products['products_quantity'] * $final_price) * (($orders_products['products_tax']/100)+1) - ($orders_products['products_quantity'] * $final_price));
     } else {
       $total_tax += ($cost * $orders_products['products_tax']/100);
     }
@@ -124,50 +132,51 @@
   }
 ?>
           <tr>
-            <td colspan="4"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="main"><?php echo TABLE_SUBHEADING_SUBTOTAL; ?></td>
-                <td align="right" width="100%" class="main"><?php echo $currencies->format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
+<?php
+    if (DISPLAY_PRICE_WITH_TAX == true) {
+?>
+                <td align="right" class="main"><?php echo TABLE_SUBHEADING_SUBTOTAL; ?></td>
+                <td align="right" class="main"><?php echo $currencies->format($total_cost + $total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
+<?php
+    } else {
+?>
+                <td align="right" class="main"><?php echo TABLE_SUBHEADING_SUBTOTAL; ?></td>
+                <td align="right" class="main"><?php echo $currencies->format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
+<?php
+    }
+?>
               </tr>
-<?
+<?php
   $order_query = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order = tep_db_fetch_array($order_query);
 
   if ($total_tax > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" class="main"><?php echo TABLE_SUBHEADING_TAX; ?>:</td>
-                <td align="right" width="100%" class="main"><?php echo $currencies->format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
+                <td align="right" class="main"><?php echo TABLE_SUBHEADING_TAX; ?></td>
+                <td align="right" class="main"><?php echo $currencies->format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
               </tr>
-<?
+<?php
   }
 
   $shipping = $order['shipping_cost'];
   if ( (MODULE_SHIPPING_INSTALLED) || ($shipping > 0) ) {
 ?>
               <tr>
-                <td align="right" width="100%" class="main"><?php echo $order['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?></td>
-                <td align="right" width="100%" class="main"><?php echo $currencies->format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
+                <td align="right" class="main"><?php echo $order['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?></td>
+                <td align="right" class="main"><?php echo $currencies->format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></td>
               </tr>
-<?
+<?php
   }
 ?>
               <tr>
-                <td align="right" width="100%" class="main"><b><?php echo TABLE_SUBHEADING_TOTAL; ?></b></td>
-<?
-  if (TAX_INCLUDE) {
-?>
-              <td align="right" width="100%" class="main"><b><?php echo $currencies->format($total_cost + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b></td>
-<?
-  } else {
-?>
-              <td align="right" width="100%" class="main"><b><?php echo $currencies->format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b></td>
-<?
-  }
-?>
+                <td align="right" class="main"><b><?php echo TABLE_SUBHEADING_TOTAL; ?></td>
+                <td align="right" class="main"><?php echo $currencies->format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b></td>
               </tr>
             </table></td>
           </tr>

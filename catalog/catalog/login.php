@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: login.php,v 1.60 2002/03/07 19:58:10 hpdl Exp $
+  $Id: login.php,v 1.61 2002/03/10 22:33:02 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -29,12 +29,18 @@
         if ($pass_ok != true) {
           tep_redirect(tep_href_link(FILENAME_LOGIN, 'login=fail', 'SSL'));
         } else {
+          $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $check_customer['customers_id'] . "' and address_book_id = '1'");
+          $check_country = tep_db_fetch_array($check_country_query);
           $customer_id = $check_customer['customers_id'];
           $customer_default_address_id = $check_customer['customers_default_address_id'];
           $customer_first_name = $check_customer['customers_firstname'];
+          $customer_country_id = $check_country['entry_country_id'];
+          $customer_zone_id = $check_country['entry_zone_id'];
           tep_session_register('customer_id');
           tep_session_register('customer_default_address_id');
           tep_session_register('customer_first_name');
+          tep_session_register('customer_country_id');
+          tep_session_register('customer_zone_id');
 
           if ($HTTP_POST_VARS['setcookie'] == '1') {
             setcookie('email_address', $HTTP_POST_VARS['email_address'], time()+2592000);
