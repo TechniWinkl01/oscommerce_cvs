@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.35 2002/11/01 02:56:15 hpdl Exp $
+  $Id: upgrade_3.php,v 1.36 2002/11/03 23:45:29 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -431,8 +431,11 @@ changeText('statusText', 'Updating Orders');
 <?php
   flush();
 
+  osc_db_query("alter table orders add customers_company varchar(32) after customers_name");
+  osc_db_query("alter table orders add delivery_company varchar(32) after delivery_name");
   osc_db_query("alter table orders add billing_name varchar(64) not null after delivery_address_format_id");
-  osc_db_query("alter table orders add billing_street_address varchar(64) not null after billing_name");
+  osc_db_query("alter table orders add billing_company varchar(32) after billing_name");
+  osc_db_query("alter table orders add billing_street_address varchar(64) not null after billing_company");
   osc_db_query("alter table orders add billing_suburb varchar(32) after billing_street_address");
   osc_db_query("alter table orders add billing_city varchar(32) not null after billing_suburb");
   osc_db_query("alter table orders add billing_postcode varchar(10) not null after billing_city");
