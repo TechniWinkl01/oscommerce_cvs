@@ -191,6 +191,7 @@
 
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
+    tep_session_register('language');
     $language = 'english';
   }
   if ($HTTP_GET_VARS['language']) {
@@ -203,8 +204,7 @@
       $language = 'espanol';
     }
   }
-  tep_session_register('language');
-
+  
   $include_file = DIR_FS_CATALOG . 'includes/data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   $include_file = DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_WS_INCLUDES . 'include_once.php');
@@ -251,5 +251,13 @@
     }
   } else {
     $current_category_id = 0;
+  }
+
+// default open navigation box
+  if (@!$selected_box) {
+    tep_session_register('selected_box');
+    $selected_box = 'configuration';
+  } elseif ($HTTP_GET_VARS['selected_box']) {
+    $selected_box = $HTTP_GET_VARS['selected_box'];
   }
 ?>
