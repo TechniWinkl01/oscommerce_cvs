@@ -205,8 +205,7 @@
     if (!$language) $language = tep_get_languages_directory(DEFAULT_LANGUAGE);
   }
 
-// include the currency rates, and the language translations
-  require(DIR_FS_CATALOG . 'includes/data/rates.php');
+// include the language translations
   require(DIR_WS_LANGUAGES . $language . '.php');
   $current_page = split('\?', basename($PHP_SELF)); $current_page = $current_page[0]; // for BadBlue(Win32) webserver compatibility
   if (file_exists(DIR_WS_LANGUAGES . $language . '/' . $current_page)) {
@@ -215,6 +214,9 @@
 
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
+
+  // define our localization functions
+  require(DIR_WS_FUNCTIONS . 'localization.php');
 
 // setup our boxes
   require(DIR_WS_CLASSES . 'boxes.php');
