@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.54 2001/07/31 17:54:44 dwatkins Exp $
+  $Id: espanol.php,v 1.55 2001/08/21 17:51:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -225,6 +225,7 @@ define('TEXT_RESULT_PAGE', 'Paginas de Resultados:');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> new products)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
@@ -257,7 +258,7 @@ define('IMAGE_BUTTON_TELL_A_FRIEND', 'Díselo a un Amigo');
 define('IMAGE_BUTTON_UPDATE_CART', 'Actualizar Cesta');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Escribir Comentario');
 
-define('TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo <span class="greetUser">%s!</span> &iquest;Le gustaria ver que nuevos productos hay disponibles?');
+define('TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo <span class="greetUser">%s!</span> &iquest;Le gustaria ver que <a href="%s"><u>nuevos productos</u></a> hay disponibles?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Si no es %s, por favor <a href="%s"><u>entre aqui</u></a> e introduzca sus datos.</small>');
 define('TEXT_GREETING_GUEST', 'Bienvenido <span class="greetUser">Invitado!</span> &iquest;Le gustaria <a href="%s"><u>entrar en su cuenta</u></a> o preferiria <a href="%s"><u>crear una cuenta nueva</u></a>?');
 
@@ -271,6 +272,8 @@ define('TEXT_REVIEW_WORD_COUNT', '%s palabras');
 define('TEXT_REVIEW_RATING', 'Evaluacion: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Fecha Alta: %s');
 define('TEXT_NO_REVIEWS', 'En este momento, no hay ningun comentario.');
+
+define('TEXT_NO_NEW_PRODUCTS', 'There are currently no products.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Impuesto desconocido');
 

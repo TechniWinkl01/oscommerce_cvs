@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.160 2001/08/13 18:29:52 dwatkins Exp $
+  $Id: application_top.php,v 1.161 2001/08/21 17:51:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -69,6 +69,7 @@
   define('FILENAME_PRODUCT_REVIEWS', 'product_reviews.php');
   define('FILENAME_PRODUCT_REVIEWS_INFO', 'product_reviews_info.php');
   define('FILENAME_PRODUCT_REVIEWS_WRITE', 'product_reviews_write.php');
+  define('FILENAME_PRODUCTS_NEW', 'products_new.php');
   define('FILENAME_REDIRECT', 'redirect.php');
   define('FILENAME_REVIEWS', 'reviews.php');
   define('FILENAME_SHIPPING', 'shipping.php');

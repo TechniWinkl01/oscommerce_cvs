@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.122 2001/08/11 15:51:55 dwatkins Exp $
+  $Id: general.php,v 1.123 2001/08/21 17:51:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -936,7 +936,7 @@
     }
 
     if ($first_name) {
-      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $first_name);
+      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $first_name, tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL'));
       if (!$customer_id) {
         $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name, tep_href_link(FILENAME_LOGIN, '', 'NONSSL'));
       }

@@ -6,7 +6,7 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left',
-                                 'text'  => BOX_HEADING_WHATS_NEW
+                                 'text'  => '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL') . '" class="blacklink">' . BOX_HEADING_WHATS_NEW . '</a>'
                                 );
     new infoBoxHeading($info_box_contents);
 
