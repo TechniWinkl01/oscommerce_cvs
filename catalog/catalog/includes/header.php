@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.43 2003/11/17 17:35:04 hpdl Exp $
+  $Id: header.php,v 1.44 2004/02/16 07:16:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,24 +64,3 @@
     <td align="right" class="headerNavigation"><?php if ($osC_Customer->isLoggedOn()) { echo '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'SSL') . '" class="headerNavigation">' . HEADER_TITLE_LOGOFF . '</a> &nbsp;|&nbsp; '; } echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . HEADER_TITLE_MY_ACCOUNT . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_SHOPPING_CART) . '" class="headerNavigation">' . HEADER_TITLE_CART_CONTENTS . '</a> &nbsp;|&nbsp; <a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') . '" class="headerNavigation">' . HEADER_TITLE_CHECKOUT . '</a>'; ?>&nbsp;&nbsp;</td>
   </tr>
 </table>
-<?php
-  if (isset($_GET['error_message']) && tep_not_null($_GET['error_message'])) {
-?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr class="headerError">
-    <td class="headerError"><?php echo htmlspecialchars(urldecode($_GET['error_message'])); ?></td>
-  </tr>
-</table>
-<?php
-  }
-
-  if (isset($_GET['info_message']) && tep_not_null($_GET['info_message'])) {
-?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr class="headerInfo">
-    <td class="headerInfo"><?php echo htmlspecialchars($_GET['info_message']); ?></td>
-  </tr>
-</table>
-<?php
-  }
-?>

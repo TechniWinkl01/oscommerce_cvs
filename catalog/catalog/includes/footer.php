@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: footer.php,v 1.26 2003/02/10 22:30:54 hpdl Exp $
+  $Id: footer.php,v 1.27 2004/02/16 07:16:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
