@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.22 2003/07/11 14:40:28 hpdl Exp $
+  $Id: categories.php,v 1.23 2003/07/21 14:00:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,5 +93,5 @@ define('TEXT_COPY_AS_DUPLICATE', 'Duplicar el producto');
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: No se pueden enlazar productos en la misma categoria.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: No se puede escribir en el directorio de imagenes del cat&aacute;logo: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de imagenes del cat&aacute;logo: ' . DIR_FS_CATALOG_IMAGES);
-define('ERROR_CANNOT_MOVE_CATEGORY_TO_PARENT', 'Error: Category cannot be moved into child category.');
+define('ERROR_CANNOT_MOVE_CATEGORY_TO_PARENT', 'Error: No se puede mover una categoria dentro de si misma.');
 ?>
