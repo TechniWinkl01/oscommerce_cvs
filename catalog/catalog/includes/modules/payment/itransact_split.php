@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.8 2001/09/01 16:17:20 hpdl Exp $
+  $Id: itransact_split.php,v 1.9 2001/09/01 16:30:41 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -45,7 +45,7 @@
     }
 
     function process_button() {
-      global $HTTP_POST_VARS, $total_tax, $shipping_cost, $comments, $total_cost, $db_link, $customer_id, $products;
+      global $HTTP_POST_VARS, $total_tax, $shipping_cost, $comments, $total_cost, $customer_id, $products, $languages_id;
 
       $customer_query = tep_db_query("select customers_firstname, customers_lastname, customers_telephone, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
       $customer = tep_db_fetch_array($customer_query);
@@ -124,11 +124,13 @@
 // Check for product attributes.  If they exist, format them for each item. as above.
         if ($products[$i]['attributes']) {
           reset($products[$i]['attributes']);
+          $num = 0;
           while (list($option, $value) = each($products[$i]['attributes'])) {
             $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
             $attributes_values = tep_db_fetch_array($attributes);
 	        $attributes_for_itransact['name'][$i . $num] .= $attributes_values['products_options_name'];
 	        $attributes_for_itransact['value'][$i . $num] .= $attributes_values['products_options_values_name'];
+            $num++;
           }
         }
 
