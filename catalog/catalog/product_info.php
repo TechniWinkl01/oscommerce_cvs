@@ -98,10 +98,10 @@ function popupImageWindow(url) {
           <tr>
             <td class="main"><table border="0" cellspacing="0" cellpadding="2" align="right">
               <tr>
-                <td class="main"><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_info_values['products_image']; ?>&alt=<? echo rawurlencode(addslashes($product_info_values['products_name'])); ?>')"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a></td>
+                <td class="main"><a href="javascript:popupImageWindow('<? echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><? echo tep_image($product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'align="right" hspace="5" vspace="5"'); ?></a></td>
               </tr>
               <tr>
-                <td align="center" class="smallText"><a href="javascript:popupImageWindow('<? echo FILENAME_POPUP_IMAGE; ?>?image=<? echo $product_info_values['products_image']; ?>&alt=<? echo rawurlencode(addslashes($product_info_values['products_name'])); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
+                <td align="center" class="smallText"><a href="javascript:popupImageWindow('<? echo tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']); ?>')"><?php echo TEXT_CLICK_TO_ENLARGE; ?></a></td>
               </tr>
             </table><p><? echo stripslashes($product_info_values['products_description']); ?></p>
 <?
