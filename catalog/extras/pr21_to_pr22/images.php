@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: images.php,v 1.1 2001/11/29 20:49:18 hpdl Exp $
+  $Id: images.php,v 1.2 2001/11/29 22:09:50 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -26,6 +26,12 @@
 <body>
 <p>
 <b>The Exchange Project Preview Release 2.2 Database Update Script</b>
+<p>
+This script removes all hardcode occurences of 'images/' in the following tables:
+<p>
+categories.categories_image<br>
+manufacturers.manufacturers_image<br>
+products.products_image
 <p>
 <form name="database" action="<?php echo basename($HTTP_SERVER_VARS['SCRIPT_FILENAME']); ?>" method="post">
 <table border="0" cellspacing="2" cellpadding="2">
@@ -53,8 +59,6 @@
     <td><input type="submit" value="Submit"></td>
   </tr>
 </table>
-<p>
-Note: The user must have create and drop privileges!
 </form>
 </body>
 </html>
