@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.128 2002/06/03 11:48:42 dgw_ Exp $
+  $Id: general.php,v 1.129 2002/07/01 18:44:44 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1093,15 +1093,23 @@
   }
 
   function tep_banner_image_extension() {
-    if (function_exists('imagecreatefrompng') && function_exists('imagepng')) {
+    if (function_exists('imagetypes')) {
+      if (imagetypes() & IMG_PNG) {
+        return 'png';
+      } elseif (imagetypes() & IMG_JPG) {
+        return 'jpg';
+      } elseif (imagetypes() & IMG_GIF) {
+        return 'gif';
+      }
+    } elseif (function_exists('imagecreatefrompng') && function_exists('imagepng')) {
       return 'png';
     } elseif (function_exists('imagecreatefromjpeg') && function_exists('imagejpeg')) {
       return 'jpg';
     } elseif (function_exists('imagecreatefromgif') && function_exists('imagegif')) {
       return 'gif';
-    } else {
-      return false;
     }
+
+    return false;
   }
 
 ////
