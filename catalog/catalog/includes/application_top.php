@@ -243,6 +243,7 @@
 
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
+    tep_session_register('language');
     $language = 'english';
   }
   if ($HTTP_GET_VARS['language']) {
@@ -255,7 +256,6 @@
       $language = 'espanol';
     }
   }
-  tep_session_register('language');
 
 // include the currency rates, and the language translations
   $include_file = DIR_INCLUDES . 'data/rates.php'; include(DIR_INCLUDES . 'include_once.php');
@@ -339,6 +339,5 @@
 
   if (@$HTTP_GET_VARS['currency']) {
     $currency = $HTTP_GET_VARS['currency'];
-    tep_session_register('currency');
   }
 ?>
