@@ -5,9 +5,9 @@ Last Update: 01/12/2000
 Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
-define('NAVBAR_TITLE1', 'Advanced Search');
-define('NAVBAR_TITLE2', 'Advanced Search Results');
-define('TOP_BAR_TITLE', 'Advanced Search Results');
+define('NAVBAR_TITLE1', 'Search');
+define('NAVBAR_TITLE2', 'Search Results');
+define('TOP_BAR_TITLE', 'Search Results');
 define('HEADING_TITLE', 'Products meeting the search criteria');
 define('TABLE_HEADING_IMAGE', '');
 define('TABLE_HEADING_MODEL', 'Model');
