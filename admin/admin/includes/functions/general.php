@@ -51,9 +51,13 @@
     return $black_line;
   }
 
-  function tep_currency_format($number) {
+  function tep_currency_format($number, $calculate_currency_value = true) {
 
-    $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+    if ($calculate_currency_value == true) {
+      $number2currency = CURRENCY_BEFORE . number_format(($number * CURRENCY_VALUE), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+    } else {
+      $number2currency = CURRENCY_BEFORE . number_format(($number), 2, CURRENCY_DECIMAL, CURRENCY_THOUSANDS) . CURRENCY_AFTER;
+    }
 
     return $number2currency;
   }
