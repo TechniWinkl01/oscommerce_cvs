@@ -108,8 +108,13 @@
   if ($shipping_cost > 0) {
     $email_order .= EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($shipping_cost) . ' ' . TEXT_EMAIL_VIA . ' ' . $shipping_method . "\n";
   }
-  $email_order .= EMAIL_TEXT_TOTAL . ' ' . tep_currency_format($cart->show_total() + $total_tax + $shipping_cost) . "\n\n";
-  $email_order .= EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
+  $email_order .= EMAIL_TEXT_TOTAL . ' ';
+  if (TAX_INCLUDE == true) {
+    $email_order .= tep_currency_format($cart->show_total() + $shipping_cost);
+  } else {
+    $email_order .= tep_currency_format($cart->show_total() + $total_tax + $shipping_cost);
+  }
+  $email_order .= "\n\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
   $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
   if (is_object($GLOBALS[$payment])) {
     $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
