@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.147 2002/05/07 23:07:11 hpdl Exp $
+  $Id: application_top.php,v 1.148 2002/06/05 18:09:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -137,9 +137,6 @@
   define('CURRENCY_SERVER_PRIMARY', 'oanda');
   define('CURRENCY_SERVER_BACKUP', 'xe');
 
-// initialize the logger class
-  require(DIR_WS_CLASSES . 'logger.php');
-
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
 
@@ -151,6 +148,9 @@
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
+
+// initialize the logger class
+  require(DIR_WS_CLASSES . 'logger.php');
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
@@ -224,11 +224,7 @@
   $cPath = $HTTP_GET_VARS['cPath'];
   if (strlen($cPath) > 0) {
     $cPath_array = explode('_', $cPath);
-    if (sizeof($cPath_array) > 1) {
-      $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
-    } else {
-      $current_category_id = $cPath_array[0];
-    }
+    $current_category_id = $cPath_array[(sizeof($cPath_array)-1)];
   } else {
     $current_category_id = 0;
   }
