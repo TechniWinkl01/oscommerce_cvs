@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.27 2003/06/09 22:35:33 hpdl Exp $
+  $Id: products_new.php,v 1.28 2003/07/13 11:08:51 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -90,7 +90,7 @@
             <td align="right" valign="middle" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $products_new['products_id']) . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART) . '</a>'; ?></td>
           </tr>
           <tr>
-            <td colspüan="3"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+            <td colspan="3"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
           </tr>
 <?php
     }
