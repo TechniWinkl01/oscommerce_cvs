@@ -130,7 +130,7 @@
     echo '          </tr>' . "\n";
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
-    $total_tax += ($total_products_price * $products_tax/100);
+    $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
     $total_cost += $total_products_price;
   }
 
