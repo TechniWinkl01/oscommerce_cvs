@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.14 2002/01/16 18:32:45 hpdl Exp $
+  $Id: geo_zones.php,v 1.15 2002/01/16 18:34:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -137,7 +137,7 @@ function update_zone(theForm) {
         $sInfo = new geoZoneAssociationInfo($zones);
       }
       if ( (is_object($sInfo)) && ($zones['association_id'] == $sInfo->id) ) {
-        echo '                  <tr class="selectedRow">' . "\n";
+        echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $sInfo->id . '&saction=edit') . '\'">' . "\n";
       } else {
         echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_GEO_ZONES, 'zpage=' . $HTTP_GET_VARS['zpage'] . '&zID=' . $HTTP_GET_VARS['zID'] . '&action=list&spage=' . $HTTP_GET_VARS['spage'] . '&sID=' . $zones['association_id']) . '\'">' . "\n";
       }
