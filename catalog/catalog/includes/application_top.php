@@ -271,6 +271,8 @@
       $language = 'english';
     } elseif ($HTTP_GET_VARS['language'] == 'german') {
       $language = 'german';
+    } elseif ($HTTP_GET_VARS['language'] == 'espanol') {
+      $language = 'espanol';
     }
   }
   tep_session_register('language');
