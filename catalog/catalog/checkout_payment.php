@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.98 2002/11/02 03:06:04 hpdl Exp $
+  $Id: checkout_payment.php,v 1.99 2002/11/04 00:49:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -216,6 +216,11 @@ function rowOutEffect(object) {
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?php
+  $selection = $payment_modules->selection();
+
+  if (sizeof($selection) > 1) {
+?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td class="main" width="50%" valign="top"><?php echo TEXT_SELECT_PAYMENT_METHOD; ?></td>
@@ -223,7 +228,15 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
 <?php
-  $selection = $payment_modules->selection();
+  } else {
+?>
+              <tr>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main" width="100%" colspan="2"><?php echo TEXT_ENTER_PAYMENT_INFORMATION; ?></td>
+                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+<?php
+  }
 
   $radio_buttons = 0;
   for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
@@ -240,7 +253,15 @@ function rowOutEffect(object) {
 ?>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
-                    <td class="main" align="right"><?php if (sizeof($selection) > 1) echo tep_draw_radio_field('payment', $selection[$i]['id']); ?></td>
+                    <td class="main" align="right">
+<?php
+    if (sizeof($selection) > 1) {
+      echo tep_draw_radio_field('payment', $selection[$i]['id']);
+    } else {
+      echo tep_draw_hidden_field('payment', $selection[$i]['id']);
+    }
+?>
+                    </td>
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                   </tr>
 <?php
