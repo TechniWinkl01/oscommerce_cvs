@@ -22,4 +22,5 @@ define('TEXT_INFO_NUMBER_OF_LOGONS', 'Numero de visitas:');
 define('TEXT_INFO_COUNTRY', 'Pais:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Numero de Comentarios:');
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este cliente?');
+define('TEXT_DELETE_REVIEWS', 'Eliminar %s comentario(s)');
 ?>

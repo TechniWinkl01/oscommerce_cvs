@@ -22,4 +22,5 @@ define('TEXT_INFO_NUMBER_OF_LOGONS', 'Anzahl der Anmeldungen:');
 define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Anzahl der Produktbewertungen:');
 define('TEXT_DELETE_INTRO', 'Wollen Sie diesen Kunden wirklich l&ouml;schen?');
+define('TEXT_DELETE_REVIEWS', 'Delete %s review(s)');
 ?>

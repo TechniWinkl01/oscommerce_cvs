@@ -13,24 +13,26 @@
     if (ACCOUNT_DOB) {
        $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
     }
-    $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
-    if (ACCOUNT_SUBURB) {
-       $update_query = $update_query . "customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
-    }
-    $update_query = $update_query . "customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', ";
-    if (ACCOUNT_STATE) {
-       $state = $HTTP_POST_VARS['state'];
-       $zone_id = $HTTP_POST_VARS['zone_id'];
-       if ($zone_id > 0) $state = '';
-       $update_query = $update_query . "customers_state = '" . $state . "', ";
-       $update_query = $update_query . "customers_zone_id = '" . $zone_id . "', ";
-    }
-    $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "', customers_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
+    $update_query .= "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', ";
+    $update_query .= "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
     tep_db_query($update_query);
     tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    // Update address book
+    $update_query = "update " . TABLE_ADDRESS_BOOK . " set entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_STATE) {
+       $state = ($zone_id > 0) ? $state = '' : $HTTP_POST_VARS['state'];
+       $update_query .= "entry_state = '" . $state . "', entry_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', ";
+    }
+    $update_query .= "entry_country_id = '" . $HTTP_POST_VARS['countries_id'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "' and address_book_id = '" . $HTTP_POST_VARS['default_address_id'] . "'";
+    tep_db_query($update_query);
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')) . 'info=' . $HTTP_POST_VARS['customers_id'], 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
-    tep_db_query("delete from " . TABLE_REVIEWS . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    if ($HTTP_POST_VARS['delete_reviews'] == '1') {
+      tep_db_query("delete from " . TABLE_REVIEWS . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    } else {
+      tep_db_query("update " . TABLE_REVIEWS . " set customers_id = NULL where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    }
+    tep_db_query("delete from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     tep_db_query("delete from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     tep_db_query("delete from " . TABLE_CUSTOMERS . " where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action','info')), 'NONSSL')); 
@@ -153,7 +155,7 @@ function check_form() {
 <?
     if (ACCOUNT_STATE) {
 ?>
-  if (document.customers.zone_id.options.length == 0) {
+  if (document.customers.zone_id.options.length <= 1) {
     if (document.customers.state.value == "" || document.customers.state.length < 4 ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
@@ -219,7 +221,7 @@ function check_form() {
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'edit') {
-    $customers_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_zone_id, customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $HTTP_GET_VARS['cID'] . "'");
+    $customers_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter, c.customers_default_address_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_id = '" . $HTTP_GET_VARS['cID'] . "'");
     $customers = tep_db_fetch_array($customers_query);
 
     $gender = $customers['customers_gender'];
@@ -227,16 +229,17 @@ function check_form() {
     $lastname = $customers['customers_lastname'];
     $dob = substr($customers['customers_dob'], 8, 2) . '/' . substr($customers['customers_dob'], 5, 2) . '/' . substr($customers['customers_dob'], 0, 4);
     $email_address = $customers['customers_email_address'];
-    $street_address = $customers['customers_street_address'];
-    $suburb = $customers['customers_suburb'];
-    $postcode = $customers['customers_postcode'];
-    $city = $customers['customers_city'];
-    $state = $customers['customers_state'];
-    $zone_id = $customers['customers_zone_id'];
-    $country_id = $customers['customers_country_id'];
+    $street_address = $customers['entry_street_address'];
+    $suburb = $customers['entry_suburb'];
+    $postcode = $customers['entry_postcode'];
+    $city = $customers['entry_city'];
+    $state = $customers['entry_state'];
+    $zone_id = $customers['entry_zone_id'];
+    $country_id = $customers['entry_country_id'];
     $telephone = $customers['customers_telephone'];
     $fax = $customers['customers_fax'];
     $newsletter = $customers['customers_newsletter'];
+    $default_address_id = $customers['customers_default_address_id'];
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -249,7 +252,7 @@ function check_form() {
       <tr>
         <td><? echo tep_black_line(); ?></td>
       </tr>
-      <tr><form name="customers" <? echo 'action="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action', 'cID')) . 'action=update', 'NONSSL') . '"'; ?> method="post" onSubmit="return check_form();"><input type="hidden" name="customers_id" value="<? echo $HTTP_GET_VARS['cID']; ?>">
+      <tr><form name="customers" <? echo 'action="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action', 'cID')) . 'action=update', 'NONSSL') . '"'; ?> method="post" onSubmit="return check_form();"><input type="hidden" name="customers_id" value="<? echo $HTTP_GET_VARS['cID']; ?>"><input type="hidden" name="default_address_id" value="<? echo $default_address_id; ?>">
         <td class="formAreaTitle"><br><?php echo CATEGORY_PERSONAL; ?></td>
       <tr>
       <tr>
@@ -400,7 +403,7 @@ function check_form() {
               </tr>
 <?
     $search = (strlen($HTTP_GET_VARS['search']) > 0) ? '%' . $search . '%' : '%';
-    $customers_query_raw = "select customers_id, customers_lastname, customers_firstname, customers_email_address, customers_country_id from " . TABLE_CUSTOMERS . " where customers_lastname like '" . $search . "' or  customers_firstname like '" . $search . "' order by customers_id DESC";
+    $customers_query_raw = "select c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address, a.entry_country_id from " . TABLE_CUSTOMERS . " c left join " . TABLE_ADDRESS_BOOK . " a on c.customers_default_address_id = a.address_book_id where c.customers_lastname like '" . $search . "' or  c.customers_firstname like '" . $search . "' order by c.customers_id DESC";
     $customers_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $customers_query_raw, $customers_query_numrows);
     $customers_query = tep_db_query($customers_query_raw);
     $rows = 0;
@@ -411,7 +414,7 @@ function check_form() {
       $info = tep_db_fetch_array($info_query);
 
       if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $customers['customers_id'])) && (!$cuInfo)) {
-        $country_query = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $customers['customers_country_id'] . "'");
+        $country_query = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $customers['entry_country_id'] . "'");
         $country = tep_db_fetch_array($country_query);
 
         $reviews_query = tep_db_query("select count(*) as number_of_reviews from " . TABLE_REVIEWS . " where customers_id = '" . $customers['customers_id'] . "'");
@@ -481,10 +484,13 @@ function check_form() {
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_DELETE_INTRO . '<br>&nbsp;<b>' . $cuInfo->name . '</b><br>&nbsp;');
+    if ($HTTP_GET_VARS['reviews'] > 0) {
+      $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="delete_reviews" value="1">&nbsp;' . sprintf(TEXT_DELETE_REVIEWS, $HTTP_GET_VARS['reviews']) . '<br>&nbsp;');
+    }
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } else {
     $info_box_contents = array();
-    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action', 'info', 'x', 'y')) . 'action=edit&cID=' . $cuInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action', 'info', 'x', 'y')) . 'action=confirm&info=' . $cuInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action', 'info', 'x', 'y')) . 'action=edit&cID=' . $cuInfo->id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, tep_get_all_get_params(array('action', 'info', 'x', 'y')) . 'action=confirm&info=' . $cuInfo->id . '&reviews=' . $cuInfo->number_of_reviews, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'params' => 'nowrap class="infoBox"', 'text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . tep_date_short($cuInfo->date_account_created) . '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . tep_date_short($cuInfo->date_account_last_modified) . '<br>');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_DATE_LAST_LOGON . ' '  . tep_date_short($cuInfo->date_last_logon) . '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cuInfo->number_of_logons . '<br>');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_COUNTRY . ' ' . $cuInfo->country . '<br>');

@@ -22,4 +22,5 @@ define('TEXT_INFO_NUMBER_OF_LOGONS', 'Number of Logons:');
 define('TEXT_INFO_COUNTRY', 'Country:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Number of Reviews:');
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this customer?');
+define('TEXT_DELETE_REVIEWS', 'Delete %s review(s)');
 ?>
