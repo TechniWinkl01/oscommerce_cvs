@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.112 2002/01/28 03:58:53 hpdl Exp $
+  $Id: general.php,v 1.113 2002/01/28 04:56:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -250,13 +250,22 @@
     $country_query = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $country_id . "'");
 
     if (!tep_db_num_rows($country_query)) {
-      $country_name = $country_id;
+      return $country_id;
     } else {
       $country = tep_db_fetch_array($country_query);
-      $country_name = $country['countries_name'];
+      return $country['countries_name'];
     }
+  }
 
-    return $country_name;
+  function tep_get_zone_name($zone_id) {
+    $zone_query = tep_db_query("select zone_name from " . TABLE_ZONES . " where zone_id = '" . $zone_id . "'");
+
+    if (!tep_db_num_rows($zone_query)) {
+      return $zone_id;
+    } else {
+      $zone = tep_db_fetch_array($zone_query);
+      return $zone['zone_name'];
+    }
   }
 
   function tep_not_null($value) {
@@ -630,6 +639,10 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 // Alias function for Store configuration values in the Administration Tool
   function tep_cfg_pull_down_country_list($country_id) {
     return tep_draw_pull_down_menu('configuration_value', tep_get_countries(), $country_id);
+  }
+
+  function tep_cfg_pull_down_zone_list($zone_id) {
+    return tep_draw_pull_down_menu('configuration_value', tep_get_country_zones(STORE_COUNTRY), $zone_id);
   }
 
 ////
