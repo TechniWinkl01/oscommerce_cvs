@@ -72,10 +72,48 @@
         $products_name = tep_products_name($check_cart_values['manufacturers_location'], $check_cart_values['manufacturers_name'], $check_cart_values['products_name']);
         echo '          <tr>' . "\n";
         echo '            <td align="center" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $check_cart_values['customers_basket_quantity'] . '&nbsp;</font></td>' . "\n";
-        echo '            <td nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $products_name . '&nbsp;</font></td>' . "\n";
-        echo '            <td align="right" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($check_cart_values['customers_basket_quantity'] * $price) . '&nbsp;</font></td>' . "\n";
+        echo '            <td nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $products_name . '&nbsp;</b>' . "\n";
+//------insert customer choosen option --------
+		$attributes_exist = '';
+		$attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $customer_id . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
+        if (tep_db_num_rows($attributes)) {
+		$attributes_exist = '1';
+		while ($attributes_values = tep_db_fetch_array($attributes)) {
+		echo "\n" . '<br>&nbsp;-&nbsp;' . $attributes_values['products_options_name'] . '&nbsp:&nbsp' . $attributes_values['products_options_values_name'];
+		}
+		}
+//------insert customer choosen option eof-----		
+		echo '</font></td>' . "\n";
+        echo '            <td align="right" nowrap valign="top"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($check_cart_values['customers_basket_quantity'] * $price) . '&nbsp;';
+//------insert customer choosen option --------
+		if ($attributes_exist == '1') {
+        $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $customer_id . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
+		$final_price=$check_cart_values['customers_basket_quantity'] * $price;
+		while ($attributes_values = tep_db_fetch_array($attributes)) {
+			  if ($attributes_values['options_values_price'] != '0') {
+			  	if ($attributes_values['price_prefix'] =='+') {
+			  	$final_price=$final_price+($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+				} else {
+				$final_price=$final_price-($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+				}
+			  echo "\n" . '<br>' . $attributes_values['price_prefix'] . tep_currency_format($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']) . '&nbsp;';
+			  } else {
+			  echo "\n" . '<br>&nbsp;';
+			  }
+		}
+		}		
+//------insert customer choosen option eof-----
+		echo '</font></td>' . "\n";
         echo '          </tr>' . "\n";
-        $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $price);
+//------insert customer choosen option --------
+		if ($attributes_exist=='1') {
+		echo '<tr><td colspan="2" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
+		echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price) . '&nbsp;</b></font></td>';
+		} else {
+		$final_price = $price;
+		}
+//------insert customer choosen option eof-----
+        $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $final_price);
       }
     } elseif (tep_session_is_registered('nonsess_cart')) {
       $total_cost = 0;

@@ -67,15 +67,48 @@
             <td colspan="3"><?=tep_black_line();?></td>
           </tr>
 <?
-  $orders_products = tep_db_query("select products_name, products_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $orders_products = tep_db_query("select orders_products_id, products_name, products_price, final_price, products_quantity from orders_products where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $total_cost = 0;
   while ($orders_products_values = tep_db_fetch_array($orders_products)) {
     echo '          <tr>' . "\n";
     echo '            <td align="center" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $orders_products_values['products_quantity'] . '&nbsp;</font></td>' . "\n";
-    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $orders_products_values['products_name'] . '&nbsp;</font></td>' . "\n";
-    echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price']) . '&nbsp;</font></td>' . "\n";
+    echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>&nbsp;' . $orders_products_values['products_name'] . '&nbsp;</b>' . "\n";
+//------insert customer choosen option --------
+		$attributes_exist = '';
+		$attributes = tep_db_query("select products_options, products_options_values from orders_products_attributes where orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
+        if (@tep_db_num_rows($attributes)) {
+		$attributes_exist = '1';
+		while ($attributes_values = tep_db_fetch_array($attributes)) {
+		echo "\n" . '<br>&nbsp;-&nbsp;' . $attributes_values['products_options'] . '&nbsp:&nbsp' . $attributes_values['products_options_values'];
+		}
+		}
+//------insert customer choosen option eof-----		
+	echo '</font></td>' . "\n";
+    echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price']) . '&nbsp;';
+//------insert customer choosen option --------
+		if ($attributes_exist == '1') {
+        $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
+		$final_price=$orders_products_values['final_price'];
+		while ($attributes_values = tep_db_fetch_array($attributes)) {
+			  if ($attributes_values['options_values_price'] != '0') {
+			  echo "\n" . '<br>' . $attributes_values['price_prefix'] . tep_currency_format($orders_products_values['products_quantity'] * $attributes_values['options_values_price']) . '&nbsp;';
+			  } else {
+			  echo "\n" . '<br>&nbsp;';
+			  }
+		}
+		}		
+//------insert customer choosen option eof-----	
+	echo '</font></td>' . "\n";
     echo '          </tr>' . "\n";
-    $total_cost = $total_cost + ($orders_products_values['products_quantity'] * $orders_products_values['products_price']);
+//------insert customer choosen option --------
+		if ($attributes_exist == '1') {
+		echo '<tr><td colspan="2" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
+		echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price) . '&nbsp;</b></font></td>';
+		} else {
+		$final_price = $orders_products_values['products_price'];
+		}
+//------insert customer choosen option eof-----
+    $total_cost = $total_cost + ($orders_products_values['products_quantity'] * $final_price);
   }
 ?>
           <tr>

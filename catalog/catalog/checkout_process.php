@@ -22,21 +22,35 @@
   tep_db_query("insert into orders values ('', '" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $customer_values['customers_state'] . "', '" . $customers_country['countries_name'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $delivery_values['state'] . "', '" . $delivery_country['countries_name'] . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', '" . $date_now . "', '" . TAX_VALUE . "', '" . $shipping_cost . "', '" . $shipping_method . "' , 'Pending', '')");
   $insert_id = tep_db_insert_id();  
 
-  $cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
+  $cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price, customers_basket.final_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
   $products_ordered = ''; // initialized for the email confirmation
   $subtotal = 0; // initialized for the email confirmation
   while ($cart_values = tep_db_fetch_array($cart)) {
     $price = $cart_values['products_price'];
+	$final_price = $cart_values['final_price'];
     $check_special = tep_db_query("select specials_new_products_price from specials where products_id = '" . $cart_values[products_id] . "'");
     if (@tep_db_num_rows($check_special)) {
       $check_special_values = tep_db_fetch_array($check_special);
       $price = $check_special_values['specials_new_products_price'];
     }
+	
     $products_name = tep_products_name($cart_values['manufacturers_location'], $cart_values['manufacturers_name'], $cart_values['products_name']);
-    tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . $cart_values['products_id'] . "', '" . addslashes($products_name) . "', '" . $price . "', '" . $cart_values['customers_basket_quantity'] . "')");
-
+    tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . $cart_values['products_id'] . "', '" . addslashes($products_name) . "', '" . $price . "', '" . $cart_values['final_price'] . "', '" . $cart_values['customers_basket_quantity'] . "')");
+//------insert customer choosen option to order--------            
+	$product_attributes_check = tep_db_query("select products_attributes_id from products_attributes where products_id = '" . $cart_values['products_id'] . "'");	  
+	if (@tep_db_num_rows($product_attributes_check)) {
+	$orders_id = tep_db_query("select orders_products_id from orders_products where orders_id = '" . $insert_id . "' and products_id = '" . $cart_values['products_id'] . "'");
+		while ($orders_id_values = tep_db_fetch_array($orders_id)) {
+		$orders_prod_attrib = tep_db_query("select products_options_name, products_options_values_name, options_values_price, price_prefix from customers_basket cb, products_attributes_to_basket pa2b, products_attributes pa, products_options po, products_options_values pov where cb.customers_basket_id = pa2b.customers_basket_id and cb.customers_id = '" . $customer_id . "' and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and pa.products_id = '" . $cart_values['products_id'] . "'");
+			while ($orders_prod_attrib_values = tep_db_fetch_array($orders_prod_attrib)) {
+			tep_db_query("insert into orders_products_attributes values ('', '" . $orders_id_values['orders_products_id'] . "', '" . $orders_prod_attrib_values['products_options_name'] . "', '" . $orders_prod_attrib_values['products_options_values_name'] . "', '" . $orders_prod_attrib_values['options_values_price'] . "', '" . $orders_prod_attrib_values['price_prefix'] . "')");
+			}
+		}
+	}
+//------insert customer choosen option eof ---- 
+	
     $products_ordered.= $cart_values['customers_basket_quantity'] . ' x ' . $products_name . '= ' . tep_currency_format($price * $cart_values['customers_basket_quantity']) . "\n";
-    $subtotal = $subtotal + ($cart_values['customers_basket_quantity'] * $price);
+    $subtotal = $subtotal + ($cart_values['customers_basket_quantity'] * $final_price);
   }
 
   tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "'");

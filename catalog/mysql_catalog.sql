@@ -94,7 +94,7 @@ CREATE TABLE counter (
 # Dumping data for table 'counter'
 #
 
-INSERT INTO counter VALUES ('20000312',147897);
+INSERT INTO counter VALUES ('20000312',148052);
 
 #
 # Table structure for table 'counter_history'
@@ -432,7 +432,7 @@ CREATE TABLE customers_info (
 # Dumping data for table 'customers_info'
 #
 
-INSERT INTO customers_info VALUES (1,'20000514',15,'20000312','20000514');
+INSERT INTO customers_info VALUES (1,'20001028',19,'20000312','20000514');
 
 #
 # Table structure for table 'manufacturers'
@@ -512,12 +512,32 @@ CREATE TABLE orders_products (
   products_id int(5) DEFAULT '0' NOT NULL,
   products_name varchar(64) DEFAULT '' NOT NULL,
   products_price decimal(8,2) DEFAULT '0.00' NOT NULL,
+  final_price decimal(8,2) DEFAULT '0.00' NOT NULL,
   products_quantity int(2) DEFAULT '0' NOT NULL,
   PRIMARY KEY (orders_products_id)
 );
 
 #
 # Dumping data for table 'orders_products'
+#
+
+
+#
+# Table structure for table 'orders_products_attributes'
+#
+
+CREATE TABLE orders_products_attributes (
+  orders_products_attributes_id int(5) NOT NULL auto_increment,
+  orders_products_id int(5) DEFAULT '0' NOT NULL,
+  products_options varchar(32) DEFAULT '' NOT NULL,
+  products_options_values varchar(32) DEFAULT '' NOT NULL,
+  options_values_price decimal(8,2) DEFAULT '0.00' NOT NULL,
+  price_prefix char(1) DEFAULT '' NOT NULL,
+  PRIMARY KEY (orders_products_attributes_id)
+);
+
+#
+# Dumping data for table 'orders_products_attributes'
 #
 
 
@@ -546,8 +566,8 @@ CREATE TABLE products (
 # Dumping data for table 'products'
 #
 
-INSERT INTO products VALUES (1,'G200 MMS','Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8&quot; PCI board.<br><br>With continuing demand for digital flat panels in the financial workplace, the Matrox G200 MMS is the ultimate in flexible solutions. The Matrox G200 MMS also supports the new digital video interface (DVI) created by the Digital Display Working Group (DDWG) designed to ease the adoption of digital flat panels. Other configurations include composite video capture ability and onboard TV tuner, making the Matrox G200 MMS the complete solution for business needs.<br><br>Based on the award-winning MGA-G200 graphics chip, the Matrox G200 Multi-Monitor Series provides superior 2D/3D graphics acceleration to meet the demanding needs of business applications such as real-time stock quotes (Versus), live video feeds (Reuters & Bloombergs), multiple windows applications, word processing, spreadsheets and CAD.',32,'MG200MMS','images/matrox/mg200mms.gif','www.matrox.com/mga/feat_story/jun99/mms_g200.htm',299.99,'19991217',214,23.00,1);
-INSERT INTO products VALUES (2,'G400 32MB','<b>Dramatically Different High Performance Graphics</b><br><br>Introducing the Millennium G400 Series - a dramatically different, high performance graphics experience. Armed with the industry\'s fastest graphics chip, the Millennium G400 Series takes explosive acceleration two steps further by adding unprecedented image quality, along with the most versatile display options for all your 3D, 2D and DVD applications. As the most powerful and innovative tools in your PC\'s arsenal, the Millennium G400 Series will not only change the way you see graphics, but will revolutionize the way you use your computer.<br><br><b>Key features:</b><ul><li>New Matrox G400 256-bit DualBus graphics chip</li><li>Explosive 3D, 2D and DVD performance</li><li>DualHead Display</li><li>Superior DVD and TV output</li><li>3D Environment-Mapped Bump Mapping</li><li>Vibrant Color Quality rendering </li><li>UltraSharp DAC of up to 360 MHz</li><li>3D Rendering Array Processor</li><li>Support for 16 or 32 MB of memory</li></ul>',32,'MG400-32MB','images/matrox/mg400-32mb.gif','www.matrox.com/mga/products/mill_g400/home.htm',499.99,'19991217',205,23.00,1);
+INSERT INTO products VALUES (1,'G200 MMS','Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8&quot; PCI board.<br><br>With continuing demand for digital flat panels in the financial workplace, the Matrox G200 MMS is the ultimate in flexible solutions. The Matrox G200 MMS also supports the new digital video interface (DVI) created by the Digital Display Working Group (DDWG) designed to ease the adoption of digital flat panels. Other configurations include composite video capture ability and onboard TV tuner, making the Matrox G200 MMS the complete solution for business needs.<br><br>Based on the award-winning MGA-G200 graphics chip, the Matrox G200 Multi-Monitor Series provides superior 2D/3D graphics acceleration to meet the demanding needs of business applications such as real-time stock quotes (Versus), live video feeds (Reuters & Bloombergs), multiple windows applications, word processing, spreadsheets and CAD.',32,'MG200MMS','images/matrox/mg200mms.gif','www.matrox.com/mga/feat_story/jun99/mms_g200.htm',299.99,'19991217',219,23.00,1);
+INSERT INTO products VALUES (2,'G400 32MB','<b>Dramatically Different High Performance Graphics</b><br><br>Introducing the Millennium G400 Series - a dramatically different, high performance graphics experience. Armed with the industry\'s fastest graphics chip, the Millennium G400 Series takes explosive acceleration two steps further by adding unprecedented image quality, along with the most versatile display options for all your 3D, 2D and DVD applications. As the most powerful and innovative tools in your PC\'s arsenal, the Millennium G400 Series will not only change the way you see graphics, but will revolutionize the way you use your computer.<br><br><b>Key features:</b><ul><li>New Matrox G400 256-bit DualBus graphics chip</li><li>Explosive 3D, 2D and DVD performance</li><li>DualHead Display</li><li>Superior DVD and TV output</li><li>3D Environment-Mapped Bump Mapping</li><li>Vibrant Color Quality rendering </li><li>UltraSharp DAC of up to 360 MHz</li><li>3D Rendering Array Processor</li><li>Support for 16 or 32 MB of memory</li></ul>',32,'MG400-32MB','images/matrox/mg400-32mb.gif','www.matrox.com/mga/products/mill_g400/home.htm',499.99,'19991217',228,23.00,1);
 INSERT INTO products VALUES (4,'The Replacement Killers','Regional Code: 2 (Japan, Europe, Middle East, South Africa).<br>Languages: English, Deutsch.<br>Subtitles: English, Deutsch, Spanish.<br>Audio: Dolby Surround 5.1.<br>Picture Format: 16:9 Wide-Screen.<br>Length: (approx) 80 minutes.<br>Other: Interactive Menus, Chapter Selection, Subtitles (more languages).',13,'DVD-RPMK','images/dvd/replacement_killers.gif','www.replacement-killers.com',42.00,'20000109',15,23.00,1);
 INSERT INTO products VALUES (3,'IntelliMouse Pro','Every element of IntelliMouse Pro - from its unique arched shape to the texture of the rubber grip around its base - is the product of extensive customer and ergonomic research. Microsoft\'s popular wheel control, which now allows zooming and universal scrolling functions, gives IntelliMouse Pro outstanding comfort and efficiency.',32,'MSIMPRO','images/microsoft/msimpro.gif','www.microsoft.com/products/hardware/mouse/impro/default.htm',49.99,'20000105',346,7.00,1);
 INSERT INTO products VALUES (5,'Blade Runner - Director\'s Cut','Regional Code: 2 (Japan, Europe, Middle East, South Africa).<br>Languages: English, Deutsch.<br>Subtitles: English, Deutsch, Spanish.<br>Audio: Dolby Surround 5.1.<br>Picture Format: 16:9 Wide-Screen.<br>Length: (approx) 112 minutes.<br>Other: Interactive Menus, Chapter Selection, Subtitles (more languages).',17,'DVD-BLDRNDC','images/dvd/blade_runner.gif','www.bladerunner.com',35.99,'20000109',217,7.00,1);
@@ -571,7 +591,7 @@ INSERT INTO products VALUES (22,'Unreal Tournament','From the creators of the be
 INSERT INTO products VALUES (23,'The Wheel Of Time','The world in which The Wheel of Time takes place is lifted directly out of Jordan\'s pages; it\'s huge and consists of many different environments. How you navigate the world will depend largely on which game - single player or multipayer - you\'re playing. The single player experience, with a few exceptions, will see Elayna traversing the world mainly by foot (with a couple notable exceptions). In the multiplayer experience, your character will have more access to travel via Ter\'angreal, Portal Stones, and the Ways. However you move around, though, you\'ll quickly discover that means of locomotion can easily become the least of the your worries...<br><br>During your travels, you quickly discover that four locations are crucial to your success in the game. Not surprisingly, these locations are the homes of The Wheel of Time\'s main characters. Some of these places are ripped directly from the pages of Jordan\'s books, made flesh with Legend\'s unparalleled pixel-pushing ways. Other places are specific to the game, conceived and executed with the intent of expanding this game world even further. Either way, they provide a backdrop for some of the most intense first person action and strategy you\'ll have this year.',16,'PC-TWOF','images/gt_interactive/wheel_of_time.gif','www.wheeloftime.com',99.99,'20000302',462,10.00,1);
 INSERT INTO products VALUES (24,'Disciples: Sacred Lands','A new age is dawning...<br><br>Enter the realm of the Sacred Lands, where the dawn of a New Age has set in motion the most momentous of wars. As the prophecies long foretold, four races now clash with swords and sorcery in a desperate bid to control the destiny of their gods. Take on the quest as a champion of the Empire, the Mountain Clans, the Legions of the Damned, or the Undead Hordes and test your faith in battles of brute force, spellbinding magic and acts of guile. Slay demons, vanquish giants and combat merciless forces of the dead and undead. But to ensure the salvation of your god, the hero within must evolve.<br><br>The day of reckoning has come... and only the chosen will survive.',17,'PC-DISC','images/gt_interactive/disciples.gif','',90.00,'20000302',457,8.00,1);
 INSERT INTO products VALUES (25,'Internet Keyboard PS/2','The Internet Keyboard has 10 Hot Keys on a comfortable standard keyboard design that also includes a detachable palm rest. The Hot Keys allow you to browse the web, or check e-mail directly from your keyboard. The IntelliType Pro software also allows you to customize your hot keys - make the Internet Keyboard work the way you want it to!',16,'MSINTKB','images/microsoft/intkeyboardps2.gif','',69.99,'20000302',769,8.00,1);
-INSERT INTO products VALUES (26,'IntelliMouse Explorer PS2/USB','Microsoft introduces its most advanced mouse, the IntelliMouse Explorer! IntelliMouse Explorer features a sleek design, an industrial-silver finish, a glowing red underside and taillight, creating a style and look unlike any other mouse. IntelliMouse Explorer combines the accuracy and reliability of Microsoft IntelliEye optical tracking technology, the convenience of two new customizable function buttons, the efficiency of the scrolling wheel and the comfort of expert ergonomic design. All these great features make this the best mouse for the PC!',10,'MSIMEXP','images/microsoft/imexplorer.gif','www.microsoft.com/mouse/explorer.htm',64.95,'20000302',1942,8.00,1);
+INSERT INTO products VALUES (26,'IntelliMouse Explorer PS2/USB','Microsoft introduces its most advanced mouse, the IntelliMouse Explorer! IntelliMouse Explorer features a sleek design, an industrial-silver finish, a glowing red underside and taillight, creating a style and look unlike any other mouse. IntelliMouse Explorer combines the accuracy and reliability of Microsoft IntelliEye optical tracking technology, the convenience of two new customizable function buttons, the efficiency of the scrolling wheel and the comfort of expert ergonomic design. All these great features make this the best mouse for the PC!',10,'MSIMEXP','images/microsoft/imexplorer.gif','www.microsoft.com/mouse/explorer.htm',64.95,'20000302',1946,8.00,1);
 INSERT INTO products VALUES (27,'LaserJet 1100Xi','HP has always set the pace in laser printing technology. The new generation HP LaserJet 1100 series sets another impressive pace, delivering a stunning 8 pages per minute print speed. The 600 dpi print resolution with HP\'s Resolution Enhancement technology (REt) makes every document more professional.<br><br>Enhanced print speed and laser quality results are just the beginning. With 2MB standard memory, HP LaserJet 1100xi users will be able to print increasingly complex pages. Memory can be increased to 18MB to tackle even more complex documents with ease. The HP LaserJet 1100xi supports key operating systems including Windows 3.1, 3.11, 95, 98, NT 4.0, OS/2 and DOS. Network compatibility available via the optional HP JetDirect External Print Servers.<br><br>HP LaserJet 1100xi also features The Document Builder for the Web Era from Trellix Corp. (featuring software to create Web documents).',8,'HPLJ1100XI','images/hewlett_packard/lj1100xi.gif','www.pandi.hp.com/pandi-db/prodinfo.main?product=laserjet1100',499.99,'20000302',1574,45.00,1);
 
 #
@@ -583,7 +603,7 @@ CREATE TABLE products_attributes (
   products_id int(5) DEFAULT '0' NOT NULL,
   options_id int(5) DEFAULT '0' NOT NULL,
   options_values_id int(5) DEFAULT '0' NOT NULL,
-  options_values_price decimal(6,2) DEFAULT '0.00' NOT NULL,
+  options_values_price decimal(8,2) DEFAULT '0.00' NOT NULL,
   price_prefix char(1) DEFAULT '+' NOT NULL,
   PRIMARY KEY (products_attributes_id)
 );
@@ -619,6 +639,16 @@ CREATE TABLE products_attributes_to_basket (
 # Dumping data for table 'products_attributes_to_basket'
 #
 
+INSERT INTO products_attributes_to_basket VALUES (11,6,9);
+INSERT INTO products_attributes_to_basket VALUES (10,6,6);
+INSERT INTO products_attributes_to_basket VALUES (8,4,5);
+INSERT INTO products_attributes_to_basket VALUES (7,4,2);
+INSERT INTO products_attributes_to_basket VALUES (12,7,11);
+INSERT INTO products_attributes_to_basket VALUES (13,8,6);
+INSERT INTO products_attributes_to_basket VALUES (14,8,9);
+INSERT INTO products_attributes_to_basket VALUES (15,9,11);
+INSERT INTO products_attributes_to_basket VALUES (16,10,1);
+INSERT INTO products_attributes_to_basket VALUES (17,10,5);
 
 #
 # Table structure for table 'products_expected'

@@ -18,7 +18,7 @@
   define('EMAIL_FROM', 'Harald Ponce de Leon <hpdl@theexchangeproject.org>');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
-  define('EXIT_AFTER_REDIRECT', 0); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
+  define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
   define('STORE_PAGE_PARSE_TIME', 0);
   define('STORE_PAGE_PARSE_TIME_LOG', DIR_SERVER_ROOT . 'logs/exchange/parse_time_log');
 

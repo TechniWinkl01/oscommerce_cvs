@@ -6,7 +6,7 @@
             <td bgcolor="<?=BOX_CONTENT_BACKGROUND_COLOR;?>"><font face="<?=BOX_CONTENT_FONT_FACE;?>" color="<?=BOX_CONTENT_FONT_COLOR;?>" size="<?=BOX_CONTENT_FONT_SIZE;?>">
 <?
   if (tep_session_is_registered("customer_id")) {
-    $check_cart = tep_db_query("select customers_basket.products_id, customers_basket.customers_basket_quantity, products.products_model, products.products_price from customers_basket, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id");
+    $check_cart = tep_db_query("select customers_basket.products_id, customers_basket.customers_basket_quantity, products.products_model, customers_basket.final_price from customers_basket, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id");
     $total_cost = 0;
     if (tep_db_num_rows($check_cart)) {
       while ($check_cart_values = tep_db_fetch_array($check_cart)) {
@@ -20,12 +20,7 @@
           tep_session_unregister('new_products_id_in_cart');
         }
         echo '</a><br>';
-        $price = $check_cart_values['products_price'];
-        $check_special = tep_db_query("select specials_new_products_price from specials where products_id = '" . $check_cart_values['products_id'] . "'");
-        if (tep_db_num_rows($check_special)) {
-          $check_special_values = tep_db_fetch_array($check_special);
-          $price = $check_special_values['specials_new_products_price'];
-        }
+        $price = $check_cart_values['final_price'];
         $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $price);
       }
     } else {

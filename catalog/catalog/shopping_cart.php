@@ -10,6 +10,11 @@
 // @@@@   @@@@@  @@@@@  @@@@@    @    @@@@@       @@@   @   @  @@@@@
 //----------------------------------------------------------------------------------------
       if (tep_session_is_registered('customer_id')) {
+//------insert customer choosen option --------
+		$basket_id = tep_db_query('select customers_basket_id from customers_basket where products_id = ' . $HTTP_GET_VARS['products_id'] . ' and customers_id = ' . $customer_id);
+		$basket_id = tep_db_fetch_array($basket_id);
+		tep_db_query('delete from products_attributes_to_basket where customers_basket_id = ' . $basket_id['customers_basket_id']);
+//------insert customer choosen option eof-----		
         tep_db_query('delete from customers_basket where products_id = ' . $HTTP_GET_VARS['products_id'] . ' and customers_id = ' . $customer_id);
       } else {
         if (tep_session_is_registered('nonsess_cart')) {
@@ -84,14 +89,36 @@
                 tep_db_query("update customers_basket set customers_basket_quantity = customers_basket_quantity + '" . $new_quantity[$i] . "' where products_id = '" . $products_id_to_change[$i] . "' and customers_id = '" . $customer_id . "'");
               }
             } else {
+//------insert customer choosen option --------
+			  $basket_id = tep_db_query('select customers_basket_id from customers_basket where products_id = ' . $products_id_to_change[$i] . ' and customers_id = ' . $customer_id);
+			  $basket_id = tep_db_fetch_array($basket_id);
+			  tep_db_query('delete from products_attributes_to_basket where customers_basket_id = ' . $basket_id['customers_basket_id']);
+//------insert customer choosen option eof-----
               tep_db_query("delete from customers_basket where products_id = '" . $products_id_to_change[$i] . "' and customers_id = '" . $customer_id . "'");
             }
           } else { // the product is not yet in their basket, so we'll add it
             if ($new_quantity[$i] > 0) {
               $date_now = date('Ymd');
-              tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $products_id_to_change[$i] . "', '" . $new_quantity[$i] . "', '" . $date_now . "')");
+              tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $products_id_to_change[$i] . "', '" . $new_quantity[$i] . "', '', '" . $date_now . "')");
               $new_products_id_in_cart = $products_id_to_change[$i];
               tep_session_register('new_products_id_in_cart');
+//------insert customer choosen option --------            
+		$product_attributes_check = tep_db_query("select products_attributes_id from products_attributes where products_id = '" . $products_id_to_change[$i] . "'"); 
+		if (tep_db_num_rows($product_attributes_check)) {
+			$basket_id = tep_db_query("select customers_basket_id from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $products_id_to_change[$i] . "'");
+			$basket_id_values = tep_db_fetch_array($basket_id);
+			$options = tep_db_query("select distinct options_id from products_attributes where products_id = '" . $products_id_to_change[$i] . "' order by products_id");
+			$options_name_id = '';
+			$value_id = '';
+			while ($options_values = tep_db_fetch_array($options)) {
+    		$option_name_id = $options_values['options_id'];
+			$value_id = $HTTP_POST_VARS[$option_name_id];
+			$attributes_id = tep_db_query("select products_attributes_id from products_attributes where products_id = '" . $products_id_to_change[$i] . "' and options_id = '" . $option_name_id . "' and options_values_id = '" . $value_id . "'");
+			$attributes_id_values = tep_db_fetch_array($attributes_id);
+			tep_db_query("insert into products_attributes_to_basket values ('', '" . $basket_id_values['customers_basket_id'] . "', '" . $attributes_id_values['products_attributes_id'] . "')");
+			}
+		}	  
+//------insert customer choosen option eof ---- 	
             }
           }
         }
@@ -174,6 +201,12 @@
 // @@@@   @@@@@  @@@@@  @@@@@    @    @@@@@      @   @  @@@@@  @@@@@
 //----------------------------------------------------------------------------------------
       if (tep_session_is_registered('customer_id')) {
+//------insert customer choosen option --------
+		$basket_id = tep_db_query('select customers_basket_id from customers_basket where customers_id = ' . $customer_id);
+		while ($basket_id_all = tep_db_fetch_array($basket_id)) {;
+		tep_db_query('delete from products_attributes_to_basket where customers_basket_id = ' . $basket_id_all['customers_basket_id']);
+		}
+//------insert customer choosen option eof-----		
         tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "'");
       } elseif (tep_session_is_registered('nonsess_cart')) {
         tep_session_unregister('nonsess_cart');
@@ -269,7 +302,7 @@
           </tr>
 <?
     if (tep_session_is_registered('customer_id')) {
-      $check_cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_id, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_model, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
+      $check_cart = tep_db_query("select customers_basket.customers_basket_id, customers_basket.customers_id, customers_basket.customers_basket_quantity, manufacturers.manufacturers_id, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_model, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
       $total_cost = 0;
       while ($check_cart_values = tep_db_fetch_array($check_cart)) {
         $price = $check_cart_values['products_price'];
@@ -289,10 +322,50 @@
           echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $check_cart_values['products_id'], 'NONSSL') . '">' . $check_cart_values['products_model'] . '</a>&nbsp;</font></td>' . "\n";
         }
 
-        echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $check_cart_values['products_id'], 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
-        echo '            <td ' . $col_width[$col_idx++] . ' align="right" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($check_cart_values['customers_basket_quantity'] * $price) . '&nbsp;</font></td>' . "\n";
+        echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $check_cart_values['products_id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
+//------insert customer choosen option --------
+		$attributes_exist = '';
+		$attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $check_cart_values['customers_id'] . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
+        if (tep_db_num_rows($attributes)) {
+		$attributes_exist = '1';
+		while ($attributes_values = tep_db_fetch_array($attributes)) {
+		echo "\n" . '<br>&nbsp;-&nbsp;' . $attributes_values['products_options_name'] . '&nbsp;:&nbsp;' . $attributes_values['products_options_values_name'];
+		}
+		}
+//------insert customer choosen option eof-----
+		echo '</font></td>' . "\n";
+		echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_currency_format($check_cart_values['customers_basket_quantity'] * $price) . '&nbsp;';
+//------insert customer choosen option --------
+		if ($attributes_exist == '1') {
+        $attributes = tep_db_query("select pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa, products_attributes_to_basket pa2b, customers_basket cb where cb.customers_id = '" . $check_cart_values['customers_id'] . "' and pa.products_id = '" . $check_cart_values['products_id'] . "' and pa2b.customers_basket_id = cb.customers_basket_id and pa2b.products_attributes_id = pa.products_attributes_id and pa.options_id = popt.products_options_id and pa.options_values_id = poval.products_options_values_id");
+		$final_price=$check_cart_values['customers_basket_quantity'] * $price;
+		while ($attributes_values = tep_db_fetch_array($attributes)) {
+			  if ($attributes_values['options_values_price'] != '0') {
+			  	if ($attributes_values['price_prefix'] =='+') {
+			  	$final_price=$final_price+($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+				} else {
+				$final_price=$final_price-($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']);
+				}
+			  echo "\n" . '<br>' . $attributes_values['price_prefix'] . tep_currency_format($check_cart_values['customers_basket_quantity'] * $attributes_values['options_values_price']) . '&nbsp;';
+			  } else {
+			  echo "\n" . '<br>&nbsp;';
+			  }
+		}
+		}
+//------insert customer choosen option eof-----
+		echo '</font></td>' . "\n";
         echo '          </tr>' . "\n";
-        $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $price);
+//------insert customer choosen option --------
+		if ($attributes_exist=='1') {
+		echo '<tr><td colspan="' . ($colspan-1) . '" align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . SUB_TITLE_FINAL . '</b></font></td>';
+		echo '<td align="right"><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '"><b>' . tep_currency_format($final_price) . '&nbsp;</b></font></td>';
+		tep_db_query("update customers_basket set final_price = '" . $final_price . "' where customers_basket_id = '" . $check_cart_values['customers_basket_id'] . "'");
+		} else {
+		tep_db_query("update customers_basket set final_price = '" . $price . "' where customers_basket_id = '" . $check_cart_values['customers_basket_id'] . "'");
+		$final_price = $price;
+		}
+//------insert customer choosen option eof-----
+        $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $final_price);
       }
     } elseif (tep_session_is_registered('nonsess_cart')) {
       $total_cost = 0;

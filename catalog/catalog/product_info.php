@@ -63,6 +63,12 @@
     } else {
        $products_price = tep_currency_format($product_info_values['products_price']);
     }
+	$products_attributes = tep_db_query("select popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
+	if (tep_db_num_rows($products_attributes)) {
+	$products_attributes = '1';
+    } else {
+	$products_attributes = '0';
+	}
 ?>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -72,16 +78,76 @@
           </tr>
 <?
    if (PRODUCT_LIST_MODEL) {
-      echo '<td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . $product_info_values['products_model'] . '&nbsp;</font></td>';
+      echo '<tr><td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . $product_info_values['products_model'] . '&nbsp;</font></td>';
    }
 ?>
         </table></td>
       </tr>
       <tr>
         <td><?=tep_black_line();?></td>
-      </tr>
+      </tr><table>
+<?
+    if (tep_session_is_registered('customer_id')) {
+      $check_products = tep_db_query("select customers_basket_quantity from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+      if (tep_db_num_rows($check_products)) {
+        $check_products_values = tep_db_fetch_array($check_products);
+        $product_exists_in_cart = '1';
+        $product_quantity_in_cart = $check_products_values['customers_basket_quantity'];
+      } else {
+        $product_exists_in_cart = '0';
+      }
+    } elseif (tep_session_is_registered('nonsess_cart')) {
+      $nonsess_cart_contents = explode('|', $nonsess_cart);
+      for ($i=0;$i<sizeof($nonsess_cart_contents);$i++) {
+        $product_info = explode(':', $nonsess_cart_contents[$i]);
+        if ($product_info[0] == $HTTP_GET_VARS['products_id']) {
+          $product_exists_in_cart = '1';
+          $product_quantity_in_cart = $product_info[1];
+        }
+      }
+    }
+// lets retrieve all $HTTP_GET_VARS keys and values..
+    $keys = array_keys($HTTP_GET_VARS);
+    $values = array_values($HTTP_GET_VARS);
+
+    $get_params = '';
+    $get_params_back = ''; // this one is for the back button (needs to remove the last GET parameter (products_id))
+    for ($i=0;$i<sizeof($keys);$i++) {
+      $get_params.=$keys[$i] . '=' . $values[$i] . '&';
+      if (($i + 1) != sizeof($keys)) {
+        $get_params_back.=$keys[$i] . '=' . $values[$i] . '&';
+      }
+    }
+    $get_params = substr($get_params, 0, -1); //remove trailing &
+    $get_params_back = substr($get_params_back, 0, -1); //remove trailing &
+?>	  
+      <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td wrap><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $products_name);?><?=$product_info_values['products_description'];?></font></td>
+        <td><form name="cart_quantity" method="post" action="<?=tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL');?>">
+		<table border="0" width="100%"><tr><td><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $products_name);?><?=$product_info_values['products_description'];?>
+<?  
+	if ($products_attributes == '1') {
+	$products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
+		echo '<p><b></b>' . TEXT_PRODUCT_OPTIONS . '</b><br>';
+	    echo '<table border="0" cellpading="0" cellspacing"0">';
+		while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
+		$selected = 0;
+		$products_options = tep_db_query("select products_options_values.products_options_values_id, products_options_values.products_options_values_name, products_attributes.options_values_price, products_attributes.price_prefix from products_attributes, products_options_values where products_attributes.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_attributes.options_id = '" . $products_options_name_values['products_options_id'] . "' and products_attributes.options_values_id = products_options_values.products_options_values_id");
+		echo '<tr><td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $products_options_name_values['products_options_name'] . ':&nbsp;</font></td><td>' . "\n" . '<select name ="' . $products_options_name_values['products_options_id'] . '">' . "\n" . '<option value="0">' . PLEASE_SELECT . '</option>'; 
+			 while ($products_options_values = tep_db_fetch_array($products_options)) {
+			 echo "\n" . '<option name="' . $products_options_name_values['products_options_name'] . '" value="' . $products_options_values['products_options_values_id'] . '"';
+				if ($products_options_values['options_values_price'] == 0 && $selected == 0) {
+				$selected = 1;
+				echo ' selected';
+				};
+			 echo '>' . $products_options_values['products_options_values_name'] . '&nbsp;(' . $products_options_values['price_prefix'] . CURRENCY_BEFORE . $products_options_values['options_values_price'] .')&nbsp</option>';
+			 };
+			 echo '</select></td></tr>';
+		}
+		echo '</table>';
+	} 
+?>		
+		</td></tr></table></td>
       </tr>
 <?
     $reviews = tep_db_query("select count(*) as count from reviews_extra where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
@@ -105,45 +171,8 @@
       <tr>
         <td><br><?=tep_black_line();?></td>
       </tr>
-<?
-    if (tep_session_is_registered('customer_id')) {
-      $check_products = tep_db_query("select customers_basket_quantity from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-      if (tep_db_num_rows($check_products)) {
-        $check_products_values = tep_db_fetch_array($check_products);
-        $product_exists_in_cart = '1';
-        $product_quantity_in_cart = $check_products_values['customers_basket_quantity'];
-      } else {
-        $product_exists_in_cart = '0';
-      }
-    } elseif (tep_session_is_registered('nonsess_cart')) {
-      $nonsess_cart_contents = explode('|', $nonsess_cart);
-      for ($i=0;$i<sizeof($nonsess_cart_contents);$i++) {
-        $product_info = explode(':', $nonsess_cart_contents[$i]);
-        if ($product_info[0] == $HTTP_GET_VARS['products_id']) {
-          $product_exists_in_cart = '1';
-          $product_quantity_in_cart = $product_info[1];
-        }
-      }
-    }
-?>
       <tr>
-<?      
-// lets retrieve all $HTTP_GET_VARS keys and values..
-    $keys = array_keys($HTTP_GET_VARS);
-    $values = array_values($HTTP_GET_VARS);
-
-    $get_params = '';
-    $get_params_back = ''; // this one is for the back button (needs to remove the last GET parameter (products_id))
-    for ($i=0;$i<sizeof($keys);$i++) {
-      $get_params.=$keys[$i] . '=' . $values[$i] . '&';
-      if (($i + 1) != sizeof($keys)) {
-        $get_params_back.=$keys[$i] . '=' . $values[$i] . '&';
-      }
-    }
-    $get_params = substr($get_params, 0, -1); //remove trailing &
-    $get_params_back = substr($get_params_back, 0, -1); //remove trailing &
-?>
-        <td><br><form name="cart_quantity" method="post" action="<?=tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL');?>"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
 <?
     if ($reviews_values['count'] == '0') {

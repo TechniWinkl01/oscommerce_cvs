@@ -15,6 +15,7 @@ define('TABLE_HEADING_PRODUCT', 'Product');
 define('TABLE_HEADING_TOTAL', 'Total');
 define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
+define('SUB_TITLE_FINAL', 'Final Price:');
 define('TABLE_SUBHEADING_SUBTOTAL', 'Sub-Total:');
 define('TABLE_SUBHEADING_TAX', 'Tax');
 define('TABLE_SUBHEADING_SHIPPING', 'Shipping:');
