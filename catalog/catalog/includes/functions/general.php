@@ -1283,7 +1283,9 @@ function tep_address_summary($customers_id, $address_id) {
           $cPath .= "_";
         $cPath .= $categories[$i];
       }
-      $cPath .= "_" . $cat_id_data['categories_id'];
+      if ($cPath != "")
+        $cPath .= "_";
+      $cPath .= $cat_id_data['categories_id'];
     }
     
     return $cPath;
