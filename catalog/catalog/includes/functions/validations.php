@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: validations.php,v 1.5 2001/09/20 19:27:07 mbs Exp $
+  $Id: validations.php,v 1.6 2001/11/17 04:44:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -115,7 +115,7 @@
     else
       $valid_address = false;
 
-    if ($valid_address && ENTRY_EMAIL_ADDRESS_CHECK == 1) {
+    if ($valid_address && ENTRY_EMAIL_ADDRESS_CHECK == 'true') {
       if (!checkdnsrr($domain, "MX") && !checkdnsrr($domain, "A")) {
         $valid_address = false;
       }

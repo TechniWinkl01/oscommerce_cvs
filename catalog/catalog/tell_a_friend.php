@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.15 2001/11/09 20:18:55 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.16 2001/11/17 04:44:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,7 @@
   if (tep_session_is_registered('customer_id')) {
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
     $account_values = tep_db_fetch_array($account);
-  } elseif (EMAILPRODUCT_GUEST == false) {
+  } elseif (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false') {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_TELL_A_FRIEND . '&emailproduct=' . $HTTP_GET_VARS['products_id'] . '&send_to=' . $HTTP_GET_VARS['send_to'], 'NONSSL'));
   }
 

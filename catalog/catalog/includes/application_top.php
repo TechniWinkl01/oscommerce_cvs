@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.182 2001/11/17 03:34:17 hpdl Exp $
+  $Id: application_top.php,v 1.183 2001/11/17 04:44:49 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,9 +11,7 @@
 */
 
 // Set your local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) {
-    include('includes/local/configure.php');
-  }
+  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
 // Include application configuration parameters
   require('includes/configure.php');
@@ -114,17 +112,10 @@
   define('TABLE_ZONES', 'zones');
 
 // customization for the design layout
-  define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
-  define('EMAILPRODUCT_GUEST', false); // Can guests use the tell a friend email form?
-
-// set to "1" if extended email check function should be used
-// If you're testing locally and your webserver has no possibility to query
-// a dns server you should set this to "0" !
-  define('ENTRY_EMAIL_ADDRESS_CHECK', 0);
 
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
@@ -136,9 +127,6 @@
 // Advanced Search controls
   define('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and'); // default boolean search operator: or/and
   define('ADVANCED_SEARCH_DISPLAY_TIPS', 1); // Display Advanced Search Tips at the bottom of the page: 0=disable; 1=enable
-
-// Manufacturers box
-  define('DISPLAY_EMPTY_MANUFACTURERS', 1); // Display Manufacturers with no products: 0=disable; 1=enable
 
 // Categories Box: recursive products count
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
@@ -168,9 +156,7 @@
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
-  if (USE_CACHE == 'true') {
-    include(DIR_WS_FUNCTIONS . 'cache.php');
-  }
+  if (USE_CACHE == 'true') include(DIR_WS_FUNCTIONS . 'cache.php');
 
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
