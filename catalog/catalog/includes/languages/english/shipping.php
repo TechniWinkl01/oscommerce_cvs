@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.2 2001/05/26 16:45:29 hpdl Exp $
+  $Id: shipping.php,v 1.3 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Shipping & Returns');
-define('TOP_BAR_TITLE', 'Shipping & Returns');
 define('HEADING_TITLE', 'Shipping & Returns');
 
 define('TEXT_INFORMATION', 'Put here your Shipping & Returns information.');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.12 2001/06/12 11:39:18 mbs Exp $
+  $Id: shopping_cart.php,v 1.13 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Warenkorb');
-define('TOP_BAR_TITLE', 'Warenkorb');
 define('HEADING_TITLE', 'Ihr Warenkorb enth&auml;lt :');
 define('TABLE_HEADING_REMOVE', 'Entfernen');
 define('TABLE_HEADING_QUANTITY', 'Anzahl');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.8 2001/05/26 16:49:13 hpdl Exp $
+  $Id: account.php,v 1.9 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,5 @@
 */
 
 define('NAVBAR_TITLE', 'Mein Konto');
-define('TOP_BAR_TITLE', 'Mein Konto');
 define('HEADING_TITLE', 'pers&ouml;nliche Daten :');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.5 2001/06/14 10:25:04 mbs Exp $
+  $Id: tell_a_friend.php,v 1.6 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Artikel weiterempfehlen');
-define('TOP_BAR_TITLE', 'Artikel weiterempfehlen');
 define('HEADING_TITLE', 'Empfehlen Sie \'%s\' weiter');
 
 define('FORM_TITLE_CUSTOMER_DETAILS', 'Ihre Angaben');

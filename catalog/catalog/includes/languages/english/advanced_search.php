@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.9 2001/05/26 16:45:10 hpdl Exp $
+  $Id: advanced_search.php,v 1.10 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Advanced Search');
-define('TOP_BAR_TITLE', 'Advanced Search');
 define('HEADING_TITLE', 'Enter Search Criteria');
 
 define('ENTRY_CATEGORIES', 'Categories:');

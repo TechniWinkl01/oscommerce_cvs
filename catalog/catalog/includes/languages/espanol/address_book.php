@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.4 2001/05/26 16:47:10 hpdl Exp $
+  $Id: address_book.php,v 1.5 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Mi Cuenta');
 define('NAVBAR_TITLE_2', 'Otras Direcciones');
-define('TOP_BAR_TITLE', 'Direcciones');
 define('HEADING_TITLE', 'Otras Direcciones de Envio');
 define('TABLE_HEADING_NUMBER', 'Nº');
 define('TABLE_HEADING_NAME', 'Nombre');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.8 2001/06/06 09:25:24 kwiltner Exp $
+  $Id: advanced_search_result.php,v 1.9 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE1', 'Search');
 define('NAVBAR_TITLE2', 'Search Results');
-define('TOP_BAR_TITLE', 'Search Results');
 define('HEADING_TITLE', 'Products meeting the search criteria');
 define('TABLE_HEADING_IMAGE', '');
 define('TABLE_HEADING_MODEL', 'Model');

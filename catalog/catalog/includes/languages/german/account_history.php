@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.8 2001/05/26 16:49:18 hpdl Exp $
+  $Id: account_history.php,v 1.9 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
 define('NAVBAR_TITLE_2', 'get&auml;tigte Bestellungen');
-define('TOP_BAR_TITLE', 'get&auml;tigte Bestellungen');
 define('HEADING_TITLE', 'get&auml;tigten Bestellungen :');
 define('TABLE_HEADING_ORDER_NUMBER', 'Auftragsnummer');
 define('TABLE_HEADING_ORDER_DATE', 'Bestelldatum');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.3 2001/05/26 16:45:28 hpdl Exp $
+  $Id: reviews.php,v 1.4 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Reviews');
-define('TOP_BAR_TITLE', 'New Product Reviews');
 define('HEADING_TITLE', 'Read What Others Are Saying');
 define('TEXT_OF_5_STARS', '%s of 5 Stars!');
 ?>

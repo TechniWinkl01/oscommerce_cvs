@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.15 2001/06/13 21:21:12 dwatkins Exp $
+  $Id: product_info.php,v 1.16 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,7 +10,6 @@
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Produktinformation');
 define('TEXT_PRODUCT_NOT_FOUND', 'Produkt nicht gefunden!');
 define('TEXT_CURRENT_REVIEWS', 'Aktuelle Meinungen:');
 define('TEXT_MORE_INFORMATION', 'F&uuml;r weitere Informationen, besuchen Sie bitte die <a href="%s" target="_blank"><u>webpage</u></a> zu diesem Produkt.');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.5 2001/05/26 16:45:30 hpdl Exp $
+  $Id: specials.php,v 1.6 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,5 @@
 */
 
 define('NAVBAR_TITLE', 'Specials');
-define('TOP_BAR_TITLE', 'Specials');
 define('HEADING_TITLE', 'Get Them While They\'re Hot!');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.15 2001/06/04 10:10:35 mbs Exp $
+  $Id: default.php,v 1.16 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,6 @@ define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Upcoming Products');
 define('TABLE_HEADING_DATE_EXPECTED', 'Date Expected');
 
 if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
-  define('TOP_BAR_TITLE', 'Online Products');
   define('HEADING_TITLE', 'Let\'s See What We Have Here');
   define('TABLE_HEADING_IMAGE', '');
   define('TABLE_HEADING_MODEL', 'Model');
@@ -34,11 +33,9 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TEXT_NOW', '\' now');
   define('TEXT_ALL', 'All');
 } elseif ($category_depth == 'top') {
-  define('TOP_BAR_TITLE', 'Welcome To \'' . STORE_NAME . '\'!');
   define('HEADING_TITLE', 'What\'s New Here?');
   define('SUB_BAR_TITLE', strftime(DATE_FORMAT_LONG));
 } elseif ($category_depth == 'nested') {
-  define('TOP_BAR_TITLE', 'New Products In This Category');
   define('HEADING_TITLE', 'What\'s New Here?');
   define('SUB_BAR_TITLE', 'Categories');
 }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_write.php,v 1.3 2001/05/26 16:45:28 hpdl Exp $
+  $Id: product_reviews_write.php,v 1.4 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Reviews');
-define('TOP_BAR_TITLE', '%s Reviews');
 define('HEADING_TITLE', 'Have You Got Something To Say?');
 define('SUB_TITLE_PRODUCT', 'Product:');
 define('SUB_TITLE_FROM', 'From:');

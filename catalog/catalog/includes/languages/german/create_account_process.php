@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.11 2001/12/10 11:48:27 dgw_ Exp $
+  $Id: create_account_process.php,v 1.12 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Zugang erstellen');
 define('NAVBAR_TITLE_2', 'Bearbeitung');
-define('TOP_BAR_TITLE', 'Zugang erstellen');
 define('HEADING_TITLE', 'Meine Zugangsinformation');
 
 define('EMAIL_SUBJECT', 'Willkommen zu ' . STORE_NAME);

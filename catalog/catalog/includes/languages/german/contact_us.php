@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.4 2001/05/26 16:49:29 hpdl Exp $
+  $Id: contact_us.php,v 1.5 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('SUB_BAR_TITLE', 'Sie haben Fragen?');
 define('SUB_BAR_TITLE_SENT', 'Anfrage wurde gesendet');
-define('TOP_BAR_TITLE', 'Kontakt');
 define('HEADING_TITLE', 'Kontakt');
 define('NAVBAR_TITLE', 'Kontakt');
 define('TEXT_SUCCESS', 'Ihre Anfrage wurde erfolgreich an den Vertrieb gesendet.');

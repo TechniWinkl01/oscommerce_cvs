@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.1 2001/08/21 17:51:53 hpdl Exp $
+  $Id: products_new.php,v 1.2 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Neue Produkte');
-define('TOP_BAR_TITLE', 'Neue Produkte');
 define('HEADING_TITLE', 'Neue Produkte');
 
 define('TEXT_DATE_ADDED', 'Datum:');

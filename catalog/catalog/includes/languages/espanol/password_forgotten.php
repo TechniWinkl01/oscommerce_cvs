@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.4 2001/12/17 14:26:08 dgw_ Exp $
+  $Id: password_forgotten.php,v 1.5 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Entrar');
 define('NAVBAR_TITLE_2', 'Constraseña Olvidada');
-define('TOP_BAR_TITLE', 'Contraseña Olvidada');
 define('HEADING_TITLE', 'He olvidado mi Contraseña!');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><b>NOTA:</b></font> Ese E-Mail no figura en nuestros datos, intentelo de nuevo.');

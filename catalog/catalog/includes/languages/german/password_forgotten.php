@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.5 2001/12/17 14:47:42 jan0815 Exp $
+  $Id: password_forgotten.php,v 1.6 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Anmelden');
 define('NAVBAR_TITLE_2', 'Passwort Vergessen');
-define('TOP_BAR_TITLE', 'Password Vergessen');
 define('HEADING_TITLE', 'Wie war noch mal mein Passwort?');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('TEXT_NO_EMAIL_ADDRESS_FOUND', '<font color="#ff0000"><b>ACHTUNG:</b></font> Diese E-Mail Adresse ist nicht registriert. Bitte versuchen Sie es noch einmal.');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.5 2001/05/26 16:45:12 hpdl Exp $
+  $Id: checkout_address.php,v 1.6 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Checkout');
 define('NAVBAR_TITLE_2', 'Delivery Address');
-define('TOP_BAR_TITLE', 'Checkout Procedure');
 define('HEADING_TITLE', 'Product Delivery');
 define('TABLE_HEADING_MY_ADDRESS', 'My Address');
 define('TABLE_HEADING_SHIPPING_INFO', 'Shipping Method');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.10 2001/05/26 16:45:14 hpdl Exp $
+  $Id: checkout_payment.php,v 1.11 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Checkout');
 define('NAVBAR_TITLE_2', 'Payment Method');
-define('TOP_BAR_TITLE', 'Checkout Procedure');
 define('HEADING_TITLE', 'Payment Method');
 define('TABLE_HEADING_COMMENTS', 'Add Comments About Your Order');
 define('TABLE_HEADING_METHODS', 'Methods');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.9 2001/05/26 16:49:19 hpdl Exp $
+  $Id: address_book.php,v 1.10 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
 define('NAVBAR_TITLE_2', 'Adressbuch');
-define('TOP_BAR_TITLE', 'Vorhandene Eintr&auml;ge');
 define('HEADING_TITLE', 'Folgende Eintr&auml;ge verbinden wir zur Zeit mit Ihrem Zugang :');
 define('TABLE_HEADING_NUMBER', 'Nummer');
 define('TABLE_HEADING_NAME', 'Name');

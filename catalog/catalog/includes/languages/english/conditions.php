@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: conditions.php,v 1.2 2001/05/26 16:45:17 hpdl Exp $
+  $Id: conditions.php,v 1.3 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Conditions of Use');
-define('TOP_BAR_TITLE', 'Conditions of Use');
 define('HEADING_TITLE', 'Conditions of Use');
 
 define('TEXT_INFORMATION', 'Put here your Conditions of Use information.');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.16 2001/12/13 13:50:06 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.17 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,6 @@
 
 define('NAVBAR_TITLE_1', 'Checkout');
 define('NAVBAR_TITLE_2', 'Confirmation');
-define('TOP_BAR_TITLE', 'Checkout Procedure');
 define('HEADING_TITLE', 'I\'m Ready To Purchase!');
 define('TABLE_HEADING_COMMENTS', 'Comments About Your Order');
 define('TABLE_HEADING_QUANTITY', 'Qty.');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.8 2001/11/10 17:38:07 dgw_ Exp $
+  $Id: login.php,v 1.9 2001/12/20 14:14:14 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,12 +12,10 @@
 
 if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
   define('NAVBAR_TITLE', 'Order');
-  define('TOP_BAR_TITLE', 'Order');
   define('HEADING_TITLE', 'Ordering online is easy.');
   define('TEXT_STEP_BY_STEP', 'We\'ll walk you through the process, step by step.');
 } else {
   define('NAVBAR_TITLE', 'Login');
-  define('TOP_BAR_TITLE', 'Login to \'' . STORE_NAME . '\'');
   define('HEADING_TITLE', 'Let Me In!');
   define('TEXT_STEP_BY_STEP', ''); // should be empty
 }

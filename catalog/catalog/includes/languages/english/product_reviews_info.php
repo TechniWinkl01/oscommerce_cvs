@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.4 2001/06/17 10:37:05 mbs Exp $
+  $Id: product_reviews_info.php,v 1.5 2001/12/20 14:14:15 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,7 +11,6 @@
 */
 
 define('NAVBAR_TITLE', 'Reviews');
-define('TOP_BAR_TITLE', 'Product Reviews');
 define('HEADING_TITLE', ' %s Reviews');
 define('SUB_TITLE_PRODUCT', 'Product:');
 define('SUB_TITLE_FROM', 'From:');
