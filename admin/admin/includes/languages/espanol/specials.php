@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.8 2002/01/31 01:19:44 harley_vb Exp $
+  $Id: specials.php,v 1.9 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,12 +14,12 @@ define('HEADING_TITLE', 'Ofertas');
 
 define('TABLE_HEADING_PRODUCTS', 'Productos');
 define('TABLE_HEADING_PRODUCTS_PRICE', 'Precio');
-define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_STATUS', 'Estado');
 define('TABLE_HEADING_ACTION', 'Accion');
 
 define('TEXT_SPECIALS_PRODUCT', 'Producto:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Precio de Oferta:');
-define('TEXT_SPECIALS_EXPIRES_DATE', 'Expiry Date:');
+define('TEXT_SPECIALS_EXPIRES_DATE', 'Fecha de Caducidad:');
 define('TEXT_SPECIALS_PRICE_TIP', '<b>Notas:</b><ul><li>Puedes introducir un porcentaje de reduccion del precio del producto, por ejemplo: <b>20%</b></li><li>Si por el contrario, introduces un precio de oferta debes de usar el punto como separador decimal \'.\' (punto decimal), por ejemplo: <b>49.99</b></li><li>Deja la fecha de caducidad vacia si no quieres caducidad</li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'Fecha Alta:');

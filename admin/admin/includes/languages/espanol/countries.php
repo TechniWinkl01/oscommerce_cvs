@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: countries.php,v 1.4 2002/01/12 17:02:18 hpdl Exp $
+  $Id: countries.php,v 1.5 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,6 +24,6 @@ define('TEXT_INFO_ADDRESS_FORMAT', 'Formato de Direccion:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca el nuevo pais con sus datos');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este pais?');
 define('TEXT_INFO_HEADING_NEW_COUNTRY', 'Nuevo Pais');
-define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Edit Country');
-define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Delete Country');
+define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Editar Pais');
+define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Eliminar Pais');
 ?>

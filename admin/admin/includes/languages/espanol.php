@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.77 2002/03/09 17:04:11 dgw_ Exp $
+  $Id: espanol.php,v 1.78 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -94,13 +94,13 @@ define('BOX_REPORTS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Herramientas');
 define('BOX_TOOLS_BACKUP', 'Copia Base de Datos');
-define('BOX_TOOLS_BANNER_MANAGER', 'Banner Manager');
-define('BOX_TOOLS_CACHE', 'Cache Control');
-define('BOX_TOOLS_DEFINE_LANGUAGE', 'Define Languages');
+define('BOX_TOOLS_BANNER_MANAGER', 'Administrador de Banners');
+define('BOX_TOOLS_CACHE', 'Control de la Cache');
+define('BOX_TOOLS_DEFINE_LANGUAGE', 'Definir Idiomas');
 define('BOX_TOOLS_FILE_MANAGER', 'Administrador de Archivos');
-define('BOX_TOOLS_MAIL', 'Send Email');
-define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
-define('BOX_TOOLS_SERVER_INFO', 'Server Info');
+define('BOX_TOOLS_MAIL', 'Enviar Email');
+define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Administrador de Boletines');
+define('BOX_TOOLS_SERVER_INFO', 'Informacion del Servidor');
 define('BOX_TOOLS_WHOS_ONLINE', 'Usuarios conectados');
 
 // localizaion box text in includes/boxes/localization.php
@@ -149,15 +149,15 @@ define('CATEGORY_PERSONAL', 'Personal');
 define('CATEGORY_ADDRESS', 'Domicilio');
 define('CATEGORY_CONTACT', 'Contacto');
 define('CATEGORY_PASSWORD', 'Contraseña');
-define('CATEGORY_COMPANY', 'Company');
-define('CATEGORY_OPTIONS', 'Options');
+define('CATEGORY_COMPANY', 'Empresa');
+define('CATEGORY_OPTIONS', 'Opciones');
 define('ENTRY_GENDER', 'Sexo:');
 define('ENTRY_GENDER_ERROR', '&nbsp;<small><font color="#AABBDD">obligatorio</font></small>');
 define('ENTRY_FIRST_NAME', 'Nombre:');
 define('ENTRY_LAST_NAME', 'Apellidos:');
 define('ENTRY_DATE_OF_BIRTH', 'Fecha de Nacimiento:');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
-define('ENTRY_COMPANY', 'Company name:');
+define('ENTRY_COMPANY', 'Nombre empresa:');
 define('ENTRY_STREET_ADDRESS', 'Direccion:');
 define('ENTRY_SUBURB', '');
 define('ENTRY_POST_CODE', 'Codigo Postal:');
@@ -166,42 +166,42 @@ define('ENTRY_STATE', 'Provincia:');
 define('ENTRY_COUNTRY', 'Pais:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefono:');
 define('ENTRY_FAX_NUMBER', 'Fax:');
-define('ENTRY_NEWSLETTER', 'Newsletter:');
-define('ENTRY_NEWSLETTER_YES', 'subscribes');
-define('ENTRY_NEWSLETTER_NO', 'unsubscribes');
+define('ENTRY_NEWSLETTER', 'Boletin:');
+define('ENTRY_NEWSLETTER_YES', 'suscrito');
+define('ENTRY_NEWSLETTER_NO', 'no suscrito');
 define('ENTRY_PASSWORD', 'Contraseña:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Confirmacion:');
 define('PASSWORD_HIDDEN', '--OCULTO--');
 
 // images
-define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
+define('IMAGE_ANI_SEND_EMAIL', 'Enviando E-Mail');
 define('IMAGE_BACK', 'Atras');
-define('IMAGE_BACKUP', 'Backup');
+define('IMAGE_BACKUP', 'Copia');
 define('IMAGE_CANCEL', 'Cancelar');
 define('IMAGE_CONFIRM', 'Confirmar');
 define('IMAGE_COPY', 'Copiar');
 define('IMAGE_COPY_TO', 'Copiar A');
-define('IMAGE_DEFINE', 'Define');
+define('IMAGE_DEFINE', 'Definir');
 define('IMAGE_DELETE', 'Eliminar');
 define('IMAGE_EDIT', 'Editar');
 define('IMAGE_EMAIL', 'Email');
 define('IMAGE_FILE_MANAGER', 'Administrador de Archivos');
-define('IMAGE_ICON_STATUS_GREEN', 'Active');
-define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'Set Active');
-define('IMAGE_ICON_STATUS_RED', 'Inactive');
-define('IMAGE_ICON_STATUS_RED_LIGHT', 'Set Inactive');
-define('IMAGE_ICON_INFO', 'Info');
+define('IMAGE_ICON_STATUS_GREEN', 'Activo');
+define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'Activar');
+define('IMAGE_ICON_STATUS_RED', 'Inactivo');
+define('IMAGE_ICON_STATUS_RED_LIGHT', 'Desactivar');
+define('IMAGE_ICON_INFO', 'Datos');
 define('IMAGE_INSERT', 'Insertar');
 define('IMAGE_MODIFY', 'Modificar');
 define('IMAGE_MOVE', 'Mover');
-define('IMAGE_NEW_BANNER', 'New Banner');
+define('IMAGE_NEW_BANNER', 'Nuevo Banner');
 define('IMAGE_NEW_CATEGORY', 'Nueva Categoria');
 define('IMAGE_NEW_COUNTRY', 'Nuevo Pais');
 define('IMAGE_NEW_CURRENCY', 'Nueva Moneda');
 define('IMAGE_NEW_FILE', 'Nuevo Fichero');
 define('IMAGE_NEW_FOLDER', 'Nueva Carpeta');
 define('IMAGE_NEW_LANGUAGE', 'Nueva Idioma');
-define('IMAGE_NEW_NEWSLETTER', 'New Newsletter');
+define('IMAGE_NEW_NEWSLETTER', 'Nuevo Boletin');
 define('IMAGE_NEW_PRODUCT', 'Nuevo Producto');
 define('IMAGE_NEW_TAX_CLASS', 'Nuevo Tipo de Impuesto');
 define('IMAGE_NEW_TAX_RATE', 'Nuevo Tax Rate');
@@ -210,39 +210,39 @@ define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_ORDERS', 'Pedidos');
 define('IMAGE_PREVIEW', 'Ver');
 define('IMAGE_RESET', 'Resetear');
-define('IMAGE_RESTORE', 'Restore');
+define('IMAGE_RESTORE', 'Restaurar');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
 define('IMAGE_SELECT', 'Seleccionar');
-define('IMAGE_SEND', 'Send');
+define('IMAGE_SEND', 'Enviar');
 define('IMAGE_UPDATE', 'Actualizar');
 define('IMAGE_UPDATE_CURRENCIES', 'Actualizar Cambio de Moneda');
 define('IMAGE_UPLOAD', 'Subir');
 
-define('ICON_CROSS', 'False');
-define('ICON_CURRENT_FOLDER', 'Current Folder');
-define('ICON_DELETE', 'Delete');
+define('ICON_CROSS', 'Falso');
+define('ICON_CURRENT_FOLDER', 'Directorio Actual');
+define('ICON_DELETE', 'Eliminar');
 define('ICON_ERROR', 'Error');
-define('ICON_FILE', 'File');
-define('ICON_FILE_DOWNLOAD', 'Download');
-define('ICON_FOLDER', 'Folder');
-define('ICON_LOCKED', 'Locked');
-define('ICON_PREVIOUS_LEVEL', 'Previous Level');
+define('ICON_FILE', 'Fichero');
+define('ICON_FILE_DOWNLOAD', 'Descargar');
+define('ICON_FOLDER', 'Carpeta');
+define('ICON_LOCKED', 'Bloqueado');
+define('ICON_PREVIOUS_LEVEL', 'Nivel Anterior');
 define('ICON_PREVIEW', 'Ver');
-define('ICON_SUCCESS', 'Success');
-define('ICON_TICK', 'True');
-define('ICON_UNLOCKED', 'Unlocked');
-define('ICON_WARNING', 'Warning');
+define('ICON_SUCCESS', 'Exito');
+define('ICON_TICK', 'Verdadero');
+define('ICON_UNLOCKED', 'Desbloqueado');
+define('ICON_WARNING', 'Advertencia');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Paginas:');
-define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> banners)');
+define('TEXT_DISPLAY_NUMBER_OF_BANNERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> banners)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> monedas)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> fabricantes)');
-define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> newsletters)');
+define('TEXT_DISPLAY_NUMBER_OF_NEWSLETTERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> boletines)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS_STATUS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos estado)');
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
@@ -268,12 +268,12 @@ define('PREVNEXT_BUTTON_LAST', 'FINAL&gt;&gt;');
 
 define('TEXT_DEFAULT', 'predeterminado/a');
 define('TEXT_SET_DEFAULT', 'Establecer como predeterminado/a');
-define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Required</span>');
+define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Obligatorio</span>');
 
-define('ERROR_BANNER_TITLE', 'Error: Banner title required');
-define('ERROR_BANNER_GROUP', 'Error: Banner group required');
-define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: There is currently no default currency set. Please set one at: Administration Tool->Localization->Currencies');
-define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Error: There is currently no default language set. Please set one at: Administration Tool->Localization->Languages');
+define('ERROR_BANNER_TITLE', 'Error: Re requiere el titulo del banner');
+define('ERROR_BANNER_GROUP', 'Error: Se requiere un grupo para el banner');
+define('ERROR_NO_DEFAULT_CURRENCY_DEFINED', 'Error: No hay moneda predeterminada. Por favor establezca una en: Herramienta de Administracion->Localizacion->Monedas');
+define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', 'Error: No hay idioma predeterminado. Por favor establezca uno en: Herramienta de Administracion->Localizacion->Idiomas');
 
 define('TEXT_CACHE_CATEGORIES', 'Categorias');
 define('TEXT_CACHE_MANUFACTURERS', 'Fabricantes');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.1 2002/01/13 17:26:47 hpdl Exp $
+  $Id: index.php,v 1.2 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,30 +10,30 @@
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Choose an action..');
+define('HEADING_TITLE', 'Seleccione una opcion..');
 
-define('BOX_TITLE_ORDERS', 'Orders');
-define('BOX_TITLE_STATISTICS', 'Statistics');
+define('BOX_TITLE_ORDERS', 'Pedidos');
+define('BOX_TITLE_STATISTICS', 'Estadisticas');
 
-define('BOX_ENTRY_SUPPORT_SITE', 'Support Site');
-define('BOX_ENTRY_SUPPORT_FORUMS', 'Support Forums');
-define('BOX_ENTRY_MAILING_LISTS', 'Mailing Lists');
-define('BOX_ENTRY_BUG_REPORTS', 'Bug Reports');
-define('BOX_ENTRY_FAQ', 'FAQ');
-define('BOX_ENTRY_LIVE_DISCUSSIONS', 'Live Discussions');
-define('BOX_ENTRY_CVS_REPOSITORY', 'CVS Repository');
-define('BOX_ENTRY_INFORMATION_PORTAL', 'Information Portal');
+define('BOX_ENTRY_SUPPORT_SITE', 'Soporte');
+define('BOX_ENTRY_SUPPORT_FORUMS', 'Foros');
+define('BOX_ENTRY_MAILING_LISTS', 'Listas de Correo');
+define('BOX_ENTRY_BUG_REPORTS', 'Notificar Fallos');
+define('BOX_ENTRY_FAQ', 'PUF (FAQ)');
+define('BOX_ENTRY_LIVE_DISCUSSIONS', 'Discusiones');
+define('BOX_ENTRY_CVS_REPOSITORY', 'Repositorio CVS');
+define('BOX_ENTRY_INFORMATION_PORTAL', 'Portal');
 
-define('BOX_ENTRY_CUSTOMERS', 'Customers:');
-define('BOX_ENTRY_PRODUCTS', 'Products:');
-define('BOX_ENTRY_REVIEWS', 'Reviews:');
+define('BOX_ENTRY_CUSTOMERS', 'Clientes:');
+define('BOX_ENTRY_PRODUCTS', 'Productos:');
+define('BOX_ENTRY_REVIEWS', 'Comentarios:');
 
-define('CATALOG_CONTENTS', 'Contents');
+define('CATALOG_CONTENTS', 'Contenido');
 
-define('REPORTS_PRODUCTS', 'Products');
-define('REPORTS_ORDERS', 'Orders');
+define('REPORTS_PRODUCTS', 'Productos');
+define('REPORTS_ORDERS', 'Pedidos');
 
-define('TOOLS_BACKUP', 'Backup');
+define('TOOLS_BACKUP', 'Copias');
 define('TOOLS_BANNERS', 'Banners');
-define('TOOLS_FILES', 'Files');
+define('TOOLS_FILES', 'Ficheros');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.8 2002/01/18 17:28:53 hpdl Exp $
+  $Id: mail.php,v 1.9 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,6 +20,6 @@ define('TEXT_SELECT_CUSTOMER', 'Seleccionar Cliente');
 define('TEXT_ALL_CUSTOMERS', 'Todos los Clientes');
 define('TEXT_NEWSLETTER_CUSTOMERS', 'Todos los Suscritos');
 
-define('NOTICE_EMAIL_SENT_TO', 'Notice: Email sent to: %s');
-define('ERROR_NO_CUSTOMER_SELECTED', 'Error: No customer has been selected.');
+define('NOTICE_EMAIL_SENT_TO', 'Aviso: Email enviado a: %s');
+define('ERROR_NO_CUSTOMER_SELECTED', 'Error: No ha seleccionado ningun cliente.');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.16 2002/01/09 07:57:44 hpdl Exp $
+  $Id: backup.php,v 1.17 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,7 +18,7 @@ define('TABLE_HEADING_FILE_SIZE', 'Tamaño');
 define('TABLE_HEADING_ACTION', 'Acción');
 
 define('TEXT_INFO_HEADING_NEW_BACKUP', 'Nueva Copia De Seguridad');
-define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Restore Local');
+define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Restaurar Localmente');
 define('TEXT_INFO_NEW_BACKUP', 'No interrumpa el proceso de copia, que puede durar unos minutos.');
 define('TEXT_INFO_UNPACK', '<br><br>(despues de descomprimir el archivo)');
 define('TEXT_INFO_RESTORE', 'No interrumpa el proceso de restauración.<br><br>Cuanto mas grande sea la copia de seguridad, mas tardará este proceso!<br><br>Si es posible, use el cliente de mysql.<br><br>Por ejemplo:<br><br><b>mysql -h' . DB_SERVER . ' -u' . DB_SERVER_USERNAME . ' -p ' . DB_DATABASE . ' < %s </b> %s');
@@ -32,10 +32,10 @@ define('TEXT_INFO_USE_ZIP', 'Usar ZIP');
 define('TEXT_INFO_USE_NO_COMPRESSION', 'Sin Compresión (directamente SQL)');
 define('TEXT_INFO_DOWNLOAD_ONLY', 'Bajar solo (no guardar en el servidor)');
 define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Preferiblemente con una conexion segura');
-define('TEXT_NO_EXTENSION', 'None');
-define('TEXT_BACKUP_DIRECTORY', 'Backup Directory:');
-define('TEXT_LAST_RESTORATION', 'Last Restoration:');
-define('TEXT_FORGET', '(<u>forget</u>)');
+define('TEXT_NO_EXTENSION', 'Ninguna');
+define('TEXT_BACKUP_DIRECTORY', 'Directorio para Copias de Seguridad:');
+define('TEXT_LAST_RESTORATION', 'Ultima Restauración:');
+define('TEXT_FORGET', '(<u>olvidar</u>)');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de copias de seguridad.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: No hay permiso de escritura en el directorio de copias de seguridad.');

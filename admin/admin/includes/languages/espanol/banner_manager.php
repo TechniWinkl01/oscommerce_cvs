@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.15 2002/01/05 09:17:04 hpdl Exp $
+  $Id: banner_manager.php,v 1.16 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,5 +47,5 @@ define('TEXT_BANNERS_BANNER_VIEWS', 'Vistas');
 define('TEXT_BANNERS_BANNER_CLICKS', 'Clicks');
 
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este banner?');
-define('TEXT_INFO_DELETE_IMAGE', 'Delete banner image');
+define('TEXT_INFO_DELETE_IMAGE', 'Borrar imagen');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.5 2002/03/09 16:54:04 dgw_ Exp $
+  $Id: products_attributes.php,v 1.6 2002/03/09 20:18:24 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,10 +22,10 @@ define('TABLE_HEADING_OPT_VALUE', 'Valor de la Opcion');
 define('TABLE_HEADING_OPT_PRICE', 'Precio');
 define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Prefijo');
 define('TABLE_HEADING_ACTION', 'Accion');
-define('TABLE_HEADING_DOWNLOAD', 'Downloadable products:');
-define('TABLE_TEXT_FILENAME', 'Filename:');
-define('TABLE_TEXT_MAX_DAYS', 'Expiry days:');
-define('TABLE_TEXT_MAX_COUNT', 'Maximum download count:');
+define('TABLE_HEADING_DOWNLOAD', 'Productos descargables:');
+define('TABLE_TEXT_FILENAME', 'Nombre del Fichero:');
+define('TABLE_TEXT_MAX_DAYS', 'Dias de caducidad:');
+define('TABLE_TEXT_MAX_COUNT', 'Numero maximo de descargas:');
 
 define('MAX_ROW_LISTS_OPTIONS', 10);
 

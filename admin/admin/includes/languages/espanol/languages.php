@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.6 2002/01/18 00:46:42 hpdl Exp $
+  $Id: languages.php,v 1.7 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,9 +25,9 @@ define('TEXT_INFO_LANGUAGE_SORT_ORDER', 'Orden:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca los datos del nuevo idioma');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar este idioma?');
 define('TEXT_INFO_HEADING_NEW_LANGUAGE', 'Nuevo Idioma');
-define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Edit Language');
-define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Delete Language');
+define('TEXT_INFO_HEADING_EDIT_LANGUAGE', 'Editar Idioma');
+define('TEXT_INFO_HEADING_DELETE_LANGUAGE', 'Eliminar Idioma');
 
-define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Error: The default language can not be removed. Please set another language as default, and try again.');
+define('ERROR_REMOVE_DEFAULT_LANGUAGE', 'Error: El idioma seleccionado por defecto no se puede eliminar. Seleccione otro idioma predeterminado y pruebe de nuevo.');
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.12 2002/01/09 08:00:12 hpdl Exp $
+  $Id: file_manager.php,v 1.13 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,12 +15,12 @@ define('HEADING_TITLE', 'Administrador de Archivos');
 define('TABLE_HEADING_FILENAME', 'Nombre');
 define('TABLE_HEADING_SIZE', 'Tamaño');
 define('TABLE_HEADING_PERMISSIONS', 'Permisos');
-define('TABLE_HEADING_USER', 'User');
-define('TABLE_HEADING_GROUP', 'Group');
-define('TABLE_HEADING_LAST_MODIFIED', 'Last Modified');
+define('TABLE_HEADING_USER', 'Usuario');
+define('TABLE_HEADING_GROUP', 'Grupo');
+define('TABLE_HEADING_LAST_MODIFIED', 'Modificado');
 define('TABLE_HEADING_ACTION', 'Accion');
 
-define('TEXT_INFO_HEADING_UPLOAD', 'Upload');
+define('TEXT_INFO_HEADING_UPLOAD', 'Subir');
 define('TEXT_FILE_NAME', 'Nombre:');
 define('TEXT_FILE_SIZE', 'Tamaño:');
 define('TEXT_FILE_CONTENTS', 'Contenido:');
@@ -28,10 +28,10 @@ define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
 define('TEXT_NEW_FOLDER', 'Nueva Carpeta');
 define('TEXT_NEW_FOLDER_INTRO', 'Introduzca el nombre de la carpeta nueva:');
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fichero?');
-define('TEXT_UPLOAD_INTRO', 'Please select the files to upload.');
+define('TEXT_UPLOAD_INTRO', 'Seleccione los ficheros a subir.');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions on: %s');
-define('ERROR_FILE_NOT_WRITEABLE', 'Error: I can not write to this file. Please set the right user permissions on: %s');
-define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: I can not remove this directory. Please set the right user permissions on: %s');
-define('ERROR_FILE_NOT_REMOVEABLE', 'Error: I can not remove this file. Please set the right user permissions on: %s');
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: No puedo escribir en este directorio. Asigne los permisos adecuados a: %s');
+define('ERROR_FILE_NOT_WRITEABLE', 'Error: No puedo escribir en este fichero. Asigne los permisos adecuados a: %s');
+define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: No puedo eliminar el directorio. Asigne los permisos adecuados a: %s');
+define('ERROR_FILE_NOT_REMOVEABLE', 'Error: No puedo eliminar este fichero. Asigne los permisos adecuados a: %s');
 ?>

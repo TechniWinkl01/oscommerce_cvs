@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.16 2002/03/09 17:14:06 dgw_ Exp $
+  $Id: categories.php,v 1.17 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@ define('HEADING_TITLE_GOTO', 'Go To:');
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Categorias / Productos');
 define('TABLE_HEADING_ACTION', 'Accion');
-define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_STATUS', 'Estado');
 
 define('TEXT_NEW_PRODUCT', 'Nuevo Producto en &quot;%s&quot;');
 define('TEXT_CATEGORIES', 'Categorias:');
@@ -45,13 +45,13 @@ define('TEXT_EDIT_SORT_ORDER', 'Orden:');
 define('TEXT_INFO_COPY_TO_INTRO', 'Elija la categoria hacia donde quiera copiar este producto');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Categorias:');
 
-define('TEXT_INFO_HEADING_NEW_CATEGORY', 'New Category');
-define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Edit Category');
-define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Delete Category');
-define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Move Category');
-define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Delete Product');
-define('TEXT_INFO_HEADING_MOVE_PRODUCT', 'Move Product');
-define('TEXT_INFO_HEADING_COPY_TO', 'Copy To');
+define('TEXT_INFO_HEADING_NEW_CATEGORY', 'Nueva Categoria');
+define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Editar Categoria');
+define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Eliminar Categoria');
+define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Mover Categoria');
+define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Eliminar Producto');
+define('TEXT_INFO_HEADING_MOVE_PRODUCT', 'Mover Producto');
+define('TEXT_INFO_HEADING_COPY_TO', 'Copiar A');
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Seguro que desea eliminar esta categoria?');
 define('TEXT_DELETE_PRODUCT_INTRO', 'Es usted seguro usted desea suprimir permanentemente este producto?');
@@ -86,6 +86,6 @@ define('TEXT_NONE', '--ninguno--');
 
 define('EMPTY_CATEGORY', 'Categoria Vacia');
 
-define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . DIR_FS_CATALOG_IMAGES);
-define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . DIR_FS_CATALOG_IMAGES);
+define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: No se puede escribir en el directorio de imagenes del catalogo: ' . DIR_FS_CATALOG_IMAGES);
+define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de imagenes del Catalogo: ' . DIR_FS_CATALOG_IMAGES);
 ?>

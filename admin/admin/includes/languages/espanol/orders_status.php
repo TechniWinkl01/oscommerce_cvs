@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.6 2002/01/29 14:43:00 hpdl Exp $
+  $Id: orders_status.php,v 1.7 2002/03/09 20:18:24 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,7 +23,7 @@ define('TEXT_INFO_HEADING_NEW_ORDERS_STATUS', 'Nuevo Estado Pedido');
 define('TEXT_INFO_HEADING_EDIT_ORDERS_STATUS', 'Editar Estado Pedido');
 define('TEXT_INFO_HEADING_DELETE_ORDERS_STATUS', 'Eliminar Estado Pedido');
 
-define('ERROR_REMOVE_DEFAULT_ORDER_STATUS', 'Error: The default order status can not be removed. Please set another order status as default, and try again.');
-define('ERROR_STATUS_USED_IN_ORDERS', 'Error: This order status is currently used in orders.');
-define('ERROR_STATUS_USED_IN_HISTORY', 'Error: This order status is currently used in the order status history.');
+define('ERROR_REMOVE_DEFAULT_ORDER_STATUS', 'Error: El estado de pedido por defecto no se puede eliminar. Establezca otro estado de pedido predeterminado y pruebe de nuevo.');
+define('ERROR_STATUS_USED_IN_ORDERS', 'Error: Este estado de pedido esta siendo usado actualmente.');
+define('ERROR_STATUS_USED_IN_HISTORY', 'Error: Este estado de pedido se esta usando en algun historico de estados de pedidos.');
 ?>
