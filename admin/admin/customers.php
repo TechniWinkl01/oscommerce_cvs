@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.84 2003/12/26 14:13:49 project3000 Exp $
+  $Id: customers.php,v 1.85 2004/01/04 16:00:04 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,6 +48,7 @@
             $entry_gender_error = true;
           } else {
             $entry_gender_error = false;
+          }
         }
 
         if (strlen($customers_firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
