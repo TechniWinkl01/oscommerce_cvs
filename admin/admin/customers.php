@@ -4,14 +4,14 @@
   if (($HTTP_GET_VARS['action'] == 'add_customers') && ($HTTP_POST_VARS['insert'] == '1')) {
     $date_now = date('Ymd');
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['country'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "')");
+    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "', '" . $HTTP_POST_VARS['country'] . "')");
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'update_customers') {
     $date_now = date('Ymd');
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_country = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "', customers_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'delete_customers') {
@@ -96,7 +96,7 @@ function check_form() {
     error = 1;
   }
 
-  if (country = "" || country.length < 3) {
+  if (country == 0) {
     error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
@@ -138,7 +138,7 @@ function checkForm() {
     error = 1;
   }
   
-  if (customers_country.length < 1) {
+  if (customers_country == 0) {
     error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
@@ -218,7 +218,7 @@ function go() {
     }
 
     if (($action == 'update') || ($action == 'delete')) {
-      $customers = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "'");
+      $customers = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "'");
       $customers_values = tep_db_fetch_array($customers);
 
       $gender = $customers_values['customers_gender'];
@@ -231,7 +231,7 @@ function go() {
       $postcode = $customers_values['customers_postcode'];
       $city = $customers_values['customers_city'];
       $state = $customers_values['customers_state'];
-      $country = $customers_values['customers_country'];
+      $country = $customers_values['customers_country_id'];
       $telephone = $customers_values['customers_telephone'];
       $fax = $customers_values['customers_fax'];
       $password = $customers_values['customers_password'];
@@ -239,7 +239,7 @@ function go() {
       $firstname = $HTTP_POST_VARS['customers_firstname'];
       $lastname = $HTTP_POST_VARS['customers_lastname'];
       $dob = DOB_FORMAT_STRING;
-      $country = $HTTP_POST_VARS['customers_country'];
+      $country = $HTTP_POST_VARS['customers_country_id'];
       $password = '';
     }
 ?>
@@ -321,8 +321,28 @@ function go() {
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $state; } else { echo '<input type="text" name="state" maxlength="32" value="' . @$state . '">&nbsp;' . ENTRY_STATE_TEXT; } ?></font></td>
           </tr>
           <tr>
-            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $country; } else { echo '<input type="text" name="country" maxlength="32" value="' . @$country . '">&nbsp;' . ENTRY_COUNTRY_TEXT; } ?></font></td>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;
+<?			
+	$countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+	if ($action == 'delete') { 
+	while ($countries_values = tep_db_fetch_array($countries)) {
+	   if ($countries_values['countries_id'] == $country) {
+	   echo ($countries_values['countries_name']); 
+	   }
+	   }
+	}	else {
+	echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
+	while ($countries_values = tep_db_fetch_array($countries)) {
+      echo '<option value="' . $countries_values['countries_id'] . '"';
+	  if ($countries_values['countries_id'] == @$customers_country) echo ' SELECTED';
+      echo '>' . $countries_values['countries_name'] . '</option>';
+    }
+	echo '</select>&nbsp;' . ENTRY_COUNTRY_TEXT;
+	echo @$country;
+	}
+	echo '</font></td>';
+?>	
           </tr>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
@@ -410,14 +430,14 @@ function go() {
 $per_page = MAX_ROW_LISTS;
   $row = 0;
     $search_keywords = explode(' ', trim($HTTP_POST_VARS['query']));
-     $customers = "select customers_id, customers_lastname, customers_firstname, customers_city, customers_country, customers_email_address from customers where ";
+     $customers = "select customers.customers_id, customers.customers_lastname, customers.customers_firstname, customers.customers_city, countries.countries_name, customers.customers_email_address from countries, customers where customers.customers_country_id = countries.countries_id and ";
      for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
        $customers .= "customers_email_address like '%" .
 	   $search_keywords[$i] . "%' or customers_firstname like '%" .
 	   $search_keywords[$i] . "%' or customers_lastname like '%" .
 	   $search_keywords[$i] . "%' and ";
      }
-     $customers .= "customers_email_address like '%" . $search_keywords[$i] . "%' or customers_firstname like '%" . $search_keywords[$i] . "%' or customers_lastname like '%" . $search_keywords[$i] . "%' order by '" . $order_by . "' DESC";
+     $customers .= "(customers_email_address like '%" . $search_keywords[$i] . "%' or customers_firstname like '%" . $search_keywords[$i] . "%' or customers_lastname like '%" . $search_keywords[$i] . "%') order by '" . $order_by . "' DESC";
 	 if (!$page)
  	 {
    	 $page = 1;
@@ -495,7 +515,7 @@ $per_page = MAX_ROW_LISTS;
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_id'];?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_firstname'];?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_lastname'];?>&nbsp;</font></td>
-            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_country'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['countries_name'];?>&nbsp;</font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update&customers_id=' . $customers_values['customers_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete&customers_id=' . $customers_values['customers_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
           </tr>
 <?
@@ -518,7 +538,13 @@ $per_page = MAX_ROW_LISTS;
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$next_id;?>&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_firstname" size="20">&nbsp;</font></td>
             <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_lastname" size="20">&nbsp;</font></td>
-            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_country" size="20">&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;&nbsp;<select name="customers_country"><option value="0"><?=PLEASE_SELECT;?></option>
+<?
+    $countries = tep_db_query("select countries_id, countries_name from countries order by countries_name");
+    while ($countries_values = tep_db_fetch_array($countries)) {
+      echo '<option value="' . $countries_values['countries_id'] . '">' . $countries_values['countries_name'] . '</option>';
+    }
+?></select></font></td>
             <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><b>&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT);?>&nbsp;</font></td>
 </form>
           </tr>
