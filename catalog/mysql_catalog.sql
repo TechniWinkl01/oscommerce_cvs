@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.80 2001/04/29 22:16:32 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.81 2001/05/11 21:49:46 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -88,6 +88,7 @@ CREATE TABLE configuration_group (
   configuration_group_title varchar(64) NOT NULL,
   configuration_group_description varchar(255) NOT NULL,
   sort_order int(5) NULL,
+  visible int(1) DEFAULT '1' NULL,
   PRIMARY KEY (configuration_group_id)
 );
 
@@ -452,11 +453,9 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Calculate Image Size', 'CONFIG_CALCULATE_IMAGE_SIZE', '1', 'Calculate the size of images?', '4', '7', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Image Required', 'IMAGE_REQUIRED', '1', 'Enable to display broken images. Good for development.', '4', '8', now());
 
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Payment Modules', 'PAYMENT_MODULES', 'cc.php;cod.php;paypal.php', 'List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: cc.php;cod.php;paypal.php)', '6', '0', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Payment Modules', 'PAYMENT_MODULES', 'cc.php;cod.php', 'List of payment module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: cc.php;cod.php;paypal.php)', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Cash On Delivery (COD)', 'PAYMENT_SUPPORT_COD', '1', 'Do you want to accept COD (Cash On Delevery) payments?', '6', '1', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow Credit Card', 'PAYMENT_SUPPORT_CC', '1', 'Do you want to accept credit card payments?', '6', '2', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Allow PayPal', 'PAYMENT_SUPPORT_PAYPAL', '1', 'Do you want to accept PayPal payments?', '6', '3', now());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('PayPal ID', 'PAYPAL_ID', 'you@yourbuisness.com', 'Your buisness ID at PayPal.  Usually the email address you signed up with.  You can create a free PayPal account <a href="http://www.paypal.com" target="_blank"><u>here</u></a>.', '6', '4', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Credit Card TP email address', 'PAYMENT_EMAIL_CC', 'NONE', 'If this email address is not NONE then the middle digits of any stored cc numbers will be X-ed out and emailed with the order id.', '6', '5', now());
 
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Shipping Methods to offer to customer', 'SHIPPING_MODULES', '', 'List of shipping module filenames separated by a semi-colon. This is automatically updated. No need to edit. (Example: ups.php;flat.php;item.php)', '7', '1', now());
@@ -488,13 +487,13 @@ insert into configuration (configuration_title, configuration_key, configuration
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Postal Code', 'STORE_ORIGIN_ZIP', 'NONE', 'Enter the Postal Code (ZIP) of the Store to be used in shipping quotes.', '1', '8', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Country Code', 'STORE_ORIGIN_COUNTRY', 'NONE', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" TARGET="_blank">ISO 3166 Maintenance Agency</A>.', '1', '9', now());
 
-INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1');
-INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2');
-INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3');
-INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4');
-INSERT INTO configuration_group VALUES ('6', 'Payment Options', 'Payment options available at my store', '6');
-INSERT INTO configuration_group VALUES ('7', 'Shipping Options', 'Shipping options available at my store', '7');
-INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8');
+INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1');
+INSERT INTO configuration_group VALUES ('2', 'Minimum Values', 'The minimum values for functions / data', '2', '1');
+INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1');
+INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1');
+INSERT INTO configuration_group VALUES ('6', 'Payment Options', 'Payment options available at my store', '6', '0');
+INSERT INTO configuration_group VALUES ('7', 'Shipping Options', 'Shipping options available at my store', '7', '1');
+INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8', '1');
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1');
