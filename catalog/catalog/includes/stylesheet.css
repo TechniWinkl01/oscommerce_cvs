@@ -6,18 +6,20 @@ A:hover { color:#AABBDD; text-decoration:underline; }
 A:hover.blacklink { color:#000000; text-decoration:underline; }
 A:hover.bluelink { color:#0000FF; background-color: #FFFF33; text-decoration:underline; }
 
-TD.infoBox {
-	font-family : Verdana, Arial, sans-serif;
-	font-size : xx-small;
-}
-
-TD.infoBoxHeading {
+TABLE.infoBoxHeading {
 	background-color : #aabbdd;
 	border-color : #000000;
 	border-style : solid;
 	border-width : 1px;
+}
+TD.infoBoxHeading {
 	font-family : Tahoma, Verdana, Arial, sans-serif;
 	font-size : x-small;
+}
+
+TD.infoBox {
+	font-family : Verdana, Arial, sans-serif;
+	font-size : xx-small;
 }
 
 TABLE.topBarTitle {
@@ -41,14 +43,14 @@ TR.productListing-even {
 }
 
 TR.productListing-heading {
-	background-color : #D2E9FB;
+	background-color : #d2e9fb;
 }
 
 TD.productListing-heading {
 	font-family : Verdana, Arial, sans-serif;
 	font-size : xx-small;
-    background-color : #D2E9FB;
-	color : #ffffff;
+    background-color : #d2e9fb;
+	color : #000000;
 	font-weight : bolder;
 	font-variant : small-caps;
 }

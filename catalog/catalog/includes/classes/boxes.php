@@ -66,6 +66,7 @@
 
   class infoBoxHeading extends tableBox {
     function infoBoxHeading($contents) {
+      $this->table_parameters = 'class="infoBoxHeading"';
       $this->table_data_parameters = 'class="infoBoxHeading" nowrap';
       $contents[0]['text'] = '&nbsp;' . $contents[0]['text'];
       $this->tableBox($contents);
