@@ -4,7 +4,7 @@
   if ($action == 'select') {
 ?>
               <tr>
-                <td>&nbsp<? echo SHIPPING_UPS_NAME; ?></td>
+                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp<? echo SHIPPING_UPS_NAME; ?></font></td>
                 <td align="right"><SELECT NAME="shipping_ups_prod">
                   <OPTION SELECTED VALUE="GND">UPS Ground</OPTION>
                   <OPTION VALUE="1DM">Next Day Air Early AM</OPTION>
@@ -53,12 +53,12 @@
   } elseif ($action == 'display') {
       if ($HTTP_POST_VARS['shipping_quote_ups'] == "1") {
         echo "              <tr>\n";
-        echo '                <td>&nbsp' . SHIPPING_UPS_NAME . "</td>\n";
-        echo '                <td>' . $shipping_ups_method . "</td>\n";
-        echo '                <td align="right">' . tep_currency_format($shipping_ups_cost) . "</td>\n";
+        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp' . SHIPPING_UPS_NAME . "</font></td>\n";
+        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_ups_method . "</font></td>\n";
+        echo '                <td align="right"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_ups_cost) . "</font></td>\n";
         echo '                <td align="right" nowrap>&nbsp<input type="radio" name="shipping_selected" value="ups"';
         if ($shipping_cheapest == 'ups') echo ' CHECKED';
-        echo "></td>\n";
+        echo ">&nbsp;</td>\n";
         echo "              </tr>\n";
         echo '              <input type="hidden" name="shipping_ups_cost" value=' . $shipping_ups_cost . ">\n";
         echo '              <input type="hidden" name="shipping_ups_method" value=' . $shipping_ups_method . ">\n";
