@@ -290,7 +290,7 @@
             <td colspan="5"><?=tep_black_line();?></td>
           </tr>
 <?
-    $orders = tep_db_query("select orders_id, customers_name, payment_method, date_purchased, orders_status from orders order by orders_id DESC");
+    $orders = tep_db_query("select orders_id, customers_name, payment_method, date_purchased, products_tax, shipping_cost, orders_status from orders order by orders_id DESC");
     $rows = 0;
     while ($orders_values = tep_db_fetch_array($orders)) {
       $rows++;
@@ -299,6 +299,7 @@
       while ($orders_products_values = tep_db_fetch_array($orders_products)) {
         $total = $total + ($orders_products_values['products_price'] * $orders_products_values['products_quantity']);
       }
+      $total = $total + ($total*$orders_values['products_tax']/100) + $orders_values['shipping_cost'];
       if (floor($rows/2) == ($rows/2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
       } else {
