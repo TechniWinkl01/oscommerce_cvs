@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.87 2001/11/18 13:42:58 mabosch Exp $
+  $Id: application_top.php,v 1.88 2001/11/18 17:59:26 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -155,9 +155,6 @@
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
 
-// include the html graph class
-  require(DIR_WS_FUNCTIONS . 'html_graphs.php');
-
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
@@ -202,7 +199,10 @@
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
 
-  // define our localization functions
+// include the html graph class
+  require(DIR_WS_FUNCTIONS . 'html_graphs.php');
+
+// define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
 
 // setup our boxes
