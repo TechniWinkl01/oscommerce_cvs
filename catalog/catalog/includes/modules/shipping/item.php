@@ -6,9 +6,9 @@
   if ($action == 'select') {
 ?>
               <tr>
-                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp<? echo SHIPPING_ITEM_NAME; ?></font></td>
-                <td>&nbsp</td>
-                <td>&nbsp<input type="checkbox" name="shipping_quote_item" value="1"
+                <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SHIPPING_ITEM_NAME; ?></font></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;<input type="checkbox" name="shipping_quote_item" value="1"
 <?
   if ($shipping_count == 0) echo ' CHECKED';
   echo "></td>\n";
@@ -35,10 +35,10 @@
   } elseif ($action == 'display') {
       if ($shipping_quote_item == "1") {
         echo "              <tr>\n";
-        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp' . SHIPPING_ITEM_NAME . "</font></td>\n";
+        echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . SHIPPING_ITEM_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_item_method . "</font></td>\n";
         echo '                <td align="right"><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_currency_format($shipping_item_cost) . "</font></td>\n";
-        echo '                <td align="right" nowrap>&nbsp<input type="radio" name="shipping_selected" value="item"';
+        echo '                <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="item"';
         if ($shipping_cheapest == 'item') echo ' CHECKED';
         echo ">&nbsp;</td>\n";
         echo "              </tr>\n";
