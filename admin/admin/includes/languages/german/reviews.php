@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.5 2002/01/30 16:23:58 harley_vb Exp $
+  $Id: reviews.php,v 1.6 2002/02/06 22:59:17 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,7 @@ define('ENTRY_REVIEW', 'Bewertung:');
 define('ENTRY_REVIEW_TEXT', '<small><font color="#ff0000"><b>HINWEIS:</b></font></small>&nbsp;HTML wird nicht konvertiert!&nbsp;');
 define('ENTRY_RATING', 'Bewertung:');
 
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Bewertung l&ouml;schen m&ouml;chten?');
+define('TEXT_INFO_DELETE_REVIEW_INTRO', 'Sind Sie sicher, dass Sie diese Bewertung l&ouml;schen m&ouml;chten?');
 
 define('TEXT_INFO_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte &Auml;nderung:');
