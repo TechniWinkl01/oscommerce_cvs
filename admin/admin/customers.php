@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.61 2002/01/20 21:50:39 hpdl Exp $
+  $Id: customers.php,v 1.62 2002/02/02 17:26:12 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,12 +53,12 @@
         if ($entry_zone_id > 0) $entry_state = '';
 
         $sql_data_array = array('entry_street_address' => $entry_street_address,
-                                'entry_suburb' => $entry_suburb,
                                 'entry_postcode' => $entry_postcode,
                                 'entry_city' => $entry_city,
                                 'entry_country_id' => $entry_country_id);
 
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
+        if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $entry_suburb;
         if (ACCOUNT_STATE == 'true') {
           $sql_data_array['entry_state'] = $entry_state;
           $sql_data_array['entry_zone_id'] = $entry_zone_id;
