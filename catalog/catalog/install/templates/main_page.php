@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: main_page.php,v 1.3 2003/07/09 01:11:05 hpdl Exp $
+  $Id: main_page.php,v 1.4 2003/07/09 10:49:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,7 @@
 
 <?php require('templates/main_page/header.php'); ?>
 
-<table cellspacing="0" cellpadding="0" width="780" border="0" align="center">
+<table cellspacing="0" cellpadding="0" width="100%" border="0" align="center">
   <tr>
     <td width="5%" class="leftColumn" valign="top" background="images/layout/left_column_background.gif"><img src="images/layout/left_column_top.gif"></td>
     <td width="85%" valign="top"><?php require('templates/pages/' . $page_contents); ?></td>
