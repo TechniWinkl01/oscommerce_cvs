@@ -160,7 +160,7 @@
     } else {
       echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
     }
-    $get_params_back = substr(tep_get_all_get_params(array('products_id')), 0, -1);
+    $get_params_back = substr(tep_get_all_get_params(array('products_id','language','currency')), 0, -1);
     if ($get_params_back != '') {
       echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
     }
