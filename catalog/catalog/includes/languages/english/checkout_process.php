@@ -19,6 +19,7 @@ define('EMAIL_TEXT_PAYMENT_METHOD', 'Payment Method');
 define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Cash on Delivery');
 define('EMAIL_TEXT_CREDIT_CARD', 'Credit Card');
 define('EMAIL_TEXT_PAYPAL', 'PayPal');
+define('EMAIL_TEXT_AUTHORIZENET', 'AuthorizeNet');
 
 $email_order = STORE_NAME . "\n" . '------------------------------------------------------' . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_INVOICE_URL . " " . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_ACCOUNT_HISTORY_INFO . '?order_id=' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n";
 if ($comments != '') {
@@ -42,6 +43,9 @@ switch($payment) {
     break;
   case 'paypal' : // PayPal
     $email_order .= EMAIL_TEXT_PAYPAL . "\n\n";
+    break;
+  case 'authorizenet' :
+    $email_order .= EMAIL_TEXT_AUTHORIZENET . "\n\n";
     break;
 }
 
