@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: info_shopping_cart.php,v 1.3 2001/05/26 16:47:33 hpdl Exp $
+  $Id: info_shopping_cart.php,v 1.4 2002/11/12 00:45:21 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

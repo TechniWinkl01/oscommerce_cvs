@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.12 2002/06/03 13:19:42 hpdl Exp $
+  $Id: login.php,v 1.13 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
   define('NAVBAR_TITLE', 'Realizar Pedido');
   define('HEADING_TITLE', 'Comprar aqui es facil.');
-  define('TEXT_STEP_BY_STEP', 'Te ayudaremos a conseguirlo paso a paso.');
+  define('TEXT_STEP_BY_STEP', 'Le guiaremos por el proceso paso a paso.');
 } else {
   define('NAVBAR_TITLE', 'Entrar');
   define('HEADING_TITLE', 'Dejame Entrar!');
@@ -22,12 +22,12 @@ if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
 
 define('HEADING_NEW_CUSTOMER', 'Nuevo Cliente');
 define('TEXT_NEW_CUSTOMER', 'Soy un nuevo cliente.');
-define('TEXT_NEW_CUSTOMER_INTRODUCTION', 'By creating an account at ' . STORE_NAME . ' you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.');
+define('TEXT_NEW_CUSTOMER_INTRODUCTION', 'Al crear una cuenta en ' . STORE_NAME . ' podrá realizar sus compras rapidamente, revisar el estado de sus pedidos y consultar sus operaciones anteriores.');
 
-define('HEADING_RETURNING_CUSTOMER', 'Returning Customer');
+define('HEADING_RETURNING_CUSTOMER', 'Ya Soy Cliente');
 define('TEXT_RETURNING_CUSTOMER', 'He comprado otras veces.');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
-define('ENTRY_PASSWORD', 'Password:');
+define('ENTRY_EMAIL_ADDRESS', 'Direccion E-Mail:');
+define('ENTRY_PASSWORD', 'Contraseña:');
 
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
 

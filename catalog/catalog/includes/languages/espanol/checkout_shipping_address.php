@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.1 2002/11/01 04:09:30 hpdl Exp $
+  $Id: checkout_shipping_address.php,v 1.2 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,25 +10,25 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Checkout');
-define('NAVBAR_TITLE_2', 'Change Shipping Address');
+define('NAVBAR_TITLE_1', 'Realizar Compra');
+define('NAVBAR_TITLE_2', 'Cambiar Direccion de Entrega');
 
-define('HEADING_TITLE', 'Delivery Information');
+define('HEADING_TITLE', 'Datos del Envio');
 
-define('TABLE_HEADING_SHIPPING_ADDRESS', 'Shipping Address');
-define('TEXT_SELECTED_SHIPPING_DESTINATION', 'This is the currently selected shipping address where the items in this order will be delivered to.');
-define('TITLE_SHIPPING_ADDRESS', 'Shipping Address:');
+define('TABLE_HEADING_SHIPPING_ADDRESS', 'Direccion de Entrega');
+define('TEXT_SELECTED_SHIPPING_DESTINATION', 'Esta es la direccion de entrega seleccionada para el envio de los productos de su pedido.');
+define('TITLE_SHIPPING_ADDRESS', 'Direccion de Entrega:');
 
-define('TABLE_HEADING_ADDRESS_BOOK_ENTRIES', 'Address Book Entries');
-define('TEXT_SELECT_OTHER_SHIPPING_DESTINATION', 'Please select the preferred shipping address if the items in this order are to be delivered elsewhere.');
-define('TITLE_PLEASE_SELECT', 'Please Select');
+define('TABLE_HEADING_ADDRESS_BOOK_ENTRIES', 'Libreta de Direcciones');
+define('TEXT_SELECT_OTHER_SHIPPING_DESTINATION', 'Seleccione otra direccion de entrega para su pedido si quiere que sea entregado en un sitio diferente.');
+define('TITLE_PLEASE_SELECT', 'Seleccione');
 
-define('TABLE_HEADING_NEW_SHIPPING_ADDRESS', 'New Shipping Address');
-define('TEXT_CREATE_NEW_SHIPPING_ADDRESS', 'Please use the following form to create a new shipping address to use for this order.');
+define('TABLE_HEADING_NEW_SHIPPING_ADDRESS', 'Nueva Direccion');
+define('TEXT_CREATE_NEW_SHIPPING_ADDRESS', 'Use el formulario siguiente para crear una direccion nueva en su libreta y usarla como direccion de entrega para su pedido.');
 
-define('TABLE_HEADING_NEW_SHIPPING_ADDRESS_PROBLEM', 'New Shipping Address Problem');
-define('TEXT_NEW_SHIPPING_ADDRESS_PROBLEM', 'Please check the new shipping address information below, as there were problems verifying the information.');
+define('TABLE_HEADING_NEW_SHIPPING_ADDRESS_PROBLEM', 'Error en la Nueva Direccion');
+define('TEXT_NEW_SHIPPING_ADDRESS_PROBLEM', 'Por favor revise los datos de la nueva direccion ya que hubo problemas verificando la informacion.');
 
-define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continue Checkout Procedure');
-define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'to select the preferred shipping method.');
+define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continuar con el Proceso de Compra');
+define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'para seleccionar la forma de envio.');
 ?>

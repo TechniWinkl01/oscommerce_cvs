@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notifications.php,v 1.1 2002/03/10 01:32:10 hpdl Exp $
+  $Id: product_notifications.php,v 1.2 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,22 +10,22 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'My Account');
-define('NAVBAR_TITLE_2', 'Product Notifications');
-define('HEADING_TITLE', 'My Product Notifications');
+define('NAVBAR_TITLE_1', 'Mi Cuenta');
+define('NAVBAR_TITLE_2', 'Notificaciones');
+define('HEADING_TITLE', 'Mis Notificaciones de Productos');
 
-define('TEXT_PRODUCT_NOTIFICATIONS_INTRODUCTION', 'The product notification list allows you to stay up to date on the products we have available, which gives you the chance to take advantage of our products on special.');
+define('TEXT_PRODUCT_NOTIFICATIONS_INTRODUCTION', 'La lista de notificaciones de productos le permite estar al dia sobre los productos disponibles, y asi aprovecharse de los precios de oferta.');
 
-define('HEADING_GLOBAL_PRODUCT_NOTIFICATIONS', 'Global Product Notifications');
-define('HEADING_PRODUCT_NOTIFICATIONS', 'Product Notifications');
+define('HEADING_GLOBAL_PRODUCT_NOTIFICATIONS', 'Notificacion Global');
+define('HEADING_PRODUCT_NOTIFICATIONS', 'Notificaciones de Productos');
 
-define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_DISABLED', 'Your current global product notification status is <b>disabled</b>.');
-define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_ENABLED', 'Your current global product notification status is <b>enabled</b>.');
+define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_DISABLED', 'Su estado global de notificaciones es <b>deshabilitado</b>.');
+define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_ENABLED', 'Su estado global de notificaciones es <b>habilitado</b>.');
 
-define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_DESCRIPTION_DISABLED', 'If you wish to be notified on all our product updates, please enable the global product notification feature by selecting the option below.');
-define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_DESCRIPTION_ENABLED', 'If you no longer wish to be notified on all our product updates, please disable the global product notification feature by deselecting the option below.');
+define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_DESCRIPTION_DISABLED', 'Si quiere que se le notifique sobre cambios a cualquiera de nuestros productos, por favor habilite el estado global de notificaciones.');
+define('TEXT_GLOBAL_PRODUCT_NOTIFICATIONS_DESCRIPTION_ENABLED', 'Si ya no quiere recibir notificaciones sobre cambios en cualquiera de nuestros productos, dehabilite el estado global de notificaciones.');
 
-define('TEXT_PRODUCT_NOTIFICATIONS_LIST', 'Below is a list of products you selected to be notified on. If you wish to remove one or more products from the product notification list, please select the desired products and click on \'Remove Notifications\'.');
+define('TEXT_PRODUCT_NOTIFICATIONS_LIST', 'Esta es la lista de productos sobre los que quiere notificaciones. Si desea eliminar uno o mas productos de esta lista, seleccione los productos correspondientes y pulse \'Quitar Notificaciones\'.');
 
-define('TEXT_ENABLE_GLOBAL_NOTIFICATIONS', 'Please send me notifications on all products');
+define('TEXT_ENABLE_GLOBAL_NOTIFICATIONS', 'Envieme notificaciones de todos los productos');
 ?>

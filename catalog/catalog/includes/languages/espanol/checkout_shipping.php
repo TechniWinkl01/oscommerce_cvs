@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.2 2002/11/04 01:07:35 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.3 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,20 +10,20 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Checkout');
-define('NAVBAR_TITLE_2', 'Shipping Method');
+define('NAVBAR_TITLE_1', 'Realizar Pedido');
+define('NAVBAR_TITLE_2', 'Forma de Envio');
 
-define('HEADING_TITLE', 'Delivery Information');
+define('HEADING_TITLE', 'Datos del Envio');
 
-define('TABLE_HEADING_SHIPPING_ADDRESS', 'Shipping Address');
-define('TEXT_CHOOSE_SHIPPING_DESTINATION', 'Please choose from your address book where you would like the items to be delivered to.');
-define('TITLE_SHIPPING_ADDRESS', 'Shipping Address:');
+define('TABLE_HEADING_SHIPPING_ADDRESS', 'Direccion de Entrega');
+define('TEXT_CHOOSE_SHIPPING_DESTINATION', 'Escoja una direccion de su libreta para la entrega de los productos de este pedido.');
+define('TITLE_SHIPPING_ADDRESS', 'Direccion de Entrega:');
 
-define('TABLE_HEADING_SHIPPING_METHOD', 'Shipping Method');
-define('TEXT_CHOOSE_SHIPPING_METHOD', 'Please select the preferred shipping method to use on this order.');
-define('TITLE_PLEASE_SELECT', 'Please Select');
-define('TEXT_ENTER_SHIPPING_INFORMATION', 'This is currently the only shipping method available to use on this order.');
+define('TABLE_HEADING_SHIPPING_METHOD', 'Forma de Envio');
+define('TEXT_CHOOSE_SHIPPING_METHOD', 'Seleccione la forma de envio preferida para la entrega de este pedido.');
+define('TITLE_PLEASE_SELECT', 'Seleccione');
+define('TEXT_ENTER_SHIPPING_INFORMATION', 'Esta es la unica forma de envio disponible para su pedido.');
 
-define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continue Checkout Procedure');
-define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'to select the preferred payment method.');
+define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continuar con el Proceso de Compra');
+define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'para seleccionar la forma de pago.');
 ?>

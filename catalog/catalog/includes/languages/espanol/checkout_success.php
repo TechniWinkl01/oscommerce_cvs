@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.9 2002/11/01 04:27:01 hpdl Exp $
+  $Id: checkout_success.php,v 1.10 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,15 +16,15 @@ define('NAVBAR_TITLE_2', 'Realizado con Exito');
 define('HEADING_TITLE', 'Su Pedido ha sido Procesado!');
 
 define('TEXT_SUCCESS', 'Su pedido ha sido realizado con exito! Sus productos llegaran a su destino de 2 a 5 dias laborales.');
-define('TEXT_NOTIFY_PRODUCTS', 'Please notify me of updates to the products I have selected below:');
-define('TEXT_SEE_ORDERS', 'You can view your order history by going to the <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">\'My Account\'</a> page and by clicking on <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">\'History\'</a>.');
-define('TEXT_CONTACT_STORE_OWNER', 'Please direct any questions you have to the <a href="' . tep_href_link(FILENAME_CONTACT_US) . '">store owner</a>.');
-define('TEXT_THANKS_FOR_SHOPPING', 'Thanks for shopping with us online!');
+define('TEXT_NOTIFY_PRODUCTS', 'Por favor notifiqueme de cambios realizados a los productos seleccionados:');
+define('TEXT_SEE_ORDERS', 'Puede ver sus pedidos viendo la pagina de <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">\'Su Cuenta\'</a> y pulsando sobre <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">\'Historial\'</a>.');
+define('TEXT_CONTACT_STORE_OWNER', 'Dirija sus preguntas al <a href="' . tep_href_link(FILENAME_CONTACT_US) . '">administrador</a>.');
+define('TEXT_THANKS_FOR_SHOPPING', '¡Gracias por comprar con nosotros!');
 
-define('TABLE_HEADING_COMMENTS', 'Enter a comment for the order processed');
+define('TABLE_HEADING_COMMENTS', 'Introduzca un comentario sobre su pedido');
 
-define('TABLE_HEADING_DOWNLOAD_DATE', 'Expiry Date');
-define('TABLE_HEADING_DOWNLOAD_COUNT', 'Max # downloads');
-define('HEADING_DOWNLOAD', 'Download your products here:');
-define('FOOTER_DOWNLOAD', 'You can also download your products at a later time at \'%s\'');
+define('TABLE_HEADING_DOWNLOAD_DATE', 'Caducidad');
+define('TABLE_HEADING_DOWNLOAD_COUNT', 'Descargas Maximas');
+define('HEADING_DOWNLOAD', 'Descargue sus productos aqui:');
+define('FOOTER_DOWNLOAD', 'Puede descargar sus productos mas tarde en \'%s\'');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.1 2002/11/01 03:55:31 hpdl Exp $
+  $Id: checkout_payment_address.php,v 1.2 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,25 +10,25 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Checkout');
-define('NAVBAR_TITLE_2', 'Change Billing Address');
+define('NAVBAR_TITLE_1', 'Realizar Pedido');
+define('NAVBAR_TITLE_2', 'Cambiar Direccion de Facturacion');
 
-define('HEADING_TITLE', 'Payment Information');
+define('HEADING_TITLE', 'Forma de Pago');
 
-define('TABLE_HEADING_PAYMENT_ADDRESS', 'Billing Address');
-define('TEXT_SELECTED_PAYMENT_DESTINATION', 'This is the currently selected billing address where the invoice to this order will be delivered to.');
-define('TITLE_PAYMENT_ADDRESS', 'Billing Address:');
+define('TABLE_HEADING_PAYMENT_ADDRESS', 'Direccion de Facturacion');
+define('TEXT_SELECTED_PAYMENT_DESTINATION', 'Esta es la direccion de facturacion seleccionada, donde se enviara la factura.');
+define('TITLE_PAYMENT_ADDRESS', 'Direccion de Facturacion:');
 
-define('TABLE_HEADING_ADDRESS_BOOK_ENTRIES', 'Address Book Entries');
-define('TEXT_SELECT_OTHER_PAYMENT_DESTINATION', 'Please select the preferred billing address if the invoice to this order is to be delivered elsewhere.');
-define('TITLE_PLEASE_SELECT', 'Please Select');
+define('TABLE_HEADING_ADDRESS_BOOK_ENTRIES', 'Libreta de Direcciones');
+define('TEXT_SELECT_OTHER_PAYMENT_DESTINATION', 'Seleccione la direccion para el envio de la factura de este pedido si quiere que sea enviada a un sitio diferente.');
+define('TITLE_PLEASE_SELECT', 'Seleccione');
 
-define('TABLE_HEADING_NEW_PAYMENT_ADDRESS', 'New Billing Address');
-define('TEXT_CREATE_NEW_PAYMENT_ADDRESS', 'Please use the following form to create a new billing address to use for this order.');
+define('TABLE_HEADING_NEW_PAYMENT_ADDRESS', 'Nueva Direccion de Facturacion');
+define('TEXT_CREATE_NEW_PAYMENT_ADDRESS', 'Use el formulario siguiente para crear una nueva direccion en su libreta y usarla como direccion de facturacion en este pedido.');
 
-define('TABLE_HEADING_NEW_PAYMENT_ADDRESS_PROBLEM', 'New Billing Address Problem');
-define('TEXT_NEW_PAYMENT_ADDRESS_PROBLEM', 'Please check the new billing address information below, as there were problems verifying the information.');
+define('TABLE_HEADING_NEW_PAYMENT_ADDRESS_PROBLEM', 'Error en Nueva Direccion');
+define('TEXT_NEW_PAYMENT_ADDRESS_PROBLEM', 'Por favor revise los datos de la nueva direccion ya que hubo problemas verificando la informacion.');
 
-define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continue Checkout Procedure');
-define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'to select the preferred payment method.');
+define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continuar con el Proceso de Compra');
+define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'para seleccionar el metodo de pago.');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.15 2002/05/27 14:05:41 hpdl Exp $
+  $Id: advanced_search.php,v 1.16 2002/11/12 00:45:21 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,14 +24,14 @@ define('ENTRY_PRICE_TO', 'a precio:');
 define('ENTRY_DATE_FROM', 'De fecha de alta:');
 define('ENTRY_DATE_TO', 'a alta:');
 
-define('TEXT_SEARCH_HELP_LINK', '<u>Search Help</u> [?]');
+define('TEXT_SEARCH_HELP_LINK', '<u>Ayuda</u> [?]');
 
 define('TEXT_ALL_CATEGORIES', 'Todas');
 define('TEXT_ALL_MANUFACTURERS', 'Todos');
 
 define('HEADING_SEARCH_HELP', 'Consejos para Busqueda Avanzada');
 define('TEXT_SEARCH_HELP', 'El motor de busqueda le permite hacer una busqueda por palabras clave en el modelo, nombre y descripcion del producto y en el nombre del fabricante.<br><br>Cuando haga una busqueda por palabras o frases clave, puede separar estas con los operadores logicos AND y OR. Por ejemplo, puede hacer una busqueda por <u>microsoft AND raton</u>. Esta busqueda daria como resultado los productos que contengan ambas palabras. Por el contrario, si teclea  <u>raton OR teclado</u>, conseguira una lista de los productos que contengan las dos o solo una de las palabras. Si no se separan las palabras o frases clave con AND o con OR, la busqueda se hara usando por defecto el operador logico AND.<br><br>Puede realizar busquedas exactas de varias palabras encerrandolas entre comillas. Por ejemplo, si busca <u>"ordenador portatil"</u>, obtendras una lista de productos que tengan exactamente esa cadena en ellos.<br><br>Se pueden usar paratensis para controlar el orden de las operaciones logicas. Por ejemplo, puede introducir <u>microsoft and (teclado or raton or "visual basic")</u>.');
-define('TEXT_CLOSE_WINDOW', '<u>Close Window</u> [x]');
+define('TEXT_CLOSE_WINDOW', '<u>Cerrar Ventana</u> [x]');
 
 define('JS_AT_LEAST_ONE_INPUT', '* Uno de los siguientes campos debe ser introducido:\n    Palabras Clave\n    Fecha de Alta Desde\n    Fecha de Alta Hasta\n    Precio Desde\n    Precio Hasta\n');
 define('JS_INVALID_FROM_DATE', '* La Fecha de Alta Desde es invalida\n');
