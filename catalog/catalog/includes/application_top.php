@@ -184,9 +184,9 @@
     session_set_cookie_params(0, DIR_WS_CATALOG);
   }
 
-// Create the cart Fix the cart if necesary
-  if ($cart) {
-    if (gettype($cart->count_contents) == 'integer') {
+// Create the cart & Fix the cart if necesary
+  if (is_object($cart)) {
+    if (!eregi('^4\.', phpversion()) || eregi('B2', phpversion())) {
       $broken_cart = $cart;
       $cart = new shoppingCart;
       $cart->unserialize($broken_cart);
