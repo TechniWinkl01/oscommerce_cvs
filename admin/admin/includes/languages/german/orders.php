@@ -1,18 +1,18 @@
 <?php
 /*
-  $Id: orders.php,v 1.9 2001/12/09 18:29:01 dgw_ Exp $
+  $Id: orders.php,v 1.10 2002/01/21 21:47:47 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Bestellungen');
 define('HEADING_TITLE', 'Bestellungen');
-define('HEADING_TITLE_SEARCH', 'Tragen Sie die Bestellungsnummer ein');
+define('HEADING_TITLE_SEARCH', 'Bestellungsnummer:');
+define('HEADING_TITLE_STATUS', 'Status:');
 
 define('TABLE_HEADING_COMMENTS', 'Kommentar');
 define('TABLE_HEADING_CUSTOMERS', 'Kunde');
@@ -53,6 +53,5 @@ define('ENTRY_DATE_PURCHASED', 'Bestelldatum:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 
-define('TEXT_ORDER_INFORMATION', '<font color="#ff0000"><b>HINWEIS:</b></font> Klicken Sie auf den Kundennamen um dessen Bestellung einzusehen');
-define('TEXT_UNKNOWN', 'unbekannt');
+define('TEXT_ALL_ORDERS', 'All Orders');
 ?>

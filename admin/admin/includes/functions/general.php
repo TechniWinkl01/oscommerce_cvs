@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.106 2002/01/20 15:09:39 hpdl Exp $
+  $Id: general.php,v 1.107 2002/01/21 21:47:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -205,23 +205,6 @@
     $options_values = tep_db_fetch_array($options);
 
     return $options_values['products_options_name'];
-  }
-
-////
-// Returns a pulldown with all orders status from table orders_status
-  function tep_orders_status_pull_down($parameters, $selected = '') {
-    global $languages_id;
-
-    $select_string = '<select ' . $parameters . '>';
-    $orders_status_query = tep_db_query("select orders_status_id, orders_status_name from " . TABLE_ORDERS_STATUS . " where language_id = '$languages_id' order by orders_status_id");
-    while ($orders_status = tep_db_fetch_array($orders_status_query)) {
-      $select_string .= '<option value="' . $orders_status['orders_status_id'] . '"';
-      if ($selected == $orders_status['orders_status_id']) $select_string .= ' SELECTED';
-      $select_string .= '>' . $orders_status['orders_status_name'] . '</option>';
-    }
-    $select_string .= '</select>';
-
-    return $select_string;
   }
 
   function tep_values_name($values_id) {
