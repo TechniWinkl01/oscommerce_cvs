@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.20 2001/11/19 22:58:21 dgw_ Exp $
+  $Id: configuration.php,v 1.21 2001/11/23 06:41:33 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -128,7 +128,6 @@
 <?php
   $info_box_contents = array();
   if ($cfgInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $cfgInfo->title . '</b>&nbsp;');
-  if ((!$peInfo) && ($HTTP_GET_VARS['action'] == 'new')) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . TEXT_INFO_HEADING_NEW_PRODUCT . '</b>&nbsp;');
 ?>
               <tr class="boxHeading">
                 <td>
