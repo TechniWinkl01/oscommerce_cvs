@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.75 2003/02/13 03:01:49 hpdl Exp $
+  $Id: login.php,v 1.76 2003/03/11 00:01:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,6 +11,11 @@
 */
 
   require('includes/application_top.php');
+
+// redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started)
+  if ($session_started == false) {
+    tep_redirect(tep_href_link(FILENAME_COOKIE_USAGE));
+  }
 
   if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
     $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
