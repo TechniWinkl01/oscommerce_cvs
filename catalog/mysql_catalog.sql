@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.121 2001/07/31 17:19:16 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.122 2001/07/31 21:25:34 dwatkins Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -1088,7 +1088,7 @@ INSERT INTO products_to_categories VALUES (25,8);
 INSERT INTO products_to_categories VALUES (26,9);
 INSERT INTO products_to_categories VALUES (27,5);
 
-INSERT INTO reviews VALUES (1,19,1,'John doe','root@localhost',5, now(),'',0);
+INSERT INTO reviews VALUES (1,19,1,'John doe',5, now(),'',0);
 
 INSERT INTO reviews_description VALUES (1,1, 'this has to be one of the funniest movies released for 1999!');
 
