@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.74 2002/03/25 13:40:58 harley_vb Exp $
+  $Id: create_account_process.php,v 1.75 2002/05/21 06:07:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -247,13 +247,7 @@
     $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
     tep_mail($name, $email_address, EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
-    if (sizeof($navigation->snapshot) > 0) {
-      $origin_href = tep_href_link($navigation->snapshot['page'], tep_array_to_string($navigation->snapshot['get'], array(tep_session_name())), $navigation->snapshot['mode']);
-      $navigation->clear_snapshot();
-      tep_redirect($origin_href);
-    } else {
-      tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'SSL'));
-    }
+    tep_redirect(tep_href_link(FILENAME_CREATE_ACCOUNT_SUCCESS, '', 'SSL'));
   }
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
