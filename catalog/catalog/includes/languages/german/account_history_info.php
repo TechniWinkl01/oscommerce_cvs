@@ -24,6 +24,6 @@ define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
 define('TEXT_CC', 'Kreditkarte');
 define('TEXT_PAYPAL', 'PayPal.com Kredit Karte/eCheck Abrechnung');
-
 define('IMAGE_BACK', 'Zurück');
 ?>
+

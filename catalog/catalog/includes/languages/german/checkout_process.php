@@ -20,7 +20,7 @@ define('EMAIL_TEXT_CASH_ON_DELIVERY', 'Nachnahme');
 define('EMAIL_TEXT_CREDIT_CARD', 'Kreditkarte');
 define('EMAIL_TEXT_PAYPAL', 'PayPal');
 define('EMAIL_TEXT_AUTHORIZENET', 'AuthorizeNet');
-
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
 define('TEXT_EMAIL_VIA', 'via');
 ?>
+

@@ -21,8 +21,9 @@ define('TEXT_NO_PRODUCTS', 'Es wurden keine Artikel gefunden, die den Suchkriter
 define('TEXT_NO_PRODUCTS2', 'Es wurden keine Artikel gefunden, die den Suchkriterien entsprechen.');
 define('TEXT_SORT_PRODUCTS', 'Sortierung der Artikel ist ');
 define('TEXT_DESCENDINGLY', 'absteigend');
-define('TEXT_ASCENDINGLY', 'aufsteiogenmd');
+define('TEXT_ASCENDINGLY', 'aufsteigend');
 define('TEXT_BY', ' durch ');
 define('TEXT_BUY', 'Kaufen 1 \'');
 define('TEXT_NOW', '\' jetzt');
 ?>
+

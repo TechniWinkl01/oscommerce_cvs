@@ -62,7 +62,7 @@ define('BOX_SEARCH_ADVANCED_SEARCH', 'erweiterte Suche');
 
 // add_a_quickie box text in includes/boxes/add_a_quickie.php
 define('BOX_HEADING_ADD_PRODUCT_ID', 'Schnelleinkauf');
-define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe der gew&uuml;nschten Produktmodell.');
+define('BOX_ADD_PRODUCT_ID_TEXT', 'Eingabe des gew&uuml;nschten Produktcodes.');
 
 // specials box text in includes/boxes/specials.php
 define('BOX_HEADING_SPECIALS', 'Angebote');
@@ -118,7 +118,7 @@ define('JS_REVIEW_RATING', '* Geben Sie ihre Bewertung ein.\n');
 define('JS_GENDER', '* Anredeform festlegen.\n');
 define('JS_FIRST_NAME', '* Der \'Vornname\' muﬂ mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_LAST_NAME', '* Der \'Nachname\' muﬂ mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n');
-define('JS_DOB', '* Die \'Geburtsdaten\' im Fornmat xx/xx/xxxx (Tag/Monat/Jahr) eingeben.\n');
+define('JS_DOB', '* Die \'Geburtsdaten\' im Format xx/xx/xxxx (Tag/Monat/Jahr) eingeben.\n');
 define('JS_EMAIL_ADDRESS', '* Die \'E-Mail Adresse\' muﬂ mindestens aus ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muﬂ mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muﬂ mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
@@ -155,13 +155,13 @@ define('ENTRY_EMAIL_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">notwendig
 define('ENTRY_STREET_ADDRESS', 'Strasse/Nr.:');
 define('ENTRY_STREET_ADDRESS_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_STREET_ADDRESS_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
-define('ENTRY_SUBURB', 'Wohnort:');
+define('ENTRY_SUBURB', 'Stadtteil:');
 define('ENTRY_SUBURB_ERROR', '');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE', 'Postleitzahl:');
 define('ENTRY_POST_CODE_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_POST_CODE_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
-define('ENTRY_CITY', 'Stadt:');
+define('ENTRY_CITY', 'Ort:');
 define('ENTRY_CITY_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben</font></small>');
 define('ENTRY_CITY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_STATE', 'Bundesland:');

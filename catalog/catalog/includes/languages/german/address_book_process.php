@@ -14,7 +14,6 @@ define('TOP_BAR_TITLE_MODIFY_ENTRY', '&Auml;nderung des Eintrags');
 define('HEADING_TITLE_ADD_ENTRY', 'Neuer Adressbucheintrag :');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Adressbucheintrag :');
 define('PLEASE_SELECT', 'Bitte w&auml;hlen');
-
 define('IMAGE_INSERT', 'Einfügen');
 define('IMAGE_CANCEL', 'Abbrechen');
 define('IMAGE_UPDATE', 'Aktualisieren');

@@ -14,7 +14,7 @@ define('TABLE_HEADING_RATING', 'Bewertung');
 define('TABLE_HEADING_READ', 'Wurde gelesen');
 define('TABLE_HEADING_DATE_ADDED', 'Datum');
 define('TEXT_OF_5_STARS', '%s von 5 Sternen!');
-define('TEXT_NO_REVIEWS', 'Es gibt keine meinungen &uuml;ber dieses Produkt!');
+define('TEXT_NO_REVIEWS', 'Es gibt (noch) keine Meinungen &uuml;ber dieses Produkt!');
 
 define('IMAGE_WRITE_A_REVIEW', 'Meinung Erstellen');
 define('IMAGE_BACK', 'Zurück');
