@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.37 2003/06/09 22:26:32 hpdl Exp $
+  $Id: payment.php,v 1.38 2003/11/17 19:31:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,7 @@
 
 // class constructor
     function payment($module = '') {
-      global $payment, $language, $PHP_SELF;
+      global $osC_Session, $PHP_SELF;
 
       if (defined('MODULE_PAYMENT_INSTALLED') && tep_not_null(MODULE_PAYMENT_INSTALLED)) {
         $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
@@ -35,7 +35,7 @@
         }
 
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
-          include(DIR_WS_LANGUAGES . $language . '/modules/payment/' . $include_modules[$i]['file']);
+          include(DIR_WS_LANGUAGES . $osC_Session->value('language') . '/modules/payment/' . $include_modules[$i]['file']);
           include(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
 
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
@@ -43,9 +43,9 @@
 
 // if there is only one payment method, select it as default because in
 // checkout_confirmation.php the $payment variable is being assigned the
-// $HTTP_POST_VARS['payment'] value which will be empty (no radio button selection possible)
-        if ( (tep_count_payment_modules() == 1) && (!isset($GLOBALS[$payment]) || (isset($GLOBALS[$payment]) && !is_object($GLOBALS[$payment]))) ) {
-          $payment = $include_modules[0]['class'];
+// $_POST['payment'] value which will be empty (no radio button selection possible)
+        if ( (tep_count_payment_modules() == 1) && (!isset($GLOBALS[$osC_Session->value('payment')]) || (isset($GLOBALS[$osC_Session->value('payment')]) && !is_object($GLOBALS[$osC_Session->value('payment')]))) ) {
+          $osC_Session->set('payment', $include_modules[0]['class']);
         }
 
         if ( (tep_not_null($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
@@ -66,12 +66,8 @@
     function update_status() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module])) {
-          if (function_exists('method_exists')) {
-            if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
-              $GLOBALS[$this->selected_module]->update_status();
-            }
-          } else { // PHP3 compatibility
-            @call_user_method('update_status', $GLOBALS[$this->selected_module]);
+          if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
+            $GLOBALS[$this->selected_module]->update_status();
           }
         }
       }
