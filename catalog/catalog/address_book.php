@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.51 2002/05/23 22:56:20 hpdl Exp $
+  $Id: address_book.php,v 1.52 2002/05/23 23:01:47 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -66,7 +66,7 @@
             <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
-  $address_book_query = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and  address_book_id > 1 order by address_book_id");
+  $address_book_query = tep_db_query("select address_book_id, entry_firstname, entry_lastname from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id > 1 order by address_book_id");
   if (!tep_db_num_rows($address_book_query)) {
 ?>
           <tr class="addressBook-odd">
@@ -77,13 +77,12 @@
     $row = 0;
     while ($address_book = tep_db_fetch_array($address_book_query)) {
       $row++;
-      $entry_country = tep_get_countries($address_book['entry_country_id']);
-      if (($row / 2) == floor($row / 2)) {
+       if (($row / 2) == floor($row / 2)) {
         echo '          <tr class="addressBook-even">' . "\n";
       } else {
         echo '          <tr class="addressBook-odd">' . "\n";
       }
-      echo '            <td class="smallText" align="center">' . (($row < 10) ? '0' . $row : $row) . '.</td>' . "\n" .
+      echo '            <td class="smallText" align="center">' . tep_row_number_format($row) . '.</td>' . "\n" .
            '            <td class="smallText"><a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book['address_book_id'], 'SSL') . '">' . $address_book['entry_firstname'] . ' ' . $address_book['entry_lastname'] . '</a></td>' . "\n" .
            '            <td class="smallText" align="right">' . tep_address_summary($customer_id, $address_book['address_book_id']) . '</td>' . "\n" .
            '          </tr>' . "\n";
