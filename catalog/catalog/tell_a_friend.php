@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.5 2001/06/26 13:53:59 mbs Exp $
+  $Id: tell_a_friend.php,v 1.6 2001/06/27 14:58:11 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -95,7 +95,7 @@
     }
     $email_body .= sprintf(TEXT_EMAIL_LINK, HTTP_SERVER . DIR_WS_CATALOG . FILENAME_PRODUCT_INFO . '?products_id=' . $HTTP_GET_VARS['products_id']) . "\n\n";
     $email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME . "\n" . HTTP_SERVER . DIR_WS_CATALOG . "\n");
-    tep_mail($HTTP_POST_VARS['friendname'], $HTTP_POST_VARS['friendemail'], $email_subject, $email_body, '', $from_email_address, '');
+    tep_mail($HTTP_POST_VARS['friendname'], $HTTP_POST_VARS['friendemail'], $email_subject, nl2br($email_body), '', $from_email_address, '');
 ?>
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">

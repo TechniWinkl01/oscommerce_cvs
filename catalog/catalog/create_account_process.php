@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.49 2001/06/26 13:33:42 mbs Exp $
+  $Id: create_account_process.php,v 1.50 2001/06/27 14:58:12 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -259,7 +259,7 @@
     }
 
     $email_text .= EMAIL_WELCOME . EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
-    tep_mail($name, $email_address, EMAIL_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+    tep_mail($name, $email_address, EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
     
     if ($HTTP_POST_VARS['origin']) {
       if (@$HTTP_POST_VARS['connection'] == 'SSL') {
