@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.46 2002/01/26 17:15:42 hpdl Exp $
+  $Id: backup.php,v 1.47 2002/03/11 16:51:35 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,7 @@
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
       case 'forget':
-        tep_db_query("delete from configuration where configuration_key = 'DB_LAST_RESTORE'");
+        tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
         tep_redirect(tep_href_link(FILENAME_BACKUP));
         break;
       case 'backupnow':
@@ -259,8 +259,8 @@
             tep_db_query($sql_array[$i]);
           }
 
-          tep_db_query("delete from configuration where configuration_key = 'DB_LAST_RESTORE'");
-          tep_db_query("insert into configuration values ('', 'Last Database Restore', 'DB_LAST_RESTORE', '" . $read_from . "', 'Last database restore file', '6', '', '', now(), '', '')");
+          tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
+          tep_db_query("insert into " . TABLE_CONFIGURATION . " values ('', 'Last Database Restore', 'DB_LAST_RESTORE', '" . $read_from . "', 'Last database restore file', '6', '', '', now(), '', '')");
 
           if ($remove_raw) {
             unlink($restore_from);
