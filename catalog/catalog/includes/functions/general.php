@@ -106,6 +106,9 @@
   }
 
   function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
+    if ( (($src == '') || ($src == 'images/')) && (!IMAGE_REQUIRED) ) {
+      return;
+    }
     $image = '<img src="' . $src . '" border="0"';
 
     if ($alt) {
@@ -124,7 +127,7 @@
           $width = $image_size[0];
           $height = $image_size[1];
         }
-      } elseif (IMAGE_REQUIRED == false) {
+      } elseif (!IMAGE_REQUIRED) {
         return '';
       }
     }
