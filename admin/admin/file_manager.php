@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.35 2002/06/01 20:54:51 clescuyer Exp $
+  $Id: file_manager.php,v 1.36 2002/08/06 14:48:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -153,7 +153,7 @@
       $filename_input_field = tep_draw_input_field('filename');
     } elseif ($HTTP_GET_VARS['action'] == 'edit') {
       if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['info'])) {
-        $file_contents = htmlentities(implode('', $file_array));
+        $file_contents = htmlspecialchars(implode('', $file_array));
       }
       $filename_input_field = $HTTP_GET_VARS['info'] . tep_draw_hidden_field('filename', $HTTP_GET_VARS['info']);
     }
