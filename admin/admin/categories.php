@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.128 2002/03/26 10:27:02 harley_vb Exp $
+  $Id: categories.php,v 1.129 2002/03/28 15:37:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -342,6 +342,12 @@
     }
 
     $languages = tep_get_languages();
+
+    switch ($pInfo->products_status) {
+      case '0': $in_status = false; $out_status = true; break;
+      case '1':
+      default: $in_status = true; $out_status = false;
+    }
 ?>
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
@@ -363,7 +369,7 @@
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
-            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('products_status', '1', (($pInfo->products_status == '1') ? true : false)) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . tep_draw_radio_field('products_status', '0', (($pInfo->products_status == '0') ? true : false)) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?></td>
+            <td class="main"><?php echo tep_draw_separator('pixel_trans.gif', '24', '15') . '&nbsp;' . tep_draw_radio_field('products_status', '1', $in_status) . '&nbsp;' . TEXT_PRODUCT_AVAILABLE . '&nbsp;' . tep_draw_radio_field('products_status', '0', $out_status) . '&nbsp;' . TEXT_PRODUCT_NOT_AVAILABLE; ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
