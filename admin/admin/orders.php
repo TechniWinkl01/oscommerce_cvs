@@ -323,7 +323,11 @@ function alertBox() {
             <td colspan="5"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-    $orders_query_raw = "select orders_id, customers_name, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " order by orders_id DESC";
+    if ($HTTP_GET_VARS['customers_id']) {
+      $orders_query_raw = "select orders_id, customers_name, customers_id, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "' order by orders_id DESC";
+    } else {
+      $orders_query_raw = "select orders_id, customers_name, payment_method, date_purchased, shipping_cost, orders_status from " . TABLE_ORDERS . " order by orders_id DESC";
+    }
     $orders_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $orders_query_raw, $orders_query_numrows);
     $orders = tep_db_query($orders_query_raw);
     $rows = 0;

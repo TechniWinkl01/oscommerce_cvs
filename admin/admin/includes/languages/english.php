@@ -191,6 +191,7 @@ define('IMAGE_NEW_LANGUAGE', 'New Language');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
 define('IMAGE_NEW_ZONE', 'New Zone');
+define('IMAGE_ORDERS', 'Orders');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');

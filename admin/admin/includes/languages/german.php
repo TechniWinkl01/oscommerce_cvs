@@ -184,6 +184,7 @@ define('IMAGE_NEW_TAX_CLASS', 'neuen Steuer-Klasse erstellen');
 define('IMAGE_NEW_ZONE', 'neues Bundesland einfügen');
 define('IMAGE_NEW_COUNTRY', 'neues Land aufnehmen');
 define('IMAGE_NEW_CURRENCY', 'neue Währung einfügen');
+define('IMAGE_ORDERS', 'Bestellungen');
 define('IMAGE_PREVIEW', 'Vorschau');
 define('IMAGE_SAVE', 'speichern');
 define('IMAGE_SEARCH', 'suchen');

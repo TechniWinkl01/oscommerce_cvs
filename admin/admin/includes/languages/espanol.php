@@ -189,6 +189,7 @@ define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_NEW_COUNTRY', 'Nuevo Pais');
 define('IMAGE_NEW_CURRENCY', 'Nueva Moneda');
 define('IMAGE_UPDATE_CURRENCY', 'Actualizar Cambio de Moneda');
+define('IMAGE_ORDERS', 'Orders');
 define('IMAGE_PREVIEW', 'Ver');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
