@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.35 2001/12/20 14:45:32 dgw_ Exp $
+  $Id: stylesheet.css,v 1.36 2002/01/02 16:28:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,6 +24,10 @@ A {
 A:hover { 
   color: #AABBDD; 
   text-decoration: underline; 
+}
+
+FORM {
+	display: inline;
 }
 
 TR.header {
