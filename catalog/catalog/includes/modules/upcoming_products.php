@@ -1,4 +1,4 @@
-<?php /* $Id: upcoming_products.php,v 1.8 2001/01/19 03:33:52 pkellum Exp $ */ ?>
+<?php /* $Id: upcoming_products.php,v 1.9 2001/01/26 22:22:00 dwatkins Exp $ */ ?>
 <!-- upcoming_products //-->
 <?
     $expected = tep_db_query("select products_name, UNIX_TIMESTAMP(products_expected.date_expected) AS u_date from products_expected order by " . EXPECTED_PRODUCTS_FIELD . " " . EXPECTED_PRODUCTS_SORT . " limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
@@ -19,9 +19,9 @@
     while ($expected_values = tep_db_fetch_array($expected)) {
       $row++;
       if (($row / 2) == floor($row / 2)) {
-        echo '              <tr bgcolor="#ffffff">' . "\n";
+        echo '              <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
       } else {
-        echo '              <tr bgcolor="#f4f7fd">' . "\n";
+        echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
       echo '                <td><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $expected_values['products_name'] . '&nbsp;</font></td>' . "\n";
       echo '                <td align="right"><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . strftime(DATE_FORMAT_SHORT, $expected_values['u_date']) . '&nbsp;</font></td>' . "\n";

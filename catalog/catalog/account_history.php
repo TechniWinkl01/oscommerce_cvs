@@ -66,7 +66,7 @@
   $history = tep_db_query($history_sql);
   if (@!tep_db_num_rows($history)) {
 ?>
-          <tr bgcolor="#f4f7fd">
+          <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
             <td colspan="4" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_NO_PURCHASES; ?>&nbsp;</font></td>
           </tr>
 <?
@@ -83,9 +83,9 @@
       $total_cost += $history_values['shipping_cost'];
 
       if (($row / 2) == floor($row / 2)) {
-        echo '          <tr bgcolor="#ffffff">' . "\n";
+        echo '          <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
       } else {
-        echo '          <tr bgcolor="#f4f7fd">' . "\n";
+        echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
       echo '            <td align="center" nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $history_values['orders_id'] . '&nbsp;</font></td>' . "\n";
       echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</font></td>' . "\n";

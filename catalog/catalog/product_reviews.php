@@ -83,9 +83,9 @@
       }
       $date_added = strftime(DATE_FORMAT_SHORT, mktime(0, 0, 0, substr($reviews_values['date_added'], 4, 2), substr($reviews_values['date_added'], 6, 2), substr($reviews_values['date_added'], 0, 4)));
       if (($row / 2) == floor($row / 2)) {
-        echo '          <tr bgcolor="#ffffff">' . "\n";
+        echo '          <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
       } else {
-        echo '          <tr bgcolor="#f4f7fd">' . "\n";
+        echo '          <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
       echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $row . '.&nbsp;</font></td>' . "\n";
       echo '            <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, $get_params . '&reviews_id=' . $reviews_values['reviews_id'], 'NONSSL') . '">' . $customers_name_values['customers_firstname'] . ' ' . $customers_name_values['customers_lastname'] . '</a>&nbsp;</font></td>' . "\n";
@@ -96,7 +96,7 @@
     }
   } else {
 ?>
-          <tr bgcolor="#f4f7fd">
+          <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
             <td colspan="5"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_NO_REVIEWS; ?>&nbsp;</font></td>
           </tr>
 <?

@@ -30,9 +30,9 @@
       tep_db_data_seek($orders_query, $rows_to_display[$i]);
       $orders_values = tep_db_fetch_array($orders_query);
       if ((($i + 1) / 2) == floor(($i + 1) / 2)) {
-        echo '              <tr bgcolor="#ffffff">' . "\n";
+        echo '              <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
       } else {
-        echo '              <tr bgcolor="#f4f7fd">' . "\n";
+        echo '              <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
       echo '                <td ><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $orders_values['products_id'], 'NONSSL') . '">' . $orders_values['products_name'] . '</a>&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
