@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.47 2003/01/14 18:04:56 dgw_ Exp $
+  $Id: password_forgotten.php,v 1.48 2003/02/13 03:10:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PASSWORD_FORGOTTEN);
 
-  if ($HTTP_GET_VARS['action'] == 'process') {
+  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
     $check_customer_query = tep_db_query("select customers_firstname, customers_lastname, customers_password, customers_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer_query)) {
       $check_customer = tep_db_fetch_array($check_customer_query);
@@ -38,7 +38,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -68,10 +68,10 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><form name="password_forgotten" method="post" action="<?php echo tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'); ?>"><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
+        <td><?php echo tep_draw_form('password_forgotten', tep_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL')); ?><br><table border="0" width="100%" cellspacing="0" cellpadding="3">
           <tr>
             <td align="right" class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
-            <td class="main"><input type="text" name="email_address" maxlength="96"></td>
+            <td class="main"><?php echo tep_draw_input_field('email_address', '', 'maxlength="96"'); ?></td>
           </tr>
           <tr>
             <td colspan="2"><br><table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -82,7 +82,7 @@
             </table></td>
           </tr>
 <?php
-  if ($HTTP_GET_VARS['email'] == 'nonexistent') {
+  if (isset($HTTP_GET_VARS['email']) && ($HTTP_GET_VARS['email'] == 'nonexistent')) {
     echo '          <tr>' . "\n";
     echo '            <td colspan="2" class="smallText">' .  TEXT_NO_EMAIL_ADDRESS_FOUND . '</td>' . "\n";
     echo '          </tr>' . "\n";

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.15 2003/02/12 21:07:44 hpdl Exp $
+  $Id: popup_image.php,v 1.16 2003/02/13 03:10:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,7 +21,7 @@
 <html <?php echo HTML_PARAMS; ?>>
 <head>
 <title><?php echo $products_values['products_name']; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <script language="javascript"><!--
 var i=0;
 function resize() {
@@ -35,3 +35,4 @@ function resize() {
 <?php echo tep_image(DIR_WS_IMAGES . $products_values['products_image'], $products_values['products_name']); ?>
 </body>
 </html>
+<?php require('includes/application_bottom.php'); ?>

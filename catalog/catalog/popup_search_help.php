@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: popup_search_help.php,v 1.2 2003/02/12 21:07:45 hpdl Exp $
+  $Id: popup_search_help.php,v 1.3 2003/02/13 03:10:56 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -20,7 +20,7 @@
 <html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
@@ -31,15 +31,12 @@ BODY { margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 1
 
 <?php
   $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left',
-                               'text'  => HEADING_SEARCH_HELP
-                              );
+  $info_box_contents[] = array('text' => HEADING_SEARCH_HELP);
+
   new infoBoxHeading($info_box_contents, true, true);
 
   $info_box_contents = array();
-  $info_box_contents[] = array('align' => 'left',
-                               'text'  => TEXT_SEARCH_HELP
-                              );
+  $info_box_contents[] = array('text' => TEXT_SEARCH_HELP);
 
   new infoBox($info_box_contents);
 ?>
@@ -48,3 +45,4 @@ BODY { margin-bottom: 10px; margin-left: 10px; margin-right: 10px; margin-top: 1
 
 </body>
 </html>
+<?php require('includes/application_bottom.php'); ?>
