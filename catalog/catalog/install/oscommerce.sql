@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.37 2002/04/18 13:43:27 hpdl Exp $
+# $Id: oscommerce.sql,v 1.38 2002/04/21 16:41:26 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -1026,7 +1026,7 @@ INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
-INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2','1.0000', now());
+INSERT INTO currencies VALUES (1,'US Dollar','USD','$','','.',',','2','1.0000', now());
 INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2','2.1585', now());
 INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0','183.624', now());
 INSERT INTO currencies VALUES (4,'Euro','EUR','','EUR','.',',','2','1.1036', now());
