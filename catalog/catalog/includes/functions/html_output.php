@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: html_output.php,v 1.25 2002/02/01 01:23:16 project3000 Exp $
+  $Id: html_output.php,v 1.26 2002/04/19 09:39:09 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -77,7 +77,11 @@
       return;
     }
 
-    $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
+    if ($alt == '') {
+      $image = '<img src="' . $src . '" border="0"';
+    } else {
+      $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
+    }
 
     if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && ((!$width) || (!$height)) ) {
       if ($image_size = @getimagesize($src)) {
