@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.12 2002/01/17 11:41:26 jan0815 Exp $
+  $Id: customers.php,v 1.13 2002/06/15 12:19:14 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,5 +28,5 @@ define('TEXT_DELETE_INTRO', 'Wollen Sie diesen Kunden wirklich l&ouml;schen?');
 define('TEXT_DELETE_REVIEWS', '%s Bewertung(en) l&ouml;schen');
 define('TEXT_INFO_HEADING_DELETE_CUSTOMER', 'Kunden l&ouml;schen');
 define('TYPE_BELOW', 'Bitte unten eingeben');
-define('PLEASE_SELECT', 'Ausw&auml;hlen');
+define('PLEASE_SELECT', 'Auswählen');
 ?>
