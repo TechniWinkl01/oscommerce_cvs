@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.69 2001/12/20 14:16:51 hpdl Exp $
+  $Id: espanol.php,v 1.70 2002/01/02 16:33:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,7 @@ function tep_date_raw($date, $reverse = false) {
 }
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the applications default currency (used when changing language)
-define('LANGUAGE_CURRENCY', 'ESP');
+define('LANGUAGE_CURRENCY', 'EUR');
 
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="LTR" lang="es"');
@@ -42,7 +42,7 @@ define('HTML_PARAMS','dir="LTR" lang="es"');
 define('CHARSET', 'iso-8859-1');
 
 // page title
-define('TITLE', 'The Exchange Project');
+define('TITLE', 'Open Source Commerce');
 
 // header text in includes/header.php
 define('HEADER_TITLE_CREATE_ACCOUNT', 'Crear Cuenta');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.74 2001/12/20 14:16:51 hpdl Exp $
+  $Id: english.php,v 1.75 2002/01/02 16:36:22 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -42,7 +42,7 @@ define('HTML_PARAMS','dir="LTR" lang="en"');
 define('CHARSET', 'iso-8859-1');
 
 // page title
-define('TITLE', 'The Exchange Project');
+define('TITLE', 'Open Source Commerce');
 
 // header text in includes/header.php
 define('HEADER_TITLE_CREATE_ACCOUNT', 'Create an Account');
