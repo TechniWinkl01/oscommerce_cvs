@@ -71,10 +71,8 @@
 	switch($HTTP_POST_VARS['payment']) {
 		case 'cc' : // Credit Card
 		case 'cod' : // Cash On Delivery
-			header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); tep_exit();
-			break;
 		case 'paypal' : // PayPal
-			header("Location: https://secure.paypal.com/xclick/business=" . rawurlencode(PAYPAL_ID) . "&item_name=" . rawurlencode(STORE_NAME . " " . TEXT_PAYMENT) . "&item_number=" . rawurlencode($insert_id) . "&amount=" . $paypal_total . "&shipping=" . $shipping_cost . "&return=" . urlencode(tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')));
+			header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); tep_exit();
 			break;
 	}
 ?>

@@ -62,22 +62,6 @@
       <tr>
         <td><? echo tep_black_line();?></td>
       </tr></table>
-<?php
-	switch($HTTP_POST_VARS['payment']) {
-		case 'cod' : // Cash On Delivery
-		case 'paypal' : // PayPal
-			print "<form name=\"checkout_confirmation\" method=\"post\" action=\"" . tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL') . "\">\n";
-			break;
-		case 'cc' : // Credit Card
-			if ($cc_val == '1') {
-				print "<form name=\"checkout_confirmation\" method=\"post\" action=\"" . tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL') . "\">\n";
-			}
-			else {
-				print "<form name=\"checkout_confirmation\" method=\"post\" action=\"" . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . "\">\n";
-			}
-			break;
-	}
-?>
 	  <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -299,13 +283,9 @@
 	switch($HTTP_POST_VARS['payment']) {
 		case 'cc' : // Credit Card
 			if ($cc_val == '1') {
+				print "<form name=\"checkout_confirmation\" method=\"post\" action=\"" . tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL') . "\">\n";
 				print "<tr>\n";
-				print "<td align=\"right\" nowrap><br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . "&nbsp;</font></td>\n";
-				print "</tr>\n";
-				print "<tr>\n";
-				print "<td align=\"right\" nowrap><br><font face=\"" . SMALL_TEXT_FONT_FACE . "\" size=\"" . SMALL_TEXT_FONT_SIZE . "\" color=\"" . SMALL_TEXT_FONT_COLOR . "\">&nbsp;<font color=\"" . CHECKOUT_BAR_TEXT_COLOR . "\">[ " . CHECKOUT_BAR_CART_CONTENTS . " | " . CHECKOUT_BAR_DELIVERY_ADDRESS . " | " . CHECKOUT_BAR_PAYMENT_METHOD . " | <font color=\"" . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . "\">" . CHECKOUT_BAR_CONFIRMATION . "</font> | " . CHECKOUT_BAR_FINISHED . " ]</font>&nbsp;</font></td>\n";
-				print "</tr>\n";
-				print "</table>\n";
+				print "<td align=\"right\" nowrap>\n";
 				print "<input type=\"hidden\" name=\"sendto\" value=\"" . $HTTP_POST_VARS['sendto'] . "\">\n";
 				print "<input type=\"hidden\" name=\"payment\" value=\"" . $HTTP_POST_VARS['payment'] . "\">\n";
 				print "<input type=\"hidden\" name=\"shipping\" value=\"" . $shipping_cost . "\">\n";
@@ -314,38 +294,56 @@
 				print "<input type=\"hidden\" name=\"cc_owner\" value=\"" . $HTTP_POST_VARS['cc_owner'] . "\">\n";
 				print "<input type=\"hidden\" name=\"cc_number\" value=\"" . $CardNumber . "\">\n";
 				print "<input type=\"hidden\" name=\"cc_expires\" value=\"" . $HTTP_POST_VARS['cc_expires'] . "\">\n";
-			}
-			else {
-				print "<tr>\n";
-				print "<td align=\"right\" nowrap><br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . "&nbsp;&nbsp;</font></td>\n";
+				print "<br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . "&nbsp;</font></form></td>\n";
 				print "</tr>\n";
 				print "<tr>\n";
 				print "<td align=\"right\" nowrap><br><font face=\"" . SMALL_TEXT_FONT_FACE . "\" size=\"" . SMALL_TEXT_FONT_SIZE . "\" color=\"" . SMALL_TEXT_FONT_COLOR . "\">&nbsp;<font color=\"" . CHECKOUT_BAR_TEXT_COLOR . "\">[ " . CHECKOUT_BAR_CART_CONTENTS . " | " . CHECKOUT_BAR_DELIVERY_ADDRESS . " | " . CHECKOUT_BAR_PAYMENT_METHOD . " | <font color=\"" . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . "\">" . CHECKOUT_BAR_CONFIRMATION . "</font> | " . CHECKOUT_BAR_FINISHED . " ]</font>&nbsp;</font></td>\n";
 				print "</tr>\n";
 				print "</table>\n";
+			}
+			else {
+				print "<form name=\"checkout_confirmation\" method=\"post\" action=\"" . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . "\">\n";
+				print "<tr>\n";
+				print "<td align=\"right\" nowrap>\n";
 				print "<input type=\"hidden\" name=\"sendto\" value=\"" . $HTTP_POST_VARS['sendto'] . "\">\n";
 				print "<input type=\"hidden\" name=\"prod\" value=\"" . $HTTP_POST_VARS['prod'] . "\">\n";
 				print "<input type=\"hidden\" name=\"cc_owner\" value=\"" . $HTTP_POST_VARS['cc_owner'] . "\">\n";
 				print "<input type=\"hidden\" name=\"cc_expires\" value=\"" . $HTTP_POST_VARS['cc_expires'] . "\">\n";
+				print "<br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . "&nbsp;&nbsp;</font></form></td>\n";
+				print "</tr>\n";
+				print "<tr>\n";
+				print "<td align=\"right\" nowrap><br><font face=\"" . SMALL_TEXT_FONT_FACE . "\" size=\"" . SMALL_TEXT_FONT_SIZE . "\" color=\"" . SMALL_TEXT_FONT_COLOR . "\">&nbsp;<font color=\"" . CHECKOUT_BAR_TEXT_COLOR . "\">[ " . CHECKOUT_BAR_CART_CONTENTS . " | " . CHECKOUT_BAR_DELIVERY_ADDRESS . " | " . CHECKOUT_BAR_PAYMENT_METHOD . " | <font color=\"" . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . "\">" . CHECKOUT_BAR_CONFIRMATION . "</font> | " . CHECKOUT_BAR_FINISHED . " ]</font>&nbsp;</font></td>\n";
+				print "</tr>\n";
+				print "</table>\n";
 			}
 			break;
 		case 'cod' : // Cash On Delivery
-		case 'paypal' : // PayPal
+			print "<form name=\"checkout_confirmation\" method=\"post\" action=\"" . tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL') . "\">\n";
 			print "<tr>\n";
-			print "<td align=\"right\" nowrap><br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . "&nbsp;</font></td>\n";
+			print "<td align=\"right\" nowrap>\n";
+			print "<input type=\"hidden\" name=\"sendto\" value=\"" . $HTTP_POST_VARS['sendto'] . "\">\n";
+			print "<input type=\"hidden\" name=\"payment\" value=\"" . $HTTP_POST_VARS['payment'] . "\">\n";
+			print "<input type=\"hidden\" name=\"shipping\" value=\"" . $shipping_cost . "\">\n";
+			print "<input type=\"hidden\" name=\"shipping_method\" value=\"" . $shipping_method . "\">\n";
+			print "<br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . "&nbsp;</font></form></td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "<td align=\"right\" nowrap><br><font face=\"" . SMALL_TEXT_FONT_FACE . "\" size=\"" . SMALL_TEXT_FONT_SIZE . "\" color=\"" . SMALL_TEXT_FONT_COLOR . "\">&nbsp;<font color=\"" . CHECKOUT_BAR_TEXT_COLOR . "\">[ " . CHECKOUT_BAR_CART_CONTENTS . " | " . CHECKOUT_BAR_DELIVERY_ADDRESS . " | " . CHECKOUT_BAR_PAYMENT_METHOD . " | <font color=\"" . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . "\">" . CHECKOUT_BAR_CONFIRMATION . "</font> | " . CHECKOUT_BAR_FINISHED . " ]</font>&nbsp;</font></td>\n";
 			print "</tr>\n";
 			print "</table>\n";
-			print "<input type=\"hidden\" name=\"sendto\" value=\"" . $HTTP_POST_VARS['sendto'] . "\">\n";
-			print "<input type=\"hidden\" name=\"payment\" value=\"" . $HTTP_POST_VARS['payment'] . "\">\n";
-			print "<input type=\"hidden\" name=\"shipping\" value=\"" . $shipping_cost . "\">\n";
-			print "<input type=\"hidden\" name=\"shipping_method\" value=\"" . $shipping_method . "\">\n";
+			break;
+		case 'paypal' : // PayPal
+			print "<tr>\n";
+			print "<td align=\"right\" nowrap><form name=\"checkout_confirmation\" method=\"post\" action=\"https://secure.paypal.com/xclick/business=" . rawurlencode(PAYPAL_ID) . "&item_name=" . rawurlencode(STORE_NAME . " " . TEXT_PAYMENT) . "&item_number=" . rawurlencode($insert_id) . "&amount=" . $total_cost . "&shipping=" . $shipping_cost . "&return=" . urlencode(tep_href_link(FILENAME_CHECKOUT_PROCESS, 'sendto=' . $HTTP_POST_VARS['sendto'] . '&payment=' . $HTTP_POST_VARS['payment'] . '&shipping=' . $shipping_cost . '&shipping_method=' . $shipping_method, 'SSL')) . "\"><br><font face=\"" . TEXT_FONT_FACE . "\" size=\"" . TEXT_FONT_SIZE . "\" color=\"" . TEXT_FONT_COLOR . "\">&nbsp;" . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . "&nbsp;</font></form></td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "<td align=\"right\" nowrap><br><font face=\"" . SMALL_TEXT_FONT_FACE . "\" size=\"" . SMALL_TEXT_FONT_SIZE . "\" color=\"" . SMALL_TEXT_FONT_COLOR . "\">&nbsp;<font color=\"" . CHECKOUT_BAR_TEXT_COLOR . "\">[ " . CHECKOUT_BAR_CART_CONTENTS . " | " . CHECKOUT_BAR_DELIVERY_ADDRESS . " | " . CHECKOUT_BAR_PAYMENT_METHOD . " | <font color=\"" . CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED . "\">" . CHECKOUT_BAR_CONFIRMATION . "</font> | " . CHECKOUT_BAR_FINISHED . " ]</font>&nbsp;</font></td>\n";
+			print "</tr>\n";
+			print "</table>\n";
 			break;
 	}
 ?>
-    </form></td>
+    </td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH;?>" valign="top"><table border="0" width="<? echo BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
       <tr>
