@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.19 2003/02/05 22:41:53 hpdl Exp $
+  $Id: zones.php,v 1.20 2003/06/15 19:48:09 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -113,7 +113,7 @@
 
 // class methods
     function quote($method = '') {
-      global $order, $shipping_weight;
+      global $order, $shipping_weight, $shipping_num_boxes;
 
       $dest_country = $order->delivery['country']['iso_code_2'];
       $dest_zone = 0;
@@ -148,7 +148,7 @@
           $shipping_cost = 0;
           $shipping_method = MODULE_SHIPPING_ZONES_UNDEFINED_RATE;
         } else {
-          $shipping_cost = ($shipping + constant('MODULE_SHIPPING_ZONES_HANDLING_' . $dest_zone));
+          $shipping_cost = ($shipping * $shipping_num_boxes) + constant('MODULE_SHIPPING_ZONES_HANDLING_' . $dest_zone);
         }
       }
 
