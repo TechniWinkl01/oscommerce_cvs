@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.55 2003/12/04 23:03:58 hpdl Exp $
+  $Id: cc.php,v 1.56 2003/12/04 23:12:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -124,7 +124,7 @@
       if ( ($result == false) || ($result < 1) ) {
         $messageStack->add_session('checkout_payment', $error, 'error');
 
-        $payment_error_return = 'cc_owner=' . urlencode($_POST['cc_owner']) . '&cc_expires_month=' . $_POST['cc_expires_month'] . '&cc_expires_year=' . $_POST['cc_expires_year'];
+        $payment_error_return = 'cc_owner=' . urlencode($_POST['cc_owner']) . '&cc_expires_month=' . urlencode($_POST['cc_expires_month']) . '&cc_expires_year=' . urlencode($_POST['cc_expires_year']);
 
         tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
       }
