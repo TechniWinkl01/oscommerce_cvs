@@ -9,6 +9,8 @@ Questions:
 05. Why is the session-ID screwing up my urls in href links?
 06. I receive an error of not being able to write to the parse_time_log file.
 07. I get one of these errors: Fatal error: Call to undefined function: count_contents(), Fatal error: Call to undefined function: restore_cart(), etc.
+08. How do I install a snapshot on top of an exisiting distribution?
+09. Will a snapshow overwrit my existing [modified] application_top.php?
 
 ## 01 ##
 q. How can I check my php configuration?
@@ -53,4 +55,21 @@ a. PHP3 and some PHP4 betas dont unserialize objects properly. To get it to work
    application_top.php and enable the following setting:
    
    define('REPAIR_BROKEN_CART', '1');
+
+## 08 ##
+q. How do I install a snapshot on top of an exisiting distribution?
+a. You just untar it and copy it out like you would have for the initail install.
+
+# 09 ##
+q. Will a snapshow overwrit my existing [modified] application_top.php?
+a. Yes it will overwrite applcation_top.php since that file exists in the
+   distribution. You will have to 'diff' the files so as to see all the changes
+   you made.
+
+   You may take the the changes and put them in a file named:
+
+   catalog/includes/local/configure.php and then use the
+   application_top.php unmodified... That way next time you
+   download a new snapshot you will have all your changes in one
+   file that will NOT be overritten by the distrbution.
 
