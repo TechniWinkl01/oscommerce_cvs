@@ -1,7 +1,7 @@
 <?php
   function quotecurrency($code, $base) {
     $err_num = $err_msg='';
-    $s = fsockopen('www.oanda.com', 5011, &$err_num, &$err_msg, 3);
+    $s = fsockopen('www.oanda.com', 5011, $err_num, $err_msg, 5);
     if (!$s) {
       echo "$err_msg ($err_num)<br>\n";
       $resp = 'na';  // prevent breaking script
