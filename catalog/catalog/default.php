@@ -129,6 +129,7 @@
         </table></td>
       </tr>
 <?
+/*
     // create column list
     $define_list = array(
       'PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
@@ -166,7 +167,7 @@
           break;
         case 'PRODUCT_LIST_MANUFACTURER':
           $select_column_list .= 'm.manufacturers_name';
-          break;
+^          break;
         case 'PRODUCT_LIST_QUANTITY':
           $select_column_list .= 'p.products_quantity';
           break;
@@ -180,6 +181,9 @@
     }
     if ($select_column_list != '')
       $select_column_list .= ', ';
+*/
+
+/*
 // show the products of a specified manufacturer
     if ($HTTP_GET_VARS['manufacturers_id']) {
       if ($HTTP_GET_VARS['filter_id']) {
@@ -203,7 +207,9 @@
 // We build the manufacturers Dropdown
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from products p, products_to_categories p2c, manufacturers m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
+*/
 
+/*
     if (!$HTTP_GET_VARS['sort'] || !ereg("[1-8][ad]", $HTTP_GET_VARS['sort'])) {
       for ($col=0; $col<sizeof($column_list); $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
@@ -253,6 +259,7 @@
         }
       }
     }
+*/
 ?>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -261,6 +268,7 @@
             <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
 <?
 // optional Product List Filter
+/*
     if (PRODUCT_LIST_FILTER) {
       $filterlist = tep_db_query($filterlist_sql);
       if (tep_db_num_rows($filterlist) > 1) {
@@ -296,6 +304,8 @@
         echo '            </td>' . "\n";
       }
     }
+*/
+
 // Get the right image for the top-right
     $image = DIR_WS_IMAGES . 'table_background_list.gif';
     if ($HTTP_GET_VARS['manufacturers_id']) {

@@ -44,7 +44,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><a href="<? echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_lets_shop.gif', IMAGE_LETS_SHOP); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td align="right" nowrap><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_CONTNUE) . '</a>'; ?>&nbsp;&nbsp;</td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->

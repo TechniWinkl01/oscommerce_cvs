@@ -77,9 +77,7 @@
         <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
       </tr>
 <?
-  }
-
-  if ($HTTP_GET_VARS['action'] == 'where') {
+  } else {
     $product_info = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_date_added, p.products_date_available, p.manufacturers_id from products p, products_description pd where p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.language_id = '" . $languages_id . "'");
     $product_info_values = tep_db_fetch_array($product_info);
 ?>
@@ -98,7 +96,7 @@
               </tr>
               <tr>
                 <td class="main" nowrap><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
-                <td><input type="text" name="friendemail"></td>
+                <td><input type="text" name="friendemail" value="<?php echo $HTTP_POST_VARS['send_to']; ?>"></td>
               </tr>
               <tr>
                 <td colspan="2" class="main"><br><? echo TEXT_EMAILPRODUCT_MESSAGE; ?>&nbsp;<br><textarea cols="40" rows="8" name="yourmessage"></textarea></td>

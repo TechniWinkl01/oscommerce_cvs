@@ -334,7 +334,7 @@ function check_form() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><br><? echo tep_image_submit(DIR_WS_IMAGES . 'button_done.gif', IMAGE_DONE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main" nowrap><br><? echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
       </tr>
     </table><? if ($HTTP_GET_VARS['origin']) { echo '<input type="hidden" name="origin" value="' . $HTTP_GET_VARS['origin'] . '">'; } ?><? if ($HTTP_GET_VARS['connection']) { echo '<input type="hidden" name="connection" value="' . $HTTP_GET_VARS['connection'] . '">'; } ?></form></td>
 <!-- body_text_eof //-->

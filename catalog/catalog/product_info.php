@@ -126,11 +126,15 @@ function popupImageWindow(url) {
 <?
     $reviews = tep_db_query("select count(*) as count from reviews_extra where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $reviews_values = tep_db_fetch_array($reviews);
+
+    if ($reviews_values['count'] > 0) {
 ?>
       <tr>
         <td class="main" nowrap><br><? echo TEXT_CURRENT_REVIEWS . ' ' . $reviews_values['count']; ?><br>&nbsp;</td>
       </tr>
 <?
+    }
+
     if ($product_info_values['products_url']) {
 ?>
       <tr>
@@ -161,19 +165,8 @@ function popupImageWindow(url) {
           <tr>
 <?
     $get_params = substr(tep_get_all_get_params(), 0, -1);
-    if ($reviews_values['count'] == '0') {
-      echo '            <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_write_a_review.gif', IMAGE_WRITE_A_REVIEW) . '</a>&nbsp;</td>' . "\n";
-    } else {
-      echo '            <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_reviews.gif', IMAGE_REVIEWS) . '</a>&nbsp;</td>' . "\n";
-    }
-
-    echo '            <td align="center" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_EMAILPRODUCT, 'action=where&' . $get_params, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_tellafriend.gif', IMAGE_TELLAFRIEND) . '</a>&nbsp;</td>' . "\n";
-    echo '            <td align="right" class="main" nowrap>&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">&nbsp;&nbsp;' . tep_image_submit(DIR_WS_IMAGES . 'button_add_to_cart.gif', IMAGE_ADD_TO_CART);
-    $get_params_back = substr(tep_get_all_get_params(array('products_id','language','currency')), 0, -1);
-    if ($get_params_back != '') {
-      echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '</a>';
-    }
-    echo '&nbsp;&nbsp;</td>' . "\n";
+    echo '            <td class="main" nowrap>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image_button('button_reviews.gif', IMAGE_REVIEWS) . '</a></td>' . "\n" .
+         '            <td align="right" class="main" nowrap><input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit('button_in_cart.gif', IMAGE_IN_CART) . '&nbsp;&nbsp;</td>' . "\n";
 ?>
           </tr>
         </table></td>
