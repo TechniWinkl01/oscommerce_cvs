@@ -46,7 +46,7 @@
       </tr>
 <?
   if ($HTTP_GET_VARS['action'] == 'edit') {
-    $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
+    $reviews_query = tep_db_query("select r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
     $reviews = tep_db_fetch_array($reviews_query);
     $products_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $reviews['products_id'] . "'");
     $products = tep_db_fetch_array($products_query);
@@ -91,13 +91,13 @@
       </tr>
       <tr>
         <td align="right" class="main"><br>&nbsp;<input type="hidden" name="date_added" value="<? echo $rInfo->date_added; ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_REVIEWS, tep_get_all_get_params(array('action', 'rID', 'info')) . 'info=' . $HTTP_GET_VARS['rID'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>'; ?>&nbsp;</td>
-      <input type="hidden" name="reviews_id" value="<? echo $HTTP_GET_VARS['rID']; ?>"><input type="hidden" name="products_id" value="<? echo $rInfo->products_id; ?>"><input type="hidden" name="customers_id" value="<? echo $rInfo->customers_id; ?>"><input type="hidden" name="products_image" value="<? echo $rInfo->products_image; ?>"></form></tr>
+      <input type="hidden" name="reviews_id" value="<? echo $HTTP_GET_VARS['rID']; ?>"><input type="hidden" name="products_id" value="<? echo $rInfo->products_id; ?>"><input type="hidden" name="customers_name" value="<? echo $rInfo->author; ?>"><input type="hidden" name="products_image" value="<? echo $rInfo->products_image; ?>"></form></tr>
 <?
   } elseif ($HTTP_GET_VARS['action'] == 'preview') {
     if ($HTTP_POST_VARS) {
       $rInfo = new reviewInfo($HTTP_POST_VARS);
     } else {
-      $reviews_query = tep_db_query("select r.products_id, r.customers_id, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
+      $reviews_query = tep_db_query("select r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $HTTP_GET_VARS['rID'] . "' and r.reviews_id = rd.reviews_id");
       $reviews = tep_db_fetch_array($reviews_query);
       $products_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $reviews['products_id'] . "'");
       $products = tep_db_fetch_array($products_query);
@@ -199,7 +199,7 @@
       $rows++;
 
       if ( ((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $reviews['reviews_id'])) && (!$rInfo) ) {
-        $reviews_text_query = tep_db_query("select r.reviews_read, r.customers_id, length(rd.reviews_text) as reviews_text_size from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $reviews['reviews_id'] . "' and r.reviews_id = rd.reviews_id");
+        $reviews_text_query = tep_db_query("select r.reviews_read, r.customers_name, length(rd.reviews_text) as reviews_text_size from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.reviews_id = '" . $reviews['reviews_id'] . "' and r.reviews_id = rd.reviews_id");
         $reviews_text = tep_db_fetch_array($reviews_text_query);
 
         $products_image_query = tep_db_query("select products_image from " . TABLE_PRODUCTS . " where products_id = '" . $reviews['products_id'] . "'");
