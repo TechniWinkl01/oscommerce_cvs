@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.10 2002/04/03 22:13:22 hpdl Exp $
+  $Id: shipping.php,v 1.11 2002/04/03 22:14:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -112,11 +112,9 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
-            $confirm_string .= $GLOBALS[$class]->confirm();
+            $GLOBALS[$class]->confirm();
           }
         }
-
-        return $confirm_string;
       }
     }
   }
