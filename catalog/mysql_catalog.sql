@@ -30,6 +30,13 @@ CREATE TABLE address_book_to_customers (
   PRIMARY KEY (address_book_to_customers_id)
 );
 
+CREATE TABLE address_format (
+  address_format_id int(5) NOT NULL auto_increment,
+  address_format varchar(128) NOT NULL,
+  address_summary varchar(48) NOT NULL,
+  PRIMARY KEY (address_format_id)
+);
+
 CREATE TABLE categories (
   categories_id int(5) NOT NULL auto_increment,
   categories_name varchar(32) NOT NULL,
@@ -72,13 +79,6 @@ CREATE TABLE counter_history (
   counter int(12)
 );
 
-CREATE TABLE address_format (
-  address_format_id int(5) NOT NULL auto_increment,
-  address_format varchar(128) NOT NULL,
-  address_summary varchar(48) NOT NULL,
-  PRIMARY KEY (address_format_id)
-);
-
 CREATE TABLE countries (
   countries_id int(5) NOT NULL auto_increment,
   countries_name varchar(64) NOT NULL,
@@ -87,6 +87,18 @@ CREATE TABLE countries (
   address_format_id int(5) NOT NULL,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
+);
+
+CREATE TABLE currencies (
+  currencies_id int(5) NOT NULL auto_increment,
+  title varchar(32) NOT NULL,
+  code char(3) NOT NULL,
+  symbol_left varchar(12),
+  symbol_right varchar(12),
+  decimal_point char(1),
+  thousands_point char(1),
+  decimal_places char(1),
+  PRIMARY KEY (currencies_id)
 );
 
 CREATE TABLE customers (
@@ -295,14 +307,6 @@ CREATE TABLE specials (
   PRIMARY KEY (specials_id)
 );
 
-CREATE TABLE zones (
-  zone_id int(5) NOT NULL auto_increment,
-  zone_country_id int(5) NOT NULL,
-  zone_code varchar(5) NOT NULL,
-  zone_name varchar(32) NOT NULL,
-  PRIMARY KEY (zone_id)
-);
-
 CREATE TABLE tax_class (
   tax_class_id int(5) NOT NULL auto_increment,
   tax_class_title varchar(32) NOT NULL,
@@ -323,8 +327,21 @@ CREATE TABLE tax_rates (
   PRIMARY KEY (tax_rates_id)
 );
 
+CREATE TABLE zones (
+  zone_id int(5) NOT NULL auto_increment,
+  zone_country_id int(5) NOT NULL,
+  zone_code varchar(5) NOT NULL,
+  zone_name varchar(32) NOT NULL,
+  PRIMARY KEY (zone_id)
+);
 
 # data
+
+# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore
+INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
+INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
+INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$city / $country');
+INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 
 INSERT INTO categories VALUES (1,'Hardware','images/category_hardware.gif',0,1);
 INSERT INTO categories VALUES (2,'Software','images/category_software.gif',0,2);
@@ -442,12 +459,6 @@ INSERT INTO configuration_group VALUES ('7', 'Shipping Options', 'Shipping optio
 INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing	configuration options', '8');
 
 INSERT INTO counter VALUES ('20000312',148052);
-
-# 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore
-INSERT INTO address_format VALUES (1, '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country','$city / $country');
-INSERT INTO address_format VALUES (2, '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country','$city, $state / $country');
-INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country','$city / $country');
-INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1');
@@ -689,6 +700,10 @@ INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
+INSERT INTO currencies VALUES (1,'US Dollar','USD','$','&nbsp;USD','.',',','2');
+INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','&nbsp;DM',',','.','2');
+INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','&nbsp;Pts','.',',','0');
+
 INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca',81, 0);
 
 INSERT INTO customers_info VALUES (1,'20001028',19,'20000312','20000514');
@@ -837,6 +852,10 @@ INSERT INTO specials VALUES (2,5,30.00,'20000114');
 INSERT INTO specials VALUES (3,6,30.00,'20000115');
 INSERT INTO specials VALUES (4,16,29.99,'20000217');
 
+INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
+
+INSERT INTO tax_rates VALUES (1, 18, 1, 7.0, 'FL TAX 7.0%', now(), now());
+
 INSERT INTO zones VALUES (1,223,'AL','Alabama');
 INSERT INTO zones VALUES (2,223,'AK','Alaska');
 INSERT INTO zones VALUES (3,223,'AS','American Samoa');
@@ -915,8 +934,4 @@ INSERT INTO zones VALUES (75,38,'PE','Prince Edward Island');
 INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
-
-INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
-
-INSERT INTO tax_rates VALUES (1, 18, 1, 7.0, 'FL TAX 7.0%', now(), now());
 
