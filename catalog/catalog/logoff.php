@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: logoff.php,v 1.8 2002/10/28 23:40:30 hpdl Exp $
+  $Id: logoff.php,v 1.9 2002/10/28 23:44:40 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
