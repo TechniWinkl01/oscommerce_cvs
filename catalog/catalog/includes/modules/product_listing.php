@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.41 2003/02/12 23:55:58 hpdl Exp $
+  $Id: product_listing.php,v 1.42 2003/05/27 17:11:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,37 +9,21 @@
 
   Released under the GNU General Public License
 */
+
+  $listing_split = new splitPageResults($listing_sql, $HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
+
+  if ( ($listing_split->number_of_rows > 0) && ( (PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3') ) ) {
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-  $listing_numrows_sql = $listing_sql;
-  $listing_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
-// fix counted products
-  $listing_numrows = tep_db_query($listing_numrows_sql);
-  $listing_numrows = tep_db_num_rows($listing_numrows);
-
-  if ( ($listing_numrows > 0) && ( (PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3') ) ) {
-?>
   <tr>
-    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td class="smallText">&nbsp;<?php echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
-        <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
-      </tr>
-    </table></td>
+    <td class="smallText"><?php echo $listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+    <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' ' . $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
   </tr>
-  <tr>
-    <td><?php echo tep_draw_separator(); ?></td>
-  </tr>
+</table>
 <?php
   }
-?>
-  <tr>
-    <td>
-<?php
+
   $list_box_contents = array();
-  $list_box_contents[] = array('params' => 'class="productListing-heading"');
-  $cur_row = sizeof($list_box_contents) - 1;
 
   for ($col=0, $n=sizeof($column_list); $col<$n; $col++) {
     switch ($column_list[$col]) {
@@ -76,23 +60,23 @@
         $lc_align = 'center';
         break;
     }
-    
+
     if ( ($column_list[$col] != 'PRODUCT_LIST_BUY_NOW') && ($column_list[$col] != 'PRODUCT_LIST_IMAGE') ) {
       $lc_text = tep_create_sort_heading($HTTP_GET_VARS['sort'], $col+1, $lc_text);
     }
 
-    $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                           'params' => 'class="productListing-heading"',
-                                           'text' => '&nbsp;' . $lc_text . '&nbsp;');
+    $list_box_contents[0][] = array('align' => $lc_align,
+                                    'params' => 'class="productListing-heading"',
+                                    'text' => '&nbsp;' . $lc_text . '&nbsp;');
   }
 
-  if ($listing_numrows > 0) {
-    $number_of_products = '0';
-    $listing_query = tep_db_query($listing_sql);
+  if ($listing_split->number_of_rows > 0) {
+    $rows = 0;
+    $listing_query = tep_db_query($listing_split->sql_query);
     while ($listing = tep_db_fetch_array($listing_query)) {
-      $number_of_products++;
+      $rows++;
 
-      if (($number_of_products/2) == floor($number_of_products/2)) {
+      if (($rows/2) == floor($rows/2)) {
         $list_box_contents[] = array('params' => 'class="productListing-even"');
       } else {
         $list_box_contents[] = array('params' => 'class="productListing-odd"');
@@ -156,33 +140,25 @@
       }
     }
 
-    new tableBox($list_box_contents, true);
-
-    echo '    </td>' . "\n" .
-         '  </tr>' . "\n";
+    new productListingBox($list_box_contents);
   } else {
-?>
-  <tr class="productListing-odd">
-    <td class="smallText">&nbsp;<?php echo (isset($HTTP_GET_VARS['manufacturers_id']) ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
-  </tr>
-<?php
+    $list_box_contents = array();
+
+    $list_box_contents[0] = array('params' => 'class="productListing-odd"');
+    $list_box_contents[0][] = array('params' => 'class="productListing-data"',
+                                   'text' => (isset($HTTP_GET_VARS['manufacturers_id']) ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS));
+
+    new productListingBox($list_box_contents);
   }
+
+  if ( ($listing_split->number_of_rows > 0) && ((PREV_NEXT_BAR_LOCATION == '2') || (PREV_NEXT_BAR_LOCATION == '3')) ) {
 ?>
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr>
-    <td><?php echo tep_draw_separator(); ?></td>
+    <td class="smallText"><?php echo $listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
+    <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' ' . $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
   </tr>
-<?php
-  if ( ($listing_numrows > 0) && ((PREV_NEXT_BAR_LOCATION == '2') || (PREV_NEXT_BAR_LOCATION == '3')) ) {
-?>
-  <tr>
-    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td class="smallText">&nbsp;<?php echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
-        <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
-      </tr>
-    </table></td>
-  </tr>
-<?php
-  }
-?>
 </table>
+<?php
+  }
+?>
