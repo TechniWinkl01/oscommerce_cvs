@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.239 2002/07/21 23:38:58 hpdl Exp $
+  $Id: application_top.php,v 1.240 2002/07/24 11:08:41 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -316,7 +316,7 @@
                               break;
       // customer adds a product from the products page
       case 'add_product' :    if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
-                                $cart->add_cart($HTTP_POST_VARS['products_id'], $cart->get_quantity($HTTP_POST_VARS['products_id'])+1, $HTTP_POST_VARS['id'], true);
+                                $cart->add_cart($HTTP_POST_VARS['products_id'], $cart->get_quantity($HTTP_POST_VARS['products_id'])+1, $HTTP_POST_VARS['id']);
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               break;
@@ -324,7 +324,7 @@
       case 'buy_now' :        if (tep_has_product_attributes($HTTP_GET_VARS['products_id'])) {
                                 tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
                               } else {
-                                $cart->add_cart($HTTP_GET_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1, true);
+                                $cart->add_cart($HTTP_GET_VARS['products_id'], $cart->get_quantity($HTTP_GET_VARS['products_id'])+1);
                                 tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
                               }
                               break;
@@ -365,7 +365,7 @@
                                 if (tep_has_product_attributes($HTTP_GET_VARS['pid'])) {
                                   tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['pid'], 'NONSSL'));
                                 } else {
-                                  $cart->add_cart($HTTP_GET_VARS['pid'], 1, true);
+                                  $cart->add_cart($HTTP_GET_VARS['pid'], 1);
                                 }
                               }
                               tep_redirect(tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
