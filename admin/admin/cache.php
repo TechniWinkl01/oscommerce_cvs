@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cache.php,v 1.6 2001/11/29 12:17:26 hpdl Exp $
+  $Id: cache.php,v 1.7 2001/11/29 17:12:51 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -86,7 +86,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td class="pageHeading" align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading" align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

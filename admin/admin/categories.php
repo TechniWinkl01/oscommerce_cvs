@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.76 2001/11/19 19:09:03 dgw_ Exp $
+  $Id: categories.php,v 1.77 2001/11/29 17:12:51 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -224,7 +224,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo sprintf(TEXT_NEW_PRODUCT, $parent_categories_name); ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

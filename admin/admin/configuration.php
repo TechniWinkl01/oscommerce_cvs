@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.21 2001/11/23 06:41:33 hpdl Exp $
+  $Id: configuration.php,v 1.22 2001/11/29 17:12:51 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -58,7 +58,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo $cfg_group['configuration_group_title']; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
