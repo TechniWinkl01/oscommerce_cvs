@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.85 2002/03/11 17:17:10 harley_vb Exp $
+  $Id: orders.php,v 1.86 2002/03/16 01:24:13 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -89,9 +89,9 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="3" cellpadding="3">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
@@ -189,18 +189,15 @@
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="tableHeading"><?php echo TABLE_HEADING_QUANTITY; ?></td>
-            <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-            <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-            <td class="tableHeading" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
-          </tr>
-          <tr>
-            <td colspan="8"><?php echo tep_draw_separator(); ?></td>
+          <tr class="dataTableHeadingRow">
+            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_QUANTITY; ?></td>
+            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
+            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
           </tr>
 <?php
     $info_query = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
@@ -213,9 +210,9 @@
     while ($products = tep_db_fetch_array($products_query)) {
       $final_price = $products['final_price'];
 
-      echo '      <tr>' . "\n" .
-           '        <td class="main" valign="top">' . $products['products_quantity'] . '</td>' . "\n" .
-           '        <td class="main" valign="top">' . $products['products_name'];
+      echo '      <tr class="dataTableRow">' . "\n" .
+           '        <td class="dataTableContent" valign="top">' . $products['products_quantity'] . '</td>' . "\n" .
+           '        <td class="dataTableContent" valign="top">' . $products['products_name'];
 
       $attributes_exist = false;
       $attributes_query = tep_db_query("select products_options, products_options_values, options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "' and orders_products_id = '" . $products['orders_products_id'] . "'");
@@ -228,12 +225,12 @@
         }
       }
       echo '</td>' . "\n" .
-           '        <td class="main" valign="top">' . $products['products_model'] . '</td>' . "\n" .
-           '        <td class="main" align="right" valign="top">' . tep_display_tax_value($products['products_tax']) . '%</td>' . "\n" .
-           '        <td class="main" align="right" valign="top">' . tep_currency_format($products['final_price']) . '</td>' . "\n" .
-           '        <td class="main" align="right" valign="top">' . tep_currency_format(($products['final_price'] * $products['products_tax']/100) + $products['final_price']) . '</td>' . "\n" .
-           '        <td class="main" align="right" valign="top"><b>' . tep_currency_format($products['final_price'] * $products['products_quantity']) . '</b></td>' . "\n" .
-           '        <td class="main" align="right" valign="top"><b>' . tep_currency_format((($products['final_price'] * $products['products_quantity']) * $products['products_tax']/100) + ($products['final_price'] * $products['products_quantity'])) . '</b></td>' . "\n" .
+           '        <td class="dataTableContent" valign="top">' . $products['products_model'] . '</td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top">' . tep_display_tax_value($products['products_tax']) . '%</td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top">' . tep_currency_format($products['final_price']) . '</td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top">' . tep_currency_format(($products['final_price'] * $products['products_tax']/100) + $products['final_price']) . '</td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top"><b>' . tep_currency_format($products['final_price'] * $products['products_quantity']) . '</b></td>' . "\n" .
+           '        <td class="dataTableContent" align="right" valign="top"><b>' . tep_currency_format((($products['final_price'] * $products['products_quantity']) * $products['products_tax']/100) + ($products['final_price'] * $products['products_quantity'])) . '</b></td>' . "\n" .
            '      </tr>' . "\n";
 
       $cost = $products['final_price'] * $products['products_quantity'];
@@ -243,24 +240,21 @@
     }
 ?>
           <tr>
-            <td colspan="8"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
             <td align="right" colspan="8"><table border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td align="right" class="main"><?php echo ENTRY_SUB_TOTAL; ?></td>
-                <td align="right" class="main"><?php echo tep_currency_format($total_cost); ?></td>
+                <td align="right" class="smallText"><?php echo ENTRY_SUB_TOTAL; ?></td>
+                <td align="right" class="smallText"><?php echo tep_currency_format($total_cost); ?></td>
               </tr>
               <tr>
-                <td align="right" class="main"><?php echo ENTRY_TAX; ?></td>
-                <td align="right" class="main"><?php echo tep_currency_format($total_tax); ?></td>
+                <td align="right" class="smallText"><?php echo ENTRY_TAX; ?></td>
+                <td align="right" class="smallText"><?php echo tep_currency_format($total_tax); ?></td>
               </tr>
 <?php
   if ($shipping != 0) {
 ?>
               <tr>
-                <td align="right" class="main"><?php echo $shipping_method . ' ' . ENTRY_SHIPPING; ?></td>
-                <td align="right" class="main"><?php echo tep_currency_format($shipping); ?></td>
+                <td align="right" class="smallText"><?php echo $shipping_method . ' ' . ENTRY_SHIPPING; ?></td>
+                <td align="right" class="smallText"><?php echo tep_currency_format($shipping); ?></td>
               </tr>
 <?php
   }
@@ -360,19 +354,13 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
-                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="5"><?php echo tep_draw_separator(); ?></td>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     if ($HTTP_GET_VARS['cID']) {
@@ -401,23 +389,20 @@
       }
 
       if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) {
-        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
-                <td class="tableData" align="right"><?php echo tep_currency_format($total); ?></td>
-                <td class="tableData" align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
-                <td class="tableData" align="right"><?php echo $orders['orders_status_name']; ?></td>
-                <td class="tableData" align="right"><?php if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . $orders['customers_name']; ?></td>
+                <td class="dataTableContent" align="right"><?php echo tep_currency_format($total); ?></td>
+                <td class="dataTableContent" align="center"><?php echo tep_datetime_short($orders['date_purchased']); ?></td>
+                <td class="dataTableContent" align="right"><?php echo $orders['orders_status_name']; ?></td>
+                <td class="dataTableContent" align="right"><?php if ( (is_object($oInfo)) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
 ?>
-              <tr>
-                <td colspan="5"><?php echo tep_draw_separator(); ?></td>
-              </tr>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>

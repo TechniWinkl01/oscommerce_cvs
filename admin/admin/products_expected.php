@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_expected.php,v 1.26 2002/01/29 16:55:16 hpdl Exp $
+  $Id: products_expected.php,v 1.27 2002/03/16 01:31:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,9 +28,9 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="3" cellpadding="3">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
@@ -48,17 +48,11 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-                <td class="tableHeading" align="center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
   $products_query_raw = "select pd.products_id, pd.products_name, p.products_date_available from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p where p.products_id = pd.products_id and p.products_date_available != '' and pd.language_id = '" . $languages_id . "' order by p.products_date_available DESC";
@@ -70,21 +64,18 @@
     }
 
     if ( (is_object($pInfo)) && ($products['products_id'] == $pInfo->products_id) ) {
-      echo '                  <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'pID=' . $products['products_id'] . '&action=new_product') . '\'">' . "\n";
+      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'pID=' . $products['products_id'] . '&action=new_product') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, 'page=' . $HTTP_GET_VARS['page'] . '&pID=' . $products['products_id']) . '\'">' . "\n";
+      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, 'page=' . $HTTP_GET_VARS['page'] . '&pID=' . $products['products_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="tableData"><?php echo $products['products_name']; ?></td>
-                <td class="tableData" align="center"><?php echo tep_date_short($products['products_date_available']); ?></td>
-                <td class="tableData" align="right"><?php if ( (is_object($pInfo)) && ($products['products_id'] == $pInfo->products_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, 'page=' . $HTTP_GET_VARS['page'] . '&pID=' . $products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo $products['products_name']; ?></td>
+                <td class="dataTableContent" align="center"><?php echo tep_date_short($products['products_date_available']); ?></td>
+                <td class="dataTableContent" align="right"><?php if ( (is_object($pInfo)) && ($products['products_id'] == $pInfo->products_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_EXPECTED, 'page=' . $HTTP_GET_VARS['page'] . '&pID=' . $products['products_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
   }
 ?>
-              <tr>
-                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
-              </tr>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>

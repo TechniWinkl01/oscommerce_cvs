@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.36 2002/02/06 22:57:39 harley_vb Exp $
+  $Id: reviews.php,v 1.37 2002/03/16 01:33:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -50,9 +50,9 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="3" cellpadding="3">
+<table border="0" width="100%" cellspacing="2" cellpadding="2">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
@@ -182,18 +182,12 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
-          </tr>
-          <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="tableHeading"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_RATING; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
-                <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
+              <tr class="dataTableHeadingRow">
+                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_RATING; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
+                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     $reviews_query_raw = "select reviews_id, products_id, date_added, last_modified, reviews_rating from " . TABLE_REVIEWS . " order by date_added DESC";
@@ -219,22 +213,19 @@
       }
 
       if ( (is_object($rInfo)) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) {
-        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
       } else {
-        echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
+        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="tableData"><?php echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . tep_get_products_name($reviews['products_id']); ?></td>
-                <td class="tableData" align="right"><?php echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . 'stars_' . $reviews['reviews_rating'] . '.gif'); ?></td>
-                <td class="tableData" align="right"><?php echo tep_date_short($reviews['date_added']); ?></td>
-                <td class="tableData" align="right"><?php if ( (is_object($rInfo)) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $reviews['reviews_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
+                <td class="dataTableContent"><?php echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '">' . tep_image(DIR_WS_ICONS . 'preview.gif', ICON_PREVIEW) . '</a>&nbsp;' . tep_get_products_name($reviews['products_id']); ?></td>
+                <td class="dataTableContent" align="right"><?php echo tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG_IMAGES . 'stars_' . $reviews['reviews_rating'] . '.gif'); ?></td>
+                <td class="dataTableContent" align="right"><?php echo tep_date_short($reviews['date_added']); ?></td>
+                <td class="dataTableContent" align="right"><?php if ( (is_object($rInfo)) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_REVIEWS, 'page=' . $HTTP_GET_VARS['page'] . '&rID=' . $reviews['reviews_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
 ?>
-              <tr>
-                <td colspan="4"><?php echo tep_draw_separator(); ?></td>
-              </tr>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
