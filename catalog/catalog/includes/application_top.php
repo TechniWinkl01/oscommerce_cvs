@@ -27,7 +27,7 @@
 
 // default values
   define('DEFAULT_LANGUAGE', 'en'); // use the code
-  define('DEFAULT_CURRENCY', 'DEM'); // use the code
+  define('DEFAULT_CURRENCY', 'USD'); // use the code
 
 // who to send order confirmation emails to.. there is always one being sent to the customer, so there
 // is no need to add their address to the following constant..
