@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.46 2001/06/20 14:36:05 kwiltner Exp $
+  $Id: create_account_process.php,v 1.47 2001/06/20 15:01:06 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,6 +11,7 @@
 */
 
   require('includes/application_top.php');
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_PROCESS);
 
   if (!@$HTTP_POST_VARS['action']) {
     header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL'));
@@ -133,8 +134,6 @@
   if ($error == 1) {
     $processed = true;
 
-    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_PROCESS);
-
     $location = ' : <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 ?>
 <html>
@@ -226,7 +225,6 @@
 </html>
 <?php
   } else {
-    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_PROCESS);
     $date_now = date('Ymd');
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 0, 2) . substr($HTTP_POST_VARS['dob'], 2, 2);
 // Crypted passwords mods
