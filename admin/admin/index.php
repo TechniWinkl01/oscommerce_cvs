@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.9 2002/03/09 18:23:13 dgw_ Exp $
+  $Id: index.php,v 1.10 2002/03/16 02:31:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -108,7 +108,8 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $heading[] = array('params' => 'class="menuBoxHeading"',
                      'text'  => 'osCommerce');
 
-  $contents[] = array('text'  => '<a href="http://www.oscommerce.com" target="_blank">' . BOX_ENTRY_SUPPORT_SITE . '</a><br>' .
+  $contents[] = array('params' => 'class="infoBox"',
+                      'text'  => '<a href="http://www.oscommerce.com" target="_blank">' . BOX_ENTRY_SUPPORT_SITE . '</a><br>' .
                                  '<a href="http://www.oscommerce.com/community.php/forum" target="_blank">' . BOX_ENTRY_SUPPORT_FORUMS . '</a><br>' .
                                  '<a href="http://www.oscommerce.com/community.php/mlists" target="_blank">' . BOX_ENTRY_MAILING_LISTS . '</a><br>' .
                                  '<a href="http://www.oscommerce.com/community.php/bugs" target="_blank">' . BOX_ENTRY_BUG_REPORTS . '</a><br>' .
@@ -137,7 +138,8 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $heading[] = array('params' => 'class="menuBoxHeading"',
                      'text'  => BOX_TITLE_ORDERS);
 
-  $contents[] = array('text'  => $orders_contents);
+  $contents[] = array('params' => 'class="infoBox"',
+                      'text'  => $orders_contents);
 
   $box = new box;
   echo $box->menuBox($heading, $contents);
@@ -157,7 +159,8 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $heading[] = array('params' => 'class="menuBoxHeading"',
                      'text'  => BOX_TITLE_STATISTICS);
 
-  $contents[] = array('text'  => BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br>' .
+  $contents[] = array('params' => 'class="infoBox"',
+                      'text'  => BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br>' .
                                  BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br>' .
                                  BOX_ENTRY_REVIEWS . ' ' . $reviews['count']);
 
