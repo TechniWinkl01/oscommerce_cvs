@@ -23,7 +23,7 @@
         echo '              <tr bgcolor="#f4f7fd">' . "\n";
       }
       echo '                <td><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $expected_values['products_name'] . '&nbsp;</font></td>' . "\n";
-      echo '                <td align="right"><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . strftime('%x', mktime(0,0,0,substr($expected_values['date_expected'], 4, 2), substr($expected_values['date_expected'], -2), substr($expected_values['date_expected'], 0, 4))) . '&nbsp;</font></td>' . "\n";
+      echo '                <td align="right"><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . strftime(DATE_FORMAT_SHORT, mktime(0,0,0,substr($expected_values['date_expected'], 4, 2), substr($expected_values['date_expected'], 6, 2), substr($expected_values['date_expected'], 0, 4))) . '&nbsp;</font></td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>
