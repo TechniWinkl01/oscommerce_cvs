@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_process.php,v 1.86 2003/03/22 03:11:52 hpdl Exp $
+  $Id: create_account_process.php,v 1.87 2003/04/10 21:07:21 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -119,29 +119,26 @@
     } else {
       $zone_id = 0;
       $entry_state_error = false;
-      $check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "'");
-      $check_value = tep_db_fetch_array($check_query);
-      $entry_state_has_zones = ($check_value['total'] > 0);
-      if ($entry_state_has_zones == true) {
-        $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
-        if (tep_db_num_rows($zone_query) == 1) {
-          $zone_values = tep_db_fetch_array($zone_query);
-          $zone_id = $zone_values['zone_id'];
+      $country_check_query = tep_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "'");
+      $country_check = tep_db_fetch_array($country_check_query);
+      if ($entry_state_has_zones = ($country_check['total'] > 0)) {
+        $match_zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_name = '" . tep_db_input($state) . "'");
+        if (tep_db_num_rows($match_zone_query) == 1) {
+          $match_zone = tep_db_fetch_array($match_zone_query);
+          $zone_id = $match_zone['zone_id'];
         } else {
-          $zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_code = '" . tep_db_input($state) . "'");
-          if (tep_db_num_rows($zone_query) == 1) {
-            $zone_values = tep_db_fetch_array($zone_query);
-            $zone_id = $zone_values['zone_id'];
+          $match_zone_query = tep_db_query("select zone_id from " . TABLE_ZONES . " where zone_country_id = '" . tep_db_input($country) . "' and zone_code = '" . tep_db_input($state) . "'");
+          if (tep_db_num_rows($match_zone_query) == 1) {
+            $match_zone = tep_db_fetch_array($match_zone_query);
+            $zone_id = $match_zone['zone_id'];
           } else {
             $error = true;
             $entry_state_error = true;
           }
         }
-      } else {
-        if ($state == false) {
-          $error = true;
-          $entry_state_error = true;
-        }
+      } elseif (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
+        $error = true;
+        $entry_state_error = true;
       }
     }
   }
