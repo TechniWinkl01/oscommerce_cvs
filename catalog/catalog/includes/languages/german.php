@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.87 2002/02/01 01:23:17 project3000 Exp $
+  $Id: german.php,v 1.88 2002/02/21 19:18:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -148,12 +148,12 @@ define('JS_POST_CODE', '* Die \'Postleitzahl\' muß mindestens aus ' . ENTRY_POST
 define('JS_CITY', '* Die \'Stadt\' muß mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
 define('JS_STATE_SELECT', '-- wählen sie oberhalb aus --');
-define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.');
-define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.');
+define('JS_ZONE', ' * Das Bundesland muss aus der Liste für dieses Land ausgewählt werden.\n');
+define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 
-define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.\n');
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie ein Bezahlungsart für Ihre Bestellung.');
 
 define('CATEGORY_COMPANY', 'Firmendaten');

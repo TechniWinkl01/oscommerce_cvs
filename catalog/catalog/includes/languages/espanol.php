@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.78 2002/02/01 01:23:16 project3000 Exp $
+  $Id: espanol.php,v 1.79 2002/02/21 19:18:31 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -148,12 +148,12 @@ define('JS_POST_CODE', '* Su \'Codigo Postal\' debe tener al menos ' . ENTRY_POS
 define('JS_CITY', '* La \'Poblacion\' debe tener al menos ' . ENTRY_CITY_MIN_LENGTH . ' letras.\n');
 define('JS_STATE', '* Debe indicar la \'Provincia\'.\n');
 define('JS_STATE_SELECT', '-- Seleccione Arriba --');
-define('JS_ZONE', '* La \'Provincia\' se debe seleccionar de la lista para este pais.');
-define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.');
+define('JS_ZONE', '* La \'Provincia\' se debe seleccionar de la lista para este pais.\n');
+define('JS_COUNTRY', '* Debe seleccionar su \'Pais\'.\n');
 define('JS_TELEPHONE', '* El \'Telefono\' debe tener al menos ' . ENTRY_TELEPHONE_MIN_LENGTH . ' letras.\n');
 define('JS_PASSWORD', '* La \'Contraseña\' y la \'Confirmación\' deben ser iguales y tener al menos ' . ENTRY_PASSWORD_MIN_LENGTH . ' letras.\n');
 
-define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un método de pago para su pedido.');
+define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un método de pago para su pedido.\n');
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un método de pago para su pedido.');
 
 define('CATEGORY_COMPANY', 'Empresa');
