@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: popup_image.php,v 1.16 2003/02/13 03:10:56 hpdl Exp $
+  $Id: popup_image.php,v 1.17 2003/03/29 11:41:50 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,6 +20,7 @@
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo $products_values['products_name']; ?></title>
 <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <script language="javascript"><!--
