@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.147 2004/02/14 19:29:44 mevans Exp $
+  $Id: categories.php,v 1.148 2004/04/10 15:13:22 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -310,8 +310,7 @@
         tep_redirect(tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $categories_id . '&pID=' . $products_id));
         break;
       case 'new_product_preview':
-       if (!isset($HTTP_GET_VARS['read'])) {
-
+        if (!isset($HTTP_GET_VARS['read'])) {
 // copy image only if modified
           $products_image = new upload('products_image');
           $products_image->set_destination(DIR_FS_CATALOG_IMAGES);

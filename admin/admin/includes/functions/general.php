@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.160 2003/07/12 08:32:47 hpdl Exp $
+  $Id: general.php,v 1.161 2004/04/10 15:13:23 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -431,7 +431,7 @@
       $state_prov_values = tep_db_fetch_array($state_prov_query);
       $state_prov_code = $state_prov_values['zone_code'];
     }
-    
+
     return $state_prov_code;
   }
 
@@ -945,9 +945,11 @@
         } else {
           $cached_file = $cache_blocks[$i]['file'];
           $languages = tep_get_languages();
-          for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-            $cached_file = ereg_replace('-language', '-' . $languages[$i]['directory'], $cached_file);
-            @unlink(DIR_FS_CACHE . $cached_file);
+          for ($j=0, $k=sizeof($languages); $j<$k; $j++) {
+            $cached_file_unlink = ereg_replace('-language', '-' . $languages[$j]['directory'], $cached_file);
+            if (file_exists(DIR_FS_CACHE . $cached_file_unlink)) {
+              @unlink(DIR_FS_CACHE . $cached_file_unlink);
+            }
           }
         }
         break;
