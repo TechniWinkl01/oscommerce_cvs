@@ -9,7 +9,7 @@ Author(s): David Garcia Watkins (dgw@q-logic.org)
 // on RedHat6.0 I used 'es_ES'
 // on FreeBSD 4.0 I use 'es_ES.ISO_8859-1'
 // Ive succeded under win32 with 'sp'...
-setlocale('LC_TIME', 'sp');
+setlocale('LC_TIME', 'es_ES.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d/%m/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
