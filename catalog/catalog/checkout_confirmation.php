@@ -308,7 +308,7 @@
   $payment_modules->process_button();
 
   if (!$checkout_form_submit) {
-    echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_PROCESS) . '&nbsp;' . "\n";
+    echo tep_image_submit('button_process.gif', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {
     echo $checkout_form_submit;
   }

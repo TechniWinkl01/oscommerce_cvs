@@ -343,7 +343,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><br><? echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?>&nbsp;&nbsp;</td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->

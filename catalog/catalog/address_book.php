@@ -92,14 +92,14 @@
 ?>
           <tr>
             <td colspan="2" class="smallText" nowrap>&nbsp;<? echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?>&nbsp;</td>
-            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL'); ?>"><? echo tep_image_button('button_add_entry.gif', IMAGE_ADD_ENTRY); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
 <?
   } else {
 ?>
           <tr>
             <td colspan="2" class="smallText" nowrap>&nbsp;<? echo sprintf(TEXT_MAXIMUM_ENTRIES_REACHED, MAX_ADDRESS_BOOK_ENTRIES); ?>&nbsp;</td>
-            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td align="right" class="smallText" nowrap><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
 <?
   }

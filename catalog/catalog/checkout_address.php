@@ -153,12 +153,12 @@
               <tr>
 <?
   if ($row < 5) {
-    echo '                <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</td>' . "\n";
+    echo '                <td class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image_button('button_add_entry.gif', IMAGE_ADD_ENTRY) . '</a>&nbsp;</td>' . "\n";
   } else {
     echo '                <td valign="top" class="smallText" nowrap>&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";
   }
 ?>
-                <td align="right" class="main" nowrap>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</td>
+                <td align="right" class="main" nowrap>&nbsp;<? echo tep_image_submit('button_next.gif', IMAGE_NEXT); ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>

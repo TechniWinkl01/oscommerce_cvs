@@ -74,7 +74,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+        <td align="right" class="main" nowrap><br><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_id, 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
       </tr>
 <?
   } else {
@@ -114,8 +114,8 @@
       <tr>
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="main" nowrap><? echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_PROCESS); ?></a>&nbsp;&nbsp;</td>
-            <td align="right" class="main" nowrap><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info_values['products_id'], 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td class="main" nowrap><? echo tep_image_submit('button_process.gif', IMAGE_PROCESS); ?></a>&nbsp;&nbsp;</td>
+            <td align="right" class="main" nowrap><a href="<? echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info_values['products_id'], 'NONSSL'); ?>"><? echo tep_image_button('button_back.gif', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
         </table></td>
       </tr></form>

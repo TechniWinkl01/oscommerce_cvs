@@ -95,7 +95,7 @@
 
         if ($cc_val != '1') {
           $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL');
-          $checkout_form_submit = tep_image_submit(DIR_WS_IMAGES . 'button_back.gif', IMAGE_BACK) . '&nbsp;' . "\n";
+          $checkout_form_submit = tep_image_submit('button_back.gif', IMAGE_BACK) . '&nbsp;' . "\n";
         }
 
         return $confirmation_string;
