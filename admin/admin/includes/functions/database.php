@@ -20,7 +20,7 @@
     return $result;
   }
 
-  function tep_db_error ($query, $errno, $error) { 
+  function tep_db_error($query, $errno, $error) { 
     die('<font color="#000000"><b>' . $errno . ' - ' . $error . '<br><br>' . $query . '<br><br><small><font color="#ff0000">[TEP STOP]</font></small><br><br></b></font>');
   }
 
@@ -44,6 +44,12 @@
   function tep_db_fetch_array($db_query) {
 
     $result = mysql_fetch_array($db_query);
+
+    return $result;
+  }
+
+  function tep_db_result($result, $row, $field = '') {
+    $result = mysql_result($result, $row, $field);
 
     return $result;
   }

@@ -177,6 +177,9 @@
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
 
+// include the html graph class
+  require(DIR_WS_FUNCTIONS . 'html_graph.php');
+
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
@@ -226,6 +229,7 @@
   require(DIR_WS_CLASSES . 'split_page_results.php');
 
 // entry/item info classes
+  require(DIR_WS_CLASSES . 'banner_info.php');
   require(DIR_WS_CLASSES . 'category_info.php');
   require(DIR_WS_CLASSES . 'configuration_info.php');
   require(DIR_WS_CLASSES . 'countries_info.php');

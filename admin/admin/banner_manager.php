@@ -133,19 +133,22 @@ function popupImageWindow(url) {
   } else {
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="4"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_BANNERS; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_GROUPS; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATISTICS; ?>&nbsp;</td>
-            <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="4"><? echo tep_black_line(); ?></td>
-          </tr>
+            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_BANNERS; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_GROUPS; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATISTICS; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
+                <td class="tableHeading" align="center">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="5"><? echo tep_black_line(); ?></td>
+              </tr>
 <?
     $banners_query_raw = "select banners_id, banners_title, banners_image, banners_group, status from " . TABLE_BANNERS . " order by banners_title, banners_group";
     $banners_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $banners_query_raw, $banners_query_numrows);
@@ -154,14 +157,24 @@ function popupImageWindow(url) {
       $info_query = tep_db_query("select sum(banners_shown) as banners_shown, sum(banners_clicked) as banners_clicked from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banners['banners_id'] . "'");
       $info = tep_db_fetch_array($info_query);
 
+      if (((!$HTTP_GET_VARS['info']) || (@$HTTP_GET_VARS['info'] == $banners['banners_id'])) && (!$bInfo) && (substr($HTTP_GET_VARS['action'], 0, 3) != 'new')) {
+        $bInfo_array = tep_array_merge($banners, $info);
+        $bInfo = new bannerInfo($bInfo_array);
+      }
+
       $banners_shown = ($info['banners_shown'] != '') ? $info['banners_shown'] : '0';
       $banners_clicked = ($info['banners_clicked'] != '') ? $info['banners_clicked'] : '0';
+
+      if ($banners['banners_id'] == @$bInfo->id) {
+        echo '                  <tr bgcolor="#b0c8df">' . "\n";
+      } else {
+        echo '                  <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('info', 'action')) . 'info=' . $banners['banners_id'], 'NONSSL') . '\'">' . "\n";
+      }
 ?>
-          <tr class="tableRow" onmouseover="this.className='tableRowOver'" onmouseout="this.className='tableRow'">
-            <td class="tableData">&nbsp;<? echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?image=' . DIR_WS_CATALOG . $banners['banners_image'] . '&alt=' . urlencode($banners['banners_title']) . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?>&nbsp;</td>
-            <td class="tableData" align="right">&nbsp;<? echo $banners['banners_group']; ?>&nbsp;</td>
-            <td class="tableData" align="right">&nbsp;<? echo $banners_shown . ' / ' . $banners_clicked; ?>&nbsp;</td>
-            <td class="tableData" align="right">
+                <td class="tableData">&nbsp;<? echo '<a href="javascript:popupImageWindow(\'' . FILENAME_POPUP_IMAGE . '?image=' . DIR_WS_CATALOG . $banners['banners_image'] . '&alt=' . urlencode($banners['banners_title']) . '\')" class="blacklink">' . $banners['banners_title'] . '</a>'; ?>&nbsp;</td>
+                <td class="tableData" align="right">&nbsp;<? echo $banners['banners_group']; ?>&nbsp;</td>
+                <td class="tableData" align="right">&nbsp;<? echo $banners_shown . ' / ' . $banners_clicked; ?>&nbsp;</td>
+                <td class="tableData" align="right">
 <?
       if ($banners['status'] == '1') {
         echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'action=setflag&flag=0&id=' . $banners['banners_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Set Inactive', 10, 10) . '</a>';
@@ -169,27 +182,68 @@ function popupImageWindow(url) {
         echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'action=setflag&flag=1&id=' . $banners['banners_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Set Active', 10, 10) . '</a>&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
       }
 ?>&nbsp;</td>
-          </tr>
+<?
+      if ($banners['banners_id'] == @$bInfo->id) {
+?>
+                    <td align="center" class="smallText">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); ?>&nbsp;</td>
+<?
+    } else {
+?>
+                    <td align="center" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('info', 'action')) . 'info=' . $banners['banners_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; ?>&nbsp;</td>
 <?
     }
 ?>
-          <tr>
-            <td class="main" colspan="4"><? echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              </tr>
+<?
+    }
+?>
               <tr>
-                <td class="smallText">&nbsp;<? echo $banners_split->display_count($banners_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_BANNERS); ?>&nbsp;</td>
-                <td class="smallText" align="right">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $banners_split->display_links($banners_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
+                <td class="main" colspan="5"><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td align="right" colspan="2"><? echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_banner.gif', IMAGE_NEW_BANNER) . '</a>'; ?></td>
+                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td class="smallText">&nbsp;<? echo $banners_split->display_count($banners_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_BANNERS); ?>&nbsp;</td>
+                    <td class="smallText" align="right">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $banners_split->display_links($banners_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="right" colspan="2"><? echo '<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_banner.gif', IMAGE_NEW_BANNER) . '</a>'; ?></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+            <td width="25%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<?
+    $info_box_contents = array();
+    if ($bInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . $bInfo->title . '</b>&nbsp;');
+?>
+              <tr bgcolor="#81a2b6">
+                <td>
+                  <? new infoBoxHeading($info_box_contents); ?>
+                </td>
+              </tr>
+              <tr bgcolor="#81a2b6">
+                <td><? echo tep_black_line(); ?></td>
+              </tr>
+<?
+    $stats_query = tep_db_query("select dayofmonth(banners_history_date) as name, banners_shown as value from banners_history where banners_id = '" . $bInfo->id . "' and to_days(now()) - to_days(banners_history_date) <= 7 order by banners_history_date");
+    $info_box_contents = array();
+//    $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')) . 'action=edit', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_COUNTRIES, tep_get_all_get_params(array('action')) . 'action=delete', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+    $info_box_contents[] = array('align' => 'center', 'text' => GraphResult($stats_query, 'Statistics'));
+?>
+              <tr bgcolor="#b0c8df"><? echo $form; ?>
+                <td>
+                  <? new infoBox($info_box_contents); ?>
+                </td>
+              <? if ($form) echo '</form>'; ?></tr>
+              <tr bgcolor="#b0c8df">
+                <td><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
         </table></td>
       </tr>
-<?
+<?php
   }
 ?>
     </table></td>
@@ -199,7 +253,7 @@ function popupImageWindow(url) {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
