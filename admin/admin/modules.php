@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.35 2002/01/30 01:14:20 hpdl Exp $
+  $Id: modules.php,v 1.36 2002/02/17 19:50:40 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -121,7 +121,7 @@
     $class = substr($file, 0, strrpos($file, '.'));
     if (tep_class_exists($class)) {
       $module = new $class;
-      if ($module->check() == '1') {
+      if ($module->check() > 0) {
         $installed_modules .= (tep_not_null($installed_modules)) ? ';' . $file : $file;
       }
 
@@ -151,7 +151,7 @@
       }
 
       if ( (is_object($mInfo)) && ($class == $mInfo->code) ) {
-        if ($module->check() == '1') {
+        if ($module->check() > 0) {
           echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
         } else {
           echo '              <tr class="selectedRow">' . "\n";
@@ -161,7 +161,7 @@
       }
 ?>
                 <td class="tableData"><?php echo $module->title; ?></td>
-                <td class="tableData" align="right"><?php if ($module->check() == '1') { echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=remove') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>'; } else { echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=install') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10); } ?></td>
+                <td class="tableData" align="right"><?php if ($module->check() > 0) { echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '&nbsp;<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=remove') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>'; } else { echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class . '&action=install') . '">' . tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10); } ?></td>
                 <td class="tableData" align="right"><?php if ( (is_object($mInfo)) && ($class == $mInfo->code) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif'); } else { echo '<a href="' . tep_href_link(FILENAME_MODULES, 'set=' . $HTTP_GET_VARS['set'] . '&module=' . $class) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?
