@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: boxes.php,v 1.18 2001/12/22 21:13:46 hpdl Exp $
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2001 osCommerce
+
+  Released under the GNU General Public License
+*/
+
   class tableBox {
     var $table_border = '0';
     var $table_width = '100%';
@@ -27,7 +38,7 @@
             if ($contents[$i][$x]['text']) { // 'text' must always be explicit (ie, set) .. used in conjunction with alternate row colours
               if ($contents[$i][$x]['form']) echo $contents[$i][$x]['form'] . "\n";
               echo '    <td';
-              if ($contents[$i][$x]['align'] != 'left') echo ' align="' . $contents[$i][$x]['align'] . '"';
+              if ($contents[$i][$x]['align'] != '') echo ' align="' . $contents[$i][$x]['align'] . '"';
               if ($contents[$i][$x]['params']) {
                 echo ' ' . $contents[$i][$x]['params'];
               } elseif ($this->table_data_parameters != '') {
@@ -39,7 +50,7 @@
           }
         } else {
           echo '    <td';
-          if ($contents[$i]['align'] != 'left') echo ' align="' . $contents[$i]['align'] . '"';
+          if ($contents[$i]['align'] != '') echo ' align="' . $contents[$i]['align'] . '"';
           if ($contents[$i]['params']) {
             echo ' ' . $contents[$i]['params'];
           } elseif ($this->table_data_parameters != '') {
