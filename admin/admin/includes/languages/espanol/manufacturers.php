@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.10 2002/03/09 20:18:24 dgw_ Exp $
+  $Id: manufacturers.php,v 1.11 2002/04/29 14:43:41 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,8 +29,8 @@ define('TEXT_NEW_INTRO', 'Introduzca los datos del nuevo fabricante');
 define('TEXT_EDIT_INTRO', 'Haga los cambios necesarios');
 
 define('TEXT_MANUFACTURERS_NAME', 'Nombre del Fabricante:');
-define('TEXT_MANUFACTURERS_IMAGE', 'Imagen Fabricante:');
-define('TEXT_MANUFACTURERS_URL', 'Fabricante URL:');
+define('TEXT_MANUFACTURERS_IMAGE', 'Imagen del Fabricante:');
+define('TEXT_MANUFACTURERS_URL', 'URL del Fabricante:');
 
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fabricante?');
 define('TEXT_DELETE_IMAGE', 'Eliminar imagen del fabricante?');
