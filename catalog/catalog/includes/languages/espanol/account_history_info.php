@@ -23,7 +23,7 @@ define('TABLE_SUBHEADING_SHIPPING', 'Gastos de Envio:');
 define('TABLE_SUBHEADING_TOTAL', 'Total:');
 define('TEXT_COD', 'Contra Reembolso');
 define('TEXT_CC', 'Tarjeta de Credito');
-define('TEXT_PAYPAL', 'PayPal.com Credit Card/eCheck Processing');
+define('TEXT_PAYPAL', 'PayPal.com Proceso de Tarjetas de Credito/eCheck');
 
 define('IMAGE_BACK', 'Volver');
 ?>

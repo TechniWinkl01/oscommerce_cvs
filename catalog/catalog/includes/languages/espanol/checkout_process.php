@@ -7,7 +7,7 @@ Author(s): David Garcia Watkins (dgw@q-logic.org)
 
 define('EMAIL_TEXT_SUBJECT', 'Procesar Pedido');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Numero de Pedido:');
-define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
+define('EMAIL_TEXT_INVOICE_URL', 'Pedido Detallado:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Fecha del Pedido:');
 define('EMAIL_TEXT_PRODUCTS', 'Productos');
 define('EMAIL_TEXT_SUBTOTAL', 'Subtotal:');
