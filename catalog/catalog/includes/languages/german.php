@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.63 2001/08/21 18:17:16 mbs Exp $
+  $Id: german.php,v 1.64 2001/08/21 21:58:53 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -69,7 +69,7 @@ define('BOX_HEADING_MANUFACTURERS', 'Hersteller');
 define('BOX_MANUFACTURERS_SELECT_ONE', 'Wählen Sie aus:');
 
 // whats_new box text in includes/boxes/whats_new.php
-define('BOX_HEADING_WHATS_NEW', 'Neue Artikel');
+define('BOX_HEADING_WHATS_NEW', 'Neue Produkte');
 
 // quick_find box text in includes/boxes/quick_find.php
 define('BOX_HEADING_SEARCH', 'Schnellsuche');
@@ -222,10 +222,10 @@ define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // constants for use in tep_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seiten:');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'angezeigte Artikel: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'angezeigte Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'angezeigte Bestellungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'angezeigte Meinungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'angezeigte neue Artikel: <b>%d</b> to <b>%d</b> (von <b>%d</b> insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'angezeigte neue Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');
@@ -258,7 +258,7 @@ define('IMAGE_BUTTON_TELL_A_FRIEND', 'Weiterempfehlen');
 define('IMAGE_BUTTON_UPDATE_CART', 'Warenkorb aktualisieren');
 define('IMAGE_BUTTON_WRITE_REVIEW', 'Bewertung schreiben');
 
-define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span> M&ouml;chten Sie die <a href="%s"><u>neue Proukte</u></a> ansehen?');
+define('TEXT_GREETING_PERSONAL', 'Sch&ouml;n das Sie wieder da sind <span class="greetUser">%s!</span> M&ouml;chten Sie die <a href="%s"><u>neue Produkte</u></a> ansehen?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Wenn Sie nicht %s sind, melden Sie sich bitte <a href="%s"><u>hier</u></a> mit Ihrem Kundenkonto an.</small>');
 define('TEXT_GREETING_GUEST', 'Herzlich Willkommen <span class="greetUser">Gast!</span> Möchtne Sie sich <a href="%s"><u>anmelden</u></a>? Oder wollen Sie ein <a href="%s"><u>Kundenkonto</u></a> eröffnen?');
 
@@ -273,7 +273,7 @@ define('TEXT_REVIEW_RATING', 'Bewertung: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Datum hinzugefügt: %s');
 define('TEXT_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 
-define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neuen Artikel.');
+define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neue Produkte.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
