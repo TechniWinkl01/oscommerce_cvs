@@ -3,7 +3,7 @@ osCommerce Coding Standards
 In order to keep the source code sane, a standard has to be followed
 in the coding practice.
 
-* Files are to be saved under Unix format.
+* Files are to be saved in Unix format.
 
 * TABs should not be used. To indent, use 2 spaces.
 
@@ -61,15 +61,15 @@ in the coding practice.
     return true;
   }
 
-* Class names should be in this format: myWorkingClass
+* Class names should match its lower-cased file-based name: myclass.php
 
-  class myWorkingClass {
+  class myclass {
     var $variable;
     
 // class constuctor
-    function myWorkingClass() {
+    function myclass() {
     
-      <function code>
+      <method code>
     
       return true;
     }
@@ -83,17 +83,17 @@ in the coding practice.
     }
   }
   
-  $class = new myWorkingClass;
+  $class = new myclass;
   $class->do_something();
 
 * Database queries should be done in this format:
 
-  $action_query = tep_db_query("select...");
+  $action_query = tep_db_query("select column1, ...");
   while ($action = tep_db_fetch_array($action_query)) {
     echo $action['column1'];
   }
 
-* All functions should return strings, and not do any direct
+* All functions should return strings and not do any direct
   echoing, for example:
 
   function tep_my_function($string) {
