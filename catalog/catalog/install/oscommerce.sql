@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.29 2002/03/18 19:19:32 project3000 Exp $
+# $Id: oscommerce.sql,v 1.30 2002/03/23 09:09:49 project3000 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -99,7 +99,7 @@ CREATE TABLE configuration (
   configuration_key varchar(64) NOT NULL,
   configuration_value varchar(255) NOT NULL,
   configuration_description varchar(255) NOT NULL,
-  configuration_group_id int(5) NOT NULL,
+  configuration_group_id int NOT NULL,
   sort_order int(5) NULL,
   last_modified datetime NULL,
   date_added datetime NOT NULL,
