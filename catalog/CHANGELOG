@@ -1,7 +1,7 @@
 xx/02/2001 The Exchange Project Preview Release 2.1
 ---------------------------------------------------
 
- * Payment methods are now modules, which makes it easier
+ * Payment methods are now modules, makes it easier
    to implement other payment methods. Supported methods
    COD, Credit Card, Paypal. CC also supports storing only
    part of the CC# in the DB with the other digits being
@@ -15,6 +15,23 @@ xx/02/2001 The Exchange Project Preview Release 2.1
 
  * Added languages box - customers can now choose their language anywhere
    except during the checkout procedure (due to POST variables in forms)
+
+ * Selectable columns in 'Product Listings'.
+
+ * Added a delete button to the orders in the admin tool.
+
+ * Solved a problem with the session id not being passed to the secure
+   server.
+
+ * Countries added to the admin tool.
+
+ * The 'Add a Quickie' box now uses the model number instead of the
+   product id.
+
+ * The 'Search' box and the 'Advanced Search' now use the same engine.
+
+ * Numerous bugs fixed.
+
 
 13/12/2000 The Exchange Project Preview Release 2.0a
 ----------------------------------------------------
