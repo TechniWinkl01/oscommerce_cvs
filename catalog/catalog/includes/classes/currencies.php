@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.5 2001/09/15 13:06:28 dwatkins Exp $
+  $Id: currencies.php,v 1.6 2001/10/24 11:48:11 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -41,7 +41,7 @@
 
       if ($calculate_currency_value) {
         $rate = ($currency_value) ? $currency_value : $this->currencies[$currency_type]['value'];
-        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$current_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
+        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
 // if the selected currency is in the european euro-conversion and the default currency is euro,
 // the currency will displayed in the national currency and euro currency
         if ( (DEFAULT_CURRENCY == 'EUR') && ($currency_type == 'DEM' || $currency_type == 'BEF' || $currency_type == 'LUF' || $currency_type == 'ESP' || $currency_type == 'FRF' || $currency_type == 'IEP' || $currency_type == 'ITL' || $currency_type == 'NLG' || $currency_type == 'ATS' || $currency_type == 'PTE' || $currency_type == 'FIM' || $currency_type == 'GRD') ) {
