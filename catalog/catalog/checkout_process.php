@@ -1,7 +1,11 @@
 <? include('includes/application_top.php'); ?>
 <?
-  $payment_action = 'PM_BEFORE_PROCESS';
-  include(DIR_WS_MODULES . 'payment.php');
+// load payment modules as objects
+  include(DIR_WS_CLASSES . 'payment.php');
+  $payment_modules = new payment;
+
+// load the before_process function from the payment modules
+  $payment_modules->before_process();
 
   if ($sendto == '0') {
     $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
@@ -82,9 +86,7 @@
 
   $cart->reset(TRUE);
 
-  $payment_action = 'PM_AFTER_PROCESS';
-
-  include(DIR_WS_MODULES . 'payment.php');
-
+// load the after_process function from the payment modules
+  $payment_modules->after_process();
 ?>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

@@ -5,8 +5,14 @@
     tep_exit();
   }
 ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
+<?php
+  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php');
+  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
+
+// load payment modules as objects
+  include(DIR_WS_CLASSES . 'payment.php');
+  $payment_modules = new payment;
+?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -183,9 +189,9 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-// Validate payment data again
-  $payment_action = 'PM_CONFIRMATION';
-  include(DIR_WS_MODULES . 'payment.php');
+// load the confirmation function from the payment modules
+  $payment_modules->confirmation();
+
   if ($comments) {
 ?>
         <tr>
@@ -218,9 +224,10 @@
                    '<input type="hidden" name="comments" value="' . urlencode(stripslashes($comments)) . '">' .
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
-// Draw the checkout process button
-  $payment_action = 'PM_PROCESS_BUTTON';
-  include(DIR_WS_MODULES . 'payment.php');
+
+// load the process_button function from the payment modules
+  $payment_modules->process_button();
+
   if (!$checkout_form_submit) {
     echo tep_image_submit(DIR_WS_IMAGES . 'button_process.gif', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {

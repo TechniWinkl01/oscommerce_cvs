@@ -1,6 +1,4 @@
 <? include('includes/application_top.php'); ?>
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY_INFO; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_2 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $HTTP_GET_VARS['order_id'], 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_3 . '</a>'; ?>
 <?
   if (tep_session_is_registered('customer_id')) {
     $customer_number = tep_db_query("select customers_id from orders where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
@@ -18,6 +16,14 @@
       tep_exit();
     }
   }
+?>
+<?php
+  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY_INFO; include(DIR_WS_INCLUDES . 'include_once.php');
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_2 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $HTTP_GET_VARS['order_id'], 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE_3 . '</a>';
+
+// load payment modules as objects
+  include(DIR_WS_CLASSES . 'payment.php');
+  $payment_modules = new payment;
 ?>
 <html>
 <head>
@@ -181,8 +187,8 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $payment_action = 'PM_SHOW_INFO';
-  include(DIR_WS_MODULES . 'payment.php');
+// load the show_info function from the payment modules
+  $payment_modules->show_info();
 ?>
         </table></font></td>
       </tr>

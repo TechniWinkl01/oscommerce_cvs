@@ -33,8 +33,14 @@
     tep_exit();
   }
 ?> 
-<? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<? $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2; ?>
+<?php
+  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_WS_INCLUDES . 'include_once.php');
+  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
+
+// load payment modules as objects
+  include(DIR_WS_CLASSES . 'payment.php');
+  $payment_modules = new payment;
+?>
 <html>
 <head>
 <title><? echo TITLE; ?></title>
@@ -53,9 +59,8 @@ function check_form() {
     payment_value = document.payment.payment.value;
   }
 <?
-// payment validation
-  $payment_action = 'PM_VALIDATION';
-  include(DIR_WS_MODULES . 'payment.php');
+// load the javascript_validation function from the payment modules
+  $payment_modules->javascript_validation();
 ?>
   if (error == 1) {
     alert(error_message);
@@ -119,9 +124,8 @@ function check_form() {
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
-// list payment options
-  $payment_action = 'PM_SELECTION';
-  include(DIR_WS_MODULES . 'payment.php');
+// load the selection function from the payment modules
+  $payment_modules->selection();
 ?>
             </table></td>
           </tr>
