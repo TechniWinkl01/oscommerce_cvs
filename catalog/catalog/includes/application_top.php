@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.202 2001/12/18 11:58:22 hpdl Exp $
+  $Id: application_top.php,v 1.203 2001/12/19 14:00:16 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -287,22 +287,6 @@
                                 tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL'));
                               } else {
                                 $cart->add_cart($HTTP_GET_VARS['products_id'], 1);
-                                tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
-                              }
-                              break;
-      // customer wants to add a quickie to the cart (called from a box)
-      case 'add_a_quickie' :  $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
-                              if (!tep_db_num_rows($quickie_query)) {
-                                $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '%" . $HTTP_POST_VARS['quickie'] . "%'");
-                              }
-                              if (tep_db_num_rows($quickie_query) != 1) {
-                                tep_redirect(tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
-                              }
-                              $quickie = tep_db_fetch_array($quickie_query);
-                              if (tep_has_product_attributes($quickie['products_id'])) {
-                                tep_redirect(tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $quickie['products_id'], 'NONSSL'));
-                              } else {
-                                $cart->add_cart($quickie['products_id'], 1);
                                 tep_redirect(tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
                               }
                               break;

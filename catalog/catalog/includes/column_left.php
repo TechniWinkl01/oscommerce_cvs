@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_left.php,v 1.11 2001/11/17 03:34:17 hpdl Exp $
+  $Id: column_left.php,v 1.12 2001/12/19 14:00:16 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,6 +24,5 @@
 
   require(DIR_WS_BOXES . 'whats_new.php');
   require(DIR_WS_BOXES . 'search.php');
-  require(DIR_WS_BOXES . 'add_a_quickie.php');
   require(DIR_WS_BOXES . 'information.php');
 ?>
