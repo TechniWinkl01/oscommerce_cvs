@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.8 2001/09/23 15:32:47 hpdl Exp $
+  $Id: manufacturers.php,v 1.9 2001/09/30 16:22:19 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,7 +22,7 @@ define('TEXT_MANUFACTURERS', 'Hersteller:');
 define('TEXT_DATE_ADDED', 'hinzugef&uuml;gt am:');
 define('TEXT_LAST_MODIFIED', 'letzte &Auml;nderung am:');
 define('TEXT_PRODUCTS', 'Artikel:');
-define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIER NICHT');
+define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 
 define('TEXT_NEW_INTRO', 'Bitte f&uuml;llen Sie die folgenden Felder f&uuml;r den neuen Hersteller aus');
 define('TEXT_EDIT_INTRO', 'Bitte f&uuml;hren Sie alle notwendigen &Auml;nderungen durch');
@@ -32,7 +32,7 @@ define('TEXT_EDIT_MANUFACTURERS_IMAGE', 'Herstellerbild:');
 define('TEXT_EDIT_MANUFACTURERS_URL', 'Hersteller URL:');
 
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Hersteller l&ouml;schen m&ouml;chten?');
-define('TEXT_DELETE_PRODUCTS', 'Delete products from this manufacturer? (including product reviews, products on special, upcoming products)');
+define('TEXT_DELETE_PRODUCTS', 'Alle Artikel von diesem Hersteller l&ouml;schen? (inkl. Bewertungen, Angebote und Neuerscheinungen)');
 define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNUNG:</b> Es existieren noch %s Artikel, die immer noch mit diesem Hersteller verbunden sind!');
 
 define('ERROR_ACTION', 'EIN FEHLER IST AUFGETRETEN! LETZTE AKTION : ' . $HTTP_GET_VARS['error']);

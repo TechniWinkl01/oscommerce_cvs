@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: sessions.php,v 1.4 2001/09/30 16:22:15 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   function tep_session_start() {
 
     return session_start();

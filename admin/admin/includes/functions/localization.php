@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: localization.php,v 1.7 2001/09/30 16:22:16 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   function quotecurrency($code, $base = DEFAULT_CURRENCY) {
     $err_num = $err_msg='';
     $s = fsockopen('www.oanda.com', 5011, $err_num, $err_msg, 5);
