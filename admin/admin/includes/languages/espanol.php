@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.103 2003/09/13 10:46:02 project3000 Exp $
+  $Id: espanol.php,v 1.104 2004/04/03 10:28:44 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -274,6 +274,7 @@ define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
 define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');
 
 define('TEXT_DEFAULT', 'predeterminado/a');
+define('TEXT_IP_ADDRESS', 'IP Address:');
 define('TEXT_SET_DEFAULT', 'Establecer como predeterminado/a');
 define('TEXT_FIELD_REQUIRED', '&nbsp;<span class="fieldRequired">* Obligatorio</span>');
 define('TEXT_IMAGE_NONEXISTENT', 'NO EXISTE IMAGEN');
