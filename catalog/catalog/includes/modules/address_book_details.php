@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.6 2003/02/12 23:55:58 hpdl Exp $
+  $Id: address_book_details.php,v 1.7 2003/04/13 11:52:48 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,7 +93,7 @@
             <td class="main">&nbsp;
 <?php
     if ($process == true) {
-      if ($company_error == true) {
+      if ($entry_company_error == true) {
         echo tep_draw_input_field('company') . '&nbsp;' . ENTRY_COMPANY_ERROR;
       } else {
         echo $company . tep_draw_hidden_field('company');

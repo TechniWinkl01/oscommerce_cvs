@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.77 2003/04/10 21:22:28 project3000 Exp $
+  $Id: account_edit_process.php,v 1.78 2003/04/13 11:52:47 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,10 +53,10 @@
 
   if (ACCOUNT_COMPANY == 'true') {
     if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-      $company_error = true;
+      $entry_company_error = true;
       $error = true;
     } else {
-      $company_error = false;
+      $entry_company_error = false;
     }
   }
 

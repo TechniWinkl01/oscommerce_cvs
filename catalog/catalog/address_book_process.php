@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.73 2003/02/13 01:58:23 hpdl Exp $
+  $Id: address_book_process.php,v 1.74 2003/04/13 11:52:47 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -59,10 +59,10 @@
 
     if (ACCOUNT_COMPANY == 'true') {
       if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-        $company_error = true;
+        $entry_company_error = true;
         $error = true;
       } else {
-        $company_error = false;
+        $entry_company_error = false;
       }
     }
 
