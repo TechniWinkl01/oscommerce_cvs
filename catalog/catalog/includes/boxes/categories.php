@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.20 2002/06/05 19:18:22 dgw_ Exp $
+  $Id: categories.php,v 1.21 2002/07/03 09:48:06 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@
     }
 
     if (tep_has_category_subcategories($counter)) {
-      $categories_string .= '->';
+      $categories_string .= '-&gt;';
     }
 
     $categories_string .= '</a>';
