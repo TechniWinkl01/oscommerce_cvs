@@ -8,6 +8,6 @@
 <br>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center" nowrap><font face="Verdana, Arial" size="1">Copyright &copy; 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br>Running on The Exchange Project <?php echo PROJECT_VERSION; ?><br><br><a href="debug_phpinfo.php">Display my PHP parameters</a></font></td>
+    <td align="center" nowrap><?php echo FONT_STYLE_SMALL_TEXT; ?>Copyright &copy; 2001 <a href="http://theexchangeproject.org">The Exchange Project</a> : <a href="mailto:hpdl@theexchangeproject.org">Harald Ponce de Leon</a><br>Running on The Exchange Project <?php echo PROJECT_VERSION; ?><br><br><a href="debug_phpinfo.php">Display my PHP parameters</a></font></td>
   </tr>
 </table>
