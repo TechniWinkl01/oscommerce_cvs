@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.81 2001/11/22 20:02:32 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.82 2001/11/29 16:40:03 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,33 +12,30 @@
 
   require('includes/application_top.php');
 
+// Check if user is logged in
   if (!tep_session_is_registered('customer_id')) {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=SSL', 'NONSSL'));
   }
+
+// Check if there is something in the cart
   if ($cart->count_contents() == 0) {
     tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
   }
 
-// Stock Check !
+// Stock Check
   if (STOCK_CHECK =='true') {
     $products = $cart->get_products();
     for ($i=0; $i<sizeof($products); $i++) {
-    $products_name = $products[$i]['name'];
-    $products_id = $products[$i]['id'];
-    check_stock ($products[$i]['id'], $products[$i]['quantity']);
+      $products_name = $products[$i]['name'];
+      $products_id = $products[$i]['id'];
+      check_stock ($products[$i]['id'], $products[$i]['quantity']);
+    }
+    if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock) ) {
+      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
+    }
   }
 
-  if (STOCK_ALLOW_CHECKOUT =='true') {
-  } else {
-    if ($any_out_of_stock) {
-// Out of Stock
-      tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=SSL', 'NONSSL'));
-      }
-    } // Stock Allow Checkout
-
-  } // Stock Check IF
-// Stock Check
-
+// Register needed checkout variables
   if (!tep_session_is_registered('sendto')) {
     $sendto = '1';
     tep_session_register('sendto');
@@ -63,7 +60,6 @@
   require(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;
   $shipping_modules->quote();
-
   if ( ($shipping_quoted == '') && (MODULE_SHIPPING_INSTALLED) ) { // Null if no quotes selected
     tep_redirect(tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , 'SSL'));
   }
