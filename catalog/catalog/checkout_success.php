@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.40 2002/11/11 22:39:17 dgw_ Exp $
+  $Id: checkout_success.php,v 1.41 2002/11/13 12:54:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,9 +93,15 @@
   if (tep_session_is_registered('customer_id')) {
     if ($global['global_product_notifications'] != '1') {
       echo TEXT_NOTIFY_PRODUCTS . '<br><p class="productsNotifications">';
-      for ($i=0; $i<sizeof($products_array); $i++) {
-        echo tep_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
+
+      $products_displayed = array();
+      for ($i=0, $n=sizeof($products_array); $i<$n; $i++) {
+        if (!in_array($products_array[$i]['id'], $products_displayed)) {
+          echo tep_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
+          $products_displayed[] = $products_array[$i]['id'];
+        }
       }
+
       echo '</p>';
     } else {
       echo TEXT_SEE_ORDERS . '<br><br>' . TEXT_CONTACT_STORE_OWNER;
