@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.11 2002/03/30 11:10:38 hpdl Exp $
+  $Id: index.php,v 1.12 2002/03/30 11:21:04 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -174,10 +174,10 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   if (getenv('HTTPS') == 'on') {
     $size = ((getenv('SSL_CIPHER_ALGKEYSIZE')) ? getenv('SSL_CIPHER_ALGKEYSIZE') . '-bit' : '<i>' . BOX_CONNECTION_UNKNOWN . '</i>');
     $contents[] = array('params' => 'class="infoBox"',
-                        'text' => sprintf(BOX_CONNECTION_PROTECTED, $size));
+                        'text' => tep_image(DIR_WS_ICONS . 'locked.gif', ICON_LOCKED, '', '', 'align="right"') . sprintf(BOX_CONNECTION_PROTECTED, $size));
   } else {
     $contents[] = array('params' => 'class="infoBox"',
-                        'text' => BOX_CONNECTION_UNPROTECTED);
+                        'text' => tep_image(DIR_WS_ICONS . 'unlocked.gif', ICON_UNLOCKED, '', '', 'align="right"') . BOX_CONNECTION_UNPROTECTED);
   }
 
   $box = new box;
