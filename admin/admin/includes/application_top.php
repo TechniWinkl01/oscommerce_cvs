@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.142 2002/03/16 13:14:22 harley_vb Exp $
+  $Id: application_top.php,v 1.143 2002/03/18 19:34:54 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,6 +133,9 @@
   define('CURRENCY_SERVER_PRIMARY', 'oanda');
   define('CURRENCY_SERVER_BACKUP', 'xe');
 
+// initialize the logger class
+  require(DIR_WS_CLASSES . 'logger.php');
+
 // include the database functions
   require(DIR_WS_FUNCTIONS . 'database.php');
 
@@ -204,9 +207,6 @@
 // initialize the message stack for output messages
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
-
-// initialize the logger class
-  require(DIR_WS_CLASSES . 'logger.php');
 
 // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
