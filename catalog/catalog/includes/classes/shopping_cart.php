@@ -62,6 +62,8 @@
     function add_cart($products_id, $qty, $attributes = '') {
       global $new_products_id_in_cart, $customer_id;
 
+      $products_id = tep_get_uprid($products_id, $attributes);
+
       if ($this->in_cart($products_id)) {
         $this->update_quantity($products_id, $qty, $attributes);
       } else {
@@ -167,35 +169,35 @@
 
     function calculate() {
       $this->total = 0;
-       $this->weight = 0;
-      $sql_in = $this->get_product_id_list();
-      if (empty($sql_in)) return 0;
+      $this->weight = 0;
+      if (!is_array($this->contents)) return 0;
 
-// products price
-      $product_query = tep_db_query("select products_id, products_price, products_weight from products where products_id in (" . $sql_in . ")");
-      while ($product = tep_db_fetch_array($product_query)) {
-        $products_id = $product['products_id'];
-        $products_price = $product['products_price'];
-        $products_weight = $product['products_weight'];
-
-        $specials_query = tep_db_query("select specials_new_products_price from specials where products_id = '" . $products_id . "'");
-        if (tep_db_num_rows ($specials_query)) {
-          $specials = tep_db_fetch_array($specials_query);
-          $products_price = $specials['specials_new_products_price'];
-        }
-
-        $this->total += ($this->contents[$products_id]['qty'] * $products_price);
-        $this->weight += ($this->contents[$products_id]['qty'] * $products_weight);
-      }
-
-// attributes price
       reset($this->contents);
       while (list($products_id, ) = each($this->contents)) {
         $qty = $this->contents[$products_id]['qty'];
+
+// products price
+        $product_query = tep_db_query("select products_id, products_price, products_weight from products where products_id='" . tep_get_prid($products_id) . "'");
+        if ($product = tep_db_fetch_array($product_query)) {
+          $prid = $product['products_id'];
+          $products_price = $product['products_price'];
+          $products_weight = $product['products_weight'];
+
+          $specials_query = tep_db_query("select specials_new_products_price from specials where products_id = '" . $prid . "'");
+          if (tep_db_num_rows ($specials_query)) {
+            $specials = tep_db_fetch_array($specials_query);
+            $products_price = $specials['specials_new_products_price'];
+          }
+
+          $this->total += ($qty * $products_price);
+          $this->weight += ($qty * $products_weight);
+        }
+
+// attributes price
         if ($this->contents[$products_id]['attributes']) {
           reset($this->contents[$products_id]['attributes']);
           while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
-            $attribute_price_query = tep_db_query("select options_values_price, price_prefix from products_attributes where products_id = '" . $products_id . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
+            $attribute_price_query = tep_db_query("select options_values_price, price_prefix from products_attributes where products_id = '" . $prid . "' and options_id = '" . $option . "' and options_values_id = '" . $value . "'");
             $attribute_price = tep_db_fetch_array($attribute_price_query);
             if ($attribute_price['price_prefix'] == '+') {
               $this->total += $qty * $attribute_price['options_values_price'];
@@ -225,31 +227,32 @@
     }
 
     function get_products() {
+      if (!is_array($this->contents)) return 0;
       $products_array = array();
-      $sql_in = $this->get_product_id_list();
-      if (empty($sql_in)) return 0;
-      $products_query = tep_db_query("select products_id, products_name, products_model, products_price, products_weight, products_tax_class_id from products where products_id in (" . $sql_in . ")");
-      while ($products = tep_db_fetch_array($products_query)) {
-        $products_id = $products['products_id'];
-        $products_price = $products['products_price'];
+      reset($this->contents);
+      while (list($products_id, ) = each($this->contents)) {
+        $products_query = tep_db_query("select products_id, products_name, products_model, products_price, products_weight, products_tax_class_id from products where products_id='" . tep_get_prid($products_id) . "'");
+        if ($products = tep_db_fetch_array($products_query)) {
+          $prid = $products['products_id'];
+          $products_price = $products['products_price'];
 
-        $specials_query = tep_db_query("select specials_new_products_price from specials where products_id = '" . $products_id . "'");
-        if (tep_db_num_rows($specials_query)) {
-          $specials = tep_db_fetch_array($specials_query);
-          $products_price = $specials['specials_new_products_price'];
+          $specials_query = tep_db_query("select specials_new_products_price from specials where products_id = '" . $prid . "'");
+          if (tep_db_num_rows($specials_query)) {
+            $specials = tep_db_fetch_array($specials_query);
+            $products_price = $specials['specials_new_products_price'];
+          }
+
+          $products_array[] = array('id' => $products_id,
+                                    'name' => $products['products_name'],
+                                    'model' => $products['products_model'],
+                                    'price' => $products_price,
+                                    'quantity' => $this->contents[$products_id]['qty'],
+                                    'weight' => $products['products_weight'],
+                                    'final_price' => ($products_price + $this->attributes_price($products_id)),
+                                    'tax_class_id' => $products['products_tax_class_id'],
+                                    'attributes' => $this->contents[$products_id]['attributes']);
         }
-
-        $products_array[] = array('id' => $products_id,
-                                  'name' => $products['products_name'],
-                                  'model' => $products['products_model'],
-                                  'price' => $products_price,
-                                  'quantity' => $this->contents[$products_id]['qty'],
-                                  'weight' => $products['products_weight'],
-                                  'final_price' => ($products_price + $this->attributes_price($products_id)),
-                                  'tax_class_id' => $products['products_tax_class_id'],
-                                  'attributes' => $this->contents[$products_id]['attributes']);
       }
-
       return $products_array;
     }
 

@@ -51,7 +51,9 @@
     $products_tax = tep_get_tax_rate($delivery_values['zone_id'], $products[$i]['tax_class_id']);
     $products_weight = $products[$i]['weight'];
 
-    tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . $products[$i]['id'] . "', '" . addslashes($products_name) . "', '" . $products_price . "', '" . $total_products_price . "', '" . $products_tax . "', '" . $products[$i]['quantity'] . "')");
+
+    tep_db_query("insert into orders_products values ('', '" . $insert_id . "', '" . tep_get_prid($products[$i]['id'])  . "', '" . addslashes($products_name) . "', '" . $products_price . "', '"  . $total_products_price . "', '" . $products_tax . "', '" . $products[$i]['quantity']   . "')");
+    $order_products_id = tep_db_insert_id();
 //------insert customer choosen option to order--------
     $attributes_exist = '0';
     if ($products[$i]['attributes']) {
@@ -60,7 +62,7 @@
       while (list($option, $value) = each($products[$i]['attributes'])) {
         $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from products_options popt, products_options_values poval, products_attributes pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id");
         $attributes_values = tep_db_fetch_array($attributes);
-        tep_db_query("insert into orders_products_attributes values ('', '" . $insert_id . "', '" . $products[$i]['id'] . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix'] . "')");
+        tep_db_query("insert into orders_products_attributes values ('', '" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix']  . "')");
       }
     }
 //------insert customer choosen option eof ---- 

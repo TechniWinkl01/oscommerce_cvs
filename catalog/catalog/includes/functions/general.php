@@ -1379,4 +1379,21 @@ function tep_address_summary($customers_id, $address_id) {
       return false;
     }
   }
+
+  function tep_get_uprid($prid, $params) {
+    $uprid = $prid;
+    if ( (is_array($params)) && (!strstr($prid, '{')) ) {
+      while (list($option, $value) = each($params)) {
+        $uprid = $uprid . '{' . $option . '}' . $value;
+      }
+    }
+
+    return $uprid;
+  }
+
+  function tep_get_prid($uprid) {
+    $pieces = explode ('{', $uprid, 2);
+
+    return $pieces[0];
+  }
 ?>

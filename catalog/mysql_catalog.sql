@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.71 2001/03/15 21:54:40 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.72 2001/04/11 20:21:43 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -126,7 +126,7 @@ CREATE TABLE customers (
 CREATE TABLE customers_basket (
   customers_basket_id int(5) NOT NULL auto_increment,
   customers_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
+  products_id tinytext NOT NULL,
   customers_basket_quantity int(2) NOT NULL,
   final_price decimal(6,2) NOT NULL,
   customers_basket_date_added char(8),
@@ -136,7 +136,7 @@ CREATE TABLE customers_basket (
 CREATE TABLE customers_basket_attributes (
   customers_basket_attributes_id int(5) NOT NULL auto_increment,
   customers_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
+  products_id tinytext NOT NULL,
   products_options_id int(5) NOT NULL,
   products_options_value_id int(5) NOT NULL,
   PRIMARY KEY (customers_basket_attributes_id)
