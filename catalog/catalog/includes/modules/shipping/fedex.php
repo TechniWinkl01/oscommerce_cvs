@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.30 2002/05/11 12:43:53 thomasamoulton Exp $
+  $Id: fedex.php,v 1.31 2002/05/13 11:53:51 thomasamoulton Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -50,8 +50,7 @@
           $rate = new _FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
           $rate->SetDest($address_values['postcode'], $this->fedex_countries[$address_values['country_id']]);
 // fedex doesnt accept weights below one
-          // $shipping_weight = ($shipping_weight < 1 ? 1 : $shipping_weight);
-          $rate->SetWeight(($shipping_weight < 1 ? 1 : $shipping_weight));
+          $rate->SetWeight($shipping_weight);
           $quote = $rate->GetQuote();
           $shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote['TotalCharges']);
 // clean up the service text a little

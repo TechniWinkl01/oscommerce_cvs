@@ -1,6 +1,6 @@
 <?php
 	/*
-	 * $Id: _fedex.php,v 1.1 2001/03/24 00:28:12 hpdl Exp $
+	 * $Id: _fedex.php,v 1.2 2002/05/13 11:53:51 thomasamoulton Exp $
 	 *
 	 * FedEx Shipping Calculator.
 	 * Inspired by the UPS Shipping Class.  Calculate shipping costs
@@ -51,13 +51,17 @@
 			}
 		}
 		function SetDest($zip, $country = NULL) {
-			$this->DestZip = $zip;
+			$zip = str_replace(" ", "", $zip);
+			$zip = str_replace("-", "", $zip);
+			if ($country == "US") $this->DestZip = substr($zip, 0, 5);
+			else $this->DestZip = $zip;
 			if($country) {
 				$this->DestCountryCode = $country;
 			}
 		}
 		function SetWeight($weight, $units = NULL) {
-			$this->Weight = $weight;
+			if ($weight < 1) $this->Weight = 1;
+			else $this->Weight = $weight;
 			if($units) {
 				$this->WeightUnit = $units;
 			}
