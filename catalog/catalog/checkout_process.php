@@ -1,5 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
+  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_WS_INCLUDES . 'include_once.php');
 // load payment modules as objects
   include(DIR_WS_CLASSES . 'payment.php');
   $payment_modules = new payment;
@@ -76,14 +77,26 @@
 // lets start with the email confirmation function ;) ..right now its ugly, but its straight text - non html!
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
 
-  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_WS_INCLUDES . 'include_once.php');
-  $message = EMAIL_ORDER;
-
-  mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
+  $email_order = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_INVOICE_URL . " " . HTTP_SERVER . DIR_WS_CATALOG . FILENAME_ACCOUNT_HISTORY_INFO . '?order_id=' . $insert_id . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n";
+  if ($comments != '') {
+    $email_order .= $comments . "\n\n";
+  }
+  $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . EMAIL_SEPARATOR . "\n" . $products_ordered . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . tep_currency_format($cart->show_total()) . "\n" . EMAIL_TEXT_TAX . tep_currency_format($total_tax) . "\n";
+  if ($shipping_cost > 0) {
+    $email_order .= EMAIL_TEXT_SHIPPING . ' ' . tep_currency_format($shipping_cost) . ' ' . TEXT_EMAIL_VIA . ' ' . $shipping_method . "\n";
+  }
+  $email_order .= EMAIL_TEXT_TOTAL . ' ' . tep_currency_format($cart->show_total() + $total_tax + $shipping_cost) . "\n\n";
+  $email_order .= EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . EMAIL_SEPARATOR . "\n";
+  $email_order .= tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
+  $email_order .= EMAIL_TEXT_PAYMENT_METHOD . "\n" . EMAIL_SEPARATOR . "\n";
+  if (is_object($GLOBALS[$payment])) {
+    $email_order .= $GLOBALS[$payment]->payment_description . "\n\n";
+  }
+  mail($customer_values['customers_email_address'], EMAIL_TEXT_SUBJECT, $email_order, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
 
 // send emails to other people
   if (defined('SEND_EXTRA_ORDER_EMAILS_TO')) {
-    mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
+    mail(SEND_EXTRA_ORDER_EMAILS_TO, EMAIL_TEXT_SUBJECT, $email_order, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . EMAIL_FROM);
   }
 
   $cart->reset(TRUE);
