@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.13 2002/01/05 12:19:49 hpdl Exp $
+  $Id: html_output.php,v 1.14 2002/01/10 11:47:07 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -165,7 +165,7 @@
     if ($value != '') {
       $selection .= ' value="' . $value . '"';
     }
-    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) || ($value == $compare) ) {
+    if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && ($GLOBALS[$name] == $value)) || ($value && ($value == $compare)) ) {
       $selection .= ' CHECKED';
     }
     $selection .= '>';
