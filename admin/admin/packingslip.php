@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: packingslip.php,v 1.2 2002/06/11 17:44:10 dgw_ Exp $
+  $Id: packingslip.php,v 1.3 2002/06/11 17:55:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,13 +47,13 @@
       <tr>
         <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" valign="top"><b><?php echo ENTRY_SOLD_TO; ?></b></td>
+            <td class="main"><b><?php echo ENTRY_SOLD_TO; ?></b></td>
           </tr>
           <tr>
             <td class="main"><?php echo tep_address_format($order->customer['format_id'], $order->customer, 1, '&nbsp;', '<br>'); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo $order->customer['telephone']; ?></td>
@@ -64,7 +64,7 @@
         </table></td>
         <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" valign="top"><b><?php echo ENTRY_SHIP_TO; ?></b></td>
+            <td class="main"><b><?php echo ENTRY_SHIP_TO; ?></b></td>
           </tr>
           <tr>
             <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>'); ?></td>
