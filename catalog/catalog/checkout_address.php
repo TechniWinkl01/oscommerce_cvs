@@ -43,15 +43,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_delivery.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -66,8 +66,8 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
-                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_SHIPPING_QUOTE; ?>&nbsp;</td>
               </tr>
             </table></td>
             <tr>
@@ -84,8 +84,8 @@
 ?>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_MY_ADDRESS; ?>&nbsp;</td>
-                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_MY_ADDRESS; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -97,7 +97,7 @@
               <tr>
                 <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td class="main" nowrap><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
+                    <td class="main"><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', '<br>'); ?>&nbsp;</td>
                   </tr>
                 </table></td>
                 <td align="right" valign="middle" class="main">&nbsp;<input type="radio" name="sendto" value="0" CHECKED>&nbsp;</td>
@@ -107,8 +107,8 @@
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_ADDRESS_BOOK; ?>&nbsp;</td>
-                <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ADDRESS_BOOK; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVER_TO; ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -120,7 +120,7 @@
   if (!@tep_db_num_rows($address_book)) {
 ?>
           <tr>
-            <td class="smallText" nowrap>&nbsp;<? echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<? echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?>&nbsp;</td>
           </tr>
 <?
   } else {
@@ -129,14 +129,14 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
     $row = 0;
-    $boln = '<td class="smallText" nowrap>&nbsp;';
+    $boln = '<td class="smallText">&nbsp;';
     $eoln = '&nbsp;</td>' . "\n";
     while ($address_book_values = tep_db_fetch_array($address_book)) {
       $row++;
       echo '              <tr>' . "\n";
-      echo '                <td class="smallText" nowrap>&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
+      echo '                <td class="smallText">&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
       echo tep_address_label($customer_id, $address_book_values['address_book_id'], 1, $boln, $eoln);
-      echo '                <td align="right" class="smallText" nowrap>&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</td>' . "\n";
+      echo '                <td align="right" class="smallText">&nbsp;<input type="radio" name="sendto" value="' . $address_book_values['address_book_id'] . '">&nbsp;</td>' . "\n";
       echo '              </tr>' . "\n";
     }
 ?>
@@ -153,12 +153,12 @@
               <tr>
 <?
   if ($row < 5) {
-    echo '                <td class="main" nowrap>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>&nbsp;</td>' . "\n";
+    echo '                <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>&nbsp;</td>' . "\n";
   } else {
-    echo '                <td valign="top" class="smallText" nowrap>&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";
+    echo '                <td valign="top" class="smallText">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";
   }
 ?>
-                <td align="right" class="main" nowrap>&nbsp;<? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+                <td align="right" class="main">&nbsp;<? echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
               </tr>
             </table></td>
           </tr>

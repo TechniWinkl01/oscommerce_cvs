@@ -34,15 +34,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -50,12 +50,12 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td nowrap><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_ORDER_NUMBER; ?>&nbsp;</td>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_ORDER_DATE; ?>&nbsp;</td>
-            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_ORDER_COST; ?>&nbsp;</td>
-            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_ORDER_STATUS; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_ORDER_NUMBER; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_ORDER_DATE; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_ORDER_COST; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_ORDER_STATUS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -67,7 +67,7 @@
   if (@!tep_db_num_rows($history)) {
 ?>
           <tr class="accountHistory-odd">
-            <td colspan="4" class="smallText" nowrap>&nbsp;<? echo TEXT_NO_PURCHASES; ?>&nbsp;</td>
+            <td colspan="4" class="smallText">&nbsp;<? echo TEXT_NO_PURCHASES; ?>&nbsp;</td>
           </tr>
 <?
   } else {
@@ -91,10 +91,10 @@
       } else {
         echo '          <tr class="accountHistory-odd">' . "\n";
       }
-      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . $history_values['orders_id'] . '&nbsp;</td>' . "\n";
-      echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText" nowrap>&nbsp;' . tep_currency_format($total_cost, true, $history_values['currency'], $history_values['currency_value']) . '&nbsp;</td>' . "\n";
-      echo '            <td align="right" class="smallText" nowrap>&nbsp;' . $history_values['orders_status'] . '&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText">&nbsp;' . $history_values['orders_id'] . '&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, tep_get_all_get_params(array('order_id')) . 'order_id=' . $history_values['orders_id'], 'NONSSL') . '">' . tep_date_long($history_values['date_purchased']) . '</a>&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText">&nbsp;' . tep_currency_format($total_cost, true, $history_values['currency'], $history_values['currency_value']) . '&nbsp;</td>' . "\n";
+      echo '            <td align="right" class="smallText">&nbsp;' . $history_values['orders_status'] . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }

@@ -34,15 +34,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -52,9 +52,9 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_NAME; ?>&nbsp;</td>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_CITY_COUNTRY; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_NUMBER; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_NAME; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_CITY_COUNTRY; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="3"><? echo tep_black_line(); ?></td>
@@ -64,7 +64,7 @@
   if (!tep_db_num_rows($address_book)) {
 ?>
           <tr class="addressBook-odd">
-            <td colspan="3" class="smallText" nowrap>&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
+            <td colspan="3" class="smallText">&nbsp;<? echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?>&nbsp;</td>
           </tr>
 <?
   } else {
@@ -77,9 +77,9 @@
       } else {
         echo '          <tr class="addressBook-odd">' . "\n";
       }
-      echo '            <td align="center" class="smallText" nowrap>&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
-      echo '            <td class="smallText" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
-      echo '            <td align="center" class="smallText" nowrap>&nbsp;' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText">&nbsp;0' . $row . '.&nbsp;</td>' . "\n";
+      echo '            <td class="smallText">&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'NONSSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td align="center" class="smallText">&nbsp;' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '&nbsp;</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }

@@ -52,15 +52,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -70,10 +70,10 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-            <td align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
-            <td align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+            <td align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TAX; ?>&nbsp;</td>
+            <td align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="4"><? echo tep_black_line(); ?></td>
@@ -89,8 +89,8 @@
     $final_price = $orders_products_values['final_price'];
 
     echo '          <tr>' . "\n";
-    echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . $orders_products_values['products_quantity'] . '&nbsp;</td>' . "\n";
-    echo '            <td valign="top" class="main" nowrap><b>&nbsp;' . $orders_products_values['products_name'] . '&nbsp;</b>' . "\n";
+    echo '            <td align="center" valign="top" class="main">&nbsp;' . $orders_products_values['products_quantity'] . '&nbsp;</td>' . "\n";
+    echo '            <td valign="top" class="main"><b>&nbsp;' . $orders_products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
     $attributes_exist = '0';
     $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
@@ -102,8 +102,8 @@
     }
 //------display customer choosen option eof-----
 	echo '</td>' . "\n";
-    echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . number_format($orders_products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
-    echo '            <td align="right" valign="top" class="main" nowrap>&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
+    echo '            <td align="center" valign="top" class="main">&nbsp;' . number_format($orders_products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</td>' . "\n";
+    echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
       $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
@@ -134,8 +134,8 @@
           <tr>
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo TABLE_SUBHEADING_SUBTOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo tep_currency_format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<? echo TABLE_SUBHEADING_SUBTOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<? echo tep_currency_format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
   $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
@@ -144,8 +144,8 @@
   if ($total_tax > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo TABLE_SUBHEADING_TAX; ?>:&nbsp;</td>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo tep_currency_format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<? echo TABLE_SUBHEADING_TAX; ?>:&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<? echo tep_currency_format($total_tax, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
   }
@@ -153,15 +153,15 @@
   if ( (MODULE_SHIPPING_INSTALLED) || ($shipping > 0) ) {
 ?>
               <tr>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo $order_values['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?>&nbsp;</td>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo tep_currency_format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<? echo $order_values['shipping_method'] . " " . TABLE_SUBHEADING_SHIPPING; ?>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<? echo tep_currency_format($shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
   }
 ?>
               <tr>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<b><? echo TABLE_SUBHEADING_TOTAL; ?></b>&nbsp;</td>
-                <td align="right" width="100%" class="main" nowrap>&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<b><? echo TABLE_SUBHEADING_TOTAL; ?></b>&nbsp;</td>
+                <td align="right" width="100%" class="main">&nbsp;<b><? echo tep_currency_format($total_cost + $total_tax + $shipping, true, $order_currency['currency'], $order_currency['currency_value']); ?></b>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -170,13 +170,13 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_DELIVERY_ADDRESS; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-     $boln = '<tr>' . "\n" . '            <td class="main" nowrap>&nbsp;';
+     $boln = '<tr>' . "\n" . '            <td class="main">&nbsp;';
      $eoln = "&nbsp;</td>\n              </tr>\n";
      echo tep_address_format($order_values['format_id'], $order_values, 1, $boln, $eoln);
 ?>
@@ -188,7 +188,7 @@
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
+            <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_PAYMENT_METHOD; ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>
@@ -208,7 +208,7 @@
   if ($order_values['comments']) {
 ?>
           <tr>
-            <td class="main" nowrap><br><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
+            <td class="main"><br><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

@@ -134,15 +134,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -152,14 +152,14 @@
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" class="accountCategory" nowrap><? echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="7" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?
   if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($gender_error == 1) {
       echo '<input type="radio" name="gender" value="m">&nbsp;' . MALE . '&nbsp;<input type="radio" name="gender" value="m">&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
     } else {
@@ -178,8 +178,8 @@
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($firstname_error == 1) {            
       echo '<input type="text" name="firstname" maxlength="32" value="' . $HTTP_POST_VARS['firstname'] . '">&nbsp;' . ENTRY_FIRST_NAME_ERROR;
     } else {
@@ -187,8 +187,8 @@
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($lastname_error == 1) {
       echo '<input type="text" name="lastname" maxlength="32" value="' . $HTTP_POST_VARS['lastname'] . '">&nbsp;' . ENTRY_LAST_NAME_ERROR;
     } else {
@@ -196,8 +196,8 @@
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
   if (ACCOUNT_DOB) {
     if ($dob_error == 1) {
       echo '<input type="text" name="dob" value="' . $HTTP_POST_VARS['dob'] . '"maxlength="10">&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
@@ -208,8 +208,8 @@
 ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($email_address_error == 1) {
       echo '<input type="text" name="email_address" maxlength="96" value="' . $HTTP_POST_VARS['email_address'] . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_ERROR;
     }  elseif ($email_address_check_error == 1) {
@@ -224,11 +224,11 @@
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" class="accountCategory" nowrap><? echo CATEGORY_ADDRESS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="7" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($street_address_error == 1) {
       echo '<input type="text" name="street_address" maxlength="64" value="' . $HTTP_POST_VARS['street_address'] . '">&nbsp;' . ENTRY_STREET_ADDRESS_ERROR;
     } else {
@@ -239,16 +239,16 @@
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     echo $HTTP_POST_VARS['suburb'] . '<input type="hidden" name="suburb" value="' . $HTTP_POST_VARS['suburb'] . '">&nbsp;' . ENTRY_SUBURB_ERROR; ?></td>
           </tr>
 <?
   }
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($postcode_error == 1) {
       echo '<input type="text" name="postcode" maxlength="8" value="' . $HTTP_POST_VARS['postcode'] . '">&nbsp;' . ENTRY_POST_CODE_ERROR;
     } else {
@@ -256,8 +256,8 @@
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($city_error == 1) {
       echo '<input type="text" name="city" maxlength="32" value="' . $HTTP_POST_VARS['city'] . '">&nbsp;' . ENTRY_CITY_ERROR;
     } else {
@@ -268,16 +268,16 @@
   if (ACCOUNT_STATE) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     echo tep_get_zone_name($HTTP_POST_VARS['country'], $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $zone_id . '"><input type="hidden" name="state" value="' . $state . '">&nbsp;' . ENTRY_STATE_ERROR; ?></td>
           </tr>
 <?
   }
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($country_error == 1) {
       echo '<select name="country"><option value="0">' . PLEASE_SELECT . '</option>';
       $countries = tep_get_countries();
@@ -296,11 +296,11 @@
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_CONTACT; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_CONTACT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($telephone_error == 1) {
       echo '<input type="text" name="telephone" maxlength="32" value="' . $HTTP_POST_VARS['telephone'] . '">&nbsp;' . ENTRY_TELEPHONE_NUMBER_ERROR;
     } else {
@@ -308,29 +308,29 @@
     } ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     echo $HTTP_POST_VARS['fax'] . '<input type="hidden" name="fax" value="' . $HTTP_POST_VARS['fax'] . '">&nbsp;' . ENTRY_FAX_NUMBER_ERROR; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory" nowrap><? echo CATEGORY_OPTIONS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory"><? echo CATEGORY_OPTIONS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo $HTTP_POST_VARS['newsletter'] . '<input type="hidden" name="newsletter" value="' . $HTTP_POST_VARS['newsletter'] . '">&nbsp;' . ENTRY_NEWSLETTER_ERROR; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo $HTTP_POST_VARS['newsletter'] . '<input type="hidden" name="newsletter" value="' . $HTTP_POST_VARS['newsletter'] . '">&nbsp;' . ENTRY_NEWSLETTER_ERROR; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_PASSWORD; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_PASSWORD; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?
     if ($password_error == 1) {
       echo '<input type="password" name="password" maxlength="12" value="' . $HTTP_POST_VARS['password'] . '">&nbsp;' . ENTRY_PASSWORD_ERROR;
     } else {

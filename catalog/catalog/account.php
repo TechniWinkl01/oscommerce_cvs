@@ -58,15 +58,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -76,14 +76,14 @@
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory" nowrap><? echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?
    if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? if ($account_values['customers_gender'] == 'm') { echo MALE; } else { echo FEMALE; } ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? if ($account_values['customers_gender'] == 'm') { echo MALE; } else { echo FEMALE; } ?>&nbsp;</td>
           </tr>
 <?
    }
@@ -92,70 +92,70 @@
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo $account_values['customers_firstname']; ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo $account_values['customers_firstname']; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo $account_values['customers_lastname']; ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo $account_values['customers_lastname']; ?>&nbsp;</td>
           </tr>
 <?
    if (ACCOUNT_DOB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo date(DATE_FORMAT, mktime(0, 0, 0, substr($account_values['customers_dob'], 4, 2), substr($account_values['customers_dob'], 6, 2), substr($account_values['customers_dob'], 0, 4))); ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo date(DATE_FORMAT, mktime(0, 0, 0, substr($account_values['customers_dob'], 4, 2), substr($account_values['customers_dob'], 6, 2), substr($account_values['customers_dob'], 0, 4))); ?>&nbsp;</td>
           </tr>
 <?
    }
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo $account_values['customers_email_address']; ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo $account_values['customers_email_address']; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="top" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_ADDRESS; ?></td>
+            <td align="right" valign="top" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;&nbsp;</td>
-            <td align="left" class="fieldValue" nowrap><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', "<br>"); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="fieldKey">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_CONTACT; ?></td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo $account_values['customers_telephone']; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo $account_values['customers_fax']; ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;&nbsp;</td>
+            <td align="left" class="fieldValue"><? echo tep_address_label($customer_id, 0, 1, '&nbsp;', "<br>"); ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory" nowrap><? echo CATEGORY_OPTIONS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_CONTACT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? if ($account_values['customers_newsletter'] == "1") { echo ENTRY_NEWSLETTER_YES; } else { echo ENTRY_NEWSLETTER_NO; } ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo $account_values['customers_telephone']; ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo $account_values['customers_fax']; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_PASSWORD; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory"><? echo CATEGORY_OPTIONS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<? echo PASSWORD_HIDDEN; ?>&nbsp;</td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? if ($account_values['customers_newsletter'] == "1") { echo ENTRY_NEWSLETTER_YES; } else { echo ENTRY_NEWSLETTER_NO; } ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_PASSWORD; ?></td>
+          </tr>
+          <tr>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<? echo PASSWORD_HIDDEN; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>

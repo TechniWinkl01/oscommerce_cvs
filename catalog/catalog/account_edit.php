@@ -202,15 +202,15 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -220,14 +220,14 @@ function check_form() {
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory" nowrap><? echo CATEGORY_PERSONAL; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_PERSONAL; ?></td>
           </tr>
 <?
   if (ACCOUNT_GENDER) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;&nbsp;<input type="radio" name="gender" value="m"<?
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_GENDER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;&nbsp;<input type="radio" name="gender" value="m"<?
   if ($account_values['customers_gender'] == 'm') {
     echo ' CHECKED';
   } ?>>&nbsp;&nbsp;<? echo MALE; ?>&nbsp;&nbsp;<input type="radio" name="gender" value="f"<?
@@ -242,70 +242,70 @@ function check_form() {
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="firstname" maxlength="32" value="<? echo $account_values['customers_firstname']; ?>">&nbsp;<? echo ENTRY_FIRST_NAME_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="firstname" maxlength="32" value="<? echo $account_values['customers_firstname']; ?>">&nbsp;<? echo ENTRY_FIRST_NAME_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="lastname" maxlength="32" value="<? echo $account_values['customers_lastname']; ?>">&nbsp;<? echo ENTRY_LAST_NAME_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_LAST_NAME; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="lastname" maxlength="32" value="<? echo $account_values['customers_lastname']; ?>">&nbsp;<? echo ENTRY_LAST_NAME_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_DOB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="dob" value="<? echo substr($account_values['customers_dob'], -2) . '/' . substr($account_values['customers_dob'], 4, 2) . '/' . substr($account_values['customers_dob'], 0, 4); ?>" maxlength="10">&nbsp;<? echo ENTRY_DATE_OF_BIRTH_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_DATE_OF_BIRTH; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="dob" value="<? echo substr($account_values['customers_dob'], -2) . '/' . substr($account_values['customers_dob'], 4, 2) . '/' . substr($account_values['customers_dob'], 0, 4); ?>" maxlength="10">&nbsp;<? echo ENTRY_DATE_OF_BIRTH_TEXT; ?></td>
           </tr>
 <?
    }
    $rowspan=5+ACCOUNT_SUBURB+ACCOUNT_STATE+ACCOUNT_STATE;
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="email_address" maxlength="96" value="<? echo $account_values['customers_email_address']; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_EMAIL_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="email_address" maxlength="96" value="<? echo $account_values['customers_email_address']; ?>">&nbsp;<? echo ENTRY_EMAIL_ADDRESS_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory" nowrap><? echo CATEGORY_ADDRESS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<? echo $rowspan; ?>" class="accountCategory"><? echo CATEGORY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="street_address" maxlength="64" value="<? echo $account_values['customers_street_address']; ?>">&nbsp;<? echo ENTRY_STREET_ADDRESS_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STREET_ADDRESS; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="street_address" maxlength="64" value="<? echo $account_values['customers_street_address']; ?>">&nbsp;<? echo ENTRY_STREET_ADDRESS_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_SUBURB) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="suburb" maxlength="32" value="<? echo $account_values['customers_suburb']; ?>">&nbsp;<? echo ENTRY_SUBURB_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_SUBURB; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="suburb" maxlength="32" value="<? echo $account_values['customers_suburb']; ?>">&nbsp;<? echo ENTRY_SUBURB_TEXT; ?></td>
           </tr>
 <?
    }
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="postcode" maxlength="8" value="<? echo $account_values['customers_postcode']; ?>">&nbsp;<? echo ENTRY_POST_CODE_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_POST_CODE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="postcode" maxlength="8" value="<? echo $account_values['customers_postcode']; ?>">&nbsp;<? echo ENTRY_POST_CODE_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="city" maxlength="32" value="<? echo $account_values['customers_city']; ?>">&nbsp;<? echo ENTRY_CITY_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_CITY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="city" maxlength="32" value="<? echo $account_values['customers_city']; ?>">&nbsp;<? echo ENTRY_CITY_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?tep_get_country_list("country", $account_values['customers_country_id'], (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?tep_get_country_list("country", $account_values['customers_country_id'], (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></td>
           </tr>
 <?
   if (ACCOUNT_STATE) {
 ?>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<?tep_get_zone_list("zone_id", $account_values['customers_country_id'], $account_values['customers_zone_id'], "onChange=\"resetStateText(this.form)\";"); ?>&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_STATE; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<?tep_get_zone_list("zone_id", $account_values['customers_country_id'], $account_values['customers_zone_id'], "onChange=\"resetStateText(this.form)\";"); ?>&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $account_values['customers_state']; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $account_values['customers_state']; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></td>
           </tr>
 <?
   }
@@ -314,25 +314,25 @@ function check_form() {
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory" nowrap><? echo CATEGORY_CONTACT; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="3" class="accountCategory"><? echo CATEGORY_CONTACT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="telephone" maxlength="32" value="<? echo $account_values['customers_telephone']; ?>">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="telephone" maxlength="32" value="<? echo $account_values['customers_telephone']; ?>">&nbsp;<? echo ENTRY_TELEPHONE_NUMBER_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="text" name="fax" maxlength="32" value="<? echo $account_values['customers_fax']; ?>">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_FAX_NUMBER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="text" name="fax" maxlength="32" value="<? echo $account_values['customers_fax']; ?>">&nbsp;<? echo ENTRY_FAX_NUMBER_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory" nowrap><? echo CATEGORY_OPTIONS; ?></td>
+            <td align="right" valign="middle" colspan="2" rowspan="2" class="accountCategory"><? echo CATEGORY_OPTIONS; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<select name="newsletter"><?php if ($account_values['customers_newsletter']=="1") { echo '<option selected value="1">'; } else { echo '<option value="1">'; } ?><?php echo ENTRY_NEWSLETTER_YES; ?></option><?php if ($account_values['customers_newsletter']=="0") { echo '<option selected value="0">'; } else { echo '<option value="0">'; } ?><? echo ENTRY_NEWSLETTER_NO; ?></option></select>&nbsp;<? echo ENTRY_NEWSLETTER_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_NEWSLETTER; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<select name="newsletter"><?php if ($account_values['customers_newsletter']=="1") { echo '<option selected value="1">'; } else { echo '<option value="1">'; } ?><?php echo ENTRY_NEWSLETTER_YES; ?></option><?php if ($account_values['customers_newsletter']=="0") { echo '<option selected value="0">'; } else { echo '<option value="0">'; } ?><? echo ENTRY_NEWSLETTER_NO; ?></option></select>&nbsp;<? echo ENTRY_NEWSLETTER_TEXT; ?></td>
           </tr>
           <tr>
             <td colspan="2" class="fieldKey">&nbsp;</td>
@@ -341,12 +341,12 @@ function check_form() {
             <td align="right" valign="middle" colspan="2" class="accountCategory" rowspan="3"><? echo CATEGORY_PASSWORD; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="password" name="password" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="password" name="password" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION; ?>&nbsp;</td>
-            <td class="fieldValue" nowrap>&nbsp;<input type="password" name="confirmation" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION_TEXT; ?></td>
+            <td align="right" class="fieldKey">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION; ?>&nbsp;</td>
+            <td class="fieldValue">&nbsp;<input type="password" name="confirmation" maxlength="12" value="">&nbsp;<? echo ENTRY_PASSWORD_CONFIRMATION_TEXT; ?></td>
           </tr>
         </table></td>
       </tr>
