@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.39 2002/08/13 18:53:04 dgw_ Exp $
+  $Id: configuration.php,v 1.40 2002/12/29 16:55:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -116,7 +116,7 @@
       $heading[] = array('text' => '<b>' . $cInfo->configuration_title . '</b>');
 
       if ($cInfo->set_function) {
-        eval('$value_field = ' . $cInfo->set_function . "'" . $cInfo->configuration_value . "');");
+        eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value) . '");');
       } else {
         $value_field = tep_draw_input_field('configuration_value', $cInfo->configuration_value);
       }
