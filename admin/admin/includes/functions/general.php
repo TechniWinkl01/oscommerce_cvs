@@ -839,7 +839,13 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 ////
 // Sets the status of a banner
   function tep_set_banner_status($banners_id, $status) {
-    return tep_db_query("update " . TABLE_BANNERS . " set status = '" . $status . "', date_status_change = now() where banners_id = '" . $banners_id . "'");
+    if ($status == '1') {
+      return tep_db_query("update " . TABLE_BANNERS . " set status = '1', expires_impressions = NULL, expires_date = NULL, date_status_change = NULL where banners_id = '" . $banners_id . "'");
+    } elseif ($status == '0') {
+      return tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_status_change = now() where banners_id = '" . $banners_id . "'");
+    } else {
+      return -1;
+    }
   }
 
 ////
