@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.97 2001/04/01 00:26:25 hpdl Exp $
+  $Id: application_top.php,v 1.98 2001/04/01 00:40:08 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -99,7 +99,7 @@
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
 
 // define our database connection
-  define('DB_SERVER', 'exchange');
+  define('DB_SERVER', ''); // eg, localhost - should not be NULL for productive servers
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
