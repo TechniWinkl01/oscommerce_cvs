@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.16 2002/07/27 13:39:28 project3000 Exp $
+  $Id: order.php,v 1.17 2002/08/08 22:58:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -192,12 +192,14 @@
 
         $shown_price = tep_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
         $this->info['subtotal'] += $shown_price;
+
+        $products_tax = $this->products[$index]['tax'];
         if (DISPLAY_PRICE_WITH_TAX == true) {
-          $this->info['tax'] += $shown_price - ($shown_price / (($this->products[$index]['tax'] < 10) ? "1.0" . str_replace('.', '', $this->products[$index]['tax']) : "1." . str_replace('.', '', $this->products[$index]['tax'])));
-          $this->info['tax_groups']["{$this->products[$index]['tax']}"] += $shown_price - ($shown_price / (($this->products[$index]['tax'] < 10) ? "1.0" . str_replace('.', '', $this->products[$index]['tax']) : "1." . str_replace('.', '', $this->products[$index]['tax'])));
+          $this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+          $this->info['tax_groups']["$products_tax"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
         } else {
-          $this->info['tax'] += ($this->products[$index]['tax'] / 100) * $shown_price;
-          $this->info['tax_groups']["{$this->products[$index]['tax']}"] += ($this->products[$index]['tax'] / 100) * $shown_price;
+          $this->info['tax'] += ($products_tax / 100) * $shown_price;
+          $this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $shown_price;
         }
 
         $index++;
