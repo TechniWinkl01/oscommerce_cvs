@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.18 2003/12/18 23:52:14 hpdl Exp $
+  $Id: currencies.php,v 1.19 2004/04/03 10:11:58 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  if (isset($osC_Currencies) && is_object($osC_Currencies)) {
+  if (isset($osC_Currencies) && is_object($osC_Currencies) && sizeof($osC_Currencies->currencies) > 1) {
 ?>
 <!-- currencies //-->
           <tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.15 2003/06/09 22:10:48 hpdl Exp $
+  $Id: languages.php,v 1.16 2004/04/03 10:11:58 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -9,6 +9,13 @@
 
   Released under the GNU General Public License
 */
+
+  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
+    include(DIR_WS_CLASSES . 'language.php');
+    $lng = new language;
+  }
+
+ if (sizeof($lng->catalog_languages) > 1){
 ?>
 <!-- languages //-->
           <tr>
@@ -18,11 +25,6 @@
   $info_box_contents[] = array('text' => BOX_HEADING_LANGUAGES);
 
   new infoBoxHeading($info_box_contents, false, false);
-
-  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language;
-  }
 
   $languages_string = '';
   reset($lng->catalog_languages);
@@ -39,3 +41,6 @@
             </td>
           </tr>
 <!-- languages_eof //-->
+<?php
+  }
+?>
