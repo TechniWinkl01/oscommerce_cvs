@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.147 2001/06/12 20:54:08 hpdl Exp $
+  $Id: application_top.php,v 1.148 2001/06/14 02:11:33 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -347,10 +347,15 @@
       header('Location: ' . tep_href_link($goto, tep_get_all_get_params($parameters), 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
-      // customer wants to add a quickie to the cart (called from a box)
-      $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
-      if (!tep_db_num_rows($quickie_query)) {
-        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '%" . $HTTP_POST_VARS['quickie'] . "%'");
+      if ($HTTP_GET_VARS['products_id']) {
+// performed by the 'buy now' button in product listings
+        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+      } else {
+// customer wants to add a quickie to the cart (called from a box)
+        $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
+        if (!tep_db_num_rows($quickie_query)) {
+          $quickie_query = tep_db_query("select products_id from " . TABLE_PRODUCTS . " where products_model LIKE '%" . $HTTP_POST_VARS['quickie'] . "%'");
+        }
       }
       if (tep_db_num_rows($quickie_query) != 1) {
         header( 'Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
