@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: server_info.php,v 1.3 2002/03/16 01:36:56 hpdl Exp $
+  $Id: server_info.php,v 1.4 2003/03/17 15:43:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,7 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td><table border="0" cellspacing="0" cellpadding="3">
+            <td align="center"><table border="0" cellspacing="0" cellpadding="3">
               <tr>
                 <td class="smallText"><b><?php echo TITLE_SERVER_HOST; ?></b></td>
                 <td class="smallText"><?php echo $system['host'] . ' (' . $system['ip'] . ')'; ?></td>
@@ -89,7 +89,24 @@
         <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
       </tr>
       <tr>
-        <td><?php phpinfo(); ?></td>
+        <td>
+<?php
+  if (function_exists('ob_start')) {
+    ob_start();
+    phpinfo();
+    $phpinfo = ob_get_contents();
+    ob_end_clean();
+
+    $phpinfo = str_replace('border: 1px', '', $phpinfo);
+    ereg("(<style type=\"text/css\">{1})(.*)(</style>{1})", $phpinfo, $regs);
+    echo '<style type="text/css">' . $regs[2] . '</style>';
+    ereg("(<body>{1})(.*)(</body>{1})", $phpinfo, $regs);
+    echo $regs[2];
+  } else {
+    phpinfo();
+  }
+?>
+        </td>
       </tr>
     </table></td>
 <!-- body_text_eof //-->
