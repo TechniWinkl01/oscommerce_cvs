@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.121 2001/08/11 13:54:43 dwatkins Exp $
+  $Id: general.php,v 1.122 2001/08/11 15:51:55 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -563,7 +563,7 @@
     $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
     $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
 
-    return strftime(DATE_FORMAT_SHORT, mktime($hour,$minute,$second,$month,$day,$year));
+    return date(DATE_FORMAT, mktime($hour,$minute,$second,$month,$day,$year));
   }
 
 ////
