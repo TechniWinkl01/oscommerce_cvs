@@ -62,7 +62,7 @@
       global $HTTP_POST_VARS, $customer_id, $shipping_cost, $shipping_method, $total_cost, $currency_rates;
 	$customer_email = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
 	$customer_email_values = tep_db_fetch_array($customer_email);
-    if ($this-->enabled) {
+    if ($this->enabled) {
         $ipayment_return = $HTTP_POST_VARS['payment'] . '&' . SID . '&cc_owner=' . urlencode($HTTP_POST_VARS['cc_owner']);
 
 $process_button_string = '<input type="hidden" name="silent" value="true">' .
