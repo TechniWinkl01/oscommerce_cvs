@@ -445,7 +445,7 @@ function check_form() {
         $country_query = tep_db_query("select countries_name from " . TABLE_COUNTRIES . " where countries_id = '" . $customers['customers_country_id'] . "'");
         $country = tep_db_fetch_array($country_query);
 
-        $reviews_query = tep_db_query("select count(*) as number_of_reviews from " . TABLE_REVIEWS_EXTRA . " where customers_id = '" . $customers['customers_id'] . "'");
+        $reviews_query = tep_db_query("select count(*) as number_of_reviews from " . TABLE_REVIEWS . " where customers_id = '" . $customers['customers_id'] . "'");
         $reviews = tep_db_fetch_array($reviews_query);
 
         $customer_info = tep_array_merge($country, $info, $reviews);
