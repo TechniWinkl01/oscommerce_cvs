@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.86 2002/02/21 19:18:31 dgw_ Exp $
+  $Id: english.php,v 1.87 2002/03/10 01:32:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -98,6 +98,11 @@ define('BOX_SHOPPING_CART_EMPTY', '0 items');
 // best_sellers box text in includes/boxes/best_sellers.php
 define('BOX_HEADING_BESTSELLERS', 'Bestsellers');
 define('BOX_HEADING_BESTSELLERS_IN', 'Bestsellers in<br>&nbsp;&nbsp;');
+
+// notifications box text in includes/boxes/products_notifications.php
+define('BOX_HEADING_NOTIFICATIONS', 'Notifications');
+define('BOX_NOTIFICATIONS_NOTIFY', 'Notify me of updates to <b>%s</b>');
+define('BOX_NOTIFICATIONS_NOTIFY_REMOVE', 'Do not notify me of updates to <b>%s</b>');
 
 // manufacturer box text
 define('BOX_HEADING_MANUFACTURER_INFO', 'Manufacturer Info');
@@ -248,6 +253,7 @@ define('IMAGE_BUTTON_DELETE', 'Delete');
 define('IMAGE_BUTTON_EDIT_ACCOUNT', 'Edit Account');
 define('IMAGE_BUTTON_HISTORY', 'Order History');
 define('IMAGE_BUTTON_IN_CART', 'In Cart');
+define('IMAGE_BUTTON_NOTIFICATIONS', 'Notifications');
 define('IMAGE_BUTTON_QUICK_FIND', 'Quick Find');
 define('IMAGE_BUTTON_REVIEWS', 'Reviews');
 define('IMAGE_BUTTON_SHIPPING_OPTIONS', 'Shipping Options');

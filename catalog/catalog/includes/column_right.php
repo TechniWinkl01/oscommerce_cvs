@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: column_right.php,v 1.13 2001/06/12 21:02:34 hpdl Exp $
+  $Id: column_right.php,v 1.14 2002/03/10 01:32:09 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -16,7 +16,21 @@
     include(DIR_WS_BOXES . 'manufacturer_info.php');
   }
 
-  require(DIR_WS_BOXES . 'best_sellers.php');
+  if ($HTTP_GET_VARS['products_id']) {
+    if (session_is_registered('customer_id')) {
+      $check_query = tep_db_query("select count(*) as count from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customer_id . "' and global_product_notifications = '1'");
+      $check = tep_db_fetch_array($check_query);
+      if ($check['count'] > 0) {
+        include(DIR_WS_BOXES . 'best_sellers.php');
+      } else {
+        include(DIR_WS_BOXES . 'product_notifications.php');
+      }
+    } else {
+      include(DIR_WS_BOXES . 'product_notifications.php');
+    }
+  } else {
+    include(DIR_WS_BOXES . 'best_sellers.php');
+  }
 
   if ($HTTP_GET_VARS['products_id']) {
     if (basename($PHP_SELF) != FILENAME_TELL_A_FRIEND) {

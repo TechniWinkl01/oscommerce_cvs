@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.53 2002/03/07 20:22:47 hpdl Exp $
+  $Id: account.php,v 1.54 2002/03/10 01:32:09 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -70,9 +70,10 @@
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_address_book.gif', IMAGE_BUTTON_ADDRESS_BOOK); ?></a></td>
+            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_address_book.gif', IMAGE_BUTTON_ADDRESS_BOOK); ?></a></td>
             <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'); ?>"><?php echo tep_image_button('button_history.gif', IMAGE_BUTTON_HISTORY); ?></a></td>
-            <td align="right" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'); ?>"><?php echo tep_image_button('button_edit_account.gif', IMAGE_BUTTON_EDIT_ACCOUNT); ?></a></td>
+            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'); ?>"><?php echo tep_image_button('button_notifications.gif', IMAGE_BUTTON_NOTIFICATIONS); ?></a></td>
+            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'); ?>"><?php echo tep_image_button('button_edit_account.gif', IMAGE_BUTTON_EDIT_ACCOUNT); ?></a></td>
           </tr>
         </table></td>
       </tr>
