@@ -10,7 +10,7 @@ if ($HTTP_GET_VARS['action'] == 'conditions') {
   define('TOP_BAR_TITLE', 'Allgemeine Geschäftsbedingungen');
   define('HEADING_TITLE', 'Allgemeine Geschäftsbedingungen');
 
-  define('TEXT_INFORMATION', 'Fügen Sie hier Ihre Allgemeinen Geschäftsbedingungen ein.');
+  define('TEXT_INFORMATION', 'Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.');
 }
 if ($HTTP_GET_VARS['action'] == 'privacy') {
   define('NAVBAR_TITLE', 'Privatsphäre und Datenschutz');

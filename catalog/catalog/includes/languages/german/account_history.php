@@ -1,8 +1,8 @@
 <?
 /*
 German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Mathias Kowalkowski (mathias@zoomed.de)
+Last Update: 04/05/2001
+Author(s): Mathias Kowalkowski (m.kowalkowski@comnet-gmbh.net)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');

@@ -1,8 +1,8 @@
 <?
 /*
 German Text for The Exchange Project Preview Release 2.0
-Last Update: 01/12/2000
-Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
+Last Update: 04/05/2001
+Author(s): Mathias Kowalkowski (m.kowalkowski@comnet-gmbh.net)
 */
 
 define('NAVBAR_TITLE', 'Warenkorb');
@@ -19,5 +19,5 @@ define('SUB_TITLE_TOTAL', 'Summe:');
 define('IMAGE_CHECKOUT', 'Kasse');
 define('IMAGE_REMOVE_ALL', 'Inhalt l&ouml;schen');
 define('IMAGE_MAIN_MENU', 'Startseite');
-define('IMAGE_UPDATE_CART', 'Aktualisierungsvorgang Karre mit neuen Quantitäten');
+define('IMAGE_UPDATE_CART', 'St&uuml;ckzahlen im Warenkorb aktualisieren');
 ?>
