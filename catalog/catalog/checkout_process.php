@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.79 2001/12/17 23:10:06 dgw_ Exp $
+  $Id: checkout_process.php,v 1.80 2001/12/28 15:55:43 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -35,8 +35,6 @@
 // Ugly fix, will be addressed properly later on
   while (list($key) = each($delivery_values)) $delivery_values[$key] = addslashes($delivery_values[$key]);
   while (list($key) = each($customer_values)) $customer_values[$key] = addslashes($customer_values[$key]);
-
-  $comments = urldecode($GLOBALS['comments']);
 
   $delivery_name = $delivery_values['firstname'] . ' ' . $delivery_values['lastname'];
   $customer_name = $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];
@@ -111,7 +109,7 @@
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
 
   $email_order = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" . EMAIL_TEXT_INVOICE_URL . " " . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $insert_id, 'SSL', false) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . $date_formatted . "\n\n";
-  if ($comments != '') {
+  if ($comments) {
     $email_order .= $comments . "\n\n";
   }
   $email_order .= EMAIL_TEXT_PRODUCTS . "\n" . EMAIL_SEPARATOR . "\n" . $products_ordered . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_SUBTOTAL . ' ' . $currencies->format($cart->show_total()) . "\n" . EMAIL_TEXT_TAX . $currencies->format($total_tax) . "\n";
