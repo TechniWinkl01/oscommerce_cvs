@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.70 2001/11/27 12:30:42 jan0815 Exp $
+  $Id: german.php,v 1.71 2001/11/27 12:33:57 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -278,5 +278,5 @@ define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neue Produkte.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
-define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Eintsellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch.</b></font>');
+define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch.</b></font>');
 ?>
