@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.8 2001/10/02 17:31:04 mevans Exp $
+  $Id: categories.php,v 1.9 2001/11/04 19:27:47 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,6 +12,7 @@
 
 define('TOP_BAR_TITLE', 'Categorias Principales');
 define('HEADING_TITLE', 'Categorias / Productos');
+define('HEADING_TITLE_SEARCH', 'Buscar: ');
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Categorias / Productos');

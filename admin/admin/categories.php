@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.73 2001/10/11 11:16:45 dgw_ Exp $
+  $Id: categories.php,v 1.74 2001/11/04 19:27:47 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,19 +13,15 @@
   require('includes/application_top.php');
 
   if ($HTTP_GET_VARS['action']) {
-    if ($HTTP_GET_VARS['action'] == 'setflag') {
-      switch ($HTTP_GET_VARS['flag']) {
-        case '0' : tep_set_product_status($HTTP_GET_VARS['id'], '0');
-                   header('Location: ' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath'], 'NONSSL')); tep_exit();
-                   break;
-        case '1' : tep_set_product_status($HTTP_GET_VARS['id'], '1');
-                   header('Location: ' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath'], 'NONSSL')); tep_exit();
-                   break;
-        default :  header('Location: ' . tep_href_link(FILENAME_CATEGORIES, '', 'NONSSL')); tep_exit();
-                   break;
-      }
-    }
+// update status
     switch ($HTTP_GET_VARS['action']) {
+      case 'setflag':         if ($HTTP_GET_VARS['flag']) {
+                                tep_set_product_status($HTTP_GET_VARS['id'], '1');
+                              } else {
+                                tep_set_product_status($HTTP_GET_VARS['id'], '0');
+                              }
+                              header('Location: ' . tep_href_link(FILENAME_CATEGORIES, 'cPath=' . $HTTP_GET_VARS['cPath'], 'NONSSL')); tep_exit();
+                              break;
 // update category
       case 'save':            tep_db_query("update " . TABLE_CATEGORIES . " set sort_order = '" . $HTTP_POST_VARS['sort_order'] . "', parent_id = '" . $HTTP_POST_VARS['parent_id'] . "', last_modified = now() where categories_id = '" . $HTTP_POST_VARS['categories_id'] . "'");
 
@@ -506,7 +502,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td align="right"><br><form action="<?php echo tep_href_link(FILENAME_CATEGORIES); ?>" method="get"><span class="smallText">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="search" value="<?php echo $HTTP_GET_VARS['search']; ?>" size="8">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?></form></td>
           </tr>
         </table></td>
       </tr>
@@ -529,7 +525,11 @@
 <?php
     $categories_count = 0;
     $rows = 0;
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by c.sort_order, cd.categories_name");
+    if ($HTTP_GET_VARS['search']) {
+      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' and cd.categories_name like '%" . $HTTP_GET_VARS['search'] . "%' order by c.sort_order, cd.categories_name");
+    } else {
+      $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by c.sort_order, cd.categories_name");
+    }
     while ($categories = tep_db_fetch_array($categories_query)) {
       $categories_count++;
       $rows++;
@@ -573,7 +573,11 @@
 
     $products_count = 0;
 //  $rows = 0; // this shouldnt be reset
-    $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by pd.products_name");
+    if ($HTTP_GET_VARS['search']) {
+  	  $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and pd.products_name like '%" . $HTTP_GET_VARS['search'] . "%' order by pd.products_name");
+    } else {
+      $products_query = tep_db_query("select p.products_id, pd.products_name, p.products_quantity, p.products_image, p.products_price, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by pd.products_name");
+    }
     while ($products = tep_db_fetch_array($products_query)) {
       $products_count++;
       $rows++;
