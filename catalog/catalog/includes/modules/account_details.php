@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.3 2001/06/14 01:08:20 hpdl Exp $
+  $Id: account_details.php,v 1.4 2001/06/14 01:36:29 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -359,7 +359,7 @@
       if ($entry_password_error) {
         echo tep_draw_password_field('password') . '&nbsp;' . ENTRY_PASSWORD_ERROR;
       } else {
-        echo PASSWORD_HIDDEN . tep_draw_hidden_field('password');
+        echo PASSWORD_HIDDEN . tep_draw_hidden_field('password') . tep_draw_hidden_field('confirmation');
       }
     } else {
       echo tep_draw_password_field('password') . '&nbsp;' . ENTRY_PASSWORD_TEXT;
