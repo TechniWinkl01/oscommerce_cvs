@@ -77,9 +77,9 @@
             <td align="right" nowrap>&nbsp;<?=tep_image($product_info_values['manufacturers_image'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', $product_info_values['manufacturers_name']);?>&nbsp;</td>
           </tr>
 <?
-   if (PRODUCT_LIST_MODEL) {
+    if (PRODUCT_LIST_MODEL) {
       echo '<tr><td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . $product_info_values['products_model'] . '&nbsp;</font></td>';
-   }
+    }
 ?>
         </table></td>
       </tr>
@@ -87,25 +87,13 @@
         <td><?=tep_black_line();?></td>
       </tr><table>
 <?
-    if (tep_session_is_registered('customer_id')) {
-      $check_products = tep_db_query("select customers_basket_quantity from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-      if (tep_db_num_rows($check_products)) {
-        $check_products_values = tep_db_fetch_array($check_products);
-        $product_exists_in_cart = '1';
-        $product_quantity_in_cart = $check_products_values['customers_basket_quantity'];
-      } else {
-        $product_exists_in_cart = '0';
-      }
-    } elseif (tep_session_is_registered('nonsess_cart')) {
-      $nonsess_cart_contents = explode('|', $nonsess_cart);
-      for ($i=0;$i<sizeof($nonsess_cart_contents);$i++) {
-        $product_info = explode(':', $nonsess_cart_contents[$i]);
-        if ($product_info[0] == $HTTP_GET_VARS['products_id']) {
-          $product_exists_in_cart = '1';
-          $product_quantity_in_cart = $product_info[1];
-        }
-      }
+    if ($cart->get_quantity($HTTP_GET_VARS['products_id']) > 0) {
+      $product_exists_in_cart = '1';
+      $product_quantity_in_cart = $cart->get_quantity($HTTP_GET_VARS['products_id']);
+    } else {
+      $product_exists_in_cart = '0';
     }
+
 // lets retrieve all $HTTP_GET_VARS keys and values..
     $keys = array_keys($HTTP_GET_VARS);
     $values = array_values($HTTP_GET_VARS);
@@ -125,27 +113,27 @@
       <tr>
         <td><form name="cart_quantity" method="post" action="<?=tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL');?>">
 		<table border="0" width="100%"><tr><td><br><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>"><?=tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $products_name);?><?=$product_info_values['products_description'];?>
-<?  
-	if ($products_attributes == '1') {
-	$products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
-		echo '<p><b></b>' . TEXT_PRODUCT_OPTIONS . '</b><br>';
-	    echo '<table border="0" cellpading="0" cellspacing"0">';
-		while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
-		$selected = 0;
-		$products_options = tep_db_query("select products_options_values.products_options_values_id, products_options_values.products_options_values_name, products_attributes.options_values_price, products_attributes.price_prefix from products_attributes, products_options_values where products_attributes.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_attributes.options_id = '" . $products_options_name_values['products_options_id'] . "' and products_attributes.options_values_id = products_options_values.products_options_values_id");
-		echo '<tr><td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $products_options_name_values['products_options_name'] . ':&nbsp;</font></td><td>' . "\n" . '<select name ="' . $products_options_name_values['products_options_id'] . '">' . "\n" . '<option value="0">' . PLEASE_SELECT . '</option>'; 
-			 while ($products_options_values = tep_db_fetch_array($products_options)) {
-			 echo "\n" . '<option name="' . $products_options_name_values['products_options_name'] . '" value="' . $products_options_values['products_options_values_id'] . '"';
-				if ($products_options_values['options_values_price'] == 0 && $selected == 0) {
-				$selected = 1;
-				echo ' selected';
-				};
-			 echo '>' . $products_options_values['products_options_values_name'] . '&nbsp;(' . $products_options_values['price_prefix'] . CURRENCY_BEFORE . $products_options_values['options_values_price'] .')&nbsp</option>';
-			 };
-			 echo '</select></td></tr>';
-		}
-		echo '</table>';
-	} 
+<?
+    if ($products_attributes == '1') {
+      $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from products_options popt, products_attributes patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id");
+      echo '<p><b></b>' . TEXT_PRODUCT_OPTIONS . '</b><br>';
+      echo '<table border="0" cellpading="0" cellspacing"0">';
+      while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
+        $selected = 0;
+        $products_options = tep_db_query("select products_options_values.products_options_values_id, products_options_values.products_options_values_name, products_attributes.options_values_price, products_attributes.price_prefix from products_attributes, products_options_values where products_attributes.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and products_attributes.options_id = '" . $products_options_name_values['products_options_id'] . "' and products_attributes.options_values_id = products_options_values.products_options_values_id");
+        echo '<tr><td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $products_options_name_values['products_options_name'] . ':&nbsp;</font></td><td>' . "\n" . '<select name ="id[' . $products_options_name_values['products_options_id'] . ']">' . "\n"; 
+        while ($products_options_values = tep_db_fetch_array($products_options)) {
+          echo "\n" . '<option name="' . $products_options_name_values['products_options_name'] . '" value="' . $products_options_values['products_options_values_id'] . '"';
+          if ( ($products_options_values['options_values_price'] == 0 && $selected == 0) || ($cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name_values['products_options_id']] == $products_options_values['products_options_values_id'])) {
+            $selected = 1;
+            echo ' SELECTED';
+          }
+          echo '>' . $products_options_values['products_options_values_name'] . '&nbsp;(' . $products_options_values['price_prefix'] . CURRENCY_BEFORE . $products_options_values['options_values_price'] .')&nbsp</option>';
+        };
+        echo '</select></td></tr>';
+      }
+      echo '</table>';
+    }
 ?>		
 		</td></tr></table></td>
       </tr>
@@ -182,9 +170,9 @@
     }
 
     if ($product_exists_in_cart == '1') {
-      echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="new_cart_quantity[]" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="old_cart_quantity[]" value="' . $product_quantity_in_cart . '"><input type="hidden" name="products_id[]" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '116', '24', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $product_info_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '116', '24', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $product_info_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
     } else {
-      echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="new_cart_quantity[]" value="1" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="old_cart_quantity[]" value="0"><input type="hidden" name="products_id[]" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
+      echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
       if ($get_params_back != '') {
         echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
       }
