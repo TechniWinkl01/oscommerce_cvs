@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.17 2003/11/17 20:58:34 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.18 2003/11/19 21:25:59 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -115,9 +115,11 @@
             $osC_Session->remove('shipping');
           } else {
             if (isset($quote[0]['methods'][0]['title']) && isset($quote[0]['methods'][0]['cost'])) {
-              $osC_Session->set('shipping', array('id' => $osC_Session->value('shipping'),
-                                                  'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
-                                                  'cost' => $quote[0]['methods'][0]['cost']));
+              $shipping = array('id' => $osC_Session->value('shipping'),
+                                'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
+                                'cost' => $quote[0]['methods'][0]['cost']);
+
+              $osC_Session->set('shipping', $shipping);
 
               tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
             }
