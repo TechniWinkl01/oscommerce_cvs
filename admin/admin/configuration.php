@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.22 2001/11/29 17:12:51 hpdl Exp $
+  $Id: configuration.php,v 1.23 2001/12/06 18:10:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -22,8 +22,10 @@
   $cfg_group_query = tep_db_query("select configuration_group_title from configuration_group where configuration_group_id = '" . $HTTP_GET_VARS['gID'] . "'");
   $cfg_group = tep_db_fetch_array($cfg_group_query);
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript" src="includes/general.js"></script>

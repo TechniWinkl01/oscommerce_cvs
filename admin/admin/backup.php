@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.26 2001/11/23 05:09:45 hpdl Exp $
+  $Id: backup.php,v 1.27 2001/12/06 18:10:41 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -279,8 +279,10 @@
     }
   }
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>

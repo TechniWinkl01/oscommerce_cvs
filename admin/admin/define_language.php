@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: define_language.php,v 1.4 2001/09/19 08:37:42 mbs Exp $
+  $Id: define_language.php,v 1.5 2001/12/06 18:10:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -27,8 +27,10 @@
     tep_exit();
   }
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>

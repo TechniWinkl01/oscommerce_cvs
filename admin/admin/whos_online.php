@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.16 2001/11/29 17:12:52 hpdl Exp $
+  $Id: whos_online.php,v 1.17 2001/12/06 18:10:42 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -17,8 +17,10 @@
 // remove entries that have expired
   tep_db_query("delete from " . TABLE_WHOS_ONLINE . " where time_last_click < '" . $xx_mins_ago . "'");
 ?>
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
