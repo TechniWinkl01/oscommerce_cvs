@@ -8,7 +8,7 @@
               <tr>
                 <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SHIPPING_ITEM_NAME; ?></font></td>
                 <td>&nbsp;</td>
-                <td>&nbsp;<input type="checkbox" name="shipping_quote_item" value="1"
+                <td align="right">&nbsp;<input type="checkbox" name="shipping_quote_item" value="1"
 <?
   if ($shipping_count == 0) echo ' CHECKED';
   echo "></td>\n";

@@ -18,7 +18,7 @@
                   <OPTION VALUE="XPD">Worldwide Expedited</OPTION>
                   </SELECT><br>
                 </td>
-                <td>&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1"
+                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1"
 <?
   if ($shipping_count == 0) echo ' CHECKED';
   echo "></td>\n";
