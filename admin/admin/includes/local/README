@@ -6,4 +6,4 @@ the defaults set in application_top.php
 Also it *MUST* end with the following lines:
 
 // This is needed to tell application_top.php that we were read in and OK
-  define('CONFIGURE_STATUS', 'COMPLETED');
+  define('CONFIGURE_STATUS_COMPLETED', 1);
