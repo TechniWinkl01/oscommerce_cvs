@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.36 2002/08/06 14:48:28 hpdl Exp $
+  $Id: file_manager.php,v 1.37 2002/08/19 01:45:23 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,20 +53,21 @@
         }
         break;
       case 'processuploads':
-        for ($i=1; $i<6; $i++) {
-          if ($HTTP_POST_FILES['file_' . $i]) {
-            $file = $HTTP_POST_FILES['file_' . $i]['tmp_name'];
-            $file_name = $HTTP_POST_FILES['file_' . $i]['name'];
-          } elseif ($HTTP_POST_VARS['file_' . $i]) {
-            $file = $HTTP_POST_VARS['file_' . $i];
-            $file_name = $HTTP_POST_VARS['file_' . $i . '_name'];
-          } else {
-            $file = ${'file_' . $i};
-            $file_name = ${'file_' . $i . '_name'};
-          }
+        $_current_path = tep_get_local_path($current_path);
 
-          if ( ($file) && ($file != 'none') && (tep_is_uploaded_file($file)) ) {
-            copy($file, $current_path . '/' . $file_name);
+        if (!is_writeable($_current_path)) {
+          if (is_dir($_current_path)) {
+            $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $_current_path), 'error');
+          } else {
+            $messageStack->add_session(sprintf(ERROR_DIRECTORY_DOES_NOT_EXIST, $_current_path), 'error');
+          }
+        } else {
+          for ($i=1; $i<6; $i++) {
+            $file = tep_get_uploaded_file('file_' . $i);
+
+            if (is_uploaded_file($file['tmp_name'])) {
+              tep_copy_uploaded_file($file, $_current_path);
+            }
           }
         }
 
