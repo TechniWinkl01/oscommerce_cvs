@@ -219,6 +219,8 @@
   $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
 
 // lets start our session
+  if (!SID && $HTTP_GET_VARS[tep_session_name()]) 
+    tep_session_id( $HTTP_GET_VARS[tep_session_name()] );
   tep_session_start();
 
 // Fix the cart if necesary

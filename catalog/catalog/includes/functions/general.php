@@ -38,10 +38,16 @@
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
     }
+    // Put the session in the URL if we are we are using cookies and changing to SSL
+    // Otherwise, we loose the cookie and our session
+    if (!SID && !getenv(HTTPS) && $connection=='SSL') 
+      $sess = tep_session_name() . '=' . tep_session_id();
+    else 
+      $sess = SID;
     if ($parameters == '') {
-      $link = $link . $page . '?' . SID;
+      $link = $link . $page . '?' . $sess;
     } else {
-      $link = $link . $page . '?' . $parameters . '&' . SID;
+      $link = $link . $page . '?' . $parameters . '&' . $sess;
     }
     
     return $link;

@@ -23,6 +23,18 @@
 
   }
 
+  function tep_session_id($sessid='') {
+
+    return session_id($sessid);
+
+  }
+
+  function tep_session_name($name='') {
+
+    return session_name($name);
+
+  }
+
   function tep_session_close() {
 
     if (function_exists('session_close')) {
