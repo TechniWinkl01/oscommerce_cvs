@@ -1,9 +1,9 @@
 <!-- best_sellers //-->
 <?
   if ($HTTP_GET_VARS['cPath']) {
-    $best_sellers_query = tep_db_query("select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op, products_to_categories p2c, categories c where p.products_id = op.products_id and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and ((c.categories_id = '" . $current_category_id . "') OR (c.parent_id = '" . $current_category_id . "')) group by p.products_id order by ordersum DESC, p.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $best_sellers_query = tep_db_query("select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op, products_to_categories p2c, categories c where p.products_status = '1' and p.products_id = op.products_id and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and ((c.categories_id = '" . $current_category_id . "') OR (c.parent_id = '" . $current_category_id . "')) group by p.products_id order by ordersum DESC, p.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   } else {
-    $best_sellers_query = tep_db_query("select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op where p.products_id = op.products_id group by p.products_id order by ordersum DESC, p.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $best_sellers_query = tep_db_query("select p.products_id, p.products_name, sum(op.products_quantity) as ordersum from products p, orders_products op where p.products_status = '1' and p.products_id = op.products_id group by p.products_id order by ordersum DESC, p.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   }
 
   if (tep_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
