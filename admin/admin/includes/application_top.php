@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.162 2003/07/12 09:39:03 hpdl Exp $
+  $Id: application_top.php,v 1.163 2004/02/15 18:21:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -29,7 +29,7 @@
   require('includes/configure.php');
 
 // Define the project version
-  define('PROJECT_VERSION', 'osCommerce 2.2-MS2');
+  define('PROJECT_VERSION', 'osCommerce 2.2-MS3-CVS');
 
 // set php_self in the local scope
   $PHP_SELF = (isset($HTTP_SERVER_VARS['PHP_SELF']) ? $HTTP_SERVER_VARS['PHP_SELF'] : $HTTP_SERVER_VARS['SCRIPT_NAME']);
