@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.40 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: password_forgotten.php,v 1.41 2002/06/04 16:23:39 clescuyer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -107,7 +107,7 @@
 <br>
 </body>
 </html>
-<?
+<?php
   }
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
