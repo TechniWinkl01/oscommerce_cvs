@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table_block.php,v 1.2 2002/11/22 18:45:46 dgw_ Exp $
+  $Id: table_block.php,v 1.3 2003/06/02 16:10:34 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,9 +24,10 @@
       if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
 
+
       $form_set = false;
       if ($contents['form']) {
-        echo $contents['form'] . "\n";
+        $tableBox_string .= $contents['form'] . "\n";
         $form_set = true;
         tep_array_shift($contents);
       }
@@ -66,8 +67,9 @@
         }
 
         $tableBox_string .= '  </tr>' . "\n";
-        if ($contents[$i]['form']) $tableBox_string .= '</form>' . "\n";
       }
+
+      if ($form_set) $tableBox_string .= '</form>' . "\n";
 
       $tableBox_string .= '</table>' . "\n";
 
