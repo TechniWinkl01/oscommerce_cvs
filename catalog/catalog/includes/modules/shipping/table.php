@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: table.php,v 1.6 2001/08/23 21:36:39 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class table {
     var $code, $title, $description, $enabled;
 
@@ -12,9 +23,11 @@
 
 // class methods
     function select() {
-      $select_string = '<tr><td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '</td>' .
-                       '<td>&nbsp;</td>' .
-                       '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_table" value="1" CHECKED></td></tr>' . "\n";
+      $select_string = '<tr>' . "\n" .
+                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                       '  <td class="main">&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_table', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '</tr>' . "\n";
 
       return $select_string;
     }
@@ -62,19 +75,20 @@
     }
 
     function display() {
-      global $shipping_quote_table, $shipping_quote_all, $shipping_cheapest, $shipping_table_method, $shipping_table_cost;
+      global $HTTP_GET_VARS, $shipping_quote_table, $shipping_quote_all, $shipping_cheapest, $shipping_table_method, $shipping_table_cost, $shipping_selected;
+
+// set a global for the radio field (auto select cheapest shipping method)
+      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_table) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '</td>' . "\n" .
-                          '  <td class="main">&nbsp;' . $shipping_table_method . '</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_table_cost) . '</td>' . "\n" .
-                          '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="table"';
-        if ($shipping_cheapest == 'table') $display_string .= ' CHECKED';
-        $display_string .= '>&nbsp;</td>' . "\n" .
-                           '</tr>' . "\n" .
-                           '<input type="hidden" name="shipping_table_cost" value="' . $shipping_table_cost . '">' .
-                           '<input type="hidden" name="shipping_table_method" value="' . $shipping_table_method . '">' . "\n";
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . $shipping_table_method . '&nbsp;</td>' . "\n" .
+                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_table_cost) . '&nbsp;</td>' . "\n" .
+                          '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'table') .
+                                                                      tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
+                                                                      tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '&nbsp;</td>' . "\n" .
+                          '</tr>' . "\n";
       }
 
       return $display_string;

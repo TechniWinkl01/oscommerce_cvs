@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: ups.php,v 1.33 2001/08/23 21:36:40 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class ups {
     var $code, $title, $descrption, $enabled;
 
@@ -12,20 +23,22 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . '</td>' .
-                       '<td><select name="shipping_ups_prod">' .
-                         '<option value="GND" SELECTED>' . MODULE_SHIPPING_UPS_TEXT_OPT_GND . '</option>' .
-                         '<option value="1DM">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DM . '</option>' .
-                         '<option value="1DA">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DA . '</option>' .
-                         '<option value="1DP">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DP . '</option>' .
-                         '<option value="2DM">' . MODULE_SHIPPING_UPS_TEXT_OPT_2DM . '</option>' .
-                         '<option value="3DS">' . MODULE_SHIPPING_UPS_TEXT_OPT_3DS . '</option>' .
-                         '<option value="STD">' . MODULE_SHIPPING_UPS_TEXT_OPT_STD . '</option>' .
-                         '<option value="XPR">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPR . '</option>' .
-                         '<option value="XDM">' . MODULE_SHIPPING_UPS_TEXT_OPT_XDM . '</option>' .
-                         '<option value="XPD">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPD . '</option>' .
-                       '</select></td>' .
-                       '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_ups" value="1" CHECKED></td></tr>' . "\n";
+      $select_string = '<tr>' . "\n" .
+                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                       '  <td class="main">&nbsp;<select name="shipping_ups_prod">' .
+                                                '<option value="GND">' . MODULE_SHIPPING_UPS_TEXT_OPT_GND . '</option>' .
+                                                '<option value="1DM">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DM . '</option>' .
+                                                '<option value="1DA">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DA . '</option>' .
+                                                '<option value="1DP">' . MODULE_SHIPPING_UPS_TEXT_OPT_1DP . '</option>' .
+                                                '<option value="2DM">' . MODULE_SHIPPING_UPS_TEXT_OPT_2DM . '</option>' .
+                                                '<option value="3DS">' . MODULE_SHIPPING_UPS_TEXT_OPT_3DS . '</option>' .
+                                                '<option value="STD">' . MODULE_SHIPPING_UPS_TEXT_OPT_STD . '</option>' .
+                                                '<option value="XPR">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPR . '</option>' .
+                                                '<option value="XDM">' . MODULE_SHIPPING_UPS_TEXT_OPT_XDM . '</option>' .
+                                                '<option value="XPD">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPD . '</option>' .
+                                                '</select>&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_ups', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '</tr>' . "\n";
 
       return $select_string;
     }
@@ -81,19 +94,20 @@
     }
 
     function display() {
-      global $shipping_quote_ups, $shipping_quote_all, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest;
+      global $HTTP_GET_VARS, $shipping_quote_ups, $shipping_quote_all, $shipping_ups_cost, $shipping_ups_method, $shipping_cheapest, $shipping_selected;
+
+// set a global for the radio field (auto select cheapest shipping method)
+      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_ups) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . '</td>' . "\n" .
-                          '  <td class="main">' . $shipping_ups_method . '</td>' . "\n" .
-                          '  <td align="right" class="main">' . tep_currency_format($shipping_ups_cost) . '</td>' . "\n" .
-                          '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="ups"';
-        if ($shipping_cheapest == 'ups') $display_string .= ' CHECKED';
-        $display_string .= '>&nbsp;</td>' . "\n" .
-                           '</tr>' . "\n" .
-                           '<input type="hidden" name="shipping_ups_cost" value="' . $shipping_ups_cost . '">' .
-                           '<input type="hidden" name="shipping_ups_method" value="' . $shipping_ups_method . '">' . "\n";
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . $shipping_ups_method . '&nbsp;</td>' . "\n" .
+                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_ups_cost) . '&nbsp;</td>' . "\n" .
+                          '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'ups') .
+                                                                      tep_draw_hidden_field('shipping_ups_cost', $shipping_ups_cost) .
+                                                                      tep_draw_hidden_field('shipping_ups_method', $shipping_ups_method) . '&nbsp;</td>' . "\n" .
+                          '</tr>' . "\n";
       }
 
       return $display_string;

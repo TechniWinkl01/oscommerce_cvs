@@ -1,4 +1,15 @@
 <?php
+/*
+  $Id: fedex.php,v 1.21 2001/08/23 21:36:39 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class fedex {
     var $code, $title, $description, $enabled, $fedex_countries, $fedex_countries_nbr;
 
@@ -17,9 +28,11 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_TITLE) . '</td>' .
-                       '<td>&nbsp;</td>' .
-                       '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_fedex" value="1" CHECKED></td></tr>' . "\n";
+      $select_string = '<tr>' . "\n" .
+                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                       '  <td class="main">&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_fedex', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '</tr>' . "\n";
 
       return $select_string;
     }
@@ -70,31 +83,30 @@
     }
 
     function display() {
-      global $shipping_quote_fedex, $shipping_quote_all, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest;
+      global $HTTP_GET_VARS, $shipping_quote_fedex, $shipping_quote_all, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest, $shipping_selected;
+
+// set a global for the radio field (auto select cheapest shipping method)
+      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
       $display_string = '';
       if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
 // check for errors
         if ($quote['ErrorNbr']) {
           $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_TITLE) . '</td>' . "\n" .
-                             '  <td class="main"><font color="#ff0000">Error:</font> ' . htmlentities($quote['Error']) . '</td>' . "\n" .
+                             '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                             '  <td class="main">&nbsp;<font color="#ff0000">Error:</font> ' . $quote['Error'] . '&nbsp;</td>' . "\n" .
                              '  <td align="right" class="main">&nbsp;</td>' . "\n" .
-                             '  <td align="right">&nbsp;</td>' . "\n" .
+                             '  <td align="right" class="main">&nbsp;</td>' . "\n" .
                              '</tr>' . "\n";
         } else {
           $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_TITLE) . '</td>' . "\n" .
-                             '  <td class="main">' . $shipping_fedex_method . '</td>' . "\n" .
-                             '  <td align="right" class="main">' . tep_currency_format($shipping_fedex_cost) . '</td>' . "\n" .
-                             '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="fedex"';
-          if ($shipping_cheapest == 'fedex') {
-            $display_string .= ' CHECKED';
-          }
-          $display_string .= '>&nbsp;</td>' . "\n" .
-                             '</tr>' . "\n" .
-                             '<input type="hidden" name="shipping_fedex_cost" value="' . $shipping_fedex_cost . '">' .
-                             '<input type="hidden" name="shipping_fedex_method" value="' . $shipping_fedex_method . '">' . "\n";
+                             '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                             '  <td class="main">&nbsp;' . $shipping_fedex_method . '&nbsp;</td>' . "\n" .
+                             '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_fedex_cost) . '&nbsp;</td>' . "\n" .
+                             '  <td align="right">&nbsp;' . tep_draw_radio_field('shipping_selected', 'fedex') .
+                                                            tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) . 
+                                                            tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n" .
+                             '</tr>' . "\n";
         }
       }
 

@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: usps.php,v 1.22 2001/08/23 21:36:40 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class usps {
     var $code, $title, $description, $enabled;
 
@@ -12,13 +23,15 @@
 
 // class methods
     function select() {
-      $select_string = '<TR><TD class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '</td>' .
-                       '<td><select name="shipping_usps_prod">' .
-                         '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
-                         '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
-                         '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
-                       '</select></td>' .
-                       '<td align="right">&nbsp;<input type="checkbox" name="shipping_quote_usps" value="1" CHECKED></td></tr>' . "\n";
+      $select_string = '<tr>' . "\n" .
+                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                       '  <td class="main">&nbsp;<select name="shipping_usps_prod">' .
+                                                '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
+                                                '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
+                                                '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
+                                                '</select>&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_usps', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '</tr>' . "\n";
 
       return $select_string;
     }
@@ -77,19 +90,20 @@
     }
 
     function display() {
-      global $shipping_quote_usps, $shipping_quote_all, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest;
+      global $HTTP_GET_VARS, $shipping_quote_usps, $shipping_quote_all, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest, $shipping_selected;
+
+// set a global for the radio field (auto select cheapest shipping method)
+      if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
       if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
         $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '</td>' . "\n" .
-                          '  <td class="main">' . $shipping_usps_method . '</td>' . "\n" .
-                          '  <td align="right" class="main">' . tep_currency_format($shipping_usps_cost) . '</td>' . "\n" .
-                          '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="usps"';
-        if ($shipping_cheapest == 'usps') $display_string .= ' CHECKED';
-        $display_string .= '>&nbsp;</td>' . "\n" .
-                           '</tr>' . "\n" .
-                           '<input type="hidden" name="shipping_usps_cost" value="' . $shipping_usps_cost . '">' .
-                           '<input type="hidden" name="shipping_usps_method" value="' . $shipping_usps_method . '">' . "\n";
+                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '  <td class="main">&nbsp;' . $shipping_usps_method . '&nbsp;</td>' . "\n" .
+                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_usps_cost) . '&nbsp;</td>' . "\n" .
+                          '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'usps') .
+                                                                      tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
+                                                                      tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n" .
+                          '</tr>' . "\n";
       }
 
       return $display_string;
@@ -113,7 +127,7 @@
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable USPS Shipping', 'MODULE_SHIPPING_USPS_STATUS', '1', 'Do you want to offer USPS shipping?', '6', '10', now())");
-	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS USERID', 'MODULE_SHIPPING_USPS_USERID', 'NONE', 'Enter the USPS USERID assigned to you. Register at http://www.uspsprioritymail.com/et_regcert.html and also tell them you are an end user not developer.', '6', '11', now())");
+	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS USERID', 'MODULE_SHIPPING_USPS_USERID', 'NONE', 'Enter the USPS USERID assigned to you.', '6', '11', now())");
 	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS Password', 'MODULE_SHIPPING_USPS_PASSWORD', 'NONE', 'See USERID, above.', '6', '12', now())");
 	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enter the USPS URL of the production Server', 'MODULE_SHIPPING_USPS_SERVER', 'NONE', 'See above', '6', '13', now())");
     }
