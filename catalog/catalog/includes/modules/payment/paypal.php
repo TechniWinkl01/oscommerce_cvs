@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.33 2002/11/23 02:08:12 thomasamoulton Exp $
+  $Id: paypal.php,v 1.34 2002/11/25 17:43:26 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,9 +44,12 @@
     function process_button() {
       global $order, $currencies, $currency;
 
-      if (in_array($currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
+      if (MODULE_PAYMENT_PAYPAL_CURRENCY == 'Selected Currency') {
         $my_currency = $currency;
       } else {
+        $my_currency = substr(MODULE_PAYMENT_PAYPAL_CURRENCY, 5);
+      }
+      if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
         $my_currency = 'USD';
       }
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
@@ -83,23 +86,17 @@
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?', '6', '3', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbuisness.com', 'The e-mail address to use for the PayPal service', '6', '4', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service', '6', '4', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', '6', '6', 'tep_cfg_select_option(array(\'Selected Currency\',\'Only USD\',\'Only CAD\',\'Only EUR\',\'Only GBP\',\'Only JPY\'), ', now())");
     }
 
     function remove() {
-      $keys = '';
-      $keys_array = $this->keys();
-      $keys_size = sizeof($keys_array);
-      for ($i=0; $i<$keys_size; $i++) {
-        $keys .= "'" . $keys_array[$i] . "',";
-      }
-      $keys = substr($keys, 0, -1);
-
+      $keys = "'" . implode("', '", $this->keys()) . "'";
       tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID');
+      return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID', 'MODULE_PAYMENT_PAYPAL_CURRENCY');
     }
   }
 ?>
