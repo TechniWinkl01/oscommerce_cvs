@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.47 2001/09/20 09:52:06 mbs Exp $
+  $Id: shopping_cart.php,v 1.48 2001/10/15 07:02:08 mabosch Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -156,8 +156,8 @@
           <tr>
             <td colspan="<?php echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($cart->show_total()); ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($cart->show_total()); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.88 2001/09/20 19:06:32 mbs Exp $
+  $Id: checkout_confirmation.php,v 1.89 2001/10/15 07:02:08 mabosch Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -179,30 +179,30 @@
           <tr>
             <td colspan="4" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($total_cost); ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($total_cost); ?>&nbsp;</td>
               </tr>
 <?php
   if ($total_tax > 0) {
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TAX; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($total_tax); ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TAX; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($total_tax); ?>&nbsp;</td>
               </tr>
 <?php
   }
   if (MODULE_SHIPPING_INSTALLED) {
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo $currencies->format($shipping_cost); ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo $shipping_method . " " . SUB_TITLE_SHIPPING; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo $currencies->format($shipping_cost); ?>&nbsp;</td>
               </tr>
 <?php
   }
 ?>
               <tr>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading">&nbsp;<?php
+                <td align="right" class="tableHeading">&nbsp;<?php echo SUB_TITLE_TOTAL; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php
     if (TAX_INCLUDE == true) {
       echo $currencies->format($total_cost + $shipping_cost);
     } else {
