@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.164 2002/04/03 22:57:45 hpdl Exp $
+  $Id: general.php,v 1.165 2002/04/04 20:27:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -271,7 +271,7 @@
     $products_count += $products['total'];
 
     if (USE_RECURSIVE_COUNT == 'true') {
-      $child_categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where status = '1' and parent_id = '" . $category_id . "'");
+      $child_categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . $category_id . "'");
       if (tep_db_num_rows($child_categories_query)) {
         while ($child_categories = tep_db_fetch_array($child_categories_query)) {
           $products_count += tep_count_products_in_category($child_categories['categories_id'], $include_inactive);
@@ -286,7 +286,7 @@
 // Return true if the category has subcategories
 // TABLES: categories
   function tep_has_category_subcategories($category_id) {
-    $child_category_query = tep_db_query("select count(*) as count from " . TABLE_CATEGORIES . " where status = '1' and parent_id = '" . $category_id . "'");
+    $child_category_query = tep_db_query("select count(*) as count from " . TABLE_CATEGORIES . " where parent_id = '" . $category_id . "'");
     $child_category = tep_db_fetch_array($child_category_query);
 
     if ($child_category['count'] > 0) {
@@ -439,7 +439,7 @@
   function tep_build_cat_options(&$output, $preselected, $parent_id = 0, $indent = '') {
     global $languages_id;
 
-    $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.status = '1' and parent_id = '" . $parent_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
+    $categories_query = tep_db_query("select c.categories_id, cd.categories_name from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where parent_id = '" . $parent_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
     while ($categories = tep_db_fetch_array($categories_query)) {
       $output .= '<option value="' . $categories['categories_id'] . '"';
       if (in_array($categories['categories_id'], $preselected)) $output .= ' SELECTED';
@@ -455,7 +455,7 @@
 // Return all subcategory IDs
 // TABLES: categories
   function tep_get_subcategories(&$subcategories_array, $parent_id = 0) {
-    $subcategories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where status = '1' and parent_id = '" . $parent_id . "'");
+    $subcategories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . $parent_id . "'");
     while ($subcategories = tep_db_fetch_array($subcategories_query)) {
       $subcategories_array[sizeof($subcategories_array)] = $subcategories['categories_id'];
       if ($subcategories['categories_id'] != $parent_id) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: best_sellers.php,v 1.15 2002/01/09 17:19:25 hpdl Exp $
+  $Id: best_sellers.php,v 1.16 2002/04/04 20:27:10 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,7 +13,7 @@
 <!-- best_sellers //-->
 <?php
   if ($HTTP_GET_VARS['cPath']) {
-    $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c where p.products_status = '1' and p.products_id = op.products_id and pd.products_id = op.products_id and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = c.categories_id and ((c.categories_id = '" . $current_category_id . "') OR (c.parent_id = '" . $current_category_id . "')) and c.status = '1' group by p.products_id order by ordersum DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+    $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c where p.products_status = '1' and p.products_id = op.products_id and pd.products_id = op.products_id and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = c.categories_id and ((c.categories_id = '" . $current_category_id . "') OR (c.parent_id = '" . $current_category_id . "')) group by p.products_id order by ordersum DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   } else {
     $best_sellers_query = tep_db_query("select p.products_id, pd.products_name, sum(op.products_quantity) as ordersum from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_ORDERS_PRODUCTS . " op where p.products_status = '1' and p.products_id = op.products_id and pd.products_id = op.products_id and pd.language_id = '" . $languages_id . "' group by p.products_id order by ordersum DESC, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
   }
