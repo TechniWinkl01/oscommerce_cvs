@@ -41,7 +41,7 @@
       $street_address_error = 0;
     }
 
-    if (@strlen(trim($HTTP_POST_VARS['postcode'])) < ENTRY_POST_CODE_MIN_LENGTH) {
+    if (@strlen(trim($HTTP_POST_VARS['postcode'])) < ENTRY_POSTCODE_MIN_LENGTH) {
       $postcode_error = 1;
       $error = 1;
     } else {
@@ -234,7 +234,7 @@ function check_form() {
     error = 1;
   }
 
-  if (postcode == "" || postcode.length < <? echo ENTRY_POST_CODE_MIN_LENGTH; ?>) {
+  if (postcode == "" || postcode.length < <? echo ENTRY_POSTCODE_MIN_LENGTH; ?>) {
     error_message = error_message + "<? echo JS_POST_CODE; ?>";
     error = 1;
   }
