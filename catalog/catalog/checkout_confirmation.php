@@ -89,11 +89,7 @@
             <td colspan="4"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  if ($HTTP_POST_VARS['sendto'] == '0') {
-    $address = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_postcode as postcode, customers_city as city, customers_zone_id as zone_id, customers_country_id as country_id, customers_state as state from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
-  } else {
-    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
-  }
+    $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
   $address_values = tep_db_fetch_array($address);
   $total_cost = 0;
   $total_tax = 0;

@@ -116,8 +116,8 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $address_book = tep_db_query("select address_book_id from " . TABLE_ADDRESS_BOOK_TO_CUSTOMERS . " where customers_id = '" . $customer_id . "' order by address_book_id");
-  if (!@tep_db_num_rows($address_book)) {
+  $address_book = tep_db_query("select address_book_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' order by address_book_id");
+  if (tep_db_num_rows($address_book) == 1) {
 ?>
           <tr>
             <td class="smallText">&nbsp;<? echo TEXT_ADDRESS_BOOK_NO_ENTRIES; ?>&nbsp;</td>
@@ -152,7 +152,7 @@
             <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
 <?
-  if ($row < 5) {
+  if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
     echo '                <td class="main">&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>&nbsp;</td>' . "\n";
   } else {
     echo '                <td valign="top" class="smallText">&nbsp;' . TEXT_MAXIMUM_ENTRIES_REACHED . '&nbsp;</td>' . "\n";

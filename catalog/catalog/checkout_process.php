@@ -8,15 +8,14 @@
 // load the before_process function from the payment modules
   $payment_modules->before_process();
 
-  if ($sendto == '0') {
-    $delivery = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
-  } else {
-    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $sendto . "'");
-  }
+
+    $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $delivery_values = tep_db_fetch_array($delivery);
   $delivery_country = tep_get_countries($delivery_values['country_id']);
 
-  $customer = tep_db_query("select customers_firstname, customers_lastname, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_zone_id, customers_country_id, customers_telephone, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+
+
+  $customer = tep_db_query("select c.customers_firstname, c.customers_lastname, a.entry_street_address as customers_street_address, a.entry_suburb as customers_suburb, a.entry_city as customers_city, a.entry_postcode as customers_postcode, a.entry_state as customers_state, a.entry_zone_id as customers_zone_id, a.entry_country_id as customers_country_id, c.customers_telephone, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " a where c.customers_id = '" . $customer_id . "' and a.customers_id = '" . $customer_id . "' and a.address_book_id = 0");
   $customer_values = tep_db_fetch_array($customer);
   $customers_country = tep_get_countries($customer_values['customers_country_id']);
 

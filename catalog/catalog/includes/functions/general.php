@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.116 2001/07/23 10:17:56 jwildeboer Exp $
+  $Id: general.php,v 1.117 2001/07/26 07:59:35 jwildeboer Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -388,12 +388,8 @@
 ////
 // Return a formatted address
 // TABLES: customers, address_book
-  function tep_address_label($customers_id, $address_id, $html = false, $boln = '', $eoln = "\n") {
-    if ($address_id) {
-      $address_query = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . $address_id . "'");
-    } else {
-      $address_query = tep_db_query("select customers_firstname as firstname, customers_lastname as lastname, customers_street_address as street_address, customers_suburb as suburb, customers_city as city, customers_postcode as postcode, customers_state as state, customers_zone_id as zone_id, customers_country_id as country_id from " . TABLE_CUSTOMERS . " where customers_id = '" . $customers_id . "'");
-    }
+  function tep_address_label($customers_id, $address_id = 0, $html = false, $boln = '', $eoln = "\n") {
+      $address_query = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customers_id . "' and address_book_id = '" . $address_id . "'");
     $address = tep_db_fetch_array($address_query);
     $format_id = tep_get_address_format_id($address['country_id']);
     return tep_address_format($format_id, $address, $html, $boln, $eoln);
