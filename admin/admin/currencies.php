@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.37 2002/03/10 20:23:59 harley_vb Exp $
+  $Id: currencies.php,v 1.38 2002/03/11 16:58:07 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,7 +53,7 @@
         $currency_query = tep_db_query("select c.currencies_id from " . TABLE_CURRENCIES . " c, configuration cfg where cfg.configuration_key = 'DEFAULT_CURRENCY' and cfg.configuration_value = c.code");
         $currency = tep_db_fetch_array($currency_query);
         if ($currency['currencies_id'] == $currencies_id) {
-          tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
+          tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_CURRENCY'");
         }
 
         tep_db_query("delete from " . TABLE_CURRENCIES . " where currencies_id = '" . tep_db_input($currencies_id) . "'");
