@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.117 2001/07/20 12:40:21 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.118 2001/07/23 13:01:29 jwildeboer Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -413,7 +413,7 @@ INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$c
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
-INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50',now(),1);
+INSERT INTO banners VALUES (1,'The Exchange Project - Community Made Shopping!','http://www.theexchangeproject.org','images/banners/theexchangeproject.org.gif','468x50', '1000', '2001-12-12 00:00:00', now(), now(), 1);
 
 INSERT INTO categories VALUES ( '1', 'images/category_hardware.gif', '0', '1', now(), '');
 INSERT INTO categories VALUES ( '2', 'images/category_software.gif', '0', '2', now(), '');
