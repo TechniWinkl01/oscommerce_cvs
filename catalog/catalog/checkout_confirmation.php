@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.127 2003/01/09 15:53:39 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.128 2003/01/20 19:46:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -121,7 +121,7 @@
 ?>
             <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><b><?php echo HEADING_DELIVERY_ADDRESS; ?></b></td>
+                <td class="main"><?php echo '<b>' . HEADING_DELIVERY_ADDRESS . '</b> <a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL') . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>'); ?></td>
@@ -130,7 +130,7 @@
     if ($order->info['shipping_method']) {
 ?>
               <tr>
-                <td class="main"><b><?php echo HEADING_SHIPPING_METHOD; ?></b></td>
+                <td class="main"><?php echo '<b>' . HEADING_SHIPPING_METHOD . '</b> <a href="' . tep_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL') . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo $order->info['shipping_method']; ?></td>
@@ -149,7 +149,7 @@
   if (sizeof($order->info['tax_groups']) > 1) {
 ?>
                   <tr>
-                    <td class="main" colspan="2"><b><?php echo HEADING_PRODUCTS; ?></b></td>
+                    <td class="main" colspan="2"><?php echo '<b>' . HEADING_PRODUCTS . '</b> <a href="' . tep_href_link(FILENAME_SHOPPING_CART) . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
                     <td class="smallText" align="right"><b><?php echo HEADING_TAX; ?></b></td>
                     <td class="smallText" align="right"><b><?php echo HEADING_TOTAL; ?></b></td>
                   </tr>
@@ -157,7 +157,7 @@
   } else {
 ?>
                   <tr>
-                    <td class="main" colspan="3"><b><?php echo HEADING_PRODUCTS; ?></b></td>
+                    <td class="main" colspan="3"><?php echo '<b>' . HEADING_PRODUCTS . '</b> <a href="' . tep_href_link(FILENAME_SHOPPING_CART) . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
                   </tr>
 <?php
   }
@@ -207,13 +207,13 @@
           <tr class="infoBoxContents">
             <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><b><?php echo HEADING_BILLING_ADDRESS; ?></b></td>
+                <td class="main"><?php echo '<b>' . HEADING_BILLING_ADDRESS . '</b> <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL') . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, ' ', '<br>'); ?></td>
               </tr>
               <tr>
-                <td class="main"><b><?php echo HEADING_PAYMENT_METHOD; ?></b></td>
+                <td class="main"><?php echo '<b>' . HEADING_PAYMENT_METHOD . '</b> <a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL') . '"><span class="orderEdit">(' . TEXT_EDIT . ')</span></a>'; ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo $order->info['payment_method']; ?></td>

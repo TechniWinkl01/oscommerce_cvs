@@ -1,10 +1,10 @@
 /*
-  $Id: stylesheet.css,v 1.50 2002/11/02 03:06:05 hpdl Exp $
+  $Id: stylesheet.css,v 1.51 2003/01/20 19:46:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -13,6 +13,7 @@
 .errorBox { font-family : Verdana, Arial, sans-serif; font-size : 10px; background: #ffb3b5; font-weight: bold; }
 .stockWarning { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: #cc0033; }
 .productsNotifications { background: #f2fff7; }
+.orderEdit { font-family : Verdana, Arial, sans-serif; font-size : 10px; color: #70d250; text-decoration: underline; }
 
 BODY {
   background: #ffffff;
