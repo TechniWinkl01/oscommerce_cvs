@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.107 2002/05/30 15:28:18 dgw_ Exp $
+  $Id: checkout_process.php,v 1.108 2002/05/31 17:36:19 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,15 +37,53 @@
 
   $order_totals = $order_total_modules->process();
 
-  tep_db_query("insert into " . TABLE_ORDERS . " (customers_id, customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, date_purchased, orders_status, comments, currency, currency_value) values ('" . $customer_id . "', '" . $order->customer['firstname'] . ' ' . $order->customer['lastname'] . "', '" . $order->customer['street_address'] . "', '" . $order->customer['suburb'] . "', '" . $order->customer['city'] . "', '" . $order->customer['postcode'] . "', '" . $order->customer['state'] . "', '" . $order->customer['country'] . "', '" . $order->customer['telephone'] . "', '" . $order->customer['email_address'] . "', '" . $order->customer['format_id'] . "', '" . $order->delivery['firstname'] . ' ' . $order->delivery['lastname'] . "', '" . $order->delivery['street_address'] . "', '" . $order->delivery['suburb'] . "', '" . $order->delivery['city'] . "', '" . $order->delivery['postcode'] . "', '" . $order->delivery['state'] . "', '" . $order->delivery['country'] . "', '" . $order->delivery['format_id'] . "', '" . $order->info['payment_method'] . "', '" . $order->info['cc_type'] . "', '" . $order->info['cc_owner'] . "', '" . $order->info['cc_number'] . "', '" . $order->info['cc_expires'] . "', now(), '" . DEFAULT_ORDERS_STATUS_ID . "', '" . addslashes($order->info['comments']) . "', '" . $order->info['currency'] . "', '" . $order->info['currency_value'] . "')");
+  $sql_data_array = array('customers_id' => $customer_id,
+                          'customers_name' => $order->customer['firstname'] . ' ' . $order->customer['lastname'],
+                          'customers_street_address' => $order->customer['street_address'],
+                          'customers_suburb' => $order->customer['suburb'],
+                          'customers_city' => $order->customer['city'],
+                          'customers_postcode' => $order->customer['postcode'], 
+                          'customers_state' => $order->customer['state'], 
+                          'customers_country' => $order->customer['country'], 
+                          'customers_telephone' => $order->customer['telephone'], 
+                          'customers_email_address' => $order->customer['email_address'],
+                          'customers_address_format_id' => $order->customer['format_id'], 
+                          'delivery_name' => $order->delivery['firstname'] . ' ' . $order->delivery['lastname'], 
+                          'delivery_street_address' => $order->delivery['street_address'], 
+                          'delivery_suburb' => $order->delivery['suburb'], 
+                          'delivery_city' => $order->delivery['city'], 
+                          'delivery_postcode' => $order->delivery['postcode'], 
+                          'delivery_state' => $order->delivery['state'], 
+                          'delivery_country' => $order->delivery['country'], 
+                          'delivery_address_format_id' => $order->delivery['format_id'], 
+                          'payment_method' => $order->info['payment_method'], 
+                          'cc_type' => $order->info['cc_type'], 
+                          'cc_owner' => $order->info['cc_owner'], 
+                          'cc_number' => $order->info['cc_number'], 
+                          'cc_expires' => $order->info['cc_expires'], 
+                          'date_purchased' => 'now()', 
+                          'orders_status' => DEFAULT_ORDERS_STATUS_ID, 
+                          'comments' => $order->info['comments'], 
+                          'currency' => $order->info['currency'], 
+                          'currency_value' => $order->info['currency_value']);
+  tep_db_perform(TABLE_ORDERS, $sql_data_array);
   $insert_id = tep_db_insert_id();
-
   for ($i=0; $i<sizeof($order_totals); $i++) {
-    tep_db_query("insert into " . TABLE_ORDERS_TOTAL . " (orders_total_id, orders_id, title, text, value, class, sort_order) values ('', '" . $insert_id . "', '" . $order_totals[$i]['title'] . "', '" . $order_totals[$i]['text'] . "', '" . $order_totals[$i]['value'] . "', '" . $order_totals[$i]['code'] . "', '" . $order_totals[$i]['sort_order'] . "')");
+    $sql_data_array = array('orders_id' => $insert_id,
+                            'title' => $order_totals[$i]['title'],
+                            'text' => $order_totals[$i]['text'],
+                            'value' => $order_totals[$i]['value'], 
+                            'class' => $order_totals[$i]['code'], 
+                            'sort_order' => $order_totals[$i]['sort_order']);
+    tep_db_perform(TABLE_ORDERS_TOTAL, $sql_data_array);
   }
 
   $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
-  tep_db_query("insert into " . TABLE_ORDERS_STATUS_HISTORY . " (orders_id, new_value, date_added, customer_notified) values ('" . $insert_id . "', '" . DEFAULT_ORDERS_STATUS_ID . "', now(), '" . $customer_notification . "')");
+  $sql_data_array = array('orders_id' => $insert_id, 
+                          'new_value' => DEFAULT_ORDERS_STATUS_ID, 
+                          'date_added' => 'now()', 
+                          'customer_notified' => $customer_notification);
+  tep_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
 
 // initialized for the email confirmation
   $products_ordered = '';
@@ -87,7 +125,15 @@
       }
     }
 
-    tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS . " (orders_id, products_id, products_model, products_name, products_price, final_price, products_tax, products_quantity) values ('" . $insert_id . "', '" . tep_get_prid($order->products[$i]['id'])  . "', '" . addslashes($order->products[$i]['model']) . "', '" . addslashes($order->products[$i]['name']) . "', '" . $order->products[$i]['price'] . "', '"  . $order->products[$i]['final_price'] . "', '" . $order->products[$i]['tax'] . "', '" . $order->products[$i]['qty']   . "')");
+    $sql_data_array = array('orders_id' => $insert_id, 
+                            'products_id' => tep_get_prid($order->products[$i]['id']), 
+                            'products_model' => $order->products[$i]['model'], 
+                            'products_name' => $order->products[$i]['name'], 
+                            'products_price' => $order->products[$i]['price'], 
+                            'final_price' => $order->products[$i]['final_price'], 
+                            'products_tax' => $order->products[$i]['tax'], 
+                            'products_quantity' => $order->products[$i]['qty']);
+    tep_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array);
     $order_products_id = tep_db_insert_id();
 
 //------insert customer choosen option to order--------
@@ -113,9 +159,22 @@
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $order->products[$i]['id'] . "' and pa.options_id = '" . $order->products[$i]['attributes'][$j]['option_id'] . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $order->products[$i]['attributes'][$j]['value_id'] . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
         }
         $attributes_values = tep_db_fetch_array($attributes);
-        tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " (orders_id, orders_products_id, products_options, products_options_values, options_values_price, price_prefix) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix']  . "')");
+
+        $sql_data_array = array('orders_id' => $insert_id, 
+                                'orders_products_id' => $order_products_id, 
+                                'products_options' => $attributes_values['products_options_name'],
+                                'products_options_values' => $attributes_values['products_options_values_name'], 
+                                'options_values_price' => $attributes_values['options_values_price'], 
+                                'price_prefix' => $attributes_values['price_prefix']);
+        tep_db_perform(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
+
         if (DOWNLOAD_ENABLED == 'true') {
-          tep_db_query("insert into " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " (orders_id, orders_products_id, orders_products_filename, download_maxdays, download_count) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_attributes_filename'] . "', '" . $attributes_values['products_attributes_maxdays'] . "', '" . $attributes_values['products_attributes_maxcount']  . "')");
+          $sql_data_array = array('orders_id' => $insert_id, 
+                                  'orders_products_id' => $order_products_id, 
+                                  'orders_products_filename' => $attributes_values['products_attributes_filename'], 
+                                  'download_maxdays' => $attributes_values['products_attributes_maxdays'], 
+                                  'download_count' => $attributes_values['products_attributes_maxcount']);
+          tep_db_perform(TABLE_ORDERS_PRODUCTS_DOWNLOAD, $sql_data_array);
         }
         $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . $attributes_values['products_options_values_name'];
       }
