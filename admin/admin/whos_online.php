@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.33 2004/02/14 20:51:22 mevans Exp $
+  $Id: whos_online.php,v 1.34 2004/04/08 05:46:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2004 osCommerce
 
   Released under the GNU General Public License
 */
@@ -112,50 +112,60 @@
     }
 
     if ($length = strlen($session_data)) {
-      if (PHP_VERSION < 4) {
-        $start_id = strpos($session_data, 'customer_id[==]s');
-        $start_cart = strpos($session_data, 'cart[==]o');
-        $start_currency = strpos($session_data, 'currency[==]s');
-        $start_country = strpos($session_data, 'customer_country_id[==]s');
-        $start_zone = strpos($session_data, 'customer_zone_id[==]s');
-      } else {
-        $start_id = strpos($session_data, 'customer_id|s');
-        $start_cart = strpos($session_data, 'cart|O');
-        $start_currency = strpos($session_data, 'currency|s');
-        $start_country = strpos($session_data, 'customer_country_id|s');
-        $start_zone = strpos($session_data, 'customer_zone_id|s');
-      }
+      $start_id = strpos($session_data, 'osC_Customer|O');
+      $start_cart = strpos($session_data, 'cart|O');
+      $start_currency = strpos($session_data, 'currency|s');
 
-      for ($i=$start_cart; $i<$length; $i++) {
-        if ($session_data[$i] == '{') {
-          if (isset($tag)) {
-            $tag++;
-          } else {
-            $tag = 1;
+// set the customer class from the customers session
+      if ($start_id !== false) {
+        for ($i=$start_id; $i<$length; $i++) {
+          if ($session_data[$i] == '{') {
+            if (isset($tag)) {
+              $tag++;
+            } else {
+              $tag = 1;
+            }
+          } elseif ($session_data[$i] == '}') {
+            $tag--;
+          } elseif ( (isset($tag)) && ($tag < 1) ) {
+            break;
           }
-        } elseif ($session_data[$i] == '}') {
-          $tag--;
-        } elseif ( (isset($tag)) && ($tag < 1) ) {
-          break;
         }
+
+        $session_data_id = substr($session_data, $start_id, $i);
+        include(DIR_FS_CATALOG . 'includes/classes/customer.php');
+        session_decode($session_data_id);
+        $customer_id = $osC_Customer->id;
+        $country_id = $osC_Customer->country_id;
+        $zone_id = $osC_Customer->zone_id;
       }
 
-      $session_data_id = substr($session_data, $start_id, (strpos($session_data, ';', $start_id) - $start_id + 1));
-      $session_data_cart = substr($session_data, $start_cart, $i - $start_cart);
-      $session_data_currency = substr($session_data, $start_currency, (strpos($session_data, ';', $start_currency) - $start_currency + 1));
-      $session_data_country = substr($session_data, $start_country, (strpos($session_data, ';', $start_country) - $start_country + 1));
-      $session_data_zone = substr($session_data, $start_zone, (strpos($session_data, ';', $start_zone) - $start_zone + 1));
+// set the shopping cart from the customers session
+      if ($start_cart !== false) {
+        if (isset($tag)) unset($tag);
 
-      session_decode($session_data_id);
-      session_decode($session_data_currency);
-      session_decode($session_data_country);
-      session_decode($session_data_zone);
-      session_decode($session_data_cart);
+        for ($i=$start_cart; $i<$length; $i++) {
+          if ($session_data[$i] == '{') {
+            if (isset($tag)) {
+              $tag++;
+            } else {
+              $tag = 1;
+            }
+          } elseif ($session_data[$i] == '}') {
+            $tag--;
+          } elseif ( (isset($tag)) && ($tag < 1) ) {
+            break;
+          }
+        }
 
-      if (PHP_VERSION < 4) {
-        $broken_cart = $cart;
-        $cart = new shoppingCart;
-        $cart->unserialize($broken_cart);
+        $session_data_cart = substr($session_data, $start_cart, $i);
+        session_decode($session_data_cart);
+      }
+
+// set the currency from the customers session
+      if ($start_currency !== false) {
+        $session_data_currency = substr($session_data, $start_currency, (strpos($session_data, ';', $start_currency) - $start_currency + 1));
+        session_decode($session_data_currency);
       }
 
       if (is_object($cart)) {
