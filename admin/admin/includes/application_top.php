@@ -80,7 +80,7 @@
 
 // define the database table names used in the project
   define('TABLE_ADDRESS_BOOK', 'address_book');
-  define('TABLE_ADDRESS_BOOK_TO_COSTUMERS', 'address_book_to_customers');
+  define('TABLE_ADDRESS_BOOK_TO_CUSTOMERS', 'address_book_to_customers');
   define('TABLE_ADDRESS_FORMAT', 'address_format');
   define('TABLE_BANNERS', 'banners');
   define('TABLE_BANNERS_HISTORY', 'banners_history');
@@ -90,10 +90,10 @@
   define('TABLE_CONFIGURATION_GROUP', 'configuration_group');
   define('TABLE_COUNTRIES', 'countries');
   define('TABLE_CURRENCIES', 'currencies');
-  define('TABLE_COSTUMERS', 'customers');
-  define('TABLE_COSTUMERS_BASKET', 'customers_basket');
-  define('TABLE_COSTUMERS_BASKET_ATTRIBUTES', 'customers_basket_attributes');
-  define('TABLE_COSTUMERS_INFO', 'customers_info');
+  define('TABLE_CUSTOMERS', 'customers');
+  define('TABLE_CUSTOMERS_BASKET', 'customers_basket');
+  define('TABLE_CUSTOMERS_BASKET_ATTRIBUTES', 'customers_basket_attributes');
+  define('TABLE_CUSTOMERS_INFO', 'customers_info');
   define('TABLE_LANGUAGES', 'languages');
   define('TABLE_MANUFACTURERS', 'manufacturers');
   define('TABLE_ORDERS', 'orders');
