@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.17 2003/01/14 00:10:42 hpdl Exp $
+  $Id: zones.php,v 1.18 2003/01/14 03:20:42 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,6 +102,7 @@
       $this->code = 'zones';
       $this->title = MODULE_SHIPPING_ZONES_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_ZONES_TEXT_DESCRIPTION;
+      $this->sort_order = MODULE_SHIPPING_ZONES_SORT_ORDER;
       $this->icon = '';
       $this->enabled = ((MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
 
@@ -173,6 +174,7 @@
 
     function install() {
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Zones Method', 'MODULE_SHIPPING_ZONES_STATUS', 'True', 'Do you want to offer zone rate shipping?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort order of display.', 'MODULE_SHIPPING_ZONES_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', '6', '0', now())");
       for ($i = 1; $i <= $this->num_zones; $i++) {
         $default_countries = '';
         if ($i == 1) {
@@ -189,7 +191,7 @@
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_ZONES_STATUS');
+      $keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_SORT_ORDER');
 
       for ($i=1; $i<=$this->num_zones; $i++) {
         $keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
