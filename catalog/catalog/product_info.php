@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: product_info.php,v 1.89 2003/02/06 14:11:51 thomasamoulton Exp $
+  $Id: product_info.php,v 1.90 2003/02/13 03:53:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,7 +19,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 <script language="javascript"><!--
 function popupWindow(url) {
@@ -43,42 +43,36 @@ function popupWindow(url) {
 <!-- body_text //-->
     <td width="100%" valign="top"><form name="cart_quantity" method="post" action="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_product', 'NONSSL'); ?>"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?php
-  $product_info = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
-  if (!tep_db_num_rows($product_info)) { // product not found in database
+  $product_info_query = tep_db_query("select p.products_id, pd.products_name, pd.products_description, p.products_model, p.products_quantity, p.products_image, pd.products_url, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.manufacturers_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pd.products_id = p.products_id and pd.language_id = '" . $languages_id . "'");
+  if (!tep_db_num_rows($product_info_query)) { // product not found in database
 ?>
       <tr>
         <td class="main"><br><?php echo TEXT_PRODUCT_NOT_FOUND; ?></td>
       </tr>
       <tr>
-        <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
+        <td align="right"><br><a href="<?php echo tep_href_link(FILENAME_DEFAULT); ?>"><?php echo tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></a></td>
       </tr>
 <?php
   } else {
-    tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . $HTTP_GET_VARS['products_id'] . "' and language_id = '" . $languages_id . "'");
-    $product_info_values = tep_db_fetch_array($product_info);
+    tep_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and language_id = '" . $languages_id . "'");
+    $product_info = tep_db_fetch_array($product_info_query);
 
-    if ($new_price = tep_get_products_special_price($product_info_values['products_id'])) {
-      $products_price = '<s>' . $currencies->display_price($product_info_values['products_price'], tep_get_tax_rate($product_info_values['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info_values['products_tax_class_id'])) . '</span>';
+    if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
+      $products_price = '<s>' . $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span>';
     } else {
-      $products_price = $currencies->display_price($product_info_values['products_price'], tep_get_tax_rate($product_info_values['products_tax_class_id']));
-    }
-    $products_attributes = tep_db_query("select popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
-    if (tep_db_num_rows($products_attributes)) {
-      $products_attributes = '1';
-    } else {
-      $products_attributes = '0';
+      $products_price = $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id']));
     }
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr height="40">
-            <td class="pageHeading"><?php echo $product_info_values['products_name']; ?></td>
+            <td class="pageHeading"><?php echo $product_info['products_name']; ?></td>
             <td align="right" class="pageHeading"><?php echo $products_price; ?></td>
           </tr>
 <?php
-    if (PRODUCT_LIST_MODEL) {
+    if (PRODUCT_LIST_MODEL > 0) {
       echo '          <tr>' . "\n" .
-           '            <td colspan="2" class="pageHeading">' . $product_info_values['products_model'] . '</td>' . "\n" .
+           '            <td colspan="2" class="pageHeading">' . $product_info['products_model'] . '</td>' . "\n" .
            '          </tr>' . "\n";
     }
 ?>
@@ -90,39 +84,41 @@ function popupWindow(url) {
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2" align="right">
 <?php
-    if ($product_info_values['products_image'] != '') {
+    if (tep_not_null($product_info['products_image'])) {
 ?>
           <tr>
             <td align="center" class="smallText">
 <script language="javascript"><!--
-document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info_values['products_id']) . '\\\')">' . tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], addslashes($product_info_values['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '<br>' . TEXT_CLICK_TO_ENLARGE . '</a>'; ?>');
+document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_link(FILENAME_POPUP_IMAGE, 'pID=' . $product_info['products_id']) . '\\\')">' . tep_image(DIR_WS_IMAGES . $product_info['products_image'], addslashes($product_info['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '<br>' . TEXT_CLICK_TO_ENLARGE . '</a>'; ?>');
 //--></script>
 <noscript>
-<?php echo '<a href="' . tep_href_link(DIR_WS_IMAGES . $product_info_values['products_image']) . '">' . tep_image(DIR_WS_IMAGES . $product_info_values['products_image'], $product_info_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '<br>' . TEXT_CLICK_TO_ENLARGE . '</a>'; ?>
+<?php echo '<a href="' . tep_href_link(DIR_WS_IMAGES . $product_info['products_image']) . '">' . tep_image(DIR_WS_IMAGES . $product_info['products_image'], $product_info['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"') . '<br>' . TEXT_CLICK_TO_ENLARGE . '</a>'; ?>
 </noscript>
             </td>
           </tr>
 <?php
     }
 ?>
-        </table><p><?php echo stripslashes($product_info_values['products_description']); ?></p>
+        </table><p><?php echo stripslashes($product_info['products_description']); ?></p>
 <?php
-    if ($products_attributes == '1') {
-      $products_options_name = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . $HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
-      echo '<b>' . TEXT_PRODUCT_OPTIONS . '</b><br>';
-      echo '<table border="0" cellpadding="0" cellspacing"0">';
-      while ($products_options_name_values = tep_db_fetch_array($products_options_name)) { 
+    $products_attributes_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
+    $products_attributes = tep_db_fetch_array($products_attributes_query);
+    if ($products_attributes['total'] > 0) {
+      echo '<b>' . TEXT_PRODUCT_OPTIONS . '</b><br>' .
+           '<table border="0" cellpadding="0" cellspacing"0">';
+      $products_options_name_query = tep_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$HTTP_GET_VARS['products_id'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . $languages_id . "'");
+      while ($products_options_name = tep_db_fetch_array($products_options_name_query)) {
         $selected = 0;
         $products_options_array = array();
-        echo '<tr><td class="main">' . $products_options_name_values['products_options_name'] . ':</td><td>' . "\n"; 
-        $products_options = tep_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . $HTTP_GET_VARS['products_id'] . "' and pa.options_id = '" . $products_options_name_values['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . $languages_id . "'");
-        while ($products_options_values = tep_db_fetch_array($products_options)) {
-          $products_options_array[] = array('id' => $products_options_values['products_options_values_id'], 'text' => $products_options_values['products_options_values_name']);
-          if ($products_options_values['options_values_price'] != '0') {
-            $products_options_array[sizeof($products_options_array)-1]['text'] .= ' (' . $products_options_values['price_prefix'] . $currencies->display_price($products_options_values['options_values_price'], tep_get_tax_rate($product_info_values['products_tax_class_id'])) .') ';
+        echo '<tr><td class="main">' . $products_options_name['products_options_name'] . ':</td><td>' . "\n";
+        $products_options_query = tep_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . (int)$HTTP_GET_VARS['products_id'] . "' and pa.options_id = '" . $products_options_name['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . $languages_id . "'");
+        while ($products_options = tep_db_fetch_array($products_options_query)) {
+          $products_options_array[] = array('id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']);
+          if ($products_options['options_values_price'] != '0') {
+            $products_options_array[sizeof($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) .') ';
           }
         }
-        echo tep_draw_pull_down_menu('id[' . $products_options_name_values['products_options_id'] . ']', $products_options_array, $cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name_values['products_options_id']]);
+        echo tep_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $cart->contents[$HTTP_GET_VARS['products_id']]['attributes'][$products_options_name['products_options_id']]);
         echo '</td></tr>';
       }
       echo '</table>';
@@ -141,24 +137,24 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
 <?php
     }
 
-    if ($product_info_values['products_url']) {
+    if (tep_not_null($product_info['products_url'])) {
 ?>
       <tr>
-        <td class="main"><br><?php echo sprintf(TEXT_MORE_INFORMATION, tep_href_link(FILENAME_REDIRECT, 'action=url&goto=' . urlencode($product_info_values['products_url']), 'NONSSL', true, false)); ?></td>
+        <td class="main"><br><?php echo sprintf(TEXT_MORE_INFORMATION, tep_href_link(FILENAME_REDIRECT, 'action=url&goto=' . urlencode($product_info['products_url']), 'NONSSL', true, false)); ?></td>
       </tr>
 <?php
     }
 
-    if ($product_info_values['products_date_available'] > date('Y-m-d H:i:s')) {
+    if ($product_info['products_date_available'] > date('Y-m-d H:i:s')) {
 ?>
       <tr>
-        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info_values['products_date_available'])); ?></td>
+        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_DATE_AVAILABLE, tep_date_long($product_info['products_date_available'])); ?></td>
       </tr>
 <?php
     } else {
 ?>
       <tr>
-        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info_values['products_date_added'])); ?></td>
+        <td align="center" class="smallText"><br><?php echo sprintf(TEXT_DATE_ADDED, tep_date_long($product_info['products_date_added'])); ?></td>
       </tr>
 <?php
     }
@@ -167,14 +163,14 @@ document.write('<?php echo '<a href="javascript:popupWindow(\\\'' . tep_href_lin
         <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_REVIEWS, substr(tep_get_all_get_params(), 0, -1)); ?>"><?php echo tep_image_button('button_reviews.gif', IMAGE_BUTTON_REVIEWS); ?></a></td>
-            <td align="right" class="main"><input type="hidden" name="products_id" value="<?php echo $product_info_values['products_id']; ?>"><?php echo tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
+            <td align="right" class="main"><input type="hidden" name="products_id" value="<?php echo $product_info['products_id']; ?>"><?php echo tep_image_submit('button_in_cart.gif', IMAGE_BUTTON_IN_CART); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><br>
 <?php
-    if ( (USE_CACHE == 'true') && !SID) {
+    if ( (USE_CACHE == 'true') && !defined('SID')) {
       echo tep_cache_also_purchased(3600);
     } else {
       include(DIR_WS_MODULES . FILENAME_ALSO_PURCHASED_PRODUCTS);

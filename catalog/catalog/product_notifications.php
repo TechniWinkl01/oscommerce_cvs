@@ -1,42 +1,37 @@
 <?php
 /*
-  $Id: product_notifications.php,v 1.5 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: product_notifications.php,v 1.6 2003/02/13 03:53:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
   require('includes/application_top.php');
 
-  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_NOTIFICATIONS);
-
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'));
-
   if (!tep_session_is_registered('customer_id')) {
     $navigation->set_snapshot();
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  if ($HTTP_GET_VARS['action'] == 'update_notifications') {
+  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'update_notifications')) {
     $products = $HTTP_POST_VARS['products'];
     $remove = '';
-    $size = sizeof($products);
-    for ($i=0; $i<$size; $i++) {
+    for ($i=0, $n=sizeof($products); $i<$n; $i++) {
       $remove .= '\'' . $products[$i] . '\',';
     }
     $remove = substr($remove, 0, -1);
 
-    if ($remove!='') {
+    if (tep_not_null($remove)) {
       tep_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . $customer_id . "' and products_id in (" . $remove . ")");
     }
+
     tep_redirect(tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'));
-  } elseif ($HTTP_GET_VARS['action'] == 'global_notify') {
-    if ($HTTP_POST_VARS['global'] == 'enable') {
+  } elseif (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'global_notify')) {
+    if (isset($HTTP_POST_VARS['global']) && ($HTTP_POST_VARS['global'] == 'enable')) {
       tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set global_product_notifications = '1' where customers_info_id = '" . $customer_id . "'");
     } else {
       $check_query = tep_db_query("select count(*) as count from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customer_id . "' and global_product_notifications = '1'");
@@ -45,8 +40,14 @@
         tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set global_product_notifications = '0' where customers_info_id = '" . $customer_id . "'");
       }
     }
+
     tep_redirect(tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'));
   }
+
+  require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCT_NOTIFICATIONS);
+
+  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'));
 
   $global_status_query = tep_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . $customer_id . "'");
   $global_status = tep_db_fetch_array($global_status_query);
@@ -56,7 +57,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
-<base href="<?php echo (getenv('HTTPS') == 'on' ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
+<base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG; ?>">
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -114,7 +115,7 @@
           <tr>
             <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
           </tr>
-          <form name="global" <?php echo 'action="' . tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, 'action=global_notify', 'SSL') . '"'; ?> method="post">
+          <?php echo tep_draw_form('global', tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, 'action=global_notify', 'SSL')); ?>
           <tr>
             <td class="main"><?php echo tep_draw_checkbox_field('global', 'enable', true) . '&nbsp;' . TEXT_ENABLE_GLOBAL_NOTIFICATIONS; ?></td>
           </tr>
@@ -146,7 +147,7 @@
           <tr>
             <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
           </tr>
-          <form name="global" <?php echo 'action="' . tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, 'action=global_notify', 'SSL') . '"'; ?> method="post">
+          <?php echo tep_draw_form('global', tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, 'action=global_notify', 'SSL')); ?>
           <tr>
             <td class="main"><?php echo tep_draw_checkbox_field('global', 'enable') . '&nbsp;' . TEXT_ENABLE_GLOBAL_NOTIFICATIONS; ?></td>
           </tr>
