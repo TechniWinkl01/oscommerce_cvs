@@ -16,6 +16,7 @@ define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferadresse');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Zahlungsart');
 define('SUB_TITLE_SUB_TOTAL', 'Zwischensumme:');
 define('SUB_TITLE_TAX', 'Mwst. (' . TAX_VALUE . '%):');
+define('SUB_TITLE_SHIPPING', 'Versandkosten:');
 define('SUB_TITLE_TOTAL', 'Summe:');
 define('TEXT_CASH_ON_DELIVERY', 'Nachnahme');
 define('TEXT_CREDIT_CARD', 'Kredit Karte');

@@ -185,6 +185,19 @@
 
   define('REVIEW_TEXT_MIN_LENGTH', 50);
 
+// Shipping Options
+  define('SHIPPING_FREE', 1);
+  define('SHIPPING_MODEL', 0);
+  define('SHIPPING_NONE', 0); // Shipping Models
+  define('SHIPPING_UPS', 1);
+
+// Vars for UPS Shipping Model (Only really useful for USA Stores)
+  define('UPS_SPEED', "GND");
+  define('UPS_ORIGIN_ZIP', "34685");
+  define('UPS_PICKUP', "CC");
+  define('UPS_PACKAGE', "CP");
+  define('UPS_RES', "RES");
+
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
     $language = 'english';

@@ -75,16 +75,27 @@
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format($total_cost,2);?>&nbsp;</font></td>
               </tr>
 <?
-  $order = tep_db_query("select delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, products_tax, payment_method from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order = tep_db_query("select delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, products_tax, payment_method, shipping_cost from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_values = tep_db_fetch_array($order);
 ?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TABLE_SUBHEADING_TAX;?> (<? echo $order_values['products_tax']; ?>%):&nbsp;</font></td>
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format(($total_cost * $order_values['products_tax']/100), 2);?>&nbsp;</font></td>
               </tr>
+<?
+  $shipping = $order_values['shipping_cost'];
+  if(!SHIPPING_FREE || $shipping > 0) {
+?>
+              <tr>
+                <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<?=TABLE_SUBHEADING_SHIPPING;?>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;$<?=number_format($shipping, 2);?>&nbsp;</font></td>
+              </tr>
+<?
+  }
+?>
               <tr>
                 <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<b><?=TABLE_SUBHEADING_TOTAL;?></b>&nbsp;</font></td>
-                <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<b>$<?=number_format((($total_cost * $order_values['products_tax']/100) + $total_cost), 2);?></b>&nbsp;</font></td>
+                <td align="right" width="100%" nowrap><font face="<?=TEXT_FONT_FACE;?>" size="<?=TEXT_FONT_SIZE;?>" color="<?=TEXT_FONT_COLOR;?>">&nbsp;<b>$<?=number_format((($total_cost * $order_values['products_tax']/100) + $total_cost + $shipping), 2);?></b>&nbsp;</font></td>
               </tr>
             </table></td>
           </tr>

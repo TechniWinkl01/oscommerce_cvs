@@ -17,6 +17,7 @@ define('TABLE_HEADING_DELIVERY_ADDRESS', 'Delivery Address');
 define('TABLE_HEADING_PAYMENT_METHOD', 'Payment Method');
 define('TABLE_SUBHEADING_SUBTOTAL', 'Sub-Total:');
 define('TABLE_SUBHEADING_TAX', 'Tax');
+define('TABLE_SUBHEADING_SHIPPING', 'Shipping:');
 define('TABLE_SUBHEADING_TOTAL', 'Total:');
 define('TEXT_COD', 'Cash on Delivery');
 define('TEXT_CC', 'Credit Card');

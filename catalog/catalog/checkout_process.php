@@ -14,8 +14,9 @@
 
   $delivery_name = $delivery_values['firstname'] . ' ' . $delivery_values['lastname'];
   $customer_name = $customer_values['customers_firstname'] . ' ' . $customer_values['customers_lastname'];
+  $shipping_cost = $HTTP_POST_VARS['shipping'];
 
-  tep_db_query("insert into orders values ('', '" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $customer_values['customers_state'] . "', '" . $customer_values['customers_country'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $delivery_values['state'] . "', '" . $delivery_values['country'] . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', '" . $date_now . "', '" . TAX_VALUE . "')");
+  tep_db_query("insert into orders values ('', '" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $customer_values['customers_state'] . "', '" . $customer_values['customers_country'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $delivery_values['state'] . "', '" . $delivery_values['country'] . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', '" . $date_now . "', '" . TAX_VALUE . "', '" . $shipping_cost . "', 'Pending', '')");
   $insert_id = tep_db_insert_id();  
 
   $cart = tep_db_query("select customers_basket.customers_basket_quantity, manufacturers.manufacturers_name, manufacturers.manufacturers_location, products.products_id, products.products_name, products.products_price from customers_basket, manufacturers, products_to_manufacturers, products where customers_basket.customers_id = '" . $customer_id . "' and customers_basket.products_id = products.products_id and products.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id order by customers_basket.customers_basket_id");
@@ -41,7 +42,7 @@
   $date_formatted = strftime(DATE_FORMAT_LONG, mktime(0,0,0,substr($date_now, 4, 2),substr($date_now, -2),substr($date_now, 0, 4)));
   $subtotal = number_format($subtotal, 2);
   $tax = number_format(($subtotal * TAX_VALUE/100), 2);
-  $total = number_format(($subtotal + $tax), 2);
+  $total = number_format(($subtotal + $tax + $shipping_cost), 2);
 
   $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PROCESS; include(DIR_INCLUDES . 'include_once.php');
   $message = EMAIL_ORDER;

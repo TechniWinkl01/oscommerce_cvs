@@ -55,7 +55,7 @@
             <td colspan="4"><?=tep_black_line();?></td>
           </tr>
 <?
-  $history = tep_db_query("select orders_id, date_purchased, products_tax from orders where customers_id = '" . $customer_id . "' order by orders_id DESC");
+  $history = tep_db_query("select orders_id, date_purchased, products_tax, shipping_cost from orders where customers_id = '" . $customer_id . "' order by orders_id DESC");
   if (@!tep_db_num_rows($history)) {
 ?>
           <tr bgcolor="#f4f7fd">
@@ -73,7 +73,7 @@
         $total_cost = $total_cost + ($history_total_values['products_price'] * $history_total_values['products_quantity']);
         $total_quantity = $total_quantity + $history_total_values['products_quantity'];
       }
-      $total_cost = ($total_cost + ($total_cost * (TAX_VALUE/100)));
+      $total_cost = ($total_cost + $history_values['shipping_cost'] + ($total_cost * ($history_values['products_tax']/100)));
       $history_date = date('l, dS F, Y', mktime(0,0,0,substr($history_values['date_purchased'], 4, 2),substr($history_values['date_purchased'], -2),substr($history_values['date_purchased'], 0, 4)));
       if (($row / 2) == floor($row / 2)) {
         echo '          <tr bgcolor="#ffffff">' . "\n";
