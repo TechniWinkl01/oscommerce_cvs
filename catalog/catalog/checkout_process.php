@@ -23,9 +23,9 @@
   $date_now = date('Ymd');
 
   // Ugly fix, will be addressed properly later on
-  while (list($key) = each($delivery_values)) 
+  while (list($key) = each($delivery_values))
     $delivery_values[$key] = addslashes($delivery_values[$key]);
-  while (list($key) = each($customer_values)) 
+  while (list($key) = each($customer_values))
     $customer_values[$key] = addslashes($customer_values[$key]);
   $comments = urldecode($comments);
 
@@ -52,9 +52,28 @@
     $products_tax = tep_get_tax_rate($delivery_values['zone_id'], $products[$i]['tax_class_id']);
     $products_weight = $products[$i]['weight'];
 
+   // Stock Update - Joao Correia
+   if (STOCK_LIMITED) {
+   $qtd_stock_query = tep_db_query("select products_quantity from products where products_id like '" . $products[$i]['id'] . "'");
+   $stock = tep_db_fetch_array($qtd_stock_query);
+
+   $qtd_stock = $stock['products_quantity'];
+   $qtd_buy =  ($products[$i]['quantity']);
+   $qtd_left = ($qtd_stock -= $qtd_buy);
+
+   tep_db_query("update products set products_quantity = '" . $qtd_left ."' where products_id like '" . $products[$i]['id'] . "'");
+
+   if ($qtd_left == '0') {
+   tep_db_query("update products set products_status = '0' where products_id like '" . $products[$i]['id'] . "'");
+      }
+   }
+   // Stock Update !
+
 
     tep_db_query("insert into orders_products (orders_id, products_id, products_name, products_price, final_price, products_tax, products_quantity) values ('" . $insert_id . "', '" . tep_get_prid($products[$i]['id'])  . "', '" . addslashes($products_name) . "', '" . $products_price . "', '"  . $total_products_price . "', '" . $products_tax . "', '" . $products[$i]['quantity']   . "')");
     $order_products_id = tep_db_insert_id();
+
+
 //------insert customer choosen option to order--------
     $attributes_exist = '0';
     if ($products[$i]['attributes']) {
@@ -66,7 +85,7 @@
         tep_db_query("insert into orders_products_attributes (orders_id, orders_products_id, products_options, products_options_values, options_values_price, price_prefix) values ('" . $insert_id . "', '" . $order_products_id . "', '" . $attributes_values['products_options_name'] . "', '" . $attributes_values['products_options_values_name'] . "', '" . $attributes_values['options_values_price'] . "', '" . $attributes_values['price_prefix']  . "')");
       }
     }
-//------insert customer choosen option eof ---- 
+//------insert customer choosen option eof ----
     $total_weight += ($products[$i]['quantity'] * $products_weight);
     $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
     $total_cost += $total_products_price;
@@ -103,6 +122,6 @@
 
 // load the after_process function from the payment modules
   $payment_modules->after_process();
-  header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));  
+  header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 ?>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

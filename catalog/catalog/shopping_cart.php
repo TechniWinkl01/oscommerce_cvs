@@ -91,6 +91,11 @@
       if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</td>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
+      if (STOCK_CHECK) {
+      echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
+      }
+
+
 //------display customer choosen option --------
       $attributes_exist = '0';
       if ($cart->contents[$products[$i]['id']]['attributes']) {
@@ -125,7 +130,7 @@
     }
 ?>
           <tr>
-            <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
+            <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?><? if ($any_out_of_stock) { echo "<br>&nbsp;<br><center><font size=1 color=crimson face=verdana><center>".OUT_OF_STOCK."</font><p></center>"; } ?></td>
           </tr>
           <tr>
             <td colspan="<? echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">

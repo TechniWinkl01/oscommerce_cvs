@@ -20,4 +20,6 @@ define('IMAGE_CHECKOUT', 'Checkout');
 define('IMAGE_REMOVE_ALL', 'Remove All');
 define('IMAGE_MAIN_MENU', 'Main Menu');
 define('IMAGE_UPDATE_CART', 'Update Cart with new Quantities');
+
+define('OUT_OF_STOCK', 'Products marked with *** dont exist in desired quantity in our stock.<br>Please alter the quantity of products marked with (***), Thank you');
 ?>

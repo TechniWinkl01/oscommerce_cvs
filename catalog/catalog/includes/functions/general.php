@@ -40,9 +40,9 @@
     }
     // Put the session in the URL if we are we are using cookies and changing to SSL
     // Otherwise, we loose the cookie and our session
-    if (!SID && !getenv(HTTPS) && $connection=='SSL') 
+    if (!SID && !getenv(HTTPS) && $connection=='SSL')
       $sess = tep_session_name() . '=' . tep_session_id();
-    else 
+    else
       $sess = SID;
     if ($parameters == '') {
       $link = $link . $page . '?' . $sess;
@@ -54,6 +54,45 @@
 
     return $link;
   }
+
+// Check  & Update Stock
+// Check Stock function
+
+ function check_stock ($ident, $qtd) {
+  global $qtd_stock, $out_of_stock, $any_out_of_stock;
+
+        $qtd_stock_query = tep_db_query("select products_quantity from products where products_id like '$ident'");
+        $stock = tep_db_fetch_array($qtd_stock_query);
+        $qtd_stock = $stock['products_quantity'];
+        $qtd_buy =  ($qtd);
+        $qtd_left = ($qtd_stock -= $qtd_buy);
+
+        if ($qtd_left <= '-1') {
+
+        $qtd_stock_query = tep_db_query("select products_quantity from products where products_id like '$ident'");
+        $stock = tep_db_fetch_array($qtd_stock_query);
+        $qtd_stock = $stock['products_quantity'];
+
+        $out_of_stock = "<font size=1 color=crimson face=verdana><small>***</small></font>";
+        $any_out_of_stock = "YES";
+
+        } else {
+        $out_of_stock = "";
+        }
+
+return $out_of_stock;
+return $any_out_of_stock;
+
+}
+// End Check Stock
+
+
+
+
+
+
+
+
 
 // $currency is in the session variable
   function tep_currency_format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
@@ -143,7 +182,7 @@
 
   function tep_image_submit($src, $alt) {
     global $image_submit;
-    
+
     if ((CONFIG_CALCULATE_IMAGE_SIZE) && ($size = @GetImageSize($src))) {
       $width = $size[0];
       $height = $size[1];
@@ -156,15 +195,15 @@
     if ($height)
       $image_submit .= ' height="' . $height . '"';
     $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' ">';
-    
+
     return $image_submit;
   }
 
   function tep_black_line() {
     global $black_line;
-    
+
     $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
-    
+
     return $black_line;
   }
 
@@ -267,11 +306,11 @@
     return $array_reversed;
   }
 
-  function tep_browser_detect($component) { 
-    global $HTTP_USER_AGENT; 
-    $result = stristr($HTTP_USER_AGENT,$component); 
-    return $result; 
-  } 
+  function tep_browser_detect($component) {
+    global $HTTP_USER_AGENT;
+    $result = stristr($HTTP_USER_AGENT,$component);
+    return $result;
+  }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //   tep_get_country_list
@@ -299,20 +338,20 @@
 
     // start building the popup menu
     $result = "<select name=\"$popup_name\"";
-    
+
     if ($size != 1)
       $result .= " size=\"$size\"";
-      
+
     if ($javascript)
       $result .= " " . $javascript;
-    
+
     $result .= ">\n";
-    
+
     $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
 
       // need to convert this to use tep_get_countries()
       $country_result = tep_db_query("select countries_name, countries_id from countries order by countries_name");
-      
+
       while ($country_values = tep_db_fetch_array($country_result)) {
 
       // printed SELECTED if an item was previously selected
@@ -325,7 +364,7 @@
      }
     // finish the popup menu
     $result .= "</select>\n";
-    
+
     echo $result;
   }
 
@@ -355,20 +394,20 @@
 
     // start building the popup menu
     $result = "<select name=\"$popup_name\"";
-    
+
     if ($size != 1)
       $result .= " size=\"$size\"";
-      
+
     if ($javascript)
       $result .= " " . $javascript;
-    
+
     $result .= ">\n";
-    
+
     // Preset the width of the drop-down for Netscape
     //
     // 53 "&nbsp;" would provide the width for my longer state/province name
     // this number should be customized for your need
-    // 
+    //
     if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) {
       for ($i=0; $i<53; $i++)
         $result .= "&nbsp;";
@@ -380,7 +419,7 @@
       $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
     else
       $result .= "<option value=\"\">" . TYPE_BELOW . "</option>\n";
- 
+
     $populated = 0;
     while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
       $populated++;
@@ -392,10 +431,10 @@
         $result .= "<option value=\"$state_prov_values[zone_id]\">$state_prov_values[zone_name]</option>\n";
       }
     }
- 
+
     // Create dummy options for Netscape to preset the height of the drop-down
     if ($populated == 0) {
-      if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) { 
+      if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) {
         for ($i=0; $i<9; $i++) {
           $result .= "\n<option value=\"\"></option>";
         }
@@ -404,7 +443,7 @@
 
     // finish the popup menu
     $result .= "\n</select>\n";
-    
+
     echo $result;
 
   }
@@ -429,11 +468,11 @@
     while ($country_values = tep_db_fetch_array($country_query)) {
       if ($NumCountry == 1)
         print ("  if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
-      else 
+      else
         print ("  else if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
-  
+
       $state_query = tep_db_query("select zones.zone_name, zones.zone_id from zones where zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by zones.zone_name");
-      
+
       $NumState = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
         if ($NumState == 1)
@@ -453,7 +492,7 @@
   //
   // Function    : tep_get_country_name
   //
-  // Arguments   : country        country code string 
+  // Arguments   : country        country code string
   //
   // Return      : none
   //
@@ -471,7 +510,7 @@
       $country_values = tep_db_fetch_array($country_query);
       $country_name = $country_values['countries_name'];
     }
-    
+
     return $country_name;
 
   }
@@ -500,7 +539,7 @@
       $state_prov_values = tep_db_fetch_array($state_prov_query);
       $state_prov_name = $state_prov_values['zone_name'];
     }
-    
+
     return $state_prov_name;
   }
 
@@ -528,7 +567,7 @@
       $state_prov_values = tep_db_fetch_array($state_prov_query);
       $state_prov_code = $state_prov_values['zone_code'];
     }
-    
+
     return $state_prov_code;
   }
 
@@ -627,13 +666,13 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-// Function	: tep_get_address_format_id
+// Function        : tep_get_address_format_id
 //
-// Arguments	: country_id
+// Arguments        : country_id
 //
-// Return	: address_format_id
+// Return        : address_format_id
 //
-// Description	: For a given Countries_id return the address_format_id for that country
+// Description        : For a given Countries_id return the address_format_id for that country
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -647,14 +686,14 @@ function tep_get_address_format_id($country_id)
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-// Function	: tep_format_address
+// Function        : tep_format_address
 //
-// Arguments	: customers_id, address_id, html
+// Arguments        : customers_id, address_id, html
 //
-// Return	: properly formatted address
+// Return        : properly formatted address
 //
-// Description	: This function will lookup the Addres format from the countries database
-//		  and properly format the address label.
+// Description        : This function will lookup the Addres format from the countries database
+//                  and properly format the address label.
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -720,14 +759,14 @@ function tep_address_label($customers_id, $address_id, $html=0, $boln='', $eoln=
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-// Function	: tep_address_summary
+// Function        : tep_address_summary
 //
-// Arguments	: customers_id, address_id
+// Arguments        : customers_id, address_id
 //
-// Return	: properly formatted address summary
+// Return        : properly formatted address summary
 //
-// Description	: This function will lookup the Addres format from the countries database
-//		  and properly format the address summary.
+// Description        : This function will lookup the Addres format from the countries database
+//                  and properly format the address summary.
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -883,11 +922,11 @@ function tep_address_summary($customers_id, $address_id) {
         break;
       }
     }
-  
+
     if ($separator_idx != -1) {
       $format_string_array = explode( $separators[$separator_idx], $format_string );
       $date_to_reformat_array = explode( $separators[$separator_idx], $date_to_reformat );
-  
+
       for ($i=0; $i<sizeof($format_string_array); $i++) {
         if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm')
           $month = $date_to_reformat_array[$i];
@@ -911,11 +950,11 @@ function tep_address_summary($customers_id, $address_id) {
       else {
         $month = substr( $date_to_reformat, strpos($format_string, 'mm'), 2 );
       }
-  
+
       $day = substr( $date_to_reformat, strpos($format_string, 'dd'), 2 );
       $year = substr( $date_to_reformat, strpos($format_string, 'yyyy'), 2 );
     }
-  
+
     return sprintf ("%04d%02d%02d", $year, $month, $day);
   }
 
@@ -946,88 +985,88 @@ function tep_address_summary($customers_id, $address_id) {
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_parse_search_string( $search_str = "", &$objects ) {
     $search_str = strtolower($search_str);
-  
-    //--- Break up $search_str on whitespace; quoted string will be reconstructed later ---
-    $pieces = split ( "[[:space:]]+", $search_str ); 
 
-    $objects = array(); 
-    $tmpstring=""; 
-    $flag = ""; 
-  
-    for ( $k=0; $k<count($pieces); $k++ ) { 
-  
-      while ( substr($pieces[$k], 0, 1) == '(' )  { 
-          $objects[] = '('; 
+    //--- Break up $search_str on whitespace; quoted string will be reconstructed later ---
+    $pieces = split ( "[[:space:]]+", $search_str );
+
+    $objects = array();
+    $tmpstring="";
+    $flag = "";
+
+    for ( $k=0; $k<count($pieces); $k++ ) {
+
+      while ( substr($pieces[$k], 0, 1) == '(' )  {
+          $objects[] = '(';
           if (strlen( $pieces[$k] ) > 1)
             $pieces[$k] = substr( $pieces[$k], 1 );
           else
             $pieces[$k] = '';
       }
-  
+
       $post_objects = array();
-  
-      while ( substr($pieces[$k], -1) == ')' )  { 
-          $post_objects[] = ')'; 
+
+      while ( substr($pieces[$k], -1) == ')' )  {
+          $post_objects[] = ')';
           if (strlen( $pieces[$k] ) > 1)
             $pieces[$k] = substr( $pieces[$k], 0, -1 );
           else
             $pieces[$k] = '';
       }
-  
+
       //--- Check individual words ---
-  
-      if ( ( substr($pieces[$k], -1) != '"' ) && ( substr($pieces[$k], 0, 1) != '"' ) ) { 
-        $objects[] = trim($pieces[$k]); 
-  
-        for ( $j=0; $j<count($post_objects); $j++ ) { 
+
+      if ( ( substr($pieces[$k], -1) != '"' ) && ( substr($pieces[$k], 0, 1) != '"' ) ) {
+        $objects[] = trim($pieces[$k]);
+
+        for ( $j=0; $j<count($post_objects); $j++ ) {
           $objects[] = $post_objects[$j];
-        } 
-      } 
-      else {  
+        }
+      }
+      else {
         //----------------------------------------------------------------------------------
-        // This means that the $piece is either the beginning or the end of a string.  
-        // So, we'll slurp up the $pieces and stick them together until we get to the 
+        // This means that the $piece is either the beginning or the end of a string.
+        // So, we'll slurp up the $pieces and stick them together until we get to the
         // end of the string or run out of pieces.
         //----------------------------------------------------------------------------------
-  
+
         //--- Make sure the $tmpstring is empty ---
-        $tmpstring = ""; 
-  
+        $tmpstring = "";
+
         //--- Add this word to the $tmpstring, starting the $tmpstring ---
-  
-        $tmpstring .= trim ( ereg_replace( '"', " ", $pieces[$k] ) ); 
-  
+
+        $tmpstring .= trim ( ereg_replace( '"', " ", $pieces[$k] ) );
+
         //- Check for one possible exception to the rule. That there is a single quoted word.
-        if ( substr($pieces[$k], -1 ) == '"' ) { 
+        if ( substr($pieces[$k], -1 ) == '"' ) {
           //--- Turn the flag off for future iterations ---
-          $flag = "off"; 
-  
-          $objects[] = trim($pieces[$k]); 
+          $flag = "off";
 
-          for ( $j=0; $j<count($post_objects); $j++ ) { 
+          $objects[] = trim($pieces[$k]);
+
+          for ( $j=0; $j<count($post_objects); $j++ ) {
             $objects[] = $post_objects[$j];
-          } 
+          }
 
-          unset ( $tmpstring ); 
-  
+          unset ( $tmpstring );
+
           //--- Stop looking for the end of the string and move onto the next word. ---
-          continue; 
-        } 
-  
+          continue;
+        }
+
         //----------------------------------------------------------------------------------
-        // Otherwise, turn on the flag to indicate no quotes have been found attached to  
+        // Otherwise, turn on the flag to indicate no quotes have been found attached to
         // this word in the string.
         //----------------------------------------------------------------------------------
-        $flag = "on"; 
-  
+        $flag = "on";
+
         //--- Move on to the next word ---
-        $k++; 
-  
+        $k++;
+
         //--- Keep reading until the end of the string as long as the $flag is on ---
-  
-        while ( $flag == "on" && ( $k < count( $pieces ) ) ) { 
-          while ( substr($pieces[$k], -1) == ')' )  { 
-              $post_objects[] = ')'; 
+
+        while ( $flag == "on" && ( $k < count( $pieces ) ) ) {
+          while ( substr($pieces[$k], -1) == ')' )  {
+              $post_objects[] = ')';
               if (strlen( $pieces[$k] ) > 1)
                 $pieces[$k] = substr( $pieces[$k], 0, -1 );
               else
@@ -1035,43 +1074,43 @@ function tep_address_summary($customers_id, $address_id) {
           }
 
           //--- If the word doesn't end in double quotes, append it to the $tmpstring. ---
-          if ( substr($pieces[$k], -1) != '"' ) { 
+          if ( substr($pieces[$k], -1) != '"' ) {
             //--- Tack this word onto the current string entity ---
-            $tmpstring .= " $pieces[$k]"; 
+            $tmpstring .= " $pieces[$k]";
 
             //--- Move on to the next word ---
-            $k++; 
-            continue; 
-          } 
-          else { 
+            $k++;
+            continue;
+          }
+          else {
             //------------------------------------------------------------------------------
-            // If the $piece ends in double quotes, strip the double quotes, tack the  
-            // $piece onto the tail of the string, push the $tmpstring onto the $haves,  
+            // If the $piece ends in double quotes, strip the double quotes, tack the
+            // $piece onto the tail of the string, push the $tmpstring onto the $haves,
             // kill the $tmpstring, turn the $flag "off", and return.
             //------------------------------------------------------------------------------
-            $tmpstring .= " ".trim ( ereg_replace( '"', " ", $pieces[$k] ) ); 
+            $tmpstring .= " ".trim ( ereg_replace( '"', " ", $pieces[$k] ) );
 
             //--- Push the $tmpstring onto the array of stuff to search for ---
-            $objects[] = trim($tmpstring); 
-  
-            for ( $j=0; $j<count($post_objects); $j++ ) { 
+            $objects[] = trim($tmpstring);
+
+            for ( $j=0; $j<count($post_objects); $j++ ) {
               $objects[] = $post_objects[$j];
-            } 
-  
-            unset ( $tmpstring ); 
-  
+            }
+
+            unset ( $tmpstring );
+
             //--- Turn off the flag to exit the loop ---
-            $flag = "off"; 
-          } 
-        } 
-      } 
-    } 
-  
+            $flag = "off";
+          }
+        }
+      }
+    }
+
     // add default logical operators if needed
-    $temp = array(); 
+    $temp = array();
     for($i=0; $i<(count($objects)-1); $i++) {
       $temp[sizeof($temp)] = $objects[$i];
-      
+
       if ( $objects[$i] != 'and' &&
            $objects[$i] != 'or'  &&
            $objects[$i] != '('   &&
@@ -1088,7 +1127,7 @@ function tep_address_summary($customers_id, $address_id) {
 
     // validate search string
     $test_str = "SELECT ";
-    for($i=0; $i<count($objects); $i++) { 
+    for($i=0; $i<count($objects); $i++) {
       switch ($objects[$i]) {
         case 'and':
           $test_str .= " && ";
@@ -1105,7 +1144,7 @@ function tep_address_summary($customers_id, $address_id) {
           break;
       }
     }
-  
+
     if (tep_db_query($test_str))
       return true;
     else
@@ -1136,7 +1175,7 @@ function tep_address_summary($customers_id, $address_id) {
     if (strlen($date_to_check) != strlen($format_string)) {
       return false;
     }
- 
+
     for ($i=0; $i<sizeof($separators); $i++) {
       $pos_separator = strpos($date_to_check, $separators[$i]);
       if ($pos_separator != false) {
@@ -1157,18 +1196,18 @@ function tep_address_summary($customers_id, $address_id) {
       return false;
     }
 
-  
+
     if ($date_separator_idx != -1) {
       $format_string_array = explode( $separators[$date_separator_idx], $format_string );
       if (sizeof($format_string_array) != 3) {
         return false;
       }
-      
+
       $date_to_check_array = explode( $separators[$date_separator_idx], $date_to_check );
       if (sizeof($date_to_check_array) != 3) {
         return false;
       }
-  
+
       for ($i=0; $i<sizeof($format_string_array); $i++) {
         if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm')
           $month = $date_to_check_array[$i];
@@ -1197,7 +1236,7 @@ function tep_address_summary($customers_id, $address_id) {
       else {
         return false;
       }
-  
+
       $day = substr( $date_to_check, strpos($format_string, 'dd'), 2 );
       $year = substr( $date_to_check, strpos($format_string, 'yyyy'), 4 );
     }
@@ -1226,7 +1265,7 @@ function tep_address_summary($customers_id, $address_id) {
       return false;
     }
 
-    $date_array = array($year, $month, $day);  
+    $date_array = array($year, $month, $day);
 
     return true;
   }
@@ -1240,7 +1279,7 @@ function tep_address_summary($customers_id, $address_id) {
       if (($year % 4) == 0)
         return true;
     }
-  
+
     return false;
   }
 
@@ -1261,7 +1300,7 @@ function tep_address_summary($customers_id, $address_id) {
     global $PHP_SELF;
     $sort_prefix = "";
     $sort_suffix = "";
-  
+
     if ($sortby) {
       $sort_prefix = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('page', 'info', 'x', 'y', 'sort')) . 'page=1&sort=' . $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a'), 'NONSSL') . '" title="' . TEXT_SORT_PRODUCTS . ($sortby == $colnum . 'd' || substr($sortby, 0, 1) != $colnum ? TEXT_ASCENDINGLY : TEXT_DESCENDINGLY) . TEXT_BY . $heading . '">' ;
       $sort_suffix = (substr($sortby, 0, 1) == $colnum ? (substr($sortby, 1, 1) == 'a' ? '+' : '-') : '') . '</a>';
@@ -1302,7 +1341,7 @@ function tep_address_summary($customers_id, $address_id) {
   //
   // Return      : cPath of the product
   //
-  // Description : recursively go through the category tree to retrieve all parent 
+  // Description : recursively go through the category tree to retrieve all parent
   //               categories' ids of the product and construct the cPath
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1311,14 +1350,14 @@ function tep_address_summary($customers_id, $address_id) {
 
     $cat_count_sql = tep_db_query("SELECT COUNT(*) as count FROM products_to_categories WHERE products_id = $products_id");
     $cat_count_data = tep_db_fetch_array($cat_count_sql);
-    
+
     if ($cat_count_data['count'] == 1) {
       $categories = array();
 
       $cat_id_sql = tep_db_query("SELECT categories_id FROM products_to_categories WHERE products_id = $products_id");
       $cat_id_data = tep_db_fetch_array($cat_id_sql);
       tep_get_parent_categories($categories, $cat_id_data['categories_id']);
-      
+
       for ($i=sizeof($categories)-1; $i>=0; $i--) {
         if ($cPath != "")
           $cPath .= "_";
@@ -1328,7 +1367,7 @@ function tep_address_summary($customers_id, $address_id) {
         $cPath .= "_";
       $cPath .= $cat_id_data['categories_id'];
     }
-    
+
     return $cPath;
   }
 

@@ -4,6 +4,35 @@
     header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
     tep_exit();
   }
+
+// Stock Check !
+   if (STOCK_CHECK) {
+
+    $products = $cart->get_products();
+    for ($i=0; $i<sizeof($products); $i++) {
+    $products_name = $products[$i]['name'];
+    $products_id = $products[$i]['id'];
+    check_stock ($products[$i]['id'], $products[$i]['quantity']);
+                     }
+
+       if (STOCK_ALLOW_CHECKOUT) {
+
+       } else {
+
+  if ($any_out_of_stock) {
+  // Out of Stock
+  header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
+  exit;
+          }
+      } // Stock Allow Checkout
+
+  } // Stock Check IF
+// Stock Check
+
+
+// Stock Check
+
+
 ?>
 <?php
   $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION; include(DIR_WS_INCLUDES . 'include_once.php');
@@ -92,7 +121,12 @@
     echo '          <tr>' . "\n";
     echo '            <td align="center" valign="top" class="main" nowrap>&nbsp;' . $products[$i]['quantity'] . '&nbsp;</td>' . "\n";
     echo '            <td valign="top" class="main" nowrap><b>&nbsp;' . $products_name . '&nbsp;</b>';
-//------display customer choosen option --------
+
+      if (STOCK_CHECK) {
+      echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
+      }
+
+    //------display customer choosen option --------
     $attributes_exist = '0';
     if ($products[$i]['attributes']) {
       $attributes_exist = '1';
@@ -122,7 +156,7 @@
     }
 //------display customer choosen option eof-----
     echo '</td>' . "\n";
-    echo '          </tr>' . "\n";
+    echo '</tr>' . "\n";
 
     $total_weight += ($products[$i]['quantity'] * $products_weight);
     $total_tax += (($total_products_price * $products[$i]['quantity']) * $products_tax/100);
@@ -151,6 +185,7 @@
                 <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_TAX; ?>&nbsp;</td>
                 <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($total_tax); ?>&nbsp;</td>
               </tr>
+
 <?
   }
   if (MODULE_SHIPPING_INSTALLED) {
@@ -168,6 +203,52 @@
               </tr>
             </table></td>
           </tr>
+
+          <? // Stock Options prompts user for sendind when STOCK is available or send now !
+         if (($any_out_of_stock) and (STOCK_ALLOW_CHECKOUT)) {  ?>
+
+         <tr>
+         <td class="tableHeading" nowrap colspan="4">&nbsp;Stock Warning</td>
+         </tr>
+         <tr>
+         <td class="tableHeading" nowrap colspan="4"><? echo tep_black_line(); ?></td>
+         </tr>
+         <tr class=payment-odd>
+         <td class="main" width=33% nowrap colspan="2">&nbsp;Multiple Shipments <input type="radio" name="radiobutton" value="radiobutton"></td>
+         <td class="main" width=33% nowrap colspan="2">&nbsp;Unique Shipment<input type="radio" name="radiobutton" value="radiobutton"></td>
+         </tr>
+         <tr>
+         <td class="infoBox" width=100% colspan="4">
+         <br>The products marked with <font color=crimson>***</font> are not available in the quantity you requested. Choose Multiple Shipments if you want
+         the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait
+         until the quantitys you requested are available in our stock.
+         </td>
+         </tr>
+         <tr>
+         <td class="infoBox" colspan="4">
+          <b>We have for imediate deliver:</b><br><br>
+         <?
+    for ($i=0; $i<sizeof($products); $i++) {
+    $products_name = $products[$i]['name'];
+    $products_price = $products[$i]['price'];
+    $products_id = $products[$i]['id'];
+    $products_quantity = $products[$i]['quantity'];
+    check_stock ($products[$i]['id'], $products[$i]['quantity']);
+
+                        if ($out_of_stock) {
+//    echo $products_name."--".$products_quantity."--".$qtd_stock."<br>";
+      $qtd_to_ship = ($products_quantity  -= $qtd_stock);
+      echo "<b>".$qtd_to_ship."</b> Units of <b>".$products_name."</b><br>";
+
+            }
+        }
+        ?></td>
+         </tr>
+          <? }
+          // Stock
+          ?>
+
+
         </table></td>
       </tr>
       <tr>

@@ -4,7 +4,7 @@
     $connection = 'SSL';
   } else {
     $connection = 'NONSSL';
-  } 
+  }
   if ($cart->count_contents() == 0) {
     header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
     tep_exit();
@@ -13,6 +13,34 @@
     header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT . '&connection=' . $connection, 'NONSSL'));
     tep_exit();
   }
+
+// Stock Check !
+   if (STOCK_CHECK) {
+
+    $products = $cart->get_products();
+    for ($i=0; $i<sizeof($products); $i++) {
+    $products_name = $products[$i]['name'];
+    $products_id = $products[$i]['id'];
+    check_stock ($products[$i]['id'], $products[$i]['quantity']);
+                     }
+
+       if (STOCK_ALLOW_CHECKOUT) {
+
+       } else {
+
+  if ($any_out_of_stock) {
+  // Out of Stock
+  header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, 'origin=' . FILENAME_CHECKOUT_ADDRESS . '&connection=' . $connection, 'NONSSL'));
+  exit;
+          }
+      } // Stock Allow Checkout
+
+  } // Stock Check IF
+// Stock Check
+
+
+
+
   $sendto = $HTTP_POST_VARS['sendto'];
   if ($sendto == '') {
     $sendto = '0';
@@ -156,7 +184,7 @@ function check_form() {
 <?
    if (MODULE_SHIPPING_INSTALLED) {
 ?>
-          <tr>          
+          <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td colspan="2" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_SHIPPING_INFO; ?>&nbsp;</td>
@@ -172,7 +200,7 @@ function check_form() {
 <?
     $shipping_modules->cheapest();
     $shipping_modules->display();
-?>          
+?>
             </table></td>
           </tr>
 <?

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.115 2001/05/12 19:53:50 dwatkins Exp $
+  $Id: application_top.php,v 1.116 2001/05/17 15:00:55 jcorreia Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -113,6 +113,16 @@
   define('USE_PCONNECT', true); // use persisstent connections?
   define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 
+// Stock Check & Update
+  define('STOCK_CHECK', 1);  // Enable Stock Check, before client can buy a product it checks the stock
+                             // and prevents client from buying more products than u have in Stock
+
+  define('STOCK_ALLOW_CHECKOUT', 0); //Enable costumer to checkout with no products in stock
+                                     // DONT ENABLE NEEDS MODS ON OTHER STUFF
+
+  define('STOCK_LIMITED', 1);// When enabled STOCK_LIMITED, Updates product quantity bought by client
+                             // Remaning Products = products_in_stock - products_bought_by_client
+
 // customization for the design layout
   define('CART_DISPLAY', true); // Enable to view the shopping cart after adding a product
   define('TAX_VALUE', 16); // propducts tax
@@ -125,10 +135,16 @@
   define('CHECKOUT_BAR_TEXT_COLOR', '#AABBDD');
   define('CHECKOUT_BAR_TEXT_COLOR_HIGHLIGHTED', '#000000');
 
+// Stock Check & Update
+  define('STOCK_CHECK', 1);
+  define('STOCK_LIMITED', 1);
+  define('STOCK_ALLOW_CHECKOUT', 1);
+
+
 // set to "1" if extended email check function should be used
-// If you're testing locally and your webserver has no possibility to query 
+// If you're testing locally and your webserver has no possibility to query
 // a dns server you should set this to "0" !
-  define('ENTRY_EMAIL_ADDRESS_CHECK', 0); 
+  define('ENTRY_EMAIL_ADDRESS_CHECK', 0);
 
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
@@ -140,7 +156,7 @@
   define('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and'); // default boolean search operator: or/and
   define('ADVANCED_SEARCH_DISPLAY_TIPS', 1); // Display Advanced Search Tips at the bottom of the page: 0=disable; 1=enable
 
-// Bestsellers Min/Max Controls 
+// Bestsellers Min/Max Controls
   define('MIN_DISPLAY_BESTSELLERS', 1);    // Min no. of bestsellers to display
   define('MAX_DISPLAY_BESTSELLERS', 10);   // Max no. of bestsellers to display
 
@@ -255,10 +271,10 @@
   require(DIR_WS_LANGUAGES . $language . '.php');
 
 // Include the password crypto functions
-  require(DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT); 
+  require(DIR_WS_FUNCTIONS . FILENAME_PASSWORD_CRYPT);
 
 // Include validation functions (right now only email address)
-  require(DIR_WS_FUNCTIONS . 'validations.php'); 
+  require(DIR_WS_FUNCTIONS . 'validations.php');
 
 // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
@@ -292,7 +308,7 @@
     } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
       // customer wants to remove all products from their shopping cart
       $cart->reset(TRUE);
-      header('Location: ' . tep_href_link($goto, '', 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, '', 'NONSSL'));
       tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
       // customer wants to add a quickie to the cart (called from a box)
@@ -306,7 +322,7 @@
       }
       $quickie_values = tep_db_fetch_array($quickie_query);
       $cart->add_cart($quickie_values['products_id'], 1, '');
-      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL')); 
+      header('Location: ' . tep_href_link($goto, tep_get_all_get_params(array('action')), 'NONSSL'));
       tep_exit();
     }
   }
