@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.14 2003/07/08 16:45:36 dgw_ Exp $
+  $Id: authorizenet.php,v 1.15 2004/01/26 02:59:08 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,4 +21,20 @@
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE', 'Ha ocurrido un error procesando su tarjeta de cr&eacute;dito. Por favor, int&eacute;ntelo de nuevo.');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_DECLINED_MESSAGE', 'Su tarjeta ha sido denegada. Pruebe con otra tarjeta o consulte con su banco.');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR', 'Error en Tarjeta de Cr&eacute;dito!');
+
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_NAME', 'Name of Account');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE', 'Type of Account');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE_CHECK', 'Checking Account');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_TYPE_SAVINGS', 'Savings Account');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG', 'Account Type');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_PERSONAL', 'Personal Account');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_ORG_BUSINESS', 'Business Account');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_NAME', 'Bank Name');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ABA_CODE', 'Bank Routing Code');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_BANK_ACCT_NUM', 'Bank Account Number');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_INTRO', 'Enter TAX ID or Driver\'s License');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_TAXID', 'TAX ID');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_DLNUM', 'Drivers License Number');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_STATE', 'State (2 Letter Code)`');
+  define('MODULE_PAYMENT_AUTHORIZENET_TEXT_WF_DOB', 'Date of Birth (MM/DD/YYYY)');
 ?>
