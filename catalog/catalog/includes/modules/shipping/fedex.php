@@ -1,5 +1,5 @@
 <?php
-	/* $Id: fedex.php,v 1.7 2001/02/14 20:40:36 hpdl Exp $ */
+	/* $Id: fedex.php,v 1.8 2001/02/18 12:57:19 tmoulton Exp $ */
         if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
 	  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
         }
@@ -25,7 +25,7 @@
 				if(in_array($address_values['country_id'], $fedex_countries_nbr)) {
 					include(DIR_CLASSES . 'fedex.php');
 					$rate = new FedEx(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY);
-					$rate->SetDest($address_values['postcode'], $fedex_countries[$address_values['country']]);
+					$rate->SetDest($address_values['postcode'], $fedex_countries[$address_values['country_id']]);
 					$rate->SetWeight($shipping_weight);
 					$quote = $rate->GetQuote();
 					$shipping_fedex_cost = $shipping_num_boxes * (SHIPPING_HANDLING + $quote['TotalCharges']);
