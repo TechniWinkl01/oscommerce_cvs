@@ -2,12 +2,12 @@
 <?
   if ($HTTP_GET_VARS['install']) {
     $payment_action = 'PM_INSTALL';
-    include(DIR_PAYMENT_MODULES . $install);
+    include(DIR_FS_PAYMENT_MODULES . $install);
     header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); 
     tep_exit();
   } elseif ($HTTP_GET_VARS['remove']) {
     $payment_action = 'PM_REMOVE';
-    include(DIR_PAYMENT_MODULES . $remove);
+    include(DIR_FS_PAYMENT_MODULES . $remove);
     header('Location: ' . tep_href_link(FILENAME_PAYMENT_MODULES, '', 'NONSSL')); 
     tep_exit();
   }
@@ -19,7 +19,7 @@
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -29,7 +29,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -47,7 +47,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_CATALOG . 'images/pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -68,13 +68,13 @@
               </tr>
 <?
   $installed_modules = '';
-  $dir = dir(DIR_PAYMENT_MODULES);
+  $dir = dir(DIR_FS_PAYMENT_MODULES);
   if ($dir) {
     while($entry=$dir->read()) {
       if (eregi('.php[34]*$', $entry)) {
         $check = 0;
         $payment_action = 'PM_CHECK';
-        include(DIR_PAYMENT_MODULES . $entry);
+        include(DIR_FS_PAYMENT_MODULES . $entry);
         if ($check > 1) {
           $installed_modules .= ($installed_modules)?';' . $entry:$entry;
         }
@@ -83,7 +83,7 @@
               <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
                 <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $entry; ?>&nbsp;</font></td>
                 <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo ($check == 1)?'No':'Yes'; ?>&nbsp;</font></td>
-                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo ($check == 1)?tep_href_link(FILENAME_PAYMENT_MODULES, 'install=' . $entry, 'NONSSL'):tep_href_link(FILENAME_PAYMENT_MODULES, 'remove=' . $entry, 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_INSTALL_REMOVE); ?></a>&nbsp;</font></td>
+                <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<a href="<? echo ($check == 1)?tep_href_link(FILENAME_PAYMENT_MODULES, 'install=' . $entry, 'NONSSL'):tep_href_link(FILENAME_PAYMENT_MODULES, 'remove=' . $entry, 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'icon_info.gif', '13', '13', '0', IMAGE_INSTALL_REMOVE); ?></a>&nbsp;</font></td>
               </tr>
 <?
         }
@@ -116,9 +116,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

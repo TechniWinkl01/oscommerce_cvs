@@ -117,7 +117,7 @@ function checkFormAtrib() {
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -127,7 +127,7 @@ function checkFormAtrib() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -156,7 +156,7 @@ function checkFormAtrib() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $options_values['products_options_name']; ?>&nbsp;</font></td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_IMAGES . 'pixel_trans.gif', '1', '70', '0', ''); ?>&nbsp;</td>
+            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '70', '0', ''); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -200,7 +200,7 @@ function checkFormAtrib() {
             <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_WARNING_OF_DELETE; ?></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
 <?
     } else {
@@ -209,7 +209,7 @@ function checkFormAtrib() {
             <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_OK_TO_DELETE; ?></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $HTTP_GET_VARS['option_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', 'Delete'); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', 'Cancel'); ?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option&option_id=' . $HTTP_GET_VARS['option_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', '50', '14', '0', 'Delete'); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&order_by=' . $order_by . '&page=' . $page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', 'Cancel'); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
     
 <?
@@ -306,7 +306,7 @@ function checkFormAtrib() {
 ?>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<? echo $options_values['products_options_id']; ?>">&nbsp;</font></td>
 	    <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="option_name" value="<? echo $options_values['products_options_name']; ?>" size="20">&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</font></td>
 <?
       echo '</form>' . "\n";
 ?>
@@ -316,7 +316,7 @@ function checkFormAtrib() {
 ?>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $options_values["products_options_id"]; ?>&nbsp;</font></td>
             <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $options_values["products_options_name"]; ?>&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_option&option_id=' . $options_values['products_options_id'], 'NONSSL') , '">'; ?><? echo tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?></a>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option&option_id=' . $options_values['products_options_id'] . '&option_order_by=' . $option_order_by . '&option_page=' . $option_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_option&option_id=' . $options_values['products_options_id'], 'NONSSL') , '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?></a>&nbsp;</font></td>
           </tr>
 <?
     }
@@ -339,7 +339,7 @@ function checkFormAtrib() {
 ?>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $next_id; ?>&nbsp;</font></td>
             <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="option_name" size="20">&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?>&nbsp;</font></td>
 </form>
           </tr>
           <tr>
@@ -361,7 +361,7 @@ function checkFormAtrib() {
 ?>
       <tr>
         <td colspan="3"><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo $values_values['products_options_values_name']; ?>&nbsp;</font></td>
-        <td>&nbsp;<? echo tep_image(DIR_IMAGES . 'pixel_trans.gif', '1', '70', '0', ''); ?>&nbsp;</td>
+        <td>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '70', '0', ''); ?>&nbsp;</td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -403,7 +403,7 @@ function checkFormAtrib() {
             <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_WARNING_OF_DELETE; ?></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', ' cancel '); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
 <?
     } else {
@@ -412,7 +412,7 @@ function checkFormAtrib() {
             <td colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo TEXT_OK_TO_DELETE; ?></font></td>
           </tr>
           <tr>
-            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_value&value_id=' . $HTTP_GET_VARS['value_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', 'Delete'); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', 'Cancel'); ?></a>&nbsp;&nbsp;</font></td>
+            <td align="right" colspan="3"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_value&value_id=' . $HTTP_GET_VARS['value_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', '50', '14', '0', 'Delete'); ?></a>&nbsp;&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', 'Cancel'); ?></a>&nbsp;&nbsp;</font></td>
           </tr>
     
 <?
@@ -424,7 +424,7 @@ function checkFormAtrib() {
 ?>
       <tr>
         <td colspan="3"><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_VAL; ?>&nbsp;</font></td>
-        <td>&nbsp;<? echo tep_image(DIR_IMAGES . 'pixel_trans.gif', '1', '56', '0', ''); ?>&nbsp;</td>
+        <td>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', '1', '56', '0', ''); ?>&nbsp;</td>
       </tr>
       <tr>
         <td colspan=4><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">
@@ -514,7 +514,7 @@ function checkFormAtrib() {
 	  echo '>' . $options_values['products_options_name'] . '</option>';
     } ?></select>&nbsp;</font></td>
 			<td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="value_name" value="<? echo $values_name; ?>" size="15">&nbsp;</font></td>
-            <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</font></td>
 <?
       echo '</form>' . "\n";
 ?>
@@ -525,7 +525,7 @@ function checkFormAtrib() {
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $values_values["products_options_values_to_products_options_id"]; ?>&nbsp;</font></td>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $options_name; ?>&nbsp;</font></td>
 	    	<td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $values_name; ?>&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_MODIFY); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') , '">'; ?><? echo tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?></a>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_MODIFY); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_option_value&value_id=' . $values_values['products_options_values_id'], 'NONSSL') , '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?></a>&nbsp;</font></td>
           </tr>
 <?
     }
@@ -553,7 +553,7 @@ function checkFormAtrib() {
       echo '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '">' . $options_values['products_options_name'] . '</option>';
     } ?></select>&nbsp;</font></td>
             <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="hidden" name="value_id" value="<? echo $next_id; ?>"><input type="text" name="value_name" size="15">&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?>&nbsp;</font></td>
 </form>
           </tr>
           <tr>
@@ -571,7 +571,7 @@ function checkFormAtrib() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_ATRIB; ?>&nbsp;</font></td>
-            <td>&nbsp;<? echo tep_image(DIR_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
+            <td>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', ''); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -689,7 +689,7 @@ function checkFormAtrib() {
       } ?></select>&nbsp;</font></td>
             <td align="right"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="value_price" value="<? echo $attributes_values['options_values_price']; ?>" size="6">&nbsp;</font></td>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="price_prefix" value="<? echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update_red.gif', '50', '14', '0', IMAGE_UPDATE); ?>&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</font></td>
 <?
       echo '</form>' . "\n";
 ?>
@@ -703,7 +703,7 @@ function checkFormAtrib() {
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo $values_name; ?></b>&nbsp;</font></td>
             <td align="right"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo $attributes_values["options_values_price"]; ?></b>&nbsp;</font></td>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo $attributes_values["price_prefix"]; ?></b>&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_attribute&attribute_id=' . $HTTP_GET_VARS['attribute_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_confirm_red.gif', '50', '14', '0', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</b></font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_attribute&attribute_id=' . $HTTP_GET_VARS['attribute_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_confirm_red.gif', '50', '14', '0', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</b></font></td>
           </tr>
 <?
     } else {
@@ -714,7 +714,7 @@ function checkFormAtrib() {
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $values_name; ?>&nbsp;</font></td>
             <td align="right"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $attributes_values["options_values_price"]; ?>&nbsp;</font></td>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $attributes_values["price_prefix"]; ?>&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') , '">'; ?><? echo tep_image(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?></a>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') . '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page, 'NONSSL') , '">'; ?><? echo tep_image(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?></a>&nbsp;</font></td>
           </tr>
 <?
     }
@@ -753,7 +753,7 @@ function checkFormAtrib() {
     } ?></select>&nbsp;</font></td>
             <td align="right"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</font></td>
             <td align="right"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</font></td>
-            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?>&nbsp;</font></td>
+            <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', '66', '20', '0', IMAGE_INSERT); ?>&nbsp;</font></td>
 </form>
           </tr>
           <tr>
@@ -769,9 +769,9 @@ function checkFormAtrib() {
 </tr></table>
 <!-- body_text_eof //-->
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

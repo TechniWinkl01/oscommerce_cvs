@@ -10,12 +10,12 @@
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
     }
     if ($connection == 'NONSSL') {
-      $link = HTTP_SERVER . DIR_ADMIN;
+      $link = HTTP_SERVER . DIR_WS_ADMIN;
     } elseif ($connection == 'SSL') {
       if (ENABLE_SSL == 1) {
-        $link = HTTPS_SERVER . DIR_ADMIN;
+        $link = HTTPS_SERVER . DIR_WS_ADMIN;
       } else {
-        $link = HTTP_SERVER . DIR_ADMIN;
+        $link = HTTP_SERVER . DIR_WS_ADMIN;
       }
     } else {
       die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
@@ -47,7 +47,7 @@
   }
 
   function tep_black_line() {
-    $black_line = tep_image(DIR_IMAGES . 'pixel_black.gif', '100%', '1', '0', '');
+    $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '100%', '1', '0', '');
 
     return $black_line;
   }
@@ -284,9 +284,9 @@
   }
 
   function tep_info_image($image_source, $image_alt) {
-    $image_size = @getimagesize(DIR_SERVER_ROOT . DIR_CATALOG . $image_source);
+    $image_size = @getimagesize(DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . $image_source);
     if ($image_size) {
-      $image = tep_image(DIR_CATALOG . $image_source, $image_size[0], $image_size[1], 0, $image_alt);
+      $image = tep_image(DIR_WS_CATALOG . $image_source, $image_size[0], $image_size[1], 0, $image_alt);
     } else {
       $image = TEXT_IMAGE_NONEXISTENT;
     }

@@ -41,7 +41,7 @@ function alertBox() {
 ?>
 <body <? if ($HTTP_GET_VARS['error']) echo 'onLoad="alertBox();"'; ?> marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
@@ -51,7 +51,7 @@ function alertBox() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -69,7 +69,7 @@ function alertBox() {
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td nowrap><font face="<? echo HEADING_FONT_FACE; ?>" size="<? echo HEADING_FONT_SIZE; ?>" color="<? echo HEADING_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</font></td>
-            <td align="right" nowrap><br><form name="orders" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_search.gif', '66', '20', '0', IMAGE_SEARCH); ?>&nbsp;</font></form></td>
+            <td align="right" nowrap><br><form name="orders" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(), 'NONSSL') . '"'; ?> method="get"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>" size="5">&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', '66', '20', '0', IMAGE_SEARCH); ?>&nbsp;</font></form></td>
           </tr>
         </table></td>
       </tr>
@@ -273,7 +273,7 @@ function alertBox() {
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_DATE_PURCHASED; ?></b> <? echo $date_purchased; ?>&nbsp;</font></td>
           </tr>
           <tr><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>">
-            <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?>&nbsp;</font></td>
+            <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?>&nbsp;</font></td>
           </tr></form>
 <?
     if ($date_updated != '') {
@@ -289,7 +289,7 @@ function alertBox() {
           </tr>
           <form action="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>" method="get" onsubmit="return confirm('<? echo IMAGE_CONFIRM; ?>')">
           <tr>
-            <td colspan="2" align="right" nowrap><input type="hidden" name="action" value="delete_order"><input type="hidden" name="orders_id_delete" value="<? echo $HTTP_GET_VARS['orders_id'] ?>"><? echo tep_image_submit(DIR_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
+            <td colspan="2" align="right" nowrap><input type="hidden" name="action" value="delete_order"><input type="hidden" name="orders_id_delete" value="<? echo $HTTP_GET_VARS['orders_id'] ?>"><? echo tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', '66', '20', '0', IMAGE_DELETE); ?>&nbsp;&nbsp;<a href="<? echo tep_href_link(FILENAME_ORDERS, '', 'NONSSL'); ?>"><? echo tep_image(DIR_WS_IMAGES . 'button_back.gif', '66', '20', '0', IMAGE_BACK); ?></a>&nbsp;&nbsp;</td>
           </tr>
           </form>
           <tr>
@@ -365,9 +365,9 @@ function alertBox() {
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_INCLUDES . 'footer.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_INCLUDES . 'application_bottom.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>

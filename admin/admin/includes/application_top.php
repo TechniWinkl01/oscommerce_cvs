@@ -9,30 +9,32 @@
   define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure
 
 // define our webserver variables
+// FS = Filesystem (physical)
+// WS = Webserver (virtual)
   define('HTTP_SERVER', 'http://exchange');
-  define('DIR_SERVER_ROOT', '/www'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
-  define('DIR_LOGS', '/usr/local/apache/logs/');
-  define('DIR_ADMIN', '/admin/');
-  define('DIR_CATALOG', '/catalog/');
-  define('DIR_CATALOG_PHYSICAL', DIR_SERVER_ROOT . DIR_CATALOG);
-  define('DIR_CATALOG_IMAGES', DIR_CATALOG . 'images/');
-  define('DIR_PAYMENT_MODULES', DIR_SERVER_ROOT . DIR_CATALOG . 'includes/modules/payment/');
-  define('DIR_SHIPPING_MODULES', DIR_SERVER_ROOT . DIR_CATALOG . 'includes/modules/shipping/');
-  define('DIR_IMAGES', DIR_ADMIN . 'images/');
-  define('DIR_INCLUDES', 'includes/'); // NOTE! this is not interpreted with www/url path, instead it is a system path (eg, /usr/local/apache/htdocs/admin/includes/)
-  define('DIR_BOXES', DIR_INCLUDES . 'boxes/');
-  define('DIR_FUNCTIONS', DIR_INCLUDES . 'functions/');
-  define('DIR_CLASSES', DIR_INCLUDES . 'classes/');
-  define('DIR_MODULES', DIR_INCLUDES . 'modules/');
-  define('DIR_LANGUAGES', DIR_INCLUDES . 'languages/');
-  define('DIR_CATALOG_LANGUAGES', DIR_CATALOG . 'includes/languages/');
+  define('DIR_FS_DOCUMENT_ROOT', '/usr/local/apache/htdocs'); // where your pages are located on the server.. needed to delete images.. (eg, /usr/local/apache/htdocs)
+  define('DIR_FS_LOGS', '/usr/local/apache/logs/');
+  define('DIR_WS_ADMIN', '/admin/');
+  define('DIR_WS_CATALOG', '/catalog/');
+  define('DIR_FS_CATALOG', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG);
+  define('DIR_WS_IMAGES', DIR_WS_ADMIN . 'images/');
+  define('DIR_WS_CATALOG_IMAGES', DIR_WS_CATALOG . 'images/');
+  define('DIR_WS_INCLUDES', 'includes/');
+  define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');
+  define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');
+  define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
+  define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
+  define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
+  define('DIR_WS_CATALOG_LANGUAGES', DIR_WS_CATALOG . 'includes/languages/');
+  define('DIR_FS_PAYMENT_MODULES', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . 'includes/modules/payment/');
+  define('DIR_FS_SHIPPING_MODULES', DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG . 'includes/modules/shipping/');
 
   define('STORE_NAME', 'The Exchange Project');
   define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
   define('STORE_PAGE_PARSE_TIME', 1); // store the time it takes to parse the page
-  define('STORE_PAGE_PARSE_TIME_LOG', DIR_LOGS . 'exchange/parse_time_log');
+  define('STORE_PAGE_PARSE_TIME_LOG', DIR_FS_LOGS . 'exchange/parse_time_log');
 
   define('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S');
   if (STORE_PAGE_PARSE_TIME == '1') {
@@ -166,20 +168,20 @@
   define('ACCOUNT_STATE', 1);
 
 // include shopping cart class
-  $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'shopping_cart.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
-    $include_file = DIR_CLASSES . 'sessions.php'; include(DIR_INCLUDES . 'include_once.php');
+    $include_file = DIR_WS_CLASSES . 'sessions.php'; include(DIR_WS_INCLUDES . 'include_once.php');
   }
 
 // define how the session functions will be used
-  $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'sessions.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
 // lets start our session
   tep_session_start();
   if (function_exists('session_set_cookie_params')) {
-    session_set_cookie_params(0, DIR_ADMIN);
+    session_set_cookie_params(0, DIR_WS_ADMIN);
   }
 
 // languages - this should be removed when the proper functions are implemented!
@@ -198,40 +200,40 @@
   }
   tep_session_register('language');
 
-  $include_file = DIR_CATALOG_PHYSICAL . 'includes/data/rates.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_FS_CATALOG . 'includes/data/rates.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_LANGUAGES . $language . '.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_WS_INCLUDES . 'include_once.php');
 
 // include the database functions
-  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'database.php';  include(DIR_WS_INCLUDES . 'include_once.php');
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
 
 // define our general functions used application-wide
-  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // setup our boxes
-  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'boxes.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // split-page-results
-  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'split_page_results.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // entry/item info classes
-  $include_file = DIR_CLASSES . 'category_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'configuration_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'countries_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'currencies_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'customer_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'languages_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'manufacturer_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'product_expected_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'product_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'review_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'special_price_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'tax_class_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'tax_rate_info.php'; include(DIR_INCLUDES . 'include_once.php');
-  $include_file = DIR_CLASSES . 'zones_info.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'category_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'configuration_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'countries_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'currencies_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'customer_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'languages_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'manufacturer_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'product_expected_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'product_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'review_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'special_price_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'tax_class_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'tax_rate_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  $include_file = DIR_WS_CLASSES . 'zones_info.php'; include(DIR_WS_INCLUDES . 'include_once.php');
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
