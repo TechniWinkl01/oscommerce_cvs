@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: output.php,v 1.2 2002/01/03 15:31:16 dgw_ Exp $
+  $Id: output.php,v 1.3 2002/06/01 18:44:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,7 @@
     }
 
     $heading .= '</td>' . CR .
-                '    <td width="100%" height="14" class="infoBoxHeading"><b>' . $heading_title . '</b></td>' . CR;
+                '    <td width="100%" height="14" class="infoBoxHeading">' . $heading_title . '</td>' . CR;
 
     if ($right_corner) {
       $heading .= '    <td height="14" class="infoBoxHeading"><img src="images/main_page/box_corner_right.gif" border="0"></td>' . CR;

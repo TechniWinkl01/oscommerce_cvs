@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.27 2002/05/27 13:15:37 hpdl Exp $
+  $Id: boxes.php,v 1.28 2002/06/01 18:44:37 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -116,7 +116,7 @@
 
       $info_box_contents = array();
       $info_box_contents[] = array(array('params' => 'height="14" class="infoBoxHeading"', 'text' => $left_corner),
-                                   array('params' => 'width="100%" height="14" class="infoBoxHeading"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
+                                   array('params' => 'width="100%" height="14" class="infoBoxHeading"', 'text' => $contents[0]['text']),
                                    array('params' => 'height="14" class="infoBoxHeading"', 'text' => $right_corner));
       $this->tableBox($info_box_contents, true);
     }
@@ -145,7 +145,7 @@
 
       $info_box_contents = array();
       $info_box_contents[] = array(array('params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_left.gif')),
-                                   array('params' => 'height="14" class="infoBoxHeading" width="100%"', 'text' => '<b>' . $contents[0]['text'] . '</b>'),
+                                   array('params' => 'height="14" class="infoBoxHeading" width="100%"', 'text' => $contents[0]['text']),
                                    array('params' => 'height="14" class="infoBoxHeading"', 'text' => tep_image(DIR_WS_IMAGES . 'infobox/corner_right_left.gif')));
       $this->tableBox($info_box_contents, true);
     }
