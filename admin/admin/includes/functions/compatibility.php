@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.10 2003/06/23 01:20:05 hpdl Exp $
+  $Id: compatibility.php,v 1.11 2003/07/18 19:46:05 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -151,6 +151,21 @@
       }
 
       return $new_array;
+    }
+  }
+
+  if (!function_exists('array_map')) {
+    function array_map($callback, $array) {
+      if (is_array($array)) {
+        $_new_array = array();
+        reset($array);
+        while (list($key, $value) = each($array)) {
+          $_new_array[$key] = array_map($callback, $array[$key]);
+        }
+        return $_new_array;
+      } else {
+        return $callback($array);
+      }
     }
   }
 ?>
