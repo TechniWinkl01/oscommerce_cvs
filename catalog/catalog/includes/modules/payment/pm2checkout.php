@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: pm2checkout.php,v 1.9 2002/05/31 18:49:59 dgw_ Exp $
+  $Id: pm2checkout.php,v 1.10 2002/06/05 17:57:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,9 +122,8 @@
                                tep_draw_hidden_field('x_ship_to_state', $order->delivery['state']) .
                                tep_draw_hidden_field('x_ship_to_zip', $order->delivery['postcode']) .
                                tep_draw_hidden_field('x_ship_to_country', $order->delivery['country']) .
-                               tep_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false)) .
-                               tep_draw_hidden_field('x_email_merchant', MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT) .
-                               tep_draw_hidden_field(tep_session_name(), tep_session_id());
+                               tep_draw_hidden_field('x_receipt_link_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                               tep_draw_hidden_field('x_email_merchant', MODULE_PAYMENT_2CHECKOUT_EMAIL_MERCHANT);
 
       return $process_button_string;
     }
