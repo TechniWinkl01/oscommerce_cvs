@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.5 2002/01/17 20:50:19 project3000 Exp $
+  $Id: install_5.php,v 1.6 2002/01/27 03:14:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -126,6 +126,8 @@
                      '// * DIR_WS_* = Webserver directories (virtual/URL)' . "\n" .
                      'define(\'HTTP_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\'); // eg, http://localhost - should not be NULL for productive servers' . "\n" .
                      'define(\'HTTPS_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\'); // eg, https://localhost - should not be NULL for productive servers' . "\n" .
+                     'define(\'HTTP_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTP_SERVER'] . '\');' . "\n" .
+                     'define(\'HTTPS_CATALOG_SERVER\', \'' . $HTTP_POST_VARS['HTTPS_SERVER'] . '\');' . "\n" .
                      'define(\'ENABLE_SSL\', ' . (($HTTP_POST_VARS['ENABLE_SSL'] == 'true') ? 'true' : 'false') . '); // secure webserver for checkout procedure?' . "\n" .
                      'define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . '\'); // where the pages are located on the server' . "\n" .
                      'define(\'DIR_WS_ADMIN\', \'' . $HTTP_POST_VARS['DIR_WS_ADMIN'] . '\'); // absolute path required' . "\n" .

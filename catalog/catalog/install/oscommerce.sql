@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.11 2002/01/26 20:22:59 project3000 Exp $
+# $Id: oscommerce.sql,v 1.12 2002/01/27 03:14:23 hpdl Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -297,6 +297,17 @@ CREATE TABLE orders_status (
    orders_status_name varchar(32) NOT NULL,
    PRIMARY KEY (orders_status_id, language_id),
    KEY idx_orders_status_name (orders_status_name)
+);
+
+DROP TABLE IF EXISTS orders_status_history;
+CREATE TABLE orders_status_history (
+   orders_status_history_id int(5) NOT NULL auto_increment,
+   orders_id int(5) NOT NULL,
+   new_value int(5) NOT NULL,
+   old_value int(5),
+   date_added datetime NOT NULL,
+   customer_notified int(1) DEFAULT '0',
+   PRIMARY KEY (orders_status_history_id)
 );
 
 DROP TABLE IF EXISTS orders_products_attributes;

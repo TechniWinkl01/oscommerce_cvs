@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.31 2002/01/25 19:24:13 dgw_ Exp $
+  $Id: update.php,v 1.32 2002/01/27 03:14:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -518,6 +518,8 @@ changeText('statusText', 'Updating Orders');
   }
 
   tep_db_query("alter table orders change orders_status orders_status int(5) not null");
+
+  tep_db_query("create table orders_status_history ( orders_status_history_id int(5) not null auto_increment, orders_id int(5) not null, new_value int(5) not null, old_value int(5), date_added datetime not null, customer_notified int(1) default '0', primary key (orders_status_history_id))");
 ?>
 
 <script language="javascript"><!--
