@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: main_page.php,v 1.1 2002/01/02 13:03:21 hpdl Exp $
+  $Id: main_page.php,v 1.2 2002/01/29 11:48:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,6 +21,32 @@
 <meta name="ROBOTS" content="NOFOLLOW">
 
 <link rel="stylesheet" type="text/css" href="templates/main_page/stylesheet.css">
+
+<?php
+  if ($page_contents == 'upgrade_3.php') {
+?>
+
+<script language="JavaScript"><!--
+function changeStyle(what, how) {
+  if (document.getElementById) {
+    document.getElementById(what).style.fontWeight = how;
+  } else if (document.all) {
+    document.all[what].style.fontWeight = how;
+  }
+}
+
+function changeText(where, what) {
+  if (document.getElementById) {
+    document.getElementById(where).innerHTML = what;
+  } else if (document.all) {
+    document.all[where].innerHTML = what;
+  }
+}
+//--></script>
+
+<?php
+  }
+?>
 
 </head>
 
