@@ -44,7 +44,7 @@
         </table></td>
       </tr>
 <?
-  $product = tep_db_query("select products_name from products where products_status = '1' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  $product = tep_db_query("select products_name from products_description where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   $product_values = tep_db_fetch_array($product);
 ?>
       <tr>
