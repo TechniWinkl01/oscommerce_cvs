@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.183 2001/11/17 04:44:49 hpdl Exp $
+  $Id: application_top.php,v 1.184 2001/11/17 04:51:46 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -126,7 +126,6 @@
 
 // Advanced Search controls
   define('ADVANCED_SEARCH_DEFAULT_OPERATOR', 'and'); // default boolean search operator: or/and
-  define('ADVANCED_SEARCH_DISPLAY_TIPS', 1); // Display Advanced Search Tips at the bottom of the page: 0=disable; 1=enable
 
 // Categories Box: recursive products count
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
