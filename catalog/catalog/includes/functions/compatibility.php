@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.6 2002/03/07 20:53:58 hpdl Exp $
+  $Id: compatibility.php,v 1.7 2002/03/29 16:14:07 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -95,6 +95,17 @@
           return true;
         }
       }
+    }
+  }
+
+  if (!function_exists('array_merge')) {
+    function array_merge($array1, $array2, $array3 = '') {
+      if ($array3 == '') $array3 = array();
+      while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
+      while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
+      if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
+
+      return (array) $array_merged;
     }
   }
 ?>
