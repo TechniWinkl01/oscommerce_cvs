@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.24 2003/02/06 17:38:15 thomasamoulton Exp $
+  $Id: order.php,v 1.25 2003/02/07 22:01:56 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -240,7 +240,7 @@
 
         $products_tax = $this->products[$index]['tax'];
         $products_tax_description = $this->products[$index]['tax_description'];
-        if (DISPLAY_PRICE_WITH_TAX == true) {
+        if (DISPLAY_PRICE_WITH_TAX == 'true') {
           $this->info['tax'] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
           $this->info['tax_groups']["$products_tax_description"] += $shown_price - ($shown_price / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
         } else {
@@ -251,7 +251,7 @@
         $index++;
       }
 
-      if (DISPLAY_PRICE_WITH_TAX == true) {
+      if (DISPLAY_PRICE_WITH_TAX == 'true') {
         $this->info['total'] = $this->info['subtotal'] + $this->info['shipping_cost'];
       } else {
         $this->info['total'] = $this->info['subtotal'] + $this->info['tax'] + $this->info['shipping_cost'];

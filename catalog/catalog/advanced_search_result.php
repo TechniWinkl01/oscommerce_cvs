@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.64 2002/11/23 02:08:10 thomasamoulton Exp $
+  $Id: advanced_search_result.php,v 1.65 2003/02/07 22:01:54 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -182,12 +182,12 @@
   }
 
   $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price ";
-  if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
+  if ( (DISPLAY_PRICE_WITH_TAX == 'true') && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
     $select_str .= ", SUM(tr.tax_rate) as tax_rate ";
   }
 
   $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m using(manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
-  if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
+  if ( (DISPLAY_PRICE_WITH_TAX == 'true') && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
     if (!tep_session_is_registered('customer_country_id')) {
       $customer_country_id = STORE_COUNTRY;
       $customer_zone_id = STORE_ZONE;
@@ -247,14 +247,14 @@
     $pfrom = $HTTP_GET_VARS['pfrom'] / $rate;
     $pto = $HTTP_GET_VARS['pto'] / $rate;
   }
-  if (DISPLAY_PRICE_WITH_TAX == true) {
+  if (DISPLAY_PRICE_WITH_TAX == 'true') {
     if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) >= " . $pfrom . ")";
     if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) <= " . $pto . ")";
   } else {
     if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) >= " . $pfrom . ")";
     if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) <= " . $pto . ")";
   }
-  if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
+  if ( (DISPLAY_PRICE_WITH_TAX == 'true') && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
     $where_str .= " group by p.products_id, tr.tax_priority";
   }
 

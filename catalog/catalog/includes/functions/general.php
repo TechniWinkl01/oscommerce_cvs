@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.205 2003/02/05 22:36:46 hpdl Exp $
+  $Id: general.php,v 1.206 2003/02/07 22:01:56 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -311,7 +311,7 @@
   function tep_add_tax($price, $tax) {
     global $currencies;
 
-    if ( (DISPLAY_PRICE_WITH_TAX == true) && ($tax > 0) ) {
+    if ( (DISPLAY_PRICE_WITH_TAX == 'true') && ($tax > 0) ) {
       return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + tep_calculate_tax($price, $tax);
     } else {
       return tep_round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
@@ -338,12 +338,10 @@
     $products = tep_db_fetch_array($products_query);
     $products_count += $products['total'];
 
-    if (USE_RECURSIVE_COUNT == 'true') {
-      $child_categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . $category_id . "'");
-      if (tep_db_num_rows($child_categories_query)) {
-        while ($child_categories = tep_db_fetch_array($child_categories_query)) {
-          $products_count += tep_count_products_in_category($child_categories['categories_id'], $include_inactive);
-        }
+    $child_categories_query = tep_db_query("select categories_id from " . TABLE_CATEGORIES . " where parent_id = '" . $category_id . "'");
+    if (tep_db_num_rows($child_categories_query)) {
+      while ($child_categories = tep_db_fetch_array($child_categories_query)) {
+        $products_count += tep_count_products_in_category($child_categories['categories_id'], $include_inactive);
       }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.14 2003/02/05 22:41:51 hpdl Exp $
+  $Id: ot_shipping.php,v 1.15 2003/02/07 22:01:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,7 +56,7 @@
           $order->info['tax_groups']["$shipping_tax_description"] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
           $order->info['total'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
 
-          if (DISPLAY_PRICE_WITH_TAX == true) $order->info['shipping_cost'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+          if (DISPLAY_PRICE_WITH_TAX == 'true') $order->info['shipping_cost'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
         }
 
         $this->output[] = array('title' => $order->info['shipping_method'] . ':',

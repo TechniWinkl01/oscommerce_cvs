@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.259 2003/01/25 11:37:30 clescuyer Exp $
+  $Id: application_top.php,v 1.260 2003/02/07 22:01:55 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -134,20 +134,7 @@
   define('TABLE_ZONES', 'zones');
 
 // customization for the design layout
-  define('TAX_DECIMAL_PLACES', 0); // Pad the tax value this amount of decimal places
-  define('DISPLAY_PRICE_WITH_TAX', true); // Display prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
-
-// Control what fields of the customer table are used
-  define('ACCOUNT_GENDER', 'true');
-  define('ACCOUNT_DOB', 'true');
-  define('ACCOUNT_COMPANY', 'true');
-  define('ACCOUNT_SUBURB', 'true');
-  define('ACCOUNT_STATE', 'true');
-
-// Categories Box: recursive products count
-  define('SHOW_COUNTS', 'true'); // show category count: true=Yes False=No
-  define('USE_RECURSIVE_COUNT', 'true'); // recursive count: true=Yes False=No
 
 // check to see if php implemented session management functions - if not, include php3/php4 compatible session class
   if (!function_exists('session_start')) {
