@@ -135,14 +135,12 @@ function checkForm() {
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main" nowrap><br><? echo tep_image_submit('button_insert.gif', IMAGE_INSERT); ?>&nbsp;<?
-    $reviews = tep_db_query("select count(*) as count from reviews_extra where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
-    $reviews_values = tep_db_fetch_array($reviews);
-    if ($reviews_values['count'] == '0') {
-      echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $get_params_back, 'NONSSL') . '">';
-    } else {
-      echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params_back, 'NONSSL') . '">';
-    } ?><? echo tep_image_button('button_cancel.gif', IMAGE_CANCEL); ?></a>&nbsp;</td>
+        <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main">&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params_back, 'NONSSL') . '">' . tep_image_button('button_back.gif', IMAGE_BACK) . '</a>'; ?></td>
+            <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
+          </tr>
+        </table></td>
       </tr>
     </table><input type="hidden" name="get_params" value="<? echo $get_params; ?>"></form></td>
 <!-- body_text_eof //-->
