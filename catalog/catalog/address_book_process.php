@@ -11,14 +11,14 @@
   if ((@$HTTP_POST_VARS['action'] == 'process') || (@$HTTP_POST_VARS['action'] == 'update')) {
     $process = 1;
     $error = 0;
-   if (ACCOUNT_GENDER) {
-    if ((@$HTTP_POST_VARS['gender'] == 'm') || (@$HTTP_POST_VARS['gender'] == 'f')) {
-      $gender_error = 0;
-    } else {
-      $gender_error = 1;
-      $error = 1;
+    if (ACCOUNT_GENDER) {
+      if ((@$HTTP_POST_VARS['gender'] == 'm') || (@$HTTP_POST_VARS['gender'] == 'f')) {
+        $gender_error = 0;
+      } else {
+        $gender_error = 1;
+        $error = 1;
+      }
     }
-   }
 
     if (@strlen(trim($HTTP_POST_VARS['firstname'])) < ENTRY_FIRST_NAME_MIN_LENGTH) {
       $firstname_error = 1;
@@ -170,14 +170,13 @@
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
   }
 }
 
 function resetZoneSelected(theForm) {
-  theForm.zone_id.selectedIndex = '0';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
   }
 }
@@ -246,7 +245,7 @@ function check_form() {
 <?
   if (ACCOUNT_STATE) {
 ?>
-  if (document.add_entry.zone_id.options.length == 0) {
+  if (document.add_entry.zone_id.options.length <= 1) {
     if (document.add_entry.state.value == "" || document.add_entry.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
@@ -459,7 +458,7 @@ function check_form() {
             <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<?
     if (@$process == 1) {
       if (@$country_error == '1') {
-        tep_get_country_list("country", STORE_COUNTRY, "onChange=\"update_zone(this.form);\"");
+        tep_get_country_list("country", STORE_COUNTRY, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":"");
         echo '&nbsp;' . ENTRY_COUNTRY_ERROR;
       } else {
         $entry_country = tep_get_countries($HTTP_POST_VARS['country']);
@@ -467,7 +466,7 @@ function check_form() {
       }
     } else {
       if ($country == "") $country = STORE_COUNTRY;
-      tep_get_country_list("country", $country, "onChange=\"update_zone(this.form);\"");
+      tep_get_country_list("country", $country, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":"");
       echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
     } ?></font></td>
           </tr>
@@ -487,7 +486,7 @@ function check_form() {
           <tr>
             <td></td>
             <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_SIZE; ?>">
-            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<? echo ENTRY_STATE_TEXT; ?></font></td>
+            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32" value="<? echo $state; ?>">&nbsp;<? echo ENTRY_STATE_TEXT; ?></font></td>
           </tr>
 <?
    }

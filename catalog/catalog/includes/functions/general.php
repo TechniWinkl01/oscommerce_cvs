@@ -348,11 +348,13 @@
 
     $state_prov_result = tep_db_query("select zone_id, zone_name from zones where zone_country_id = '" . $country_code . "' order by zone_name");
 
-    $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
+    if (tep_db_num_rows($state_prov_result)>0)
+      $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
+    else
+      $result .= "<option value=\"\">" . TYPE_BELOW . "</option>\n";
  
     $populated = 0;
     while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
-    $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
       $populated++;
       // printed SELECTED if an item was previously selected
       // so we maintain the state
@@ -414,6 +416,9 @@
       $NumCountry++;
       print ("  }\n");
     }
+    print ("  else {\n");
+    print ("    " . $FormName . ".zone_id.options[0] = new Option(\"" . TYPE_BELOW . "\", \"\");\n");
+    print ("  }\n");
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////

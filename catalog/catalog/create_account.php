@@ -8,14 +8,13 @@
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
   }
 }
 
 function resetZoneSelected(theForm) {
-  theForm.zone_id.selectedIndex = '0';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
   }
 }
@@ -48,10 +47,14 @@ function check_form() {
   if (ACCOUNT_DOB) {
      echo 'var dob = document.create_account.dob.value;' . "\n";
   }
+  if (ACCOUNT_STATE) {
 ?>
-  if (document.create_account.zone_id.options.length > 0) {
+  if (document.create_account.zone_id.options.length > 1) {
     var zone_id = document.create_account.zone_id.options[document.create_account.zone_id.selectedIndex].value;
   }
+<?
+  }
+?>
   var country = document.create_account.country.options[document.create_account.country.selectedIndex].value;
   var email_address = document.create_account.email_address.value;  
   var street_address = document.create_account.street_address.value;
@@ -107,7 +110,7 @@ function check_form() {
 <?
   if (ACCOUNT_STATE) {
 ?>
-  if (document.create_account.zone_id.options.length == 0) {
+  if (document.create_account.zone_id.options.length <= 1) {
     if (document.create_account.state.value == "" || document.create_account.state.length < <? echo ENTRY_STATE_MIN_LENGTH; ?> ) {
        error_message = error_message + "<? echo JS_STATE; ?>";
        error = 1;
@@ -152,7 +155,7 @@ function check_form() {
 }
 //--></script>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF" onLoad="update_zone(document.create_account);">
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
 <? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -271,7 +274,7 @@ function check_form() {
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</font></td>
             <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">
-            &nbsp;<?tep_get_country_list("country", STORE_COUNTRY, "onChange=\"update_zone(this.form);\""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></font></td>
+            &nbsp;<?tep_get_country_list("country", STORE_COUNTRY, (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></font></td>
           </tr>
 <?
   if (ACCOUNT_STATE) {

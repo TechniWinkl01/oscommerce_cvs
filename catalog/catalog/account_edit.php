@@ -20,7 +20,6 @@ function resetStateText(theForm) {
 }
 
 function resetZoneSelected(theForm) {
-  theForm.zone_id.selectedIndex = '0';
   if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT; ?>';
   }
@@ -295,7 +294,7 @@ function check_form() {
           </tr>
           <tr>
             <td align="right" nowrap><font face="<? echo ENTRY_FONT_FACE; ?>" size="<? echo ENTRY_FONT_SIZE; ?>" color="<? echo ENTRY_FONT_COLOR; ?>">&nbsp;<? echo ENTRY_COUNTRY; ?>&nbsp;</font></td>
-            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<?tep_get_country_list("country", $account_values['customers_country_id'], "onChange=\"update_zone(this.form);\""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></font></td>
+            <td nowrap><font face="<? echo VALUE_FONT_FACE; ?>" size="<? echo VALUE_FONT_SIZE; ?>" color="<? echo VALUE_FONT_COLOR; ?>">&nbsp;<?tep_get_country_list("country", $account_values['customers_country_id'], (ACCOUNT_STATE)?"onChange=\"update_zone(this.form);\"":""); ?>&nbsp;<? echo ENTRY_COUNTRY_TEXT; ?></font></td>
           </tr>
 <?
   if (ACCOUNT_STATE) {
