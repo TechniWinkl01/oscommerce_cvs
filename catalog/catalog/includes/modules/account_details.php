@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.17 2002/06/01 18:57:15 dgw_ Exp $
+  $Id: account_details.php,v 1.18 2002/08/28 22:54:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -189,7 +189,7 @@
   }
 ?></td>
           </tr>
-<?
+<?php
   if (ACCOUNT_SUBURB == 'true') {
 ?>
           <tr>
@@ -209,7 +209,7 @@
     }
 ?></td>
           </tr>
-<?
+<?php
   }
 ?>
           <tr>
