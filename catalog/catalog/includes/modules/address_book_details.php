@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.8 2003/05/19 20:17:51 hpdl Exp $
+  $Id: address_book_details.php,v 1.9 2003/05/22 14:39:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,8 +16,8 @@
   <tr>
     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="main"><b>Address Book Entry</b></td>
-        <td class="inputRequirement" align="right">* Required information</td>
+        <td class="main"><b><?php echo NEW_ADDRESS_TITLE; ?></b></td>
+        <td class="inputRequirement" align="right"><?php echo FORM_REQUIRED_INFORMATION; ?></td>
       </tr>
     </table></td>
   </tr>
@@ -122,7 +122,7 @@
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
           </tr>
           <tr>
-            <td colspan="2"><?php echo tep_draw_checkbox_field('primary', 'on', false); ?> Set as primary address.</td>
+            <td colspan="2" class="main"><?php echo tep_draw_checkbox_field('primary', 'on', false, 'id="primary"') . ' ' . SET_AS_PRIMARY; ?></td>
           </tr>
 <?php
   }

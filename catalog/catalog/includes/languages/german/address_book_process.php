@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.13 2003/05/19 20:17:51 hpdl Exp $
+  $Id: address_book_process.php,v 1.14 2003/05/22 14:39:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,10 @@ define('HEADING_TITLE_DELETE_ENTRY', 'Delete Address Book Entry');
 define('DELETE_ADDRESS_TITLE', 'Delete Address');
 define('DELETE_ADDRESS_DESCRIPTION', 'Are you sure you would like to delete the selected address from your address book?');
 
+define('NEW_ADDRESS_TITLE', 'New Address Book Entry');
+
 define('SELECTED_ADDRESS', 'Selected Address');
+define('SET_AS_PRIMARY', 'Set as primary address.');
 
 define('SUCCESS_ADDRESS_BOOK_ENTRY_DELETED', 'The selected address has been successfully removed from your address book.');
 define('SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED', 'Your address book has been successfully updated.');
