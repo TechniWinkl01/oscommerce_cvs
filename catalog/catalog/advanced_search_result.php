@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.60 2002/10/27 18:58:41 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.61 2002/11/05 12:14:39 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -181,9 +181,17 @@
   }
 
   $select_str = "select distinct " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) as final_price ";
-  $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m using(manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
-  $where_str = " where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id ";
+  if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
+    $select_str .= ", SUM(tr.tax_rate) as tax_rate ";
+  }
 
+  $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS . " m using(manufacturers_id), " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id, " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
+  if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
+    if (!tep_session_is_registered('customer_country_id')) $customer_country_id = STORE_COUNTRY;
+    if (!tep_session_is_registered('customer_zone_id')) $customer_zone_id = STORE_ZONE;
+    $from_str .= " left join " . TABLE_TAX_RATES . " tr on p.products_tax_class_id = tr.tax_class_id left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on tr.tax_zone_id = gz.geo_zone_id and (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . $customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . $customer_zone_id . "')";
+  }
+  $where_str = " where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id ";
   if ($HTTP_GET_VARS['categories_id']) {
     if ($HTTP_GET_VARS['inc_subcat'] == "1") {
       $subcategories_array = array();
@@ -234,11 +242,15 @@
     $pfrom = $HTTP_GET_VARS['pfrom'] / $rate;
     $pto = $HTTP_GET_VARS['pto'] / $rate;
   }
-  if ($pfrom) {
-    $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) >= " . $pfrom . ")";
+  if (DISPLAY_PRICE_WITH_TAX == true) {
+    if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tr.tax_rate / 100) ) >= " . $pfrom . ")";
+    if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tr.tax_rate / 100) ) <= " . $pto . ")";
+  } else {
+    if ($pfrom) $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) >= " . $pfrom . ")";
+    if ($pto)   $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) <= " . $pto . ")";
   }
-  if ($pto) {
-    $where_str .= " and (IF(s.status, s.specials_new_products_price, p.products_price) <= " . $pto . ")";
+  if ( (DISPLAY_PRICE_WITH_TAX == true) && ($HTTP_GET_VARS['pfrom'] || $HTTP_GET_VARS['pto']) ) {
+    $where_str .= " group by p.products_id, tr.tax_priority";
   }
 
   if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'], 0 , 1) > sizeof($column_list)) ) {
