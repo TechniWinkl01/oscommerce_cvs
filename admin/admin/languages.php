@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.22 2002/01/05 12:37:56 hpdl Exp $
+  $Id: languages.php,v 1.23 2002/01/10 14:03:55 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -206,7 +206,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_INSERT_INTRO . '<br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_NAME . '<br><input type="text" name="name"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_CODE . '<br><input type="text" name="code"><br>&nbsp;');
-    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_IMAGE . '<br><input type="text" name="image"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_IMAGE . '<br><input type="text" name="image" value="icon.gif"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_DIRECTORY . '<br><input type="text" name="directory"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_SORT_ORDER . '<br><input type="text" name="sort_order"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> ' . TEXT_SET_DEFAULT . '<br>&nbsp;');
@@ -236,7 +236,7 @@
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_DEFINE_LANGUAGE, 'lngdir=' . $lInfo->directory, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_define.gif', IMAGE_DEFINE) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_LANGUAGE_NAME . '&nbsp;' . $lInfo->name);
     $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_LANGUAGE_CODE . '&nbsp;' . $lInfo->code);
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_image(DIR_WS_CATALOG_IMAGES . $lInfo->image, $lInfo->name) . '<br>' . DIR_WS_CATALOG_IMAGES . '<b>' . $lInfo->image . '</b>');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_image(DIR_WS_CATALOG_LANGUAGES . $lInfo->directory . '/images/' . $lInfo->image, $lInfo->name) . '<br>' . DIR_WS_CATALOG_LANGUAGES . $lInfo->directory .'/images/' . '<b>' . $lInfo->image . '</b>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>&nbsp;' . DIR_WS_CATALOG_LANGUAGES . '<b>' . $lInfo->directory . '</b>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_INFO_LANGUAGE_SORT_ORDER . '&nbsp;' . $lInfo->sort_order);
   }
