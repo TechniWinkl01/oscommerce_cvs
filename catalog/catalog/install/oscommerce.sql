@@ -1,4 +1,4 @@
-# $Id: oscommerce.sql,v 1.28 2002/03/13 13:52:20 hpdl Exp $
+# $Id: oscommerce.sql,v 1.29 2002/03/18 19:19:32 project3000 Exp $
 #
 # osCommerce, Open Source E-Commerce Solutions
 # http://www.oscommerce.com
@@ -19,8 +19,8 @@
 
 DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
-   customers_id int(5) DEFAULT '0' NOT NULL,
-   address_book_id int(5) DEFAULT '1' NOT NULL,
+   customers_id int DEFAULT '0' NOT NULL,
+   address_book_id int DEFAULT '1' NOT NULL,
    entry_gender char(1) NOT NULL,
    entry_company varchar(32),
    entry_firstname varchar(32) NOT NULL,
@@ -30,14 +30,14 @@ CREATE TABLE address_book (
    entry_postcode varchar(10) NOT NULL,
    entry_city varchar(32) NOT NULL,
    entry_state varchar(32),
-   entry_country_id int(5) DEFAULT '0' NOT NULL,
-   entry_zone_id int(5) DEFAULT '0' NOT NULL,
+   entry_country_id int DEFAULT '0' NOT NULL,
+   entry_zone_id int DEFAULT '0' NOT NULL,
    PRIMARY KEY (address_book_id, customers_id)
 );
 
 DROP TABLE IF EXISTS address_format;
 CREATE TABLE address_format (
-  address_format_id int(5) NOT NULL auto_increment,
+  address_format_id int NOT NULL auto_increment,
   address_format varchar(128) NOT NULL,
   address_summary varchar(48) NOT NULL,
   PRIMARY KEY (address_format_id)
@@ -45,7 +45,7 @@ CREATE TABLE address_format (
 
 DROP TABLE IF EXISTS banners;
 CREATE TABLE banners (
-  banners_id int(5) NOT NULL auto_increment,
+  banners_id int NOT NULL auto_increment,
   banners_title varchar(64) NOT NULL,
   banners_url varchar(64) NOT NULL,
   banners_image varchar(64) NOT NULL,
@@ -62,8 +62,8 @@ CREATE TABLE banners (
 
 DROP TABLE IF EXISTS banners_history;
 CREATE TABLE banners_history (
-  banners_history_id int(5) NOT NULL auto_increment,
-  banners_id int(5) NOT NULL,
+  banners_history_id int NOT NULL auto_increment,
+  banners_id int NOT NULL,
   banners_shown int(5) NOT NULL DEFAULT '0',
   banners_clicked int(5) NOT NULL DEFAULT '0',
   banners_history_date datetime NOT NULL,
@@ -72,9 +72,9 @@ CREATE TABLE banners_history (
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
-   categories_id int(5) NOT NULL auto_increment,
+   categories_id int NOT NULL auto_increment,
    categories_image varchar(64),
-   parent_id int(5) DEFAULT '0' NOT NULL,
+   parent_id int DEFAULT '0' NOT NULL,
    sort_order int(3),
    date_added datetime,
    last_modified datetime,
@@ -85,8 +85,8 @@ CREATE TABLE categories (
 
 DROP TABLE IF EXISTS categories_description;
 CREATE TABLE categories_description (
-   categories_id int(5) DEFAULT '0' NOT NULL,
-   language_id int(5) DEFAULT '1' NOT NULL,
+   categories_id int DEFAULT '0' NOT NULL,
+   language_id int DEFAULT '1' NOT NULL,
    categories_name varchar(32) NOT NULL,
    PRIMARY KEY (categories_id, language_id),
    KEY idx_categories_name (categories_name)
@@ -94,7 +94,7 @@ CREATE TABLE categories_description (
 
 DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
-  configuration_id int(5) NOT NULL auto_increment,
+  configuration_id int NOT NULL auto_increment,
   configuration_title varchar(64) NOT NULL,
   configuration_key varchar(64) NOT NULL,
   configuration_value varchar(255) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE configuration (
 
 DROP TABLE IF EXISTS configuration_group;
 CREATE TABLE configuration_group (
-  configuration_group_id int(5) NOT NULL auto_increment,
+  configuration_group_id int NOT NULL auto_increment,
   configuration_group_title varchar(64) NOT NULL,
   configuration_group_description varchar(255) NOT NULL,
   sort_order int(5) NULL,
@@ -132,18 +132,18 @@ CREATE TABLE counter_history (
 
 DROP TABLE IF EXISTS countries;
 CREATE TABLE countries (
-  countries_id int(5) NOT NULL auto_increment,
+  countries_id int NOT NULL auto_increment,
   countries_name varchar(64) NOT NULL,
   countries_iso_code_2 char(2) NOT NULL,
   countries_iso_code_3 char(3) NOT NULL,
-  address_format_id int(5) NOT NULL,
+  address_format_id int NOT NULL,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
 );
 
 DROP TABLE IF EXISTS currencies;
 CREATE TABLE currencies (
-  currencies_id int(5) NOT NULL auto_increment,
+  currencies_id int NOT NULL auto_increment,
   title varchar(32) NOT NULL,
   code char(3) NOT NULL,
   symbol_left varchar(12),
@@ -158,7 +158,7 @@ CREATE TABLE currencies (
 
 DROP TABLE IF EXISTS customers;
 CREATE TABLE customers (
-   customers_id int(5) NOT NULL auto_increment,
+   customers_id int NOT NULL auto_increment,
    customers_gender char(1) NOT NULL,
    customers_firstname varchar(32) NOT NULL,
    customers_lastname varchar(32) NOT NULL,
@@ -174,8 +174,8 @@ CREATE TABLE customers (
 
 DROP TABLE IF EXISTS customers_basket;
 CREATE TABLE customers_basket (
-  customers_basket_id int(5) NOT NULL auto_increment,
-  customers_id int(5) NOT NULL,
+  customers_basket_id int NOT NULL auto_increment,
+  customers_id int NOT NULL,
   products_id tinytext NOT NULL,
   customers_basket_quantity int(2) NOT NULL,
   final_price decimal(6,2) NOT NULL,
@@ -185,17 +185,17 @@ CREATE TABLE customers_basket (
 
 DROP TABLE IF EXISTS customers_basket_attributes;
 CREATE TABLE customers_basket_attributes (
-  customers_basket_attributes_id int(5) NOT NULL auto_increment,
-  customers_id int(5) NOT NULL,
+  customers_basket_attributes_id int NOT NULL auto_increment,
+  customers_id int NOT NULL,
   products_id tinytext NOT NULL,
-  products_options_id int(5) NOT NULL,
-  products_options_value_id int(5) NOT NULL,
+  products_options_id int NOT NULL,
+  products_options_value_id int NOT NULL,
   PRIMARY KEY (customers_basket_attributes_id)
 );
 
 DROP TABLE IF EXISTS customers_info;
 CREATE TABLE customers_info (
-  customers_info_id int(5) NOT NULL,
+  customers_info_id int NOT NULL,
   customers_info_date_of_last_logon datetime,
   customers_info_number_of_logons int(5),
   customers_info_date_account_created datetime,
@@ -206,7 +206,7 @@ CREATE TABLE customers_info (
 
 DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
-  languages_id int(5) NOT NULL auto_increment,
+  languages_id int NOT NULL auto_increment,
   name varchar(32)  NOT NULL,
   code char(2) NOT NULL,
   image varchar(64),
@@ -219,7 +219,7 @@ CREATE TABLE languages (
 
 DROP TABLE IF EXISTS manufacturers;
 CREATE TABLE manufacturers (
-  manufacturers_id int(5) NOT NULL auto_increment,
+  manufacturers_id int NOT NULL auto_increment,
   manufacturers_name varchar(32) NOT NULL,
   manufacturers_image varchar(64),
   date_added datetime NULL,
@@ -230,8 +230,8 @@ CREATE TABLE manufacturers (
 
 DROP TABLE IF EXISTS manufacturers_info;
 CREATE TABLE manufacturers_info (
-  manufacturers_id int(5) NOT NULL,
-  languages_id int(5) NOT NULL,
+  manufacturers_id int NOT NULL,
+  languages_id int NOT NULL,
   manufacturers_url varchar(255) NOT NULL,
   url_clicked int(5) NOT NULL default '0',
   date_last_click datetime NULL,
@@ -240,7 +240,7 @@ CREATE TABLE manufacturers_info (
 
 DROP TABLE IF EXISTS newsletters;
 CREATE TABLE newsletters (
-  newsletters_id int(5) NOT NULL auto_increment,
+  newsletters_id int NOT NULL auto_increment,
   title varchar(255) NOT NULL,
   content text NOT NULL,
   module varchar(255) NOT NULL,
@@ -253,8 +253,8 @@ CREATE TABLE newsletters (
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
-  orders_id int(5) NOT NULL auto_increment,
-  customers_id int(5) NOT NULL,
+  orders_id int NOT NULL auto_increment,
+  customers_id int NOT NULL,
   customers_name varchar(64) NOT NULL,
   customers_street_address varchar(64) NOT NULL,
   customers_suburb varchar(32),
@@ -292,9 +292,9 @@ CREATE TABLE orders (
 
 DROP TABLE IF EXISTS orders_products;
 CREATE TABLE orders_products (
-  orders_products_id int(5) NOT NULL auto_increment,
-  orders_id int(5) NOT NULL,
-  products_id int(5) NOT NULL,
+  orders_products_id int NOT NULL auto_increment,
+  orders_id int NOT NULL,
+  products_id int NOT NULL,
   products_model varchar(12),
   products_name varchar(64) NOT NULL,
   products_price decimal(8,2) NOT NULL,
@@ -306,8 +306,8 @@ CREATE TABLE orders_products (
 
 DROP TABLE IF EXISTS orders_status;
 CREATE TABLE orders_status (
-   orders_status_id int(5) DEFAULT '0' NOT NULL,
-   language_id int(5) DEFAULT '1' NOT NULL,
+   orders_status_id int DEFAULT '0' NOT NULL,
+   language_id int DEFAULT '1' NOT NULL,
    orders_status_name varchar(32) NOT NULL,
    PRIMARY KEY (orders_status_id, language_id),
    KEY idx_orders_status_name (orders_status_name)
@@ -315,8 +315,8 @@ CREATE TABLE orders_status (
 
 DROP TABLE IF EXISTS orders_status_history;
 CREATE TABLE orders_status_history (
-   orders_status_history_id int(5) NOT NULL auto_increment,
-   orders_id int(5) NOT NULL,
+   orders_status_history_id int NOT NULL auto_increment,
+   orders_id int NOT NULL,
    new_value int(5) NOT NULL,
    old_value int(5),
    date_added datetime NOT NULL,
@@ -326,9 +326,9 @@ CREATE TABLE orders_status_history (
 
 DROP TABLE IF EXISTS orders_products_attributes;
 CREATE TABLE orders_products_attributes (
-  orders_products_attributes_id int(5) NOT NULL auto_increment,
-  orders_id int(5) NOT NULL,
-  orders_products_id int(5) NOT NULL,
+  orders_products_attributes_id int NOT NULL auto_increment,
+  orders_id int NOT NULL,
+  orders_products_id int NOT NULL,
   products_options varchar(32) NOT NULL,
   products_options_values varchar(32) NOT NULL,
   options_values_price decimal(8,2) NOT NULL,
@@ -338,9 +338,9 @@ CREATE TABLE orders_products_attributes (
 
 DROP TABLE IF EXISTS orders_products_download;
 CREATE TABLE orders_products_download (
-  orders_products_download_id int(5) NOT NULL auto_increment,
-  orders_id int(5) NOT NULL default '0',
-  orders_products_id int(5) NOT NULL default '0',
+  orders_products_download_id int NOT NULL auto_increment,
+  orders_id int NOT NULL default '0',
+  orders_products_id int NOT NULL default '0',
   orders_products_filename varchar(255) NOT NULL default '',
   download_maxdays int(2) NOT NULL default '0',
   download_count int(2) NOT NULL default '0',
@@ -349,7 +349,7 @@ CREATE TABLE orders_products_download (
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
-  products_id int(5) NOT NULL auto_increment,
+  products_id int NOT NULL auto_increment,
   products_quantity int(4) NOT NULL,
   products_model varchar(12),
   products_image varchar(64),
@@ -359,17 +359,17 @@ CREATE TABLE products (
   products_date_available datetime,
   products_weight decimal(5,2) NOT NULL,
   products_status tinyint(1) NOT NULL,
-  products_tax_class_id int(5) NOT NULL,
-  manufacturers_id int(5) NULL,
+  products_tax_class_id int NOT NULL,
+  manufacturers_id int NULL,
   PRIMARY KEY (products_id)
 );
 
 DROP TABLE IF EXISTS products_attributes;
 CREATE TABLE products_attributes (
-  products_attributes_id int(5) NOT NULL auto_increment,
-  products_id int(5) NOT NULL,
-  options_id int(5) NOT NULL,
-  options_values_id int(5) NOT NULL,
+  products_attributes_id int NOT NULL auto_increment,
+  products_id int NOT NULL,
+  options_id int NOT NULL,
+  options_values_id int NOT NULL,
   options_values_price decimal(8,2) NOT NULL,
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (products_attributes_id)
@@ -377,7 +377,7 @@ CREATE TABLE products_attributes (
 
 DROP TABLE IF EXISTS products_attributes_download;
 CREATE TABLE products_attributes_download (
-  products_attributes_id int(5) NOT NULL,
+  products_attributes_id int NOT NULL,
   products_attributes_filename varchar(255) NOT NULL default '',
   products_attributes_maxdays int(2) default '0',
   products_attributes_maxcount int(2) default '0',
@@ -386,8 +386,8 @@ CREATE TABLE products_attributes_download (
 
 DROP TABLE IF EXISTS products_description;
 CREATE TABLE products_description (
-  products_id int(5) NOT NULL auto_increment,
-  language_id int(5) NOT NULL default '1',
+  products_id int NOT NULL auto_increment,
+  language_id int NOT NULL default '1',
   products_name varchar(64) NOT NULL default '',
   products_description text,
   products_url varchar(255) default NULL,
@@ -398,48 +398,48 @@ CREATE TABLE products_description (
 
 DROP TABLE IF EXISTS products_notifications;
 CREATE TABLE products_notifications (
-  products_id int(5) NOT NULL,
-  customers_id int(5) NOT NULL,
+  products_id int NOT NULL,
+  customers_id int NOT NULL,
   date_added datetime NOT NULL,
   PRIMARY KEY (products_id, customers_id)
 );
 
 DROP TABLE IF EXISTS products_options;
 CREATE TABLE products_options (
-  products_options_id int(5) NOT NULL default '0',
-  language_id int(5) NOT NULL default '1',
+  products_options_id int NOT NULL default '0',
+  language_id int NOT NULL default '1',
   products_options_name varchar(32) NOT NULL default '',
   PRIMARY KEY  (products_options_id,language_id)
 );
 
 DROP TABLE IF EXISTS products_options_values;
 CREATE TABLE products_options_values (
-  products_options_values_id int(5) NOT NULL default '0',
-  language_id int(5) NOT NULL default '1',
+  products_options_values_id int NOT NULL default '0',
+  language_id int NOT NULL default '1',
   products_options_values_name varchar(64) NOT NULL default '',
   PRIMARY KEY  (products_options_values_id,language_id)
 );
 
 DROP TABLE IF EXISTS products_options_values_to_products_options;
 CREATE TABLE products_options_values_to_products_options (
-  products_options_values_to_products_options_id int(5) NOT NULL auto_increment,
-  products_options_id int(5) NOT NULL,
-  products_options_values_id int(5) NOT NULL,
+  products_options_values_to_products_options_id int NOT NULL auto_increment,
+  products_options_id int NOT NULL,
+  products_options_values_id int NOT NULL,
   PRIMARY KEY (products_options_values_to_products_options_id)
 );
 
 DROP TABLE IF EXISTS products_to_categories;
 CREATE TABLE products_to_categories (
-  products_id int(5) NOT NULL,
-  categories_id int(5) NOT NULL,
+  products_id int NOT NULL,
+  categories_id int NOT NULL,
   PRIMARY KEY (products_id,categories_id)
 );
 
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
-  reviews_id int(5) NOT NULL auto_increment,
-  products_id int(5) NOT NULL,
-  customers_id int(5),
+  reviews_id int NOT NULL auto_increment,
+  products_id int NOT NULL,
+  customers_id int,
   customers_name varchar(64) NOT NULL,
   reviews_rating int(1),
   date_added datetime,
@@ -450,8 +450,8 @@ CREATE TABLE reviews (
 
 DROP TABLE IF EXISTS reviews_description;
 CREATE TABLE reviews_description (
-  reviews_id int(5) NOT NULL,
-  languages_id int(5) NOT NULL,
+  reviews_id int NOT NULL,
+  languages_id int NOT NULL,
   reviews_text text NOT NULL,
   PRIMARY KEY (reviews_id, languages_id)
 );
@@ -466,8 +466,8 @@ CREATE TABLE sessions (
 
 DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
-  specials_id int(5) NOT NULL auto_increment,
-  products_id int(5) NOT NULL,
+  specials_id int NOT NULL auto_increment,
+  products_id int NOT NULL,
   specials_new_products_price decimal(8,2) NOT NULL,
   specials_date_added datetime,
   specials_last_modified datetime,
@@ -479,7 +479,7 @@ CREATE TABLE specials (
 
 DROP TABLE IF EXISTS tax_class;
 CREATE TABLE tax_class (
-  tax_class_id int(5) NOT NULL auto_increment,
+  tax_class_id int NOT NULL auto_increment,
   tax_class_title varchar(32) NOT NULL,
   tax_class_description varchar(255) NOT NULL,
   last_modified datetime NULL,
@@ -489,9 +489,9 @@ CREATE TABLE tax_class (
 
 DROP TABLE IF EXISTS tax_rates;
 CREATE TABLE tax_rates (
-  tax_rates_id int(5) NOT NULL auto_increment,
-  tax_zone_id int(5) NOT NULL,
-  tax_class_id int(5) NOT NULL,
+  tax_rates_id int NOT NULL auto_increment,
+  tax_zone_id int NOT NULL,
+  tax_class_id int NOT NULL,
   tax_priority int(5) DEFAULT 1,
   tax_rate decimal(7,4) NOT NULL,
   tax_description varchar(255) NOT NULL,
@@ -502,7 +502,7 @@ CREATE TABLE tax_rates (
 
 DROP TABLE IF EXISTS geo_zones;
 CREATE TABLE geo_zones (
-  geo_zone_id int(5) NOT NULL auto_increment,
+  geo_zone_id int NOT NULL auto_increment,
   geo_zone_name varchar(32) NOT NULL,
   geo_zone_description varchar(255) NOT NULL,
   last_modified datetime NULL,
@@ -512,7 +512,7 @@ CREATE TABLE geo_zones (
 
 DROP TABLE IF EXISTS whos_online;
 CREATE TABLE whos_online (
-  customer_id int(5),
+  customer_id int,
   full_name varchar(64) NOT NULL,
   session_id varchar(128) NOT NULL,
   ip_address varchar(15) NOT NULL,
@@ -523,8 +523,8 @@ CREATE TABLE whos_online (
 
 DROP TABLE IF EXISTS zones;
 CREATE TABLE zones (
-  zone_id int(5) NOT NULL auto_increment,
-  zone_country_id int(5) NOT NULL,
+  zone_id int NOT NULL auto_increment,
+  zone_country_id int NOT NULL,
   zone_code varchar(32) NOT NULL,
   zone_name varchar(32) NOT NULL,
   PRIMARY KEY (zone_id)
@@ -532,10 +532,10 @@ CREATE TABLE zones (
 
 DROP TABLE IF EXISTS zones_to_geo_zones;
 CREATE TABLE zones_to_geo_zones (
-   association_id int(5) NOT NULL auto_increment,
-   zone_country_id int(5) NOT NULL,
-   zone_id int(5) NULL,
-   geo_zone_id int(5) NULL,
+   association_id int NOT NULL auto_increment,
+   zone_country_id int NOT NULL,
+   zone_id int NULL,
+   geo_zone_id int NULL,
    last_modified datetime NULL,
    date_added datetime NOT NULL,
    PRIMARY KEY (association_id)
