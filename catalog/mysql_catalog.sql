@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.112 2001/07/03 16:35:11 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.113 2001/07/16 15:40:47 dwatkins Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -302,7 +302,7 @@ CREATE TABLE products_attributes (
 CREATE TABLE products_description (
   products_id int(5) NOT NULL auto_increment,
   language_id int(5) NOT NULL default '1',
-  products_name varchar(32) NOT NULL default '',
+  products_name varchar(64) NOT NULL default '',
   products_description text,
   products_url varchar(255) default NULL,
   products_viewed int(5) default '0',
