@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.117 2002/02/17 18:45:07 dgw_ Exp $
+  $Id: general.php,v 1.118 2002/03/15 02:40:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,17 +10,19 @@
   Released under the GNU General Public License
 */
 
-  function tep_exit() {
-    if (EXIT_AFTER_REDIRECT == 'true') {
-     return exit();
-    }
-  }
-
 ////
 // Redirect to another page or site
   function tep_redirect($url) {
+    global $logger;
+
     header('Location: ' . $url);
-    tep_exit();
+
+    if (STORE_PAGE_PARSE_TIME == 'true') {
+      if (!is_object($logger)) $logger = new logger;
+      $logger->timer_stop();
+    }
+
+    exit;
   }
 
   function tep_currency_format($number, $calculate_currency_value = true, $currency_value = DEFAULT_CURRENCY) {

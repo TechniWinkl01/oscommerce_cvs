@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.17 2002/01/29 20:22:47 hpdl Exp $
+  $Id: database.php,v 1.18 2002/03/15 02:40:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,16 +35,17 @@
   }
 
   function tep_db_query($query, $link = 'db_link') {
-    global $$link;
+    global $$link, $logger;
 
     if (STORE_DB_TRANSACTIONS == 'true') {
-      error_log('QUERY ' . $query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      if (!is_object($logger)) $logger = new logger;
+      $logger->write($query, 'QUERY');
     }
 
     $result = mysql_query($query, $$link) or tep_db_error($query, mysql_errno(), mysql_error());
 
     if (STORE_DB_TRANSACTIONS == 'true') {
-      error_log('RESULT ' . $result . ' ' . mysql_error() . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      if (mysql_error()) $logger->write(mysql_error(), 'ERROR');
     }
 
     return $result;

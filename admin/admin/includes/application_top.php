@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.137 2002/03/10 01:34:25 hpdl Exp $
+  $Id: application_top.php,v 1.138 2002/03/15 02:40:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,9 +27,6 @@
   define('LOCAL_EXE_GUNZIP', '/usr/bin/gunzip');
   define('LOCAL_EXE_ZIP', '/usr/local/bin/zip');
   define('LOCAL_EXE_UNZIP', '/usr/local/bin/unzip');
-
-// if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
-  define('EXIT_AFTER_REDIRECT', 'true');
 
 // define the filenames used in the project
   define('FILENAME_CATALOG_ACCOUNT_HISTORY_INFO', 'account_history_info.php');
@@ -201,8 +198,13 @@
   require(DIR_WS_CLASSES . 'boxes.php');
   require(DIR_WS_CLASSES . 'table_block.php');
   require(DIR_WS_CLASSES . 'box.php');
+
+// initialize the message stack for output messages
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
+
+// initialize the logger class
+  require(DIR_WS_CLASSES . 'logger.php');
 
 // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
