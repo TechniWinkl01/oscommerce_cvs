@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.51 2001/06/15 23:49:00 hpdl Exp $
+  $Id: espanol.php,v 1.52 2001/06/16 11:49:03 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -268,7 +268,7 @@ define('TEXT_REVIEW_RATING', 'Evaluacion: %s [%s]');
 define('TEXT_REVIEW_DATE_ADDED', 'Fecha Alta: %s');
 define('TEXT_NO_REVIEWS', 'En este momento, no hay ningun comentario.');
 
-define('TEXT_UNKNOWN_TAX_RATE', 'Unknown tax rate');
+define('TEXT_UNKNOWN_TAX_RATE', 'Impuesto desconocido');
 
-define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
+define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> No he podido enviar el email con el servidor SMTP especificado. Configura tu servidor SMTP en la seccion adecuada del fichero php.ini.</b></font>');
 ?>
