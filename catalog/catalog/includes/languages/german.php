@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.69 2001/11/18 18:45:54 dgw_ Exp $
+  $Id: german.php,v 1.70 2001/11/27 12:30:42 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -164,7 +164,7 @@ define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');
 define('CATEGORY_ADDRESS', 'Ihre Adresse');
 define('CATEGORY_CONTACT', 'Ihre Kontaktinformation');
 define('CATEGORY_OPTIONS', 'Optionen');
-define('CATEGORY_PASSWORD', 'Ihre Passwort');
+define('CATEGORY_PASSWORD', 'Ihr Passwort');
 define('ENTRY_COMPANY', 'Firmenname:');
 define('ENTRY_COMPANY_ERROR', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
 define('ENTRY_COMPANY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
@@ -278,5 +278,5 @@ define('TEXT_NO_NEW_PRODUCTS', 'Zur Zeit gibt es keine neue Produkte.');
 
 define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
-define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
+define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Eintsellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch.</b></font>');
 ?>
