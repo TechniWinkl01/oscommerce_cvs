@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: download.php,v 1.3 2002/02/08 14:11:10 clescuyer Exp $
+  $Id: download.php,v 1.4 2002/03/29 00:22:14 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -96,11 +96,11 @@ function tep_unlink_temp_dir($dir)
 
 // This will work only on Unix/Linux hosts
     tep_unlink_temp_dir(DIR_FS_DOWNLOAD_PUBLIC);
-    $tempdir = tep_random_name(). '/';
+    $tempdir = tep_random_name();
     umask(0000);
     mkdir(DIR_FS_DOWNLOAD_PUBLIC . $tempdir, 0777);
-    symlink(DIR_FS_DOWNLOAD . $downloads_values['orders_products_filename'], DIR_FS_DOWNLOAD_PUBLIC . $tempdir  . $downloads_values['orders_products_filename']);
-    tep_redirect(DIR_WS_DOWNLOAD_PUBLIC . $tempdir . $downloads_values['orders_products_filename']);
+    symlink(DIR_FS_DOWNLOAD . $downloads_values['orders_products_filename'], DIR_FS_DOWNLOAD_PUBLIC . $tempdir . '/' . $downloads_values['orders_products_filename']);
+    tep_redirect(DIR_WS_DOWNLOAD_PUBLIC . $tempdir . '/' . $downloads_values['orders_products_filename']);
 
   } else {
 // This will work on all systems, but will need considerable resources
