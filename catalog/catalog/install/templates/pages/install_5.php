@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_5.php,v 1.16 2002/08/12 12:10:36 hpdl Exp $
+  $Id: install_5.php,v 1.17 2002/08/12 12:52:12 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -111,7 +111,7 @@
                      '  define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
-    $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '/includes/configure.php', 'w');
+    $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . 'includes/configure.php', 'w');
     fputs($fp, $file_contents);
     fclose($fp);
 
@@ -163,7 +163,7 @@
                      '  define(\'STORE_SESSIONS\', \'' . (($HTTP_POST_VARS['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
                      '?>';
 
-    $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . '/includes/configure.php', 'w');
+    $fp = fopen($HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_ADMIN'] . 'includes/configure.php', 'w');
     fputs($fp, $file_contents);
     fclose($fp);
 ?>
