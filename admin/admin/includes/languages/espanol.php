@@ -70,8 +70,8 @@ define('BOX_STATISTICS_PRODUCTS_PURCHASED', 'Productos Mas Comprados');
 define('BOX_STATISTICS_ORDERS_TOTAL', 'Total Pedidos por Cliente');
 
 // localizaion box text in includes/boxes/localization.php
-define('BOX_HEADING_LOCALIZATION', 'localizaci&oacute;n');
-define('BOX_LOCALIZATION_CURRENCIES', 'Modernidades');
+define('BOX_HEADING_LOCALIZATION', 'Localizaci&oacute;n');
+define('BOX_LOCALIZATION_CURRENCIES', 'Monedas');
 
 // javascript messages
 define('JS_ERROR', 'Ha habido errores procesando su formulario!\nPor favor, haga las siguiente modificaciones:\n\n');
@@ -199,6 +199,7 @@ define('TEXT_DISPLAY_NUMBER_OF_TAX_RATES', 'Viendo del <b>%d</b> al <b>%d</b> (d
 define('TEXT_DISPLAY_NUMBER_OF_TAX_CLASSES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tipos de impuesto)');
 define('TEXT_DISPLAY_NUMBER_OF_ZONES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> zonas)');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> paises)');
+define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> monedas)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
