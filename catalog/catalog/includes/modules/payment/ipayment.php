@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.35 2003/11/23 11:53:29 project3000 Exp $
+  $Id: ipayment.php,v 1.36 2003/12/04 23:14:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -99,6 +99,8 @@
     }
 
     function pre_confirmation_check() {
+      global $messageStack;
+
       if (PHP_VERSION < 4.1) {
         global $_POST;
       }
@@ -124,9 +126,11 @@
       }
 
       if ( ($result == false) || ($result < 1) ) {
-        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']) . '&ipayment_cc_expires_month=' . $_POST['ipayment_cc_expires_month'] . '&ipayment_cc_expires_year=' . $_POST['ipayment_cc_expires_year'] . '&ipayment_cc_checkcode=' . $_POST['ipayment_cc_checkcode'];
+        $messageStack->add_session('checkout_payment', $error, 'error');
 
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
+        $payment_error_return = 'ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']) . '&ipayment_cc_expires_month=' . urlencode($_POST['ipayment_cc_expires_month']) . '&ipayment_cc_expires_year=' . urlencode($_POST['ipayment_cc_expires_year']) . '&ipayment_cc_checkcode=' . urlencode($_POST['ipayment_cc_checkcode']);
+
+        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
       }
 
       $this->cc_card_type = $cc_validation->cc_type;
@@ -186,21 +190,36 @@
           break;
       }
 
-      $process_button_string = tep_draw_hidden_field('silent', '1') .
-                               tep_draw_hidden_field('trx_paymenttyp', 'cc') .
-                               tep_draw_hidden_field('trxuser_id', MODULE_PAYMENT_IPAYMENT_USER_ID) .
+      $payment_error_return = 'ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']) . '&ipayment_cc_expires_month=' . urlencode($_POST['ipayment_cc_expires_month']) . '&ipayment_cc_expires_year=' . urlencode($_POST['ipayment_cc_expires_year']) . '&ipayment_cc_checkcode=' . urlencode($_POST['ipayment_cc_checkcode']);
+
+      $process_button_string = tep_draw_hidden_field('trxuser_id', MODULE_PAYMENT_IPAYMENT_USER_ID) .
                                tep_draw_hidden_field('trxpassword', MODULE_PAYMENT_IPAYMENT_PASSWORD) .
-                               tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('trx_currency', $trx_currency) .
                                tep_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $currencies->get_value($trx_currency), 0, '','')) .
-                               tep_draw_hidden_field('cc_expdate_month', $_POST['ipayment_cc_expires_month']) .
-                               tep_draw_hidden_field('cc_expdate_year', $_POST['ipayment_cc_expires_year']) .
-                               tep_draw_hidden_field('cc_number', $_POST['ipayment_cc_number']) .
-                               tep_draw_hidden_field('cc_checkcode', $_POST['ipayment_cc_checkcode']) .
+                               tep_draw_hidden_field('trx_currency', $trx_currency) .
+                               tep_draw_hidden_field('trx_paymenttyp', 'cc') .
                                tep_draw_hidden_field('addr_name', $_POST['ipayment_cc_owner']) .
+                               tep_draw_hidden_field('addr_street', $order->billing['street_address']) .
+                               tep_draw_hidden_field('addr_city', $order->billing['city']) .
+                               tep_draw_hidden_field('addr_zip', $order->billing['postcode']) .
+                               tep_draw_hidden_field('addr_country', $order->billing['country']['iso_code_2']) .
+                               tep_draw_hidden_field('addr_telefon', $order->customer['telephone']) .
                                tep_draw_hidden_field('addr_email', $order->customer['email_address']) .
-                               tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
-                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . '&ipayment_cc_owner=' . urlencode($_POST['ipayment_cc_owner']), 'SSL', true));
+                               tep_draw_hidden_field('error_lang', ($osC_Session->value('language') == 'english') ? 'en' : 'de') .
+                               tep_draw_hidden_field('silent', '1') .
+                               tep_draw_hidden_field('silent_error_url', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . '&' . $payment_error_return, 'SSL')) .
+                               tep_draw_hidden_field('redirect_url', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
+                               tep_draw_hidden_field('cc_number', $_POST['ipayment_cc_number']) .
+                               tep_draw_hidden_field('cc_expdate_month', $_POST['ipayment_cc_expires_month']) .
+                               tep_draw_hidden_field('cc_expdate_year', $_POST['ipayment_cc_expires_year']);
+
+
+      if (tep_not_null($_POST['ipayment_cc_checkcode'])) {
+        $process_button_string .= tep_draw_hidden_field('cc_checkcode', $_POST['ipayment_cc_checkcode']);
+      }
+
+      if (tep_not_null(MODULE_PAYMENT_IPAYMENT_SECURITY_KEY)) {
+        $process_button_string .= tep_draw_hidden_field('trx_securityhash', md5(MODULE_PAYMENT_IPAYMENT_USER_ID . number_format($order->info['total'] * 100 * $currencies->get_value($trx_currency), 0, '','') . $trx_currency . MODULE_PAYMENT_IPAYMENT_PASSWORD . MODULE_PAYMENT_IPAYMENT_SECURITY_KEY));
+      }
 
       return $process_button_string;
     }
@@ -219,7 +238,7 @@
       }
 
       $error = array('title' => IPAYMENT_ERROR_HEADING,
-                     'error' => ((isset($_GET['error'])) ? stripslashes(urldecode($_GET['error'])) : IPAYMENT_ERROR_MESSAGE));
+                     'error' => (isset($_GET['ret_errormsg']) ? stripslashes(urldecode($_GET['ret_errormsg'])) : IPAYMENT_ERROR_MESSAGE));
 
       return $error;
     }
@@ -237,10 +256,11 @@
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Account Number', 'MODULE_PAYMENT_IPAYMENT_ID', '99999', 'The account number used for the iPayment service', '6', '2', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('User ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID', '99999', 'The user ID for the iPayment service', '6', '3', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('User Password', 'MODULE_PAYMENT_IPAYMENT_PASSWORD', '0', 'The user password for the iPayment service', '6', '4', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Currency', 'MODULE_PAYMENT_IPAYMENT_CURRENCY', 'Either EUR or USD, else EUR', 'The currency to use for credit card transactions', '6', '5', 'tep_cfg_select_option(array(\'Always EUR\', \'Always USD\', \'Either EUR or USD, else EUR\', \'Either EUR or USD, else USD\'), ', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort order of display.', 'MODULE_PAYMENT_IPAYMENT_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', '6', '0', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Payment Zone', 'MODULE_PAYMENT_IPAYMENT_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', '6', '2', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Set Order Status', 'MODULE_PAYMENT_IPAYMENT_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', '6', '0', 'tep_cfg_pull_down_order_statuses(', 'tep_get_order_status_name', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Security Key', 'MODULE_PAYMENT_IPAYMENT_SECURITY_KEY', '', 'The security key used to generate the security hash', '6', '5', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Currency', 'MODULE_PAYMENT_IPAYMENT_CURRENCY', 'Either EUR or USD, else EUR', 'The currency to use for credit card transactions', '6', '6', 'tep_cfg_select_option(array(\'Always EUR\', \'Always USD\', \'Either EUR or USD, else EUR\', \'Either EUR or USD, else USD\'), ', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort order of display.', 'MODULE_PAYMENT_IPAYMENT_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', '6', '7', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Payment Zone', 'MODULE_PAYMENT_IPAYMENT_ZONE', '0', 'If a zone is selected, only enable this payment method for that zone.', '6', '8', 'tep_get_zone_class_title', 'tep_cfg_pull_down_zone_classes(', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, use_function, date_added) values ('Set Order Status', 'MODULE_PAYMENT_IPAYMENT_ORDER_STATUS_ID', '0', 'Set the status of orders made with this payment module to this value', '6', '9', 'tep_cfg_pull_down_order_statuses(', 'tep_get_order_status_name', now())");
     }
 
     function remove() {
@@ -248,7 +268,7 @@
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_IPAYMENT_STATUS', 'MODULE_PAYMENT_IPAYMENT_ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID', 'MODULE_PAYMENT_IPAYMENT_PASSWORD', 'MODULE_PAYMENT_IPAYMENT_CURRENCY', 'MODULE_PAYMENT_IPAYMENT_ZONE', 'MODULE_PAYMENT_IPAYMENT_ORDER_STATUS_ID', 'MODULE_PAYMENT_IPAYMENT_SORT_ORDER');
+      return array('MODULE_PAYMENT_IPAYMENT_STATUS', 'MODULE_PAYMENT_IPAYMENT_ID', 'MODULE_PAYMENT_IPAYMENT_USER_ID', 'MODULE_PAYMENT_IPAYMENT_PASSWORD', 'MODULE_PAYMENT_IPAYMENT_SECURITY_KEY', 'MODULE_PAYMENT_IPAYMENT_CURRENCY', 'MODULE_PAYMENT_IPAYMENT_ZONE', 'MODULE_PAYMENT_IPAYMENT_ORDER_STATUS_ID', 'MODULE_PAYMENT_IPAYMENT_SORT_ORDER');
     }
   }
 ?>
