@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_2.php,v 1.6 2003/07/11 14:59:01 hpdl Exp $
+  $Id: install_2.php,v 1.7 2003/07/12 08:10:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -161,7 +161,7 @@
   <tr>
     <td width="30%" valign="top">Password:</td>
     <td width="70%" class="smallDesc">
-      <?php echo osc_draw_input_field('DB_SERVER_PASSWORD'); ?>
+      <?php echo osc_draw_password_field('DB_SERVER_PASSWORD'); ?>
       <img src="images/layout/help_icon.gif" onClick="toggleBox('dbPass');"><br>
       <div id="dbPassSD">Database password</div>
       <div id="dbPass" class="longDescription">The password is used together with the username, which forms the database user account.</div>
