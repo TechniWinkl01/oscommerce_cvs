@@ -48,7 +48,7 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
 
       $class = 'class="bluelink"';
 
-      $parameters = ($parameters == '') ? '' : $parameters . '&';
+      if ($parameters != '') $parameters . '&';
 
 // calculate number of pages needing links 
       $num_pages = intval($query_numrows / $max_rows_per_page);
