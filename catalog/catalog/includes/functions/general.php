@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.141 2001/11/15 01:57:19 hpdl Exp $
+  $Id: general.php,v 1.142 2001/11/17 00:15:14 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -970,7 +970,7 @@
 //                    e.g. info@mytepshop.com
 
   function tep_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
-    if (!SEND_EMAILS) return true;
+    if (SEND_EMAILS != 'true') return false;
 
     // Build all required headers
     // add From: header

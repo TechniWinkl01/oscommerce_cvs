@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.178 2001/11/16 23:10:58 hpdl Exp $
+  $Id: application_top.php,v 1.179 2001/11/17 00:15:14 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,9 +25,6 @@
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off
   define('DIR_FS_CACHE', '/tmp/'); // Default: /tmp/ - Default cache directory
-
-// Application wide parameter to send out emails or not
-  define('SEND_EMAILS', true);
 
   define('EXIT_AFTER_REDIRECT', true); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_exit();
 
