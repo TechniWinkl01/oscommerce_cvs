@@ -1,18 +1,24 @@
-The Exchange Project Preview Release 2.x TODO List
+$Id: TODO,v 1.8 2003/02/17 11:48:59 hpdl Exp $
 
-* Template file/directory structure
-* Dynamic box contents
-* More classes! :)
-* Documentation
-* Redesigned products attributes
-* Full localization support
-* Database queries as functions for database independancy
-* Various module examples for product listing and product information
+osCommerce 2.2 Milestone 1 To-Do Notes
+Copyright (c) osCommerce 2003
 
-Not thoroughly discussed:
+day date February, 2003
 
-* Banner ad rotating system (start of B2B services)
-* Action logging
-* Who's Online
-* Image Manager
-* Manufacturer Info
+The following are known problems to exist in the Milestone 1 release.
+
+1. File Uploading
+
+Empty file uploads in the Administration Tool may update the entry filename to
+contain the word "array".
+
+2. Filename Lengths
+
+Some filename lengths exceed the limit of 31 characters which poses a problem
+for Mac OS 9.
+
+3. No E-Mail Address Checking
+
+There is no e-mail address checking in the Administration Tool -> Customers
+area which might lead to duplicate e-mail addresses existing in the database
+when records are updated.
