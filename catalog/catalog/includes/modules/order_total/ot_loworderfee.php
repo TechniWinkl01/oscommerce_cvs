@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_loworderfee.php,v 1.2 2002/04/26 20:28:07 dgw_ Exp $
+  $Id: ot_loworderfee.php,v 1.3 2002/05/02 13:12:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,7 +43,7 @@
 
           $order->info['tax'] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
           $order->info['tax_groups']["{$tax}"] += tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
-          $order->info['total'] += tep_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+          $order->info['total'] += MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + tep_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
 
           $this->output[] = array('title' => $this->title . ':',
                                   'text' => $currencies->format(tep_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $order->info['currency'], $order->info['currency_value']),
