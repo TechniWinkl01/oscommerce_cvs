@@ -19,6 +19,7 @@ define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
 define('CURRENCY_BEFORE', '$'); // currency character(s) before value
 define('CURRENCY_AFTER', ''); // currency character(s) after value
 define('CURRENCY_DECIMAL', '.'); // currency decimal point character
+define('CURRENCY_DECIMAL_PLACES', 2);
 define('CURRENCY_THOUSANDS', ','); // currency thousands separator character
 define('CURRENCY_VALUE', 1); // currency value to whats stored in the database(products_price).. this will be set to Euro (not USD)..
 // for example:
