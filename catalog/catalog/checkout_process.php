@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.101 2002/04/08 01:13:42 hpdl Exp $
+  $Id: checkout_process.php,v 1.102 2002/04/08 02:40:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -141,13 +141,12 @@
                   EMAIL_SEPARATOR . "\n" . 
                   $products_ordered . 
                   EMAIL_SEPARATOR . "\n";
-  $email_order .= EMAIL_TEXT_SUBTOTAL . ' ' . $currencies->format($order->info['subtotal']) . "\n";
-  $email_order .= EMAIL_TEXT_TAX . ' ' . $currencies->format($order->info['tax']) . "\n";
-  if (tep_not_null($order->info['shipping_method'])) {
-    $email_order .= EMAIL_TEXT_SHIPPING . ' ' . $currencies->format($order->info['shipping_cost']) . ' ' . TEXT_EMAIL_VIA . ' ' . $order->info['shipping_method'] . "\n";
+
+  for ($i=0; $i<sizeof($order_totals); $i++) {
+    $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
   }
-  $email_order .= EMAIL_TEXT_TOTAL . ' ' . $currencies->format($order->info['total']) . "\n\n";
-  $email_order .= EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
+
+  $email_order .= "\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" . 
                   EMAIL_SEPARATOR . "\n" .
                   tep_address_label($customer_id, $sendto, 0, '', "\n") . "\n\n";
   if (is_object($$payment)) {
