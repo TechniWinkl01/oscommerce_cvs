@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_4.php,v 1.7 2002/08/12 12:52:12 hpdl Exp $
+  $Id: install_4.php,v 1.8 2002/08/14 13:30:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -66,10 +66,10 @@
 
 <p><b>1. Please enter your web server information:</b></p>
 
-<p><b>HTTP Server</b><br><?php echo osc_draw_input_field('HTTP_SERVER', 'http://' . $HTTP_SERVER_VARS['HTTP_HOST']); ?><br>
+<p><b>HTTP Server</b><br><?php echo osc_draw_input_field('HTTP_SERVER', 'http://' . getenv('HTTP_HOST')); ?><br>
 The web server can be in the form of a hostname, such as <i>http://www.myserver.com</i>, or as an IP address, such as <i>http://192.168.0.1</i>.</p>
 
-<p><b>HTTPS Server</b><br><?php echo osc_draw_input_field('HTTPS_SERVER', 'https://' . $HTTP_SERVER_VARS['HTTP_HOST']); ?><br>
+<p><b>HTTPS Server</b><br><?php echo osc_draw_input_field('HTTPS_SERVER', 'https://' . getenv('HTTP_HOST')); ?><br>
 The secure web server can be in the form of a hostname, such as <i>https://www.myserver.com</i>, or as an IP address, such as <i>https://192.168.0.1</i>.</p>
 
 <p><?php echo osc_draw_checkbox_field('ENABLE_SSL', 'true'); ?> <b>Enable SSL Connections</b><br>
