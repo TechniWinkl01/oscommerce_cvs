@@ -114,8 +114,7 @@
                                     '<input type="hidden" name="cc_number" value="' . $CardNumber . '">';
         } else {
           $process_button_string .= '<input type="hidden" name="cc_expires_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
-                                    '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
-                                     '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">';
+                                    '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">';
         }
 
         return $process_button_string;
