@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.11 2001/11/22 20:02:32 dgw_ Exp $
+  $Id: itransact_split.php,v 1.12 2001/12/03 23:30:44 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -250,7 +250,7 @@
     }
 
     function install() {
-      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable iTransact module', 'MODULE_PAYMENT_ITRANSACT_SPLIT_STATUS', '1', 'Enter 1 to accept iTransact payments using the secure Split Form?', '1', '0', now())");
+      tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Enable iTransact module', 'MODULE_PAYMENT_ITRANSACT_SPLIT_STATUS', '1', 'Enter 1 to accept iTransact payments using the secure Split Form?', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('iTransact Gateway ID', 'MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID', '', 'Five-digit iTransact Gateway ID', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Credit Cards', 'MODULE_PAYMENT_ITRANSACT_SPLIT_CARDS', '0', 'Enter 1 if you are accepting credit card payments', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Checks/EFT', 'MODULE_PAYMENT_ITRANSACT_SPLIT_EFT', '0', 'Enter 1 if you are accepting checks/EFT payments', '6', '0', now())");
