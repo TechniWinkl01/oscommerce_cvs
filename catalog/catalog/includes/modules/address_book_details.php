@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_details.php,v 1.10 2003/06/09 22:49:56 hpdl Exp $
+  $Id: address_book_details.php,v 1.11 2003/10/05 13:42:02 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,12 +27,16 @@
         <td><table border="0" cellspacing="2" cellpadding="2">
 <?php
   if (ACCOUNT_GENDER == 'true') {
+    $male = false;
+    $female = false;
+
     if (isset($gender)) {
       $male = ($gender == 'm') ? true : false;
-    } else {
+      $female = ($gender == 'f') ? true : false;
+    } elseif (isset($entry['entry_gender'])) {
       $male = ($entry['entry_gender'] == 'm') ? true : false;
+      $female = ($entry['entry_gender'] == 'f') ? true : false;
     }
-    $female = !$male;
 ?>
           <tr>
             <td class="main"><?php echo ENTRY_GENDER; ?></td>
