@@ -716,7 +716,7 @@ function tep_address_summary($customers_id, $address_id) {
     echo "<select name='$select_name' size='$size'";
     if ((sizeof($selected) > 1) || ($multiple == 1)) echo " multiple";
     echo "><option value=\"\"";
-    if (in_array(0, $selected)) echo " selected";
+    if (tep_in_array(0, $selected)) echo " selected";
     echo ">$blank_text\n";
 
     $output = '';
@@ -748,7 +748,7 @@ function tep_address_summary($customers_id, $address_id) {
 
     $sql = tep_db_query("SELECT categories_id, categories_name FROM categories WHERE parent_id = $parent_id order by sort_order, categories_name");
     while ($cat =  tep_db_fetch_array($sql)) {
-      $selected = in_array($cat[categories_id], $preselected) ? " selected"  :  "";
+      $selected = tep_in_array($cat[categories_id], $preselected) ? " selected"  :  "";
       $output .= "<option value=\"" . $cat['categories_id'] . "\"$selected>$indent" .  $cat['categories_name'] . "</option>\n";
 
       if ($cat['categories_id'] != $parent_id)
