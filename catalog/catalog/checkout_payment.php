@@ -170,13 +170,16 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
+            <td><?php echo FONT_STYLE_MAIN; ?>&nbsp;</font></td>
+          </tr>
+          <tr>
             <td nowrap colspan="2"><?php echo FONT_STYLE_MAIN; ?><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-	   <td colspan="2"><textarea name="comments" rows=5 cols=60></textarea></td>
+            <td colspan="2"><textarea name="comments" rows=5 cols=60></textarea></td>
           </tr>
           <tr>
             <td colspan="2"><? echo tep_black_line(); ?></td>

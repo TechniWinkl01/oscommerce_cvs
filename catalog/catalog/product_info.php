@@ -33,7 +33,7 @@
         </table></td>
       </tr>
 <?
-  $product_info = tep_db_query("select products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
+  $product_info = tep_db_query("select products_id, products_name, products_description, products_model, products_quantity, products_image, products_url, products_price, products_date_added, manufacturers_id from products where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   if (!tep_db_num_rows($product_info)) { // product not found in database
 ?>
       <tr>
