@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.11 2003/02/13 04:23:23 hpdl Exp $
+  $Id: split_page_results.php,v 1.12 2003/05/05 17:54:27 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,18 +37,16 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
       $pos_order_by = strpos($sql_query, ' order by', $pos_from);
       if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
 
-      $pos_limit = strpos($sql_query, ' limit', $pos_from);
-      if (($pos_limit < $pos_to) && ($pos_limit != false)) $pos_to = $pos_limit;
-
-      $pos_procedure = strpos($sql_query, ' procedure', $pos_from);
-      if (($pos_procedure < $pos_to) && ($pos_procedure != false)) $pos_to = $pos_procedure;
-
-      $offset = ($max_rows_per_page * ($current_page_number - 1));
-      $sql_query .= " limit " . $offset . ", " . $max_rows_per_page;
-
       $reviews_count_query = tep_db_query("select count(*) as total " . substr($sql_query, $pos_from, ($pos_to - $pos_from)));
       $reviews_count = tep_db_fetch_array($reviews_count_query);
       $query_num_rows = $reviews_count['total'];
+
+      $num_pages = ceil($query_num_rows / $max_rows_per_page);
+      if ($current_page_number > $num_pages) {
+        $current_page_number = $num_pages;
+      }
+      $offset = ($max_rows_per_page * ($current_page_number - 1));
+      $sql_query .= " limit " . $offset . ", " . $max_rows_per_page;
     }
 
 /* class functions */
@@ -62,10 +60,7 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
       if ( tep_not_null($parameters) && (substr($parameters, -1) != '&') ) $parameters .= '&';
 
 // calculate number of pages needing links 
-      $num_pages = intval($query_numrows / $max_rows_per_page);
-
-// $num_pages now contains int of pages needed unless there is a remainder from division 
-      if ($query_numrows % $max_rows_per_page) $num_pages++; // has remainder so add one page 
+      $num_pages = ceil($query_numrows / $max_rows_per_page);
 
 // first button - not displayed on first page
 //      if ($current_page_number > 1) echo '<a href="' . tep_href_link(basename($PHP_SELF),  $parameters . 'page=1') . '" ' . $class . ' title=" ' . PREVNEXT_TITLE_FIRST_PAGE . ' ">' . PREVNEXT_BUTTON_FIRST . '</a>&nbsp;';
