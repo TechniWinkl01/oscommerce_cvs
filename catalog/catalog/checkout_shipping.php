@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.3 2002/11/04 01:06:40 hpdl Exp $
+  $Id: checkout_shipping.php,v 1.4 2002/11/04 01:19:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -13,15 +13,15 @@
   require('includes/application_top.php');
   require('includes/classes/http_client.php');
 
-// if there is nothing in the customers cart, redirect them to the shopping cart page
-  if ($cart->count_contents() < 1) {
-    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
-  }
-
 // if the customer is not logged on, redirect them to the login page
   if (!tep_session_is_registered('customer_id')) {
     $navigation->set_snapshot();
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
+  }
+
+// if there is nothing in the customers cart, redirect them to the shopping cart page
+  if ($cart->count_contents() < 1) {
+    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
   }
 
 // if no shipping destination address was selected, use the customers own address as default
