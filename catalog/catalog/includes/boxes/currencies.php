@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.12 2002/05/11 13:18:01 thomasamoulton Exp $
+  $Id: currencies.php,v 1.13 2002/05/27 13:24:35 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,7 +20,7 @@
                               );
   new infoBoxHeading($info_box_contents, false, false);
 
-  $select_box = '<select name="currency" onChange="this.form.submit();">';
+  $select_box = '<select name="currency" onChange="this.form.submit();" style="width: 100%">';
   reset($currencies->currencies);
   while (list($key, $value) = each($currencies->currencies)) {
     $select_box .= '<option value="' . $key . '"';

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.15 2002/02/01 01:23:16 project3000 Exp $
+  $Id: manufacturers.php,v 1.16 2002/05/27 13:25:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,7 @@
                                  'text'  => $manufacturers_list);
   } else {
 // Display a drop-down
-    $select_box = '<select name="manufacturers_id" onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '">';
+    $select_box = '<select name="manufacturers_id" onChange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 100%">';
     if (MAX_MANUFACTURERS_LIST < 2) {
       $select_box .= '<option value="">' . PULL_DOWN_DEFAULT . '</option>';
     }
