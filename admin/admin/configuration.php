@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configuration.php,v 1.27 2002/01/04 07:49:49 hpdl Exp $
+  $Id: configuration.php,v 1.28 2002/01/05 05:50:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,10 +133,12 @@
       break;
     default:
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cfgInfo->configuration_id . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
-      $info_box_contents[] = array('text' => '<br>' . $cfgInfo->configuration_description);
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added));
-      if (tep_not_null($cfgInfo->last_modified)) $info_box_contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
+      if (is_object($cfgInfo)) {
+        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CONFIGURATION, 'gID=' . $HTTP_GET_VARS['gID'] . '&cfgID=' . $cfgInfo->configuration_id . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>');
+        $info_box_contents[] = array('text' => '<br>' . $cfgInfo->configuration_description);
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . tep_date_short($cfgInfo->date_added));
+        if (tep_not_null($cfgInfo->last_modified)) $info_box_contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . tep_date_short($cfgInfo->last_modified));
+      }
   }
 ?>
               <tr>

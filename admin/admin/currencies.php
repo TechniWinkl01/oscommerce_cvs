@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.27 2002/01/04 07:49:49 hpdl Exp $
+  $Id: currencies.php,v 1.28 2002/01/05 05:50:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -218,17 +218,19 @@
       break;
     default:
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=delete') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . ' ' . $cInfo->title);
-      $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_CODE . ' ' . $cInfo->code);
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . ' ' . $cInfo->symbol_left);
-      $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . ' ' . $cInfo->symbol_right);
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . ' ' . $cInfo->decimal_point);
-      $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . ' ' . $cInfo->thousands_point);
-      $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . ' ' . $cInfo->decimal_places);
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_LAST_UPDATED . ' ' . tep_date_short($cInfo->last_updated));
-      $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . ' ' . number_format($cInfo->value, 8));
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>' . tep_currency_format(30) . ' = ' . tep_currency_format('30', true, $cInfo->code));
+      if (is_object($cInfo)) {
+        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->currencies_id . '&action=delete') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_TITLE . ' ' . $cInfo->title);
+        $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_CODE . ' ' . $cInfo->code);
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_SYMBOL_LEFT . ' ' . $cInfo->symbol_left);
+        $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . ' ' . $cInfo->symbol_right);
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_DECIMAL_POINT . ' ' . $cInfo->decimal_point);
+        $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . ' ' . $cInfo->thousands_point);
+        $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . ' ' . $cInfo->decimal_places);
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_LAST_UPDATED . ' ' . tep_date_short($cInfo->last_updated));
+        $info_box_contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . ' ' . number_format($cInfo->value, 8));
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_CURRENCY_EXAMPLE . '<br>' . tep_currency_format(30) . ' = ' . tep_currency_format('30', true, $cInfo->code));
+      }
   }
 ?>
               <tr>

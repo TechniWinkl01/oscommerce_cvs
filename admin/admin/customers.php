@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: customers.php,v 1.49 2002/01/05 05:29:22 hpdl Exp $
+  $Id: customers.php,v 1.50 2002/01/05 05:50:31 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -517,13 +517,15 @@ function check_form() {
       break;
     default:
       $info_box_contents = array();
-      $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->customers_id . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->customers_id . '&action=confirm') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, 'action=search&customers_id=' . $cInfo->customers_id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_orders.gif', IMAGE_ORDERS) . '</a> <a href="' . tep_href_link('mail.php', 'selected_box=tools&customer=' . $cInfo->customers_email_address, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_email.gif', IMAGE_EMAIL) . '</a>');
-      $info_box_contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . tep_date_short($cInfo->date_account_created));
-      $info_box_contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->date_account_last_modified));
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . tep_date_short($cInfo->date_last_logon));
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons);
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name);
-      $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews);
+      if (is_object($cInfo)) {
+        $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->customers_id . '&action=edit') . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a> <a href="' . tep_href_link(FILENAME_CUSTOMERS, 'page=' . $HTTP_GET_VARS['page'] . '&cID=' . $cInfo->customers_id . '&action=confirm') . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a> <a href="' . tep_href_link(FILENAME_ORDERS, 'action=search&customers_id=' . $cInfo->customers_id, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_orders.gif', IMAGE_ORDERS) . '</a> <a href="' . tep_href_link('mail.php', 'selected_box=tools&customer=' . $cInfo->customers_email_address, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_email.gif', IMAGE_EMAIL) . '</a>');
+        $info_box_contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . tep_date_short($cInfo->date_account_created));
+        $info_box_contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . tep_date_short($cInfo->date_account_last_modified));
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . tep_date_short($cInfo->date_last_logon));
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons);
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name);
+        $info_box_contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews);
+      }
   }
 ?>
               <tr>
