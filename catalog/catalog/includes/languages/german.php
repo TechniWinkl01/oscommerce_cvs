@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.115 2003/02/17 07:55:55 hpdl Exp $
+  $Id: german.php,v 1.116 2003/02/17 11:49:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 // on RedHat try 'de_DE'
 // on FreeBSD try 'de_DE.ISO_8859-1'
 // on Windows try 'de' or 'German'
-setlocale(LC_TIME, 'de_DE.ISO_8859-1');
+@setlocale(LC_TIME, 'de_DE.ISO_8859-1');
 define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()
