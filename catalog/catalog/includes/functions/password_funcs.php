@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_funcs.php,v 1.6 2001/09/20 19:27:07 mbs Exp $
+  $Id: password_funcs.php,v 1.7 2001/12/14 16:13:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,6 +34,10 @@
 *    USA
 *   
 *   $Log: password_funcs.php,v $
+*   Revision 1.7  2001/12/14 16:13:23  dgw_
+*
+*   this function is defined twice ... lets unify
+*
 *   Revision 1.6  2001/09/20 19:27:07  mbs
 *   updates to tep standard.
 *
@@ -54,7 +58,7 @@
 *
 *    
 *
-*   $Id: password_funcs.php,v 1.6 2001/09/20 19:27:07 mbs Exp $ 
+*   $Id: password_funcs.php,v 1.7 2001/12/14 16:13:23 dgw_ Exp $ 
 *********************************************************************/
 
 /*  This funstion validates a candidate password.
@@ -110,24 +114,4 @@ function crypt_password($plain_pass){
     
     return($encrypted . ":" . $salt);
 } // function crypt_password($plain_pass)
-
-/* Function to create a random password of the specified length */
-function random_password($length){
- $newpass = '';
- 
- /** Init random num generator*/
- mt_srand ((double) microtime() * 1000000);
- while($length > 0){
-    /*Create a new password using numbers and upper case letters ASCII 48-57
-    * and 65 to 90 I have no idea how this will affect non ASCII users */
-    $newchar = mt_rand(48, 90);
-    if($newchar > 57 && $newchar < 65){ // Only use numbers and upper case letters
-    	continue;
-    }
-    $newpass .= sprintf("%c",$newchar);
-    $length--; 
- }
- return($newpass);
-}
-
 ?>

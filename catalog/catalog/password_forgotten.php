@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.34 2001/12/12 15:16:46 jan0815 Exp $
+  $Id: password_forgotten.php,v 1.35 2001/12/14 16:13:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,7 +19,7 @@
     if (tep_db_num_rows($check_customer)) {
       $check_customer_values = tep_db_fetch_array($check_customer);
       // Crypted password mods - create a new password, update the database and mail it to them
-      $newpass = random_password(ENTRY_PASSWORD_MIN_LENGTH);
+      $newpass = tep_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
       $crpted_password = crypt_password($newpass);
       $sql = sprintf("UPDATE " . TABLE_CUSTOMERS . " SET customers_password = '%s' WHERE customers_id = %d", $crpted_password, $check_customer_values['customers_id']);
       tep_db_query($sql);
