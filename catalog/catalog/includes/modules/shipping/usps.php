@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.24 2001/08/25 20:04:43 hpdl Exp $
+  $Id: usps.php,v 1.25 2001/09/01 00:20:30 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,40 +11,38 @@
 */
 
   class usps {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $icon, $enabled;
 
 // class constructor
     function usps() {
       $this->code = 'usps';
       $this->title = MODULE_SHIPPING_USPS_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_USPS_TEXT_DESCRIPTION;
+      $this->icon = DIR_WS_ICONS . 'shipping_usps.gif';
       $this->enabled = MODULE_SHIPPING_USPS_STATUS;
     }
 
 // class methods
-    function select() {
-      $select_string = '<tr>' . "\n" .
-                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                       '  <td class="main">&nbsp;<select name="shipping_usps_prod">' .
-                                                '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
-                                                '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
-                                                '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
-                                                '</select>&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_usps', '1', true) . '&nbsp;</td>' . "\n" .
-                       '</tr>' . "\n";
+    function selection() {
+      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp; ' . MODULE_SHIPPING_USPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;<select name="shipping_usps_prod">' .
+                                                                   '<option value="Parcel">' . MODULE_SHIPPING_USPS_TEXT_OPT_PP . '</option>' .
+                                                                   '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
+                                                                   '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
+                                                                   '</select>&nbsp;&nbsp;' . tep_draw_checkbox_field('shipping_quote_usps', '1', true) . '&nbsp;</td>' . "\n" .
+                          '  </tr>' . "\n" .
+                          '</table>' . "\n";
 
-      return $select_string;
+      return $selection_string;
     }
 
     function quote() {
-      global $HTTP_POST_VARS, $shipping_quote_usps, $shipping_quote_all, $address_values, $shipping_weight, $rate, $shipping_usps_cost, $shipping_usps_method, $shipping_num_boxes, $shipping_quoted;
+      global $HTTP_POST_VARS, $address_values, $shipping_weight, $rate, $shipping_usps_cost, $shipping_usps_method, $shipping_num_boxes, $shipping_quoted;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
-        if (!$HTTP_POST_VARS['shipping_usps_prod']){
-          $prod = 'priority';
-        } else {
-          $prod = $HTTP_POST_VARS['shipping_usps_prod'];
-        }
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_usps'] == '1') ) {
+        $prod = ($HTTP_POST_VARS['shipping_usps_prod']) ? $HTTP_POST_VARS['shipping_usps_prod'] : 'priority';
         include(DIR_WS_CLASSES . '_usps.php');
         $rate = new _USPS;
         $rate->SetServer(MODULE_SHIPPING_USPS_SERVER);
@@ -73,9 +71,9 @@
     }
 
     function cheapest() {
-      global $shipping_quote_usps, $shipping_quote_all, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_usps_cost;
+      global $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_usps_cost;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_usps'] == '1') ) {
         if ($shipping_count == 0) {
           $shipping_cheapest = 'usps';
           $shipping_cheapest_cost = $shipping_usps_cost;
@@ -90,27 +88,27 @@
     }
 
     function display() {
-      global $HTTP_GET_VARS, $shipping_quote_usps, $shipping_quote_all, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest, $shipping_selected;
+      global $HTTP_GET_VARS, $shipping_usps_cost, $shipping_usps_method, $shipping_cheapest, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_usps) ) {
-        $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                          '  <td class="main">&nbsp;' . $shipping_usps_method . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_usps_cost);
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_usps'] == '1') ) {
+        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_USPS_TEXT_TITLE . ' <small><i>(' . $shipping_usps_method . ')</i></small>&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_usps_cost);
         if (tep_count_shipping_modules() > 1) {
-          $display_string .= '&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'usps') .
-                                                                         tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
-                                                                         tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'usps') .
+                                              tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
+                                              tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n";
         } else {
-          $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'usps') .
-                                        tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
-                                        tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'usps') .
+                                              tep_draw_hidden_field('shipping_usps_cost', $shipping_usps_cost) .
+                                              tep_draw_hidden_field('shipping_usps_method', $shipping_usps_method) . '&nbsp;</td>' . "\n";
         }
-        $display_string .= '</tr>' . "\n";
+        $display_string .= '  </tr>' . "\n" .
+                           '</table>' . "\n";
       }
 
       return $display_string;

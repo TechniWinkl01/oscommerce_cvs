@@ -74,11 +74,7 @@
             <tr>
               <td><? echo tep_black_line(); ?></td>
             </tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?
-  $shipping_modules->select();
-?>
-            </table></td>
+            <td><?php echo $shipping_modules->selection(); ?></td>
           </tr>
 <?
     }

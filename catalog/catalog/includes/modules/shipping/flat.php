@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: flat.php,v 1.28 2001/08/25 20:04:41 hpdl Exp $
+  $Id: flat.php,v 1.29 2001/09/01 00:20:28 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,31 +11,33 @@
 */
 
   class flat {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $icon, $enabled;
 
 // class constructor
     function flat() {
       $this->code = 'flat';
       $this->title = MODULE_SHIPPING_FLAT_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION;
+      $this->icon = '';
       $this->enabled = MODULE_SHIPPING_FLAT_STATUS;
     }
 
 // class methods
-    function select() {
-      $select_string = '<tr>' . "\n" .
-                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_FLAT_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                       '  <td class="main">&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_flat', '1', true) . '&nbsp;</td>' . "\n" .
-                       '</tr>' . "\n";
+    function selection() {
+      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp; ' . MODULE_SHIPPING_FLAT_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_flat', '1', true) . '&nbsp;</td>' . "\n" .
+                          '  </tr>' . "\n" .
+                          '</table>' . "\n";
 
-      return $select_string;
+      return $selection_string;
     }
 
     function quote() {
-      global $shipping_quote_flat, $shipping_quote_all, $shipping_quoted, $shipping_flat_cost, $shipping_flat_method;
+      global $shipping_quoted, $shipping_flat_cost, $shipping_flat_method;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_flat'] == '1') ) {
         $shipping_quoted = 'flat';
         $shipping_flat_cost = SHIPPING_HANDLING + MODULE_SHIPPING_FLAT_COST;
         $shipping_flat_method = MODULE_SHIPPING_FLAT_TEXT_WAY;
@@ -43,9 +45,9 @@
     }
 
     function cheapest() {
-      global $shipping_count, $shipping_quote_flat, $shipping_quote_all, $shipping_cheapest, $shipping_cheapest_cost, $shipping_flat_cost;
+      global $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_flat_cost;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_flat'] == '1') ) {
         if ($shipping_count == 0) {
           $shipping_cheapest = 'flat';
           $shipping_cheapest_cost = $shipping_flat_cost;
@@ -60,27 +62,27 @@
     }
 
     function display() {
-      global $HTTP_GET_VARS, $shipping_quote_flat, $shipping_quote_all, $shipping_cheapest, $shipping_flat_method, $shipping_flat_cost, $shipping_selected;
+      global $HTTP_GET_VARS, $shipping_cheapest, $shipping_flat_method, $shipping_flat_cost, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_flat == '1') ) {
-        $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_FLAT_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                          '  <td class="main">&nbsp;' . $shipping_flat_method . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_flat_cost);
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_flat'] == '1') ) {
+        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_FLAT_TEXT_TITLE . ' <small><i>(' . $shipping_flat_method . ')</i></small>&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_flat_cost);
         if (tep_count_shipping_modules() > 1) {
-          $display_string .= '&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'flat') .
-                                                                         tep_draw_hidden_field('shipping_flat_cost', $shipping_flat_cost) .
-                                                                         tep_draw_hidden_field('shipping_flat_method', $shipping_flat_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'flat') .
+                                              tep_draw_hidden_field('shipping_flat_cost', $shipping_flat_cost) .
+                                              tep_draw_hidden_field('shipping_flat_method', $shipping_flat_method) . '&nbsp;</td>' . "\n";
         } else {
-          $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'flat') .
-                                        tep_draw_hidden_field('shipping_flat_cost', $shipping_flat_cost) .
-                                        tep_draw_hidden_field('shipping_flat_method', $shipping_flat_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'flat') .
+                                              tep_draw_hidden_field('shipping_flat_cost', $shipping_flat_cost) .
+                                              tep_draw_hidden_field('shipping_flat_method', $shipping_flat_method) . '&nbsp;</td>' . "\n";
         }
-        $display_string .= '</tr>' . "\n";
+        $display_string .= '  </tr>' . "\n" .
+                           '</table>' . "\n";
       }
 
       return $display_string;

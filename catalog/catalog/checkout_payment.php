@@ -42,7 +42,11 @@
 
   $sendto = ($HTTP_POST_VARS['sendto']) ? $HTTP_POST_VARS['sendto'] : '1';
 
-  $shipping_quote_all = ($HTTP_POST_VARS['shipping_quote_all']) ? $HTTP_POST_VARS['shipping_quote_all'] : '1';
+  if ($HTTP_POST_VARS['shipping_quote_all'] == '0') {
+    $shipping_quote_all = '0';
+  } else {
+    $shipping_quote_all = '1';
+  }
 
   $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $address_values = tep_db_fetch_array($address);
@@ -196,6 +200,7 @@ function check_form() {
           </tr>
 <?
    if (MODULE_SHIPPING_INSTALLED) {
+    $shipping_modules->cheapest();
 ?>
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -209,12 +214,7 @@ function check_form() {
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-<?
-    $shipping_modules->cheapest();
-    $shipping_modules->display();
-?>
-            </table></td>
+            <td><?php echo $shipping_modules->display(); ?></td>
           </tr>
 <?
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.23 2001/08/25 20:04:40 hpdl Exp $
+  $Id: fedex.php,v 1.24 2001/09/01 00:20:28 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,13 +11,14 @@
 */
 
   class fedex {
-    var $code, $title, $description, $enabled, $fedex_countries, $fedex_countries_nbr;
+    var $code, $title, $description, $icon, $enabled, $fedex_countries, $fedex_countries_nbr;
 
 // class constructor
     function fedex() {
       $this->code = 'fedex';
       $this->title = MODULE_SHIPPING_FEDEX_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION;
+      $this->icon = DIR_WS_ICONS . 'shipping_fedex.gif';
       $this->enabled = MODULE_SHIPPING_FEDEX_STATUS;
 
 // only these three are needed since FedEx only ships to them
@@ -27,20 +28,21 @@
     }
 
 // class methods
-    function select() {
-      $select_string = '<tr>' . "\n" .
-                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                       '  <td class="main">&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_fedex', '1', true) . '&nbsp;</td>' . "\n" .
-                       '</tr>' . "\n";
+    function selection() {
+      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp; ' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_fedex', '1', true) . '&nbsp;</td>' . "\n" .
+                          '  </tr>' . "\n" .
+                          '</table>' . "\n";
 
-      return $select_string;
+      return $selection_string;
     }
 
     function quote() {
-      global $shipping_quote_fedex, $shipping_quote_all, $shipping_quoted, $address_values, $shipping_weight, $shipping_num_boxes, $shipping_fedex_cost, $shipping_fedex_method, $quote;
+      global $shipping_quoted, $address_values, $shipping_weight, $shipping_num_boxes, $shipping_fedex_cost, $shipping_fedex_method, $quote;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
         $shipping_quoted = 'fedex';
 // only calculate if FedEx ships there.
         if (tep_in_array($address_values['country_id'], $this->fedex_countries_nbr)) {
@@ -62,9 +64,9 @@
     }
 
     function cheapest() {
-      global $shipping_quote_fedex, $shipping_quote_all, $address_values, $quote, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_fedex_cost;
+      global $address_values, $quote, $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_fedex_cost;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
 // only calculate if FedEx ships there.
         if ( (tep_in_array($address_values['country_id'], $this->fedex_countries_nbr)) && (!$quote['ErrorNbr']) ) {
           if ($shipping_count == 0) {
@@ -77,47 +79,46 @@
             }
           }
         }
-
         $shipping_count++;
       }
     }
 
     function display() {
-      global $HTTP_GET_VARS, $shipping_quote_fedex, $shipping_quote_all, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest, $shipping_selected;
+      global $HTTP_GET_VARS, $quote, $shipping_fedex_method, $shipping_fedex_cost, $shipping_cheapest, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
       $display_string = '';
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_fedex) ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_fedex'] == '1') ) {
 // check for errors
         if ($quote['ErrorNbr']) {
-          $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                             '  <td class="main">&nbsp;<font color="#ff0000">Error:</font> ' . $quote['Error'] . '&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;</td>' . "\n" .
-                             '</tr>' . "\n";
+          $display_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                             '    <td class="main">&nbsp;<font color="#ff0000">Error:</font> ' . $quote['Error'] . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '</table>' . "\n";
         } else {
-          $display_string .= '<tr>' . "\n" .
-                             '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                             '  <td class="main">&nbsp;' . $shipping_fedex_method . '&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_fedex_cost);
+          $display_string .= '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . ' <small><i>(' . $shipping_fedex_method . ')</i></small>&nbsp;</td>' . "\n" .
+                             '    <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_fedex_cost);
           if (tep_count_shipping_modules() > 1) {
-            $display_string .= '&nbsp;</td>' . "\n" .
-                               '  <td align="right">&nbsp;' . tep_draw_radio_field('shipping_selected', 'fedex') .
-                                                              tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) . 
-                                                              tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n";
+            $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'fedex') .
+                                                tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) . 
+                                                tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n";
           } else {
-            $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'fedex') .
-                                          tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) .
-                                          tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n";
+            $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'fedex') .
+                                                tep_draw_hidden_field('shipping_fedex_cost', $shipping_fedex_cost) .
+                                                tep_draw_hidden_field('shipping_fedex_method', $shipping_fedex_method) . '&nbsp;</td>' . "\n";
           }
-          $display_string .= '</tr>' . "\n";
+          $display_string .= '  </tr>' . "\n" .
+                             '</table>' . "\n";
         }
       }
 
-      echo $display_string;
+      return $display_string;
     }
 
     function confirm() {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.4 2001/08/13 20:28:58 hpdl Exp $
+  $Id: configure.php,v 1.5 2001/09/01 00:20:25 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -19,6 +19,7 @@
   define('DIR_FS_LOGS', '/usr/local/apache/logs/tep/'); // logging directory
   define('DIR_WS_CATALOG', '/catalog/'); // absolute path required
   define('DIR_WS_IMAGES', 'images/');
+  define('DIR_WS_ICONS', DIR_WS_IMAGES . 'icons/');
   define('DIR_WS_INCLUDES', 'includes/'); // If "URL fopen wrappers" are enabled in PHP (which they are in the default configuration), this can be a URL instead of a local pathname
   define('DIR_WS_BOXES', DIR_WS_INCLUDES . 'boxes/');
   define('DIR_WS_FUNCTIONS', DIR_WS_INCLUDES . 'functions/');

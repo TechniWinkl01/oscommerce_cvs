@@ -162,6 +162,7 @@
 
   $country = tep_get_countries($address_values['country_id']);
   $shipping_cost = 0.0;
+
   if (MODULE_SHIPPING_INSTALLED) {
     $shipping_modules->confirm();
   }

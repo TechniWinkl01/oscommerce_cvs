@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.8 2001/08/25 20:04:41 hpdl Exp $
+  $Id: table.php,v 1.9 2001/09/01 00:20:29 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,39 +11,41 @@
 */
 
   class table {
-    var $code, $title, $description, $enabled;
+    var $code, $title, $description, $icon, $enabled;
 
 // class constructor
     function table() {
       $this->code = 'table';
       $this->title = MODULE_SHIPPING_TABLE_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_TABLE_TEXT_DESCRIPTION;
+      $this->icon = '';
       $this->enabled = MODULE_SHIPPING_TABLE_STATUS;
     }
 
 // class methods
-    function select() {
-      $select_string = '<tr>' . "\n" .
-                       '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                       '  <td class="main">&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_table', '1', true) . '&nbsp;</td>' . "\n" .
-                       '</tr>' . "\n";
+    function selection() {
+      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp; ' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_table', '1', true) . '&nbsp;</td>' . "\n" .
+                          '  </tr>' . "\n" .
+                          '</table>' . "\n";
 
-      return $select_string;
+      return $selection_string;
     }
 
     function quote() {
-      global $cart, $shipping_quote_table, $shipping_quote_all, $shipping_quoted, $shipping_table_cost, $shipping_table_method;
+      global $cart, $shipping_quoted, $shipping_table_cost, $shipping_table_method;
 
-      if ( ($shipping_quote_table) || ($shipping_quote_all == "1") ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
         $shipping_quoted = 'table';
 
         $order_total = $cart->show_total();
         $table_cost = MODULE_SHIPPING_TABLE_COST;
-        $high = split("[-,]" , $table_cost);
-        $n=1;
-        $y=2;
-        for ($i = 0; $i < count($high); $i ++) {
+        $high = split('[-,]' , $table_cost);
+        $n = 1;
+        $y = 2;
+        for ($i=0; $i<count($high); $i++) {
           if ( ($order_total >= $high[$i]) && ($order_total < $high[$n]) ) {
             $shipping = $high[$y];
             $shipping_table_method = MODULE_SHIPPING_TABLE_TEXT_WAY;
@@ -58,9 +60,9 @@
     }
 
     function cheapest() {
-      global $shipping_count, $shipping_quote_table, $shipping_quote_all, $shipping_cheapest, $shipping_cheapest_cost, $shipping_table_cost;
+      global $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_table_cost;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_table) ) {
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
         if ($shipping_count == 0) {
           $shipping_cheapest = 'table';
           $shipping_cheapest_cost = $shipping_table_cost;
@@ -75,27 +77,27 @@
     }
 
     function display() {
-      global $HTTP_GET_VARS, $shipping_quote_table, $shipping_quote_all, $shipping_cheapest, $shipping_table_method, $shipping_table_cost, $shipping_selected;
+      global $HTTP_GET_VARS, $shipping_cheapest, $shipping_table_method, $shipping_table_cost, $shipping_selected;
 
 // set a global for the radio field (auto select cheapest shipping method)
       if (!$HTTP_GET_VARS['shipping_selected']) $shipping_selected = $shipping_cheapest;
 
-      if ( ($shipping_quote_all == '1') || ($shipping_quote_table) ) {
-        $display_string = '<tr>' . "\n" .
-                          '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '&nbsp;</td>' . "\n" .
-                          '  <td class="main">&nbsp;' . $shipping_table_method . '&nbsp;</td>' . "\n" .
-                          '  <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_table_cost);
+      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
+        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . '&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . ' <small><i>(' . $shipping_table_method . ')</i></small>&nbsp;</td>' . "\n" .
+                          '    <td align="right" class="main">&nbsp;' . tep_currency_format($shipping_table_cost);
         if (tep_count_shipping_modules() > 1) {
-          $display_string .= '&nbsp;</td>' . "\n" .
-                             '  <td align="right" class="main">&nbsp;' . tep_draw_radio_field('shipping_selected', 'table') .
-                                                                         tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
-                                                                         tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '&nbsp;&nbsp;' . tep_draw_radio_field('shipping_selected', 'table') .
+                                              tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
+                                              tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '&nbsp;</td>' . "\n";
         } else {
-          $display_string .= '&nbsp;' . tep_draw_hidden_field('shipping_selected', 'table') .
-                                        tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
-                                        tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '&nbsp;</td>' . "\n";
+          $display_string .= '&nbsp;&nbsp;' . tep_draw_hidden_field('shipping_selected', 'table') .
+                                              tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
+                                              tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '&nbsp;</td>' . "\n";
         }
-        $display_string .= '</tr>' . "\n";
+        $display_string .= '  </tr>' . "\n" .
+                           '</table>' . "\n";
       }
 
       return $display_string;

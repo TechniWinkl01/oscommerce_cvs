@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: shipping.php,v 1.7 2001/09/01 00:20:27 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   class shipping {
     var $modules;
 
@@ -11,8 +22,8 @@
         $this->modules = explode(';', MODULE_SHIPPING_INSTALLED); // get array of accepted modules
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
-          $include_file = DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $value; include(DIR_WS_INCLUDES . 'include_once.php');
-          $include_file = DIR_WS_SHIPPING_MODULES . $value; include(DIR_WS_INCLUDES . 'include_once.php');
+          include(DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $value);
+          include(DIR_WS_SHIPPING_MODULES . $value);
 
           $class = substr($value, 0, strrpos($value, '.'));
           $GLOBALS[$class] = new $class;
@@ -21,17 +32,20 @@
     }
 
 // class methods
-    function select() {
+    function selection() {
+      $selection_string = '';
       if (MODULE_SHIPPING_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
-            echo $GLOBALS[$class]->select();
+            $selection_string .= $GLOBALS[$class]->selection();
           }
         }
-        echo '<input type="hidden" name="shipping_quote_all" value="0">';
+        $selection_string .= tep_draw_hidden_field('shipping_quote_all', '0');
       }
+
+      return $selection_string;
     }
 
     function quote() {
@@ -71,22 +85,25 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
-            echo $GLOBALS[$class]->cheapest();
+            $GLOBALS[$class]->cheapest();
           }
         }
       }
     }
 
     function display() {
+      $display_string = '';
       if (MODULE_SHIPPING_INSTALLED) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
-            echo $GLOBALS[$class]->display();
+            $display_string .= $GLOBALS[$class]->display();
           }
         }
       }
+
+      return $display_string;
     }
 
     function confirm() {
@@ -108,29 +125,4 @@
       }
     }
   }
-//
-//
-// select (used in checkout_address.php) to select which methods should provide quotes w/options
-// quote - used to calculate the rate
-// cheapest - used to see who offers lowest rate
-// display - used to display the quotes
-// confirm - used to capture which method was selected
-// check - used by admin to check to see if we are enabled
-// install - used by admin to install the method`
-//
-// The module is required to pass the POST variables is needs for it's own use,
-// in addition the following inputs and outputs are needed by the pages:
-//
-// select
-//
-// quote
-// Inputs - $address_values (postcode and maybe country) $total_count
-//          $shipping_weight $shipping_num_boxes
-//
-//
-// confirm
-// Outputs - $shipping_cost and $shipping_method
-//
-//
-//
 ?>
