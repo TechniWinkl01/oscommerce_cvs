@@ -174,7 +174,7 @@
       $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_INSERT_INTRO . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '<b>' . $sInfo->products_name . '</b><br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . tep_currency_format($sInfo->products_price) . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;' . TEXT_INFO_EDIT_SPECIALS_PRICE . '<br>&nbsp;<input type="text" name="specials_new_products_price" size="8"><br>' . TEXT_INFO_SPECIAL_PRICE_TIP . '<br>&nbsp;');
-      if (!EXPERT_MODE) $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_NEW_PRICE_NOTE . '<br>&nbsp;');
+      $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_NEW_PRICE_NOTE . '<br>&nbsp;');
       $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_preview.gif', IMAGE_PREVIEW) . '&nbsp;<a href="' . tep_href_link(FILENAME_SPECIALS, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
     }
   } elseif ($HTTP_GET_VARS['action'] == 'new_preview') {
