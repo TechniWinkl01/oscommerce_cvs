@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.34 2001/08/25 10:28:03 hpdl Exp $
+  $Id: ups.php,v 1.35 2001/08/25 20:04:42 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -37,7 +37,7 @@
                                                 '<option value="XDM">' . MODULE_SHIPPING_UPS_TEXT_OPT_XDM . '</option>' .
                                                 '<option value="XPD">' . MODULE_SHIPPING_UPS_TEXT_OPT_XPD . '</option>' .
                                                 '</select>&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_ups', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_ups', '1', true) . '&nbsp;</td>' . "\n" .
                        '</tr>' . "\n";
 
       return $select_string;

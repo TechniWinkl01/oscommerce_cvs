@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: fedex.php,v 1.22 2001/08/25 10:28:02 hpdl Exp $
+  $Id: fedex.php,v 1.23 2001/08/25 20:04:40 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,7 @@
       $select_string = '<tr>' . "\n" .
                        '  <td class="main">&nbsp;' . MODULE_SHIPPING_FEDEX_TEXT_TITLE . '&nbsp;</td>' . "\n" .
                        '  <td class="main">&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_fedex', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_fedex', '1', true) . '&nbsp;</td>' . "\n" .
                        '</tr>' . "\n";
 
       return $select_string;

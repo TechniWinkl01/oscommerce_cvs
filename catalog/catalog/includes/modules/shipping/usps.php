@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.23 2001/08/25 10:28:04 hpdl Exp $
+  $Id: usps.php,v 1.24 2001/08/25 20:04:43 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -30,7 +30,7 @@
                                                 '<option value="Priority" SELECTED>' . MODULE_SHIPPING_USPS_TEXT_OPT_PM . '</option>' .
                                                 '<option value="Express">' . MODULE_SHIPPING_USPS_TEXT_OPT_EX . '</option>' .
                                                 '</select>&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_usps', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_usps', '1', true) . '&nbsp;</td>' . "\n" .
                        '</tr>' . "\n";
 
       return $select_string;

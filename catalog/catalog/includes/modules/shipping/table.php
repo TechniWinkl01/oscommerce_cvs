@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.7 2001/08/25 10:28:03 hpdl Exp $
+  $Id: table.php,v 1.8 2001/08/25 20:04:41 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -26,7 +26,7 @@
       $select_string = '<tr>' . "\n" .
                        '  <td class="main">&nbsp;' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '&nbsp;</td>' . "\n" .
                        '  <td class="main">&nbsp;</td>' . "\n" .
-                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_table', 'checkbox', '1', true) . '&nbsp;</td>' . "\n" .
+                       '  <td align="right" class="main">&nbsp;' . tep_draw_checkbox_field('shipping_quote_table', '1', true) . '&nbsp;</td>' . "\n" .
                        '</tr>' . "\n";
 
       return $select_string;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.11 2001/08/23 21:37:57 hpdl Exp $
+  $Id: html_output.php,v 1.12 2001/08/25 20:04:37 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -288,24 +288,30 @@
   }
 
 ////
-// Output a form checkbox field
-  function tep_draw_checkbox_field($name, $type = 'checkbox', $value = '', $checked = false) {
-    $checkbox = '<input type="' . $type . '" name="' . $name . '"';
+// Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
+  function tep_draw_selection_field($name, $type, $value = '', $checked = false) {
+    $selection = '<input type="' . $type . '" name="' . $name . '"';
     if ($value != '') {
-      $checkbox .= ' value="' . $value . '"';
+      $selection .= ' value="' . $value . '"';
     }
     if ( ($checked == true) || ($GLOBALS[$name] == 'on') || ($value && $GLOBALS[$name] == $value) ) {
-      $checkbox .= ' CHECKED';
+      $selection .= ' CHECKED';
     }
-    $checkbox .= '>';
+    $selection .= '>';
 
-    return $checkbox;
+    return $selection;
+  }
+
+////
+// Output a form checkbox field
+  function tep_draw_checkbox_field($name, $value = '', $checked = false) {
+    return tep_draw_selection_field($name, 'checkbox', $value, $checked);
   }
 
 ////
 // Output a form radio field
-  function tep_draw_radio_field($name, $value = '', $selected = false) {
-    return tep_draw_checkbox_field($name, 'radio', $value, $selected);
+  function tep_draw_radio_field($name, $value = '', $checked = false) {
+    return tep_draw_selection_field($name, 'radio', $value, $checked);
   }
 
 ////
