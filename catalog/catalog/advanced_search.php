@@ -143,7 +143,10 @@ function check_form() {
             <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_CATEGORIES; ?>&nbsp;</font></td>
             <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>">
 <?
-$selected[0] = 0;
+if ($HTTP_GET_VARS['categories_id'])
+  $selected[0] = $HTTP_GET_VARS['categories_id'];
+else
+  $selected[0] = 0;
 tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
 ?>
             &nbsp;&nbsp;(&nbsp;<input type="checkbox"  name="inc_subcat" value="1">&nbsp;<?echo ENTRY_INCLUDES_SUBCATEGORIES; ?>&nbsp;)&nbsp;</font></td>
@@ -164,41 +167,66 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
           </tr>
           <tr>
             <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_KEYWORDS; ?>&nbsp;</font></td>
-            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="keywords" size="40" maxlength="40">&nbsp;<?echo ENTRY_KEYWORDS_TEXT; ?>&nbsp;</font></td>
+            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="keywords" size="40" <?if ($HTTP_GET_VARS['keywords']) echo 'value="' . htmlspecialchars(StripSlashes($HTTP_GET_VARS['keywords'])) . '"';?>>&nbsp;<?echo ENTRY_KEYWORDS_TEXT; ?>&nbsp;</font></td>
           </tr>
           <tr>
             <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_DATE_ADDED_FROM; ?>&nbsp;</font></td>
-            <td align="left" width="10%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="dfrom" value="<?echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;</font></td>
+            <td align="left" width="10%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="dfrom" value="<?if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;</font></td>
             <td align="left" width="5%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_TO; ?>&nbsp;</font></td>
-            <td align="left" width="65%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="dto" value="<?echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT; ?></font></td>
+            <td align="left" width="65%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="dto" value="<?if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?echo DOB_FORMAT_STRING; ?>');">&nbsp;<?echo ENTRY_DATE_ADDED_TEXT; ?></font></td>
           </tr>
           <tr>
             <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_PRICE_FROM; ?>&nbsp;</font></td>
-            <td align="left" width="10%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="pfrom" size="9" maxlength="9">&nbsp;</font></td>
+            <td align="left" width="10%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="pfrom" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</font></td>
             <td align="left" width="5%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_TO; ?>&nbsp;</font></td>
-            <td align="left" width="65%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="pto" size="9" maxlength="9">&nbsp;</font></td>
-          </tr>
-          <tr>
-            <td colspan="4"><br></td>
-          </tr>
-          <tr>
-            <td align="left" width="20%" nowrap><font face="<?echo ENTRY_FONT_FACE; ?>" size="<?echo ENTRY_FONT_SIZE; ?>" color="<?echo ENTRY_FONT_SIZE; ?>">&nbsp;<?echo ENTRY_SORT_BY; ?>&nbsp;</font></td>
-            <td align="left" colspan="3" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>">
-              <select name="sortby">
-                <option value="1"><?echo TEXT_CATEGORY_NAME; ?>
-                <option value="2"><?echo TEXT_MANUFACTURER_NAME; ?>
-                <option value="3" selected><?echo TEXT_PRODUCT_NAME; ?>
-                <option value="4"><?echo TEXT_PRICE; ?>
-              </select>&nbsp;</font>
-            </td>
+            <td align="left" width="65%" nowrap><font face="<?echo VALUE_FONT_FACE; ?>" size="<?echo VALUE_FONT_SIZE; ?>" color="<?echo VALUE_FONT_SIZE; ?>"><input type="text" name="pto" size="9" maxlength="9" <?if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</font></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><br><?echo tep_black_line(); ?></td>
+        <td align="right" nowrap><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>"><?echo tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
       </tr>
       <tr>
-        <td align="right" nowrap><br><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>"><?echo tep_image_submit(DIR_IMAGES . 'button_done.gif', '53', '24', '0', TEXT_PERFORM_ADVANCED_SEARCH); ?>&nbsp;&nbsp;</font></td>
+        <td><?echo tep_black_line(); ?></td>
+      </tr>
+      <tr>
+        <td><font face="<?echo TEXT_FONT_FACE; ?>" size="<?echo TEXT_FONT_SIZE; ?>" color="<?echo TEXT_FONT_COLOR; ?>">
+<?
+  if ($HTTP_GET_VARS['errorno']) {
+    if (($HTTP_GET_VARS['errorno'] & 1) == 1) {
+      echo str_replace ('\n', '<br>', JS_AT_LEAST_ONE_INPUT);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 10) == 10) {
+      echo str_replace ('\n', '<br>', JS_INVALID_FROM_DATE);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 100) == 100) {
+      echo str_replace ('\n', '<br>', JS_INVALID_TO_DATE);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 1000) == 1000) {
+      echo str_replace ('\n', '<br>', JS_TO_DATE_LESS_THAN_FROM_DATE);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 10000) == 10000) {
+      echo str_replace ('\n', '<br>', JS_PRICE_FROM_MUST_BE_NUM);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 100000) == 100000) {
+      echo str_replace ('\n', '<br>', JS_PRICE_TO_MUST_BE_NUM);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 1000000) == 1000000) {
+      echo str_replace ('\n', '<br>', JS_PRICE_TO_LESS_THAN_PRICE_FROM);
+    }
+    if (($HTTP_GET_VARS['errorno'] & 10000000) == 10000000) {
+      echo str_replace ('\n', '<br>', JS_INVALID_KEYWORDS);
+    }
+  }
+  else {
+    if (ADVANCED_SEARCH_DISPLAY_TIPS)
+      echo TEXT_ADVANCED_SEARCH_TIPS;
+  }
+?>
+        </font></td>
+      </tr>
+      <tr>
+        <td><?echo tep_black_line(); ?></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->

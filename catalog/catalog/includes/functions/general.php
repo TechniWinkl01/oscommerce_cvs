@@ -888,4 +888,346 @@ function tep_address_summary($customers_id, $address_id) {
 
     return $date_formated;
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_parse_search_string
+  //
+  // Arguments   : search_str   search string to be parsed into individual objects
+  //               objects      parsed objects
+  //
+  // Return      : true         valid search string
+  //               false        invalid search string
+  //
+  // Description : Function to parse search string into individual objects
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_parse_search_string( $search_str = "", &$objects ) {
+    $search_str = strtolower($search_str);
+  
+    //--- Break up $search_str on whitespace; quoted string will be reconstructed later ---
+    $pieces = split ( "[[:space:]]+", $search_str ); 
+
+    $objects = array(); 
+    $tmpstring=""; 
+    $flag = ""; 
+  
+    for ( $k=0; $k<count($pieces); $k++ ) { 
+  
+      while ( substr($pieces[$k], 0, 1) == '(' )  { 
+          $objects[] = '('; 
+          if (strlen( $pieces[$k] ) > 1)
+            $pieces[$k] = substr( $pieces[$k], 1 );
+          else
+            $pieces[$k] = '';
+      }
+  
+      $post_objects = array();
+  
+      while ( substr($pieces[$k], -1) == ')' )  { 
+          $post_objects[] = ')'; 
+          if (strlen( $pieces[$k] ) > 1)
+            $pieces[$k] = substr( $pieces[$k], 0, -1 );
+          else
+            $pieces[$k] = '';
+      }
+  
+      //--- Check individual words ---
+  
+      if ( ( substr($pieces[$k], -1) != '"' ) && ( substr($pieces[$k], 0, 1) != '"' ) ) { 
+        $objects[] = trim($pieces[$k]); 
+  
+        for ( $j=0; $j<count($post_objects); $j++ ) { 
+          $objects[] = $post_objects[$j];
+        } 
+      } 
+      else {  
+        //----------------------------------------------------------------------------------
+        // This means that the $piece is either the beginning or the end of a string.  
+        // So, we'll slurp up the $pieces and stick them together until we get to the 
+        // end of the string or run out of pieces.
+        //----------------------------------------------------------------------------------
+  
+        //--- Make sure the $tmpstring is empty ---
+        $tmpstring = ""; 
+  
+        //--- Add this word to the $tmpstring, starting the $tmpstring ---
+  
+        $tmpstring .= trim ( ereg_replace( '"', " ", $pieces[$k] ) ); 
+  
+        //- Check for one possible exception to the rule. That there is a single quoted word.
+        if ( substr($pieces[$k], -1 ) == '"' ) { 
+          //--- Turn the flag off for future iterations ---
+          $flag = "off"; 
+  
+          $objects[] = trim($pieces[$k]); 
+
+          for ( $j=0; $j<count($post_objects); $j++ ) { 
+            $objects[] = $post_objects[$j];
+          } 
+
+          unset ( $tmpstring ); 
+  
+          //--- Stop looking for the end of the string and move onto the next word. ---
+          continue; 
+        } 
+  
+        //----------------------------------------------------------------------------------
+        // Otherwise, turn on the flag to indicate no quotes have been found attached to  
+        // this word in the string.
+        //----------------------------------------------------------------------------------
+        $flag = "on"; 
+  
+        //--- Move on to the next word ---
+        $k++; 
+  
+        //--- Keep reading until the end of the string as long as the $flag is on ---
+  
+        while ( $flag == "on" && ( $k < count( $pieces ) ) ) { 
+          while ( substr($pieces[$k], -1) == ')' )  { 
+              $post_objects[] = ')'; 
+              if (strlen( $pieces[$k] ) > 1)
+                $pieces[$k] = substr( $pieces[$k], 0, -1 );
+              else
+                $pieces[$k] = '';
+          }
+
+          //--- If the word doesn't end in double quotes, append it to the $tmpstring. ---
+          if ( substr($pieces[$k], -1) != '"' ) { 
+            //--- Tack this word onto the current string entity ---
+            $tmpstring .= " $pieces[$k]"; 
+
+            //--- Move on to the next word ---
+            $k++; 
+            continue; 
+          } 
+          else { 
+            //------------------------------------------------------------------------------
+            // If the $piece ends in double quotes, strip the double quotes, tack the  
+            // $piece onto the tail of the string, push the $tmpstring onto the $haves,  
+            // kill the $tmpstring, turn the $flag "off", and return.
+            //------------------------------------------------------------------------------
+            $tmpstring .= " ".trim ( ereg_replace( '"', " ", $pieces[$k] ) ); 
+
+            //--- Push the $tmpstring onto the array of stuff to search for ---
+            $objects[] = trim($tmpstring); 
+  
+            for ( $j=0; $j<count($post_objects); $j++ ) { 
+              $objects[] = $post_objects[$j];
+            } 
+  
+            unset ( $tmpstring ); 
+  
+            //--- Turn off the flag to exit the loop ---
+            $flag = "off"; 
+          } 
+        } 
+      } 
+    } 
+  
+    // add default logical operators if needed
+    $temp = array(); 
+    for($i=0; $i<(count($objects)-1); $i++) {
+      $temp[sizeof($temp)] = $objects[$i];
+      
+      if ( $objects[$i] != 'and' &&
+           $objects[$i] != 'or'  &&
+           $objects[$i] != '('   &&
+           $objects[$i] != ')'   &&
+           $objects[$i+1] != 'and' &&
+           $objects[$i+1] != 'or'  &&
+           $objects[$i+1] != '('   &&
+           $objects[$i+1] != ')' ) {
+        $temp[sizeof($temp)] = ADVANCED_SEARCH_DEFAULT_OPERATOR;
+      }
+    }
+    $temp[sizeof($temp)] = $objects[$i];
+    $objects = $temp;
+
+    // validate search string
+    $test_str = "";
+    for($i=0; $i<count($objects); $i++) { 
+      switch ($objects[$i]) {
+        case 'and':
+          $test_str .= " && ";
+          break;
+        case 'or':
+          $test_str .= " || ";
+          break;
+        case '(':
+        case ')':
+          $test_str .= $objects[$i];
+          break;
+        default:
+          $test_str .= "1";
+          break;
+      }
+    }
+  
+    $test_result = 0;
+    @eval('$test_result = ' . $test_str . ';');
+    
+    if ($test_result == 1)
+      return true;
+    else
+      return false;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_checkdate
+  //
+  // Arguments   : date_to_check      date to be checked
+  //               format_string      format string
+  //
+  // Return      : true               is a valid date
+  //               false              not a valid date
+  //
+  // Description : generic function to check date
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_checkdate($date_to_check, $format_string, &$date_array) {
+    $separator_idx = -1;
+    $separators = array("-"," ","/",".");
+    $month_abbr = array("jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec");
+    $no_of_days = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+
+    $format_string = strtolower($format_string);
+
+    if (strlen($date_to_check) != strlen($format_string)) {
+      return false;
+    }
+ 
+    for ($i=0; $i<sizeof($separators); $i++) {
+      $pos_separator = strpos($date_to_check, $separators[$i]);
+      if ($pos_separator != false) {
+        $date_separator_idx = $i;
+        break;
+      }
+    }
+
+    for ($i=0; $i<sizeof($separators); $i++) {
+      $pos_separator = strpos($format_string, $separators[$i]);
+      if ($pos_separator != false) {
+        $format_separator_idx = $i;
+        break;
+      }
+    }
+
+    if ($date_separator_idx != $format_separator_idx) {
+      return false;
+    }
+
+  
+    if ($date_separator_idx != -1) {
+      $format_string_array = explode( $separators[$date_separator_idx], $format_string );
+      if (sizeof($format_string_array) != 3) {
+        return false;
+      }
+      
+      $date_to_check_array = explode( $separators[$date_separator_idx], $date_to_check );
+      if (sizeof($date_to_check_array) != 3) {
+        return false;
+      }
+  
+      for ($i=0; $i<sizeof($format_string_array); $i++) {
+        if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm')
+          $month = $date_to_check_array[$i];
+        if ($format_string_array[$i] == 'dd')
+          $day = $date_to_check_array[$i];
+        if ($format_string_array[$i] == 'yyyy')
+          $year = $date_to_check_array[$i];
+      }
+    }
+    else {
+      if (strlen($format_string) == 8 || strlen($format_string) == 9) {
+        $pos_month = strpos($format_string, 'mmm');
+        if ($pos_month != false) {
+          $month = substr( $date_to_check, $pos_month, 3 );
+          for ($i=0; $i<sizeof($month_abbr); $i++) {
+            if ($month == $month_abbr[$i]) {
+              $month = $i;
+              break;
+            }
+          }
+        }
+        else {
+          $month = substr( $date_to_check, strpos($format_string, 'mm'), 2 );
+        }
+      }
+      else {
+        return false;
+      }
+  
+      $day = substr( $date_to_check, strpos($format_string, 'dd'), 2 );
+      $year = substr( $date_to_check, strpos($format_string, 'yyyy'), 4 );
+    }
+
+    if (strlen($year) != 4) {
+      return false;
+    }
+
+    if (!settype($year, "integer") || !settype($month, "integer") || !settype($day, "integer")) {
+      return false;
+    }
+
+    if ($month > 12 || $month < 1) {
+      return false;
+    }
+
+    if ($day < 1) {
+      return false;
+    }
+
+    if (tep_is_leap_year($year)) {
+      $no_of_days[1] = 29;
+    }
+
+    if ($day > $no_of_days[$month - 1]) {
+      return false;
+    }
+
+    $date_array = array($year, $month, $day);  
+
+    return true;
+  }
+
+  function tep_is_leap_year($year) {
+    if ($year % 100 == 0) {
+      if ($year % 400 == 0)
+        return true;
+    }
+    else {
+      if (($year % 4) == 0)
+        return true;
+    }
+  
+    return false;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Function    : tep_create_sort_heading
+  //
+  // Arguments   : sortby       current sort by flag
+  //               colnum       current column number
+  //               heading      heading to be display
+  //
+  // Return      : string for displaying in product listing heading
+  //
+  // Description : generic function to create heading with sorting capabilities
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_create_sort_heading($sortby, $colnum, $heading) {
+    global $PHP_SELF;
+    $sort_prefix = "";
+    $sort_suffix = "";
+  
+    if ($sortby) {
+      $sort_prefix = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('page', 'info', 'x', 'y', 'sort')) . 'page=1&sort=' . $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a'), 'NONSSL') . '" title="' . TEXT_SORT_PRODUCTS . ($sortby == $colnum . 'd' || substr($sortby, 0, 1) != $colnum ? TEXT_ASCENDINGLY : TEXT_DESCENDINGLY) . TEXT_BY . $heading . '">' ;
+      $sort_suffix = (substr($sortby, 0, 1) == $colnum ? (substr($sortby, 1, 1) == 'a' ? '+' : '-') : '') . '</a>';
+    }
+    
+    return $sort_prefix . $heading . $sort_suffix;
+  }
 ?>

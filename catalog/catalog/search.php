@@ -3,11 +3,41 @@
 <? $location = ' : ' . NAVBAR_TITLE; ?>
 <?
   $search_keywords = explode(' ', trim($HTTP_GET_VARS['query']));
-  $search_query = "select m.manufacturers_name, m.manufacturers_location, p.products_id, p.products_name, p.products_price from manufacturers m, products_to_manufacturers p2m, products p where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
+  $search_query = "select m.manufacturers_name, m.manufacturers_id, p.products_id, p.products_model, p.products_name, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from manufacturers m, products_to_manufacturers p2m, products p left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.products_id = p2m.products_id and p2m.manufacturers_id = m.manufacturers_id and ";
   for ($i=0; ($i<count($search_keywords)-1); $i++ ) {
     $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') and ";
   }
-  $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') order by p.products_name";
+  $search_query .= "(p.products_name like '%" . $search_keywords[$i] . "%' or m.manufacturers_name like '%" . $search_keywords[$i] . "%') order by ";
+
+  if (!$HTTP_GET_VARS['sort'] || !ereg("[1234][ad]", $HTTP_GET_VARS['sort']))
+      $HTTP_GET_VARS['sort'] = '2a';
+  
+  switch ($HTTP_GET_VARS['sort']) {
+    case '1a':
+      $search_query .= "p.products_model, p.products_name";
+      break;
+    case '1d':
+      $search_query .= "p.products_model desc, p.products_name";
+      break;
+    case '2a':
+      $search_query .= "p.products_name";
+      break;
+    case '2d':
+      $search_query .= "p.products_name desc";
+      break;
+    case '3a':
+      $search_query .= "m.manufacturers_name, p.products_name";
+      break;
+    case '3d':
+      $search_query .= "m.manufacturers_name desc, p.products_name";
+      break;
+    case '4a':
+      $search_query .= "final_price, p.products_name";
+      break;
+    case '4d':
+      $search_query .= "final_price desc, p.products_name";
+      break;
+  }
 ?>
 <html>
 <head>
