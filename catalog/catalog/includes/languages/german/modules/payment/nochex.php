@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: nochex.php,v 1.2 2002/04/17 20:31:18 harley_vb Exp $
+  $Id: nochex.php,v 1.3 2002/11/01 05:38:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -8,9 +8,6 @@
   Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
-
-  Garry Blackmore gazonice@yahoo.com
-  Thanks to Mark Keith Evans for assistance.
 */
 
   define('MODULE_PAYMENT_NOCHEX_TEXT_TITLE', 'NOCHEX');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: secpay.php,v 1.6 2002/04/17 20:31:18 harley_vb Exp $
+  $Id: secpay.php,v 1.7 2002/11/01 05:44:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,5 +12,6 @@
 
   define('MODULE_PAYMENT_SECPAY_TEXT_TITLE', 'SECPay');
   define('MODULE_PAYMENT_SECPAY_TEXT_DESCRIPTION', 'Kreditkarten Test Info:<br><br>CC#: 4444333322221111<br>G&uuml;ltig bis: Any');
+  define('MODULE_PAYMENT_SECPAY_TEXT_ERROR', 'Credit Card Error!');
   define('MODULE_PAYMENT_SECPAY_TEXT_ERROR_MESSAGE', 'Bei der &Uuml;berp&uuml;fung Ihrer Kreditkarte ist ein Fehler aufgetreten! Bitte versuchen Sie es nochmal.');
 ?>

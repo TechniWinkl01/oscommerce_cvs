@@ -1,16 +1,13 @@
 <?php
 /*
-  $Id: nochex.php,v 1.1 2002/02/11 08:22:50 hpdl Exp $
+  $Id: nochex.php,v 1.2 2002/11/01 05:38:19 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
-
-  Garry Blackmore gazonice@yahoo.com
-  Thanks to Mark Keith Evans for assistance.
 */
 
   define('MODULE_PAYMENT_NOCHEX_TEXT_TITLE', 'NOCHEX');

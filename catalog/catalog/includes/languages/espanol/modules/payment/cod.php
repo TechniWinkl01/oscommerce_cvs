@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cod.php,v 1.6 2001/09/20 19:41:16 mbs Exp $
+  $Id: cod.php,v 1.7 2002/11/01 05:31:57 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
