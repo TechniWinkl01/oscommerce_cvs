@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: info_shopping_cart.php,v 1.13 2001/09/20 19:47:05 mbs Exp $
+  $Id: info_shopping_cart.php,v 1.14 2001/11/09 20:39:23 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -25,7 +25,7 @@
 <p class="main"><b><i><?php echo SUB_HEADING_TITLE_1; ?></i></b><br><?php echo SUB_HEADING_TEXT_1; ?></p>
 <p class="main"><b><i><?php echo SUB_HEADING_TITLE_2; ?></i></b><br><?php echo SUB_HEADING_TEXT_2; ?></p>
 <p class="main"><b><i><?php echo SUB_HEADING_TITLE_3; ?></i></b><br><?php echo SUB_HEADING_TEXT_3; ?></p>
-<p align="right" class="main"><a href="javascript:window.close();"><font color="<?php echo CHECKOUT_BAR_TEXT_COLOR; ?>"><?php echo TEXT_CLOSE_WINDOW; ?></font></a></p>
+<p align="right" class="main"><a href="javascript:window.close();"><?php echo TEXT_CLOSE_WINDOW; ?></a></p>
 </body>
 </html>
 <?php
