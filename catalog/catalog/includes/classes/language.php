@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.5 2003/06/09 21:59:46 hpdl Exp $
+  $Id: language.php,v 1.6 2003/06/28 16:53:09 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,49 +17,43 @@
     var $languages, $catalog_languages, $browser_languages, $language;
 
     function language($lng = '') {
-      $this->languages = array('ar' => array('ar([-_][[:alpha:]]{2})?|arabic', 'arabic', 'ar'),
-                               'bg-win1251' => array('bg|bulgarian', 'bulgarian-win1251', 'bg'),
-                               'bg-koi8r' => array('bg|bulgarian', 'bulgarian-koi8', 'bg'),
-                               'ca' => array('ca|catalan', 'catala', 'ca'),
-                               'cs-iso' => array('cs|czech', 'czech-iso', 'cs'),
-                               'cs-win1250' => array('cs|czech', 'czech-win1250', 'cs'),
-                               'da' => array('da|danish', 'danish', 'da'),
-                               'de' => array('de([-_][[:alpha:]]{2})?|german', 'german', 'de'),
-                               'el' => array('el|greek',  'greek', 'el'),
-                               'en' => array('en([-_][[:alpha:]]{2})?|english', 'english', 'en'),
-                               'es' => array('es([-_][[:alpha:]]{2})?|spanish', 'spanish', 'es'),
-                               'et' => array('et|estonian', 'estonian', 'et'),
-                               'fi' => array('fi|finnish', 'finnish', 'fi'),
-                               'fr' => array('fr([-_][[:alpha:]]{2})?|french', 'french', 'fr'),
-                               'gl' => array('gl|galician', 'galician', 'gl'),
-                               'he' => array('he|hebrew', 'hebrew', 'he'),
-                               'hu' => array('hu|hungarian', 'hungarian', 'hu'),
-                               'id' => array('id|indonesian', 'indonesian', 'id'),
-                               'it' => array('it|italian', 'italian', 'it'),
-                               'ja-euc' => array('ja|japanese', 'japanese-euc', 'ja'),
-                               'ja-sjis' => array('ja|japanese', 'japanese-sjis', 'ja'),
-                               'ko' => array('ko|korean', 'korean', 'ko'),
-                               'ka' => array('ka|georgian', 'georgian', 'ka'),
-                               'lt' => array('lt|lithuanian', 'lithuanian', 'lt'),
-                               'lv' => array('lv|latvian', 'latvian', 'lv'),
-                               'nl' => array('nl([-_][[:alpha:]]{2})?|dutch', 'dutch', 'nl'),
-                               'no' => array('no|norwegian', 'norwegian', 'no'),
-                               'pl' => array('pl|polish', 'polish', 'pl'),
-                               'pt-br' => array('pt[-_]br|brazilian portuguese', 'brazilian_portuguese', 'pt-BR'),
-                               'pt' => array('pt([-_][[:alpha:]]{2})?|portuguese', 'portuguese', 'pt'),
-                               'ro' => array('ro|romanian', 'romanian', 'ro'),
-                               'ru-koi8r' => array('ru|russian', 'russian-koi8', 'ru'),
-                               'ru-win1251' => array('ru|russian', 'russian-win1251', 'ru'),
-                               'sk' => array('sk|slovak', 'slovak-iso', 'sk'),
-                               'sk-win1250' => array('sk|slovak', 'slovak-win1250', 'sk'),
-                               'sr-win1250' => array('sr|serbian', 'serbian-win1250', 'sr'),
-                               'sv' => array('sv|swedish', 'swedish', 'sv'),
-                               'th' => array('th|thai', 'thai', 'th'),
-                               'tr' => array('tr|turkish', 'turkish', 'tr'),
-                               'uk-win1251' => array('uk|ukrainian', 'ukrainian-win1251', 'uk'),
-                               'zh-tw' => array('zh[-_]tw|chinese traditional', 'chinese_big5', 'zh-TW'),
-                               'zh' => array('zh|chinese simplified', 'chinese_gb', 'zh'));
-
+      $this->languages = array('ar' => 'ar([-_][[:alpha:]]{2})?|arabic',
+                               'bg' => 'bg|bulgarian',
+                               'br' => 'pt[-_]br|brazilian portuguese',
+                               'ca' => 'ca|catalan',
+                               'cs' => 'cs|czech',
+                               'da' => 'da|danish',
+                               'de' => 'de([-_][[:alpha:]]{2})?|german',
+                               'el' => 'el|greek',
+                               'en' => 'en([-_][[:alpha:]]{2})?|english',
+                               'es' => 'es([-_][[:alpha:]]{2})?|spanish',
+                               'et' => 'et|estonian',
+                               'fi' => 'fi|finnish',
+                               'fr' => 'fr([-_][[:alpha:]]{2})?|french',
+                               'gl' => 'gl|galician',
+                               'he' => 'he|hebrew',
+                               'hu' => 'hu|hungarian',
+                               'id' => 'id|indonesian',
+                               'it' => 'it|italian',
+                               'ja' => 'ja|japanese',
+                               'ko' => 'ko|korean',
+                               'ka' => 'ka|georgian',
+                               'lt' => 'lt|lithuanian',
+                               'lv' => 'lv|latvian',
+                               'nl' => 'nl([-_][[:alpha:]]{2})?|dutch',
+                               'no' => 'no|norwegian',
+                               'pl' => 'pl|polish',
+                               'pt' => 'pt([-_][[:alpha:]]{2})?|portuguese',
+                               'ro' => 'ro|romanian',
+                               'ru' => 'ru|russian',
+                               'sk' => 'sk|slovak',
+                               'sr' => 'sr|serbian',
+                               'sv' => 'sv|swedish',
+                               'th' => 'th|thai',
+                               'tr' => 'tr|turkish',
+                               'uk' => 'uk|ukrainian',
+                               'tw' => 'zh[-_]tw|chinese traditional',
+                               'zh' => 'zh|chinese simplified');
 
       $this->catalog_languages = array();
       $languages_query = tep_db_query("select languages_id, name, code, image, directory from " . TABLE_LANGUAGES . " order by sort_order");
@@ -90,7 +84,7 @@
       for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
         reset($this->languages);
         while (list($key, $value) = each($this->languages)) {
-          if (eregi('^(' . $value[0] . ')(;q=[0-9]\\.[0-9])?$', $this->browser_languages[$i]) && isset($this->catalog_languages[$key])) {
+          if (eregi('^(' . $value . ')(;q=[0-9]\\.[0-9])?$', $this->browser_languages[$i]) && isset($this->catalog_languages[$key])) {
             $this->language = $this->catalog_languages[$key];
             break 2;
           }
