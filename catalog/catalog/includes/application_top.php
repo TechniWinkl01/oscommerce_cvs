@@ -1,5 +1,6 @@
 <?
-  @include('configure.php');
+  if (file_exists('configure.php'))
+    include('configure.php');
   if (CONFIGURE_STATUS != 'COMPLETED') { // File not read properly
      die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.');
   }
@@ -32,15 +33,6 @@
     $parse_start_time = microtime();
   }
   define('STORE_DB_TRANSACTIONS', 0);
-
-// include shopping cart class
-  $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
-
-// define how the session functions will be used
-  $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
-
-// lets start our session
-  tep_session_start();
 
   define('SESSION_OBJECTS_ALLOWED', 1);
 
@@ -87,36 +79,6 @@
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
   define('USE_PCONNECT', 1);
-
-// include the database functions
-  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
-
-// make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
-
-// define our general functions used application-wide
-  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
-
-// Include the password crypto functions
- $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
-
-// Include validation functions (right now only email address)
- $include_file = DIR_FUNCTIONS . 'validations.php'; include(DIR_INCLUDES . 'include_once.php'); 
-
-// split-page-results
-  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
-
-  if (SESSION_OBJECTS_ALLOWED) {
-    tep_session_register('cart');
-    if (!$cart) {
-      $cart = new shoppingCart;
-    }
-  } else {
-    $cart = new shoppingCart($cart_contents);
-  }
-
-// infobox
-  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
@@ -282,6 +244,29 @@
 // Categories Box: recursive products count
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
+// include shopping cart class
+  $include_file = DIR_CLASSES . 'shopping_cart.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// check to see if php implemented session management functions - if not, include php3/php4 compatible session class
+  if (!function_exists('session_start')) {
+    $include_file = DIR_CLASSES . 'sessions.php'; include(DIR_INCLUDES . 'include_once.php');
+  }
+
+// define how the session functions will be used
+  $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
+
+// lets start our session
+  tep_session_start();
+
+  if (SESSION_OBJECTS_ALLOWED) {
+    tep_session_register('cart');
+    if (!$cart) {
+      $cart = new shoppingCart;
+    }
+  } else {
+    $cart = new shoppingCart($cart_contents);
+  }
+
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
     $language = 'english';
@@ -300,6 +285,28 @@
   
   $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
 
+// include the database functions
+  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
+
+// make a connection to the database... now
+  tep_db_connect() or die('Unable to connect to database server!');
+
+// define our general functions used application-wide
+  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// Include the password crypto functions
+ $include_file = DIR_FUNCTIONS . FILENAME_PASSWORD_CRYPT; include(DIR_INCLUDES . 'include_once.php'); 
+
+// Include validation functions (right now only email address)
+ $include_file = DIR_FUNCTIONS . 'validations.php'; include(DIR_INCLUDES . 'include_once.php'); 
+
+// split-page-results
+  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// infobox
+  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
   if (strlen($cPath) > 0) {
     $cPath_array = explode('_', $cPath);
