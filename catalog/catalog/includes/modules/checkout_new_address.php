@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_new_address.php,v 1.4 2003/06/09 22:49:57 hpdl Exp $
+  $Id: checkout_new_address.php,v 1.5 2003/08/30 12:56:08 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,7 +92,7 @@
       echo tep_draw_input_field('state');
     }
 
-    if (tep_not_null(ENTRY_STATE_TEXT)) echo '&nbsp;<span class="inputRequirement">' . ENTRY_STATE_TEXT;
+    if (tep_not_null(ENTRY_STATE_TEXT)) echo '&nbsp;<span class="inputRequirement">' . ENTRY_STATE_TEXT. '</span>';
 ?>
     </td>
   </tr>
