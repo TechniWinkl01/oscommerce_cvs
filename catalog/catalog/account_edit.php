@@ -14,14 +14,14 @@
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT;?>';
   }
 }
 
 function resetZoneSelected(theForm) {
   theForm.zone_id.selectedIndex = '0';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT;?>';
   }
 }

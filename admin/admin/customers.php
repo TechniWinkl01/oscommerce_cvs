@@ -21,7 +21,7 @@
     if (ACCOUNT_STATE) {
        $state = $HTTP_POST_VARS['state'];
        $zone_id = $HTTP_POST_VARS['zone_id'];
-       if ($zone_id != '0') $state = '';
+       if ($zone_id > 0) $state = '';
        $update_query = $update_query . "customers_state = '" . $state . "', ";
        $update_query = $update_query . "customers_zone_id = '" . $zone_id . "', ";
     }
@@ -42,7 +42,7 @@
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.state.value = '';
-  if (theForm.zone_id.options.length > 0) {
+  if (theForm.zone_id.options.length > 1) {
     theForm.state.value = '<? echo JS_STATE_SELECT;?>';
   }
 }
@@ -50,7 +50,7 @@ function resetStateText(theForm) {
 function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';
-    if (theForm.zone_id.options.length > 0) {
+    if (theForm.zone_id.options.length > 1) {
       theForm.state.value = '<? echo JS_STATE_SELECT;?>';
     }
   }
