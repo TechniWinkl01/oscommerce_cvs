@@ -43,7 +43,7 @@
 
   $sendto = $HTTP_POST_VARS['sendto'];
   if ($sendto == '') {
-    $sendto = '0';
+    $sendto = '1';
   }
   if (strlen(@$HTTP_POST_VARS['shipping_quote_all']) > 0) {
     $shipping_quote_all = $HTTP_POST_VARS['shipping_quote_all'];

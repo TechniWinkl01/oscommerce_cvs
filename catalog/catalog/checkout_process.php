@@ -7,15 +7,12 @@
 
 // load the before_process function from the payment modules
   $payment_modules->before_process();
-
-
+// select the delivery address
     $delivery = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $delivery_values = tep_db_fetch_array($delivery);
   $delivery_country = tep_get_countries($delivery_values['country_id']);
-
-
-
-  $customer = tep_db_query("select c.customers_firstname, c.customers_lastname, a.entry_street_address as customers_street_address, a.entry_suburb as customers_suburb, a.entry_city as customers_city, a.entry_postcode as customers_postcode, a.entry_state as customers_state, a.entry_zone_id as customers_zone_id, a.entry_country_id as customers_country_id, c.customers_telephone, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " a where c.customers_id = '" . $customer_id . "' and a.customers_id = '" . $customer_id . "' and a.address_book_id = 0");
+// select the customer with the default address
+  $customer = tep_db_query("select c.customers_firstname, c.customers_lastname, a.entry_street_address as customers_street_address, a.entry_suburb as customers_suburb, a.entry_city as customers_city, a.entry_postcode as customers_postcode, a.entry_state as customers_state, a.entry_zone_id as customers_zone_id, a.entry_country_id as customers_country_id, c.customers_telephone, c.customers_email_address from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " a where c.customers_id = '" . $customer_id . "' and a.customers_id = '" . $customer_id . "' and a.address_book_id = 1");
   $customer_values = tep_db_fetch_array($customer);
   $customers_country = tep_get_countries($customer_values['customers_country_id']);
 
