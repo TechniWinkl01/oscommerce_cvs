@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.5 2001/09/19 11:12:52 mbs Exp $
+  $Id: specials.php,v 1.6 2001/12/09 20:51:17 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -21,7 +21,7 @@ define('TABLE_HEADING_ACTION', 'Accion');
 define('TEXT_SPECIALS_PRODUCT', 'Producto:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Precio de Oferta:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'Expiry Date:');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li></ul>');
+define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li><li>Deje la fecha de caducidad vacia si no quiere caducidad</li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'Fecha Alta:');
 define('TEXT_INFO_LAST_MODIFIED', 'Ultima Modificacion:');
