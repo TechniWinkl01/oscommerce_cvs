@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.27 2002/08/11 23:00:53 hpdl Exp $
+  $Id: whos_online.php,v 1.28 2002/08/13 20:37:48 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -109,7 +109,7 @@
     }
 
     if ($length = strlen($session_data)) {
-      if (eregi('^3\.', phpversion())) {
+      if (PHP_VERSION < 4) {
         $start_id = strpos($session_data, 'customer_id[==]s');
         $start_cart = strpos($session_data, 'cart[==]o');
         $start_currency = strpos($session_data, 'currency[==]s');
@@ -149,7 +149,7 @@
       session_decode($session_data_zone);
       session_decode($session_data_cart);
 
-      if (eregi('^3\.', phpversion())) {
+      if (PHP_VERSION < 4) {
         $broken_cart = $cart;
         $cart = new shoppingCart;
         $cart->unserialize($broken_cart);
