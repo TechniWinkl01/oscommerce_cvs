@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.2 2003/07/11 09:04:22 jan0815 Exp $
+  $Id: index.php,v 1.3 2003/11/17 20:40:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,7 +15,7 @@ define('TABLE_HEADING_NEW_PRODUCTS', 'Neue Produkte im %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Wann ist was verf&uuml;gbar');
 define('TABLE_HEADING_DATE_EXPECTED', 'Datum');
 
-if ( ($category_depth == 'products') || (isset($HTTP_GET_VARS['manufacturers_id'])) ) {
+if ( ($category_depth == 'products') || (isset($_GET['manufacturers_id'])) ) {
   define('HEADING_TITLE', 'Unser Angebot');
   define('TABLE_HEADING_IMAGE', '');
   define('TABLE_HEADING_MODEL', 'Artikel-Nr.');
