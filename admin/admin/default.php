@@ -97,9 +97,9 @@
   $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status from orders order by orders_id DESC limit 5");
   while ($orders = tep_db_fetch_array($orders_query)) {
     $total_cost = 0;
-    $orders_products_query = tep_db_query("select products_price, products_quantity from orders_products where orders_id = '" . $orders['orders_id'] . "'");
+    $orders_products_query = tep_db_query("select final_price, products_quantity, products_tax from orders_products where orders_id = '" . $orders['orders_id'] . "'");
     while ($orders_products = tep_db_fetch_array($orders_products_query)) {
-      $total_cost = $total_cost + ($orders_products['products_price'] * $orders_products['products_quantity']);
+      $total_cost += ($orders_products['final_price'] + ($orders_products['final_price'] * ($orders_products['products_tax']/100))) * $orders_products['products_quantity'];
     }
 
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id'], 'NONSSL') . '\'">' . "\n";
