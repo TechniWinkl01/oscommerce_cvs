@@ -1,4 +1,10 @@
-<?
+<?php
+/*
+  The Exchange Project - Community Made Shopping!
+
+  $Id: application_top.php,v 1.94 2001/03/15 21:52:25 hpdl Exp $
+*/
+
   if (file_exists('includes/local/configure.php')) {
     include('includes/local/configure.php');
     if ((!defined(CONFIGURE_STATUS_COMPLETED)) && (CONFIGURE_STATUS_COMPLETED != '1')) { // File not read properly
@@ -212,6 +218,10 @@
 
 // define our general functions used application-wide
   $include_file = DIR_WS_FUNCTIONS . 'general.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+
+// include the who's online functions
+  $include_file = DIR_WS_FUNCTIONS . 'whos_online.php'; include(DIR_WS_INCLUDES . 'include_once.php');
+  tep_update_whos_online();
 
 // language
   if ( (!$language) || ($HTTP_GET_VARS['language']) ) {
