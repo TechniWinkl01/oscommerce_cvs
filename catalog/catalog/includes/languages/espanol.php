@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.46 2001/06/13 20:15:50 hpdl Exp $
+  $Id: espanol.php,v 1.47 2001/06/14 23:03:29 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -208,6 +208,7 @@ define('PASSWORD_HIDDEN', '--OCULTO--');
 define('TEXT_RESULT_PAGE', 'Paginas de Resultados:'); 
 define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)'); 
 define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');
@@ -248,6 +249,10 @@ define('TEXT_SORT_PRODUCTS', 'Ordenar Productos ');
 define('TEXT_DESCENDINGLY', 'Descendentemente');
 define('TEXT_ASCENDINGLY', 'Ascendentemente');
 define('TEXT_BY', ' por ');
+
+define('TEXT_REVIEW_BY', 'por %s %s');
+define('TEXT_REVIEW_WORD_COUNT', '%s palabras');
+define('TEXT_REVIEW_RATING', 'Grado: %s [%s]');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP ERROR:</small> Cannot send the email through the specified SMTP server. Please check your php.ini setting and correct the SMTP server if necessary.</b></font>');
 ?>

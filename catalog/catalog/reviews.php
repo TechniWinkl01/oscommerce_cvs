@@ -44,35 +44,48 @@
         <td><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-<?
-  $new = tep_db_query("select r.reviews_id, rd.reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, c.customers_firstname, c.customers_lastname from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CUSTOMERS . " c where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' and r.customers_id = c.customers_id order by r.reviews_id DESC limit " . MAX_DISPLAY_NEW_REVIEWS);
-  $row = 0;
-  while ($new_values = tep_db_fetch_array($new)) {
-    $row++;
-    $review = htmlspecialchars(substr($new_values['reviews_text'], 0, 60));
-    $review = tep_break_string($review, 15);
+        <td><br>
+<?php
+  $reviews_query_raw = "select r.reviews_id, rd.reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, c.customers_firstname, c.customers_lastname from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CUSTOMERS . " c where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' and rd.languages_id = '" . $languages_id . "' and r.customers_id = c.customers_id order by r.reviews_id DESC";
 
-    echo '            <td align="center" class="smallText">' . '<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $new_values['products_id'] . '&reviews_id=' . $new_values['reviews_id'], 'NONSSL') . '">' . tep_image($new_values['products_image'], $new_values['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $new_values['products_id'] . '&reviews_id=' . $new_values['reviews_id'], 'NONSSL') . '">' . $new_values['products_name'] . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $new_values['products_id'] . '&reviews_id=' . $new_values['reviews_id'], 'NONSSL') . '">' . $review . ' ..</a><br><div align="center">' . tep_image(DIR_WS_IMAGES . 'stars_' . $new_values['reviews_rating'] . '.gif', sprintf(TEXT_OF_5_STARS, $new_values['reviews_rating'])) . '</div></td>' . "\n";
-    if ((($row / 3) == floor($row / 3)) && ($row != 6)) {
-      echo '          </tr>' . "\n";
-      echo '          <tr>' . "\n";
-      echo '            <td>&nbsp;</td>' . "\n";
-      echo '          </tr>' . "\n";
-      echo '          <tr>' . "\n";
-    }    
+  $reviews_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_NEW_REVIEWS, $reviews_query_raw, $reviews_numrows);
+
+  $reviews_query = tep_db_query($reviews_query_raw);
+  while ($reviews = tep_db_fetch_array($reviews_query)) {
+    $reviews_array[] = array('id' => $reviews['reviews_id'],
+                             'products_id' => $reviews['products_id'],
+                             'reviews_id' => $reviews['reviews_id'],
+                             'products_name' => $reviews['products_name'],
+                             'products_image' => $reviews['products_image'],
+                             'authors_first_name' => $reviews['customers_firstname'],
+                             'authors_last_name' => $reviews['customers_lastname'],
+                             'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250)) . '&nbsp;..',
+                             'rating' => $reviews['reviews_rating'],
+                             'word_count' => tep_word_count($reviews['reviews_text'], ' '),
+                             'date_added' => $reviews['date_added']);
   }
+
+  require(DIR_WS_MODULES  . 'reviews.php');
 ?>
-          </tr>
-        </table></td>
+        </td>
       </tr>
       <tr>
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
+<?php
+  if ($reviews_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '2' || PREV_NEXT_BAR_LOCATION == '3')) {
+?>
       <tr>
-        <td align="right" class="main"><br><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?>&nbsp;&nbsp;</td>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="smallText">&nbsp;<?php echo $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_REVIEWS); ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+          </tr>
+        </table></td>
       </tr>
+<?php
+  }
+?>
     </table></td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">

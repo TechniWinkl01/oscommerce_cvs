@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.102 2001/06/12 08:48:19 mbs Exp $
+  $Id: general.php,v 1.103 2001/06/14 23:03:26 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1163,5 +1163,12 @@ function tep_address_summary($customers_id, $address_id) {
     } else {
       return false;
     }
+  }
+
+////
+// Get the number of times a word/character is present in a string
+  function tep_word_count($string, $needle) {
+    $temp_array = split($needle, $string);
+    return sizeof($temp_array);
   }
 ?>
