@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.7 2002/01/17 10:51:39 jan0815 Exp $
+  $Id: index.php,v 1.8 2002/01/28 02:52:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -127,7 +127,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   while ($orders_status = tep_db_fetch_array($orders_status_query)) {
     $orders_pending_query = tep_db_query("select count(*) as count from " . TABLE_ORDERS . " where orders_status = '" . $orders_status['orders_status_id'] . "'");
     $orders_pending = tep_db_fetch_array($orders_pending_query);
-    $orders_contents .= $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . '<br>';
+    $orders_contents .= '<a href="' . tep_href_link(FILENAME_ORDERS, 'selected_box=customers&status=' . $orders_status['orders_status_id']) . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br>';
   }
   $orders_contents = substr($orders_contents, 0, -4);
 
