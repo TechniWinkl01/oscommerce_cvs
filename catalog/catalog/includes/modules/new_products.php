@@ -12,7 +12,7 @@
     if ($new_products_category_id == '0') {
       $new_products_query = tep_db_query("select p.products_id, pd.products_name, p.products_image from products p, products_description pd where products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . $languages_id . "' order by products_date_added DESC limit " . MAX_DISPLAY_NEW_PRODUCTS);
     } else {
-      $new_products_query = tep_db_query("select p.products_id, pd.products_name, p.products_image from products p, products_description pd, products_to_categories p2c, categories c where p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = c.categories_id and c.parent_id = '" . $new_products_category_id . "' and p.products_status = '1' order by p.products_date_added DESC limit " . MAX_DISPLAY_NEW_PRODUCTS);
+      $new_products_query = tep_db_query("select distinct p.products_id, pd.products_name, p.products_image from products p, products_description pd, products_to_categories p2c, categories c where p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . $languages_id . "' and p2c.categories_id = c.categories_id and c.parent_id = '" . $new_products_category_id . "' and p.products_status = '1' order by p.products_date_added DESC limit " . MAX_DISPLAY_NEW_PRODUCTS);
     }
     $row = 0;
     while ($new_products = tep_db_fetch_array($new_products_query)) {
