@@ -1,6 +1,7 @@
 <?php
-	/* $Id: fedex.php,v 1.2 2001/02/03 12:57:27 tmoulton Exp $ */
-	define('SHIPPING_FEDEX_NAME', 'Federal Express Ground'); // It's a trademark, can't translate
+	/* $Id: fedex.php,v 1.3 2001/02/06 12:48:24 tmoulton Exp $ */
+	$include_file = DIR_LANGUAGES . $language . 'modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
+
 	switch($action) {
 		case 'select' :
 			print "<TR><TD><FONT FACE=\"" . TEXT_FONT_FACE . "\" SIZE=\"" . TEXT_FONT_SIZE . "\" COLOR=\"" . TEXT_FONT_COLOR . "\">&nbsp;";

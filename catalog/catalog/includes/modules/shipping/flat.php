@@ -1,7 +1,5 @@
 <?
-  // define('SHIPPING_FLAT_COST', '5.00');
-  // define('SHIPPING_FLAT_NAME', 'Flat Rate');
-  // define('SHIPPING_FLAT_WAY', 'Best Way');
+  $include_file = DIR_LANGUAGES . $language . 'modules/shipping/flat.php';include(DIR_INCLUDES . 'include_once.php');
 
   if ($action == 'select') {
 ?>

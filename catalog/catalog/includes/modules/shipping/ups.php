@@ -1,21 +1,21 @@
 <?
-  // define('SHIPPING_UPS_NAME', 'United Parcel Service');
+  $include_file = DIR_LANGUAGES . $language . 'modules/shipping/ups.php';include(DIR_INCLUDES . 'include_once.php');
 
   if ($action == 'select') {
 ?>
               <tr>
                 <td><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SHIPPING_UPS_NAME; ?></font></td>
                 <td align="right"><SELECT NAME="shipping_ups_prod">
-                  <OPTION SELECTED VALUE="GND">UPS Ground</OPTION>
-                  <OPTION VALUE="1DM">Next Day Air Early AM</OPTION>
-                  <OPTION VALUE="1DA">Next Day Air</OPTION>
-                  <OPTION VALUE="1DP">Next Day Air Saver</OPTION>
-                  <OPTION VALUE="2DM">2nd Day Air Early AM</OPTION>
-                  <OPTION VALUE="3DS">3 Day Select</OPTION>
-                  <OPTION VALUE="STD">Canada Standard</OPTION>
-                  <OPTION VALUE="XPR">Worldwide Express</OPTION>
-                  <OPTION VALUE="XDM">Worldwide Express Plus</OPTION>
-                  <OPTION VALUE="XPD">Worldwide Expedited</OPTION>
+                  <OPTION SELECTED VALUE="GND"><? echo SHIPPING_UPS_OPT_GND; ?></OPTION>
+                  <OPTION VALUE="1DM"><? echo SHIPPING_UPS_OPT_1DM; ?></OPTION>
+                  <OPTION VALUE="1DA"><? echo SHIPPING_UPS_OPT_1DA; ?></OPTION>
+                  <OPTION VALUE="1DP"><? echo SHIPPING_UPS_OPT_1DP; ?></OPTION>
+                  <OPTION VALUE="2DM"><? echo SHIPPING_UPS_OPT_2DM; ?></OPTION>
+                  <OPTION VALUE="3DS"><? echo SHIPPING_UPS_OPT_3DS; ?></OPTION>
+                  <OPTION VALUE="STD"><? echo SHIPPING_UPS_OPT_STD; ?></OPTION>
+                  <OPTION VALUE="XPR"><? echo SHIPPING_UPS_OPT_XPR; ?></OPTION>
+                  <OPTION VALUE="XDM"><? echo SHIPPING_UPS_OPT_XDM; ?></OPTION>
+                  <OPTION VALUE="XPD"><? echo SHIPPING_UPS_OPT_XPD; ?></OPTION>
                   </SELECT><br>
                 </td>
                 <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1"
