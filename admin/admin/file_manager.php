@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.11 2002/01/06 14:41:46 hpdl Exp $
+  $Id: file_manager.php,v 1.12 2002/01/06 15:10:26 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,12 +33,10 @@
   if ($HTTP_GET_VARS['action']) {
     switch ($HTTP_GET_VARS['action']) {
       case 'deleteconfirm':
-        // Folder
         if (is_dir($current_path . '/' . $HTTP_POST_VARS['file_name'])) {
           if (rmdir($current_path . '/' . $HTTP_POST_VARS['file_name']) <> 0) {
             tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
           }
-        // File
         } else {
           if (unlink($current_path . '/' . $HTTP_POST_VARS['file_name'])) {
             tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
@@ -68,7 +66,6 @@
         header('Content-disposition: attachment; filename=' . urldecode($HTTP_GET_VARS['filename']));
         readfile($current_path . '/' . urldecode($HTTP_GET_VARS['filename']));
         exit;
-        break;
     }
   }
 ?>
@@ -85,31 +82,20 @@
 <!-- header_eof //-->
 
 <!-- body //-->
-<table border="0" width="100%" cellspacing="5" cellpadding="5">
+<table border="0" width="100%" cellspacing="3" cellpadding="3">
   <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
 <?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
-        </table></td>
-      </tr>
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
-          <tr>
-            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE . $current_path; ?>&nbsp;</td>
-          </tr>
-        </table></td>
-      </tr>
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_button.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE . '<br><span class="smallText">' . $current_path . '</span>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_draw_separator('pixel_trans.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -160,7 +146,7 @@
       </tr>
 <?php
   } else {
-
+    $showuser = (function_exists('posix_getpwuid') ? true : false);
     $directory_array = array();
     $dir = opendir($current_path);
     $file_count = 0;
@@ -175,11 +161,19 @@
         } else {
           $file_size = number_format($file_size, 0) . 'b';
         }
+
+        $permissions = tep_get_file_permissions(fileperms($current_path . '/' . $file));
+        if ($showuser) {
+          $user = posix_getpwuid(fileowner($current_path . '/' . $file));
+          $group = posix_getgrgid(fileowner($current_path . '/' . $file));
+          $permissions .= '&nbsp;' . $user['name'] . '&nbsp;' . $group['name'];
+        }
+
         $directory_array[$file_count] = array('name' => $file, 
                                               'is_dir' => is_dir($current_path . '/' . $file),
                                               'last_modified' => filemtime($current_path . '/' . $file),
                                               'size' => $file_size,
-                                              'permissions' => tep_get_file_permissions(fileperms($current_path . '/' . $file))
+                                              'permissions' => $permissions
                                              );
       }
     }
