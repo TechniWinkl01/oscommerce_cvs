@@ -84,6 +84,10 @@ function check_form() {
   var error_message = "<? echo JS_ERROR; ?>";
   var payment_value = null;
 
+<?
+// load the javascript_validation function from the payment modules
+  if (MODULE_PAYMENT_INSTALLED) {
+?>
   if (document.payment.payment.length) {
     for (var i = 0; i < document.payment.payment.length; i++)
       if (document.payment.payment[i].checked)
@@ -92,8 +96,8 @@ function check_form() {
     payment_value = document.payment.payment.value;
   }
 <?
-// load the javascript_validation function from the payment modules
-  $payment_modules->javascript_validation();
+    $payment_modules->javascript_validation();
+  }
 ?>
   if (error == 1) {
     alert(error_message);
