@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.2 2003/07/08 16:45:36 dgw_ Exp $
+  $Id: index.php,v 1.3 2003/07/08 16:56:04 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-define('TEXT_MAIN', 'Esta es la configuraci&oacute;n por defecto de osCommerce, los productos mostrados aqui son &uacute;nicamente para demonstracion, <b>cualquier compra realizada no ser&aacute; entregada al cliente, ni se le cobrar&aacute;</b>. Cualquier informaci&oacute;n que vea sobre estos productos debe ser tratada como ficticia.<br><br>Si desea descargar la soluci&oacute;n que hace posible esta tienda, o si quiere contribuir al proyecto de osCommerce, por favor visite <a href="http://oscommerce.com"><u>la web de soporte de osCommerce</u></a>. Esta tienda corre bajo la version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>Este texto se puede cambiar editando el siguiente fichero, uno por cada idioma: [camino&nbsp;al&nbsp;cat&aacute;logo]/includes/languages/[language]/default.php.<br><br>Puede editarlo manualmente, o a traves de la Herramienta de Administracion con la opci&oacute;n Idiomas->[idioma]->Definir, o utilizando el Herramientas->Administrador de Ficheros.');
+define('TEXT_MAIN', 'Esta es la configuraci&oacute;n por defecto de osCommerce, los productos mostrados aqui son &uacute;nicamente para demonstraci&oacute;n, <b>cualquier compra realizada no ser&aacute; entregada al cliente, ni se le cobrar&aacute;</b>. Cualquier informaci&oacute;n que vea sobre estos productos debe ser tratada como ficticia.<br><br>Si desea descargar la soluci&oacute;n que hace posible esta tienda, o si quiere contribuir al proyecto de osCommerce, por favor visite <a href="http://oscommerce.com"><u>la web de soporte de osCommerce</u></a>. Esta tienda corre bajo la version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>Este texto se puede cambiar editando el siguiente fichero, uno por cada idioma: [camino&nbsp;al&nbsp;cat&aacute;logo]/includes/languages/[language]/default.php.<br><br>Puede editarlo manualmente, o a traves de la Herramienta de Administraci&oacute;n con la opci&oacute;n Idiomas->[idioma]->Definir, o utilizando el Herramientas->Administrador de Ficheros.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Nuevos Productos En %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Pr&oacute;ximamente');
 define('TABLE_HEADING_DATE_EXPECTED', 'Lanzamiento');
