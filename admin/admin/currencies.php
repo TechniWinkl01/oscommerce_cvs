@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.42 2002/05/16 15:32:21 hpdl Exp $
+  $Id: currencies.php,v 1.43 2002/05/22 14:55:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,8 +64,8 @@
         tep_redirect(tep_href_link(FILENAME_CURRENCIES, 'page=' . $HTTP_GET_VARS['page']));
         break;
       case 'update':
-        $curreny_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
-        while ($curreny = tep_db_fetch_array($currency_query)) {
+        $currency_query = tep_db_query("select currencies_id, code from " . TABLE_CURRENCIES);
+        while ($currency = tep_db_fetch_array($currency_query)) {
           $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
           $rate = $quote_function($currency['code']);
           if ( (!$rate) && (CURRENCY_SERVER_BACKUP != '') ) {
