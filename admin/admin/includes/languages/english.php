@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.84 2002/03/08 18:38:17 hpdl Exp $
+  $Id: english.php,v 1.85 2002/03/08 21:15:18 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -225,10 +225,12 @@ define('ICON_ERROR', 'Error');
 define('ICON_FILE', 'File');
 define('ICON_FILE_DOWNLOAD', 'Download');
 define('ICON_FOLDER', 'Folder');
+define('ICON_LOCKED', 'Locked');
 define('ICON_PREVIOUS_LEVEL', 'Previous Level');
 define('ICON_PREVIEW', 'Preview');
 define('ICON_SUCCESS', 'Success');
 define('ICON_TICK', 'True');
+define('ICON_UNLOCKED', 'Unlocked');
 define('ICON_WARNING', 'Warning');
 
 // constants for use in tep_prev_next_display function

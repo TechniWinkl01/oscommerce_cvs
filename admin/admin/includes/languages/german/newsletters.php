@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.2 2002/03/08 18:52:40 hpdl Exp $
+  $Id: newsletters.php,v 1.3 2002/03/08 21:15:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,6 +16,7 @@ define('TABLE_HEADING_NEWSLETTERS', 'Newsletters');
 define('TABLE_HEADING_SIZE', 'Size');
 define('TABLE_HEADING_MODULE', 'Module');
 define('TABLE_HEADING_SENT', 'Sent');
+define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_NEWSLETTER_MODULE', 'Module:');
