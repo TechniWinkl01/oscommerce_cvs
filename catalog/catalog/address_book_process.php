@@ -363,7 +363,7 @@ function check_form() {
   }
 ?>
           <tr>
-            <td colspan="2" class="fieldKey">>&nbsp;</td>
+            <td colspan="2" class="fieldKey">&nbsp;</td>
           </tr>
           <tr>
             <td align="right" class="fieldKey" nowrap>&nbsp;<? echo ENTRY_FIRST_NAME; ?>&nbsp;</td>
