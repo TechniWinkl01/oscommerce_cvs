@@ -8,7 +8,7 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 define('TOP_BAR_TITLE', 'Porcentajes de Impuestos');
 define('HEADING_TITLE', 'Porcentajes de Impuestos');
 
-define('TABLE_HEADING_TAX_RATE_PRIORITY', 'Priority');
+define('TABLE_HEADING_TAX_RATE_PRIORITY', 'Prioridad');
 define('TABLE_HEADING_TAX_CLASS_TITLE', 'Porcentajes');
 define('TABLE_HEADING_COUNTRIES_NAME', 'Pais');
 define('TABLE_HEADING_ZONE', 'Zona');
@@ -22,7 +22,7 @@ define('TEXT_INFO_CLASS_TITLE', 'Nombre del Porcentaje:');
 define('TEXT_INFO_COUNTRY_NAME', 'Pais:');
 define('TEXT_INFO_ZONE_NAME', 'Zona:');
 define('TEXT_INFO_TAX_RATE', 'Porcentaje (%):');
-define('TEXT_INFO_TAX_RATE_PRIORITY', 'Priority:');
+define('TEXT_INFO_TAX_RATE_PRIORITY', 'Prioridad:');
 define('TEXT_INFO_RATE_DESCRIPTION', 'Descripcion:');
 define('TEXT_INFO_INSERT_INTRO', 'Introduzca un nombre y los datos del nuevo porcentaje');
 define('TEXT_INFO_DELETE_INTRO', 'Seguro que desea eliminar este porcentaje?');

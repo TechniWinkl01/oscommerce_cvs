@@ -4,18 +4,18 @@
 
   Spanish Text for The Exchange Project Administration Tool
 
-  $Id: cache.php,v 1.2 2001/08/10 20:54:14 mbs Exp $
+  $Id: cache.php,v 1.3 2001/08/11 14:21:40 dwatkins Exp $
 */
 
-define('TOP_BAR_TITLE', 'Cache Control');
-define('HEADING_TITLE', 'Cache Control');
+define('TOP_BAR_TITLE', 'Control de Cach&eacute;');
+define('HEADING_TITLE', 'Control de Cach&eacute;');
 
-define('TABLE_HEADING_CACHE', 'Cache Blocks');
-define('TABLE_HEADING_DATE_CREATED', 'Date Created');
-define('TABLE_HEADING_ACTION', 'Accion');
+define('TABLE_HEADING_CACHE', 'Paneles');
+define('TABLE_HEADING_DATE_CREATED', 'Fecha de Creaci&oacute;n');
+define('TABLE_HEADING_ACTION', 'Acci&oacute;n');
 
-define('TEXT_CACHE_CATEGORIES', 'Categories Box');
-define('TEXT_CACHE_MANUFACTURERS', 'Manufacturers Box');
-define('TEXT_CACHE_ALSO_PURCHASED', 'Also Purchased Module');
-define('TEXT_FILE_DOES_NOT_EXIST', 'File does not exist');
+define('TEXT_CACHE_CATEGORIES', 'Categorias');
+define('TEXT_CACHE_MANUFACTURERS', 'Fabricantes');
+define('TEXT_CACHE_ALSO_PURCHASED', 'Tambien Han Comprado');
+define('TEXT_FILE_DOES_NOT_EXIST', 'No existe fichero');
 ?>
