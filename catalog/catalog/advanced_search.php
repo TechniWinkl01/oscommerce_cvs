@@ -185,10 +185,10 @@ tep_display_cat_select("categories_id",$selected, 1, 0, TEXT_ALL_CATEGORIES);
             <td align="left" width="20%" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?echo ENTRY_SORT_BY;?>&nbsp;</font></td>
             <td align="left" colspan="3" nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
               <select name="sortby">
-                <option value="1">Category Name
-                <option value="2">Manufacturer Name
-                <option value="3" selected>Product Name
-                <option value="4">Lowest Price
+                <option value="1"><?echo TEXT_CATEGORY_NAME;?>
+                <option value="2"><?echo TEXT_MANUFACTURER_NAME;?>
+                <option value="3" selected><?echo TEXT_PRODUCT_NAME;?>
+                <option value="4"><?echo TEXT_PRICE;?>
               </select>&nbsp;</font>
             </td>
           </tr>

@@ -15,6 +15,10 @@ define('ENTRY_KEYWORDS_TEXT', '&nbsp;<small><font color="#AABBDD">(one or more k
 define('ENTRY_DATE_ADDED_TEXT', '&nbsp;<small><font color="#AABBDD">(eg. 21/05/1970)</font></small>');
 define('TEXT_ALL_CATEGORIES', 'ALL CATEGORIES');
 define('TEXT_ALL_MANUFACTURERS', 'ALL MANUFACTURERS');
+define('TEXT_CATEGORY_NAME', 'Category Name');
+define('TEXT_MANUFACTURER_NAME', 'Manufacturer Name');
+define('TEXT_PRODUCT_NAME', 'Product Name');
+define('TEXT_PRICE', 'Price');
 define('TEXT_PERFORM_ADVANCED_SEARCH', 'Perform Advanced Search');
 define('JS_AT_LEAST_ONE_INPUT', '* One of the following fields must be enter:\n    Keywords\n    Date Added From\n    Date Added To\n    Price From\n    Price To\n');
 define('JS_INVALID_FROM_DATE', '* Invalid From Date\n');
