@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: cache.php,v 1.5 2001/09/19 09:11:32 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box.cache', 'multiple' => true),
                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased.cache', 'multiple' => true)
@@ -31,22 +43,22 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -56,34 +68,34 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td class="pageHeading" align="right">&nbsp;<? echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading" align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td colspan="2"><? echo tep_black_line(); ?></td>
+            <td colspan="2"><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<? echo TABLE_HEADING_CACHE; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_DATE_CREATED; ?>&nbsp;</td>
-                <td class="tableHeading" align="right">&nbsp;<? echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_CACHE; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_DATE_CREATED; ?>&nbsp;</td>
+                <td class="tableHeading" align="right">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="3"><? echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
-<?
+<?php
   for ($i=0; $i<sizeof($cache_blocks); $i++) {
     if (file_exists(DIR_FS_CACHE . $cache_blocks[$i]['file'])) {
       $cache_mtime = strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CACHE . $cache_blocks[$i]['file']));
@@ -101,15 +113,15 @@
     }
 ?>
               <tr bgcolor="#d8e1eb" onmouseover="this.style.background='#cc9999'" onmouseout="this.style.background='#d8e1eb'">
-                <td class="tableData">&nbsp;<? echo $cache_blocks[$i]['title']; ?>&nbsp;</td>
-                <td class="tableData" align="right">&nbsp;<? echo $cache_mtime; ?>&nbsp;</td>
-                <td class="tableData" align="right"><? echo '<a href="' . tep_href_link(FILENAME_CACHE, 'action=reset&block=' . $cache_blocks[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_reset.gif', 'Reset', 13, 13) . '</a>'; ?>&nbsp;</td>
+                <td class="tableData">&nbsp;<?php echo $cache_blocks[$i]['title']; ?>&nbsp;</td>
+                <td class="tableData" align="right">&nbsp;<?php echo $cache_mtime; ?>&nbsp;</td>
+                <td class="tableData" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CACHE, 'action=reset&block=' . $cache_blocks[$i]['code'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'icon_reset.gif', 'Reset', 13, 13) . '</a>'; ?>&nbsp;</td>
               </tr>
-<?
+<?php
   }
 ?>
               <tr>
-                <td class="main" colspan="3"><? echo tep_black_line(); ?></td>
+                <td class="main" colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -122,9 +134,9 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 <br>
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

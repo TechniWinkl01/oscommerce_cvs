@@ -1,5 +1,17 @@
-<? include('includes/application_top.php'); ?>
-<?
+<?php
+/*
+  $Id: backup.php,v 1.9 2001/09/19 09:11:33 mbs Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
+  require('includes/application_top.php');
+
   if ($HTTP_GET_VARS['action'] == 'backup') {
     // increase timeout to 3 minutes
     tep_set_time_limit(180);
@@ -80,22 +92,22 @@
 ?>
 <html>
 <head>
-<title><? echo TITLE; ?></title>
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 </head>
 <body>
 <!-- header //-->
-<? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
 
 <!-- body //-->
 <table border="0" width="100%" cellspacing="5" cellpadding="5">
   <tr>
-    <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
+    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <!-- left_navigation //-->
-<? $include_file = DIR_WS_INCLUDES . 'column_left.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'column_left.php'); ?>
 <!-- left_navigation_eof //-->
         </table></td>
       </tr>
@@ -105,40 +117,40 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td class="topBarTitle">&nbsp;<?php echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td class="pageHeading" align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading" align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'pixel_trans.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr class="subBar">
-            <td class="subBar">&nbsp;<? echo SUB_BAR_TITLE; ?>&nbsp;</td>
+            <td class="subBar">&nbsp;<?php echo SUB_BAR_TITLE; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td><? echo tep_black_line(); ?></td>
+            <td><?php echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><? echo TEXT_MAIN; ?></td>
+            <td class="main"><?php echo TEXT_MAIN; ?></td>
           </tr>
           <tr>
             <td class="main">&nbsp;</td>
           </tr>
-          <tr><form action="<? echo tep_href_link(FILENAME_BACKUP, '', 'NONSSL'); ?>" method="get">
-            <td class="main" align="center"><input type="checkbox" name="drop" value="yes">&nbsp;<? echo TEXT_DROP_TABLES; ?></td>
+          <tr><form action="<?php echo tep_href_link(FILENAME_BACKUP, '', 'NONSSL'); ?>" method="get">
+            <td class="main" align="center"><input type="checkbox" name="drop" value="yes">&nbsp;<?php echo TEXT_DROP_TABLES; ?></td>
           </tr>
           <tr>
-            <td class="main" align="center"><input type="hidden" name="action" value="backup"><? echo tep_image_submit('images/button_backup.gif', IMAGE_BACKUP); ?></td>
+            <td class="main" align="center"><input type="hidden" name="action" value="backup"><?php echo tep_image_submit('images/button_backup.gif', IMAGE_BACKUP); ?></td>
           </form></tr>
         </table></td>
       </tr>
@@ -149,11 +161,11 @@
 <!-- body_eof //-->
 
 <!-- footer //-->
-<? $include_file = DIR_WS_INCLUDES . 'footer.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?php require(DIR_WS_INCLUDES . 'footer.php'); ?>
 <!-- footer_eof //-->
 </body>
 </html>
-<? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-<?
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>
+<?php
   }
 ?>
