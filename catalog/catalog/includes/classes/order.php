@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.12 2002/05/23 01:24:34 hpdl Exp $
+  $Id: order.php,v 1.13 2002/06/07 00:49:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -28,6 +28,8 @@
     }
 
     function query($order_id) {
+      global $languages_id;
+
       $order_id = tep_db_prepare_input($order_id);
 
       $order_query = tep_db_query("select customers_name, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, comments, currency, currency_value, date_purchased, orders_status, last_modified from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($order_id) . "'");
@@ -39,6 +41,12 @@
                                 'text' => $totals['text']);
       }
 
+      $order_total_query = tep_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . $order_id . "' and class = 'ot_total'");
+      $order_total = tep_db_fetch_array($order_total_query);
+
+      $order_status_query = tep_db_query("select orders_status_name from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . $order['orders_status'] . "' and language_id = '" . $languages_id . "'");
+      $order_status = tep_db_fetch_array($order_status_query);
+
       $this->info = array('currency' => $order['currency'],
                           'currency_value' => $order['currency_value'],
                           'payment_method' => $order['payment_method'],
@@ -48,8 +56,9 @@
                           'cc_expires' => $order['cc_expires'],
                           'comments' => $order['comments'],
                           'date_purchased' => $order['date_purchased'],
-                          'orders_status' => $order['orders_status'],
-                          'last_modified' => $order['last_modified']);
+                          'orders_status' => $order_status['orders_status_name'],
+                          'last_modified' => $order['last_modified'],
+                          'total' => strip_tags($order_total['text']));
 
       $this->customer = array('name' => $order['customers_name'],
                               'street_address' => $order['customers_street_address'],
