@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.66 2001/08/07 16:19:23 dwatkins Exp $
+  $Id: categories.php,v 1.67 2001/08/07 17:13:35 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -149,7 +149,7 @@
   }
 ?>
 </head>
-<body onload="SetFocus();" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body onload="SetFocus();">
 <div id="popupcalendar" class="text"></div>
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
@@ -536,13 +536,13 @@
       }
 
       if ($categories['categories_id'] == @$cInfo->id) {
-        echo '              <tr bgcolor="#b0c8df" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '\'">' . "\n";
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '\'">' . "\n";
       } else {
-        echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('pinfo', 'info', 'action')) . 'info=' . $categories['categories_id'], 'NONSSL') . '\'">' . "\n";
+        echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('pinfo', 'info', 'action')) . 'info=' . $categories['categories_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td width="10%" align="center" class="smallText">&nbsp;<? echo $categories['categories_id']; ?>&nbsp;</td>
-                <td width="80%" class="smallText">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '" class="blacklink"><u>' . $categories['categories_name'] . '</u></a>'; ?></b>&nbsp;</td>
+                <td class="smallText" align="center">&nbsp;<? echo $categories['categories_id']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_path($categories['categories_id']), 'NONSSL') . '" class="blacklink"><u>' . $categories['categories_name'] . '</u></a>'; ?></b>&nbsp;</td>
 <?
       if ($categories['categories_id'] == @$cInfo->id) {
 ?>
@@ -574,13 +574,13 @@
       }
 
       if ($products['products_id'] == @$pInfo->id) {
-        echo '              <tr bgcolor="#b0c8df" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '\'">' . "\n";
+        echo '              <tr class="selectedRow" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '\'">' . "\n";
       } else {
-        echo '              <tr bgcolor="#e9e9e9" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#e9e9e9\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('pinfo', 'info', 'action')) . 'pinfo=' . $products['products_id'], 'NONSSL') . '\'">' . "\n";
+        echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('pinfo', 'info', 'action')) . 'pinfo=' . $products['products_id'], 'NONSSL') . '\'">' . "\n";
       }
 ?>
-                <td width="10%" align="center" class="smallText">&nbsp;<? echo $products['products_id']; ?>&nbsp;</td>
-                <td width="80%" class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'info', 'pinfo')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '" class="blacklink"><u>' . $products['products_name'] . '</u></a>'; ?>&nbsp;</td>
+                <td class="smallText" align="center">&nbsp;<? echo $products['products_id']; ?>&nbsp;</td>
+                <td class="smallText">&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, tep_get_all_get_params(array('action', 'pID', 'info', 'pinfo')) . 'pID=' . $products['products_id'] . '&action=new_product_preview&read=only', 'NONSSL') . '" class="blacklink"><u>' . $products['products_name'] . '</u></a>'; ?>&nbsp;</td>
 <?
       if ($products['products_id'] == @$pInfo->id) {
 ?>
@@ -637,12 +637,10 @@
     if ($pInfo && !$cInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . tep_get_products_name($pInfo->id, $languages_id) . '</b>');
     if (!$pInfo && !$cInfo) $info_box_contents[] = array('align' => 'left', 'text' => '&nbsp;<b>' . EMPTY_CATEGORY . '</b>');
 ?>
-              <tr bgcolor="#81a2b6">
-                <td>
-                  <? new infoBoxHeading($info_box_contents); ?>
-                </td>
+              <tr class="boxHeading">
+                <td><? new infoBoxHeading($info_box_contents); ?></td>
               </tr>
-              <tr bgcolor="#81a2b6">
+              <tr class="boxHeading">
                 <td><? echo tep_black_line(); ?></td>
               </tr>
 <?
@@ -774,13 +772,11 @@
     } // end switch
 // display box contents by creating an instance of "infoBox" (down a couple of lines)
 ?>
-              <tr bgcolor="#b0c8df"><? echo $form; ?>
-                <td>
-                  <? new infoBox($info_box_contents); ?>
-                </td>
+              <tr><? echo $form; ?>
+                <td class="box"><? new infoBox($info_box_contents); ?></td>
               <? if ($form) echo '</form>'; ?></tr>
-              <tr bgcolor="#b0c8df">
-                <td><? echo tep_black_line(); ?></td>
+              <tr>
+                <td class="box"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
@@ -798,8 +794,6 @@
 <!-- footer //-->
 <? $include_file = DIR_WS_INCLUDES . 'footer.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
-<br>
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
-

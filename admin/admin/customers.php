@@ -193,7 +193,7 @@ function check_form() {
   }
 ?>
 </head>
-<body onload="SetFocus();" marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body onload="SetFocus();">
 <!-- header //-->
 <? $include_file = DIR_WS_INCLUDES . 'header.php';  include(DIR_WS_INCLUDES . 'include_once.php'); ?>
 <!-- header_eof //-->
@@ -498,10 +498,10 @@ function check_form() {
   }
 ?>
               <tr><? echo $form; ?>
-                <td class="Box"><? new infoBox($info_box_contents); ?></td>
+                <td class="box"><? new infoBox($info_box_contents); ?></td>
               <? if ($form) echo '</form>'; ?></tr>
               <tr>
-                <td class="Box"><? echo tep_black_line(); ?></td>
+                <td class="box"><? echo tep_black_line(); ?></td>
               </tr>
             </table></td>
           </tr>
