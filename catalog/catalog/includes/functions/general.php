@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.119 2001/08/04 12:23:32 mbradley Exp $
+  $Id: general.php,v 1.120 2001/08/06 15:06:22 mbradley Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -257,7 +257,7 @@
 // Returns the tax rate for a zone / class
 // TABLES: tax_rates, zones_to_geo_zones
   function tep_get_tax_rate($country_id, $zone_id, $class_id) {
-    $tax_query = tep_db_query("select SUM(tax_rate) tax_rate from " . TABLE_TAX_RATES . " tr RIGHT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id=za.geo_zone_id, ". TABLE_GEO_ZONES . " tz WHERE za.zone_country_id='" . $country_id . "' AND (za.zone_id IS NULL OR za.zone_id=0 OR za.zone_id='" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "'  AND (tz.geo_zone_id=tr.tax_zone_id) GROUP BY tr.tax_priority");
+    $tax_query = tep_db_query("select SUM(tax_rate) tax_rate from " . TABLE_ZONES_TO_GEO_ZONES . " za LEFT JOIN " . TABLE_TAX_RATES . " tr ON tr.tax_zone_id=za.geo_zone_id, ". TABLE_GEO_ZONES . " tz WHERE za.zone_country_id='" . $country_id . "' AND (za.zone_id IS NULL OR za.zone_id='0' OR za.zone_id='" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "'  AND (tz.geo_zone_id=tr.tax_zone_id) GROUP BY tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
 	  $tax_multiplier=1.000;
       while($tax = tep_db_fetch_array($tax_query))
