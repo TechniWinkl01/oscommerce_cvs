@@ -46,30 +46,9 @@
  * Include this file in your scripts before you call session_start(), you
  * don't have to do anything special after that.
  */
-global $SESS_DBHOST, $SESS_DBNAME, $SESS_DBUSER, $SESS_DBPASS, $SESS_DBH, $SESS_LIFE;
-
-$SESS_DBHOST = DB_SERVER; 		/* database server hostname */
-$SESS_DBNAME = DB_DATABASE;		/* database name */
-$SESS_DBUSER = DB_SERVER_USERNAME;	/* database user */
-$SESS_DBPASS = DB_SERVER_PASSWORD; 	/* tabase password */
-
-$SESS_DBH = "";
-$SESS_LIFE = get_cfg_var("session.gc_maxlifetime");
+$SESS_LIFE = 1440; // get_cfg_var("session.gc_maxlifetime");
 
 function sess_open($save_path, $session_name) {
-	global $SESS_DBHOST, $SESS_DBNAME, $SESS_DBUSER, $SESS_DBPASS, $SESS_DBH;
-
-	if (! $SESS_DBH = mysql_pconnect($SESS_DBHOST, $SESS_DBUSER, $SESS_DBPASS)) {
-		echo "<li>Can't connect to $SESS_DBHOST as $SESS_DBUSER";
-		echo "<li>MySQL Error: ", mysql_error();
-		die;
-	}
-
-	if (! mysql_select_db($SESS_DBNAME, $SESS_DBH)) {
-		echo "<li>Unable to select database $SESS_DBNAME";
-		die;
-	}
-
 	return true;
 }
 
@@ -78,12 +57,10 @@ function sess_close() {
 }
 
 function sess_read($key) {
-	global $SESS_DBH, $SESS_LIFE;
-
 	$qry = "SELECT value FROM sessions WHERE sesskey = '$key' AND expiry > " . time();
-	$qid = mysql_query($qry, $SESS_DBH);
+	$qid = tep_db_query($qry);
 
-	if (list($value) = mysql_fetch_row($qid)) {
+	if (list($value) = tep_db_fetch_array($qid)) {
 		return $value;
 	}
 
@@ -91,38 +68,34 @@ function sess_read($key) {
 }
 
 function sess_write($key, $val) {
-	global $SESS_DBH, $SESS_LIFE;
+	global $SESS_LIFE;
 
 	$expiry = time() + $SESS_LIFE;
 	$value = addslashes($val);
 
 	$qry = "INSERT INTO sessions VALUES ('$key', $expiry, '$value')";
-	$qid = mysql_query($qry, $SESS_DBH);
+	$qid = tep_db_query($qry);
 
 	if (! $qid) {
 		$qry = "UPDATE sessions SET expiry = $expiry, value = '$value' WHERE sesskey = '$key' AND expiry > " . time();
-		$qid = mysql_query($qry, $SESS_DBH);
+		$qid = tep_db_query($qry);
 	}
 
 	return $qid;
 }
 
 function sess_destroy($key) {
-	global $SESS_DBH;
-
 	$qry = "DELETE FROM sessions WHERE sesskey = '$key'";
-	$qid = mysql_query($qry, $SESS_DBH);
+	$qid = tep_db_query($qry);
 
 	return $qid;
 }
 
 function sess_gc($maxlifetime) {
-	global $SESS_DBH;
-
 	$qry = "DELETE FROM sessions WHERE expiry < " . time();
-	$qid = mysql_query($qry, $SESS_DBH);
+	$qid = tep_db_query($qry);
 
-	return mysql_affected_rows($SESS_DBH);
+	return mysql_affected_rows();
 }
 
 session_set_save_handler(
