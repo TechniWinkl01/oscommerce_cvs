@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.129 2001/09/09 17:22:29 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.130 2001/09/09 18:50:08 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -371,6 +371,8 @@ CREATE TABLE specials (
   specials_date_added datetime,
   specials_last_modified datetime,
   expires_date datetime,
+  date_status_change datetime,
+  status int(1) DEFAULT '1',
   PRIMARY KEY (specials_id)
 );
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.168 2001/09/04 19:22:44 dwatkins Exp $
+  $Id: application_top.php,v 1.169 2001/09/09 18:50:15 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -294,6 +294,10 @@
 
 // infobox
   require(DIR_WS_CLASSES . 'boxes.php');
+
+// auto expire special products
+  require(DIR_WS_FUNCTIONS . 'specials.php');
+  tep_expire_specials();
 
 // Shopping cart actions
   if ($HTTP_GET_VARS['action']) {
