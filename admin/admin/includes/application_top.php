@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.151 2002/08/08 14:45:18 dgw_ Exp $
+  $Id: application_top.php,v 1.152 2002/08/11 22:56:14 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -129,6 +129,7 @@
 
 // customization for the design layout
   define('TAX_DECIMAL_PLACES', 0); // Pad the tax value this amount of decimal places
+  define('DISPLAY_PRICE_WITH_TAX', true); // Display prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
 // Control what fields of the customer table are used
