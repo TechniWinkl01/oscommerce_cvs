@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.119 2001/07/25 06:13:49 mbs Exp $
+# $Id: mysql_catalog.sql,v 1.120 2001/07/29 09:54:26 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -253,6 +253,14 @@ CREATE TABLE orders_products (
   products_tax decimal(7,4) NOT NULL,
   products_quantity int(2) NOT NULL,
   PRIMARY KEY (orders_products_id)
+);
+
+CREATE TABLE orders_status (
+   orders_status_id int(5) DEFAULT '0' NOT NULL,
+   language_id int(5) DEFAULT '1' NOT NULL,
+   orders_status_name varchar(32) NOT NULL,
+   PRIMARY KEY (orders_status_id, language_id),
+   KEY idx_orders_status_name (orders_status_name)
 );
 
 CREATE TABLE orders_products_attributes (
@@ -831,7 +839,7 @@ INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2');
 
 INSERT INTO customers VALUES ( '1', 'm', 'John', 'doe', '2001-01-01 00:00:00', 'root@localhost', '0', '12345', '', 'd95e8fa7f20a009372eb3477473fcd34:1c', '0');
 
-INSERT INTO customers_info VALUES("1","","0","20010615","");
+INSERT INTO customers_info VALUES('1', '', '0', now(), '');
 
 INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
@@ -867,6 +875,16 @@ INSERT INTO manufacturers_info VALUES (8, 2, 'http://www.infogrames.de', 0, '', 
 INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0, '', now());
 INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, '', now());
 INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, '', now());
+
+INSERT INTO orders_status VALUES ( '1', '1', 'Pending');
+INSERT INTO orders_status VALUES ( '1', '2', 'Offen');
+INSERT INTO orders_status VALUES ( '1', '3', 'Pendiente');
+INSERT INTO orders_status VALUES ( '2', '1', 'Processing');
+INSERT INTO orders_status VALUES ( '2', '2', 'In Bearbeitung');
+INSERT INTO orders_status VALUES ( '2', '3', 'Proceso');
+INSERT INTO orders_status VALUES ( '3', '1', 'Delivered');
+INSERT INTO orders_status VALUES ( '3', '2', 'Versendet');
+INSERT INTO orders_status VALUES ( '3', '3', 'Entregado');
 
 INSERT INTO products VALUES (1,32,'MG200MMS','images/matrox/mg200mms.gif',299.99, now(),'','',23.00,1,1,1);
 INSERT INTO products VALUES (2,32,'MG400-32MB','images/matrox/mg400-32mb.gif',499.99, now(),'','',23.00,1,1,1);
